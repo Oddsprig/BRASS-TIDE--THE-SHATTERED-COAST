@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Use existing real market transactions, finite buyer purses and actual paid production; no automatic purchases or guaranteed sales.
 
 See docs/TEST RESULTS v0.053.md for actual focused checks and remaining limits.
+
+Verification: 143 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 71.123s. Preserved earlier failures; no broad acceptance claim.

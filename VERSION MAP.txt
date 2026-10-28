@@ -1,5 +1,5 @@
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.052
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.053
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -43,7 +43,7 @@ MILESTONE B - PROGRESSION AND THE LIVING COAST (0.052-0.056)
 0.052 - FLEET GROWTH AND LOGISTICS [SCOPED BUILD DELIVERED]
 Useful support boats, affordable progression and clear operating/return reserves.
 
-0.053 - MEANINGFUL LTV TRADE [PLANNED]
+0.053 - MEANINGFUL LTV TRADE [SCOPED BUILD DELIVERED]
 Visible demand and margins connect actual labor, purses, goods and production.
 
 0.054 - CAMPAIGN FLEET AI [PLANNED]

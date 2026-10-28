@@ -1,0 +1,46 @@
+BRASS TIDE v0.053 - MEANINGFUL LTV TRADE
+
+Open a harbor Market, then Trade opportunities to compare recorded visits.
+Visit another harbor and open its Market to record prices, stocks, buyer funds
+and useful local input needs. Unvisited markets have no remote price quote.
+
+Each estimate separates the gross sale, nominal round-trip net after purchase,
+wages, fuel and food, and a conservative price sensitivity allowance. That
+allowance uses the existing age uncertainty of6% per day, capped at48%; it is
+not a probability, guaranteed minimum or insurance against piracy. A same-day
+quote has zero current age allowance. Prices and buyers may change en route.
+Cargo already aboard excludes its historical purchase cost from displayed net.
+
+Open Costs, price uncertainty & quantity limits for funding, food, working fuel,
+quantity constraints and the two-day contingency allowance. A loaded tank is
+individual to each boat. Loose fuel is still cargo until loaded. Owned stored
+or uncrewed hulls cannot provide an active shared tank or hold. Purchase limits
+are estimates; actual stock reserves, legality and payment are checked again.
+
+Select a destination & review voyage opens preparation without buying or
+setting sail. Buy through the existing Market quantity controls, load stores
+through Hold, explicitly Chart course in preparation, then Sell at destination.
+Keep the return payroll, food and fuel protected before committing your purse.
+
+Local input needs & supply consequences explains dated stock gaps and an
+actual recipe using those inputs. Selling adds physical stock for paid workers;
+other materials and wages remain necessary. A stock gap is not a purchase order.
+
+Scope and verification
+The two focused native cases passed143 checks/0 failures, followed by Windows
+export and menu/campaign/battle startup. Final native joba15c833a58c54d51afdf7e633ba3293b
+attempt-002 took71.123s including setup and cleanup. An earlier same-job attempt
+was interrupted by the shared lane; its receipt remains distinct. The first
+candidate had98 successful unit checks but incomplete collection due to its
+legacy result-line format; that failed collection remains preserved too.
+The paid Main fixture deliberately moves finite logs between two harbors to
+isolate missing-input causality, then buys, sails, sells and runs a paid day.
+It proves those operations and accounting; it does not certify every merchant
+career's profitability. All nine actual1280x800 screen captures were reviewed for this scoped layout pass.
+051 combat code/cadences are unchanged. Its retained measured worker/render
+results and remaining strict061 performance targets stay documented separately.
+
+Scoped053 native/export: joba15c833a58c54d51afdf7e633ba3293b, finalattempt-002,143 checks/0 failures (98 legacy+new trade unit;45 actualMain UI/paid delivery), Windows export/menu/campaign/battle startup and cleanup. Whole71.123seconds including setup and outer result timing, below120s. Same-job attempt001 yielded to competing work and remains interrupted; do not read it as the final pass. R1 legacy result-line collection was incomplete despite98 printed successful checks; its record is preserved and the existing exact success format was bound in R2 config, without changing assertions/game code.
+Actual exported nine-view capture5459cddc46364e3781907ee06ccbc6b6/attempt-001 passed30.234seconds including setup, private1280x800/Dummy/muted, no input/focus/desktop activation. Root inspected all nine title/home/voyage/harbor/preparation/market/emptytrade/estimate/expandedcosts PNGs. Readable hierarchy, wrapped estimates and scrollable detail; no layout failure observed. Earlier guarded captures did not launch an engine against incomplete/interrupted prerequisites; receipts retained.
+Tested Root/releaseebb378abd38826089104c7e8ce871b5270f00d5e and all707newline-normalized tracked game inputs match. Delivery metadata is later documentation, not a different tested game. Market transactions, worker cadences and actual economic recipes are unchanged. Paid supply fixture deliberately moves finite logs to isolate missing-input causality, then uses actual Buy/course/travel/Sell/paid-day APIs; no profitable-career guarantee.
+Known scope limits: quantity and sorting retain nominal ranking. Aboard estimates exclude historical acquisition cost and can include earmarked food; actual missing allowance is prominently flagged and must be protected before selling. No auto trade/reservation or promised buyer funds. Conservative price sensitivity uses current observation age, not piracy probability or future quote aging. Safe quantity recommendation and fuller career/risk tuning remain058/061. These are scoped trade information/action improvements, not whole-game/gameplay/motion/listening/FPS acceptance. 051 combat worker/render evidence and strict remaining061 performance targets remain unchanged. Desktop052/saves/18MP3s are preserved when installing053.

@@ -1,3 +1,6 @@
+053 QUEUE RETRIES AND LEGACY TERMINALS
+Use final TestBridge result.artifacts_directory; a successful retry can be attempt-002 while attempt-001 correctly retains yield/interrupted without metrics. Never overwrite the interrupted receipt. Delivery tools accept a validated explicit attempt. Guarded actual capture must bind that passed attempt and exact source/export hashes. Bind each retained fixture unique success-line format through existing config terminal field; generic count/failure format is not universal. No test assertions or receipt contents need changing.
+
 052 BOUNDED TEST SETUP - 27 OCTOBER 2026
 The first expedition fixture exceeded12s after adding three full Campaign/navigation/patrol initializations; the log only showed an engine banner. Sharing one already validated seeded baseline with detached state copies preserved all assertions and reduced it to10.109s at8%CPU/two cores. Keep separate realMain career for paid progression. Use short stage markers before heavy setup. Do not raise whole-suite limits or weaken meaningful assertions to hide redundant fixture setup. R1 timeout b2b496ca retained; R2 passed75 expedition +54 actual paid UI +274 first-voyage checks,93.246s whole with export/startups/cleanup.
 

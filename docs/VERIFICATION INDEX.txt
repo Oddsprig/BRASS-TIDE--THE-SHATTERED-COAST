@@ -1,3 +1,6 @@
+CURRENT VERIFICATION - v0.053 SCOPED ACCEPTED
+Nativea15c833a58c54d51afdf7e633ba3293b/attempt-002:143/0 plus export/3starts,71.123s. Actual5459cddc46364e3781907ee06ccbc6b6/attempt-001:nine1280x800screens reviewed,30.234s. Prior same-job attempt001 was interrupted, not passed. See TEST RESULTS v0.053.md, TRADE DECISIONS v0.053.txt and current task/CURRENT STATE.txt. Whole-game quality and strict051 performance targets remain061. Earlier blocks below are historical.
+
 CURRENT VERIFICATION - v0.052 DELIVERED, 27 OCTOBER 2026
 Local source tag v0.052:0aa28857a11d0cdc8e245a88f5763dd16496421e.
 Native R2 7eeec97a289748af93491a5af05b941e:403/0 focused assertions, export and menu/campaign/battle startup, whole93.246s including setup/cleanup.
