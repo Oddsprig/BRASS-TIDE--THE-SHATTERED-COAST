@@ -75,7 +75,7 @@ Paid officers, crews and vessel histories create tactical identity and attachmen
 0.061 - CHANGING REGION [PLANNED] [DONE]
 Supplied conflict and harbor development visibly alter traffic and opportunities.
 
-0.062 - WHOLE-GAME MILESTONE [PLANNED]
+0.062 - COAST/INTERFACE CORRECTIONS DELIVERED [WHOLE-GAME QUALITY MILESTONE OPEN]
 The complete experience earns the quality claim; failed pillars remain open.
 
 Do not hide unfinished art, AI, combat or performance by advancing to campaign

@@ -6,3 +6,5 @@ Owner: "stick to the scope of each one".
 - Put regional watch status, shortages and actions ahead of detailed market reports; put owned business books and controls ahead of optional charters.
 
 See docs/TEST RESULTS v0.062.md for actual focused checks and remaining limits.
+
+Verification: 196 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 86.893s. Preserved earlier failures; no broad acceptance claim.

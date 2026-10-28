@@ -1,17 +1,18 @@
 # Brass Tide — current working instructions
 
-Installed build: v0.061 DELIVERED, localtagda960d5,276/0+Windows92.860s.
-Active0.062 bounded quality corrections; metadata prepared ONCE. Whole quality
-milestone OPEN. A20307d99->5513dbf coast, Bd7e1bb25->6171d80 readability,
-C2320371b->66eaee9 was reviewed/integrated then reverted by7983166 after
-two failed post-terminal native exits. Its benefit was never accepted. A/Bidle; Cboundedsource-onlyfailurediagnosis. Combinedsourceadvisory empty;
-native/export/actual newviews/perf pending, no062tag/package/install yet.
-Root privateMaincapture resetswatch/homebook scroll0 forprimarytoplayout.
-Currentstate/scope work/quality-v062. Earlier061receipts remain in
-work/quality-v042-v061. Current061baseline918eabe00/00158.942s rawqualityFALSE:
-lightworker37.703ms/167.071mslag, mixed19.230ms/50lag; strict59.997FPS<60.
-ActualcountersONdespiteplanoffdisclosed, no hidden threshold/cadence/DP change.
-Do notrepeat051tuningmarathon. Preserve2voyages/18MP3+2notes/oldbuilds/plainicon.
+Current verified build: v0.062 COAST/READABILITY CORRECTIONS; package/install next.
+Whole quality milestone OPEN. SourceRoot8ca2477/testedreleased4e5ad1, identical
+game tree71a69f4. Clean638component checks43.603s plus196paidvoyage/Windows86.893s.
+18scope views+4activebattlePNGs Rootreviewed; opening31.075/coast30.663/runtime
+59.050s, noinput/focus/privateDesktopactivation. Allhelpersidle.
+TrialC2320371b was removed by7983166 after2failedpost-terminalnativeexits;
+assert120/0wasNOTnativepass. Controlledremoval+allfinalprocessesclean, detailed
+nativecrashcauseunproved; do not restore that trial without specific diagnosis.
+Actual062qualityflagFALSE: lightworkerP9538.807ms/lag150.222ms, catchup/planner
+criterionunmet; mixedP9520.187/lag50meetsbut93.889%frames<=20msmisses95%.
+Bothstrict59.997630/59.998430FPS<60;no>50msframes. No improvement/parityclaim.
+Currentstate/scope/evidence work/quality-v062; oldreceiptswork/quality-v042-v061.
+Do notprepare062again. Preserve2voyages/18MP3+2notes/olderbuilds/oneplainicon.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;

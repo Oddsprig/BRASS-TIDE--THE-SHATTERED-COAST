@@ -1,0 +1,30 @@
+BRASS TIDE v0.062 - COASTAL DETAIL AND CLEARER DECISIONS
+
+Use the Desktop shortcut named Brass Tide for the latest completed build.
+WASD moves the camera, the mouse wheel changes zoom, and flagship autopilot
+remains the default. The36boat roster and physical equipment are unchanged.
+
+The eight islands and ten ports now show shaded slopes, individual trees,
+building walls and pitched roofs at practical chart scales. Drying racks,
+timber stacks, granaries, foundry chimneys, assembly slips, tank farms and gun
+courts distinguish their industries. Artwork uses the existing cached meshes;
+water and navigation keep their existing inexpensive systems.
+
+Your place on the coast puts selected progress, current shortages and watch
+choices first. Open the labeled sections for dated sightings, visited market
+quotes, sponsor trade estimates, full terms, reserves and history. Unseen ports
+stay unseen; quotes and completed achievements do not guarantee future safety.
+
+Home harbors puts your existing business books ahead of new charters. Purse,
+daily pay, unpaid wages and actual paid working days are prominent. Cargo and
+capital controls remain visible. Expand Staff, materials & stored goods for the
+roster, exact inputs and inventory, or New business charters & setup costs for
+paid construction terms. Capital is separate from revenue; labor/materials
+and unpaid wages remain real costs. Review and close pay nothing; an explicit
+action publishes pending accounts before checking access and the transaction.
+
+This is a coast and interface update. Combat performance and overall quality
+still need work. The full-fleet measurement retains its failed performance
+criteria; no performance improvement or Starsector parity is claimed. Exact
+scope tests and measurements are in tests/ and docs/TEST RESULTS v0.062.md.
+Existing voyages, music and older builds are preserved by delivery.

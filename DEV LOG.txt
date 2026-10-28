@@ -1,3 +1,5 @@
+v0.062 VERIFIED AND PACKAGED: 196/0 focused checks, selected batch 86.893s, TestBridge a2390e1abd784b9686c748d76aaa3060. Source 8ca24775a6c5af892a4a021362c0e0daf24faa79.
+
 28OCT2026 - v0.062 COASTAL DETAIL AND CLEARER DECISIONS
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
