@@ -1,12 +1,13 @@
 # Brass Tide - current working instructions
 
-Current release v0.064: tested source f6311c8; same game tree across focused
+Installed v0.064 DELIVERED; tag5148fbc/tested source f6311c8; same game tree across focused
 checks/Windows export and reviewed nine-view private capture. Task work/quality-v064.
 Native431/0 + worker125/0=556unique focused checks, clean bounded batches.
 One ocean chart, original home and one three-island Glasswind Keys prototype.
 Full receipts, earlier failures and limits: ACTUAL064 CHECKS.json / CURRENT STATE.txt.
 No new remote jobs/loot/weather/ocean battles or48-group sector yet.
-Finish packaging/install before065long-voyage forecasts/reserves. Do not prepare064again.
+Package/CRC ZIP/install/owner preservation verified. Next065long-voyage forecasts/reserves.
+Do not prepare064, retag, rerun passed tests or reinstall it again.
 Whole quality OPEN:063 lightworkerP9537.816ms/lag150ms, strictFPS below60 persist.
 Do not revive rejected062phase optimization. Recomputed harbor incoming/observedDemand
 are forecasts, not conserved stock. Chart DTO uses explicit String-keyed fields;
