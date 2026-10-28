@@ -39,11 +39,19 @@ static func normalize_intent(c, view: Dictionary, raw: Dictionary, region_id: St
 	var out_exit: String = ""
 	if leaving:
 		out_exit = str(raw.get("outExit", ""))
+		if out_exit not in ["north", "south"] and current_region == REMOTE_REGION:
+			out_exit = str(raw.get("backExit", ""))
 		if out_exit not in ["north", "south"]:
 			out_exit = "south" if current_region == REMOTE_REGION else "north"
 	var target_approach: String = ""
 	if remote or crossing_in:
-		target_approach = approach_id if approach_id in ["north", "south"] else str(raw.get("targetApproachId", ""))
+		var raw_home_entry: String = str(raw.get("homeEntry", ""))
+		if approach_id in ["north", "south"]:
+			target_approach = approach_id
+		elif not remote and raw_home_entry in ["north", "south"]:
+			target_approach = raw_home_entry
+		else:
+			target_approach = str(raw.get("targetApproachId", ""))
 		if target_approach not in ["north", "south"]:
 			target_approach = "south" if remote else "north"
 	var back_exit: String = ""
