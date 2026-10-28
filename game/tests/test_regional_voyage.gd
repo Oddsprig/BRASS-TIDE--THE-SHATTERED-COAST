@@ -237,10 +237,12 @@ func opening_fixture() -> bool:
 	# This is a declared initial scenario location, selected before paid work.
 	# Later reaching it still requires a real route, movement, fuel and wages.
 	var player_clearance: float=Navigation.hull_clearance(float(c.state.fleet[0].spec.size))
-	for offset in [Vector2(3200,0),Vector2(4800,0),Vector2(6400,0),Vector2(3200,-2000),Vector2(4800,2000)]:
-		var point: Dictionary={"x":float(end.x)+offset.x,"y":float(end.y)+offset.y}
+	var chart_width: float=float(c.nav.width)
+	var chart_height: float=float(c.nav.height)
+	for fraction in [Vector2(0.6,0.94),Vector2(0.9,0.94),Vector2(0.4,0.94),Vector2(0.9,0.08),Vector2(0.15,0.08),Vector2(0.75,0.7)]:
+		var point: Dictionary={"x":chart_width*fraction.x,"y":chart_height*fraction.y}
 		if not Navigation.is_water(c.nav,float(point.x),float(point.y),player_clearance):continue
-		if c.state.patrols.any(func(actor):return c.distance(point,actor)<2000.0):continue
+		if c.state.patrols.any(func(actor):return c.distance(point,actor)<1000.0):continue
 		if c.cached_path(end,point,player_clearance).size()<2:continue
 		receipt.waitingWater=point;break
 	check(not receipt.get("waitingWater",{}).is_empty(),"declared offshore waiting point has real clearance and a route away from opening traffic")
