@@ -520,7 +520,7 @@ func open_harbor_services():
 		return
 	modal_kind="harbor_services"
 	var body=modal("Advanced harbor services",str(p.name))
-	button(body,"Trade estimates & observed shortages",func():TradeUI.open(self))
+	button(body,"Trade chart · dated quotes & input needs",func():TradeUI.open(self))
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"))
@@ -539,6 +539,8 @@ func open_harbor_services():
 	button(body,"Back to harbor",func():open_port())
 
 func market_view(body: Node, p: Dictionary):
+	button(body,"Trade opportunities · compare dated quotes",func():TradeUI.open(self),true)
+	TradeUI.market_summary(self,body,str(p.id))
 	paragraph(body, "Prices follow local stocks, labor and trade. Working stores aboard boats are separate from cargo. Buy reserves here, then load them through the Hold screen.", 14)
 	var options = row(body)
 	label(options, "TRADE QUANTITY", 11, MUTED)

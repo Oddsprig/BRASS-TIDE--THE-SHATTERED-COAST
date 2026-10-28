@@ -1,0 +1,40 @@
+053 UI SOURCE HANDOFF - prepared only; no native checks run
+Baseline: 0aa28857a11d0cdc8e245a88f5763dd16496421e (052).
+Allowlist: game/scripts/trade_ui.gd; interface.gd market/harbor navigation;
+this note. No metadata/maps/tags/install changes.
+
+Public UI API (all Main-thread, existing modal/button constructors):
+TradeUI.open(ui) retained. Top three nominal-net estimates; more estimates and
+full dated quote book expandable. Trade chart available directly from Market.
+TradeUI.market_summary(ui, body:Node, port_id:String): expandable up to two
+dated input needs from Intel.report().needs plus actual supply consequence
+text. Collapsed initially to keep the existing quantity controls near the top.
+TradeUI.review_destination(ui, port_id:String): validates port, sets ONLY
+host.selected_port, opens existing CampaignUI.expedition(ui). It never buys,
+loads reserves, charts a course or departs. Preparation owns the explicit
+Chart course action. Market uses unchanged quantity/host.trade buy/sell paths.
+
+Consumes math peer's additive API exactly as published in TRADE053 SOURCE.txt:
+report.needs values observedNeed/needPurpose; offer conservativeNetProfit,
+uncertaintyMargin/Basis, observedDay/Need, needPurpose, preparationReady,
+fundingRequired/Shortfall, preparationCost, contingencyCost/reserveDays,
+wageArrears, localStockLimit/affordabilityLimit/holdLimit/quantityLimitReason,
+foodRequired/Shortfall, fuelShortfall, payloadAfterFood/allowanceOverload,
+looseFuel, boatFuel and preparationWarnings. All legacy nominal fields retained.
+
+Presentation separates gross sale, nominal round-trip net and price-sensitivity
+conservative net. Funding/reserve/arrears are not deducted twice. Prices and
+buyer purse are explicitly dated; no remote live quotes or guaranteed sales.
+Carried cargo labels explicitly exclude historical acquisition cost; its owned
+stock limit is not mislabeled as a fresh local purchase or affordability limit.
+Market return and Cargo actions use existing windows, legal and transaction
+validation. Input need explains real paid-work/yard purpose when recorded;
+old/no observations guide the captain to visit and open other markets.
+
+Manual source review only. No tests/advisories/import/export/GPU launched.
+Root must integrate math source before native-checking these added fields.
+Next Root check: proof peer's native Market entry -> TradeUI -> review action
+case, confirming selected destination with unchanged coins/cargo/path, then
+1280x800 visual review of one estimate expanded and the no-estimates state.
+Limits: top ranking follows nominal math order; no guaranteed profitability,
+remote access clearance, crew labor execution or actual-play acceptance.
