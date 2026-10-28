@@ -1,0 +1,61 @@
+SERVICE059 bounded source review -- 28 October 2026
+
+Reviewed sibling v059-jobs-sol working diff against
+f7c48bcd7bc7502df60b8c81769decb2e5ff0b6f, 11:38-11:40 UTC.
+A was editing during review. Latest read: 11:39:44 UTC; uncommitted,
+naval_lifecycle.gd +43/-5; voyage_jobs.gd +25/-11.
+SHA256 of source at that read:
+naval_lifecycle.gd
+A060E44587DEEE017854C7D01803C4492938E36CE435F84DA444FC9720B579FE
+voyage_jobs.gd
+D0532C95945B031D152C5EB0579BA57B71DAB4CEF8D926D06D9270F04BF6C076
+Only these diff files, necessary direct order/company/regional callers,
+and the requested legacy fuel-fixture source were considered.
+
+CONCRETE DEPARTURE BLOCKER
+
+Company recall issued during actual harbor service is discarded as a route
+request; expiration resumes the old owner.order instead of the recall.
+Exact path:
+- shipping_companies.gd:247-249 sets book.recall/status only; no owner order.
+- company_ops.gd:93-99 calls Lifecycle.route(home) without updating owner.order.
+- naval_lifecycle.gd:62 returns during service before recording this request.
+- A company arriving at its destination with unsold basisQty has an order to
+  remain at that destination (company_ops.gd:162-164). At service expiration,
+  CompanyOps.hold is now false for the recall away from home (:145), but
+  naval_lifecycle.gd:181-182 calls publish_order using the stale destination.
+- publish_order :138-142 sees destination == p.to and no interception, and
+  returns without a route. The service deadline is erased at :178, leaving
+  holding true. Normal order_slice excludes companies and docked owners
+  (naval_ai.gd:47-50), so it does not repair this on following frames.
+Outcome: recalled company remains docked beyond finite service until a daily
+post-dock replan, rather than resuming the latest requested recall at expiry.
+This is a missed immediate resume, not a claim of permanent deadlock.
+Preserve the caller's recall intent in the existing order, or resolve that
+existing company plan once at expiry without replaying dock purchases.
+
+CONCRETE LEGACY FIXTURE COMPATIBILITY
+
+The named game/tests/test_civilian_voyage.gd has no fuel fixture (57 lines).
+The actual relevant legacy fixtures in the reviewed sibling are:
+- test_civilian_flow036.gd:169-170 stages atPort + safe endpoint + holding=true,
+  but sets patrol.active=false. New voyage_jobs.gd:809 rejects it immediately;
+  its expected recipient offer at test :175-177 cannot be produced for that
+  owner. Keep the physical guard; the fixture needs an actually active stopped
+  recipient. No test was edited or executed here.
+- test_civilian_work036.gd:71-72 disables all owners and patrols; :128 only
+  re-enables owner.active and assigns owner.atPort, then drains existing fuel
+  into harbor stock (:130-131). It never re-enables or positions that patrol
+  at the harbor or holding. The new :809 guard therefore rejects this owner
+  before :133's intended recipient offer. This setup no longer establishes
+  physical presence; do not weaken production guards for it.
+
+LIMITS
+
+No additional concrete blocker established in the read quote/accept/status/
+finish physical guards: offers :879-880 and recipient_status :846 share
+_fuel_port; accept :639-641 and finish :710-713 share recipient_status.
+No further demonstrated skip-service or duplicate-arrival blocker found in
+the bounded route/holding/RegionalOps trace. This is source reasoning only,
+not native parsing, execution, test success, or final acceptance of A's still
+changing candidate. Root owns final named-commit review and native proof.
