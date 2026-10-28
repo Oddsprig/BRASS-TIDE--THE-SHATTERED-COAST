@@ -72,7 +72,7 @@ Fishing, freight, tankers and passenger/yacht work have viable varied progressio
 0.060 - FLEET IDENTITY [PLANNED] [DONE]
 Paid officers, crews and vessel histories create tactical identity and attachment.
 
-0.061 - CHANGING REGION [PLANNED]
+0.061 - CHANGING REGION [PLANNED] [DONE]
 Supplied conflict and harbor development visibly alter traffic and opportunities.
 
 0.062 - WHOLE-GAME MILESTONE [PLANNED]

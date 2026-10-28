@@ -1,0 +1,47 @@
+BRASS TIDE v0.061 - A ROUTE WORTH KEEPING
+
+Open Your place on the coast and select a regional goal. The consequence view
+connects it to dated local sightings, stocks recorded during harbor visits,
+legal trade estimates and your actual shore-business books. Unseen ports stay
+unseen; old sightings and prices are dated. A trade estimate reserves no cargo,
+buyer funds or profit. Sail, observe and check the account before committing.
+
+A corridor needs seven consecutive clear economic days and real use of its
+route. An existing patrol can receive a once-only treasury contribution when
+the sponsor, local threat and legal standing justify it. That money enters the
+patrol's actual purse; fuel, rounds, provisions, wages and repairs still cost
+resources. Shortages and recovery take priority over another patrol leg.
+New NPC fleets set aside part of their existing operating capital for their first
+paid crew provisions. Food marked for sale remains commercial cargo; it does
+not count as the crew's working ration reserve.
+
+Completing the achievement does not secure the sea forever. At an original
+corridor harbor with legal access, choose Continue paid watch to keep the same
+patrol and its reserves assigned. Withdraw regional watch releases that
+assignment; the existing boats still travel, pay people and receive paid service.
+Repeating the choice gives no second fleet, treasury contribution or achievement.
+Later hostiles and exhausted reserves can change the situation.
+
+For harbor development, distinct sold/settled deliveries and separate unpaid
+donations add together: six sold plus six donated lots make twelve. Your local
+business must also record three actual fully paid working days. A warehouse,
+salvage yard or workshop uses real setup materials, hired people and its own
+operating purse. Capital deposits are separate from revenue. Wage debt payments
+or overtime amounts do not manufacture additional working days; rest, stoppages
+and incomplete payroll do not qualify. Legacy wage totals prove no historical
+work days, so an old unfinished goal starts recording from a new baseline.
+
+Home harbors shows payroll shortfalls, labor conditions, stored materials,
+capacity, capital, revenue and expenses separately. A workshop's missing recipe
+inputs can stop output even while paid staff work; a warehouse has no production
+recipe. Resolve the stated shortage using owned goods, capital and existing paid
+staffing or negotiation. Nothing is supplied automatically.
+
+Opening, reopening, declining or closing these review screens pays nothing and
+leaves pending calendar payroll pending. An explicit action first publishes the
+due account, then rechecks the actual harbor, boat/business, access and amount.
+
+This scope connects existing systems. It adds no nation-management framework or
+permanent safety bonus. The controlled native voyage demonstrates composition;
+it does not establish naturally seeded traffic balance, a profitable complete
+career or Starsector parity. Whole-game quality and strict performance stay open.
