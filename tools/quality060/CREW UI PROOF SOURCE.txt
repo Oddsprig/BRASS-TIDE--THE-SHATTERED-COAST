@@ -1,0 +1,108 @@
+060 C — SELECTED BOAT UI / BOUNDED PROOF SOURCE
+Base: delivered059 3598b9ad9182c837bcaa06e28bda687bd1250873.
+Source-only helper: no engine/parser/advisory/import/export/GPU or UI control.
+
+EARLY CONTRACT NEEDS (published before implementation)
+A: please publish the exact detached selected-boat staff view and the explicit
+saved doctrine/role setter. UI needs actual staff id/name/role, active status,
+effect explanation, advance, premium/day, premium purse/arrears, base payroll/
+arrears, local hire eligibility/refusal. Need exact doctrine/role storage schema.
+Review must not call ensure/reconcile on live state or settle economy. Existing
+hire_specialist / FleetSupport.dismiss remain the explicit paid transactions.
+B: please publish exact after-action participant/crew/loss fields and the
+service/history copies retained on wreck/towed hull. C will consume documented
+fields only. Existing service counters and <=12 serviceHistory remain readable.
+No guessed peer methods or extra staff/history framework will be introduced.
+
+PROPOSED ONE-FIXTURE SHAPE (Root alone executes)
+One existing Main -> one Campaign/world/nav; explicit finite opening capital and
+yard population/material/gear fixtures, then real paid pilot/gunner hiring and
+existing iron_bastion gun/anchor refits. Save through JSON parse/restore. Two
+short matched seeded actual 051 worker fights observe movement, firing and
+doctrine withdrawal/survival, then public retire before original-owner/custody
+checks. One unpaid-premium transition and one named loss -> existing wreck/tow
+history recovery. Include review/X/decline economy invariance and paid training
+eligibility/cancellation, using copied quotes and existing training transactions.
+Internal target 35–40 seconds, hard budget 45 seconds; no busy main-thread join
+of unfinished work, no full 031/051 matrix. Root must split into focused useful
+blocks BEFORE native if this cannot fit the whole selected batch <120 seconds.
+Actual UI readability and tactical motion acceptance remain Root's separate work.
+
+ROOT BATCH PLANNING — UNMEASURED SOURCE ESTIMATE
+No remaining shared API requests: A/B exact notes + Root relay suffice.
+One Main/world/nav + opening yard/acquisition: roughly 10–14s.
+Paid fitting/staff/training + pending-day review/save: roughly 5–7s.
+Two healthy matched short fights + two half-HP doctrine probes: roughly 8–10s.
+One short actual worker sinking + settlement/wreck/paid tow/reload: 5–7s.
+Cleanup/report reserve: 2s. Total planning range 30–40s; 40s work guard,
+45s fixture bound. These are estimates, not native receipts. Root must split
+before execution if source review/setup makes that selected batch unsafe.
+The doctrine probe needs actual published phase/motion evidence; unequal saved
+options or paper stats alone are not acceptance. No need for the 12s global
+retreat countdown: cautious local withdrawal is a separate real planner action.
+
+STATUS
+Source implementation and manual bounded reads/diff review completed below.
+No engine, parser, advisory or native acceptance/timing has been run here.
+
+CONTRACT CONFIRMED / UI IMPLEMENTED
+Root relayed A and B contracts. UI consumes FleetSupport.selected_view and
+FleetIdentity.set_command_preference exactly as A's COMMAND SOURCE.txt defines.
+No new shared fields requested. B report.participants / losses and service /
+serviceHistory match HISTORY SOURCE.txt; after-action UI reads participant rows.
+Review paths disable Interface.button's automatic sync and modal header-X sync.
+Training.review uses one state copy + existing DetachedCampaignView and local
+Training.quote/report; conversion review extends the same existing facade only
+with find_boat/fitted_spec reads. No Campaign/world/navigation construction.
+Existing workshop opening is an explicitly labeled paid fitting-bay action; its
+separate existing workshop behavior is outside this allowlist. Main is untouched.
+
+FINAL OWNED SOURCE
+identity_ui.gd: one selected-boat desk uses A's exact detached paid staff view;
+saved doctrine/role uses A's explicit setter. Numerical able/wounded/ashore/
+minimum/working/berth counts, fleet morale, 100 base + actual premium payroll,
+separate fleet-base/boat-premium arrears and purses, actual named fitted modules,
+local hire refusals/advance and existing paid repair/recruit/train links. Interior
+conversion choices remain available in a separate copied-quote review. Existing
+service totals/history and wreck recovery linkage are readable in that desk.
+economic_ui.gd: review(c,count=1)->detached local account with port, report,
+offers, permission, coins, day. Existing enroll/cancel actions sync/revalidate;
+review/count choice/header-X/close do not. Course days, reserved people, supplies,
+qualified subsets, escrow, earned wages and cancellation limits are explicit.
+interface.gd: selected desk and training entry buttons do not auto-sync. Fleet
+review/header closes are also pure. B's exact participant rows show named fate,
+crew/wounds, actual damage/repair context and earned service. Sunk ending crew
+is explicitly last recorded count, not rescued survivors.
+
+ONE ROOT-EXECUTED TARGET
+game/tests/test_fleet_attachment060.gd (existing SceneTree harness pattern).
+One Main and one c.new_game(60060); reuse the existing world/navigation.
+Opening fixture: two ready Bastion shells at the current yard; finite 120-lot
+minimum parts/stores stocks; 300000 coins transferred from Shatter Spire's real
+treasury. No earned-capital/full-progression claim. Actual Harbor.buy, ordinary
+recruitment, named pilot/gunner hire, 048 paid physical gun/anchor builds, stores,
+one real course/cancellation and one real pending-day payroll publication.
+Parsed restore precedes comparison branches, each copied from the same paid
+baseline. Same actual NPC-owned Bastion opponent, seed60601, position and crew.
+Two healthy 90-step fights and two half-HP 45-step doctrine probes; each uses the
+existing 30Hz worker, awaits completed publications and public retirement.
+Observe fire, spent ammo/fuel, travel and real local-withdrawal intent/motion;
+assert original owner, UID/custody and _serviceStart060 survival after retirement.
+One additional <=45-step controlled opening-flood sink must yield a real lost
+result. Actual settlement credits only that boat, caches retries, records named
+staff loss and detached wreck service/history. Parsed loss save -> existing
+paid tow -> actual normal work-time payroll -> empty damaged recovered boat;
+assert exact quoted fees, item UIDs, history/new hull UID linkage, no staff revive,
+all purses conserved and physical preflight/parsed restored recovery valid.
+Report: synthetic user://fleet-attachment060-report.json; phase costs and five
+worker receipts retain telemetry, travel/fire/stores and bounded motion samples.
+The native script does not certify exported UI readability or actual motion
+quality. Root alone must review those privately and split batching if needed.
+
+LIMITS / HANDOFF
+Only the five owned files changed. No Main, metadata, maps, version, tag,
+package/install, Root release, user saves/music, engine/test/advisory, GPU,
+network, helpers, cleanup or push. New calls require Root's named A+B source
+integration before parsing. Native code acceptance remains PENDING Root tests.
+All36 hulls/031 physical gear/051 worker/059 civil systems remain foundations;
+no XP/officer/animation/subsidy/coast/performance or061 scope is added.

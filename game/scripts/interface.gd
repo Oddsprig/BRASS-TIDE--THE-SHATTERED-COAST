@@ -338,7 +338,7 @@ func build_campaign_hud(size: Vector2):
 		button(right_body, "Find a contract  ↗", open_contracts, true)
 	var bottom = panel(chrome, Vector2(0, size.y - 85), Vector2(size.x, 85))
 	var actions = row(bottom)
-	button(actions, "▱  Fleet", open_fleet)
+	button(actions, "▱  Fleet", open_fleet, false, false)
 	button(actions, "▤  Hold", open_cargo)
 	button(actions, "⚑  Contracts", open_contracts)
 	button(actions, "?  Guide", open_guide, false, false)
@@ -439,7 +439,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -526,7 +526,7 @@ func open_harbor_services():
 	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"),false,false)
 	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
 	button(body,"Home harbor, storage & business",func():HomeUI.open(self))
-	button(body,"Crew training & harbor workforce",func():EconomicUI.open(self))
+	button(body,"Crew training & harbor workforce",func():EconomicUI.open(self),false,false)
 	button(body,"Supply coverage & protected stocks",func():SupplyUI.open(self))
 	button(body,"Recovered machinery & workshop development",func():ToolingUI.open(self))
 	button(body,"People, paid shifts & working conditions",func():WorkerUI.open(self))
@@ -612,7 +612,6 @@ func open_catalog():
 		hull_card(body, h, false)
 
 func open_fleet():
-	host.sync_economy()
 	EquipmentPicker.prune_requests(self)
 	modal_kind = "fleet"
 	var body = modal("Your flotilla", "FLEET · CREW · DAMAGE CONTROL")
@@ -652,7 +651,7 @@ func fleet_view(body: Node, docked: bool):
 		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
 		button(actions, "Equipment & condition", func(): open_equipment(uid)).disabled = s.get("sunk",false)
 		button(actions, "Fleet workshop & fitting templates", func(): open_refit(uid)).disabled = s.get("sunk",false)
-		button(card,"Support conversion, specialists & service history",func():IdentityUI.open(self,uid))
+		button(card,"People, command & service history",func():IdentityUI.open(self,uid),false,false)
 		button(actions, "Set flagship", func(): host.core.state.flagship = uid; refresh_fleet()).disabled = s.crew < s.crewMin
 		button(actions, "Activate" if s.get("mothballed", false) else "Stand down", func():host.respond(host.core.set_boat_active(uid,s.get("mothballed",false)));refresh_fleet()).disabled = s.crew<s.crewMin or not str(s.get("storedPort","")).is_empty()
 		if docked:
@@ -900,6 +899,17 @@ func outcome(result: String, report: Dictionary, enemies: Array):
 	paragraph(body, "Your crew can breathe again. Inspect the damage and load fresh stores before your next engagement." if result == "won" else "Surviving hulls carry their damage, wounded and missing stores back to the campaign. A withdrawal can save a fleet.", 18)
 	label(body, "+%s coins" % money(report.get("coins", 0)), 38, GOLD, true)
 	paragraph(body, "%d hostile boats encountered · %d friendly boats afloat" % [enemies.size(), host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk).size()], 17, TEAL)
+	for participant in report.get("participants",[]):
+		var entry: Dictionary=participant
+		rule(body)
+		label(body,"%s · %s"%[str(entry.name),str(entry.fate).capitalize()],21,RED if str(entry.fate) in ["sunk","captured"] else GOLD,true)
+		paragraph(body,"Crew %.0f → %.0f · Wounded %.0f → %.0f · %.0f fewer aboard"%[float(entry.crewStart),float(entry.crewEnd),float(entry.woundedStart),float(entry.woundedEnd),float(entry.crewDecrease)],15)
+		var repair: Dictionary=entry.get("repair",{})
+		paragraph(body,"Hull %.0f / %.0f · %.0f damage to repair · Water %.0f · Fire %.0f · Engine %.0f%%"%[float(entry.hpEnd),float(entry.maxHp),float(repair.get("missingHp",0)),float(repair.get("water",0)),float(repair.get("fire",0)),float(repair.get("engine",0))*100.0],14)
+		paragraph(body,IdentityUI.service_summary(entry),14,TEAL)
+		var history: Array=entry.get("serviceHistory",[])
+		if not history.is_empty():paragraph(body,str(history[-1].get("detail","")),14)
+		if str(entry.fate)=="sunk":paragraph(body,"Ending crew is the last recorded count aboard, not rescued survivors. History follows the marked wreck. A paid tow returns a damaged, empty hull; recruitment, repairs and stores are separate costs. Lost staff are not returned.",14,RED)
 	if report.get("completed", false):
 		label(body, "THE SHATTER COAST IS FREE", 26, GOLD, true)
 		paragraph(body, "The Admiral's blockade is broken. Harbors reopen their routes. Your flotilla has earned its place in the coast's history. You can keep trading, building and sailing.")
