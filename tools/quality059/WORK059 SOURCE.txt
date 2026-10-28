@@ -184,3 +184,74 @@ No forced atPort, frozen actor, demand/reward/food injection or blocked pass.
 
 This correction has only been source/diff reviewed here. No engine/test/parser/
 advisory/import/export/GPU/CUA/helper/Root edit or cleanup was performed by C.
+
+R2 ACTUAL DIAGNOSIS / MINIMAL AUTHORIZED CREW-LOSS REPORT
+Read Root job33a423b2060d4d92b479405806d6409d/attempt-001/civilian-careers/
+native.log. Exact release9db7281 completed148 checks/2 failures, internal22.491048s.
+Fishing dismissal is FIXED by actual native evidence; fuel remains blocked.
+The only population transition was day3.02224444444444, econDay3:
+npc:patrol-0:npc-0-0 crew4->0. Its NEW actual encounter was patrol-0 vs patrol-5,
+damageToA41, hitsB8, sunkA1, survivorsA0/survivorsB3; one sunk hull. No other
+population account changed; world coins remained172580000 exactly. This measured
+record establishes actual offscreen combat loss, not an economy-worker omission.
+
+Root explicitly authorized ONE additional production file: naval_combat.gd.
+resolve_encounter now sums float crew on the original canonical owner.boats
+arrays before existing salvos and immediately after existing sink handling.
+The existing retained encounter event adds ONLY crewLostA and crewLostB: exact
+before-minus-after crew for each corresponding side, with fractions preserved.
+No combat/RNG/repair/sink/AI/wage/economy decision, replacement policy, schema,
+history limit or UI changes. No inferred4, hull-to-person conversion or new ledger.
+
+The fixture counts only NEW actual crew-loss event records with unique
+[integer calendar day, owner A ID, owner B ID] identities. Both loss fields must
+be numeric, finite and nonnegative; owners must be distinct nonempty strings.
+The declared baseline must have no previous combat. Every clock/publication
+transition independently compares all actual population-pool deltas with its
+NEW event-recorded crew losses; diagnostics retain exact owner/boat UID changes.
+Final equality is people in actual custody + those recorded NPC deaths == opening
+census, with exact coinsTotal/opening supply/savedCoinSupply equality. Unknown
+losses still fail. No observed deficit is converted into a death allowance.
+Coverage requires unique retained events, every observed/baseline identity still
+present, every retained new event observed, and history strictly below the
+existing MAX_EVENT_LOG24 pruning bound. Parsed actual reload must preserve those
+exact events and coverage. The fixture adds no cumulative production counter.
+
+FINAL A SERVICE CONTRACT / BOUNDED ACTUAL FUEL OBSERVATION
+Read named A446ad2ee402d2e21d5b25af83efd1563e600df7f. Root also integrated A's
+company-recall expiry correction2a839310 (Root5f52f68); C edits neither file.
+Final optional owner field is ONLY harborServiceUntilDay, not the earlier
+proposed harborServicePort. Public pure NavalLifecycle.harbor_service(c,owner,
+patrol={}) returns {} or {portId,departureDay,elapsedDays,remainingDays};
+HARBOR_SERVICE_DAYS=.25. Existing actual atPort/patrol/harbor/water checks apply.
+
+C's SAME existing fuel branch observes at most24 actual .05-day Campaign steps
+(1.2 days), stopping earlier at the existing whole-fixture guard38s/target40s;
+Root's external cap45s remains. It observes a real moving recipient then its
+actual physically valid service arrival. It selects only a real funded small
+offer whose selected actual hull's rounded outward sailing fits the REMAINING
+service interval and existing carrier/access/allowance gates. No guarantee:
+absence, departed recipients, insufficient margin or timing remain failures.
+There is no new world/nav/Main, matrix, AI hold, atPort/tank edit or injected
+reward/demand/food. The original operating receipt start is never moved.
+Actual waiting days, payroll/cash and ration consumption are retained separately
+at quote; all waiting/sailing/service-proof consumption remains in final costs.
+
+The selected arrival records its exact before/after physical positions and
+original departure deadline. Pure service reads reject detached moving/offsite
+patrol probes without mutating actual actors or pending payroll. Actual delivery
+must occur during the SAME unextended service interval. After actual paid return,
+ordinary clock steps cross that original deadline if needed and require real
+recipient movement/departure under current live routing. Those extra elapsed
+steps are also charged. Actual original source fuel/invoice/escrow, selected
+sealed lot, recipient tank/cargo conservation, once-payment, return, ordinary
+payroll and positive net gates remain intact. Unavailable/under-cost work is
+never relabeled a positive pass. No playable-fuel result is claimed before Root
+executes this combined source.
+
+Handoff layer is on C596db4d. Only new authorized files in this layer:
+game/scripts/naval_combat.gd, game/tests/test_civilian_careers059.gd and this note.
+Source/diff review only; no engine/test/parser/advisory/import/export/GPU/CUA,
+helper, Root/release edit, cleanup or push by C. Root alone verifies combined
+source and timing. 060 implementation and whole-quality/strict051 OPEN062 remain
+separate. Named commit is reported in the handoff, then C is idle.

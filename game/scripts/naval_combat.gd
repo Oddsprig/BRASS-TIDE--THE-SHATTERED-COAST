@@ -291,6 +291,14 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 	if boats_a.is_empty() or boats_b.is_empty():
 		return {"ok": false, "reason": "no_living_boats"}
 
+	# Retain the canonical owners' original physical boats across salvo and sink
+	# handling. Surviving hull counts do not account for actual crew deaths.
+	var original_a: Array = owner_a.boats
+	var original_b: Array = owner_b.boats
+	var crew_before_a: float = 0.0
+	var crew_before_b: float = 0.0
+	for boat in original_a: crew_before_a += float(boat.crew)
+	for boat in original_b: crew_before_b += float(boat.crew)
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	var pair_str: String = str(owner_a.get("id", "")) + ":" + str(owner_b.get("id", ""))
 	var pair_hash: int = absi(int(pair_str.hash()))
@@ -380,6 +388,10 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 					b["fire"] = 0.0
 					b["breaches"] = []
 
+	var crew_after_a: float = 0.0
+	var crew_after_b: float = 0.0
+	for boat in original_a: crew_after_a += float(boat.crew)
+	for boat in original_b: crew_after_b += float(boat.crew)
 	var rem_a: int = NavalOrders.living_boats(owner_a).size()
 	var rem_b: int = NavalOrders.living_boats(owner_b).size()
 	if rem_a==0:owner_a.defeats=int(owner_a.get("defeats",0))+1
@@ -506,6 +518,8 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		"sunkB": sunk_b,
 		"survivorsA": rem_a,
 		"survivorsB": rem_b,
+		"crewLostA": crew_before_a - crew_after_a,
+		"crewLostB": crew_before_b - crew_after_b,
 		"ammoUsedA": ammo_used_a,
 		"ammoUsedB": ammo_used_b,
 		"retreated": retreated,

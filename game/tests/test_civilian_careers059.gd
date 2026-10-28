@@ -14,6 +14,7 @@ const Support=preload("res://scripts/fleet_support.gd")
 const Costs=preload("res://scripts/career_costs.gd")
 const Choices=preload("res://scripts/civilian_choices059.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
+const NavalCombat=preload("res://scripts/naval_combat.gd")
 const FIXTURE_HULLS=["kelpnet_dory","fenhopper_lighter","seepoil_tanker","gullwing_daysailer"]
 const NEXT_HULLS={"fishing":"brinehook_longliner","freight":"tideledger_coaster","fuel_delivery":"blackwater_fleet_tanker","passenger_charter":"osprey_cabin_cruiser"}
 const BUDGET_SECONDS: float=40.0
@@ -21,6 +22,7 @@ var scene
 var c
 var baseline: Dictionary={}
 var baseline_cache: Dictionary={}
+var baseline_encounters: Dictionary={}
 var supply: int=0
 var census: float=0.0
 var checks: int=0
@@ -87,22 +89,59 @@ func people(s: Dictionary) -> float:
 	return total
 
 func population_probe() -> Dictionary:
-	return {"accounts":people_accounts(c.state),"encounters":c.state.get("navalAi",{}).get("encounters",[]).map(func(event):return JSON.stringify(event))}
+	return {"accounts":people_accounts(c.state),"encounters":c.state.get("navalAi",{}).get("encounters",[]).map(func(event):return encounter_id(event))}
+
+func encounter_id(event: Dictionary) -> String:
+	return JSON.stringify([int(event.get("day",-1)),str(event.get("a","")),str(event.get("b",""))])
+
+func recorded_npc_losses(r: Dictionary) -> float:
+	var total: float=0.0
+	for event in r.encounterRecords.values():total+=float(event.crewLostA)+float(event.crewLostB)
+	return total
+
+func encounter_coverage(r: Dictionary) -> bool:
+	var retained: Dictionary={}
+	var events: Array=c.state.get("navalAi",{}).get("encounters",[])
+	if events.size()>=NavalCombat.MAX_EVENT_LOG:return false # No bounded-log pruning accepted.
+	for event in events:
+		var id: String=encounter_id(event)
+		if retained.has(id) or (not baseline_encounters.has(id) and not r.encounterRecords.has(id)):return false
+		retained[id]=true
+	for id in baseline_encounters:
+		if not retained.has(id):return false
+	for id in r.encounterRecords:
+		if not retained.has(id):return false
+	return true
 
 func record_population(before: Dictionary,r: Dictionary,label: String) -> void:
-	# Diagnostic observations only. Naval encounter events count surviving HULLS,
-	# not crew deaths, so no event or observed deficit waives exact person equality.
+	# Only numeric crew losses counted by the actual resolution can enter the
+	# census. Keep observed pool differences separate; never infer deaths from them.
 	var after: Dictionary=population_probe()
 	var fresh: Array=[]
 	for event in c.state.get("navalAi",{}).get("encounters",[]):
-		if JSON.stringify(event) not in before.encounters:fresh.append(event.duplicate(true))
+		if encounter_id(event) not in before.encounters:fresh.append(event.duplicate(true))
+	var recorded: float=0.0
+	for event in fresh:
+		var id: String=encounter_id(event)
+		var valid: bool=event.get("a") is String and event.get("b") is String and str(event.a).length()>0 and str(event.b).length()>0 and event.a!=event.b and (event.get("day") is int or event.get("day") is float) and is_finite(float(event.day)) and float(event.day)==floorf(float(event.day)) and float(event.day)>=float(baseline.econDay)
+		for field in ["crewLostA","crewLostB"]:
+			valid=valid and (event.get(field) is int or event.get(field) is float) and is_finite(float(event.get(field,0))) and float(event.get(field,0))>=0
+		valid=valid and not baseline_encounters.has(id) and not r.encounterRecords.has(id)
+		check(valid,"new actual encounter has unique day/owner-pair identity and exact finite nonnegative crewLostA/B: "+id)
+		if valid:
+			r.encounterRecords[id]=event.duplicate(true)
+			recorded+=float(event.crewLostA)+float(event.crewLostB)
 	var changes: Dictionary={}
 	for key in before.accounts:
 		var old: float=float(before.accounts[key]);var now: float=float(after.accounts.get(key,0))
 		if now!=old:changes[key]={"before":old,"after":now,"difference":now-old}
 	for key in after.accounts:
 		if not before.accounts.has(key) and float(after.accounts[key])!=0:changes[key]={"before":0.0,"after":float(after.accounts[key]),"difference":float(after.accounts[key])}
-	if not changes.is_empty():r.populationTransitions.append({"phase":label,"day":float(c.state.day),"econDay":int(c.state.econDay),"accountChanges":changes,"newEncounters":fresh})
+	if not changes.is_empty() or not fresh.is_empty():
+		var difference: float=0.0
+		for row in changes.values():difference+=float(row.difference)
+		r.populationTransitions.append({"phase":label,"day":float(c.state.day),"econDay":int(c.state.econDay),"accountChanges":changes,"newEncounters":fresh,"peopleDifference":difference,"recordedCrewLosses":recorded})
+		check(difference+recorded==0,"actual population-pool difference corresponds exactly to NEW encounter-recorded crew deaths; difference="+str(difference)+" recorded="+str(recorded))
 
 func join_calendar(r: Dictionary,label: String) -> void:
 	var before: Dictionary=population_probe();var days: int=c.pending_days
@@ -143,6 +182,8 @@ func _initialize() -> void:
 	check(restored.ok,"declared seeded baseline passes actual parsed save validation: "+str(restored.get("message","")))
 	if not restored.ok:finish();return
 	baseline=c.state.duplicate(true);baseline_cache=c.route_cache.duplicate(true)
+	for event in baseline.get("navalAi",{}).get("encounters",[]):baseline_encounters[encounter_id(event)]=event.duplicate(true)
+	check(baseline_encounters.is_empty(),"declared baseline precedes all offscreen combat; no legacy/unknown loss is normalized")
 	phase("one Main/world/nav and validated declared baseline")
 	if within_budget("fishing"):fishing_cycle()
 	phase("fishing, pure quote, UI and physical carrying")
@@ -197,7 +238,7 @@ func begin_branch(kind: String,hull_id: String) -> Dictionary:
 		"openingCoins":int(c.state.coins),"openingArrears":int(c.state.wageArrears),"openingDay":float(c.state.day),"openingEconDay":int(c.state.econDay),
 		"openingCrewPurse":int(c.state.crewPurse),"physicalItemUids":boat.moduleCondition.items.keys(),"crew":int(boat.crew),"dailyWages":int(Economy.daily_upkeep(c.state.fleet).wages),"specialistPremiumPerDay":Support.premium(c.state),
 		"openingFuel":float(boat.fuel),"openingFood":float(c.state.cargo.food),"openingKits":float(boat.supplies),"openingAmmo":float(boat.ammo),
-		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0,"populationTransitions":[]}
+		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0,"populationTransitions":[],"encounterRecords":{}}
 
 func advance(seconds: float,r: Dictionary) -> bool:
 	if seconds<=0:return true
@@ -245,8 +286,10 @@ func reload_check(r: Dictionary) -> void:
 	var coin: int=int(c.state.coins);var day: float=float(c.state.day)
 	var fish: float=float(c.state.cargo.get("preserved_fish",0))
 	var jobs: String=JSON.stringify(c.state.voyageJobs)
+	var encounters: Array=JSON.parse_string(JSON.stringify(c.state.get("navalAi",{}).get("encounters",[])))
 	var result: Dictionary=c.restore(state)
 	check(result.ok and int(c.state.coins)==coin and close(float(c.state.day),day) and close(float(c.state.cargo.get("preserved_fish",0)),fish) and JSON.stringify(c.state.voyageJobs)==jobs,str(r.kind)+": parsed actual save/reload preserves coins, date, physical catch and exact accepted terms: "+str(result.get("message","")))
+	check(JSON.parse_string(JSON.stringify(c.state.get("navalAi",{}).get("encounters",[])))==encounters and encounter_coverage(r),str(r.kind)+": actual parsed reload preserves exact crew-loss events and complete unduplicated fixture-horizon coverage")
 
 func finish_receipt(r: Dictionary,paid: bool) -> void:
 	settle_calendar(r)
@@ -274,9 +317,9 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	r.reservedContingency=ceili(2.0*(int(r.dailyWages)+int(r.specialistPremiumPerDay)+float(Economy.daily_upkeep(c.state.fleet).food)*int(prices.food)+Work.fuel_rate(boat)*int(prices.fuel)))
 	r.reserveWasSpent=false;r.returnIncluded=float(r.returnDays)>0
 	r.coinSupply=Money.total(c.state);r.people=people(c.state)
-	r.conservation={"coinsTotal":Money.total(c.state),"supply":supply,"savedCoinSupply":int(c.state.coinSupply),"people":people(c.state),"census":census,"coinDifference":Money.total(c.state)-supply,"peopleDifference":people(c.state)-census}
+	r.conservation={"coinsTotal":Money.total(c.state),"supply":supply,"savedCoinSupply":int(c.state.coinSupply),"people":people(c.state),"census":census,"recordedNpcDeaths":recorded_npc_losses(r),"coinDifference":Money.total(c.state)-supply,"peopleDifference":people(c.state)-census,"unaccountedPeopleDifference":people(c.state)+recorded_npc_losses(r)-census,"eventCoverage":encounter_coverage(r)}
 	print("civilian059 conservation ",JSON.stringify({"kind":r.kind,"conjuncts":r.conservation,"transitions":r.populationTransitions}))
-	check(Money.total(c.state)==supply and int(c.state.coinSupply)==supply and people(c.state)==census,str(r.kind)+": exact global coins and people conserved in all custody/escrows; no unproved casualty allowance: "+JSON.stringify(r.conservation))
+	check(Money.total(c.state)==supply and int(c.state.coinSupply)==supply and encounter_coverage(r) and people(c.state)+recorded_npc_losses(r)==census,str(r.kind)+": exact global coins and living/custody people plus uniquely recorded actual NPC deaths equal the opening census: "+JSON.stringify(r.conservation))
 	check(int(c.state.wageArrears)==int(r.openingArrears) and c.cargo_weight()<=c.capacity()+0.0001,str(r.kind)+": no waived payroll arrears or physical overload behind the margin")
 	check(boat.moduleCondition.items.keys()==r.physicalItemUids,str(r.kind)+": same acquired physical fitting UIDs remain in actual boat custody")
 	var next_id: String=str(NEXT_HULLS[r.kind])
@@ -426,6 +469,71 @@ func pure_ui_checks(uid: String,offer: Dictionary) -> void:
 		check(snapshot()==before,"actual header-X refuses Interface's automatic economy sync on pure review")
 	else:check(false,"real funded freight exists for selected review/header-X proof")
 
+func actual_patrol(id: String) -> Dictionary:
+	for patrol in c.state.patrols:
+		if str(patrol.id)==id:return patrol
+	return {}
+
+func fuel_positions() -> Dictionary:
+	var result: Dictionary={}
+	for patrol in c.state.patrols:
+		var owner: Dictionary=c.fleet_owner(str(patrol.id))
+		if owner.is_empty() or str(owner.id).begins_with("story-"):continue
+		result[str(owner.id)]={"ownerId":str(owner.id),"x":float(patrol.x),"y":float(patrol.y),"atPort":str(owner.atPort),"active":bool(patrol.active),"holding":bool(patrol.get("holding",false)),"to":str(patrol.to),"day":float(c.state.day),"service":c.NavalLifecycle.harbor_service(c,owner,patrol)}
+	return result
+
+func observe_fuel(r: Dictionary,uid: String) -> Dictionary:
+	# At most 24 real .05-day steps (1.2 days), guarded by the SAME whole budget.
+	# No operating-start reset: every observed day, payroll and ration stays paid.
+	var previous: Dictionary=fuel_positions();var arrivals: Dictionary={}
+	r.fuelObservations=[];r.fuelChoices=[]
+	for index in range(25):
+		var current: Dictionary=fuel_positions()
+		for id in current:
+			if not previous.has(id):continue
+			var old: Dictionary=previous[id];var now: Dictionary=current[id]
+			if old.active and not old.holding and str(old.atPort).is_empty() and not now.service.is_empty() and c.distance(old,now)>0:
+				arrivals[id]={"before":old.duplicate(true),"arrival":now.duplicate(true)}
+		var offers: Array=Jobs.available(c)
+		r.fuelObservations.append({"day":float(c.state.day),"actualArrivalOwners":arrivals.keys(),"fundedFuelOffers":offers.filter(func(job):return str(job.kind)==Jobs.KIND_FUEL).size()})
+		for job in offers:
+			if str(job.kind)!=Jobs.KIND_FUEL or str(job.get("loadTier",""))!="small" or not arrivals.has(str(job.ownerId)):continue
+			var owner: Dictionary=c.fleet_owner(str(job.ownerId))
+			var service: Dictionary=c.NavalLifecycle.harbor_service(c,owner)
+			if service.is_empty() or str(owner.get("purpose","")) in ["withdraw","repair","replace"]:continue
+			var review: Dictionary=Choices.job_review(c,job,uid)
+			var leg: float=ceilf(float(review.budget.outwardDays)*c.DAY_SECONDS)/c.DAY_SECONDS
+			var fits: bool=bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and bool(review.recipient.present) and bool(review.recipient.eligible) and leg<float(service.remainingDays)
+			r.fuelChoices.append({"day":float(c.state.day),"ownerId":job.ownerId,"targetPort":job.targetPort,"reward":job.reward,"roundedActualHullOutwardDays":leg,"serviceRemainingDays":service.remainingDays,"fits":fits})
+			if not fits:continue
+			r.fuelArrival=arrivals[str(job.ownerId)].duplicate(true);r.fuelServiceAtQuote=service.duplicate(true)
+			r.fuelObservationDays=float(c.state.day)-float(r.openingDay)
+			r.waitingPayrollDays=int(c.state.econDay)-int(r.openingEconDay);r.waitingCoinsPaid=int(r.openingCoins)-int(c.state.coins)
+			r.waitingFoodConsumed=float(r.openingFood)-float(c.state.cargo.food)
+			var patrol: Dictionary=actual_patrol(str(job.ownerId));var dock: Dictionary=c.port(str(service.portId))
+			check(bool(patrol.get("holding",false)) and c.distance(patrol,dock)<40 and close(float(service.remainingDays)+float(service.elapsedDays),c.NavalLifecycle.HARBOR_SERVICE_DAYS),"fuel recipient was observed moving, then actually arrived within certified harbor range for one finite service interval")
+			var before: String=snapshot()
+			var moving: Dictionary=patrol.duplicate(true);moving.holding=false
+			var remote: Dictionary=patrol.duplicate(true);remote.x=float(dock.x)+100.0;remote.y=float(dock.y)
+			check(c.NavalLifecycle.harbor_service(c,owner,moving).is_empty() and c.NavalLifecycle.harbor_service(c,owner,remote).is_empty() and snapshot()==before,"pure service read refuses detached moving/offsite patrols without altering the actual actors or pending calendar")
+			return job.duplicate(true)
+		if index==24:break
+		previous=current
+		if not advance(c.DAY_SECONDS*0.05,r):break
+	r.fuelObservationDays=float(c.state.day)-float(r.openingDay)
+	return {}
+
+func fuel_departure_check(r: Dictionary) -> void:
+	var owner: Dictionary=c.fleet_owner(str(r.offer.ownerId))
+	var departure: float=float(r.fuelServiceAtQuote.departureDay)
+	if float(c.state.day)<=departure:
+		if not advance((departure-float(c.state.day))*c.DAY_SECONDS+0.001,r):check(false,"actual fuel service-expiry proof interrupted: "+str(r.get("blocker","whole-fixture budget")));return
+	var before: Dictionary=actual_patrol(str(owner.id)).duplicate(true)
+	if not advance(1.0,r):check(false,"actual fuel departure-motion proof interrupted: "+str(r.get("blocker","whole-fixture budget")));return
+	var patrol: Dictionary=actual_patrol(str(owner.id))
+	r.fuelDeparture={"day":float(c.state.day),"originalDepartureDay":departure,"atPort":str(owner.atPort),"holding":bool(patrol.get("holding",false)),"distanceMoved":c.distance(before,patrol),"order":owner.get("order",{}).duplicate(true),"to":str(patrol.get("to","")),"service":c.NavalLifecycle.harbor_service(c,owner,patrol)}
+	check(float(c.state.day)>departure and not owner.has("harborServiceUntilDay") and r.fuelDeparture.service.is_empty() and str(owner.atPort).is_empty() and not bool(patrol.get("holding",false)) and c.distance(before,patrol)>0,"actual delivered recipient's original service expires and it physically departs under normal live routing, without a player-imposed hold")
+
 func job_cycle(kind: String,hull_id: String) -> void:
 	var r: Dictionary=begin_branch(kind,hull_id)
 	if r.is_empty():return
@@ -437,17 +545,12 @@ func job_cycle(kind: String,hull_id: String) -> void:
 			if str(job.kind)==kind and str(job.get("freight",{}).get("good","")) in ["preserved_fish","fine_timber","lacquer","medicinal_plants"]:chosen=job.duplicate(true);break
 	for job in offers:
 		if not chosen.is_empty():break
-		if str(job.kind)==kind and (kind!=Jobs.KIND_CHARTER or int(job.passengers.n)<=Transport.spare(c,c.find_boat(uid))):chosen=job.duplicate(true);break
-	if chosen.is_empty() and kind==Jobs.KIND_FUEL:
-		# Bounded live opportunity observation. No tank edits, NPC freeze, forged
-		# atPort, demand injection or custom reward. A owns the published policy.
-		for index in range(3):
-			if not advance(c.DAY_SECONDS*0.05,r):break
-			for job in Jobs.available(c):
-				if str(job.kind)==kind:chosen=job.duplicate(true);break
-			if not chosen.is_empty():break
+		if kind!=Jobs.KIND_FUEL and str(job.kind)==kind and (kind!=Jobs.KIND_CHARTER or int(job.passengers.n)<=Transport.spare(c,c.find_boat(uid))):chosen=job.duplicate(true);break
+	if kind==Jobs.KIND_FUEL:
+		chosen=observe_fuel(r,uid);offers=Jobs.available(c)
 	if chosen.is_empty():
-		r.status="BLOCKED_NO_FUNDED_OFFER";r.blocker="No actual eligible funded "+kind+" offer at "+str(c.current_port().get("name","sea"))+" day "+str(c.state.day)
+		if not r.has("blocker"):
+			r.status="BLOCKED_NO_FUNDED_OFFER";r.blocker="No actual eligible funded "+kind+" offer with a reachable actual service arrival at "+str(c.current_port().get("name","sea"))+" day "+str(c.state.day)
 		r.available=offers.map(func(job):return {"id":job.id,"kind":job.kind,"reward":job.reward,"target":job.targetPort})
 		if kind==Jobs.KIND_FUEL:
 			r.recipients=[]
@@ -490,7 +593,7 @@ func job_cycle(kind: String,hull_id: String) -> void:
 		check(close(float(c.state.cargoManifest.get(uid,{}).get("@job:"+id,0)),float(freight.qty)),"fuel lot is sealed on its selected physical hull, distinct from engine tanks")
 	var wallet: int=int(c.state.coins)
 	check(not c.settle_voyage_job(id).ok and int(c.state.coins)==wallet,kind+": origin refusal cannot earn destination escrow")
-	check(Money.total(c.state)==supply and people(c.state)==census,kind+": acceptance/refusal conserves all global purses and people")
+	check(Money.total(c.state)==supply and encounter_coverage(r) and people(c.state)+recorded_npc_losses(r)==census,kind+": acceptance/refusal conserves all global purses, people and recorded actual deaths")
 	var parsed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	var validated: Dictionary=c.SaveValidation.validate(parsed,c.data)
 	check(validated.ok and JSON.stringify(Jobs._find(parsed,id))==JSON.stringify(JSON.parse_string(JSON.stringify(Jobs._find(c.state,id)))),kind+": exact active fee, load, custody, recipient policy and physical carrier survive parsed save validation")
@@ -520,6 +623,8 @@ func job_cycle(kind: String,hull_id: String) -> void:
 		if kind==Jobs.KIND_FUEL:
 			r.recipientBefore=Jobs.recipient_status(c,active);r.recipientTankFuelBefore=recipient_fuel
 			r.recipientCargoFuelBefore=float(owner.cargo.get("fuel",0))
+			r.fuelServiceAtDelivery=c.NavalLifecycle.harbor_service(c,owner)
+			check(not r.fuelServiceAtDelivery.is_empty() and float(r.fuelServiceAtDelivery.get("departureDay",-1))==float(r.fuelServiceAtQuote.departureDay),"actual fuel sailing reaches the recipient during its original unextended service interval")
 	wallet=int(c.state.coins)
 	var settled: Dictionary=c.settle_voyage_job(id)
 	var paid: bool=bool(settled.ok)
@@ -545,6 +650,7 @@ func job_cycle(kind: String,hull_id: String) -> void:
 		var owed: int=int(Jobs._find(c.state,id).get("escrow",0))-savings
 		check(c.settle_voyage_job(id,true).ok and int(origin[payer])==refund_before+owed,kind+": actual safe return refunds the remaining sponsor fee once")
 		check(not c.settle_voyage_job(id,true).ok,kind+": safe refund cannot duplicate")
+	if kind==Jobs.KIND_FUEL and paid:fuel_departure_check(r)
 	finish_receipt(r,paid)
 
 func finish() -> void:
