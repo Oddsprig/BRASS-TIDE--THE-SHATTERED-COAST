@@ -2,6 +2,7 @@ extends SceneTree
 ## One shared Main/world/nav. Source-only author; Root alone runs native checks.
 const B=preload("res://scripts/battle.gd")
 const Driver=preload("res://scripts/battle_driver051.gd")
+const Damage=preload("res://scripts/damage.gd")
 const Identity=preload("res://scripts/fleet_identity.gd")
 const Training=preload("res://scripts/crew_training.gd")
 const Builds=preload("res://scripts/workshop_builds048.gd")
@@ -226,10 +227,15 @@ func fight(uid: String,damaged: bool,loss: bool) -> Dictionary:
 	var start: Dictionary=boat.get("_serviceStart060",{}).duplicate(true)
 	check(not start.is_empty(),"actual deployment captures the source participant before worker transfer")
 	if loss:
-		# Controlled fully flooded entry immediately before worker ownership.
+		# Controlled flooding with verified positive inflow before worker ownership.
 		# No Main-side tick or assignment of sunk/result performs this loss.
 		check(st.result==null and not boat.sunk,"controlled loss begins with a live deployed owner and unfinished battle")
-		boat.water=float(boat.capacity);boat.breaches=[]
+		boat.water=float(boat.capacity)-0.01;boat.breaches=[]
+		var pumping: Dictionary=Damage.get_status(boat)
+		var breach_area: float=(float(pumping.bailing)+100.0)/float(Damage.CONSTANTS.inflowPerArea)
+		boat.breaches=[{"area":breach_area,"section":"waterline"}]
+		var flooding: Dictionary=Damage.get_status(boat)
+		check(float(flooding.inflow)>float(flooding.bailing)+1.0,"controlled breach exceeds actual carried pump and crew capacity")
 	var driver=Driver.new(st)
 	var view: Dictionary=driver.advance(0.0,{},true)
 	var fires: int=0

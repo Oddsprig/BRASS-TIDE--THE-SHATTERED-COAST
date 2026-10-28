@@ -52,3 +52,5 @@ AI/game thresholds. Controlled near-full mild leak was bailed instead of sinking
 stage exactly full capacity at entry and require the real worker to publish sink
 and loss. Never assign sunk/result in this native loss case. Production gameplay
 unchanged; old receipts remain and all new outcomes require native verification.
+
+R5 support e32fcca4/001 PASSED19/0 whole37.264s. R6 attachment49cb0d5a/001103/1 whole33.246s; actual paid fits and all behavior checks passed, only sinking failed. Exactly full water/no breach is pumped below capacity before sanitation. Correct native controlled fixture to capacity-.01 with breach area derived from actual bailing+100 divided by inflowPerArea, assert inflow>bailing+1, then actual worker must sink. No production or Main-side sunk/result edit. Metadata prepared once. Native/export still pending.
