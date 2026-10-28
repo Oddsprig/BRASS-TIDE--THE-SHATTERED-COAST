@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "convoy051", "hostile051", "civilian051", "discovery051", "overview051"]
+		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1238,6 +1238,7 @@ func capture_after_start():
 		path = ProjectSettings.globalize_path("res://../qa")
 	DirAccess.make_dir_recursive_absolute(path)
 	var views: Array = screenshots_requested.duplicate()
+	var traffic_origin055: Dictionary = {}
 	if views.is_empty():views = [mode]
 	for raw in views:
 		var name: String = str(raw)
@@ -1245,6 +1246,7 @@ func capture_after_start():
 			if name == "home051":
 				new_game();paused = true;chart.center_camera()
 			elif name in ["convoy051", "hostile051", "civilian051"]:
+				ui.close_modal()
 				var chosen054: Dictionary = {}
 				for patrol054: Dictionary in core.state.patrols:
 					if not patrol054.get("active", false):continue
@@ -1260,6 +1262,24 @@ func capture_after_start():
 					chart.follow_camera = false;chart._campaign_follow = false
 					chart.camera = Vector2(float(chosen054.x), float(chosen054.y))
 					chart.scale_factor = chart.regional_scale()
+			elif name == "trafficcurrent051":
+				# Isolated layout fixture: use an existing distant carrier's water
+				# position to sample a genuine local contact, without creating boats.
+				traffic_origin055 = core.state.position.duplicate(true)
+				var contact055: Dictionary = {}
+				var farthest055: float = 1800.0
+				for patrol055: Dictionary in core.state.patrols:
+					if not patrol055.get("active", false) or patrol055.get("hidden", false):continue
+					var owner055: Dictionary = core.fleet_owner(str(patrol055.id))
+					var distance055: float = core.distance(core.state.position, patrol055)
+					if str(owner055.get("kind", "")) == "trader" and distance055 > farthest055:
+						contact055 = patrol055;farthest055 = distance055
+				if not contact055.is_empty():core.state.position = {"x":float(contact055.x),"y":float(contact055.y)}
+				ui.NavalUI.open(ui)
+			elif name == "trafficold051":
+				if not traffic_origin055.is_empty():core.state.position = traffic_origin055
+				core.step(0.5)
+				ui.NavalUI.open(ui)
 			elif name == "discovery051":
 				var knowledge054: Dictionary = core.state.get("exploration", {})
 				for site054: Dictionary in knowledge054.get("catalog", []):
