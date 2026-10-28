@@ -300,7 +300,16 @@ func _initialize() -> void:
 	c=scene.core
 	if not check(c.new_game(65065).get("ok",false),"Actual canonical career initializes"):await finish();return
 	scene.mode="campaign";scene.paused=true
-	if not check(Money.move(c.port("shatter_spire"),"governmentPurse",c.state,"coins",40000,"Declared funded065 comparison capital",c.state.moneyLog),"Declared starting capital moves from an existing treasury"):await finish();return
+	# INITIAL funding: START15000 + 80000 = 95000. r4 setup48389 +
+	# stores<=30000 + ten payroll boundaries*(9*100+25)=9250 leaves7361.
+	var fixture_capital: int=80000
+	var treasury: Dictionary=c.port("shatter_spire")
+	var treasury_before: int=int(treasury.get("governmentPurse",0))
+	var captain_before: int=int(c.state.coins)
+	var capital_total: int=Money.total(c.state)
+	if not check(treasury_before>=fixture_capital,"Existing treasury can fund the declared initial80000 transfer"):await finish();return
+	if not check(Money.move(treasury,"governmentPurse",c.state,"coins",fixture_capital,"Declared funded065 comparison capital",c.state.moneyLog),"Declared starting capital moves from an existing treasury"):await finish();return
+	if not check(treasury_before-int(treasury.governmentPurse)==fixture_capital and int(c.state.coins)-captain_before==fixture_capital and Money.total(c.state)==capital_total,"Initial capital debits the treasury exactly and conserves all world coins"):await finish();return
 	source_uid=str(c.state.fleet[0].uid);target_uid="boat-%d"%int(c.state.nextUid)
 	var bought: Dictionary=c.buy_boat("tin_skiff")
 	if not check(bought.get("ok",false),"Second owned hull/crew purchase: "+str(bought.get("message",""))):await finish();return

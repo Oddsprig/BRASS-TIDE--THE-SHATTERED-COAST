@@ -1434,8 +1434,19 @@ func _voyage_capture065() -> bool:
 	# moved from an existing treasury, then real hull/crew/conversion/store bills.
 	# This composition is not an earned voyage or a successful transfer claim.
 	new_game(65065);paused=true
-	if not core.Money.move(core.port("shatter_spire"),"governmentPurse",core.state,"coins",40000,"Declared voyage065 layout capital",core.state.moneyLog):
+	# Same INITIAL budget as the actual fixture:15000+80000 covers setup48389,
+	# stores<=30000 and ten925-coin payroll boundaries, with7361 left over.
+	var fixture_capital: int=80000
+	var treasury: Dictionary=core.port("shatter_spire")
+	var treasury_before: int=int(treasury.get("governmentPurse",0))
+	var captain_before: int=int(core.state.coins)
+	var capital_total: int=core.Money.total(core.state)
+	if treasury_before<fixture_capital:
+		push_error("Voyage065 layout treasury cannot fund the declared initial80000 transfer");return false
+	if not core.Money.move(treasury,"governmentPurse",core.state,"coins",fixture_capital,"Declared voyage065 layout capital",core.state.moneyLog):
 		push_error("Voyage065 layout capital refused");return false
+	if treasury_before-int(treasury.governmentPurse)!=fixture_capital or int(core.state.coins)-captain_before!=fixture_capital or core.Money.total(core.state)!=capital_total:
+		push_error("Voyage065 initial layout capital did not conserve treasury/captain/world coins");return false
 	var source_uid: String=str(core.state.fleet[0].uid)
 	var target_uid: String="boat-%d"%int(core.state.nextUid)
 	var bought: Dictionary=core.buy_boat("tin_skiff")
