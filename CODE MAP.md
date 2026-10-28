@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.064: Two-scale ocean travel. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: ocean_world064.gd, ocean_chart064.gd, campaign.gd, main.gd, chart.gd, interface.gd, save_validation.gd, coast_migration.gd.
+v0.065: Long-voyage preparation and fuel transfers. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: voyage_costs065.gd, voyage_preparation_ui065.gd, campaign.gd, main.gd, interface.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

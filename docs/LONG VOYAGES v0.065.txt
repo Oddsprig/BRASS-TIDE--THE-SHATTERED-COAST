@@ -1,0 +1,26 @@
+BRASS TIDE v0.065 — LONG VOYAGES
+
+Open Ocean & coastal approaches to prepare a journey. Choose the destination,
+the north or south approaches, a home harbor and any planned waiting days.
+The route shows outward spending, a return leg and a separate two-day buffer.
+
+Expected spending follows the calendar days crossed during your journey.
+The larger allowance leaves room for delays. Already-earned unpaid calendar
+wages are shown separately. Reviewing, refreshing and closing the plan spends
+nothing. Course, crossing, loading and transfer buttons are explicit actions.
+
+Each boat has its own fuel tank. Fuel carried in the hold remains cargo until
+loaded. Stop your boats to select a donor, receiver and exact transfer amount.
+Tankers can supply other boats through those transfers; tanks are not pooled.
+Loading hold reserves moves ammunition, fuel and repair kits into working stores.
+Food remains in the hold. Sealed job freight remains separate.
+
+Food, sailors, professional premiums and existing wage arrears all need an
+allowance. Stored crews still need their pay and food. Cargo space includes
+equipment lockers and store overflow. Healthy dry boats need no repair kits
+for an uneventful voyage; damaged boats use real crew work and supplies.
+
+Estimates use your current fleet speed and conditions. Repairs, fuel shortage,
+damage, fighting and other business spending can change the result. Reserve
+warnings are advice; the coins and supplies stay yours until actually used.
+After reaching Glasswind Keys, choose Shatter Coast to plan the trip home.

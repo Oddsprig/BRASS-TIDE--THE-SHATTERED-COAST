@@ -1,3 +1,7 @@
+28OCT2026 - v0.065 LONG-VOYAGE PREPARATION AND FUEL TRANSFERS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.064 VERIFIED AND PACKAGED: 125/0 focused checks, selected batch 77.322s, TestBridge 50e217e75b334f61b0bebfe99cb60491. Source f6311c8e6bdfc3b1d309dab211746366f950dc04.
 
 28OCT2026 - v0.064 TWO-SCALE OCEAN TRAVEL

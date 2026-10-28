@@ -1,10 +1,10 @@
-BRASS TIDE v0.064 - TWO-SCALE OCEAN TRAVEL
+BRASS TIDE v0.065 - LONG-VOYAGE PREPARATION AND FUEL TRANSFERS
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Sail between Shatter Coast and the three-island Glasswind Keys prototype using separate coastal and open-ocean charts.
-- Use paired north and south approaches, physical travel, actual fuel and one continuing campaign clock and economy.
-- Save and reload either chart with the same fleet, accounts, cargo and equipment; coastal interactions respect their actual region.
+- Prepare actual coastal and ocean routes with separate outward costs, a homeward leg and a two-day contingency allowance.
+- Inspect pending wages, food, per-boat fuel, hold capacity and conditional repair needs without spending or advancing the voyage.
+- Transfer finite fuel between your stopped boats explicitly, preserving their actual tanks, stores and accounts.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -1,18 +1,13 @@
-# Brass Tide v0.064 delivered
+# Brass Tide v0.065 — active source candidate
 
-Installed desktop launcher Brass Tide points to v0.064. No game was auto-launched.
-Tag5148fbc, tested gamef6311c8, game treeb06accd9 verified identical.
-Portable folder and CRC-verified ZIP are in outputs/Brass Tide v0.064.
-Two owner voyages and20music files match prior hashes in both old/new versions.
+Installed v0.064 is delivered and preserved. Current task: work/quality-v065;
+SCOPE065.txt and LOCKED065 CONTRACT.txt are authoritative. Root merged named
+A2ea9548/B74d50a8/C7b6c017+14a7c51; a narrow map-picker handoff fix is pending.
+Preparation quotes use real routes, one existing cost authority and separate
+outward/return/contingency costs. Fuel transfer is explicit and conserved.
+Review/select/refresh/close do not settle payroll; actions join and recheck.
 
-Accepted native431/0, worker125/0, Windows export/menu/campaign/battle all0;
-whole batches47.738s and77.322s. Actual private nine-view capture33.560s, all viewed.
-Receipts/limits: work/quality-v064/DELIVERED v0.064.json, ACTUAL064 CHECKS.json,
-CURRENT STATE.txt. Three earlier failures retained; source-only advice was not a pass.
-No new battle profile or whole-game motion/audio/fun/strict performance acceptance.
-
-Scope is one ocean chart, original home and one simple three-island prototype.
-No remote jobs/rewards/weather/ocean battles/48-group sector yet. All six Bridge
-helpers idle; latest requested models remain2SolMAX,ArgonHIGH,GrokHIGH,2boundedSparkHIGH.
-Next saved scope065: long-voyage estimates and actual return reserves. Use existing
-cost/upkeep/transfer systems and isolate authors. No064redo or unrelated fine-tuning.
+Metadata prepared ONCE; no native pass, export, v065tag or installation yet.
+Root owns all queued, bounded tests and packaging. Helpers remain source-only.
+Finish065before066weather/contacts. Earlier whole-game quality and strict
+performance limits remain open. Do not rerun completed064work.
