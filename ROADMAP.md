@@ -1,9 +1,9 @@
-# Current step: v0.053 - Meaningful LTV trade and delivery decisions
+# Current step: v0.054 - Visible campaign boats and coastal landmarks
 
-- Bring dated trade opportunities directly into the harbor market.
-- Separate nominal voyage profit from conservative price uncertainty, real preparation costs and funding or tank limits.
-- Explain observed local input needs and the useful production they supply.
-- Use existing real market transactions, finite buyer purses and actual paid production; no automatic purchases or guaranteed sales.
+- Replace tiny campaign and title fleet glyphs with original recognizable boat artwork and real roster formations.
+- Show distinct hulls, actual fittings, headings and useful selection bounds at normal chart zoom.
+- Replace generic discovery and wreck glyphs with knowledge-aware nautical landmarks and improve harbor emphasis.
+- Give labels room around actual artwork while preserving chart navigation, coordinates, knowledge and cheap water.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

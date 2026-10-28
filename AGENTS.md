@@ -1,5 +1,5 @@
 CURRENT054 HUMAN PRIORITY - CAMPAIGN ART CORRECTION
-The owner rejects actual053tiny triangle/diamond campaign markers and title symbols. Visible boats/formations/landmarks and readable supporting selection/labels take priority now. Read task/SCOPE054CAMPAIGNARTCORRECTION.txt (actualfilename contains spaces) and task/CURRENT STATE.txt. Baseline053826a104 delivered/installed. Metadata54 NOT prepared. ThreeBridgeSolMAX source helpers, RootallmutedbackgroundFIFO<120s tests. Planned054campaignAI remains queued NEXT, not dropped or delivered. Strict051performance targets remainopen; no retune thisartpass.
+The owner rejects actual053tiny triangle/diamond campaign markers and title symbols. Visible boats/formations/landmarks and readable supporting selection/labels take priority now. Read task/SCOPE054CAMPAIGNARTCORRECTION.txt (actualfilename contains spaces) and task/CURRENT STATE.txt. Baseline053826a104 delivered/installed. Metadata54 prepared ONCE; never rerun prepare_version.py. ThreeBridgeSolMAX source helpers, RootallmutedbackgroundFIFO<120s tests. Planned054campaignAI remains queued NEXT, not dropped or delivered. Strict051performance targets remainopen; no retune thisartpass.
 
 # Brass Tide - current working instructions
 

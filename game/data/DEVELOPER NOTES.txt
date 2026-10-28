@@ -1,11 +1,11 @@
-BRASS TIDE v0.053 - MEANINGFUL LTV TRADE AND DELIVERY DECISIONS
+BRASS TIDE v0.054 - VISIBLE CAMPAIGN BOATS AND COASTAL LANDMARKS
 27 October2026 |36 boat designs
 
 THIS VERSION
-- Bring dated trade opportunities directly into the harbor market.
-- Separate nominal voyage profit from conservative price uncertainty, real preparation costs and funding or tank limits.
-- Explain observed local input needs and the useful production they supply.
-- Use existing real market transactions, finite buyer purses and actual paid production; no automatic purchases or guaranteed sales.
+- Replace tiny campaign and title fleet glyphs with original recognizable boat artwork and real roster formations.
+- Show distinct hulls, actual fittings, headings and useful selection bounds at normal chart zoom.
+- Replace generic discovery and wreck glyphs with knowledge-aware nautical landmarks and improve harbor emphasis.
+- Give labels room around actual artwork while preserving chart navigation, coordinates, knowledge and cheap water.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

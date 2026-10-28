@@ -1,3 +1,7 @@
+27OCT2026 - v0.054 VISIBLE CAMPAIGN BOATS AND COASTAL LANDMARKS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.053 VERIFIED AND PACKAGED: 143/0 focused checks, selected batch 71.123s, TestBridge a15c833a58c54d51afdf7e633ba3293b. Source ebb378abd38826089104c7e8ce871b5270f00d5e.
 
 27OCT2026 - v0.053 MEANINGFUL LTV TRADE AND DELIVERY DECISIONS

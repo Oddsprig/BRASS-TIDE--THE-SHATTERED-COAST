@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.053: Meaningful LTV trade and delivery decisions. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: trade_intel.gd, trade_ui.gd, interface.gd.
+v0.054: Visible campaign boats and coastal landmarks. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: campaign_fleet_art054.gd, campaign_landmark_art054.gd, chart.gd, main.gd:click_chart.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
