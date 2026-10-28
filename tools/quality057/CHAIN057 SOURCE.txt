@@ -1,0 +1,89 @@
+A057 SOURCE HANDOFF - implementation prepared; native acceptance NOT RUN
+Base: delivered056 9e9d6252cc1f2cf2b6e78a47e41abed2fdb3c7fb.
+Owner A: only game/data/coastal_stories.json; game/scripts/coastal_stories.gd,
+story_ops.gd, story_offers.gd; game/tests/test_coastal_stories.gd; this note.
+
+Stable existing Stories.journal(state) fields remain. Additive detached fields:
+  body: String - current stage's original narrative.
+  objective: {} or {siteId: String, requiredLevel: int} for the active site gate.
+    C may prefer this only for accepted, unfinished middle_sea_chart at Wren's
+    harbor. The clue needs level2 at the rock; the existing paid job still needs3.
+  earnedLeads: Array[Dictionary] from this chain's already earned rec.leads only:
+    {kind: "site", id, name, x:float, y:float, level:int, nextAction:String}.
+  outcome: {} until Middle Sea is complete, then:
+    {right: "openField"|"privateField", title:String, body:String,
+     consequences:Array[{kind,target,amount,reason,applied}],
+     charter:{kind:"salvage_yard", portIds:Array[String], conditions:String}}.
+    portIds are candidate faction-appropriate existing harbors, NOT a quote
+    or permission. B must use existing HomeHarbor.quote at the current harbor
+    before offering its real charter UI. Dock/access/money/staff/materials apply.
+  recoverySites: Array[Dictionary] for chain-earned, already surveyed Shatter
+    or Rust only: {kind:"site",id,name,x,y,level,wreckIds:Array[String],
+    remainingComponents:Dictionary,remainingStores:Dictionary}.
+    Detached finite unclaimed wreck stock only; not free cargo or availability.
+    B must use existing recovery preflight/quote (proximity, hazard, crew, kits,
+    hold room) before offering its real recovery interface.
+
+Stories.earned_leads(state, chain_id) -> Array is also public and detached.
+Journal/earned-lead reads do not sight sites, advance choices or create rewards.
+Accepting Wren via StoryOps.start sights ONLY middle_chart_rock (level>=1).
+Successful share_chart/keep_secret sights Shatter; mark_field sights Rust.
+Existing Campaign.chart_site can sight catalog leads earlier: do not downgrade
+or double-award knowledge. No future-side reveal merely from reading the journal.
+Recovery predates rights; public registration permits finite NPC field work,
+private registration withholds it. Neither confiscates already recovered cargo.
+
+SOURCE-ONLY. No engine, parser, advisory, test, import, export, GPU or helper run.
+Implementation reviewed by reading the full changed source/diff; this is not
+native parsing, assertion execution, rendered UI review or voyage acceptance.
+
+IMPLEMENTED
+- Wren acceptance sights only the actual named rock. Successful chart decisions
+  earn Shatter; mark_field earns Rust. Existing discover_near refuses repeats
+  and downgrades, so Campaign's earlier chart lead is reused without findings.
+- Stories.reconcile_knowledge(state,chain_id) -> void is the explicit mutating
+  knowledge seam. Middle Sea only; StoryOps.ensure restores already earned056
+  bearings using existing rec.flags/stage/leads, and StoryOps.start calls it on
+  contact acceptance. No read API calls it. No new saved backend or event IDs.
+- Current narrative distinguishes rock bearing, surveyed tags, optional Rust
+  and the return choice. Completion uses authoritative storyRights and existing
+  pending/applied consequence records. Charter candidates mirror the actual
+  HomeHarbor restriction: private only faction=raiders; public candidate ports
+  still need docking/access and the full real quote. No freight added.
+- recoverySites reads only actual unclaimed site:<id> wreck components/stores.
+  Empty stock means empty stock, never a second wreck, boat or invented kits.
+- Existing other three chains, low-level choose/available/tick/journal fields,
+  stable choice event IDs, costs, public/private consumers and save format remain.
+
+PREPARED, NOT RUN: game/tests/test_coastal_stories.gd
+Existing assertions retained. One added bounded fixture covers acceptance and
+no premature reveal; detached/no-write journal; level2 versus level3 objectives;
+refused choices; reuse of Campaign-earned Shatter knowledge; Rust earning;
+finite stock visible before rights; both incompatible endings; real applied
+consequences/rights and private charter faction candidates; repeat/coin/cargo/
+full fleet preservation; stage/outcome JSON roundtrips and accepted056 restore.
+Uses the existing explicit level fixtures and one detached branch baseline.
+It is NOT the actual paid/sailing/survey expedition proof (C owns that proof).
+Root should run the existing test_coastal_stories native case with final B/C
+integration; no helper test command, parser or advisory has been executed.
+
+SOURCE-BACKED INTEGRATION LIMITS / READ NOTES
+- Read B's Expedition.preview(c,site_id,return_port_id="",detour_site_id="",
+  target_level=3) note and C's survey_pairing(core,port_id="") note read-only.
+  C has acknowledged objective={siteId,requiredLevel}; full paid level3 remains.
+- Root/B must keep existing Campaign.recover_wreck authority: campaign.gd
+  recover_wreck refuses live wreckHazards owners before physical work. A stock
+  summary is no proof of safe recovery, route viability, funds or reserve safety.
+- Existing tooling_ops.gd offer() is NOT a read-only quote: within450 it calls
+  Salvage.seed_site_wreck with source tooling:<site>. Do not call offer() simply
+  to render this detached journal. Completed text mentions only conditional,
+  existing finite hull-jig/engine-fixture work, not an awarded equipment item.
+- HomeHarbor.quote can be ok=true with affordable=false; UI must require both
+  before presenting usable charter establishment. Candidate IDs grant nothing.
+- No source-backed blocker encountered inside A's implementation. Actual voyage
+  feasibility, hostile refusal, wages/stores, UI and charter use await Root.
+
+COMMIT: A057 Finish Wren's earned bearings and finite claim payoff
+Only the four changed allowed game files plus this note are included;
+story_offers.gd required no change. Exact named SHA is in the final handoff.
+No metadata/maps/tags/package/install/push/cleanup or other checkout writes.

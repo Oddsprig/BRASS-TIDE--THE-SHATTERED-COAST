@@ -11,6 +11,7 @@ static func ensure(c) -> void:
 	if not r.has("buyer"):r.buyer=""
 	for key in ["usedOffers","salvageWork"]:
 		if not r.get(key) is Dictionary:r[key]={}
+	Stories.reconcile_knowledge(c.state,"middle_sea_chart")
 
 static func start(c,id: String) -> Dictionary:
 	var permission: Dictionary=c.Politics.permit(c,"service")
@@ -20,6 +21,7 @@ static func start(c,id: String) -> Dictionary:
 	for offer in Stories.available(c):
 		if offer.id!=id:continue
 		c.state.stories.chains[id]={"stage":offer.stage,"flags":[],"leads":[],"done":false,"startedDay":c.state.day}
+		Stories.reconcile_knowledge(c.state,id)
 		c.log_entry("New coastal lead: %s. %s"%[offer.title,offer.nextAction])
 		return c.ok("Lead entered in the journal. "+offer.nextAction)
 	return c.fail("Meet this contact at the starting harbor to hear the lead.")

@@ -7,6 +7,7 @@
       "approach": "explorer",
       "startPort": "reed_floats",
       "startContact": "contact_sister_wren",
+      "startLead": "middle_chart_rock",
       "summary": "Sister Wren's chart-keepers want the bottle-post rock read properly; what you do with its secret is yours.",
       "stages": [
         {
@@ -25,6 +26,9 @@
               "next": "survey_the_wrecks",
               "setFlags": [
                 "shared_chart"
+              ],
+              "leads": [
+                "shatter_wreck_field"
               ],
               "tradeoff": "The Commune gains the route too; Wren owes you trust, but the wreck field will not stay yours alone.",
               "consequences": [
@@ -49,6 +53,9 @@
               "setFlags": [
                 "kept_secret"
               ],
+              "leads": [
+                "shatter_wreck_field"
+              ],
               "tradeoff": "No one else learns the bearing; no harbor owes you anything for it either.",
               "consequences": []
             }
@@ -58,7 +65,7 @@
         {
           "id": "survey_the_wrecks",
           "title": "Survey the Wreck Field",
-          "nextAction": "Fully survey the Shatter Wreck Field the chart names.",
+          "nextAction": "Chart, then fully survey Shatter Wreck Field. Check its finite recovery before deciding whether to return or investigate the anchorage.",
           "gate": {
             "type": "site",
             "site": "shatter_wreck_field",
@@ -70,14 +77,14 @@
               "text": "Mark the field in your journal",
               "next": "choose_a_claim",
               "setFlags": [],
-              "tradeoff": "Knowledge only; the claim itself is still to make.",
+              "tradeoff": "Earn the Rust Salvage Anchorage bearing. Recovery at surveyed Shatter is already possible if the waters, spare crew, kits and hold allow it; the claim is still to make.",
               "consequences": [],
               "leads": [
                 "rust_salvage_anchorage"
               ]
             }
           ],
-          "body": "The marks line up with the wreck field beyond Shatter. Broken mooring rings and matching survey tags show that Low Lantern found a safer anchorage before the storm caught it. Its crew left the bearing for whoever came next."
+          "body": "The rock's crossed bearings point east to Shatter Wreck Field. Wren's bottle-post marks match the broken moorings there: Low Lantern changed course to search for shelter. A full survey can read the remaining tags and locate what the storm left behind."
         },
         {
           "id": "choose_a_claim",
@@ -94,7 +101,7 @@
               "next": "done",
               "requiresFlag": "shared_chart",
               "setFlags": [],
-              "tradeoff": "Cooperative salvage charter; nearby Commune convoys may recover real materials. You give up exclusive access.",
+              "tradeoff": "Reed standing +4; Reef standing -3. Nearby Commune traders may spend their own kits to lift the field's remaining finite materials. Opens paid cooperative yard access; keeps everything you already recovered.",
               "consequences": [
                 {
                   "kind": "faction",
@@ -116,7 +123,7 @@
               "next": "done",
               "requiresFlag": "kept_secret",
               "setFlags": [],
-              "tradeoff": "Private salvage charter and exclusive authored-field access; Wren loses trust.",
+              "tradeoff": "Wren trust -4. No public Commune recovery; a private salvage yard can be paid for only at a Reef harbor with legal access. Keeps everything you already recovered.",
               "consequences": [
                 {
                   "kind": "contact",
@@ -130,7 +137,7 @@
               ]
             }
           ],
-          "body": "Wren can enter those bearings in the Commune register. That opens a cooperative salvage charter and lets nearby Commune convoys lift finite materials from the marked wrecks. Keeping the field private preserves exclusive access and opens a quiet salvage charter instead."
+          "body": "The survey tags place Low Lantern's last shelter at Rust Salvage Anchorage; its bearing is yours to investigate or leave for another voyage. Wren can now register Shatter's field publicly, or you can keep it private. Recovery was available after your survey: neither choice takes cargo already aboard. A charter grants access to a paid yard, not a free hull, staffed workshop or renewable salvage."
         }
       ]
     },

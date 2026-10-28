@@ -105,6 +105,103 @@ static func _site_level(state: Dictionary, site_id: String) -> int:
 	return -1
 
 
+# Only knowledge changes: no survey levels, findings, cargo or story events.
+static func _sight_lead(state: Dictionary, site_id: String) -> void:
+	var site := Exploration.catalog_site(state, site_id)
+	if not site.is_empty():
+		Exploration.discover_near(state, site, 0.0)
+
+
+# Called on acceptance and by StoryOps when restoring accepted 056 records.
+# Journal reads never call this. Existing flags/stages identify earned bearings;
+# Campaign may already have sighted Shatter while charting the rock.
+static func reconcile_knowledge(state: Dictionary, chain_id: String) -> void:
+	if chain_id != "middle_sea_chart":
+		return
+	var rec := _record(state, chain_id)
+	if rec.is_empty():
+		return
+	var ids: Array = [str(_chain_def(state, chain_id).get("startLead", "middle_chart_rock"))]
+	if (rec.get("flags", []) as Array).has("shared_chart") or (rec.get("flags", []) as Array).has("kept_secret"):
+		ids.append("shatter_wreck_field")
+	if str(rec.get("stage", "")) == "choose_a_claim":
+		ids.append("rust_salvage_anchorage")
+	for id in ids:
+		if not str(id).is_empty() and not (rec["leads"] as Array).has(id):
+			rec["leads"].append(id)
+	for id in rec.get("leads", []):
+		_sight_lead(state, str(id))
+
+
+static func _known_site(state: Dictionary, site_id: String) -> Dictionary:
+	var site := Exploration.catalog_site(state, site_id)
+	var level := int(state.get("exploration", {}).get("sites", {}).get(site_id, {}).get("level", 0))
+	if site.is_empty() or level < Exploration.LEVEL_SIGHTED:
+		return {}
+	return {"kind": "site", "id": site_id, "name": str(site["name"]),
+		"x": float(site["x"]), "y": float(site["y"]), "level": level}
+
+
+# Detached, already earned AND known locations. Never reveals catalog futures.
+static func earned_leads(state: Dictionary, chain_id: String) -> Array:
+	var out: Array = []
+	for id in _record(state, chain_id).get("leads", []):
+		var site := _known_site(state, str(id))
+		if site.is_empty():
+			continue
+		site["nextAction"] = "Site surveyed; consult its existing opportunities and return reserves." if int(site["level"]) >= 3 else "Survey this charted bearing if the voyage's reserves allow." if int(site["level"]) == 2 else "Chart this sighted bearing, then survey it if the voyage's reserves allow."
+		out.append(site)
+	return out
+
+
+# Snapshot actual stock only. A surveyed site is not a recovery permission:
+# Campaign.recover_wreck still checks proximity, hostiles, party and resources.
+static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
+	var out: Array = []
+	if chain_id != "middle_sea_chart":
+		return out
+	for lead in earned_leads(state, chain_id):
+		if not str(lead["id"]) in ["shatter_wreck_field", "rust_salvage_anchorage"] or int(lead["level"]) < 3:
+			continue
+		var row: Dictionary = lead.duplicate(true)
+		row["wreckIds"] = []
+		row["remainingComponents"] = {}
+		row["remainingStores"] = {}
+		for wreck in state.get("wrecks", []):
+			if not (wreck is Dictionary) or str(wreck.get("sourceId", "")) != "site:" + str(row["id"]) or str(wreck.get("status", "")) != "unclaimed":
+				continue
+			row["wreckIds"].append(str(wreck["id"]))
+			for pair in [["components", "remainingComponents"], ["stores", "remainingStores"]]:
+				for good in wreck.get(pair[0], {}):
+					row[pair[1]][good] = _num(row[pair[1]].get(good, 0.0)) + maxf(0.0, _num(wreck[pair[0]][good]))
+		out.append(row)
+	return out
+
+
+static func _outcome(state: Dictionary, chain_id: String) -> Dictionary:
+	if chain_id != "middle_sea_chart" or not bool(_record(state, chain_id).get("done", false)):
+		return {}
+	var rights: Dictionary = state.get("storyRights", {})
+	var right: String = "openField" if bool(rights.get("openField", false)) else "privateField" if bool(rights.get("privateField", false)) else ""
+	if right.is_empty():
+		return {}
+	var is_public: bool = right == "openField"
+	var ports: Array = []
+	for port in state.get("ports", []):
+		if port is Dictionary and (is_public or str(port.get("faction", "")) == "raiders"):
+			ports.append(str(port["id"]))
+	var effects: Array = []
+	for effect in state.get("stories", {}).get("consequences", []):
+		if effect is Dictionary and str(effect.get("id", "")).begins_with("story:middle_sea_chart:"):
+			effects.append({"kind": str(effect["kind"]), "target": str(effect["target"]),
+				"amount": int(effect["amount"]), "reason": str(effect["reason"]), "applied": bool(effect.get("applied", false))})
+	return {"right": right, "title": "Low Lantern's bearing made public" if is_public else "Low Lantern's bearing kept private",
+		"body": ("Wren has registered the survey. Sharing earned Wren's trust (+8) and Reed standing (+3); opening the field earned Reed +4 and Reef -3. Nearby Commune traders may now spend their own kits and spare hands on Shatter's remaining finite materials." if is_public else "The survey stays out of Wren's register. Keeping the field private cost Wren 4 trust; Commune traders receive no public recovery right. The private salvage-yard charter is registered only through Reef harbors.") + " Your recovered cargo remains yours. Low Lantern's shelter bearing at Rust is an optional future voyage; no hull, goods or coins were awarded. Surveyed Shatter's finite hull-jig source and Rust's engine-fixture source use the existing paid machinery recovery, when still unextracted.",
+		"consequences": effects,
+		"charter": {"kind": "salvage_yard", "portIds": ports,
+			"conditions": "Dock with legal service access at a candidate harbor. A surveyed field, available physical materials, setup workers and specialists, paid staff, setup coins and working capital are required; the current home-harbor quote decides availability. The yard stores and works real inventory; it does not generate wreck stock."}}
+
+
 static func _npc_defeated(state: Dictionary, owner_id: String) -> bool:
 	if int(state.get("defeatedOwners",{}).get(owner_id,0))>0:return true
 	for owner in state.get("fleetOwners", []) if state.get("fleetOwners") is Array else []:
@@ -255,6 +352,7 @@ static func choose(core, chain_id: String, choice_id: String) -> Dictionary:
 		# Starting is itself the harbor commitment: the record persists even
 		# when the first stage's gate (elsewhere) is not met yet.
 		stories["chains"][chain_id] = rec
+		reconcile_knowledge(state, chain_id)
 	if bool(rec.get("done", false)):
 		return _fail(core, "That story is finished.")
 	var stage := _stage_def(chain, str(rec["stage"]))
@@ -293,6 +391,8 @@ static func choose(core, chain_id: String, choice_id: String) -> Dictionary:
 	for lead in choice.get("leads", []) if choice.get("leads") is Array else []:
 		if not (rec["leads"] as Array).has(str(lead)):
 			rec["leads"].append(str(lead))
+		if chain_id == "middle_sea_chart":
+			_sight_lead(state, str(lead))
 	var reveal := str(choice.get("reveal", ""))
 	if not reveal.is_empty():
 		var site := Exploration.catalog_site(state, reveal)
@@ -333,10 +433,18 @@ static func journal(state: Dictionary) -> Array:
 		if rec.is_empty():
 			continue
 		var stage := _stage_def(chain, str(rec["stage"]))
+		var gate: Dictionary = stage.get("gate", {})
+		var objective: Dictionary = {}
+		if not bool(rec["done"]) and str(gate.get("type", "")) == "site":
+			objective = {"siteId": str(gate["site"]), "requiredLevel": int(gate.get("level", 1))}
+		var outcome := _outcome(state, str(chain["id"]))
 		out.append({"chainId": str(chain["id"]), "title": str(chain["title"]),
 			"approach": str(chain.get("approach", "")), "stage": str(rec["stage"]),
 			"stageTitle": str(stage.get("title", "")), "done": bool(rec["done"]),
-			"nextAction": "Finished." if bool(rec["done"]) else str(stage.get("nextAction", "")),
+			"nextAction": "Check remaining recovery or a paid salvage-yard charter; budget the Rust detour before sailing." if not outcome.is_empty() else "Finished." if bool(rec["done"]) else str(stage.get("nextAction", "")),
+			"body": str(stage.get("body", "")), "objective": objective,
+			"earnedLeads": earned_leads(state, str(chain["id"])), "outcome": outcome,
+			"recoverySites": _recovery_sites(state, str(chain["id"])),
 			"location": _location(null, state, chain, stage),
 			"flags": (rec["flags"] as Array).duplicate(), "leads": (rec["leads"] as Array).duplicate(),
 			"choices": [] if bool(rec["done"]) else (stage.get("choices", []) as Array).duplicate(true)})
