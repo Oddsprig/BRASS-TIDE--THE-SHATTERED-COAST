@@ -1,0 +1,94 @@
+﻿ORDERS055 SOURCE HANDOFF - 27 October 2026 (PREPARED, NOT RUN)
+Base: ed51ad4f1b22cd5c6133b68537fa2c9e9dd047aa.
+Only naval_orders.gd, naval_lifecycle.gd, naval_ai.gd and this note changed.
+No engine, tests, advisories, imports/exports, GPU, metadata or map jobs run.
+Root must verify the integrated candidate; this is not scope acceptance.
+
+EXACT OBSERVATION API
+NavalAI.observe(state: Dictionary, observer_id: String = "player") -> Array
+  Sample current local chart contacts, update bounded dated memory, return
+  detached records as below. NPC callers use their actual owner ID.
+NavalAI.sightings(state: Dictionary, observer_id: String = "player") -> Array
+  Read detached remembered records, with no current target lookup.
+Storage: state.navalAi.sightingsByObserver[observer_id] = Array of records.
+Fields: ownerId/name/faction/kind (String), x/y (float), day (fractional campaign
+  day), expiresDay, destination (last observed port ID), purpose (String),
+  reason (String), loaded (bool), threat (float), current (bool), ageDays,
+  expired (bool). No exact cargo, purses, crew or equipment records.
+reason is exclusively observation_reason(purpose), a categorical explanation;
+  it never copies owner.reason/order.reason or a private repair/payroll bill.
+threat is the local fleet_performance firepower estimate frozen when sighted.
+Range: NPC 900, player 1800 chart units. Hidden/story contacts excluded.
+Memory: max24 records per actual observer; pursuit expiry0.25 campaign days;
+  dated display history retained1 day; current ages out after1.5 seconds.
+  current is a sampling flag, NEVER sufficient authorization for a hail.
+  The UI must recheck actual living, active, visible local contact for actions.
+
+BOUNDED AT-SEA ORDER PUBLICATION
+NavalAI.order_slice(state) -> Array of up to2 selected owner IDs. Lifecycle
+runs one slice per campaign second, rotates its cursor, drops missed intervals.
+The samplers first scan cheap chart coordinates and read owner/destination/load
+only inside local range. Selectors consume bounded local/remembered snapshots;
+no distant live destination, purse or manifest lookup remains in target choice.
+Loaded means actual positive min(tradeCargo, held tradeGood), not a label.
+Current diplomacy, own armed performance and observed threat bound raid and
+intercept risk. Pirates seek loaded hostile carriers; patrols intercept hostile
+raiders or escort nonhostile loaded carriers. Merchants retain delivery unless
+nearby superior hostile strength warrants withdrawal. Actual damage/able crew,
+working fuel/ammo and food/payroll reserves can require paid home recovery.
+Existing recovery orders, story and player-company intent remain authoritative.
+Existing authored regional corridor planner retains its separate local adapter.
+Orders with a target add targetSighting (detached snapshot) and interceptPoint
+{x,y}. Destination is the last observed port. Brief loss follows only the last
+known point; expiry/local disappearance/nonhostility/unsafe strength drops it.
+No target means retain the useful current sea leg rather than cycle fallback
+ports every decision. Same intent refreshes its observation without log churn.
+Paths use existing Routes.path -> Campaign.cached_path and immutable navigation
+nodes/edges. A moving target requires160 chart units and >=3 seconds before a
+sea-point replan. Restore's port-course rebuild is detected at publication.
+One-shot response slices and old encounter caps stay distinct from daily purse,
+production, payroll and funded replacement advancement. No new thread/backend.
+
+WRECK / REPLACEMENT ORDERING
+NavalLifecycle.reconcile_losses(c) -> bool factors out the existing daily
+Salvage recorder. Lifecycle calls it before and after AI.tick and after mid-day
+encounters. Coordinator arrived/request_replacement/collect_replacements/tick
+also call this same recorder on real Campaign objects via runtime load to avoid
+the Lifecycle -> AI preload cycle. No duplicated salvage backend.
+AI.resolve_encounter stamps unrecorded sunk hulls with navalLossPosition {x,y}
+and navalLossDay at the chart loss, before later movement or home relaunch.
+Stable per-hull npc:ownerId:boatUid source IDs plus wreckRecorded guard repeat
+settlement. The marker is set only after a real wreck exists; an existing
+retired-equipment marker is honored. Equipment transfers remain Salvage's.
+Owner hold is apportioned against live + pending sunk hulls; half of each lost
+share joins that hull's actual wreck, half is lost at sea (the existing policy).
+A refused transfer stays pending; coordinator replacement calls wait until
+recording succeeds. This conservatively delays all coordinator collections for
+that call if any pending loss cannot settle. Daily yard progress still advances.
+The offscreen peer LEAVES attach_new_boat dead-slot removal unchanged; earlier
+proposal to retain dead roster entries is superseded. Early reconciliation is
+the accepted fix. Existing legacy losses without a stamped coordinate use the
+patrol's current coordinate; no claim to reconstruct an already-lost past one.
+Legacy dictionary-only coordinator calls have no Campaign salvage adapter;
+direct NavalReplacements callers retain the old API and must reconcile first.
+Normal JSON career data retains the additive fields; old saves start empty
+observation memory and use the existing ensure/constructor normalization.
+
+MANUAL REVIEW / NEXT ROOT CHECKS (PREPARED, NOT RUN)
+Read full055 scope, naval activity map, relevant033 order/lifecycle fixtures,
+actual order/selectors/target_destination/tick/arrival/route/route-cache/navigation
+paths, owner constructors/upkeep, Salvage recording and peer notes. Manually
+reviewed diffs within the allowlist. No parsing/native/test pass is claimed.
+Root integrate named commits, review the runtime reconciliation boundary, then
+use Test Bridge/shared FIFO for bounded native batches below120s total each.
+Useful first checks: new test_campaign_ai055, peer-updated campaign_fleets033,
+campaign_lifecycle033 and naval_recovery. Review test_naval_ai's older seeded
+unpositioned global-target assumptions: any fixture adjustment must place an
+actual local contact, preserve loaded/hostility/accounting assertions, and must
+not reinstate global pursuit. Test normal JSON restore/local memory expiry.
+Root should verify slice max2/no missed catchup, moved/time path thresholds,
+loss at sea -> paid stock/ready replacement -> original wreck/unique gear/lost
+hold, repeated reconciliation, retained recovery/company/story intent, coins,
+and actual traffic UI with stale contact unable to hail. UI proof peer owns the
+new cases; this owner ran none. Actual054 art, 051 worker, installed054 launcher,
+saves/music/releases remain untouched; strict051 and whole-game targets open.

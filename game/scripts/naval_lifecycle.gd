@@ -8,6 +8,9 @@ const Navigation=preload("res://scripts/navigation.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Salvage=preload("res://scripts/salvage.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const ORDER_INTERVAL: float=1.0
+const REPLAN_SECONDS: float=3.0
+const REPLAN_DISTANCE: float=160.0
 
 static func hire(c,owner: Dictionary,p: Dictionary) -> void:
 	for boat in owner.boats:
@@ -69,6 +72,58 @@ static func holding(c,owner: Dictionary) -> bool:
 	var perf: Dictionary=AI.fleet_performance(owner)
 	return not preload("res://scripts/naval_orders.gd").needs_home_recovery(owner,res,perf).is_empty()
 
+static func reconcile_losses(c) -> bool:
+	# Reuse the existing wreck/cargo policy before any replacement can erase or
+	# relaunch a lost hull. Record first; a refused equipment transfer stays pending.
+	var complete: bool=true
+	for p in c.state.get("patrols",[]):
+		var owner: Dictionary=c.fleet_owner(str(p.id))
+		if owner.is_empty() or AI.is_story_owner(owner):continue
+		var pending: Array=owner.get("boats",[]).filter(func(b):return bool(b.get("sunk",false)) and not bool(b.get("wreckRecorded",false)))
+		var remaining: int=pending.size()
+		var living: int=owner.get("boats",[]).filter(func(b):return not bool(b.get("sunk",false))).size()
+		for boat in pending:
+			var position: Dictionary=boat.get("navalLossPosition",{"x":float(p.x),"y":float(p.y)})
+			var source: String="npc:%s:%s"%[str(owner.id),str(boat.get("uid",boat.get("id","lost")))]
+			var records: Array=Salvage.record_battle(c,{"ships":[boat],"chartPosition":position},source)
+			var wreck_id: String=str(records[0].id) if not records.is_empty() else str(boat.get("equipmentRetiredTo",""))
+			var wreck: Dictionary=Salvage.find_wreck(c.state,wreck_id)
+			if wreck.is_empty():
+				complete=false
+				continue
+			wreck.day=float(boat.get("navalLossDay",c.state.day))
+			var fraction: float=1.0/maxi(1,living+remaining)
+			for good in owner.cargo:
+				var lost: float=maxf(0.0,float(owner.cargo[good]))*fraction
+				owner.cargo[good]=maxf(0.0,float(owner.cargo[good])-lost)
+				if good==owner.get("tradeGood",""):owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-lost)
+				# Preserve the existing half-recoverable hold rule; the other half
+				# is explicitly lost at sea, never carried by a replacement hull.
+				wreck.stores[good]=float(wreck.stores.get(good,0.0))+lost*0.5
+			boat.wreckRecorded=true
+			remaining-=1
+	return complete
+
+static func publish_order(c,p: Dictionary) -> void:
+	var owner: Dictionary=c.fleet_owner(str(p.id))
+	if owner.is_empty() or not bool(p.get("active",false)):return
+	var order: Dictionary=owner.get("order",{})
+	var point: Dictionary=order.get("interceptPoint",{})
+	var old_point: Dictionary=p.get("interceptPoint",{})
+	# Career restore rebuilds the existing port route. Re-publish a saved sea
+	# point from its dated order instead of treating the port endpoint as pursuit.
+	if not point.is_empty() and not old_point.is_empty() and (p.get("course",[]).is_empty() or c.distance(p.course[-1],old_point)>0.01):old_point={}
+	var destination: String=str(order.get("destination",p.to))
+	var now: float=float(c.state.day)*float(c.DAY_SECONDS)
+	if point.is_empty():
+		if not old_point.is_empty() or destination!=str(p.to):route(c,p,destination)
+		return
+	var moved: bool=old_point.is_empty() or c.distance(old_point,point)>=REPLAN_DISTANCE
+	var changed: bool=destination!=str(p.to) or old_point.is_empty() or moved
+	if changed and (old_point.is_empty() or now-float(p.get("lastNavalRouteSecond",-REPLAN_SECONDS))>=REPLAN_SECONDS):
+		route(c,p,destination,point)
+		p.lastNavalRouteSecond=now
+
 static func step(c,dt: float) -> void:
 	if not is_finite(dt) or dt<=0:return
 	c.state.navalEncounterElapsed=float(c.state.get("navalEncounterElapsed",0.0))+dt
@@ -76,8 +131,17 @@ static func step(c,dt: float) -> void:
 		# One scan only, even after a long step; never replay missed intervals.
 		c.state.navalEncounterElapsed=0.0
 		for message in AI.scan_encounters(c):c.log_entry(str(message))
+		reconcile_losses(c)
 		Contacts.witnessed_encounters(c.state)
 		c.RegionalOps.refresh(c)
+	c.state.navalOrderElapsed=float(c.state.get("navalOrderElapsed",0.0))+dt
+	if c.state.navalOrderElapsed>=ORDER_INTERVAL:
+		# One bounded decision slice, never a loop over missed intervals.
+		c.state.navalOrderElapsed=0.0
+		AI.observe(c.state)
+		for id in AI.order_slice(c.state):
+			var patrol: Dictionary=preload("res://scripts/naval_orders.gd").find_patrol(c.state,str(id))
+			if not patrol.is_empty():publish_order(c,patrol)
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
@@ -126,28 +190,15 @@ static func step(c,dt: float) -> void:
 			c.events.append({"kind":"encounter","patrol":p.id})
 
 static func daily(c) -> void:
+	reconcile_losses(c)
 	c.state.yardsAdvancedThisDay=true
 	for message in AI.tick(c,1):c.log_entry(str(message))
+	reconcile_losses(c)
 	Contacts.witnessed_encounters(c.state)
 	c.state.erase("yardsAdvancedThisDay")
 	for p in c.state.patrols:
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
-		var sunk: Array=[]
-		for boat in owner.boats:
-			if boat.sunk and not boat.get("wreckRecorded",false):
-				boat.wreckRecorded=true;sunk.append(boat)
-		if not sunk.is_empty():
-			var source: String="npc:%s:%d:%s"%[owner.id,int(c.state.econDay),str(sunk[0].get("uid","lost"))]
-			var records: Array=Salvage.record_battle(c,{"ships":sunk,"chartPosition":{"x":p.x,"y":p.y}},source)
-			var fraction: float=float(sunk.size())/maxi(1,sunk.size()+owner.boats.filter(func(b):return not b.sunk).size())
-			for good in owner.cargo:
-				var lost: float=float(owner.cargo[good])*fraction
-				owner.cargo[good]-=lost
-				if good==owner.get("tradeGood",""):owner.tradeCargo=maxf(0,float(owner.tradeCargo)-lost)
-				if not records.is_empty():
-					var wreck: Dictionary=Salvage.find_wreck(c.state,records[0].id)
-					wreck.stores[good]=float(wreck.stores.get(good,0))+lost*0.5
 		if owner.get("playerCompany",false):c.CompanyOps.reconcile(c,owner)
 		p.active=bool(owner.active) and owner.boats.any(func(b):return not b.sunk)
 		if not p.active:continue

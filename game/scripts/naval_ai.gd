@@ -14,6 +14,44 @@ const MAX_ENCOUNTERS_PER_DAY: int = NavalCombat.MAX_ENCOUNTERS_PER_DAY
 const MAX_ORDER_LOG: int = NavalOrders.MAX_ORDER_LOG
 const MAX_EVENT_LOG: int = NavalOrders.MAX_EVENT_LOG
 const MAX_SLIPS_PER_PORT: int = NavalReplacements.MAX_SLIPS_PER_PORT
+const MAX_ORDER_DECISIONS: int = 2
+
+
+static func observe(state: Dictionary, observer_id: String = "player") -> Array:
+	return NavalOrders.observe(state, observer_id)
+
+
+static func sightings(state: Dictionary, observer_id: String = "player") -> Array:
+	return NavalOrders.sightings(state, observer_id)
+
+
+static func _reconcile_losses(core) -> bool:
+	# Runtime dependency: Lifecycle preloads this coordinator. Reuse its single
+	# recorder before public replacement entry points can relaunch a wiped fleet.
+	if core is Object and core.has_method("port") and core.has_method("hull"):
+		var lifecycle_api: Script = load("res://scripts/naval_lifecycle.gd")
+		return lifecycle_api.reconcile_losses(core)
+	return true # Legacy data-only callers have no campaign wreck recorder.
+
+
+static func order_slice(state: Dictionary) -> Array:
+	var owners: Array = state.get("fleetOwners", [])
+	if owners.is_empty() or not (state.get("navalAi") is Dictionary):return []
+	var nav_ai: Dictionary = state.navalAi
+	var cursor: int = posmod(int(nav_ai.get("orderCursor", 0)), owners.size())
+	var visited: int = 0
+	var decided: Array = []
+	while visited < owners.size() and decided.size() < MAX_ORDER_DECISIONS:
+		var owner: Dictionary = owners[cursor]
+		cursor = (cursor + 1) % owners.size();visited += 1
+		if NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)) or not bool(owner.get("active", false)):continue
+		var patrol: Dictionary = NavalOrders.find_patrol(state, str(owner.get("id", "")))
+		if patrol.is_empty() or not bool(patrol.get("active", false)) or not str(owner.get("atPort", "")).is_empty():continue
+		if not NavalOrders.RegionalOrders.operation(state, owner).is_empty():continue
+		NavalOrders.refresh_at_sea(state, owner)
+		decided.append(str(owner.get("id", "")))
+	nav_ai.orderCursor = cursor
+	return decided
 
 
 static func is_story_owner(owner: Dictionary) -> bool:
@@ -83,6 +121,14 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		return {"ok": false, "reason": "not_hostile"}
 	var outcome: Dictionary = NavalCombat.resolve_encounter(state, owner_a, owner_b, patrol_a, patrol_b, seed_val)
 	if bool(outcome.get("ok", false)):
+		for side in [[owner_a, patrol_a], [owner_b, patrol_b]]:
+			var owner: Dictionary = side[0]
+			var patrol: Dictionary = side[1]
+			if patrol.is_empty():patrol = NavalOrders.find_patrol(state, str(owner.get("id", "")))
+			for boat in owner.get("boats", []):
+				if patrol.has("x") and patrol.has("y") and bool(boat.get("sunk", false)) and not bool(boat.get("wreckRecorded", false)) and not boat.has("navalLossPosition"):
+					boat.navalLossPosition = {"x": float(patrol.get("x", 0.0)), "y": float(patrol.get("y", 0.0))}
+					boat.navalLossDay = float(state.get("day", state.get("econDay", 1)))
 		# Refusals spend neither a daily slot nor either owner's participation.
 		nav_ai["encounterCount"] = int(nav_ai.get("encounterCount", 0)) + 1
 		busy[id_a] = true
@@ -139,6 +185,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 	var state: Dictionary = NavalOrders.state_of(core)
 	var world: Dictionary = NavalOrders.world_of(core)
 	ensure(state, world)
+	if not _reconcile_losses(core):return []
 	return NavalReplacements.collect_replacements(core, port)
 
 
@@ -146,6 +193,7 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 	var state: Dictionary = NavalOrders.state_of(core)
 	var world: Dictionary = NavalOrders.world_of(core)
 	ensure(state, world)
+	if not _reconcile_losses(core):return {"ok": false, "reason": "pending_wreck_transfer"}
 	return NavalReplacements.request_replacement(core, owner, port, hull_id)
 
 
@@ -198,7 +246,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 		var k: String = str(key_var)
 		if not (nav_ai.get(k) is Array):
 			nav_ai[k] = []
-	var dict_keys: Array = ["spatialGrid", "ordersByOwner"]
+	var dict_keys: Array = ["spatialGrid", "ordersByOwner", "sightingsByObserver"]
 	for key_var in dict_keys:
 		var k: String = str(key_var)
 		if not (nav_ai.get(k) is Dictionary):
@@ -264,6 +312,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 static func arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String:
 	var state: Dictionary = NavalOrders.state_of(core)
 	ensure(state, NavalOrders.world_of(core))
+	var losses_ready: bool = _reconcile_losses(core)
 	Fleets.normalize_owner(owner)
 	var home_id: String = str(owner.get("homePort", ""))
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
@@ -280,7 +329,7 @@ static func arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String:
 		var res: Dictionary = NavalOrders.fleet_reserves(owner)
 		var perf: Dictionary = NavalOrders.fleet_performance(owner)
 		var recovery_reason: String = NavalOrders.needs_home_recovery(owner, res, perf)
-		if not recovery_reason.is_empty() and dock_id == home_id and not dock_port.is_empty():
+		if losses_ready and not recovery_reason.is_empty() and dock_id == home_id and not dock_port.is_empty():
 			if int(res.get("boats", 0)) < int(res.get("targetBoats", 1)):
 				NavalReplacements.request_replacement(core, owner, dock_port)
 
@@ -310,8 +359,9 @@ static func tick(core, days = 1) -> Array:
 		nav_ai["lastDay"] = int(day_state["econDay"])
 
 		# 1. Advance any unstepped NPC slip orders, then collect ready hulls.
+		var losses_ready: bool = _reconcile_losses(core)
 		NavalReplacements.advance_unstepped_npc_orders(state, step_idx, day_steps)
-		messages.append_array(NavalReplacements.collect_replacements(core))
+		if losses_ready:messages.append_array(NavalReplacements.collect_replacements(core))
 
 		# 2. Request funded replacement purchase or commission for under-strength non-story owners at harbor.
 		var owners: Array = state.get("fleetOwners", []) if state.get("fleetOwners") is Array else []
@@ -324,7 +374,7 @@ static func tick(core, days = 1) -> Array:
 			var res: Dictionary = NavalOrders.fleet_reserves(owner)
 			var living: int = int(res.get("boats", 0))
 			var target: int = int(res.get("targetBoats", 1))
-			if living < target and not NavalReplacements.owner_has_queued_replacement(state, str(owner.get("id", ""))):
+			if losses_ready and living < target and not NavalReplacements.owner_has_queued_replacement(state, str(owner.get("id", ""))):
 				var at_id: String = str(owner.get("atPort", ""))
 				if living == 0 and at_id.is_empty():
 					at_id = str(owner.get("homePort", ""))
@@ -344,39 +394,10 @@ static func tick(core, days = 1) -> Array:
 			if not (owner_var is Dictionary):
 				continue
 			var owner: Dictionary = owner_var
-			var cur_ord: Dictionary = owner.get("order", {}) if owner.get("order") is Dictionary else {}
 			if NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)):
 				# ensure() refreshes derived stats without replacing authored/player intent.
 				continue
-			var res_now: Dictionary = NavalOrders.fleet_reserves(owner)
-			var perf_now: Dictionary = NavalOrders.fleet_performance(owner)
-			var rec_why: String = NavalOrders.needs_home_recovery(owner, res_now, perf_now)
-			var cur_purpose: String = str(cur_ord.get("purpose", ""))
-			if not rec_why.is_empty() and not (cur_purpose in ["withdraw", "repair", "resupply", "replace"]):
-				var h_id: String = str(owner.get("homePort", ""))
-				var purp: String = "replace" if int(res_now.get("boats", 0)) < int(res_now.get("targetBoats", 1)) else "withdraw"
-				NavalOrders.build_order(day_state, owner, purp, h_id, rec_why)
-			else:
-				var target_id: String = str(cur_ord.get("targetOwnerId", ""))
-				var target_lost: bool = not target_id.is_empty() and NavalOrders.target_destination(state, NavalOrders.find_owner(state, target_id)).is_empty()
-				var plan: Dictionary = {}
-				var day: int = int(day_state["econDay"])
-				if bool(owner.get("active", false)) and cur_purpose in ["patrol", "raid", "intercept", "escort"] and (int(owner.get("lastNavalRetargetDay", -1)) != day or target_lost):
-					var at_id: String = str(owner.get("atPort", ""))
-					if str(owner.get("kind", "")) == "raider":
-						plan = NavalOrders.select_raider_order(day_state, owner, at_id)
-					elif str(owner.get("kind", "")) == "patrol" and NavalOrders.RegionalOrders.operation(state, owner).is_empty():
-						plan = NavalOrders.select_patrol_order(day_state, owner, at_id)
-					if not plan.is_empty():
-						owner["lastNavalRetargetDay"] = day
-				NavalOrders.build_order(
-					day_state,
-					owner,
-					str(plan.get("purpose", cur_ord.get("purpose", owner.get("kind", "patrol")))),
-					str(plan.get("destination", cur_ord.get("destination", owner.get("homePort", "")))),
-					str(plan.get("reason", cur_ord.get("reason", ""))),
-					str(plan.get("targetOwnerId", target_id))
-				)
+			NavalOrders.refresh_at_sea(day_state, owner)
 			var pat: Dictionary = NavalOrders.find_patrol(state, str(owner.get("id", "")))
 			if not pat.is_empty():
 				pat["active"] = bool(owner.get("active", false)) and not NavalOrders.living_boats(owner).is_empty()
