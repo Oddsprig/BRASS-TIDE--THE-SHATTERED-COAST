@@ -1,9 +1,9 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.058)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.059)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 62033 bytes; extends Node2D
+game/scripts/main.gd: 65118 bytes; extends Node2D
   game/scripts/main.gd:268 poll_battle051()
   game/scripts/main.gd:331 queue_battle_command051()
   game/scripts/main.gd:431 toggle_pause()
@@ -21,7 +21,7 @@ game/scripts/preferences.gd: 1358 bytes; extends RefCounted
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()
   game/scripts/preferences.gd:22 save_options()
-game/scripts/interface.gd: 56048 bytes; extends CanvasLayer
+game/scripts/interface.gd: 56060 bytes; extends CanvasLayer
   game/scripts/interface.gd:82 setup()
   game/scripts/interface.gd:107 create_theme()
   game/scripts/interface.gd:127 box()

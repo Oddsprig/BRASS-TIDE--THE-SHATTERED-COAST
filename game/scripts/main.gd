@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "recovery058051", "gear058051", "prize058051"]
+		screenshots_requested = ["title051", "home051", "freight059051", "fishing059051", "charter059051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1238,6 +1238,28 @@ func _exit_tree():
 	if economy_task >= 0:
 		economy_workers.finish(true)
 
+func _civilian_capture059(baseline: Dictionary, hull_id: String) -> String:
+	# Private layout fixture: finite opening yard shell and capital are declared,
+	# then the normal hull, trained crew and stores transactions are fully paid.
+	# The independent native fixture proves voyages; these paused views claim no
+	# earned income, shipbuilding or paid expedition outcome.
+	ui.close_modal()
+	core.state = baseline.duplicate(true);core.pending_days = 0;core.events = []
+	var dock059: Dictionary = core.current_port()
+	dock059.shipStock[hull_id] = int(dock059.shipStock.get(hull_id, 0)) + 1
+	if not core.Money.move(core.port("shatter_spire"), "governmentPurse", core.state, "coins", 200000, "Declared civilian059 layout capital", core.state.moneyLog):
+		push_error("Civilian059 layout capital refused");return ""
+	var uid059: String = "boat-%d" % int(core.state.nextUid)
+	if not core.buy_boat(hull_id).ok:
+		push_error("Civilian059 layout paid acquisition refused");return ""
+	var surplus059: int = maxi(0, floori(float(core.state.cargo.food)) - 3)
+	if surplus059 > 0 and not core.trade(str(dock059.id), "food", surplus059, "sell").ok:
+		push_error("Civilian059 layout finite food sale refused");return ""
+	if not core.sell_boat("boat-1").ok or not core.resupply_boat(uid059, "voyage").ok:
+		push_error("Civilian059 layout paid preparation refused");return ""
+	core.TradeFlow.observe(core)
+	return uid059
+
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
 	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
@@ -1249,12 +1271,36 @@ func capture_after_start():
 	var recovery_wreck058: String = ""
 	var recovery_carrier058: String = ""
 	var recovery_parts058: Array = []
+	var civilian_baseline059: Dictionary = {}
 	if views.is_empty():views = [mode]
 	for raw in views:
 		var name: String = str(raw)
 		if name.ends_with("051") and not screenshots_requested.is_empty():
 			if name == "home051":
 				new_game();paused = true;chart.center_camera()
+				civilian_baseline059 = core.state.duplicate(true)
+			elif name in ["freight059051", "fishing059051", "charter059051"]:
+				var role059: String = "kelpnet_dory" if name == "fishing059051" else ("gullwing_daysailer" if name == "charter059051" else "fenhopper_lighter")
+				var carrier059: String = _civilian_capture059(civilian_baseline059, role059)
+				if carrier059.is_empty():return
+				if name == "fishing059051":
+					# Only the layout's position is staged at real nearby water. No
+					# catch, survey knowledge, buyer demand or elapsed work is granted.
+					var home059: Dictionary = core.current_port()
+					var water059: bool = false
+					for delta059 in [Vector2(220, 0), Vector2(-220, 0), Vector2(0, 220), Vector2(0, -220)]:
+						var point059: Dictionary = {"x":float(home059.x) + delta059.x, "y":float(home059.y) + delta059.y}
+						if core.Navigation.is_water(core.nav, point059.x, point059.y, maxf(10, float(core.find_boat(carrier059).spec.size))):
+							core.state.position = point059;water059 = true;break
+					if not water059:push_error("Civilian059 layout water missing");return
+					ui.VoyageUI.review_fishing(ui, carrier059, 0.5, int(core.find_boat(carrier059).crew), "brass_haven")
+				else:
+					var offer059: Dictionary = {}
+					var kind059: String = core.VoyageJobs.KIND_CHARTER if name == "charter059051" else core.VoyageJobs.KIND_FREIGHT
+					for job059: Dictionary in core.VoyageJobs.available(core):
+						if str(job059.kind) == kind059:offer059 = job059;break
+					if offer059.is_empty():push_error("Civilian059 layout funded offer missing");return
+					ui.VoyageUI.review_job(ui, offer059, carrier059)
 			elif name == "recovery058051":
 				# Declared isolated UI fixture, not earned combat: damage and retire
 				# one existing NPC, using the real condition and wreck custody APIs.

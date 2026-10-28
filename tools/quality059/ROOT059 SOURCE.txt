@@ -9,3 +9,14 @@ retain ordinary public transaction paths. B owns VoyageUI and its review/header
 close policy. C will exercise pending-day review/decline/header paths on oneMain.
 No engine, timing threshold, economy policy or worker ownership changes here.
 Actual changed exported views will be added/reviewed after A/B/C integration.
+
+ROOT COMBINED SOURCE CHECKPOINT
+A f7c48bcd ->68df2e1; B87835e7 ->370b4d2; C56c271ac ->5c7e94b.
+One combined source advisory: no issues, no engine invoked.
+Existing private --qa-opening051 tour now requests title/home and actual
+freight/fishing/charter059 reviews. Each independent paused layout uses a declared
+finite ready yard shell and200000 coins transferred from an existing treasury;
+normal full hull, trained crew, finite stores and inherited boat/food sales apply.
+Fishing position alone staged at actual nearby water; no catch/demand/work grant.
+No job accepted by capture. Independent native059 fixture proves paid voyages.
+Native/export/visual acceptance remain pending. No051 threshold/cadence change.

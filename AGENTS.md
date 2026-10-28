@@ -1,12 +1,14 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.058 VERIFIED; packaging/install follows checkpoint.
-Final214/0 focused recovery checks plus Windows export/menu/campaign/battle;
-five exported views all Root reviewed. Earlier failed receipts remain recorded.
-One plain icon/two voyages/18MP3s/older builds must be preserved. Next059 civilian
-careers follows the bounded source audit7cb21c7, not a new jobs/economy framework.
-Whole-quality/coast art/strict051targets remain OPEN062.
-Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
+Current scoped build: v0.058 DELIVERED/installed; tag1ae1964.
+Final214/0 recovery checks plus export/3starts87.910s; five actual exported PNGs
+30.890s all Root reviewed. Earlier proof failures/diagnostics remain recorded.
+One icon/two voyages/18MP3s/older057 retained, no game autolaunch or remote push.
+Current059 three BridgeSolMAX source handoffs are integrated: A68df2e1,
+B370b4d2, C5c7e94b plus Root pure caller/declared actual UI capture fixtures.
+Metadata prepared ONCE; bounded component/career/export acceptance is next.
+No059engine yet. Whole-quality/coast art and
+strict051targets remain OPEN062. Read task/CURRENT STATE.txt for live handoffs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;

@@ -1,11 +1,11 @@
-BRASS TIDE v0.058 - SALVAGE, PRIZES AND RECOVERY CHOICES
+BRASS TIDE v0.059 - CIVILIAN CAREERS AND VOYAGE CHOICES
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Compare finite stripping and paid towing against work time, a named navigable return, actual reserves and later harbor service.
-- Keep captured boats visible as owned prizes even when their cargo is empty; inspect hull, crew and retained damaged equipment.
-- Recover selected surviving guns or machinery into an existing boat's physical locker with exact identity and condition, paid work and persistent carrying limits.
-- Disclose the irreversible hull, other fittings and structural-material forfeiture before selected extraction; preserve finite stores and custody.
+- Compare selected civilian work with real fleet costs, carrying limits, return reserves and current client or recipient conditions.
+- Offer bounded funded routes and useful load choices from actual need, stock, people and treasury funds; keep existing escrow and client memories.
+- Estimate fishing against the actual finite ground, assigned hands, time, hold, fuel and rations before starting work.
+- Verify actual fishing, freight, fuel and passenger cycles with conserved purses and cargo, distinguishing capital, operating income and passenger savings.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.058: Salvage, prizes and recovery choices. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: salvage.gd, campaign.gd, expedition.gd, hold_manifest.gd, recovery_flow.gd, recovery_ui.gd, recovery_decisions.gd.
+v0.059: Civilian careers and voyage choices. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: voyage_jobs.gd, contacts.gd, voyage_ui.gd, civilian_choices059.gd, civilian_work.gd, campaign_state_validation.gd, interface.gd, main.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

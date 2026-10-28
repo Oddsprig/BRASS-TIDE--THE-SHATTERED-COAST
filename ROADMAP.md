@@ -1,9 +1,9 @@
-# Current step: v0.058 - Salvage, prizes and recovery choices
+# Current step: v0.059 - Civilian careers and voyage choices
 
-- Compare finite stripping and paid towing against work time, a named navigable return, actual reserves and later harbor service.
-- Keep captured boats visible as owned prizes even when their cargo is empty; inspect hull, crew and retained damaged equipment.
-- Recover selected surviving guns or machinery into an existing boat's physical locker with exact identity and condition, paid work and persistent carrying limits.
-- Disclose the irreversible hull, other fittings and structural-material forfeiture before selected extraction; preserve finite stores and custody.
+- Compare selected civilian work with real fleet costs, carrying limits, return reserves and current client or recipient conditions.
+- Offer bounded funded routes and useful load choices from actual need, stock, people and treasury funds; keep existing escrow and client memories.
+- Estimate fishing against the actual finite ground, assigned hands, time, hold, fuel and rations before starting work.
+- Verify actual fishing, freight, fuel and passenger cycles with conserved purses and cargo, distinguishing capital, operating income and passenger savings.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.
