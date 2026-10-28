@@ -276,11 +276,7 @@ func cargo_weight() -> float:
 	return Expedition.cargo_weight(state)
 
 func expedition_report(route_distance: float=0.0) -> Dictionary:
-	var result: Dictionary=Expedition.report(state,data,route_distance)
-	var sailing: float=route_distance*2.0/maxf(0.01,travel_speed())/DAY_SECONDS
-	result.tripDays=sailing+float(result.reserveDays)
-	result.returnWages=ceili(result.tripDays*result.dailyWages)
-	return result
+	return Expedition.report(state,data,route_distance,travel_speed())
 
 func freight_weight() -> float:
 	var freight = state.get("freight", {})

@@ -1,0 +1,61 @@
+052 LOGISTICS REPORT CONTRACT - baseline 92a5e58 - source only
+
+API: Expedition.report(state, world, route_distance=0.0, actual_speed=-1.0).
+Campaign.expedition_report(distance) passes travel_speed() as the optional last
+argument. Existing three-argument callers and every legacy report key remain.
+All route-dependent numbers/warnings use that same speed. Legacy direct calls
+derive the same damage/towing speed model. tripDays is outward
++ return + reserveDays (2). No chart_course/payment/state changes.
+
+Added flat fields (numbers unless noted): routeDistance, routeSpeed, outwardDays,
+returnDays; foodPerDay, foodAvailable, foodRequired, foodShortfall; fuelRequired,
+fuelShortfall, looseFuel; wageArrears, fundsAfterArrears, wageShortfall;
+payloadAfterFood, allowanceOverload; ownedCount, travelingCount, storedCount,
+inactiveCount, ownedDP, activeDP, battleDP, battleLimit (300), battleReserveCount;
+readyForAllowance (bool), bottleneck (String), boats (Array), supportOptions (Array).
+wageShortfall includes unpaid existing arrears plus projected returnWages versus
+the captain's actual coins; stored sailors and specialist premiums remain paid.
+Food uses Economy.daily_upkeep, including actual fitted food efficiencies.
+payloadAfterFood is hold room after missing food, BEFORE fuel loading; no loose
+fuel is counted as loaded or support credited as shared tank capacity.
+Counts/ownedDP cover the player's nonsunk state.fleet (not company fleets or
+unresolved boarding prizes); inactiveCount includes stored hulls. activeDP is
+all traveling DP, battleDP/battleReserveCount use Deployment.split in actual
+flagship-first order. Ownership and support can exceed the 300 battle limit.
+
+boats entries: uid/name (String), fuelPerDay, loadedFuel, tankCapacity, loadedDays,
+tankDays, fuelRequired, fuelShortfall, tankShortfall. All are per actual traveling
+boat. tankShortfall is requirement beyond the physical tank; existing loaded
+overflow stays real cargo. fuelShortfall sums actual boat shortages, not reserves.
+
+supportOptions entries are owned inactive, nonsunk hull projections ONLY;
+each includes every boats entry field plus storedPort (String), addedCapacity,
+crewToMinimum, additionalDailyWages, additionalFoodPerDay, blockers (Array),
+projectionOnly=true. Added wages/food count only missing minimum crew: existing
+owned sailors are already in dailyWages/foodPerDay. Fuel allowance uses CURRENT
+route speed; activating a slower hull requires recalculating the report. Nothing
+is moved, hired, repaired, fueled or purchased. New purchases use existing real
+Harbor.quote/catalogue or campaign_guidance outside this pure report.
+
+Readiness covers traveling hulls, hold/food, loaded boat fuel and actual purse;
+low repair stock is an advisory warning. It is an allowance preview, not a new
+sailing permission or a promise against encounters. Distances are supplied by
+the existing caller; no new route planner. Tests prepared by proof peer, NOT RUN.
+
+MANUAL REVIEW / ROOT CHECKS PENDING
+Changed only Expedition report helpers, Campaign.expedition_report wrapper and
+this note. Existing cargo_weight/store_overflow/traveling/payment/chart APIs and
+old test assertions remain untouched. No engine imports, native tests, CLI advisories,
+GPU, export, version preparation, tags, installs, cleanup or pushes performed.
+Root should run preserved test_expedition.gd plus the proof peer's bounded 052
+fixture after integrating named math/UI/proof commits. Check actual towing speed
+against all route-dependent fields/warnings, report state/purse immutability,
+loaded-vs-loose fuel, perboat tank limits, stored crew payroll, inactive support
+activation constraints and ownership beyond 300 with capped Deployment.split.
+Known limits: allowance is a steady-speed conservative round trip plus 2 days;
+fuel uses existing campaign movement burn, not speculative combat/repair losses.
+Inactive projections use current speed and gross fitted cargo, and exclude hiring
+advance/repair/activation/storage charges; actual existing actions/quotes price
+these. payloadAfterFood precedes further fuel loading, which changes physical
+overflow/loose cargo via existing actions. Stored/inactive fuel never extends
+traveling range. No native parsing, execution, rendering or quality pass claimed.
