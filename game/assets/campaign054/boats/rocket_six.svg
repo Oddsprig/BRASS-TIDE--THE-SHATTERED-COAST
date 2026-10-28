@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="252" height="231" viewBox="-4.2 -4.8 10.5 9.6">
+<title>Original top-down interchangeable rocket six</title>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c5d3ca"/><stop offset="1" stop-color="#486168"/></linearGradient></defs>
+<defs><linearGradient id="paint" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#697f7d"/><stop offset="1" stop-color="#344d52"/></linearGradient></defs>
+<circle cx="0" cy="0" r="3.2" fill="#22373b" stroke="#ad9a6d" stroke-width="0.25"/>
+<rect x="-2.7" y="-3.15" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,-2.97 L5.2,-2.97" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,-3.05 L5.9,-2.45" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="-2.05" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,-1.87 L5.2,-1.87" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,-1.95 L5.9,-1.35" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="-0.95" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,-0.77 L5.2,-0.77" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,-0.85 L5.9,-0.25" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="0.15" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,0.33 L5.2,0.33" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,0.25 L5.9,0.85" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="1.25" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,1.43 L5.2,1.43" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,1.35 L5.9,1.95" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="2.35" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,2.53 L5.2,2.53" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,2.45 L5.9,3.05" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-1.1" y="-3.5" width="0.6" height="7" rx="0.1" fill="#a88c55" stroke="#233c40" stroke-width="0.13"/>
+</svg>

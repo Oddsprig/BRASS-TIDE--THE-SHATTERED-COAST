@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="67" height="35" viewBox="-0.23 -0.12 0.46 0.24">
+<title>Original top-down stern drive</title>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#a2b1a9"/><stop offset="1" stop-color="#3f595c"/></linearGradient></defs>
+<rect x="-0.205" y="-0.09" width="0.41" height="0.18" rx="0.025" fill="#1c3034" stroke="#13282e" stroke-width="0.012"/>
+<rect x="-0.148" y="-0.08" width="0.32" height="0.16" rx="0.035" fill="url(#metal)" stroke="#142b30" stroke-width="0.012"/>
+<path d="M-0.095,-0.052 L-0.095,0.052" fill="none" stroke="#263f43" stroke-width="0.012" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-0.055,-0.052 L-0.055,0.052" fill="none" stroke="#263f43" stroke-width="0.012" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-0.015,-0.052 L-0.015,0.052" fill="none" stroke="#263f43" stroke-width="0.012" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M0.025,-0.052 L0.025,0.052" fill="none" stroke="#263f43" stroke-width="0.012" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="0.075" y="-0.055" width="0.05" height="0.11" rx="0.008" fill="#bb995f"/>
+<path d="M-0.21,-0.08 L-0.21,0.08" fill="none" stroke="#bfbc98" stroke-width="0.019" stroke-linejoin="round" stroke-linecap="round" />
+</svg>

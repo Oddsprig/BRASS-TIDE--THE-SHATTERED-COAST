@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="252" height="231" viewBox="-4.2 -4.8 10.5 9.6">
+<title>Original top-down interchangeable rocket three</title>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c5d3ca"/><stop offset="1" stop-color="#486168"/></linearGradient></defs>
+<defs><linearGradient id="paint" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#697f7d"/><stop offset="1" stop-color="#344d52"/></linearGradient></defs>
+<circle cx="0" cy="0" r="3.2" fill="#22373b" stroke="#ad9a6d" stroke-width="0.25"/>
+<rect x="-2.7" y="-1.5" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,-1.32 L5.2,-1.32" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,-1.4 L5.9,-0.8" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="-0.4" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,-0.22 L5.2,-0.22" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,-0.3 L5.9,0.3" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-2.7" y="0.7" width="8.6" height="0.8" rx="0.28" fill="url(#paint)" stroke="#1d3439" stroke-width="0.16"/>
+<path d="M-2,0.88 L5.2,0.88" fill="none" stroke="#b6c7b7" stroke-width="0.16" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M5.9,0.8 L5.9,1.4" fill="none" stroke="#162c30" stroke-width="0.35" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-1.1" y="-1.95" width="0.6" height="3.9" rx="0.1" fill="#a88c55" stroke="#233c40" stroke-width="0.13"/>
+</svg>

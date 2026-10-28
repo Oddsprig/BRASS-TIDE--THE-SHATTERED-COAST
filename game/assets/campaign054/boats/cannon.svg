@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="452" height="231" viewBox="-4.2 -4.8 18.8 9.6">
+<title>Original top-down interchangeable cannon</title>
+<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#c5d3ca"/><stop offset="1" stop-color="#486168"/></linearGradient></defs>
+<defs><linearGradient id="paint" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#697f7d"/><stop offset="1" stop-color="#344d52"/></linearGradient></defs>
+<circle cx="0" cy="0" r="3.2" fill="#22373b" stroke="#ad9a6d" stroke-width="0.25"/>
+<rect x="1.2" y="-0.575" width="13" height="1.15" rx="0.15" fill="url(#metal)" stroke="#183036" stroke-width="0.19"/>
+<path d="M14.2,-0.48 L14.2,0.48" fill="none" stroke="#182b30" stroke-width="0.38" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M-3,-2.8 L1.8,-2.8 L3,-1.8 L3,1.8 L1.8,2.8 L-3,2.8 Z" fill="url(#paint)" stroke="#172e34" stroke-width="0.25" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="-1.8" y="-1.6" width="3.2" height="3.2" rx="0.25" fill="#7d918a" stroke="#bdc9bc" stroke-width="0.16"/>
+<circle cx="-0.8" cy="0" r="0.65" fill="#354f54" stroke="#b8a26a" stroke-width="0.18"/>
+</svg>

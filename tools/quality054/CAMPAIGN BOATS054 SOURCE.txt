@@ -1,0 +1,95 @@
+BRASS TIDE 054 CAMPAIGN FLEET ART - SOURCE HANDOFF
+Base: 826a104bcf5745ca9d7c43dd64c03e7d18a72522. Fleet-art-only checkout.
+
+IMPLEMENTED API (27 October 2026; native unrun)
+const FleetArt = preload("res://scripts/campaign_fleet_art054.gd")
+static func layout(boats: Array, center: Vector2, heading: float,
+    zoom: float = 1.0, opts: Dictionary = {}) -> Dictionary
+  boats: actual active/visible boat dictionaries, in desired lead-first order.
+  center: chart screen point. heading: screen radians, +X is bow; chart's
+  top-down world heading can pass through unchanged. zoom: chart scale_factor.
+  Input arrays/dictionaries remain untouched. At most five actual hulls drawn.
+  No fabricated escorts. Empty input yields empty vessels and empty bounds.
+  ORDINARY SCALE0.30 IS NOT OVERVIEW. Root now explicitly requires the starter
+  roughly60-80px at ordinary0.3. Overview requires scale<=0.22. An old caller
+  passing overview=true at0.3 cannot shrink ordinary boats. overview=false
+  can retain ordinary art at lower scale. The chart's broader label/coast
+  overview threshold may remain its own policy; boat art owns this size floor.
+  Ordinary tin_skiff is about68px including drives; large merchants about120px.
+  Overview starter about28-32px. Title size_multiplier1.3 is supported.
+  opts: viewport:Rect2 (optional culling), size_multiplier:float (default 1),
+    max_vessels:int (default 5, clamped 1..5), overview:bool (optional override).
+  Return: vessels:Array[Dictionary], bounds:Rect2, hit_radius:float,
+    roster_count:int, visible_count:int, omitted_count:int, culled_count:int,
+    lod:int (0 close/1 ordinary/2 overview). Counts exclude sunk, hidden,
+    visible=false, mothballed or storedPort boats and unresolved hull IDs.
+  Each vessel: uid:String, hull_id:String, center:Vector2, angle:float,
+    length_px:float, beam_px:float, bounds:Rect2, transform:Transform2D,
+    asset_path:String, mounts:Array, motors:Array. transform maps normalized
+    hull-local XY (bow +X; multiply canonical stations directly) into screen.
+    mounts preserve effective-spec physical x/y, id/kind/size/angle; local_x/y
+    are x/y divided by hull size and are used with transform. No fitted guns
+    are baked into the hull; an explicitly empty weaponMounts yields no guns.
+
+static func draw(canvas, plan: Dictionary, accent: Color = Color("e4c479"),
+    selected: bool = false) -> Dictionary
+  Draw the exact layout plan on CanvasItem (or draw-method recorder).
+  Return drawn_vessels:int, textured_vessels:int, lod:int, bounds:Rect2.
+  Selection uses sparse brackets; no opaque disk or substitute fleet glyph.
+  Real CanvasItem loads cached top-down hull SVGs on Main only. Guns use real
+  effective-spec mounts, drawn separately so refits remain faithful.
+
+static func asset_info(spec: Dictionary) -> Dictionary
+  Return hull_id:String, path:String, local_bounds:Rect2, source_size:Vector2,
+  source_pivot:Vector2 and stations:Array for canonical profile/asset resolution.
+  No texture/GPU creation in layout or asset_info. draw caches resources only.
+
+Integration: use layout for both drawing, label avoidance and click bounds;
+the returned formation bounds include every actually displayed vessel. Cull
+against viewport if supplied. Title may use genuine selected hull dictionaries;
+never use synthetic extra fleet members to decorate campaign counts.
+
+DELIVERED SOURCE
+- game/scripts/campaign_fleet_art054.gd: cache-backed data layout, exact
+  physical lead point/heading, five real hulls, culling/bounds, title scaling,
+  original texture submission and canonical nautical overview/recorder LOD.
+- game/assets/campaign054/boats/: 36 original top-down hull SVGs, seven fitted
+  gun/cannon/rocket/torpedo SVGs, three stern propulsion SVGs and manifest.
+  Gradients, laid planks or steel plate seams, sheer/rails/bolts, socket wells,
+  real cabin/engine footprints, cockpit benches/windows, machinery/stacks,
+  capstans/cleats and profile-specific real cargo/nautical details.
+  Twin-hull transports use the real twin profiles and bridge deck. Tankers,
+  fishing craft, motor yachts and steel warboats keep different materials.
+- tools/quality054/build_campaign_boats.py: reproducible standard-library
+  source generator reading the actual36 world specs/HullProfiles/MountLayout.
+  Signed32 DJB2 variation and real socket/cabin/engine XY agree with chassis.
+  Hull assets carry empty real socket wells; fitted weapons are separate.
+  Its single permitted CPU generation pass completed successfully in about
+  0.20s; reported36 hulls/7 weapons/3 motors. No engine/test/advisory/import,
+  export, GPU, dependency, download, controls or global edits were run.
+
+LIMITS AND ROOT CHECKS PREPARED, NOT RUN
+- Main-only draw creates at most46 lazily cached imported textures. Canonical
+  hull geometry is cached at most36 identities; fitting cache at most128
+  static signatures, retaining no live boat/Damage/full-spec clones. Per
+  formation at most5 hulls,6 real fittings/hull and3 physical drives/hull.
+  Seven cached fallback gun plans; overview simplifies to real hull/deck/
+  cabin/engine geometry and actual gun silhouettes, without an opaque disk.
+- Root's export preset currently includes data JSON and sfx JSON only. Add
+  assets/campaign054/boats/*.json to its include_filter before final export
+  so this new manifest ships. This Root-owned export setting was not edited
+  here. All46 SVGs are normal imported resources under all_resources.
+- First draw requires Root's normal SVG import/export. Recorder fallback and
+  source dimensions cannot establish that the actual textures look good.
+  Native draw reports textured_vessels so missing imported hulls are visible
+  to proof/review; no claim of native parsing or rendered acceptance here.
+- Source arithmetic starter:4.45 local span*15.25=67.86px at scale0.30;
+  Brasswind cargo:5.72*15.25*sqrt(28/14)=123.36px. Title multiplier1.3.
+  Overview0.08..0.22 starter about28.6..29.2px, using actual boat silhouette.
+- Root/proof should run all36 asset resolution, actual weapons:Array fitting
+  mapping, finite mixed/civilian formation/heading/bounds/culling, one-boat
+  state immutability and actual Main/Chart title/campaign integration after
+  the peers' named commits are integrated. None has been executed here.
+- Root must view actual1280x800 ordinary player (~0.3), larger civilian/NPC,
+  overview and title scenes. Artwork quality remains Root's actual-view gate.
+  Planned054 campaign AI remains queued; no broader quality milestone claimed.
