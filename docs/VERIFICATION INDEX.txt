@@ -1,3 +1,14 @@
+CURRENT VERIFICATION - v0.052 DELIVERED, 27 OCTOBER 2026
+Local source tag v0.052:0aa28857a11d0cdc8e245a88f5763dd16496421e.
+Native R2 7eeec97a289748af93491a5af05b941e:403/0 focused assertions, export and menu/campaign/battle startup, whole93.246s including setup/cleanup.
+Actual capture 924d7d99c21a4a51ac928180b44b0cde:five1280x800 title/campaign/voyage/harbor/preparation screens reviewed, whole30.062s. Stills do not certify gameplay/motion/audio/FPS.
+See docs/TEST RESULTS v0.052.md, docs/FLEET PREPARATION v0.052.txt and work/quality-v042-v061/DELIVERED v0.052.json.
+Desktop one Brass Tide shortcut points052; older051, two voyage saves and18MP3 hashes preserved.
+051 worker combat architecture/measured performance retained; strict light-impact/FPS targets OPEN at061.
+Current053 meaningful trade is source implementation only. Earlier chronological records below are historical, not current blockers or counts.
+
+HISTORICAL VERIFICATION RECORDS
+
 BRASS TIDE - v0.031 DEVELOPMENT; CAPACITY AND RELEASE OPEN
 2026-10-26T00:59:25.110Z
 Verified equipment, prediction and live tactical inspection reuse are in source.

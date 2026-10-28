@@ -1,3 +1,6 @@
+052 BOUNDED TEST SETUP - 27 OCTOBER 2026
+The first expedition fixture exceeded12s after adding three full Campaign/navigation/patrol initializations; the log only showed an engine banner. Sharing one already validated seeded baseline with detached state copies preserved all assertions and reduced it to10.109s at8%CPU/two cores. Keep separate realMain career for paid progression. Use short stage markers before heavy setup. Do not raise whole-suite limits or weaken meaningful assertions to hide redundant fixture setup. R1 timeout b2b496ca retained; R2 passed75 expedition +54 actual paid UI +274 first-voyage checks,93.246s whole with export/startups/cleanup.
+
 27 October2026 - native RefCounted PREDELETE cleanup
 R51 jobb63bbeddbc8045ebbae4345e99c11c25:2639 weapon assertions/0failures,
 but132 real script errors made the batch FAIL. Item/owner PREDELETE callbacks
