@@ -1,0 +1,78 @@
+COST SOURCE065 -- source candidate only, 28 October 2026; SolMAX A.
+Authority: Root LOCKED065 CONTRACT.txt read fully, A5e4fe81 + Root ten addenda.
+Base source1dbdc811b6a351447df0d67dd58f8533799de97d; parent note5e4fe81.
+Only new owned files: game/scripts/voyage_costs065.gd,
+game/tests/test_voyage_costs065.gd and this note. No glue/model064/meta edits.
+
+API: static quote(state:Dictionary,world:Dictionary,context064:Dictionary,
+intent:Dictionary,runtime:Dictionary)->Dictionary. Exactly five arguments.
+Runtime={speed:Core.travel_speed(),clearance:Routes.clearance(Core),
+blocker:Core.transition_blocker064()}; quote never constructs Campaign/navigation.
+Input intent has exactly the locked seven fields. Result.intent adds label fields;
+retain the seven-field draft as action authority, not a returned/cached quote.
+Choice requirements (each needed choice must be explicit north/south):
+- Target remote: targetApproachId/backExit/homeEntry always required;
+  outExit only when leaving home; already-remote/ocean outExit=''.
+- Target home: backExit/homeEntry=''; from remote require outExit and
+  targetApproachId; from ocean require targetApproachId and outExit='';
+  already home sets all four crossing/approach choices=''. Sail to harbor.
+Unused choices are refused unless empty. returnPortId is always a real state port.
+
+Routes use only OceanWorld064.prepare/view/plot/advance/transition. Gate-only
+views pass [] rather than full runtime fitted boats. Existing immutable context
+and home/remote graphs are reused, never rebuilt. Start is the actual position.
+Each measured polyline excludes its start; home/local scale1, ocean actual scale10.
+Advance is one detached spatial projection per leg, with tiny finishing roundoff
+slack excluded from quoted time. No campaign ticks/time/accounts are simulated.
+An already reachable exact paired transfer preserves its off-center coordinates;
+otherwise sail to the chosen gate, then validate the real public transfer.
+Remote approach arrival disks and home current-port range retain actual positions.
+Return is separately routed through explicit backExit/homeEntry and safe harbor.
+Home target outward includes the actual harbor sail; its return leg is zero.
+nextAction is only first unresolved outward course/transition, otherwise none.
+Transition regionId is the actual Core argument, not the destination ocean ID.
+No itinerary actor, auto crossing, waiting, loading or transfer was added.
+
+Expedition.report is called once with explicit outwardDays/returnDays,
+shoreDays=idleDays+max(0,floor(day)-econDay), foodCredit=surveyFoodCredit.
+Original allowance fields/boat rows stay intact, including fixed two-day reserve.
+No c.pending_days addition: accrued in-flight payroll is included by day/econDay.
+Economy.daily_upkeep and FleetSupport.premium supply actual owned crew costs.
+expected.byPhase pending/outward/idle/return counts chronological integer crossings;
+prepaid food and prior professional arrears apply once, earliest payable phase.
+Existing base arrears stay outside expected daily payments; funding includes
+allowance.returnWages + allowance.wageArrears + old professional arrears once.
+Expected excludes contingency; timing/endDay excludes both contingency and pending.
+
+HoldManifest.allocate writes only a deep detached snapshot. Report's existing
+capacity, cargo_weight, hull_hold_capacity, locker/overflow rules remain authority.
+stores.boats adds all present nonmothballed burners, even undercrewed/repair-only
+tows omitted by report, plus present nonburning hull inventory. Stored/sunk omitted.
+Expedition._fuel_allowance/_fuel_per_day provide each row's existing burn formula.
+Outward/return/contingency and aggregate loaded/tank deficits remain separate.
+cargoFuel partitions looseFuel, never adds stock; tanker working tanks are not shared.
+Manual transfers/tank limits remain visible; no auto-refueling feasibility promise.
+Maintenance reads EquipmentDamage.inspect_owner's canonical installed snapshot,
+actual breaches/hull/water/fire, kits, policy and priority. Healthy/dry/no-work=0;
+damaged/uninitialized use=null. Existing unsynced engine damage is conditional too.
+Damage's water/residual-motion .006/sec fuel condition is warned, including idle.
+Runtime transition blockers reduce readiness without invalidating spatial courses.
+routeOk is distinct from allowance readiness. Main/Core must recheck actual actions.
+
+Fixture SOURCE ONLY: one actual Campaign.new_game career/context; N/S home/ocean/
+remote routes; exact off-center transfers; scale10; explicit home harbor nextAction;
+unchanged input bytes/String-key outputs; independently replayed public spatial legs;
+pending/in-flight/phase/ceil boundaries and one food credit/premium arrears payment;
+canonical staged tanker/tows/mothball/storage, empty escort vs cargo fuel;
+canonical equipment damage, slower current speed, unknown kits/conditional fuel;
+missing choices/harbor/region/fleet, nonfinite inputs, unsafe route and access expiry.
+Controlled hulls/stores/debt/origins are unit setups, not earned paid voyages.
+Optional specialist debt uses FleetIdentity.ensure on an existing crew berth.
+Fixture body has55s guard; actual runtime/batch duration remains unmeasured.
+No engine/import/tests/advisories, process/desktop/GPU or owner files were touched.
+Only manual source/API/diff review by A; no parsing/assertion/pass claim. Root alone
+integrates, runs required native/actual funded-voyage checks and accepts/rejects.
+Fixed current speed/spec/crew; damage, depletion, new events or transfers change
+actual results. Terminal moving dt, conditional repairs/fuel and other business/
+project/emergency debits are not simulated. Whole-game quality remains OPEN.
+Stop after the named source commit; no further helper fine-tuning without Root.
