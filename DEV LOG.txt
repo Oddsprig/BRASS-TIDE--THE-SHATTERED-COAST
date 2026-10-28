@@ -1,3 +1,7 @@
+28OCT2026 - v0.064 TWO-SCALE OCEAN TRAVEL
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.063 VERIFIED AND PACKAGED: 125/0 focused checks, selected batch 76.721s, TestBridge 50ba1566443441b8922cf92bc82b098e. Source 0c8b83d027a878c4dd94faeabb48a9834008708a.
 
 28OCT2026 - v0.063 BOUNDED FLEET PERFORMANCE CORRECTION

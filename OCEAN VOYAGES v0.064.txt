@@ -1,0 +1,19 @@
+BRASS TIDE v0.064 — OCEAN VOYAGES
+
+Shatter Coast now connects to Glasswind Keys through an open-ocean chart.
+Glasswind Keys is one remote group with three islands. Exploration rewards,
+distant jobs and additional island groups are planned in later versions.
+
+Open Ocean approaches from the chart, or use the approach controls offshore.
+Chart a course to a north or south approach and sail there. Depart into open
+ocean, chart the other group's approach, then enter its coastal chart.
+Use the same steps to return. WASD pans; Home centers; scroll zooms.
+
+Travel uses your actual fuel, provisions, wages and campaign time. Your fleet,
+crew, cargo, equipment and coins stay with you. Saving retains the active chart
+and route. Shatter Coast ports and coastal work remain in Shatter Coast.
+The home economy and independent home fleets continue while you sail elsewhere.
+
+Resolve immediate threats and bring back shore parties and deployed gear before
+departing. Loaded coastal passenger commitments must be completed first.
+No new ocean combat or weather system is introduced in this release.

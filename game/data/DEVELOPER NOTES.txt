@@ -1,22 +1,13 @@
-BRASS TIDE v0.063 - BOUNDED FLEET PERFORMANCE CORRECTION
+BRASS TIDE v0.064 - TWO-SCALE OCEAN TRAVEL
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Avoid a redundant whole-row copy of freshly detached tactical status while preserving nested path and exit isolation.
-- Reuse immutable private equipment-validation results only within the same admitted generation, after current ownership and engine-condition checks.
+- Sail between Shatter Coast and the three-island Glasswind Keys prototype using separate coastal and open-ocean charts.
+- Use paired north and south approaches, physical travel, actual fuel and one continuing campaign clock and economy.
+- Save and reload either chart with the same fleet, accounts, cargo and equipment; coastal interactions respect their actual region.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
-
-PERFORMANCE SCOPE
-This version removes repeated tactical status copies and repeated private
-equipment-validation result allocation. Every current owner/engine check still
-runs; nested display data stays separate from live combat. The rejected v0.062
-phase-threading trial remains removed. Simulation remains30Hz on a data worker,
-role decisions100ms, safe render mode1. No fluid simulation or animated crews.
-Read packaged tests/ and PERFORMANCE v0.063.txt for actual measurements and
-remaining limits. Whole-game art, combat feel, listening and progression remain
-separate quality work; this version makes no Starsector parity claim.
