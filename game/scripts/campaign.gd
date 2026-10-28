@@ -15,6 +15,7 @@ const Contracts = preload("res://scripts/contracts.gd")
 const CoastMigration=preload("res://scripts/coast_migration.gd")
 const SaveValidation = preload("res://scripts/save_validation.gd")
 const Expedition=preload("res://scripts/expedition.gd")
+const VoyageCosts065=preload("res://scripts/voyage_costs065.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
 const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
@@ -394,6 +395,13 @@ func cargo_weight() -> float:
 
 func expedition_report(route_distance: float=0.0) -> Dictionary:
 	return Expedition.report(state,data,route_distance,travel_speed())
+
+## Review never joins economy, normalizes equipment or allocates live holds.
+## The existing speed/status, clearance and transition predicates are reads.
+func voyage_quote065(intent: Dictionary={}) -> Dictionary:
+	var snapshot: Dictionary=state.duplicate(true)
+	var runtime: Dictionary={"speed":travel_speed(),"clearance":Routes.clearance(self),"blocker":transition_blocker064()}
+	return VoyageCosts065.quote(snapshot,data,ocean_context064,intent.duplicate(true),runtime)
 
 func freight_weight() -> float:
 	var freight = state.get("freight", {})
@@ -1141,6 +1149,41 @@ func resupply_boat(uid: String, profile: String = "full") -> Dictionary:
 func use_reserves():
 	Harbor.use_reserves(self)
 	Manifest.allocate(state)
+
+## Working tank stock only. Sealed job freight and loose hold fuel stay separate.
+## Validate the whole exact transfer before publishing either tank value.
+func transfer_fuel065(source_uid: String,target_uid: String,quantity: float) -> Dictionary:
+	if state.is_empty():return fail("Start or restore a voyage before transferring fuel.")
+	if source_uid.is_empty() or target_uid.is_empty() or source_uid==target_uid:return fail("Choose two different owned boats.")
+	if not is_finite(quantity) or quantity<=0.0:return fail("Choose an exact finite positive fuel quantity.")
+	if not state.get("path",[]).is_empty():return fail("Stop the fleet before transferring fuel.")
+	if not travel_lock064.is_empty():return fail(travel_lock064)
+	for event in events:
+		if event.get("kind","") in ["encounter","defeat"]:return fail("Resolve the pending encounter before transferring fuel.")
+	var source: Dictionary={}
+	var target: Dictionary={}
+	var matches: int=0
+	for boat in state.get("fleet",[]):
+		if str(boat.get("uid",""))==source_uid:source=boat;matches+=1
+		elif str(boat.get("uid",""))==target_uid:target=boat;matches+=1
+	if matches!=2 or source.is_empty() or target.is_empty():return fail("Choose two uniquely identified owned boats.")
+	for boat in [source,target]:
+		if boat.get("sunk",false) or not str(boat.get("storedPort","")).is_empty():return fail("Both boats must be afloat and present with the traveling fleet.")
+		var stock=boat.get("fuel")
+		if not (stock is int or stock is float) or not is_finite(float(stock)) or float(stock)<0.0:return fail("The boat's working fuel record is invalid.")
+	var fitted: Dictionary=fitted_spec(target)
+	if fitted.is_empty():return fail("The receiving boat's fitting is invalid.")
+	fitted=FleetIdentity.effective(target,fitted)
+	var capacity_value=fitted.get("fuelCapacity",60.0)
+	if not (capacity_value is int or capacity_value is float) or not is_finite(float(capacity_value)) or float(capacity_value)<0.0:return fail("The receiving boat's fitted tank capacity is invalid.")
+	var source_fuel: float=float(source.fuel)
+	var target_fuel: float=float(target.fuel)
+	var tank_capacity: float=float(capacity_value)
+	if quantity>source_fuel:return fail("The source tank does not contain that much fuel.")
+	if quantity>tank_capacity-target_fuel:return fail("The receiving tank has insufficient fitted room for that exact quantity.")
+	source.fuel=source_fuel-quantity
+	target.fuel=target_fuel+quantity
+	return {"ok":true,"message":"Transferred %.3f working fuel from %s to %s."%[quantity,str(source.get("name",source_uid)),str(target.get("name",target_uid))],"quantity":quantity,"sourceUid":source_uid,"targetUid":target_uid}
 
 func available_contracts() -> Array:
 	return Contracts.available(self)

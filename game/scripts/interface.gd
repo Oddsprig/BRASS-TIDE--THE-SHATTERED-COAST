@@ -26,6 +26,7 @@ const NavalUI=preload("res://scripts/naval_ui.gd")
 const FactionUI=preload("res://scripts/faction_ui.gd")
 const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
+const VoyagePreparation065=preload("res://scripts/voyage_preparation_ui065.gd")
 const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
@@ -55,6 +56,7 @@ var modal_open = false
 var modal_kind = ""
 var workshop_drafts: Dictionary={}
 var workshop_requests: Dictionary={}
+var voyage_intent065: Dictionary={}
 var hud_mode = ""
 var port_tab = "Market"
 var trade_qty = 5
@@ -313,18 +315,18 @@ func build_campaign_hud(size: Vector2):
 		paragraph(left_body,str(view064.get("name","Chart unavailable")),22,GOLD)
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
 		button(left_body,"Coastal approaches",open_ocean064,true,false)
-		button(left_body,"Fleet & crew",open_fleet)
-		button(left_body,"Hold & reserves",open_cargo)
+		button(left_body,"Fleet & crew",open_fleet,false,false)
+		button(left_body,"Hold & reserves",open_cargo,false,false)
 		button(left_body,"More charts & business",open_campaign_tools)
 		eyebrow(right_body,"VOYAGE")
 		paragraph(right_body,"Glasswind Keys and Shatter Coast share one ocean chart. Approach a marked side, stop, then enter its coastal waters.",16)
 		paragraph(right_body,"Harbors and coastal work are available after returning to Shatter Coast.",15,GOLD)
 		var footer064=panel(chrome,Vector2(0,size.y-85),Vector2(size.x,85))
 		var actions064=row(footer064)
-		button(actions064,"Fleet",open_fleet);button(actions064,"Hold",open_cargo);button(actions064,"Contracts",open_contracts)
+		button(actions064,"Fleet",open_fleet,false,false);button(actions064,"Hold",open_cargo,false,false);button(actions064,"Contracts",open_contracts)
 		voyage_label=label(actions064,"",12,MUTED)
 		voyage_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-		dock_button=button(actions064,"Coastal approaches",open_ocean064,true)
+		dock_button=button(actions064,"Coastal approaches",open_ocean064,true,false)
 		return
 	eyebrow(left_body, "YOUR FLOTILLA")
 	flagship_label = label(left_body, "", 26, TEXT, true)
@@ -360,7 +362,7 @@ func build_campaign_hud(size: Vector2):
 	var bottom = panel(chrome, Vector2(0, size.y - 85), Vector2(size.x, 85))
 	var actions = row(bottom)
 	button(actions, "▱  Fleet", open_fleet, false, false)
-	button(actions, "▤  Hold", open_cargo)
+	button(actions, "▤  Hold", open_cargo, false, false)
 	button(actions, "⚑  Contracts", open_contracts)
 	button(actions, "?  Guide", open_guide, false, false)
 	voyage_label = label(actions, "", 12, MUTED)
@@ -373,8 +375,8 @@ func open_campaign_tools():
 	var body=modal("More charts & business")
 	button(body,"Open ocean & coastal approaches",open_ocean064,true,false)
 	if not host.core.home_local064():
-		button(body,"Fleet & crew",open_fleet);button(body,"Hold & reserves",open_cargo)
-		button(body,"Existing contracts",open_contracts);button(body,"Close",close_modal)
+		button(body,"Fleet & crew",open_fleet,false,false);button(body,"Hold & reserves",open_cargo,false,false)
+		button(body,"Existing contracts",open_contracts,false,false);button(body,"Close",close_modal,false,false)
 		return
 	button(body,"Captain's priorities",func():GuidanceUI.open(self),true,false)
 	button(body,"Prepare expedition",func():CampaignUI.expedition(self))
@@ -387,32 +389,11 @@ func open_campaign_tools():
 	button(body,"Close",close_modal,false,false)
 
 func open_ocean064(region_id: String=""):
+	open_voyage_preparation065(region_id)
+
+func open_voyage_preparation065(region_id: String="",approach_id: String="") -> void:
 	if host.mode!="campaign":return
-	modal_kind="ocean064"
-	var view: Dictionary=host.core.world_view064()
-	var body=modal(str(view.get("name","Ocean charts")),"COASTAL APPROACHES",900,720)
-	if view.is_empty():
-		paragraph(body,"Ocean chart definitions are unavailable.",18,RED);return
-	paragraph(body,"Sail to a marked north or south approach. Stop within the approach, then cross between local waters and the ocean.",17)
-	paragraph(body,"The crossing preserves your position, heading, hulls and stores. The voyage clock advances while sailing and waiting.",15,GOLD)
-	var blocked: String=host.core.transition_blocker064()
-	if not blocked.is_empty():paragraph(body,blocked,16,RED)
-	var groups: Array=view.get("regions",[]) if view.layer=="ocean" else [{"regionId":view.regionId,"name":view.name,"approaches":view.approaches}]
-	for group in groups:
-		if not region_id.is_empty() and str(group.regionId)!=region_id:continue
-		rule(body);label(body,str(group.name),25,GOLD,true)
-		for approach in group.get("approaches",[]):
-			var gate: Dictionary=approach
-			var near: bool=host.core.distance(view.position,gate.position)<=float(gate.radius)
-			var line=row(body)
-			paragraph(line,str(gate.name),18,TEXT)
-			button(line,"Chart approach",func():host.sail_approach064(str(gate.regionId),str(gate.id)))
-			var cross=button(line,("Enter coastal waters" if view.layer=="ocean" else "Depart to open ocean"),func():host.enter_approach064(str(gate.regionId),str(gate.id)),true)
-			cross.disabled=not near or not view.path.is_empty() or not blocked.is_empty()
-			if near and not view.path.is_empty():paragraph(body,"Idle engines before crossing.",14,GOLD)
-	if not region_id.is_empty():button(body,"All approaches",func():open_ocean064())
-	button(body,"Show entire chart",func():close_modal();host.chart.territory_view())
-	button(body,"Close",close_modal,false,false)
+	VoyagePreparation065.open(self,region_id,approach_id)
 
 func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
 	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, primary)
@@ -495,7 +476,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -679,6 +660,7 @@ func fleet_view(body: Node, docked: bool):
 	label(body,"%d owned points · 300 deployable per battle · %d / %d owned hulls"%[host.core.fleet_points(),host.core.state.fleet.size(),host.core.MAX_FLEET],17,GOLD)
 	paragraph(body,"Only seaworthy, crewed traveling boats add expedition hold space. Stored and inactive hulls add none; their sailors still need food and wages. Mark a traveling partner as support through Support conversion to keep it outside battle deployment.",14)
 	button(body,"Review expedition limits & support choices",func():CampaignUI.expedition(self))
+	button(body,"Long-voyage preparation",open_voyage_preparation065,false,false)
 	for boat in host.core.state.fleet:
 		var s: Dictionary = boat
 		var uid: String = s.uid
@@ -812,6 +794,7 @@ func open_cargo():
 	paragraph(body, "Trade cargo uses fleet hold space. Ready-use ammunition, fuel and repair supplies stay aboard each boat. Load reserves to transfer cargo into those working stores.")
 	label(body, "%.0f / %.0f cargo space" % [host.core.cargo_weight(), host.core.capacity()], 26, GOLD, true)
 	button(body,"Prepare expedition · limits, payroll & support",func():CampaignUI.expedition(self))
+	button(body,"Long-voyage preparation",open_voyage_preparation065,false,false)
 	for good in host.Economy.GOODS:
 		var line = row(body)
 		label(line, host.Economy.GOODS[good].name, 17).size_flags_horizontal = Control.SIZE_EXPAND_FILL

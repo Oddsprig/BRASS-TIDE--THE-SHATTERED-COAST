@@ -1,0 +1,60 @@
+BRASS TIDE065 - SOL B OWNED SOURCE CANDIDATE, 28 October 2026
+Base1dbdc811b6a351447df0d67dd58f8533799de97d; proposal0a71ee2; locked contract is canonical.
+Scope only: game/scripts/campaign.gd, main.gd, interface.gd;
+game/tests/test_long_voyage065.gd and this source note.
+SOURCE REVIEW ONLY. No engine/import/tests/advisories/process/desktop/GPU work.
+No pass, release, export, performance or whole-game quality claim. Installed064 stays delivered.
+
+CORE
+voyage_quote065(intent={}) supplies state.duplicate(true), existing data/context and
+runtime current travel_speed/Routes.clearance/transition_blocker064 to A.quote.
+Existing runtime read chains inspected: no ensure/normalize/sync/allocation on live state.
+Consumes A's actual quote/nextAction schema; no copied A/C implementation or new ledger.
+transfer_fuel065(source_uid,target_uid,quantity) validates distinct unique own UIDs,
+afloat/unstored presence, finite positive exact quantity, stopped path, travel lock,
+pending encounter/defeat, valid actual source stock and receiving fitted room first.
+Capacity includes FleetIdentity.effective interior conversion over fitted_spec, so
+paid auxiliary tanks retain their real90 capacity. No refit/stock normalization.
+Only the two fuel values change; loose cargo and sealed job.freight remain untouched.
+
+MAIN / INTERFACE
+voyage_action065(intent) explicitly joins economy, requotes, then calls only the fresh
+nextAction course or transition through existing Core safety; saves success.
+Reserve readiness is advisory. A transition blocker does not block a safe ordinary course.
+No automatic following transition, buying, refueling, waiting or itinerary executor.
+Main.transfer_fuel065 syncs, invokes Core's current validation, saves success, refreshes.
+Main.load_reserves065 is the explicit existing cargo-to-working-stores action; it
+joins/saves/refreshes and explains that food stays in the hold.
+Interface.VoyagePreparation065 preloads C's voyage_preparation_ui065.gd;
+open_voyage_preparation065(region_id='',approach_id='') delegates its static open.
+Existing open_ocean064 delegates the same panel. voyage_intent065 is UI-only and
+clears on successful new/load; state/save schema and metadata are unchanged.
+New preparation entry/Fleet/Hold links and shared prep/cargo Close use sync=false.
+C must use an existing shared modal kind ocean064 or voyage_preparation065 for pure X.
+
+EXISTING PRIVATE CAPTURE
+Original9 opening051 views retained; append preparation065051 and transfer065051.
+Declared paused layout: seeded career65065,40000 moved from existing Shatter Spire
+treasury, paid second Tinwake hull/crew, auxiliary tank conversion and finite stores.
+First view starts at top; second scrolls the same preparation panel to transfer controls.
+This controlled composition does not claim earned voyage or transfer success.
+
+SOURCE FIXTURE FOR ROOT
+test_long_voyage065 uses one real Main/world/nav and private user-data save directory.
+55s whole-body watchdog includes initialization/joins/cleanup; no runner/framework edits.
+Declared initial morale100 stabilizes fully funded speed. Real paid quartermaster adds
+base crew and premiums. Dry healthy initial boats retain ordinary equipment and stores.
+Actual idle day creates unjoined payroll; quote/open/Refresh/header Close/Fleet/Hold
+reviews compare exact state/world/events/pending bytes before any explicit settlement.
+Exact transfers use binary fractions; refusal cases include invalid quantity/identity,
+source stock/tank room, stored/sunk boats, moving, live lock and pending encounter/defeat.
+Detached damage uses actual EquipmentCondition damage/EquipmentRecords publish; tow
+variant uses an existing owned hull. Pursuit branch checks course versus crossing safety.
+Actual explicit next actions sail home north -> ocean -> Glasswind south, wait declared
+.25day, choose home destination and return to named Brass Haven. Requotes strip only
+unused crossing fields as required by A, retaining explicit selected sides.
+Compare moving seconds, phase outward time, boundary payroll/rations/premiums/captain
+debits and per-hull burn against initial quote; conservative reserve remains separate.
+Healthy kits/equipment/UIDs and all-world coins stay exact. Terminal travel-time excess
+is bounded by .001second per course from the declared minimum terminal step.
+Any real encounter/loss interrupts and fails this proof. All native evidence remains Root's work.

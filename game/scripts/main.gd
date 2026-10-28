@@ -188,7 +188,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051", "ocean064051", "glasswind064051", "home-return064051"]
+		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051", "ocean064051", "glasswind064051", "home-return064051", "preparation065051", "transfer065051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -462,6 +462,7 @@ func new_game(seed_override: int = 0):
 		ui.toast(str(begun.get("message", "New career was refused. The previous voyage is unchanged.")), true)
 		return
 	ui.workshop_drafts.clear()
+	ui.voyage_intent065.clear()
 	mode = "campaign"
 	quick_mode = false
 	paused = false
@@ -540,6 +541,51 @@ func enter_approach064(region_id: String,approach_id: String):
 		selected_port="";selected_site=""
 		ui.close_modal();chart.center_camera();ui.build_hud();save_game(false)
 	respond(result)
+
+## One explicit action from a fresh quote; no saved itinerary executor.
+## Reserve shortages are advice. Core retains the real course/crossing guards.
+func voyage_action065(intent: Dictionary) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before preparing a course.")
+	sync_economy()
+	var quote: Dictionary=core.voyage_quote065(intent)
+	var result: Dictionary
+	var action: Dictionary=quote.get("nextAction",{})
+	var kind: String=str(action.get("kind","none"))
+	if not quote.get("routeOk",false):result=core.fail(str(quote.get("message","Choose a reachable voyage route.")))
+	elif kind=="course":result=core.chart_course(action.get("target",{}),str(action.get("destination","")))
+	elif kind=="transition":result=core.transition064(str(action.get("regionId","")),str(action.get("approachId","")))
+	else:result=core.fail("The selected destination is reached. Choose a home destination to plan your return.")
+	if result.get("ok",false):
+		selected_port=str(action.get("destination","")) if kind=="course" and not str(action.get("destination","")).begins_with("approach:") else ""
+		selected_site=""
+		ui.close_modal()
+		if kind=="transition":chart.center_camera();ui.build_hud()
+		save_game(false)
+	else:ui.open_voyage_preparation065()
+	respond(result)
+	return result
+
+func transfer_fuel065(source_uid: String,target_uid: String,quantity: float) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before transferring fuel.")
+	sync_economy()
+	var result: Dictionary=core.transfer_fuel065(source_uid,target_uid,quantity)
+	if result.get("ok",false):save_game(false)
+	ui.open_voyage_preparation065()
+	respond(result)
+	return result
+
+func load_reserves065() -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before loading reserves.")
+	sync_economy()
+	if not core.travel_lock064.is_empty():return core.fail(core.travel_lock064)
+	for event in core.events:
+		if event.get("kind","") in ["encounter","defeat"]:return core.fail("Resolve the pending encounter before loading reserves.")
+	core.use_reserves()
+	save_game(false)
+	ui.open_voyage_preparation065()
+	var result: Dictionary=core.ok("Loaded available hold reserves into working ammunition, fuel and repair kits. Food stays in the hold.")
+	respond(result)
+	return result
 
 func respond(result: Dictionary):
 	ui.toast(str(result.get("message", "Done.")), not result.get("ok", false))
@@ -1289,6 +1335,7 @@ func load_game():
 	var result = core.restore(parsed)
 	if result.ok:
 		ui.workshop_drafts.clear()
+		ui.voyage_intent065.clear()
 		mode = "campaign"
 		quick_mode = false
 		paused = false
@@ -1376,6 +1423,24 @@ func _capture_cross064(region_id: String,approach_id: String) -> bool:
 	selected_port="";selected_site="";ui.close_modal();ui.build_hud();chart.center_camera();chart.territory_view()
 	return true
 
+func _voyage_capture065() -> bool:
+	# Controlled paused layout only: one seeded career and declared capital
+	# moved from an existing treasury, then real hull/crew/conversion/store bills.
+	# This composition is not an earned voyage or a successful transfer claim.
+	new_game(65065);paused=true
+	if not core.Money.move(core.port("shatter_spire"),"governmentPurse",core.state,"coins",40000,"Declared voyage065 layout capital",core.state.moneyLog):
+		push_error("Voyage065 layout capital refused");return false
+	var source_uid: String=str(core.state.fleet[0].uid)
+	var target_uid: String="boat-%d"%int(core.state.nextUid)
+	if not core.buy_boat("tin_skiff").get("ok",false) or not core.FleetIdentity.install_conversion(core,source_uid,"auxiliary_tanks").get("ok",false):
+		push_error("Voyage065 paid layout hull/conversion refused");return false
+	if not core.resupply_boat(source_uid,"full").get("ok",false) or not core.resupply_boat(target_uid,"voyage").get("ok",false):
+		push_error("Voyage065 paid layout stores refused");return false
+	ui.voyage_intent065={"targetRegionId":"glasswind_keys","targetApproachId":"south","outExit":"north","backExit":"south","homeEntry":"north","returnPortId":"brass_haven","idleDays":0.25}
+	ui.open_voyage_preparation065()
+	print("QA voyage065 controlled paused preparation/transfer layout; paid travel and conservation are separate native checks")
+	return true
+
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
 	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
@@ -1401,6 +1466,14 @@ func capture_after_start():
 			elif name == "home-return064051":
 				if not _capture_cross064("glasswind_keys","south"):return
 				if not _capture_sail064("shatter_coast","north") or not _capture_cross064("shatter_coast","north"):return
+			elif name == "preparation065051":
+				if not _voyage_capture065():return
+				await get_tree().process_frame
+				for scroll065 in ui.overlay.find_children("*","ScrollContainer",true,false):scroll065.scroll_vertical=0
+			elif name == "transfer065051":
+				ui.open_voyage_preparation065()
+				await get_tree().process_frame
+				for scroll065 in ui.overlay.find_children("*","ScrollContainer",true,false):scroll065.scroll_vertical=100000
 			elif name == "home051":
 				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)
