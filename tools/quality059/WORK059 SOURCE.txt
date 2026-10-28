@@ -1,0 +1,140 @@
+BRASS TIDE 0.059 - C SOURCE CONTRACT / PREPARED PROOF
+Base: delivered058 1ae1964b04530a2db78802adc42009e401993054.
+Owned: scripts/civilian_work.gd, tests/test_civilian_careers059.gd, this note.
+SOURCE ONLY. Root alone runs every native/parser/advisory/import/GPU test.
+
+B API: CivilianWork.fishing_quote(c, boat_uid:String,
+                                days:float=1.0, crew:int=0)->Dictionary
+c is the existing Campaign/core or detached compatible read view; no constructor,
+ensure, tick, log, transaction, date change, or state mutation. crew=0 uses the
+boat's actual living crew. Existing start/tick/cancel signatures stay unchanged.
+Always returns ok:bool, message:String, boatUid:String, requestedDays:float,
+crew:int, day:float, calendarDay:int, siteId:String, quotaDaily:float,
+quotaRemaining:float, quotaInHorizon:float, catchRate:float (lots/day),
+catchMax:float (upper bound, NEVER a grant/guarantee), sellableLots:int,
+workingDays:float, timeToFillDays:float (-1 when not attainable in horizon),
+holdFree:float, fleetHoldFree:float, fuelLoaded:float, foodLoaded:float,
+fuelPerDay:float, foodPerDay:float, fuelNeeded:float, foodNeeded:float,
+limitingCause:String and limits:Array[String].
+limits codes: duration, quota, hold, fuel, food; refusal uses ineligible,
+duration, crew, location, assignment, fuel, food, hold, quota or sites.
+ok means setting gear is currently eligible, not a promised sale or profit.
+days is the elapsed forecast horizon (0<days<=7); actual assignment earns only
+working time and may remain set across quota pauses. Calendar crossings replenish
+the same finite cell quota; other boats/market/weather are not predicted.
+FuelNeeded/foodNeeded cover forecast working time only, loaded stores remain
+separate. Daily payroll, outward/return fuel/food and contingency belong to B's
+existing Expedition estimate. No price/buyer/profit is invented here.
+Initial physical room includes existing stores, cargo, sealed freight, passengers
+and 058 lockers through existing Transport/Manifest carrying contracts.
+All quantities describe the selected boat/current ground; crew cannot multiply
+one ground's quota. holdFree/fleetHoldFree are INITIAL room. Catch bounds include
+the mass of rations actually eaten and only fuel above its real tank capacity
+being burned out of hold overflow. Shared food might occupy another hull, so
+this remains an upper bound, not a guaranteed fill. At most eight date segments
+for a seven-day horizon; no perframe work/world rebuild/market quote.
+
+Actual start_fishing and tick now use the SAME local _fishing_hold calculation:
+Transport.available_hold minus Expedition.locker_weight and existing overflow
+captive berths, bounded separately by whole-fleet free room. No edits/dependency
+needed in Transport, Manifest, Expedition or any outside-allowlist source.
+Production rates, SITE_QUOTA40, cells500, MAX_SITES128, earned-time ledger,
+surveyFoodCredit, saved schema36 and cancellation callers remain unchanged.
+
+New test entry: res://tests/test_civilian_careers059.gd (SceneTree).
+One Main/world/nav, seed59059, one full parsed SaveValidation baseline; independent
+deep-copied branch starts reuse the existing Campaign/navigation/warmed paths.
+Every actual end-of-work reload uses Campaign.restore(JSON.parse_string(...)).
+The separate historical test_civilian_voyage.gd is untouched.
+
+OPENING FIXTURE / PAID CAPITAL ACQUISITION
+Declared finite synthetic opening yard stock: one ready shell each kelpnet_dory,
+fenhopper_lighter, seepoil_tanker and gullwing_daysailer, before work/branches.
+These hulls are explicitly NOT claimed to be player-built or earned progression.
+200000 opening coins transfer out of the existing Shatter Spire government purse
+through Money.move; no coinSupply change. Each branch buys its one shell through
+Campaign.buy_boat at full Harbor.quote readyPrice plus real qualified sailor
+advances. Exact trained subset/workforce debits and source shipStock decrement
+are required. Existing surplus starter food is sold to the real source buyer;
+the inherited skiff is sold through Campaign.sell_boat (capital recovery, not
+operating income), returning actual crew/savings/stores normally. Voyage stores
+are paid through Campaign.resupply_boat. No equipment birth, sailors, working
+stores, buyer cash, demand, reward or completion flag is injected after start.
+No NPC active/position/atPort/order/fuel change is made by the earning branches.
+
+PREPARED BOUNDED PHASES, UNRUN
+1 Main/world/nav + baseline; 2 fish/return/normal sale, pure quote/refusal,
+date/crew/quota/food/fuel/selected-locker checks and actual B review UI dismissal;
+3 freight actual funded source load/escrow, sail/deliver/return;
+4 real charter people/food/savings/fee/sail/discharge/return;
+5 actual eligible fuel recipient load/sail/receipt/return, or explicit unpaid
+absence/departure/refund failure receipt. One extra real larger freight option
+must exceed the Daysailer's total real hold, with no large-boat profit promise.
+One branch's absence/refusal is NEVER a positive cycle or a waived assertion.
+
+All work/sailing uses Campaign.step/chart_course. Main.sync_economy joins the
+ordinary copied-data worker at actual calendar boundaries. Each short branch
+includes at least one actual paid calendar day, with 100coins/sailor-day and any
+real specialist premium/arrears, before a positive margin can pass. Fishing's UI
+purity case creates its pending day through actual Campaign.step. Review/decline/
+header-X must preserve full state/world/events/pending task, not call sync.
+Root outside-allowlist caller fix2399ee9 was read; not edited/cherry-picked here.
+
+Detached CarryView derives the existing CareerCosts.QuoteView only for pure
+quota/store variants and the selected physical-carrying regression. It transfers
+one EXISTING crewed NPC boat inside that detached case and moves an EXISTING
+exact engine UID into its own locker; no new UID/people. This gives the fleet
+spare room while the selected fisher is full. Quote/start must refuse; elapsed
+tick on .4 spare room may produce only .4 plus ACTUAL consumed ration mass.
+These synthetic edge variants are not save/progression/profit voyages.
+
+Receipts: opening capital/crew advance/paid stores/recovered hull separate from
+operating start; exact sponsor invoice/escrow/source stock; sailing/return days,
+gross actual fee/sale, actual captain cash outflow, paid crew-days/premiums,
+fuel/rations/kits/ammunition consumed valued at higher actual origin/return buy
+prices; net after all those costs; reserve contingency reported but not deducted
+as spent. Charter savings are custody and provisions invoice is sponsor cost.
+Actual UIDs, coins, population, cargo/berths/tanks, once payment/refund and active
+parsed-save terms plus final Campaign.restore are asserted. Positive net must
+contribute to an actual Harbor.quote next hull; no complete-career claim.
+
+Budget TARGET whole fixture<40s at Root's existing8%CPU/two cores, unmeasured.
+Each sailing leg <=120 Campaign.step(1s); fishing4 elapsed quarter-day steps;
+fuel availability <=3 ordinary .05day observations; no soak/broad old matrix.
+Wall guard refuses further work at38s (cleanup reserve); final40s is an assertion,
+not measured evidence. Logs print phase seconds/checks/steps/payrollDays and one
+compact receipt per branch. GAME_TEST_ARTIFACTS/civilian-careers059.json retains
+the same data, status and blockers. Root selects the batch below120s including
+setup/import/export/cleanup; C cannot attest timing without Root's receipt.
+
+EXACT INTEGRATION DEPENDENCIES
+A Jobs.recipient_status and fuel_demand(owner,full_tanks=false), optional
+fuelPolicy=operating_tanks, larger demand-driven options, preserved old defaults.
+B Choices.job_review/fishing_review and VoyageUI.review_job/review_fishing,
+detached budget/quote dictionaries, actual decline/return/header callbacks.
+Their files are read from sibling source checkouts only, never copied/edited.
+Final named A/B source SHAs are Root's integration responsibility.
+B reviewed named commit87835e7c92c20fca2f7ddfe49a3cb4ecf5a77bcf.
+Root authorized A's narrow campaign_state_validation.gd existing-regional-goods
+sealed-freight gate fix. C does not edit that file. The freight cycle prefers an
+actual funded regional-good offer if naturally available; no stock injection.
+Before delivery it calls actual Campaign.restore on parsed ACTIVE sealed freight
+and requires exact parsed job/cargoManifest/physical moduleCondition equality.
+No extra Main/world/navigation instance is created by this reload coverage.
+
+PRECISE EARLY FUEL LIMIT (SOURCE, NOT A MEASURED FAILURE)
+058 Fleets.dock fills min3 drums (fleet_economy.gd243-255), while new_game sets
+all patrol owner.atPort empty after initial dock (campaign.gd173-188). 058 offers
+require a present recipient and floor>=1 unpromised three-drum gap. Natural
+arrivals may immediately sail, clearing atPort (naval_lifecycle.gd145-186).
+Root forwarded this source concern to A. New059 operating_tanks is transparently
+bounded by REAL empty tanks less cargo/promises and preserves old active terms.
+Fixture must still find an actual present eligible owner; full tanks do not
+reserve a moving fleet. It prints actual atPort/old and new need/coins early and
+fails the earning gate if none; no depletion/freeze or fake positive result.
+
+No engines/tests/parsers/preload advisories/import/export/GPU/CUA/input/focus,
+helpers, Root edits, push, cleanup, metadata/maps/developer-notes/install ran.
+Manual source/API/diff review only; git diff --check is whitespace review.
+No code acceptance, profit, four-career success or measured timing is claimed.
+060+/coast art/strict051/whole-game quality stay OPEN062.
