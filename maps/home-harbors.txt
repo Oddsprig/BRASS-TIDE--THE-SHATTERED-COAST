@@ -1,21 +1,21 @@
-BRASS TIDE — HOME-HARBORS MAP (generated; v0.060)
+BRASS TIDE — HOME-HARBORS MAP (generated; v0.061)
 
 Physical local materials/staff/coins -> paid shore stock, business payroll and earned-only dividends, private/public berths and arrears.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/home_harbor.gd: 30255 bytes; extends RefCounted
+game/scripts/home_harbor.gd: 38984 bytes; extends RefCounted
   game/scripts/home_harbor.gd:140 ensure()
   game/scripts/home_harbor.gd:188 list_businesses()
-  game/scripts/home_harbor.gd:202 quote()
-  game/scripts/home_harbor.gd:294 establish()
-  game/scripts/home_harbor.gd:345 transfer_goods()
-  game/scripts/home_harbor.gd:396 capital()
-  game/scripts/home_harbor.gd:420 dividend()
-  game/scripts/home_harbor.gd:511 tick()
+  game/scripts/home_harbor.gd:201 validate()
+  game/scripts/home_harbor.gd:240 business_view()
+  game/scripts/home_harbor.gd:310 quote()
+  game/scripts/home_harbor.gd:402 establish()
+  game/scripts/home_harbor.gd:454 transfer_goods()
+  game/scripts/home_harbor.gd:505 capital()
+  game/scripts/home_harbor.gd:529 dividend()
+  game/scripts/home_harbor.gd:620 tick()
   game/scripts/home_harbor.gd:41 _is_num()
   game/scripts/home_harbor.gd:45 _num()
-  game/scripts/home_harbor.gd:49 _round2()
-  game/scripts/home_harbor.gd:53 _fail()
 game/scripts/home_ops.gd: 3512 bytes; extends RefCounted
   game/scripts/home_ops.gd:7 slots()
   game/scripts/home_ops.gd:10 ensure()
@@ -25,9 +25,11 @@ game/scripts/home_ops.gd: 3512 bytes; extends RefCounted
   game/scripts/home_ops.gd:32 can_store()
   game/scripts/home_ops.gd:39 pay_arrears()
   game/scripts/home_ops.gd:51 daily()
-game/scripts/home_ui.gd: 4330 bytes; extends RefCounted
-  game/scripts/home_ui.gd:3 open()
-  game/scripts/home_ui.gd:55 act()
+game/scripts/home_ui.gd: 7275 bytes; extends RefCounted
+  game/scripts/home_ui.gd:11 review()
+  game/scripts/home_ui.gd:25 book()
+  game/scripts/home_ui.gd:33 open()
+  game/scripts/home_ui.gd:85 act()
 
 TESTS (game/tests/*.gd)
 test_home_harbor, test_home_voyage

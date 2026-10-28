@@ -1,3 +1,7 @@
+28OCT2026 - v0.061 A REGION THAT CHANGES AND A REASON TO STAY
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.060 VERIFIED AND PACKAGED: 119/0 focused checks, selected batch 79.062s, TestBridge fee3f699a576406c870f99a6f1f55c24. Source f760a933ce51fa8ce16687b4faa03766a62417c5.
 
 28OCT2026 - v0.060 CAPTAINS, CREWS AND FLEET ATTACHMENT

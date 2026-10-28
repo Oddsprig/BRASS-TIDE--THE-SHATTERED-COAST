@@ -1,11 +1,11 @@
-BRASS TIDE v0.060 - CAPTAINS, CREWS AND FLEET ATTACHMENT
+BRASS TIDE v0.061 - A REGION THAT CHANGES AND A REASON TO STAY
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Keep a boat's chosen doctrine and role between battles while preserving live player orders and actual physical constraints.
-- Explain paid specialists, their working effects, able and wounded crew, wages, training and morale in one selected-boat view.
-- Credit actual battle participants and retain meaningful service, losses and recovery history by the boat's physical identity.
-- Verify paid comparable builds through actual worker-controlled movement, firing and survival decisions, with exact return and save accounting.
+- Continue or withdraw an earned corridor watch using the same paid patrol, funding identity and actual operating reserves.
+- Add distinct sold and donated harbor deliveries once, and count actual fully paid working days rather than wage totals.
+- Connect selected regional goals to dated traffic, visited inventories, legal trade opportunities and real local business conditions.
+- Keep regional and home-business reviews free of payroll settlement; explicit actions refresh and revalidate current accounts.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

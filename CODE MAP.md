@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.060: Captains, crews and fleet attachment. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: fleet_identity.gd, fleet_support.gd, campaign_state_validation.gd, tactical_runtime.gd, campaign.gd, battle.gd, salvage.gd, identity_ui.gd, economic_ui.gd, interface.gd, main.gd.
+v0.061: A region that changes and a reason to stay. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: regional_campaigns.gd, regional_orders.gd, regional_ops.gd, campaign_state_validation.gd, regional_rules.gd, home_harbor.gd, home_ops.gd, regional_ui.gd, home_ui.gd, interface.gd, main.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

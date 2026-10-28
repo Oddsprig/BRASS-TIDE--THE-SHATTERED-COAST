@@ -1,9 +1,9 @@
-# Current step: v0.060 - Captains, crews and fleet attachment
+# Current step: v0.061 - A region that changes and a reason to stay
 
-- Keep a boat's chosen doctrine and role between battles while preserving live player orders and actual physical constraints.
-- Explain paid specialists, their working effects, able and wounded crew, wages, training and morale in one selected-boat view.
-- Credit actual battle participants and retain meaningful service, losses and recovery history by the boat's physical identity.
-- Verify paid comparable builds through actual worker-controlled movement, firing and survival decisions, with exact return and save accounting.
+- Continue or withdraw an earned corridor watch using the same paid patrol, funding identity and actual operating reserves.
+- Add distinct sold and donated harbor deliveries once, and count actual fully paid working days rather than wage totals.
+- Connect selected regional goals to dated traffic, visited inventories, legal trade opportunities and real local business conditions.
+- Keep regional and home-business reviews free of payroll settlement; explicit actions refresh and revalidate current accounts.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

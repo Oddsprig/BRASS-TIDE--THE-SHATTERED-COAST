@@ -188,7 +188,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "crew060051", "crewcare060051", "training060051", "loss060051"]
+		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1295,6 +1295,23 @@ func _civilian_capture059(baseline: Dictionary, hull_id: String) -> String:
 	core.TradeFlow.observe(core)
 	return uid059
 
+func _regional_capture061() -> bool:
+	# Private layout fixture only: declared finite capital, actual paid local
+	# construction and donations. The native voyage proves earned consequences.
+	var port061: Dictionary = core.current_port()
+	if not core.Money.move(core.port("shatter_spire"), "governmentPurse", core.state, "coins", 40000, "Declared regional061 layout capital", core.state.moneyLog):
+		push_error("Regional061 layout finite capital refused");return false
+	var home061: Script = load("res://scripts/home_harbor.gd")
+	var established061: Dictionary = home061.establish(core, "warehouse", str(port061.id))
+	if not established061.ok:push_error("Regional061 paid layout business refused: " + str(established061.message));return false
+	core.state.campaignFocus.fromPort = str(port061.id)
+	core.state.campaignFocus.toPort = "kelp_reach"
+	core.state.campaignFocus.portId = str(port061.id)
+	var begun061: Dictionary = core.RegionalOps.start(core, "corridor")
+	if not begun061.ok:push_error("Regional061 layout goal refused: " + str(begun061.message));return false
+	core.TradeFlow.observe(core)
+	return true
+
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
 	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
@@ -1315,6 +1332,27 @@ func capture_after_start():
 			if name == "home051":
 				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)
+			elif name == "regional061051":
+				if not _regional_capture061():return
+				ui.RegionalUI.open(ui, "corridor")
+			elif name == "watch061051":
+				# Explicitly controlled completed-watch layout, not earned clear
+				# days or a real patrol reassignment. No funding or actor is created.
+				var watch061: Dictionary = core.state.regionalCampaigns.operations.corridor
+				watch061.status = "complete";watch061.watchState = "awaiting"
+				watch061.ownerId = "patrol-2"
+				ui.RegionalUI.open(ui, "corridor")
+				await get_tree().process_frame
+				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 100000
+			elif name == "homebook061051":
+				ui.HomeUI.open(ui)
+				await get_tree().process_frame
+				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 100000
+			elif name == "harbor061051":
+				var harbor061: Dictionary = core.RegionalOps.start(core, "harbor")
+				if not harbor061.ok or not core.trade(str(core.current_port().id), "timber", 6, "buy").ok or not core.RegionalOps.contribute(core, "harbor", "timber", 6).ok:
+					push_error("Regional061 paid layout donation refused");return
+				ui.RegionalUI.open(ui, "harbor")
 			elif name == "crew060051":
 				# Real affordable starter hires, with ordinary finite port labor,
 				# advances and berths. No opening capital or specialist is granted.

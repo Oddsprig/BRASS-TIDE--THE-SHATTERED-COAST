@@ -1,12 +1,15 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.060 DELIVERED/installed; localtag705a444.
-Actual paid crew/fits, five worker probes and named loss/paid recovery accepted.
-Retained unchanged identity55/support19; six exported views and separate declared
-lab movie reviewed with limits in current task. No full progression/parity claim.
-Next061 follows task/SCOPE 061 DRAFT.txt and tools/quality061/NEXT061 AUDIT.txt;
-finalize on delivered060 before implementation. Whole quality/coast art/strict051
-targets remain OPEN062. Preserve saves/music/older builds/one plain launcher.
+Installed build: v0.060 DELIVERED, localtag705a444.119/0+Windows79.062s,
+identity55/support19retained,6actualviews31s and10orderedmovie samples30.797s.
+One plain launcher/2voyages/18MP3s+notes/old059 preserved and hash checked.
+Current scoped source061 follows task/SCOPE 061 REGIONAL CONSEQUENCES.txt.
+060 final game tree matched the isolated source base before integration.
+A dcb0b4f->d209478,B22016f0->bbc3cbb,Bunit1b8b9b3->d1bcc3d,C44e4e76c->9bec762.
+Root reviewed sources/dependencies, fixed only shared pure-close header kinds
+and private six-view fixture. Combined source advisory issues empty. Metadata
+prepared ONCE; native/export/actual view acceptance pending. All helpers idle.
+Whole quality/coast art/strict051 targets remain OPEN062; no parity claim.
 Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
