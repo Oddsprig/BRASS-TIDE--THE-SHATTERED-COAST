@@ -9,6 +9,8 @@ const Money = preload("res://scripts/money.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Factions = preload("res://scripts/factions.gd")
 const Records = preload("res://scripts/equipment_records.gd")
+const Service = preload("res://scripts/equipment_service.gd")
+const Replacements = preload("res://scripts/naval_replacements.gd")
 
 var checks: int = 0
 var failures: int = 0
@@ -248,7 +250,7 @@ func _test_chain() -> void:
 		check(not patrol.course.is_empty(), "Survivor has an actual water route to paid recovery")
 		var hp: float = float(damaged.hp)
 		var home: Dictionary = c.port(str(patient.homePort))
-		var labor: float = float(home.availableWorkers)
+		var labor: float = float(Service.workforce_status(home).free)
 		var worker_purses: int = int(home.householdPurse) + int(home.expertPurse)
 		var kits: float = _goods("supplies")
 		var living_people: float = _people()
@@ -256,7 +258,7 @@ func _test_chain() -> void:
 		patrol.progress = 1.0
 		c.NavalLifecycle.step(c, 0.01)
 		check(float(damaged.hp) > hp, "Actual harbor arrival buys repair of combat damage")
-		check(float(home.availableWorkers) < labor and _goods("supplies") < kits, "Paid recovery consumes finite harbor labor and kits")
+		check(float(Service.workforce_status(home).free) < labor and _goods("supplies") < kits, "Paid recovery consumes finite harbor labor and kits")
 		check(int(home.householdPurse) + int(home.expertPurse) > worker_purses, "Repair pays the actual harbor workers' purses")
 		check(is_equal_approx(_people(), living_people) and ids == _item_ids(), "Recovery moves existing recruits and preserves equipment identities")
 	check(Money.total(c.state) == int(c.state.coinSupply), "Shipment, prizes and paid recovery conserve the complete global coin supply")
@@ -269,7 +271,19 @@ func _test_loss_boundary() -> void:
 	var owner: Dictionary = c.fleet_owner("patrol-0")
 	var patrol: Dictionary = Orders.find_patrol(c.state, str(owner.id))
 	_load(owner)
-	_fund(owner, 30000)
+	# Fund the real cheapest stocked hull and actual recruiting charge, rather
+	# than guessing that a fixed sum covers today's labor/material quote.
+	var home: Dictionary = c.port(str(owner.homePort))
+	var required: int = 2147483647
+	for id in home.shipStock:
+		if int(home.shipStock[id]) < 1: continue
+		var spec: Dictionary = c.hull(str(id))
+		var quote: Dictionary = Replacements.quote_at_port(spec, home)
+		var bill: int = int(quote.readyPrice) + Economy.recruit_cost(home, int(spec.crewMin))
+		required = mini(required, bill)
+	check(required < 2147483647, "Replacement scenario has an actual stocked hull")
+	if required == 2147483647: return
+	_fund(owner, maxi(0, required - int(owner.coins)))
 	var lost: Dictionary = owner.boats[0]
 	var uid: String = str(lost.uid)
 	var old_parts: Array = lost.moduleCondition.items.keys()
@@ -293,6 +307,7 @@ func _test_loss_boundary() -> void:
 	for replacement in c.state.navalAi.replacements:
 		if str(replacement.get("ownerId", "")) == str(owner.id) and int(replacement.get("price", 0)) > 0: funded = true
 	check(funded, "Replacement is a paid actual stock purchase or material/escrow commission")
+	if not funded: print("campaign ai055 replacement: ", AI.request_replacement(c, owner, home), " trained pool ", Replacements.available_recruits(home))
 	check(Money.total(c.state) == int(c.state.coinSupply) and is_equal_approx(_people(), people), "Paid replacement conserves global purses and hires from existing workforce")
 	for boat in Orders.living_boats(owner):
 		check(str(boat.uid) != uid and bool(Records.snapshot(boat).get("ok", false)), "Replacement is a distinct valid physical hull")
