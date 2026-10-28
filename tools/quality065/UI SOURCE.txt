@@ -1,0 +1,30 @@
+BRASS TIDE v0.065 — C (argon-voyage-ui) OWNED SOURCE CANDIDATE (28 October 2026)
+Base: 1dbdc811b6a351447df0d67dd58f8533799de97d | Contract: 021a62f / ba03326 | Authority: LOCKED065 CONTRACT.txt
+Owned scope: game/scripts/voyage_preparation_ui065.gd and tools/quality065/UI SOURCE.txt only.
+Source candidate only: no engine/import/tests/advisories/GPU/desktop/process execution; installed v0.064 untouched.
+
+1. PUBLIC ENTRY & B/A INTEGRATION
+- `static func open(ui, region_id: String = "", approach_id: String = "") -> void` (untyped `ui` parameter).
+- Sets `ui.modal_kind = "ocean064"` before `ui.modal(...)` so shared modal header `"×"` close uses `sync = false` and existing approach crossing guards recognize the modal.
+- Reads `c.world_view064()`, normalizes `ui.voyage_intent065` to the exact 7 model keys (`targetRegionId`, `targetApproachId`, `outExit`, `backExit`, `homeEntry`, `returnPortId`, `idleDays`), and calls `c.voyage_quote065(intent)` once on open/select/Refresh. Never called per frame or in `update_hud()`.
+
+2. READ-ONLY VIEW PURITY & LAYER-AWARE INTENT STRIPPING
+- Opening, selecting N/S approaches, switching target region or return harbor, changing `idleDays`, clicking `"Refresh"`, `"Fleet & crew"`, `"Hold & reserves"`, `"Show entire chart"`, `"Close"`, or `"×"` NEVER call `sync_economy()`, always pass `sync = false` to `ui.button(...)`, and never settle `pending_days` or mutate `c.state`.
+- `normalize_intent` strips unused crossing choices to `""` according to layer and target region (`outExit` active only when `layer != "ocean" and current_region != targetRegionId`; `targetApproachId` active when `targetRegionId == "glasswind_keys" or current_region != targetRegionId`; `backExit` and `homeEntry` active only when `targetRegionId == "glasswind_keys"`), preserving explicit North/South selections with no silent approach swaps.
+- Return planning: reaching or viewing the remote target exposes `"Plan return to Shatter Coast"` / `"Target: Shatter Coast (Home)"` (`sync = false`), switching the visible destination to Home without auto-executing any journey.
+
+3. 1280x800 SCROLLABLE MODAL & CANONICAL QUOTE PRESENTATION
+- Top scroll view (`preparation065051`, `scroll_vertical = 0`):
+  - Route header: current chart, `origin.day`, `origin.econDay`, unsettled `expected.pendingDays`, `distances` (`outward`, `return`, `total`, `byLayer.{home,ocean,local}` with 1:10 ocean scale), `timing` (`speed`, `movingSeconds`, `outwardDays`, `returnDays`, `idleDays`, `endDay`), and `quote.message`.
+  - Interactive selectors (`sync = false`): target region (`Glasswind Keys` / `Shatter Coast`), home return harbor (`OptionButton` over `state.ports` with legal/safe-conduct tag), `idleDays` presets (`0d`, `0.25d`, `1d`, `2d`), and 4 North/South crossing cards (`outExit`, `targetApproachId`, `backExit`, `homeEntry`).
+  - Three separate phase columns:
+    1. `OUTWARD LEG`: `distances.outward`, `timing.outwardDays`, outward moving fuel, `expected.byPhase.outward` (`payrollDays`, `food`, `baseWages`, `premiums`, `premiumArrearsPaid`, `coinsRequired`), and outward `legs` steps.
+    2. `RETURN LEG & IDLE WAIT`: `returnPortName`, `distances.return`, `timing.returnDays`, `timing.idleDays`, return moving fuel, `expected.byPhase.idle` and `expected.byPhase.return`, and return `legs` steps.
+    3. `2-DAY CONTINGENCY & RESERVES`: unsettled `expected.byPhase.pending` (`pendingDays`), aggregate `expected` (`totalPayrollDays`, `coinsRequired`, `food`), and separate conservative `allowance` (`reserveDays = 2.0`, `payrollDays` ceiling, `returnWages`, `foodRequired`).
+  - Funding & hold bar: captain `coins`, `allowance.dailyWages`, `allowance.wageArrears`, `funding.premiumArrears`, `funding.requiredCoins`, `funding.shortfall`, `allowance.foodAvailable / foodRequired / foodShortfall`, and hold `cargoWeight / usableCapacity / freeCapacity / payloadAfterFood / allowanceOverload`.
+- Bottom scroll view (`transfer065051`, `scroll_vertical = 100000`):
+  - Per-boat tank cards (`stores.boats`): traveling hulls, fueled repair-only/undercrewed tows (`burnsWhileMoving = true`), and non-burning mothballed present hulls, showing `loadedFuel / tankCapacity`, `fuelPerDay`, `loadedDays / tankDays`, `outwardFuel / returnFuel / contingencyFuel / fuelRequired`, `loadedShortfall`, `tankShortfall`, `cargoFuel`, and `loadedSupplies`.
+  - Explicit manual fuel transfer controls: source/target boat pickers, exact quantity `SpinBox` (`step = 0.125`) + presets, and `"Transfer working fuel"` -> `ui.host.transfer_fuel065(source_uid, target_uid, quantity)`.
+  - Explicit cargo reserve loader: `"Load hold reserves (ammo, fuel & kits)"` -> `ui.host.load_reserves065()`, stating clearly that loading reserves moves loose hold ammunition, fuel, and repair kits into boat working stores while food stays in the hold and sealed `job.freight` is untouched.
+  - Maintenance & conditions: `maintenance.usageKnown`, `expectedSupplies` (`0.0` healthy vs `null` conditional when damaged), `conditionalFuel` (`+0.006/s` flooding/motion warning), per-boat hull/water/fire/wounded/breaches/damaged-module/kits/policy/priority rows, `blockers`, `warnings`, and `assumptions`.
+- Pinned footer action bar: primary button uses `quote.nextAction.title` -> `ui.host.voyage_action065(intent.duplicate(true))` (course gated only by `routeOk` and `_sailing_blocker064()`, not advisory reserve shortages or transition pursuit blocker; transition gated by `routeOk`, stopped `path`, and `transition_blocker064()`), alongside `"Refresh"`, `"Fleet & crew"`, `"Hold & reserves"`, `"Show entire chart"`, and `"Close"`.
