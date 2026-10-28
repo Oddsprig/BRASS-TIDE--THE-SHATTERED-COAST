@@ -1,0 +1,25 @@
+ROOT - SMALL EXPORTED RECOVERY REVIEW
+Existing --qa-opening051 private capture is reused. Its058 tour requests only
+title, home, recovery058, gear058 and prize058; old branch handlers remain for
+compatibility and their actual054-057 receipts remain historical evidence.
+No repeated sixteen-screen tour or new capture framework.
+
+At the recovery panel, the isolated Main uses one existing patrol-2 bilge_punt,
+damages its exact existing mount0/engine through Condition, projects Records,
+then retires the sunk actor through real Salvage.record_battle at the captain's
+position. This is DECLARED UI layout setup, not an earned battle or victory.
+No owner/patrol is deleted and no equipment, purse, boat or cargo is minted.
+Gear panel explicitly previews those actual UIDs and existing starter locker,
+without pressing the irreversible action; local ScrollContainer position shows
+the actual loss/carrying/work disclosure and final control. No input, focus,
+mouse, keyboard, foreign app or desktop activation is used.
+
+Prize panel re-labels the existing starter with empty capture flags for layout,
+retaining its real boat UID/crew/condition/stores. It creates no free captured
+boat. This is separately declared from C's paid tow/upgrade/selected-UID voyage.
+No normal gameplay path or worker cadence changed by this capture-only edit.
+
+Root reviews actual PNGs after native/Windows source acceptance, with exact
+passed report/attempt/source/EXE/PCK hashes. Current source and this note are
+not native, visual, performance, listening, fun or whole-game acceptance.
+Broad coast/town art and exact strict051 targets remain OPEN062.

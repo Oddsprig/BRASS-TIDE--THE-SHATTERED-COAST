@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051", "factions051", "commission051", "contactwork051", "encounter051", "storylead051", "islandprep051", "storypayoff051"]
+		screenshots_requested = ["title051", "home051", "recovery058051", "gear058051", "prize058051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1246,12 +1246,46 @@ func capture_after_start():
 	DirAccess.make_dir_recursive_absolute(path)
 	var views: Array = screenshots_requested.duplicate()
 	var traffic_origin055: Dictionary = {}
+	var recovery_wreck058: String = ""
+	var recovery_carrier058: String = ""
+	var recovery_parts058: Array = []
 	if views.is_empty():views = [mode]
 	for raw in views:
 		var name: String = str(raw)
 		if name.ends_with("051") and not screenshots_requested.is_empty():
 			if name == "home051":
 				new_game();paused = true;chart.center_camera()
+			elif name == "recovery058051":
+				# Declared isolated UI fixture, not earned combat: damage and retire
+				# one existing NPC, using the real condition and wreck custody APIs.
+				core.stop_sailing();recovery_carrier058 = str(core.state.fleet[0].uid)
+				var source058: Dictionary = {}
+				for actor058: Dictionary in core.fleet_owner("patrol-2").get("boats", []):
+					if str(actor058.get("type", "")) == "bilge_punt" and not actor058.get("sunk", false):source058 = actor058;break
+				if source058.is_empty():push_error("Recovery058 layout source missing");return
+				for item058: Dictionary in source058.get("moduleCondition", {}).get("items", {}).values():
+					if str(item058.get("location", "")) in ["mount0", "engine"]:
+						var damaged058: Dictionary = core.Preflight.Core.apply_component_damage(source058.moduleCondition, {"itemUid":str(item058.itemUid), "loss":0.375 if str(item058.location) == "mount0" else 0.125, "cause":"Declared recovery058 UI fixture"})
+						if not damaged058.ok:push_error("Recovery058 fixture damage refused");return
+						recovery_parts058.append(str(item058.itemUid))
+				if not core.Preflight.Records.publish(source058).ok:push_error("Recovery058 fixture projection refused");return
+				source058.team = "enemy";source058.sunk = true;source058.hp = 0.0
+				var wrecks058: Array = core.Salvage.record_battle(core, {"ships":[source058], "chartPosition":core.state.position}, "recovery058-declared-layout")
+				if wrecks058.size() != 1:push_error("Recovery058 layout custody refused");return
+				recovery_wreck058 = str(wrecks058[0].id)
+				ui.RecoveryUI.open(ui, recovery_wreck058)
+			elif name == "gear058051":
+				ui.RecoveryUI.gear(ui, recovery_wreck058, recovery_parts058, recovery_carrier058)
+				await get_tree().process_frame
+				# Inspect the actual disclosed losses, carrying and final action;
+				# local scroll only, with no input/focus/computer control.
+				for scroll058 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll058.scroll_vertical = 100000
+			elif name == "prize058051":
+				# Re-label the existing owned starter for this empty-prize panel;
+				# no free hull, boarding victory or earned capture is claimed.
+				var owned058: Dictionary = core.find_boat(recovery_carrier058)
+				owned058.captureSecured = true;owned058.convoyCargo = {};owned058.supportOnly = true
+				ui.RecoveryUI.owned_prize(ui, recovery_carrier058)
 			elif name in ["convoy051", "hostile051", "civilian051"]:
 				ui.close_modal()
 				var chosen054: Dictionary = {}
