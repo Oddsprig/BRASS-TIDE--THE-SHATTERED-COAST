@@ -1,0 +1,129 @@
+058 A TRANSACTION / PERSISTENT CARRYING - SOURCE READY, ROOT VALIDATION PENDING
+Base e1102835f4fc04f8a0b1d77979bf0fc617ae9894. Implementation/source review only;
+no engine/tests/parser/advisory/import/export have run. This is the contract for
+B/C, not an execution receipt. Existing 031 files remain read-only foundations.
+
+SELECTED GEAR REQUEST (mode="gear")
+request={"itemUids":[exact source itemUid strings],"carrierUid":existing fleet UID,
+         "acceptForfeiture":true}
+Selection is explicit, unique, nonempty; pumps cannot move. Quote does not need
+acceptForfeiture; action requires literal true. No implicit selected stores:
+all finite loose stores remain on the marked wreck for ordinary strip_good.
+Hull, ALL unselected items (including pumps), and ALL remaining component lots
+are permanently forfeited without credit. Complete original source equipment
+is retired as history, never left as an active partially stripped topology.
+
+PUBLIC FORWARDING (final optional request preserves every old caller)
+Salvage.quote(core,wreck_id,mode,request: Dictionary={}) -> Dictionary
+Salvage.recover(core,wreck_id,mode,request: Dictionary={}) -> Dictionary
+Campaign.recovery_quote(id,mode,good="",qty=0.0,request: Dictionary={}) -> Dictionary
+Campaign.recover_wreck(id,mode,good="",qty=0.0,request: Dictionary={}) -> Dictionary
+RecoveryFlow.recover(host,id,choice,good="",qty=0.0,request: Dictionary={})
+Main.recover_wreck(id,choice,good="",qty=0.0,request: Dictionary={})
+Use core.recovery_quote for player/fixture quotes: it includes real location,
+security, crew/readiness and paid-work preflight on detached state. Salvage.quote
+is the lower transaction quote, also detached for gear; normal strip/tow retain
+their original contract. mode gear forwards empty good and qty=0.0.
+
+GEAR QUOTE / ACTION FIELDS (ok:boolean,message:String always)
+wreckId,mode="gear",carrierUid,selected:Array[physical item dictionaries],
+forfeitedItems:Array[physical item dictionaries],forfeitedComponents:Dictionary,
+forfeitedHull:bool=true,retainedStores:Dictionary,weight:float (selected mass),
+lockerWeight:float (carrier total after selection),carrierCapacity:float (nominal
+hold),carrierLockerCapacity:float (after fixed passengers/stores/captive loads),
+freeCapacity:float (fleet free before selection),workDays:float,effortDays:float,
+payrollDays:int,wages:int,arrears:int,food:float,coinsRequired:int.
+Physical listing preserves itemUid,family,typeId,hp,originHullType,location,
+status,cause and adds weight. Refusals keep available listing/quote fields and
+set ok=false/message; no query/refusal changes live state. Successful action
+returns this quote with ok=true plus coinsAfter,foodAfter,dayAfter,wagesPaid,
+foodConsumed,foodCreditUsed. wagesPaid includes existing ordinary/specialist
+arrears as well as normal payroll; foodConsumed is newly used cargo food and
+foodCreditUsed is existing prepaid normal food credit spent on these days.
+Campaign owns day/payroll/food settlement. Salvage.recover(...,"gear",request)
+forwards to that SAME paid Campaign action; it cannot publish an unpaid prefix.
+Action validates again; no caller-owned quote is trusted.
+
+PAID WORK POLICY
+effortDays is the existing recovery_days equation, conservatively also bounded
+by able spare crew on actual working traveling hulls. workDays=ceil(effortDays),
+at least one full day, so a small extraction cannot be an unpaid fractional
+click. This rounding applies only to selected gear; old strip/tow remain intact.
+payrollDays=old pending_days + int(workDays), settled once; original day fraction
+is preserved. Normal Economy.daily_upkeep and FleetSupport.premium determine
+wages/food; coinsRequired also includes existing ordinary and specialist arrears.
+No extra harbor crew or payment purse. Normal surveyFoodCredit is spent once.
+Insufficient actual coins/food refuses before time, extraction or payment.
+
+One successful action creates ONE detached Campaign context using the optional
+Campaign._init(world_data,shared_navigation={}) second argument. It shares the
+already warmed data/nav without rebuilding or repricing world/navigation and
+owns its state/events/local route cache. Each due day uses the SAME port RNG
+seed/options as Main.economy_workers, then existing Campaign.apply_economy.
+No worker starts; all fallible work, carrying/custody and total-coin checks finish
+before one live state/pending/events publication. Queries construct no Campaign,
+world or navigation; their tiny Salvage.QuoteView clones plain state only.
+
+PERSISTENT WEIGHT API (Expedition, pure reads)
+Expedition.locker_item_weight(item: Dictionary) -> float
+Expedition.locker_weight(boat: Dictionary) -> float
+Expedition.hull_hold_capacity(state: Dictionary,boat: Dictionary) -> float
+Expedition.cargo_weight(state) includes physical lockers on all afloat unstored
+fleet hulls. HoldManifest.allocate reserves each working hull's own locker mass
+before allocating shared cargo; other hull space cannot carry that locker.
+Mass is max(1, sum Refits.catalog()[family][typeId].materials * Goods weights).
+Stock primary/engine/armor map to existing stock rows (4,5,7 hold units).
+Unknown legacy types use the conservative family maximum; an unknown family
+uses the maximum across the catalog (minimum1). Canonical action catalog
+validation still rejects unknown types; a weight fallback does not legalize one.
+An existing physical moduleCondition is authoritative; its refitLocker count
+projection is never counted again. Legacy dictionary/array count lockers still
+weigh until existing migration makes them physical. Catalog data is cached once.
+No Goods lot is minted for an exact physical part. Stored/sunk/unsupported
+carriers cannot receive; existing unsupported lockers donate no usable hold.
+Crewed traveling supportOnly boats remain eligible working physical carriers;
+supportOnly is an ordinary battle-deployment choice, not a disabled-hold flag.
+Existing normal trade capacity subtracts Expedition.cargo_weight, so subsequent
+Goods purchases see locker mass; Manifest reserves it on that physical hull.
+
+IMPLEMENTATION / HANDOFF LIMITS
+Read full NEXT058 AUDIT and GEAR058 FEASIBILITY, relevant generated maps, actual
+constructors and dependency graph. Traced transfer_exact request and rollback,
+catalog/loadout agreement, complete global preflight, hold accounting, ordinary
+economy day seeds/payroll/food and the Main in-flight boundary. New dependencies
+remain acyclic: Salvage -> Preflight/Records/Condition and Manifest -> Expedition
+-> Refits -> Fitting -> Records -> Condition/Layout; none preloads Campaign.
+Full initial and final Preflight.check_state validate custody/catalog/origin.
+Registry skips only exact source+carrier during repeated transfer_exact calls;
+the reduced source is never live. release retires the original complete UID
+snapshot and keeps history; all remaining components disappear without credit.
+The permanent source tombstone also blocks record_battle/site reseeding after
+bounded history pruning. Sunk original equipmentRetiredTo is never removed.
+No material attribution, new inventory, condition/custody framework or fixture.
+A owns only Salvage/Campaign/Expedition/HoldManifest/RecoveryFlow/Main and this
+note; no optional helper needed. Root alone performs native acceptance.
+
+IN-FLIGHT MAIN ECONOMY POLICY (concrete 1139-1162 boundary)
+Main.start_economy decrements pending_days BEFORE its worker completes. The
+worker later replaces ports and calls apply_economy. RecoveryFlow therefore
+refuses mode gear immediately when host.economy_task>=0, before any quote/action
+staging or sync_economy call. Message: let the normal day finish, then retry;
+no recovery work charged. It does not stop/join/control the worker or publish
+an old port snapshot over a successful gear transaction. On successful gear
+with no worker in flight, private settlement covers original pending_days plus
+the new whole work days ONCE and publishes pending_days=0. Flow's subsequent
+ordinary start/sync is then a no-op. C can exercise an artificial busy marker
+without starting a worker; the core transaction itself owns no worker handle.
+
+LIMITS / ROOT HANDOFF
+Source review found no remaining implementation blocker. Native parse/types,
+actual normal settlement cost/latency, save/restore, later cargo, ordinary fit
+refusal, UI and exported views remain unexecuted here. C owns those source
+assertions; Root owns their FIFO execution and all acceptance/metadata once.
+Quotes deliberately do not run whole-world economy. They preflight current real
+upkeep/arrears; if a due normal day changes readiness/affordability/custody, the
+action discards its entire detached state and returns refusal. The successful
+receipt reports actual normal payroll/rations in addition to the preview bill.
+No ordinary strip/tow action/economy policy was rewritten. 059+, broader coastal
+art and strict051/whole-quality remain outside this lane and OPEN062.
+

@@ -17,12 +17,20 @@ static func wreck_ids(report: Dictionary) -> Array:
 		if not id.is_empty() and not id in ids:ids.append(id)
 	return ids
 
-static func recover(host,id: String,choice: String,good: String="",qty: float=0.0) -> Dictionary:
+static func recover(host,id: String,choice: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
 	# Leaving a wreck for later never calls Campaign.recover_wreck or advances time.
-	if host.mode!="campaign" or choice not in ["tow","strip"]:
-		return {"ok":false,"message":"Return to the coast and choose tow or strip. Leaving the wreck marked needs no recovery work."}
-	host.sync_economy()
-	var result: Dictionary=host.core.recover_wreck(id,choice,good,qty)
+	if host.mode!="campaign" or choice not in ["tow","strip","gear"]:
+		return {"ok":false,"message":"Return to the coast and choose tow, strip or selected equipment. Leaving the wreck marked needs no recovery work."}
+	# Selected recovery settles pending ordinary economy on a private campaign.
+	# A declined/refused selection must not charge even an unrelated pending day.
+	# Main already debited an in-flight worker's pending day. Its old port result
+	# must finish normally before a new private transaction can own that day.
+	if choice=="gear" and int(host.economy_task)>=0:
+		var busy: Dictionary={"ok":false,"message":"A normal economy day is still settling. Let it finish, then retry selected recovery; no recovery work was charged."}
+		host.respond(busy)
+		return busy
+	if choice!="gear":host.sync_economy()
+	var result: Dictionary=host.core.recover_wreck(id,choice,good,qty,request)
 	host.respond(result)
 	if result.get("ok",false):
 		host.start_economy()

@@ -66,11 +66,16 @@ var pending_days: int = 0
 var exploration_timer: float=0.0
 var sailing_clearance: float=0.0
 
-func _init(world_data: Dictionary):
+func _init(world_data: Dictionary,shared_navigation: Dictionary={}):
 	data = world_data
-	for h in data.HULLS:
-		h.price = Construction.quote(h).readyPrice
-	nav = Navigation.create(data.ISLANDS,float(data.WORLD.width),float(data.WORLD.height),40.0*float(data.get("CAMPAIGN_SCALE",1.0)))
+	if shared_navigation.is_empty():
+		for h in data.HULLS:
+			h.price = Construction.quote(h).readyPrice
+		nav = Navigation.create(data.ISLANDS,float(data.WORLD.width),float(data.WORLD.height),40.0*float(data.get("CAMPAIGN_SCALE",1.0)))
+	else:
+		# A paid recovery action can reuse this campaign's immutable navigation.
+		# Quotes use a data facade and never construct another Campaign.
+		nav=shared_navigation
 
 func cached_path(a: Dictionary,b: Dictionary,clearance: float=10.0) -> Array:
 	# Coast geometry is immutable for this Campaign instance. Cache exact numeric
@@ -583,7 +588,143 @@ func license_blueprint(id: String) -> Dictionary:
 func recovery_days(weight: float) -> float:
 	return maxf(0.1,weight/maxf(1,Exploration.spare_crew(state)*20.0))
 
-func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0) -> Dictionary:
+func _recovery_gate(snapshot: Dictionary,id: String,mode: String) -> String:
+	var w: Dictionary={}
+	for row in snapshot.get("wrecks",[]):
+		if row is Dictionary and str(row.get("id",""))==id:w=row;break
+	for point in [snapshot.get("position",{}),w]:
+		if not point is Dictionary or not Salvage._is_num(point.get("x")) or not Salvage._is_num(point.get("y")):return "This recovery has no finite chart position."
+	if w.is_empty() or distance(snapshot.get("position",{}),w)>180:return "Approach this wreck within180water units first."
+	for owner in snapshot.get("fleetOwners",[]):
+		if str(owner.get("id",""))==str(snapshot.get("wreckHazards",{}).get(w.get("sourceId",""),"")):
+			if owner.get("active",false) and owner.get("boats",[]).any(func(b):return not b.get("sunk",false)):return "Hostiles still control this wreck field. Secure the waters before recovery."
+	if not snapshot.get("path",[]).is_empty() or not snapshot.get("exploration",{}).get("assignment",{}).is_empty() or not snapshot.get("toolingRecovery",{}).is_empty():return "Stop the fleet and recall shore parties before recovery."
+	if mode in ["strip","gear"] and Exploration.spare_crew(snapshot)<1:return "Recovery needs at least one spare able sailor above the boat minimums."
+	return ""
+
+func _gear_work_quote(q: Dictionary,snapshot: Dictionary) -> Dictionary:
+	var spare: int=0
+	for boat in Expedition.traveling(snapshot):
+		spare+=maxi(0,int(boat.get("crew",0))-ceili(float(boat.get("wounded",0)))-int(boat.get("crewMin",1))-int(boat.get("shoreCrew",0)))
+	# A selected dismantling job books whole normal payroll days. This is the
+	# existing recovery_days effort, rounded up, never an unpaid fractional click.
+	var effort: float=maxf(recovery_days(float(q.get("weight",0))),float(q.get("weight",0))/maxf(1,spare*20.0))
+	var work: float=ceilf(effort)
+	var payroll: int=maxi(0,pending_days)+int(work)
+	var upkeep: Dictionary=Economy.daily_upkeep(snapshot.get("fleet",[]))
+	var premiums: int=FleetSupport.premium(snapshot)
+	var arrears: int=int(snapshot.get("wageArrears",0))+FleetSupport.premium(snapshot,true)
+	var wages: int=(int(upkeep.wages)+premiums)*payroll
+	var food: float=maxf(0,float(upkeep.food)*payroll-float(snapshot.get("surveyFoodCredit",0)))
+	q.merge({"workDays":work,"effortDays":effort,"payrollDays":payroll,
+		"wages":wages,"arrears":arrears,"food":food,"coinsRequired":wages+arrears},true)
+	if spare<1:q.ok=false;q.message="Selected recovery needs a spare able sailor on a working boat."
+	elif not Salvage._tow_ledger(snapshot):q.ok=false;q.message="The world coin ledger or payroll purse cannot be reconciled."
+	elif int(snapshot.get("coins",0))<wages+arrears:q.ok=false;q.message="Recovery needs %d actual coins for normal payroll and existing arrears."%(wages+arrears)
+	elif float(snapshot.get("cargo",{}).get("food",0))+0.0000001<food:q.ok=false;q.message="Recovery needs %.2f actual food for its paid work."%food
+	return q
+
+## Pure board/fixture quote. Normal strip/tow retain their action contracts;
+## selected equipment adds whole paid work, actual food and arrears preflight.
+func recovery_quote(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
+	var view=Salvage.QuoteView.new(self)
+	var q: Dictionary=Salvage.quote(view,id,mode,request)
+	if mode=="strip" and not good.is_empty():
+		var wreck: Dictionary=Salvage.find_wreck(view.state,id)
+		var available: float=float(Salvage._strip_items(wreck).get(good,0))
+		var amount: float=minf(qty,available) if is_finite(qty) else 0.0
+		var weight: float=amount*float(Goods.ITEMS.get(good,{"weight":1}).weight)
+		q.merge({"items":{good:amount},"weight":weight,"quantity":amount},true)
+		q.ok=not wreck.is_empty() and str(wreck.get("status",""))=="unclaimed" and Goods.ITEMS.has(good) and amount>0 and weight<=float(q.get("freeCapacity",0))+0.00001 and Salvage.Recovery.refusal(wreck).is_empty()
+		if q.ok:q.message="Recover %.2f %s (%.2f hold space)."%[amount,good,weight]
+		else:q.message="Choose a positive finite recoverable lot that fits the traveling holds."
+	if mode=="gear":q=_gear_work_quote(q,view.state)
+	else:
+		var work: float=recovery_days(float(q.get("weight",1))) if mode=="strip" else maxf(1,float(q.get("ordinary",100))/200.0)
+		var payroll: int=maxi(0,pending_days)+int(float(state.get("day",0))+work)-int(state.get("day",0))
+		var upkeep: Dictionary=Economy.daily_upkeep(view.state.get("fleet",[]))
+		var wages: int=(int(upkeep.wages)+FleetSupport.premium(view.state))*payroll
+		q.merge({"workDays":work,"payrollDays":payroll,"wages":wages,
+			"arrears":int(view.state.get("wageArrears",0))+FleetSupport.premium(view.state,true),
+			"food":maxf(0,float(upkeep.food)*payroll-float(view.state.get("surveyFoodCredit",0)))},true)
+	var blocked: String=_recovery_gate(view.state,id,mode)
+	if not blocked.is_empty():q.ok=false;q.message=blocked
+	return q
+
+## Run exactly the ordinary per-harbor economy day on this detached campaign,
+## with the same seeds/options as Main's worker, then the normal settlement.
+## No workers or navigation/world rebuilds are started by this source seam.
+func _settle_recovery_economy(days: int) -> Dictionary:
+	var receipt: Dictionary={"ok":true,"message":"Normal recovery payroll and provisions settled.","wagesPaid":0,"foodConsumed":0.0,"foodCreditUsed":0.0}
+	for _day in range(days):
+		var due: Dictionary=Economy.daily_upkeep(state.fleet)
+		var coins: int=int(due.wages)+FleetSupport.premium(state)+FleetSupport.premium(state,true)
+		var food: float=maxf(0,float(due.food)-float(state.get("surveyFoodCredit",0)))
+		if int(state.coins)<coins or float(state.cargo.get("food",0))+0.0000001<food:return fail("Ordinary payroll or provisions changed during staged recovery; nothing was published.")
+		receipt.wagesPaid+=coins
+		receipt.foodConsumed+=food
+		receipt.foodCreditUsed+=minf(float(due.food),float(state.get("surveyFoodCredit",0)))
+		var blocked: Array=TradeFlow.blockades(self)
+		var ports: Array=[]
+		var messages: Array=[]
+		for i in range(state.ports.size()):
+			var p: Dictionary=state.ports[i].duplicate(true)
+			var rng=RandomNumberGenerator.new()
+			rng.seed=int(state.seed)+int(state.econDay)*104729+i*7919
+			messages.append_array(Economy.tick_ports([p],1,{"blockaded":blocked,"interport_trade":false,"rng":rng}))
+			ports.append(p)
+		apply_economy(ports,messages,1)
+		if int(state.wageArrears)>0 or FleetSupport.premium(state,true)>0:return fail("Staged recovery could not fully settle ordinary wages; nothing was published.")
+	return receipt
+
+func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
+	var built: Dictionary=Salvage._gear_stage(self,id,request)
+	var q: Dictionary=_gear_work_quote(built.quote,state)
+	var blocked: String=_recovery_gate(state,id,"gear")
+	if not blocked.is_empty():q.ok=false;q.message=blocked
+	if not q.ok:return q
+	if request.get("acceptForfeiture",false)!=true:q.ok=false;q.message="Confirm loss of this hull, every unselected fitting and all structural component lots before dismantling.";return q
+	# One action context reuses warmed immutable navigation and owns all mutable
+	# state. Live state, pending days and events are published only after success.
+	var staged=get_script().new(data,nav)
+	staged.state=built.state
+	staged.events=events.duplicate(true)
+	staged.route_cache=route_cache.duplicate(true)
+	var ordinary_arrears: int=int(staged.state.get("wageArrears",0))
+	if ordinary_arrears>0:
+		if not Money.move(staged.state,"coins",staged.state,"crewPurse",ordinary_arrears,"Captain settles unpaid wages before recovery",staged.state.moneyLog):return fail("Existing arrears could not be settled; nothing was recovered.")
+		staged.state.wageArrears=0
+	staged.state.day=float(staged.state.day)+float(q.workDays)
+	var settled: Dictionary=staged._settle_recovery_economy(int(q.payrollDays))
+	if not settled.ok:q.ok=false;q.message=settled.message;return q
+	var destination: Dictionary={}
+	for boat in Expedition.traveling(staged.state):
+		if str(boat.get("uid",""))==str(q.carrierUid):destination=boat;break
+	if destination.is_empty() or Expedition.locker_weight(destination)>Expedition.hull_hold_capacity(staged.state,destination)+0.00001:q.ok=false;q.message="The original working carrier cannot carry this locker after recovery work; nothing was published.";return q
+	for item in q.selected:
+		var actual: Dictionary=destination.get("moduleCondition",{}).get("items",{}).get(str(item.itemUid),{})
+		if str(actual.get("location",""))!="locker":q.ok=false;q.message="Final custody did not retain every exact selected part in the chosen locker.";return q
+		for key in ["itemUid","family","typeId","hp","originHullType","status","cause"]:
+			if actual.get(key)!=item[key]:q.ok=false;q.message="Recovery would change a selected part's identity or condition; nothing was published.";return q
+	staged.Manifest.allocate(staged.state)
+	if staged.cargo_weight()>staged.capacity()+0.00001 or not staged.state.cargoManifest.get("unassigned",{}).is_empty():q.ok=false;q.message="Recovery work left insufficient physical carrying space; nothing was published.";return q
+	var final_custody: Dictionary=Preflight.check_state(staged.state,data)
+	if not final_custody.ok:q.ok=false;q.message=final_custody.message;return q
+	if Money.total(staged.state)!=int(state.get("coinSupply",-1)):q.ok=false;q.message="Recovery refused an unreconciled final coin ledger.";return q
+	staged.log_entry(str(q.message)+" %.0f working days; %d normal payroll coins plus %d arrears and %.2f food committed."%[float(q.workDays),int(q.wages),int(q.arrears),float(q.food)])
+	q.coinsAfter=int(staged.state.coins)
+	q.foodAfter=float(staged.state.cargo.food)
+	q.dayAfter=float(staged.state.day)
+	q.wagesPaid=int(settled.wagesPaid)+ordinary_arrears
+	q.foodConsumed=float(settled.foodConsumed)
+	q.foodCreditUsed=float(settled.foodCreditUsed)
+	state=staged.state
+	pending_days=0
+	events=staged.events
+	return q
+
+func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
+	if mode=="gear":return _recover_selected_gear(id,request)
 	var w: Dictionary=Salvage.find_wreck(state,id)
 	if w.is_empty() or distance(state.position,w)>180:return fail("Approach this wreck within180water units first.")
 	var hazard: Dictionary=fleet_owner(str(state.wreckHazards.get(w.sourceId,"")))

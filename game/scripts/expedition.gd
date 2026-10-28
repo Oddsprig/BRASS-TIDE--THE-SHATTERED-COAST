@@ -8,7 +8,66 @@ const Economy=preload("res://scripts/economy.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Exploration=preload("res://scripts/exploration.gd")
 const Routes=preload("res://scripts/route_cache.gd")
+const Refits=preload("res://scripts/refit.gd")
 const DAY_SECONDS: float=45.0
+static var _carrying_catalog: Dictionary=Refits.catalog()
+
+static func _part_material_weight(module: Dictionary) -> float:
+	var total: float=0.0
+	for good in module.get("materials",{}):
+		total+=maxf(0,float(module.materials[good]))*float(Goods.ITEMS.get(good,{"weight":1}).weight)
+	return maxf(1.0,total)
+
+## Conservative carrying convention, not a second commodity or a repair bill.
+## Stock parts map to their existing stock catalog rows; damage does not reduce
+## mass. Unknown legacy rows use the heaviest catalog row in their family.
+static func locker_item_weight(item: Dictionary) -> float:
+	var catalog: Dictionary=_carrying_catalog
+	var family: String=str(item.get("family",""))
+	var type_id: String=str(item.get("typeId",""))
+	if not catalog.has(family):
+		for group in catalog:
+			if catalog[group].has(type_id):family=str(group);break
+	if catalog.has(family) and catalog[family].has(type_id) and not type_id.is_empty():
+		return _part_material_weight(catalog[family][type_id])
+	var heaviest: float=1.0
+	for group in catalog:
+		if catalog.has(family) and str(group)!=family:continue
+		for module_id in catalog[group]:
+			if not str(module_id).is_empty():heaviest=maxf(heaviest,_part_material_weight(catalog[group][module_id]))
+	return heaviest
+
+static func locker_weight(boat: Dictionary) -> float:
+	var total: float=0.0
+	# The physical record is authoritative; never also count its projection.
+	if boat.has("moduleCondition"):
+		var condition=boat.get("moduleCondition")
+		if not condition is Dictionary or not condition.get("items") is Dictionary:return INF
+		for item in condition.items.values():
+			if not item is Dictionary:return INF
+			if str(item.get("location",""))=="locker":total+=locker_item_weight(item)
+		return total
+	# Legacy saves can still carry count lockers until normal 031 migration.
+	var locker=boat.get("refitLocker",{})
+	if locker is Dictionary:
+		for type_id in locker:
+			var count=locker[type_id]
+			if not (count is int or count is float) or not is_finite(float(count)) or float(count)<0 or floorf(float(count))!=float(count):return INF
+			total+=float(count)*locker_item_weight({"typeId":str(type_id)})
+	elif locker is Array:
+		for entry in locker:
+			var type_id: String=str(entry.get("id","")) if entry is Dictionary else str(entry)
+			var count=entry.get("count",1) if entry is Dictionary else 1
+			if not (count is int or count is float) or not is_finite(float(count)) or float(count)<0 or floorf(float(count))!=float(count):return INF
+			total+=float(count)*locker_item_weight({"typeId":type_id})
+	else:return INF
+	return total
+
+## Hold remaining for this hull's own locker and shared cargo after fixed loads.
+## No other boat can supply room for its locker.
+static func hull_hold_capacity(state: Dictionary,boat: Dictionary) -> float:
+	var captive: float=maxf(0,float(state.get("captiveBerths",{}).get(str(boat.get("uid","")),0))-maxf(0,float(boat.get("crewMax",0))-float(boat.get("crew",0))))
+	return maxf(0,float(boat.get("spec",{}).get("cargo",0))-Passengers.food_weight(state,str(boat.get("uid","")))-store_overflow(boat)-captive)
 
 static func traveling(state: Dictionary) -> Array:
 	return state.get("fleet",[]).filter(func(b):return b is Dictionary and not b.get("sunk",false) and not b.get("mothballed",false) and not b.get("needsHarborRepair",false) and str(b.get("storedPort","")).is_empty() and float(b.get("crew",0))>=float(b.get("crewMin",1)))
@@ -30,6 +89,7 @@ static func cargo_weight(state: Dictionary) -> float:
 		if not lot.is_empty():total+=maxf(0,float(lot.get("qty",0)))*float(Goods.ITEMS.get(lot.get("good",""),{"weight":1}).weight)
 	for b in state.get("fleet",[]):
 		if b.get("sunk",false) or not str(b.get("storedPort","")).is_empty():continue
+		total+=locker_weight(b)
 		total+=store_overflow(b)
 		if not b.get("needsHarborRepair",false):total+=maxf(0,float(state.get("captiveBerths",{}).get(str(b.get("uid","")),0))-maxf(0,float(b.get("crewMax",0))-float(b.get("crew",0))))
 	return total

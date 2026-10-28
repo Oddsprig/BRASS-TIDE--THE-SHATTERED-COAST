@@ -20,10 +20,16 @@ const Damage = preload("res://scripts/damage.gd")
 const Refits=preload("res://scripts/refit.gd")
 const Recovery=preload("res://scripts/equipment_recovery.gd")
 const Tow=preload("res://scripts/equipment_tow.gd")
+const Condition=preload("res://scripts/equipment_condition.gd")
+const Records=preload("res://scripts/equipment_records.gd")
+const Preflight=preload("res://scripts/equipment_campaign.gd")
+const Expedition=preload("res://scripts/expedition.gd")
+const Manifest=preload("res://scripts/hold_manifest.gd")
 
 const MAX_WRECKS := 128
 const MODE_STRIP := "strip"
 const MODE_TOW := "tow"
+const MODE_GEAR := "gear"
 const STATUS_UNCLAIMED := "unclaimed"
 const STATUS_STRIPPED := "stripped"
 const STATUS_TOWED := "towed"
@@ -34,6 +40,30 @@ const TOW_SPEED_FACTOR := 0.55
 const _COIN_LIMIT := 9223372036854775807
 # Site-seeded wrecks use one fixed recoverable fraction: no rolls, no rerolls.
 const SITE_FRACTION := 0.30
+
+## Read-only campaign facade for quotes. No Campaign/world constructor, state
+## swap, economy tick or migration is needed to inspect an ordinary strip/tow.
+class QuoteView extends RefCounted:
+	var state: Dictionary
+	var data: Dictionary
+	var source
+	func _init(core):
+		source=core;data=core.data;state=core.state.duplicate(true)
+		core.Preflight._clone_boats(core.state,state)
+	func hull(id: String) -> Dictionary:
+		return source.hull(id)
+	func port(id: String) -> Dictionary:
+		for p in state.get("ports",[]):
+			if str(p.get("id",""))==id:return p
+		return {}
+	func capacity() -> float:
+		return source.Expedition.capacity(state)
+	func cargo_weight() -> float:
+		return source.Expedition.cargo_weight(state)
+	func can_add_boat(spec: Dictionary) -> bool:
+		return source.can_add_boat(spec)
+	func points_refusal(spec: Dictionary) -> String:
+		return source.points_refusal(spec)
 
 
 static func _is_num(v) -> bool:
@@ -282,6 +312,9 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 	var existing := _by_source(state, source_id)
 	if not existing.is_empty():
 		return existing.duplicate(true)
+	# Selected dismantling permanently retired this encounter's snapshot. Keep
+	# its source tombstone effective even after bounded wreck history is pruned.
+	if state.wreckSeededSources.has(source_id):return []
 	var causes := {}
 	for record in battle.get("wrecks", []) if battle.get("wrecks") is Array else []:
 		if record is Dictionary:
@@ -457,8 +490,9 @@ static func _raw_tow_preflight(state: Dictionary, wreck_id: String) -> String:
 
 # Read-only quote for both modes. Never mutates cargo, coins, fleet or the
 # wreck beyond ensure() normalization. Tow preflight runs before that.
-static func quote(core, wreck_id: String, mode) -> Dictionary:
+static func quote(core, wreck_id: String, mode, request: Dictionary={}) -> Dictionary:
 	var key := str(mode)
+	if key==MODE_GEAR:return _gear_stage(core,wreck_id,request).quote
 	var base := {"ok": false, "wreckId": wreck_id, "mode": key, "message": ""}
 	if core == null or not (core.get("state") is Dictionary):
 		base["message"] = "No campaign state."
@@ -519,8 +553,13 @@ static func quote(core, wreck_id: String, mode) -> Dictionary:
 # Settles one wreck. Returns the refused quote (with ok=false) and changes
 # nothing when ineligible. Tow stages every fallible check again and only then
 # pays, books workers, and adds the hull. It does not return failure after that.
-static func recover(core, wreck_id: String, mode) -> Dictionary:
-	var q := quote(core, wreck_id, mode)
+static func recover(core, wreck_id: String, mode, request: Dictionary={}) -> Dictionary:
+	# Selected equipment is inseparable from Campaign's paid work transaction.
+	# Do not expose a lower-level path that publishes exact parts for free.
+	if str(mode)==MODE_GEAR:
+		if core==null or not core.has_method("recover_wreck"):return {"ok":false,"message":"Selected recovery requires the paid campaign action."}
+		return core.recover_wreck(wreck_id,MODE_GEAR,"",0.0,request)
+	var q := quote(core, wreck_id, mode,request)
 	if not bool(q["ok"]):
 		return q
 	var state: Dictionary = core.state
@@ -777,3 +816,120 @@ static func strip_good(core,wreck_id: String,good: String,qty: float) -> Diction
 			Recovery.release(wreck, "retired")
 	if _strip_items(wreck).is_empty() and not Recovery.is_active(wreck):wreck.status=STATUS_STRIPPED;wreck.claimedMode=MODE_STRIP
 	return {"ok":true,"message":"Recovered %.2f %s from %s."%[amount,good,wreck.name],"weight":amount*float(Goods.ITEMS[good].weight)}
+
+
+static func _gear_refused(q: Dictionary,message: String) -> Dictionary:
+	q.ok=false
+	q.message=message
+	return {"quote":q}
+
+
+## One private all-or-nothing transaction. The complete source snapshot stays
+## untouched until it is retired; only a separate extraction copy is dismantled.
+## Neither a refused quote nor a successful quote publishes the returned state.
+static func _gear_stage(core,wreck_id: String,request: Dictionary) -> Dictionary:
+	var q: Dictionary={"ok":false,"message":"","wreckId":wreck_id,"mode":MODE_GEAR,
+		"carrierUid":str(request.get("carrierUid","")),"selected":[],"forfeitedItems":[],
+		"forfeitedComponents":{},"forfeitedHull":true,"retainedStores":{},"weight":0.0,
+		"lockerWeight":0.0,"carrierCapacity":0.0,"carrierLockerCapacity":0.0,"freeCapacity":0.0}
+	if core==null or not core.get("state") is Dictionary or not core.get("data") is Dictionary:
+		return _gear_refused(q,"No campaign state for exact equipment recovery.")
+	for key in request:
+		if key not in ["itemUids","carrierUid","acceptForfeiture"]:return _gear_refused(q,"Unknown selected equipment request field.")
+	if not request.get("carrierUid",null) is String or not request.get("itemUids",null) is Array:
+		return _gear_refused(q,"Choose an existing carrier and explicit physical item UIDs.")
+	if request.has("acceptForfeiture") and not request.acceptForfeiture is bool:
+		return _gear_refused(q,"Forfeiture consent must be an explicit boolean.")
+	var live: Dictionary=core.state
+	if not live.get("wrecks") is Array:return _gear_refused(q,"The wreck list is unreadable.")
+	# Use raw records: find_wreck/ensure intentionally normalizes ordinary legacy
+	# wrecks, which must never turn corrupt exact-custody input into an accepted one.
+	var source: Dictionary={}
+	for row in live.wrecks:
+		if row is Dictionary and str(row.get("id",""))==wreck_id:
+			if not source.is_empty():return _gear_refused(q,"Two wrecks share this recovery ID.")
+			source=row
+	if source.is_empty() or str(source.get("status",""))!=STATUS_UNCLAIMED or bool(source.get("hullStripped",false)):
+		return _gear_refused(q,"Only an intact, unclaimed equipment snapshot can be dismantled once.")
+	var blocked: String=Recovery.refusal(source)
+	if not blocked.is_empty() or not Recovery.is_active(source):return _gear_refused(q,blocked if not blocked.is_empty() else "This wreck has no canonical physical equipment to select.")
+	q.hull=str(source.get("hull",""));q.wreckName=str(source.get("name","Wreck"));q.status=str(source.status)
+	for key in ["components","stores"]:
+		if not source.get(key,{}) is Dictionary:return _gear_refused(q,"The wreck's finite material lots are unreadable.")
+		for good in source.get(key,{}):
+			var amount=source[key][good]
+			if not Goods.ITEMS.has(good) or not _is_num(amount) or float(amount)<0:return _gear_refused(q,"The wreck's finite material lots are unreadable.")
+	q.forfeitedComponents=source.get("components",{}).duplicate(true)
+	q.retainedStores=source.get("stores",{}).duplicate(true)
+	var selected_ids: Array=request.itemUids
+	var seen: Dictionary={}
+	for uid in selected_ids:
+		if not uid is String or str(uid).is_empty() or seen.has(uid):return _gear_refused(q,"Select unique exact physical item UIDs.")
+		seen[uid]=true
+	for uid in source.sourceModuleCondition.items:
+		var item: Dictionary=source.sourceModuleCondition.items[uid].duplicate(true)
+		item.weight=Expedition.locker_item_weight(item)
+		if seen.has(uid):q.selected.append(item);q.weight+=float(item.weight)
+		else:q.forfeitedItems.append(item)
+	if selected_ids.is_empty() or selected_ids.size()>Condition.MAX_LOCKER:
+		return _gear_refused(q,"Select at least one real weapon, engine or armor part; pumps remain integral.")
+	if q.selected.size()!=selected_ids.size():return _gear_refused(q,"A selected physical item is not aboard this wreck.")
+	for item in q.selected:
+		if str(item.family)=="pumps":return _gear_refused(q,"Integral pumps stay with the forfeited hull and cannot enter a locker.")
+	var initial: Dictionary=Preflight.check_state(live,core.data)
+	if not initial.ok:return _gear_refused(q,str(initial.get("message","Campaign equipment custody is unreadable.")))
+	var staged: Dictionary=live.duplicate(true)
+	# Preserve any legitimate shared hull references across custody lists.
+	Preflight._clone_boats(live,staged)
+	var wreck: Dictionary={}
+	for row in staged.wrecks:
+		if str(row.get("id",""))==wreck_id:wreck=row;break
+	var carrier: Dictionary={}
+	for boat in Expedition.traveling(staged):
+		if str(boat.get("uid",""))==str(request.carrierUid):carrier=boat;break
+	# An otherwise working traveling support boat is a real carrier too. The
+	# existing traveling predicate already excludes disabled/unrepaired prizes.
+	if carrier.is_empty() or float(carrier.get("hp",0))<=0:
+		return _gear_refused(q,"Choose an existing seaworthy, crewed working hull with its own locker.")
+	var known: Dictionary=Recovery.registry(staged,wreck_id,carrier)
+	if not known.ok:return _gear_refused(q,str(known.get("message","Equipment custody is unreadable.")))
+	var source_base: Dictionary=core.hull(str(wreck.hull))
+	var dest_base: Dictionary=core.hull(str(carrier.get("type","")))
+	var whole: Dictionary=Recovery.rehearse(source_base,wreck.get("sourceLoadout"),wreck.sourceModuleCondition,str(wreck.id),known.uids)
+	if not whole.ok:return _gear_refused(q,str(whole.get("message","The complete source loadout is unreadable.")))
+	var prepared: Dictionary=Recovery.prepare(carrier,dest_base,known.uids)
+	if not prepared.get("accepted",false):return _gear_refused(q,str(prepared.get("message","The carrier needs valid existing physical equipment.")))
+	carrier.moduleCondition=prepared.condition
+	var extraction: Dictionary=wreck.sourceModuleCondition.duplicate(true)
+	for uid in selected_ids:
+		var moved: Dictionary=Condition.transfer_exact(extraction,carrier.moduleCondition,{
+			"itemUid":uid,"location":"locker","mountCount":Refits.hardpoints(dest_base).size(),
+			"hullType":str(dest_base.id),"sourceMountCount":Refits.hardpoints(source_base).size(),
+			"sourceHullType":str(source_base.id),"knownUids":known.uids})
+		if not moved.ok:return _gear_refused(q,str(moved.get("error","No selected equipment was transferred.")))
+	var projected: Dictionary=Records.publish(carrier)
+	if not projected.ok:return _gear_refused(q,str(projected.get("error","The locker projection could not be published.")))
+	q.lockerWeight=Expedition.locker_weight(carrier)
+	q.carrierCapacity=maxf(0,float(carrier.spec.get("cargo",0)))
+	q.carrierLockerCapacity=Expedition.hull_hold_capacity(staged,carrier)
+	q.freeCapacity=maxf(0,Expedition.capacity(live)-Expedition.cargo_weight(live))
+	if not is_finite(float(q.lockerWeight)) or float(q.lockerWeight)>float(q.carrierLockerCapacity)+0.00001:
+		return _gear_refused(q,"The selected parts and existing locker do not fit on this physical hull.")
+	if float(q.weight)>float(q.freeCapacity)+0.00001:
+		return _gear_refused(q,"The traveling holds have insufficient real space for the selected parts.")
+	# Retire the ORIGINAL complete snapshot, not the reduced extraction copy.
+	# Its UID list is history; the destination is the sole live selected owner.
+	Recovery.release(wreck,"retired")
+	wreck.hullStripped=true
+	wreck.components={}
+	wreck.claimedMode=MODE_GEAR
+	if _strip_items(wreck).is_empty():wreck.status=STATUS_STRIPPED
+	if not staged.get("wreckSeededSources") is Dictionary:staged.wreckSeededSources={}
+	if not str(wreck.get("sourceId","")).is_empty():staged.wreckSeededSources[str(wreck.sourceId)]=true
+	Manifest.allocate(staged)
+	if not staged.cargoManifest.get("unassigned",{}).is_empty():return _gear_refused(q,"The selected carrier would leave existing cargo without a real hold.")
+	var final_custody: Dictionary=Preflight.check_state(staged,core.data)
+	if not final_custody.ok:return _gear_refused(q,str(final_custody.get("message","Final equipment custody refused the entire selection.")))
+	q.ok=true
+	q.message="Dismantle %s: keep %d exact parts in %s; forfeit the hull, every other fitting and all component lots. Loose stores remain marked."%[q.wreckName,q.selected.size(),str(carrier.get("name","carrier"))]
+	return {"quote":q,"state":staged}

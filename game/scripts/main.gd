@@ -1068,8 +1068,8 @@ func open_battle_recovery():
 	return_to_campaign()
 	ui.RecoveryUI.open(ui,"",ids)
 
-func recover_wreck(id: String,choice: String,good: String="",qty: float=0.0) -> Dictionary:
-	return RecoveryFlow.recover(self,id,choice,good,qty)
+func recover_wreck(id: String,choice: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
+	return RecoveryFlow.recover(self,id,choice,good,qty,request)
 
 func take_prize_cargo(uid: String,good: String,qty: float) -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the coast before transferring prize cargo.")

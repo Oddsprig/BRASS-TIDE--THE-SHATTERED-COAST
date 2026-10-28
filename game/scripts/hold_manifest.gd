@@ -14,7 +14,9 @@ static func allocate(state: Dictionary) -> void:
 	var free: Dictionary={}
 	for b in boats:
 		manifest[b.uid]={}
-		free[b.uid]=maxf(0,float(b.spec.cargo)-Passengers.food_weight(state,str(b.uid))-Expedition.store_overflow(b)-maxf(0,float(state.get("captiveBerths",{}).get(str(b.uid),0))-maxf(0,float(b.crewMax)-float(b.crew))))
+		# These exact parts remain on this physical hull. Reserve them before
+		# shared commodities; do not mint @cargo lots or move a locker to a tug.
+		free[b.uid]=maxf(0,Expedition.hull_hold_capacity(state,b)-Expedition.locker_weight(b))
 	var load: Dictionary=state.get("cargo",{}).duplicate(true)
 	var freight: Dictionary=state.get("freight",{})
 	if not freight.is_empty():load["@freight"]=float(freight.get("qty",0))
