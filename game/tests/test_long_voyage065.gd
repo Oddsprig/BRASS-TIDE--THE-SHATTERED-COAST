@@ -291,9 +291,12 @@ func _initialize() -> void:
 	print("long voyage065 phase: one Main/world/navigation initialization")
 	scene=load("res://main.tscn").instantiate();root.add_child(scene)
 	scene.set_process(false);scene.set_physics_process(false)
+	await process_frame
+	if not check(scene.is_node_ready() and scene.core!=null and scene.chart!=null and scene.ui!=null and scene.audio!=null and scene.music!=null,"Main is ready with Core, chart, UI, audio and music before fixture access"):
+		receipt.status="INITIALIZATION_FAILED"
+		await finish();return
 	scene.audio.enabled=false;scene.music.enabled=false
 	scene.save_directory=OS.get_user_data_dir().path_join("long-voyage065-%d"%started)
-	await process_frame
 	c=scene.core
 	if not check(c.new_game(65065).get("ok",false),"Actual canonical career initializes"):await finish();return
 	scene.mode="campaign";scene.paused=true
