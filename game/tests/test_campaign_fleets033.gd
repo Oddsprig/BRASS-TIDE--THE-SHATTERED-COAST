@@ -72,13 +72,19 @@ func _test_at_sea_orders() -> void:
 	var tp: Dictionary = Orders.find_patrol(c.state, trader.id)
 	var gp: Dictionary = Orders.find_patrol(c.state, guard.id)
 	rp.x = 4200.0; rp.y = 3100.0
-	tp.x = 6500.0; tp.y = 3100.0
+	# All three actors are in the actual 055 local observation radius.
+	tp.x = 4700.0; tp.y = 3100.0
 	gp.x = 4500.0; gp.y = 3100.0
 	tp.active = false
 	AI.build_order(c.state, raider, "raid", raider.homePort, "Generic raid already at sea.")
 	AI.build_order(c.state, guard, "patrol", guard.homePort, "Generic patrol already at sea.")
 	check(str(Orders.select_raider_order(c.state, raider, "").targetOwnerId).is_empty(), "A lost chart convoy is not a selectable target")
 	_load_timber(trader, 8)
+	# Under-defended shipment: rounds stay conserved in its hold, not in guns.
+	# This preserves real reserves while exercising the new risk-aware selector.
+	for boat in trader.boats:
+		trader.cargo.ammo += float(boat.ammo) / float(Goods.ROUNDS_PER_CASE)
+		boat.ammo = 0.0
 	tp.active = true
 	var stale: String = str(c.state.ports[0].id)
 	var current: String = str(c.state.ports[1].id)
@@ -119,6 +125,7 @@ func _test_at_sea_orders() -> void:
 	for boat in trader.boats:
 		boat.sunk = true
 	check(Orders.target_destination(c.state, trader).is_empty() and str(Orders.select_raider_order(c.state, raider, "").targetOwnerId).is_empty(), "Actual selector rejects sunk carriers")
+	AI.observe(c.state, guard.id) # The guard locally witnesses the ended contact too.
 	AI.build_order(c.state, guard, "intercept", stale, "Intercepting the now-sunk target.", trader.id)
 	check(guard.order.purpose == "patrol" and str(guard.order.targetOwnerId).is_empty() and not str(guard.reason).contains("now-sunk"), "Lost target rebuild has a coherent generic purpose and reason")
 	check(Money.total(c.state) == coins and coins == int(c.state.coinSupply), "Selectors and daily response conserve all actual purses")
@@ -181,15 +188,17 @@ func _test_shared_encounters() -> void:
 	check(int(nav.encounterCount) == 4 and nav.encounterOwners.size() == 8 and nav.encounters.size() == 4, "Existing nine owners permit at most four disjoint successful fights")
 	var used: Dictionary = {}
 	var shots: int = 0
+	var rounds: int = 0
 	var captured: int = 0
 	var kinds: Dictionary = {}
 	for event in nav.encounters:
 		check(not used.has(event.a) and not used.has(event.b), "Each owner fought once across the actual shared daily scan")
 		used[event.a] = true; used[event.b] = true
 		shots += int(event.shotsA) + int(event.shotsB)
+		rounds += int(event.ammoUsedA) + int(event.ammoUsedB)
 		captured += int(event.capturedQty)
 		kinds[event.kind] = true
-	check(shots > 0 and is_equal_approx(ammo - _boat_total("ammo"), float(shots)), "Actual hostile salvos debit precisely their finite boat rounds")
+	check(shots > 0 and rounds >= shots and is_equal_approx(ammo - _boat_total("ammo"), float(rounds)), "Actual hostile salvos debit precisely their per-mount finite boat rounds")
 	check(captured > 0 and is_equal_approx(_goods("timber"), timber), "Actual prize cargo moves between physical holds without creation or loss")
 	check(Money.total(c.state) == coins and coins == int(c.state.coinSupply), "Actual hostile prizes conserve the complete coin supply")
 	check(_boat_total("crew") <= crew and _boat_total("supplies") <= supplies, "Combat and damage control create no people or repair supplies")

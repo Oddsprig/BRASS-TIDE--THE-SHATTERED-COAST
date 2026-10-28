@@ -1,0 +1,79 @@
+TRAFFIC / PROOF055 - PREPARED SOURCE HANDOFF, NOT RUN
+Base: ed51ad4f1b22cd5c6133b68537fa2c9e9dd047aa.
+Allowlist: naval_ui.gd; relevant test_campaign_fleets033.gd;
+test_campaign_ai055.gd; this note. No engine/advisory execution by this owner.
+
+Read ORDERS055 published contract: NavalAI.observe(state, observer_id="player")
+and NavalAI.sightings(state, observer_id="player") return detached bounded
+ownerId/name/faction/kind/x/y/day/expiresDay/destination/purpose/loaded/current/
+ageDays/expired snapshots. UI will consume these records, never distant owner
+orders or ledgers. Current hail also rechecks actual active local contact.
+Final peer additions read: reason is generated from purpose categories (never
+raw owner reason); threat is a dated firepower estimate; NPC range900/player1800,
+24 records/observer, pursuit0.25days, display1day, current1.5seconds. UI keeps its
+own purpose_text projection, independent of raw/private reasons. Peer combat
+event adds survivorsA/B and ammoUsedA/B. Both exact notes and implementation
+paths were manually read; no assumed field aliases or live distant owner views.
+
+FILES / PUBLIC UI SEAMS
+game/scripts/naval_ui.gd: open(ui) remains the existing entry through Interface's
+Coastal traffic action. report(state)->{contacts:Array,outcomes:Array} samples
+NavalAI.observe, projects name/faction/purpose/date/age/expiry/status/destination
+and public purpose text only. It omits all coordinates, hull/crew/cargo/purse/
+reserve/equipment records. Witnessed events alone yield date+summary, observed
+surviving hull counts and captured-good transfer. Max6 recent witnessed outcomes.
+No current owner names/orders/ledgers are fetched to describe historical events.
+can_hail(state,sighting)->bool checks current/unexpired sample plus the actual
+active, unhidden local patrol, active owner and living hulls. hail(ui,sighting)
+syncs pending economy and rechecks at click time before the existing encounter.
+This matches Main.click_chart patrol.hidden visibility; no owner.hidden field
+exists in that published chart schema. One same-case stale-hidden assertion is
+included. interface.gd and all actual054 art/chart assets remain unchanged.
+
+game/tests/test_campaign_fleets033.gd: keeps every original meaningful check.
+Order fixture moves its convoy into900-unit watch; its real rounds move into
+its own cargo hold so risk-aware targeting has an under-defended carrier without
+losing operating reserves. Shared-salvo assertion uses actual ammoUsedA/B,
+including ammoCost, rather than assuming every mount consumes one round.
+The guard explicitly samples the locally ended/sunk contact before rebuilding
+its order, so that assertion tests observed loss under the new memory contract.
+
+game/tests/test_campaign_ai055.gd: one validated seeded Campaign.new/new_game
+baseline with a new_game validation assertion (seed5501), three detached cases,
+no Main or repeated navigation
+initialization. Markers precede setup/cases. Source prepared, NOT native validated.
+- Actual paid finite8timber load, current/old/expired local observations, frozen
+  destination/purpose, unseen distant absence, no private reason/coordinates,
+  stale-hidden hail refusal, memory expiry and actual witnessed-event inclusion.
+- Actual selectors choose paid shipment and local hostile intercept. Real public
+  encounter API resolves raid then next-day patrol, daily participation refusal,
+  temporary peace refusal, finite salvos, retreat/survivors, prize goods debited/
+  credited, exact ammo units, global coins, no people creation, original part IDs.
+  A combat-damaged survivor gets a real water recovery route with no immediate
+  teleport; its real arrival buys kits/labor, pays worker purses and retains IDs.
+  The player's fixed distant assets/position and unobserved-event filter persist.
+- A staged last hull loss calls the integrated daily lifecycle before funded
+  replacement: sea wreck coordinate, exclusive original gear custody, original
+  hold debit and explicit existing half-recoverable cargo rule, idempotent repeat
+  reconciliation, paid stock/commission record, existing recruits and new IDs.
+
+LIMITS / ROOT NEXT CHECK
+These are bounded state/arrival-boundary cases, not elapsed-voyage gameplay,
+render, audio, visual acceptance or full AI/economy quality. Encounter actors are
+staged beside a seeded voyage. Recovery progresses directly to its real arrival
+boundary after route validation; it does not claim to measure travel time. The
+loss case stages a casualty to exercise custody ordering. No simulation/art/
+combat-worker policy is changed by this owner. Strict051/whole-quality stay open.
+No engine, parser, test, advisory, import/export, GPU or download ran here.
+Manual reads/diffs only. Source depends on BOTH peers' named commits, including
+NavalLifecycle.reconcile_losses and the public observation/event contracts.
+
+Root: integrate exact named commits on ed51ad4, then choose existing native
+runner entries for test_campaign_ai055.gd and updated test_campaign_fleets033.gd
+(terminal: campaign ai055: N checks, 0 failures / campaign fleets033: N checks,
+0 failures), plus existing lifecycle033 where useful. Queue through Test Bridge,
+one selected batch<120s including setup/import/export3starts/cleanup. Preserve
+all failures; this source-only handoff reports no passes. Review actual Coastal
+traffic using the existing capture path after native acceptance; include a local
+contact and its old/expired report, witnessed outcomes and loss of hail action.
+No metadata/maps/tags/package/install/push/cleanup was performed.
