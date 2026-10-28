@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Transfer finite fuel between your stopped boats explicitly, preserving their actual tanks, stores and accounts.
 
 See docs/TEST RESULTS v0.065.md for actual focused checks and remaining limits.
+
+Verification: 125 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 74.329s. Preserved earlier failures; no broad acceptance claim.

@@ -1,19 +1,17 @@
-# Current verified release: v0.064 ocean and coastal charts
+# Current verified release: v0.065 long-voyage preparation
 
-Shatter Coast connects to one three-island Glasswind Keys prototype. Actual
-round-trip/save/custody checks and Windows export/startup passed:556unique
-focused checks. Root inspected nine actual exported stills. No complete remote
-expedition or48-group sector is claimed. Whole-game quality and earlier strict
+Actual coastal/ocean route forecasts, expected spending, separate return and two-day
+allowance, per-boat fuel and explicit transfers.749unique checks, Windows startups
+and eleven reviewed exported stills. Whole-game quality and earlier strict battle
 performance targets remain open.
 
-Next: **v0.065**, long-voyage forecasts and explicit return reserves. Finish each
-saved scope before the next.
+Next: **v0.066**, playable ocean travel. Finish each saved scope before the next.
 
 | Version | Bounded scope |
 | --- | --- |
 | 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
 | 0.064 | Verified prototype: ocean/local charts, Glasswind Keys, persistent round trip. |
-| 0.065 | Fuel, wages, rations, maintenance and return reserves for longer voyages. |
+| 0.065 | Verified: forecasts, return reserves, actual paid voyage and finite tank transfers. |
 | 0.066 | Ocean route choices, currents/weather, sightings, pursuit and interception. |
 | 0.067 | Complete the first useful remote exploration expedition. |
 | 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |

@@ -1,5 +1,5 @@
 BRASS TIDE - OPEN OCEAN VERSION MAP v0.063-v0.072
-28 October 2026 | v0.063-v0.064 VERIFIED; v0.065-v0.072 PLANNED
+28 October 2026 | v0.063-v0.065 VERIFIED; v0.066-v0.072 PLANNED
 
 PURPOSE
 Build a large ocean world from smaller, detailed island groups. Preserve the
@@ -39,7 +39,7 @@ Acceptance: a round trip retains original hull/equipment IDs, cargo, coins, crew
 damage and time. No double ticking, duplicated fleets, reset encounters or free
 escape by changing layers. A prototype destination is not a finished expedition.
 
-0.065 - LONG-VOYAGE PREPARATION AND COSTS
+0.065 - LONG-VOYAGE PREPARATION AND COSTS [VERIFIED SCOPED]
 Scope: distance/time estimates, fuel, rations, wages, maintenance, cargo capacity
 and explicit return reserves. Existing tankers and support boats extend endurance
 through actual carried stores and transfers. Fuel also remains necessary locally.
@@ -117,8 +117,8 @@ Use existing data-worker scheduling and safe render mode1. Main owns Godot UI,
 render resources and audio. Coarse distant updates share the campaign clock,
 with stable identities, bounded catch-up and no minted money or duplicated goods.
 Retain prior unmet quality criteria; new regions do not certify Starsector parity.
-Helpers: existing Bridge authorization, up to3Sol6.1MAX, source-only isolated scopes;
-optional Grok4.7HIGH. Root coordinates integration and all engine/GPU verification.
+Helpers:2Sol6.1MAX,1GoogleArgonHIGH,1Grok4.7HIGH,2boundedMuseSparkHIGH,
+through Bridge with source-only isolated scopes. Root coordinates and owns all tests.
 Shared test lane, background/private/muted, no mouse or focus. Each entire selected
 test batch stays below120seconds including setup/import/export/startup/cleanup;
 queue wait is separate. Use existing scripts and meaningful small fixtures.
@@ -129,4 +129,10 @@ Owner authorized the sequence and named the six-specialist Bridge team.
 v0.063 verified:839unique checks, Windows startup and an actual full300DP profile.
 Worker/snapshot medians show modest observed gains; light capacity/lag and strict
 quality remain open. Current scope/evidence: ROADMAP.md and work/quality-v063.
-Next0.064 proves ocean/local transition with one remote prototype group.
+v0.064 verified556checks with ocean/local transition and one remote prototype.
+v0.065 verified749checks with paid voyage costs, return reserves and fuel transfers.
+Next0.066: playable ocean navigation, sightings and pursuit within its saved scope.
+
+0.065 acceptance:624native+125worker=749unique checks, clean Windows export/startups,
+eleven reviewed private UI stills. Forecast matched actual paid round trip under
+declared conditions. See work/quality-v065/ACTUAL065 CHECKS.json. Next066scope only.

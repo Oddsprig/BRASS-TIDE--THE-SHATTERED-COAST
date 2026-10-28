@@ -430,3 +430,7 @@ display scaling and rendered FPS remain separate open review questions.
 
 28 OCTOBER 2026 - v0.063
 Nativebf2f4dfba88443a3b006542ef2037752:714/0whole31.042159s. Worker/Windows50ba1566443441b8922cf92bc82b098e:125/0whole76.721212s. Same production source; only workerfixture changed. Total839unique checks. Runtime2d75ca709e814cf3850be0b620233570 whole59.462638s,qualityFALSE,4PNGsRootreviewed. Source0c8b83d/game equality must be preserved through delivery. See work/quality-v063/PREFLIGHT063 SOURCE PROOF.json,ACTUAL063 PERFORMANCE.json,COMPARISON062-063.json and ROOT VIEW REVIEW063.txt. Wrong-report-pathjob7e80222 retained as failed; actual accepted native is correctedbf2f4dfb. All child exits0/cleanup after corrected runs; no further engine runs needed for this bounded scope.
+
+v0.065: work/quality-v065/ACTUAL065 CHECKS.json;624native+125worker=749unique;11reviewedstills.
+Paid real voyage, forecast/transfer/UI purity, Windows export/startups; earlier failures retained.
+Whole-game art/audio/fun/strict performance remains OPEN.

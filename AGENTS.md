@@ -1,19 +1,14 @@
 # Brass Tide - current working instructions
 
-Installed v0.064 DELIVERED; tag5148fbc/tested source f6311c8; same game tree across focused
-checks/Windows export and reviewed nine-view private capture. Task work/quality-v064.
-Native431/0 + worker125/0=556unique focused checks, clean bounded batches.
-One ocean chart, original home and one three-island Glasswind Keys prototype.
-Full receipts, earlier failures and limits: ACTUAL064 CHECKS.json / CURRENT STATE.txt.
-No new remote jobs/loot/weather/ocean battles or48-group sector yet.
-Package/CRC ZIP/install/owner preservation verified. Next065long-voyage forecasts/reserves.
-Do not prepare064, retag, rerun passed tests or reinstall it again.
-Whole quality OPEN:063 lightworkerP9537.816ms/lag150ms, strictFPS below60 persist.
-Do not revive rejected062phase optimization. Recomputed harbor incoming/observedDemand
-are forecasts, not conserved stock. Chart DTO uses explicit String-keyed fields;
-native refit dictionary members may use StringName keys. Don't weaken strict model.
-Queue fresh required report=result.json; bridge-result.json is final queue receipt.
-Read queue byjobID only, never global history. No owner file or launch changes by helpers.
+Current verified release v0.065: long-voyage preparation and explicit finite fuel
+transfers. Tested source bb13acd822e85d57a4e1692c9b9d051c2c5d5fa2;624native+125worker=749unique checks.
+Eleven private exported UI stills reviewed; Windows export/startup clean. Task
+work/quality-v065 contains actual receipts and prior failed setup attempts.
+Do not prepare065 again. Check DELIVERED v0.065.json for completed installation.
+Next066 after delivery: playable ocean travel. Prior battle quality/performance
+limits OPEN. No helper engine or owner-file work; Root owns shared-lane tests
+and delivery. Read queue byjobID; fresh report=result.json; final receipt is
+bridge-result.json.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.

@@ -473,3 +473,14 @@ against current shipments separately. Bounded field-only diagnostics exposed thi
 without speculative production economy changes. Initialize optional test work records
 through their real initializer. JSON number representation needs semantic identity
 comparison, while actual coin/quantity equality remains exact. Native failures retained.
+
+v0.065: Await Main readiness before accessing scene services in a SceneTree fixture.
+Resupply ok reports a sale, not physical readiness; already-full no-sale is valid
+only with ready stores and zero invoice. Verify stock and purse deltas. Fund
+initial fixture purchases and voyage obligations from finite treasury with a
+declared budget; never mint stores or lower real shortage checks. Native quote
+accounting must distinguish chronological days from conservative ceil allowance.
+Long unwrapped labels and one-line control bars inflate modal minimum width.
+Use local word-wrap, bounded pickers and flow rows; inspect actual1280x800capture.
+No global modal rebuild needed. Fast multi-new-game capture welcome toasts remain
+a transient existing presentation limitation; no motion/audio acceptance claimed.

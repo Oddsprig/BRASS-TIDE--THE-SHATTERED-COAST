@@ -1,0 +1,10 @@
+VOYAGE PREPARATION065 — CURRENT SOURCE MAP
+voyage_costs065.gd: pure actual-context quote; reuses Expedition costs and public064 geometry.
+campaign.gd: voyage_quote065 detached snapshot; transfer_fuel065 physical stopped tanks.
+voyage_preparation_ui065.gd: Main-only draft controls; refresh/review/Fleet/Hold/Close pure.
+main.gd: sync/requote/explicit nextAction, guarded fuel transfer and hold-reserve loading.
+interface.gd: transient seven-field draft; no quote authority saved or save format bump.
+Expected pending/outward/idle/return spending differs from conservative two-day allowance.
+Healthy dry kit need0; damaged needs conditional. Tank stores are individual, not pooled.
+624native+125worker passed; actual paid roundtrip and UI purity checked.11still views.
+No future weather/reward/shipping systems; whole-game quality/performance remains OPEN.

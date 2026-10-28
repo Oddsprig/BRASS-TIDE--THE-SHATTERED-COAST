@@ -1,3 +1,5 @@
+v0.065 VERIFIED AND PACKAGED: 125/0 focused checks, selected batch 74.329s, TestBridge b86e6082bbe34dedba45bf265616518f. Source bb13acd822e85d57a4e1692c9b9d051c2c5d5fa2.
+
 28OCT2026 - v0.065 LONG-VOYAGE PREPARATION AND FUEL TRANSFERS
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
