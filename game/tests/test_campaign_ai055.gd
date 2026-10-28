@@ -51,6 +51,8 @@ func _reset(ids: Array) -> void:
 		patrol.active = owner.active
 		patrol.hidden = false
 		patrol.holding = false
+		if owner.active:
+			_fund(owner, maxi(0, 8000 - int(owner.coins)))
 	c.state.position = {"x": 0.0, "y": 0.0}
 	c.state.navalAi.sightingsByObserver = {}
 

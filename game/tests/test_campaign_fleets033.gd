@@ -45,6 +45,14 @@ func _isolate(ids: Array) -> void:
 		var p: Dictionary = Orders.find_patrol(c.state, owner.id)
 		p.active = owner.active
 		p.holding = false
+		if owner.active:
+			var remaining: int = maxi(0, 8000 - int(owner.coins))
+			for port in c.state.ports:
+				var advance: int = mini(remaining, int(port.governmentPurse))
+				check(Money.move(port, "governmentPurse", owner, "coins", advance, "Finite scenario voyage advance", c.state.moneyLog), "Operating advance transfers existing treasury coins")
+				remaining -= advance
+				if remaining == 0: break
+			check(remaining == 0, "Existing treasuries fund the staged voyage")
 
 
 func _load_timber(owner: Dictionary, qty: int) -> void:
@@ -104,6 +112,7 @@ func _test_at_sea_orders() -> void:
 	AI.build_order(c.state, recovering, "repair", changed, "Existing paid repair diversion.")
 	var coins: int = Money.total(c.state)
 	AI.tick(c, 1)
+	print("campaign fleets033 orders: ", raider.reason, " | ", guard.reason)
 	check(raider.order.targetOwnerId == trader.id and raider.destination == current and raider.atPort == "", "Daily tick retasks an already sailing raider without docking")
 	check(guard.order.purpose == "intercept" and guard.order.targetOwnerId == raider.id and guard.atPort == "", "Daily tick turns an already sailing patrol toward the raider")
 	check(str(raider.reason).contains(str(trader.name)) and str(guard.reason).contains(str(raider.name)), "Existing order reasons expose each actual target")
@@ -114,7 +123,7 @@ func _test_at_sea_orders() -> void:
 	tp.to = changed
 	AI.tick(c, 1)
 	check(raider.order.targetOwnerId == trader.id and raider.destination == changed and trader.destination == stale, "Next daily response follows the changed live route without rewriting the target")
-	check(int(raider.lastNavalRetargetDay) == int(c.state.econDay), "Retarget cadence uses the actual campaign day")
+	check(int(raider.get("lastNavalRetargetDay", -1)) == int(c.state.econDay), "Retarget cadence uses the actual campaign day")
 	tp.active = false
 	AI.tick(c, 1)
 	check(str(raider.order.targetOwnerId).is_empty(), "A lost current sighting is cleared, even after today's earlier response")
