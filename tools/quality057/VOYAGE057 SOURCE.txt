@@ -81,3 +81,28 @@ Unrun is not passed. Real route/quote/access/stock/crew/time/restore refusal
 fails with its actual source/API message; do not waive it or grant resources.
 No demonstrated native blocker is claimed from this source-only pass.
 No release metadata/maps/tag/install/push/cleanup authored.
+
+BOUNDED ROUNDTRIP DIAGNOSTIC CORRECTION (27 October 2026)
+Root actual job021b0f4dd57f4e44a1f8fddbabbaf5a5/attempt-002 native.log:
+175 checks/1 failure, 17.458s. Only combined purse/raw cargo equality failed
+at Actual discovery and finite recovery; log contains no differing key/value.
+Do NOT claim its exact difference or float-only diagnosis is established.
+Root combined source read-only: campaign.restore lines1149-1227 validates
+incoming JSON then publishes it; save_validation._cargo accepts finite
+nonnegative fractional amounts. Own proof matches Root's current proof.
+No gameplay source changed. Only new proof and this appended note changed.
+
+Prepared correction captures parsed cargo BEFORE restore (detached), then
+prints each changed key's before/JSON/restored amounts and both deltas with
+17 decimal places. Purse mismatch prints all three exact values. Exact cargo
+key sets and finite numeric types are required. Restored amounts must equal
+parsed amounts EXACTLY, so even tiny restore loss fails. Integral lots and
+zero must also survive serialization exactly. Fractional serialization drift
+alone may differ by <=1e-12 absolute; no is_equal_approx relative allowance.
+Every such fractional difference prints even when accepted, so Root's retry
+will establish the exact key/value difference and whether it arose in JSON
+or restore. Coins compare numerically exactly without truncation; global coin
+supply, knowledge, hull UID and equipment custody assertions remain intact.
+No missing keys, nonfinite amount, real lot loss or restore mutation waived.
+Native retry remains REQUIRED; no test/parser/advisory/engine run by C.
+Retain Root's separate269/0 component receipt at484da5b; do not rerun it.

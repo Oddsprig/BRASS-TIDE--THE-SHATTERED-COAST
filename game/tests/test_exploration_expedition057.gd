@@ -102,15 +102,48 @@ func work(site_id: String,action: String) -> bool:
 	check(not c.begin_survey(site_id,action).ok,"Completed work cannot consume another lot or repeat a finding")
 	return conserved("Completed shore assignment")
 
+func restored_cargo_matches(label: String,before: Dictionary,encoded: Dictionary,after: Dictionary) -> bool:
+	var keys: Array=before.keys()
+	var encoded_keys: Array=encoded.keys()
+	var after_keys: Array=after.keys()
+	keys.sort();encoded_keys.sort();after_keys.sort()
+	var matches: bool=keys==encoded_keys and keys==after_keys
+	if not matches:print("expedition057: ",label," cargo keys before=",keys," JSON=",encoded_keys," restored=",after_keys)
+	for key in keys:
+		if not encoded.has(key) or not after.has(key):continue
+		var original=before[key]
+		var parsed=encoded[key]
+		var restored=after[key]
+		if not (original is int or original is float) or not (parsed is int or parsed is float) or not (restored is int or restored is float):
+			matches=false
+			print("expedition057: ",label," cargo ",key," invalid types before=",typeof(original)," JSON=",typeof(parsed)," restored=",typeof(restored))
+			continue
+		var expected: float=float(original)
+		var serialized: float=float(parsed)
+		var actual: float=float(restored)
+		# Restore must preserve the parsed quantity EXACTLY. Only fractional
+		# drift already introduced by JSON may use this small absolute bound;
+		# integral lots, zero, key custody and player coins remain exact.
+		var json_matches: bool=expected==serialized or (floor(expected)!=expected and absf(serialized-expected)<=0.000000000001)
+		if not is_finite(expected) or not is_finite(serialized) or not is_finite(actual) or not json_matches or actual!=serialized:matches=false
+		if expected!=serialized or serialized!=actual:
+			print("expedition057: ",label," cargo ",key," before=",String.num(expected,17)," JSON=",String.num(serialized,17)," restored=",String.num(actual,17)," JSONdelta=",String.num(serialized-expected,17)," restoreDelta=",String.num(actual-serialized,17))
+	return matches
+
 func roundtrip(label: String) -> bool:
 	sync_economy()
 	var coins: int=int(c.state.coins)
 	var cargo: Dictionary=c.state.cargo.duplicate(true)
 	var knowledge: Dictionary=c.state.exploration.duplicate(true)
 	var saved: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	var encoded_cargo: Dictionary=saved.cargo.duplicate(true)
+	var encoded_coins=saved.coins
 	var result: Dictionary=c.restore(saved)
 	if not check(bool(result.ok),label+": existing restore accepts the actual voyage: "+str(result.message)):return false
-	check(int(c.state.coins)==coins and c.state.cargo==cargo,label+": player purse and physical cargo survive JSON save/load")
+	var purse_matches: bool=encoded_coins==coins and c.state.coins==coins
+	if not purse_matches:print("expedition057: ",label," purse before=",coins," JSON=",encoded_coins," restored=",c.state.coins)
+	var cargo_matches: bool=restored_cargo_matches(label,cargo,encoded_cargo,c.state.cargo)
+	check(purse_matches and cargo_matches,label+": exact player purse, cargo keys and parsed quantities survive JSON save/load")
 	check(c.state.exploration==knowledge,label+": earned knowledge and work survive save/load")
 	var retained: Array=c.find_boat(hull_uid).moduleCondition.items.keys()
 	retained.sort()
