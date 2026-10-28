@@ -279,8 +279,21 @@ func active_bounds064() -> Rect2:
 		return _ocean_painter064.world_bounds(host.core.world_view064())
 	return Rect2(0,0,float(host.data.WORLD.width),float(host.data.WORLD.height))
 
+func _ocean_view066() -> Dictionary:
+	if host!=null and host.core!=null and host.core is Object and host.core.has_method("ocean_view066"):
+		var v=host.core.ocean_view066()
+		if v is Dictionary:return v
+	return {}
+
+func pick_contact066(screen: Vector2) -> Dictionary:
+	if host==null or host.core==null:return {}
+	return _ocean_painter064.pick_contact(self,host.core.world_view064(),_ocean_view066(),screen)
+
 func pick_ocean064(screen: Vector2) -> Dictionary:
-	return _ocean_painter064.pick_region(host.core.world_view064(),world_at(screen))
+	var view064: Dictionary=host.core.world_view064()
+	var hit066: Dictionary=_ocean_painter064.pick_contact(self,view064,_ocean_view066(),screen)
+	if not hit066.is_empty():return hit066
+	return _ocean_painter064.pick_region(view064,world_at(screen))
 
 func regional_scale() -> float:
 	var viewport=get_viewport_rect().size
@@ -968,7 +981,7 @@ func draw_campaign():
 		if view064.is_empty():
 			text_at("Chart unavailable",get_viewport_rect().size*0.5,22,GOLD,serif,true)
 			return
-		_ocean_painter064.draw(self,view064)
+		_ocean_painter064.draw(self,view064,_ocean_view066())
 		return
 	if host.core == null or host.core.state.is_empty():
 		return

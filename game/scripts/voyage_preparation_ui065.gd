@@ -1,5 +1,5 @@
 extends RefCounted
-## Main-thread long-voyage preparation presenter for v0.065.
+## Main-thread long-voyage preparation presenter for v0.065-v0.066.
 ## Consumes Core.voyage_quote065(intent) read-only and never settles economy on view.
 
 const HOME_REGION: String = "shatter_coast"
@@ -349,7 +349,12 @@ static func _legs_summary(legs: Array, phase: String) -> String:
 		if kind == "transition":
 			parts.append("Cross %s (%s → %s, 0d)" % [str(leg.get("approachId", "")).capitalize(), layer, str(leg.get("toLayer", ""))])
 		else:
-			parts.append("Sail %s (%.0f u / %.1fs)" % [layer, float(leg.get("physicalDistance", 0.0)), float(leg.get("seconds", 0.0))])
+			var exp_s: float = float(leg.get("expectedSeconds", leg.get("seconds", 0.0)))
+			var con_s: float = float(leg.get("conservativeSeconds", exp_s))
+			if leg.has("conservativeSeconds") and not is_equal_approx(exp_s, con_s):
+				parts.append("Sail %s (%.0f u / %.1fs exp · %.1fs cons)" % [layer, float(leg.get("physicalDistance", 0.0)), exp_s, con_s])
+			else:
+				parts.append("Sail %s (%.0f u / %.1fs)" % [layer, float(leg.get("physicalDistance", 0.0)), float(leg.get("seconds", 0.0))])
 	return "Steps: " + (" → ".join(parts) if not parts.is_empty() else "At destination (0 distance)")
 
 
@@ -510,7 +515,59 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 	ui.paragraph(reserve_row, "Loads loose hold ammunition, fuel and repair kits into boat working stores in fleet order; food stays in the hold. Sealed job freight is never touched.", 12, ui.MUTED)
 
 
+static func _render_weather_forecast066(ui, body: VBoxContainer, quote: Dictionary) -> void:
+	var wf = quote.get("weatherForecast", null)
+	if not (wf is Dictionary) or wf.is_empty():
+		return
+	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel", ui.box(Color("132d36"), ui.LINE, 10))
+	body.add_child(card)
+	var col = ui.column(card)
+	col.add_theme_constant_override("separation", 4)
+	_wrapped_eyebrow(ui, col, "OCEAN WEATHER & CURRENT FORECAST (READ-ONLY · 15S PHASE HORIZON)")
+
+	var valid_raw = wf.get("validUntilSecond", null)
+	var valid_until: float = float(valid_raw) if (valid_raw is int or valid_raw is float) and not (valid_raw is bool) and is_finite(float(valid_raw)) else 0.0
+	var day_now: float = float(quote.get("origin", {}).get("day", 0.0))
+	var now_sec: float = day_now * 45.0
+	var rem_sec: float = maxf(0.0, valid_until - now_sec) if valid_until > 0.0 else 0.0
+
+	var horizon_text: String = "Forecast validity: Current weather phase valid until %.1fs simulated time (%.1fs remaining in 15s phase). Expected duration holds current zone weather fixed; conservative duration and reserve allowance use each crossed zone's slowest authored weather plus the separate 2-day contingency buffer. Actual 15s weather phases may shift underway—no exact arrival guarantee." % [valid_until, rem_sec]
+	if (wf.get("expectedSeconds") is int or wf.get("expectedSeconds") is float) and (wf.get("conservativeSeconds") is int or wf.get("conservativeSeconds") is float):
+		horizon_text += "  ·  Ocean moving estimate: %.1fs expected vs %.1fs conservative." % [float(wf["expectedSeconds"]), float(wf["conservativeSeconds"])]
+	ui.paragraph(col, horizon_text, 12, ui.GOLD)
+
+	var conditions = wf.get("conditions", null)
+	if conditions is Array and not conditions.is_empty():
+		var cond_parts: Array = []
+		for cond in conditions:
+			if not (cond is Dictionary):
+				continue
+			var zid: String = str(cond.get("name", cond.get("zoneId", "Zone"))).replace("_", " ").capitalize()
+			var w_label: String = str(cond.get("label", "Clear"))
+			var sf: int = roundi(float(cond.get("speedFactor", 1.0)) * 100.0)
+			var vf: int = roundi(float(cond.get("visibilityFactor", 1.0)) * 100.0)
+			var cur = cond.get("current", {})
+			var cur_str: String = ""
+			if cur is Dictionary and (absf(float(cur.get("x", 0.0))) > 0.05 or absf(float(cur.get("y", 0.0))) > 0.05):
+				cur_str = " · current (%+.0f, %+.0f) u/s" % [float(cur.get("x", 0.0)), float(cur.get("y", 0.0))]
+			cond_parts.append("%s: %s (speed %d%% · sight %d%%%s)" % [zid, w_label, sf, vf, cur_str])
+		if not cond_parts.is_empty():
+			ui.paragraph(col, "Active zone conditions: " + "  |  ".join(cond_parts), 12, ui.TEXT)
+
+	var wf_assumptions = wf.get("assumptions", null)
+	if wf_assumptions is Array and not wf_assumptions.is_empty():
+		var wf_joined := PackedStringArray()
+		for item in wf_assumptions:
+			var s: String = str(item).strip_edges()
+			if not s.is_empty():
+				wf_joined.append(s)
+		if not wf_joined.is_empty():
+			ui.paragraph(col, "Weather & route modifiers: " + " ".join(wf_joined), 12, ui.MUTED)
+
+
 static func _render_maintenance_and_conditions(ui, body: VBoxContainer, quote: Dictionary, maintenance: Dictionary, stores: Dictionary) -> void:
+	_render_weather_forecast066(ui, body, quote)
 	_wrapped_eyebrow(ui, body, "MAINTENANCE, CONDITIONAL REPAIR KITS & DECLARED QUOTE CONDITIONS")
 	var known: bool = bool(maintenance.get("usageKnown", false))
 	var expected_kits = maintenance.get("expectedSupplies", null)
@@ -586,6 +643,14 @@ static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, int
 	if next_kind == "none" or str(view.get("regionId", "")) == REMOTE_REGION:
 		var home_btn = ui.button(actions, "Destination: Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
 		home_btn.custom_minimum_size.y = 36
+
+	if ui.has_method("open_ocean_contact066") and c.has_method("ocean_view066"):
+		var v066: Dictionary = c.ocean_view066()
+		var contacts066: Array = v066.get("contacts", []) if v066.get("contacts") is Array else []
+		var mode066: String = str(v066.get("travel066", {}).get("mode", "direct")) if v066.get("travel066") is Dictionary else "direct"
+		if not contacts066.is_empty() or mode066 != "direct":
+			var contact_btn = ui.button(actions, "Sightings & course orders", func(): ui.open_ocean_contact066(), false, false)
+			contact_btn.custom_minimum_size.y = 36
 
 	var refresh_btn = ui.button(actions, "Refresh", func(): open(ui), false, false)
 	refresh_btn.custom_minimum_size.y = 36

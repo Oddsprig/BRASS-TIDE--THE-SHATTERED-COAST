@@ -1,6 +1,6 @@
 extends RefCounted
-## Main-thread painter, region/approach picker, and CoastArt050 cache adapter for v0.064.
-## Consumes OceanWorld064 view payload V directly (never the outer R0 wrapper).
+## Main-thread painter, region/approach/contact picker, and CoastArt050 cache adapter for v0.064-v0.066.
+## Consumes OceanWorld064 view payload V directly (never the outer R0 wrapper) and separate Core.ocean_view066().
 ## Owns Open Ocean and Glasswind Keys local drawing; home campaign drawing stays on Chart.
 
 const CoastArt050 = preload("res://scripts/coast_art050.gd")
@@ -9,6 +9,11 @@ const FleetArt054 = preload("res://scripts/campaign_fleet_art054.gd")
 
 const GOLD := Color("dfbd7d")
 const FOAM := Color("95cabc")
+const ENEMY := Color("e8947a")
+const FRIEND := Color("8fc6b4")
+const FOG_TINT := Color("9bb8bd")
+const SQUALL_TINT := Color("d6a86c")
+const CURRENT_TINT := Color("76c2b4")
 const VALID_APPROACH_IDS: Array = ["north", "south"]
 const HOME_ISLAND_IDS: Array = [
 	"isl_lantern", "isl_kelp", "isl_sawtooth", "isl_verdigris",
@@ -18,6 +23,7 @@ const CACHE_LIMIT: int = 8
 
 var _local_region_cache: Dictionary = {}
 var _ocean_region_cache: Dictionary = {}
+var _zone_cache: Dictionary = {}
 var _fallback_font: SystemFont = null
 
 
@@ -218,6 +224,465 @@ static func _valid_view(view, require_full_draw_fields: bool = false) -> bool:
 			if not _valid_approach(av):
 				return false
 	return true
+
+
+static func _resolve_ocean_view066(chart, ocean_view066 = null) -> Dictionary:
+	if ocean_view066 is Dictionary:
+		return ocean_view066
+	if ocean_view066 == null and chart != null:
+		if chart is Object and chart.has_method("_ocean_view066"):
+			var v = chart._ocean_view066()
+			if v is Dictionary:
+				return v
+		var h = chart.get("host")
+		if h != null and h.get("core") != null and h.core is Object and h.core.has_method("ocean_view066"):
+			var v2 = h.core.ocean_view066()
+			if v2 is Dictionary:
+				return v2
+	return {}
+
+
+static func _normalize_render_boats066(raw_boats) -> Array:
+	if not (raw_boats is Array):
+		return []
+	var out: Array = []
+	for raw in raw_boats:
+		if not (raw is Dictionary):
+			continue
+		var entry: Dictionary = raw.duplicate(true)
+		var spec_dict: Dictionary = entry.get("spec", {}).duplicate(true) if entry.get("spec") is Dictionary else {}
+		var hull_id: String = str(spec_dict.get("id", entry.get("hullId", entry.get("hull_id", entry.get("type", "")))))
+		if hull_id.is_empty() and entry.get("id") is String:
+			var candidate_id: String = str(entry["id"])
+			if not FleetArt054.asset_info({"id": candidate_id}).is_empty():
+				hull_id = candidate_id
+		if not hull_id.is_empty():
+			spec_dict["id"] = hull_id
+			var info: Dictionary = FleetArt054.asset_info({"id": hull_id})
+			if not info.is_empty():
+				if not spec_dict.has("size"):
+					spec_dict["size"] = float(info.get("size", 14.0))
+				if not spec_dict.has("role"):
+					spec_dict["role"] = str(info.get("role", "raider"))
+				if not spec_dict.has("tier"):
+					spec_dict["tier"] = int(info.get("tier", 1))
+			entry["spec"] = spec_dict
+		out.append(entry)
+	return out
+
+
+static func _extract_zones066(view064: Dictionary, view066: Dictionary) -> Array:
+	if view066.is_empty():
+		return []
+	var raw_zones = view066.get("zones", null)
+	if not (raw_zones is Array) or raw_zones.is_empty():
+		return []
+	var cond_by_id: Dictionary = {}
+	var raw_conds = view066.get("conditions", null)
+	if raw_conds is Array:
+		for c in raw_conds:
+			if c is Dictionary:
+				var cid: String = str(c.get("zoneId", c.get("id", "")))
+				if not cid.is_empty():
+					cond_by_id[cid] = c
+	elif raw_conds is Dictionary:
+		for k in raw_conds:
+			if raw_conds[k] is Dictionary:
+				cond_by_id[str(k)] = raw_conds[k]
+	var active_layer: String = str(view064.get("layer", "ocean"))
+	var out: Array = []
+	for raw_z in raw_zones:
+		if not (raw_z is Dictionary):
+			continue
+		var z_layer: String = str(raw_z.get("layer", "ocean"))
+		if not view064.is_empty() and z_layer != active_layer:
+			continue
+		var r_dict = raw_z.get("rect", raw_z.get("bounds", null))
+		if not _valid_bounds_dict(r_dict):
+			continue
+		var rect := Rect2(float(r_dict["x"]), float(r_dict["y"]), float(r_dict["width"]), float(r_dict["height"]))
+		var zid: String = str(raw_z.get("id", raw_z.get("zoneId", "zone_%d" % out.size())))
+		var cond: Dictionary = cond_by_id.get(zid, {})
+		var cur_raw = cond.get("current", raw_z.get("current", null))
+		var cur_vec := Vector2.ZERO
+		if _valid_point(cur_raw):
+			cur_vec = _to_vec2(cur_raw)
+		elif _is_finite_number(raw_z.get("heading", null)):
+			cur_vec = Vector2.from_angle(float(raw_z["heading"])) * 10.0
+		var sf_raw = cond.get("speedFactor", raw_z.get("speedFactor", raw_z.get("speedMultiplier", 1.0)))
+		var speed_factor: float = clampf(float(sf_raw), 0.1, 3.0) if _is_finite_number(sf_raw) else 1.0
+		var vf_raw = cond.get("visibilityFactor", raw_z.get("visibilityFactor", raw_z.get("detectionMultiplier", 1.0)))
+		var vis_factor: float = clampf(float(vf_raw), 0.1, 3.0) if _is_finite_number(vf_raw) else 1.0
+		var w_label: String = str(cond.get("label", raw_z.get("weatherLabel", raw_z.get("label", "")))).strip_edges()
+		var z_name: String = str(raw_z.get("name", "")).strip_edges()
+		if z_name.is_empty():
+			z_name = zid.replace("_", " ").capitalize() if not zid.is_empty() else "Ocean Zone"
+		var z_kind: String = str(raw_z.get("kind", "")).strip_edges().to_lower()
+		var w_lower: String = w_label.to_lower()
+		if z_kind.is_empty() or z_kind == "zone":
+			if vis_factor < 0.78 or "fog" in w_lower or "mist" in w_lower or "haze" in w_lower:
+				z_kind = "fog"
+			elif speed_factor < 0.88 or "squall" in w_lower or "storm" in w_lower or "gale" in w_lower or "chop" in w_lower:
+				z_kind = "squall"
+			elif cur_vec.length() > 0.5:
+				z_kind = "current"
+			else:
+				z_kind = "clear"
+		var summary: String = str(raw_z.get("summary", "")).strip_edges()
+		if summary.is_empty():
+			var parts: Array = []
+			if not w_label.is_empty():
+				parts.append(w_label.to_upper())
+			parts.append("SPD %d%%" % roundi(speed_factor * 100.0))
+			parts.append("SIGHT %d%%" % roundi(vis_factor * 100.0))
+			if cur_vec.length() >= 0.5:
+				parts.append("CUR %.0f" % cur_vec.length())
+			summary = " · ".join(parts)
+		out.append({
+			"id": zid,
+			"name": z_name,
+			"kind": z_kind,
+			"rect": rect,
+			"current": cur_vec,
+			"speedFactor": speed_factor,
+			"visibilityFactor": vis_factor,
+			"weatherLabel": w_label,
+			"summary": summary
+		})
+	return out
+
+
+func _prepare_zone066(z: Dictionary) -> Dictionary:
+	var rect: Rect2 = z["rect"]
+	var cur: Vector2 = z["current"]
+	var kind: String = str(z["kind"])
+	var cache_key: String = "%s:%.1f,%.1f,%.1f,%.1f:%.1f,%.1f:%s" % [
+		str(z["id"]), rect.position.x, rect.position.y, rect.size.x, rect.size.y, cur.x, cur.y, kind
+	]
+	if _zone_cache.has(cache_key):
+		return _zone_cache[cache_key]
+	var corners: Array = [
+		rect.position,
+		Vector2(rect.end.x, rect.position.y),
+		rect.end,
+		Vector2(rect.position.x, rect.end.y)
+	]
+	var border: Array = corners.duplicate()
+	border.append(rect.position)
+	var streamlines: Array = []
+	var chevrons: Array = []
+	var center: Vector2 = rect.get_center()
+	var dir: Vector2 = cur.normalized() if cur.length() > 0.25 else Vector2.RIGHT
+	var perp: Vector2 = dir.orthogonal()
+	var span_along: float = minf(rect.size.x, rect.size.y) * 0.36
+	var span_across: float = minf(rect.size.x, rect.size.y) * 0.24
+	if cur.length() > 0.25:
+		for lane in [-1.0, 0.0, 1.0]:
+			var lane_center: Vector2 = center + perp * (lane * span_across)
+			var p_start: Vector2 = (lane_center - dir * span_along).clamp(rect.position + Vector2(18.0, 18.0), rect.end - Vector2(18.0, 18.0))
+			var p_end: Vector2 = (lane_center + dir * span_along).clamp(rect.position + Vector2(18.0, 18.0), rect.end - Vector2(18.0, 18.0))
+			if p_start.distance_to(p_end) >= 24.0:
+				streamlines.append([p_start, p_end])
+				for frac in [0.38, 0.74]:
+					var tip: Vector2 = p_start.lerp(p_end, float(frac))
+					var head_len: float = clampf(minf(rect.size.x, rect.size.y) * 0.045, 12.0, 26.0)
+					var head_wid: float = head_len * 0.55
+					chevrons.append([
+						tip,
+						tip - dir * head_len + perp * head_wid,
+						tip - dir * head_len - perp * head_wid
+					])
+	var weather_bands: Array = []
+	if kind in ["fog", "squall"]:
+		for idx in range(-2, 3):
+			var y_off: float = float(idx) * (rect.size.y * 0.16)
+			var y_val: float = clampf(center.y + y_off, rect.position.y + 14.0, rect.end.y - 14.0)
+			var inset: float = (18.0 + float(absi(idx)) * 14.0)
+			var x0: float = rect.position.x + minf(inset, rect.size.x * 0.25)
+			var x1: float = rect.end.x - minf(inset, rect.size.x * 0.25)
+			if x1 > x0 + 20.0:
+				if kind == "squall":
+					weather_bands.append([Vector2(x0, y_val - 8.0), Vector2(x1, y_val + 8.0)])
+				else:
+					weather_bands.append([Vector2(x0, y_val), Vector2(x1, y_val)])
+	var plan: Dictionary = {
+		"cacheKey": cache_key,
+		"corners": corners,
+		"border": border,
+		"streamlines": streamlines,
+		"chevrons": chevrons,
+		"weatherBands": weather_bands,
+		"center": center
+	}
+	if _zone_cache.size() >= CACHE_LIMIT:
+		_zone_cache.erase(_zone_cache.keys()[0])
+	_zone_cache[cache_key] = plan
+	return plan
+
+
+func _draw_zones066(chart, view064: Dictionary, view066: Dictionary, labels: Array) -> int:
+	var zones: Array = _extract_zones066(view064, view066)
+	if zones.is_empty():
+		return 0
+	var count: int = 0
+	for z in zones:
+		var plan: Dictionary = _prepare_zone066(z)
+		var kind: String = str(z["kind"])
+		var base_color: Color = FOG_TINT if kind == "fog" else (SQUALL_TINT if kind == "squall" else CURRENT_TINT)
+		var fill_alpha: float = 0.075 if kind in ["fog", "squall"] else 0.055
+		var border_alpha: float = 0.28 if kind in ["fog", "squall"] else 0.22
+		chart.world_poly(plan["corners"], Color(base_color, fill_alpha))
+		chart.world_line(plan["border"], Color(base_color, border_alpha), 1.15)
+		for band in plan["weatherBands"]:
+			var b_pts: Array = band
+			if b_pts.size() >= 2:
+				chart.draw_dashed_line(
+					chart.project(b_pts[0]),
+					chart.project(b_pts[1]),
+					Color(base_color, 0.22),
+					1.1,
+					7.0 if kind == "fog" else 4.5,
+					true
+				)
+		for stream in plan["streamlines"]:
+			chart.world_line(stream, Color(CURRENT_TINT, 0.34), 1.25)
+		for chev in plan["chevrons"]:
+			chart.world_poly(chev, Color(CURRENT_TINT, 0.46))
+		var center_world: Vector2 = plan["center"]
+		var screen_center: Vector2 = chart.project(center_world)
+		labels.append({
+			"at": screen_center,
+			"art_bounds": Rect2(screen_center - Vector2(28.0, 14.0), Vector2(56.0, 28.0)),
+			"text": str(z["name"]).to_upper(),
+			"subtitle": str(z["summary"]),
+			"priority": 32,
+			"color": base_color
+		})
+		count += 1
+	return count
+
+
+static func _extract_contacts066(view064: Dictionary, view066: Dictionary) -> Array:
+	if view066.is_empty():
+		return []
+	var raw_contacts = view066.get("contacts", null)
+	if not (raw_contacts is Array) or raw_contacts.is_empty():
+		return []
+	var active_layer: String = str(view064.get("layer", ""))
+	var active_region: String = str(view064.get("regionId", ""))
+	var out: Array = []
+	for raw_c in raw_contacts:
+		if not (raw_c is Dictionary):
+			continue
+		var vis: String = str(raw_c.get("visibility", ""))
+		if vis not in ["visible", "last_known"]:
+			continue
+		if raw_c.get("world064") is Dictionary and not raw_c["world064"].is_empty() and not active_layer.is_empty():
+			var cw: Dictionary = raw_c["world064"]
+			if cw.has("layer") and str(cw["layer"]) != active_layer:
+				continue
+			if cw.has("regionId") and not active_region.is_empty() and str(cw["regionId"]) != active_region:
+				continue
+		if not _valid_point(raw_c.get("position", null)):
+			continue
+		var cid: String = str(raw_c.get("id", raw_c.get("ownerId", "")))
+		var oid: String = str(raw_c.get("ownerId", cid))
+		if cid.is_empty():
+			continue
+		var heading: float = float(raw_c["heading"]) if _is_finite_number(raw_c.get("heading", null)) else 0.0
+		var unc: float = maxf(0.0, float(raw_c["uncertaintyRadius"])) if _is_finite_number(raw_c.get("uncertaintyRadius", null)) else 0.0
+		var age_sec: float = maxf(0.0, float(raw_c["ageSeconds"])) if _is_finite_number(raw_c.get("ageSeconds", null)) else 0.0
+		var sighted_day: float = float(raw_c["sightedDay"]) if _is_finite_number(raw_c.get("sightedDay", null)) else 0.0
+		out.append({
+			"id": cid,
+			"ownerId": oid,
+			"name": str(raw_c.get("name", "Offshore Contact")),
+			"faction": str(raw_c.get("faction", "")),
+			"role": str(raw_c.get("role", "raider")),
+			"hostile": bool(raw_c.get("hostile", true)),
+			"visibility": vis,
+			"position": {"x": float(raw_c["position"]["x"]), "y": float(raw_c["position"]["y"])},
+			"heading": heading,
+			"uncertaintyRadius": 0.0 if vis == "visible" else unc,
+			"ageSeconds": 0.0 if vis == "visible" else age_sec,
+			"sightedDay": sighted_day,
+			"intentLabel": str(raw_c.get("intentLabel", "")),
+			"provenance": str(raw_c.get("provenance", "")),
+			"boats": _normalize_render_boats066(raw_c.get("boats", []))
+		})
+	return out
+
+
+func _draw_dashed_world_ring(chart, center: Vector2, radius: float, color: Color, width: float = 1.25) -> void:
+	var steps: int = 36
+	for i in range(0, steps, 2):
+		var a0: float = float(i) / float(steps) * TAU
+		var a1: float = float(i + 1) / float(steps) * TAU
+		var p0: Vector2 = chart.project(center + Vector2.from_angle(a0) * radius)
+		var p1: Vector2 = chart.project(center + Vector2.from_angle(a1) * radius)
+		chart.draw_line(p0, p1, color, width, true)
+
+
+func _draw_resume_course066(chart, player_pos: Vector2, view066: Dictionary) -> void:
+	if view066.is_empty():
+		return
+	var travel = view066.get("travel066", null)
+	if not (travel is Dictionary):
+		return
+	var resume_path = travel.get("resumePath", null)
+	if not (resume_path is Array) or resume_path.is_empty():
+		return
+	var previous: Vector2 = player_pos
+	var drawn_any: bool = false
+	for wp in resume_path:
+		if not _valid_point(wp):
+			continue
+		var pt: Vector2 = _to_vec2(wp)
+		chart.draw_dashed_line(chart.project(previous), chart.project(pt), Color(FOAM, 0.48), 1.3, 6.0, true)
+		previous = pt
+		drawn_any = true
+	if drawn_any:
+		var end_screen: Vector2 = chart.project(previous)
+		chart.draw_arc(end_screen, 4.5, 0.0, TAU, 16, Color(FOAM, 0.62), 1.1, true)
+
+
+func _draw_contacts066(chart, view064: Dictionary, view066: Dictionary, labels: Array, metrics: Dictionary) -> void:
+	var contacts: Array = _extract_contacts066(view064, view066)
+	if contacts.is_empty():
+		return
+	var viewport_rect: Rect2 = chart.get_viewport_rect()
+	var scale_val: float = _scale_factor(chart)
+	var zoom_val: float = _zoom(chart)
+	var ocean_layer: bool = str(view064.get("layer", "ocean")) == "ocean"
+	for c in contacts:
+		var vis: String = str(c["visibility"])
+		var pos: Vector2 = _to_vec2(c["position"])
+		var screen_pos: Vector2 = chart.project(pos)
+		var heading: float = float(c["heading"])
+		var hostile: bool = bool(c["hostile"])
+		var base_color: Color = ENEMY if hostile else FRIEND
+		var art: Dictionary = FleetArt054.layout(
+			c["boats"],
+			screen_pos,
+			heading,
+			scale_val,
+			{"viewport": viewport_rect, "overview": zoom_val < 0.7}
+		)
+		var bow_dir: Vector2 = Vector2.from_angle(heading)
+		var r_px: float = clampf(float(art.get("hit_radius", 14.0)), 12.0, 32.0)
+		if vis == "visible":
+			var stats: Dictionary = FleetArt054.draw(chart, art, base_color, false)
+			chart.draw_arc(screen_pos, r_px + 3.0, heading - 0.6, heading + 0.6, 12, Color(base_color, 0.72), 1.3, true)
+			chart.draw_line(screen_pos + bow_dir * (r_px + 3.0), screen_pos + bow_dir * (r_px + 9.0), Color(base_color, 0.88), 1.4, true)
+			metrics["contacts_drawn"] = int(metrics.get("contacts_drawn", 0)) + 1
+			metrics["vessels_drawn"] = int(metrics.get("vessels_drawn", 0)) + int(stats.get("drawn_vessels", 0))
+			metrics["textured_vessels"] = int(metrics.get("textured_vessels", 0)) + int(stats.get("textured_vessels", 0))
+			var intent_lbl: String = str(c.get("intentLabel", "")).strip_edges()
+			var role_lbl: String = str(c.get("role", "fleet")).strip_edges()
+			var sub: String = intent_lbl.to_upper() if not intent_lbl.is_empty() else ("HOSTILE " + role_lbl.to_upper() if hostile else role_lbl.to_upper())
+			var art_rect: Rect2 = Rect2(art.get("bounds", Rect2())).grow(4.0) if Rect2(art.get("bounds", Rect2())).has_area() else Rect2(screen_pos - Vector2(r_px, r_px), Vector2(r_px * 2.0, r_px * 2.0))
+			labels.append({
+				"at": screen_pos,
+				"art_bounds": art_rect,
+				"text": str(c["name"]),
+				"subtitle": sub,
+				"priority": 96,
+				"color": base_color
+			})
+		else:
+			var raw_unc: float = float(c["uncertaintyRadius"])
+			var world_unc: float = raw_unc / 10.0 if (ocean_layer and raw_unc > 360.0) else raw_unc
+			world_unc = clampf(world_unc, 22.0 if ocean_layer else 60.0, 320.0 if ocean_layer else 900.0)
+			_draw_dashed_world_ring(chart, pos, world_unc, Color(base_color, 0.48), 1.3)
+			var stats: Dictionary = FleetArt054.draw(chart, art, Color(base_color, 0.42), false)
+			chart.draw_arc(screen_pos, r_px + 3.5, 0.0, TAU, 20, Color(base_color, 0.40), 1.1, true)
+			chart.draw_dashed_line(screen_pos, screen_pos + bow_dir * (r_px + 11.0), Color(base_color, 0.55), 1.2, 4.0, true)
+			metrics["contacts_drawn"] = int(metrics.get("contacts_drawn", 0)) + 1
+			metrics["uncertain_drawn"] = int(metrics.get("uncertain_drawn", 0)) + 1
+			metrics["vessels_drawn"] = int(metrics.get("vessels_drawn", 0)) + int(stats.get("drawn_vessels", 0))
+			metrics["textured_vessels"] = int(metrics.get("textured_vessels", 0)) + int(stats.get("textured_vessels", 0))
+			var age_s: int = maxi(0, roundi(float(c["ageSeconds"])))
+			var sub: String = "LAST SIGHTED %ds AGO" % age_s
+			var intent_lbl: String = str(c.get("intentLabel", "")).strip_edges()
+			if not intent_lbl.is_empty():
+				sub += " · " + intent_lbl.to_upper()
+			var art_rect: Rect2 = Rect2(art.get("bounds", Rect2())).grow(4.0) if Rect2(art.get("bounds", Rect2())).has_area() else Rect2(screen_pos - Vector2(r_px, r_px), Vector2(r_px * 2.0, r_px * 2.0))
+			labels.append({
+				"at": screen_pos,
+				"art_bounds": art_rect,
+				"text": str(c["name"]),
+				"subtitle": sub,
+				"priority": 94,
+				"color": Color(base_color, 0.84)
+			})
+
+
+func pick_contact(chart, view_or_ocean066: Dictionary, screen_or_ocean066, maybe_screen = null) -> Dictionary:
+	if chart == null:
+		return {}
+	var view064: Dictionary = {}
+	var view066: Dictionary = {}
+	var screen := Vector2.INF
+	if maybe_screen is Vector2:
+		view064 = view_or_ocean066
+		if screen_or_ocean066 is Dictionary:
+			view066 = screen_or_ocean066
+		screen = maybe_screen
+	elif screen_or_ocean066 is Vector2:
+		screen = screen_or_ocean066
+		if view_or_ocean066.has("contacts") and not view_or_ocean066.has("layer"):
+			view066 = view_or_ocean066
+			var h = chart.get("host")
+			if h != null and h.get("core") != null and h.core is Object and h.core.has_method("world_view064"):
+				var v64 = h.core.world_view064()
+				if v64 is Dictionary:
+					view064 = v64
+		else:
+			view064 = view_or_ocean066
+			view066 = _resolve_ocean_view066(chart, null)
+			if view066.is_empty() and view_or_ocean066.has("contacts"):
+				view066 = view_or_ocean066
+	else:
+		return {}
+	if not screen.is_finite():
+		return {}
+	var contacts: Array = _extract_contacts066(view064, view066)
+	if contacts.is_empty():
+		return {}
+	var viewport_rect: Rect2 = chart.get_viewport_rect()
+	var scale_val: float = _scale_factor(chart)
+	var zoom_val: float = _zoom(chart)
+	for pass_vis in ["visible", "last_known"]:
+		var best_c: Dictionary = {}
+		var best_dist: float = INF
+		for c in contacts:
+			if str(c["visibility"]) != pass_vis:
+				continue
+			var pos: Vector2 = _to_vec2(c["position"])
+			var screen_pos: Vector2 = chart.project(pos)
+			var art: Dictionary = FleetArt054.layout(
+				c["boats"],
+				screen_pos,
+				float(c["heading"]),
+				scale_val,
+				{"viewport": viewport_rect, "overview": zoom_val < 0.7}
+			)
+			var art_bounds: Rect2 = Rect2(art.get("bounds", Rect2()))
+			var hit_radius: float = clampf(float(art.get("hit_radius", 16.0)) + (4.0 if pass_vis == "visible" else 8.0), 16.0, 36.0)
+			var dist: float = screen_pos.distance_to(screen)
+			var inside_bounds: bool = art_bounds.has_area() and art_bounds.grow(4.0).has_point(screen)
+			if inside_bounds or dist <= hit_radius:
+				if dist < best_dist:
+					best_dist = dist
+					best_c = c
+		if not best_c.is_empty():
+			return {
+				"kind": "contact",
+				"contactId": str(best_c["id"]),
+				"ownerId": str(best_c["ownerId"]),
+				"visibility": str(best_c["visibility"])
+			}
+	return {}
 
 
 func world_bounds(view: Dictionary) -> Rect2:
@@ -547,7 +1012,10 @@ static func _empty_metrics(layer: String = "", region_id: String = "", delegate_
 		"vessels_drawn": 0,
 		"textured_vessels": 0,
 		"approaches_drawn": 0,
-		"coast_draw_calls": 0
+		"coast_draw_calls": 0,
+		"zones_drawn": 0,
+		"contacts_drawn": 0,
+		"uncertain_drawn": 0
 	}
 
 
@@ -701,7 +1169,7 @@ func _record_coast_profile(chart, calls: int, started_usec: int) -> void:
 		pf["coast_us"] = int(pf.get("coast_us", 0)) + (Time.get_ticks_usec() - started_usec)
 
 
-func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
+func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dictionary:
 	var region_id: String = str(view["regionId"])
 	var metrics: Dictionary = _empty_metrics("local", region_id, false)
 	var region_plan: Dictionary = prepare_local_region(view)
@@ -716,6 +1184,7 @@ func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
 	var bounds_rect: Rect2 = region_plan["bounds"]
 	var labels: Array = []
 	_draw_graticule(chart, bounds_rect, overview, 1000, 500)
+	metrics["zones_drawn"] = _draw_zones066(chart, view, view066, labels)
 	var sheets: Array = region_plan["sheets"]
 	var islands: Array = view["islands"]
 	for i in range(sheets.size()):
@@ -736,7 +1205,9 @@ func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
 			})
 	metrics["approaches_drawn"] = draw_approaches(chart, view, labels)
 	var player_pos: Vector2 = _to_vec2(view["position"])
+	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
+	_draw_contacts066(chart, view, view066, labels, metrics)
 	var marker: Vector2 = chart.project(player_pos)
 	var player_art: Dictionary = FleetArt054.layout(
 		view["boats"],
@@ -746,8 +1217,8 @@ func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
 		{"viewport": viewport_rect, "overview": zoom_val < 0.7}
 	)
 	var fleet_stats: Dictionary = FleetArt054.draw(chart, player_art, GOLD, true)
-	metrics["vessels_drawn"] = int(fleet_stats.get("drawn_vessels", 0))
-	metrics["textured_vessels"] = int(fleet_stats.get("textured_vessels", 0))
+	metrics["vessels_drawn"] = int(metrics["vessels_drawn"]) + int(fleet_stats.get("drawn_vessels", 0))
+	metrics["textured_vessels"] = int(metrics["textured_vessels"]) + int(fleet_stats.get("textured_vessels", 0))
 	if not player_art.get("vessels", []).is_empty():
 		labels.append({
 			"at": marker,
@@ -761,7 +1232,7 @@ func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
 	var title_text: String = str(view.get("name", "GLASSWIND KEYS")).to_upper()
 	chart.text_at(title_text, Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
 	chart.text_at("Local coastal waters  ·  Northern and Southern sea approaches", Vector2(size.x * 0.5, size.y - 144.0), 22, Color("c7d4bd"), chart.get("serif"), true)
-	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK WATER OR APPROACH  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color( "93b4a8"), chart.get("mono"), true)
+	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK WATER OR APPROACH  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, false)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))
 	metrics["ok"] = true
@@ -769,7 +1240,7 @@ func _draw_local_layer(chart, view: Dictionary) -> Dictionary:
 	return metrics
 
 
-func _draw_ocean_layer(chart, view: Dictionary) -> Dictionary:
+func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dictionary:
 	var metrics: Dictionary = _empty_metrics("ocean", "open_ocean", false)
 	_ensure_chart_fonts(chart)
 	var viewport_rect: Rect2 = chart.get_viewport_rect()
@@ -780,6 +1251,7 @@ func _draw_ocean_layer(chart, view: Dictionary) -> Dictionary:
 	var bounds_rect: Rect2 = world_bounds(view)
 	var labels: Array = []
 	_draw_graticule(chart, bounds_rect, overview, 800, 400)
+	metrics["zones_drawn"] = _draw_zones066(chart, view, view066, labels)
 	var regions: Array = view["regions"]
 	var region_centers: Array = []
 	for rv in regions:
@@ -829,7 +1301,9 @@ func _draw_ocean_layer(chart, view: Dictionary) -> Dictionary:
 		)
 	metrics["approaches_drawn"] = draw_approaches(chart, view, labels)
 	var player_pos: Vector2 = _to_vec2(view["position"])
+	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
+	_draw_contacts066(chart, view, view066, labels, metrics)
 	var marker: Vector2 = chart.project(player_pos)
 	var player_art: Dictionary = FleetArt054.layout(
 		view["boats"],
@@ -839,35 +1313,45 @@ func _draw_ocean_layer(chart, view: Dictionary) -> Dictionary:
 		{"viewport": viewport_rect, "overview": zoom_val < 0.7}
 	)
 	var fleet_stats: Dictionary = FleetArt054.draw(chart, player_art, GOLD, true)
-	metrics["vessels_drawn"] = int(fleet_stats.get("drawn_vessels", 0))
-	metrics["textured_vessels"] = int(fleet_stats.get("textured_vessels", 0))
+	metrics["vessels_drawn"] = int(metrics["vessels_drawn"]) + int(fleet_stats.get("drawn_vessels", 0))
+	metrics["textured_vessels"] = int(metrics["textured_vessels"]) + int(fleet_stats.get("textured_vessels", 0))
+	var travel066: Dictionary = view066.get("travel066", {}) if view066.get("travel066") is Dictionary else {}
+	var mode066: String = str(travel066.get("mode", "direct")).to_upper()
+	var player_sub: String = ""
+	if mode066 in ["INVESTIGATE", "AVOID", "DIVERT"]:
+		player_sub = "COURSE: " + mode066
 	if not player_art.get("vessels", []).is_empty():
 		labels.append({
 			"at": marker,
 			"art_bounds": Rect2(player_art.bounds).grow(5.0),
 			"text": "YOUR FLOTILLA",
+			"subtitle": player_sub,
 			"priority": 105,
 			"color": GOLD
 		})
 	chart._draw_chart_labels(labels)
 	var size: Vector2 = viewport_rect.size
+	var active_zone_summary: String = str(travel066.get("activeZoneSummary", "")).strip_edges()
+	if not active_zone_summary.is_empty():
+		chart.text_at(active_zone_summary.to_upper(), Vector2(size.x * 0.5, size.y - 196.0), 10, FOAM, chart.get("mono"), true)
 	chart.text_at(str(view.get("name", "OPEN OCEAN")).to_upper(), Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
 	chart.text_at("Shatter Coast  ·  Glasswind Keys", Vector2(size.x * 0.5, size.y - 144.0), 24, Color("c7d4bd"), chart.get("serif"), true)
-	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK APPROACH OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
+	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK CONTACT, APPROACH OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, true)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))
 	metrics["ok"] = true
 	return metrics
 
 
-func draw(chart, view: Dictionary) -> Dictionary:
+func draw(chart, view: Dictionary, ocean_view066 = null) -> Dictionary:
 	if chart == null or not _valid_view(view, true):
 		return _empty_metrics()
+	var view066: Dictionary = _resolve_ocean_view066(chart, ocean_view066)
 	var layer: String = str(view["layer"])
 	if layer == "home":
 		return _empty_metrics("home", "shatter_coast", true)
 	if layer == "local":
-		return _draw_local_layer(chart, view)
+		return _draw_local_layer(chart, view, view066)
 	if layer == "ocean":
-		return _draw_ocean_layer(chart, view)
+		return _draw_ocean_layer(chart, view, view066)
 	return _empty_metrics()
