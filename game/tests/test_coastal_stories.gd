@@ -9,6 +9,8 @@ var failures: Array = []
 var checks: int = 0
 var world: Dictionary
 var c
+var baseline: Dictionary = {}
+var runtime_baseline: Dictionary = {}
 
 func check(value: bool, message: String) -> void:
 	checks += 1
@@ -17,7 +19,15 @@ func check(value: bool, message: String) -> void:
 		print("FAIL " + message)
 
 func reset() -> void:
-	c.new_game(123)
+	# World/navigation are unchanged 055/056 inputs; copy only mutable fixtures.
+	c.state = baseline.duplicate(true)
+	c.route_cache = runtime_baseline.route_cache.duplicate(true)
+	c.route_hits = runtime_baseline.route_hits
+	c.route_misses = runtime_baseline.route_misses
+	c.events = runtime_baseline.events.duplicate(true)
+	c.pending_days = runtime_baseline.pending_days
+	c.exploration_timer = runtime_baseline.exploration_timer
+	c.sailing_clearance = runtime_baseline.sailing_clearance
 	Stories.ensure(c.state)
 	Contacts.ensure(c.state, world)
 
@@ -49,6 +59,16 @@ func _initialize() -> void:
 	if sites_data is Dictionary:
 		world["ISLAND_SITES"] = sites_data.get("sites", [])
 	c = Campaign.new(world)
+	var created: Dictionary = c.new_game(123)
+	check(bool(created.get("ok", false)), "One shared campaign baseline passes real new-game validation")
+	if not bool(created.get("ok", false)):
+		quit(1)
+		return
+	Stories.ensure(c.state)
+	Contacts.ensure(c.state, world)
+	baseline = c.state.duplicate(true)
+	runtime_baseline = {"route_cache": c.route_cache.duplicate(true), "route_hits": c.route_hits, "route_misses": c.route_misses, "events": c.events.duplicate(true), "pending_days": c.pending_days, "exploration_timer": c.exploration_timer, "sailing_clearance": c.sailing_clearance}
+	_test_fixture_reset_isolation()
 	_test_referenced_ids_valid()
 	_test_merchant_progression()
 	_test_explorer_branches_distinct()
@@ -60,6 +80,26 @@ func _initialize() -> void:
 		quit(0)
 	else:
 		quit(1)
+
+func _test_fixture_reset_isolation() -> void:
+	reset()
+	var before: String = JSON.stringify(baseline)
+	var runtime_before: String = JSON.stringify(runtime_baseline)
+	c.state.cargo.timber = 999.0
+	c.state.fleet[0].spec.name = "fixture poison"
+	c.state.ports[0].stocks.timber = 999.0
+	c.state.stories.events.append("fixture poison")
+	c.route_cache.clear()
+	c.events.append("fixture poison")
+	c.route_hits = -1
+	c.route_misses = -1
+	c.pending_days = 9
+	c.exploration_timer = 9.0
+	c.sailing_clearance = 9.0
+	check(JSON.stringify(baseline) == before and JSON.stringify(runtime_baseline) == runtime_before, "Nested fixture mutations cannot reach either saved baseline")
+	reset()
+	check(c.state == baseline and c.route_cache == runtime_baseline.route_cache and c.events == runtime_baseline.events, "Reset restores detached state, route cache and events")
+	check(c.route_hits == runtime_baseline.route_hits and c.route_misses == runtime_baseline.route_misses and c.pending_days == runtime_baseline.pending_days and c.exploration_timer == runtime_baseline.exploration_timer and c.sailing_clearance == runtime_baseline.sailing_clearance, "Reset restores every mutable runtime counter")
 
 func _test_referenced_ids_valid() -> void:
 	reset()
@@ -302,14 +342,21 @@ func _test_save_roundtrip() -> void:
 	var restored = JSON.parse_string(text)
 	check(restored is Dictionary, "State with stories survives JSON roundtrip")
 	if restored is Dictionary:
-		var c2 = Campaign.new(world)
-		c2.state = restored
-		Stories.ensure(c2.state)
-		var rows: Array = Stories.journal(c2.state)
+		# Exercise the real restore API on the existing immutable coast/nav.
+		# Keep the old state to prove publication is isolated from its source.
+		var source_state: Dictionary = c.state
+		var loaded: Dictionary = c.restore(restored)
+		check(bool(loaded.get("ok", false)), "Story save passes the actual campaign restore API")
+		if not bool(loaded.get("ok", false)):
+			return
+		Stories.ensure(c.state)
+		var rows: Array = Stories.journal(c.state)
 		check(rows.size() == 1 and str(rows[0].stage) == "stock_the_forge", "Chain stage survives the roundtrip")
 		check((rows[0].leads as Array).has("cinder_ore_seam"), "Recorded lead survives the roundtrip")
-		check((c2.state.stories.events as Array).has("story:the_cold_workshop:survey_the_ruin:bring_the_survey"), "Settled event id survives the roundtrip")
-		check(not bool(Stories.choose(c2, "the_cold_workshop", "bring_the_survey").ok), "Settled choice cannot repeat after load")
+		check((c.state.stories.events as Array).has("story:the_cold_workshop:survey_the_ruin:bring_the_survey"), "Settled event id survives the roundtrip")
+		check(not bool(Stories.choose(c, "the_cold_workshop", "bring_the_survey").ok), "Settled choice cannot repeat after load")
+		c.state.stories.events.append("restore isolation probe")
+		check(JSON.stringify(source_state) == text, "Restored nested story state cannot mutate the pre-load campaign")
 	var legacy := {"coins": 3, "fleet": []}
 	Stories.ensure(legacy)
 	check(legacy.stories.chains is Dictionary and int(legacy.coins) == 3, "ensure() migrates legacy saves in place")

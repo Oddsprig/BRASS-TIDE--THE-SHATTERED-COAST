@@ -87,3 +87,22 @@ COMMIT: A057 Finish Wren's earned bearings and finite claim payoff
 Only the four changed allowed game files plus this note are included;
 story_offers.gd required no change. Exact named SHA is in the final handoff.
 No metadata/maps/tags/package/install/push/cleanup or other checkout writes.
+
+SHARED SETUP FOLLOW-UP AFTER 8ef27515ccf40a5d65e0a5a72e23e24df39ab4af
+- Only test_coastal_stories.gd and this appended note change. One Campaign.new
+  and one new_game(123), with the real returned ok checked before any fixture.
+  Each reset deep-copies the validated state plus route cache/events and resets
+  hits/misses, pending days, exploration timer and sailing clearance. Immutable
+  world/navigation reuse the unchanged 055/056 construction; no new nav proof.
+- Added deliberate nested cargo/fleet-spec/port-stock/story-event and runtime
+  poisoning checks: neither saved baseline may change, and reset must restore
+  every copied container/counter. All previous story assertions remain.
+- The legacy c2 constructor is removed. One public Campaign.restore(JSON state)
+  runs on the existing Campaign/nav; stage, lead, settled-event and no-repeat
+  assertions now follow actual restore success. A nested restored-event probe
+  must leave the retained pre-load state byte-for-byte unchanged. No independent
+  restore constructor is required. Restore's own route refresh is retained.
+- Existing intermediate Middle Sea JSON/StoryOps roundtrips remain unchanged;
+  these are still distinct from the one public restore and C's actual voyage.
+- PREPARED, NOT RUN. Source/diff review only; no engines, parsers, advisories,
+  tests, imports, exports or GPU work. Native timing/pass remains Root's gate.
