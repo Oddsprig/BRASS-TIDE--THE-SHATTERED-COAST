@@ -69,7 +69,7 @@ Hull/equipment recovery, stripping and towing compete for real capacity and risk
 0.059 - CIVILIAN CAREERS [PLANNED] [DONE]
 Fishing, freight, tankers and passenger/yacht work have viable varied progression.
 
-0.060 - FLEET IDENTITY [PLANNED]
+0.060 - FLEET IDENTITY [PLANNED] [DONE]
 Paid officers, crews and vessel histories create tactical identity and attachment.
 
 0.061 - CHANGING REGION [PLANNED]

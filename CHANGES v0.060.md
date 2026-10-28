@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Verify paid comparable builds through actual worker-controlled movement, firing and survival decisions, with exact return and save accounting.
 
 See docs/TEST RESULTS v0.060.md for actual focused checks and remaining limits.
+
+Verification: 119 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 79.062s. Preserved earlier failures; no broad acceptance claim.

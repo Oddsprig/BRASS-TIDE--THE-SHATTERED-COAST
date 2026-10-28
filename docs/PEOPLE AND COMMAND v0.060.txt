@@ -1,0 +1,33 @@
+BRASS TIDE v0.060 - PEOPLE, COMMAND AND SERVICE
+
+Open Fleet, then a boat's people and command desk. It shows able, wounded and
+ashore crew, minimum working numbers and berths, morale, actual fitting and
+separate wage accounts. Every sailor, including a wounded sailor, earns 100
+coins per day. Named professionals also receive the displayed daily premium.
+Hiring occupies a real berth and draws a qualified person from the local pool.
+The advance enters the fleet crew purse; premiums enter the person's own purse.
+The displayed local advance is today's replacement quote, not a past receipt.
+
+Choose a doctrine and role, then Save command intent. A new battle starts with
+that boat's saved preference. Later tactical orders still take precedence.
+Weapons, arcs, crew, damage, ammunition and safety constrain actual behavior:
+skirmishers make passes and break away; heavy boats can hold useful firing arcs.
+An unpaid or lost professional provides no working benefit. Ordinary crews
+remain numerical; these desks introduce no animated crew or new officer XP.
+
+Local hiring and care links to paid drydock, one-sailor recruitment and training.
+Training reserves existing trainees and an instructor, consumes real materials
+and holds wages in escrow. Cancellation returns people and unspent escrow once;
+earned wages and consumed materials remain spent. Reviewing or closing these
+desks does not advance time, settle pending payroll or commission work.
+
+After a battle, the report identifies actual deployed participants and losses.
+Undeployed boats receive no battle service. The same physical battle settles
+once. A wreck keeps its boat name and bounded service history. Paid towing
+recovers a damaged, empty hull under a new identity linked to that wreck;
+recruitment, repairs and stores are still due. A retained crew scalar on a sunk
+boat describes its last record, not a claim that those sailors were rescued.
+
+This version's scope is fleet attachment and understandable paid crew decisions.
+Regional consequences follow in 0.061. Coast art, full campaign progression,
+listening/play quality and strict whole-battle performance remain open at 0.062.

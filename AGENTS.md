@@ -1,23 +1,12 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.059 DELIVERED/installed; local tag3598b9a.
-Final185/0 careers +Windows3starts84.766s; exact-source preflight89/0 52.788s.
-Five actual exported views all Root reviewed. Earlier failed receipts retained.
-Four paid civilian cycles have positive measured net after actual waiting/wages/
-stores/return, not proof of complete progression. Preserve one plain icon/two
-voyages/18MP3s/older058 hash-verified, one plain desktop launcher, no autolaunch.
-Current060 three BridgeSol6.1MAX source lanes on delivered3598b9a follow task/
-SCOPE 060 FLEET ATTACHMENT.txt: persistent command/paid staff view, actual
-participant service/loss history, selectedcrewUI and one focused native proof.
-All060 handoffs integrated: A93b0407, Bd54b199, Cf438cdd; exact shared contracts
-in tools/quality060. Metadata prepared ONCE. Identity55/0 and support19/0 passed;
-source-bound retention permits only the recorded two test-file changes.
-Attachment R6 passed103 checks except controlled sinking; Root corrected its
-test-only breach to exceed actual bailing. Final R7 queuedfee3f699 on release
-3883da3, Rootf760a93. No060Windows/capture acceptance yet. Helpers idle; Root
-owns both fixture corrections. Private6views/separate lab movie await export.
-059 remains installed. Failed receipts and exact limits stay in current task.
-Whole-quality/coast art/strict051targets remain OPEN062.
+Current scoped build: v0.060 VERIFIED; packaging/install follows checkpoint.
+Actual paid crew/fits, five worker probes and named loss/paid recovery accepted.
+Retained unchanged identity55/support19; six exported views and separate declared
+lab movie reviewed with limits in current task. No full progression/parity claim.
+Next061 follows task/SCOPE 061 DRAFT.txt and tools/quality061/NEXT061 AUDIT.txt;
+finalize on delivered060 before implementation. Whole quality/coast art/strict051
+targets remain OPEN062. Preserve saves/music/older builds/one plain launcher.
 Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
