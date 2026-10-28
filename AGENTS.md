@@ -10,9 +10,13 @@ Current060 three BridgeSol6.1MAX source lanes on delivered3598b9a follow task/
 SCOPE 060 FLEET ATTACHMENT.txt: persistent command/paid staff view, actual
 participant service/loss history, selectedcrewUI and one focused native proof.
 All060 handoffs integrated: A93b0407, Bd54b199, Cf438cdd; exact shared contracts
-in tools/quality060. One combined source advisory issues empty. Metadata prepared
-ONCE; no060engine yet. Root private6views and separate declared lab motion
-fixture are ready for combined native/export review.059 remains installed.
+in tools/quality060. Metadata prepared ONCE. Identity55/0 and support19/0 passed;
+source-bound retention permits only the recorded two test-file changes.
+Attachment R6 passed103 checks except controlled sinking; Root corrected its
+test-only breach to exceed actual bailing. Final R7 queuedfee3f699 on release
+3883da3, Rootf760a93. No060Windows/capture acceptance yet. Helpers idle; Root
+owns both fixture corrections. Private6views/separate lab movie await export.
+059 remains installed. Failed receipts and exact limits stay in current task.
 Whole-quality/coast art/strict051targets remain OPEN062.
 Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
