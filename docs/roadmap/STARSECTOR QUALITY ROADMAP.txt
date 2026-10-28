@@ -5,7 +5,7 @@ BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT CORE CHECKPOINT - 27 October 2026
 v0.051 SCOPED PLAYABLE BUILD VERIFIED; whole-game quality remains OPEN.
-Full Starsector-equivalent/whole-game quality acceptance remains OPEN at0.061.
+Full Starsector-equivalent/whole-game quality acceptance remains OPEN at0.062.
 
 Owner-directed architecture: authoritative combat30Hz on a data worker; Main
 owns input/command queue, UI/audio/render submission and interpolated poses.
@@ -30,7 +30,7 @@ Both no>50msframes/unresolvedplannerstalls; all42/16moved and full active combat
 coverage. Both end PNGs Root viewed. Old Main combat light ran roughly22FPS.
 Worker snapshotlight43->28->14ms,mixed24->13->7ms acrossR33/R34/R36.
 
-STRICT REMAINING TARGETS, CARRIED TO0.061: lightworkerP9538.435ms vs33.333ms,
+STRICT REMAINING TARGETS, CARRIED TO0.062: lightworkerP9538.435ms vs33.333ms,
 maxlag151.409ms vs100ms; rawstrictFPS>=60 also misses the measured values.
 Simultaneous impact phases38/36ms cause the largest peaks near0.47/0.97s;
 medianlag84.722ms, endwall-minus-sim66.836ms, no growing backlog. Mixedworker

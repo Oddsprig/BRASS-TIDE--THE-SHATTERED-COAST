@@ -20,3 +20,4 @@ normal full hull, trained crew, finite stores and inherited boat/food sales appl
 Fishing position alone staged at actual nearby water; no catch/demand/work grant.
 No job accepted by capture. Independent native059 fixture proves paid voyages.
 Native/export/visual acceptance remain pending. No051 threshold/cadence change.
+Root private opening tour passes seed59059 through backward-compatible optional Main.new_game seed override; ordinary careers retain current-time seed. One state initialization, existing world/nav, no second world. This makes declared paid UI branches reproducible.

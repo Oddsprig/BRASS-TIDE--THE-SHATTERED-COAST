@@ -450,11 +450,11 @@ func music_context() -> String:
 		return "contact" if ui.modal_kind=="encounter" else "harbor"
 	return "travel"
 
-func new_game():
+func new_game(seed_override: int = 0):
 	_retire_battle_driver051()
 	_leave_lab()
 	sync_economy()
-	var begun: Dictionary = core.new_game(int(Time.get_unix_time_from_system()))
+	var begun: Dictionary = core.new_game(seed_override if seed_override != 0 else int(Time.get_unix_time_from_system()))
 	if not begun.get("ok", false):
 		ui.toast(str(begun.get("message", "New career was refused. The previous voyage is unchanged.")), true)
 		return
@@ -1277,7 +1277,7 @@ func capture_after_start():
 		var name: String = str(raw)
 		if name.ends_with("051") and not screenshots_requested.is_empty():
 			if name == "home051":
-				new_game();paused = true;chart.center_camera()
+				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)
 			elif name in ["freight059051", "fishing059051", "charter059051"]:
 				var role059: String = "kelpnet_dory" if name == "fishing059051" else ("gullwing_daysailer" if name == "charter059051" else "fenhopper_lighter")
