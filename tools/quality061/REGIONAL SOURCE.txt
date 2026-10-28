@@ -1,0 +1,99 @@
+BRASS TIDE 061 / A REGIONAL SOURCE CONTRACT (28 October 2026)
+ISOLATED SOURCE PREPARATION ONLY; base f760a933ce51fa8ce16687b4faa03766a62417c5.
+Root must deliver060 and compare its game tree before061 integration/metadata.
+No engine/import/export/parser/advisory/test run or native acceptance here.
+
+EARLY CONTRACT FOR ROOT / B / C
+Regional = res://scripts/regional_campaigns.gd; Ops = regional_ops.gd.
+Regional.continue_watch(core)->Dictionary / Ops.continue_watch(c)->Dictionary.
+Regional.withdraw_watch(core)->Dictionary / Ops.withdraw_watch(c)->Dictionary.
+These select the existing corridor operation, never the current focus endpoints.
+Ops are explicit main-thread actions; C must join/revalidate before calling them.
+Continue reuses ownerId/completionId/portId/funding/fundedRoutes and existing
+physical boats/reserves. It never calls mobilize, grants, spawns, or settles a
+second completion. Its paid readiness/route+return/recovery gates still apply.
+Withdraw removes only the regional assignment; existing NPC service/payroll and
+physical travel continue through normal orders. Completed achievement remains.
+Active withdrawal keeps the same operation as cancelled; continue resumes that
+same object with active status and a fresh consecutive-clear-day assessment.
+Existing cancel(core,"corridor") delegates to withdraw; start on that same
+cancelled corridor with an assigned owner resumes it without replacing its
+identity or paying again. An initial attempt without any owner may be started
+normally; the unchanged once-fundedRoutes guard still prevents repeat support.
+
+Pure detached facade: Regional.selected_status(core,id:String="corridor") and
+Ops.selected_status(c,id:String="corridor")->Dictionary. Missing goal returns {}.
+It copies the saved selected operation deeply and adds completed:bool plus,
+for corridor, watchState:String, watchAssigned:bool, ownerPresent:bool,
+canContinue:bool, canWithdraw:bool, watchReason:String. Existing currentPlan,
+readiness, stallReason/fundingReason and funding are copied snapshots, not a new
+readiness quote or remote safety guarantee. After a disabled watch's last plan
+is released once, currentPlan/readiness/stallReason/planIdentity are removed;
+normal fleet orders remain live, and a future continue gets a fresh plan.
+No ensure/refresh/progress/faction
+normalization, world/nav construction, money movement, or economic join occurs.
+C should display the achievement separately from this watch choice and label
+saved plan/reserves as last published. No watch choice promises safe waters.
+
+Only new optional saved field: corridor operation.watchState, String enum
+"active" | "awaiting" | "withdrawn". Active means regional planning is enabled,
+including a completed watch that was explicitly continued. First completion
+sets awaiting: the player chooses continue or withdraw. No new completion status,
+escrow, fleet, funding record, economy book or operation is introduced.
+Legacy absent field: active status -> active; complete -> awaiting;
+cancelled -> withdrawn. Pure review computes defaults without writing them.
+Narrow validator dependency implemented: only validate this optional corridor
+enum; old saves with no field remain valid. Root approved exact shape pending
+full diff/native. Leaf RegionalOrders.watch_state(op) computes the shared legacy
+default; assigned(op) enables active/continued-complete regional planning.
+
+Action results retain ok/message and report changed/status/completed/watchState,
+ownerId/completionId/portId/funded, granted:0, spawned:false, minted:false,
+escrow:"" on success. Repeated already-active continue or withdrawn withdrawal
+is idempotent. Missing original patrol refuses continuation; no replacement grant.
+The core's refusal and already-selected no-op paths do not call ensure at all.
+Ops.continue_watch requires stopped legal access at either ORIGINAL endpoint,
+ignoring changed campaign focus. Ops.withdraw_watch has no harbor/payment gate.
+All Ops mutations require C/Root to join pending Main economy workers first;
+the adapters do not construct a Main or secretly publish pending payroll.
+Contributions during a continued completed watch remain real unpaid cargo ->
+receiving-port stock, separate from sold-delivery facts.
+
+ROOT-RELAYED B DEPENDENCY (read full HARBOR SOURCE.txt before editing)
+campaign_state_validation.gd now preloads Home and calls Home.validate(s) at
+validate entry, before normalization. B owns/adds that exact pure raw gate for
+optional paired business.paidWorkDays / lastPaidWorkDay; legacy absence allowed.
+Standalone A intentionally requires B's named Home implementation before any
+Root advisory/native. No business files or B's progress rules edited by A.
+Optional harbor op.businessDays is validated only if present: Dictionary <=12,
+nonempty String business-id keys, finite integer non-bool baseline values from
+zero through published s.econDay (bounded <=1e9 by its existing number gate).
+No historical wages backfill, related ledger rewrite or unrelated validation.
+
+Ownership: A edits only regional_campaigns/orders/ops plus this note and the
+essential optional-field validator dependency. B owns regional_rules.gd entirely.
+No current helper, model, metadata, map, Root, peer, release, or installed-file edit.
+
+IMPLEMENTED / MANUAL REVIEW ONLY
+Continue/withdraw keep the same saved operation, completion/funding/owner IDs,
+paid reserves and actual physical hulls. Successful watch results granted=0.
+Completed achievement is never settled again or reset by watch choices. Active
+withdrawal/resume resets only consecutive clearDays / lastAssessedDay, retaining
+real passage/visit/cargo/funding history. Waiting withdrawn days cannot earn it.
+Continuing a completed watch blocks replacing it with a newly focused corridor
+until withdrawal. Existing availability mirrors that start gate.
+Release uses unchanged RegionalOrders.readiness + NavalOrders.apply_regional_plan
+and Lifecycle.route: live water path/return reserve, existing damage/recovery
+priority and finite harbor service remain authoritative. No paid dock, hire,
+repair, recruitment, grant, donation, time step or money transfer is invented.
+No readiness calculation, economy worker, battle worker, render mode or boat UID
+implementation changed. Diff reading confirmed only allowed four scripts plus
+this note; the fourth script is the exact approved validation dependency.
+
+Source review covered the full original regional core/leaf/adapter, relevant
+shared order/recovery/lifecycle code, raw Campaign restore boundary, B raw gate,
+and C detached-facade/proof notes. No engine/GPU/import/export/parser/advisory/
+test/native/gameplay pass is claimed. Root owns combined verification, actual
+paid voyage/rendered views and060-delivery/tree comparison. Strict051/coast art/
+whole-quality remain OPEN062. No metadata/tag/package/install/integration made.
+Named local handoff commit is supplied in the final/meeting; no remote push.

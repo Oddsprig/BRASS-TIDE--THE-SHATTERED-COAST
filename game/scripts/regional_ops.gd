@@ -44,13 +44,50 @@ static func contribute(c,id: String,good: String,qty: int) -> Dictionary:
 		if id=="corridor":refresh(c)
 	return result
 
+static func selected_status(c,id: String="corridor") -> Dictionary:
+	return Regional.selected_status(c,id)
+
+static func continue_watch(c) -> Dictionary:
+	var permission: Dictionary=Politics.permit(c,"service")
+	if not permission.ok:return permission
+	var op: Dictionary=c.state.get("regionalCampaigns",{}).get("operations",{}).get("corridor",{})
+	var p: Dictionary=c.current_port()
+	if not str(p.id) in op.get("ends",[]):return c.fail("Visit one of the existing corridor's harbors to continue its paid watch.")
+	var result: Dictionary=Regional.continue_watch(c)
+	if result.ok and result.changed:
+		refresh(c)
+		c.log_entry("Regional corridor watch continued with its original paid patrol and reserves.")
+	return result
+
+static func withdraw_watch(c) -> Dictionary:
+	# Withdrawing needs no new harbor service or payment. Caller joins workers.
+	var result: Dictionary=Regional.withdraw_watch(c)
+	if result.ok and result.changed:
+		refresh(c)
+		c.log_entry("Regional corridor watch withdrawn; its paid fleet and achievement remain.")
+	return result
+
 static func refresh(c) -> Dictionary:
 	var op: Dictionary=c.state.get("regionalCampaigns",{}).get("operations",{}).get("corridor",{})
 	var owner: Dictionary=c.fleet_owner(str(op.get("ownerId","")))
 	if owner.is_empty():return {}
 	var patrol: Dictionary=Orders.find_patrol(c.state,str(owner.id))
-	if op.get("status","")!="active":
-		if patrol.has("interceptPoint"):Lifecycle.route(c,patrol,str(owner.get("destination",owner.homePort)))
+	if not Orders.RegionalOrders.assigned(op):
+		if op.has("currentPlan"):
+			# Release a formerly published regional plan once. Returning uses the
+			# existing physical route and paid recovery; no dock/service is replayed.
+			var home: String=str(owner.get("homePort",""))
+			if not c.port(home).is_empty():
+				var release_context: Dictionary={"nav":c.nav,"scale":c.data.get("CAMPAIGN_SCALE",1),"daySeconds":c.DAY_SECONDS}
+				var release_quote: Dictionary=Orders.RegionalOrders.readiness(c.state,owner,home,release_context)
+				var release_plan: Dictionary={"ownerId":str(owner.id),"completionId":str(op.completionId),"purpose":"withdraw","destination":home,"targetOwnerId":"","convoyOwnerId":"","ready":bool(release_quote.ready),"hold":not bool(release_quote.ready) and (str(owner.get("atPort",""))!="" or not bool(release_quote.get("canReturn",false))),"reason":"Regional assignment ended; returning for normal paid harbor service. "+str(release_quote.reason),"readiness":release_quote}
+				var released: Dictionary=Orders.apply_regional_plan(c.state,owner,release_plan)
+				if not released.is_empty() and not patrol.is_empty() and patrol.get("active",false):
+					if released.get("hold",false):
+						patrol.to=str(released.destination);patrol.holding=true;patrol.course=[];patrol.progress=0.0;owner.progress=0.0
+						patrol.erase("interceptPoint")
+					else:Lifecycle.route(c,patrol,str(released.destination))
+			for key in ["currentPlan","readiness","stallReason","planIdentity"]:op.erase(key)
 		return {}
 	var context: Dictionary={"nav":c.nav,"scale":c.data.get("CAMPAIGN_SCALE",1),"daySeconds":c.DAY_SECONDS}
 	var plan: Dictionary=Orders.RegionalOrders.plan(c.state,owner,str(owner.get("atPort","")),context)
@@ -95,3 +132,4 @@ static func begin_day(c) -> void:
 static func daily(c) -> void:
 	for e in Regional.tick(c,1):
 		c.log_entry("Regional "+str(e.kind)+": "+str(e.get("completionId",e.get("target","")))+". "+str(e.cause))
+		if e.get("kind","")=="complete" and e.get("goal","")=="corridor":refresh(c)

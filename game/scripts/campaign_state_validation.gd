@@ -1,11 +1,15 @@
 extends RefCounted
 const Goods=preload("res://scripts/goods.gd")
 const Workshop=preload("res://scripts/fleet_workshop.gd")
+const Home=preload("res://scripts/home_harbor.gd")
 ## Optional campaign-extension schema; legacy voyages omit these fields.
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
 static func validate(s: Dictionary,world: Dictionary) -> String:
+	# B's raw optional paid-work-day gate must precede any legacy normalization.
+	var home_error: String=Home.validate(s)
+	if not home_error.is_empty():return home_error
 	var library_error: String=Workshop.validate_templates(s,world)
 	if not library_error.is_empty():return library_error
 	if s.has("surveyFoodCredit") and not number(s.surveyFoodCredit,0,1000):return "Invalid prepaid survey rations."
@@ -222,6 +226,12 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not id in ["corridor","harbor","survey","ceasefire"] or not op is Dictionary or op.get("id","")!=id or op.get("status","") not in ["active","complete","cancelled"]:return "Invalid regional operation identity."
 			if not op.get("completionId") is String or not op.get("ownerId") is String or not op.get("portId") is String:return "Invalid regional assignment."
 			if op.portId!="" and not op.portId in port_ids:return "Unknown regional operation harbor."
+			if op.has("watchState") and (id!="corridor" or not op.watchState is String or not op.watchState in ["active","awaiting","withdrawn"]):return "Invalid optional corridor watch choice."
+			if op.has("businessDays"):
+				if id!="harbor" or not op.businessDays is Dictionary or op.businessDays.size()>12 or not number(s.get("econDay")):return "Invalid optional harbor work-day baseline."
+				for business_id in op.businessDays:
+					var value=op.businessDays[business_id]
+					if not business_id is String or business_id.is_empty() or value is bool or not number(value,0,float(s.econDay)) or floorf(float(value))!=float(value):return "Invalid harbor business work-day baseline."
 			for key in ["funded","startedDay","clearDays","lastAssessedDay","patrolVisits","talksStartedDay","passageBaseline","deliveryBaseline"]:
 				if not number(op.get(key)):return "Invalid regional progress/accounting."
 			if not op.get("playerAction") is bool or not op.get("ends") is Array or op.ends.size()>2:return "Invalid regional corridor proof."

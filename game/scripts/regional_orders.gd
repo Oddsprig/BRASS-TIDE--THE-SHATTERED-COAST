@@ -8,9 +8,20 @@ const Navigation=preload("res://scripts/navigation.gd")
 const LOCAL_RANGE: float=1800.0
 const CORRIDOR_RANGE: float=300.0
 
+static func watch_state(op: Dictionary) -> String:
+	var saved: String=str(op.get("watchState",""))
+	if saved in ["active","awaiting","withdrawn"]:return saved
+	match str(op.get("status","")):
+		"active":return "active"
+		"complete":return "awaiting"
+	return "withdrawn"
+
+static func assigned(op: Dictionary) -> bool:
+	return str(op.get("status","")) in ["active","complete"] and watch_state(op)=="active"
+
 static func operation(s: Dictionary,owner: Dictionary) -> Dictionary:
 	var op: Dictionary=s.get("regionalCampaigns",{}).get("operations",{}).get("corridor",{})
-	return op if op.get("status","")=="active" and op.get("ownerId","")==owner.get("id","") and op.get("ends",[]).size()==2 else {}
+	return op if assigned(op) and op.get("ownerId","")==owner.get("id","") and op.get("ends",[]).size()==2 else {}
 
 static func arrival(s: Dictionary,owner: Dictionary,p: Dictionary) -> void:
 	var op: Dictionary=operation(s,owner)

@@ -2,6 +2,7 @@ extends RefCounted
 ## v0.018 goals and limited operations. Book: state.regionalCampaigns. No capture, new fleets, or reward coins.
 
 const Rules=preload("res://scripts/regional_rules.gd")
+const WatchOrders=preload("res://scripts/regional_orders.gd")
 const Money = preload("res://scripts/money.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Factions = preload("res://scripts/factions.gd")
@@ -71,6 +72,9 @@ static func available(core) -> Array:
 		elif status == "active":
 			ready = false
 			reason = "Already underway."
+		elif id=="corridor" and _watch_assigned(op):
+			ready=false
+			reason="Withdraw the existing corridor watch before choosing another corridor."
 		elif id=="ceasefire":
 			var focus: Dictionary=state.get("campaignFocus",{})
 			var key: String=_pair_key(str(focus.get("peaceA","compact")),str(focus.get("peaceB","raiders")))
@@ -84,6 +88,26 @@ static func available(core) -> Array:
 			reason = "A harbor goal needs a port."
 		rows.append({"id": id, "title": str(TITLES[id]), "ready": ready, "status": status, "reason": reason, "completionId": cid, "paths": PATHS[id]})
 	return rows
+
+static func selected_status(core,id: String="corridor") -> Dictionary:
+	# Review only: do not ensure/normalize the book or advance its progress.
+	var state: Dictionary=_state_of(core)
+	var book: Dictionary=state.get("regionalCampaigns",{})
+	var saved: Dictionary=book.get("operations",{}).get(id,{})
+	if saved.is_empty():return {}
+	var row: Dictionary=saved.duplicate(true)
+	row.completed=str(saved.get("status",""))=="complete" or book.get("completed",{}).has(str(saved.get("completionId","")))
+	if id!="corridor":return row
+	row.watchState=_watch_state(saved)
+	row.watchAssigned=_watch_assigned(saved)
+	row.ownerPresent=not _watch_owner(state,saved).is_empty()
+	row.canContinue=row.ownerPresent and not row.watchAssigned and _watch_endpoints(state,saved)
+	row.canWithdraw=row.watchState!="withdrawn"
+	row.watchReason="Regional assignment withdrawn; the existing fleet still pays normal operating costs."
+	if row.watchState=="awaiting":row.watchReason="Achievement recorded. Choose whether the same paid patrol should continue its regional watch."
+	elif row.watchAssigned:row.watchReason="Regional watch assigned; last published plan and reserves remain subject to real paid service and route checks."
+	if not row.ownerPresent:row.watchReason+=" The original patrol is missing; continuation cannot assign a replacement or treasury grant."
+	return row
 
 static func start(core, id) -> Dictionary:
 	var state := _state_of(core)
@@ -99,9 +123,12 @@ static func start(core, id) -> Dictionary:
 		if _today(state)<int(book.peace.get(_pair_key(a,b),{}).get("cooldownUntil",0)):return _no("The previous treaty's cooldown has not ended.")
 	if goal=="corridor" and str(state.get("campaignFocus",{}).get("fromPort",""))==str(state.get("campaignFocus",{}).get("toPort","")) and not state.get("campaignFocus",{}).is_empty():return _no("A corridor needs different endpoints.")
 	var cid := _completion_id(state, goal)
+	var live = book.operations.get(goal, {})
+	if goal=="corridor" and live is Dictionary:
+		if str(live.get("status",""))=="cancelled" and str(live.get("completionId",""))==cid and str(live.get("ownerId",""))!="":return continue_watch(core)
+		if str(live.get("status",""))=="complete" and _watch_assigned(live):return _no("Withdraw the existing corridor watch before choosing another corridor.")
 	if book.completed.has(cid):
 		return _no("That goal is already complete.")
-	var live = book.operations.get(goal, {})
 	if live is Dictionary and str(live.get("status", "")) == "active":
 		return _no("That goal is already underway.")
 	if goal == "corridor" and _ports(state).size() < 2:
@@ -125,7 +152,10 @@ static func contribute(core, id, good, qty) -> Dictionary:
 	var goal := _goal(id)
 	var name := str(good)
 	var op = book.operations.get(goal, {})
-	if goal == "" or not op is Dictionary or str(op.get("status", "")) != "active":
+	if goal == "" or not op is Dictionary:
+		return _refused("That goal is not accepting supplies.")
+	var accepting: bool=_watch_assigned(op) if goal=="corridor" else str(op.get("status", ""))=="active"
+	if not accepting:
 		return _refused("That goal is not accepting supplies.")
 	var accepted: Array = ACCEPT.get(goal, [])
 	if not Goods.ITEMS.has(name) or not accepted.has(name) or not _whole(qty):
@@ -158,6 +188,7 @@ static func tick(core, days = 1) -> Array:
 		var op = book.operations.get(goal, {})
 		if not op is Dictionary or str(op.get("status", "")) != "active":
 			continue
+		if goal=="corridor" and not _watch_assigned(op):continue
 		_touch(state, op)
 		var cause := _ready_cause(state, op)
 		if cause == "":
@@ -200,8 +231,9 @@ static func journal(state) -> Array:
 static func observe_plan(state: Dictionary,owner: Dictionary,plan: Dictionary) -> void:
 	var book: Dictionary=ensure(state)
 	var op: Dictionary=book.operations.get("corridor",{})
-	if op.get("status","")!="active" or str(op.get("ownerId",""))!=str(owner.get("id","")) or plan.is_empty():return
+	if not _watch_assigned(op) or str(op.get("ownerId",""))!=str(owner.get("id","")) or plan.is_empty():return
 	if str(plan.get("ownerId",owner.get("id","")))!=str(owner.get("id","")):return
+	if str(plan.get("completionId",""))!=str(op.get("completionId","")):return
 	var previous: Dictionary=op.get("currentPlan",{})
 	var was_ready: bool=bool(previous.get("ready",false))
 	var ready: bool=bool(plan.get("ready",false))
@@ -218,6 +250,7 @@ static func observe_plan(state: Dictionary,owner: Dictionary,plan: Dictionary) -
 	_note(book,{"day":_today(state),"kind":kind,"goal":"corridor","target":str(owner.id),"purpose":str(plan.get("purpose","")),"destination":str(plan.get("destination","")),"targetOwnerId":str(plan.get("targetOwnerId","")),"convoyOwnerId":str(plan.get("convoyOwnerId","")),"cause":str(plan.get("reason","")),"completionId":str(op.completionId)})
 
 static func cancel(core,id: String) -> Dictionary:
+	if id=="corridor":return withdraw_watch(core)
 	var state: Dictionary=_state_of(core)
 	var book: Dictionary=ensure(state)
 	var op: Dictionary=book.operations.get(id,{})
@@ -225,6 +258,58 @@ static func cancel(core,id: String) -> Dictionary:
 	op.status="cancelled"
 	_note(book,{"day":_today(state),"kind":"withdrawn","goal":id,"cause":"player-choice","target":str(op.completionId)})
 	return {"ok":true,"message":"Goal withdrawn. Supplies and grants remain with their recipients. Restarting cannot duplicate treasury support."}
+
+static func continue_watch(core) -> Dictionary:
+	var state: Dictionary=_state_of(core)
+	var book: Dictionary=state.get("regionalCampaigns",{})
+	var op: Dictionary=book.get("operations",{}).get("corridor",{})
+	if op.is_empty():return _no("No existing corridor watch to continue.")
+	if _watch_owner(state,op).is_empty():return _no("The original corridor patrol is missing. No replacement or treasury grant was created.")
+	if not _watch_endpoints(state,op):return _no("The original corridor endpoints are no longer available.")
+	var prior: Dictionary=book.get("fundedRoutes",{}).get(str(op.completionId),{})
+	if not prior.is_empty() and str(prior.get("ownerId",""))!=str(op.ownerId):return _no("The original corridor funding recipient does not match this assignment.")
+	if _watch_assigned(op):return _watch_result(op,false,"The same paid corridor watch is already assigned. No new funding.")
+	ensure(state)
+	var completed: bool=str(op.status)=="complete" or book.completed.has(str(op.completionId))
+	op.status="complete" if completed else "active"
+	op.watchState="active"
+	if not completed:
+		# Days spent withdrawn never become consecutive clear watch days.
+		op.clearDays=0;op.lastAssessedDay=_today(state)
+	_note(book,{"day":_today(state),"kind":"watch-continued","goal":"corridor","target":str(op.ownerId),"completionId":str(op.completionId),"cause":"player-choice","funded":0})
+	return _watch_result(op,true,"The same patrol continues using its existing paid reserves. Route, return, repair, recovery and payroll gates still apply. No new treasury grant.")
+
+static func withdraw_watch(core) -> Dictionary:
+	var state: Dictionary=_state_of(core)
+	var book: Dictionary=state.get("regionalCampaigns",{})
+	var op: Dictionary=book.get("operations",{}).get("corridor",{})
+	if op.is_empty():return _no("No existing corridor watch to withdraw.")
+	if _watch_state(op)=="withdrawn":return _watch_result(op,false,"The regional watch is already withdrawn. Paid supplies and grants remain with their recipients.")
+	ensure(state)
+	var completed: bool=str(op.status)=="complete" or book.completed.has(str(op.completionId))
+	op.status="complete" if completed else "cancelled"
+	op.watchState="withdrawn"
+	if not completed:
+		op.clearDays=0;op.lastAssessedDay=_today(state)
+	_note(book,{"day":_today(state),"kind":"withdrawn","goal":"corridor","target":str(op.completionId),"ownerId":str(op.ownerId),"cause":"player-choice"})
+	return _watch_result(op,true,"Regional watch withdrawn. Its original fleet, supplies and funding remain paid; normal travel, payroll and recovery continue.")
+
+static func _watch_state(op: Dictionary) -> String:
+	return WatchOrders.watch_state(op)
+
+static func _watch_assigned(op: Dictionary) -> bool:
+	return WatchOrders.assigned(op)
+
+static func _watch_owner(state: Dictionary,op: Dictionary) -> Dictionary:
+	var owner: Dictionary=_owner(state,str(op.get("ownerId","")))
+	return owner if not owner.is_empty() and owner.get("kind","")=="patrol" and not _story(owner) and not bool(owner.get("playerCompany",false)) else {}
+
+static func _watch_endpoints(state: Dictionary,op: Dictionary) -> bool:
+	var ends: Array=op.get("ends",[])
+	return ends.size()==2 and ends[0]!=ends[1] and not _port(state,str(ends[0])).is_empty() and not _port(state,str(ends[1])).is_empty()
+
+static func _watch_result(op: Dictionary,changed: bool,message: String) -> Dictionary:
+	return {"ok":true,"changed":changed,"status":str(op.status),"completed":str(op.status)=="complete","watchState":_watch_state(op),"ownerId":str(op.ownerId),"completionId":str(op.completionId),"portId":str(op.portId),"funded":int(op.funded),"granted":0,"spawned":false,"minted":false,"escrow":"","message":message}
 
 static func _mobilize(state: Dictionary, book: Dictionary, op: Dictionary) -> void:
 	# Reopening the same corridor reuses the original paid recipient, even if
@@ -291,6 +376,7 @@ static func _complete(book: Dictionary, op: Dictionary, cause: String) -> Dictio
 		op.status = "complete"
 		return {}
 	op.status = "complete"
+	if str(op.id)=="corridor":op.watchState="awaiting"
 	var day := int(op.get("progressDay", 0))
 	if day <= 0:
 		day = int(op.startedDay)
@@ -312,7 +398,9 @@ static func _blank(state: Dictionary, goal: String, cid: String) -> Dictionary:
 		port_id = _harbor_id(state)
 	elif not _ports(state).is_empty():
 		port_id = str(_ports(state)[0].id) if goal != "corridor" else (str(ends[0].id) if ends.size() == 2 else "")
-	return {"id": goal, "status": "active", "startedDay": _today(state), "completionId": cid, "portId": port_id, "ends": ids, "ownerId": "", "funded": 0, "funding": {}, "baseline": _facts(state), "contributed": {}, "threat": false, "cause": ""}
+	var op: Dictionary={"id": goal, "status": "active", "startedDay": _today(state), "completionId": cid, "portId": port_id, "ends": ids, "ownerId": "", "funded": 0, "funding": {}, "baseline": _facts(state), "contributed": {}, "threat": false, "cause": ""}
+	if goal=="corridor":op.watchState="active"
+	return op
 
 static func _completion_id(state: Dictionary, goal: String) -> String:
 	if goal == "survey":
@@ -542,6 +630,7 @@ static func _repair_op(op: Dictionary) -> void:
 	op.ownerId = str(op.get("ownerId", ""))
 	op.funded = maxi(0, int(op.get("funded", 0)))
 	op.startedDay = int(op.get("startedDay", 0))
+	if op.id=="corridor":op.watchState=_watch_state(op)
 	if not op.get("contributed") is Dictionary:
 		op.contributed = {}
 	if not op.get("baseline") is Dictionary:
