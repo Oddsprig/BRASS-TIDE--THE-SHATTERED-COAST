@@ -1,0 +1,121 @@
+BRASS TIDE 062 / B READABILITY - SOURCE HANDOFF
+28 October 2026. Base delivered061 da960d5d04440bbb7a5a106afe2203667d15ca89.
+Named commit: "062 readability: put regional choices and shore books first".
+The exact resulting SHA is supplied with the handoff, not inferred from HEAD.
+
+EXACT ALLOWLIST
+game/scripts/regional_ui.gd
+game/scripts/home_ui.gd
+tools/quality062/READABILITY SOURCE.txt
+No domain, interface, Main, test, render/simulation mode, metadata or release edits.
+
+READ BEFORE EDITING / EVIDENCE LIMITS
+Read AGENTS.md, SCOPE062 QUALITY CORRECTIONS.txt, the regional/home maps,
+061 regional UI and harbor source contracts, Home.business_view/quote,
+Rules.harbor_view/peace_conditions, Regional.selected_status/available,
+RegionalOps, QuoteView construction and Interface modal/button/container code.
+Read the exact recursive button/text traversal in test_regional_voyage.gd and
+test_operation_flow037.gd, including pure pending-day X/decline, explicit capital,
+continue/withdraw and contribution controls. Read the existing Main private tour.
+Visually read the four ACTUAL061 reference PNGs in Test Bridge job
+5e78f6138cad4f1895cad5b2771da904/attempt-001/runtime:
+opening051-regional061.png, opening051-watch061.png,
+opening051-homebook061.png and opening051-harbor061.png.
+
+Manual source and git diff review ONLY. No tests, source advisory scripts,
+engine/parser/import/GPU/export/recording, new capture or acceptance ran here.
+No helpers, installs, global settings, git maintenance, pushes, tags, packaging,
+Desktop launcher, owner saves/music or outside files changed. Commands use
+gc.auto=0, maintenance.auto=false and the supplied empty hooksPath overrides.
+Root alone owns integration, native tests and actual 1280x800 visual acceptance.
+This is unaccepted source, not a native pass or a whole-quality completion.
+
+READABILITY CHANGE
+Regional opening now starts with captain purse/published account, goal tabs,
+selected progress, patrol/business purse and unpaid wages, current stall and
+the existing watch/contribution/ceasefire/start/withdraw controls. Existing
+watch choices precede all local books, observations, stock and long goal terms.
+Harbor overview retains distinct sold/settled versus unpaid donated lots,
+actual paid work days, raw stall/resume reasons and the unproved-history notice.
+
+Home opening puts owned books before new charters. The first business shows
+four native GridContainer metrics: purse, daily pay, unpaid wages, paid work
+days. No fixed column widths; paragraph values can wrap within the container.
+Current stall/next step and payroll shortfall stay visible, followed by the
+existing cargo and finance controls. Material shortages remain visible for
+production businesses. Revenue, paid staff wages, sold material cost basis,
+other expenses and capital-versus-income remain visible outside disclosures.
+Berth arrears retain their explicit settlement buttons above the books.
+
+Simple native VBox/button visibility disclosures follow the existing TradeUI
+pattern; no new UI framework or service. Secondary roster, per-recipe quantities,
+stored-goods list, dated sightings/visited quotes, sponsor trade estimate,
+full goal terms/last published plan, future destinations and history are grouped.
+New charter setup is expanded when no businesses exist; otherwise secondary.
+Setup parts, ordinary/expert wages, margin, duty, staff wages and opening capital
+remain next to Establish paid business inside the same charter disclosure.
+Disclosures rebuild no account and call ui.button(..., false, false): they only
+toggle local visibility. All contents are constructed immediately, retaining
+recursive traversal. Watch, owned-business cargo/capital/dividend/sales policy
+and applicable goal actions are outside disclosures and visible by default.
+
+PRESERVED CONTRACTS / MANUAL DIFF FINDINGS
+Both review() bodies and return dictionaries are unchanged. They still construct
+one detached QuoteView and never publish payroll, normalize live state or save.
+Both act() bodies are unchanged: sync_economy first, then current-core ID/legal/
+amount checks and existing mutators, response/save/reopen. No mutation moves
+into a button-construction argument or disclosure callback. Port/faction picker
+callbacks and metadata, goods/quantity controls, original action strings,
+all existing production button captions and their enable/disable rules remain.
+Decline uses the same ui.close_modal callback with sync=false; modal kinds stay
+regional/home_harbor for the existing pure shared header X behavior.
+
+Raw report.message, unseen-port refusal, buyer purse at visit, dated contact
+facts, stock/buy/sell/need values, offer age/costs and non-guarantee text remain
+in their corresponding disclosures. corridor_status() and event_text() are
+unchanged; the last stall/ready line is promoted, the remaining full plan,
+reserves/payroll, machinery and Treasury grant lines remain constructed.
+No new grant, wage settlement, free materials, working day or safety is created.
+
+ROOT CAPTURE COORDINATION / NAMED NODE ANCHORS
+New opening position is the shared modal ScrollContainer at scroll_vertical=0,
+with disclosures in their defaults. Do not keep the old forced bottom scroll
+for watch061/homebook061. The owner explicitly assigns any narrow private Main
+tour scroll adjustment to Root; this lane did not touch that tour or Main.
+Expected opening content below is a source/layout intention, NOT measured bounds.
+
+RegionalBody
+  RegionalPrimary
+    WatchActions - exact Continue paid watch / Withdraw regional watch buttons
+    ContributionActions - unchanged goods, quantity and unpaid-delivery button
+  RegionalBusiness_<business id> / BusinessSummary - same visible shore metrics
+  LocalObservations - collapsed raw safety/contact/visited stock details
+  SponsorTrade - collapsed legal dated estimate and its costs/cautions
+  GoalTerms - collapsed complete terms and last published plan/reserve lines
+  FutureGoalSelections - collapsed future-focus controls while goal is active
+  RegionalHistory - collapsed treaties and journal
+An unstarted/nonactive goal's existing focus controls and Choose this goal are
+instead in RegionalPrimary and visible without opening FutureGoalSelections.
+At scroll top expect goal progress, purse/unpaid wages, stall and actual watch
+choices to be visible before the first business or any stock quotation.
+
+HomeHarborBody
+  Business_<business id>
+    BusinessSummary - four metrics, current stall/next step and financial facts
+    CargoActions - unchanged store/load picker, quantity and buttons
+    FinanceActions - unchanged capital/dividend buttons
+  BusinessCharters - secondary setup quotes; initially open only without books
+At scroll top in the existing single-warehouse tour, expect its metrics and real
+cargo/finance actions; charter prerequisites must no longer precede that book.
+Additional businesses still use ordinary vertical scrolling. No horizontal
+scrolling, fixed-width dashboard, screen/input control or new capture path added.
+
+ROOT ACCEPTANCE STILL REQUIRED
+Run the existing relevant native fixtures, including pending-day review/X/decline
+and explicit join-before-action, exact watch buttons and donation row traversal.
+Use the existing tour with the narrow scroll coordination above. Inspect the
+actual regional/watch/harbor and home-book openings at 1280x800, including word
+wrap, metric width, practical action visibility and expanded detail readability.
+Confirm charter/setup and all disclosures remain useful and pure when expanded.
+Source review cannot establish native parsing, callback execution or rendered
+fit. Whole quality062 and strict051 performance remain OPEN.

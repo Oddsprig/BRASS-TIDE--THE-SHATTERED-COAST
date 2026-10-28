@@ -81,43 +81,60 @@ static func review(c,selected_goal: String="corridor") -> Dictionary:
 
 static func consequences(ui,body: Node,a: Dictionary) -> void:
 	var c=a.view
-	ui.rule(body);ui.label(body,str(R.TITLES[a.goal])+" · local consequences",25,ui.GOLD,true)
-	ui.paragraph(body,"Published day %d · %d calendar days pending. Reviewing or closing pays nothing; an explicit action refreshes and checks the current account."%[int(a.publishedDay),int(a.pendingDays)],14)
-	var op: Dictionary=a.operation
-	if not op.is_empty():ui.paragraph(body,"Achievement: %s · recorded progress day %d. A completed title supplies no permanent safety or free labor."%["achieved" if op.get("completed",false) else "underway" if op.get("status","")=="active" else "withdrawn",int(op.get("progressDay",op.get("startedDay",0)))],15,ui.TEAL)
-	ui.paragraph(body,str(a.safety),15)
-	if a.traffic.is_empty():ui.paragraph(body,"Traffic: no local contact on record for this goal. Sail nearby to observe it.",14)
+	ui.button(body,"Review home harbor books",func():HomeUI.open(ui),false,false)
+	if a.businesses.is_empty():ui.paragraph(body,"No owned shore business at this sponsor. Construction, staff and capital remain optional and paid.",15)
+	for business in a.businesses:
+		var books=ui.column(body)
+		books.name="RegionalBusiness_"+str(business.id)
+		books.add_theme_constant_override("separation",8)
+		ui.rule(books)
+		ui.label(books,str(business.name),20,ui.GOLD,true)
+		HomeUI.book(ui,books,business)
+		HomeUI.book_details(ui,books,business)
+	var observations=_details(ui,body,"Local sightings & visited market quotes")
+	observations.name="LocalObservations"
+	ui.paragraph(observations,str(a.safety),15)
+	if a.traffic.is_empty():ui.paragraph(observations,"Traffic: no local contact on record for this goal. Sail nearby to observe it.",15)
 	for contact in a.traffic.slice(0,6):
-		ui.paragraph(body,"%s · %s · %s → %s · sighted day %.2f (%.2f days old, %s)"%[str(contact.name),"loaded merchant" if contact.loaded else str(contact.kind),str(contact.purpose),c.port(str(contact.destination)).get("name","unconfirmed destination"),float(contact.day),float(contact.ageDays),"current" if contact.current else "expired" if contact.expired else "remembered"],14)
+		ui.paragraph(observations,"%s · %s · %s → %s · sighted day %.2f (%.2f days old, %s)"%[str(contact.name),"loaded merchant" if contact.loaded else str(contact.kind),str(contact.purpose),c.port(str(contact.destination)).get("name","unconfirmed destination"),float(contact.day),float(contact.ageDays),"current" if contact.current else "expired" if contact.expired else "remembered"],15)
 	for endpoint in a.ports:
 		var report: Dictionary=endpoint.report
-		ui.label(body,str(endpoint.name)+" · visited stock",18,ui.GOLD)
+		ui.label(observations,str(endpoint.name)+" · visited stock",18,ui.GOLD)
 		if not report.seen:
-			ui.paragraph(body,str(report.message),14);continue
-		ui.paragraph(body,str(report.message)+" Buyer purse at visit: %d coins."%int(report.businessFunds),14)
+			ui.paragraph(observations,str(report.message),15);continue
+		ui.paragraph(observations,str(report.message)+" Buyer purse at visit: %d coins."%int(report.businessFunds),15)
 		for good in ["food","timber","fuel","supplies"]:
 			var need: Dictionary=report.get("needs",{}).get(good,{})
-			ui.paragraph(body,"%s: %d lots · buy %d / sell %d · recorded need %.1f"%[Goods.ITEMS[good].name,int(report.stocks.get(good,0)),int(report.buy.get(good,0)),int(report.sell.get(good,0)),float(need.get("observedNeed",0))],13)
+			ui.paragraph(observations,"%s: %d lots · buy %d / sell %d · recorded need %.1f"%[Goods.ITEMS[good].name,int(report.stocks.get(good,0)),int(report.buy.get(good,0)),int(report.sell.get(good,0)),float(need.get("observedNeed",0))],15)
+	var trade=_details(ui,body,"Sponsor access & dated trade estimate")
+	trade.name="SponsorTrade"
 	if not a.sponsor.is_empty():
-		ui.paragraph(body,"Sponsor: %s · %s"%[str(a.sponsor.name),str(Factions.CANON_NAMES.get(a.sponsor.get("faction",""),"unidentified colors"))],16,ui.GOLD)
-		ui.paragraph(body,str(a.permission.get("reason","No current legal access recorded.")),14)
+		ui.paragraph(trade,"Sponsor: %s · %s"%[str(a.sponsor.name),str(Factions.CANON_NAMES.get(a.sponsor.get("faction",""),"unidentified colors"))],17,ui.GOLD)
+		ui.paragraph(trade,str(a.permission.get("reason","No current legal access recorded.")),15)
 	var offer: Dictionary=a.opportunity
 	if offer.is_empty():
-		ui.paragraph(body,"No legal sponsor trade estimate from these visited endpoints and your current cargo/hold. Visit the sponsor and a second market to record quotes; access and stock are checked again when trading.",14)
+		ui.paragraph(trade,"No legal sponsor trade estimate from these visited endpoints and your current cargo/hold. Visit the sponsor and a second market to record quotes; access and stock are checked again when trading.",15)
 	else:
-		ui.paragraph(body,"Existing legal trade estimate: %d %s → %s · nominal round-trip net %d coins · buyer limit %d lots"%[int(offer.qty),Goods.ITEMS[str(offer.good)].name,c.port(str(offer.toPort)).name,int(offer.netProfit),int(offer.buyerLiquidity)],16,ui.GOLD)
-		ui.paragraph(body,"Visit day %d · age %d days · purchase %d + estimated wages/stores/return %d. %s. Unseen blockade pressure is unassessed; quotes reserve nothing and are not realized profit."%[int(offer.observedDay),int(offer.quoteAge),int(offer.purchaseCost),int(offer.tripCost),"Observed preparation allowance covered" if offer.preparationReady else "Preparation or funding still needed"],14)
-	var harbor: Dictionary=a.harbor
-	if not harbor.is_empty():
-		ui.paragraph(body,"%.0f sold/settled + %.0f unpaid donations = %.0f / %d lots · %d / %d actual paid working days"%[float(harbor.deliveredLots),float(harbor.donatedLots),float(harbor.harborLots),int(harbor.lotsRequired),int(harbor.staffDays),int(harbor.staffDaysRequired)],15)
-		ui.paragraph(body,str(harbor.stallReason)+" "+str(harbor.resumeReason),14)
-		if not harbor.historyKnown:ui.paragraph(body,"Earlier work history is unproved; only recorded paid days after the new baseline count.",14)
-	ui.label(body,"Local business books",20,ui.GOLD,true)
-	if a.businesses.is_empty():ui.paragraph(body,"No owned shore business at this sponsor. Construction, staff and capital remain optional and paid.",14)
-	for business in a.businesses:
-		ui.label(body,str(business.name),17,ui.GOLD)
-		HomeUI.book(ui,body,business)
-	ui.button(body,"Review home harbor books",func():HomeUI.open(ui),false,false)
+		ui.paragraph(trade,"Existing legal trade estimate: %d %s → %s · nominal round-trip net %d coins · buyer limit %d lots"%[int(offer.qty),Goods.ITEMS[str(offer.good)].name,c.port(str(offer.toPort)).name,int(offer.netProfit),int(offer.buyerLiquidity)],18,ui.GOLD)
+		ui.paragraph(trade,"Visit day %d · age %d days · purchase %d + estimated wages/stores/return %d. %s. Unseen blockade pressure is unassessed; quotes reserve nothing and are not realized profit."%[int(offer.observedDay),int(offer.quoteAge),int(offer.purchaseCost),int(offer.tripCost),"Observed preparation allowance covered" if offer.preparationReady else "Preparation or funding still needed"],15)
+
+static func _details(ui,body: Node,caption: String) -> VBoxContainer:
+	var details=ui.column(body)
+	details.add_theme_constant_override("separation",6)
+	details.visible=false
+	var toggle=ui.button(body,caption,func():details.visible=not details.visible,false,false)
+	toggle.toggle_mode=true
+	body.move_child(toggle,details.get_index())
+	return details
+
+static func focus_controls(ui,body: Node,c,selected_goal: String) -> void:
+	var focus=ui.row(body)
+	port_picker(ui,focus,c,"fromPort","Corridor from",selected_goal)
+	port_picker(ui,focus,c,"toPort","To",selected_goal)
+	port_picker(ui,focus,c,"portId","Develop harbor",selected_goal)
+	var parties=ui.row(body)
+	ui.label(parties,"Ceasefire parties",15,ui.GOLD)
+	faction_picker(ui,parties,c,"peaceA",selected_goal);faction_picker(ui,parties,c,"peaceB",selected_goal)
 
 static func port_picker(ui,parent,c,key: String,caption: String,selected_goal: String) -> void:
 	ui.label(parent,caption,15,ui.GOLD)
@@ -142,68 +159,92 @@ static func open(ui,selected_goal: String="corridor") -> void:
 	selected_goal=str(account.goal)
 	ui.modal_kind="regional"
 	var body=ui.modal("Your place on the coast","REGIONAL GOALS · REAL FLEETS · LASTING CONSEQUENCES",1100,850)
-	ui.paragraph(body,"Choose a direction for your career. These goals use the coast's existing boats, purses and supplies. You may keep several goals alongside your contracts. Completed routes and harbors are remembered; choosing a new destination never rewrites an active operation.",16)
-	var focus=ui.row(body)
-	port_picker(ui,focus,c,"fromPort","Corridor from",selected_goal)
-	port_picker(ui,focus,c,"toPort","To",selected_goal)
-	port_picker(ui,focus,c,"portId","Develop harbor",selected_goal)
-	var parties=ui.row(body)
-	ui.label(parties,"Ceasefire parties",15,ui.GOLD)
-	faction_picker(ui,parties,c,"peaceA",selected_goal);faction_picker(ui,parties,c,"peaceB",selected_goal)
+	body.name="RegionalBody"
+	body.add_theme_constant_override("separation",10)
+	var heading=ui.row(body)
+	ui.label(heading,"Captain's purse · %s coins"%ui.money(int(c.state.coins)),20,ui.GOLD).size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	ui.button(heading,"Decline / return to chart",ui.close_modal,false,false)
+	ui.paragraph(body,"Published day %d · %d calendar days pending · review/close pays nothing; actions refresh and recheck the account."%[int(account.publishedDay),int(account.pendingDays)],14)
 	var tabs=ui.row(body)
 	for value in R.GOALS:
 		var goal: String=str(value)
 		ui.button(tabs,str(R.TITLES[goal]),func():open(ui,goal),goal==selected_goal,false)
-	consequences(ui,body,account)
-	ui.button(body,"Decline / return to chart",ui.close_modal,false,false)
+	var primary=ui.column(body)
+	primary.name="RegionalPrimary"
+	primary.add_theme_constant_override("separation",6)
 	for value in account.available:
 		var item: Dictionary=value
 		var id: String=str(item.id)
 		if id!=selected_goal:continue
-		var op: Dictionary=Ops.selected_status(c,id)
-		ui.rule(body);ui.label(body,str(R.TITLES[id]),25,ui.GOLD,true)
-		match id:
-			"corridor":ui.paragraph(body,"Keep both approaches and their sea lane clear for seven consecutive economic days. Prove use through a real merchant passage, a local escort/victory, or two actual endpoint visits by the assigned patrol. Friendly standing can secure up to seven wage-days from the local treasury, preserving two public-payroll days. Recovery and paid resupply take priority.",15)
-			"harbor":ui.paragraph(body,"At the selected harbor, sell goods and separately donate owned cargo totaling twelve lots after starting. One fully staffed local business must record three paid working days. Rest, stoppage and incomplete payroll add no work days. See Home harbors for construction, materials, labor and operating capital.",15)
-			"survey":ui.paragraph(body,"Fully survey three connected sites by following discovered leads. Already completed surveys count as an earned achievement. Charting alone does not qualify, and the goal never grants free survey supplies.",15)
-			"ceasefire":ui.paragraph(body,"Carry five food or repair-kit lots to EACH selected faction. Earn Friendly standing with one party and access to both, with no witnessed offenses or claims. After both relief deliveries, allow three economic days for talks. Sign at either party's legal harbor. The truce lasts thirty days; the prior dispute can resume afterward. No forced commission or invented reward.",15)
+		var op: Dictionary=account.operation
+		ui.label(primary,str(R.TITLES[id]),23,ui.GOLD,true)
+		if not op.is_empty():ui.paragraph(primary,"Achievement: %s · recorded progress day %d · completed titles provide no permanent safety or free labor."%["achieved" if op.get("completed",false) else "underway" if op.get("status","")=="active" else "withdrawn",int(op.get("progressDay",op.get("startedDay",0)))],14,ui.TEAL)
+		if id=="harbor" and not account.harbor.is_empty():
+			var harbor: Dictionary=account.harbor
+			ui.paragraph(primary,"%.0f sold/settled + %.0f unpaid donations = %.0f / %d lots · %d / %d actual paid working days"%[float(harbor.deliveredLots),float(harbor.donatedLots),float(harbor.harborLots),int(harbor.lotsRequired),int(harbor.staffDays),int(harbor.staffDaysRequired)],18,ui.TEAL)
+			var business: Dictionary=harbor.business
+			if not business.is_empty():ui.paragraph(primary,"Business purse %s · daily pay %d · unpaid wages %d coins"%[ui.money(int(business.coins)),int(business.dailyWages),int(business.arrears)],18,ui.TEXT)
+			if not str(harbor.stallReason).is_empty():ui.paragraph(primary,"Stalled: "+str(harbor.stallReason),16,ui.RED)
+			if not str(harbor.resumeReason).is_empty():ui.paragraph(primary,"Next: "+str(harbor.resumeReason),15,ui.TEXT)
+			if not harbor.historyKnown:ui.paragraph(primary,"Earlier work history is unproved; only recorded paid days after the new baseline count.",14)
 		if op.get("status","")=="active" or (id=="corridor" and not op.is_empty()):
 			var place: String=c.port(str(op.get("portId",""))).get("name","the coast")
 			if id=="corridor":place="%s ↔ %s"%[c.port(str(op.ends[0])).name,c.port(str(op.ends[1])).name]
-			ui.paragraph(body,"Started day %d · %s · %s"%[int(op.startedDay),place,"achievement retained" if op.get("completed",false) else str(op.get("status","underway"))],16,ui.TEAL)
+			ui.paragraph(primary,"Started day %d · %s · %s"%[int(op.startedDay),place,"achievement retained" if op.get("completed",false) else str(op.get("status","underway"))],16,ui.TEAL)
 			if id=="corridor":
 				var company: String=c.fleet_owner(str(op.get("ownerId",""))).get("name","your fleet / local commerce")
-				ui.paragraph(body,"%d / 7 clear days · %d patrol endpoint visits · %s · %d coins treasury support"%[int(op.get("clearDays",0)),int(op.get("patrolVisits",0)),company,int(op.funded)],15)
-				for line in corridor_status(c,op):ui.paragraph(body,line,15,ui.TEAL)
-				ui.paragraph(body,str(op.get("watchReason","")),15,ui.GOLD)
-				var watch=ui.row(body)
+				ui.paragraph(primary,"%d / 7 clear days · %d patrol endpoint visits · %s"%[int(op.get("clearDays",0)),int(op.get("patrolVisits",0)),company],18,ui.TEAL)
+				var owner: Dictionary=c.fleet_owner(str(op.get("ownerId","")))
+				if not owner.is_empty():ui.paragraph(primary,"Patrol purse %s · unpaid wages %d · last crew pay %d coins"%[ui.money(int(owner.get("coins",0))),int(owner.get("wageArrears",0)),int(owner.get("lastPayroll",0))],18,ui.TEXT)
+				var status: Array=corridor_status(c,op)
+				ui.paragraph(primary,str(status.back()),16,ui.RED if str(status.back()).begins_with("Stalled:") else ui.TEAL)
+				ui.paragraph(primary,str(op.get("watchReason","")),15,ui.GOLD)
+				var watch=ui.row(primary)
+				watch.name="WatchActions"
 				ui.button(watch,"Continue paid watch",func():act(ui,"continue_watch","","",0,selected_goal),true,false).disabled=not bool(op.get("canContinue",false))
 				ui.button(watch,"Withdraw regional watch",func():act(ui,"withdraw_watch","","",0,selected_goal),false,false).disabled=not bool(op.get("canWithdraw",false))
-			if id=="harbor":
-				var harbor: Dictionary=Rules.harbor_view(c.state,op)
-				ui.paragraph(body,"%.0f sold/settled + %.0f separately donated = %.0f / 12 goods lots · %d / 3 paid working days"%[float(harbor.deliveredLots),float(harbor.donatedLots),float(harbor.harborLots),int(harbor.staffDays)],15)
-				ui.paragraph(body,str(harbor.stallReason)+" "+str(harbor.resumeReason),14)
 			if id=="ceasefire":
 				var terms: Dictionary=Rules.peace_conditions(c.state,op,str(op.peaceA),str(op.peaceB))
-				ui.paragraph(body,"%s: %d / 5 relief · %s: %d / 5 · talks began day %d"%[Factions.CANON_NAMES[op.peaceA],int(op.relief.get(op.peaceA,0)),Factions.CANON_NAMES[op.peaceB],int(op.relief.get(op.peaceB,0)),int(op.get("talksStartedDay",0))],15)
-				ui.paragraph(body,str(terms.reason),15,ui.TEAL)
-				ui.button(body,"Sign thirty-day ceasefire",func():act(ui,"peace",str(op.peaceA),str(op.peaceB),0,selected_goal),true,false)
+				ui.paragraph(primary,"%s: %d / 5 relief · %s: %d / 5 · talks began day %d"%[Factions.CANON_NAMES[op.peaceA],int(op.relief.get(op.peaceA,0)),Factions.CANON_NAMES[op.peaceB],int(op.relief.get(op.peaceB,0)),int(op.get("talksStartedDay",0))],18,ui.TEAL)
+				ui.paragraph(primary,str(terms.reason),16,ui.TEXT)
+				ui.button(primary,"Sign thirty-day ceasefire",func():act(ui,"peace",str(op.peaceA),str(op.peaceB),0,selected_goal),true,false)
 			if id in ["corridor","harbor","ceasefire"]:
-				if id=="corridor":ui.paragraph(body,"Deliver fuel, ammunition, food or repair kits to %s. Its patrol must still buy supplies and pay its crew and repair workers."%c.port(str(op.portId)).get("name","the sponsoring harbor"),15)
-				var supply=ui.row(body)
+				if id=="corridor":ui.paragraph(primary,"Deliver fuel, ammunition, food or repair kits to %s. Its patrol must still buy supplies and pay its crew and repair workers."%c.port(str(op.portId)).get("name","the sponsoring harbor"),15)
+				var supply=ui.row(primary)
+				supply.name="ContributionActions"
 				var goods=OptionButton.new()
 				for g in R.ACCEPT[id]:goods.add_item(Goods.ITEMS[g].name);goods.set_item_metadata(goods.item_count-1,g)
 				supply.add_child(goods)
 				var qty=SpinBox.new();qty.min_value=1;qty.max_value=100;qty.step=1;qty.value=1;supply.add_child(qty)
 				ui.button(supply,"Deliver owned cargo · no payment",func():act(ui,"contribute",id,str(goods.get_item_metadata(goods.selected)),int(qty.value),selected_goal),false,false)
-			if id!="corridor":ui.button(body,"Withdraw goal · delivered goods and grants stay paid",func():act(ui,"cancel",id,"",0,selected_goal),false,false)
+			if id!="corridor":ui.button(primary,"Withdraw goal · delivered goods and grants stay paid",func():act(ui,"cancel",id,"",0,selected_goal),false,false)
 		else:
-			ui.paragraph(body,str(item.reason),15)
-			ui.button(body,"Choose this goal",func():act(ui,"start",id,"",0,selected_goal),true,false).disabled=not item.ready
-	ui.rule(body);ui.label(body,"Treaties and accomplishments",24,ui.GOLD,true)
+			ui.paragraph(primary,str(item.reason),16,ui.TEXT)
+			focus_controls(ui,primary,c,selected_goal)
+			ui.button(primary,"Choose this goal",func():act(ui,"start",id,"",0,selected_goal),true,false).disabled=not item.ready
+	consequences(ui,body,account)
+	var instructions=_details(ui,body,"Goal terms & last published plan")
+	instructions.name="GoalTerms"
+	ui.paragraph(instructions,"These goals use existing boats, purses and supplies alongside your contracts. Completed routes and harbors are remembered; choosing a new destination never rewrites an active operation.",15)
+	match selected_goal:
+		"corridor":ui.paragraph(instructions,"Keep both approaches and their sea lane clear for seven consecutive economic days. Prove use through a real merchant passage, a local escort/victory, or two actual endpoint visits by the assigned patrol. Friendly standing can secure up to seven wage-days from the local treasury, preserving two public-payroll days. Recovery and paid resupply take priority.",15)
+		"harbor":ui.paragraph(instructions,"At the selected harbor, sell goods and separately donate owned cargo totaling twelve lots after starting. One fully staffed local business must record three paid working days. Rest, stoppage and incomplete payroll add no work days. See Home harbors for construction, materials, labor and operating capital.",15)
+		"survey":ui.paragraph(instructions,"Fully survey three connected sites by following discovered leads. Already completed surveys count as an earned achievement. Charting alone does not qualify, and the goal never grants free survey supplies.",15)
+		"ceasefire":ui.paragraph(instructions,"Carry five food or repair-kit lots to EACH selected faction. Earn Friendly standing with one party and access to both, with no witnessed offenses or claims. After both relief deliveries, allow three economic days for talks. Sign at either party's legal harbor. The truce lasts thirty days; the prior dispute can resume afterward. No forced commission or invented reward.",15)
+	var selected: Dictionary=account.operation
+	if selected_goal=="corridor" and not selected.is_empty():
+		var plan_lines: Array=corridor_status(c,selected)
+		for line in plan_lines.slice(0,plan_lines.size()-1):ui.paragraph(instructions,line,15)
+		ui.paragraph(instructions,"Recorded treasury support %d coins; no repeat grant."%int(selected.get("funded",0)),15)
+	if selected.get("status","")=="active" or (selected_goal=="corridor" and not selected.is_empty()):
+		var destinations=_details(ui,body,"Destinations & ceasefire parties · future goals")
+		destinations.name="FutureGoalSelections"
+		focus_controls(ui,destinations,c,selected_goal)
+	var history=_details(ui,body,"Treaties and accomplishments")
+	history.name="RegionalHistory"
 	for rec in c.state.regionalCampaigns.peace.values():
-		ui.paragraph(body,"%s ↔ %s · %s · expires day %d · new talks after day %d"%[Factions.CANON_NAMES[rec.a],Factions.CANON_NAMES[rec.b],"in force" if rec.get("active",true) else "ended",int(rec.untilDay),int(rec.cooldownUntil)],15)
-	for e in R.journal(c.state).slice(0,12):ui.paragraph(body,"Day %d · %s"%[int(e.get("day",0)),event_text(c,e)],14)
+		ui.paragraph(history,"%s ↔ %s · %s · expires day %d · new talks after day %d"%[Factions.CANON_NAMES[rec.a],Factions.CANON_NAMES[rec.b],"in force" if rec.get("active",true) else "ended",int(rec.untilDay),int(rec.cooldownUntil)],15)
+	for e in R.journal(c.state).slice(0,12):ui.paragraph(history,"Day %d · %s"%[int(e.get("day",0)),event_text(c,e)],15)
 
 static func corridor_status(c,op: Dictionary) -> Array:
 	var owner: Dictionary=c.fleet_owner(str(op.get("ownerId","")))
