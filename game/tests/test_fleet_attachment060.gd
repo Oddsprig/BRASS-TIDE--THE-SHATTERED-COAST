@@ -78,10 +78,18 @@ func run() -> void:
 	# Explicit finite OPENING stock, not earned progression or free working gear.
 	p.shipStock.iron_bastion=2
 	for good in ["iron","copper","timber","guns","engines","supplies","fuel","ammo"]:p.stocks[good]=maxf(float(p.stocks.get(good,0)),120.0)
-	check(Money.move(c.port("shatter_spire"),"governmentPurse",c.state,"coins",300000,"Declared finite opening attachment060 capital",c.state.moneyLog),"opening capital comes from an existing finite treasury")
+	var opening_quote: Dictionary=c.Harbor.quote(c,c.hull("iron_bastion"),p)
+	# Two paid hulls plus two current ready-hull values as the explicitly declared
+	# fitting/stores/recovery allowance; qualified crew advances are additional.
+	# This is conservative test capital, not a boat price or earned progression.
+	var opening_capital: int=4*int(opening_quote.readyPrice)+c.Economy.recruit_cost(p,2*int(c.hull("iron_bastion").crewOptimal))
+	check(Money.move(c.port("shatter_spire"),"governmentPurse",c.state,"coins",opening_capital,"Declared finite quote-based opening attachment060 capital",c.state.moneyLog),"opening capital comes from an existing finite treasury")
+	print("attachment060 declared opening capital ",opening_capital,"; ready-hull basis ",opening_quote.readyPrice)
 	check(Money.total(c.state)==supply,"opening stock fixture mints no coins")
 	for index in range(2):
 		var before_crew: float=float(p.workforce)
+		var purchase_quote: Dictionary=c.Harbor.quote(c,c.hull("iron_bastion"),p)
+		print("attachment060 purchase ",JSON.stringify({"index":index,"coinsBefore":c.state.coins,"readyPrice":purchase_quote.readyPrice,"minimumCrewAdvance":c.Economy.recruit_cost(p,int(c.hull("iron_bastion").crewMin)),"workforce":p.workforce,"recruits":p.recruits,"qualifiedSailors":p.training.qualified.sailor}))
 		var bought: Dictionary=c.buy_boat("iron_bastion")
 		check(bought.get("ok",false),"actual paid Bastion hull and minimum crew purchase %d: %s"%[index,bought.get("message","")])
 		if not bought.get("ok",false):await finish();return

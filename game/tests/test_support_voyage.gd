@@ -40,22 +40,29 @@ func _initialize():
 	var tow_speed: float=c.travel_speed()
 	check(c.FleetIdentity.install_conversion(c,boat.uid,"tug_rig").ok,"Paid tug conversion uses real parts and professional labor")
 	check(c.travel_speed()>tow_speed,"Actual tow travel improves with the paid tug aboard")
+	check(c.FleetSupport.reserve(c,boat.uid).ok and not boat.supportOnly,"Paid tug explicitly returns to combat deployment for the protected passage")
 	var ally: Dictionary=c.fleet_owner("patrol-1")
 	var enemy: Dictionary=c.fleet_owner("patrol-0")
 	for ship in c.active_fleet()+ally.boats+enemy.boats:ship.ammo=0
-	var mission: Dictionary={"kind":"escort","allyUids":ally.boats.map(func(s):return s.uid),"duration":45.0}
-	var battle: Dictionary=B.create({"fleet":ally.boats+c.active_fleet(),"enemyFleet":enemy.boats,"mission":mission,"seed":18})
+	# Current escort contract: actual loaded carriers must physically reach a
+	# certified exit. A timed survival flag does not establish cargo passage.
+	var mission: Dictionary=c.EscortOps._mission(c,ally,"escort")
+	mission.allyUids=ally.boats.map(func(s):return s.uid)
+	mission.exit={"x":800.0,"y":850.0,"radius":170.0}
+	var battle: Dictionary=B.create({"fleet":ally.boats+c.FleetSupport.combat(c),"enemyFleet":enemy.boats,"mission":mission,"islands":[],"seed":18})
+	check(not mission.has("startError") and str(battle.get("startError",""))=="" and battle.has("convoy") and battle.result==null,"Loaded convoy and an actual combat escort deploy without an instant passage win")
 	for i in range(1400):
 		if battle.result!=null:break
 		B.update(battle,1.0/30.0,{})
-	check(battle.result=="won" and battle.objectiveOnly and enemy.boats.any(func(s):return not s.sunk),"Protect objective wins through actual elapsed combat time while the enemy survives")
+	print("support passage diagnostic ",JSON.stringify({"result":battle.result,"time":battle.time,"startError":battle.get("startError",mission.get("startError","")),"outcome":battle.get("convoyOutcome",{})}))
+	check(battle.result=="won" and battle.objectiveOnly and battle.get("objectiveSuccess",false) and int(battle.get("convoyOutcome",{}).get("escaped",0))==int(battle.get("convoyOutcome",{}).get("total",-1)) and enemy.boats.any(func(s):return not s.sunk),"Protect objective wins through actual loaded-carrier exit passage while the enemy survives")
 	check(battle.deployment.player<=300 and battle.deployment.enemy<=300,"Allied convoy shares the same per-side deployment budget")
 	var purse: int=c.state.coins
 	var context: Dictionary={"kind":"escort","ownerId":enemy.id,"allyOwnerId":ally.id,"escortEvent":"fixture-passage","objectiveOnly":true}
-	c.battle_settled("won",enemy.boats.map(func(s):return s.spec),context,battle)
+	var report: Dictionary=c.battle_settled("won",enemy.boats.map(func(s):return s.spec),context,battle)
 	check(c.state.coins==purse and enemy.active and not c.state.defeatedOwners.has(enemy.id),"Protection victory does not loot or falsely destroy the surviving enemy company")
 	check(c.state.campaignFacts.escortsSaved==1 and M.total(c.state)==supply,"Actual protected passage records one future campaign fact with conserved money")
-	c.EscortOps.settled(c,"won",context)
+	c.EscortOps.settled(c,"won",context,report.get("convoy",{}))
 	check(c.state.campaignFacts.escortsSaved==1,"Same passage cannot farm completion credit")
 	var scene=load("res://main.tscn").instantiate();root.add_child(scene);await process_frame
 	scene.save_directory=OS.get_user_data_dir().path_join("support-voyage-fixture");scene.new_game()

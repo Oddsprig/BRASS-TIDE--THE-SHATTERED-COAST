@@ -1,0 +1,31 @@
+ROOT - BOUNDED060 TEST SETUP CORRECTIONS
+After first actual native receipts; no production gameplay change.
+
+Native8387b364/00118checks/1failure stopped at second Bastion purchase after
+the declared300000 opening budget paid the first hull/crew/staff/refit/stores.
+Root replaces ONLY initial fixture capital with four actual current ready-hull
+quotes plus actual optimal-crew advances: two hulls and a conservative equally
+valued fitting/stores/recovery allowance, moved from existing Shatter treasury.
+It is an explicit test capital allowance, not a new boat price or earned career
+progression. No post-start top-up/cost waiver. Per-purchase quote, wallet and
+eligible labor diagnostics now distinguish the shared refusal's real cause.
+Every behavior/purity/UID/purse/recovery assertion and bound remains.
+
+Preflight69874269/001: identity55/0, support17/3, whole69.568s. B traced the
+three support failures to obsolete test setup: tug conversion leaves the only
+own crewed boat supportOnly, invalid for an escort, and duration45 does not
+establish physical passage. Current BattleObjectives requires loaded carriers
+at a real authored exit. Root explicitly returns the paid tug to combat,
+uses existing EscortOps._mission for actual sealed carrier loads, and certifies
+an exit800,850 radius170 on explicit clear-water fixture terrain. Actual Battle
+updates must move every carrier there; no teleport/result/progress edit. Assert
+no initial win/startError, actual successful escaped outcome, surviving enemy,
+same300DP, exact coins and one future fact; replay the same real outcome to
+prove no duplicated credit. All prior17 assertion purposes retained/strengthened.
+
+B/C source helpers reported pending read-only command requests with no edits.
+Root read bridge_manual (app up/ready), transferred fixture ownership explicitly,
+confirmed both helper checkouts clean, then applied these previously agreed
+small corrections locally. Helpers were told not to edit after reads return.
+No bridge/settings/user app altered. Native acceptance remains pending; Root
+alone owns sharedFIFO/backgroundmuted/noinput/focus/wholebatch<120s tests.
