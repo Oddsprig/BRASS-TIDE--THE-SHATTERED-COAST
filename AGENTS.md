@@ -1,10 +1,12 @@
 # Brass Tide - current working instructions
 
+Installed v0.065 DELIVERED, local taga5995c9; owner files preserved.
 Current verified release v0.065: long-voyage preparation and explicit finite fuel
 transfers. Tested source bb13acd822e85d57a4e1692c9b9d051c2c5d5fa2;624native+125worker=749unique checks.
 Eleven private exported UI stills reviewed; Windows export/startup clean. Task
 work/quality-v065 contains actual receipts and prior failed setup attempts.
-Do not prepare065 again. Check DELIVERED v0.065.json for completed installation.
+Do not prepare, retag, reinstall or repeat passed065 checks. Actual delivery
+receipt:work/quality-v065/DELIVERED v0.065.json.2saves/20musicfiles preserved.
 Next066 after delivery: playable ocean travel. Prior battle quality/performance
 limits OPEN. No helper engine or owner-file work; Root owns shared-lane tests
 and delivery. Read queue byjobID; fresh report=result.json; final receipt is
