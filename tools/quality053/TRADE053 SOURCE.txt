@@ -1,0 +1,63 @@
+053 MATH CONTRACT - published early; implementation prepared, NOT RUN
+Base: 0aa28857a11d0cdc8e245a88f5763dd16496421e (052).
+Only trade_intel.gd and this note. Existing APIs and nominal fields retained.
+
+Exact additive API for UI/proof peers:
+report(): needs Dictionary keyed by good; each value has observedNeed (float),
+  needPurpose (String), needOutput (String good id), shortageReported (bool).
+  All from the saved visit, never a remote live market lookup. Old saves get
+  empty/unknown needs until revisited. Existing scarcity fields unchanged.
+opportunities() rows, flat additions:
+  uncertaintyMargin:int, conservativeNetProfit:int, uncertaintyBasis:String
+  observedDay:int, observedNeed:float, needPurpose:String, needOutput:String,
+  shortageReported:bool
+  reserveDays:float, contingencyCost:int, wageArrears:int, preparationCost:int,
+  fundingRequired:int, fundingShortfall:int, preparationReady:bool
+  foodRequired:float, foodShortfall:float, fuelShortfall:float, looseFuel:float,
+  allowanceOverload:float, payloadAfterFood:float, boatFuel:Array
+  localStockLimit:int, affordabilityLimit:int, holdLimit:int,
+  quantityLimitReason:String, preparationWarnings:Array
+Margin = ceil(observed sale revenue * existing age uncertainty), deducted only
+from nominal netProfit; it is a price sensitivity allowance, no probability.
+Existing netProfit/tripCost/days remain nominal round-trip, without contingency,
+arrears or funding double deductions. Preparation uses 052 Expedition.report
+with actual computed speed, plus explicit local funding/resource constraints.
+Legacy qty stays the observed-stock/funds/hold/purse-limited estimate; readiness
+and payloadAfterFood flag where preparation makes that quantity unsafe.
+boatFuel entries use Expedition boat rows (own loaded tank, never shared).
+
+Need basis: existing equilibrium minus observed physical stock (floored at zero),
+for inputs of the port's actual Economy._build_recipes/Goods paid recipes, food
+subsistence, or a reported goods shortage. The purpose names an actual output
+and its input quantity when known; it requires other inputs, workers and wages.
+This is a dated restock indication, not an order or a production prediction.
+Old observations keep needs empty until revisited. Needs survive JSON repair.
+
+Preparation cost prices whole-lot missing food and fuel at the current harbor;
+unsealed loose fuel reduces fuel purchase needs but NEVER loaded-fuel shortfall.
+Food/fuel earmarked for a carried sale cannot also provision the allowance.
+fundingRequired = purchaseCost + 052 returnWages (includes two reserve days)
+  + existing wage arrears + preparationCost. No anticipated sale funds it.
+contingencyCost is two days of wages plus fuel/food replacement value; it is
+shown separately and is NOT added again to fundingRequired or netProfit.
+allowanceOverload includes proposed local cargo, whole-lot missing rations and
+new individual-tank overflow. No credit for future consumption or tank sharing.
+payloadAfterFood is space before the proposed purchase and after those stores.
+preparationReady requires the existing loaded allowance, extra cargo/funding
+coverage, supply availability and nonhostile/unblockaded access. Stale quotes
+remain estimates even when preparationReady. A no-path row remains omitted.
+riskFlags adds shortFood/shortFunding/preparationHold; shortFuel now checks each
+traveling boat's 052 allowance, rather than pooling tanks. Stored, undercrewed,
+mothballed or repair-blocked boats lend no traveling fuel/hold. Nominal cost
+formulas and nominal ranking remain; no transaction/reservation is performed.
+
+Limits: margin uses current quote age only (0 for a same-day visit), no future
+age extrapolation, sale/quantity guarantee or piracy model. One named recipe
+purpose per input; no remote production simulation or yard queue inspection.
+Local protected stock/legal validation and buyer purse are rechecked by the
+existing real transaction; the estimate's legacy quantity is not a reservation.
+Funding covers the stated allowance, not repairs, ammo purchases or price drift.
+
+Manual source/diff review only. No tests/advisories/import/export launched.
+Root check: legacy test_trade_intel plus proof peer's narrow 053 native case,
+including stale poisoned remote state and per-boat fuel/food/funding shortfalls.

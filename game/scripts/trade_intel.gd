@@ -75,6 +75,7 @@ static func observe(state, port, day) -> Dictionary:
 		"specialty": str(source.get("specialty", "")),
 		"population": float(source.get("population", 1200)), "wealth": float(source.get("wealth", 1)),
 		"faction": str(source.get("faction", "")),
+		"needs": _observed_needs(source),
 	}
 	book.observations[row.portId] = row
 	_trim(book)
@@ -88,7 +89,7 @@ static func report(core, port_id) -> Dictionary:
 	if obs.is_empty() or not obs.has("day"):
 		return {
 			"ok": true, "seen": false, "portId": id, "age": null, "uncertainty": "unseen",
-			"scarcity": {}, "scarcitySummary": "unseen", "businessFunds": null,
+			"scarcity": {}, "scarcitySummary": "unseen", "businessFunds": null, "needs": {},
 			"estimate": false, "guaranteed": false, "source": "none",
 			"message": "No visit on record. Live remote stock and prices are omitted.",
 		}
@@ -101,6 +102,7 @@ static func report(core, port_id) -> Dictionary:
 		"observedDay": int(obs.day), "age": age, "uncertainty": uncertainty, "quote": quote,
 		"stocks": _int_map(obs.get("stocks", {})), "buy": _int_map(obs.get("buy", {})), "sell": _int_map(obs.get("sell", {})),
 		"businessFunds": int(obs.get("businessFunds", 0)), "scarcity": scarce.goods, "scarcitySummary": scarce.summary,
+		"needs": _as_dict(obs.get("needs")).duplicate(true),
 		"estimate": true, "guaranteed": false, "source": "visit",
 		"message": "%s visit quote, age %d, uncertainty %.0f%%. Not a live price or a guaranteed sale." % [quote, age, uncertainty * 100.0],
 	}
@@ -152,11 +154,14 @@ static func opportunities(core) -> Array:
 		var fuel_cost := ceili(drums * float(fuel_price))
 		var food_cost := ceili(food_per_day * days * float(food_price))
 		var trip := wage_cost + fuel_cost + food_cost
+		var preparation := Expedition.report(state, bundle.world, distance, speed)
 		var ctx := {
 			"trip": trip, "wage": wage_cost, "wages": daily_wages, "drums": drums, "fuel": fuel_cost,
 			"food": food_per_day, "foodCost": food_cost, "days": days, "distance": distance, "speed": speed,
 			"route": route, "funds": int(obs.get("businessFunds", 0)), "free": free,
 			"age": maxi(0, _today(state) - int(obs.get("day", _today(state)))), "aboard": aboard,
+			"preparation": preparation, "fuelPrice": fuel_price, "foodPrice": food_price,
+			"stockLimit": 0, "affordLimit": 0, "holdLimit": 0,
 		}
 		var sell_map = obs.get("sell", {})
 		var best = {}
@@ -169,6 +174,9 @@ static func opportunities(core) -> Array:
 			ctx.liquidity = liquidity
 			var have := maxi(0, int(floor(float(carried.get(good, 0)))))
 			if mini(have, liquidity) > 0:
+				ctx.stockLimit = have
+				ctx.affordLimit = have
+				ctx.holdLimit = have
 				best = _better(best, _offer(state, here, obs, port, "carried", good, mini(have, liquidity), 0, sell, ctx))
 			if here.is_empty() or free <= 0.0:
 				continue
@@ -182,6 +190,9 @@ static func opportunities(core) -> Array:
 			var room := int(floor(free / maxf(0.001, weight)))
 			var qty := mini(stock, mini(afford, mini(room, liquidity)))
 			if qty > 0:
+				ctx.stockLimit = stock
+				ctx.affordLimit = afford
+				ctx.holdLimit = room
 				best = _better(best, _offer(state, here, obs, port, "local_buy", good, qty, buy, sell, ctx))
 		if not best.is_empty():
 			rows.append(best)
@@ -251,13 +262,20 @@ static func _offer(state, here, obs, port, mode, good, qty: int, buy: int, sell:
 	var revenue := sell * qty
 	var age := int(ctx.age)
 	var route = ctx.route
+	var preparation := _preparation(state, here, mode, good, qty, purchase, ctx)
+	var need := _as_dict(_as_dict(obs.get("needs")).get(good))
+	var margin := ceili(float(revenue) * _uncertainty(age))
 	var flags := {
 		"blockade": bool(_assess_port(state, port).active) or (not here.is_empty() and bool(_assess_port(state, here).active)),
-		"stale": age > 0, "shortFuel": float(ctx.aboard) + 0.0001 < float(ctx.drums),
+		"stale": age > 0, "shortFuel": float(preparation.fuelShortfall) > 0.0001,
 		"noPath": bool(route.get("noPath", false)), "fuelUnpriced": here.is_empty(),
 		"hostileWaters": _player_hostile(state, str(obs.get("faction", port.get("faction", "")))),
+		"shortFood": float(preparation.foodShortfall) > 0.0001,
+		"shortFunding": int(preparation.fundingShortfall) > 0,
+		"preparationHold": float(preparation.allowanceOverload) > 0.001,
 	}
-	return {
+	preparation.preparationReady = bool(preparation.preparationReady) and not bool(flags.blockade) and not bool(flags.hostileWaters) and not bool(flags.noPath)
+	var row := {
 		"ok": true, "estimate": true, "guaranteed": false, "coinsMoved": false, "goodsMoved": false,
 		"mode": mode, "good": good, "qty": qty, "fromPort": str(here.get("id", "")), "toPort": str(port.get("id", "")),
 		"buyQuote": buy, "sellQuote": sell, "spread": sell - buy, "revenue": revenue, "purchaseCost": purchase,
@@ -266,7 +284,64 @@ static func _offer(state, here, obs, port, mode, good, qty: int, buy: int, sell:
 		"businessFunds": int(ctx.funds), "buyerLiquidity": int(ctx.liquidity), "freeCapacity": float(ctx.free),
 		"days": float(ctx.days), "distance": float(ctx.distance), "speed": float(ctx.speed),
 		"path": str(route.get("path", "straight")), "quoteAge": age, "uncertainty": _uncertainty(age),
+		"observedDay": int(obs.get("day", 0)), "observedNeed": float(need.get("observedNeed", 0)),
+		"needPurpose": str(need.get("needPurpose", "No production need recorded; revisit to refresh.")),
+		"needOutput": str(need.get("needOutput", "")), "shortageReported": bool(need.get("shortageReported", false)),
+		"uncertaintyMargin": margin, "conservativeNetProfit": revenue - purchase - int(ctx.trip) - margin,
+		"uncertaintyBasis": "Sale revenue less ceil(revenue x visit age uncertainty: 6%/day, capped at 48%). Price sensitivity only; excludes future aging, quantity changes and access risk.",
+		"localStockLimit": int(ctx.stockLimit), "affordabilityLimit": int(ctx.affordLimit), "holdLimit": int(ctx.holdLimit),
+		"quantityLimitReason": "Minimum of %s, nominal funding, current hold and observed buyer purse; provisions, protected stock and legal checks may reduce actual cargo." % ("owned unsealed cargo" if mode == "carried" else "local stock"),
 		"risk": "ESTIMATE", "riskFlags": flags, "message": "ESTIMATE. Nothing is transferred.",
+	}
+	row.merge(preparation)
+	return row
+
+static func _preparation(state, here, mode, good, qty: int, purchase: int, ctx) -> Dictionary:
+	# 052 allowance is separate from the legacy out-and-back profit calculation.
+	var prep: Dictionary = ctx.preparation
+	var food_available := float(prep.foodAvailable)
+	var loose_fuel := float(prep.looseFuel)
+	if mode == "carried" and good == "food":
+		food_available = maxf(0.0, food_available - qty)
+	if mode == "carried" and good == "fuel":
+		loose_fuel = maxf(0.0, loose_fuel - qty)
+	var food_shortfall := maxf(0.0, float(prep.foodRequired) - food_available)
+	var food_lots := ceili(food_shortfall)
+	var fuel_lots := ceili(maxf(0.0, float(prep.fuelShortfall) - loose_fuel))
+	var preparation_cost := food_lots * int(ctx.foodPrice) + fuel_lots * int(ctx.fuelPrice)
+	var funding := purchase + int(prep.returnWages) + ceili(float(prep.wageArrears)) + preparation_cost
+	var funding_shortfall := maxi(0, funding - int(state.get("coins", 0)))
+	var payload := float(qty) * float(Goods.ITEMS[good].weight) if mode == "local_buy" else 0.0
+	var fuel_overflow := 0.0
+	for boat in prep.boats:
+		fuel_overflow += maxf(0.0, float(boat.fuelRequired) - maxf(float(boat.loadedFuel), float(boat.tankCapacity)))
+	var allowance_overload := maxf(0.0, float(prep.cargoWeight) + payload + food_lots + fuel_overflow - float(prep.usableCapacity))
+	var warnings: Array = prep.warnings.duplicate()
+	warnings.append("Actual market access, protected local stock and buyer funds are checked again when trading. Quotes reserve nothing.")
+	var stocks := _as_dict(here.get("stocks"))
+	var food_stock := int(floor(float(stocks.get("food", 0)))) - (qty if mode == "local_buy" and good == "food" else 0)
+	var fuel_stock := int(floor(float(stocks.get("fuel", 0)))) - (qty if mode == "local_buy" and good == "fuel" else 0)
+	var supply_short := food_lots > maxi(0, food_stock) or fuel_lots > maxi(0, fuel_stock)
+	if supply_short:
+		warnings.append("Local stock cannot cover this cargo plus missing food/fuel allowance; seek supplies before departure.")
+	if funding_shortfall > 0:
+		warnings.append("Cargo, missing provisions, allowance payroll and arrears need %d more coins before a sale." % funding_shortfall)
+	if allowance_overload > 0.001:
+		warnings.append("Cargo plus whole-lot food and individual tank overflow exceed active holds by %.1f." % allowance_overload)
+	if mode == "carried" and good == "food":
+		warnings.append("Food earmarked for sale is excluded from the return and contingency ration allowance.")
+	if not here.is_empty() and float(prep.fuelShortfall) > 0.001:
+		warnings.append("Loose fuel is cargo, not loaded tank fuel. Use Cargo reserves to load each boat; tank capacity may require fuel stops.")
+	var reserve_cost := ceili(float(prep.reserveDays) * (float(ctx.wages) + float(ctx.food) * float(ctx.foodPrice) + _fuel_burn(state, DAY_SECONDS) * float(ctx.fuelPrice)))
+	return {
+		"reserveDays": float(prep.reserveDays), "contingencyCost": reserve_cost,
+		"wageArrears": ceili(float(prep.wageArrears)), "preparationCost": preparation_cost,
+		"fundingRequired": funding, "fundingShortfall": funding_shortfall,
+		"preparationReady": bool(prep.readyForAllowance) and food_shortfall <= 0.001 and funding_shortfall == 0 and allowance_overload <= 0.001 and not supply_short and not here.is_empty(),
+		"foodRequired": float(prep.foodRequired), "foodShortfall": food_shortfall,
+		"fuelShortfall": float(prep.fuelShortfall), "looseFuel": loose_fuel,
+		"allowanceOverload": allowance_overload, "payloadAfterFood": maxf(0.0, float(prep.usableCapacity) - float(prep.cargoWeight) - food_lots - fuel_overflow),
+		"boatFuel": prep.boats.duplicate(true), "preparationWarnings": warnings,
 	}
 
 static func _better(current, offer) -> Dictionary:
@@ -376,7 +451,7 @@ static func _travel_speed(state, world) -> float:
 			continue
 		var spec = boat.get("spec", {})
 		var size := float(spec.get("size", 14))
-		if bool(boat.get("mothballed", false)) or float(boat.get("crew", 0)) < float(boat.get("crewMin", 1)):
+		if bool(boat.get("mothballed", false)) or bool(boat.get("needsHarborRepair", false)) or float(boat.get("crew", 0)) < float(boat.get("crewMin", 1)):
 			tow += size
 			continue
 		powered += size
@@ -397,7 +472,7 @@ static func _speed_factor(boat) -> float:
 static func _fuel_burn(state, seconds: float) -> float:
 	var burned := 0.0
 	for boat in state.get("fleet", []):
-		if not _afloat(boat) or bool(boat.get("mothballed", false)):
+		if not _traveling(boat):
 			continue
 		var spec = boat.get("spec", {})
 		var rate := (0.011 + float(spec.get("size", 14.0)) * 0.0002) * maxf(0.2, float(spec.get("fuelUse", 1.0)))
@@ -407,7 +482,7 @@ static func _fuel_burn(state, seconds: float) -> float:
 static func _fuel_aboard(state) -> float:
 	var total := 0.0
 	for boat in state.get("fleet", []):
-		if _afloat(boat) and not bool(boat.get("mothballed", false)):
+		if _traveling(boat):
 			total += maxf(0.0, float(boat.get("fuel", 0)))
 	return total
 
@@ -479,10 +554,53 @@ static func _scarcity(obs) -> Dictionary:
 			summary = band
 	return {"goods": goods, "summary": summary}
 
+static func _observed_needs(port: Dictionary) -> Dictionary:
+	# Snapshot only on a visit. A restock gap is not an order or future demand.
+	var industry := str(port.get("industry", "trade"))
+	var ind: Dictionary = Economy.INDUSTRIES.get(industry, Economy.INDUSTRIES.trade)
+	var recipes := Economy._build_recipes(ind, str(port.get("specialty", "")))
+	var outputs := {}
+	for recipe in recipes:
+		var output := str(recipe.get("good", ""))
+		if not Goods.ITEMS.has(output):
+			continue
+		for input in Goods.ITEMS[output].inputs:
+			if not outputs.has(input) or output == str(port.get("specialty", "")):
+				outputs[input] = output
+	var shortages: Array = port.get("shortages", []) if port.get("shortages") is Array else []
+	var needs := {}
+	var stocks := _as_dict(port.get("stocks"))
+	for good in Goods.ITEMS:
+		var output := str(outputs.get(good, ""))
+		var reported := shortages.has(good)
+		if output == "" and not reported and good != "food":
+			continue
+		var gap := maxf(0.0, float(Economy.get_equilibrium_stock(port, good)) - maxf(0.0, float(stocks.get(good, 0))))
+		var purpose := "Reported local shortage; specific use not recorded."
+		if output != "":
+			purpose = "%.2f input lots per %s lot in the local paid recipe; other inputs, workers and wages still required." % [float(Goods.ITEMS[output].inputs[good]), str(Goods.ITEMS[output].name)]
+		elif good == "food":
+			purpose = "Rations for local households and workforce."
+		purpose += " Need is the observed stock gap to the existing equilibrium, not a purchase order."
+		needs[good] = {"observedNeed": gap, "needPurpose": purpose, "needOutput": output, "shortageReported": reported}
+	return needs
+
 static func _repair_obs(row) -> void:
 	row.day = int(floor(float(row.get("day", 0))))
 	row.seq = int(row.get("seq", 0))
 	row.businessFunds = maxi(0, int(round(float(row.get("businessFunds", 0)))))
+	# Old saves have no need snapshot; never reconstruct it from a live port.
+	if not row.get("needs") is Dictionary:
+		row.needs = {}
+	var needs := {}
+	for good in Goods.ITEMS:
+		var need := _as_dict(row.needs.get(good))
+		if not need.is_empty():
+			var amount := float(need.get("observedNeed", 0))
+			needs[good] = {"observedNeed": maxf(0.0, amount) if is_finite(amount) else 0.0,
+				"needPurpose": str(need.get("needPurpose", "")), "needOutput": str(need.get("needOutput", "")),
+				"shortageReported": bool(need.get("shortageReported", false))}
+	row.needs = needs
 	for key in ["stocks", "buy", "sell"]:
 		if not row.get(key) is Dictionary:
 			row[key] = {}
@@ -552,7 +670,7 @@ static func _afloat(boat) -> bool:
 	return boat is Dictionary and not bool(boat.get("sunk", false)) and str(boat.get("storedPort", "")) == ""
 
 static func _traveling(boat) -> bool:
-	return _afloat(boat) and not bool(boat.get("mothballed", false)) and float(boat.get("crew", 0)) >= float(boat.get("crewMin", 1))
+	return _afloat(boat) and not bool(boat.get("mothballed", false)) and not bool(boat.get("needsHarborRepair", false)) and float(boat.get("crew", 0)) >= float(boat.get("crewMin", 1))
 
 static func _today(state) -> int:
 	return int(floor(float(state.get("day", 1))))
