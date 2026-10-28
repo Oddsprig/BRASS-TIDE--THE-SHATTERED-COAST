@@ -1,5 +1,5 @@
-CURRENT054 - SCOPED CAMPAIGN ART ACCEPTED
-Original36topdownhulls/7weapons/3drives replace livecampaign/titletriangle markers, realformations/landmarks/waterfront/labels/clickbounds. Native338/0+127retainedchart, export3starts; actual7screens Rootviewed. Package054/verifydesktop thenNEXT055independentcampaignAI; remainingoriginalscopes055-062 preserved. Allstrict051targetsunchanged/open062. No parity/fullgame/FPSclaim. Metadata54alreadydone. RootsolemutedbackgroundFIFOowner<120s. Read task/CURRENT STATE.txt.
+CURRENT055 - INDEPENDENT CAMPAIGN AI SOURCE
+Base054ed51ad4 delivered/installed: original36campaignboats/realformations/landmarks and465distinctscopedchecks+7actualscreens. Preserveitsart. Read task/SCOPE 055 CAMPAIGN AI.txt and task/CURRENT STATE.txt. ThreeBridgeSol6.1MAX source-only: localdatedsightings/boundedat-seaorders; finiteoffscreencombat/paidrecovery; trafficUI/proof. Metadata55 NOT prepared. No056breadth/051retune. RootallmutedbackgroundFIFOtests<120s/noinput/focus. Saved roadmap055-062; fullquality/strictremaining051targetsOPEN062.
 
 # Brass Tide - current working instructions
 
