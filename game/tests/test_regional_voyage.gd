@@ -322,13 +322,14 @@ func paid_voyage() -> void:
 	stock=float(c.port(DESTINATION).stocks.timber);sold_open=int(c.state.coins)
 	sold=c.trade(DESTINATION,"timber",1,"sell")
 	var gross: int=int(c.state.coins)-sold_open
-	check(sold.ok and gross>0 and int(c.port(DESTINATION).cash)==buyer-gross and float(c.port(DESTINATION).stocks.timber)==stock+1,"physical destination sale debits the real buyer, credits captain and adds the same local stock")
+	var sale_book: Dictionary={"result":sold.duplicate(true),"buyerBefore":buyer,"buyerAfter":int(c.port(DESTINATION).cash),"captainBefore":sold_open,"captainAfter":int(c.state.coins),"stockBefore":stock,"stockAfter":float(c.port(DESTINATION).stocks.timber)}
+	check(sold.ok and gross>0 and gross==int(sold.get("total",0)) and int(c.port(DESTINATION).cash)==buyer-gross and absf(float(c.port(DESTINATION).stocks.timber)-(stock+1.0))<0.000001,"physical destination sale debits exact coins and conserves one fractional-stock lot to existing one-millionth precision: "+JSON.stringify(sale_book))
 	receipt.grossSales=int(receipt.grossSales)+gross
 	var pair: String=Rules.route_key([ORIGIN,DESTINATION])
 	check(int(c.state.regionalFacts.passages.get(pair,0))>0,"actual delivered voyage earns a real corridor passage")
 	var after_quote: Dictionary=c.TradeIntel.report(c,DESTINATION)
 	check(before_quote.seen and after_quote.seen and int(after_quote.stocks.timber)==int(before_quote.stocks.timber)+1,"real revisited stock quote records the actual delivered lot")
-	receipt.destination={"before":before_quote,"after":after_quote,"grossSale":gross,"view":selected_evidence()}
+	receipt.destination={"before":before_quote,"after":after_quote,"saleBook":sale_book,"grossSale":gross,"view":selected_evidence()}
 	check(not receipt.destination.view.opportunity.is_empty(),"selected UI exposes an existing legal sponsor trade estimate from actual visited quotes")
 	# Independent raider-6 reached the destination on day4. Sail to the declared
 	# offshore point while the watch clears; no event/grace/actor is suppressed.
