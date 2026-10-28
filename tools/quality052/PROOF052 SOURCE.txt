@@ -1,0 +1,92 @@
+BRASS TIDE 052 - SOURCE PROOF HANDOFF
+Base: 92a5e587a1eb8af34c9f3e066a65019fc950de54.
+Source-only bounded proof pass. NO native/import/export/test/advisory/GPU/
+profiler/download/cleanup/tag/install/push/helper or nested delegation performed.
+Version metadata and all production source remain untouched in this checkout.
+Prepared tests are NOT RUN; no parsing, acceptance, gameplay or quality pass.
+
+FILES
+- game/tests/test_expedition.gd: all old assertions retained, focused new cases.
+- game/tests/test_fleet_preparation052.gd: one actual Main/control fixture.
+- tools/quality052/PROOF052 SOURCE.txt: this handoff.
+
+API / MANUAL SOURCE PAIRING
+Read sibling LOGISTICS052 SOURCE.txt and actual Expedition implementation plus
+Campaign.expedition_report wrapper, and sibling CampaignUI/interface controls.
+Expedition.report(state, world, distance=0, actual_speed=-1) retains legacy keys;
+Campaign passes travel_speed() as argument four. New fields checked: routeSpeed,
+routeDistance, foodPerDay/Required/Shortfall, fuelRequired/Shortfall, looseFuel,
+wageShortfall, payloadAfterFood, allowanceOverload, owned/traveling/storedCount,
+ownedDP/battleDP/battleLimit/battleReserveCount, readyForAllowance, bottleneck,
+boats and supportOptions. ownedCount excludes sunk; inactiveCount includes stored.
+boats use uid/name, fuelPerDay/Required, loadedFuel/Days, tankCapacity/Shortfall.
+Owned support uses projectionOnly, uid, crewToMinimum/additionalDailyWages.
+Pure report invokes existing Economy.daily_upkeep and Deployment.split, ordered
+flagship first, with no transaction or chart permission change.
+
+PREPARED REPORT CASES
+One finite shortfall/towing fixture isolates active capacity from mothballed,
+stored, undercrewed, sunk and harbor-repair hulls. All real living owned sailors
+and live specialist premiums remain paid. A ration boundary between untowed
+and actual towing time catches stale warnings after a late tripDays override.
+Route distance 18000 stays intact; no guessed 5000 speed or distance clamp.
+Loose fuel never disguises an empty loaded tank. Boat burn, fitted tank limit,
+missing food hold space, existing wage arrears, read-only support and empty-fleet
+finite fields are checked. Five synthetic heavy shells prove ownership beyond
+300 and the exact real Deployment.split reserve count; shells are explicitly
+accounting fixtures, not represented as paid career progression.
+
+PREPARED ACTUAL MAIN CASE
+Only hidden/headless Root execution. Main processing is disabled; audio/music
+disabled; unique user-data save directory set BEFORE Main.new_game(). Root must
+provide synthetic APPDATA and --audio-driver Dummy. No desktop input or focus.
+Native signals: campaign-tools Prepare expedition; local next-boat OptionButton
+item_selected; Fuel by boat & voyage cautions; Cargo return; Fleet return;
+Review local boatyard; exact hull card Buy hull + minimum crew; Stand down.
+Visible control text is read only when visible in the tree. Selector price is
+paired to actual Harbor.quote plus Economy.recruit_cost, not invented costs.
+
+Paid partner is the actual initially stocked harbor_sloop. Fixture capital is
+transferred from the existing harbor governmentPurse via Money.move (the actual
+transfer API; there is no Money.transfer symbol). Purchase signal executes
+Main.buy_boat -> Campaign.buy_boat -> Harbor.buy. Exact captain/crew/yard/duty
+purse deltas and global Money.total are checked. One completed stock hull and
+finite shore crew move; port raw stocks/cargo/original boat remain unchanged.
+Purchased working fuel/ammo/kits stay zero. More capacity brings real payroll,
+food and its own fuel shortage. Actual Fleet stand-down removes the hold while
+preserving ownership and the paid sailors' wages; preparation then shows the
+owned support choice without performing an activation or purchase.
+
+ROOT EXECUTION PENDING, NOT EXECUTED HERE
+After named math/UI/proof integration, Root's single native/export batch chooses
+test_expedition.gd, test_fleet_preparation052.gd and first-voyage guidance.
+Raw script selectors: --headless --audio-driver Dummy --path GAME --script
+res://tests/test_expedition.gd, then the fleet_preparation052 selector. Root owns
+Test Bridge/lane, exact source hash receipts, synthetic profiles and process
+identity cleanup. The whole selected batch, setup/import/export/startups and
+cleanup stays below 120s; queue wait separate. UI fixture external bound 25s,
+internal cooperative 20s through SceneTree._process and completion-time check;
+an unresponsive synchronous native call requires the external process bound.
+Only two process_frame awaits; no simulated voyage, battle, stress matrix or
+new capture framework. Root reuses --qa-opening051 with one preparation view.
+
+KNOWN LIMITS
+Manual reads/diffs cannot prove native parsing or execution. This proof checkout
+still has 051 production APIs until Root integrates the separate named changes;
+the prepared new-field assertions intentionally require the 052 math/UI source.
+Actual changed-screen rendering/reading remains Root work. Signal proof does not
+claim visual layout, motion, audio or whole-game acceptance. Support projections
+use current speed and add only missing minimum crew; actual activation reprices
+speed. payloadAfterFood is before fuel loading. Stored and inactive salaries are
+tested as report inputs; the paid growth case is the separate real purchase.
+No stored-boat collection, matrix of all hulls, extra route planner or broad old
+test repairs added. All retained strict 051 misses remain open at 061.
+
+Review note for Root/UI: report inactiveCount includes stored hulls. If the page
+labels this number 'other inactive' beside storedCount, subtract storedCount or
+label it 'inactive including stored'; that source presentation is outside this
+proof file allowlist.
+
+Commit provenance: named commit 'Prepare bounded 052 fleet logistics proofs'.
+Exact SHA is returned in the final/meeting handoff; git log -1 --format=%H on
+this isolated proof branch identifies it. No peer commits pulled/cherry-picked.

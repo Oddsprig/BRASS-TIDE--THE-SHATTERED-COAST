@@ -2,6 +2,7 @@ extends SceneTree
 const C=preload("res://scripts/campaign.gd")
 const E=preload("res://scripts/expedition.gd")
 const Money=preload("res://scripts/money.gd")
+const Deployment=preload("res://scripts/deployment.gd")
 var checks: int=0
 var failures: int=0
 func check(ok: bool,message: String):
@@ -44,5 +45,93 @@ func _initialize():
 	r=E.report(c.state,data)
 	for key in ["usableCapacity","cargoWeight","freeCapacity","overload","fuelDays","foodDays","repairKits","affordableDays","tripDays"]:check(is_finite(float(r[key])) and float(r[key])>=0,"Finite nonnegative "+key)
 	check(not r.warnings.is_empty() and r.fuelDays==0,"Empty fleet has explicit warnings and no false infinite range")
+	_preparation052(data)
 	print("expedition: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
+
+func _preparation052(data: Dictionary) -> void:
+	var c=C.new(data)
+	c.new_game(83)
+	var b: Dictionary=c.state.fleet[0]
+	var untowed_speed: float=c.travel_speed()
+	# These unseeded shells isolate accounting rules; the separate Main fixture
+	# proves career growth through an actual paid Harbor purchase instead.
+	var idle: Dictionary=c.add_boat(c.hull(b.type),4)
+	idle.mothballed=true
+	var stored: Dictionary=c.add_boat(c.hull(b.type),6)
+	stored.storedPort=data.START.port
+	var short_crew: Dictionary=c.add_boat(c.hull(b.type),int(b.crewMin)-1)
+	short_crew.mothballed=false
+	var wreck: Dictionary=c.add_boat(c.hull(b.type),7)
+	wreck.sunk=true
+	var repair: Dictionary=c.add_boat(c.hull(b.type),3)
+	repair.needsHarborRepair=true
+	c.state.specialists=[{"premiumPerDay":37},{"premiumPerDay":91,"discharged":true},{"premiumPerDay":83,"lost":true}]
+	var owned_crew: int=int(b.crew)+4+6+int(short_crew.crew)+3
+	var snapshot: String=JSON.stringify(c.state)
+	var r: Dictionary=c.expedition_report(18000.0)
+	check(snapshot==JSON.stringify(c.state),"Preparation and support projections leave actual voyage resources unchanged")
+	check(r.crew==int(b.crew) and is_equal_approx(r.usableCapacity,float(b.spec.cargo)),"Inactive, stored, undercrewed, sunk and repair-only hulls grant no active crew or holds")
+	check(r.dailyWages==owned_crew*100+37,"All living owned sailors, including stored crew, and only live specialist premiums stay on payroll")
+	var actual_speed: float=c.travel_speed()
+	var expected_days: float=18000.0*2.0/maxf(0.01,actual_speed)/c.DAY_SECONDS+float(r.reserveDays)
+	check(is_equal_approx(r.tripDays,expected_days) and r.returnWages==ceili(expected_days*r.dailyWages),"Real towing speed controls the whole return allowance without a guessed speed clamp")
+	check(actual_speed<untowed_speed,"Inactive hulls impose a real towing burden")
+	_preparation_fields052(c,r,owned_crew,actual_speed)
+	_owned_deployment052(data)
+
+func _preparation_fields052(c,r: Dictionary,owned_crew: int,actual_speed: float) -> void:
+	check(is_equal_approx(r.routeSpeed,actual_speed) and is_equal_approx(r.routeDistance,18000.0),"Preparation publishes the actual route speed and full supplied distance")
+	check(is_equal_approx(r.foodPerDay,owned_crew*0.08),"Stored and inactive owned people still need rations")
+	check(r.travelingCount==1 and r.ownedCount==5 and r.storedCount==1,"Owned, stored and traveling hull counts exclude the sunk hull")
+	check(r.boats.size()==1 and r.boats[0].uid==c.state.flagship,"Only the actual traveling boat contributes a working tank")
+	var tank: Dictionary=r.boats[0]
+	check(is_equal_approx(tank.fuelRequired,float(tank.fuelPerDay)*r.tripDays) and is_equal_approx(tank.loadedDays,float(tank.loadedFuel)/float(tank.fuelPerDay)),"Actual boat burn determines required fuel and loaded endurance")
+	check(is_equal_approx(tank.tankCapacity,float(c.state.fleet[0].spec.get("fuelCapacity",60))) and is_equal_approx(tank.tankShortfall,maxf(0,float(tank.fuelRequired)-float(tank.tankCapacity))),"Allowance beyond the actual fitted tank stays an explicit boat limit")
+	check(r.supportOptions.size()==4,"Only owned inactive nonsunk hulls appear as hypothetical support")
+	for option in r.supportOptions:
+		check(option.projectionOnly and option.uid!=c.state.flagship,"Support options explicitly describe projections, without activating a boat")
+		var boat: Dictionary=c.find_boat(str(option.uid))
+		var missing: int=maxi(0,int(boat.crewMin)-int(boat.crew))
+		check(option.crewToMinimum==missing and option.additionalDailyWages==missing*100,"Support payroll adds only missing crew; existing sailors are already paid")
+	# Set the rations between the untowed and actual route allowances. A stale
+	# derived-speed warning would miss this shortage even if tripDays was fixed.
+	var solo: Dictionary=c.state.duplicate(true)
+	solo.fleet=[c.state.fleet[0].duplicate(true)]
+	var solo_days: float=E.report(solo,c.data,18000.0).tripDays
+	c.state.cargo.food=(solo_days+float(r.tripDays))*0.5*float(r.foodPerDay)
+	r=c.expedition_report(18000.0)
+	check(r.foodShortfall>0 and r.warnings.any(func(w):return "food" in str(w).to_lower()),"Food shortfall and warning both follow actual towing speed")
+	check(is_equal_approx(r.foodRequired,r.foodPerDay*r.tripDays) and is_equal_approx(r.payloadAfterFood,maxf(0,r.freeCapacity-r.foodShortfall*float(c.Economy.GOODS.food.weight))),"Useful payload reserves real hold space for the missing return food")
+	c.state.cargo.food=0.0
+	c.state.cargo.fuel=7.0
+	c.state.fleet[0].fuel=0.0
+	c.state.wageArrears=73
+	check(Money.move(c.state,"coins",c.current_port(),"cash",int(c.state.coins),"Preparation shortage fixture"),"Shortage fixture transfers the purse instead of deleting money")
+	var before: String=JSON.stringify(c.state)
+	r=c.expedition_report(18000.0)
+	check(before==JSON.stringify(c.state),"Shortfall report does not load reserves, spend money, hire crew or teleport support")
+	check(r.fuelDays==0 and r.looseFuel==7 and r.boats[0].loadedFuel==0,"Loose fuel cannot disguise an empty working tank")
+	check(is_equal_approx(r.fuelShortfall,r.fuelRequired) and r.fuelShortfall>0,"Empty loaded tank owes the complete physical fuel requirement")
+	check(is_equal_approx(r.foodShortfall,r.foodRequired) and r.wageShortfall==r.returnWages+73,"Food and payroll shortages include real return allowance and existing arrears")
+	check(not r.readyForAllowance and not str(r.bottleneck).is_empty(),"Unfunded allowance exposes a useful limit")
+	for key in ["routeDistance","routeSpeed","outwardDays","returnDays","foodRequired","foodShortfall","fuelRequired","fuelShortfall","wageShortfall","payloadAfterFood","allowanceOverload"]:
+		check(is_finite(float(r[key])) and float(r[key])>=0,"Finite nonnegative preparation "+key)
+	for boat in c.state.fleet:boat.mothballed=true
+	r=c.expedition_report(18000.0)
+	check(r.boats.is_empty() and r.travelingCount==0 and r.usableCapacity==0 and not r.readyForAllowance,"Empty traveling fleet has no borrowed tanks, hold or readiness")
+	for key in ["routeSpeed","outwardDays","returnDays","tripDays","foodShortfall","fuelShortfall","wageShortfall"]:
+		check(is_finite(float(r[key])) and float(r[key])>=0,"No active fleet remains finite: "+key)
+
+func _owned_deployment052(data: Dictionary) -> void:
+	var c=C.new(data)
+	c.new_game(83)
+	# Synthetic ownership fixture only, separate from the paid progression case.
+	for i in range(5):c.add_boat(c.hull("iron_bastion"),14)
+	var before: String=JSON.stringify(c.state)
+	var r: Dictionary=c.expedition_report()
+	var split: Dictionary=Deployment.split(c.active_fleet())
+	check(r.ownedDP>300 and r.ownedDP==Deployment.total(c.state.fleet),"Large owned fleet points are real and may exceed the battle budget")
+	check(r.battleLimit==300 and r.battleDP==split.points and r.battleDP<=300,"Report uses the real 300-point deployment split")
+	check(split.reserve.size()>0 and split.deployed.size()+split.reserve.size()==c.state.fleet.size(),"Over-budget hulls remain owned in battle reserves")
+	check(r.battleReserveCount==split.reserve.size() and before==JSON.stringify(c.state),"Deployment preview preserves every boat, purse and resource")
