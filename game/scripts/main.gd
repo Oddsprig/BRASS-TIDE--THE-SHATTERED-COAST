@@ -472,10 +472,10 @@ func new_game():
 
 func click_chart(position: Vector2):
 	var nearest: Dictionary = {}
-	var nearest_distance = 45.0
+	var nearest_distance: float=INF
 	for p in core.state.ports:
 		var d = chart.project(Vector2(p.x, p.y)).distance_to(position)
-		if d < nearest_distance:
+		if chart.campaign_harbor_hit054(p,position) and d < nearest_distance:
 			nearest = p
 			nearest_distance = d
 	if not nearest.is_empty():
@@ -487,16 +487,18 @@ func click_chart(position: Vector2):
 			sail_to(nearest.id)
 		return
 	for site in core.Exploration.sites(core.state):
-		if site.level>0 and chart.project(Vector2(site.x,site.y)).distance_to(position)<22:
+		if site.level>0 and (chart.project(Vector2(site.x,site.y)).distance_to(position)<22 or Rect2(chart.campaign_site_art054(site,int(site.level)).bounds).grow(3).has_point(position)):
 			selected_site=site.id
 			ui.CampaignUI.site(ui,site.id)
 			return
 	for patrol in core.state.patrols:
-		if patrol.active and chart.project(Vector2(patrol.x, patrol.y)).distance_to(position) < 15:
+		if not patrol.active or bool(patrol.get("hidden",false)):continue
+		var art: Dictionary=chart.campaign_patrol_art054(patrol)
+		if not art.vessels.is_empty() and (chart.project(Vector2(patrol.x, patrol.y)).distance_to(position) < 15 or Rect2(art.bounds).grow(3).has_point(position)):
 			show_patrol_encounter(patrol.id)
 			return
 	for w in core.state.get("wrecks",[]):
-		if w.get("status","")=="unclaimed" and chart.project(Vector2(w.x,w.y)).distance_to(position)<16:
+		if w.get("status","")=="unclaimed" and (chart.project(Vector2(w.x,w.y)).distance_to(position)<16 or Rect2(chart.campaign_wreck_art054(w).bounds).grow(3).has_point(position)):
 			ui.RecoveryUI.open(ui,w.id)
 			return
 	var world = chart.world_at(position)

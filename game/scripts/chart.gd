@@ -4,6 +4,9 @@ const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
 const NauticalArt=preload("res://scripts/nautical_art.gd")
 const CoastArt050=preload("res://scripts/coast_art050.gd")
+const FleetArt054=preload("res://scripts/campaign_fleet_art054.gd")
+const LandmarkArt054=preload("res://scripts/campaign_landmark_art054.gd")
+const Refits054=preload("res://scripts/refit.gd")
 const GOLD = Color("dfbd7d")
 const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
@@ -43,6 +46,7 @@ const OVERLAY_PATH_SEGMENTS: int = 24
 var _campaign_follow: bool = false
 var _last_mode: String = ""
 var _map_labels: Array=[]
+var _title_starter054: Dictionary={}
 var _wakes: Dictionary = {}
 var _trails: Array = []
 var _last_trail_stamp: float = -1.0
@@ -735,16 +739,87 @@ func draw_house(p: Vector2, size_value: float, height: float, roof: Color):
 	draw_circle(window, maxf(1.0, scale_factor * 1.7), Color("eed797"))
 
 func draw_harbor(p: Dictionary, index: int):
-	var position = Vector2(p.x, p.y)
-	var screen=project(position)
-	if not get_viewport_rect().grow(240).has_point(screen):return
+	if not get_viewport_rect().grow(16).intersects(campaign_harbor_bounds054(p)):return
 	var color = Color(host.core.faction(p.faction).get("color", "#8fb8a3"))
 	var selected: bool = host.selected_port == p.id
 	var started: int=Time.get_ticks_usec() if _profile_drawing else 0
 	var calls: int=NauticalArt.draw_settlement(self,_projector(),_chart_towns.get(str(p.id),{}),scale_factor,get_viewport_rect())
 	if _profile_drawing:
 		_profile_frame.coast_draw_calls+=calls;_profile_frame.coast_us+=Time.get_ticks_usec()-started
-	draw_chart_marker(self,chart_marker_geometry("harbor",screen,scale_factor),GOLD if selected else color,selected)
+	_draw_harbor_selection054(p,GOLD if selected else color,selected)
+
+func campaign_harbor_bounds054(port: Dictionary) -> Rect2:
+	# Reserve the actual roofs and physical berth connector, not a square glyph.
+	var sheet: Dictionary=_chart_towns.get(str(port.id),{})
+	var at: Vector2=project(Vector2(port.x,port.y))
+	var bounds:=Rect2(at-Vector2(9,9),Vector2(18,18))
+	for roof: PackedVector2Array in sheet.get("roofs",[]):
+		for point: Vector2 in roof:bounds=bounds.expand(project(point))
+	for point: Vector2 in sheet.get("pier",PackedVector2Array()):bounds=bounds.expand(project(point))
+	return bounds.grow(5)
+
+func campaign_harbor_hit054(port: Dictionary,screen: Vector2) -> bool:
+	var berth: Vector2=project(Vector2(port.x,port.y))
+	if berth.distance_to(screen)<45.0:return true
+	if not campaign_harbor_bounds054(port).has_point(screen):return false
+	var sheet: Dictionary=_chart_towns.get(str(port.id),{})
+	# Clicking a visible waterfront roof works without turning its whole label
+	# reservation rectangle into an invisible obstacle to ordinary route clicks.
+	for roof: PackedVector2Array in sheet.get("roofs",[]):
+		var points:=PackedVector2Array()
+		for point: Vector2 in roof:points.append(project(point))
+		if Geometry2D.is_point_in_polygon(screen,points):return true
+	var pier: PackedVector2Array=sheet.get("pier",PackedVector2Array())
+	for i in range(1,pier.size()):
+		if Geometry2D.get_closest_point_to_segment(screen,project(pier[i-1]),project(pier[i])).distance_to(screen)<7.0:return true
+	return false
+
+func _draw_harbor_selection054(port: Dictionary,color: Color,selected: bool) -> void:
+	var sheet: Dictionary=_chart_towns.get(str(port.id),{})
+	var berth: Vector2=project(Vector2(port.x,port.y))
+	var anchor: Vector2=project(sheet.get("anchor",Vector2(port.x,port.y)))
+	if selected:
+		# Thin open anchorage arcs leave water, the boat and real dock visible.
+		draw_arc(berth,13.0,0.15,1.1,10,Color(color,0.65),1.0,true)
+		draw_arc(berth,13.0,3.3,4.25,10,Color(color,0.65),1.0,true)
+		draw_line(anchor,berth,Color(color,0.55),1.0,true)
+	else:
+		var tangent: Vector2=Vector2(sheet.get("tangent",Vector2.RIGHT))
+		draw_line(anchor-tangent*5.0,anchor+tangent*5.0,Color(color,0.55),1.2,true)
+
+func campaign_player_art054() -> Dictionary:
+	if host==null or host.core==null or host.core.state.is_empty():return FleetArt054.layout([],Vector2.ZERO,0.0,scale_factor)
+	var world: Dictionary=host.core.state
+	return FleetArt054.layout(host.core.active_fleet(),project(Vector2(world.position.x,world.position.y)),float(world.heading),scale_factor,{"viewport":get_viewport_rect(),"overview":campaign_overview()})
+
+func _campaign_patrol_heading054(patrol: Dictionary) -> float:
+	# place_patrol uses this same measured segment; no new route calculation.
+	var left: float=maxf(0.0,float(patrol.get("progress",0))*float(patrol.get("courseLength",0)))
+	var course: Array=patrol.get("course",[])
+	for i in range(1,course.size()):
+		var delta:=Vector2(float(course[i].x)-float(course[i-1].x),float(course[i].y)-float(course[i-1].y))
+		var length: float=delta.length()
+		if (left<=length or i==course.size()-1) and length>0.0001:return delta.angle()
+		left-=length
+	var destination: Dictionary=host.core.port(str(patrol.get("to","")))
+	if not destination.is_empty():return Vector2(float(destination.x)-float(patrol.x),float(destination.y)-float(patrol.y)).angle()
+	return float(patrol.get("heading",0.0))
+
+func campaign_patrol_art054(patrol: Dictionary) -> Dictionary:
+	var boats: Array=[]
+	if bool(patrol.get("active",false)) and not bool(patrol.get("hidden",false)):
+		var owner: Dictionary=host.core.fleet_owner(str(patrol.get("id","")))
+		if bool(owner.get("active",false)):
+			for boat: Dictionary in owner.get("boats",[]):
+				if bool(boat.get("sunk",false)) or bool(boat.get("mothballed",false)) or bool(boat.get("hidden",false)) or not str(boat.get("storedPort","")).is_empty():continue
+				boats.append(boat)
+	return FleetArt054.layout(boats,project(Vector2(patrol.x,patrol.y)),_campaign_patrol_heading054(patrol),scale_factor,{"viewport":get_viewport_rect(),"overview":campaign_overview()})
+
+func campaign_site_art054(site: Dictionary,level: int) -> Dictionary:
+	return LandmarkArt054.plan(site,level,project(Vector2(site.x,site.y)),scale_factor)
+
+func campaign_wreck_art054(wreck: Dictionary) -> Dictionary:
+	return LandmarkArt054.wreck_plan(wreck,project(Vector2(wreck.x,wreck.y)),scale_factor)
 
 func campaign_overview() -> bool:
 	return scale_factor<0.32
@@ -790,18 +865,23 @@ static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array
 	var ordered: Array=entries.duplicate()
 	ordered.sort_custom(func(a,b):return int(a.priority)>int(b.priority) if int(a.priority)!=int(b.priority) else str(a.text)<str(b.text))
 	var occupied: Array=[]
-	for entry in entries:occupied.append(Rect2(entry.at-Vector2(17,17),Vector2(34,34)))
+	for entry in entries:
+		var art: Rect2=entry.get("art_bounds",Rect2(entry.at-Vector2(17,17),Vector2(34,34)))
+		if art.has_area():occupied.append(art.grow(4))
 	var placed: Array=[]
 	for entry in ordered:
 		var at: Vector2=entry.at
 		if str(entry.text).is_empty() or not bounds.grow(24).has_point(at):continue
-		var font_size: int=16 if int(entry.priority)>=80 else 14
+		var font_size: int=15 if int(entry.priority)>=80 else 14
 		var subtitle: String=str(entry.get("subtitle",""))
 		var width: float=font.get_string_size(str(entry.text),HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
 		if not subtitle.is_empty():width=maxf(width,font.get_string_size(subtitle,HORIZONTAL_ALIGNMENT_LEFT,-1,11).x)
-		var size:=Vector2(ceilf(width)+16,font_size+10+(14 if not subtitle.is_empty() else 0))
+		var size:=Vector2(ceilf(width)+12,font_size+8+(14 if not subtitle.is_empty() else 0))
 		if size.x>bounds.size.x or size.y>bounds.size.y:continue
 		var offsets: Array=[Vector2(22,-size.y*0.5),Vector2(-22-size.x,-size.y*0.5),Vector2(-size.x*0.5,-22-size.y),Vector2(-size.x*0.5,22),Vector2(22,22),Vector2(-22-size.x,22),Vector2(22,-22-size.y),Vector2(-22-size.x,-22-size.y)]
+		var art: Rect2=entry.get("art_bounds",Rect2(at-Vector2(17,17),Vector2(34,34)))
+		if art.has_area():
+			offsets=[Vector2(art.end.x-at.x+10,-size.y*0.5),Vector2(art.position.x-at.x-size.x-10,-size.y*0.5),Vector2(-size.x*0.5,art.position.y-at.y-size.y-10),Vector2(-size.x*0.5,art.end.y-at.y+10)]+offsets
 		if int(entry.priority)>=60:
 			for offset in offsets.duplicate():offsets.append(offset*1.5)
 		for offset in offsets:
@@ -821,10 +901,23 @@ static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array
 static func draw_chart_label(canvas,label: Dictionary,font: Font) -> void:
 	var rect: Rect2=label.rect
 	var color: Color=label.get("color",Color("d7e1cc"))
-	canvas.draw_line(label.at,Vector2(label.at).clamp(rect.position,rect.end),Color(color,0.45),1.0,true)
-	canvas.draw_rect(rect,Color(0.035,0.12,0.16,0.92))
-	canvas.draw_string(font,rect.position+Vector2(8,int(label.font_size)+2),str(label.text),HORIZONTAL_ALIGNMENT_LEFT,-1,int(label.font_size),color)
-	if not str(label.get("subtitle","")).is_empty():canvas.draw_string(font,rect.position+Vector2(8,int(label.font_size)+16),str(label.subtitle),HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color("9db8a5"))
+	var edge: Vector2=Vector2(label.at).clamp(rect.position,rect.end)
+	var art: Rect2=label.get("art_bounds",Rect2())
+	var start: Vector2=edge.clamp(art.position,art.end) if art.has_area() else Vector2(label.at)
+	if start.distance_to(edge)>12.0:canvas.draw_line(start,edge,Color(color,0.25),0.8,true)
+	var baseline:=rect.position+Vector2(6,int(label.font_size)+1)
+	# A small glyph halo retains contrast over coast and water without painting
+	# a black slab across the miniature artwork or the physical shore behind it.
+	_chart_label_text054(canvas,font,baseline,str(label.text),int(label.font_size),color)
+	if not str(label.get("subtitle","")).is_empty():_chart_label_text054(canvas,font,baseline+Vector2(0,14),str(label.subtitle),11,Color("a7bca8"))
+
+static func _chart_label_text054(canvas,font: Font,at: Vector2,text: String,font_size: int,color: Color) -> void:
+	if canvas.has_method("draw_string_outline"):
+		canvas.draw_string_outline(font,at,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,3,Color(0.04,0.12,0.14,0.85))
+	else:
+		# Existing source recorder has draw_string only; production uses outline.
+		canvas.draw_string(font,at+Vector2(0,1),text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,Color(0.04,0.12,0.14,0.85))
+	canvas.draw_string(font,at,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 
 func _draw_chart_labels(entries: Array):
 	_map_labels=chart_label_layout(entries,chart_label_bounds(get_viewport_rect().size),sans)
@@ -875,38 +968,44 @@ func draw_campaign():
 			draw_dashed_line(project(previous), project(point), Color(GOLD, 0.75), 1.5, 5.0, true)
 			previous = point
 	for patrol in world.patrols:
-		if not patrol.active:
+		if not patrol.active or bool(patrol.get("hidden",false)):
 			continue
 		var s = project(Vector2(patrol.x, patrol.y))
-		if not get_viewport_rect().grow(30).has_point(s):continue
+		if not get_viewport_rect().grow(512).has_point(s):continue
+		var art: Dictionary=campaign_patrol_art054(patrol)
+		if art.vessels.is_empty():continue
 		var color = ENEMY if patrol.hostile else FRIEND
-		draw_chart_marker(self,chart_marker_geometry("fleet",s,scale_factor),color)
-		labels.append({"at":s,"text":str(patrol.get("name","Fleet")) if not overview else "","priority":10,"color":color})
+		FleetArt054.draw(self,art,color)
+		labels.append({"at":s,"art_bounds":art.bounds,"text":str(patrol.get("name","Fleet")) if not overview else "","priority":10,"color":color})
 	for i in range(world.ports.size()):
 		var p: Dictionary=world.ports[i]
 		draw_harbor(p, i)
-		labels.append({"at":project(Vector2(p.x,p.y)),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else CoastArt050.harbor_caption(p),"color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
+		labels.append({"at":project(Vector2(p.x,p.y)),"art_bounds":campaign_harbor_bounds054(p),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else CoastArt050.harbor_caption(p) if p.id==host.selected_port or p.id==world.lastPort else "","color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
 	var knowledge: Dictionary=world.get("exploration",{})
 	for site in knowledge.get("catalog",[]):
 		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
 		if level<=0:continue
 		var at: Vector2=project(Vector2(site.x,site.y))
-		if not get_viewport_rect().grow(30).has_point(at):continue
+		if not get_viewport_rect().grow(50).has_point(at):continue
 		var selected: bool=str(host.selected_site)==str(site.id)
 		var color: Color=GOLD if level<3 else FRIEND
-		draw_chart_marker(self,chart_marker_geometry("site",at,scale_factor),color,selected)
-		labels.append({"at":at,"text":"Unsurveyed site" if level==1 else str(site.name),"priority":120 if selected else 20,"color":color})
+		var art: Dictionary=campaign_site_art054(site,level)
+		if not get_viewport_rect().intersects(art.bounds):continue
+		LandmarkArt054.draw(self,art,selected)
+		labels.append({"at":at,"art_bounds":Rect2(art.bounds).grow(5 if selected else 0),"text":art.label if selected or not overview else "","priority":120 if selected else 20,"color":color})
 	for wreck in world.get("wrecks",[]):
 		if wreck.get("status","")!="unclaimed":continue
 		var marker_pos: Vector2=project(Vector2(wreck.x,wreck.y))
-		if not get_viewport_rect().grow(30).has_point(marker_pos):continue
-		draw_circle(marker_pos,7,Color(GOLD,0.12))
-		draw_line(marker_pos+Vector2(-4,-4),marker_pos+Vector2(4,4),GOLD,1.5)
-		draw_line(marker_pos+Vector2(-4,4),marker_pos+Vector2(4,-4),GOLD,1.5)
-		labels.append({"at":marker_pos,"text":"","priority":0})
+		if not get_viewport_rect().grow(50).has_point(marker_pos):continue
+		var art: Dictionary=campaign_wreck_art054(wreck)
+		if not get_viewport_rect().intersects(art.bounds):continue
+		LandmarkArt054.draw(self,art)
+		labels.append({"at":marker_pos,"art_bounds":art.bounds,"text":"","priority":0})
 	var marker: Vector2=project(Vector2(world.position.x,world.position.y))
-	draw_chart_marker(self,chart_marker_geometry("fleet",marker,scale_factor,float(world.heading)),GOLD,true)
-	labels.append({"at":marker,"text":"YOUR FLOTILLA","priority":105,"color":GOLD})
+	var player_art: Dictionary=campaign_player_art054()
+	FleetArt054.draw(self,player_art,GOLD,true)
+	if not player_art.vessels.is_empty():
+		labels.append({"at":marker,"art_bounds":Rect2(player_art.bounds).grow(5),"text":"YOUR FLOTILLA","priority":105,"color":GOLD})
 	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
 	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)
@@ -1041,9 +1140,28 @@ func draw_title():
 	for i in range(host.data.ISLANDS.size()):
 		draw_island(host.data.ISLANDS[i], i)
 	var home: Dictionary=host.data.PORTS[0]
-	var at := project(Vector2(float(home.x), float(home.y)))
-	draw_chart_marker(self, chart_marker_geometry("harbor", at, scale_factor), GOLD, true)
-	draw_chart_marker(self, chart_marker_geometry("fleet", at + Vector2(28, 16), scale_factor, 0.4), GOLD, false)
+	for port in host.data.PORTS:
+		NauticalArt.draw_settlement(self,_projector(),_chart_towns.get(str(port.id),{}),scale_factor,get_viewport_rect())
+	var boats: Array=[]
+	var point:=Vector2(float(home.x),float(home.y))
+	var heading: float=0.4
+	if host.core!=null and not host.core.state.is_empty():
+		boats=host.core.active_fleet()
+		heading=float(host.core.state.heading)
+		# Menu composition stages the real source roster at the home waterfront;
+		# a career far from home must not leave the title's boat art offscreen.
+	else:
+		# The actual configured single starter hull and its canonical default fit.
+		# No campaign is created and no extra owned boats are invented for a title.
+		if str(_title_starter054.get("type",""))!=str(host.data.START.hull):
+			for spec: Dictionary in host.data.HULLS:
+				if str(spec.id)==str(host.data.START.hull):
+					var fitted: Dictionary=Refits054.effective_spec(spec,Refits054.defaults(spec))
+					_title_starter054={"uid":"title-starter","type":spec.id,"spec":fitted}
+					break
+		if not _title_starter054.is_empty():boats.append(_title_starter054)
+	var art: Dictionary=FleetArt054.layout(boats,project(point),heading,scale_factor,{"viewport":get_viewport_rect(),"size_multiplier":1.3})
+	FleetArt054.draw(self,art,GOLD)
 	var size = get_viewport_rect().size
 	draw_texture_rect(title_shade, Rect2(Vector2.ZERO, size), false)
 	draw_compass(Vector2(size.x - 85, size.y - 95))

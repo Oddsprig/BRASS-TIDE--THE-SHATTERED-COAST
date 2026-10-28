@@ -1,0 +1,120 @@
+054 CHART/LANDMARK SOURCE CONTRACT - IMPLEMENTED / NATIVE UNRUN
+Base 826a104bcf5745ca9d7c43dd64c03e7d18a72522. Source-only helper; no engine,
+advisory, import/export or GPU runs. Root owns all testing and actual art review.
+
+Chart integrates CampaignFleetArt054's peer-published layout/draw API for
+core.active_fleet() and core.fleet_owner(patrol.id).boats at projected positions.
+No synthetic roster or live battle-art pipeline. Patrol heading follows the
+current course segment; player uses state.heading. Title uses actual current
+active roster when available, otherwise data.START.hull/data.START equipment.
+
+Chart public integration for proof peer (all screen coordinates):
+campaign_player_art054() -> fleet layout dictionary
+campaign_patrol_art054(patrol: Dictionary) -> fleet layout dictionary
+campaign_site_art054(site: Dictionary, level: int) -> landmark plan dictionary
+campaign_wreck_art054(wreck: Dictionary) -> landmark plan dictionary
+campaign_harbor_bounds054(port: Dictionary) -> Rect2 in screen coordinates
+campaign_harbor_hit054(port: Dictionary, screen: Vector2) -> bool
+Fleet API: layout(boats, center, heading, scale_factor, {viewport:Rect2,
+overview:bool}) -> vessels/bounds/roster_count/visible_count/omitted_count/lod;
+draw(canvas, plan, accent, selected). No local copy of peer file/assets.
+Landmarks static plan(site, level, center, chart_scale) and wreck_plan(wreck,
+center, chart_scale) return kind/knowledge/center/bounds/draw commands; hidden
+level0 produces no drawable commands. draw(canvas, plan, selected=false) renders
+bounded original nautical features with no terrain/collision edits or rewards.
+Landmark planning and chart wrappers are read-only with respect to inputs.
+
+chart_label_layout accepts optional art_bounds:Rect2 on each entry, reserves
+those actual art rectangles plus the old default when absent. Existing label
+HUD bounds and nonoverlap semantics remain; opaque label slabs will be removed.
+Main click ordering/route controls retained, with art bounds added to existing
+distance hits only as required for the richer drawing.
+
+IMPLEMENTATION
+Only chart.gd campaign/title/label/harbor sections and Main.click_chart change.
+The old chart_marker_geometry/draw_chart_marker public compatibility helpers
+remain, but neither draw_campaign nor draw_title nor draw_harbor calls them.
+The old triangle/diamond/disk/X drawing therefore no longer drives live art.
+
+Fleet inputs: active_fleet() for the player (keeps flagship order and the real
+one-boat start); active patrol's persistent fleet_owner(id).boats, filtering
+sunk/stored/mothballed/hidden boats without writing owner records. Inactive or
+hidden patrols and inactive owners yield no ships. Patrol heading comes from
+the exact progressive course segment that place_patrol uses, falling back to
+the existing destination bearing only when no measured segment exists.
+Fleet layout/draw calls use the peer's exact early API. Its implementation and
+assets live in the peer commit; this commit intentionally does not copy them.
+No battle objects, damage/status APIs, economy or route planners are invoked.
+
+Title: actual active roster and heading if a career exists, composed at the home
+waterfront for the title scene only (career position is never changed). With no career,
+one cached data.START.hull plus Refits.defaults/effective_spec; no new_game,
+fake escort, plain arrow or square/disk harbor. Same physical coast and real
+settlements are drawn. The title requests size_multiplier1.3 from fleet art.
+
+Harbors: existing cached physical waterfront roofs/pier remain. Selected berth
+gets two thin open 13px anchorage arcs and a faint existing berth connector;
+no filled selection disk or square. Bounds cover actual roofs/pier plus a small
+berth margin. Hit testing retains original45px harbor radius and adds actual
+roof polygon/pier hits, not the empty gaps of the town reservation rectangle.
+
+Landmarks: original code-authored pictorial observations for all14 current
+catalog kinds; no additional bitmap/SVG resources required. Split hull and ribs,
+leaning spars, gantry/ruined masonry, cairn/bottle-post, tree crowns, reed poles,
+kelp/pale water, gulls/still water, smoke, colored scree/staining and surface sheen.
+No filled ground/shoreline silhouette is added. Existing site's coordinates stay
+the selection anchor; features are chart observations, never collidable islands.
+Unclaimed wreck records draw broken hulls; empty-hull jettison records draw cargo
+floats. Claimed wrecks draw nothing. Level0 site produces empty commands/label/
+bounds. Level1 uses an observational clue caption, never the hidden proper name,
+resource, discovery, reward or guaranteed survey identity. Level2/3 use the known
+site name. Unsurveyed wreck-field shapes remain indistinct until charted.
+
+Landmark API exact fields:
+plan(site:Dictionary,level:int,center:Vector2,chart_scale:float)->Dictionary
+wreck_plan(wreck:Dictionary,center:Vector2,chart_scale:float)->Dictionary
+draw(canvas,art:Dictionary,selected:bool=false)->int (submitted command count)
+Plan fields: kind, knowledge, identified, center, bounds, lod, scale, commands,
+label, primitive_count. bounds encloses unselected art; selected adds4px corner
+marks. Low chart scale<0.18 uses smaller/simpler pictorial art (lod0); ordinary
+art is lod1. This is independent of the fleet peer's own LOD numbering.
+At most64 cached local templates; draw caps80 commands plus two selection marks.
+Local commands are reused as read-only cached art. No images/meshes/materials/
+textures, render resources or full ship clones are generated by landmark plans.
+Chart culls offscreen plans; known site/wreck loops retain their original sets.
+
+Labels: optional actual art_bounds now reserve whole formations, waterfronts and
+landmark drawings. Priority, HUD margins, label-label collision avoidance and
+read-only/repeatable layout remain. Selected/home/contract ports retain useful
+subtitles; routine distant port labels shed redundant subtitles. Text uses a
+small glyph outline instead of opaque rectangles; leader lines stop at art bounds.
+High-priority15px and ordinary14px chart labels with11px optional subtitles.
+
+Main.click_chart: retains harbor -> known site -> patrol -> unclaimed wreck ->
+ordinary route fallback order and existing center hit radii. Adds rendered art
+bounds for sites, patrol formations and wrecks and real harbor roof/pier hit
+shapes. No controls, course endpoint/route semantics or other Main hunks changed.
+
+PREPARED-NOT-RUN ROOT CHECKS / LIMITS
+Proof peer owns test_campaign_art054.gd and test_chart_readability040.gd. These
+chart APIs and exact early note were published before integration was finished.
+Root must integrate BOTH named art commits plus proof commit before parsing:
+campaign_fleet_art054.gd is deliberately absent from this chart-only checkout.
+Native compilation, all36 imports/formation/bounds/knowledge, actual Main click
+integration and unchanged projection/HUD/nonoverlap checks are prepared by peer,
+not executed here. No engine, CLI advisory, test, import/export, GPU, screenshot,
+desktop control, source metadata, tags or push were performed by this helper.
+Root's existing exported actual tour (cdf5ff8 capture-only Main edits) should show
+title/home/convoy/hostile/civilian/discovery/overview; this commit changes only the
+click_chart Main hunk and can integrate independently. Root must LOOK at ordinary
+one-boat detail/readability, title/roster headings, civilian silhouettes, nearby
+harbor/fleet labels and discovery knowledge artwork. Source review, counts and
+native assertions are not actual art-quality, gameplay, motion/audio or FPS
+acceptance. Planned054 AI and future scopes remain queued.
+
+FINAL FILES (4):
+game/scripts/chart.gd
+game/scripts/main.gd (click_chart only)
+game/scripts/campaign_landmark_art054.gd
+tools/quality054/CHART054 SOURCE.txt
+Named source SHA is returned in the helper final handoff; no self-referential tag.
