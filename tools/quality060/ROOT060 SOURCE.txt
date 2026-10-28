@@ -1,0 +1,23 @@
+ROOT - 060 INTEGRATION AND PRIVATE PRESENTATION SETUP
+Base delivered0593598b9a.060 source/native/actual acceptance still pending.
+Three BridgeSol6.1MAX source lanes use exact source-only allowlists from task/
+SCOPE 060 FLEET ATTACHMENT.txt. Root alone owns all engine/GPU/FIFO tests.
+
+Early A contract: optional boat.commandPreference={doctrine,role}, pure
+FleetIdentity.command_preference, explicit set_command_preference; pure
+FleetSupport.selected_view for staff, wages, local eligibility, fitted state.
+Early B: actual per-deployment _serviceStart060; participants/losses report,
+existing bounded service/history copies on report/wreck/tow, no new counter book.
+Root read exact peer notes and relayed them; C consumes documented fields.
+
+059 actual private captures exposed a paused-fixture HUD lag: direct state
+switch happened before its scheduled repaint. Root adds ui.update_hud only in
+the private opening capture path before the actual frame. Ordinary game update,
+economy, worker scheduling, prices and player controls are unchanged. This is
+source-only until the combined060 native/export/actual views are reviewed.
+
+The delivered059 game remains installed and untouched. Root will add the few
+changed060 actual UI/motion fixtures once actual peer APIs are integrated; no
+all-modal tour, world/nav duplication, new test framework or051 performance
+retuning. Each whole selected batch remains strictly below120s. Broader coast
+art and exact051/wholequality targets remain OPEN062. No new remote push.

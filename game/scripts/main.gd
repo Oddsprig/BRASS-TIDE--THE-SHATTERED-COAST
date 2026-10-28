@@ -1442,6 +1442,9 @@ func capture_after_start():
 					if button053 is Button and str(button053.text).begins_with("Costs, price uncertainty & quantity limits"):
 						button053.pressed.emit()
 						break
+			# Private layout branches can replace their paused state directly;
+			# publish the current HUD before the same frame is captured.
+			ui.update_hud()
 			await get_tree().process_frame
 			name = "opening051-" + name.trim_suffix("051")
 		elif not screenshots_requested.is_empty():
