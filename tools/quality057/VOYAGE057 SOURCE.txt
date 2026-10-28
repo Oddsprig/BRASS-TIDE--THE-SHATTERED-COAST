@@ -1,0 +1,83 @@
+C / 057 FUNDED SURVEY PAIRING - EARLY API CONTRACT
+Base: delivered056 9e9d6252cc1f2cf2b6e78a47e41abed2fdb3c7fb.
+Source-only in v057-voyage-sol. No execution or acceptance claimed.
+
+Implemented additive public seam in VoyageJobs:
+  survey_pairing(core, port_id: String = "") -> Dictionary
+Returns {} unless the accepted, unfinished middle_sea_chart currently names
+an unsurveyed site objective and the requested/current harbor is reed_floats.
+Detached result keys: chainId, siteId, siteName, storyLevel, paidLevel,
+reportPort. storyLevel is the current authored gate (2 at Chart Rock, 3 at
+Shatter); paidLevel is always Exploration.LEVEL_SURVEYED (3). This is a
+candidate preference only, never a funded offer or advancement guarantee.
+available(core) retains normal daily survey ID/escrow/expiry/settlement and
+uses this eligible candidate before its generic catalog pick. All normal
+funding/access/acceptance/hold/crew/six-job rules remain authoritative.
+VoyageUI.survey_terms(c,job: Dictionary) -> String explains full level3 paid
+work versus the level2 rock clue on both offered and carried jobs.
+Already carried survey sites are excluded from another daily survey offer;
+this prevents stacking fees for the same unfinished physical work.
+
+New prepared proof: tests/test_exploration_expedition057.gd, seeded Campaign
+constructor and real public recruitment/trade/escrow/chart_course/step/stop/
+exploration/story/report/save APIs. No knowledge/completion injection in the
+claimed voyage. Optional hostile salvage must refuse honestly, with return
+comparison; no free victory or invented stores. Detached late-stage branches
+cover incompatible rights/repeat/refusal without another full world.
+
+A/B early notes now read. Pairing uses A's exact journal.objective
+{siteId,requiredLevel}; no location/gate aliases or story mutation are assumed.
+B's exact seam is Expedition.preview(c,site_id,return_port_id="",
+detour_site_id="",target_level=3) -> detached Dictionary, preserving report
+keys and adding returnNow/detour and actual shore/route/readiness budgets.
+B: budget full level3 at middle_chart_rock for an accepted paid survey, even
+after its level2 story gate is met. No new persistent job fields are required.
+
+Allowlist: game/scripts/voyage_jobs.gd, game/scripts/voyage_ui.gd,
+game/tests/test_voyage_jobs.gd, game/tests/test_exploration_expedition057.gd,
+this source note. Root alone runs all parsing/native/GPU/checks.
+
+FINAL SOURCE HANDOFF (27 October 2026)
+Only the five allowlisted paths above changed. Manual source/diff review
+performed; no engine, parser, advisory, test, import/export or helper run.
+Depends on A's journal row chainId (NOT id), objective.siteId/requiredLevel,
+and B's exact Expedition.preview seam. Root caught and C corrected both
+initial wrong journal id accesses before commit; proof now guards its lookup.
+
+Prepared, NOT RUN by C:
+  res://tests/test_voyage_jobs.gd adds focused accepted/unaccepted/current/
+  surveyed/carried/next-day/funding/six-slot/056 patron-memory pairing cases.
+  Its explicit knowledge fixture remains an isolated unit seam, never voyage
+  evidence. Existing legacy tests elsewhere remain unchanged.
+  res://tests/test_exploration_expedition057.gd creates Campaign once, new_game
+  seed5701 once; hires minimum+4 actual spare hands using recruit_cost and
+  recruit_crew, buys2food+2kits with trade from actual starting15000coins,
+  sails from Brass to Wren, starts her actual lead and accepts normal escrow,
+  compares clue2/full3 preview; sails/charts rock, chooses actual clue,
+  fully surveys rock, saves/restores; sails/charts/surveys Shatter with real
+  assignments, elapsed Campaign.step and Main's existing copied-port worker
+  per-day seed/join/apply_economy accounting. No seeded NPCs are removed,
+  financed for free or forced to win/lose.
+  Actual Shatter work seeds its existing finite wreck. Recover one existing
+  plank lot through recover_wreck if unprotected; if an actual hazard owner
+  controls it, retain its refusal/unchanged stock and return comparison.
+  Compare actual returnNow with earned Rust detour, save/load, sail home,
+  register public right, report original escrow once, refuse repeat, save/load.
+  Private/incompatible/repeat choices use a detached actual late physical
+  checkpoint plus the alternative story/contact/standing context produced
+  by API keep_secret at the real charted-rock checkpoint. This branch reuses
+  actually completed knowledge; it is NOT a second claimed sailed voyage.
+  No site levels or completed work flags are injected in this proof.
+  Global invariant is Money.total==coinSupply. Player gear keys are sorted
+  before custody comparison across JSON; global NPC goods/crew/gear may change
+  naturally. Exact elapsed player wages, crew, purchased stores, shore tools,
+  prepaid food, idle fuel, knowledge, once-payment and retained hull are checked.
+
+Root execution suggestion: focused new expedition case alone, planned native
+45seconds including fixture; internal38second total budget, <=96 travel
+chunks/leg and <=80 work chunks, progress markers and compact allowance
+receipts. Root owns process detector/sharedFIFO and the whole<120second batch.
+Unrun is not passed. Real route/quote/access/stock/crew/time/restore refusal
+fails with its actual source/API message; do not waive it or grant resources.
+No demonstrated native blocker is claimed from this source-only pass.
+No release metadata/maps/tag/install/push/cleanup authored.

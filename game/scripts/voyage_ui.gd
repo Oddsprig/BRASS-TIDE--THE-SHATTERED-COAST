@@ -38,6 +38,7 @@ static func open(ui,tab: String="Work board") -> void:
 			var s: Dictionary=c.Exploration.catalog_site(c.state,job.siteId)
 			var progress: int=int(c.state.exploration.sites.get(job.siteId,{}).get("level",0))
 			if progress<3:target=s
+			ui.paragraph(body,survey_terms(c,job),15,ui.TEAL)
 		ui.button(body,"Chart next destination",func():ui.host.respond(c.chart_course(target,str(target.get("id","")) if c.port(str(target.get("id",""))).size()>0 else ""));ui.close_modal())
 		ui.button(body,"Complete & release escrow",func():settle(ui,job.id,false),true)
 		ui.button(body,"Abandon / unload remaining freight",func():settle(ui,job.id,true))
@@ -49,6 +50,7 @@ static func open(ui,tab: String="Work board") -> void:
 		var offer: Dictionary=item.duplicate(true)
 		ui.label(body,offer.title,23,ui.TEXT,true)
 		ui.paragraph(body,offer.description,15)
+		if offer.kind=="survey":ui.paragraph(body,survey_terms(c,offer),15,ui.TEAL)
 		if not str(offer.get("sponsorContactId","")).is_empty():ui.paragraph(body,sponsor_reason(c,offer),15,ui.TEAL)
 		ui.paragraph(body,"%s coins · deadline day%.0f"%[ui.money(offer.reward),offer.deadlineDay],15,ui.GOLD)
 		var picker: OptionButton=null
@@ -56,6 +58,12 @@ static func open(ui,tab: String="Work board") -> void:
 		ui.button(body,"Accept funded job",func():ui.host.respond(c.accept_voyage_job(offer.id,str(picker.get_selected_metadata()) if picker!=null and picker.item_count>0 else ""));ui.host.save_game(false);open(ui),true).disabled=c.state.voyageJobs.size()>=6 or (picker!=null and picker.item_count==0)
 		ui.rule(body)
 	ui.button(body,"Story contracts & captain's log",ui.open_contracts)
+
+static func survey_terms(c,job: Dictionary) -> String:
+	var harbor: Dictionary=c.port(str(job.get("port","")))
+	var terms: String="Paid work: fully surveyed (level 3), then report at %s. Budget charting plus the full survey, with four spare sailors above boat minimums; wages and provisions continue ashore."%str(harbor.get("name","the sponsoring harbor"))
+	if str(job.get("siteId",""))=="middle_chart_rock":terms+=" Wren's rock clue needs only charted level 2; that clue alone does not release escrow. The extra survey normally takes 2.5 days and 2 kits, adjusted by your actual survey equipment."
+	return terms
 
 static func settle(ui,id: String,abandon: bool) -> void:
 	ui.host.respond(ui.host.core.settle_voyage_job(id,abandon))

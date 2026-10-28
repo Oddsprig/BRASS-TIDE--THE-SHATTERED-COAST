@@ -39,6 +39,7 @@ func _initialize() -> void:
 	_test_multiple_jobs_and_escrow()
 	_test_capacity_and_freight()
 	_test_survey_gating_and_delivery()
+	_test_story_survey_pairing()
 	_test_expiry_and_abandon()
 	_test_contacts()
 	_test_save_roundtrip()
@@ -156,6 +157,49 @@ func _test_expiry_and_abandon() -> void:
 	check(bool(Jobs.abandon(c, freight.id).ok), "Expired freight unloads by abandoning at a harbor")
 	check(is_equal_approx(float(dock.stocks[freight.freight.good]), dock_stock + float(freight.freight.qty)), "Unloaded freight enters that harbor's stocks")
 	check(c.state.voyageJobs.is_empty() and str(freight.id) in c.state.doneVoyageJobs, "Abandoned job closes and is remembered")
+
+func _test_story_survey_pairing() -> void:
+	# Isolated gate fixtures; expedition057 alone owns actual travel/work proof.
+	reset()
+	goto_port("reed_floats")
+	check(Jobs.survey_pairing(c).is_empty(),"Unaccepted stories do not steer paid survey work")
+	check(bool(c.StoryOps.start(c,"middle_sea_chart").ok),"Wren accepts the actual lead")
+	var stories: Dictionary=c.state.stories.duplicate(true)
+	var pairing: Dictionary=Jobs.survey_pairing(c)
+	check(str(pairing.get("siteId",""))=="middle_chart_rock" and int(pairing.get("storyLevel",0))==2 and int(pairing.get("paidLevel",0))==3,"Current level2 clue retains full level3 paid work")
+	pairing.siteId="detached-only"
+	var survey: Dictionary=offer_of_kind(Jobs.available(c),"survey")
+	check(str(survey.get("siteId",""))=="middle_chart_rock","Funded current objective replaces the generic catalog pick")
+	check(c.state.stories==stories,"Pairing/board queries do not advance the story")
+	check(str(survey.get("id",""))=="vsurvey-reed_floats-1-middle_chart_rock","Pairing keeps ordinary survey IDs")
+	check(preload("res://scripts/voyage_ui.gd").survey_terms(c,survey).contains("level 2"),"Paid text explains the level2 clue/full3 distinction")
+	Contacts.record(c.state,"contact_sister_wren","job:pairing-fixture:paid",5)
+	survey=offer_of_kind(Jobs.available(c),"survey")
+	check(str(survey.get("sponsorContactId",""))=="contact_sister_wren","056 patron memory recommends the same ordinary offer")
+	var baseline: Dictionary=c.state.duplicate(true)
+	var sponsor: Dictionary=c.port("reed_floats")
+	var supply: int=Money.total(c.state)
+	Money.move(sponsor,"governmentPurse",sponsor,"cash",int(sponsor.governmentPurse))
+	check(offer_of_kind(Jobs.available(c),"survey").is_empty(),"Unfunded patron cannot promise a paired survey")
+	check(not c.accept_voyage_job(str(survey.id)).ok and Money.total(c.state)==supply,"Unfunded refusal creates no capital")
+	c.state=baseline.duplicate(true)
+	for i in range(Jobs.MAX_ACTIVE):
+		c.state.voyageJobs.append({"id":"slot-fixture-%d"%i,"kind":"bounty","port":"reed_floats","targetPort":"reed_floats","reward":1,"escrow":0,"deadlineDay":100.0,"state":"active"})
+	check(not c.accept_voyage_job(str(survey.id)).ok and c.state.voyageJobs.size()==Jobs.MAX_ACTIVE,"Pairing cannot bypass six carried commitments")
+	c.state=baseline.duplicate(true)
+	check(bool(c.accept_voyage_job(str(survey.id)).ok),"Paired survey uses existing funded acceptance")
+	check(Jobs.survey_pairing(c).is_empty(),"Carried work is not a second paired fee")
+	check(not c.accept_voyage_job(str(survey.id)).ok,"Paired survey still cannot be accepted twice")
+	c.state.day=2.0
+	for offer in Jobs.available(c):
+		check(str(offer.get("siteId",""))!="middle_chart_rock","Next day cannot duplicate a carried paid survey")
+	c.state=baseline.duplicate(true)
+	c.state.exploration.sites["middle_chart_rock"]={"level":3,"rewarded":true}
+	for offer in Jobs.available(c):
+		check(str(offer.get("siteId",""))!="middle_chart_rock","Already surveyed work earns no new offer")
+	check(bool(c.StoryOps.choose(c,"middle_sea_chart","keep_secret").ok),"Isolated earned choice advances its authored gate")
+	check(str(Jobs.survey_pairing(c).get("siteId",""))=="shatter_wreck_field","Next accepted current objective becomes preferred at Wren")
+	check(Jobs.survey_pairing(c,"brass_haven").is_empty(),"Other harbors retain their daily catalog choice")
 
 func _test_contacts() -> void:
 	reset()

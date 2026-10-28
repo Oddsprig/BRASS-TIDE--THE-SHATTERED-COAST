@@ -18,6 +18,7 @@ const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Factions=preload("res://scripts/factions.gd")
 const TradeRules=preload("res://scripts/trade_rules.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const Stories=preload("res://scripts/coastal_stories.gd")
 
 const MAX_ACTIVE := 6
 const MAX_DONE := 128
@@ -222,6 +223,29 @@ static func _destination(state: Dictionary, from: Dictionary, salt: int) -> Dict
 	return ports[(index + 1 + salt + (day % 3)) % ports.size()]
 
 
+# A preference for the accepted current objective, never another reward or
+# progression event. The journal's detached objective comes from its real gate.
+static func survey_pairing(core, port_id: String = "") -> Dictionary:
+	var state := _state(core)
+	if state.is_empty():return {}
+	var harbor: String=port_id
+	if harbor.is_empty():harbor=str(core.current_port().get("id",""))
+	if harbor!="reed_floats":return {}
+	for entry in Stories.journal(state):
+		if str(entry.get("chainId",""))!="middle_sea_chart" or bool(entry.get("done",false)):continue
+		var objective: Dictionary=entry.get("objective",{})
+		var site_id: String=str(objective.get("siteId",""))
+		if site_id.is_empty():return {}
+		for job in state.get("voyageJobs",[]):
+			if str(job.get("kind",""))==KIND_SURVEY and str(job.get("siteId",""))==site_id:return {}
+		for site in Exploration.sites(state):
+			if str(site.id)==site_id and int(site.level)<Exploration.LEVEL_SURVEYED:
+				return {"chainId":"middle_sea_chart","siteId":site_id,"siteName":str(site.name),
+					"storyLevel":int(objective.get("requiredLevel",Exploration.LEVEL_SURVEYED)),
+					"paidLevel":Exploration.LEVEL_SURVEYED,"reportPort":harbor}
+	return {}
+
+
 # Deterministic same-day offers at the harbor the captain is docked at. Ids
 # embed port + day (+ site/owner), so reopening the board never rerolls, and
 # accepted/closed ids never reappear. Offers are only listed while the
@@ -264,13 +288,20 @@ static func available(core) -> Array:
 				"freight": {"good": good, "qty": float(qty)}, "state": STATE_OFFERED,
 				"siteId": "", "ownerId": ""})
 			break
-	# Survey: one deterministic not-yet-surveyed catalog site, if any remains.
+	# Survey: prefer Wren's accepted current site, otherwise retain the daily
+	# catalog selection. A site already on a carried survey is not new paid work.
 	var unsurveyed: Array = []
 	for site in Exploration.sites(state):
-		if int(site.get("level", 0)) < Exploration.LEVEL_SURVEYED:
+		var carried: bool=false
+		for job in state["voyageJobs"]:
+			if str(job.get("kind",""))==KIND_SURVEY and str(job.get("siteId",""))==str(site.id):carried=true;break
+		if not carried and int(site.get("level", 0)) < Exploration.LEVEL_SURVEYED:
 			unsurveyed.append(site)
 	if not unsurveyed.is_empty():
 		var site: Dictionary = unsurveyed[(day + int(state["ports"].find(p))) % unsurveyed.size()]
+		var pairing: Dictionary=survey_pairing(core,str(p.id))
+		for candidate in unsurveyed:
+			if str(candidate.id)==str(pairing.get("siteId","")):site=candidate;break
 		var survey_id := "vsurvey-%s-%d-%s" % [str(p["id"]), day, str(site["id"])]
 		if not taken.has(survey_id) and not _is_closed(state, survey_id):
 			var days := _travel_days(core, p, {"x": float(site["x"]), "y": float(site["y"])})
@@ -278,7 +309,7 @@ static func available(core) -> Array:
 			if int(p.get("governmentPurse", 0)) >= reward:
 				offers.append({
 					"id": survey_id, "title": "Survey %s" % str(site["name"]),
-					"description": "The harbor government escrows a survey fee. Chart and fully survey the site, then report back here. Clue: %s" % str(site.get("clue", "")),
+					"description": ("Pairs with your accepted Middle Sea lead. " if str(pairing.get("siteId",""))==str(site.id) else "")+"The harbor government escrows a survey fee. Full level 3 survey and a report here are required. Clue: %s" % str(site.get("clue", "")),
 					"port": str(p["id"]), "targetPort": str(p["id"]), "kind": KIND_SURVEY,
 					"reward": reward, "escrow": 0, "payerKey": "governmentPurse",
 					"deadlineDay": float(day) + ceilf(days * 2.0 + 14.0), "acceptedDay": 0.0,
