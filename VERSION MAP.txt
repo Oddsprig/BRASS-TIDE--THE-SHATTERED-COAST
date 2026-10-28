@@ -2,7 +2,7 @@
 User rejects the actual053 campaign marker art. Insert focused054 visual correction now; saved054-061scopes move to055-062 without being dropped. Whole-game milestone is now062. All exact051remaining performance/quality targets stay OPEN and unchanged, carried into062; this reorder does not waive them or certify parity. Continue one bounded scope at a time.
 
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.053
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.054
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -49,7 +49,7 @@ Useful support boats, affordable progression and clear operating/return reserves
 0.053 - MEANINGFUL LTV TRADE [SCOPED BUILD DELIVERED]
 Visible demand and margins connect actual labor, purses, goods and production.
 
-0.054 - CAMPAIGN PRESENTATION CORRECTION [IN PROGRESS; HUMAN PRIORITY]
+0.054 - CAMPAIGN PRESENTATION CORRECTION [SCOPED BUILD DELIVERED; BROADER ART QUALITY OPEN]
 Visible original boats and real fleet formations replace triangle markers; landmarks, harbors, title and labels receive the same treatment.
 
 0.055 - CAMPAIGN FLEET AI [PLANNED]

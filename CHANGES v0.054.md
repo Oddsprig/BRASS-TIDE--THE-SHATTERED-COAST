@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Give labels room around actual artwork while preserving chart navigation, coordinates, knowledge and cheap water.
 
 See docs/TEST RESULTS v0.054.md for actual focused checks and remaining limits.
+
+Verification: 338 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 65.280s. Preserved earlier failures; no broad acceptance claim.

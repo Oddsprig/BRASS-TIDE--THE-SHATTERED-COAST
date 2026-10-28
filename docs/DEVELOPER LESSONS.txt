@@ -1,3 +1,6 @@
+054 VISUAL ACCEPTANCE AND FIELD CONTRACTS
+Do not preserve tiny triangle/diamond/circle symbols because an old test requires exactly3primitives or<=12px. Test projection, bounds, picking, actual roster/knowledge and immutable state; judge exported artwork by looking at the normal game. Actual early053screens showed rejected placeholders despite passing scoped checks. Added original dedicated topdownassets; isometricatlases explicitly do not support chart projection. Import/render resources stay onMain; cache artwork. Explicitly export dynamically read manifestJSON. Pair coordinate contract names: art publishes physicalx/y plus normalizedlocal_x/y, notworld_x/y. Preservefailedreceipt and correct the comparison, not real mountidentity/origin requirements.
+
 053 QUEUE RETRIES AND LEGACY TERMINALS
 Use final TestBridge result.artifacts_directory; a successful retry can be attempt-002 while attempt-001 correctly retains yield/interrupted without metrics. Never overwrite the interrupted receipt. Delivery tools accept a validated explicit attempt. Guarded actual capture must bind that passed attempt and exact source/export hashes. Bind each retained fixture unique success-line format through existing config terminal field; generic count/failure format is not universal. No test assertions or receipt contents need changing.
 

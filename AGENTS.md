@@ -1,5 +1,5 @@
-CURRENT054 HUMAN PRIORITY - CAMPAIGN ART CORRECTION
-The owner rejects actual053tiny triangle/diamond campaign markers and title symbols. Visible boats/formations/landmarks and readable supporting selection/labels take priority now. Read task/SCOPE054CAMPAIGNARTCORRECTION.txt (actualfilename contains spaces) and task/CURRENT STATE.txt. Baseline053826a104 delivered/installed. Metadata54 prepared ONCE; never rerun prepare_version.py. ThreeBridgeSolMAX source helpers, RootallmutedbackgroundFIFO<120s tests. Planned054campaignAI remains queued NEXT, not dropped or delivered. Strict051performance targets remainopen; no retune thisartpass.
+CURRENT054 - SCOPED CAMPAIGN ART ACCEPTED
+Original36topdownhulls/7weapons/3drives replace livecampaign/titletriangle markers, realformations/landmarks/waterfront/labels/clickbounds. Native338/0+127retainedchart, export3starts; actual7screens Rootviewed. Package054/verifydesktop thenNEXT055independentcampaignAI; remainingoriginalscopes055-062 preserved. Allstrict051targetsunchanged/open062. No parity/fullgame/FPSclaim. Metadata54alreadydone. RootsolemutedbackgroundFIFOowner<120s. Read task/CURRENT STATE.txt.
 
 # Brass Tide - current working instructions
 
