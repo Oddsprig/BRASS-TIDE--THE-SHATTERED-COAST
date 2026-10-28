@@ -1,6 +1,6 @@
 # Brass Tide - current working instructions
 
-Verified build v0.063; packaging/desktop delivery follows accepted source0c8b83d.
+Installed build v0.063 DELIVERED; localtag8f066e8/tested source0c8b83d.
 Do not prepare063again. Currenttask work/quality-v063; all6helpersidle/noactivejobs.
 714nativechecks+125workerchecks=839unique/0failures; whole31.042s/76.721s.
 Runtime2d75ca70 complete59.463s; Root reviewed4actualPNGs. Source/script facts,

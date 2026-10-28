@@ -21,3 +21,6 @@ No rejected062phasepropagation restored. No actors, shots, physical damage, fiel
 Total839unique focused checks:125currentworker+714retaineddamage/equipment.
 Current actual performance measured; strict quality remainsFALSE. Desktop
 installation follows packaging; preserve owner voyages/music and old062.
+
+Desktop installation VERIFIED; single Brass Tide launcher pointsv0.063.
+Two voyages and all18MP3+2notes preserved. Old062 retained. No game auto-launched.

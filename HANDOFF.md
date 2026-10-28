@@ -1,4 +1,6 @@
-# Brass Tide v0.063 verified; finish desktop delivery, then v0.064
+Desktop delivery verified: single Brass Tide icon ->v0.063. Two voyages,18MP3s+2notes and older062 preserved. Current receipt work/quality-v063/DELIVERED v0.063.json. No active tests or helpers.
+
+# Brass Tide v0.063 delivered; next v0.064
 
 Current source/tested release0c8b83d027a878c4dd94faeabb48a9834008708a.
 Metadata063preparedONCE. Do not reprepare, retag a rejected candidate or reopen
