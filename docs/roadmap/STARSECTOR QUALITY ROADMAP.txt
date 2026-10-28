@@ -365,13 +365,11 @@ Longer experiential review is gameplay feedback, not an excuse for a background
 multi-hour automated soak or a test suite that exceeds the two-minute rule.
 
 RECORDS AND STATUS
-ROADMAP.md: the next scope, currently planned0.042 only.
-VERSION MAP.txt: this proposed20-version sequence, with milestone status.
-This document: full quality requirements and rationale.
-Existing0.032-0.041 completion records remain historical implementation
-receipts; their DONE labels never meant the finished game met this quality bar.
-No executable, save, launcher, build number or release tag changes in this
-planning task. The currently installed game remains v0.041.
+Current installed/tested build and active scope are in AGENTS.md, BUILD STATUS.txt
+and work/quality-v042-v061/CURRENT STATE.txt. VERSION MAP.txt marks delivered
+scopes. Earlier0.032-0.041 completion records are historical implementation
+receipts; DONE never meant the finished game met this quality bar.
+0.062 remains open until its actual quality evidence supports acceptance.
 
 DESIGN REFERENCE
 The owner's Starsector experience is the primary experiential benchmark.

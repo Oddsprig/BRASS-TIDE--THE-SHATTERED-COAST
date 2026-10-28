@@ -7,6 +7,8 @@ THIS VERSION
 - Connect selected regional goals to dated traffic, visited inventories, legal trade opportunities and real local business conditions.
 - Keep regional and home-business reviews free of payroll settlement; explicit actions refresh and revalidate current accounts.
 
+- Reserve first NPC crew provisions from existing operating capital; commercial food stays separate from working rations.
+
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
