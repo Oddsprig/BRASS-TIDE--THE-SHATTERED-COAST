@@ -1,0 +1,179 @@
+NEXT060 PREFLIGHT - CAPTAINS, CREWS AND FLEET ATTACHMENT
+28 October 2026 | B read-only audit; NO implementation/version advance
+
+PROVENANCE AND SCOPE
+Checkout: v059-choices-sol, B source 87835e7c92c20fca2f7ddfe49a3cb4ecf5a77bcf.
+Source inspected via git show/grep at Root 9986c2537eaa5c7d89a5ff88c24e23617fa87055;
+this does not include later R1 fuel/proof fixes or certify 059 acceptance.
+Read saved docs/roadmap/STARSECTOR QUALITY ROADMAP.txt, 0.060, plus actual
+maps/fleet-identity.txt and maps/workforce-training.txt and the sources below.
+060 proof: comparable boats with two paid officer/build choices behave
+differently; useful persistent vessel history; understandable training, wages,
+wounds/losses and attainable recovery. People remain numerical. Implement only
+AFTER 059 delivery, rebasing the future brief on that accepted predecessor.
+
+EXISTING API / SCHEMA (paths below are relative to game/scripts/)
+1. fleet_identity.gd:92 ensure(state), :129 ensure_boat(boat), :144 roles(),
+   :153 effective(boat, fitted_spec)->Dictionary, :302 hire_specialist(core,
+   uid, role)->Dictionary, :373 tick(core, days=1.0)->Array, :416
+   record_service(core, boat_uids:Array, result:String)->void.
+   state.specialists[] records id, boatUid, role, name, coins, arrears,
+   premiumPerDay, active, hiredDay, portId, discharged/lost. No separate player
+   captain/officer roster. Roles: pilot +25/day, gunner +50, chief_engineer
+   +100, surveyor +75, quartermaster +25 OVER the 100-coin sailor base.
+   A specialist adds ONE real sailor/berth, consumes harbor recruit/workforce
+   and specialist availability, and pays Economy.recruit_cost(port,1): a
+   1000..1200-coin advance into crewPurse. No free promotion of an existing hand.
+   Hiring needs qualified.sailor when a training book exists; gunner/mechanic
+   eligibility is consumed if present, otherwise it falls back to sailor.
+   Do not describe those professional courses as mandatory in the current UI.
+   Paid flags live in boat.specialistActive. Pilot: speed x1.03, turn x1.04;
+   gunner: fitted mount fireRate x1.06; engineer: repairFactor +0.25, pumps
+   x1.10; surveyor: surveyFactor +0.30; quartermaster: upkeepFactor 0.95
+   (rations, NOT a wage discount). effective() rebuilds a detached fitted spec.
+   tick floors days, settles premium arrears, and suspends benefits for unpaid
+   premium/base arrears. Campaign.apply_economy calls it once per paid day.
+2. fleet_support.gd:8 aboard(c,uid), :18 reconcile(c), :32 dismiss(c,id),
+   :65 premium(state,arrears=false). Discharge settles arrears, returns a real
+   person/qualification and savings ashore. Reconcile marks lost specialists
+   when no living berth remains and transfers their premium savings to their
+   home estate. It uses numerical survivors; there is no named wound simulation.
+3. crew_training.gd:20 quote(p,count,role="sailor"), :47 enroll(p,wallet,count,
+   role="sailor"), :79 cancel(p,wallet,id), :91 daily(p,days=1.0), :112 report(p).
+   p.training={schema:1,nextId,qualified:{sailor,gunner,mechanic,boarder},jobs:[]}.
+   Qualifications are subsets of existing people, NOT extra population or
+   per-boat XP. Courses take 4/6/8/6 days, reserve count+1 people including an
+   instructor, consume food/supplies, and escrow trainee/instructor wages.
+   Jobs retain id,role,count,days,progress,escrow,traineeTotal,instructorTotal,
+   traineePaid,instructorPaid,paused,payer,reservedWorkers. Cancellation returns
+   people and unspent escrow once; earned wages/materials remain spent.
+   training_ops.gd exposes enroll(c,count,role="sailor") / cancel(c,id).
+   quote/report call ensure and can normalize input: use detached review data.
+4. campaign.gd:989 recruit_crew(uid,count), :996 service_quote(boat,p),
+   :999 repair_boat(uid); harbor.gd delegates paid repair to EquipmentService.
+   Economy.daily_upkeep(state.fleet) computes living-crew base wages, including
+   stored boats; add FleetSupport.premium(state) separately. crewPurse/wageArrears and
+   specialists[].coins/arrears are distinct accounts. Morale is fleet-wide:
+   Campaign._apply_boat_morale (:492) rebuilds fitted+identity effects, then
+   scales speed/fireRate by clamp(morale/85,0.35,1). Damage._status_for_info
+   (:604) uses crew-wounded-shoreCrew for available hands and existing policies
+   balanced/bail/repair/fight. No general crew-skill/experience stat was found.
+5. Relevant031 gear is LIVE source, not the old prototype-brief status:
+   FleetWorkshop.preview(core,uid,loadout,request=null) / apply(core,uid,loadout,
+   expected_quote={},request=null), fleet_workshop.gd:307/310. loadout.weapons
+   is an Array; Refit.effective_spec(base,loadout) returns the spec directly.
+   Paid preview exposes beforeSpec/afterSpec, costs, labor, materials, reserve
+   and quoteId. EquipmentRecords.snapshot(boat) returns detached installed
+   records/factors; EquipmentCombat applies physical mount condition without
+   rewriting spec. Preserve actual item UID/location/HP/custody and 058 loose
+   locker weight. Existing workshop_builds048.examples(base) has three actual
+   iron_bastion fits: fast gun pressure, armored cannon anchor, torpedo striker.
+6. Relevant051 tactics: TacticalRuntime.defaults() (:58) returns doctrine
+   steady, role auto, group0, formation line, empty protectedAllyId/rally,
+   leash600, conditionalWithdrawal false, mounts{}. register(st,ship,mounts)
+   (:393) seeds defaults for a new battle ID; there is NO saved boat preference.
+   Battle._deploy (:220) creates transient player-N-type IDs; boat.uid stays
+   the campaign key. Battle.set_tactical_options(st,ids,options) (:352) queues
+   commands on worker mirrors; TacticalRuntime.set_options (:487) validates
+   doctrine cautious/steady/aggressive and role auto/skirmisher/striker/heavy/
+   screen/support. Physical mounts, ammo, damage and orders still constrain AI.
+   tactical_role_plans.gd reads options from view.options.byId; goals051 calls
+   Roles.decide; runtime :827 uses real doctrine HP/flood survival thresholds
+   0.60/0.30 cautious, 0.45/0.45 steady, 0.30/0.60 aggressive. Existing planner
+   test_screen_doctrine_and_memory_bounds tests risk choice, not live feel.
+   BattleDriver051._init copies initial options/groups/home/orderTimes into
+   detached authority; retire joins and restores original physical owners.
+   Seeding at initial registration needs no new driver/worker framework.
+7. Existing attachment: boat.service counters battles,wins,rescues,trades,
+   surveys; boat.serviceHistory holds <=12 {day,event,detail} entries. Service
+   intentionally adds NO stat/wage/price buff. IdentityUI.open(ui,uid) lists
+   conversions/staff and history, but not cumulative service or tactical fit.
+   Campaign.battle_settled (:1072) currently credits active_fleet(), which can
+   include traveling support/reserves and excludes sunk hulls. Outcomes contain
+   friendly boats afloat, not an itemized crew/loss report. Sunk boats leave
+   state.fleet. Salvage.record_battle (:307), _sanitize_wreck (:110) and
+   _publish_tow (:755) retain wreck.uid/name/source and physical gear but do not
+   copy service/history. EquipmentRecovery.retain copies gear metadata only.
+8. Recovery already exists: Campaign.rescue() (:1192) re-crews an owned hull
+   first or buys available harbor stock; actual treasury loan/debt funds hull,
+   people, repair/stores/rations and five wage-days. It refuses finite shortages.
+   Wreck tow remains damaged/uncrewed/empty, needs paid harbor repair and stores.
+   No new rescue subsidy, instant trained replacement or compulsory XP grind.
+   Existing UI routes: Interface.fleet_view (:621) -> IdentityUI.open;
+   Interface.open_port (:529 button) -> EconomicUI.open; TacticsUI.options
+   (:241) -> selected battle options. Identity/training screens currently sync
+   economy on entry; the modal X also syncs for these modal kinds.
+
+ESSENTIAL GAPS -> AT MOST THREE FUTURE SOL MAX FILE SCOPES
+All are proposals, not implemented APIs. Publish the shared data contract first;
+give three isolated source-only checkouts, named commits, no nested helpers.
+
+A. Paid staff/build identity that persists into actual autopilot.
+   Files: game/scripts/fleet_identity.gd, fleet_support.gd,
+   campaign_state_validation.gd, tactical_runtime.gd.
+   Reuse named paid pilot/gunner staff and current effects. Add only a bounded
+   optional boat command preference {doctrine,role}, default steady/auto; no
+   new officer class or crew-XP economy. Provide a detached selected-boat view
+   of real advance/premiums/active effects and publish its exact contract for C.
+   Validate the new save fields; initialize runtime options only when absent,
+   preserving later player orders and physical safety. Persist by boat.uid,
+   never transient battle id. Do not save targets/rallies/ammo holds from an old
+   arena. A professional's unpaid/lost status must remain truthful; choosing
+   doctrine must not grant wages, stats or working staff.
+
+B. Useful bounded history and an honest loss/recovery account.
+   Files: game/scripts/campaign.gd, battle.gd, salvage.gd.
+   Capture numerical starting crew/wounded only at encounter deployment; report
+   actual per-hull deltas after retirement. Credit deduplicated actual player
+   participants, including escaped/sunk hulls, rather than all active_fleet().
+   Keep generic/nonphysical callers compatible and convoy settlement one-shot.
+   Add meaningful result/crew-loss/repair-state detail to existing <=12 history
+   and cumulative service; preserve copies through existing wreck/tow metadata.
+   Link via wreck.uid/salvageWreckId/towedBoatUid without changing hull/part UIDs
+   or reinstating lost crew/officers. Include named losses and their earned
+   service in the existing after-action report/log. No new achievement/XP book,
+   recovery currency, permanent stat escalation or broad recovery rewrite.
+   Coordinate bounded service-field validation with A before implementation.
+
+C. Small selected-boat panel and focused proof fixture.
+   Files: game/scripts/identity_ui.gd, economic_ui.gd, interface.gd;
+   game/tests/test_fleet_attachment060.gd (one fixture in the existing harness).
+   Present named working staff, paid effect, saved intent and actual fitted role
+   together; link existing fitting/training/repair views. Show able/wounded/
+   required crew, morale effect, 100-base payroll PLUS premiums, each arrears
+   account, advance, local eligibility/course time and cancellation refund rule.
+   Show service totals and readable loss/recovery cost facts from B; do not
+   promise guaranteed solvency or invented officer courses. Review/decline/X
+   must not hire/train, advance time or implicitly publish economy changes;
+   join/revalidate only for explicit transactions. Reuse current constructors
+   and copied quote inputs, with no per-row world/nav or all-route queries.
+
+ONE FOCUSED PROOF / ACTUAL-VIEW PROPOSAL (ROOT ONLY, AFTER 059 DELIVERY)
+One synthetic career fixture: two comparable iron_bastion hulls use the existing
+paid gun/anchor examples, real hired pilot versus gunner, and saved contrasting
+role/doctrine choices. Save/restore, then run short matched seeded active fights
+through BattleDriver051. Observe actual movement/target/pass or survival intent
+and firing, not merely unequal specs/options. Include a controlled equal damaged
+hull condition to expose cautious versus aggressive recovery thresholds. Retire
+before checking original owners, crew/stores/equipment custody and money totals.
+Then exercise one unpaid-premium/recovery transition and one named loss/history
+roundtrip, retaining unchanged training/accounting evidence by source hashes.
+Capture normal-size exported selected-boat and after-action views from this same
+fixture: readable officer/build contrast, costs, casualties and preserved history.
+Active motion must be reviewed for tactical distinction; stills prove readability
+only. Root submits raw commands to Test Bridge, no nested lease, one bounded
+batch targeted <=100 seconds and strictly <120 including setup/import/start/
+cleanup; split before running if that cannot fit. Queue wait is separate.
+
+LIMITATIONS
+Read/diff reasoning only. No engine, parser/advisory, import/export, GPU, helpers,
+network, input/focus, Root edits, metadata/version changes, push or cleanup run.
+Existing test SOURCE inspected: test_fleet_identity, test_support_voyage,
+test_training_voyage, test_tactical_planner; none executed here. No new native
+fault, affordability result, actual tactical distinction or art/play acceptance
+is established. Generic crew XP and individual specialist wounds do not exist;
+060 can use funded qualifications/current professional skill and numerical
+wounds without inventing either framework. Further scope requires an explicit
+decision, not a quiet expansion. 059 R1 acceptance/delivery stays with Root;
+061 regional progression, broad coast art, strict051 targets/whole quality062
+remain separate and OPEN.
