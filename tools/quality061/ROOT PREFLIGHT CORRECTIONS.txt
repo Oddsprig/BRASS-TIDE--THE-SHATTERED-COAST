@@ -1,0 +1,30 @@
+061 FIRST NATIVE RESULTS / BOUNDED TEST-ONLY CORRECTIONS
+Root retains all failed receipts. Metadata was prepared ONCE; never reprepare.
+
+R1 unit87003c4e7a3642a188d11af88871f189/001:79checks/2failures,
+whole32.851s including setup/cleanup. All actual sold/donated/paid-shift purposes
+passed. Two old corridor assertions failed: no-nav plan expected an actual
+opposite endpoint despite existing safety policy holding for a real water quote;
+restart fixture copied owners but omitted any local threat actor, so no grant
+was justified and the hardcoded800treasury expectation was unfounded.
+Require route-quote hold without invented navigation. Restore the actual local
+hostile actor in the unit restart scenario BEFORE start, require original4200
+grant then unchanged owner/treasury/funding on withdraw/restart. No new nav world.
+
+R2 actual voyagead883c509d81459fb8ae1feda59ff999/001:82checks/1failure,
+internal12.817s, whole34.687s including setup/cleanup. Actual NPC patrol action
+fired6/39rounds, no sunk boats or deaths; hostile retreated. Watch magazines
+dropped3/0/12, actual ammo shortage recorded; paid service resumed by day2 with
+53/50/62rounds, patrolcoins38512->34729. Real pending-day pure opening/closing,
+paid business capital/payroll, coastal sale and physical return passed. Every
+coin172580000 and numericalpeople21570 conserved. Then a live player encounter
+at the origin interrupted the seven-day wait; no completed voyage claimed.
+Test now stays at the physically reached destination while the funded watch
+clears the route, then actually sails home after earning completion. It does
+not erase encounters, edit grace/hostiles/positions/stores/progress or change
+gameplay safety/AI. Future encounter failure records exact day/position/event.
+Initial native controlled staging remains declared. Any new outcome still needs
+native verification; no whole-game/progression/traffic-balance claim.
+
+Root owns these two test files after all helpers completed; no helper edits or
+tests compete. One two-file source advisory has no issues, NOT an engine pass.

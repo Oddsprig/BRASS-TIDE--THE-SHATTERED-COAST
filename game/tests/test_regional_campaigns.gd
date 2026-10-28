@@ -58,7 +58,8 @@ func funding_and_watch():
 	check(R.tick(s,0).is_empty(),"zero-time ticks do not advance")
 	check(R.tick(s).is_empty(),"hostile corridor cannot complete")
 	var op: Dictionary=s.regionalCampaigns.operations.corridor
-	check(RO.plan(s,patrol,"harbor").destination=="mill","existing patrol receives actual opposite endpoint order")
+	var unquoted: Dictionary=RO.plan(s,patrol,"harbor")
+	check(not unquoted.ready and unquoted.hold and unquoted.destination=="harbor" and "route" in str(unquoted.reason),"a unit without live navigation holds for a real route-and-return quote")
 	RO.arrival(s,patrol,s.ports[0]);RO.arrival(s,patrol,s.ports[0])
 	check(op.patrolVisits==0,"repeated readings at the start are not passages")
 	RO.arrival(s,patrol,s.ports[1]);RO.arrival(s,patrol,s.ports[1]);RO.arrival(s,patrol,s.ports[0])
@@ -91,9 +92,10 @@ func funding_and_watch():
 	check(R.start(distant,"corridor").funded==0,"government funding cannot be arranged remotely")
 	var restart: Dictionary=fresh()
 	restart.fleetOwners=[patrol.duplicate(true),raider.duplicate(true)]
+	restart.patrols=[{"id":"raider","x":20,"y":0,"active":true,"from":"reef","to":"harbor","progress":0.5}]
 	restart.fleetOwners[1].boats[0].fuel=8
 	Factions.adjust(restart,"compact",25,"unit fixture earned standing")
-	R.start(restart,"corridor")
+	check(R.start(restart,"corridor").funded==4200,"restart fixture's actual local hostile justifies the original grant")
 	var purse: int=restart.fleetOwners[0].coins
 	check(R.cancel(restart,"corridor").ok and R.start(restart,"corridor").ok,"Optional watch can be withdrawn and chosen again")
 	check(restart.fleetOwners[0].coins==purse and restart.ports[0].governmentPurse==800,"Withdrawal cannot farm or refund regional grants")

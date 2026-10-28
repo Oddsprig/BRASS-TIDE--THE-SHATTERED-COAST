@@ -95,7 +95,9 @@ func advance(seconds: float,join: bool=true,returning: bool=false) -> bool:
 	if returning:receipt.returnDistance=float(receipt.returnDistance)+distance
 	if join and c.pending_days>0:join_calendar();observe_recovery()
 	if c.events.any(func(event):return str(event.get("kind","")) in ["encounter","defeat"]):
-		receipt.status="BLOCKED_PLAYER_ENCOUNTER";check(false,"a live player encounter/defeat interrupts this proof; no completed voyage claim");return false
+		var interrupted: Array=c.events.filter(func(event):return str(event.get("kind","")) in ["encounter","defeat"])
+		receipt.interruption={"day":float(c.state.day),"position":c.state.position.duplicate(),"events":interrupted.duplicate(true)}
+		receipt.status="BLOCKED_PLAYER_ENCOUNTER";check(false,"a live player encounter/defeat interrupts this proof; no completed voyage claim: "+JSON.stringify(receipt.interruption));return false
 	return true
 
 func sail(destination: String,returning: bool=false) -> bool:
@@ -302,8 +304,10 @@ func paid_voyage() -> void:
 	check(before_quote.seen and after_quote.seen and int(after_quote.stocks.timber)==int(before_quote.stocks.timber)+1,"real revisited stock quote records the actual delivered lot")
 	receipt.destination={"before":before_quote,"after":after_quote,"grossSale":gross,"view":selected_evidence()}
 	check(not receipt.destination.view.opportunity.is_empty(),"selected UI exposes an existing legal sponsor trade estimate from actual visited quotes")
-	if not sail(ORIGIN,true):return
-	phase("actual loaded coastal sale and physical return")
+	# Remain at the reached destination while the real watch clears the route;
+	# an early return met a live hostile near home before the watch completed.
+	# No encounter is suppressed and no actor/store/progress is edited here.
+	phase("actual loaded coastal sale; destination wait under the paid watch")
 	for index in range(100):
 		op=Ops.selected_status(c)
 		if op.get("completed",false) and not receipt.resumed.is_empty():break
@@ -316,6 +320,8 @@ func paid_voyage() -> void:
 	harbor=Rules.harbor_view(c.state,c.state.regionalCampaigns.operations.harbor)
 	check(harbor.ready and int(harbor.staffDays)>=3 and c.state.regionalCampaigns.operations.harbor.status=="complete","actual fully paid staffed working days complete the twelve-lot harbor goal")
 	if not op.get("completed",false):receipt.status="BLOCKED_SUSTAINED_WATCH";return
+	if not sail(ORIGIN,true):return
+	phase("physical return after the earned clear watch")
 	if not watch_choices():return
 	if not within_budget():return
 	var facts: String=JSON.stringify(c.state.regionalFacts)
