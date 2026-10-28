@@ -1343,11 +1343,11 @@ func capture_after_start():
 				watch061.ownerId = "patrol-2"
 				ui.RegionalUI.open(ui, "corridor")
 				await get_tree().process_frame
-				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 100000
+				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 0
 			elif name == "homebook061051":
 				ui.HomeUI.open(ui)
 				await get_tree().process_frame
-				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 100000
+				for scroll061 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll061.scroll_vertical = 0
 			elif name == "harbor061051":
 				var harbor061: Dictionary = core.RegionalOps.start(core, "harbor")
 				if not harbor061.ok or not core.trade(str(core.current_port().id), "timber", 6, "buy").ok or not core.RegionalOps.contribute(core, "harbor", "timber", 6).ok:

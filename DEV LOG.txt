@@ -1,3 +1,7 @@
+28OCT2026 - v0.062 COASTAL DETAIL AND CLEARER DECISIONS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.061 VERIFIED AND PACKAGED: 276/0 focused checks, selected batch 92.860s, TestBridge 4a39e0979dfd4c0496699fb6f4f7bf29. Source 53e4c85917c399ad623d3b09591306d979aa843b.
 
 28OCT2026 - v0.061 A REGION THAT CHANGES AND A REASON TO STAY

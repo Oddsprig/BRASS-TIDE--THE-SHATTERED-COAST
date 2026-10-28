@@ -1,9 +1,8 @@
-# Current step: v0.061 - A region that changes and a reason to stay
+# Current step: v0.062 - Coastal detail and clearer decisions
 
-- Continue or withdraw an earned corridor watch using the same paid patrol, funding identity and actual operating reserves.
-- Add distinct sold and donated harbor deliveries once, and count actual fully paid working days rather than wage totals.
-- Connect selected regional goals to dated traffic, visited inventories, legal trade opportunities and real local business conditions.
-- Keep regional and home-business reviews free of payroll settlement; explicit actions refresh and revalidate current accounts.
+- Bring shaded coast, trees, buildings and harbor work sites into normal campaign zoom using existing bounded prepared geometry.
+- Put regional watch status, shortages and actions ahead of detailed market reports; put owned business books and controls ahead of optional charters.
+- Reuse the already-validated post-step damage phase during worker tactical display construction, preserving fresh status and complete detached snapshots.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

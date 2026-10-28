@@ -1,4 +1,4 @@
-BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.061)
+BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.062)
 
 Existing corridor fleets and paid supplies -> shared convoy/intercept/patrol plans, route-and-return readiness, observed stalls/resume and physical progress; other regional goals retained.
 
@@ -54,15 +54,17 @@ game/scripts/regional_ops.gd: 7635 bytes; extends RefCounted
   game/scripts/regional_ops.gd:118 battle()
   game/scripts/regional_ops.gd:127 begin_day()
   game/scripts/regional_ops.gd:132 daily()
-game/scripts/regional_ui.gd: 21606 bytes; extends RefCounted
+game/scripts/regional_ui.gd: 24001 bytes; extends RefCounted
   game/scripts/regional_ui.gd:19 review()
   game/scripts/regional_ui.gd:82 consequences()
-  game/scripts/regional_ui.gd:122 port_picker()
-  game/scripts/regional_ui.gd:131 faction_picker()
-  game/scripts/regional_ui.gd:139 open()
-  game/scripts/regional_ui.gd:208 corridor_status()
-  game/scripts/regional_ui.gd:229 event_text()
-  game/scripts/regional_ui.gd:243 act()
+  game/scripts/regional_ui.gd:130 focus_controls()
+  game/scripts/regional_ui.gd:139 port_picker()
+  game/scripts/regional_ui.gd:148 faction_picker()
+  game/scripts/regional_ui.gd:156 open()
+  game/scripts/regional_ui.gd:249 corridor_status()
+  game/scripts/regional_ui.gd:270 event_text()
+  game/scripts/regional_ui.gd:284 act()
+  game/scripts/regional_ui.gd:121 _details()
 
 TESTS (game/tests/*.gd)
 test_supplied_operations037, test_operation_flow037; earlier test_regional_campaigns, test_regional_voyage

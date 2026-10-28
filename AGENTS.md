@@ -1,14 +1,17 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.061 VERIFIED; packaging/install follows checkpoint.
-Controlled initial locality then actual paid regional voyage/real trade/clear
-days/resupply/return, business working days and pure panels accepted within scope.
-Fresh unit and paid voyage checks passed in the same final batch. Six views reviewed;
-completed-watch layout alone explicitly staged. No natural traffic-balance,
-complete progression, listening or full-game parity acceptance. Whole quality,
-coast art and strict051 targets stay OPEN062; assess before calling it complete.
-Preserve2voyages/18MP3s+notes/olderbuilds/oneplainlauncher; no autolaunch or push.
-Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
+Installed build: v0.061 DELIVERED, localtagda960d5,276/0+Windows92.860s.
+Active0.062 bounded quality corrections; metadata prepared ONCE. Whole quality
+milestone OPEN. A20307d99->5513dbf coast, Bd7e1bb25->6171d80 readability,
+C2320371b->66eaee9 phase-aware snapshot status all Root source-reviewed and
+integrated. All3BridgeSolMAX idle. One combined6filepreloadadvisory issuesempty;
+native/export/actual newviews/perf pending, no062tag/package/install yet.
+Root privateMaincapture resetswatch/homebook scroll0 forprimarytoplayout.
+Currentstate/scope work/quality-v062. Earlier061receipts remain in
+work/quality-v042-v061. Current061baseline918eabe00/00158.942s rawqualityFALSE:
+lightworker37.703ms/167.071mslag, mixed19.230ms/50lag; strict59.997FPS<60.
+ActualcountersONdespiteplanoffdisclosed, no hidden threshold/cadence/DP change.
+Do notrepeat051tuningmarathon. Preserve2voyages/18MP3+2notes/oldbuilds/plainicon.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
