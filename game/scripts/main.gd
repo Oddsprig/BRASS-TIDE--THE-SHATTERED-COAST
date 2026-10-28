@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "voyage051", "harbor051", "preparation051"]
+		screenshots_requested = ["title051", "home051", "voyage051", "harbor051", "preparation051", "market051", "trade051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1250,6 +1250,15 @@ func capture_after_start():
 						selected_port=str(destination052.id)
 						break
 				Interface.CampaignUI.expedition(ui)
+			elif name == "market051":ui.open_port("Market")
+			elif name == "trade051":
+				# Isolated capture profile: record one real destination's visit quote.
+				# Restore the paused captain before opening the normal trade screen.
+				var origin053: Dictionary = core.state.position.duplicate(true)
+				core.state.position = core.port_position(selected_port)
+				core.TradeFlow.observe(core)
+				core.state.position = origin053
+				Interface.TradeUI.open(ui)
 			await get_tree().process_frame
 			name = "opening051-" + name.trim_suffix("051")
 		elif not screenshots_requested.is_empty():

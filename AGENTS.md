@@ -1,5 +1,5 @@
-CURRENT052 SCOPE - VERIFIED SCOPED BUILD
-052fleet preparation passed403/0 focused checks and export/startups; five actual1280x800 screens reviewed. No new performance or whole-game acceptance claim. Continue053 meaningful LTV trade only after052 packaging/desktop verification.051 strict performance targets remain open061. Root owns muted background shared-lane tests below120s. Read task/CURRENT STATE.txt for current provenance.
+CURRENT053 SCOPE - MEANINGFUL LTV TRADE
+Predecessor052 installed/verified403checks and five actuallayout views.053 metadata NOT prepared. ThreeBridgeSol6.1MAX source helpers own trade math/UI/proof; Root owns all background FIFO checks below120s and delivery. Read work/quality-v042-v061/SCOPE 053 MEANINGFUL TRADE.txt for exact current scope and task/CURRENT STATE.txt for state. No054breadth/051tuning.
 
 # Brass Tide - current working instructions
 
