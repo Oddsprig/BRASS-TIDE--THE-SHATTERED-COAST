@@ -1,0 +1,153 @@
+BRASS TIDE061 / C - UI AND ONE PAID VOYAGE SOURCE CONTRACT
+28 October 2026. Isolated SOURCE ONLY on frozen060 game/source
+f760a933ce51fa8ce16687b4faa03766a62417c5. No integration/metadata/release.
+Root subsequently reports060 delivered705a444, game tree73e78 equals this
+frozen base. C remains isolated; Root alone integrates and runs the combined gate.
+
+OWNED FILES ONLY
+game/scripts/regional_ui.gd, game/scripts/home_ui.gd,
+game/tests/test_regional_voyage.gd, this note.
+No engine/import/export/parser/advisory/tests or nested helpers in this lane.
+Manual source/rg/diff review only; eventual native evidence belongs to Root.
+
+EARLY UI CONTRACT (published before implementation; confirmed APIs below)
+RegionalUI.review(c,selected_goal="corridor") -> detached Dictionary account.
+One existing CareerCosts.QuoteView per panel open; shared immutable data/nav,
+copied campaign state. NO Campaign/world/nav constructor. Existing normalizing
+R/Trade/Factions/Home reads operate on that detached facade only. A narrower
+extension may supply domain read methods/constants, never transaction methods.
+Account includes dated operation/available-goal/history, bounded local sightings,
+visited endpoint stock/needs, sponsor legal access, one existing legal observed
+trade estimate, and B's exact selected local business/progress view when supplied.
+Remote stock stays unseen/stale; no live remote safety assertion without local
+evidence. Current operational plan/readiness is labelled as an assigned plan,
+distinct from observed traffic and realized delivery/payroll receipts.
+HomeUI shares the same detached review convention; show B's labor/material/
+arrears/stall view and existing separate purse, paid wages, material basis and
+working capital. Capital/deposits are not revenue or profit.
+open/review/reopen/decline/header-X do not sync economy, ensure live state,
+refresh orders, save, advance time, settle wages or move goods. Explicit focus,
+start/contribute/continue/withdraw/business/finance/storage actions must call
+host.sync_economy first, then revalidate IDs/legal access/amounts against current
+core before mutation. Do not evaluate a mutation before entering that action.
+No A/B API guessed: wait for Root relay. Continue/withdraw use A's exact adapter;
+selected books/progress use B's exact pure contract.
+
+PROPOSED PROOF (single Main/world/nav; target35-40s, Root nativecap45)
+Reuse test_civilian_careers059.gd advance/sail/join_calendar patterns, not old
+test_civilian_voyage. One seeded Campaign on Main's existing data/nav; initial
+capital, finite stock and legal standing explicitly declared BEFORE paid work.
+Select a short actual water corridor using a canonical loaded trader, existing
+paid patrol and live hostile. Do not replace actor/hull/item identities. Baseline
+forks, if necessary for refusal purposes, only after workers have joined.
+Pay actual cargo/business/setup/crew/stores; start through RegionalOps.start.
+Actual Campaign.chart_course/step earns travel, delivery/passage and calendar
+payroll; Main.sync_economy publishes/joins at normal day boundaries. Record real
+NPC encounter crewLostA/B descriptively, never infer/edit death or force threat
+clearance. Continue/withdraw/paid recovery use actual lifecycle and reserves.
+Earn seven clear economic days plus a real passage. Record observed local
+traffic/safety, visited stock/quotes, legal existing trade opportunity, own local
+business wages/materials and actual purse/stock changes. Completion never writes
+these consequences. Exercise one genuine shortage and paid resume without another
+grant/owner/settlement, plus actual return and costs; no positive-profit promise.
+Retain meaningful parsed-save, invalid progress/port no-mutation, no duplicate
+funding/settlement and no false-sale/own-fuel purposes from the old test. Replace
+synthetic position/progress/dead threat/clearDays edits rather than add a matrix.
+Actual pending day must survive both panel review/reopen/decline/header-X unchanged;
+one explicit action must join it and revalidate before paying/moving anything.
+Guard whole fixture wall time with cleanup reserve; unfinished branches fail or
+report a concrete blocker, never count queued/unexecuted source as a pass.
+
+CONFIRMED CONTRACTS / SOURCE IMPLEMENTATION
+A exact note read at sibling v061-regional-sol/tools/quality061/REGIONAL SOURCE.txt:
+Ops.selected_status(c,id), continue_watch(c), withdraw_watch(c). Selected copied
+op supplies completed/watchState/watchAssigned/ownerPresent/canContinue/
+canWithdraw/watchReason; plan/readiness remain LAST PUBLISHED snapshots.
+B exact note and named source22016f0dd58eac043a53ccd13b39964973f650ae read:
+Home.business_view(state,id), Rules.harbor_view(state,op), paired actual business
+paidWorkDays/lastPaidWorkDay and op.businessDays baseline. No wage-based history.
+Both panels now use one existing QuoteView extension; HomeUI.book renders B's
+pure account and is reused by the selected RegionalUI consequence. Quotes are
+limited to selected visited endpoints and the sponsor faction's legal business;
+unobserved fleets cannot supply a claimed remote blockade fact in that estimate.
+Actions dispatch by intent string after joining; no mutation is evaluated as an
+argument before entering the action. Focus changes are explicit saved actions.
+
+ROOT-OWNED HEADER DEPENDENCY ACCEPTED
+interface.gd modal header button defaults sync=true for unknown modal kinds.
+Root accepted adding ONLY "regional" and "home_harbor" to the existing pure-close
+list AFTER060 delivery. C does not edit interface.gd or alias/disconnect callbacks.
+The actual pending-day header-X proof must fail if that Root integration is absent.
+
+ACCEPTED INITIAL-STAGING CONTRACT / ONE PAID PROOF
+Frozen creation assigns patrol homes Sawtooth/Naphtha, while loaded trader routes
+are Kelp-Silt / Anvil-Rust / Kelp-Cinder; no short legal shared endpoint corridor.
+Root accepted before-transactions scene declaration e9f33410/098ad60e. It reuses
+canonical patrol-2, trader-1 and raider-0 on Brass-Kelp, no invented hulls/parts/people.
+working-ammo redistribution leaves exactly18 rounds per patrol hull; surplus
+returns to source harbor at50 rounds/case. Later real combat expenditure must
+cause a genuine readiness stall; real paid service must resume it. No counters,
+position, threat death or arrival edits occur after the paid flow begins.
+The INITIAL fixture changes patrol-2/trader-1 home to Brass and route to Kelp;
+raider-0 retains its actual home. All three zero-progress courses use actual
+water approaches, with declared initial positions0/450/140units along that path.
+Merchant keeps its original faction, cargo, purchased-load quantity, purses,
+boat/crew/stores and item identities; receipt retains original Kelp provenance.
+50,000 opening coins move from Shatter's counted government purse to captain.
+Patrol crew savings are allocated from its existing coins at the actual price
+of three food-days plus1,000, then actual food purchases debit those savings and
+Brass stock in paid_voyage. Friendly Compact+25 is declared, never called earned.
+The ammo surplus goes to the patrol's actual prior Sawtooth market; no snapping
+or rounding. Whole starting ammunition-units census checks stock/cargo/working
+rounds before/after redistribution. No actor/store/progress edits after baseline.
+
+One Main and c.new_game(61061) on its existing nav. Ordinary Ops.start funds the
+live local watch once; plan must reference the same loaded merchant and threat.
+Home.establish pays actual construction/materials/staff/float; Ops.start harbor
+snapshots its business before work. Twelve timber bought; six sold to real buyer,
+six separately donated without payment or sold facts; one additional paid lot
+sails physically to Kelp, sells, and the player returns by ordinary chart/step.
+The NPC combat scanner must resolve the actual patrol/threat pair and expend
+ammo below18; copied readiness records that real shortage, then ordinary paid
+daily dock/service must restore readiness. No forced result/death/store refill.
+Pending-day reviews exercise actual shared header X and explicit decline on BOTH
+panels; actual Add1,000 action must first join one payroll, then revalidate/pay.
+The normal calendar earns three working days and seven clear days plus passage;
+loaded trader must make its actual paid destination sale. Completed-watch buttons
+continue/withdraw the same completion/owner/funding and preserve hull/part IDs;
+withdrawn original patrol must physically return through ordinary recovery.
+Actual working-tank return purchase must debit stock/coins and publish NO sale
+or passage credit. Parsed save preserves owner purses/cargo/identities, work days,
+funding/watch choice and encounter losses; bad progress/port still refuse first.
+All physical equipment comparisons use sorted itemUid VALUES from canonical
+items records (same gear_uids pattern as060), never socket/slot dictionary keys.
+Owner boat UIDs remain separate. No equipment-custody framework was added.
+Receipt separates declared capital/construction/deposits from gross sales,
+actual operating cash,100-coin sailor payroll, actual return stores and consumed
+opening rations. Net may be negative; no complete progression/profit claim.
+Guard stops further work at38s; whole internal40s includes Main setup/joins/free;
+Root45s native cap is UNMEASURED. Incomplete/budget/encounter paths cannot pass.
+This controlled starting locality proves composition only, not naturally seeded
+traffic balance/progression. No UI screenshot, play, economy balance or runtime
+performance acceptance is claimed from this source lane.
+
+DEPENDENCIES / CURRENT LIMITATIONS
+No parser/advisory/native execution in this isolated lane. Root already integrated
+the exact regional/home_harbor pure-header list after060 delivery; it is deliberately
+absent from C's four-file commit. B owns the separately bounded wage-only old unit
+fixture correction; it is outside C's allowlist and outside this voyage proof.
+If frozen source cannot earn this bounded voyage using existing systems, report
+the demonstrated dependency to Root rather than add an economy/combat framework.
+
+MANUAL REVIEW / HANDOFF
+Read complete inherited QuoteView constructor: copies state, shares immutable
+data/nav, calls current speed only. No Campaign/world/nav constructor in either
+panel. Checked interface.button default sync and modal header cause; read actual
+Main.sync_economy -> apply_economy -> HomeOps/WorkerOps -> RegionalOps order.
+Reviewed A/B exact notes and touched API implementations read-only. Reviewed diff
+and rg call sites: no external calls rely on the old eager-result act signatures.
+Reviewed all mutation callbacks: explicit action joins before API evaluation;
+review/tabs/home-book review/decline are false-sync buttons. Header callback stays
+the real shared one. Source-only review is NOT a parse/test or acceptance receipt.
+Named source commit is reported externally after this note is committed; then C
+idles. No metadata/maps/version/tag/package/install/remote push, Root or peer edit.
