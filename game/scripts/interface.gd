@@ -388,8 +388,16 @@ func open_campaign_tools():
 	button(body,"Regional goals                    L",func():RegionalUI.open(self))
 	button(body,"Close",close_modal,false,false)
 
-func open_ocean064(region_id: String=""):
-	open_voyage_preparation065(region_id)
+func open_ocean064(region_id: String="",approach_id: String=""):
+	if host.mode!="campaign":return
+	var view064: Dictionary=host.core.world_view064()
+	if str(view064.get("layer","")) in ["home","local"] and region_id==str(view064.get("regionId","")) and approach_id in ["north","south"]:
+		# A local gate selects departure; C's region argument selects the target.
+		voyage_intent065["outExit"]=approach_id
+		voyage_intent065["targetRegionId"]="glasswind_keys" if region_id=="shatter_coast" else "shatter_coast"
+		open_voyage_preparation065()
+		return
+	open_voyage_preparation065(region_id,approach_id)
 
 func open_voyage_preparation065(region_id: String="",approach_id: String="") -> void:
 	if host.mode!="campaign":return

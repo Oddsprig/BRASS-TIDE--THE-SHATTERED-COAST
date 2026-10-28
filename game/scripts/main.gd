@@ -479,12 +479,18 @@ func click_chart(position: Vector2):
 	if not core.home_local064():
 		var pick064: Dictionary=chart.pick_ocean064(position)
 		if not pick064.is_empty():
-			ui.open_ocean064(str(pick064.get("regionId","")));return
+			var region064: String=str(pick064.get("regionId",""))
+			var approach064: String=str(pick064.get("approachId",""))
+			if str(view064.get("layer",""))=="ocean":
+				ui.open_voyage_preparation065(region064,approach064)
+			else:
+				ui.open_ocean064(region064,approach064)
+			return
 		var point064: Vector2=chart.world_at(position)
 		respond(core.chart_course({"x":point064.x,"y":point064.y}));return
 	for gate064 in view064.get("approaches",[]):
 		if chart.project(Vector2(gate064.position.x,gate064.position.y)).distance_to(position)<18:
-			ui.open_ocean064(str(gate064.regionId));return
+			ui.open_ocean064(str(gate064.regionId),str(gate064.id));return
 	var nearest: Dictionary = {}
 	var nearest_distance: float=INF
 	for p in core.state.ports:
