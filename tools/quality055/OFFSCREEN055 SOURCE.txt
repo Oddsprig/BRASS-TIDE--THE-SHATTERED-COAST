@@ -1,0 +1,99 @@
+055 OFFSCREEN COMBAT / ECONOMY - SOURCE HANDOFF (PREPARED, NOT RUN)
+Base: ed51ad4f1b22cd5c6133b68537fa2c9e9dd047aa
+Scope: naval_combat.gd, naval_replacements.gd, fleet_economy.gd NPC dock/repair/replacement only.
+Source-only helper. No engine, tests, advisories, imports/exports or GPU work run here.
+
+EARLY EVENT CONTRACT FOR UI / PROOF
+resolve_encounter(state, owner_a, owner_b, patrol_a={}, patrol_b={}, seed_val=1)
+retains its public signature and {ok,event,summary} success result.
+Existing event fields stay: day,kind,a,b,salvos,shotsA/B,hitsA/B,damageToA/B,
+sunkA/B,retreated,winner,lootCoins,capturedGood,capturedQty,summary.
+Additive event fields: survivorsA, survivorsB (living hull counts after
+damage control); ammoUsedA, ammoUsedB (actual per-mount ammo units expended,
+including ammoCost, not a synthetic reward or difference in surviving stores).
+_fire_salvo_side keeps shots/hits/damage and adds ammoUsed for that accounting.
+These are internal event facts: UI must use the existing local witnessing/
+dated intelligence filter, not expose distant unobserved events or purses.
+The local deterministic RNG, five-salvo bound, scanner daily caps, actual art
+and 051 combat worker remain unchanged. Final findings and checks follow below.
+
+DEMONSTRATED GAPS / PEER COORDINATION
+1. Loot only reads loser.tradeGood/tradeCargo. A raider receives actual captured
+   timber but no trader manifest; a later patrol cannot recover those held lots.
+   Fix: one deterministic eligible non-operating good from a non-trader's actual
+   hold can be seized, still bounded by the winner's surviving capacity. Existing
+   food/fuel/ammo/supplies protection at raider/patrol docks stays intact.
+2. Salvos debit and report all planned shots before discovering the last target
+   sank. Move debit/count into the actual shot loop; ammoUsed includes ammoCost.
+3. Replacement audit for lifecycle peer: attach_new_boat currently removes the
+   first sunk hull even when wreckRecorded is false; AI.tick collects/purchases
+   replacements before NavalLifecycle.daily records losses. A wiped company
+   can thus lose the original wreck/equipment custody and carry its old hold
+   to a new home launch. Lifecycle owner should reconcile pending wrecks/cargo
+   at the actual loss coordinate BEFORE AI.tick/ready collection and before a
+   zero-survivor patrol is relaunched; do not copy this code into a new backend.
+   Attachment remains unchanged here: retaining dead hulls in the active roster
+   would distort its existing fuel divisor/roster bookkeeping and would still
+   place a late wreck at the relaunched patrol's home. This is a lifecycle-order
+   dependency, not a complete fix inside replacement attachment. Root must have
+   the lifecycle peer settle losses before replacement, and prove item e below,
+   before accepting the integrated scope. No duplication of that backend here.
+4. Ready purchase/collection chose optimal crew from recruits/workforce but
+   ignored training. Economy.recruit then correctly refused if only minimum
+   qualified sailors existed. available_recruits(port)->int now caps the existing
+   pool by trained sailors, so both paths choose the legal paid minimum. The
+   actual Economy.recruit checks, advance and finite workforce debit remain.
+5. NPC merchant docking tried the entire manifest even when the market could
+   afford only part. Economy.transact refused it all. Cap only NPC sale quantity
+   by actual cash/sell price, leaving the remainder aboard; company rules stay.
+
+SOURCE AUDIT / PRESERVED PATHS
+- NavalAI.resolve_encounter remains the public shared-ledger gate: actual
+  hostility, four daily disjoint successes, refusals spend no allowance, save/
+  owner-cache restoration and local witnessing. No bypass is added here.
+- The five 5.5s salvos and 8s aftermath still use actual Damage status/hits/ticks,
+  local pair/day-seeded RNG and installed canonical weapon availability. No new
+  RNG draws, hit chance, damage formula, distant physics or worker changes.
+- Ammo is charged per actual shot with each installed mount's ammoCost;
+  survivorsA/B are counted after damage control, not predicted from firepower.
+- Prize coins still use Money.move between finite owner purses. Merchant goods
+  remain manifest-limited; non-trader prizes use the first positive eligible
+  good in existing Goods order, one type per encounter. Quantity is bounded by
+  actual loser lots and surviving winner hold, with equal debit/credit. Unseized
+  goods remain until existing sink/wreck settlement. Operating goods remain
+  aboard non-traders under the established rule; this is not universal salvage.
+- Fleet docks retain actual stock purchase, fuel/supply transfer and ammo cases
+  at 50 rounds/case. Cargo delivery still uses Economy.transact and trade law.
+  NPC food/wages/fuel daily accounting, crews, hull UIDs and purses are unchanged.
+- Canonical repairs remain EquipmentOwnerService.repair_owner_boat: registered
+  dock/hull, hostility/embargo, kits/materials, finite worker/specialist reservation,
+  real cash/household/expert transfers and original part UIDs. No free healing.
+- Replacements retain actual ready stock debit or Construction materials plus
+  ordinary/expert wage escrow, two slips, one pending owner order, zero initial
+  fuel/ammo/supplies and Lifecycle.stage_birth unique gear before payment. Live
+  survivors still must reach their actual home yard; only wiped fleets relaunch.
+
+MANUAL REVIEW / ROOT CHECKS PREPARED, NOT RUN
+Read/diffed the exact allowed source and constructor/service/loot paths, existing
+033 fleet/lifecycle and naval recovery proofs, 031 equipment owner-service and
+birth/lifecycle proofs, and both peers' published source notes. No parser,
+advisory, engine/test, import/export, profiler or GPU job has run in this checkout.
+No pass, scope acceptance, packaging or whole-game/performance claim is made.
+
+Root: integrate the named commit on the accepted 054 base alongside peer commits;
+first inspect the peer lifecycle ordering described in item 3. Then choose native
+checks via Test Bridge/shared FIFO in bounded batches below120s. Relevant existing
+checks: test_campaign_lifecycle033, updated test_campaign_fleets033, test_naval_ai,
+test_naval_recovery, test_equipment_owner_service and test_equipment_lifecycle.
+The 055 proof owner owns the new fixture; useful narrow additions to that proof:
+  a. Paid timber -> raider -> patrol next day: bounded salvos, real hold transfers,
+     survivorsA/B, actual ammoUsedA/B, global Money.total and part identities.
+  b. Multiple-round mount and a target sinking mid-salvo: no shots/ammo debit
+     after the final target dies; ammoUsed equals the boat's actual round delta.
+  c. Minimum trained crew but insufficient optimal crew, both stock and ready
+     collection; no qualified minimum or money means no birth/people/stock debit.
+  d. Partial affordable merchant delivery debits exact manifest/market cash only.
+  e. A combat loss immediately preceding paid replacement: wreck remains at the
+     actual sea loss, gear has one custodian, lost hold cannot arrive on new hull.
+Engine import/export, actual changed-UI review and any additional gameplay remain
+Root work. Installed054, assets, saves, metadata/maps and launcher stay untouched.

@@ -206,6 +206,9 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 		var good: String=owner.tradeGood
 		if port.id!=owner.homePort or (owner.get("playerCompany",false) and core.CompanyOps.book(core,owner.id).recall):
 			var sale: int=mini(_integer(owner.cargo.get(good,0)),_integer(owner.tradeCargo))
+			if not owner.get("playerCompany",false):
+				# Deliver the affordable part rather than refusing the entire load.
+				sale=mini(sale,_integer(port.get("cash",0))/maxi(1,Economy.price(port,good,"sell")))
 			if owner.get("playerCompany",false):
 				sale=mini(sale,mini(core.CompanyOps.market_limit(core,owner,port,false,good,Economy.price(port,good,"sell")),int(port.cash)/maxi(1,Economy.price(port,good,"sell"))))
 			if not allowed_trade(owner,port,good,core):sale=0

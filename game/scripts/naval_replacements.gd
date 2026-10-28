@@ -56,6 +56,13 @@ static func owner_has_queued_replacement(state: Dictionary, owner_id: String) ->
 	return false
 
 
+static func available_recruits(port: Dictionary) -> int:
+	var available: int = mini(maxi(0, int(port.get("recruits", 0))), maxi(0, int(port.get("workforce", 0))))
+	if port.get("training") is Dictionary:
+		available = mini(available, maxi(0, int(port.training.get("qualified", {}).get("sailor", 0))))
+	return available
+
+
 static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int, staged: Dictionary = {}, core = null) -> Dictionary:
 	if staged.is_empty() or not bool(staged.get("ok", false)):
 		return {}
@@ -157,7 +164,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 			var min_crew: int = maxi(1, int(h.get("crewMin", 2)))
 			var opt_crew: int = maxi(min_crew, int(h.get("crewOptimal", min_crew)))
 			var max_crew: int = maxi(opt_crew, int(h.get("crewMax", opt_crew + 2)))
-			var avail_pool: int = mini(maxi(0, int(p.get("recruits", 0))), maxi(0, int(p.get("workforce", 0))))
+			var avail_pool: int = available_recruits(p)
 			var owner_coins: int = int(owner.get("coins", 0))
 			var opt_cost: int = int(Economy.recruit_cost(p, opt_crew))
 			var min_cost: int = int(Economy.recruit_cost(p, min_crew))
@@ -266,7 +273,7 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 		var min_crew: int = maxi(1, int(h.get("crewMin", 2)))
 		var opt_crew: int = maxi(min_crew, int(h.get("crewOptimal", min_crew)))
 		var max_crew: int = maxi(opt_crew, int(h.get("crewMax", opt_crew + 2)))
-		var avail_pool: int = mini(maxi(0, int(p.get("recruits", 0))), maxi(0, int(p.get("workforce", 0))))
+		var avail_pool: int = available_recruits(p)
 		if avail_pool < min_crew:
 			last_reason = "insufficient_recruits"
 			continue

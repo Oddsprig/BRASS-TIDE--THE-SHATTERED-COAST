@@ -178,11 +178,12 @@ static func fleet_firepower(owner: Dictionary) -> float:
 
 static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defenders: Array, perf_factor: float, dt: float) -> Dictionary:
 	var shots_fired: int = 0
+	var ammo_used: int = 0
 	var hits_landed: int = 0
 	var hp_damage: float = 0.0
 	var active_defs: Array = _alive_defenders(defenders)
 	if active_defs.is_empty():
-		return {"shots": 0, "hits": 0, "damage": 0.0}
+		return {"shots": 0, "ammoUsed": 0, "hits": 0, "damage": 0.0}
 
 	for s_var in attackers:
 		if not (s_var is Dictionary):
@@ -226,9 +227,6 @@ static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defen
 				continue
 			var fr: float = clampf(float(m.get("fireRate", 1.0)), 0.1, 12.0)
 			var salvo_shots: int = mini(avail_shots, maxi(1, int(round(fr * mount_wf * dt * 0.42))))
-			s["ammo"] = maxf(0.0, float(s.get("ammo", 0.0)) - float(salvo_shots * ammo_cost))
-			shots_fired += salvo_shots
-
 			var kind_raw: String = str(m.get("kind", "gun"))
 			var hit_kind: String = "bullet" if kind_raw == "gun" else ("shell" if kind_raw == "cannon" else kind_raw)
 			var dmg_mult: float = 1.8 if hit_kind == "torpedo" else 1.0
@@ -239,6 +237,10 @@ static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defen
 				active_defs = _alive_defenders(active_defs)
 				if active_defs.is_empty():
 					break
+				# Spend a mount's real rounds only when a living target remains.
+				s["ammo"] = maxf(0.0, float(s.get("ammo", 0.0)) - float(ammo_cost))
+				shots_fired += 1
+				ammo_used += ammo_cost
 				var target_idx: int = rng.randi_range(0, active_defs.size() - 1)
 				var target: Dictionary = active_defs[target_idx]
 				var t_spec: Dictionary = target.get("spec", {}) if target.get("spec") is Dictionary else {}
@@ -258,7 +260,7 @@ static func _fire_salvo_side(rng: RandomNumberGenerator, attackers: Array, defen
 						"section": sec
 					}, rng)
 					hp_damage += maxf(0.0, before_hp - float(target.get("hp", 0.0)))
-	return {"shots": shots_fired, "hits": hits_landed, "damage": snappedf(hp_damage, 0.1)}
+	return {"shots": shots_fired, "ammoUsed": ammo_used, "hits": hits_landed, "damage": snappedf(hp_damage, 0.1)}
 
 
 static func _should_withdraw_side(owner: Dictionary, initial_boats: int, enemy_firepower: float) -> bool:
@@ -298,6 +300,8 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 	var init_b: int = boats_b.size()
 	var shots_a: int = 0
 	var shots_b: int = 0
+	var ammo_used_a: int = 0
+	var ammo_used_b: int = 0
 	var hits_a: int = 0
 	var hits_b: int = 0
 	var dmg_to_b: float = 0.0
@@ -327,9 +331,11 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		var res_a: Dictionary = _fire_salvo_side(rng, boats_a, boats_b, float(perf_a.get("performanceFactor", 1.0)), dt_salvo)
 		var res_b: Dictionary = _fire_salvo_side(rng, boats_b, boats_a, float(perf_b.get("performanceFactor", 1.0)), dt_salvo)
 		shots_a += int(res_a.get("shots", 0))
+		ammo_used_a += int(res_a.get("ammoUsed", 0))
 		hits_a += int(res_a.get("hits", 0))
 		dmg_to_b += float(res_a.get("damage", 0.0))
 		shots_b += int(res_b.get("shots", 0))
+		ammo_used_b += int(res_b.get("ammoUsed", 0))
 		hits_b += int(res_b.get("hits", 0))
 		dmg_to_a += float(res_b.get("damage", 0.0))
 
@@ -410,6 +416,18 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		var loser_cargo: Dictionary = loser.get("cargo", {}) if loser.get("cargo") is Dictionary else {}
 		var winner_cargo: Dictionary = winner.get("cargo", {}) if winner.get("cargo") is Dictionary else {}
 		var l_avail: int = mini(int(floor(float(loser_cargo.get(l_good, 0.0)))), int(floor(float(loser.get("tradeCargo", 0.0)))))
+		if str(loser.get("kind", "")) != "trader":
+			# Raiders have no merchant manifest. A patrol can recover their real
+			# prize lots; operating stores remain aboard under the existing rule.
+			l_avail = 0
+			for good in Goods.ITEMS:
+				if good in ["food", "fuel", "supplies", "ammo"]:
+					continue
+				var held: int = maxi(0, int(floor(float(loser_cargo.get(good, 0.0)))))
+				if held > 0:
+					l_good = str(good)
+					l_avail = held
+					break
 		if l_avail > 0 and Goods.ITEMS.has(l_good):
 			var w_res: Dictionary = NavalOrders.fleet_reserves(winner)
 			var w_free: float = maxf(0.0, float(w_res.get("capacity", 0.0)) - float(Economy.cargo_weight(winner_cargo)))
@@ -418,7 +436,8 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 			var take: int = mini(l_avail, int(floor(w_free / g_weight)))
 			if take > 0:
 				loser_cargo[l_good] = maxf(0.0, float(loser_cargo.get(l_good, 0.0)) - float(take))
-				loser["tradeCargo"] = maxf(0.0, float(loser.get("tradeCargo", 0.0)) - float(take))
+				if str(loser.get("tradeGood", "")) == l_good:
+					loser["tradeCargo"] = maxf(0.0, float(loser.get("tradeCargo", 0.0)) - float(take))
 				winner_cargo[l_good] = maxf(0.0, float(winner_cargo.get(l_good, 0.0)) + float(take))
 				if str(winner.get("kind", "")) == "trader" and str(winner.get("tradeGood", "")) == l_good:
 					winner["tradeCargo"] = maxf(0.0, float(winner.get("tradeCargo", 0.0)) + float(take))
@@ -485,6 +504,10 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		"damageToB": snappedf(dmg_to_b, 0.1),
 		"sunkA": sunk_a,
 		"sunkB": sunk_b,
+		"survivorsA": rem_a,
+		"survivorsB": rem_b,
+		"ammoUsedA": ammo_used_a,
+		"ammoUsedB": ammo_used_b,
 		"retreated": retreated,
 		"winner": str(winner.get("id", "")),
 		"lootCoins": loot_coins,
