@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.051: First voyage and core quality milestone. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: interface.gd, captain_guidance.gd, damage.gd, equipment_damage.gd, equipment_records.gd, tactical_runtime.gd, tactical_routes.gd.
+v0.052: Fleet growth and expedition preparation. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: expedition.gd, campaign.gd, campaign_ui.gd, interface.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

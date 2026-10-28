@@ -1,4 +1,4 @@
-BRASS TIDE — COMBAT MAP (generated; v0.051)
+BRASS TIDE — COMBAT MAP (generated; v0.052)
 
 Actual fleet hulls/captain orders -> persistent hull/crew/stores, shots, flooding, wrecks and result.
 

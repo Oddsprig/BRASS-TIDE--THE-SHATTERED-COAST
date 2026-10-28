@@ -1,3 +1,11 @@
+CURRENT052 SCOPE - SOURCE CANDIDATE
+Active052fleetgrowth/logistics;051scopedbuildinstalled+verified.
+Versionmetadata52preparedONCE; do not rerunprepare_version.py. Integrated
+sourcecandidates await Rootnative/export andchanged-screenreview. No053breadth.
+051workercombat stays30Hz/renderinterpolated; rawimpactbudgettargetsremain
+OPENat061andarenot052scope. RootownsallmutedbackgroundFIFOtests<120s.
+Read current task/CURRENT STATE.txt for exactqueuedjobs/helpercommits.
+
 # Brass Tide - current working instructions
 
 Owner authorization: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER
