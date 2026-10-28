@@ -1,0 +1,114 @@
+BRASS TIDE 0.061 - SMALL SOURCE AUDIT / PLANNING ONLY
+28 October 2026. B read-only audit; no implementation or version advance.
+Read at 1186ed1f98373062dd397bec73fb7c0917906cca (delivered059 3598b9ad
++ B's 060 history change). Root reports integration d54b199; NOT audited here.
+Future implementation MUST recheck these contracts on exact DELIVERED060 source.
+Scope: supplied operations, blockade/relief, harbor/business/storage consequences
+using existing goods, workers, capital and shipping. No nation simulator, new
+framework, broad balance, 051 performance, coast art or 062 acceptance work.
+
+READ / EXACT EXISTING API AND SCHEMA (game/scripts/ unless stated)
+Maps read: maps/regional-goals.txt, home-harbors.txt, naval-activity.txt,
+shipping-companies.txt, worker-conditions.txt; saved 061 roadmap paragraph.
+RegionalOps = regional_ops.gd, static main-thread adapter: ensure(c);
+  start(c,id:String)->Dictionary; contribute(c,id,good,qty:int)->Dictionary;
+  refresh(c)->Dictionary; delivered(c,to,qty:float,from="",player=true)->void;
+  battle(c,owner,result,objective_only), begin_day(c), daily(c).
+Regional campaigns = regional_campaigns.gd, static data/core-compatible API:
+  ensure(state)->Dictionary; available(core)->Array; start(core,id)->Dictionary;
+  contribute(core,id,good,qty)->Dictionary; tick(core,days=1)->Array;
+  cancel(core,id), propose_peace(core,a,b)->Dictionary; journal(state)->Array (detached);
+  observe_plan(state,owner,plan)->void.
+  Core adapter accepts campaign .state/.data or a dictionary state/world bundle.
+state.campaignFocus = {fromPort,toPort,portId,peaceA,peaceB}.
+state.regionalCampaigns = {version:2,cadence:"daily",seq,operations,completed,
+  peace,fundedRoutes,journal}; goals corridor/survey/harbor/ceasefire.
+  Operation: id,status(active/complete/cancelled),completionId,startedDay,portId,ends,
+  ownerId,funded,funding,baseline,contributed,progressDay,clearDays,lastAssessedDay,
+  patrolVisits,patrolLastPort,playerAction,passageBaseline,deliveryBaseline,
+  businessWages,relief,talksStartedDay,currentPlan,readiness,stallReason,planIdentity.
+state.regionalFacts = {deliveries:{portId:quantity},passages:{sortedA|B:count}}.
+  Player sales (law_ops.gd:138), settled freight/delivery (campaign.gd:1041/1065)
+  and NPC docking sales (naval_lifecycle.gd:220) already publish facts; player=false
+  credits passages only. Own fuel loading / failed sale gives none.
+  contribute moves owned cargo -> local port.stocks, no payment, separate ledger.
+regional_rules.gd: progress(state,op)->String; threatened(state,op)->bool.
+  Corridor = 7 consecutive clear economic days plus passage/player action/2 visits.
+  Harbor = max(post-start delivered, donated) >=12 and >=3 paid staff-days.
+  Relief = 5 food/supplies per party +3 days +mandate/legal access; propose_peace
+  sets existing relation to 0 for 30 days, then 30-day cooldown.
+regional_orders.gd: operation(s,owner), plan(s,owner,current,context={})->Dictionary;
+  readiness(s,owner,destination,context={})->Dictionary; arrival(s,owner,port).
+  Live context {nav,scale,daySeconds}; quote includes real route AND return,
+  crew/hull/modules, fuel/food/ammo/payroll needs, ready/reason/shortage/canReturn.
+  Plan {ownerId,completionId,purpose,destination,targetOwnerId,convoyOwnerId,
+  interceptPoint,ready,hold,objective,reason,readiness}; reuses actual traders,
+  hostiles and patrols, with paid recovery first.
+Home = home_harbor.gd: quote(core,kind,port_id), establish(core,kind,port_id),
+  transfer_goods(core,business_id,good,qty:float,direction), capital(core,id,amount),
+  dividend(core,id,amount)->Dictionary; tick(core,days=1.0),list_businesses(state)->Array.
+  Kinds warehouse/salvage_yard/workshop.
+  state.businesses[]: id,kind,homePort,coins,inventory,inventoryBasis,employees,
+  wagesPaid,arrearsHousehold,arrearsExpert,paused,autoSell,capitalIn,revenue,
+  costOfSales,otherExpenses; setup consumes local materials, labor, staff/capital.
+HomeOps: room(c,port_id), warehouse(c,port_id), can_store(c,boat,port),
+  pay_arrears(c,uid), daily(c). Paid warehouse =8 private slots; public=28/slot/day.
+WorkerOps: step(c,b,p), policy(c,id,mode,cap=5000), negotiate(c,id), ensure(c).
+  WorkerConditions.report(port)->Dictionary: valid,summary,pay plus conditions.
+  business_step returns canWork/workFactor/message once per published econDay;
+  b.labor and port.conditions already hold fatigue/unrest/arrears/stoppage facts.
+CompanyOps.api(c) returns ShippingCompanies instance; create(c,boat_uids,
+  destination,good,amount:int,limits={})->Dictionary; list(c),recall(c,id),
+  capital(c,id,amount),collect(c,id); fixed physical hulls/routes/purses.
+  state.shippingCompanies[ownerId]: home,destination,good,limits,status,recall,
+  invested,withdrawn,revenue,cogs,operating,basisQty,basisCost,returnedBasis,netProfit,log.
+  limits={buyMax,sellMin,maxCargo,reserve,risk}; record() is accounting, not income.
+NavalAI.observe/sightings(state,"player")->Array: bounded local contacts with
+  ownerId,faction,x,y,destination,purpose,loaded,day,current,expired,ageDays.
+TradeIntel.report(core,port_id) returns visited stocks/prices/needs/age; unseen
+  remote stock omitted. opportunities(core)->Array has fromPort,toPort,good,qty,netProfit,
+  buyerLiquidity,riskFlags,preparationReady. blockades(core)->Array of live port IDs.
+
+AT MOST THREE ESSENTIAL GAPS / PROPOSED DISJOINT SOURCE ALLOWLISTS
+A. Sustained corridor result: _complete() only records achievement; operation()
+   excludes completed watches from subsequent regional escort/intercept planning.
+   Decide explicit continue/withdraw behavior using the same owner, paid reserves
+   and once-only fundedRoutes; no promised permanent safety or free boats.
+   Files (game/scripts/): regional_campaigns.gd, regional_orders.gd, regional_ops.gd.
+B. Harbor effort must add up: progress() uses max(delivered,donated), so 6 sold
+   +6 separately donated lots remain 6. Donations do not enter delivered(), so
+   combine distinct receipts once. Link payroll to existing local business/arrears/
+   material facts and a concrete stall reason; preserve paid optional home systems.
+   Files (game/scripts/): regional_rules.gd, home_harbor.gd, home_ops.gd.
+C. Player-visible consequence: regional UI shows counters/"achieved"; home UI is
+   separate. Connect a selected goal to its observed traffic/blockade/stock change,
+   sponsoring faction's existing legal trade opportunity, and local business book.
+   Show stale/unseen observations and actual shortage/recovery reasons honestly.
+   Files: game/scripts/regional_ui.gd, game/scripts/home_ui.gd,
+   game/tests/test_regional_voyage.gd.
+Proposals only: preserve status/books where possible. Root finalizes shared contracts
+and any validation allowlist expansion on delivered060 before new persisted fields.
+campaign_state_validation.gd bounds facts(64/key), operations(4), books(128),
+treaties(6), journal(40).
+
+ONE FUTURE PROOF - PAID CORRIDOR VOYAGE, NOT RUN HERE
+Choose a short corridor with legal Friendly sponsor, existing patrol, loaded trader
+and live threat. Record UIDs, purses, stocks, blockade and visited quote.
+Start via RegionalOps.start; buy/carry actual accepted goods and sail with
+chart_course/step + joined economic days, using the 059 paid-voyage stepping pattern.
+Observe the loaded trader and assigned escort/intercept locally; let actual combat,
+withdrawal or paid recovery resolve the threat. Deliver/sell physically; record
+source/destination inventory and buyer/captain/patrol/treasury money movements.
+Publish seven clear economic days plus an actual passage; show traffic, live safety/
+blockade result, new visited inventory and an existing legal opportunity for the
+sponsoring faction. Completion alone must not manufacture any of these.
+Save/reload, keep the paid watch or withdraw explicitly, and show a genuine resource
+stall/resume without duplicate grant/settlement. Compare realized receipts including
+wages/stores/return; an estimated margin is not profit. No teleport or edited counter
+may stand in for travel, delivery, clearance, payroll or the faction opportunity.
+Root alone runs Test Bridge batches, each entire batch <120s; split if necessary
+and preserve interrupted/queued/failed results separately.
+
+LIMITS: manual source reading only; no engine/parser/advisory/GPU/play test.
+Existing test_regional_voyage teleported arrivals do not prove this voyage.
+No implementation, metadata/maps/version/tag/install or Root files changed.
