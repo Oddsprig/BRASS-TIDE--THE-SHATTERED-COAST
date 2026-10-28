@@ -1,3 +1,7 @@
+28OCT2026 - v0.058 SALVAGE, PRIZES AND RECOVERY CHOICES
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.057 VERIFIED AND PACKAGED: 175/0 focused checks, selected batch 79.862s, TestBridge df5b36dbcdb042129e05ed63d9b219d3. Source abbac4c14e33680a2512b81d134e6f585d0c3963.
 
 27OCT2026 - v0.057 THE MIDDLE SEA EXPEDITION

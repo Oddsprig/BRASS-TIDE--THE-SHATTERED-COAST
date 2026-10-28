@@ -1,29 +1,34 @@
-BRASS TIDE — RECOVERY MAP (generated; v0.057)
+BRASS TIDE — RECOVERY MAP (generated; v0.058)
 
 Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/salvage.gd: 34898 bytes; extends RefCounted
-  game/scripts/salvage.gd:119 ensure()
-  game/scripts/salvage.gd:147 find_wreck()
-  game/scripts/salvage.gd:277 record_battle()
-  game/scripts/salvage.gd:349 seed_site_wreck()
-  game/scripts/salvage.gd:384 nearby()
-  game/scripts/salvage.gd:460 quote()
-  game/scripts/salvage.gd:522 recover()
-  game/scripts/salvage.gd:758 strip_good()
-  game/scripts/salvage.gd:39 _is_num()
-  game/scripts/salvage.gd:43 _num()
-  game/scripts/salvage.gd:47 _round2()
-  game/scripts/salvage.gd:51 _position_xy()
-game/scripts/recovery_ui.gd: 10953 bytes; extends RefCounted
-  game/scripts/recovery_ui.gd:6 open()
-  game/scripts/recovery_ui.gd:83 captured_prizes()
-  game/scripts/recovery_ui.gd:93 take_cargo()
-  game/scripts/recovery_ui.gd:97 leave()
-  game/scripts/recovery_ui.gd:100 recover()
-  game/scripts/recovery_ui.gd:104 outcome()
-  game/scripts/recovery_ui.gd:135 blueprints()
+game/scripts/salvage.gd: 45114 bytes; extends RefCounted
+  game/scripts/salvage.gd:149 ensure()
+  game/scripts/salvage.gd:177 find_wreck()
+  game/scripts/salvage.gd:307 record_battle()
+  game/scripts/salvage.gd:382 seed_site_wreck()
+  game/scripts/salvage.gd:417 nearby()
+  game/scripts/salvage.gd:493 quote()
+  game/scripts/salvage.gd:556 recover()
+  game/scripts/salvage.gd:797 strip_good()
+  game/scripts/salvage.gd:69 _is_num()
+  game/scripts/salvage.gd:73 _num()
+  game/scripts/salvage.gd:77 _round2()
+  game/scripts/salvage.gd:81 _position_xy()
+game/scripts/recovery_ui.gd: 23108 bytes; extends RefCounted
+  game/scripts/recovery_ui.gd:16 open()
+  game/scripts/recovery_ui.gd:137 store_choice()
+  game/scripts/recovery_ui.gd:156 gear()
+  game/scripts/recovery_ui.gd:221 owned_prize()
+  game/scripts/recovery_ui.gd:249 captured_prizes()
+  game/scripts/recovery_ui.gd:252 take_cargo()
+  game/scripts/recovery_ui.gd:256 leave()
+  game/scripts/recovery_ui.gd:259 recover()
+  game/scripts/recovery_ui.gd:263 outcome()
+  game/scripts/recovery_ui.gd:294 blueprints()
+  game/scripts/recovery_ui.gd:7 _board()
+  game/scripts/recovery_ui.gd:57 _boat_summary()
 
 TESTS (game/tests/*.gd)
 test_salvage, test_salvage_voyage

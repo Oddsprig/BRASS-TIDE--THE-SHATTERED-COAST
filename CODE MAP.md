@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.057: The Middle Sea expedition. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: coastal_stories.gd, story_ops.gd, story_ui.gd, expedition.gd, campaign_ui.gd, voyage_jobs.gd, voyage_ui.gd.
+v0.058: Salvage, prizes and recovery choices. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: salvage.gd, campaign.gd, expedition.gd, hold_manifest.gd, recovery_flow.gd, recovery_ui.gd, recovery_decisions.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

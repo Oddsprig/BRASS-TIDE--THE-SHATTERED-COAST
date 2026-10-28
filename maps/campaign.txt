@@ -1,22 +1,22 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.057)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.058)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 59670 bytes; extends Node2D
+game/scripts/main.gd: 62033 bytes; extends Node2D
   game/scripts/main.gd:268 poll_battle051()
   game/scripts/main.gd:331 queue_battle_command051()
   game/scripts/main.gd:431 toggle_pause()
   game/scripts/main.gd:436 toggle_fullscreen()
   game/scripts/main.gd:440 save_preferences()
   game/scripts/main.gd:443 music_context()
-game/scripts/campaign.gd: 58861 bytes; extends RefCounted
-  game/scripts/campaign.gd:75 cached_path()
-  game/scripts/campaign.gd:91 hull()
-  game/scripts/campaign.gd:97 port()
-  game/scripts/campaign.gd:103 faction()
-  game/scripts/campaign.gd:109 new_game()
-  game/scripts/campaign.gd:217 port_position()
+game/scripts/campaign.gd: 69055 bytes; extends RefCounted
+  game/scripts/campaign.gd:80 cached_path()
+  game/scripts/campaign.gd:96 hull()
+  game/scripts/campaign.gd:102 port()
+  game/scripts/campaign.gd:108 faction()
+  game/scripts/campaign.gd:114 new_game()
+  game/scripts/campaign.gd:222 port_position()
 game/scripts/contracts.gd: 6169 bytes; extends RefCounted
   game/scripts/contracts.gd:5 available()
   game/scripts/contracts.gd:49 accept()

@@ -1,4 +1,4 @@
-BRASS TIDE — COASTAL-STORIES MAP (generated; v0.057)
+BRASS TIDE — COASTAL-STORIES MAP (generated; v0.058)
 
 Four original chains and actual survey/delivery/contact choices -> persistent branches, rights and finite funded opportunities.
 
@@ -25,11 +25,11 @@ game/scripts/story_ops.gd: 4391 bytes; extends RefCounted
   game/scripts/story_ops.gd:66 daily()
 game/scripts/story_offers.gd: 2642 bytes; extends RefCounted
   game/scripts/story_offers.gd:5 available()
-game/scripts/story_ui.gd: 6734 bytes; extends RefCounted
+game/scripts/story_ui.gd: 7007 bytes; extends RefCounted
   game/scripts/story_ui.gd:3 open()
   game/scripts/story_ui.gd:44 payoff()
-  game/scripts/story_ui.gd:75 recovery_stock()
-  game/scripts/story_ui.gd:82 recovery_ready()
+  game/scripts/story_ui.gd:78 recovery_stock()
+  game/scripts/story_ui.gd:85 recovery_ready()
 
 TESTS (game/tests/*.gd)
 test_coastal_stories, test_story_voyage

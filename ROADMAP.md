@@ -1,9 +1,9 @@
-# Current step: v0.057 - The Middle Sea expedition
+# Current step: v0.058 - Salvage, prizes and recovery choices
 
-- Follow Wren's accepted clue through earned bearings to the finite Shatter wreck field and an explained public or private claim.
-- Show useful earned leads, remaining recovery stock and concrete conditions after completing the existing expedition.
-- Prepare island shore work, named return travel and optional detours against real hands, food, kits, wages and individual boat fuel.
-- Pair the accepted expedition objective with an existing funded full survey while preserving escrow, contact recommendations and actual return settlement.
+- Compare finite stripping and paid towing against work time, a named navigable return, actual reserves and later harbor service.
+- Keep captured boats visible as owned prizes even when their cargo is empty; inspect hull, crew and retained damaged equipment.
+- Recover selected surviving guns or machinery into an existing boat's physical locker with exact identity and condition, paid work and persistent carrying limits.
+- Disclose the irreversible hull, other fittings and structural-material forfeiture before selected extraction; preserve finite stores and custody.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

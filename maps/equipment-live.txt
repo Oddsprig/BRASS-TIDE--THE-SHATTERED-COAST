@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.057)
+BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.058)
 
 Working v0.031 integration candidate: copied numerical prediction, live machinery condition, preserved physical wrecks and paid tow, plus canonical title Lab boats. No release acceptance.
 
@@ -34,13 +34,13 @@ game/scripts/fleet_lab.gd: 10737 bytes; extends RefCounted
   game/scripts/fleet_lab.gd:21 preset()
   game/scripts/fleet_lab.gd:49 inspect()
   game/scripts/fleet_lab.gd:69 create()
-game/scripts/salvage.gd: 34898 bytes; extends RefCounted
-  game/scripts/salvage.gd:119 ensure()
-  game/scripts/salvage.gd:147 find_wreck()
-  game/scripts/salvage.gd:277 record_battle()
-  game/scripts/salvage.gd:349 seed_site_wreck()
-  game/scripts/salvage.gd:384 nearby()
-  game/scripts/salvage.gd:460 quote()
+game/scripts/salvage.gd: 45114 bytes; extends RefCounted
+  game/scripts/salvage.gd:149 ensure()
+  game/scripts/salvage.gd:177 find_wreck()
+  game/scripts/salvage.gd:307 record_battle()
+  game/scripts/salvage.gd:382 seed_site_wreck()
+  game/scripts/salvage.gd:417 nearby()
+  game/scripts/salvage.gd:493 quote()
 
 TESTS (game/tests/*.gd)
 Root Lab99/0, equipment_voyage67/0, salvage_voyage14/0. Root accepted MainUI167/save89/player204/owner140/coins458, all0 failures. Canonical40 reached88/150 warmup ticks in40s; performance and release remain open. Kernel public/binary and R5 component proofs: docs/VERIFICATION INDEX.txt.
