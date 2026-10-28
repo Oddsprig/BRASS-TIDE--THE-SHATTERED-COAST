@@ -52,3 +52,14 @@ the shared Test Bridge lane before acceptance. Existing worker coverage includes
 detached publications, current HUD mounts/status, accounting and terminal cleanup;
 Root should also verify nested status path/exit/options/weapons/mount isolation.
 Do not infer a quality pass, measured improvement, crash fix or shipping approval.
+
+FOLLOW-UP REGRESSION (SOURCE ONLY)
+Existing test_worker_battle051 commands fixture now edits its actual published
+status row: nested rally coordinates, weapon reasons, mount records, path/exit
+arrays. The manual flagship's path/exit start empty; only display coordinates
+are appended, without forged goals, untrusted ingress or disabled guards.
+Its existing six joined steps verify unchanged authoritative options/order,
+manual readiness/ammunition and route status, plus retained status isolation.
+The existing canonical mount/HUD equality assertion also covers edited mounts.
+No new engine jobs/steps, framework, benchmark or soak. No engine, advisory or
+test run by this specialist; Root must execute the actual native fixture.

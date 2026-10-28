@@ -167,6 +167,18 @@ func commands_pause_and_child_cleanup() -> void:
 	check(is_equal_approx(float(mirror.tactical.options.byId[str(mirror.playerId)].rally.x),650.0),"real BattleCommands047 compound rally applies its tactical options as well as the order")
 	check(mirror.ships[0].policy=="bail" and mirror.ships[0].moduleCondition.repairPriority=="engine","paused command publication exposes worker-validated crew policy and canonical repair priority")
 	check(float(mirror.time)==0.0 and int(driver.telemetry().completedSteps)==0,"paused command-only publication performs no numerical step")
+	# Edit the actual published row; tactical_status() itself returns another copy.
+	# This manual flagship has real rally/mount records and empty path/exit arrays.
+	var retained_status: Dictionary=mirror.tactical.statusById051[str(mirror.playerId)]
+	var status_before: Dictionary=retained_status.duplicate(true)
+	var status_ammo: float=float(mirror.ships[0].ammo)
+	check(not retained_status.options.rally.is_empty() and not retained_status.weapons.is_empty() and not retained_status.mounts.is_empty(),"real command publication supplies nested rally options, weapon reasons and mount records")
+	retained_status.options.rally.x=-650.0
+	for mount_id in retained_status.weapons:retained_status.weapons[mount_id]="Edited display weapon reason"
+	for mount: Dictionary in retained_status.mounts:mount.damage=-1.0
+	retained_status.path.append(Vector2(-650.0,-750.0))
+	retained_status.exit.append(Vector2(-750.0,-650.0))
+	var edited_status: Dictionary=retained_status.duplicate(true)
 	var events: Array=[]
 	mirror=await joined_steps(driver,{},6,events)
 	check(int(mirror.tactical.counters.decisions)>0,"factory-created SIDE jobs actually publish sampled decisions through real joins")
@@ -178,6 +190,10 @@ func commands_pause_and_child_cleanup() -> void:
 	var mounts: Array=B._combat_mounts(mirror,current)
 	check(current.hp>0.0 and current.ammo>=0.0 and current.engine>0.0 and flow==D.get_status(current),"running canonical hull/HP/ammo/engine and HUD status are coherent after edits to a retained display")
 	check(D.EquipmentDamage.Core.inspect_installed(current.moduleCondition).ok and mounts==B._mounts(current) and status.mounts==mounts,"current installed condition, combat mounts and tactical HUD mounts agree without authoritative cache access")
+	check(status.options==status_before.options and mirror.tactical.options.byId[id]==status_before.options and current.order=="move" and current.orderTarget=={"x":650.0,"y":750.0},"published nested rally edits never change authoritative options or the real queued move")
+	check(status.weapons==status_before.weapons and is_equal_approx(float(current.ammo),status_ammo),"edited display weapon reasons never change current manual readiness or spend authoritative ammunition")
+	check(status.path==status_before.path and status.exit==status_before.exit,"display path/exit edits never become authoritative manual routes in later publications")
+	check(retained_status==edited_status,"later joined publications leave all retained nested tactical options/weapons/mounts/path/exit unchanged")
 	check(not PressureView.readiness(current,flow).has("Damage control unavailable") and not mounts.is_empty() and PressureView.weapon_state(current,mounts[0],0,flow,"")!="Weapon status unavailable","actual HUD readers accept the running canonical payload")
 	check(driver.presentation_poses().current[id]=={"x":current.x,"y":current.y,"angle":current.angle,"turretAngle":current.turretAngle},"interpolation's current pose belongs to the same published hull state")
 	check(copied_publication(mirror) and not mirror.has("_damageOwned051") and not mirror.tactical.has("damageCache") and not mirror.tactical.has("goals051") and mirror.tactical.mountCache[id].keys()==["mounts"],"canonical display publishes plain HUD data without private damage/goal/source caches")
