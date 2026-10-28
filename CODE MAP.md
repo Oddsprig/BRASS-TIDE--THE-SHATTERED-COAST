@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.052: Fleet growth and expedition preparation. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: expedition.gd, campaign.gd, campaign_ui.gd, interface.gd.
+v0.053: Meaningful LTV trade and delivery decisions. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: trade_intel.gd, trade_ui.gd, interface.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
