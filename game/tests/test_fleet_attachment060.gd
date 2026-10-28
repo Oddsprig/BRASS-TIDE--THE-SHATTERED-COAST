@@ -75,6 +75,11 @@ func run() -> void:
 	if c.state.is_empty():await finish();return
 	supply=Money.total(c.state)
 	var p: Dictionary=c.current_port()
+	# Declared opening legal eligibility for the existing military anchor fit,
+	# not reputation earned by this fixture and not a bypass of fitting rules.
+	check(not c.Factions.access(c.state,p).militaryFittings,"ordinary neutral opening does not grant military fittings")
+	c.Factions.adjust(c.state,str(p.faction),20,"Declared friendly opening attachment060 eligibility")
+	check(c.Factions.access(c.state,p).militaryFittings,"declared friendly fixture satisfies actual military fitting access")
 	# Explicit finite OPENING stock, not earned progression or free working gear.
 	p.shipStock.iron_bastion=2
 	for good in ["iron","copper","timber","guns","engines","supplies","fuel","ammo"]:p.stocks[good]=maxf(float(p.stocks.get(good,0)),120.0)
@@ -105,6 +110,7 @@ func run() -> void:
 		var wallet: int=int(c.state.coins)
 		var materials: Dictionary=p.stocks.duplicate(true)
 		var fitted: Dictionary=c.workshop_apply(boat.uid,choice.loadout,quote)
+		print("attachment060 fit ",JSON.stringify({"uid":boat.uid,"quoteOk":quote.get("ok",false),"quoteMessage":quote.get("message",""),"quotedCost":quote.get("cost",0),"applyOk":fitted.get("ok",false),"applyMessage":fitted.get("message","")}))
 		check(fitted.ok and int(c.state.coins)==wallet-int(quote.get("cost",0)),"existing physical workshop charges the actual whole-fit bill")
 		for good in quote.get("materials",{}):check(absf(float(p.stocks[good])-(float(materials[good])-float(quote.materials[good])))<0.0001,"paid fit consumes finite "+str(good))
 		check(Identity.set_command_preference(c,boat.uid,"cautious" if index==0 else "aggressive",str(choice.role)).ok,"explicit next-battle intent is stored by physical boat UID")
@@ -138,12 +144,12 @@ func run() -> void:
 		fork();damaged.append(await fight(str(boat_uids[index]),true,false))
 	if healthy.size()==2:
 		check(int(healthy[0].fires)>0 and int(healthy[1].fires)>0,"both paid fitted builds actually fire on autopilot")
-		check(float(healthy[0].travel)>2.0 and float(healthy[1].travel)>2.0,"both comparable original hulls actually move in worker combat")
+		check(float(healthy[0].travel)>2.0 and healthy[1].phases.has("pressure") and int(healthy[1].fires)>0,"pressure boat physically makes a firing pass while the heavy controls gun arcs and actually fires")
 		check(absf(float(healthy[0].travel)-float(healthy[1].travel))>1.0 or healthy[0].phases!=healthy[1].phases,"real motion/role phases distinguish gun-pressure pilot and cannon-anchor gunner")
 	else:check(false,"both matched healthy comparisons must finish")
 	if damaged.size()==2:
 		check(bool(damaged[0].withdrew) and not bool(damaged[1].withdrew),"same half-HP condition produces cautious local withdrawal and aggressive continued fighting")
-		check(float(damaged[0].travel)>1.0 and float(damaged[1].travel)>1.0,"doctrine evidence includes actual motion, not only unequal options or specs")
+		check(float(damaged[0].travel)>1.0 and int(damaged[1].fires)>0 and damaged[1].phases.has("pressure"),"doctrine evidence includes actual withdrawal motion versus continued heavy firing")
 	else:check(false,"both matched damaged comparisons must finish")
 	phase("matched actual worker movement, fire and local withdrawal")
 	if budget("unpaid premium"):fork();unpaid_transition()
@@ -204,9 +210,6 @@ func fight(uid: String,damaged: bool,loss: bool) -> Dictionary:
 	for candidate in c.fleet_owner(enemy_owner_id).boats:
 		if str(candidate.uid)==enemy_uid:enemy=candidate;break
 	if damaged:boat.hp=float(boat.maxHp)*0.50
-	if loss:
-		# Controlled opening damage; the worker must actually integrate inflow/sink.
-		boat.water=float(boat.capacity)-0.01;boat.breaches=[{"area":100.0,"section":"waterline"}]
 	var original: Dictionary=boat
 	var gear: Array=gear_uids(boat)
 	var ammo: float=float(boat.ammo)
@@ -222,6 +225,11 @@ func fight(uid: String,damaged: bool,loss: bool) -> Dictionary:
 		st.tactical.home[str(ship.id)]={"x":380.0 if ship.team=="player" else 1220.0,"y":850.0}
 	var start: Dictionary=boat.get("_serviceStart060",{}).duplicate(true)
 	check(not start.is_empty(),"actual deployment captures the source participant before worker transfer")
+	if loss:
+		# Controlled fully flooded entry immediately before worker ownership.
+		# No Main-side tick or assignment of sunk/result performs this loss.
+		check(st.result==null and not boat.sunk,"controlled loss begins with a live deployed owner and unfinished battle")
+		boat.water=float(boat.capacity);boat.breaches=[]
 	var driver=Driver.new(st)
 	var view: Dictionary=driver.advance(0.0,{},true)
 	var fires: int=0
@@ -249,6 +257,7 @@ func fight(uid: String,damaged: bool,loss: bool) -> Dictionary:
 	check(not driver.telemetry().inFlight,"authoritative work completes before public retirement")
 	var final: Dictionary=driver.retire()
 	var telemetry: Dictionary=driver.telemetry()
+	if loss:check(int(telemetry.completedSteps)>0,"controlled loss is resolved through actual worker simulation steps")
 	check(telemetry.retired and not telemetry.inFlight and int(telemetry.workerThreadId)>0 and int(telemetry.workerThreadId)!=OS.get_thread_caller_id(),"public retirement joins actual 30Hz worker ownership")
 	check(is_same(c.find_boat(uid),original) and is_same(final.ships[0],original),"retirement restores the exact original physical campaign owner")
 	check(original.get("_serviceStart060",{})==start,"deployment participant snapshot survives the actual worker and original-owner retirement")

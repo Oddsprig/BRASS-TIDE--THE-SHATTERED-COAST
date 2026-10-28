@@ -40,7 +40,8 @@ func _initialize():
 	var tow_speed: float=c.travel_speed()
 	check(c.FleetIdentity.install_conversion(c,boat.uid,"tug_rig").ok,"Paid tug conversion uses real parts and professional labor")
 	check(c.travel_speed()>tow_speed,"Actual tow travel improves with the paid tug aboard")
-	check(c.FleetSupport.reserve(c,boat.uid).ok and not boat.supportOnly,"Paid tug explicitly returns to combat deployment for the protected passage")
+	if boat.get("supportOnly",false):check(c.FleetSupport.reserve(c,boat.uid).ok,"Paid tug can return to combat deployment")
+	check(not boat.supportOnly,"Paid tug is in combat deployment for the protected passage")
 	var ally: Dictionary=c.fleet_owner("patrol-1")
 	var enemy: Dictionary=c.fleet_owner("patrol-0")
 	for ship in c.active_fleet()+ally.boats+enemy.boats:ship.ammo=0

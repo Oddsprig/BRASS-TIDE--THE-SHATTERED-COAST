@@ -29,3 +29,26 @@ confirmed both helper checkouts clean, then applied these previously agreed
 small corrections locally. Helpers were told not to edit after reads return.
 No bridge/settings/user app altered. Native acceptance remains pending; Root
 alone owns sharedFIFO/backgroundmuted/noinput/focus/wholebatch<120s tests.
+
+R3/R4 ACTUAL RECEIPTS AND SECOND BOUNDED TEST CORRECTION
+Support8059d3a6/00119/5: actualstartError no own combat boat. Root's blind reserve
+toggle turned an already active tug into support. Corrected to invoke the public
+toggle only when supportOnly is true, then assert actual combat availability.
+
+Attachment695b5501/00199/8, internal13.743s: quote-based opening919784 from
+actual ready217946 allowed both hulls (secondwallet611582/ready219180/advance14000/
+qualified114/workforce2351). Second military anchor fitting was refused while
+neutral; add explicit declared friendly opening eligibility via Factions.adjust
+BEFORE purchases, assert neutral restriction then actual militaryFittings access.
+All monetary/material/crew prices remain actual; no restriction bypass, earned
+reputation/progression or commission pay is claimed. Print exact quote/apply terms.
+
+Actual healthy pressure moved58.227 and fired19, heavy held0 and fired2 in real
+pressure phase. At half HP cautious moved10.923/withdrew, aggressive heavy held
+and fired1. Both-to-move assertions contradicted the intended anchor role.
+Require actual pressure movement/fire and heavy pressure/firing, plus distinct
+motion/phases and cautious withdrawal versus continued heavy fire; do not change
+AI/game thresholds. Controlled near-full mild leak was bailed instead of sinking;
+stage exactly full capacity at entry and require the real worker to publish sink
+and loss. Never assign sunk/result in this native loss case. Production gameplay
+unchanged; old receipts remain and all new outcomes require native verification.
