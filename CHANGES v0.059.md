@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Verify actual fishing, freight, fuel and passenger cycles with conserved purses and cargo, distinguishing capital, operating income and passenger savings.
 
 See docs/TEST RESULTS v0.059.md for actual focused checks and remaining limits.
+
+Verification: 185 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 84.766s. Preserved earlier failures; no broad acceptance claim.

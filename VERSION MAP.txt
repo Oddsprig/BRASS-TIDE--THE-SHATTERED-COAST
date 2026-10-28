@@ -66,7 +66,7 @@ MILESTONE C - LONG-TERM CAMPAIGN (0.058-0.062)
 0.058 - SALVAGE AND RECOVERY [PLANNED] [DONE]
 Hull/equipment recovery, stripping and towing compete for real capacity and risk.
 
-0.059 - CIVILIAN CAREERS [PLANNED]
+0.059 - CIVILIAN CAREERS [PLANNED] [DONE]
 Fishing, freight, tankers and passenger/yacht work have viable varied progression.
 
 0.060 - FLEET IDENTITY [PLANNED]

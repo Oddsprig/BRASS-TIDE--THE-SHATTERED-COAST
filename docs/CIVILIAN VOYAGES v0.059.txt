@@ -1,0 +1,38 @@
+BRASS TIDE v0.059 - CHOOSING CIVILIAN WORK
+
+Open Civilian voyages from a harbor. Review a particular offered load before
+accepting it. The review compares the contracted fee with outward travel,
+handling, return travel, all owned crews' wages and replacement food/fuel.
+Contingency reserves are money to keep available, separate from expected costs.
+Open cost assumptions to inspect the individual tanks and calendar payroll.
+Costs exclude unknown combat damage, delays and losses; an estimate pays nothing.
+
+Freight moves existing sealed cargo against an actual destination stock gap.
+Small and larger loads can serve different real holds. Freight still uses the
+shared traveling manifest; inspecting one hull does not assign freight to it.
+Fuel and passengers do require the selected physical carrier. Mounted gear,
+lockers, loaded stores, spare berths and return supplies all take real room.
+
+A fuel recipient can move or obtain fuel before you arrive. The report explains
+its current presence and need. Review the route and uncertainty before reserving
+your cargo space. No fee is paid for an unavailable recipient. Active work keeps
+its accepted terms; newly quoted operating-tank jobs do not alter old contracts.
+Ordinary arriving fleets make a finite quarter-day harbor service stop, then
+resume their own work. The stop is not reserved for your delivery. Presence
+requires an active, stopped fleet at a safe actual harbor approach.
+
+Passenger charters move existing civilians, their bought food and their savings
+to real destination housing. Their savings are custody and are never your income.
+Paid client memories reflect retained completed transactions, not a free bonus.
+
+Fishing begins at suitable water after stopping, with actual assigned sailors.
+Choose a work horizon and a buyer from your recorded harbors. Review the finite
+ground's daily quota, catch rate, hold, working fuel and food, and return route.
+The catch forecast is a maximum; other boats can fish the ground and buyer funds
+or prices may change. Sell the actual returned whole lots through the Market.
+
+Buying a civilian boat costs the hull's real ready price, trained crew advances
+and supplies. Keep those capital costs separate from one voyage's operating
+surplus. A useful trip can contribute toward another vessel; it does not prove
+an entire career's progression. Fleet ownership and support boats remain separate
+from the 300-point battle deployment limit. Autopilot and WASD camera remain.

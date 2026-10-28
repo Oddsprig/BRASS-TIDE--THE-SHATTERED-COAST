@@ -1,21 +1,14 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.058 DELIVERED/installed; tag1ae1964.
-Final214/0 recovery checks plus export/3starts87.910s; five actual exported PNGs
-30.890s all Root reviewed. Earlier proof failures/diagnostics remain recorded.
-One icon/two voyages/18MP3s/older057 retained, no game autolaunch or remote push.
-Current059 three BridgeSolMAX source handoffs are integrated: A68df2e1,
-B370b4d2, C5c7e94b plus Root pure caller/declared actual UI capture fixtures.
-Metadata prepared ONCE; preflight5e3c5597 passed53/0 in43.619s whole.
-First career6a181595 failed148/3; diagnostic33a423b2 failed148/2, proving the
-four missing people were actual NPC deaths. All failed receipts remain.
-Named corrections integrated: finite actual harbor service446ad2ee, company
-recall2a839310, real company regression0b482a08, exact recorded crew losses and
-bounded actual fuel observationd0631409. One new combined advisory issues empty.
-Native preflight/career/export/actual-view059 acceptance is pending.058 stays
-installed; metadata was prepared once. No costs/demand/assertions waived.
-Whole-quality/coast art and
-strict051targets remain OPEN062. Read task/CURRENT STATE.txt for live handoffs.
+Current scoped build: v0.059 VERIFIED; packaging/install follows checkpoint.
+Final185/0 careers +Windows3starts84.766s; exact-source preflight89/0 52.788s.
+Five actual exported views all Root reviewed. Earlier failed receipts retained.
+Four paid civilian cycles have positive measured net after actual waiting/wages/
+stores/return, not proof of complete progression. Preserve one plain icon/two
+voyages/18MP3s/old builds. Next060 follows tools/quality060/NEXT060 AUDIT.txt and
+the task draft; finalize on delivered059 source before implementation.
+Whole-quality/coast art/strict051targets remain OPEN062.
+Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
