@@ -55,7 +55,7 @@ Visible original boats and real fleet formations replace triangle markers; landm
 0.055 - CAMPAIGN FLEET AI [SCOPED BUILD DELIVERED]
 NPC trade, piracy, response and faction battles work independently and pay their costs.
 
-0.056 - FACTIONS AND CONTACTS [PLANNED]
+0.056 - FACTIONS AND CONTACTS [SCOPED BUILD DELIVERED]
 Relationships and remembered work change access, opportunity and safety.
 
 0.057 - REWARDING EXPLORATION [PLANNED]

@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Retain sponsor memory, real escrow, finite cargo and recruiting, and all previous boat art and campaign AI.
 
 See docs/TEST RESULTS v0.056.md for actual focused checks and remaining limits.
+
+Verification: 316 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 95.223s. Preserved earlier failures; no broad acceptance claim.

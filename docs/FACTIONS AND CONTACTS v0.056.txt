@@ -1,0 +1,27 @@
+BRASS TIDE v0.056 - FACTIONS AND PEOPLE
+
+Open Factions & safe passage from Voyage jobs & contacts. Faction colors,
+interests, doctrine, public standing, witnessed offenses and pair relations
+explain whose waters and equipment are available to you.
+
+Review commission terms as often as needed. Reviewing or closing the window
+does not sign. Only Accept this commission signs the current terms; eligibility
+is checked again. Declared enemies and the standing cost appear beforehand.
+No stipend is created. The current commission remains recorded after reload.
+
+Paid safe conduct grants temporary inspected civilian harbor access. Its exact
+expiry is shown; claims and military restrictions retain their rules. The pass
+does not protect your fleet from hostile ships at sea. A contacted patrol is
+identified as a patrol, with its faction and public hostility explained.
+
+Original harbor contacts remember completed work separately from faction
+standing. A fulfilled promise can earn one compatible existing board job at
+that contact's harbor. The board names the person, qualifying work, date and
+recorded location. An introduction does not guarantee future stock or funds.
+Acceptance still requires real sponsor funds, cargo, space, crew and access.
+The named sponsor remembers completion or failure, including delivery elsewhere.
+NPC fights you merely witness do not become your paid work.
+
+Exact focused verification and exported-view evidence are in tests/. This is
+one scoped step; later exploration, careers, art and whole-game quality remain
+on the saved roadmap. Crew are numerical and all values remain bronze coins.

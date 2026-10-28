@@ -1,16 +1,13 @@
 # Brass Tide — current working instructions
 
-Current candidate: v0.056 faction choices and remembered work, metadata prepared.
-Installed scoped build: v0.055 VERIFIED/taggedf909c00; one desktop launcher,
-two voyage hashes and18MP3tracks preserved, previous054 retained.
-Native6c496cce/attempt001216/0+export3starts82.869s; actual18d92609/attempt001
-nine exported UI/chart PNGs30.969s, Root viewed. Tested044c5ce and Root9a913ba
-share the same game tree; original failed fixture receipts remain preserved.
-Whole-game acceptance remains OPEN062. Read work/quality-v042-v061/CURRENT STATE.txt
-for the exact installed build and live jobs; this header is a checkpoint.
-056BridgeSolMAX handoffs104e71f/4ac33a5/2bf23f5 integrated on delivered055,
-preserving later055fixture fixes. Root adds isolated actual-UI capture cases.
-Native056 and actual view acceptance remain pending; no057 implementation yet.
+Current scoped build: v0.056 VERIFIED; packaging/install follows this checkpoint.
+Native0703cead/attempt001316/0+export3starts95.223s; actual2f22fb11/attempt002
+thirteen exported PNGs30.437s, all Root viewed. Actualattempt001 yielded to
+another workload and is preserved as interrupted, not passed. Whole quality
+and exact strict051targets stay OPEN062. Read task/CURRENT STATE.txt for the
+installed build/live jobs. Next057 finishes the existing Middle Sea Chart
+expedition, not a new story framework. Read NEXT057 audit in the056commission
+helper checkout. No057 metadata or implementation prepared at this checkpoint.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
