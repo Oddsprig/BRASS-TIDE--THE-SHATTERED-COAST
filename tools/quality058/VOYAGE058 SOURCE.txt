@@ -5,6 +5,49 @@ No engine, test, parser, advisory, import/export, GPU, CUA, input/focus, helper,
 cleanup, package, metadata, install or push ran. This is prepared SOURCE, not a
 native result or 058 acceptance. Root owns all execution through the shared FIFO.
 
+R1 BOUNDED FOLLOW-UP - RECRUITMENT CORRECTION / DISCLOSURE DIAGNOSTICS
+Root executed combined866179fc8def4b6e0a17bf39a082b3190dd68f59 in release058.
+Root job a443a62c2bfd454290b0a84dbedacb6d / attempt-001 / salvage-voyage /
+native.log was read in full:214 checks,2 failures;24.788s internal,28.719s native
+and59.703s whole batch (latter two timings supplied by Root). This is retained
+failed R1 evidence, not a pass or a new C execution.
+
+Paid upgrade actually completed from15000: tow527,work1.395days,crew wages1000,
+repair5835,hires3000,remaining2049,working capacity105. Selected actual UIDs,
+paid500/food0.4/weight9/one day, later cargo and save/restore also completed.
+
+Failure1 is a fixture assumption, not an established backend defect. Read the
+exact combined Harbor.recruit145-161 -> Economy.recruit569-628 chain and
+CrewTraining.consume_qualified121-132 plus _sync_port_workforce729-762.
+The available pool is min(max(0,floor(recruits)),max(0,floor(workforce)),
+training.qualified.sailor), not the raw recruit listing. The single existing
+assertion now requires that exact eligible pool minus hires, exact physical
+workforce and qualified-sailor debits, exact hired crew/count, exact quoted coin
+debit and equal crewPurse credit, and actual result cost/coins. Before, eligible,
+request, quote, result, expected and actual values print for Root's next native run.
+
+Failure2's exact native conjunct remains UNESTABLISHED: R1 printed only its
+combined message. The full original disclosure assertion is UNCHANGED, without
+tolerance, zero-key filtering or a replacement oracle. Read combined
+Salvage._gear_stage830-873: it quotes raw records and copies components/stores.
+The existing fixture then calls find_wreck194-199 -> ensure163-185 ->
+_sanitize_wreck120-145/_clean_amounts109-117. A relevant possible source path
+is NavalLifecycle.reconcile_losses75-103, whose cargo loop also writes zero
+quantities; this is a diagnostic lead, not an established harmless mismatch.
+Print every conjunct: selected/wanted IDs, all/source IDs, hull flag, exact
+component/store key sets and each union key's presence,17-decimal quantities,
+types and equality. Also capture raw values BEFORE the existing lookup so Root
+can distinguish quote error from observer sanitation. No gameplay mutation or
+new check is added by diagnostics. Native values decide any subsequent A fix.
+
+All214 R1 assertions and the fourteen original meaningful checks remain; only
+the recruitment expectation is corrected/strengthened. Disclosure, identity,
+custody, full forfeiture, physical workforce and global coins stay strict.
+Only the two C-owned files changed. No engine/test/parser/advisory or other
+checkout edits ran; no backend change is proposed as proven by this handoff.
+This follow-up remains SOURCE ONLY; Root must integrate the named follow-up
+commit and rerun its same bounded fixture. No new framework/performance scope.
+
 Read full SCOPE 058 RECOVERY CHOICES.txt, A057 NEXT058 AUDIT6602c85, C057
 GEAR058 FEASIBILITYb8e6890, recovery/equipment/expedition maps, and actual
 Campaign/Main/Flow/Salvage/Condition/Records/Recovery/Preflight/SaveValidation/
@@ -130,9 +173,11 @@ print elapsed milliseconds and exact check/failure counts, bounded short sailing
 loops and a final <35000ms assertion including Main setup and cleanup. Native
 target is the existing 8% CPU/two cores; C neither sets nor measures it. Root
 must execute one bounded fixture in its whole selected batch below120seconds.
-Runtime, actual stock/workforce/purse viability, native types and UI behavior
-remain unverified. A's in-flight guard and all exact source dependencies must
-be integrated first. Queued/interrupted/timed-out is not passed. Broader coast
+Root R1 established the stated runtime and completed paid flows, with the two
+failures above. This bounded source correction/diagnostics remain unexecuted;
+058 acceptance and UI/export review stay Root-owned. A's in-flight guard and
+all exact source dependencies must be integrated. Queued/interrupted/timed-out
+is not passed. Broader coast
 art, strict051 and whole-quality remain OPEN062. Metadata/maps stay Root-owned.
 Manual source/diff review only: all original meaningful assertions retained,
 one Main/baseline, exact A/B signatures/fields, actual private settlement receipt,

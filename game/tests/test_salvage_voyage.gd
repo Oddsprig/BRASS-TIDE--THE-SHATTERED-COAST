@@ -262,11 +262,23 @@ func paid_upgrade() -> bool:
 	for part in boat.moduleCondition.items.values():check(float(part.hp)==1.0,"Only actual paid service restores installed part "+str(part.itemUid))
 	var count: int=int(boat.crewMin)
 	var hires: int=c.Economy.recruit_cost(harbor,count)
-	var recruits: int=int(harbor.recruits)
+	# Recruits are a listing; only the workforce/qualified intersection can sail.
+	var recruits: int=maxi(0,floori(float(harbor.recruits)))
+	var workforce: int=maxi(0,floori(float(harbor.workforce)))
+	var qualified: int=int(harbor.training.qualified.sailor)
+	var eligible: int=mini(recruits,mini(workforce,qualified))
 	coins=int(c.state.coins)
+	var recruitment_before: Dictionary={"coins":c.state.coins,"crewPurse":c.state.crewPurse,"crew":boat.crew,"recruits":harbor.recruits,"workforce":harbor.workforce,"qualifiedSailors":harbor.training.qualified.sailor}
+	var recruitment_expected: Dictionary={"coins":coins-hires,"crewPurse":int(c.state.crewPurse)+hires,"crew":int(boat.crew)+count,"recruits":eligible-count,"workforce":workforce-count,"qualifiedSailors":qualified-count}
 	var hired: Dictionary=c.recruit_crew(boat_uid,count)
+	boat=c.find_boat(boat_uid);harbor=c.current_port()
+	var recruitment_actual: Dictionary={"coins":c.state.coins,"crewPurse":c.state.crewPurse,"crew":boat.crew,"recruits":harbor.recruits,"workforce":harbor.workforce,"qualifiedSailors":harbor.training.qualified.sailor}
+	var recruitment_exact: bool=true
+	for field in recruitment_expected:
+		if recruitment_actual[field]!=recruitment_expected[field]:recruitment_exact=false
+	print("salvage058 recruitment: before=",recruitment_before," eligible=",eligible," requested=",count," quotedCost=",hires," result=",hired," expected=",recruitment_expected," actual=",recruitment_actual)
 	if not check(bool(hired.ok),"Recruit actual harbor sailors: "+str(hired.message)):return false
-	check(int(c.state.coins)==coins-hires and int(c.current_port().recruits)==recruits-count and int(c.find_boat(boat_uid).crew)==count,"Minimum crew is paid and removed from the finite harbor workforce")
+	check(recruitment_exact and boat.crew==count and hired.get("count",-1)==count and hired.get("cost",-1)==hires and hired.get("coins",-1)==hires,"Minimum crew is paid and removed from the finite harbor workforce")
 	coins=int(c.state.coins);stocks=c.current_port().stocks.duplicate(true)
 	var supplied: Dictionary=c.resupply_boat(boat_uid,"voyage")
 	if not check(bool(supplied.ok),"Buy real voyage stores: "+str(supplied.message)):return false
@@ -356,6 +368,11 @@ func selected_gear() -> bool:
 	if not conserved("Normal Main worker completion"):return false
 	quote=c.recovery_quote(wreck_id,"gear","",0.0,gear_request)
 	if not check(bool(quote.ok),"Gear can retry after normal completion: "+str(quote.message)):return false
+	# Diagnostics only: retain the raw observer input before the existing lookup.
+	# Keep the disclosure requirement unchanged until Root has exact native values.
+	var raw_disclosure: Dictionary={}
+	for row in c.state.wrecks:
+		if str(row.get("id",""))==wreck_id:raw_disclosure=row.duplicate(true);break
 	var wreck: Dictionary=Salvage.find_wreck(c.state,wreck_id)
 	var stores: Dictionary=wreck.stores.duplicate(true)
 	var components: Dictionary=wreck.components.duplicate(true)
@@ -367,6 +384,17 @@ func selected_gear() -> bool:
 	for part in quote.get("forfeitedItems",[]):all_ids.append(str(part.itemUid))
 	all_ids.sort();selected_ids.sort()
 	var wanted: Array=gear_request.itemUids.duplicate();wanted.sort()
+	print("salvage058 disclosure IDs: selected=",selected_ids," wanted=",wanted," selectedEqual=",selected_ids==wanted," all=",all_ids," source=",sorted_keys(source_parts)," allEqual=",all_ids==sorted_keys(source_parts)," forfeitedHull=",quote.get("forfeitedHull",false))
+	for field in ["forfeitedComponents","retainedStores"]:
+		var actual_lots: Dictionary=components if field=="forfeitedComponents" else stores
+		var quoted_lots: Dictionary=quote.get(field,{})
+		var raw_lots: Dictionary=raw_disclosure.get("components" if field=="forfeitedComponents" else "stores",{})
+		print("salvage058 disclosure ",field,": exact=",quoted_lots==actual_lots," quotedKeys=",sorted_keys(quoted_lots)," actualKeys=",sorted_keys(actual_lots)," rawKeys=",sorted_keys(raw_lots)," rawExact=",quoted_lots==raw_lots)
+		var lot_keys: Dictionary={}
+		for lots in [quoted_lots,actual_lots,raw_lots]:
+			for good in lots:lot_keys[good]=true
+		for good in sorted_keys(lot_keys):
+			print("salvage058 disclosure lot ",field,"/",good,": quotedPresent=",quoted_lots.has(good)," quoted=%.17f"%float(quoted_lots.get(good,-1))," actualPresent=",actual_lots.has(good)," actual=%.17f"%float(actual_lots.get(good,-1))," rawPresent=",raw_lots.has(good)," raw=%.17f"%float(raw_lots.get(good,-1))," quotedType=",typeof(quoted_lots.get(good))," actualType=",typeof(actual_lots.get(good))," exact=",quoted_lots.get(good)==actual_lots.get(good))
 	check(selected_ids==wanted and all_ids==sorted_keys(source_parts) and quote.get("forfeitedHull",false) and quote.get("forfeitedComponents",{})==components and quote.get("retainedStores",{})==stores,"Before committing, selected/lost parts, hull, all component losses and retained loose stores are explicit")
 	var wallet: int=int(c.state.coins)
 	var savings: int=int(c.state.crewPurse)
