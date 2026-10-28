@@ -20,7 +20,9 @@ static func open(ui) -> void:
 		var id: String=f.id
 		var s: Dictionary=Factions.standing(c.state,id)
 		ui.rule(body)
-		ui.label(body,"%s · %s (%+d)"%[f.name,s.label,s.score],23,ui.GOLD,true)
+		ui.label(body,"%s · %s (%+d)"%[f.name,s.label,s.score],23,Color(str(f.get("color","#dfbd7d"))),true)
+		ui.paragraph(body,str(f.get("description","")),15)
+		ui.paragraph(body,"Doctrine: "+str(f.get("doctrine","")),14)
 		ui.paragraph(body,"Witnessed offenses: %+d · Claims: %d · %s"%[s.witnessed,s.claimTotal,"hostile patrols" if s.hostile else "peaceful passage"],15)
 		var relations: PackedStringArray=[]
 		for other in c.data.FACTIONS:
@@ -31,8 +33,29 @@ static func open(ui) -> void:
 
 static func terms(ui,id: String) -> void:
 	var c=ui.host.core
-	var r: Dictionary=Factions.commission(c.state,id)
+	var r: Dictionary=Factions.commission_terms(c.state,id)
+	ui.modal_kind="factions"
 	var body=ui.modal("Letters of marque","REVIEW BEFORE ACCEPTING",850,600)
-	ui.paragraph(body,str(r.get("warning",r.message)),18)
-	if not r.get("committed",false):ui.button(body,"Accept this commission",func():ui.host.respond(Factions.commission(c.state,id));ui.host.save_game(false);open(ui),true)
-	ui.button(body,"Remain independent / back",func():c.state.relationships.commission.pending=false;open(ui))
+	if not r.ok:
+		ui.paragraph(body,str(r.message),18)
+		ui.button(body,"Back without accepting",func():open(ui))
+		return
+	ui.label(body,"Patron: "+str(r.factionName),24,ui.GOLD,true)
+	var deal: Dictionary=c.state.relationships.commission
+	if deal.get("committed",false):
+		var patron: Dictionary=Factions.standing(c.state,str(deal.get("factionId","")))
+		ui.paragraph(body,"Recorded commission: "+str(patron.name),16)
+	ui.paragraph(body,str(r.warning),18)
+	if r.committed:
+		ui.paragraph(body,str(r.message),16)
+	elif r.eligible:
+		ui.button(body,"Accept this commission",func():
+			var current: Dictionary=Factions.commission_terms(c.state,id)
+			if current.ok and not current.committed and current.enemies!=r.enemies:
+				ui.host.respond({"ok":false,"message":"The declared enemies changed. Review the current terms before accepting."})
+				terms(ui,id)
+				return
+			ui.host.respond(Factions.accept_commission(c.state,id))
+			ui.host.save_game(false)
+			open(ui),true)
+	ui.button(body,"Back without accepting",func():open(ui))

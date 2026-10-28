@@ -290,7 +290,7 @@ static func access(state, port) -> Dictionary:
 	else:
 		result.repairPriority = "ordinary"
 	if claim > 0:
-		result.reason = "%s still has an outstanding claim of %d at %s. Trade is legal and will be inspected; military fittings and priority repair wait on restitution." % [result.factionName, claim, result.portName]
+		result.reason = "%s still has an outstanding claim of %d at %s. Trade is legal and will be inspected; military fittings and repair-yard access wait on restitution." % [result.factionName, claim, result.portName]
 	elif int(view.witnessed) <= WITNESS_INSPECT:
 		result.reason = "%s witnessed an offense that is separate from public standing (%s). Entry at %s is inspected." % [result.factionName, band, result.portName]
 	elif band == "wary":
@@ -298,38 +298,85 @@ static func access(state, port) -> Dictionary:
 	elif band == "neutral":
 		result.reason = "Neutral legal access at %s. Ordinary trade and contracts are open; guns and engines stay restricted." % result.portName
 	elif band == "friendly":
-		result.reason = "Friendly standing with %s opens military fittings and escorts at %s." % [result.factionName, result.portName]
+		result.reason = "Friendly standing with %s opens military fittings at %s. Trade and contracts remain open." % [result.factionName, result.portName]
 	else:
-		result.reason = "Trusted standing with %s gives priority repair and intelligence at %s." % [result.factionName, result.portName]
+		result.reason = "Trusted standing with %s keeps trade, contracts and military fittings open at %s." % [result.factionName, result.portName]
 	return result
 
 static func is_hostile(state, faction_id) -> bool:
 	var view := standing(state, faction_id)
 	return bool(view.get("hostile", false))
 
-static func commission(state, faction_id) -> Dictionary:
+## Detached review: saved legacy pending state can never turn a query into consent.
+static func commission_terms(state, faction_id) -> Dictionary:
 	var id := _text_id(faction_id)
+	var result := {
+		"ok": false, "committed": false, "repeated": false, "changed": false,
+		"explicit": false, "stipend": 0, "factionId": id, "factionName": "",
+		"eligible": false, "legalShift": LEGAL_SHIFT, "enemies": [], "enemyNames": [],
+		"warning": "", "contract": {}, "message": "Call ensure(state, world) before using factions.",
+	}
 	var book := _book(state)
 	if book.is_empty():
-		return {"ok": false, "committed": false, "repeated": false, "stipend": 0, "factionId": id, "message": "Call ensure(state, world) before using factions."}
+		return result
 	if not book.factions.has(id):
-		return {"ok": false, "committed": false, "repeated": false, "stipend": 0, "factionId": id, "message": "Unknown faction."}
+		result.message = "Unknown faction."
+		return result
 	var view := _standing_view(book, id)
 	var enemies := _enemy_ids(book, id)
 	var eligible := (str(view.band) == "friendly" or str(view.band) == "trusted") and not bool(view.hostile)
 	var warning := _commission_warning(book, id, enemies, eligible)
+	result.ok = true
+	result.factionName = _faction_name(book, id)
+	result.eligible = eligible
+	result.enemies = enemies
+	for enemy in enemies:
+		result.enemyNames.append(_faction_name(book, str(enemy)))
+	result.warning = warning
+	result.message = warning
 	if book.commission.get("committed", false) and str(book.commission.get("factionId", "")) == id:
-		return {"ok": true, "committed": true, "repeated": true, "changed": false, "stipend": 0, "factionId": id, "enemies": enemies, "warning": warning, "contract": book.commission.get("contract", {}), "message": "Commission already recorded. No stipend was minted."}
+		result.committed = true
+		result.contract = book.commission.get("contract", {}).duplicate(true)
+		result.message = "Commission already recorded. No stipend was minted."
+	return result
+
+## Compatibility API: old callers still request, then confirm with a second call.
+## The actual UI uses the read-only query and the separate explicit operation.
+static func commission(state, faction_id) -> Dictionary:
+	var terms := commission_terms(state, faction_id)
+	if not terms.ok:
+		return terms
+	var id := str(terms.factionId)
+	var book := _book(state)
+	if terms.committed:
+		return accept_commission(state, id)
 	var pending := bool(book.commission.get("pending", false)) and str(book.commission.get("pendingFactionId", "")) == id
 	if not pending:
 		book.commission.pending = true
 		book.commission.pendingFactionId = id
-		return {"ok": true, "committed": false, "repeated": false, "changed": false, "explicit": false, "stipend": 0, "factionId": id, "enemies": enemies, "warning": warning, "legalShift": LEGAL_SHIFT, "message": warning}
-	if not eligible:
+		return terms
+	return accept_commission(state, id)
+
+## Explicit consent, revalidated against live standing and current faction pairs.
+static func accept_commission(state, faction_id) -> Dictionary:
+	var terms := commission_terms(state, faction_id)
+	if not terms.ok:
+		return terms
+	var id := str(terms.factionId)
+	var book := _book(state)
+	if terms.committed:
+		terms.repeated = true
+		return terms
+	if not terms.eligible:
 		book.commission.pending = false
 		book.commission.pendingFactionId = ""
+		var view := _standing_view(book, id)
 		var refused := "They will not commission a captain they still treat as hostile or wary." if bool(view.hostile) or str(view.band) == "hostile" or str(view.band) == "wary" else "A commission requires friendly or trusted public standing."
-		return {"ok": false, "committed": false, "repeated": false, "changed": false, "stipend": 0, "factionId": id, "enemies": enemies, "warning": warning, "message": refused + " No contract was committed and no coins were minted."}
+		terms.ok = false
+		terms.message = refused + " No contract was committed and no coins were minted."
+		return terms
+	var enemies: Array = terms.enemies
+	var warning := str(terms.warning)
 	var legal: Array = []
 	for enemy in enemies:
 		var enemy_id := str(enemy)
@@ -356,9 +403,15 @@ static func commission(state, faction_id) -> Dictionary:
 		"enemies": enemies.duplicate(),
 		"warning": warning,
 	}
-	book.commission.contract = contract
+	book.commission.contract = contract.duplicate(true)
 	_log(book, {"kind": "commission", "factionId": id, "otherId": "", "amount": 0, "before": 0, "after": 0, "reason": warning, "eventId": "commission:%s" % id, "day": _day(state)})
-	return {"ok": true, "committed": true, "repeated": false, "changed": true, "explicit": true, "stipend": 0, "factionId": id, "enemies": enemies, "warning": warning, "legal": legal, "contract": contract, "message": "Commission recorded. No stipend was minted."}
+	terms.committed = true
+	terms.changed = true
+	terms.explicit = true
+	terms.legal = legal
+	terms.contract = contract
+	terms.message = "Commission recorded. No stipend was minted."
+	return terms
 
 static func _repair_book(book: Dictionary) -> void:
 	if not book.get("factions") is Dictionary:
@@ -607,8 +660,8 @@ static func _commission_warning(book: Dictionary, faction_id: String, enemies: A
 		enemy_names.append(_faction_name(book, str(enemy)))
 	var listed := ", ".join(enemy_names) if not enemy_names.is_empty() else "no declared enemy"
 	if not eligible:
-		return "Confirming a commission with %s will not commit yet. Current public standing must be friendly or trusted, and no capital witnessed offense may be open. Declared enemies: %s. No stipend will be minted." % [name, listed]
-	return "Confirming letters of marque with %s changes legal status with %s by %d and does not mint a stipend. Call commission again to commit." % [name, listed, LEGAL_SHIFT]
+		return "%s requires friendly or trusted public standing and no capital witnessed offense before accepting a commission. Declared enemies: %s. Acceptance lowers standing with each declared enemy by %d, once per patron/enemy pair. No stipend is paid." % [name, listed, absi(LEGAL_SHIFT)]
+	return "Accepting letters of marque for %s lowers public standing with each declared enemy (%s) by %d, once per patron/enemy pair. This can restrict harbor access and turn patrols hostile. Faction-to-faction relations stay unchanged. No stipend is paid. Reviewing these terms does not sign them." % [name, listed, absi(LEGAL_SHIFT)]
 
 static func _enemy_ids(book: Dictionary, faction_id: String) -> Array:
 	var found: Array = []

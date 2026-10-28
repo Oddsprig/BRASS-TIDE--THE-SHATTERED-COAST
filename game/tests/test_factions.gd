@@ -56,6 +56,7 @@ func _initialize() -> void:
 	_test_hysteresis_bounds_and_events()
 	_test_witness_claim_time_restitution()
 	_test_commission()
+	_test_commission_review_and_consent()
 	_test_save_roundtrip()
 	var elapsed := Time.get_ticks_msec() - started
 	_check(elapsed < 60000, "faction checks finished under 60s (%d ms)" % elapsed)
@@ -270,6 +271,68 @@ func _test_commission() -> void:
 	_check(not denied.ok and not denied.committed, "a hostile faction refuses the commission")
 	_check(F.standing(raider_state, "raiders").score == F.INITIAL_RAIDER and F.standing(raider_state, "compact").score == 0, "refusal moves nobody")
 	_check(raider_state.coins == 15000, "a refused commission mints nothing")
+
+
+func _test_commission_review_and_consent() -> void:
+	var state := _fresh()
+	F.adjust(state, "compact", 20, "Fulfilled convoy work", "consent-work")
+	# Old saves may contain a review left pending by the former modal.
+	state.relationships.commission.pending = true
+	state.relationships.commission.pendingFactionId = "compact"
+	var restored: Dictionary = JSON.parse_string(JSON.stringify(state))
+	F.ensure(restored, _world())
+	var before: String = JSON.stringify(restored)
+	var terms: Dictionary = F.commission_terms(restored, "compact")
+	_check(terms.ok and terms.eligible and not terms.committed and not terms.changed and not terms.explicit, "eligible terms remain a review even with saved legacy pending")
+	_check(terms.factionName == "Mercantile Compact" and terms.enemyNames == ["Shatter Reef Raiders"] and terms.legalShift == -12, "terms name the real patron, enemy and legal cost")
+	_check(str(terms.warning).contains("public standing") and str(terms.warning).contains("stipend"), "terms explain actual standing costs and no income")
+	F.commission_terms(restored, "compact")
+	F.commission_terms(restored, "forge")
+	F.commission_terms(restored, "compact")
+	_check(JSON.stringify(restored) == before, "repeated and alternate reviews leave every saved field unchanged")
+	terms.enemies.clear()
+	terms.enemyNames.append("invented")
+	terms.contract.reward = 999
+	_check(JSON.stringify(restored) == before and F.commission_terms(restored, "compact").enemies == ["raiders"], "review arrays and contract are detached")
+	_check(not F.commission_terms(restored, "missing").ok and JSON.stringify(restored) == before, "unknown terms cannot mutate a campaign")
+	var missing := {}
+	_check(not F.commission_terms(missing, "compact").ok and missing.is_empty(), "terms never initialize relationship data")
+	# Current standing, not an earlier eligible snapshot, governs explicit consent.
+	F.adjust(restored, "compact", -25, "Lost public confidence")
+	var denied: Dictionary = F.accept_commission(restored, "compact")
+	_check(not denied.ok and not denied.committed and F.standing(restored, "raiders").score == F.INITIAL_RAIDER - 6, "lost eligibility refuses stale consent without legal cost")
+	F.adjust(restored, "compact", 25, "Earned confidence back")
+	F.adjust(restored, "compact", -25, "witness:First documented attack")
+	F.adjust(restored, "compact", -25, "witness:Second documented attack")
+	_check(not F.accept_commission(restored, "compact").ok and not restored.relationships.commission.committed, "friendly public standing cannot hide a capital witnessed offense")
+	# Explicit acceptance needs no pending flag and resolves live faction pairs.
+	before = JSON.stringify(state)
+	F.commission_terms(state, "compact")
+	_check(JSON.stringify(state) == before, "the original review also remains harmless")
+	state.relationships.commission.pending = false
+	state.relationships.commission.pendingFactionId = ""
+	F.set_relation(state, "compact", "forge", -25, "New declared enemy after review")
+	var accepted: Dictionary = F.accept_commission(state, "compact")
+	_check(accepted.ok and accepted.committed and accepted.changed and accepted.explicit and accepted.enemies == ["forge", "raiders"], "explicit acceptance uses current enemies without legacy pending")
+	_check(F.standing(state, "forge").score == -12 and F.standing(state, "raiders").score == F.INITIAL_RAIDER - 18, "each actual enemy receives the original legal shift once")
+	_check(state.coins == 15000 and not state.has("activeContract") and accepted.contract.reward == 0 and accepted.contract.escrow == 0 and accepted.stipend == 0, "explicit commission creates no coins or paid campaign contract")
+	before = JSON.stringify(state)
+	accepted.contract.enemies.clear()
+	accepted.contract.reward = 500
+	var recorded: Dictionary = F.commission_terms(state, "compact")
+	recorded.contract.enemies.clear()
+	recorded.contract.reward = 700
+	_check(JSON.stringify(state) == before, "acceptance result and recorded review cannot edit stored contract")
+	var repeat: Dictionary = F.accept_commission(state, "compact")
+	_check(repeat.ok and repeat.repeated and not repeat.changed and JSON.stringify(state) == before, "repeated explicit acceptance changes no saved field")
+	var loaded: Dictionary = JSON.parse_string(before)
+	F.ensure(loaded, _world())
+	_check(F.accept_commission(loaded, "compact").repeated and F.standing(loaded, "forge").score == -12, "save and reload preserve explicit consent and legal deduplication")
+	_check(not str(F.access(state, "brass_haven").reason).contains("escorts"), "friendly access does not advertise an unimplemented escort service")
+	F.adjust(state, "compact", 25, "More service")
+	F.adjust(state, "compact", 25, "Long service")
+	var access: Dictionary = F.access(state, "brass_haven")
+	_check(access.band == "trusted" and not str(access.reason).contains("intelligence") and not str(access.reason).contains("priority repair"), "trusted access advertises only implemented permissions")
 
 
 func _test_save_roundtrip() -> void:

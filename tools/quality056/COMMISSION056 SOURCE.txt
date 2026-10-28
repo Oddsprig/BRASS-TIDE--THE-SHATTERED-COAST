@@ -1,0 +1,66 @@
+COMMISSION056 - OWNER A SOURCE CONTRACT (27 October 2026)
+
+Isolated base: 9498afd996feb7eebb9b53103ace1247fed456db (reviewed055).
+055 native acceptance remains queued; no056 integration/release is authorized.
+Allowlist: game/scripts/factions.gd, game/scripts/faction_ui.gd,
+game/tests/test_factions.gd, and this note only.
+
+EARLY API CONTRACT FOR ROOT / B / C
+Factions.commission_terms(state, faction_id) -> Dictionary
+  Read-only, detached terms query. Requires existing Factions.ensure data;
+  never calls ensure, writes pending, signs, applies standing, or changes coins.
+  Returns ok/message, factionId/factionName, eligible, committed, changed=false,
+  repeated=false, explicit=false, stipend=0, legalShift=-12, enemies (IDs),
+  enemyNames, warning, and contract (deep copy, empty if no matching commission).
+  Eligibility and enemy lists reflect current public/witnessed standing/pairs.
+  Saved legacy pending flags have no effect on this query or actual UI review.
+
+Factions.accept_commission(state, faction_id) -> Dictionary
+  Explicit consent operation, independent of legacy pending. Rechecks current
+  eligibility/enemies before signing; preserves existing -12 legal-event keys,
+  repeat behavior, zero stipend/reward/escrow and existing commission storage.
+  A repeated matching commission does not reapply legal shifts or mint money.
+  Neither operation introduces another contract or payment backend.
+
+Factions.commission(state, faction_id) remains the legacy two-call API for
+old callers/reference checks. Actual UI reviews use commission_terms only;
+only the Accept button invokes accept_commission. No B/C caller changes needed.
+Faction UI uses existing faction names/colors, descriptions and doctrine text.
+Friendly/trusted/claim access reasons no longer advertise unimplemented escort,
+intelligence or repair-priority services. Access flags and permissions remain
+unchanged; claim text reflects the actual Politics repair-yard restriction.
+
+IMPLEMENTED UI / MUTATION BOUNDARY
+Review and Back never call the legacy commission API or write pending flags.
+The modal's ordinary close path likewise has no commission mutation to finish.
+Only an eligible unrecorded commission shows Accept. The button re-queries
+current enemies; a changed list refreshes terms for another explicit click.
+Acceptance re-queries current eligibility and enemies itself. Current patron,
+actual enemy names, the original -12 public shift, possible access/patrol
+consequences and no stipend are shown before consent. Reopening a saved legacy
+pending commission is harmless. The old commission(state, faction_id) behavior
+is deliberately retained for old callers, including its two-call pending path;
+it must not be used to implement a review UI.
+
+PREPARED CHECKS / VERIFICATION LIMITS
+Existing test_factions legacy checks retained. Added one bounded state-only
+case for saved pending/repeated/alternate reviews, detached arrays/contracts,
+unknown/uninitialized queries, lost public and capital-witness eligibility,
+changed enemies, explicit acceptance without pending, original legal shifts,
+zero coins/rewards/escrow, repeated acceptance and save/reload. Access prose
+checks cover the unsupported service promises. No new fixture framework/Main.
+
+Manual review read the actual Factions book/standing/relation/commission chains,
+world faction schema, Politics permit/parley, Interface modal/button/close,
+Campaign constructor and relationship save validation, and the final diff.
+No automated validation of any kind was run. Root must run test_factions and
+actual UI review/close/reopen/Accept checks (including enemy-list refresh and
+stale eligibility). Native parsing/types, UI rendering/click behavior, art,
+audio, motion, gameplay and whole-game quality are not accepted by this work.
+Existing event-window/dedup and patron-switch policies are preserved, not
+expanded into permanent diplomacy rules or new payment/service systems.
+
+STATUS: source preparation manually reviewed; native checks PREPARED, NOT RUN.
+No engine, parser, advisory, import/export, GPU, metadata/maps, tag, package,
+install, push, or cleanup runs. Root owns all execution and acceptance, and
+must carry any later named055 fixes forward before056 integration/verification.
