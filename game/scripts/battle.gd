@@ -227,6 +227,9 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,spawn: 
 	s.supportRepairFactor=1.0
 	s.localAimAngles={}
 	s.team=team
+	# Deployment, not the traveling roster, defines service. This plain snapshot
+	# follows the existing ship copy/retirement path back to its original owner.
+	s._serviceStart060={"uid":str(s.get("uid","")),"team":team,"crew":Damage.number(s.get("crew")),"wounded":Damage.number(s.get("wounded")),"hp":Damage.number(s.get("hp"))}
 	s.id="%s-%d-%s"%[team,index,s.type]
 	s.x=spawn.x
 	s.y=spawn.y

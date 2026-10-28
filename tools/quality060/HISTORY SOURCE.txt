@@ -1,0 +1,78 @@
+BRASS TIDE 0.060 - B HISTORY SOURCE CONTRACT
+Base: delivered059 3598b9ad9182c837bcaa06e28bda687bd1250873.
+Owned only: game/scripts/campaign.gd, battle.gd, salvage.gd, this note.
+SOURCE IMPLEMENTED - manual diff review only; Root native validation pending.
+
+ROOT / A / C SHARED CONTRACT
+No new persistent service counters: keep battles, wins, rescues, trades, surveys.
+Keep serviceHistory as <=12 detached {day:number,event:String,detail:String}.
+A validation needs only existing service/history shapes; no new XP or death book.
+Battle._deploy overwrites a plain per-deployment boat._serviceStart060
+snapshot {uid:String,team:String,crew:number,wounded:number,hp:number}.
+That travels inside each copied ship through the existing driver and is read
+only after joined retirement restores the original campaign owner dictionary.
+Idle support and undeployed reserves receive no snapshot/credit this encounter.
+
+Campaign.battle_settled retains its signature and existing report fields. For
+physical encounters it returns/caches the entire detached settlementReport
+once (all physical encounters, not only convoy). Generic calls with no physical
+battle keep existing accounting and active-fleet service behavior. Active driver
+mirrors are refused before accounting; ordinary synchronous Battle.create and
+retired driver results both use the original campaign-owner dictionaries.
+Handmade physical records without deployment snapshots receive no invented
+starting counts or service. Freshly captured enemy prizes receive no player
+participation credit, even after boarding adopts them into the fleet.
+New report.participants:Array[Dictionary] contains only actual original player
+fleet owners deployed in this encounter, including sunk/escaped/captured boats:
+  uid, name, hull, result, fate:String (afloat/escaped/sunk/captured),
+  crewStart, crewEnd, woundedStart, woundedEnd, crewDecrease:number,
+  hpStart, hpEnd, maxHp:number,
+  repair:Dictionary {missingHp,water,fire,engine:number,needsHarborRepair:bool},
+  service:Dictionary, serviceHistory:Array (detached copies).
+crewDecrease is max(0,start-end), NOT a named death ledger; numerical transfers
+and losses remain governed by the existing combat/boarding systems.
+crewEnd/woundedEnd are the actual scalars after boarding reconciliation; a sunk
+hull's retained last count does NOT establish rescued/living people. Its history
+states this explicitly. Service does not touch any people, wages or purses.
+New report.losses:Array contains detached participant rows with sunk/captured
+fate. Existing report.wrecks keeps exact wreck records; report.escapedUids lists
+physical escaped ships. No new financial repair quote or guaranteed recovery.
+
+Wrecks preserve detached service/serviceHistory at existing wreck.uid/name.
+Paid tow copies that attachment history onto the existing newly issued boat UID,
+with salvageWreckId and wreck.towedBoatUid retaining the established linkage.
+Tow keeps the wreck name and appends one recovered history entry with the actual
+paid tug/inspection/company cost and outstanding recruitment/repair/store needs;
+the same <=12 bound applies. Wreck history remains the detached loss snapshot.
+No old hull/part UID rewrite; tow remains uncrewed/empty/damaged and requires
+existing finite paid recruitment, materials/repair/stores. No staff is revived.
+
+ACTUAL 051 COPY/RETIREMENT CHAIN READ
+battle_driver051._init remembers original ships, then recursively _plain copies
+all non-Object initial groups. Nested ship keys are not a field whitelist.
+_snapshot copies the full ships/escapedShips/captured groups; its underscore
+filter applies only to TOP-LEVEL battle keys, not boat._serviceStart060.
+retire waits/adopts, runs/joins the retiring worker and its planning children,
+then _restore_owner -> _sync_record copies EVERY nested ship key back to its
+original dictionary by campaign UID. Escaped/captured aliases are relinked.
+_attach_mirror publishes simulation051.retired. No driver edit is needed.
+Campaign additionally requires is_same(find_boat(original_uid),ship), dedupes
+across actual arena/escape/capture lists, and never scans reserve/support lists.
+Successful settlement clears the temporary snapshots after copying its report.
+serviceReport060 and engagementSource060 on the encounter retain retry identity;
+the existing wreck-cargo guard now also applies to ordinary physical retries.
+
+FOCUSED ROOT PROOF TARGETS (NOT EXECUTED HERE)
+Actual deployed/sunk/escaped original UID gets one service increment; idle
+support and undeployed reserves do not. Driver retirement must restore the
+snapshot and owner identity before settlement. Starting/ending scalar rows and
+named loss history survive into wreck, parsed save/reload and paid uncrewed tow.
+Mutating returned report/wreck/tow history must not alias the live other copy.
+Repeated successful physical settlement returns the original detached report
+without repeating wins/loot/service/wrecks. Existing no-physical calls retain
+their old behavior. Root alone selects and executes the bounded proof batch.
+
+LIMITS
+Manual bounded reads/diffs only. Root owns native parsing/tests/engine/GPU/FIFO,
+acceptance, metadata/maps/version/tag/export/package/install. No helper jobs,
+AI brain, network, Root edits, cleanup, pushes or test acceptance here.

@@ -107,6 +107,21 @@ static func _clean_amounts(raw) -> Dictionary:
 	return out
 
 
+## Attachment metadata only. Copies never become crew, staff, money or parts.
+static func _retain_service(source: Dictionary,target: Dictionary) -> void:
+	var service: Dictionary={}
+	var raw_service: Dictionary=source.get("service",{}) if source.get("service") is Dictionary else {}
+	for key in ["battles","wins","rescues","trades","surveys"]:
+		if raw_service.has(key):service[key]=maxi(0,int(_num(raw_service[key])))
+	var history: Array=[]
+	for row in source.get("serviceHistory",[]) if source.get("serviceHistory") is Array else []:
+		if not row is Dictionary:continue
+		history.append({"day":_num(row.get("day")),"event":str(row.get("event","")),"detail":str(row.get("detail",""))})
+		while history.size()>12:history.pop_front()
+	target.service=service
+	target.serviceHistory=history
+
+
 static func _sanitize_wreck(raw) -> Dictionary:
 	if not (raw is Dictionary) or str(raw.get("id", "")).is_empty():
 		return {}
@@ -129,6 +144,7 @@ static func _sanitize_wreck(raw) -> Dictionary:
 		"sourceLoadout":raw.get("sourceLoadout",{}).duplicate(true) if raw.get("sourceLoadout",{}) is Dictionary else {},
 	}
 	Recovery.retain(raw, wreck)
+	_retain_service(raw,wreck)
 	return wreck
 
 
@@ -368,6 +384,7 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 			"status": STATUS_UNCLAIMED, "claimedMode": "", "towedBoatUid": "", "hullStripped":false,
 		}
 		_apply_equipment(sunk, wreck, item.plan)
+		_retain_service(sunk,wreck)
 		state["wrecks"].append(wreck)
 		created.append(wreck.duplicate(true))
 	_prune(state)
@@ -781,6 +798,10 @@ static func _publish_tow(core, state: Dictionary, wreck: Dictionary, staged: Dic
 	# Boarding.validate refuses a saved unrepaired hull that is not support-only.
 	boat["supportOnly"] = true
 	boat["repairLiability"] = (q["repairLiability"] as Dictionary).duplicate(true)
+	_retain_service(wreck,boat)
+	boat["name"] = str(wreck.get("name",boat.get("name","Boat")))
+	boat.serviceHistory.append({"day":_num(state.get("day")),"event":"recovered","detail":"%s (%s) towed from %s for %d coins; uncrewed, empty and damaged. Paid recruitment, harbor repair and stores still required."%[str(boat.name),str(wreck.get("uid","")),str(wreck.get("id","")),int(fees.ordinary)+int(fees.expert)+int(fees.fee)]})
+	while boat.serviceHistory.size()>12:boat.serviceHistory.pop_front()
 	wreck["stores"] = {}
 	wreck["components"] = {}
 	if restoring:

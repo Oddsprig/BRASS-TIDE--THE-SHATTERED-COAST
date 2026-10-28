@@ -1069,8 +1069,46 @@ func finish_contract() -> Dictionary:
 func abandon_contract() -> Dictionary:
 	return Contracts.abandon(self)
 
+## Called on Main after retirement. Arena ids are transient; only an actually
+## deployed original campaign owner can earn service. Reserves are not scanned.
+func _record_battle_service060(physical_battle: Dictionary,result: String) -> Array:
+	var owners: Array=[]
+	var rows: Array=[]
+	var seen: Dictionary={}
+	for key in ["ships","escapedShips","captured"]:
+		for ship in physical_battle.get(key,[]):
+			if not ship is Dictionary or not ship.get("_serviceStart060") is Dictionary:continue
+			var start: Dictionary=ship._serviceStart060
+			var uid: String=str(start.get("uid",""))
+			if uid.is_empty() or seen.has(uid) or str(start.get("team",""))!="player":continue
+			if uid!=str(ship.get("uid","")) or not is_same(find_boat(uid),ship):continue
+			seen[uid]=true
+			owners.append(ship)
+			var fate: String="sunk" if ship.get("sunk",false) else ("captured" if str(ship.get("team",""))!="player" else ("escaped" if ship.get("battleEscaped",false) else "afloat"))
+			var crew_start: float=Damage.number(start.get("crew"))
+			var crew_end: float=Damage.number(ship.get("crew"))
+			rows.append({"uid":uid,"name":str(ship.get("name",uid)),"hull":str(ship.get("type","")),"result":result,"fate":fate,
+				"crewStart":crew_start,"crewEnd":crew_end,"woundedStart":Damage.number(start.get("wounded")),"woundedEnd":Damage.number(ship.get("wounded")),"crewDecrease":maxf(0.0,crew_start-crew_end),
+				"hpStart":Damage.number(start.get("hp")),"hpEnd":Damage.number(ship.get("hp")),"maxHp":Damage.number(ship.get("maxHp")),
+				"repair":{"missingHp":maxf(0.0,Damage.number(ship.get("maxHp"))-Damage.number(ship.get("hp"))),"water":Damage.number(ship.get("water")),"fire":Damage.number(ship.get("fire")),"engine":Damage.number(ship.get("engine")),"needsHarborRepair":bool(ship.get("needsHarborRepair",false))}})
+	FleetIdentity.record_service(self,rows.map(func(row):return row.uid),result)
+	for index in range(rows.size()):
+		var row: Dictionary=rows[index]
+		var boat: Dictionary=owners[index]
+		var detail: String="%s (%s): %s; crew %.0f -> %.0f, wounded %.0f -> %.0f; hull %.0f -> %.0f / %.0f HP; missing %.0f HP, water %.0f, fire %.0f, engine %.0f%%."%[row.name,row.uid,row.fate,row.crewStart,row.crewEnd,row.woundedStart,row.woundedEnd,row.hpStart,row.hpEnd,row.maxHp,row.repair.missingHp,row.repair.water,row.repair.fire,float(row.repair.engine)*100.0]
+		if row.fate=="sunk":detail+=" Last crew count on a lost hull; no living berth restored."
+		elif row.repair.needsHarborRepair:detail+=" Paid harbor repair is required."
+		var history: Array=boat.serviceHistory
+		if not history.is_empty():history[history.size()-1].detail=detail
+		row.service=boat.service.duplicate(true)
+		row.serviceHistory=history.duplicate(true)
+		if row.fate in ["sunk","captured"]:
+			log_entry("%s %s (%s); service %d battles, %d wins. %s"%[row.fate.capitalize(),row.name,row.uid,int(row.service.get("battles",0)),int(row.service.get("wins",0)),detail])
+	return rows
+
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
-	if physical_battle.has("convoy") and physical_battle.get("settlementReport") is Dictionary:return physical_battle.settlementReport.duplicate(true)
+	if physical_battle.get("settlementReport") is Dictionary:return physical_battle.settlementReport.duplicate(true)
+	if physical_battle.get("_battleMirror051",false) and not physical_battle.get("simulation051",{}).get("retired",false):return fail("Retire the battle worker before settling its physical owners.")
 	if physical_battle.has("convoy"):
 		if result!=physical_battle.get("result"):return fail("The convoy result must match its physical encounter.")
 		var cargo_problem: String=EscortOps.cargo_error(self,physical_battle)
@@ -1079,13 +1117,21 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	CrisisOps.losses(self)
 	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
 	if not boarding_result.ok:return boarding_result
-	if not physical_battle.has("convoy") or not physical_battle.has("convoyEngagementSource"):
+	var participants: Array=[]
+	if physical_battle.is_empty():
+		# Reference callers without a physical encounter keep their legacy API.
 		FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),result)
+	else:
+		if not physical_battle.get("serviceReport060") is Array:physical_battle.serviceReport060=_record_battle_service060(physical_battle,result)
+		participants=physical_battle.serviceReport060.duplicate(true)
+	if physical_battle.is_empty() or not physical_battle.has("engagementSource060"):
 		state.battleSeq=int(state.get("battleSeq",0))+1
-		if physical_battle.has("convoy"):physical_battle.convoyEngagementSource="engagement:%d:%d"%[state.seed,state.battleSeq]
+		if not physical_battle.is_empty():
+			physical_battle.engagementSource060=str(physical_battle.get("convoyEngagementSource","engagement:%d:%d"%[state.seed,state.battleSeq]))
+			if physical_battle.has("convoy"):physical_battle.convoyEngagementSource=physical_battle.engagementSource060
 	var physical_wrecks: Array=[]
 	if not physical_battle.is_empty():
-		var source: String=str(physical_battle.get("convoyEngagementSource","engagement:%d:%d"%[state.seed,state.battleSeq]))
+		var source: String=str(physical_battle.engagementSource060)
 		physical_wrecks=Salvage.record_battle(self,physical_battle,source)
 		for ship in physical_battle.get("ships",[]):
 			if ship.get("sunk",false):ship.wreckRecorded=true
@@ -1096,12 +1142,12 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 			state.wreckHazards[source]=str(context.get("ownerId",""))
 			while state.wreckHazards.size()>256:state.wreckHazards.erase(state.wreckHazards.keys()[0])
 		for record in physical_wrecks:
-			if physical_battle.has("convoy") and physical_battle.get("convoyWreckCargoApplied",false):break
+			if physical_battle.get("convoyWreckCargoApplied",false):break
 			if not record.friendly:continue
 			var live: Dictionary=Salvage.find_wreck(state,record.id)
 			for good in state.get("cargoManifest",{}).get(record.uid,{}):
 				if Goods.ITEMS.has(good):live.stores[good]=float(live.stores.get(good,0))+float(state.cargoManifest[record.uid][good])*0.5
-		if physical_battle.has("convoy") and not physical_wrecks.is_empty():physical_battle.convoyWreckCargoApplied=true
+		if not physical_wrecks.is_empty():physical_battle.convoyWreckCargoApplied=true
 	var convoy_outcome: Dictionary=EscortOps.settle_cargo(self,physical_battle,physical_wrecks)
 	if convoy_outcome.get("ok",true)==false:return convoy_outcome
 	if not convoy_outcome.is_empty():
@@ -1149,11 +1195,14 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	use_reserves()
 	apply_morale()
 	log_entry("Engagement %s. %d boats remain."%[result,state.fleet.size()])
-	var report: Dictionary={"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed}
+	var report: Dictionary={"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed,"participants":participants,"losses":participants.filter(func(row):return str(row.fate) in ["sunk","captured"]).duplicate(true)}
 	if not convoy_outcome.is_empty():
 		report.convoy=convoy_outcome
+	if not physical_battle.is_empty():
 		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
-	if physical_battle.has("convoy"):physical_battle.settlementReport=report.duplicate(true)
+		physical_battle.settlementReport=report.duplicate(true)
+		for key in ["ships","escapedShips","captured"]:
+			for ship in physical_battle.get(key,[]):ship.erase("_serviceStart060")
 	return report
 
 func salvage_quote(id: String) -> Dictionary:
