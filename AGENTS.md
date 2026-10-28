@@ -1,14 +1,12 @@
 # Brass Tide — current working instructions
 
-Current candidate: v0.057 Middle Sea expedition, metadata prepared once.
-Installed verified game remains0569e9d625; preserve one launcher/two voyages/18MP3s.
-Three BridgeSolMAX handoffs integrated: chain8ef275+sharedsetup75f9eeb,
-preparation1edbe0e, voyagec852dc5. RootQA13129f0 adds3isolatedlayoutviews.
-Advisory0issues; native/actual acceptance pending. Two bounded batches: component
-preflight then actualpaidvoyage+Windowsbuild. Wholeeach<120s; exactsame-source
-component receipts may be retained with no game-source differences permitted.
-No058 breadth/051retuning. Whole-quality and strict051targets OPEN062.
-Read work/quality-v042-v061/CURRENT STATE.txt for exact live jobs and source.
+Current scoped build: v0.057 VERIFIED; packaging/install follows this checkpoint.
+Native df5b36db/attempt001175/0 plus exact-source retained269 component checks;
+export and menu/campaign/battle passed. Actual be7c0b67/attempt00116 exported
+PNGs30.891s, all Root viewed. Earlier comparison failure, yield and rejected
+visual labels remain recorded. Whole-quality and strict051 targets stay OPEN062.
+Next058 recovery follows the two read-only audits in057 helper checkouts.
+Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
@@ -16,7 +14,7 @@ Root coordinates/reviews/integrates and alone owns all engine/GPU jobs. Maximum3
 active Sol6.1MAX; optional Grok4.7HIGH. No native/nested helpers, new chats,
 ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlists,
 source-only helpers; integrate named commits. Completed helpers stay idle until
-given another bounded task. Finish055 delivery before advancing the next saved release.
+given another bounded task. Finish the current delivery before advancing the next saved release.
 
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051

@@ -1,0 +1,49 @@
+BRASS TIDE v0.057 - WREN'S MIDDLE SEA EXPEDITION
+
+Meet Sister Wren at Reedwater Floats through Coastal stories & expedition leads.
+Accept The Middle Sea Chart. Her clue sights the first bearing; the journal
+keeps earned destinations and later explains the consequences of your choice.
+
+Before sailing, open the work board at Reedwater. An eligible existing funded
+survey prefers the accepted expedition objective. It still needs real treasury
+funds, room among your commitments and a full level-3 survey. Reading the rock's
+story clue only needs level 2: paid survey work asks more and the panel says so.
+Payment remains in escrow until the actual return report; it cannot repeat.
+
+Prepare the selected island with enough spare able sailors above every boat's
+minimum. A base chart needs two spare hands, one day and one kit. A base full
+survey needs four spare hands, 2.5 days and two kits. Fitted survey bonuses can
+change the quoted work time. Buy and hire through the harbor's actual services.
+For example, the verified Tinwake voyage hired two additional sailors, reaching
+seven crew/four spare hands. Seven sailors cost 700 coins for each paid day.
+
+The island preparation panel names a return harbor and separates sailing,
+remaining shore work and contingency. It shows missing crew, food, working
+fuel, kits, hold space and payroll coins. Accepted matching survey work uses
+its reporting harbor. Without that commitment, the default is a nearby legal
+harbor with an actual water route: read the name before committing.
+
+Sail to the landing, stop the engines and assign the party. Wages continue for
+the fleet while hands work ashore. Shore rations are prepaid from the same
+normal food allowance; they are not charged twice. Idle survey days consume
+no sailing fuel. Recall the party before leaving; spent tools remain spent.
+
+After charting the rock, decide whether to share the bearing or keep it secret.
+Follow the earned clue to Shatter Wreck Field, chart and survey it, then mark
+the next bearing. The finite wreck can be investigated before you return to
+register rights. Actual hostiles, capacity, hands, kits and work still matter;
+marking a wreck is not a free victory or a free new boat.
+
+Compare returning now with the optional Rust anchorage detour. Extra travel,
+shore work and payroll are shown together. Return to Reedwater to report the
+funded survey and settle your public/private claim. Public rights allow nearby
+Commune salvors to work the field's remaining real stock; private rights keep
+that public work closed and change the available paid charter conditions.
+Neither choice removes cargo you already recovered. A charter grants access
+to an actual paid business, not a staffed yard or renewable free salvage.
+
+The journal retains earned leads and completed outcomes. Every later recovery,
+charter, repair and operating voyage still needs its own real people, materials
+and coins. Exact focused verification and actual exported-view evidence are in
+tests/. Broad art, balance, performance and whole-game quality remain open on
+the saved roadmap; this guide does not claim Starsector parity.

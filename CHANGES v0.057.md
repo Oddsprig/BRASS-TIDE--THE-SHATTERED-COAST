@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Pair the accepted expedition objective with an existing funded full survey while preserving escrow, contact recommendations and actual return settlement.
 
 See docs/TEST RESULTS v0.057.md for actual focused checks and remaining limits.
+
+Verification: 175 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 79.862s. Preserved earlier failures; no broad acceptance claim.

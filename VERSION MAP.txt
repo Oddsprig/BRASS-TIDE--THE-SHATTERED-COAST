@@ -58,7 +58,7 @@ NPC trade, piracy, response and faction battles work independently and pay their
 0.056 - FACTIONS AND CONTACTS [SCOPED BUILD DELIVERED]
 Relationships and remembered work change access, opportunity and safety.
 
-0.057 - REWARDING EXPLORATION [PLANNED]
+0.057 - REWARDING EXPLORATION [PLANNED] [DONE]
 Discoveries, clues and a complete original expedition make detours worthwhile.
 
 
