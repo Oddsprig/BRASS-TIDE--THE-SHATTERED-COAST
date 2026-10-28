@@ -1,0 +1,67 @@
+BRASS TIDE v0.064 - OCEAN CHART ADAPTER SOURCE NOTE (argon-chart)
+Baseline: e8406f6184672fb53a43ba6aad9f86d904490bd7
+Contract Authority: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v064/LOCKED064 CONTRACT.txt
+
+1. DELIVERED FILES & HASH
+- Source: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v064/argon-chart/ocean_chart064.gd
+  Target install path: game/scripts/ocean_chart064.gd (res://scripts/ocean_chart064.gd, extends RefCounted)
+  SHA-256: 48fda1e7a514eee05886f4038300a8bcb4025bbc2e1ebb5e664f315aa5219642
+- Note: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v064/argon-chart/OCEAN CHART SOURCE.txt
+
+2. CANONICAL INSTANCE API (OceanChart064)
+All methods consume OceanWorld064.view(...).view payload `V` directly (never the outer `R0` wrapper) and never read `chart.host` or `core.state`.
+Missing/invalid input, outer `R0` wrapper, bool coordinates, unknown layer/regionId pairs, or non-north/south approaches fail cleanly (`{}` / `Rect2()` / `ok:false`). No field aliases, synthetic fallback geography, or optional contacts are accepted.
+All `chart` parameters are untyped (`Variant`) so custom `Chart` script members (`project`, `world_line`, `world_ring`, `campaign_overview`, `_projector`, `_draw_chart_labels`, `text_at`, `draw_compass`, `scale_factor`, `zoom`) compile cleanly under Godot 4 GDScript static typing.
+
+- draw(chart, view: Dictionary) -> Dictionary
+  Validates full `V` schema (`layer`, `regionId`, `name`, `bounds`, `position`, `heading`, `path`, `destination`, `islands`, `regions`, `approaches`, `boats`, `homeInteractions`).
+  - `layer == "home"` (`regionId == "shatter_coast"`, `homeInteractions == true`):
+    Performs no drawing and returns empty metrics with `ok: true` and `delegate_home: true`. B's `Chart` keeps the original home campaign drawing unchanged and may call `draw_approaches(self, v, labels)` before `_draw_chart_labels(labels)`.
+  - `layer == "local"` (`regionId == "glasswind_keys"`, `homeInteractions == false`):
+    Prepares/reads cached `CoastArt050` island meshes via `prepare_local_region(V)`, draws graticule over `V.bounds` (`4200x3000`), draws the 3 Glasswind Keys islands via `NauticalArt.draw()`/`CoastArt050.draw()`, draws north/south coastal approaches from `V.approaches`, draws active course `V.path`, positions and draws the player flotilla from `V.boats` at `chart.project(V.position)` / `V.heading` via `FleetArt054.layout(V.boats, marker, float(V.heading), scale_factor, {"viewport": viewport_rect, "overview": zoom < 0.7})` + `FleetArt054.draw()` (ignoring any stale battle `boat.x`/`boat.y`), and draws collision-avoided labels (`chart._draw_chart_labels()`), scale bar, and compass.
+  - `layer == "ocean"` (`regionId == "open_ocean"`, `homeInteractions == false`, `V.islands` empty, `V.regions.size() == 2`):
+    Prepares/reads cached `CoastArt050` ocean-footprint meshes from `RV.silhouettes` (`Array[Array[P]]`), draws ocean graticule over `V.bounds` (`4800x2800`), draws both regional groups (`shatter_coast` and `glasswind_keys`), draws north/south ocean approach gates from `RV.approaches`/`V.approaches`, draws active course `V.path`, positions and draws the player flotilla from `V.boats` at `chart.project(V.position)` / `V.heading` via `FleetArt054.layout` + `FleetArt054.draw()`, and draws collision-avoided labels, scale bar, and compass.
+  Returns metrics Dictionary:
+  `{"ok":bool, "delegate_home":bool, "layer":String, "regionId":String, "regions_drawn":int, "islands_drawn":int, "vessels_drawn":int, "textured_vessels":int, "approaches_drawn":int, "coast_draw_calls":int}`.
+
+- pick_region(view: Dictionary, world_position: Vector2) -> Dictionary
+  Consumes `V` and `chart.world_at(screen_pos)`.
+  - On `layer == "local"` or `layer == "home"`:
+    Tests north/south `AV` entries in `V.approaches` matching `V.regionId` using `world_position.distance_to(P) <= float(av.radius)` (`80.0`).
+    Returns `{"regionId":String, "approachId":String, "kind":"approach"}` on hit, or `{}` on miss.
+  - On `layer == "ocean"`:
+    1. Tests north/south `AV` entries in `RV.approaches` / `V.approaches` first (`world_position.distance_to(P) <= float(av.radius)`, `8.0` ocean units). Returns `{"regionId":String, "approachId":String, "kind":"approach"}`.
+    2. Tests `RV.silhouettes` polygons via `Geometry2D.is_point_in_polygon(world_position, poly)`. Returns `{"regionId":String, "approachId":"", "kind":"region"}`.
+    3. Returns `{}` on open-water miss.
+
+- prepare_local_region(view: Dictionary) -> Dictionary
+  Consumes `V` for `local/glasswind_keys` only (rejects `home` and `ocean` layers, empty `V.islands`, or `HOME_ISLAND_IDS`).
+  Builds and caches `CoastArt050.prepare_island(...)` plans under a deterministic key `layer:regionId:bounds:island_fingerprint` (bounded to 8 entries on the `OceanChart064` instance; never mutates `chart._chart_sheet` or `chart._chart_towns`).
+  Returns `{"cacheKey":String, "layer":String, "regionId":String, "name":String, "bounds":Rect2, "sheets":Array}` or `{}` on invalid input.
+
+- world_bounds(view: Dictionary) -> Rect2
+  Validates `(V.layer, V.regionId)` and `V.bounds = {x, y, width, height}` (`width > 0`, `height > 0`) and returns `Rect2(x, y, width, height)`, or `Rect2()` on invalid input.
+
+- Additional helpers for B (`chart.gd` integration):
+  - `draw_approaches(chart, view: Dictionary, labels: Array = []) -> int`: draws north/south approach gates from `V` and appends gate label entries to `labels` so `Chart.draw_campaign()` can call it after original home painting before `_draw_chart_labels(labels)`.
+  - `content_bounds(view: Dictionary) -> Rect2`: tight bounding box of active layer's silhouettes/islands + approaches (falls back to `world_bounds(view)`) for `Chart.territory_view()`.
+
+3. EXACT INTEGRATION HOOKS FOR B (chart.gd / main.gd)
+- In `game/scripts/chart.gd`:
+  - `const OceanChart064 = preload("res://scripts/ocean_chart064.gd")`
+  - `var ocean_chart064 = OceanChart064.new()`
+  - In `draw_campaign()`: obtain `var v: Dictionary = host.core.world_view064()` (the inner `R0.view` dictionary `V`). If `v.get("layer", "home") != "home"` (or `not bool(ocean_chart064.draw(self, v).get("delegate_home", false))`), `ocean_chart064.draw(self, v)` renders `local` / `ocean` and returns. On `home`, keep the original home campaign drawing unchanged and call `ocean_chart064.draw_approaches(self, v, labels)` before `_draw_chart_labels(labels)`.
+  - In `pan_camera()`: when `host.mode != "battle"`, read `var wb: Rect2 = ocean_chart064.world_bounds(v)` and clamp `camera` to `[wb.position - Vector2(450, 450), wb.end + Vector2(450, 450)]`.
+  - In `territory_view()`: for `"local"` and `"ocean"`, frame `var coast: Rect2 = ocean_chart064.content_bounds(v)`.
+- In `game/scripts/main.gd`:
+  - In `click_chart(screen_pos: Vector2)`: obtain `var world_pos: Vector2 = chart.world_at(screen_pos)` and `var pick: Dictionary = chart.ocean_chart064.pick_region(v, world_pos)`.
+    - If `pick.get("kind", "") == "approach"`: route to approach or transition if already at approach radius with empty path.
+    - If `v.layer == "home"` and `pick.is_empty()`: run existing home harbor/site/patrol/wreck hit checks, then `chart_course`.
+    - If `v.layer in ["local", "ocean"]` and `pick.is_empty()`: call `chart_course({"x": world_pos.x, "y": world_pos.y}, "")`.
+
+4. LIMITS & GUARANTEES
+- Strictly enforces valid `(layer, regionId)` pairs: `home/shatter_coast`, `local/glasswind_keys`, `ocean/open_ocean`.
+- Owns Open Ocean and Glasswind Keys local rendering only; never duplicates home campaign drawing or reads `chart.host`/`core.state`.
+- Never draws home islands (`HOME_ISLAND_IDS`) as remote local waters; never mutates `chart._chart_sheet` or `chart._chart_towns`.
+- Only `north` and `south` approach IDs are accepted/drawn/picked in v0.064.
+- Uses existing `CoastArt050` CPU-prepared `ArrayMesh`es and `FleetArt054.layout` with `V.boats`, `V.position`, and `V.heading` (ignoring any stale battle `boat.x`/`boat.y`); zero shaders, worker threads, or hot texture allocations.
