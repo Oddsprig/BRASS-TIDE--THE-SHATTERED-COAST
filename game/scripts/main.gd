@@ -1244,7 +1244,12 @@ func capture_after_start():
 				new_game();paused = true;chart.center_camera()
 			elif name == "voyage051":Interface.GuidanceUI.open_voyage(ui)
 			elif name == "harbor051":ui.open_port()
-			elif name == "preparation051":Interface.CampaignUI.expedition(ui)
+			elif name == "preparation051":
+				for destination052 in data.PORTS:
+					if str(destination052.id)!=str(core.current_port().get("id","")):
+						selected_port=str(destination052.id)
+						break
+				Interface.CampaignUI.expedition(ui)
 			await get_tree().process_frame
 			name = "opening051-" + name.trim_suffix("051")
 		elif not screenshots_requested.is_empty():
