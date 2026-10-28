@@ -82,12 +82,35 @@ func _initialize() -> void:
 	var malformed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	malformed.fleetOwners.filter(func(o):return o.id==second)[0].workingBasis.fuel.cost=INF
 	check(not c.restore(malformed).ok,"Nonfinite working inventory cost is refused before restore")
-	var food_company: Dictionary=c.CompanyOps.create(c,[first_uid],"kelp_reach","food",12000,limits)
+	# A valid selling floor leaves the purchased food aboard at the destination.
+	var food_limits: Dictionary=limits.duplicate(true);food_limits.sellMin=10000
+	var food_company: Dictionary=c.CompanyOps.create(c,[first_uid],"kelp_reach","food",12000,food_limits)
 	check(food_company.ok,"Actual returned hull can charter a shared-commodity food route: "+str(food_company.get("message","")))
 	if food_company.ok:
 		var food_id: String=str(c.state.shippingCompanies.keys()[-1])
 		var food_owner: Dictionary=c.fleet_owner(food_id)
 		check(float(food_owner.cargo.food)>float(c.state.shippingCompanies[food_id].basisQty),"Crew provisions and commercial food share one physical inventory with separate paid ownership basis")
+		await advance(scene,350,func():return str(c.fleet_owner(food_id).atPort)=="kelp_reach" and not c.NavalLifecycle.harbor_service(c,c.fleet_owner(food_id)).is_empty())
+		food_owner=c.fleet_owner(food_id)
+		var food_book: Dictionary=c.state.shippingCompanies[food_id]
+		var service: Dictionary=c.NavalLifecycle.harbor_service(c,food_owner)
+		check(not service.is_empty() and float(food_book.basisQty)>=1 and float(food_owner.cargo.food)>=float(food_book.basisQty) and str(food_owner.order.destination)=="kelp_reach","Actual arrival starts finite service with real unsold cargo and an existing destination-hold order")
+		if not service.is_empty():
+			check(is_equal_approx(float(service.remainingDays),0.25),"A real arrival grants exactly one quarter-day of harbor service")
+			var food_patrol: Dictionary=c.CompanyOps.api(c)._patrol(c.state,food_id)
+			var berth: Vector2=Vector2(food_patrol.x,food_patrol.y)
+			var deadline: float=float(service.departureDay)
+			check(c.CompanyOps.recall(c,food_id).ok,"Actual recall accepted during destination service")
+			var paid_visit: Array=[food_owner.coins,food_owner.crewPurse,food_owner.cargo.duplicate(true),food_owner.boats.duplicate(true),food_owner.workingBasis.duplicate(true),food_book.duplicate(true)]
+			var orders: int=int(food_owner.orderSeq)
+			var economy_day: int=int(c.state.econDay)
+			var voyage: int=int(food_patrol.voyageSeq)
+			# Advance the actual campaign clock without a daily economy replan.
+			c.step(maxf(0.0,(deadline-float(c.state.day))*float(c.DAY_SECONDS)-0.05))
+			check(float(c.state.day)<deadline and food_patrol.holding and str(food_owner.atPort)=="kelp_reach" and berth.distance_to(Vector2(food_patrol.x,food_patrol.y))<0.001 and int(food_patrol.voyageSeq)==voyage,"Recall cannot depart or move before actual service expires")
+			c.step(0.10)
+			check(int(c.state.econDay)==economy_day and not food_patrol.holding and str(food_patrol.to)==str(food_book.home) and str(food_owner.order.destination)==str(food_book.home) and str(food_owner.atPort)=="" and berth.distance_to(Vector2(food_patrol.x,food_patrol.y))>0.001 and int(food_patrol.voyageSeq)==voyage+1,"Service expiry immediately sails home on the latest recall without waiting for daily replanning")
+			check(not food_owner.has("harborServiceUntilDay") and int(food_owner.orderSeq)==orders+1 and paid_visit==[food_owner.coins,food_owner.crewPurse,food_owner.cargo,food_owner.boats,food_owner.workingBasis,food_book],"Expiry publishes one order without a second paid dock, cargo sale, repair or arrival service")
 		await advance(scene,55)
 		check(Money.total(c.state)==supply and c.restore(JSON.parse_string(JSON.stringify(c.state))).ok,"Real food trade, sailor eating and working-stock accounts reconcile through saved daily operations")
 	scene.ui.CompanyUI.open(scene.ui)

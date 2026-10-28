@@ -59,3 +59,34 @@ No further demonstrated skip-service or duplicate-arrival blocker found in
 the bounded route/holding/RegionalOps trace. This is source reasoning only,
 not native parsing, execution, test success, or final acceptance of A's still
 changing candidate. Root owns final named-commit review and native proof.
+
+NARROW NATIVE REGRESSION SOURCE HANDOFF -- 28 October 2026, 11:48 UTC
+
+Read Root 430efd2 (company-voyage fixture unchanged from this checkout), A's
+446ad2ee402d2e21d5b25af83efd1563e600df7f service change and completed followup
+2a8393108bdad31d28b214e0d3f80da8c64247d8. The latter replans a recalled
+company exactly at service expiry with CompanyOps.plan / Orders.build_order.
+
+Extended only the existing test_company_voyage.gd food-charter branch. Its
+same returned/purchased/fitted hull, actual company capital and paid cargo
+travel on the live route. A valid 10000-coin selling floor prevents the
+destination sale; no fake patrol, stock, arrival, service deadline or order
+is injected. Existing financial, UID, return, loss and save checks remain.
+The regression waits for the actual first destination service, requires
+unsold cargo and the prior destination-hold order, then calls CompanyOps.recall.
+Actual Campaign.step moves time just short of the deadline, verifies no
+movement, then crosses it by 0.05 seconds. No economy sync occurs between
+recall and expiry: econDay must remain unchanged while the owner leaves the
+berth toward home on the latest order and increments voyageSeq once.
+The quarter-day deadline must disappear, exactly one new order is published,
+and coins, crew savings, commercial book, cargo, fitted hull state and paid
+working basis must remain equal to their post-recall snapshots. This checks
+observable duplicate paid-dock / arrival effects without a call spy or new
+framework. The original 55-second food daily/save check still follows.
+
+Source/diff review only: no engine, parser, advisory, native result or final
+acceptance claimed. Root should run the existing company-voyage component
+alone as its own bounded Test Bridge batch (<120 seconds including setup and
+cleanup), using the combined A production commits and this test. Do not add
+it to the already tight career batch. A pre-fix expiry leaves the patrol
+holding at the destination and fails the immediate-sailing assertion.
