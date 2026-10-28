@@ -1,0 +1,75 @@
+053 PROOF SOURCE HANDOFF - PREPARED, NOT RUN
+Base: 0aa28857a11d0cdc8e245a88f5763dd16496421e (installed/preserved 052).
+Allowlist changed: game/tests/test_trade_intel.gd,
+game/tests/test_meaningful_trade053.gd, this note.
+Existing test_reactive_trade.gd retained unchanged, including its real convoy /
+funded construction, blockade starvation, persistence and Main assertions.
+No helpers, tests, advisories, engine/import/export/GPU, metadata, maps, tags,
+installation, cleanup, push or repository repair performed here.
+
+Unit proof: all legacy test_trade_intel assertions retained. Three added bounded
+synthetic groups require no new Campaign construction: dated recipe-input need
+and poisoned remote state; uncertainty margin and nominal/preparation separation;
+quantity limited by real good weight, freight, local lots, captain funds and
+observed buyer purse; two real traveling tank rows plus stored/mothballed/
+undercrewed exclusions; loose fuel remains cargo; food, arrears, funding and
+finite numeric risk fields. Reports/opportunities must preserve whole state and
+Money.total. Saved need survives JSON; old visits without needs do not infer
+current remote demand. Existing 60s internal unit guard remains unchanged.
+
+One narrow actual Main case: isolated new career and synthetic save directory;
+Market -> native Trade opportunities signal -> useful empty quote state;
+seeded destination quote -> expanded costs/quantity/funding/allowance;
+native Select Sawtooth Mill & review voyage signal changes only selection and
+opens preparation, preserving the whole career (no purchase, loading or course).
+Existing SpinBox and Market Buy signal purchase exactly three logs using the
+current Economy price and LawOps transaction. Preparation's actual Chart course
+button starts a navigable voyage; public Campaign.step(0.25) advances it with
+real fuel burn, bounded to 240 steps and yields every 16 (no engine cadence claim).
+Destination Market's final collapsed Local input needs & supply consequences
+toggle is explicitly pressed; dated stock-gap text and actual needPurpose must
+be visible before the native Sell and Wait one day controls complete the case.
+
+Controlled supply fixture, clearly not normal-career profit evidence:
+destination logs move to origin without creation, and the destination visit
+quote is seeded. After real arrival any intervening produced logs are moved
+to origin again to isolate missing-input causality. A detached copy of that
+actual harbor runs its paid recipe with no opening logs: no timber output and
+unchanged local total purse. Then a zero-cash buyer refusal preserves the whole
+career; its coins are temporarily transferred to its actual government purse
+and restored. Native sale pays current price from finite cash and puts the three
+purchased logs into actual working stock. Native Wait one day runs existing
+economy workers/publication and all daily upkeep: actual timber production must
+be >0 and <=3.001, current business/carpenter payroll >0, crew wages and shore
+spending exact, food consumed, no wage arrears, and Money.total conserved.
+No prices, labor, crew, loaded fuel or coins are invented by the fixture.
+
+Dependencies/API: math peer's additive report.needs fields and opportunity
+fields exactly as published in TRADE053 SOURCE.txt. Reviewed peer source only;
+math ddb75fffbda99e3ddbbef6006a75851813f9b398;
+no peer checkout mutation or integration here. UI paired with final
+b84671eea490109438dfa4fa1547285260fdcdc5 (including collapsed market_summary).
+Expanded quantity text is checked against the actual offer's mode and bounds:
+final UI shows Saleable aboard for owned cargo, Quantity limits for local buys,
+and the exact observed buyer-lot limit for either mode.
+Uses only public existing Main/Interface/TradeUI/Campaign/Economy/Money paths;
+production/transaction APIs unchanged. No new gameplay API or framework.
+
+Phase caps for Root, not measured results:
+- Unit test_trade_intel: synthetic groups only; suggested external cap 15s,
+  retain the existing 60s internal legacy guard. No Campaign setup added.
+- ActualMain test_meaningful_trade053: its own one real career; cooperative
+  20s deadline from initialization, Root external process cap 25s including
+  startup. Synchronous stalls require Root's external identity-safe bound.
+- Optional legacy reactive test is separate; it constructs Campaign plus Main,
+  so do not append it automatically or repeat expensive baseline setup.
+Root alone chooses the small shared-lane batch <120s INCLUDING import/setup,
+selected native cases, export/startups and cleanup; queue wait separate.
+
+Prepared checks NOT RUN. Manual source reads/diffs are not native acceptance,
+visual/play/audio review, profitable-career proof or performance acceptance.
+No full-game, 051 strict performance, version/package or 054 claim.
+Next Root check: integrate the named proof commit after math and final UI, then
+run test_trade_intel + test_meaningful_trade053 once through Test Bridge using
+headless/Dummy muted audio, synthetic APPDATA, and the caps above; preserve
+actual receipt, failures/timeouts/interruption separately from any passes.

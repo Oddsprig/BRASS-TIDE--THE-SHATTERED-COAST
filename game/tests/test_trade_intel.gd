@@ -4,6 +4,8 @@ const T = preload("res://scripts/trade_intel.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Damage = preload("res://scripts/damage.gd")
 const Factions = preload("res://scripts/factions.gd")
+const Goods = preload("res://scripts/goods.gd")
+const Money = preload("res://scripts/money.gd")
 
 var checks: int = 0
 
@@ -25,6 +27,9 @@ func _initialize() -> void:
 	_test_blockade_follows_owner_state()
 	_test_player_intervention_and_hostility()
 	_test_save_roundtrip_and_bounds()
+	_test_meaningful_need_and_margin053()
+	_test_quantity_constraints053()
+	_test_preparation_is_not_shared_fuel053()
 	var elapsed := Time.get_ticks_msec() - started
 	_check(elapsed < 60000, "trade intel checks finished under 60s (%d ms)" % elapsed)
 	print("ALL TRADE INTEL TESTS PASSED (%d checks in %d ms)" % [checks, elapsed])
@@ -292,3 +297,98 @@ func _without_intel(state: Dictionary) -> Dictionary:
 	var copy: Dictionary = state.duplicate(true)
 	copy.erase("tradeIntel")
 	return copy
+
+
+func _test_meaningful_need_and_margin053() -> void:
+	# Controlled shortage fixture, not evidence of a normal-career profit.
+	var harbor := _port("harbor", 0.0, "compact")
+	var mill := Economy.create_port({"id": "mill", "industry": "timber", "population": 1200, "wealth": 1.0})
+	mill.x = 800.0; mill.y = 0.0; mill.faction = "compact"
+	mill.stocks.logs = 0.0; mill.shortages = ["logs"]
+	var state := {"day": 7, "coins": 20000, "crewPurse": 0, "ports": [harbor, mill], "fleet": [_boat(40.0, 100.0, 5)], "cargo": {"logs": 3}, "position": {"x": 0.0, "y": 0.0}}
+	T.observe(state, mill, 4)
+	var saved: Dictionary = T.report(state, "mill")
+	_check(saved.needs.has("logs"), "visited recipe input has a dated delivery purpose")
+	var need: Dictionary = saved.needs.logs
+	_check(float(need.observedNeed) > 0.0 and bool(need.shortageReported), "zero input and the actual reported shortage are recorded")
+	_check(Goods.ITEMS.has(need.needOutput) and Goods.ITEMS[need.needOutput].inputs.has("logs") and not str(need.needPurpose).is_empty(), "delivery purpose names an actual output that consumes logs")
+	mill.stocks.logs = 9999.0; mill.cash = 1; mill.industry = "refinery"; mill.shortages = []
+	var frozen := JSON.stringify(state)
+	var total := Money.total(state)
+	var again: Dictionary = T.report(state, "mill")
+	var rows: Array = T.opportunities(state)
+	_check(again.needs == saved.needs and int(again.stocks.logs) == 0, "poisoned remote recipes, shortage, funds and stocks do not refresh the saved need")
+	if rows.is_empty():
+		_check(false, "carried logs produce a dated opportunity"); return
+	var row: Dictionary = rows[0]
+	_check(row.good == "logs" and int(row.observedDay) == 4 and int(row.quoteAge) == 3, "the opportunity identifies its carried input and exact observation day")
+	_check(row.needOutput == need.needOutput and row.needPurpose == need.needPurpose and is_equal_approx(float(row.observedNeed), float(need.observedNeed)), "opportunity purpose comes from the visit rather than the live remote industry")
+	_check(int(row.uncertaintyMargin) == ceili(float(row.revenue) * float(row.uncertainty)), "conservative margin derives from the existing quote-age sensitivity")
+	_check(int(row.conservativeNetProfit) == int(row.netProfit) - int(row.uncertaintyMargin) and not str(row.uncertaintyBasis).is_empty(), "conservative estimate discloses its basis and subtracts the margin once")
+	_check(int(row.netProfit) == int(row.revenue) - int(row.purchaseCost) - int(row.wageCost) - int(row.fuelCost) - int(row.foodCost), "nominal net still uses only nominal round-trip costs")
+	_check(float(row.reserveDays) == 2.0 and int(row.contingencyCost) >= int(row.dailyWages) * 2, "two-day operating allowance remains separate from nominal net")
+	_check(row.estimate and not row.guaranteed and not row.coinsMoved and not row.goodsMoved, "useful need and conservative margin still promise no return or transaction")
+	_check(JSON.stringify(state) == frozen and Money.total(state) == total, "reports and opportunities preserve every field and actual purse")
+	var restored: Dictionary = JSON.parse_string(JSON.stringify(state))
+	_check(T.report(restored, "mill").needs == saved.needs, "dated input purpose survives the existing save representation")
+	restored.tradeIntel.observations.mill.erase("needs")
+	_check(T.report(restored, "mill").needs.is_empty(), "legacy visits without need data do not invent a live remote purpose")
+
+
+func _test_quantity_constraints053() -> void:
+	var harbor := _port("harbor", 0.0, "compact")
+	var mill := _port("mill", 800.0, "compact")
+	harbor.stocks.timber = 6
+	mill.cash = 80000
+	var state := {"day": 2, "coins": 100000, "wageArrears": 0, "ports": [harbor, mill], "fleet": [_boat(8.0, 90.0, 3)], "cargo": {}, "position": {"x": 0.0, "y": 0.0}}
+	T.observe(state, mill, 2)
+	var row: Dictionary = T.opportunities(state)[0]
+	_check(int(row.qty) == 4 and int(row.holdLimit) == 4 and int(row.localStockLimit) == 6, "real good weight bounds a local purchase before stock runs out")
+	_check(not str(row.quantityLimitReason).is_empty() and int(row.qty) <= int(row.affordabilityLimit), "quantity exposes its limiting reason and captain funding bound")
+	state.freight = {"good": "logs", "qty": 2}
+	row = T.opportunities(state)[0]
+	_check(int(row.qty) == 1 and int(row.holdLimit) == 1, "sealed freight reduces the same physical hold")
+	state.freight = {}; harbor.stocks.timber = 1
+	row = T.opportunities(state)[0]
+	_check(int(row.qty) == 1 and int(row.localStockLimit) == 1, "one finite local lot bounds the advertised purchase")
+	harbor.stocks.timber = 6
+	mill.cash = int(T.report(state, "mill").sell.timber)
+	T.observe(state, mill, 2)
+	row = T.opportunities(state)[0]
+	_check(int(row.qty) == 1 and int(row.buyerLiquidity) == 1, "one lot of observed buyer funds bounds quantity independently of hold and local stock")
+	mill.cash = 0; T.observe(state, mill, 2)
+	_check(T.opportunities(state).is_empty(), "an observed empty buyer purse cannot advertise a paid sale")
+	mill.cash = 80000; T.observe(state, mill, 2)
+	state.coins = 0
+	_check(T.opportunities(state).is_empty(), "an empty captain purse cannot advertise an unfunded local purchase")
+
+
+func _test_preparation_is_not_shared_fuel053() -> void:
+	var harbor := _port("harbor", 0.0, "compact")
+	var mill := _port("mill", 800.0, "compact")
+	mill.cash = 80000
+	var dry := _boat(8.0, 90.0, 3); dry.uid = "dry"; dry.fuel = 0.01
+	var wet := _boat(8.0, 90.0, 3); wet.uid = "wet"
+	var stored := _boat(200.0, 90.0, 3); stored.uid = "stored"; stored.storedPort = "harbor"
+	var idle := _boat(200.0, 90.0, 3); idle.uid = "idle"; idle.mothballed = true
+	var uncrewed := _boat(200.0, 90.0, 0); uncrewed.uid = "uncrewed"
+	var state := {"day": 3, "coins": 0, "crewPurse": 1000, "wageArrears": 150, "ports": [harbor, mill], "fleet": [dry, wet, stored, idle, uncrewed], "cargo": {"timber": 1, "fuel": 0.5}, "position": {"x": 0.0, "y": 0.0}}
+	T.observe(state, mill, 2)
+	var frozen := JSON.stringify(state)
+	var row: Dictionary = T.opportunities(state)[0]
+	_check(is_equal_approx(float(row.freeCapacity), 13.5), "stored, mothballed and undercrewed boats lend no active hold")
+	_check(row.boatFuel.size() == 2, "preparation exposes only the two traveling boats' tank rows")
+	var dry_row: Dictionary = {}
+	for boat in row.boatFuel:
+		if str(boat.uid) == "dry": dry_row = boat
+	_check(not dry_row.is_empty() and float(dry_row.get("fuelShortfall", 0)) > 0.0, "the dry boat keeps its own fuel shortfall despite its supplied companion")
+	_check(float(row.looseFuel) == 0.5 and float(row.fuelShortfall) > 0.0 and row.riskFlags.shortFuel, "loose cargo drums and reserve boats do not silently fill a working tank")
+	_check(float(row.foodRequired) > 0.0 and float(row.foodShortfall) > 0.0 and int(row.wageArrears) == 150, "real owned crew food and existing unpaid wages remain visible")
+	_check(int(row.preparationCost) > 0 and int(row.fundingRequired) > 0 and int(row.fundingShortfall) > 0 and not row.preparationReady, "a carried-cargo estimate exposes missing preparation resources and funds")
+	_check(row.riskFlags.shortFood and row.riskFlags.shortFunding and float(row.payloadAfterFood) <= float(row.freeCapacity), "risk fields expose food and funding gaps while preparation reserves real hold space")
+	var finite: bool = true
+	for key in ["qty", "distance", "days", "netProfit", "conservativeNetProfit", "uncertaintyMargin", "fundingRequired", "fundingShortfall", "foodRequired", "fuelShortfall", "payloadAfterFood", "allowanceOverload"]:
+		finite = finite and is_finite(float(row[key]))
+	_check(finite, "bounded finite fixture yields finite quantity, risk, cost and preparation observations")
+	_check(not row.preparationWarnings.is_empty(), "unsafe preparation explains its actual shortages")
+	_check(JSON.stringify(state) == frozen, "fuel, food, crew and purses stay untouched by the full preparation estimate")
