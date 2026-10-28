@@ -33,6 +33,40 @@ func same(a,b) -> bool:
 		return true
 	return a==b
 
+func field_value(value) -> String:
+	var detail: String
+	if value is Dictionary or value is Array:detail="size=%d"%value.size()
+	else:detail=var_to_str(value).left(160)
+	return "%s(%s)"%[type_string(typeof(value)),detail]
+
+func field_differences(actual,expected,path: String,rows: Array) -> void:
+	if rows.size()>=12:return
+	if actual is Dictionary and expected is Dictionary:
+		for key in actual:
+			if rows.size()>=12:return
+			var child: String=path+"."+str(key)
+			if not expected.has(key):rows.append(child+": actual="+field_value(actual[key])+"; expected=<missing>")
+			else:field_differences(actual[key],expected[key],child,rows)
+		for key in expected:
+			if rows.size()>=12:return
+			if not actual.has(key):rows.append(path+"."+str(key)+": actual=<missing>; expected="+field_value(expected[key]))
+		return
+	if actual is Array and expected is Array:
+		if actual.size()!=expected.size():rows.append(path+".size: actual=%d; expected=%d"%[actual.size(),expected.size()])
+		for index in range(mini(actual.size(),expected.size())):
+			if rows.size()>=12:return
+			field_differences(actual[index],expected[index],path+"[%d]"%index,rows)
+		return
+	if not same(actual,expected):rows.append(path+": actual="+field_value(actual)+"; expected="+field_value(expected))
+
+func check_same(actual,expected,message: String) -> bool:
+	var equal: bool=same(actual,expected)
+	if not check(equal,message):
+		var rows: Array=[]
+		field_differences(actual,expected,"$",rows)
+		for row in rows:print("DIFF ocean064: ",message," | ",row)
+	return equal
+
 func parsed(value) -> Dictionary:
 	return JSON.parse_string(JSON.stringify(value))
 
@@ -107,8 +141,8 @@ func roundtrip(label: String) -> void:
 	var save: Dictionary=parsed(c.state)
 	var restore: Dictionary=c.restore(save)
 	check(bool(restore.ok),label+": real Core.restore accepts JSON: "+str(restore.message))
-	check(same(c.world_location064(),{"world064":save.world064,"position":save.position,"heading":save.heading,"path":save.path,"destination":save.destination}),label+": exact parsed spatial record survives restore")
-	check(same(custody(c.state),custody(save)),label+": exact parsed boats, crew, stores, purses and ports survive restore")
+	check_same(c.world_location064(),{"world064":save.world064,"position":save.position,"heading":save.heading,"path":save.path,"destination":save.destination},label+": exact parsed spatial record survives restore")
+	check_same(custody(c.state),custody(save),label+": exact parsed boats, crew, stores, purses and ports survive restore")
 	check(Money.total(c.state)==int(save.coinSupply),label+": original coin supply remains conserved")
 
 func refusal_cases() -> void:
@@ -130,7 +164,9 @@ func refusal_cases() -> void:
 	for kind in ["shore","tooling","gear","charter","cohort","overload","battle","pending"]:
 		if kind=="shore":c.state.exploration.assignment={"siteId":"controlled"}
 		elif kind=="tooling":c.state.toolingRecovery={"siteId":"controlled"}
-		elif kind=="gear":c.state.civilianWork.fishing=[{"boatUid":str(c.state.fleet[0].uid)}]
+		elif kind=="gear":
+			var work: Dictionary=c.CivilianWork.ensure(c)
+			work.fishing=[{"boatUid":str(c.state.fleet[0].uid)}]
 		elif kind=="charter":c.state.voyageJobs=[{"kind":"passenger_charter","passengers":{"n":1}}]
 		elif kind=="cohort":c.state.regionalCrises.jobs=[{"id":"controlled-cohort","stage":"outward","n":1,"food":{}}]
 		elif kind=="overload":c.state.cargo.food=c.capacity()+100.0
@@ -189,7 +225,7 @@ func locality_and_provenance() -> void:
 	check(remote.get("world064",{})==c.state.world064 and float(c.state.cargo.food)==cargo_before-1.0,"Normal lookup retains the jettison's actual world provenance and cargo debit")
 	roundtrip("Remote jettison")
 	var after: Dictionary=c.Salvage.find_wreck(c.state,wreck_id)
-	check(after.world064==remote.world064,"JSON restore and repeated lookup retain remote provenance")
+	check_same(after.get("world064"),remote.get("world064"),"JSON restore and repeated lookup retain remote provenance")
 	var after_voyage: Dictionary=c.state.duplicate(true)
 	# Unmarked NPC battle: actual existing NPC hull/equipment, declared sunk
 	# solely to check loss-record origin while the captain remains offshore.
