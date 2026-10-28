@@ -1,0 +1,107 @@
+059 B - CIVILIAN CHOICES SOURCE CONTRACT (early, source-only)
+Base: delivered058 1ae1964b04530a2db78802adc42009e401993054.
+Owned: game/scripts/voyage_ui.gd, game/scripts/civilian_choices059.gd,
+tools/quality059/CHOICES059 SOURCE.txt only. No engine/parser/advisory/tests run.
+
+Published detached adapter entry APIs (static, no state/world/nav construction):
+job_review(c, offer: Dictionary, carrier_uid: String="") -> Dictionary
+fishing_review(c, boat_uid: String, days: float=1.0, crew: int=0,
+               buyer_port_id: String="") -> Dictionary
+Both consume the existing live c.state/c.data/c.nav read-only; callers provide
+the selected offer, never a call to VoyageJobs.available inside the adapter.
+Returns detached dictionaries. No accepts, settlement, ensure, price observation,
+economy synchronization or time advance. One route review at explicit selection.
+
+Published UI entry APIs (static):
+review_job(ui, offer: Dictionary, carrier_uid: String="") -> void
+review_fishing(ui, boat_uid: String="", days: float=1.0, crew: int=0,
+               buyer_port_id: String="") -> void
+These pure review surfaces and their decline/header-X paths must not use
+Interface's automatic economy-sync callbacks. Explicit accept/start/recall/sale
+remain Campaign/normal market actions. Existing board open retains its documented
+offer ensure/expiry/sync behavior; returning from a pure review closes it.
+
+Read all three early contracts after A/C publication. Uses A's recipient_status
+and Contacts.client_memory, optional demandPurpose/demandNeed/loadTier/quotedDay/
+feeBasis/clientMemory fields, and C's exact CivilianWork.fishing_quote API.
+Campaign's catalogue is c.data, NOT c.world. The chosen carrier's physical
+remaining hold subtracts its own Expedition.locker_weight, existing captive
+overflow, and the existing Transport/Manifest carrying result; whole-fleet
+room is a separate bound. No capacity or UID/custody backend is changed.
+Integration seam outside B's allowlist: Interface's harbor-services button
+"Fishing crews & civilian voyages" used sync=true BEFORE entering VoyageUI.
+Root reports its fix DONE in named commit2399ee9, Interface.gd526 now passes
+false,false; Root's tools/quality059/ROOT059 SOURCE.txt retains the record.
+B did not edit or cherry-pick Root/Interface. Root must test combined source.
+B's board/tab/review/decline/header-X callbacks bypass sync.
+
+IMPLEMENTED RETURN CONTRACT (source-reviewed; not native-accepted)
+job_review: ok=false/message for non-civilian kinds; otherwise ok=true plus
+job (detached authoritative accepted record when its ID is carried), active,
+carrierUid/carrierName/carrierFits/allowanceFits, holdFree/fleetHoldFree/lockerWeight,
+spareBerths/loadWeight/passengers/passengerFood, grossFee/payableFee,
+savingsCustody/feeReserved/estimatedNet, budget, originName/targetName/targetPort,
+routeOk, access, recipient (A exact dictionary), clientMemory (A exact dict),
+warnings:Array, estimate=true, guaranteed=false, remainingOnly=active.
+grossFee excludes both passenger savings purses. payableFee on active jobs is
+bounded by escrow minus savings; expired/failed jobs have zero payable fee.
+
+fishing_review: ok=C quote.ok, quote=C exact detached fishing_quote dictionary,
+boatUid/boatName, budget, buyer, estimatedNet, carriedFish, access, routeOk,
+warnings:Array, estimate=true, guaranteed=false.
+buyer: portId/name/seen/day/age/live/sellQuote/businessFunds/liquidityLots/
+saleLots/estimatedGross. A current harbor can quote live prices/funds; remote
+buyers use copied TradeIntel visit quotes. No recording/normalizing live intel.
+Only whole forecast NEW fish lots within dated buyer funds enter estimatedGross;
+fish already aboard are separate. No pirate-loss probability or guaranteed ROI.
+
+budget: operatingDays/outwardDays/returnDays/workDays/payrollDays/dailyWages/
+wages/food/fuel/foodCost/fuelCost/operatingCost, reserveDays/reserveFunding,
+arrears/pendingDays/pendingPayroll/preparationCost/fundingRequired/
+fundingShortfall, priced/pricePort/priceDay, foodRequired/foodShortfall/
+fuelShortfall/looseFuel, boats:Array, preparation:Expedition.report, warnings.
+boats entries: uid/name/loaded/required/shortfall/tankShortfall.
+Conservative whole-calendar payroll includes stored crews and actual specialist
+premiums; prior pending payroll and existing arrears are funding, not new-trip
+margin costs. Food and fuel are valued at current/dated replacement quotes.
+Two-day contingency is displayed separately, not deducted as spent margin.
+Individual real tanks and powered tow/undercrew fuel burn remain visible.
+allowanceFits additionally checks new sealed load/provisions plus missing food
+and individual tank overflow against current fleet free hold. The actual
+Campaign acceptance remains authoritative and repeats A's physical checks.
+Charter routeDays sizes its purchased food; B does not invent a mandatory wait
+of that many days. Route accounting uses the current actual fleet's water legs.
+
+Other pure static APIs: physical_hold(c,b:Dictionary)->float (same 058 local
+locker/captive correction as C); buyer_ports(c)->Array[{id,name}] cheap visited
+harbor list, no route query. Job review uses two selected route legs; fishing
+review uses one return leg. No all-route matrix, per-row quote or per-frame work.
+
+Pure UI paths use modal_kind="voyage_review" (existing header-X exemption),
+button(...,false,false) for review/decline/toggles and Fishing tab. Opening the
+ordinary Work board/Contacts still syncs/ensures/expires as before. Actual
+accept/start/recall/chart/Market actions retain normal Campaign/UI transaction
+seams. No Interface, metadata, tests, maps or developer notes were edited by B.
+
+SOURCE REVIEW / LIMITS
+Read complete owned changes and relevant Routes/Expedition/Transport/Manifest/
+TradeIntel/Economy/Factions/Contacts/Campaign source chains; read A/C early
+contracts and C's source fixture call sites. No helper was spawned or called.
+No engine/test/parser/source-advisory/import/export/GPU/CUA/input/focus/push/
+cleanup was run. Code is a source handoff, not a native or visual acceptance.
+Root must integrate A and C before this new adapter can execute (new APIs above).
+Root's bounded native gate must check unchanged pending calendar/purses/quotes
+through actual review, decline and header-X. C's one fixture contains those seams.
+Root owns normal exported job/fishing views and readability judgement.
+Forecast payroll rounds up the final partial calendar day; actual paid proof
+uses ordinary joined settlement. Existing pending days/arrears are separate.
+Fishing starts at the CURRENT stopped ground; its budget includes forecast work
+and the selected buyer return, excludes already-sailed outward travel/capital.
+Gear's actual days parameter is earned working time, while C's quote horizon is
+elapsed time: recall at the chosen horizon when quota pauses intervene. UI says
+this explicitly. Other boats can consume the same finite quota; no guarantee.
+Remote fish sale/food/fuel values remain dated observations. Fees/market income
+depend on actual arrival, access, demand and conserved buyer/sponsor purses.
+058 physical carrying convention retained; no UID, custody, wage, trained labor,
+job transactions, fishing production or save backend rewritten by B.
+060+/broad coast art/strict051/whole quality OPEN062 remain separate.
