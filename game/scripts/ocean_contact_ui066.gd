@@ -68,7 +68,7 @@ class _ContactSilhouetteStrip066 extends Control:
 		else:
 			draw_line(center + bow_dir * (r_px + 2.0), center + bow_dir * (r_px + 12.0), Color(base_color, 0.88), 1.4, true)
 		if mono_font != null:
-			var badge: String = "LIVE VISUAL SILHOUETTE (FLEETART054)" if not is_stale else ("FROZEN SIGHTING SILHOUETTE · %ds OLD · ±%.0f UNITS" % [maxi(0, roundi(age_seconds)), uncertainty_radius])
+			var badge: String = "VISUAL CONTACT" if not is_stale else ("LAST SIGHTED · %ds AGO · ±%.0f UNITS" % [maxi(0, roundi(age_seconds)), uncertainty_radius])
 			draw_string(mono_font, Vector2(10.0, 16.0), badge, HORIZONTAL_ALIGNMENT_LEFT, rect.size.x - 20.0, 10, Color(base_color, 0.86))
 
 
@@ -78,8 +78,8 @@ static func open(ui, contact_id: String = "") -> void:
 	var c = ui.host.core
 	if c == null:
 		return
-	# Use "ocean064" before ui.modal() so interface.gd's header close button stays sync=false.
-	ui.modal_kind = "ocean064"
+	# Interface's read-only close whitelist includes this panel kind.
+	ui.modal_kind = "ocean_contact066"
 	var view064: Dictionary = c.world_view064() if c.has_method("world_view064") else {}
 	var view066: Dictionary = c.ocean_view066() if c.has_method("ocean_view066") else {}
 	var contacts: Array = OceanChart064._extract_contacts066(view064, view066)
