@@ -64,7 +64,7 @@ func collect_encounters() -> void:
 	var retained: Array=c.state.get("navalAi",{}).get("encounters",[])
 	check(retained.size()<24,"bounded actual encounter history has not pruned loss evidence")
 	for event in retained:
-		var key: String=JSON.stringify([event.day,event.a,event.b])
+		var key: String=JSON.stringify([int(event.day),event.a,event.b])
 		if encounters.has(key):continue
 		var valid: bool=true
 		for field in ["crewLostA","crewLostB"]:
