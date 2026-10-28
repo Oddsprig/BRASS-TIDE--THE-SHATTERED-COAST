@@ -1262,7 +1262,7 @@ func capture_after_start():
 				Interface.TradeUI.open(ui)
 			elif name == "tradedetails051":
 				for button053 in ui.overlay.find_children("*", "Button", true, false):
-					if str(button053.text).begins_with("Costs, price uncertainty & quantity limits"):
+					if button053 is Button and str(button053.text).begins_with("Costs, price uncertainty & quantity limits"):
 						button053.pressed.emit()
 						break
 			await get_tree().process_frame
