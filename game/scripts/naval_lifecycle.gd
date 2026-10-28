@@ -179,7 +179,13 @@ static func step(c,dt: float) -> void:
 			# Resume once from the latest existing order, without buying stores,
 			# replaying arrivals or consuming any overshot service time as travel.
 			if not Orders.RegionalOrders.operation(c.state,owner).is_empty():c.RegionalOps.refresh(c)
-			elif p.get("holding",false) and not holding(c,owner):publish_order(c,p)
+			elif p.get("holding",false) and not holding(c,owner):
+				if owner.get("playerCompany",false):
+					# Recall is stored in the company book, not the prior dock order.
+					var recovery: String=Orders.needs_home_recovery(owner,AI.fleet_reserves(owner),AI.fleet_performance(owner))
+					var company_plan: Dictionary=c.CompanyOps.plan(c.state,owner,c.port(str(owner.get("atPort",""))),recovery)
+					if not company_plan.is_empty():Orders.build_order(c.state,owner,"resupply" if not recovery.is_empty() else "trade",str(company_plan.get("destination",owner.get("homePort",""))),str(company_plan.get("reason","Chartered route.")))
+				publish_order(c,p)
 		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and (str(owner.get("destination",p.to))!=str(p.to) or p.has("interceptPoint")):
 			route(c,p,str(owner.destination))
 		if not p.get("holding",false):

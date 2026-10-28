@@ -225,3 +225,31 @@ These setups do not satisfy the new common active/stopped/physical predicate.
 Root/C own meaningful fixture updates; no assertion or presence gate was waived.
 Only voyage_jobs.gd, naval_lifecycle.gd and this note are changed for R1.
 No engine/test/parser/advisory/import/export/GPU/helpers or Root edits run here.
+
+R2 BOUNDED COMPANY RECALL FOLLOW-UP AFTER 446ad2ee
+Read B's sibling v059-choices-sol/tools/quality059/SERVICE059 REVIEW.txt.
+Confirmed exact direct path: shipping_companies.gd:247-249 changes book.recall
+and status; company_ops.gd:93-99 requests route(home) without changing the
+owner.order. The actual service guard naval_lifecycle.gd:62 retains the physical
+stop. An unsold company at its destination has the old hold-destination order
+from company_ops.gd:162-164; on expiry CompanyOps.hold:145 permits departure,
+but old publish_order:138-142 sees no changed destination and does not sail.
+This delays the requested recall until a daily replan; it is not permanent.
+
+Only naval_lifecycle.gd's one expiry branch is changed by this follow-up.
+After clearing the deadline, an otherwise departing player company resolves
+the existing CompanyOps.plan once with its current book and real recovery
+needs, then Orders.build_order publishes the same existing company order
+shape before publish_order starts the actual route. This mirrors only the
+company planning branch of naval_orders.gd:842-848, without invoking the
+Regional arrival at:840, AI.arrived, Fleets.dock, hire, trade or paid stores.
+Regional authority and longer genuine recovery/company holds retain precedence.
+No extra saved field/API, deferred-route queue, service extension or new AI
+policy. The existing expiry movement_dt still excludes elapsed service time.
+Root must natively verify recall issued during a real service interval at a
+destination with unsold cargo: no early departure; home order and actual sailing
+on expiry without waiting for daily planning; no duplicate dock accounting.
+Source/diff/direct-caller review only. Native execution remains Root-only;
+naval_combat.gd and all fixtures remain untouched. The physical fuel presence,
+finite tank need, stock/purse/escrow/payment/refund and old three-drum terms are
+unchanged. No test/parser/advisory/helper/engine or Root edit run in this lane.
