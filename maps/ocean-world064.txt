@@ -1,0 +1,14 @@
+OCEAN WORLD064 — CURRENT SOURCE MAP
+ocean_world064.gd: six pure model APIs create/prepare/plot/advance/transition/view.
+ocean_regions064.json: immutable home/Glasswind catalog, scale10, pairedN/S gates.
+campaign.gd: one actual location, explicit chart DTO, transfer guards, original clock.
+ocean_chart064.gd: Main-only region cache/picker/painter, original home delegates.
+main/chart/interface.gd: active chart bounds, courses/approaches, menus and capture.
+save_validation/coast_migration.gd: copy-first current-layer refuse; legacy home defaults.
+expedition.home_local064: shared home predicate for all coastal actions/witnesses.
+salvage.gd: wreck origin identity retained; wrong-layer direct Core recovery refuses.
+Home NPC navigation/economy stays active once; no empty home-account facade.
+State world064={schema1,layer,regionId}; position/heading/path/destination actual layer.
+Pure model fixture252 + actual Core voyage179 passed; worker125 passed unchanged.
+Do not expand world breadth/logistics/weather/rewards in064. Next065cost forecasts.
+Read current task receipts and approved063-072map; stills aren't motion/FPS acceptance.

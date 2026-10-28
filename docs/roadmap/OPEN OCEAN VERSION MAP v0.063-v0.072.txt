@@ -1,5 +1,5 @@
 BRASS TIDE - OPEN OCEAN VERSION MAP v0.063-v0.072
-28 October 2026 | v0.063 VERIFIED; v0.064-v0.072 PLANNED
+28 October 2026 | v0.063-v0.064 VERIFIED; v0.065-v0.072 PLANNED
 
 PURPOSE
 Build a large ocean world from smaller, detailed island groups. Preserve the
@@ -31,7 +31,7 @@ all actors, shots, damage, current simulation rates and existing quality targets
 No repeated speculative optimization loop or return of the rejected v0.062 trial
 without a specific diagnosis. Fractional FPS differences alone are not the focus.
 
-0.064 - TWO-SCALE WORLD AND TRANSITIONS
+0.064 - TWO-SCALE WORLD AND TRANSITIONS [VERIFIED PROTOTYPE]
 Scope: world-region identity, an ocean chart, the existing Shatter Coast and one
 remote prototype group. Sail out, choose an approach, enter and return. Save/load
 correctly from either layer. Keep existing voyages and their local coordinates.

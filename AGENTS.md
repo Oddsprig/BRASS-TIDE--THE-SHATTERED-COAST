@@ -1,18 +1,18 @@
 # Brass Tide - current working instructions
 
-Installed build v0.063 DELIVERED; localtag8f066e8/tested source0c8b83d.
-Do not prepare063again. Currenttask work/quality-v063; all6helpersidle/noactivejobs.
-714nativechecks+125workerchecks=839unique/0failures; whole31.042s/76.721s.
-Runtime2d75ca70 complete59.463s; Root reviewed4actualPNGs. Source/script facts,
-retained preflight source proof, job IDs and limits are in CURRENT STATE.txt.
-Observed lightworkerP9537.816ms/lag150ms still fail33.333ms/100ms; mixed19.487ms/
-lag50ms meet. Both frameconsistency targets now meet95%; strictFPS59.996585/
-59.986463 remains below60. Whole quality OPEN; no whole-game/parity guarantee.
-Keep rejected062phase-propagation trial removed. Native report-path rejection
-7e80222 retained; correctedbf2f4dfb passes714/0. Lesson: script report=result.json,
-queue verification receipt=bridge-result.json; query queue byjobID, no global dump.
-Next saved scope064: ocean/local transition with one remote prototype, no breadth
-or logistics expansion until their later scopes. Finish current delivery first.
+Current release v0.064: tested source f6311c8; same game tree across focused
+checks/Windows export and reviewed nine-view private capture. Task work/quality-v064.
+Native431/0 + worker125/0=556unique focused checks, clean bounded batches.
+One ocean chart, original home and one three-island Glasswind Keys prototype.
+Full receipts, earlier failures and limits: ACTUAL064 CHECKS.json / CURRENT STATE.txt.
+No new remote jobs/loot/weather/ocean battles or48-group sector yet.
+Finish packaging/install before065long-voyage forecasts/reserves. Do not prepare064again.
+Whole quality OPEN:063 lightworkerP9537.816ms/lag150ms, strictFPS below60 persist.
+Do not revive rejected062phase optimization. Recomputed harbor incoming/observedDemand
+are forecasts, not conserved stock. Chart DTO uses explicit String-keyed fields;
+native refit dictionary members may use StringName keys. Don't weaken strict model.
+Queue fresh required report=result.json; bridge-result.json is final queue receipt.
+Read queue byjobID only, never global history. No owner file or launch changes by helpers.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
@@ -26,7 +26,7 @@ given another bounded task. Finish the current delivery before advancing the nex
 Next planned scopes063-072 are authoritative in docs/roadmap/OPEN OCEAN VERSION
 MAP v0.063-v0.072.txt (28October2026 owner request). First063bounded performance
 correction, then064ocean/local transition with one remote prototype before breadth.
-This is planning only; installation/tag stays062. Earlier quality outcomes remain.
+063 and064 are scoped verified steps; later scopes remain planned. Earlier quality limits remain.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
 fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain

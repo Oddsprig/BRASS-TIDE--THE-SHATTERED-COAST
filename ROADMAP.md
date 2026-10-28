@@ -1,19 +1,18 @@
-# Current verified release: v0.063 bounded fleet performance correction
+# Current verified release: v0.064 ocean and coastal charts
 
-Two reviewed copy/allocation changes and the real worker-publication regression
-are verified. **839 unique focused checks passed**, Windows startup passed, and
-both full300DP cases were measured. Observed worker P95 fell from38.807 to37.816ms
-(light42boats) and20.187 to19.487ms (mixed16boats). Both frame-consistency targets
-met in this short run. **Whole-game quality and strict performance remain open.**
+Shatter Coast connects to one three-island Glasswind Keys prototype. Actual
+round-trip/save/custody checks and Windows export/startup passed:556unique
+focused checks. Root inspected nine actual exported stills. No complete remote
+expedition or48-group sector is claimed. Whole-game quality and earlier strict
+performance targets remain open.
 
-Next: **v0.064**, ocean/local charts, the current Shatter Coast, one remote
-prototype group, regional entry/exit and a persistent round trip. Finish that
-scope before adding long-voyage mechanics or multiplying regions.
+Next: **v0.065**, long-voyage forecasts and explicit return reserves. Finish each
+saved scope before the next.
 
 | Version | Bounded scope |
 | --- | --- |
 | 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
-| 0.064 | Two-scale world; sail out, approach one remote group, return and save/load. |
+| 0.064 | Verified prototype: ocean/local charts, Glasswind Keys, persistent round trip. |
 | 0.065 | Fuel, wages, rations, maintenance and return reserves for longer voyages. |
 | 0.066 | Ocean route choices, currents/weather, sightings, pursuit and interception. |
 | 0.067 | Complete the first useful remote exploration expedition. |

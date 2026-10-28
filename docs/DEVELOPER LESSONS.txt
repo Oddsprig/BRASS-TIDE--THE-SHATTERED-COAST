@@ -464,3 +464,12 @@ Use test_bridge_wait/status with a specific job ID. The global status includes
 large multi-project job/event history; never print it into a model conversation.
 Native r1 report handoff7e80222 rejected; unchanged correctedbf2f4dfb accepted714/0
 in31.042s including10s setup. Shared lane and original failed receipt preserved.
+
+v0.064: publish explicit String-keyed render DTOs instead of full live refit records
+to strict plain-data model APIs; native member syntax may produce StringName keys.
+Keep exact conserved inventory/account/UID comparisons. Harbor incoming/observedDemand
+are derived forecasts rebuilt by ReserveOps.refresh, not physical cargo; test them
+against current shipments separately. Bounded field-only diagnostics exposed this
+without speculative production economy changes. Initialize optional test work records
+through their real initializer. JSON number representation needs semantic identity
+comparison, while actual coin/quantity equality remains exact. Native failures retained.
