@@ -1,0 +1,41 @@
+BRASS TIDE v0.058 - WHAT TO BRING HOME
+
+An unclaimed wreck is still a place in the world. Approach it, stop the fleet,
+recall any shore party and secure the waters before working. Leaving it marked
+takes no goods and does no recovery work. A captured boat is different: it is
+already in your custody, even if its hold is empty. Closing this board does not
+dispose of an owned boat.
+
+Collecting loose stores takes only the finite amount actually aboard, bounded
+by your traveling hold. Taking structural material sacrifices the hull. A tow
+pays actual tug labor and inspection, preserves damaged fittings and brings
+back an uncrewed support hull. It slows your flotilla; its theoretical cargo
+capacity is not available until it is repaired and ready to travel.
+
+Compare the work and the route home before agreeing. Reserve crew wages, food
+and each working boat's fuel. The quoted later harbor service is subject to
+actual kits, materials, mechanics and shipwright availability; today's stock
+is not a reservation for your arrival. A hull-repair estimate alone does not
+price every damaged gun or engine. Crew, working stores and new fitting work
+remain separate purchases.
+
+Selected gun or machinery recovery keeps that exact physical item's identity,
+damage and original design. Choose an existing working boat's locker. An item
+in a locker consumes hold space on that particular boat; another boat's empty
+hold does not move the locker. Space remains occupied on later trade and after
+reload. Weight uses the existing material recipes in game hold units, not a
+claim about historically exact weapon mass. Installed fittings are not counted
+again as loose cargo.
+
+Removing selected machinery permanently gives up the wreck's hull, all other
+fittings and all remaining structural material lots. Review that complete loss
+before accepting. The remaining loose stores can still be collected separately.
+This choice prevents receiving the same machinery both as a real gun and again
+as structural materials. Integral pumps cannot be extracted into a locker.
+
+Recovered does not mean repaired or installed. The ordinary workshop checks
+mount size, design compatibility, fitting points, materials, labor and payment.
+Original stock equipment may be kept but cannot be installed on a different
+hull design merely because it was recovered. Sometimes a small supply lot is
+the useful choice; sometimes preparing enough money, crew and return reserves
+lets you bring home a lasting fleet upgrade.

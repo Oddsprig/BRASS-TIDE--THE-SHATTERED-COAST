@@ -1,14 +1,12 @@
 # Brass Tide — current working instructions
 
-Current candidate: v0.058 recovery, metadata prepared ONCE; native/actual pending.
-Installed verified057/tag e110283 retains one icon, two voyages and18MP3s.
-Three BridgeSolMAX handoffs integrated: A8657f81, B1aa1885+124b58e, C2115a07.
-Root reviewed source, added the real in-flight economy boundary guard, aligned
-traveling support holds, and prepared five isolated exported UI views. Initial
-source API advisory reports0issues; this is not native or visual acceptance.
-One focused recovery voyage plus Windows export/3starts must finish below120s.
-Whole-quality/coast art/strict051targets remain OPEN062; no059implementation.
-Read work/quality-v042-v061/CURRENT STATE.txt for exact jobs and handoffs.
+Current scoped build: v0.058 VERIFIED; packaging/install follows checkpoint.
+Final214/0 focused recovery checks plus Windows export/menu/campaign/battle;
+five exported views all Root reviewed. Earlier failed receipts remain recorded.
+One plain icon/two voyages/18MP3s/older builds must be preserved. Next059 civilian
+careers follows the bounded source audit7cb21c7, not a new jobs/economy framework.
+Whole-quality/coast art/strict051targets remain OPEN062.
+Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;

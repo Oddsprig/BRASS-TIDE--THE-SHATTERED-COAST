@@ -1,11 +1,25 @@
-# Brass Tide v0.058
+# Brass Tide v0.058 delivered
 
-Current candidate: Salvage, prizes and recovery choices.
+BRASS TIDE v0.058 - Salvage, prizes and recovery choices
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: b39eda57a145c5f7122ded1e719b4c395e6cd23a / v0.058
+Test Bridge: 97cc8e7da4e541beb2b593ff7d881999
+214 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 87.910s; owned cleanup verified.
 
 - Compare finite stripping and paid towing against work time, a named navigable return, actual reserves and later harbor service.
 - Keep captured boats visible as owned prizes even when their cargo is empty; inspect hull, crew and retained damaged equipment.
 - Recover selected surviving guns or machinery into an existing boat's physical locker with exact identity and condition, paid work and persistent carrying limits.
 - Disclose the irreversible hull, other fittings and structural-material forfeiture before selected extraction; preserve finite stores and custody.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+058 recovery scope from three BridgeSol6.1MAX source-only handoffs on delivered057e110283. A8657f81 exactUID/staged paid extraction/persistent physical lockers; B1aa1885 plus124b58e explicit choices/owned prizes/detached focused comparison; C source handoff in tools/quality058/VOYAGE058 SOURCE.txt supplies one existing Main/baseline recovery voyage. Root reviewed actual source and caught the in-flight Main worker boundary; Flow refuses gear before staging while economy_task>=0, normal completion then retry is separately exercised. Legitimate traveling support boats retain physical working holds; unrepaired/stored/sunk/undercrewed boats cannot donate usable space. Existing031 condition/custody backend unchanged. New selected extraction explicitly forfeits whole hull, every unselected fitting and ALL remaining structural components; exact selected IDs preserve damage/origin and occupy persistent per-hull locker weight, no commodity duplicate. Whole-day effort uses ordinary world economy/payroll/provisions on one shared-nav private action context; no free wages or fake paid flag. Read-only comparisons use no live swap/new world/nav/perframe quote. One focused native fixture40s cap, internal35s target including Main setup/cleanup; existing export/menu/campaign/battle pipeline, whole119outer/100native+10setup. Actual five exported title/home/recovery/gear/prize views use declared isolated encounter/prize layout setup, distinct from native paid voyage proof. No full modal tour/031matrix/newframework. No native or visual acceptance claimed until exact reports. Broader coast/town art and strict051/wholequalityOPEN062. No new GitHub authorization.
+R1 a443a62c2bfd454290b0a84dbedacb6d/attempt001 completed214checks/2failures, fixture24.788s internal28.719s native, whole59.703s. Paid actualupgrade reached105hold with2049coins remaining from15000 after527tow,1000workwages,5835repair and3000hiring plus real supplies. Selected exactUID work completed weight9/day1/wages500/food0.4 and subsequenttrade/save/restore, but failed recruitment-pool expectation and complete-disclosure comparison keep acceptanceOPEN. C bounded correction follows actual min(recruits,workforce,qualified) pool and adds exact per-conjunct diagnostics without changing disclosure assertion. No gamebackend or thresholds changed by proof correction; prior failed receipt retained.
+
+R2 7db41c19f74545f39abbf3c3e01d6d65/attempt001 completed214/1, whole45.969s/internal24.458s. Corrected recruitment exact: raw143/workforce2375/qualified138,eligible138,hire3 for3000 ->135/2372/135,coins7638->4638 andcrewPurse6000->9000. AllUIDs/hullflag/components matched. Only retainedStores differed because quote/raw20keys include17exactzero entries; find_wreck observer dropszeros to ammo1/fuel3/supplies2, each positive exact17digits. FinalC45d72aa compares fullquote againstRAWbeforeobserver AND requires lookupdropONLYzero/preserveALLnonzero EXACT, no tolerance/gamebackendchange. All214 requirements retained. R3acceptance pending; initialrelayNOTSENT400 recovered by shortsource154characters/sameidempotencykey, no duplicate or lane bypass.
+
+Final native97cc8e7da4e541beb2b593ff7d881999/attempt-001 PASSED214/0 plus Windows export/menu/campaign/battle and owned cleanup, whole87.910s final-report including setup. Actual78ca515b3080433081e83532b093928c/attempt-001 five exported1280x800 views all Root viewed. Paid recovery, real qualified recruitment/workforce/purse changes, finite alternative strip, exact selected UID/condition/origin, per-hull carrying/later trade, actual Main in-flight refusal/join/retry and save/restore established by the focused native voyage. Actual layout views separately declare the damaged existing NPC and existing starter prize flags; no earned combat/capture claim. R1a443a62c214/2 andR27db41c19214/1 retained: assertions used raw recruit listing instead of qualified eligible pool and compared raw zero stock keys with a lookup that normalizes them away. Native diagnostics proved every actual UID/material/positive store amount exact; final proof requires full raw disclosure plus zero-only lookup normalization, no tolerance. Actual working upgrade starts15000, tow527/workwages1000/repair5835/hires3000 plus bought stores leaves2049 and105workinghold; this is one seeded paid scenario, not universal prices/progression. Selected actual gear weight9,1workday/500wages/.4food, no commodity duplicate. Root accepts058 recovery scope only. Broad coast/town art, motion/listening/fun/whole-game parity and strict051targets remain OPEN062.
+
+
+Continue with the next saved version scope after v0.058; preserve the shared lane and120-second limit.

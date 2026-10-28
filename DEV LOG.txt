@@ -1,3 +1,5 @@
+v0.058 VERIFIED AND PACKAGED: 214/0 focused checks, selected batch 87.910s, TestBridge 97cc8e7da4e541beb2b593ff7d881999. Source b39eda57a145c5f7122ded1e719b4c395e6cd23a.
+
 28OCT2026 - v0.058 SALVAGE, PRIZES AND RECOVERY CHOICES
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Disclose the irreversible hull, other fittings and structural-material forfeiture before selected extraction; preserve finite stores and custody.
 
 See docs/TEST RESULTS v0.058.md for actual focused checks and remaining limits.
+
+Verification: 214 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 87.910s. Preserved earlier failures; no broad acceptance claim.
