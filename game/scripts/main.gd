@@ -1438,10 +1438,37 @@ func _voyage_capture065() -> bool:
 		push_error("Voyage065 layout capital refused");return false
 	var source_uid: String=str(core.state.fleet[0].uid)
 	var target_uid: String="boat-%d"%int(core.state.nextUid)
-	if not core.buy_boat("tin_skiff").get("ok",false) or not core.FleetIdentity.install_conversion(core,source_uid,"auxiliary_tanks").get("ok",false):
-		push_error("Voyage065 paid layout hull/conversion refused");return false
-	if not core.resupply_boat(source_uid,"full").get("ok",false) or not core.resupply_boat(target_uid,"voyage").get("ok",false):
-		push_error("Voyage065 paid layout stores refused");return false
+	var bought: Dictionary=core.buy_boat("tin_skiff")
+	if not bought.get("ok",false):push_error("Voyage065 paid layout hull: "+str(bought.get("message","")));return false
+	var converted: Dictionary=core.FleetIdentity.install_conversion(core,source_uid,"auxiliary_tanks")
+	if not converted.get("ok",false):push_error("Voyage065 paid layout conversion: "+str(converted.get("message","")));return false
+	var store_results: Array=[]
+	var stores_ok: bool=true
+	for loadout in [{"uid":source_uid,"profile":"full"},{"uid":target_uid,"profile":"voyage"}]:
+		var boat: Dictionary=core.find_boat(loadout.uid)
+		var harbor: Dictionary=core.current_port()
+		var prior_boat: Dictionary=boat.duplicate(true)
+		var prior_harbor: Dictionary=harbor.duplicate(true)
+		var prior_coins: int=int(core.state.coins)
+		var prior_total: int=core.Money.total(core.state)
+		var targets: Dictionary={"ammo":maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size())))),"fuel":3.0 if loadout.profile=="voyage" else float(boat.spec.get("fuelCapacity",60)),"supplies":6.0 if loadout.profile=="voyage" else 20.0}
+		var result: Dictionary=core.resupply_boat(loadout.uid,loadout.profile)
+		var ready_before: bool=true
+		var ready_after: bool=true
+		var conserved: bool=true
+		var invoice: int=0
+		for good in targets:
+			var conversion: float=float(core.Goods.ROUNDS_PER_CASE) if good=="ammo" else 1.0
+			var loaded: float=float(boat[good])-float(prior_boat[good])
+			var used: float=float(prior_harbor.stocks[good])-float(harbor.stocks[good])
+			ready_before=ready_before and float(prior_boat[good])>=float(targets[good])-0.000000001
+			ready_after=ready_after and float(boat[good])>=float(targets[good])-0.000000001
+			conserved=conserved and loaded>=0.0 and used>=0.0 and float(harbor.stocks[good])>=0.0 and absf(loaded-used*conversion)<0.000000001 and loaded<=maxf(0.0,float(targets[good])-float(prior_boat[good]))+0.000000001
+			invoice+=ceili(used*Economy.price(prior_harbor,good)-0.000001)
+		var paid: bool=prior_coins-int(core.state.coins)==invoice and int(harbor.cash)-int(prior_harbor.cash)==invoice and core.Money.total(core.state)==prior_total
+		store_results.append({"uid":loadout.uid,"profile":loadout.profile,"result":result,"targets":targets,"readyBefore":ready_before,"readyAfter":ready_after,"stockConserved":conserved,"invoicePaid":paid,"beforeStores":{"ammo":prior_boat.ammo,"fuel":prior_boat.fuel,"supplies":prior_boat.supplies},"afterStores":{"ammo":boat.ammo,"fuel":boat.fuel,"supplies":boat.supplies},"beforeStock":prior_harbor.stocks,"afterStock":harbor.stocks.duplicate(true),"beforeCoins":prior_coins,"afterCoins":core.state.coins,"invoice":invoice})
+		stores_ok=ready_after and conserved and paid and (result.get("ok",false) or (ready_before and invoice==0)) and stores_ok
+	if not stores_ok:push_error("Voyage065 paid layout stores: "+JSON.stringify(store_results));return false
 	ui.voyage_intent065={"targetRegionId":"glasswind_keys","targetApproachId":"south","outExit":"north","backExit":"south","homeEntry":"north","returnPortId":"brass_haven","idleDays":0.25}
 	ui.open_voyage_preparation065()
 	print("QA voyage065 controlled paused preparation/transfer layout; paid travel and conservation are separate native checks")
