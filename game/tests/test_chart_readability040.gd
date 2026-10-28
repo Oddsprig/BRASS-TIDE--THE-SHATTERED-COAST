@@ -1,5 +1,6 @@
 extends SceneTree
-## Root runs this source fixture; captures the actual production chart helpers.
+## Root-run chart/navigation regression. Legacy marker captures are compatibility
+## evidence only; test_campaign_art054.gd checks the replacement live art paths.
 const Chart=preload("res://scripts/chart.gd")
 const FeedbackTest=preload("res://tests/test_feedback.gd")
 const Navigation=preload("res://scripts/navigation.gd")
@@ -82,7 +83,7 @@ func run() -> void:
 	var fleet_geometry: Dictionary=Chart.chart_marker_geometry("fleet",center,territory_scale,0.0)
 	var start: int=rec.prims.size()
 	Chart.draw_chart_marker(rec,fleet_geometry,Chart.GOLD,true)
-	check(rec.prims.size()-start==3,"overview flotilla is exactly one shared fleet symbol and selection ring")
+	check(rec.prims.size()>start and fleet_geometry.center==center,"legacy fleet helper draws at the exact projected hit center")
 	entries.append({"at":center,"text":"YOUR FLOTILLA","priority":105,"color":Chart.GOLD})
 	var before_entries: PackedByteArray=var_to_bytes(entries)
 	var bounds: Rect2=Chart.chart_label_bounds(Vector2(1600,1000))
@@ -96,10 +97,11 @@ func run() -> void:
 		Chart.draw_chart_label(rec,layout[i],chart.sans)
 	check(not collision,"production label plates do not overlap")
 	check(var_to_bytes(entries)==before_entries and Chart.chart_label_layout(entries,bounds,chart.sans)==layout,"label placement is read-only and repeatable")
-	var panel: Dictionary={"id":"territory","title":"Actual M overview: authored coast / ports / known sites / one flotilla","width":1600,"height":1000,"background":"#183e4b","primitives":rec.prims,"labels":rec.labels}
+	var panel: Dictionary={"id":"territory","title":"Chart040 compatibility: authored coast / legacy public markers / labels","width":1600,"height":1000,"background":"#183e4b","primitives":rec.prims,"labels":rec.labels}
 	var overview_invalid: int=rec.invalid
-	# Same centers/symbol calculation at territory, regional and close zoom. The
-	# upper bounds stay within Main's existing 15px fleet and 22px site hit radii.
+	# Legacy public-helper compatibility at three existing zooms. Rich live art
+	# has its own projected bounds/picking checks in test_campaign_art054.gd;
+	# neither a fixed primitive count nor the rejected <=12px art policy applies.
 	var glyphs=ChartRecorder.new()
 	for kind in ["harbor","fleet","site"]:
 		var row: int=["harbor","fleet","site"].find(kind)
@@ -110,10 +112,10 @@ func run() -> void:
 			var before_geometry: PackedByteArray=var_to_bytes(geometry)
 			start=glyphs.prims.size()
 			Chart.draw_chart_marker(glyphs,geometry,Chart.FRIEND)
-			check(float(geometry.radius)>=7.0 and float(geometry.radius)<=12.0 and geometry.center==at,"screen-readable bounded marker keeps exact center: "+kind)
-			check(glyphs.prims.size()-start<=3 and var_to_bytes(geometry)==before_geometry,"marker primitives are bounded and read-only: "+kind)
+			check(is_finite(float(geometry.radius)) and float(geometry.radius)>=7.0 and geometry.center==at,"legacy helper retains finite readable extent and exact center: "+kind)
+			check(glyphs.prims.size()>start and var_to_bytes(geometry)==before_geometry,"legacy helper emits geometry without mutating its plan: "+kind)
 			for point in geometry.points:check(Vector2(point).distance_to(at)<=float(geometry.radius)*1.1,"fleet/site geometry fits its screen radius")
-	var panels: Array=[panel,{"id":"symbols","title":"Harbor / fleet / site at M, Home and close zoom","width":520,"height":430,"background":"#183e4b","primitives":glyphs.prims,"labels":[]}]
+	var panels: Array=[panel,{"id":"symbols","title":"Legacy public marker compatibility, not current campaign art","width":520,"height":430,"background":"#183e4b","primitives":glyphs.prims,"labels":[]}]
 	chart.center_camera();chart.scale_factor=chart.regional_scale()
 	check(chart.follow_camera and chart._campaign_follow and chart.zoom==1.0 and chart.camera==home_position and not chart.campaign_overview(),"Home retains fleet centering and normal regional zoom")
 	check(chart.project(home_position).distance_to(Vector2(800,500))<0.001,"Home puts the exact hit center at viewport center")
@@ -129,7 +131,7 @@ func run() -> void:
 	Chart.draw_chart_marker(home_rec,Chart.chart_marker_geometry("fleet",chart.project(home_position)+Vector2(28,16),chart.scale_factor),Chart.GOLD)
 	var home_labels: Array=Chart.chart_label_layout([{"at":chart.project(home_position),"text":str(home.name),"priority":110,"subtitle":"HOME HARBOR","color":Chart.GOLD}],bounds,chart.sans)
 	for label in home_labels:Chart.draw_chart_label(home_rec,label,chart.sans)
-	panels.append({"id":"home","title":"Normal Home zoom: actual coast, shallows and contours","width":1600,"height":1000,"background":"#183e4b","primitives":home_rec.prims,"labels":home_rec.labels})
+	panels.append({"id":"home","title":"Home coast/material regression with legacy helper overlays","width":1600,"height":1000,"background":"#183e4b","primitives":home_rec.prims,"labels":home_rec.labels})
 	check(home_rec.invalid==0,"normal chart materials use finite triangulable production geometry")
 	var nearest: Dictionary=data.ISLANDS[0]
 	var nearest_d: float=INF
@@ -198,6 +200,6 @@ func run() -> void:
 		var file=FileAccess.open(directory.path_join("chart-readability040.json"),FileAccess.WRITE)
 		check(file!=null,"native chart capture opens")
 		if file!=null:
-			file.store_string(JSON.stringify({"checks":checks,"failures":failures,"panels":panels,"territoryScale":territory_scale,"limits":"Actual production projection / marker / coast / label calls. Capture exposes authored sites for review. No GPU gameplay, worker, input or route mutation; font baselines recorded separately for CPU annotation."}));file.close()
+			file.store_string(JSON.stringify({"checks":checks,"failures":failures,"panels":panels,"territoryScale":territory_scale,"limits":"Chart/navigation regression; legacy public marker compatibility only, not current campaign art or visual acceptance. Authored sites exposed only in recorder geometry. New live art paths covered by test_campaign_art054.gd. No gameplay, GPU, worker, input or route mutation; font baselines recorded separately for CPU annotation."}));file.close()
 	print("CHART040: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)

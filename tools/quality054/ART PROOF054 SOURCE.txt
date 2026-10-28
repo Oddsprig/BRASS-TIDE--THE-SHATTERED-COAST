@@ -1,0 +1,114 @@
+BRASS TIDE 054 CAMPAIGN ART - PREPARED SOURCE PROOF / NATIVE UNRUN
+Base: delivered053 826a104bcf5745ca9d7c43dd64c03e7d18a72522.
+Only test_chart_readability040.gd, test_campaign_art054.gd and this note owned.
+No engine, tests, CLI/source advisory, imports, exports, GPU work, desktop input,
+global maps, release metadata, tags or pushes were run/changed by this helper.
+This is prepared source, not accepted code or a visual-quality result.
+
+SOURCE PAIRING
+Read the full SCOPE 054 CAMPAIGN ART CORRECTION.txt and both published peer
+contracts and implementations directly from their read-only isolated checkouts.
+Chart/landmark named source bb151980494e6d3a42635db19e179936bd8cfe9a;
+Root reports integration ed441f2 and its small follow-up changes fleet opts to
+overview=zoom<0.7 while retaining old coastline campaign_overview unchanged.
+The live Home assertion below explicitly protects rich-art lod<2 at1280x800.
+Fleet module read from ../v054-campaign-boat-art-sol; module SHA256 at pairing:
+6b1f05fcecef8e5184d0f924dcb3cf3f1e3fb15a89ca9a519fe4188fee4aae33.
+Fleet peer's named commit, generated assets and Root import must be integrated
+before this fixture can load. Neither peer worktree is copied or mutated here.
+
+EXACT PUBLIC APIs USED
+FleetArt.asset_info(spec): hull_id/path/local_bounds/stations plus source size.
+FleetArt.layout(actual_boats,screen_center,heading,chart_scale,opts): vessels,
+bounds, roster_count/visible_count/omitted_count/lod. Five real hulls maximum.
+Vessel transform uses normalized hull-local coordinates; fitted mounts expose
+world_x/world_y for comparison to effective_spec.weaponMounts.x/y. Tests compare
+those physical values, actual IDs and transformed hull bounds, not old glyph size.
+FleetArt.draw(canvas,plan,accent,selected): drawn_vessels and unchanged bounds.
+Recorder uses canonical fallback geometry; native CanvasItem selects imported
+textures at lod0/1. A recorder cannot prove texture appearance or GPU behavior.
+Chart.campaign_player_art054(), campaign_patrol_art054(patrol),
+campaign_site_art054(site,level), campaign_harbor_bounds054(port),
+chart_label_bounds/layout; actual Main.click_chart runs existing native UIs.
+Landmarks.plan(site,level,screen_center,scale), wreck_plan, draw: commands,
+bounds, kind/knowledge/identified/label/lod/primitive_count. No reward fields.
+Fleet ordinary lod0/1, overview2; landmark ordinary1, overview0 (different APIs).
+
+FIXTURE 1 - test_chart_readability040.gd
+Retains every physical check: strategic coast fit, exact project/world_at inverse,
+campaign square axes vs battle isometric axes, camera Home/WASD/follow semantics,
+authored coast/harbor materials, all harbor water-clearance/route checks, actual
+inland migration, full current-save preparation, conserved purses/crews/boats/
+stocks/workers, source immutability and all36 original hulls.
+Retains readable type, HUD margins, priority, label nonoverlap and repeatability.
+Only obsolete exact-three-primitives/<=3 and <=12px placeholder policy is removed;
+finite extents, nonempty geometry, exact centers and read-only draws remain.
+Existing public legacy marker helper captures stay solely for compatibility.
+Titles/artifact limits now state that these are NOT current campaign-art views.
+New live art acceptance is not inferred from the legacy recorders.
+
+FIXTURE 2 - test_campaign_art054.gd
+- Resolve each of all36 canonical profile/asset IDs once, distinct original asset
+  paths, exact HullProfiles.stations, finite local bounds and actual imported
+  Texture2D loading with positive dimensions. This is finite asset resolution,
+  not an all-roster/heading/zoom matrix or an art-quality score.
+- Four finite drawn plans: actual-design one starter at0.5; three mixed hulls
+  atPI/2 and0.5; four civilian cargo/tanker/yacht/fishing at-0.4 and0.5; the same
+  mixed roster once at0.08 for lower detail. One valid detached rapid_gun aft refit
+  checks current weapons:Array and effective_spec without modifying a career.
+  Each verifies exact input identity, no invented guns/ships, physical mount IDs/
+  origins, heading/transform, rotated hull containment/nonoverlap, compact <=512px
+  plan bounds, draw geometry within published bounds and read-only inputs/plans.
+- Separate cheap cap/empty/offscreen calls: maximum5 actual displayed hulls,
+  exact real omitted count, no empty-roster decorative boat and viewport culling.
+- Each of14 authored sites is hidden once and drawn known once; validate finite
+  triangulable bounded geometry and published80-command ceiling. One actual
+  workshop ruin's sighted/charted plans protect observational vs known name,
+  absent discovery/resource/reward fields, read-only state and one LOD reduction.
+  One unclaimed hull record gets wreck art; claimed gets none, without recovery.
+- Exactly ONE actual Main scene and ONE seeded core.new_game(54054). The title
+  draws with no career first. No second Main.new_game and no simulated voyage.
+  Process/physics are disabled, career stays paused, audio/music disabled, and
+  save_directory is unique inside Root's synthetic APPDATA profile.
+- At1280x800 actual Home: live player lod<2, exactly one actual starting UID,
+  exact project/world_at center, real harbor bounds/berth, actual draw_campaign
+  player+home labels, HUD/nonoverlap against the whole richer art, and immutable
+  whole career/map. Stored/stand-down/sunk cases reuse and restore that same boat.
+- One real distant NPC away from berths: persistent owner roster/UIDs, hidden and
+  inactive suppression, actual draw read-only proof and real Main.click_chart
+  at a hull point beyond old15px radius opens the native encounter UI. No battle.
+- One actual catalog site, one controlled synthetic knowledge record: unknown
+  has no art/bounds/name; sighted draws observation instead of surveyed name;
+  whole-state read-only/HUD/nonoverlap and real Main.click_chart at a drawn point
+  beyond old22px radius opens the existing site UI. Knowledge is restored. No
+  survey work/reward, terrain, resource, owned boat or purse is granted by art.
+
+ROOT RUN RECOMMENDATION - PREPARED, NOT EXECUTED
+Use ONLY these two fixtures for this focused pass through the existing supervisor:
+--headless --audio-driver Dummy --path <reviewed-release>/game
+  --script res://tests/test_chart_readability040.gd
+--headless --audio-driver Dummy --path <reviewed-release>/game
+  --script res://tests/test_campaign_art054.gd
+Suggested external process caps25s for chart040 and30s for art054; art054 also
+has a cooperative25s deadline spanning setup/awaits. Root must keep the selected
+whole batch below120s INCLUDING source setup/import/export/three startups and
+cleanup (queue wait separate). Reserve at most60s for that nonfixture work,
+keep the existing <=119s outer supervisor, and split a useful batch if it cannot
+fit. These are proposed caps, not measured runtimes or a timing pass. Native
+synchronous stalls need the external bound; cooperative callbacks cannot stop one.
+No additional test/capture framework or helper engine invocation is introduced.
+Each fixture uses one isolated Campaign setup; only art054 has an actual Main.
+GAME_TEST_ARTIFACTS receives existing chart-readability040.json plus bounded
+campaign-art054.json (counts/timing/formation summaries/explicit limits).
+
+ACCEPTANCE LIMITS
+Root alone runs hidden/muted Test Bridge FIFO jobs, preserves job IDs/receipts,
+and views the existing seven exported title/home/convoy/hostile/civilian/
+discovery/overview screens. Root must judge real ordinary-zoom boat detail,
+one-boat truth, formation/heading/size distinctions, civilian silhouettes, actual
+waterfront and observation art, label restraint and low-zoom legibility.
+Native counts, texture resolution, fallback recorders and source review cannot
+accept finished art, gameplay, motion, audio, worker performance or rendered FPS.
+The original planned campaign-AI work and remaining future quality scopes remain
+queued. This proof neither changes gameplay cadence nor claims those scopes done.
+Named proof SHA is supplied in the final handoff; no self-referential tag.
