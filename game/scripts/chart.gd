@@ -790,7 +790,7 @@ func _draw_harbor_selection054(port: Dictionary,color: Color,selected: bool) -> 
 func campaign_player_art054() -> Dictionary:
 	if host==null or host.core==null or host.core.state.is_empty():return FleetArt054.layout([],Vector2.ZERO,0.0,scale_factor)
 	var world: Dictionary=host.core.state
-	return FleetArt054.layout(host.core.active_fleet(),project(Vector2(world.position.x,world.position.y)),float(world.heading),scale_factor,{"viewport":get_viewport_rect(),"overview":campaign_overview()})
+	return FleetArt054.layout(host.core.active_fleet(),project(Vector2(world.position.x,world.position.y)),float(world.heading),scale_factor,{"viewport":get_viewport_rect(),"overview":zoom<0.7})
 
 func _campaign_patrol_heading054(patrol: Dictionary) -> float:
 	# place_patrol uses this same measured segment; no new route calculation.
@@ -813,7 +813,7 @@ func campaign_patrol_art054(patrol: Dictionary) -> Dictionary:
 			for boat: Dictionary in owner.get("boats",[]):
 				if bool(boat.get("sunk",false)) or bool(boat.get("mothballed",false)) or bool(boat.get("hidden",false)) or not str(boat.get("storedPort","")).is_empty():continue
 				boats.append(boat)
-	return FleetArt054.layout(boats,project(Vector2(patrol.x,patrol.y)),_campaign_patrol_heading054(patrol),scale_factor,{"viewport":get_viewport_rect(),"overview":campaign_overview()})
+	return FleetArt054.layout(boats,project(Vector2(patrol.x,patrol.y)),_campaign_patrol_heading054(patrol),scale_factor,{"viewport":get_viewport_rect(),"overview":zoom<0.7})
 
 func campaign_site_art054(site: Dictionary,level: int) -> Dictionary:
 	return LandmarkArt054.plan(site,level,project(Vector2(site.x,site.y)),scale_factor)
