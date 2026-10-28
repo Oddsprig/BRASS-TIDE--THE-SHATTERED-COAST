@@ -116,3 +116,112 @@ physical stock/escrow/once-payment/refund/old terms remain required.
 Current stock/economy may legitimately leave no funded route; no demand filler.
 Transport's inherited available_hold conservatively counts sealed reservations;
 A adds selected locker/captive guard and does not broadly rewrite carrying.
+
+R1 NATIVE FUEL BLOCKER - BOUNDED DIAGNOSIS, 2026-10-28
+Read exact Root9986c25 voyage_jobs.gd; it is byte-identical in Git to A f7c48bc.
+Read job6a181595f8d2426f829e8bc6d0fa5ca6/attempt-001/civilian-careers/
+native.log and civilian-careers059.json. The actual fuel branch bought its
+Seepoil, crew and stores, then found no eligible offer through day1.15. This is
+BLOCKED_NO_FUNDED_OFFER, not a pass. Freight and charter paid actual trips.
+All nine recipients have genuine operating-tank gaps (57-171 drums); only
+patrol-0 reports atPort=rust_anchorage and it is hostile. Other atPort fields
+are empty. No demonstrated fee/stock/treasury shortage caused this failure.
+
+Exact job gate: _civilian_offers:865-866 requires a recipient's actual atPort
+before quoting; finish:708 requires that same actual harbor presence to pay.
+Do not bypass either by substituting homePort/destination for presence.
+Source-level domain cause: Root9986c25 naval_lifecycle.gd:176-184 places an
+arrived fleet at its certified water endpoint, calls Fleets.dock and AI.arrived,
+then immediately calls route(next) unless home recovery requires holding.
+route:62 clears atPort as soon as that route departs. Thus an ordinary healthy
+fleet's paid dock visit is not a player-visible service interval. daily:217-220
+and publish_order:118-119 can also dispatch a held fleet. This cannot be fixed
+truthfully by raising a tariff/load or inventing a recipient port in jobs.
+
+NEEDED BOUNDED ALLOWLIST REPORTED BEFORE ANY DOMAIN EDIT:
+game/scripts/naval_lifecycle.gd ONLY, for one finite ordinary harbor-service
+interval after actual certified endpoint arrival. Keep actual endpoint/clearance
+and <40 service range, real elapsed campaign time, real dock purchases/repairs,
+live AI orders, existing recovery holds, finite funds/stocks/tank gaps. All
+departure paths must honor the same interval, then resume current AI routing.
+Do not start/restart the interval on mere route publication/daily polling,
+do not manufacture atPort for en-route/failed-route/intercepted fleets, and do
+not reserve fuel, freeze AI or depend on a player job existing. A quarter-day
+ordinary quay-service window matches the existing tariff's handling allowance;
+it is a finite physical stop while decisions remain live, not a reserved client.
+Proposed optional owner field: harborServiceUntilDay:float, set only on
+certified arrival and cleared on expiry/invalid physical position. The current
+actual atPort and patrol position identify the harbor, not another saved port.
+Old saves without it have no interval.
+Root/C must prove actual arrival, finite departure and unchanged physical gates.
+No domain edit has been made; A's current R1 allowlist remains voyage_jobs.gd
+and this note. Existing fuel need/policy/escrow/payment/refund are unchanged.
+No engine, parser, advisory or test executed here. Await Root's bounded domain
+decision; no native acceptance or playable fuel-career success is claimed.
+
+ROOT R1 DOMAIN EXPANSION AUTHORIZED - IMPLEMENTATION CONTRACT
+A additionally owns ONLY game/scripts/naval_lifecycle.gd for the demonstrated
+physical service interval. No state-validator expansion: owner dictionaries
+already retain optional fields; save_validation.gd:284-307 has no key whitelist.
+One optional additive owner field: harborServiceUntilDay:float. It is the
+absolute campaign-day earliest next departure after an actual certified arrival.
+Missing/non-numeric/non-finite/stale/overlong deadlines grant no service hold.
+No new interval on restore, route publication, daily polling or sea interception.
+Public PURE NavalLifecycle.harbor_service(core,owner,patrol:Dictionary={})
+returns {} without an active physically valid interval; otherwise
+{portId:String,departureDay:float,elapsedDays:float,remainingDays:float}.
+The optional patrol avoids another owner lookup in existing bounded frame loops.
+Elapsed/remaining days derive from the ONE deadline and the constant .25-day
+duration, bounded [0,.25]; the read never mutates, routes, pays or extends it.
+At current Campaign.DAY_SECONDS=45, .25 day is11.25 simulation seconds; it
+matches the existing job tariff's quarter-day handling, independent of real
+test runtime. Current NPC movement is speed*.38*CAMPAIGN_SCALE; player movement
+is speed*1.55*CAMPAIGN_SCALE, scale4. Real water routes can take well beyond
+day1.15 before an eligible harbor arrival. C must allow actual sailing/calendar
+arrival before seeking fuel, within its existing40s target/45s cap; no new world.
+Every ordinary physical arrival gets the same finite rule, never per-recipient
+or conditional on a player job. Existing AI/withdraw/repair/resupply decisions,
+longer recovery/company holds and RegionalOps authority remain independent.
+On expiry, resume the existing current order once; never replay elapsed trips
+or call paid docking/Regional arrival a second time merely to resume travel.
+Jobs quote/accept/status/finish will share one actual recipient-port read:
+active owner/patrol, stopped patrol, real atPort matching a known harbor,
+existing <40 harbor range and water clearance at the actual coordinates.
+No homePort/destination substitution; no guarantee the client waits long enough.
+Fuel need, finite source stock/purses, promises, sealed custody, old accepted
+three-drum terms, escrow, once-payment and refunds retain their existing policy.
+This is the early source API for Root to relay to C; native proof remains open.
+
+R1 IMPLEMENTED SOURCE / ROOT-C VERIFICATION HANDOFF
+harbor_service() is pure. Arrival installs the one .25-day deadline only after
+the actual endpoint passes the unchanged <40 range and actual hull-clearance
+water check. Route publication and existing holding() respect it; expiry resumes
+the latest order without a second AI.arrived/paid dock/Regional arrival call.
+The active regional operation resumes through RegionalOps.refresh instead of
+a generic departure. Existing at-sea observation/encounters and payroll remain
+live. The deadline is not extended for demand, a job, daily polling or restore.
+The expiry step uses min(current dt, nonnegative elapsed time since deadline)
+for movement, never accumulated catch-up or a second simulated trip. Missing/
+invalid physical presence cannot receive a service hold. Existing longer
+recovery/company holds can still keep a genuine recipient at the harbor.
+Jobs._fuel_port is the shared physical presence predicate for all fuel paths.
+accept and finish consume recipient_status's same present/eligible result;
+eligibility uses the original sponsoring harbor's faction for trade permission,
+including when queried at sea or at the destination. The private _work_access
+adds only an optional origin:Dictionary={} argument; old callers keep theirs.
+No quote/fee/load/ID/fuel-policy/save-job/escrow/payment/refund terms are repriced.
+
+C should first sail/advance ordinary joined calendar time until an actual
+eligible recipient arrival is observed, choose only a funded real offer, and
+retain its actual service deadline, position and departure evidence. A recipient
+may depart before arrival; this must still refuse without paying, with the same
+sealed lot/refundable escrow. No all-jobs-by-day1.15 assumption. Actual positive
+fuel margin and full four-career gate remain unproven pending Root native runs.
+
+Historical fixture limitation reported, not edited: test_civilian_work036.gd:
+128-131 forces owner.atPort and drains its tanks without a physical arrival;
+test_civilian_flow036.gd:168-171 forces harbor position and patrol.active=false.
+These setups do not satisfy the new common active/stopped/physical predicate.
+Root/C own meaningful fixture updates; no assertion or presence gate was waived.
+Only voyage_jobs.gd, naval_lifecycle.gd and this note are changed for R1.
+No engine/test/parser/advisory/import/export/GPU/helpers or Root edits run here.

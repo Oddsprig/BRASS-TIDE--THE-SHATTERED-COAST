@@ -2,6 +2,7 @@ extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
 ## Main-thread campaign publication around bounded autonomous daily decisions.
 const AI=preload("res://scripts/naval_ai.gd")
+const Orders=preload("res://scripts/naval_orders.gd")
 const Fleets=preload("res://scripts/fleet_economy.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Navigation=preload("res://scripts/navigation.gd")
@@ -11,6 +12,21 @@ const Contacts=preload("res://scripts/contacts.gd")
 const ORDER_INTERVAL: float=1.0
 const REPLAN_SECONDS: float=3.0
 const REPLAN_DISTANCE: float=160.0
+# The existing civilian tariff includes a quarter-day of quay handling.
+# A real arrival exposes that finite service time, regardless of player jobs.
+const HARBOR_SERVICE_DAYS: float=0.25
+
+static func harbor_service(c,owner: Dictionary,p: Dictionary={}) -> Dictionary:
+	var deadline=owner.get("harborServiceUntilDay")
+	if not (deadline is int or deadline is float) or not is_finite(float(deadline)):return {}
+	var remaining: float=float(deadline)-float(c.state.day)
+	if remaining<=0.0 or remaining>HARBOR_SERVICE_DAYS+0.000001 or not owner.get("active",false):return {}
+	var dock: Dictionary=c.port(str(owner.get("atPort","")))
+	if dock.is_empty():return {}
+	if p.is_empty():p=Orders.find_patrol(c.state,str(owner.get("id","")))
+	if p.is_empty() or str(p.get("id",""))!=str(owner.get("id","")) or not p.get("active",false) or not p.get("holding",false) or p.has("interceptPoint"):return {}
+	if c.distance(p,dock)>=40.0 or not Navigation.is_water(c.nav,p.x,p.y,Routes.clearance(c,p)):return {}
+	return {"portId":str(dock.id),"departureDay":float(deadline),"elapsedDays":clampf(HARBOR_SERVICE_DAYS-remaining,0.0,HARBOR_SERVICE_DAYS),"remainingDays":minf(remaining,HARBOR_SERVICE_DAYS)}
 
 static func hire(c,owner: Dictionary,p: Dictionary) -> void:
 	for boat in owner.boats:
@@ -41,6 +57,11 @@ static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -
 	if target.is_empty():return
 	var owner: Dictionary=c.fleet_owner(p.id)
 	if owner.is_empty():return
+	# Decisions may change while docked; route publication cannot erase an
+	# actual, unexpired quay visit. No waiting time is created by this call.
+	if not harbor_service(c,owner,p).is_empty():return
+	# Keep an elapsed deadline until step() clips this frame's travel to time
+	# after service. External order publication does not move the patrol itself.
 	var actual: float=Routes.clearance(c,p)
 	p.to=dest;p.courseClearance=actual
 	if intercept_point.is_empty():p.erase("interceptPoint")
@@ -63,14 +84,15 @@ static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -
 
 static func holding(c,owner: Dictionary) -> bool:
 	if str(owner.get("atPort","")).is_empty():return false
+	if not harbor_service(c,owner).is_empty():return true
 	if owner.get("playerCompany",false):
-		var reason: String=preload("res://scripts/naval_orders.gd").needs_home_recovery(owner,AI.fleet_reserves(owner),AI.fleet_performance(owner))
+		var reason: String=Orders.needs_home_recovery(owner,AI.fleet_reserves(owner),AI.fleet_performance(owner))
 		if not reason.is_empty():return str(owner.atPort)==str(owner.homePort) or owner.get("purpose","")=="repair"
 		return c.CompanyOps.hold(c,owner)
 	if str(owner.atPort)!=str(owner.homePort) and str(owner.get("purpose",""))!="repair":return false
 	var res: Dictionary=AI.fleet_reserves(owner)
 	var perf: Dictionary=AI.fleet_performance(owner)
-	return not preload("res://scripts/naval_orders.gd").needs_home_recovery(owner,res,perf).is_empty()
+	return not Orders.needs_home_recovery(owner,res,perf).is_empty()
 
 static func reconcile_losses(c) -> bool:
 	# Reuse the existing wreck/cargo policy before any replacement can erase or
@@ -147,6 +169,17 @@ static func step(c,dt: float) -> void:
 		if owner.is_empty():continue
 		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
 		if not p.active:continue
+		var movement_dt: float=dt
+		if owner.has("harborServiceUntilDay") and harbor_service(c,owner,p).is_empty():
+			var deadline=owner.get("harborServiceUntilDay")
+			movement_dt=0.0
+			if (deadline is int or deadline is float) and is_finite(float(deadline)):
+				movement_dt=minf(dt,maxf(0.0,(float(c.state.day)-float(deadline))*float(c.DAY_SECONDS)))
+			owner.erase("harborServiceUntilDay")
+			# Resume once from the latest existing order, without buying stores,
+			# replaying arrivals or consuming any overshot service time as travel.
+			if not Orders.RegionalOrders.operation(c.state,owner).is_empty():c.RegionalOps.refresh(c)
+			elif p.get("holding",false) and not holding(c,owner):publish_order(c,p)
 		if str(owner.get("purpose","")) in ["withdraw","repair","replace","resupply"] and (str(owner.get("destination",p.to))!=str(p.to) or p.has("interceptPoint")):
 			route(c,p,str(owner.destination))
 		if not p.get("holding",false):
@@ -160,7 +193,7 @@ static func step(c,dt: float) -> void:
 				else:p.courseClearance=actual
 		if not p.get("holding",false):
 			var performance: Dictionary=AI.fleet_performance(owner)
-			p.progress+=dt*float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))/maxf(1,float(p.courseLength))
+			p.progress+=movement_dt*float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))/maxf(1,float(p.courseLength))
 			if p.progress>=1:
 				var dock: Dictionary=c.port(p.to)
 				var endpoint: Dictionary=p.course[-1]
@@ -170,13 +203,14 @@ static func step(c,dt: float) -> void:
 					owner.atPort="";owner.progress=0.0
 					c.RegionalOps.refresh(c)
 					continue
-				if dock.is_empty() or c.distance(endpoint,dock)>=40.0:
+				if dock.is_empty() or c.distance(endpoint,dock)>=40.0 or not Navigation.is_water(c.nav,endpoint.x,endpoint.y,Routes.clearance(c,p)):
 					refuse_route(c,p,"Course stopped: no safe harbor approach within docking range.")
 					continue
 				var origin: String=str(p.from)
 				var delivered_before: float=float(owner.get("tradeDelivered",0))
 				p.x=endpoint.x;p.y=endpoint.y;p.from=p.to;p.progress=0.0;p.holding=true
 				Fleets.dock(owner,dock,c);hire(c,owner,dock)
+				owner.harborServiceUntilDay=float(c.state.day)+HARBOR_SERVICE_DAYS
 				c.RegionalOps.delivered(c,str(dock.id),maxf(0,float(owner.get("tradeDelivered",0))-delivered_before),origin,false)
 				var next: String=AI.arrived(c,owner,dock)
 				if holding(c,owner):route(c,p,dock.id)
@@ -217,6 +251,10 @@ static func daily(c) -> void:
 		if p.get("holding",false):
 			var dock: Dictionary=c.port(str(owner.atPort))
 			if not dock.is_empty():hire(c,owner,dock)
-			if not holding(c,owner):route(c,p,AI.arrived(c,owner,dock))
+			if not holding(c,owner):
+				if owner.has("harborServiceUntilDay"):
+					if not Orders.RegionalOrders.operation(c.state,owner).is_empty():c.RegionalOps.refresh(c)
+					else:publish_order(c,p)
+				else:route(c,p,AI.arrived(c,owner,dock))
 		elif str(owner.get("destination",p.to))!=str(p.to):route(c,p,str(owner.destination))
 	c.RegionalOps.refresh(c)

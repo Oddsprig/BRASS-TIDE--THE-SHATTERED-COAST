@@ -1,5 +1,6 @@
 extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
+const Navigation=preload("res://scripts/navigation.gd")
 ## v0.011 side voyage jobs that run ALONGSIDE the single story contract.
 ## Existing contracts.gd APIs and state.activeContract/state.freight are never
 ## touched. Side jobs live in state["voyageJobs"] (Array, max MAX_ACTIVE) with
@@ -246,12 +247,12 @@ static func _destination(state: Dictionary, from: Dictionary, salt: int) -> Dict
 
 
 # Read existing permissions without Politics.ensure changing a preview's state.
-static func _work_access(c,p: Dictionary,good: String="") -> bool:
+static func _work_access(c,p: Dictionary,good: String="",origin: Dictionary={}) -> bool:
 	if p.is_empty():return false
 	var access: Dictionary=Factions.access(c.state,p)
 	var pass_until: float=_num(c.state.get("relationships",{}).get("safeConduct",{}).get(str(p.id),0))
 	if not bool(access.get("contracts",false)) and pass_until<=float(c.state.day):return false
-	var origin: Dictionary=c.current_port()
+	if origin.is_empty():origin=c.current_port()
 	return good.is_empty() or TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),str(origin.get("faction","")),str(p.get("faction","")),good,float(c.state.day))
 
 
@@ -635,7 +636,9 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 		return _ok(core,"Charter funded, provisioned and boarded.",{"job":offer.duplicate(true)})
 	var freight := _clean_freight(offer.get("freight", {}))
 	if str(offer.kind)==KIND_FUEL:
-		if not _fuel_allowed(core,p,_fuel_owner(core,str(offer.ownerId))):return _fail(core,"This treasury cannot sponsor fuel for an enemy or embargoed fleet.")
+		var recipient: Dictionary=recipient_status(core,offer)
+		if not recipient.present:return _fail(core,"The actual recipient is no longer stopped at the quoted harbor.")
+		if not recipient.eligible:return _fail(core,"This treasury cannot sponsor fuel under the current fleet and harbor access rules.")
 		var carrier: String=_fuel_carrier(core,float(freight.get("qty",0)),boat_uid)
 		if carrier.is_empty():return _fail(core,"Choose a crewed transport or tanker with room for the entire sealed fuel lot.")
 		offer.carrierUid=carrier
@@ -704,10 +707,10 @@ static func finish(core, id: String) -> Dictionary:
 	if kind == KIND_FREIGHT and not _at_port(core, state, str(job["targetPort"])):
 		return _fail(core, "Deliver the sealed freight at its destination harbor first.")
 	if kind==KIND_FUEL:
-		var owner: Dictionary=_fuel_owner(core,str(job.ownerId))
-		if not _at_port(core,state,str(job.targetPort)) or owner.is_empty() or str(owner.get("atPort",""))!=str(job.targetPort):return _fail(core,"Deliver at the actual recipient fleet's harbor while that fleet is present.")
-		if not _fuel_allowed(core,core.port(str(job.port)),owner):return _fail(core,"War or an existing fuel embargo blocks this treasury's delivery. Return the sealed lot safely to abandon.")
-		if float(job.freight.get("qty",0))<=0 or fuel_demand(owner,str(job.get("fuelPolicy","three_drum"))=="operating_tanks")+0.000001<float(job.freight.get("qty",0)):return _fail(core,"The actual recipient no longer needs or can receive this sealed lot; return it safely or wait for demand.")
+		var recipient: Dictionary=recipient_status(core,job)
+		if not _at_port(core,state,str(job.targetPort)) or not recipient.present:return _fail(core,"Deliver at the actual recipient fleet's harbor while that fleet is present.")
+		if not recipient.eligible:return _fail(core,"Current fleet or harbor access rules block this treasury's delivery. Return the sealed lot safely to abandon.")
+		if float(job.freight.get("qty",0))<=0 or float(recipient.demand)+0.000001<float(job.freight.get("qty",0)):return _fail(core,"The actual recipient no longer needs or can receive this sealed lot; return it safely or wait for demand.")
 	if kind==KIND_CHARTER:
 		if not _at_port(core,state,str(job.targetPort)) or job.passengers.is_empty():return _fail(core,"Bring the actual passenger cohort to its destination harbor.")
 		if float(job.voyageDistance)+65.0<float(job.routeDistance) or float(job.elapsedDays)<=0:return _fail(core,"The charter needs observed sailing along its actual water route.")
@@ -797,6 +800,17 @@ static func _fuel_allowed(c,sponsor: Dictionary,owner: Dictionary) -> bool:
 	var a: String=str(sponsor.get("faction",""));var b: String=str(owner.get("faction",""))
 	return (a==b or Factions.relation(c.state,a,b)>Factions.ENEMY_AT) and TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),a,b,"fuel",float(c.state.day))
 
+static func _fuel_port(c,owner: Dictionary) -> Dictionary:
+	if owner.is_empty():return {}
+	var dock: Dictionary=c.port(str(owner.get("atPort","")))
+	if dock.is_empty():return {}
+	for p in c.state.get("patrols",[]):
+		if str(p.get("id",""))!=str(owner.get("id","")):continue
+		if not p.get("active",false) or not p.get("holding",false) or p.has("interceptPoint"):return {}
+		if c.distance(p,dock)>=40.0 or not Navigation.is_water(c.nav,p.x,p.y,Routes.clearance(c,p)):return {}
+		return dock
+	return {}
+
 static func fuel_demand(owner: Dictionary,full_tanks: bool=false) -> float:
 	# Old callers/jobs keep the three-drum emergency target. New059 restocking
 	# uses only actual empty tank space and deducts ALL owner cargo fuel first.
@@ -829,10 +843,10 @@ static func recipient_status(c,job: Dictionary) -> Dictionary:
 	var owner_id: String=str(job.get("ownerId",""))
 	var owner: Dictionary=_fuel_owner(c,owner_id)
 	var target: String=str(job.get("targetPort",""))
-	var current: String=str(owner.get("atPort",""))
+	var current: String=str(_fuel_port(c,owner).get("id",""))
 	var observed: float=_num(job.get("quotedDay",0))
 	if observed<=0:observed=_num(job.get("acceptedDay",c.state.day))
-	var eligible: bool=not owner.is_empty() and _fuel_allowed(c,c.port(str(job.get("port",""))),owner) and _work_access(c,c.port(target),"fuel")
+	var eligible: bool=not owner.is_empty() and _fuel_allowed(c,c.port(str(job.get("port",""))),owner) and _work_access(c,c.port(target),"fuel",c.port(str(job.get("port",""))))
 	var present: bool=not owner.is_empty() and not target.is_empty() and current==target
 	var demand: float=fuel_demand(owner,str(job.get("fuelPolicy","three_drum"))=="operating_tanks")
 	var promised: float=_fuel_promised(c,owner_id,str(job.get("id","")))
@@ -862,8 +876,8 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 	var export_fuel: float=Reserves.exportable(p,"fuel")
 	for owner in c.state.get("fleetOwners",[]):
 		if fuel_routes>=WORK_ROUTES:break
-		var target: Dictionary=c.port(str(owner.get("atPort","")))
-		if _fuel_owner(c,str(owner.id)).is_empty() or not _fuel_allowed(c,p,owner) or target.is_empty() or str(target.id)==str(p.id) or not _work_access(c,target,"fuel"):continue
+		var target: Dictionary=_fuel_port(c,owner)
+		if _fuel_owner(c,str(owner.id)).is_empty() or not _fuel_allowed(c,p,owner) or target.is_empty() or str(target.id)==str(p.id) or not _work_access(c,target,"fuel",p):continue
 		var demand: float=maxf(0,fuel_demand(owner,true)-_fuel_promised(c,str(owner.id)))
 		var limit: int=floori(minf(demand,minf(export_fuel,fuel_room)))
 		if limit<1:continue
