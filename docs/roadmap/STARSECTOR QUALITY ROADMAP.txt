@@ -1,3 +1,6 @@
+27 OCTOBER 2026 PRIORITY UPDATE
+User rejects the actual053 campaign marker art. Insert focused054 visual correction now; saved054-061scopes move to055-062 without being dropped. Whole-game milestone is now062. All exact051remaining performance/quality targets stay OPEN and unchanged, carried into062; this reorder does not waive them or certify parity. Continue one bounded scope at a time.
+
 BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT CORE CHECKPOINT - 27 October 2026
@@ -87,8 +90,8 @@ LOCKED DESIGN
 
 QUALITY MILESTONES
 A: 0.042-0.051 - Prove a good-looking, responsive and replayable core game.
-B: 0.052-0.056 - Make fleet progression and the living coast worth exploring.
-C: 0.057-0.061 - Make the careers, consequences and long campaign hold together.
+B: 0.052-0.057 - Make fleet progression and the living coast worth exploring.
+C: 0.057-0.062 - Make the careers, consequences and long campaign hold together.
 Do not advance into more campaign breadth to conceal an unfinished milestone A.
 A failed milestone creates a bounded correction to its actual failing part;
 it does not trigger an open-ended full-game rewrite or another test framework.
@@ -233,7 +236,17 @@ observe a supplied shipyard or recovering shortage. Firms, households and the
 government still pay from their actual purses. More accounting screens alone
 are not a trade game, and arbitrary boat prices are not acceptable.
 
-0.054 - INDEPENDENT CAMPAIGN FLEETS WITH BELIEVABLE PURPOSE
+0.054 - CAMPAIGN PRESENTATION CORRECTION (HUMAN PRIORITY)
+The owner rejected actual053 tiny triangle, diamond and harbor-square symbols.
+Replace live campaign/title fleet markers with original recognizable boats and
+real roster formations; improve known landmarks, waterfront selection and labels.
+No invented fleet members, heavy water, copied assets or unrelated AI rewrite.
+PROOF: actual title, default one-boat start, real trader/hostile/civilian fleet,
+known discovery and overview exports are visibly improved and remain readable.
+Assert projection/picking, knowledge, roster purity and bounded asset work;
+assertion counts alone do not establish this art quality.
+
+0.055 - INDEPENDENT CAMPAIGN FLEETS WITH BELIEVABLE PURPOSE
 Finish observable merchants, escorts, patrols, pirates and hostile faction
 fleets pursuing actual cargo, protection, raids and operations. Use sightings,
 route costs, risk and supply; avoid omniscient pursuit of the player.
@@ -244,7 +257,7 @@ PROOF: follow one real shipment, raid and patrol response from departure to
 survivors, delivered/stolen cargo and funded repair/replacement. It must still
 happen when the player sails elsewhere. Explain sightings/events in useful intel.
 
-0.055 - FACTIONS, CONTACTS AND OPPORTUNITY
+0.056 - FACTIONS, CONTACTS AND OPPORTUNITY
 Make faction identity visible in art, equipment, doctrine, trade interests and
 behavior. Explain hostility, inspections, commissions, restricted access,
 smuggling consequences and rewards. Contacts remember meaningful witnessed
@@ -253,7 +266,7 @@ PROOF: choosing whom to help changes concrete prices/access/jobs/safety or
 faction support. Rival factions fight for understandable reasons. Reputation
 is more than an unexplained number or a random attack switch.
 
-0.056 - EXPLORATION WITH DISCOVERY AND PAYOFF
+0.057 - EXPLORATION WITH DISCOVERY AND PAYOFF
 Complete the postponed original island expedition, then establish reusable
 content patterns without a sprawling new story engine: clues, survey stages,
 resource finds, hidden anchorages, abandoned facilities and disputed salvage.
@@ -263,7 +276,7 @@ PROOF: one voyage combines a job, a worthwhile discovery and an optional risk;
 a clue changes the next destination. The player can choose how far to push
 before supplies and the return journey become dangerous. Clear milestone B.
 
-0.057 - SALVAGE, PRIZES AND RECOVERY AS REAL CHOICES
+0.058 - SALVAGE, PRIZES AND RECOVERY AS REAL CHOICES
 Make post-battle recovery fast to understand and consequential: recover a hull,
 remove valuable machinery/weapons, strip supplies, tow or leave a prize.
 Cargo space, towing performance, repair crews, danger and equipment condition
@@ -272,7 +285,7 @@ PROOF: a poor captain can make a memorable fleet upgrade from a difficult
 recovery, while stripping a wreck can be the smarter choice on another trip.
 No reward screen silently duplicates a boat, crew, cargo or item.
 
-0.058 - CIVILIAN CAREERS THAT REMAIN INTERESTING
+0.059 - CIVILIAN CAREERS THAT REMAIN INTERESTING
 Polish fishing, freight, fuel delivery and passenger/yacht work using the real
 civilian roster and existing funded jobs. Add route/risk choices, useful
 specialization, recurring clients and demand, not four reskinned delivery buttons.
@@ -281,7 +294,7 @@ PROOF: each civilian career pays its operating costs, progresses to a useful
 larger/different vessel and provides decisions beyond waiting for a timer.
 A merchant or fisher is a supported way to play, not a combat career's chore.
 
-0.059 - CAPTAINS, CREWS AND FLEET ATTACHMENT
+0.060 - CAPTAINS, CREWS AND FLEET ATTACHMENT
 Use paid officers/specialists, crew skill, morale, wounds and boat histories
 to make a flotilla personal. Doctrine and fitting should agree with actual AI
 behavior. Keep people numerical; do not introduce crew animation work.
@@ -291,7 +304,7 @@ PROOF: two officers/builds of a comparable boat can be tactically distinct;
 an experienced vessel has a useful history and losing it matters without
 making recovery or a new captain's progression unreasonable.
 
-0.060 - A REGION THAT CHANGES AND A REASON TO STAY
+0.061 - A REGION THAT CHANGES AND A REASON TO STAY
 Connect supplied faction operations, blockades, relief, harbor development,
 optional storage/business/home harbor and regional story consequences.
 Use actual goods, workers, capital and shipping to enable expansion or repair.
@@ -302,7 +315,7 @@ PROOF: the player can help secure a corridor or develop a harbor and see the
 result in traffic, safety, inventories and faction opportunity. Operations
 stall or fail for explained resource/strategic reasons, not arbitrary resets.
 
-0.061 - WHOLE-GAME QUALITY MILESTONE
+0.062 - WHOLE-GAME QUALITY MILESTONE
 Carry measured051 impact-burst targets: light workerP95<=33.333ms and maxlag
 <=100ms, plus full rendered60FPS/frame-time targets. R36 scoped051 acceptance
 does not waive these:38.435ms/151.409ms remained, rawqualityflagFALSE.

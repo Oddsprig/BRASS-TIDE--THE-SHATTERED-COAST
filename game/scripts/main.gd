@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "voyage051", "harbor051", "preparation051", "market051", "tradeempty051", "trade051", "tradedetails051"]
+		screenshots_requested = ["title051", "home051", "convoy051", "hostile051", "civilian051", "discovery051", "overview051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1242,6 +1242,32 @@ func capture_after_start():
 		if name.ends_with("051") and not screenshots_requested.is_empty():
 			if name == "home051":
 				new_game();paused = true;chart.center_camera()
+			elif name in ["convoy051", "hostile051", "civilian051"]:
+				var chosen054: Dictionary = {}
+				for patrol054: Dictionary in core.state.patrols:
+					if not patrol054.get("active", false):continue
+					var owner054: Dictionary = core.fleet_owner(str(patrol054.id))
+					var match054: bool = bool(patrol054.get("hostile", false)) if name == "hostile051" else str(owner054.get("kind", "")) == "trader"
+					if name == "civilian051":
+						match054 = owner054.get("boats", []).any(func(b):return str(b.get("spec", {}).get("civilianRole", "")) in ["fishing", "transport", "tanker", "yacht"])
+					if match054:chosen054 = patrol054;break
+				if chosen054.is_empty():
+					for patrol054: Dictionary in core.state.patrols:
+						if patrol054.get("active", false):chosen054 = patrol054;break
+				if not chosen054.is_empty():
+					chart.follow_camera = false;chart._campaign_follow = false
+					chart.camera = Vector2(float(chosen054.x), float(chosen054.y))
+					chart.scale_factor = chart.regional_scale()
+			elif name == "discovery051":
+				var knowledge054: Dictionary = core.state.get("exploration", {})
+				for site054: Dictionary in knowledge054.get("catalog", []):
+					if int(knowledge054.get("sites", {}).get(site054.id, {}).get("level", 0)) <= 0:continue
+					selected_site = str(site054.id)
+					chart.follow_camera = false;chart._campaign_follow = false
+					chart.camera = Vector2(float(site054.x), float(site054.y))
+					chart.scale_factor = chart.regional_scale()
+					break
+			elif name == "overview051":chart.territory_view()
 			elif name == "voyage051":Interface.GuidanceUI.open_voyage(ui)
 			elif name == "harbor051":ui.open_port()
 			elif name == "preparation051":

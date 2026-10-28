@@ -1,5 +1,5 @@
-CURRENT053 SCOPE - VERIFIED SCOPED BUILD
-053meaningful trade passed143/0 checks, export/3starts and nine actual1280x800 screens reviewed. Final nativea15c833a attempt002,71.123s; capture5459cddc attempt001,30.234s. Preserveinterrupted001. Package053then054only; no051retuning/wholequalityclaim. Metadata53alreadydone. RootonlymutedbackgroundFIFOtests<120s. Read task/CURRENT STATE.txt.
+CURRENT054 HUMAN PRIORITY - CAMPAIGN ART CORRECTION
+The owner rejects actual053tiny triangle/diamond campaign markers and title symbols. Visible boats/formations/landmarks and readable supporting selection/labels take priority now. Read task/SCOPE054CAMPAIGNARTCORRECTION.txt (actualfilename contains spaces) and task/CURRENT STATE.txt. Baseline053826a104 delivered/installed. Metadata54 NOT prepared. ThreeBridgeSolMAX source helpers, RootallmutedbackgroundFIFO<120s tests. Planned054campaignAI remains queued NEXT, not dropped or delivered. Strict051performance targets remainopen; no retune thisartpass.
 
 # Brass Tide - current working instructions
 
