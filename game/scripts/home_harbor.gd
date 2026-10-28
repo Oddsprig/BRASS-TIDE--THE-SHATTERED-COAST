@@ -196,6 +196,114 @@ static func list_businesses(state: Dictionary) -> Array:
 	return out
 
 
+# Raw optional work receipts: never reconstruct working days from money paid.
+# Called by campaign validation BEFORE any normalizing ensure on loaded state.
+static func validate(state: Dictionary) -> String:
+	for b in state.get("businesses", []) if state.get("businesses") is Array else []:
+		if not b is Dictionary:continue # Existing business schema checks this record.
+		if b.has("paidWorkDays") != b.has("lastPaidWorkDay"):return "Incomplete business work-day receipt."
+		if not b.has("paidWorkDays"):continue
+		for key in ["paidWorkDays", "lastPaidWorkDay"]:
+			var value: Variant=b[key]
+			if typeof(value) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or floorf(float(value))!=float(value):return "Invalid business work-day receipt."
+		var count: float=float(b.paidWorkDays)
+		var stamp: float=float(b.lastPaidWorkDay)
+		var published: float=_num(state.get("econDay",0))
+		if count<0 or count>1000000000 or stamp< -1 or stamp>minf(1000000000,published):return "Business work-day receipt exceeds published days."
+		if (count==0 and stamp!= -1) or (count>0 and (stamp<1 or count>stamp)):return "Inconsistent business work-day receipt."
+	return ""
+
+
+static func _staffed(business: Dictionary) -> bool:
+	var kind: String=_kind(str(business.get("kind","")))
+	if not KINDS.has(kind):return false
+	var roster: Dictionary={}
+	for e in business.get("employees",[]) if business.get("employees") is Array else []:
+		if not e is Dictionary or not Goods.WAGES.has(str(e.get("occupation",""))) or int(_num(e.get("wage",0)))<=0:return false
+		var occupation: String=str(e.occupation)
+		roster[occupation]=int(roster.get(occupation,0))+1
+	if roster.is_empty():return false
+	var required: Dictionary=KINDS[kind].employees
+	if kind=="workshop":
+		var good: String=str(business.get("recipeGood","supplies"))
+		if not Goods.ITEMS.has(good):return false
+		# Workshops already support paid changes of recipe and actual trades.
+		for occupation in Goods.ITEMS[good].labor:
+			if int(roster.get(occupation,0))<1:return false
+		return true
+	for occupation in required:
+		if int(roster.get(occupation,0))<int(required[occupation]):return false
+	return true
+
+
+# Owned books only. No live normalization, economic step, quote or remote stocks.
+static func business_view(state: Dictionary, business_id: String) -> Dictionary:
+	var actual: Dictionary=_business(state,business_id)
+	if actual.is_empty():return {}
+	var row: Dictionary=actual.duplicate(true)
+	var employees: Array=row.get("employees",[]) if row.get("employees") is Array else []
+	var inventory: Dictionary=row.get("inventory",{}) if row.get("inventory") is Dictionary else {}
+	var labor: Dictionary=row.get("labor",{}) if row.get("labor") is Dictionary else {}
+	row.dailyWages=int(_daily_wages(employees).total)
+	row.reserve=_reserve(row);row.storedWeight=_inventory_weight(inventory)
+	row.paidWorkDays=int(row.get("paidWorkDays",0));row.lastPaidWorkDay=int(row.get("lastPaidWorkDay",-1))
+	row.staffed=_staffed(row)
+	row.arrears=int(row.get("arrearsHousehold",0))+int(row.get("arrearsExpert",0))
+	row.payrollShortfall=maxi(0,int(row.arrears)+int(row.dailyWages)-int(row.get("coins",0)))
+	row.laborNotice=str(labor.get("notice","No published labor shift."))
+	var published: int=int(state.get("econDay",0))
+	# During the authoritative daily step the receipt is one ahead of econDay;
+	# after that step, econDay publishes it. Older shifts remain dated history.
+	row.working=bool(row.staffed) and int(row.arrears)==0 and not bool(row.get("paused",false)) and int(row.paidWorkDays)>0 and int(row.lastPaidWorkDay)==int(labor.get("lastProcessedEconomicDay",-1)) and int(row.lastPaidWorkDay)>=published and int(row.lastPaidWorkDay)<=published+1 and float(row.get("workFactor",0))>0
+	row.stallReason="";row.resumeReason="Continue funding actual daily payroll; later work days require published working shifts."
+	if _port(null,state,str(row.get("homePort",""))).is_empty():
+		row.working=false;row.stallReason="No existing home harbor; work is paused."
+		row.resumeReason="A real home harbor is required; no goods or staff are supplied automatically."
+	elif not row.staffed:
+		row.stallReason="The recorded workforce lacks the required staff or recipe trades."
+		row.resumeReason="Use existing paid staffing and a supported recipe before a later working shift."
+	elif int(row.arrears)>0:
+		row.stallReason="Payroll arrears: %d coins. %s"%[int(row.arrears),str(row.laborNotice)]
+		row.resumeReason="Business needs %d more coins for arrears plus next base payroll; any stoppage still needs home negotiation and paid rest."%int(row.payrollShortfall)
+	elif bool(labor.get("striking",false)):
+		row.working=false;row.stallReason=str(row.laborNotice)
+	elif str(labor.get("policy","normal"))=="rest":
+		row.working=false;row.stallReason="Paid rest does not add a working day. "+str(row.laborNotice)
+		row.resumeReason="Choose a working policy and fund a later actual shift after required recovery."
+	elif not row.working:
+		row.stallReason="No qualifying paid working shift has been published. "+str(row.laborNotice)
+		row.resumeReason="Fund the next published whole business day; capital and wage debt payments are not extra work days."
+	if bool(labor.get("striking",false)):
+		if bool(labor.get("agreed",false)):
+			row.resumeReason="Agreement already paid; %d recorded paid rest days remain, then recovery still needs fatigue <=60 and unrest <=50. Base payroll remains %d coins/day."%[int(labor.get("restDays",0)),int(row.dailyWages)]
+		else:
+			var negotiation: int=int(row.arrears)+ceili(float(Goods.WAGES.laborer)/4)+ceili(float(Goods.WAGES.foreman)/4)
+			row.resumeReason="At home, existing negotiation needs %d business coins within its policy cap, %d owned food and one repair-kit lot, followed by two later paid rest days."%[negotiation,maxi(1,employees.size())]
+	row.materials=[];row.materialsReady=true
+	row.productionReason="Storage and berth service; no production recipe." if str(row.get("kind",""))=="warehouse" else "Only owned stored salvage can be sold; no wrecks or goods are created."
+	if str(row.get("kind",""))=="workshop":
+		var good: String=str(row.get("recipeGood","supplies"))
+		if not Goods.ITEMS.has(good):
+			row.materialsReady=false;row.productionReason="No supported workshop recipe."
+		else:
+			var recipe: Dictionary=Goods.ITEMS[good]
+			var shortages: Array[String]=[]
+			var next_weight: float=float(row.storedWeight)+float(recipe.weight)
+			for ingredient in recipe.inputs:
+				var need: float=float(recipe.inputs[ingredient])
+				var held: float=_num(inventory.get(ingredient,0))
+				var shortfall: float=maxf(0,need-held)
+				row.materials.append({"good":str(ingredient),"held":held,"perLot":need,"shortfall":shortfall})
+				next_weight-=need*float(Goods.ITEMS[ingredient].weight)
+				if shortfall>0.000001:shortages.append("%.2f %s"%[shortfall,str(Goods.ITEMS[ingredient].name)])
+			row.materialsReady=shortages.is_empty()
+			if not shortages.is_empty():row.productionReason="Next lot lacks owned inputs: "+", ".join(shortages)+". Deposit actual cargo at home; payroll still costs coins."
+			elif next_weight>float(row.get("capacity",0))+0.000001:row.productionReason="Store has no room for the next output lot; load or sell actual stock."
+			elif not row.staffed:row.productionReason="The recipe lacks an actual required trade; paid staffing must supply it."
+			else:row.productionReason="Stored inputs support a lot; output still requires actual paid recipe labor."
+	return row
+
+
 # Read-only quote. Needs docking at that existing port; charters also need
 # their relevant site surveyed (level 3). Bill: port materials at Economy
 # prices + setup wage-days + 8% margin + 5% duty + opening-float deposit.
@@ -315,6 +423,7 @@ static func establish(core, kind: String, port_id: String) -> Dictionary:
 		"coins": 0, "inventory": {},"inventoryBasis":{},"autoSell":true,"costOfSales":0,"inKindCapital":0,"inKindReturned":0, "capacity": float(q["capacity"]), "employees": employees,
 		"workingCapital": int(q["inputCapital"]), "capitalIn": 0, "revenue": 0,
 		"wagesPaid": 0, "dividendsPaid": 0, "arrearsHousehold": 0, "arrearsExpert": 0,
+		"paidWorkDays": 0, "lastPaidWorkDay": -1,
 		"paused": false, "establishedDay": _num(state.get("day", 0.0))}
 	state["businesses"].append(business)
 	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
@@ -549,6 +658,13 @@ static func tick(core, days: float = 1.0) -> Array:
 			var shortfall: int=int(business["arrearsHousehold"])+int(business["arrearsExpert"])
 			if shortfall>0:messages.append("%s wages short by %d coins; work paused."%[str(business["name"]),shortfall])
 			continue
+		# The shift runs at econDay+1, then Campaign.apply_economy publishes that
+		# same day AFTER HomeOps.daily and RegionalOps.daily. Bulk wage totals,
+		# overtime and arrears settlements cannot manufacture distinct shifts.
+		var work_day: int=int(state.econDay)+1
+		if whole==1 and bool(shift.canWork) and float(shift.workFactor)>0 and int(wages.total)>0 and _staffed(business) and int(business.get("lastPaidWorkDay",-1))<work_day:
+			business.paidWorkDays=int(business.get("paidWorkDays",0))+1
+			business.lastPaidWorkDay=work_day
 		if str(business["kind"]) == "workshop":
 			business.toolingPaidDay=int(state.econDay)
 			var tooling_api: Script=load("res://scripts/industrial_tooling.gd")

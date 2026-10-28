@@ -4,6 +4,7 @@ const Factions=preload("res://scripts/factions.gd")
 const Trade=preload("res://scripts/trade_intel.gd")
 const Orders=preload("res://scripts/naval_orders.gd")
 const Goods=preload("res://scripts/goods.gd")
+const Home=preload("res://scripts/home_harbor.gd")
 const CLEAR_DAYS: int=7
 const HARBOR_LOTS: int=12
 const STAFF_DAYS: int=3
@@ -35,6 +36,7 @@ static func initialize(s: Dictionary,op: Dictionary) -> void:
 	op.passageBaseline=int(facts.get("passages",{}).get(route_key(op.get("ends",[])),0))
 	op.deliveryBaseline=float(facts.get("deliveries",{}).get(str(op.portId),0))
 	for b in s.get("businesses",[]):op.businessWages[b.id]=int(b.get("wagesPaid",0))
+	if op.id=="harbor":_business_baseline(s,op)
 	if op.id=="ceasefire":
 		var focus: Dictionary=s.get("campaignFocus",{})
 		op.peaceA=str(focus.get("peaceA","compact"));op.peaceB=str(focus.get("peaceB","raiders"))
@@ -68,6 +70,48 @@ static func threatened(s: Dictionary,op: Dictionary) -> bool:
 			if owner.get("faction","")!=p.get("faction","") and Factions.relation(s,str(owner.get("faction","")),str(p.get("faction","")))<=Factions.ENEMY_AT:return true
 	return false
 
+static func _business_baseline(s: Dictionary,op: Dictionary) -> void:
+	op.businessDays={}
+	for b in s.get("businesses",[]):
+		if str(b.get("homePort",""))==str(op.portId):op.businessDays[str(b.id)]=int(b.get("paidWorkDays",0))
+
+# Pure selected progress and owned books. Donated cargo never enters deliveries.
+static func harbor_view(s: Dictionary,op: Dictionary) -> Dictionary:
+	if str(op.get("id",""))!="harbor":return {}
+	var delivered: float=maxf(0,float(s.get("regionalFacts",{}).get("deliveries",{}).get(str(op.portId),0))-float(op.get("deliveryBaseline",0)))
+	var donated: int=0
+	for value in op.get("contributed",{}).values():donated+=int(value)
+	var known: bool=op.get("businessDays") is Dictionary
+	var baselines: Dictionary=op.get("businessDays",{}) if known else {}
+	var out: Dictionary={"portId":str(op.portId),"deliveredLots":delivered,"donatedLots":donated,"harborLots":delivered+float(donated),"lotsRequired":HARBOR_LOTS,"staffDays":0,"staffDaysRequired":STAFF_DAYS,"historyKnown":known,"staffReady":false,"ready":false,"businessId":"","business":{},"businesses":[],"stallReason":"","resumeReason":""}
+	for b in s.get("businesses",[]):
+		if str(b.get("homePort",""))!=str(op.portId):continue
+		var row: Dictionary=Home.business_view(s,str(b.id))
+		if row.is_empty():continue
+		row.staffDays=maxi(0,int(row.paidWorkDays)-int(baselines.get(str(b.id),0))) if known else 0
+		row.wagesSinceStart=maxi(0,int(row.get("wagesPaid",0))-int(op.get("businessWages",{}).get(str(b.id),0)))
+		out.businesses.append(row)
+		out.staffDays=maxi(int(out.staffDays),int(row.staffDays))
+		if int(row.staffDays)>=STAFF_DAYS and bool(row.working):out.staffReady=true
+		var selected: Dictionary=out.business
+		if selected.is_empty() or int(row.staffDays)>int(selected.staffDays) or (int(row.staffDays)==int(selected.staffDays) and bool(row.working) and not bool(selected.working)):
+			out.business=row;out.businessId=str(row.id)
+	out.ready=float(out.harborLots)>=HARBOR_LOTS and bool(out.staffReady)
+	if out.business.is_empty():
+		out.stallReason="No owned staffed business at this harbor."
+		out.resumeReason="Establish an optional paid local business using actual staff, setup materials and capital."
+	elif not known:
+		out.stallReason="No post-start working-day baseline is recorded; earlier wages prove no historical working days."
+		out.resumeReason="The next authoritative goal step records a baseline; only later qualifying work days can count."
+	elif not bool(out.staffReady):
+		out.stallReason="Recorded paid working days: %d / %d. %s"%[int(out.staffDays),STAFF_DAYS,str(out.business.stallReason)]
+		out.resumeReason=str(out.business.resumeReason)
+	if float(out.harborLots)<HARBOR_LOTS:
+		var supply: String="Receiving harbor still needs %.2f distinct sold/delivered or donated lots."%maxf(0,HARBOR_LOTS-float(out.harborLots))
+		out.stallReason=supply+(" "+str(out.stallReason) if not str(out.stallReason).is_empty() else "")
+		out.resumeReason="Bring and legally sell/deliver or explicitly donate actual cargo. Donations are unpaid. "+str(out.resumeReason)
+	return out
+
 static func progress(s: Dictionary,op: Dictionary) -> String:
 	var day: int=today(s)
 	if op.id=="corridor":
@@ -78,17 +122,12 @@ static func progress(s: Dictionary,op: Dictionary) -> String:
 		var proof: bool=passages>0 or bool(op.get("playerAction",false)) or int(op.get("patrolVisits",0))>=2
 		return "sustained-corridor" if int(op.get("clearDays",0))>=CLEAR_DAYS and proof and not threatened(s,op) else ""
 	if op.id=="harbor":
-		var delivered: float=float(s.get("regionalFacts",{}).get("deliveries",{}).get(str(op.portId),0))-float(op.get("deliveryBaseline",0))
-		var donated: int=0
-		for value in op.contributed.values():donated+=int(value)
-		op.harborLots=maxf(delivered,float(donated));op.staffDays=0
-		for b in s.get("businesses",[]):
-			if str(b.get("homePort",""))!=str(op.portId) or b.get("paused",true):continue
-			var pay: int=0
-			for employee in b.get("employees",[]):pay+=int(employee.get("wage",0))
-			var since: int=int(b.get("wagesPaid",0))-int(op.get("businessWages",{}).get(b.id,0))
-			if pay>0:op.staffDays=maxi(int(op.staffDays),floori(float(since)/float(pay)))
-		return "paid-harbor-development" if op.harborLots>=HARBOR_LOTS and int(op.staffDays)>=STAFF_DAYS else ""
+		if str(op.get("status",""))!="active":return ""
+		# A legacy active goal anchors NOW; cumulative wages do not backfill days.
+		if not op.get("businessDays") is Dictionary:_business_baseline(s,op)
+		var view: Dictionary=harbor_view(s,op)
+		op.harborLots=float(view.harborLots);op.staffDays=int(view.staffDays)
+		return "paid-harbor-development" if bool(view.ready) else ""
 	if op.id=="ceasefire":
 		if relief_ready(op) and int(op.get("talksStartedDay",0))==0:op.talksStartedDay=day
 	return ""

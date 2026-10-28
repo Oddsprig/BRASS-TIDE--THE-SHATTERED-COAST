@@ -1,0 +1,119 @@
+BRASS TIDE 061 / B HARBOR SOURCE CONTRACT (28 October 2026)
+ISOLATED SOURCE ONLY on frozen060 f760a933ce51fa8ce16687b4faa03766a62417c5.
+No061 integration/metadata/release before Root delivers060 and compares its game tree.
+No engine/GPU/import/export/parser/advisory/tests or nested helpers in this lane.
+
+EARLY EXACT API FOR C / ROOT
+Home = res://scripts/home_harbor.gd; Rules = regional_rules.gd.
+Home.business_view(state:Dictionary,business_id:String)->Dictionary is PURE.
+Missing id returns {}. A detached business copy additionally provides dailyWages,
+reserve,storedWeight,paidWorkDays,lastPaidWorkDay,staffed,arrears,payrollShortfall,
+working,laborNotice,stallReason,resumeReason,materialsReady,productionReason,
+materials:Array of {good,held,perLot,shortfall}. Existing purse/inventory/basis/
+employees/labor/capital/revenue/wages/expenses remain copied real books.
+No ensure, quote, normalization, port/world/nav constructor, join or mutation.
+
+Rules.harbor_view(state:Dictionary,op:Dictionary)->Dictionary is PURE.
+Non-harbor/missing op returns {}. Fields: portId,deliveredLots,donatedLots,
+harborLots,lotsRequired,staffDays,staffDaysRequired,historyKnown,staffReady,ready,
+businessId,business,businesses,stallReason,resumeReason. business/businesses are
+Home.business_view rows at op.portId plus staffDays and wagesSinceStart.
+Selected business has the most recorded post-start work days; ties prefer an
+actually working business. staffReady requires one currently working, fully
+staffed, arrears-free local business with at least three recorded work days.
+Material shortage stops workshop output; it does not invent unpaid staff or
+erase paid warehouse work. productionReason describes that separate constraint.
+Sold/settled player-delivery facts after baseline PLUS separate unpaid donations
+give harborLots. Neither pure API publishes facts, progress or completions.
+
+EXACT OPTIONAL SAVED SHAPE / RAW VALIDATION DEPENDENCY FOR A
+business.paidWorkDays:int >=0 and business.lastPaidWorkDay:int >=-1, both optional
+together. Legacy absence reads as 0/-1, with NO historical wage-based backfill.
+Only Home.tick's canonical one-day, fully paid, actually working and fully staffed
+shift increments paidWorkDays once; lastPaidWorkDay is int(state.econDay)+1,
+matching WorkerOps.ShiftContext. Overtime and arrears payments add no extra days;
+rest/stoppage/incomplete payroll add none. Existing employee identities preserved.
+Home.validate(state:Dictionary)->String validates these RAW optional fields:
+both-or-neither; finite integer non-bool; day <= state.econDay; counters bounded
+by published econDay (<=1e9); zero has stamp -1, positive count <= positive stamp.
+A must call Home.validate(s) from campaign_state_validation.gd before any ensure.
+That function does NOT currently exist at frozen060; B adds only this narrow gate.
+
+harbor operation.businessDays:Dictionary (OPTIONAL) maps local business id to its
+paidWorkDays snapshot at goal start. Existing businessWages stays the wage snapshot
+for money explanation. No new operation status, lifecycle or funding fields.
+New goal gets businessDays immediately. Legacy active goal with no dictionary
+gets current snapshots on its next authoritative Rules.progress, hence zero
+unproved historical days. A validate if present: harbor only, Dictionary <=12,
+String business-id keys, finite integer non-bool values in [0,state.econDay].
+Newly established business absent from a known snapshot starts from real zero.
+Completed historical achievements remain untouched. A owns all watch lifecycle.
+
+IMPLEMENTED SOURCE / MANUAL REVIEW ONLY
+Changed game/scripts/home_harbor.gd and game/scripts/regional_rules.gd plus this
+owned note. home_ops.gd needed no change. No Root/peer/metadata/release files.
+Named source handoff: "061 harbor: count distinct paid working days and receipts".
+Exact SHA is reported to Root at brass-tide061 and in the final handoff.
+
+DAY IDENTITY AND MINIMUM TWO COUNTERS
+WorkerOps.ShiftContext shallow-copies the calendar container and sets econDay+1;
+its business_step writes labor.lastProcessedEconomicDay for that same shift.
+HomeOps.daily calls Home.tick(c,1), then Campaign.apply_economy calls
+RegionalOps.daily, then increments state.econDay. Thus a saved joined receipt's
+lastPaidWorkDay is <= published econDay, not a future day. No new worker, timer,
+thread, queue, economy cadence, render mode or constructor is introduced.
+paidWorkDays is needed because wages include overtime, debt and rest.
+lastPaidWorkDay is needed because repeated same-day calls cannot be new days.
+working is a dated last-shift result with current staffing/arrears/rest gates,
+not an assertion that a new shift or future payroll has already happened.
+Only the canonical one-day path earns a receipt; bulk wage calls do not synthesize
+several shifts. No saved receipt is sanitized or backfilled by Home.ensure.
+
+MANUAL ACCOUNTING TRACE (NOT EXECUTED TEST EVIDENCE)
+- LawOps.trade publishes RegionalOps.delivered only after a successful physical
+  player sale; settled player freight/delivery uses the same existing fact path.
+  Regional.contribute instead removes actual cargo and adds receiving port stock
+  plus op.contributed, with no Money.move and no delivered callback. Therefore
+  six post-start sold/delivered lots plus six distinct donated lots total twelve;
+  repeat progress/view reads merely recompute those two unchanged ledgers.
+- Full current base payroll pays business -> household/expert purses before the
+  existing worker shift. Only canWork with positive workFactor, required actual
+  trades/headcounts, no pause/arrears and a new processing day earns one receipt.
+  Overtime earns one; paying old debt alone earns none; rest/stoppage/short pay
+  earn none. A later valid paid shift resumes counting without erasing earlier
+  recorded work. Days are fully staffed BUSINESS days, not employee headcount.
+- A new harbor goal snapshots real counters. Legacy active baseline absence
+  anchors current counters at its next authoritative progress call; it gives no
+  retrospective credit, including that anchoring step. Completed/cancelled
+  harbor progress calls return without changing the historical achievement.
+- A pure view duplicates the selected business before adding presentation fields;
+  helper functions only read goods, roster, inventory, wage and labor books.
+  It exposes copied labor fatigue/unrest/rest/notice, current arrears, next base
+  payroll shortfall, actual recipe input quantities and capacity constraints.
+  Strike recovery distinguishes an unpaid agreement from an already paid one;
+  the latter still needs its actual later paid rest and existing score gates.
+
+EXISTING COSTS PRESERVED / NO SUBSIDY
+Warehouse: 4 timber+3 logs+1 iron, six laborer-days+one foreman-day setup;
+two actual laborers at 100 coins each/day; opening float 3300 (14*200+500).
+Default workshop: three carpenters+one mechanic, 525/day; opening float 8850.
+Salvage yard: three laborers+one mechanic, 450/day; opening float 7800.
+Existing quote still prices actual setup goods/labor plus 8% margin and 5% duty;
+setup consumes stock, staff leave local pools, and float moves captain->business.
+Recipes still consume owned inputs; deposited capital is not revenue or dividend
+profit. No funding, auto-capital, free stock, employees, tooling or safety buff.
+Warehouse service can qualify without a fabricated production recipe. Workshop
+input shortage is reported as an output constraint, separate from paid work days.
+
+REQUIRED ROOT INTEGRATION / LIMITATIONS
+A must integrate the exact raw business and optional harbor baseline validation
+above; B did not edit campaign_state_validation.gd. Root read-approved this shape.
+The old game/tests/test_regional_campaigns.gd harbor_development fixture manually
+moves coins/increments wagesPaid on an incomplete fake business. Under the approved
+actual-shift policy those edits cannot complete development; Root must replace
+that setup with canonical paid staff and actual Home.tick/published days while
+preserving its inventory, purse, refusal and once-only completion assertions.
+C's actual joined-day voyage/save proof remains necessary. No engine, parser,
+source advisory, test, import/export, GPU or native acceptance occurred here.
+No060/061 integration, metadata, tag, package, install, push or launcher change.
+Strict051 targets, coast art and whole-game quality remain OPEN062.
