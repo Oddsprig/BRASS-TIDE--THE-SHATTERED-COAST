@@ -14,6 +14,8 @@ const Economy = preload("res://scripts/economy.gd")
 
 const MAX_HISTORY := 12
 const NAMES := ["Ana Breg", "Piet Lorn", "Salla Miro", "Jonas Teek", "Ruth Calder", "Emre Vail", "Nils Ostro", "Faye Marlin"]
+const DOCTRINES := ["cautious", "steady", "aggressive"]
+const COMMAND_ROLES := ["auto", "skirmisher", "striker", "heavy", "screen", "support"]
 
 # Effects multiply/add on the canonical fitted spec. Every conversion buys
 # its advantage with hold space, speed or handling, stated in "trade".
@@ -135,6 +137,33 @@ static func ensure_boat(boat: Dictionary) -> void:
 		boat["serviceHistory"] = []
 	if not (boat.get("service") is Dictionary):
 		boat["service"] = {}
+	if boat.has("commandPreference"):
+		boat["commandPreference"] = command_preference(boat)
+
+
+## Only durable intent is shared between arenas. Reading an older hull is pure.
+static func command_preference(boat: Dictionary) -> Dictionary:
+	var choice: Dictionary = {"doctrine": "steady", "role": "auto"}
+	var saved = boat.get("commandPreference")
+	if saved is Dictionary:
+		if saved.get("doctrine") in DOCTRINES:
+			choice["doctrine"] = saved["doctrine"]
+		if saved.get("role") in COMMAND_ROLES:
+			choice["role"] = saved["role"]
+	return choice
+
+
+## Explicit next-battle preference; no payroll, fitting or current order changes.
+static func set_command_preference(core, uid: String, doctrine: String, role: String) -> Dictionary:
+	if not doctrine in DOCTRINES or not role in COMMAND_ROLES:
+		return _fail(core, "Choose a known doctrine and tactical role.")
+	var boat := _boat(core, uid)
+	if uid.is_empty() or boat.is_empty() or bool(boat.get("sunk", false)):
+		return _fail(core, "That living boat is not in your flotilla.")
+	var choice: Dictionary = {"doctrine": doctrine, "role": role}
+	boat["commandPreference"] = choice
+	return _ok(core, "Saved %s / %s for this boat's next deployment." % [doctrine, role],
+		{"boatUid": uid, "commandPreference": choice.duplicate(true)})
 
 
 static func conversions() -> Dictionary:
@@ -293,6 +322,46 @@ static func _specialist_on(state: Dictionary, uid: String, role: String) -> Dict
 	return {}
 
 
+## Pure common hiring gates. Permission must be supplied by the caller: review
+## obtains it on a copy; hire revalidates live before any payment or recruitment.
+static func specialist_quote(state: Dictionary, boat: Dictionary, port: Dictionary, role: String, permission: Dictionary) -> Dictionary:
+	var info: Dictionary = ROLES.get(role, {})
+	var premium: int = int(info.get("premium", 0))
+	var advance: int = Economy.recruit_cost(port, 1) if not port.is_empty() else 0
+	var qualification: String = "gunner" if role == "gunner" else ("mechanic" if role == "chief_engineer" else "sailor")
+	if not port.get("training") is Dictionary or int(port.training.get("qualified", {}).get(qualification, 0)) < 1:
+		qualification = "sailor"
+	var q: Dictionary = {"role": role, "roleName": str(info.get("name", role)),
+		"advance": advance, "basePerDay": Goods.SAILOR_WAGE, "premiumPerDay": premium,
+		"totalPerDay": Goods.SAILOR_WAGE + premium, "eligible": false, "message": "", "qualification": qualification}
+	if not permission.get("ok", false):
+		q.message = str(permission.get("message", "Stop at an accessible harbor for this service."))
+	elif boat.is_empty() or bool(boat.get("sunk", false)):
+		q.message = "That boat is not in your flotilla."
+	elif not str(boat.get("storedPort", "")).is_empty() and boat.storedPort != port.get("id", ""):
+		q.message = "Visit the harbor storing this hull before hiring."
+	elif not ROLES.has(role):
+		q.message = "Unknown specialist role."
+	elif not _specialist_on(state, str(boat.get("uid", "")), role).is_empty():
+		q.message = "That boat already has a %s." % str(info.name)
+	elif port.is_empty():
+		q.message = "Hire specialists at a harbor."
+	elif _num(boat.get("crew", 0)) + PassengerManifest.assigned(state, str(boat.get("uid", ""))) + float(state.get("captiveBerths", {}).get(str(boat.get("uid", "")), 0)) >= _num(boat.get("crewMax", 0)):
+		q.message = "No free crew berth for another sailor."
+	elif int(_num(port.get("recruits", 0))) < 1 or int(_num(port.get("workforce", 0))) < 1:
+		q.message = "This harbor has no sailor to spare."
+	elif int(_num(port.get("availableSpecialists", port.get("specialistWorkers", 0)))) < 1:
+		q.message = "This harbor has no free specialist to spare today."
+	elif port.get("training") is Dictionary and int(port.training.get("qualified", {}).get("sailor", 0)) < 1:
+		q.message = "No qualified sailor is available. Fund a harbor training course first."
+	elif int(state.get("coins", 0)) < advance:
+		q.message = "Hiring needs a %d-coin advance." % advance
+	else:
+		q.eligible = true
+		q.message = "%d-coin advance; %d base + %d professional premium per day." % [advance, Goods.SAILOR_WAGE, premium]
+	return q
+
+
 # Hires ONE real sailor into ONE free crew berth as a specialist. Requires a
 # docked harbor with a recruit, workforce and a free specialist to spare, and
 # coins for the finite Economy recruit advance (10 sailor-days, 1000-1200),
@@ -307,27 +376,11 @@ static func hire_specialist(core, uid: String, role: String) -> Dictionary:
 		return _fail(core, "No campaign state.")
 	ensure(state)
 	var boat := _boat(core, uid)
-	if boat.is_empty() or bool(boat.get("sunk", false)):
-		return _fail(core, "That boat is not in your flotilla.")
-	if not str(boat.get("storedPort","")).is_empty() and boat.storedPort!=core.current_port().get("id",""):return _fail(core,"Visit the harbor storing this hull before hiring.")
-	if not ROLES.has(role):
-		return _fail(core, "Unknown specialist role.")
-	if not _specialist_on(state, uid, role).is_empty():
-		return _fail(core, "That boat already has a %s." % str(ROLES[role]["name"]))
 	var port: Dictionary = core.current_port() if core.has_method("current_port") else {}
-	if port.is_empty():
-		return _fail(core, "Hire specialists at a harbor.")
-	if _num(boat.get("crew", 0))+PassengerManifest.assigned(core.state,uid)+float(core.state.get("captiveBerths",{}).get(uid,0)) >= _num(boat.get("crewMax", 0)):
-		return _fail(core, "No free crew berth for another sailor.")
-	if int(_num(port.get("recruits", 0))) < 1 or int(_num(port.get("workforce", 0))) < 1:
-		return _fail(core, "This harbor has no sailor to spare.")
-	if int(_num(port.get("availableSpecialists", port.get("specialistWorkers", 0)))) < 1:
-		return _fail(core, "This harbor has no free specialist to spare today.")
-	if port.get("training") is Dictionary and int(port.training.get("qualified",{}).get("sailor",0))<1:
-		return _fail(core,"No qualified sailor is available. Fund a harbor training course first.")
-	var advance := Economy.recruit_cost(port, 1)
-	if int(state.get("coins", 0)) < advance:
-		return _fail(core, "Hiring needs a %d-coin advance." % advance)
+	var q: Dictionary = specialist_quote(state, boat, port, role, permission)
+	if not q.eligible:
+		return _fail(core, str(q.message))
+	var advance: int = int(q.advance)
 	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
 	if not Money.move(state, "coins", state, "crewPurse", advance, "Specialist hiring advance", ledger):
 		return _fail(core, "Hiring needs a %d-coin advance." % advance)
@@ -335,9 +388,7 @@ static func hire_specialist(core, uid: String, role: String) -> Dictionary:
 	port["recruits"] = maxi(0, int(_num(port.get("recruits", 0))) - 1)
 	port["workforce"] = maxi(0, int(_num(port.get("workforce", 0))) - 1)
 	if port.get("training") is Dictionary:
-		var training_role: String="gunner" if role=="gunner" else ("mechanic" if role=="chief_engineer" else "sailor")
-		if int(port.training.qualified.get(training_role,0))<1:training_role="sailor"
-		core.TrainingOps.Training.consume_qualified(port,1,training_role)
+		core.TrainingOps.Training.consume_qualified(port, 1, str(q.qualification))
 	if port.has("availableWorkers"):
 		port["availableWorkers"] = maxi(0, int(_num(port.get("availableWorkers", 0))) - 1)
 	if port.has("availableSpecialists"):

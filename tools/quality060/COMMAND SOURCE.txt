@@ -1,0 +1,103 @@
+060 A - PERSISTENT COMMAND / DETACHED PAID STAFF SOURCE
+Base: delivered059 3598b9ad9182c837bcaa06e28bda687bd1250873.
+Scope: only fleet_identity.gd, fleet_support.gd,
+campaign_state_validation.gd, tactical_runtime.gd and this source note.
+Source-only helper. No engine/parser/advisory/import/export/GPU/CUA/network,
+helpers, Root release edits, metadata/maps/version/tag/install/push or cleanup.
+
+EXACT IMPLEMENTED SHARED CONTRACT - FOR ROOT TO RELAY TO C
+1. boat.commandPreference is OPTIONAL {"doctrine": String, "role": String}.
+   Allowed doctrine: cautious / steady / aggressive. Allowed role: auto /
+   skirmisher / striker / heavy / screen / support. Missing field reads as
+   steady/auto; save validation accepts absence and rejects malformed/extra
+   keys. Stored on the physical campaign boat by uid, never battle id.
+2. FleetIdentity.command_preference(boat: Dictionary) -> Dictionary
+   returns a detached canonical {doctrine,role}, without changing boat.
+3. FleetIdentity.set_command_preference(core, uid: String, doctrine: String,
+   role: String) -> Dictionary. Explicit action, validates the owned living
+   boat and both values before changing ONLY that boat.commandPreference.
+   Success: {ok:true,message,boatUid,commandPreference:{doctrine,role}}.
+   Failure: {ok:false,message}. No economy sync, ensure, hiring or spec change.
+   Intent applies at NEXT tactical registration. Existing battle orders win.
+4. FleetSupport.selected_view(c, uid: String) -> Dictionary.
+   Pure read; returns {ok:false,message} for missing boat. Success fields:
+   ok, boatUid, name, commandPreference, crew, morale, payroll, staff, hiring,
+   fittedSpec, effectiveSpec, service, serviceHistory.
+   crew = {aboard,wounded,ashore,able,minimum,optimal,maximum} (numbers).
+   morale = {value,factor}; factor = clamp(value/85,0.35,1).
+   payroll = {basePerSailorDay:100,basePerDay,premiumPerDay,totalPerDay,
+     fleetBaseArrears,boatPremiumArrears,fleetCrewPurse}.
+   BasePerDay includes every living sailor aboard this hull, specialists too;
+   base arrears and aggregate crew purse are explicitly FLEET accounts.
+   staff = detached current assigned, nonlost/nondischarged records with:
+     id,name,role,roleName,active,effect,effects,advance,premiumPerDay,
+     basePerDay:100,totalPerDay,coins,arrears.
+   active requires actual hired record+paid flag, no premium/base arrears and
+   a living crew berth. effects is the actual paid multiplier/addition map,
+   empty when inactive. effect is a truthful human-readable status/effect.
+   advance is the CURRENT local replacement/hiring advance, not a fabricated
+   historical receipt; 0 at sea. premium purse remains staff[].coins.
+   hiring = one detached row per existing specialist role:
+     role,roleName,advance,basePerDay:100,premiumPerDay,totalPerDay,
+     eligible,message,qualification.
+   eligibility uses the SAME gates as the explicit hire transaction. Qualified
+   gunner/mechanic is consumed if present, otherwise existing sailor fallback;
+   no newly mandatory professional course. Current local permission is checked
+   once against a copied state using existing FleetWorkshop.PermissionView.
+   Review never live-ensures/reconciles, pays, advances time or constructs
+   Campaign/world/navigation. fittedSpec is canonical current paid loadout;
+   effectiveSpec is detached actual boat.spec including current paid effects
+   and morale. service/serviceHistory are detached existing values.
+   Low-level common quote: FleetIdentity.specialist_quote(state: Dictionary,
+   boat: Dictionary, port: Dictionary, role: String, permission: Dictionary)
+   -> Dictionary, the same hiring row. C uses selected_view; the explicit hire
+   revalidates current permission and this quote before the existing payment.
+5. Existing FleetIdentity.hire_specialist / FleetSupport.dismiss remain the
+   paid explicit actions. No new professional, purse or qualification model.
+6. TacticalRuntime.register seeds ONLY doctrine/role into previously absent
+   options for a player boat with a real uid. Other defaults stay fresh. A
+   repeated register does not override any later player options. No saved
+   arena ids, targets, rally points, formations or physical mount holds.
+
+B COORDINATION
+Root relayed B's published HISTORY SOURCE.txt; A read that exact note. No new
+service counters/history fields required. Existing service keys
+battles,wins,rescues,trades,surveys and <=12 {day,event,detail} remain. Root must
+own any later acceptance of additional schema. A adds only commandPreference
+validation; B's wreck/tow history uses existing copies without new validators.
+
+MANUAL SOURCE REVIEW / LIMITS
+API contract was published before implementation. Final manual diffs include
+only the four owned scripts and this note. The command field is optional for
+legacy voyages; ensure_boat canonicalizes only a present field. Save validation
+rejects unknown/missing/extra keys in a present preference before restore.
+Setter writes only that owned living hull's preference, leaving money, people,
+fittings, stores, physical IDs and running tactical commands alone.
+
+The common specialist quote retains every original hiring gate and qualification
+fallback. The existing advance transfer, real berth/workforce recruitment,
+premium payment/suspension, effects, discharge and loss reconciliation are
+unchanged. selected_view reports suspended effects without paying to enable
+them. It distinguishes a current local replacement advance from a historical
+receipt, and fleet base accounts from per-boat professional arrears/purses.
+People/wounds stay numerical; the panel makes no individual injury claim.
+
+Manual chain read: Battle._deploy calls TacticalRuntime.register after assigning
+the arena ID while keeping physical uid. BattleDriver051._init copies initial
+options into detached authority; its boot re-register keeps those options.
+tactical_goals051.plan051 calls Roles.decide; Roles.infer_role reads the chosen
+role and Roles.decide/runtime safety_check read real doctrine HP/flood limits.
+Existing physical planning/certification/movement/fire remain authoritative.
+Paid pilot/gunner effects still use FleetIdentity.effective over the actual
+fitted spec; this pass adds no performance/concurrency or crew-skill framework.
+
+This is SOURCE WIRING evidence only. No engine/parser/advisory/native run, save
+execution, actual worker behavior, motion/art/readability or gameplay acceptance
+is established. Root must verify parsed save/restore, fresh versus repeated
+registration, detached view purity, funded real hiring/fitting, unpaid premium
+suspension, actual movement/fire/survival and original-owner retirement in C's
+focused proof. No full old matrix or duplicate fixture is introduced by A.
+
+STATUS
+Source implementation and bounded manual diff review complete; no acceptance.
+Root alone reviews integration and owns all native/FIFO tests and delivery.

@@ -133,6 +133,10 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		if b.has("conversion") and b.conversion not in ["","cargo_rig","survey_rig","workshop_rig","tug_rig","auxiliary_tanks"]:return "Unknown support conversion."
 		if b.has("supportOnly") and not b.supportOnly is bool:return "Invalid support deployment policy."
 		if b.has("serviceHistory") and (not b.serviceHistory is Array or b.serviceHistory.size()>12):return "Invalid boat service history."
+		if b.has("commandPreference"):
+			if not b.commandPreference is Dictionary or b.commandPreference.size()!=2:return "Invalid saved boat command preference."
+			if not b.commandPreference.get("doctrine") is String or b.commandPreference.doctrine not in ["cautious","steady","aggressive"]:return "Invalid saved boat doctrine."
+			if not b.commandPreference.get("role") is String or b.commandPreference.role not in ["auto","skirmisher","striker","heavy","screen","support"]:return "Invalid saved boat tactical role."
 	if s.has("campaignFacts"):
 		if not s.campaignFacts is Dictionary or s.campaignFacts.size()>32:return "Invalid campaign achievements."
 		for value in s.campaignFacts.values():

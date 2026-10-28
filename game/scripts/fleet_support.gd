@@ -2,6 +2,82 @@ extends RefCounted
 const Identity=preload("res://scripts/fleet_identity.gd")
 const Money=preload("res://scripts/money.gd")
 const Economy=preload("res://scripts/economy.gd")
+const Goods=preload("res://scripts/goods.gd")
+const Workshop=preload("res://scripts/fleet_workshop.gd")
+const Politics=preload("res://scripts/politics.gd")
+const STAFF_EFFECTS: Dictionary={
+	"pilot":{"speedMult":1.03,"turnMult":1.04},
+	"gunner":{"fireRateMult":1.06},
+	"chief_engineer":{"repairFactorAdd":0.25,"pumpsMult":1.10},
+	"surveyor":{"surveyFactorAdd":0.30},
+	"quartermaster":{"upkeepFactor":0.95}}
+const STAFF_EFFECT_TEXT: Dictionary={
+	"pilot":"Speed +3%; turn +4% on the fitted boat.",
+	"gunner":"Fitted weapon and mount fire rate +6%.",
+	"chief_engineer":"Repair factor +0.25; pumps +10%.",
+	"surveyor":"Survey factor +0.30.",
+	"quartermaster":"Rations use -5%; base wages stay 100 coins per sailor-day."}
+
+## One detached panel read. Only Politics' copied permission state is normalized;
+## no live ensure, reconcile, economy sync, crew or purse publication is allowed.
+static func selected_view(c,uid: String) -> Dictionary:
+	var boat: Dictionary=c.find_boat(uid)
+	if boat.is_empty():return {"ok":false,"message":"Unknown boat."}
+	var state: Dictionary=c.state
+	var port: Dictionary=c.current_port()
+	var permission: Dictionary={"ok":false,"message":"Stop at a harbor for this service."}
+	if not port.is_empty():
+		var view=Workshop.PermissionView.new(state.duplicate(true),c.data,port.duplicate(true))
+		permission=Politics.permit(view,"service")
+	var roles: Dictionary=Identity.roles()
+	var hiring: Array=[]
+	for role in roles:
+		hiring.append(Identity.specialist_quote(state,boat,port,str(role),permission))
+	var crew: float=maxf(0.0,float(boat.get("crew",0)))
+	var wounded: float=maxf(0.0,float(boat.get("wounded",0)))
+	var ashore: float=maxf(0.0,float(boat.get("shoreCrew",0)))
+	var alive: int=0 if boat.get("sunk",false) else floori(crew)
+	var base_arrears: int=int(state.get("wageArrears",0))
+	var active_roles: Dictionary=boat.get("specialistActive",{})
+	var staff: Array=[]
+	var premium_per_day: int=0
+	var premium_arrears: int=0
+	var advance: int=Economy.recruit_cost(port,1) if not port.is_empty() else 0
+	for rec in aboard(c,uid):
+		var role: String=str(rec.get("role",""))
+		if not roles.has(role):continue
+		var info: Dictionary=roles[role]
+		var premium: int=int(rec.get("premiumPerDay",info.premium))
+		var arrears: int=int(rec.get("arrears",0))
+		var working: bool=staff.size()<alive and bool(rec.get("active",false)) and bool(active_roles.get(role,false)) and arrears==0 and base_arrears==0
+		var effect: String=str(STAFF_EFFECT_TEXT[role])
+		if not working:
+			var reason: String="benefit inactive"
+			if staff.size()>=alive:reason="no living crew berth"
+			elif base_arrears>0:reason="fleet base wages unpaid"
+			elif arrears>0:reason="professional premium unpaid"
+			effect="Suspended (%s). When working: %s"%[reason,effect]
+		staff.append({"id":str(rec.get("id","")),"name":str(rec.get("name","Sailor")),
+			"role":role,"roleName":str(info.name),"active":working,"effect":effect,
+			"effects":STAFF_EFFECTS[role].duplicate(true) if working else {},
+			"advance":advance,"premiumPerDay":premium,"basePerDay":Goods.SAILOR_WAGE,
+			"totalPerDay":Goods.SAILOR_WAGE+premium,"coins":int(rec.get("coins",0)),"arrears":arrears})
+		if not boat.get("sunk",false):premium_per_day+=premium
+		premium_arrears+=arrears
+	var base_pay: int=int(Economy.daily_upkeep([boat]).wages)
+	var morale: float=float(state.get("morale",85.0))
+	return {"ok":true,"boatUid":uid,"name":str(boat.get("name","Boat")),
+		"commandPreference":Identity.command_preference(boat),
+		"crew":{"aboard":crew,"wounded":wounded,"ashore":ashore,"able":maxf(0.0,crew-wounded-ashore),
+			"minimum":float(boat.get("crewMin",0)),"optimal":float(boat.get("crewOptimal",0)),"maximum":float(boat.get("crewMax",0))},
+		"morale":{"value":morale,"factor":clampf(morale/85.0,0.35,1.0)},
+		"payroll":{"basePerSailorDay":Goods.SAILOR_WAGE,"basePerDay":base_pay,
+			"premiumPerDay":premium_per_day,"totalPerDay":base_pay+premium_per_day,
+			"fleetBaseArrears":base_arrears,"boatPremiumArrears":premium_arrears,"fleetCrewPurse":int(state.get("crewPurse",0))},
+		"staff":staff,"hiring":hiring,"fittedSpec":c.fitted_spec(boat).duplicate(true),
+		"effectiveSpec":boat.get("spec",{}).duplicate(true),
+		"service":boat.get("service",{}).duplicate(true),"serviceHistory":boat.get("serviceHistory",[]).duplicate(true)}
+
 static func combat(c) -> Array:
 	return c.active_fleet().filter(func(b):return not b.get("supportOnly",false))
 

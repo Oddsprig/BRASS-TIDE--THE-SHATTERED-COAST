@@ -395,7 +395,15 @@ static func register(st: Dictionary,ship: Dictionary,mounts: Array) -> void:
 	var id: String=str(ship.id)
 	var base_mounts: Array=mounts.duplicate(true)
 	t.mountCache[id]={"source":ship.spec.get("weaponMounts",ship.spec).duplicate(true),"baseMounts":base_mounts,"conditionKey":EquipmentCombat.mount_cache_key(ship),"mounts":EquipmentCombat.apply_mount_condition(ship,base_mounts)}
-	if not t.options.byId.has(id):t.options.byId[id]=defaults()
+	if not t.options.byId.has(id):
+		var options: Dictionary=defaults()
+		# Only a newly registered physical player boat receives its durable intent.
+		# Re-registering mounts must keep all later commands and per-arena options.
+		var preference=ship.get("commandPreference")
+		if ship.team=="player" and not str(ship.get("uid","")).is_empty() and preference is Dictionary:
+			if preference.get("doctrine") in ["cautious","steady","aggressive"]:options.doctrine=preference.doctrine
+			if preference.get("role") in ["auto","skirmisher","striker","heavy","screen","support"]:options.role=preference.role
+		t.options.byId[id]=options
 	if not t.home.has(id):
 		var home: Vector2=Vector2(clampf(float(ship.x)+(-260.0 if ship.team=="player" else 260.0),50.0,2250.0),clampf(float(ship.y),50.0,1650.0))
 		var budget: Dictionary={"clearanceTests":0,"clearanceLimit":4096,"exhaustions":0}
