@@ -138,3 +138,49 @@ helpers, Root edits, push, cleanup, metadata/maps/developer-notes/install ran.
 Manual source/API/diff review only; git diff --check is whitespace review.
 No code acceptance, profit, four-career success or measured timing is claimed.
 060+/coast art/strict051/whole-game quality stay OPEN062.
+
+R1 NATIVE RECEIPT / BOUNDED C DIAGNOSTIC CORRECTION, 2026-10-28
+Read Root job6a181595f8d2426f829e8bc6d0fa5ca6/attempt-001/civilian-careers/
+native.log, civilian-careers059.json and phase-result.json. Root9986c25 completed
+148 checks, 3 failures, internal22.111356s; phase active26.297s, cleanup complete,
+8% CPU/two logical cores. No Windows run after failure. Fishing/freight/charter
+paid operating nets were6003/364/743 coins. Fuel was BLOCKED_NO_FUNDED_OFFER,
+gross0/net-586; it is still a failed four-career earning gate.
+
+Actual integrated VoyageUI.review_fishing has the explicit nontransactional
+button "Close review · return to chart" with sync=false. C incorrectly searched
+"Decline" then case-sensitive "Return to chart". The owned test now requires
+that exact real caption, emits it, requires the modal to close and preserves
+the existing full state/world/events/pending-day/economy-task snapshot equality.
+Real job Decline and header-X checks remain separate; Interface is not edited.
+
+R1 fishing Money.total172580000 was exact, while people21566 differed from the
+21570 opening census by-4. Source does NOT prove the exact cause. NavalLifecycle
+step/daily call the live offscreen encounter scanner; Damage.apply_hit can reduce
+crew and NavalCombat.resolve_encounter zeroes sunk-boat crews. However retained
+navalAi.encounters has hits/sunk/surviving HULLS, not a crew-death count. Those
+records cannot justify adding4, inferred deaths or any tolerance to the census.
+
+The test retains STRICT people==opening census and coinsTotal==opening supply
+AND saved coinSupply. It now prints each numeric conjunct and exact differences.
+Before/after actual Campaign.step and ordinary calendar publication it records
+only changed population accounts, with exact before/after/difference by category,
+port and owner/boat UID, plus newly retained encounter records as DIAGNOSTICS.
+Workforce, defenses and reserved training workers are separate; qualifications,
+wounded sailors, professional crew and berth assignments are subsets. Existing
+regional/boarding loss counters, captives, actual drydock workers, business
+employees and transported cohorts remain counted. Crew fractions are retained,
+not individually truncated. There is NO new casualty ledger or count exemption.
+Root's one quick native diagnosis can locate any remaining real difference;
+unexplained or unrecorded casualties remain a failure requiring a bounded fix.
+
+Fuel diagnosis belongs to A. Root authorized A's naval_lifecycle.gd extra for a
+finite quarter-day harbor-service interval set ONLY at actual certified arrival,
+then normal departure. Proposed optional fields harborServicePort and
+harborServiceUntilDay are not yet a final integrated contract. C will extend
+bounded genuine time/route observation after that contract is published. All
+waiting payroll/stores remain charged from the unchanged operating start.
+No forced atPort, frozen actor, demand/reward/food injection or blocked pass.
+
+This correction has only been source/diff reviewed here. No engine/test/parser/
+advisory/import/export/GPU/CUA/helper/Root edit or cleanup was performed by C.

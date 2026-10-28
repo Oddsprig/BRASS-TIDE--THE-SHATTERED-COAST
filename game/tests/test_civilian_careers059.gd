@@ -22,7 +22,7 @@ var c
 var baseline: Dictionary={}
 var baseline_cache: Dictionary={}
 var supply: int=0
-var census: int=0
+var census: float=0.0
 var checks: int=0
 var failures: int=0
 var began_us: int=0
@@ -59,18 +59,55 @@ func within_budget(label: String) -> bool:
 	check(false,"40-second fixture budget reached before "+label+"; unfinished branches are NOT passes")
 	return false
 
-func people(s: Dictionary) -> int:
-	var total: int=int(s.get("regionalCrises",{}).get("lostPeople",0))
+func people_accounts(s: Dictionary) -> Dictionary:
+	# Qualifications, wounded sailors and berth assignments are subsets, not
+	# additional people. Keep every actual custody/loss account in the census.
+	var counts: Dictionary={"regionalLost":float(s.get("regionalCrises",{}).get("lostPeople",0)),"boardingLost":float(s.get("boardingLostPeople",0)),"captives":float(s.get("captives",0))}
 	for p in s.ports:
-		total+=int(p.workforce)+int(p.get("defenses",{}).get("crew",0))
-		for job in p.get("training",{}).get("jobs",[]):total+=int(job.reservedWorkers)
-	for b in s.fleet+s.get("boardingPrizes",[]):total+=int(b.crew)
+		counts["workforce:"+str(p.id)]=float(p.workforce)
+		counts["defense:"+str(p.id)]=float(p.get("defenses",{}).get("crew",0))
+		counts["training:"+str(p.id)]=0.0
+		for job in p.get("training",{}).get("jobs",[]):counts["training:"+str(p.id)]+=float(job.reservedWorkers)
+	for b in s.fleet+s.get("boardingPrizes",[]):
+		var key: String="player:"+str(b.uid)
+		counts[key]=float(counts.get(key,0))+float(b.crew)
 	for owner in s.fleetOwners:
-		for b in owner.boats:total+=int(b.crew)
-	for business in s.get("businesses",[]):total+=business.employees.size()
-	for job in s.get("regionalCrises",{}).get("jobs",[]):total+=int(job.n)
-	for job in s.get("voyageJobs",[]):total+=int(job.get("passengers",{}).get("n",0))
+		for b in owner.boats:
+			var key: String="npc:"+str(owner.id)+":"+str(b.uid)
+			counts[key]=float(counts.get(key,0))+float(b.crew)
+	for business in s.get("businesses",[]):counts["business:"+str(business.id)]=float(business.employees.size())
+	for project in s.get("yardProjects",[]):counts["yard:"+str(project.id)]=float(project.get("workers",0))
+	for job in s.get("regionalCrises",{}).get("jobs",[]):counts["crisis:"+str(job.id)]=float(job.n)
+	for job in s.get("voyageJobs",[]):counts["voyage:"+str(job.id)]=float(job.get("passengers",{}).get("n",0))
+	return counts
+
+func people(s: Dictionary) -> float:
+	var total: float=0.0
+	for amount in people_accounts(s).values():total+=float(amount)
 	return total
+
+func population_probe() -> Dictionary:
+	return {"accounts":people_accounts(c.state),"encounters":c.state.get("navalAi",{}).get("encounters",[]).map(func(event):return JSON.stringify(event))}
+
+func record_population(before: Dictionary,r: Dictionary,label: String) -> void:
+	# Diagnostic observations only. Naval encounter events count surviving HULLS,
+	# not crew deaths, so no event or observed deficit waives exact person equality.
+	var after: Dictionary=population_probe()
+	var fresh: Array=[]
+	for event in c.state.get("navalAi",{}).get("encounters",[]):
+		if JSON.stringify(event) not in before.encounters:fresh.append(event.duplicate(true))
+	var changes: Dictionary={}
+	for key in before.accounts:
+		var old: float=float(before.accounts[key]);var now: float=float(after.accounts.get(key,0))
+		if now!=old:changes[key]={"before":old,"after":now,"difference":now-old}
+	for key in after.accounts:
+		if not before.accounts.has(key) and float(after.accounts[key])!=0:changes[key]={"before":0.0,"after":float(after.accounts[key]),"difference":float(after.accounts[key])}
+	if not changes.is_empty():r.populationTransitions.append({"phase":label,"day":float(c.state.day),"econDay":int(c.state.econDay),"accountChanges":changes,"newEncounters":fresh})
+
+func join_calendar(r: Dictionary,label: String) -> void:
+	var before: Dictionary=population_probe();var days: int=c.pending_days
+	scene.sync_economy();payroll_days+=days
+	record_population(before,r,label)
 
 func snapshot() -> String:
 	return JSON.stringify({"state":c.state,"world":c.data,"events":c.events,"pending":c.pending_days,"economyTask":scene.economy_task})
@@ -160,18 +197,20 @@ func begin_branch(kind: String,hull_id: String) -> Dictionary:
 		"openingCoins":int(c.state.coins),"openingArrears":int(c.state.wageArrears),"openingDay":float(c.state.day),"openingEconDay":int(c.state.econDay),
 		"openingCrewPurse":int(c.state.crewPurse),"physicalItemUids":boat.moduleCondition.items.keys(),"crew":int(boat.crew),"dailyWages":int(Economy.daily_upkeep(c.state.fleet).wages),"specialistPremiumPerDay":Support.premium(c.state),
 		"openingFuel":float(boat.fuel),"openingFood":float(c.state.cargo.food),"openingKits":float(boat.supplies),"openingAmmo":float(boat.ammo),
-		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0}
+		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0,"populationTransitions":[]}
 
 func advance(seconds: float,r: Dictionary) -> bool:
 	if seconds<=0:return true
 	if not within_budget(str(r.kind)+" clock"):return false
 	var before: Dictionary=c.state.position.duplicate()
+	var population_before: Dictionary=population_probe()
 	c.step(seconds);steps+=1;r.steps=int(r.steps)+1
+	record_population(population_before,r,"actual Campaign.step")
 	r.sailingDistance=float(r.sailingDistance)+c.distance(before,c.state.position)
 	# Work earns only Campaign.step time. Real calendar settlement occurs at
 	# the ordinary boundary, with Main's copied economy workers joined.
 	if c.pending_days>0:
-		var days: int=c.pending_days;scene.sync_economy();payroll_days+=days
+		join_calendar(r,"ordinary calendar publication")
 	if c.events.any(func(event):return str(event.get("kind",""))=="encounter"):
 		r.status="BLOCKED_ENCOUNTER";r.blocker="An actual hostile encounter interrupted this route; no completed-voyage claim."
 		return false
@@ -197,7 +236,7 @@ func settle_calendar(r: Dictionary) -> void:
 	# a same-day dash does not become a wage-free positive career claim.
 	if int(c.state.econDay)==int(r.openingEconDay):
 		advance(maxf(0.01,(float(floori(float(c.state.day))+1)-float(c.state.day))*c.DAY_SECONDS+0.001),r)
-	scene.sync_economy()
+	join_calendar(r,"final ordinary calendar publication")
 	check(c.pending_days==0 and scene.economy_task<0 and int(c.state.econDay)>int(r.openingEconDay),str(r.kind)+": actual ordinary economy/payroll fully joined")
 
 func reload_check(r: Dictionary) -> void:
@@ -235,7 +274,9 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	r.reservedContingency=ceili(2.0*(int(r.dailyWages)+int(r.specialistPremiumPerDay)+float(Economy.daily_upkeep(c.state.fleet).food)*int(prices.food)+Work.fuel_rate(boat)*int(prices.fuel)))
 	r.reserveWasSpent=false;r.returnIncluded=float(r.returnDays)>0
 	r.coinSupply=Money.total(c.state);r.people=people(c.state)
-	check(Money.total(c.state)==supply and people(c.state)==census,str(r.kind)+": actual global coins and people conserved, including all custody/escrows")
+	r.conservation={"coinsTotal":Money.total(c.state),"supply":supply,"savedCoinSupply":int(c.state.coinSupply),"people":people(c.state),"census":census,"coinDifference":Money.total(c.state)-supply,"peopleDifference":people(c.state)-census}
+	print("civilian059 conservation ",JSON.stringify({"kind":r.kind,"conjuncts":r.conservation,"transitions":r.populationTransitions}))
+	check(Money.total(c.state)==supply and int(c.state.coinSupply)==supply and people(c.state)==census,str(r.kind)+": exact global coins and people conserved in all custody/escrows; no unproved casualty allowance: "+JSON.stringify(r.conservation))
 	check(int(c.state.wageArrears)==int(r.openingArrears) and c.cargo_weight()<=c.capacity()+0.0001,str(r.kind)+": no waived payroll arrears or physical overload behind the margin")
 	check(boat.moduleCondition.items.keys()==r.physicalItemUids,str(r.kind)+": same acquired physical fitting UIDs remain in actual boat custody")
 	var next_id: String=str(NEXT_HULLS[r.kind])
@@ -269,10 +310,12 @@ func fishing_cycle() -> void:
 	pure_fishing_checks(uid)
 	# Produce an ordinary pending day with actual Campaign time. Review and
 	# dismissal must leave it pending; they cannot secretly join/debit payroll.
+	var population_before: Dictionary=population_probe()
 	c.step((float(floori(float(c.state.day))+1)-float(c.state.day))*c.DAY_SECONDS+0.001);steps+=1
+	record_population(population_before,r,"actual pending-day Campaign.step before UI review")
 	check(c.pending_days>0,"UI refusal/decline fixture has an actual pending calendar day")
 	pure_ui_checks(uid,review_offer)
-	var pending: int=c.pending_days;scene.sync_economy();payroll_days+=pending
+	join_calendar(r,"pending UI day published after all pure dismissals")
 	var quote: Dictionary=Work.fishing_quote(c,uid,1.0,3)
 	check(quote.ok and float(quote.catchMax)>0,"selected actual boat has a bounded feasible one-day catch")
 	var before: float=float(c.state.cargo.preserved_fish)
@@ -364,11 +407,10 @@ func pure_ui_checks(uid: String,offer: Dictionary) -> void:
 	check(review.has("quote") and snapshot()==before,"B detached selected fishing review preserves the pending real day")
 	VoyageUI.review_fishing(scene.ui,uid,1.0,3,str(c.state.lastPort))
 	check(snapshot()==before and scene.ui.modal_open,"actual selected fishing review opens without time/payment/offer mutation")
-	var decline: Button=button_in(scene.ui.overlay,"Decline",true)
-	if decline==null:decline=button_in(scene.ui.overlay,"Return to chart",true)
+	var decline: Button=button_in(scene.ui.overlay,"Close review · return to chart")
 	check(decline!=null,"fishing review exposes an explicit nontransactional dismissal")
 	if decline!=null:decline.pressed.emit()
-	check(snapshot()==before,"actual fishing decline does not settle unrelated pending payroll")
+	check(not scene.ui.modal_open and snapshot()==before,"actual fishing explicit dismissal closes the review without settling unrelated pending payroll")
 	if not offer.is_empty():
 		var job: Dictionary=Choices.job_review(c,offer,uid)
 		check(job.has("budget") and snapshot()==before,"B detached selected job budget preserves exact pending state")
