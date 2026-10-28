@@ -10,7 +10,7 @@ Read work/quality-v042-v061/CURRENT STATE.txt for exact active jobs/helper offse
 Completed helpers stay idle until given a new bounded current-source task.
 
 CURRENT CORE CHECKPOINT - 27 October 2026
-v0.051 SCOPED USABILITY ACCEPTED; packaging/desktop verification in progress.
+v0.051 SCOPED PLAYABLE BUILD VERIFIED; whole-game quality remains OPEN.
 Full Starsector-equivalent/whole-game quality acceptance remains OPEN at0.061.
 
 Owner-directed architecture: authoritative combat30Hz on a data worker; Main
