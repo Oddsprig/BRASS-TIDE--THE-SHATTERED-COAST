@@ -1,0 +1,129 @@
+BRASS TIDE - OPEN OCEAN VERSION MAP v0.063-v0.072
+28 October 2026 | PLANNED | Installed game remains v0.062
+
+PURPOSE
+Build a large ocean world from smaller, detailed island groups. Preserve the
+Shatter Coast as the starting inhabited region. Sailing offshore leads to a
+playable ocean chart; approaching another group opens its local waters. Combat
+continues on a separate encounter map reflecting the actual location.
+
+WORLD DESIGN
+- Settled core: busy faction harbors, production, fishing and trade routes.
+- Frontier: scattered settlements, disputed waters and pirate anchorages.
+- Distant archipelagos: discoveries, ruins, wrecks and resources worth a voyage.
+- Sector design target: 48 groups, comprising 8 settled, 12 frontier and 28 remote
+  groups. This is a proposed content target, not existing or accepted content.
+  Groups vary in size and character; remote groups generally have no full port.
+  Establish useful destinations and route choices before expanding their count.
+- A visible fleet travels on the ocean chart. Routes can be changed or interrupted
+  by pursuit, sightings and discoveries. Local and offshore travel share one clock,
+  physical fleet, inventory, crew, damage state and conserved accounts.
+- Transition at coastal approaches, with a choice of arrival side. No magical
+  jump gates, automatic hostile-fleet escape, free refueling or reset purses.
+
+0.063 - FULL-FLEET PERFORMANCE CORRECTION
+Scope: address the largest demonstrated light-fleet worker cost and lag, with
+mixed-fleet frame consistency checked for regression. Keep this a bounded
+correction before adding world breadth; record unresolved failures explicitly.
+Acceptance: compare the existing active full300DP fixtures on the same settings;
+show measured improvement in the targeted cost and clean completion. Preserve
+all actors, shots, damage, current simulation rates and existing quality targets.
+No repeated speculative optimization loop or return of the rejected v0.062 trial
+without a specific diagnosis. Fractional FPS differences alone are not the focus.
+
+0.064 - TWO-SCALE WORLD AND TRANSITIONS
+Scope: world-region identity, an ocean chart, the existing Shatter Coast and one
+remote prototype group. Sail out, choose an approach, enter and return. Save/load
+correctly from either layer. Keep existing voyages and their local coordinates.
+Acceptance: a round trip retains original hull/equipment IDs, cargo, coins, crew,
+damage and time. No double ticking, duplicated fleets, reset encounters or free
+escape by changing layers. A prototype destination is not a finished expedition.
+
+0.065 - LONG-VOYAGE PREPARATION AND COSTS
+Scope: distance/time estimates, fuel, rations, wages, maintenance, cargo capacity
+and explicit return reserves. Existing tankers and support boats extend endurance
+through actual carried stores and transfers. Fuel also remains necessary locally.
+Acceptance: forecast and actual voyage accounting agree under stated conditions;
+speed changes affect travel time and costs appropriately. Low reserves are clear
+before departure; running short uses paid assistance or recovery, not free stores.
+
+0.066 - PLAYABLE OPEN-OCEAN TRAVEL
+Scope: route changes, currents, weather zones, sightings, pursuit and interception.
+Use inexpensive chart effects and route modifiers, not simulated ocean fluids.
+Persistent fleet contacts can lead to battles in actual offshore encounter space.
+Acceptance: player can avoid a threat, investigate a contact, divert and resume;
+both sides obey movement, detection, stores and continuous pursuit/transition rules.
+No rebuilding tactical AI or adding unrelated weather-damage systems in this pass.
+
+0.067 - FIRST REMOTE EXPLORATION ARCHIPELAGO
+Scope: finish the prototype group as a worthwhile expedition: distinct coastline,
+surveyable sites, a clue chain, a valuable discovery, salvage and a return decision.
+Reuse the existing surveying, contacts and recovery systems across regional IDs.
+Acceptance: discover, investigate, choose what fits aboard and bring it home.
+Unknown information stays unknown. Recovery uses real capacity, crew, time and
+supplies; a revealed resource is not an automatically granted cargo reward.
+
+0.068 - INTERREGIONAL SHIPPING AND DISTANT SIMULATION
+Scope: extend existing NPC objectives and accounting across ocean/local layers.
+Merchant fleets deliver real cargo; pirates intercept; patrols respond; survivors
+return for paid service. Offscreen regions advance on scheduled data updates.
+Acceptance: one shipment can depart, be intercepted or arrive and alter inventories
+exactly once. Joining a region preserves its physical fleets, losses and accounts.
+Bounded worker jobs publish safe data; never run full battles everywhere at once.
+
+0.069 - THE WIDER CORE, FRONTIER AND WILDERNESS
+Scope: expand the proven region pipeline toward the 48-group sector target, with
+authored important locations and deterministic variation for remote geography
+and site placement. Seeded regions persist; economies need explicit finite capital,
+workers and stocks. Use distinct silhouettes, landmarks and readable map labels.
+Acceptance: the world has alternative useful routes, genuinely distant expeditions
+and recognizable regions. Validate density, reachable approaches and travel costs;
+record any content shortfall rather than filling the map with empty destination dots.
+
+0.070 - JOBS AND FLEET ROLES ACROSS THE OCEAN
+Scope: extend existing freight, escort, survey, salvage, fuel and passenger work
+across regions. Use actual route length and costs, funded clients and sensible
+deadlines. Make existing scouts, carriers, tankers and repair support useful.
+Acceptance: compatible work can share a voyage; cargo/berths/crew and return stores
+create tradeoffs. Rewards move existing coins. No new hull roster or parallel
+contract system; build on the existing careers and contacts.
+
+0.071 - COMBAT FEEL AND PRESENTATION CORRECTIONS
+Scope: fix observed weaknesses in movement readability, wakes, firing/impact
+feedback, module damage, sinking and weapon sound through the existing systems.
+Use actual encounter footage and listening where available; new sound assets
+require recorded provenance and usable licenses. Preserve distinct weapon roles.
+Acceptance: representative active battles make attacks, damage, danger and retreat
+clear. Review rendered motion and sound separately from numerical checks; label
+anything not listened to or played. No new damage framework or expensive water.
+
+0.072 - COMPLETE VOYAGE AND SECTOR QUALITY CHECK
+Scope: a bounded integration/balance pass over the full loop: prepare, cross the
+ocean, explore or work, encounter danger, manage damage and return to a changed
+economy. Cover six careers using small reusable scenarios and retained checkpoints.
+Acceptance: useful progression and route decisions, persistent saves and clear
+navigation; measure loaded-region changes, offscreen update cost, memory and
+representative full300DP battles. Fix demonstrated integration faults only.
+Unmet art, combat, audio, career or performance criteria remain explicitly open.
+
+RULES FOR EVERY VERSION
+One .001 increment, one saved scope, one accepted predecessor. This file is a
+plan, not authorization evidence for claiming any future feature delivered.
+Preserve v0.062 installation, two voyages, music, settings and older releases.
+Keep 36 existing hulls and physical interchangeable mounts; ownership remains
+separate from 300 deployment points per side. Numerical crews, actual coins,
+100-coin base sailor-day wages, finite goods and construction/service costs remain.
+Use existing data-worker scheduling and safe render mode1. Main owns Godot UI,
+render resources and audio. Coarse distant updates share the campaign clock,
+with stable identities, bounded catch-up and no minted money or duplicated goods.
+Retain prior unmet quality criteria; new regions do not certify Starsector parity.
+Helpers: existing Bridge authorization, up to3Sol6.1MAX, source-only isolated scopes;
+optional Grok4.7HIGH. Root coordinates integration and all engine/GPU verification.
+Shared test lane, background/private/muted, no mouse or focus. Each entire selected
+test batch stays below120seconds including setup/import/export/startup/cleanup;
+queue wait is separate. Use existing scripts and meaningful small fixtures.
+No long soak, duplicate test framework, global installs or automatic publication.
+
+CURRENT STATE
+Planning only. No v0.063 source implementation, engine test, new tag, package,
+installation or change to the desktop launcher is performed by saving this plan.

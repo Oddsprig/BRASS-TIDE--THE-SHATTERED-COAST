@@ -1,3 +1,9 @@
+28 October2026: owner requested the next version map after discussing ocean/local
+travel. Saved planned v0.063-v0.072 in docs/roadmap/OPEN OCEAN VERSION MAP
+v0.063-v0.072.txt; summaries in ROADMAP.md and VERSION MAP.txt. Next scope is a
+bounded demonstrated full-fleet performance correction, then one real crossing
+before sector expansion. Planning only: no engine run, tag, build or installation.
+
 Installed v0.062 verified; single plain Brass Tide launcher updated. All helpers idle, no active tests. See work/quality-v062/CURRENT STATE.txt for exact receipt and remaining quality gaps.
 
 # Brass Tide v0.062 delivered

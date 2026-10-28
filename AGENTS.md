@@ -14,14 +14,19 @@ Bothstrict59.997630/59.998430FPS<60;no>50msframes. No improvement/parityclaim.
 Currentstate/scope/evidence work/quality-v062; oldreceiptswork/quality-v042-v061.
 Do notprepare062again. Preserve2voyages/18MP3+2notes/olderbuilds/oneplainicon.
 
-Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
-USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;
-Root coordinates/reviews/integrates and alone owns all engine/GPU jobs. Maximum3
-active Sol6.1MAX; optional Grok4.7HIGH. No native/nested helpers, new chats,
+Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
+HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
+Majority source implementation through Bridge. Phase tasks within Bridge limits;
+Root coordinates/reviews/integrates and alone owns all engine/GPU jobs.
+No native/nested helpers, new chats,
 ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlists,
 source-only helpers; integrate named commits. Completed helpers stay idle until
 given another bounded task. Finish the current delivery before advancing the next saved release.
 
+Next planned scopes063-072 are authoritative in docs/roadmap/OPEN OCEAN VERSION
+MAP v0.063-v0.072.txt (28October2026 owner request). First063bounded performance
+correction, then064ocean/local transition with one remote prototype before breadth.
+This is planning only; installation/tag stays062. Earlier quality outcomes remain.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
 fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain
