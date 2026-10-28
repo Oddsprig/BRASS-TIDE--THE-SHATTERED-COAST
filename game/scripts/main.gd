@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051", "factions051", "commission051", "contactwork051", "encounter051"]
+		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051", "factions051", "commission051", "contactwork051", "encounter051", "storylead051", "islandprep051", "storypayoff051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1318,6 +1318,27 @@ func capture_after_start():
 				if not patrol056.is_empty():
 					core.state.position = {"x":float(patrol056.x), "y":float(patrol056.y)}
 					show_patrol_encounter("patrol-2")
+			elif name == "storylead051":
+				core.stop_sailing()
+				core.state.position = core.port_position("reed_floats")
+				core.state.lastPort = "reed_floats"
+				core.Contacts.visit(core.state, core.current_port(), core.state.day)
+				core.StoryOps.start(core, "middle_sea_chart")
+				ui.StoryUI.open(ui)
+			elif name == "islandprep051":
+				selected_site = "middle_chart_rock";selected_port = ""
+				Interface.CampaignUI.expedition(ui)
+			elif name == "storypayoff051":
+				# Isolated layout fixture only: actual native057 voyage proof uses
+				# paid shore assignments. Here survey levels are explicitly staged
+				# before the real choices/finite wreck/rights UI are exercised.
+				core.state.exploration.sites["middle_chart_rock"].level = 2
+				core.StoryOps.choose(core, "middle_sea_chart", "share_chart")
+				core.state.exploration.sites["shatter_wreck_field"].level = 3
+				core.Salvage.seed_site_wreck(core, core.Exploration.catalog_site(core.state, "shatter_wreck_field"), "harbor_sloop")
+				core.StoryOps.choose(core, "middle_sea_chart", "mark_field")
+				core.StoryOps.choose(core, "middle_sea_chart", "open_field")
+				ui.StoryUI.open(ui)
 			elif name == "voyage051":Interface.GuidanceUI.open_voyage(ui)
 			elif name == "harbor051":ui.open_port()
 			elif name == "preparation051":
