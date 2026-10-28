@@ -1,6 +1,6 @@
 # Brass Tide — current working instructions
 
-Current verified build: v0.062 COAST/READABILITY CORRECTIONS; package/install next.
+Installed build: v0.062 DELIVERED, localtag79ebbaa; coast/readability corrections.
 Whole quality milestone OPEN. SourceRoot8ca2477/testedreleased4e5ad1, identical
 game tree71a69f4. Clean638component checks43.603s plus196paidvoyage/Windows86.893s.
 18scope views+4activebattlePNGs Rootreviewed; opening31.075/coast30.663/runtime
