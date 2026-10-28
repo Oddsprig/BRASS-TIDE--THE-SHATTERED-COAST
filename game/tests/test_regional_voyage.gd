@@ -112,6 +112,19 @@ func sail(destination: String,returning: bool=false) -> bool:
 	if arrived:c.TradeFlow.observe(c)
 	return arrived
 
+func sail_to_waiting_water() -> bool:
+	var target: Dictionary=receipt.get("waitingWater",{})
+	if target.is_empty():return false
+	var course: Dictionary=c.chart_course(target)
+	check(course.ok,"actual water course to the declared offshore waiting point")
+	if not course.ok:return false
+	for index in range(120):
+		if c.state.path.is_empty():break
+		if not advance(1.0):return false
+	var arrived: bool=c.state.path.is_empty() and c.distance(c.state.position,target)<1.0
+	check(arrived,"captain physically sails offshore rather than suppressing a harbor encounter")
+	return arrived
+
 func gear_uids(boat: Dictionary) -> Array:
 	var ids: Array=[]
 	for item in boat.get("moduleCondition",{}).get("items",{}).values():ids.append(str(item.itemUid))
@@ -221,6 +234,17 @@ func opening_fixture() -> bool:
 		c.set_patrol_course(actor,point,c.port(DESTINATION))
 		Orders.build_order(c.state,owner,"deliver" if owner.kind=="trader" else "raid" if owner.kind=="raider" else "patrol",DESTINATION,"Declared controlled opening local route; later travel is earned.")
 	c.NavalAI.observe(c.state)
+	# This is a declared initial scenario location, selected before paid work.
+	# Later reaching it still requires a real route, movement, fuel and wages.
+	var player_clearance: float=Navigation.hull_clearance(float(c.state.fleet[0].spec.size))
+	for offset in [Vector2(3200,0),Vector2(4800,0),Vector2(6400,0),Vector2(3200,-2000),Vector2(4800,2000)]:
+		var point: Dictionary={"x":float(end.x)+offset.x,"y":float(end.y)+offset.y}
+		if not Navigation.is_water(c.nav,float(point.x),float(point.y),player_clearance):continue
+		if c.state.patrols.any(func(actor):return c.distance(point,actor)<2000.0):continue
+		if c.cached_path(end,point,player_clearance).size()<2:continue
+		receipt.waitingWater=point;break
+	check(not receipt.get("waitingWater",{}).is_empty(),"declared offshore waiting point has real clearance and a route away from opening traffic")
+	if receipt.get("waitingWater",{}).is_empty():return false
 	var before: Dictionary=provenance.merchant
 	check(owner_book(TRADER).cargo==before.cargo and float(merchant.tradeCargo)==float(provenance.paidLoadedQty) and owner_book(TRADER).boats==before.boats,"staging preserves the merchant's purchased load, stores, crew, hull and part UIDs")
 	check(Money.total(c.state)==supply and people()==census,"opening staging preserves all coins and numerical people")
@@ -304,14 +328,14 @@ func paid_voyage() -> void:
 	check(before_quote.seen and after_quote.seen and int(after_quote.stocks.timber)==int(before_quote.stocks.timber)+1,"real revisited stock quote records the actual delivered lot")
 	receipt.destination={"before":before_quote,"after":after_quote,"grossSale":gross,"view":selected_evidence()}
 	check(not receipt.destination.view.opportunity.is_empty(),"selected UI exposes an existing legal sponsor trade estimate from actual visited quotes")
-	# Remain at the reached destination while the real watch clears the route;
-	# an early return met a live hostile near home before the watch completed.
-	# No encounter is suppressed and no actor/store/progress is edited here.
-	phase("actual loaded coastal sale; destination wait under the paid watch")
+	# Independent raider-6 reached the destination on day4. Sail to the declared
+	# offshore point while the watch clears; no event/grace/actor is suppressed.
+	if not sail_to_waiting_water():return
+	phase("actual loaded coastal sale and physical offshore waiting leg")
 	for index in range(100):
 		op=Ops.selected_status(c)
 		if op.get("completed",false) and not receipt.resumed.is_empty():break
-		if float(c.state.day)>11.0:break
+		if float(c.state.day)>16.0:break
 		if not advance(minf(5.0,(floorf(float(c.state.day))+1.0-float(c.state.day))*c.DAY_SECONDS+0.001)):return
 	op=Ops.selected_status(c)
 	check(op.get("completed",false) and int(op.get("clearDays",0))>=7 and str(op.get("watchState",""))=="awaiting" and not Rules.threatened(c.state,op),"seven earned consecutive clear published days plus real passage complete the achievement and await choice")
