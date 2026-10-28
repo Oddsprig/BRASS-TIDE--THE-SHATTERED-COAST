@@ -53,6 +53,7 @@ static func _fresh(definition: Dictionary) -> Dictionary:
 		"role": str(definition["role"]), "port": str(definition["port"]),
 		"title": str(definition.get("title", "")), "trust": 0,
 		"met": false, "lastVisitDay": 0.0, "events": [], "log": [],
+		"workOpportunityUsed": false,
 	}
 	if definition.has("ownerId"):out.ownerId=str(definition.ownerId)
 	return out
@@ -63,6 +64,7 @@ static func _sanitize(raw, definition: Dictionary) -> Dictionary:
 	if raw is Dictionary:
 		out["trust"] = clampi(int(_num(raw.get("trust", 0))), TRUST_MIN, TRUST_MAX)
 		out["met"] = bool(raw.get("met", false))
+		out["workOpportunityUsed"] = bool(raw.get("workOpportunityUsed", false))
 		out["lastVisitDay"] = maxf(0.0, _num(raw.get("lastVisitDay", 0.0)))
 		var events: Array = []
 		for event_id in raw.get("events", []) if raw.get("events") is Array else []:
@@ -75,6 +77,7 @@ static func _sanitize(raw, definition: Dictionary) -> Dictionary:
 				log.append({"day": _num(entry.get("day", 0.0)), "event": str(entry.get("event", "")),
 					"amount": int(_num(entry.get("amount", 0))), "trust": clampi(int(_num(entry.get("trust", 0))), TRUST_MIN, TRUST_MAX)})
 				if entry.has("detail"):log[-1].detail=str(entry.detail).left(240)
+				if entry.has("port"):log[-1].port=str(entry.port).left(80)
 		out["log"] = log.slice(maxi(0, log.size() - MAX_LOG))
 	return out
 
@@ -173,7 +176,7 @@ static func list_contacts(state: Dictionary) -> Array:
 # ids return applied=false with trust unchanged. Amount is clamped with the
 # resulting trust to [-100, 100]; the bounded per-contact log keeps the most
 # recent MAX_LOG entries with the campaign day from state.
-static func record(state: Dictionary, contact_id: String, event_id: String, amount, detail: String="") -> Dictionary:
+static func record(state: Dictionary, contact_id: String, event_id: String, amount, detail: String="", port_id: String="") -> Dictionary:
 	ensure(state)
 	var contact := _find(state, contact_id)
 	if contact.is_empty():
@@ -192,9 +195,34 @@ static func record(state: Dictionary, contact_id: String, event_id: String, amou
 	var log: Array = contact["log"]
 	log.append({"day": _num(state.get("day", 0.0)), "event": event_id, "amount": delta, "trust": int(contact["trust"])})
 	if not detail.is_empty():log[-1].detail=detail.left(240)
+	if not port_id.is_empty():log[-1].port=port_id.left(80)
 	while log.size() > MAX_LOG:
 		log.pop_front()
 	return {"ok": true, "message": "Trust recorded.", "trust": int(contact["trust"]), "applied": true}
+
+
+# Detached evidence of a fulfilled promise, never inferred from visits, favors
+# or another fleet's witnessed fight. Legacy memories may lack a location.
+static func completed_work(state: Dictionary, contact_id: String) -> Dictionary:
+	if not DEFINITIONS.any(func(d):return str(d.id)==contact_id):return {}
+	var contact: Dictionary=_find(state,contact_id)
+	if contact.is_empty() or int(contact.get("trust",0))<=0:return {}
+	var log: Array=contact.get("log",[])
+	for i in range(log.size()-1,-1,-1):
+		var entry: Dictionary=log[i]
+		var event_id: String=str(entry.get("event",""))
+		var day: float=_num(entry.get("day",-1),-1)
+		if event_id.begins_with("job:") and event_id.ends_with(":paid") and int(entry.get("amount",0))>0 and day>=0 and day<=_num(state.get("day",0)):
+			return entry.duplicate(true)
+	return {}
+
+
+# Called only after the ordinary job backend has funded and accepted the work.
+# A saved boolean outlives bounded event/done-id logs, so one contact cannot
+# continually reissue its earned selection as old events rotate out.
+static func claim_work_opportunity(state: Dictionary, contact_id: String) -> void:
+	var contact: Dictionary=_find(state,contact_id)
+	if not contact.is_empty():contact.workOpportunityUsed=true
 
 
 static func record_captain(state: Dictionary, owner_id: String, event_id: String, detail: String, amount: int=0) -> Dictionary:

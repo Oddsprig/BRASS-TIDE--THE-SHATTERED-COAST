@@ -25,6 +25,7 @@ static func open(ui,tab: String="Work board") -> void:
 		var job: Dictionary=raw.duplicate(true)
 		ui.rule(body)
 		ui.label(body,job.title,24,ui.GOLD,true)
+		if not str(job.get("sponsorContactId","")).is_empty():ui.paragraph(body,sponsor_reason(c,job),15,ui.TEAL)
 		ui.paragraph(body,"%s · %.1f days remaining · %s coins reserved"%[str(job.state).capitalize(),job.deadlineDay-c.state.day,ui.money(job.escrow)],15,ui.TEAL)
 		if not str(job.get("carrierUid","")).is_empty():
 			var boat: Dictionary=c.find_boat(str(job.carrierUid))
@@ -48,6 +49,7 @@ static func open(ui,tab: String="Work board") -> void:
 		var offer: Dictionary=item.duplicate(true)
 		ui.label(body,offer.title,23,ui.TEXT,true)
 		ui.paragraph(body,offer.description,15)
+		if not str(offer.get("sponsorContactId","")).is_empty():ui.paragraph(body,sponsor_reason(c,offer),15,ui.TEAL)
 		ui.paragraph(body,"%s coins · deadline day%.0f"%[ui.money(offer.reward),offer.deadlineDay],15,ui.GOLD)
 		var picker: OptionButton=null
 		if offer.kind in ["fuel_delivery","passenger_charter"]:picker=carrier_picker(ui,body,str(offer.kind))
@@ -62,6 +64,7 @@ static func settle(ui,id: String,abandon: bool) -> void:
 
 static func contacts(ui,body) -> void:
 	var c=ui.host.core
+	var offers: Array=c.VoyageJobs.available(c)
 	ui.paragraph(body,"Personal trust belongs to the person you helped. Visits, fulfilled promises and failures are remembered. Faction standing is a separate relationship.",16)
 	for person in c.Contacts.list_contacts(c.state):
 		var contact: Dictionary=person
@@ -71,7 +74,23 @@ static func contacts(ui,body) -> void:
 		ui.paragraph(body,"%s · %s"%[contact.title,c.port(contact.port).name],16,ui.TEXT)
 		ui.paragraph(body,"Trust %d · %s"%[contact.trust,"last visited day%.1f"%contact.lastVisitDay if contact.met else "not yet met"],15,ui.TEAL)
 		ui.button(body,"Chart this harbor",func():ui.host.sail_to(contact.port);ui.close_modal())
-		for entry in contact.log.slice(-3):ui.paragraph(body,"Day%.0f · %s · trust %+d"%[entry.day,entry.get("detail",entry.event),entry.amount],13)
+		for entry in contact.log.slice(-3):
+			var place: Dictionary=c.port(str(entry.get("port","")))
+			ui.paragraph(body,"Day%.1f%s · %s · trust %+d"%[entry.day," at "+str(place.name) if not place.is_empty() else "",entry.get("detail",entry.event),entry.amount],13)
+		for offer in offers:
+			if str(offer.get("sponsorContactId",""))!=str(contact.id):continue
+			ui.paragraph(body,sponsor_reason(c,offer),15,ui.TEAL)
+			ui.button(body,"Review "+str(offer.title)+" on Work board",func():open(ui,"Work board"))
+		if contact.get("workOpportunityUsed",false):ui.paragraph(body,"Earned introduction already taken. Its ordinary job terms still govern payment or failure.",14)
+
+static func sponsor_reason(c,job: Dictionary) -> String:
+	var contact: Dictionary=c.Contacts._find(c.state,str(job.get("sponsorContactId","")))
+	var place: Dictionary=c.port(str(job.get("sponsorEventPort","")))
+	var where: String=" at "+str(place.name) if not place.is_empty() else " (location not recorded)"
+	var promise: String="your paid work"
+	for entry in contact.get("log",[]):
+		if str(entry.get("event",""))==str(job.get("sponsorEventId","")):promise=str(entry.get("detail",promise));break
+	return "%s recommends this work because you completed %s on day%.1f%s. Payment is reserved from the harbor treasury when you accept."%[str(contact.get("name","Harbor contact")),promise,float(job.get("sponsorEventDay",0)),where]
 
 static func carrier_picker(ui,body,kind: String) -> OptionButton:
 	var c=ui.host.core

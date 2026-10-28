@@ -902,8 +902,14 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,used,"survey" if before.get("kind","")=="survey" else "trade")
 			var captain: String=str(before.get("ownerId",""))
 			if before.get("kind","")=="fuel_delivery" and not captain.is_empty():Contacts.record_captain(state,captain,"job:"+id+":paid",str(before.get("title","Voyage delivery"))+" completed at "+str(current_port().get("name","harbor")),5)
+		var sponsor_id: String=str(before.get("sponsorContactId",""))
+		var event_id: String="job:"+id+(":abandoned" if abandon else ":paid")
+		var completed_at: String=str(current_port().get("id",""))
 		for contact in Contacts.list_contacts(state):
-			if not contact.has("ownerId") and contact.port==current_port().get("id","") and (not abandon or contact.port==before.get("port","")):Contacts.record(state,contact.id,"job:"+id+(":abandoned" if abandon else ":paid"),-5 if abandon else 5,str(before.get("title","Voyage job")))
+			if contact.has("ownerId"):continue
+			var remembers: bool=contact.port==completed_at and (not abandon or contact.port==before.get("port",""))
+			if not sponsor_id.is_empty():remembers=contact.id==sponsor_id and contact.port==before.get("port","")
+			if remembers:Contacts.record(state,contact.id,event_id,-5 if abandon else 5,str(before.get("title","Voyage job")),completed_at)
 	Manifest.allocate(state)
 	return result
 

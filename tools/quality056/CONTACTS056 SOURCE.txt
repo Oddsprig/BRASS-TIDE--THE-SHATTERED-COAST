@@ -1,0 +1,75 @@
+CONTACTS056 - SOURCE OWNER C - API SEAM (27 October 2026)
+Base: reviewed0559498afd996feb7eebb9b53103ace1247fed456db.
+Isolated source preparation authorized while055 is queued. No acceptance claim.
+
+Implemented seam (published before implementation, then manually reviewed):
+Contacts.completed_work(state, contact_id) -> detached Dictionary or {}:
+  latest positive job:*:paid memory for an original harbor contact; event/day/
+  port/detail retained. Witnessed NPC encounters and generic favor trust do not
+  qualify. Missing legacy location remains unknown, never fabricated.
+Contacts.record(..., detail="", port_id="") preserves existing callers and
+  optionally records the actual completion/failure harbor in its bounded log.
+Contacts.claim_work_opportunity(state, contact_id) -> void: internal post-funded-
+  acceptance marker, retaining workOpportunityUsed through ensure/save/restore.
+VoyageJobs.contact_opportunity(core, contact_id) -> detached existing funded
+  offer or {}. Query selects ONE compatible role-appropriate board job at that
+  contact's harbor, without signing, funding or creating resources.
+Optional job metadata retained by _sanitize_job/save/restore:
+  sponsorContactId, sponsorEventId, sponsorEventDay, sponsorEventPort.
+No new reward backend or job kind. Existing offer id/escrow/accept/finish remain
+authoritative. One earned selection per authored harbor contact, consumed only
+on successful acceptance via saved contact workOpportunityUsed flag.
+Campaign.settle_voyage_job credits named sponsor on success/abandonment;
+  unsponsored legacy destination rules and fuel recipient captain remain.
+VoyageUI.sponsor_reason(core, job) -> String names the contact, remembered work,
+  actual event date/location (or unknown legacy location) and treasury funding.
+
+Behavior and bounded policy:
+- Available() annotates at most ONE already generated board offer at the current
+  authored contact's harbor. It neither adds an offer nor changes its id, fee,
+  payer, stock lot, deadlines or existing transaction backend. Unsponsored work
+  stays available normally. No new job kinds, recurring favors or trust income.
+- Broker selects freight/fuel/charter; survey patron selects a survey;
+  shipwright selects repair-material freight/fuel; salvage agent selects a real
+  raider bounty or repair-material freight/fuel. No fitting existing job means
+  no recommendation today. No new cargo/people/offer-generation hierarchy.
+- One introduction per authored contact for the life of the saved career;
+  saved boolean prevents reissue even after bounded event/closed-id logs rotate.
+  Review/refusal does not consume it. Completion/failure never resets it.
+- Selection uses current access, stopped harbor, active crewed roster, six-job
+  room and actual hold/carrier compatibility. Ordinary accept regenerates offers
+  and rechecks current purse/stock/hold/roster and selected civilian carrier.
+  Campaign's existing contract permission gate and manifest allocation remain.
+- Positive job:*:paid memory plus current positive personal trust qualifies;
+  visits, generic favors, captain witnesses and zero-trust fights do not.
+  A legacy unsponsored paid job still credits its old completion-port contact.
+  Named sponsored success/abandonment credits its original sponsor, including
+  closure at a different harbor. Fuel recipient captain path is untouched.
+
+Prepared NOT RUN: game/tests/test_contact_opportunity056.gd.
+One seeded Campaign.new/new_game baseline; detached state copies, no Main.
+Cases cover actual paid-survey settlement -> earned memory -> actual restore;
+one detached stable funded freight selection; treasury/stock debits and global
+coin conservation; active sponsor fields/consumption through actual restore;
+completion, remote sponsor credit, repeat event/accept/settlement; purse, stock,
+hold, crew, hostile access and six-slot refusals; distant abandonment; legacy
+missing location; survey patron role. Survey completion progress is fixture-
+seeded, and freight arrival is fixture-positioned: not observed sailing/play.
+
+Manual review only: actual constructors, Campaign settlement/restore chain,
+Contacts log bounds/dedup, VoyageJobs ensure/sanitize/available/accept/finish/
+abandon, Politics contract gate, passenger quote/boarding, hold accounting,
+SaveValidation/CoastMigration/equipment copy path, QuoteView and relevant maps.
+Read final diffs and prepared fixture. No native parse/type/assertion/render/
+play/audio/performance acceptance. No UID sidecar generated: Root owns import.
+Recommendation query inherits ordinary available() normalization; it is
+noncommitting, not a promise of a byte-for-byte read-only state query.
+Offer terms remain daily board terms; no exclusive reservation or guaranteed
+future stock/access, and no claim that a recommended bounty is easy to win.
+
+Allowlist: contacts.gd, voyage_jobs.gd, voyage_ui.gd; campaign.gd ONLY
+settle_voyage_job; tests/test_contact_opportunity056.gd; this note.
+No engines/tests/advisories/parsers/import/export/GPU/helpers/metadata/maps/
+tags/package/install/push/cleanup. Root alone owns native verification.
+Prepared checks are NOT executed passes. 055 remains frozen; no056 metadata,
+release, integration or installation performed. Whole-game quality stays open.

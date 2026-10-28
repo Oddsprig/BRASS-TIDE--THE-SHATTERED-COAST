@@ -17,6 +17,7 @@ const Transport=preload("res://scripts/passenger_transport.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Factions=preload("res://scripts/factions.gd")
 const TradeRules=preload("res://scripts/trade_rules.gd")
+const Contacts=preload("res://scripts/contacts.gd")
 
 const MAX_ACTIVE := 6
 const MAX_DONE := 128
@@ -85,6 +86,10 @@ static func _sanitize_job(raw) -> Dictionary:
 		"lastTickDay":_num(raw.get("lastTickDay",0)),"elapsedDays":_num(raw.get("elapsedDays",0)),"voyageDistance":_num(raw.get("voyageDistance",0)),"foodConsumed":_num(raw.get("foodConsumed",0)),
 		"lastPosition":raw.get("lastPosition",{}).duplicate() if raw.get("lastPosition",{}) is Dictionary else {},
 		"lostFuel":_num(raw.get("lostFuel",0)),
+		"sponsorContactId":str(raw.get("sponsorContactId","")).left(80),
+		"sponsorEventId":str(raw.get("sponsorEventId","")).left(240),
+		"sponsorEventDay":maxf(0,_num(raw.get("sponsorEventDay",0))),
+		"sponsorEventPort":str(raw.get("sponsorEventPort","")).left(80),
 	}
 
 
@@ -308,7 +313,56 @@ static func available(core) -> Array:
 			break
 	offers.append_array(_civilian_offers(core,p,day,taken))
 	if state.get("storyRights") is Dictionary:offers.append_array(preload("res://scripts/story_offers.gd").available(core))
+	_select_contact_work(core,p,offers)
 	return offers
+
+
+# Select from the actual board rather than issuing a second contract/reward.
+# Only one original contact lives at each authored harbor. The original offer
+# id remains authoritative for duplicate suppression and all transactions.
+static func _select_contact_work(core, p: Dictionary, offers: Array) -> void:
+	if core.state.voyageJobs.size()>=MAX_ACTIVE or core.active_fleet().is_empty() or not core.state.path.is_empty():return
+	for definition in Contacts.DEFINITIONS:
+		if str(definition.port)!=str(p.id):continue
+		var contact: Dictionary=Contacts._find(core.state,str(definition.id))
+		if contact.get("workOpportunityUsed",false):return
+		var memory: Dictionary=Contacts.completed_work(core.state,str(definition.id))
+		if memory.is_empty():return
+		for offer in offers:
+			if not _contact_role_fits(str(definition.role),offer) or not _contact_hold_fits(core,offer):continue
+			offer.sponsorContactId=str(definition.id)
+			offer.sponsorEventId=str(memory.event)
+			offer.sponsorEventDay=float(memory.day)
+			offer.sponsorEventPort=str(memory.get("port",""))
+			return
+
+
+static func _contact_role_fits(role: String, offer: Dictionary) -> bool:
+	var kind: String=str(offer.kind)
+	if role=="broker":return kind in [KIND_FREIGHT,KIND_FUEL,KIND_CHARTER]
+	if role=="survey_patron":return kind==KIND_SURVEY
+	if role=="salvage_agent" and kind==KIND_BOUNTY:return true
+	return role in ["shipwright","salvage_agent"] and (kind==KIND_FUEL or (kind==KIND_FREIGHT and str(offer.get("freight",{}).get("good","")) in ["timber","fine_timber","supplies","fuel"]))
+
+
+static func _contact_hold_fits(core, offer: Dictionary) -> bool:
+	var freight: Dictionary=offer.get("freight",{})
+	if not freight.is_empty():
+		var weight: float=float(freight.qty)*float(Goods.ITEMS[str(freight.good)].weight)
+		if weight>_effective_free(core,core.state):return false
+	if str(offer.kind)==KIND_FUEL:return not _fuel_carrier(core,float(freight.get("qty",0))).is_empty()
+	# The existing civilian offer builder already quotes a real eligible hull,
+	# cohort and provisions. board_charter rechecks the chosen hull at acceptance.
+	return true
+
+
+# Detached, noncommitting view. No offer is reserved until ordinary accept().
+# Empty means no earned, funded, compatible work at this contact's harbor now.
+static func contact_opportunity(core, contact_id: String) -> Dictionary:
+	if contact_id.is_empty():return {}
+	for offer in available(core):
+		if str(offer.get("sponsorContactId",""))==contact_id:return offer.duplicate(true)
+	return {}
 
 
 static func _fail(core, message: String) -> Dictionary:
@@ -356,6 +410,7 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 		if not Transport.board_charter(core,offer,boat_uid):return _fail(core,"Charter needs real available people, funded provisions and spare berths on one transport or yacht.")
 		offer.state=STATE_ACTIVE;offer.acceptedDay=float(state.day)
 		state.voyageJobs.append(offer)
+		if not str(offer.get("sponsorContactId","")).is_empty():Contacts.claim_work_opportunity(state,str(offer.sponsorContactId))
 		core.log_entry("Funded charter embarked %d actual people aboard %s."%[offer.passengers.n,offer.carrierUid])
 		return _ok(core,"Charter funded, provisioned and boarded.",{"job":offer.duplicate(true)})
 	var freight := _clean_freight(offer.get("freight", {}))
@@ -386,6 +441,7 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 	offer["acceptedDay"] = _num(state.get("day", 0.0))
 	offer.baselineDefeats=int(state.get("defeatedOwners",{}).get(offer.get("ownerId",""),0))
 	state["voyageJobs"].append(offer)
+	if not str(offer.get("sponsorContactId","")).is_empty():Contacts.claim_work_opportunity(state,str(offer.sponsorContactId))
 	if str(offer["kind"]) == KIND_SURVEY:
 		var site := Exploration.catalog_site(state, str(offer["siteId"]))
 		if not site.is_empty():
