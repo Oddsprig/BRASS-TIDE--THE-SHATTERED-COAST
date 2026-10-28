@@ -55,7 +55,7 @@ func _isolate(ids: Array) -> void:
 			check(remaining == 0, "Existing treasuries fund the staged voyage")
 			# The new reserve-aware orders require actual provisions, not a
 			# financially exhausted starting fleet masquerading as a ready one.
-			var rations: int = maxi(0, ceili(float(c.Fleets.upkeep(owner).food) * 2.0 - float(owner.cargo.food)))
+			var rations: int = maxi(0, ceili(float(c.Fleets.upkeep(owner).food) * 2.0 - float(Orders.fleet_reserves(owner).food)))
 			if rations > 0:
 				var wallet: Dictionary = {"coins": owner.coins, "cargo": owner.cargo}
 				var bought: Dictionary = Economy.transact(c.port(str(owner.homePort)), wallet, "food", rations, "buy", float(Orders.fleet_reserves(owner).capacity))
@@ -130,6 +130,7 @@ func _test_at_sea_orders() -> void:
 	c.state.econDay += 1; c.state.day += 1.0
 	tp.to = changed
 	AI.tick(c, 1)
+	print("campaign fleets033 next: ", raider.destination, " target ", raider.order.targetOwnerId, " | trader ", trader.destination, " ", trader.reason)
 	check(raider.order.targetOwnerId == trader.id and raider.destination == changed and trader.destination == stale, "Next daily response follows the changed live route without rewriting the target")
 	check(int(raider.get("lastNavalRetargetDay", -1)) == int(c.state.econDay), "Retarget cadence uses the actual campaign day")
 	tp.active = false
