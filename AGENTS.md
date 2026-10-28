@@ -1,12 +1,15 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.059 VERIFIED; packaging/install follows checkpoint.
+Current scoped build: v0.059 DELIVERED/installed; local tag3598b9a.
 Final185/0 careers +Windows3starts84.766s; exact-source preflight89/0 52.788s.
 Five actual exported views all Root reviewed. Earlier failed receipts retained.
 Four paid civilian cycles have positive measured net after actual waiting/wages/
 stores/return, not proof of complete progression. Preserve one plain icon/two
-voyages/18MP3s/old builds. Next060 follows tools/quality060/NEXT060 AUDIT.txt and
-the task draft; finalize on delivered059 source before implementation.
+voyages/18MP3s/older058 hash-verified, one plain desktop launcher, no autolaunch.
+Current060 three BridgeSol6.1MAX source lanes on delivered3598b9a follow task/
+SCOPE 060 FLEET ATTACHMENT.txt: persistent command/paid staff view, actual
+participant service/loss history, selectedcrewUI and one focused native proof.
+No060metadata/engine yet. Shared data contracts must be published early.
 Whole-quality/coast art/strict051targets remain OPEN062.
 Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 
