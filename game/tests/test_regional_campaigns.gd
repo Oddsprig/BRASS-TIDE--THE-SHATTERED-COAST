@@ -6,6 +6,17 @@ const RO=preload("res://scripts/regional_orders.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Money=preload("res://scripts/money.gd")
 const Factions=preload("res://scripts/factions.gd")
+const Home=preload("res://scripts/home_harbor.gd")
+const WorkerOps=preload("res://scripts/worker_ops.gd")
+const Economy=preload("res://scripts/economy.gd")
+const RegionalOps=preload("res://scripts/regional_ops.gd")
+class HarborCore:
+	extends RefCounted
+	var state: Dictionary
+	func port(id: String) -> Dictionary:
+		for p in state.ports:
+			if p.id==id:return p
+		return {}
 var checks: int=0
 var failures: int=0
 func check(ok: bool,text: String):
@@ -88,30 +99,69 @@ func funding_and_watch():
 	check(restart.fleetOwners[0].coins==purse and restart.ports[0].governmentPurse==800,"Withdrawal cannot farm or refund regional grants")
 func harbor_development():
 	var s: Dictionary=fresh()
-	var b: Dictionary={"id":"business-1","homePort":"harbor","kind":"warehouse","coins":1000,"paused":false,"employees":[{"wage":100},{"wage":100}],"wagesPaid":0}
+	# Existing warehouse/staff and buyer cash are initial unit-fixture resources.
+	# No Campaign/Main/world/nav construction; Home.tick runs real WorkerOps shifts.
+	s.econDay=0;s.moneyLog=[]
+	var p: Dictionary=s.ports[0]
+	p.merge({"cash":10000,"workforce":2,"availableWorkers":2,"availableSpecialists":0,"publicStores":{}},true)
+	var b: Dictionary={"id":"business-1","homePort":"harbor","kind":"warehouse","coins":1000,"paused":false,"employees":[{"id":"staff-1-0","name":"Ana","occupation":"laborer","wage":100,"specialist":false},{"id":"staff-1-1","name":"Piet","occupation":"laborer","wage":100,"specialist":false}],"wagesPaid":0}
 	s.businesses=[b]
+	var core=HarborCore.new()
+	core.state=s
+	Home.ensure(s);WorkerOps.ensure(core)
 	var total: int=Money.total(s)
 	check(not R.contribute(s,"harbor","timber",1).ok,"a closed goal refuses cargo")
 	check(R.start(s,"harbor").ok,"harbor development starts")
+	var op: Dictionary=s.regionalCampaigns.operations.harbor
 	s.position.x=800
 	var count: float=float(s.cargo.timber)+float(s.ports[0].stocks.timber)
 	check(not R.contribute(s,"harbor","timber",3).ok and float(s.cargo.timber)+float(s.ports[0].stocks.timber)==count,"remote contribution refuses without moving stock")
 	s.position.x=0
 	check(not R.contribute(s,"harbor","timber",90).ok and s.cargo.timber==15,"oversized contribution is atomic")
 	check(not R.contribute(s,"harbor","guns",1).ok,"nonaccepted materials are refused")
-	check(R.contribute(s,"harbor","timber",11).ok and s.cargo.timber==4,"eleven physical lots reach the actual stock")
+	var captain_before: int=int(s.coins)
+	var buyer_before: int=int(p.cash)
+	var sale: Dictionary=Economy.transact(p,s,"timber",6,"sell")
+	check(sale.ok and sale.qty==6 and sale.total>0 and s.cargo.timber==9 and p.stocks.timber==7 and s.coins==captain_before+sale.total and p.cash==buyer_before-sale.total,"six sold lots move actual timber and buyer coins")
+	# Publish only this successful physical sale, as the live trade adapter does.
+	if sale.ok:RegionalOps.delivered(core,"harbor",float(sale.qty))
+	var donation_purses: Array=[s.coins,p.cash,p.householdPurse,p.expertPurse,p.governmentPurse,b.coins]
+	check(R.contribute(s,"harbor","timber",5).ok and s.cargo.timber==4,"six sold plus five donated physical lots reach the actual stock")
 	check(R.tick(s).is_empty(),"deliveries alone do not create paid development")
 	check(R.contribute(s,"harbor","timber",1).ok,"twelfth lot is delivered")
+	check([s.coins,p.cash,p.householdPurse,p.expertPurse,p.governmentPurse,b.coins]==donation_purses and s.regionalFacts.deliveries.harbor==6 and op.contributed.timber==6,"six donated lots are unpaid and never become sold receipts")
+	var view: Dictionary=Rules.harbor_view(s,op)
+	check(view.deliveredLots==6 and view.donatedLots==6 and view.harborLots==12 and R.tick(s).is_empty(),"distinct six sold plus six donated lots add once and still require paid work")
+	var wage_only: Dictionary=s.duplicate(true)
+	wage_only.businesses[0].wagesPaid=600
+	check(R.tick(wage_only).is_empty() and wage_only.regionalCampaigns.operations.harbor.staffDays==0,"editing three days of wage amounts alone earns no working days")
+	var household_before: int=int(p.householdPurse)
 	for i in range(2):
-		Money.move(b,"coins",s.ports[0],"householdPurse",200,"test actual business payroll",[])
-		b.wagesPaid+=200;s.day+=1
-		check(R.tick(s).is_empty(),"two paid days are not three")
-	Money.move(b,"coins",s.ports[0],"householdPurse",200,"test actual business payroll",[])
-	b.wagesPaid+=200;s.day+=1
+		Home.tick(core,1)
+		# Match test_home_harbor.business_day: publish the completed shift's day.
+		s.day+=1;s.econDay+=1
+		check(b.paidWorkDays==i+1 and b.lastPaidWorkDay==s.econDay and b.labor.lastProcessedEconomicDay==s.econDay,"each actual paid shift records a distinct published working day")
+		check(b.wagesPaid==(i+1)*200 and b.coins==1000-(i+1)*200 and p.householdPurse==household_before+(i+1)*200,"canonical payroll transfers two laborers' real daily wages")
+		check(R.tick(s).is_empty() and op.staffDays==i+1,"two paid working days are not three")
+		R.tick(s);R.tick(s)
+		check(op.staffDays==i+1 and op.harborLots==12,"repeated goal ticks cannot duplicate working days or distinct deliveries")
+	var restored: Variant=JSON.parse_string(JSON.stringify(s))
+	check(restored is Dictionary,"harbor businesses and active progress survive JSON roundtrip")
+	if not restored is Dictionary:return
+	s=restored;core.state=s
+	Home.ensure(s);R.ensure(s)
+	p=core.port("harbor");b=s.businesses[0];op=s.regionalCampaigns.operations.harbor
+	check(b.paidWorkDays==2 and b.lastPaidWorkDay==2 and b.labor.lastProcessedEconomicDay==2 and op.businessDays[b.id]==0 and op.staffDays==2 and Rules.harbor_view(s,op).harborLots==12,"reload preserves actual shift receipts, start baseline and both supply ledgers")
+	check(R.tick(s).is_empty() and not R.start(s,"harbor").ok,"reload neither invents a third day nor restarts the active goal")
+	Home.tick(core,1)
+	s.day+=1;s.econDay+=1
 	var done: Array=R.tick(s)
-	check(done.size()==1 and done[0].cause=="paid-harbor-development","three actual payrolls and twelve lots complete development")
+	check(done.size()==1 and done[0].cause=="paid-harbor-development" and b.paidWorkDays==3 and b.lastPaidWorkDay==3 and b.labor.lastProcessedEconomicDay==3 and op.staffDays==3,"three distinct actual paid working days and twelve lots complete development")
+	check(b.coins==400 and b.wagesPaid==600 and p.householdPurse==household_before+600 and b.employees.map(func(e):return e.id)==["staff-1-0","staff-1-1"],"three canonical payrolls preserve exact employee identities and wage accounting")
 	check(Money.total(s)==total and float(s.cargo.timber)+float(s.ports[0].stocks.timber)==count,"business pay and cargo conserve coins and timber")
-	check(not R.contribute(s,"harbor","timber",1).ok and R.tick(s).is_empty(),"finished development does not consume or pay again")
+	var finished: Dictionary=s.duplicate(true)
+	check(not R.contribute(s,"harbor","timber",1).ok and not R.start(s,"harbor").ok and R.tick(s).is_empty(),"finished development does not consume or pay again")
+	check(s==finished,"completed same-day refusal and progress reads leave money, stock, receipts and journal unchanged")
 func diplomacy():
 	var s: Dictionary=fresh()
 	s.day=10

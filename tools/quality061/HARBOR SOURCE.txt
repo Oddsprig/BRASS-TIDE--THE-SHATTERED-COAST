@@ -117,3 +117,49 @@ C's actual joined-day voyage/save proof remains necessary. No engine, parser,
 source advisory, test, import/export, GPU or native acceptance occurred here.
 No060/061 integration, metadata, tag, package, install, push or launcher change.
 Strict051 targets, coast art and whole-game quality remain OPEN062.
+
+BOUNDED TEST-ONLY FOLLOWUP / 28 OCTOBER 2026
+Root authorized ONLY game/tests/test_regional_campaigns.gd and this appended note.
+060 is now DELIVERED/tag705a444; Root reports its exact game tree73e78 equals
+the frozen f760a93 base. Prior B22016f0 is already integrated at Rootbbc3cbb
+(A at Rootd209478). Cherry-pick ONLY the new test-only followup commit; do not
+integrate the prior B commit again or use this helper's HEAD as a runtime release.
+Named followup: "061 test: use actual paid shifts for harbor development".
+Its exact SHA is supplied in the final handoff; no version/tag/metadata advance.
+
+Replaced ONLY the obsolete harbor_development wage-only setup/body, with its
+small Home/WorkerOps/Economy/RegionalOps preloads and RefCounted state/port stub.
+All other unit functions and assertions are unchanged. No runtime source edits,
+Campaign/Main/world/nav constructor, new framework, broad unit run or test matrix.
+test_home_harbor.business_day supplies the ordering: Home.tick(core,1), then
+publish state.day and state.econDay. WorkerOps.step is called by Home.tick;
+the fixture does not call it again or edit any earned working-day receipt.
+
+Initial unit resources, declared before the Money.total baseline: existing
+warehouse with 1000 coins and two identified laborers at 100/day; receiving
+harbor buyer cash10000, two remaining available workers, zero specialists,
+empty public stores. Home.ensure supplies the existing business book shape;
+WorkerOps.ensure configures actual worker-condition services. Establishment,
+voyage, broader port production and rest/stoppage policy are not tested here.
+
+Six timber lots sell through Economy.transact; only that successful physical
+sale is published through RegionalOps.delivered, matching the live adapter's
+receipt path. Five then one further lot donate through R.contribute. Assertions
+retain closed/remote/oversized/nonaccepted refusals, check exact buyer/captain
+payment, keep every purse unchanged by donations, distinguish sold6/donated6,
+and require harborLots12 with zero working days still incomplete.
+A detached copy changes only wagesPaid to600 and must remain staffDays0.
+
+Two actual daily Home.tick/WorkerOps shifts each pay200 from the warehouse
+into the harbor household purse and earn one dated receipt. Repeated regional
+ticks add neither work days nor supply. A JSON state roundtrip after day2 keeps
+both supply books, the original businessDays baseline and dated labor receipts;
+reloaded same-day progress/start cannot manufacture day3. The third real paid
+shift completes exactly once, with warehouse400, wagesPaid600, household+600
+and both staff identities retained. Total coins and physical timber remain
+conserved; finished contribution/start/progress cannot pay/consume/rejournal.
+
+Manual source/diff review ONLY. No engine/GPU/import/export/parser/advisory/test
+was run, including the changed fixture. No native pass or code acceptance claim.
+Root owns combined native verification; C's single Main actual paid voyage is
+still the full gameplay proof. Source-only test handoff, not its replacement.
