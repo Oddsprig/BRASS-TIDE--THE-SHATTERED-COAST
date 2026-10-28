@@ -240,6 +240,9 @@ func voyage() -> void:
 	var legacy: Dictionary=parsed(baseline);legacy.erase("world064")
 	check(c.restore(legacy).ok,"Existing map2 save without world field restores through legacy home path")
 	check(c.home_local064() and c.state.position==legacy.position,"Legacy home location remains at its actual harbor")
+	var restored_view: Dictionary=c.world_view064()
+	var view_error: String="" if not restored_view.is_empty() else str(c._world_view_result064().get("message","World view failed."))
+	if not check(not restored_view.is_empty(),"Real restored active fleet produces a nonempty plain-data world view: "+view_error):return
 	var owned: Array=c.state.fleet.map(func(b):return str(b.uid))
 	var starting_fuel: float=float(c.state.fleet[0].fuel)
 	if not sail("shatter_coast","north"):return

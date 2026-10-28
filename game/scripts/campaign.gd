@@ -103,9 +103,39 @@ func _publish_location064(location: Dictionary) -> void:
 		state[key]=location[key].duplicate(true) if location[key] is Dictionary or location[key] is Array else location[key]
 
 func world_view064() -> Dictionary:
-	if state.is_empty() or ocean_context064.is_empty():return {}
-	var result: Dictionary=OceanWorld064.view(ocean_context064,world_location064(),active_fleet())
+	var result: Dictionary=_world_view_result064()
 	return result.get("view",{}) if result.get("ok",false) else {}
+
+func _world_view_result064() -> Dictionary:
+	if state.is_empty():return fail("Start or restore a voyage before using the world chart.")
+	if ocean_context064.is_empty():return fail(ocean_error064 if not ocean_error064.is_empty() else "Ocean charts are unavailable.")
+	var boats: Array=[]
+	for boat in active_fleet():
+		# FleetArt054 reads only identity, eligibility, fitting geometry and engine.
+		# Runtime refitting adds StringName member keys; publish explicit String
+		# keys instead of passing a whole live boat through the strict plain view.
+		var drawn: Dictionary={}
+		for key in ["uid","type","sunk","hidden","visible","mothballed","storedPort","engine"]:
+			if boat.has(key):drawn[key]=boat[key]
+		var spec: Dictionary={}
+		for key in ["id","role","size","tier","faction","weapon","fuelUse"]:
+			if boat.spec.has(key):spec[key]=boat.spec[key]
+		if boat.spec.has("weaponMounts"):
+			if not boat.spec.weaponMounts is Array:return fail("Chart weapon mounts must be an array.")
+			var mounts: Array=[]
+			for mount in boat.spec.weaponMounts:
+				if not mount is Dictionary:return fail("Chart weapon mounts must be records.")
+				var shown: Dictionary={}
+				for key in ["id","moduleId","kind","size","x","y","angle","arc"]:
+					if mount.has(key):shown[key]=mount[key]
+				mounts.append(shown)
+			spec["weaponMounts"]=mounts
+		drawn["spec"]=spec
+		if boat.has("loadout"):
+			if not boat.loadout is Dictionary:return fail("Chart loadout must be a fitting record.")
+			if boat.loadout.has("engine"):drawn["loadout"]={"engine":boat.loadout.engine}
+		boats.append(drawn)
+	return OceanWorld064.view(ocean_context064,world_location064(),boats)
 
 func _sailing_blocker064() -> String:
 	if not state.get("toolingRecovery",{}).is_empty():return "Recall or finish the machinery recovery party before sailing away."
@@ -138,7 +168,9 @@ func transition_blocker064() -> String:
 	return ""
 
 func approach_course064(region_id: String,approach_id: String) -> Dictionary:
-	var view: Dictionary=world_view064()
+	var result: Dictionary=_world_view_result064()
+	if not result.get("ok",false):return result
+	var view: Dictionary=result.view
 	var approaches: Array=view.get("approaches",[])
 	if view.get("layer","")=="ocean":
 		approaches=[]
