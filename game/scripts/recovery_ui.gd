@@ -1,94 +1,251 @@
 extends RefCounted
-## Persistent wrecks and finite selectable material lots.
+## Finite recovery choices; every action stays in Main/RecoveryFlow/Campaign.
 const Flow=preload("res://scripts/recovery_flow.gd")
+const Decisions=preload("res://scripts/recovery_decisions.gd")
 const EquipmentRecovery=preload("res://scripts/equipment_recovery.gd")
+
+static func _board(ui,title: String,subtitle: String,width: float=1020,height: float=800):
+	# Interface captures its close-button sync policy while constructing a modal.
+	# Reuse its existing read-only voyage-review policy, then expose recovery's
+	# public identity. Even the header X must not settle unrelated pending wages.
+	ui.modal_kind="voyage_review"
+	var body=ui.modal(title,subtitle,width,height)
+	ui.modal_kind="recovery"
+	return body
 
 static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	if ui.host.mode!="campaign":return
-	ui.host.sync_economy()
-	ui.modal_kind="recovery"
-	var body=ui.modal("Wrecks & recovery","SALVAGE · TOWS · MARKED CARGO",1020,800)
+	var body=_board(ui,"Wrecks & recovery","KEEP A HULL · TAKE STORES · RECOVER REAL PARTS")
 	var c=ui.host.core
-	ui.paragraph(body,"Tow a damaged hull, strip finite material into your hold, or abandon recovery for now and leave the wreck marked. Stripping structural parts permanently rules out towing that hull. Taking only loose stores leaves its equipment aboard. Recovery work advances time; wages and provisions continue.",15)
+	ui.paragraph(body,"Keep a damaged hull with a paid tow, take finite stores, or dismantle it for explicitly selected parts. Work takes crew time; normal wages and food continue.",16)
 	ui.label(body,"Traveling hold %.1f / %.1f"%[c.cargo_weight(),c.capacity()],22,ui.GOLD,true)
-	if not encounter_ids.is_empty():ui.paragraph(body,"Wrecks from this engagement. Escaped boats keep their goods and are not recovery prizes.",15,ui.TEAL)
-	ui.button(body,"Abandon for now — leave wrecks marked",func():leave(ui))
-	ui.paragraph(body,"Leaving this board takes no cargo, pays no coins and does no recovery work. You may return to any unclaimed wreck later.",14)
+	ui.button(body,"Leave wrecks marked · return to coast",func():leave(ui),false,false)
+	ui.paragraph(body,"Closing takes nothing and does no recovery work. Captured boats are already yours and remain in your roster.",14)
 	var prizes: Array=captured_prizes(c)
 	if not prizes.is_empty():
 		ui.rule(body)
-		ui.label(body,"Captured prize cargo",24,ui.GOLD,true)
-		ui.paragraph(body,"These goods remain aboard your actual captured boats. Transfer only what your traveling holds can carry; any remainder stays on the prize. Moving cargo does not repair its hull or equipment.",15)
-	for prize in prizes:
-		var uid: String=str(prize.uid)
-		ui.label(body,str(prize.get("name",prize.get("spec",{}).get("name","Captured boat"))),20,ui.TEAL)
-		for key in prize.convoyCargo:
-			var good: String=str(key)
-			var qty: float=float(prize.convoyCargo[good])
-			if qty<=0 or not c.Goods.ITEMS.has(good):continue
-			var line=ui.row(body)
-			ui.label(line,"%s · %.2f aboard prize"%[c.Goods.ITEMS[good].name,qty],15).size_flags_horizontal=Control.SIZE_EXPAND_FILL
-			var fits: float=minf(qty,maxf(0,c.capacity()-c.cargo_weight())/float(c.Goods.ITEMS[good].weight))
-			ui.button(line,"Take 1",func():take_cargo(ui,uid,good,minf(1,qty),focus_id,encounter_ids)).disabled=fits+0.000001<minf(1,qty)
-			ui.button(line,"Take what fits",func():take_cargo(ui,uid,good,fits,focus_id,encounter_ids)).disabled=fits<=0
-	var count: int=0
+		ui.label(body,"Already-owned prizes",23,ui.GOLD,true)
+	for boat in prizes:
+		var uid: String=str(boat.uid)
+		var row=ui.row(body)
+		ui.paragraph(row,"%s · %s"%[str(boat.get("name","Captured boat")),_boat_summary(boat)],15,ui.TEAL)
+		ui.button(row,"Inspect prize",func():owned_prize(ui,uid,focus_id,encounter_ids),false,false)
+	var wrecks: Array=[]
+	var focused: Dictionary={}
 	for raw in c.state.get("wrecks",[]):
-		if raw.status!="unclaimed":continue
-		if not focus_id.is_empty() and raw.id!=focus_id:continue
-		if not encounter_ids.is_empty() and not str(raw.id) in encounter_ids:continue
-		var w: Dictionary=raw.duplicate(true)
-		count+=1
-		ui.rule(body)
-		ui.label(body,w.name,24,ui.GOLD,true)
-		ui.paragraph(body,"%s · %.0f water units away · recorded day%.1f"%["Friendly loss" if w.get("friendly",false) else "Marked find",c.distance(c.state.position,w),float(w.get("day",0))],14,ui.TEAL)
-		var here: bool=c.distance(c.state.position,w)<=180
-		var idle: bool=c.state.path.is_empty() and c.state.exploration.assignment.is_empty()
-		var hazard: Dictionary=c.fleet_owner(str(c.state.get("wreckHazards",{}).get(w.sourceId,"")))
-		var controlled: bool=hazard.is_empty() or not hazard.active or not hazard.boats.any(func(b):return not b.sunk)
-		if not controlled:ui.paragraph(body,"Hostiles still control these waters. The wreck stays marked; secure the field before recovering it.",15,ui.RED)
-		if here and not c.state.path.is_empty():ui.button(body,"Idle engines for recovery",func():c.stop_sailing();open(ui,w.id,encounter_ids))
-		if not c.state.exploration.assignment.is_empty():ui.paragraph(body,"Recall the shore party before starting recovery work.",14,ui.RED)
-		ui.button(body,"Chart the wreck location",func():ui.host.respond(c.chart_course(w));ui.close_modal()).disabled=not c.state.exploration.assignment.is_empty()
-		var ready: bool=here and idle and controlled
-		var strip_ready: bool=ready and c.Exploration.spare_crew(c.state)>=1
-		if ready and not strip_ready:ui.paragraph(body,"Stripping needs one spare able sailor above the boat minimums.",14,ui.RED)
-		if w.has("sourceModuleCondition") and w.sourceModuleCondition is Dictionary:
-			var parts: Array=[]
-			for item in w.sourceModuleCondition.get("items",{}).values():
-				parts.append("%s %.0f%%"%[str(item.get("typeId","Part")).replace("_"," "),float(item.get("hp",0))*100])
-			ui.paragraph(body,"Recorded equipment: "+", ".join(parts)+". A tow preserves this condition; it does not repair modules.",14,ui.GOLD)
-		var items: Dictionary=c.Salvage._strip_items(w)
-		for key in items:
-			var good: String=str(key)
-			var qty: float=float(items[good])
-			var line=ui.row(body)
-			ui.label(line,"%s · %.2f"%[c.Goods.ITEMS[good].name,qty],15).size_flags_horizontal=Control.SIZE_EXPAND_FILL
-			if not EquipmentRecovery.is_store_good(good) and float(w.components.get(good,0))>0:
-				ui.paragraph(body,"%s: first %.2f is loose cargo; taking more strips structural material and forfeits the tow."%[c.Goods.ITEMS[good].name,float(w.stores.get(good,0))],13,ui.RED)
-			ui.button(line,"Recover 1",func():recover(ui,w.id,"strip",good,minf(1,qty),encounter_ids)).disabled=not strip_ready
-			var fits: float=minf(qty,maxf(0,c.capacity()-c.cargo_weight())/float(c.Goods.ITEMS[good].weight))
-			ui.button(line,"Take what fits",func():recover(ui,w.id,"strip",good,fits,encounter_ids)).disabled=not strip_ready or fits<=0
-		var q: Dictionary=c.Salvage.quote(c,w.id,"strip")
-		ui.paragraph(body,str(q.message),14)
-		ui.button(body,"Strip all · %.1f space · hull permanently forfeited"%float(q.get("weight",0)),func():recover(ui,w.id,"strip","",0,encounter_ids)).disabled=not strip_ready or not q.ok
-		q=c.Salvage.quote(c,w.id,"tow")
-		ui.paragraph(body,q.message,14)
-		ui.paragraph(body,"A tow pays tug labor and inspection. The hull returns damaged, uncrewed and empty; loose lots remaining aboard are forfeited. Take any wanted stores first. Paid harbor repair, crew and fresh working stores are still needed.",14)
-		ui.button(body,"Tow hull · %s coins + later repairs"%ui.money(q.get("total",0)),func():recover(ui,w.id,"tow","",0,encounter_ids),true).disabled=not ready or not q.ok
-	if count==0:ui.paragraph(body,"No unclaimed wrecks charted. Battles and surveyed salvage sites can reveal individual hulls and stores.",17)
+		if str(raw.get("status",""))!="unclaimed":continue
+		if not encounter_ids.is_empty() and str(raw.get("id","")) not in encounter_ids:continue
+		wrecks.append(raw)
+		if str(raw.get("id",""))==focus_id:focused=raw
+	if focused.is_empty() and focus_id.is_empty():
+		for w in wrecks:
+			if c.distance(c.state.position,w)<=180:focused=w;break
+	if not encounter_ids.is_empty():ui.paragraph(body,"Only this encounter's wrecks are listed. Escaped boats keep their cargo.",14,ui.TEAL)
+	# Only this single focused wreck can stage custody, route or service quotes.
+	if not focused.is_empty():_focused(ui,body,focused,encounter_ids)
 	ui.rule(body)
-	if not focus_id.is_empty() or not encounter_ids.is_empty():ui.button(body,"All marked wrecks",func():open(ui))
-	ui.button(body,"Recovered drawings",func():blueprints(ui))
+	ui.label(body,"Marked wrecks · %d"%wrecks.size(),23,ui.GOLD,true)
+	for w in wrecks:
+		var id: String=str(w.id)
+		var row=ui.row(body)
+		ui.paragraph(row,"%s · %.0f water units · %s"%[str(w.get("name","Wreck")),c.distance(c.state.position,w),"hull forfeited; finite lots remain" if w.get("hullStripped",false) else "unclaimed"],15)
+		ui.button(row,"Inspected" if id==str(focused.get("id","")) else "Inspect",func():open(ui,id,encounter_ids),false,false)
+	if wrecks.is_empty():ui.paragraph(body,"No unclaimed wrecks in this view. Battles and surveyed salvage sites can reveal individual hulls and stores.",16)
+	if not focus_id.is_empty() or not encounter_ids.is_empty():ui.button(body,"All marked wrecks",func():open(ui),false,false)
+	ui.button(body,"Recovered drawings",func():blueprints(ui),false,false)
+
+static func _boat_summary(boat: Dictionary) -> String:
+	return "hull %.0f / %.0f · crew %d / %d minimum · %s"%[float(boat.get("hp",0)),float(boat.get("maxHp",0)),int(boat.get("crew",0)),int(boat.get("crewMin",0)),"support only; paid repair needed" if boat.get("supportOnly",false) or boat.get("needsHarborRepair",false) else "crewed roster hull"]
+
+static func _lots(c,lots: Dictionary) -> String:
+	var parts: Array=[]
+	for good in lots:
+		if float(lots[good])>0:parts.append("%.2f %s"%[float(lots[good]),str(c.Goods.ITEMS.get(good,{"name":good}).name)])
+	return ", ".join(parts) if not parts.is_empty() else "none"
+
+static func _place(item: Dictionary) -> String:
+	var location: String=str(item.get("location",""))
+	if location.begins_with("mount"):return "weapon mount %d"%(location.trim_prefix("mount").to_int()+1)
+	return "locker" if location=="locker" else location.capitalize()
+
+static func _part_text(item: Dictionary) -> String:
+	return "%s · %s · %.0f%% condition%s"%[Decisions.part_name(item),_place(item),float(item.get("hp",0))*100," · disabled" if str(item.get("status",""))=="disabled" else ""]
+
+static func _parts(ui,body,items: Array,empty_text: String="No readable physical equipment snapshot is recorded.") -> void:
+	for item in items:
+		var line=ui.paragraph(body,_part_text(item),14,ui.TEAL)
+		line.tooltip_text="Physical part: %s\nOrigin: %s\nCause: %s"%[str(item.get("itemUid","")),str(ui.host.core.hull(str(item.get("originHullType",""))).get("name",item.get("originHullType",""))),str(item.get("cause",""))]
+	if items.is_empty():ui.paragraph(body,empty_text,14)
+
+static func _allowance(ui,body,r: Dictionary,before: Dictionary={}) -> void:
+	if r.is_empty():return
+	if not r.get("routeOk",false):
+		ui.paragraph(body,"No navigable, legal return harbor is quoted for this choice. No safe return is promised.",15,ui.RED)
+		return
+	var speed: String="%.1f"%float(r.get("routeSpeed",0))
+	if not before.is_empty():speed="%.1f → %.1f"%[float(before.get("routeSpeed",0)),float(r.get("routeSpeed",0))]
+	ui.paragraph(body,"Return to %s · %.2f sailing days after %.2f work days · speed %s water units/s."%[str(r.returnPortName),float(r.returnDays),float(r.get("workDays",0)),speed],15,ui.GOLD)
+	ui.paragraph(body,"Work + return + 2 reserve days: %d payroll days / %s coins, plus %s existing arrears. Food %.2f bales (short %.2f); loaded fuel %.2f drums (short %.2f)."%[int(r.payrollDays),ui.money(r.returnWages),ui.money(r.wageArrears),float(r.foodRequired),float(r.foodShortfall),float(r.fuelRequired),float(r.fuelShortfall)],14)
+	if int(r.get("pendingPayrollDays",0))>0:ui.paragraph(body,"This includes %d unsettled earlier payroll days; they do not add more sailing time."%int(r.pendingPayrollDays),14)
+	ui.paragraph(body,"Hold after choice %.1f / %.1f; allowance overfill %.1f. %s These conservative allowances are not extra fees; encounters and later purchases can change them."%[float(r.cargoWeight),float(r.usableCapacity),float(r.allowanceOverload),"Reserves covered." if r.readyForAllowance else "Limit: "+str(r.bottleneck)+"."],14,ui.TEAL if r.readyForAllowance else ui.RED)
+
+static func _service(ui,body,model: Dictionary) -> void:
+	if model.is_empty():return
+	var q: Dictionary=model.get("quote",{})
+	if q.get("ok",false):
+		ui.paragraph(body,"%s · today's installed hull/equipment service quote: %s coins (%.2f worker-days)."%[str(model.get("portName","Harbor")),ui.money(q.cost),float(q.workerDays)],15,ui.GOLD)
+	for message in model.get("blockers",[]):ui.paragraph(body,str(message),14,ui.RED)
+	ui.paragraph(body,"Service stock, workers and prices can change before arrival. Hire crew and buy operating stores separately. Locker spares retain their damage; fitting, compatibility and paid repair still apply.",14)
+
+static func _focused(ui,body,w: Dictionary,encounter_ids: Array) -> void:
+	var c=ui.host.core
+	var id: String=str(w.id)
+	ui.rule(body)
+	ui.label(body,str(w.get("name","Wreck")),27,ui.GOLD,true)
+	ui.paragraph(body,"%s · recorded day %.1f · %.0f water units away"%["Friendly loss" if w.get("friendly",false) else "Marked find",float(w.get("day",0)),c.distance(c.state.position,w)],14,ui.TEAL)
+	var model: Dictionary=Decisions.compare(c,id,"tow")
+	var q: Dictionary=model.get("quote",{})
+	ui.button(body,"Chart wreck location",func():ui.host.respond(c.chart_course(w));ui.close_modal()).disabled=not c.state.get("exploration",{}).get("assignment",{}).is_empty()
+	if c.distance(c.state.position,w)<=180 and not c.state.path.is_empty():ui.button(body,"Idle engines for recovery",func():c.stop_sailing();open(ui,id,encounter_ids))
+	ui.paragraph(body,"Real fitted parts · towing preserves their recorded damage.",15,ui.GOLD)
+	_parts(ui,body,model.get("equipment",Decisions.equipment(w)))
+	ui.button(body,"Choose real parts and destination locker",func():gear(ui,id,[],"",encounter_ids),false,false).disabled=not EquipmentRecovery.is_active(w) or bool(w.get("hullStripped",false))
+	ui.label(body,"Finite stores and material",21,ui.GOLD,true)
+	var lots: Dictionary=c.Salvage._strip_items(w)
+	var free_hold: float=maxf(0,c.capacity()-c.cargo_weight())
+	for good_key in lots:
+		var good: String=str(good_key)
+		var qty: float=float(lots[good])
+		var row=ui.row(body)
+		ui.paragraph(row,"%s · %.2f available (%.2f loose)"%[str(c.Goods.ITEMS[good].name),qty,float(w.get("stores",{}).get(good,0))],14)
+		var fits: float=minf(qty,free_hold/float(c.Goods.ITEMS[good].weight))
+		ui.button(row,"Review 1",func():store_choice(ui,id,good,minf(1,qty),encounter_ids),false,false)
+		ui.button(row,"Review what fits",func():store_choice(ui,id,good,fits,encounter_ids),false,false).disabled=fits<=0
+	if lots.is_empty():ui.paragraph(body,"No loose stores or component lots remain.",14)
+	ui.label(body,"Preserve the damaged hull",21,ui.GOLD,true)
+	ui.paragraph(body,str(q.get("message",model.get("message","Tow quote unavailable."))),15,ui.TEAL if q.get("ok",false) else ui.RED)
+	if q.has("recoveredHp"):
+		ui.paragraph(body,"Hull %.0f / %.0f after recovery · tug/inspection fee %s coins · %.2f crew work days."%[float(q.recoveredHp),float(q.fittedMaxHp),ui.money(q.get("total",0)),float(q.get("workDays",maxf(1,float(q.get("ordinary",100))/200.0)))],15,ui.GOLD)
+	ui.paragraph(body,"A tow leaves it uncrewed, empty and needing paid harbor service. Take wanted stores first; ALL remaining loose stores are forfeited by the tow. The hull-only repair liability is an estimate, not the equipment restoration bill.",14)
+	if q.get("repairLiability",{}) is Dictionary and not q.get("repairLiability",{}).is_empty():ui.paragraph(body,"Hull-only estimate: %.1f missing HP / %.2f repair kits. Actual installed-equipment service is priced separately below."%[float(q.repairLiability.get("missingHp",0)),float(q.repairLiability.get("supplies",0))],14)
+	_allowance(ui,body,model.get("after",{}),model.get("before",{}))
+	_service(ui,body,model.get("service",{}))
+	ui.button(body,"Pay %s coins · tow damaged hull"%ui.money(q.get("total",0)),func():recover(ui,id,"tow","",0,encounter_ids),true,false).disabled=not model.get("ok",false)
+
+static func store_choice(ui,id: String,good: String,qty: float,encounter_ids: Array=[]) -> void:
+	if ui.host.mode!="campaign":return
+	var body=_board(ui,"Take a finite lot","SELECTED STORES · CREW WORK · HOLD SPACE",1000,780)
+	var c=ui.host.core
+	var model: Dictionary=Decisions.compare(c,id,"strip",good,qty)
+	var w: Dictionary=model.get("wreck",{})
+	var q: Dictionary=model.get("quote",{})
+	var amount: float=float(q.get("quantity",qty))
+	ui.label(body,"%.2f %s"%[amount,str(c.Goods.ITEMS.get(good,{"name":good}).name)],26,ui.GOLD,true)
+	var structural: bool=amount>float(w.get("stores",{}).get(good,0))+0.000001
+	ui.paragraph(body,"This takes structural material: the hull and all its physical equipment become permanently unrecoverable. Remaining finite component lots can still be stripped." if structural else "Only loose stores are selected. Hull and physical equipment stay aboard the marked wreck.",16,ui.RED if structural else ui.TEAL)
+	if structural:_parts(ui,body,model.get("equipment",[]))
+	ui.paragraph(body,str(q.get("message",model.get("message","Quote unavailable."))),15,ui.TEAL if q.get("ok",false) else ui.RED)
+	_allowance(ui,body,model.get("after",{}),model.get("before",{}))
+	ui.button(body,"Recover %.2f %s%s"%[amount,str(c.Goods.ITEMS.get(good,{"name":good}).name)," · forfeit hull and equipment" if structural else ""],func():recover(ui,id,"strip",good,amount,encounter_ids),true,false).disabled=not model.get("ok",false)
+	ui.button(body,"Decline · take nothing",func():open(ui,id,encounter_ids),false,false)
+
+## No part or destination is selected by default. Only the final button accepts
+## the explicitly listed irreversible loss, then Main revalidates everything.
+static func gear(ui,id: String,selected: Array=[],carrier_uid: String="",encounter_ids: Array=[]) -> void:
+	if ui.host.mode!="campaign":return
+	var body=_board(ui,"Recover selected real parts","IRREVERSIBLE DISMANTLING · EXISTING BOAT LOCKER")
+	var c=ui.host.core
+	var w: Dictionary={}
+	for candidate in c.state.get("wrecks",[]):
+		if str(candidate.get("id",""))==id:w=candidate;break
+	var items: Array=Decisions.equipment(w)
+	ui.paragraph(body,"Choose each physical part and an existing working boat. Nothing is selected automatically. Integral pumps stay with the lost hull.",16)
+	for item in items:
+		var uid: String=str(item.get("itemUid",""))
+		var next: Array=selected.duplicate()
+		if uid in next:next.erase(uid)
+		else:next.append(uid)
+		var control=ui.button(body,_part_text(item),func():gear(ui,id,next,carrier_uid,encounter_ids),false,false)
+		control.toggle_mode=true
+		control.button_pressed=uid in selected
+		control.disabled=str(item.get("family",""))=="pumps"
+		control.tooltip_text="Physical part: %s\nOrigin: %s"%[uid,str(c.hull(str(item.get("originHullType",""))).get("name",item.get("originHullType","")))]
+	ui.label(body,"Destination · existing working hull",20,ui.GOLD,true)
+	var destination=OptionButton.new()
+	destination.custom_minimum_size.y=42
+	destination.add_item("Choose destination boat…")
+	destination.set_item_metadata(0,"")
+	var chosen: int=0
+	for boat in Decisions.carriers(c.state):
+		var index: int=destination.item_count
+		destination.add_item("%s · %.1f hold capacity"%[str(boat.get("name","Boat")),float(boat.get("spec",{}).get("cargo",0))])
+		destination.set_item_metadata(index,str(boat.uid))
+		if str(boat.uid)==carrier_uid:chosen=index
+	destination.select(chosen)
+	body.add_child(destination)
+	destination.item_selected.connect(func(index):gear(ui,id,selected,str(destination.get_item_metadata(index)),encounter_ids))
+	var request: Dictionary={"itemUids":selected.duplicate(),"carrierUid":carrier_uid}
+	var model: Dictionary={}
+	if not selected.is_empty() and not carrier_uid.is_empty():model=Decisions.compare(c,id,"gear","",0,request)
+	var q: Dictionary=model.get("quote",{})
+	ui.rule(body)
+	ui.label(body,"Irreversible loss · review before dismantling",22,ui.GOLD,true)
+	ui.paragraph(body,"Forfeit %s: the whole hull, EVERY unselected part including integral pumps, and ALL remaining structural component lots. No credit and no later tow or second equipment recovery. Loose stores stay finite on the marked wreck for separate collection."%str(w.get("name","this wreck")),16,ui.RED)
+	var kept: Array=[]
+	var lost: Array=[]
+	for item in items:
+		if str(item.get("itemUid","")) in selected:kept.append(item)
+		else:lost.append(item)
+	ui.paragraph(body,"Selected for the locker:",15,ui.GOLD)
+	_parts(ui,body,q.get("selected",kept),"None selected.")
+	ui.paragraph(body,"Lost equipment:",15,ui.RED)
+	_parts(ui,body,q.get("forfeitedItems",lost),"No unselected parts.")
+	ui.paragraph(body,"Component lots lost without credit: "+_lots(c,q.get("forfeitedComponents",w.get("components",{}))),14,ui.RED)
+	ui.paragraph(body,"Loose stores left for separate collection: "+_lots(c,q.get("retainedStores",w.get("stores",{}))),14,ui.TEAL)
+	if q.has("weight"):
+		ui.paragraph(body,"Selected parts %.1f hold space · destination locker after %.1f / %.1f hull hold · fleet space before %.1f."%[float(q.weight),float(q.get("lockerWeight",0)),float(q.get("carrierCapacity",0)),float(q.get("freeCapacity",0))],15,ui.GOLD)
+	if q.has("workDays"):
+		ui.paragraph(body,"Actual work %.2f days · %d payroll boundaries · %s wages + %s arrears · %.2f food bales. No recovery fee; this is real crew work."%[float(q.workDays),int(q.get("payrollDays",0)),ui.money(q.get("wages",0)),ui.money(q.get("arrears",0)),float(q.get("food",0))],15)
+	ui.paragraph(body,str(q.get("message","Choose at least one part and a destination to obtain the real quote.")),15,ui.TEAL if q.get("ok",false) else ui.RED)
+	_allowance(ui,body,model.get("after",{}),model.get("before",{}))
+	ui.paragraph(body,"Recovery preserves each selected part's identity, damage and origin. It goes into the chosen locker, not a working mount. Foreign original fittings may refuse installation; ordinary paid refit and service remain required.",14)
+	ui.button(body,"Forfeit hull and listed parts · recover selection",func():_recover_gear(ui,id,selected,carrier_uid,encounter_ids),true,false).disabled=not model.get("ok",false)
+	ui.button(body,"Decline · keep wreck marked",func():open(ui,id,encounter_ids),false,false)
+
+static func _recover_gear(ui,id: String,selected: Array,carrier_uid: String,encounter_ids: Array) -> void:
+	var request: Dictionary={"itemUids":selected.duplicate(),"carrierUid":carrier_uid,"acceptForfeiture":true}
+	recover(ui,id,"gear","",0,encounter_ids,request)
+
+static func owned_prize(ui,uid: String,focus_id: String="",encounter_ids: Array=[]) -> void:
+	if ui.host.mode!="campaign":return
+	var body=_board(ui,"Already-owned prize","YOUR ROSTER · ACTUAL CONDITION · LATER PAID SERVICE")
+	var c=ui.host.core
+	var model: Dictionary=Decisions.prize(c,uid)
+	if not model.get("ok",false):
+		ui.paragraph(body,str(model.get("message","Prize unavailable.")),16,ui.RED)
+		ui.button(body,"Return to recovery",func():open(ui,focus_id,encounter_ids),false,false)
+		return
+	var boat: Dictionary=model.boat
+	ui.label(body,str(boat.get("name","Captured boat")),26,ui.GOLD,true)
+	ui.paragraph(body,"Already owned · "+_boat_summary(boat),16,ui.TEAL)
+	ui.paragraph(body,"An empty cargo hold does not remove this boat from your roster. Closing or leaving wrecks marked keeps this prize and all its fittings.",15)
+	_parts(ui,body,model.equipment)
+	ui.label(body,"Actual prize cargo",21,ui.GOLD,true)
+	ui.paragraph(body,_lots(c,boat.get("convoyCargo",{})),15)
+	var free_hold: float=maxf(0,c.capacity()-c.cargo_weight())
+	for good_key in boat.get("convoyCargo",{}):
+		var good: String=str(good_key)
+		var qty: float=float(boat.convoyCargo[good])
+		if qty<=0 or not c.Goods.ITEMS.has(good):continue
+		var fits: float=minf(qty,free_hold/float(c.Goods.ITEMS[good].weight))
+		ui.button(body,"Take what fits · %.2f %s"%[fits,str(c.Goods.ITEMS[good].name)],func():ui.host.take_prize_cargo(uid,good,fits);owned_prize(ui,uid,focus_id,encounter_ids)).disabled=fits<=0
+	_allowance(ui,body,model.get("return",{}))
+	_service(ui,body,model.get("service",{}))
+	ui.button(body,"Inspect normal equipment and service",func():ui.open_equipment(uid),false,false)
+	ui.button(body,"Keep prize · return to recovery",func():open(ui,focus_id,encounter_ids),false,false)
 
 static func captured_prizes(c) -> Array:
-	var prizes: Array=[]
-	for boat in c.state.get("fleet",[])+c.state.get("boardingPrizes",[]):
-		if boat.get("sunk",false):continue
-		for good in boat.get("convoyCargo",{}):
-			if c.Goods.ITEMS.has(good) and float(boat.convoyCargo[good])>0:
-				prizes.append(boat)
-				break
-	return prizes
+	return Decisions.captured_prizes(c.state)
 
 static func take_cargo(ui,uid: String,good: String,qty: float,focus_id: String="",encounter_ids: Array=[]) -> void:
 	ui.host.take_prize_cargo(uid,good,qty)
@@ -97,9 +254,9 @@ static func take_cargo(ui,uid: String,good: String,qty: float,focus_id: String="
 static func leave(ui) -> void:
 	ui.close_modal()
 
-static func recover(ui,id: String,mode: String,good: String="",qty: float=0.0,encounter_ids: Array=[]) -> void:
-	ui.host.recover_wreck(id,mode,good,qty)
-	open(ui,"",encounter_ids)
+static func recover(ui,id: String,mode: String,good: String="",qty: float=0.0,encounter_ids: Array=[],request: Dictionary={}) -> void:
+	ui.host.recover_wreck(id,mode,good,qty,request)
+	open(ui,id,encounter_ids)
 
 static func outcome(ui,result: String,report: Dictionary) -> void:
 	ui.modal_kind="outcome"
@@ -125,7 +282,7 @@ static func outcome(ui,result: String,report: Dictionary) -> void:
 		ui.button(body,"Return and choose recovery · %d marked wrecks"%ids.size(),ui.host.open_battle_recovery,true).disabled=ui.host.core.active_fleet().is_empty()
 	var prizes: Array=captured_prizes(ui.host.core)
 	if not prizes.is_empty():
-		ui.button(body,"Review captured cargo",ui.host.open_battle_recovery,ids.is_empty()).disabled=ui.host.core.active_fleet().is_empty()
+		ui.button(body,"Review already-owned prizes",ui.host.open_battle_recovery,ids.is_empty()).disabled=ui.host.core.active_fleet().is_empty()
 	if report.get("fleetLost",false):
 		ui.paragraph(body,"No crewed fleet remains. Harbor rescue uses an actual treasury loan. Marked wrecks remain for a later return.",16,ui.RED)
 		ui.button(body,"Accept harbor rescue",ui.host.accept_rescue,true)

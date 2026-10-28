@@ -1,0 +1,93 @@
+058 B - DECISION COMPARISON + PLAYER BOARD - SOURCE READY / ROOT VALIDATION PENDING
+Base: verified057 e1102835f4fc04f8a0b1d77979bf0fc617ae9894.
+Owned: game/scripts/recovery_ui.gd, game/scripts/recovery_decisions.gd,
+tools/quality058/DECISIONS058 SOURCE.txt only.
+No nested helper, engine, parser, import/export, test, GPU or CUA work.
+
+EARLY ACTUAL DEPENDENCIES
+A's TRANSACTION058 SOURCE.txt was absent at the first reads, then read fully
+when published. B consumes mode="gear", request.itemUids/carrierUid and explicit
+acceptForfeiture, through core.recovery_quote and Main.recover_wreck. No guessed
+transaction API. Existing source allows pure detached comparison using
+RouteCache.path, Expedition.report, EquipmentTow.stage/Lifecycle.materialize and
+EquipmentService.service_quote/workforce_status. EquipmentService.service_quote
+prices service but does NOT itself enforce stock/workforce availability: its
+normal repair entry checks those separately. The UI must retain those blockers
+and label repairLiability only as an estimate.
+
+IMPLEMENTED ADAPTER API (source only; not executed)
+const D=preload("res://scripts/recovery_decisions.gd")
+D.captured_prizes(state: Dictionary) -> Array: unsunk captureSecured boats in
+fleet + boardingPrizes, unique nonempty uid, including empty convoyCargo.
+D.equipment(owner: Dictionary) -> Array: detached actual item records sorted
+by location/UID, from sourceModuleCondition or moduleCondition.
+D.carriers(state: Dictionary) -> Array: cheap existing working roster candidates;
+A's quote remains authoritative, no carrier is silently chosen.
+D.compare(c,wreck_id,mode="tow",good="",qty=0.0,request={},return_port_id="")
+-> {ok,message,wreck,quote,before,after,service,equipment}.
+quote is the exact Campaign.recovery_quote result. before/after are real
+RouteCache + Expedition projections with routeOk,returnPortId,returnPortName,
+path,workDays,routeSpeed,returnDays,payrollDays,returnWages,foodRequired,
+foodShortfall,fuelRequired,fuelShortfall,allowanceOverload,readyForAllowance.
+Costs are conservative WORK + return + TWO reserve days, rounded payroll at the
+original day; they are not a second charge. After is empty if action is refused.
+Earlier pending_days are included in payroll/provisions as pendingPayrollDays;
+they do not extend returnDays or workDays. accountingDays includes that liability,
+while tripDays is only future work + return + reserve. Clone identity follows
+EquipmentCampaign._clone_boats, preserving real same-boat roster aliases.
+Existing specialist wage arrears are included through FleetSupport.premium.
+service={quote:actual EquipmentService quote,availableNow,blockers,portId,
+portName,projectionOnly:true}. It keeps real stock/workforce/claim/purse blockers;
+current stocks/workers can change during return, so this is no service guarantee.
+D.prize(c,uid,return_port_id="") -> {ok,boat,equipment,return,service}; owned
+captured hull inspection only, no unclaimed wreck/tow action.
+
+Only explicit focus calls compare/prize. Overview loops must not quote, route,
+stage equipment, inspect custody, price service or create Campaign/world/nav.
+One tiny DetachedView copies state and shares read-only existing data/nav.
+Navigation cache stays local. Baseline/after reuse that local route cache.
+Default focused wreck is first nearby; other history rows use Inspect.
+No perframe preview, live state swap, offers, transactions or custody publication.
+Board rendering will list captureSecured boats by stable uid even when cargo
+is empty. Closing preserves owned prizes.
+Root owns native verification and visual acceptance after named integration.
+
+IMPLEMENTED UI / TEST ENTRY API (source only; not executed)
+RecoveryUI.open(ui,focus_id="",encounter_ids=[]) retains modal_kind="recovery".
+It defaults only the FIRST nearby wreck to focus. The wreck/history roster and
+prize roster are cheap summaries + Inspect buttons; compare runs exactly once
+for that focus, never per wreck row. No first-nearby means no implicit compare.
+RecoveryUI.captured_prizes(c) -> Decisions.captured_prizes(c.state), including
+empty captureSecured boats, de-duplicated by UID.
+RecoveryUI.owned_prize(ui,uid,focus_id="",encounter_ids=[]): inspect one already
+owned boat, HP/crew/support status, actual fitted condition and cargo, current
+service blockers at its named legal return. Close keeps it in the roster.
+RecoveryUI.store_choice(ui,id,good,qty,encounter_ids=[]): review one finite
+quantity, actual work/return and structural sacrifice if quantity exceeds loose
+stores, then Recover or Decline. No transaction before the final action.
+RecoveryUI.gear(ui,id,selected=[],carrier_uid="",encounter_ids=[]): nothing
+preselected. Toggle actual source UIDs, choose explicit working hull, get exact
+A quote only when both selection/destination exist. All selected/lost parts,
+all lost components and retained loose stores are displayed before the final
+"Forfeit hull and listed parts" action. This alone stamps acceptForfeiture=true.
+Its button disables Interface's automatic pre-action economy sync: A's gear
+Flow intentionally stages pending payroll privately so refusal stays a no-op.
+All pure preview/decline/leave buttons disable Interface's automatic sync.
+Interface.modal also captures sync for its header X from modal_kind. _board
+uses its existing read-only voyage_review close policy during construction and
+then restores public modal_kind="recovery". Thus X also leaves pending payroll
+alone. This is a UI policy reuse only; no Interface file or live state is edited.
+RecoveryUI.recover(ui,id,mode,good="",qty=0.0,encounter_ids=[],request={}) keeps
+all old arguments and appends request, forwarding to Main exactly as A specifies.
+RecoveryUI.leave(ui) closes only; take_cargo/outcome/blueprints remain supported.
+Normal UI uses catalogue/boat/harbor names, mount labels and condition. Exact
+part UIDs, original hull names and causes are available in equipment tooltips.
+
+Source review: read actual RouteCache/Navigation/Expedition, EquipmentTow,
+Lifecycle.materialize, EquipmentService full quote/repair constraints, Refits
+catalog/effective_spec, Campaign work/carrying and Interface controls. No engine,
+test, parser/advisory/import/export, CUA/input/focus, package or metadata work.
+git diff --check is a whitespace check only, NOT native parsing or validation.
+After A integration Root/C must verify quote/no-op semantics, native types and
+UI interactions; Root captures at most 3 changed recovery views + title/home.
+Broad coast art, strict051 and whole-game targets remain OPEN062.
