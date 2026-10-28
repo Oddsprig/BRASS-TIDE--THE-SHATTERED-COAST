@@ -90,3 +90,28 @@ proof file allowlist.
 Commit provenance: named commit 'Prepare bounded 052 fleet logistics proofs'.
 Exact SHA is returned in the final/meeting handoff; git log -1 --format=%H on
 this isolated proof branch identifies it. No peer commits pulled/cherry-picked.
+
+SOURCE FOLLOWUP - ONE SEEDED UNIT BASELINE (27 October 2026)
+Root's R1 native import passed in 18.047s. The expedition process reached its
+12s fixture cap with only the engine banner; whole batch 40.266s, cleanup true.
+That timeout is preserved, not reported as a game assertion failure. Receipt:
+C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/b2b496ca516a4df3a575516e891d75a2/attempt-001/expedition/native.log
+
+test_expedition now constructs one Campaign/navigation and calls new_game(83)
+once. It explicitly checks normal publish_career validation succeeded, then
+deep-copies the published state BEFORE legacy mutations. Each later synthetic
+case group receives a separate baseline.duplicate(true); events are cleared.
+No restore/import path is skipped for an external save: these are copies of
+the same internally validated, freshly published career used by the old cases.
+The tested calls do not step the campaign or queue private work. The legacy
+overweight chart_course returns before Manifest/Routes/path work. add_boat,
+travel_speed and report read current state; no retained private state alias is
+used by this path. Navigation and the unchanged seeded route cache stay on the
+same Campaign. No synthetic state is saved or passed as a career purchase.
+
+All previous assertions remain; only the repeated world setup is removed.
+Three small print markers precede initial seeding/legacy, preparation, and
+ownership/deployment so Root can localize a future timeout. The actual Main
+paid-purchase fixture is untouched and still creates its separate real career.
+Root keeps expedition at 12s and whole selected batch below 120s. This followup
+is source-only, manually reviewed; no engine/test/advisory/helper was run here.

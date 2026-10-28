@@ -11,8 +11,15 @@ func check(ok: bool,message: String):
 
 func _initialize():
 	var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+	print("expedition stage 1/3: seed baseline and legacy checks")
 	var c=C.new(data)
-	c.new_game(83)
+	var seeded: Dictionary=c.new_game(83)
+	check(bool(seeded.get("ok",false)),"Seeded campaign passes its normal career publication validation")
+	if not bool(seeded.get("ok",false)):
+		quit(1)
+		return
+	# Snapshot the published career before any legacy or synthetic mutations.
+	var baseline: Dictionary=c.state.duplicate(true)
 	var before: String=JSON.stringify(c.state)
 	var r: Dictionary=E.report(c.state,data,1000)
 	check(before==JSON.stringify(c.state),"Report does not mutate the voyage")
@@ -45,13 +52,20 @@ func _initialize():
 	r=E.report(c.state,data)
 	for key in ["usableCapacity","cargoWeight","freeCapacity","overload","fuelDays","foodDays","repairKits","affordableDays","tripDays"]:check(is_finite(float(r[key])) and float(r[key])>=0,"Finite nonnegative "+key)
 	check(not r.warnings.is_empty() and r.fuelDays==0,"Empty fleet has explicit warnings and no false infinite range")
-	_preparation052(data)
+	# These synchronous cases never step the campaign or start private work.
+	# Reuse immutable navigation; replace all mutable voyage data with deep copies.
+	print("expedition stage 2/3: detached preparation checks")
+	c.state=baseline.duplicate(true)
+	c.events.clear()
+	_preparation052(c)
+	print("expedition stage 3/3: detached ownership/deployment checks")
+	c.state=baseline.duplicate(true)
+	c.events.clear()
+	_owned_deployment052(c)
 	print("expedition: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
 
-func _preparation052(data: Dictionary) -> void:
-	var c=C.new(data)
-	c.new_game(83)
+func _preparation052(c) -> void:
 	var b: Dictionary=c.state.fleet[0]
 	var untowed_speed: float=c.travel_speed()
 	# These unseeded shells isolate accounting rules; the separate Main fixture
@@ -59,7 +73,7 @@ func _preparation052(data: Dictionary) -> void:
 	var idle: Dictionary=c.add_boat(c.hull(b.type),4)
 	idle.mothballed=true
 	var stored: Dictionary=c.add_boat(c.hull(b.type),6)
-	stored.storedPort=data.START.port
+	stored.storedPort=c.data.START.port
 	var short_crew: Dictionary=c.add_boat(c.hull(b.type),int(b.crewMin)-1)
 	short_crew.mothballed=false
 	var wreck: Dictionary=c.add_boat(c.hull(b.type),7)
@@ -78,7 +92,6 @@ func _preparation052(data: Dictionary) -> void:
 	check(is_equal_approx(r.tripDays,expected_days) and r.returnWages==ceili(expected_days*r.dailyWages),"Real towing speed controls the whole return allowance without a guessed speed clamp")
 	check(actual_speed<untowed_speed,"Inactive hulls impose a real towing burden")
 	_preparation_fields052(c,r,owned_crew,actual_speed)
-	_owned_deployment052(data)
 
 func _preparation_fields052(c,r: Dictionary,owned_crew: int,actual_speed: float) -> void:
 	check(is_equal_approx(r.routeSpeed,actual_speed) and is_equal_approx(r.routeDistance,18000.0),"Preparation publishes the actual route speed and full supplied distance")
@@ -123,9 +136,7 @@ func _preparation_fields052(c,r: Dictionary,owned_crew: int,actual_speed: float)
 	for key in ["routeSpeed","outwardDays","returnDays","tripDays","foodShortfall","fuelShortfall","wageShortfall"]:
 		check(is_finite(float(r[key])) and float(r[key])>=0,"No active fleet remains finite: "+key)
 
-func _owned_deployment052(data: Dictionary) -> void:
-	var c=C.new(data)
-	c.new_game(83)
+func _owned_deployment052(c) -> void:
 	# Synthetic ownership fixture only, separate from the paid progression case.
 	for i in range(5):c.add_boat(c.hull("iron_bastion"),14)
 	var before: String=JSON.stringify(c.state)
