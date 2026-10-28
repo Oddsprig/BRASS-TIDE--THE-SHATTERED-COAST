@@ -1,32 +1,35 @@
-BRASS TIDE — COASTAL-STORIES MAP (generated; v0.056)
+BRASS TIDE — COASTAL-STORIES MAP (generated; v0.057)
 
 Four original chains and actual survey/delivery/contact choices -> persistent branches, rights and finite funded opportunities.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/coastal_stories.gd: 17488 bytes; extends RefCounted
+game/scripts/coastal_stories.gd: 24020 bytes; extends RefCounted
   game/scripts/coastal_stories.gd:47 catalog()
   game/scripts/coastal_stories.gd:76 ensure()
-  game/scripts/coastal_stories.gd:180 available()
-  game/scripts/coastal_stories.gd:236 choose()
-  game/scripts/coastal_stories.gd:325 journal()
-  game/scripts/coastal_stories.gd:349 tick()
+  game/scripts/coastal_stories.gd:118 reconcile_knowledge()
+  game/scripts/coastal_stories.gd:146 earned_leads()
+  game/scripts/coastal_stories.gd:277 available()
+  game/scripts/coastal_stories.gd:333 choose()
+  game/scripts/coastal_stories.gd:425 journal()
+  game/scripts/coastal_stories.gd:457 tick()
   game/scripts/coastal_stories.gd:23 _is_num()
   game/scripts/coastal_stories.gd:27 _num()
   game/scripts/coastal_stories.gd:31 _load()
   game/scripts/coastal_stories.gd:53 _chain_def()
-  game/scripts/coastal_stories.gd:60 _stage_def()
-  game/scripts/coastal_stories.gd:67 _record()
-game/scripts/story_ops.gd: 4200 bytes; extends RefCounted
+game/scripts/story_ops.gd: 4391 bytes; extends RefCounted
   game/scripts/story_ops.gd:5 ensure()
-  game/scripts/story_ops.gd:15 start()
-  game/scripts/story_ops.gd:27 apply_pending()
-  game/scripts/story_ops.gd:34 choose()
-  game/scripts/story_ops.gd:59 refresh()
-  game/scripts/story_ops.gd:64 daily()
+  game/scripts/story_ops.gd:16 start()
+  game/scripts/story_ops.gd:29 apply_pending()
+  game/scripts/story_ops.gd:36 choose()
+  game/scripts/story_ops.gd:61 refresh()
+  game/scripts/story_ops.gd:66 daily()
 game/scripts/story_offers.gd: 2642 bytes; extends RefCounted
   game/scripts/story_offers.gd:5 available()
-game/scripts/story_ui.gd: 2498 bytes; extends RefCounted
+game/scripts/story_ui.gd: 6734 bytes; extends RefCounted
   game/scripts/story_ui.gd:3 open()
+  game/scripts/story_ui.gd:44 payoff()
+  game/scripts/story_ui.gd:75 recovery_stock()
+  game/scripts/story_ui.gd:82 recovery_ready()
 
 TESTS (game/tests/*.gd)
 test_coastal_stories, test_story_voyage

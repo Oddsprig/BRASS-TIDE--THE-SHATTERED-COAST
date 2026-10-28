@@ -1,13 +1,14 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.056 VERIFIED; packaging/install follows this checkpoint.
-Native0703cead/attempt001316/0+export3starts95.223s; actual2f22fb11/attempt002
-thirteen exported PNGs30.437s, all Root viewed. Actualattempt001 yielded to
-another workload and is preserved as interrupted, not passed. Whole quality
-and exact strict051targets stay OPEN062. Read task/CURRENT STATE.txt for the
-installed build/live jobs. Next057 finishes the existing Middle Sea Chart
-expedition, not a new story framework. Read NEXT057 audit in the056commission
-helper checkout. No057 metadata or implementation prepared at this checkpoint.
+Current candidate: v0.057 Middle Sea expedition, metadata prepared once.
+Installed verified game remains0569e9d625; preserve one launcher/two voyages/18MP3s.
+Three BridgeSolMAX handoffs integrated: chain8ef275+sharedsetup75f9eeb,
+preparation1edbe0e, voyagec852dc5. RootQA13129f0 adds3isolatedlayoutviews.
+Advisory0issues; native/actual acceptance pending. Two bounded batches: component
+preflight then actualpaidvoyage+Windowsbuild. Wholeeach<120s; exactsame-source
+component receipts may be retained with no game-source differences permitted.
+No058 breadth/051retuning. Whole-quality and strict051targets OPEN062.
+Read work/quality-v042-v061/CURRENT STATE.txt for exact live jobs and source.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;

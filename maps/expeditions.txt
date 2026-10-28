@@ -1,15 +1,15 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.056)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.057)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/expedition.gd: 11664 bytes; extends RefCounted
-  game/scripts/expedition.gd:11 traveling()
-  game/scripts/expedition.gd:14 capacity()
-  game/scripts/expedition.gd:19 cargo_weight()
-  game/scripts/expedition.gd:35 store_overflow()
-  game/scripts/expedition.gd:72 report()
-  game/scripts/expedition.gd:39 _fuel_per_day()
+game/scripts/expedition.gd: 20879 bytes; extends RefCounted
+  game/scripts/expedition.gd:13 traveling()
+  game/scripts/expedition.gd:16 capacity()
+  game/scripts/expedition.gd:21 cargo_weight()
+  game/scripts/expedition.gd:37 store_overflow()
+  game/scripts/expedition.gd:74 report()
+  game/scripts/expedition.gd:262 preview()
 game/scripts/hold_manifest.gd: 3689 bytes; extends RefCounted
   game/scripts/hold_manifest.gd:8 carriers()
   game/scripts/hold_manifest.gd:11 allocate()
@@ -19,13 +19,13 @@ game/scripts/economy_workers.gd: 1558 bytes; extends RefCounted
   game/scripts/economy_workers.gd:28 ready()
   game/scripts/economy_workers.gd:31 finish()
   game/scripts/economy_workers.gd:22 _work()
-game/scripts/campaign_ui.gd: 14456 bytes; extends RefCounted
-  game/scripts/campaign_ui.gd:5 expedition()
-  game/scripts/campaign_ui.gd:76 expedition_owned_support()
-  game/scripts/campaign_ui.gd:86 expedition_support_text()
-  game/scripts/campaign_ui.gd:92 expedition_yard_support()
-  game/scripts/campaign_ui.gd:117 expedition_yard_text()
-  game/scripts/campaign_ui.gd:124 notes()
+game/scripts/campaign_ui.gd: 17989 bytes; extends RefCounted
+  game/scripts/campaign_ui.gd:6 expedition()
+  game/scripts/campaign_ui.gd:105 expedition_comparison()
+  game/scripts/campaign_ui.gd:108 expedition_owned_support()
+  game/scripts/campaign_ui.gd:118 expedition_support_text()
+  game/scripts/campaign_ui.gd:124 expedition_yard_support()
+  game/scripts/campaign_ui.gd:149 expedition_yard_text()
 game/scripts/campaign_state_validation.gd: 21101 bytes; extends RefCounted
   game/scripts/campaign_state_validation.gd:5 number()
   game/scripts/campaign_state_validation.gd:8 validate()

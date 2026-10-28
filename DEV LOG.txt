@@ -1,3 +1,7 @@
+27OCT2026 - v0.057 THE MIDDLE SEA EXPEDITION
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.056 VERIFIED AND PACKAGED: 316/0 focused checks, selected batch 95.223s, TestBridge 0703cead0de7417580b11e76d2a20811. Source 1293ea29b72ec599fa526c25580d08d9418a9d42.
 
 27OCT2026 - v0.056 FACTION CHOICES AND REMEMBERED WORK

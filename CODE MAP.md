@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.056: Faction choices and remembered work. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: factions.gd, faction_ui.gd, politics.gd, main.gd:show_patrol_encounter, contacts.gd, voyage_jobs.gd, voyage_ui.gd, campaign.gd:settle_voyage_job.
+v0.057: The Middle Sea expedition. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: coastal_stories.gd, story_ops.gd, story_ui.gd, expedition.gd, campaign_ui.gd, voyage_jobs.gd, voyage_ui.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

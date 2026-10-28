@@ -1,11 +1,11 @@
-BRASS TIDE v0.056 - FACTION CHOICES AND REMEMBERED WORK
+BRASS TIDE v0.057 - THE MIDDLE SEA EXPEDITION
 27 October2026 |36 boat designs
 
 THIS VERSION
-- Review commission terms safely and accept their current political consequences explicitly.
-- Explain effective harbor access, paid conduct expiry and actual fleet hostility without contradictory labels.
-- Turn a remembered fulfilled promise into one compatible funded job from its named harbor contact.
-- Retain sponsor memory, real escrow, finite cargo and recruiting, and all previous boat art and campaign AI.
+- Follow Wren's accepted clue through earned bearings to the finite Shatter wreck field and an explained public or private claim.
+- Show useful earned leads, remaining recovery stock and concrete conditions after completing the existing expedition.
+- Prepare island shore work, named return travel and optional detours against real hands, food, kits, wages and individual boat fuel.
+- Pair the accepted expedition objective with an existing funded full survey while preserving escrow, contact recommendations and actual return settlement.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

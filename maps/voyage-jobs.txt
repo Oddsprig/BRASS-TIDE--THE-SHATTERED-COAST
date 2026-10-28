@@ -1,15 +1,15 @@
-BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.056)
+BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.057)
 
 Real sponsors/stock/crew/time -> funded freight/fuel/charters, finite wild catch, actual carriers/people and witnessed captain memory.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 38890 bytes; extends RefCounted
-  game/scripts/voyage_jobs.gd:97 ensure()
-  game/scripts/voyage_jobs.gd:146 pending_freight_weight()
-  game/scripts/voyage_jobs.gd:230 available()
-  game/scripts/voyage_jobs.gd:361 contact_opportunity()
-  game/scripts/voyage_jobs.gd:382 accept()
-  game/scripts/voyage_jobs.gd:469 finish()
+game/scripts/voyage_jobs.gd: 40685 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:98 ensure()
+  game/scripts/voyage_jobs.gd:147 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:228 survey_pairing()
+  game/scripts/voyage_jobs.gd:254 available()
+  game/scripts/voyage_jobs.gd:392 contact_opportunity()
+  game/scripts/voyage_jobs.gd:413 accept()
 game/scripts/civilian_work.gd: 8677 bytes; extends RefCounted
   game/scripts/civilian_work.gd:16 ensure()
   game/scripts/civilian_work.gd:21 site_id()
@@ -34,13 +34,13 @@ game/scripts/contacts.gd: 11662 bytes; extends RefCounted
   game/scripts/contacts.gd:179 record()
   game/scripts/contacts.gd:206 completed_work()
   game/scripts/contacts.gd:223 claim_work_opportunity()
-game/scripts/voyage_ui.gd: 11010 bytes; extends RefCounted
+game/scripts/voyage_ui.gd: 11763 bytes; extends RefCounted
   game/scripts/voyage_ui.gd:4 open()
-  game/scripts/voyage_ui.gd:60 settle()
-  game/scripts/voyage_ui.gd:65 contacts()
-  game/scripts/voyage_ui.gd:86 sponsor_reason()
-  game/scripts/voyage_ui.gd:95 carrier_picker()
-  game/scripts/voyage_ui.gd:117 fishing()
+  game/scripts/voyage_ui.gd:62 survey_terms()
+  game/scripts/voyage_ui.gd:68 settle()
+  game/scripts/voyage_ui.gd:73 contacts()
+  game/scripts/voyage_ui.gd:94 sponsor_reason()
+  game/scripts/voyage_ui.gd:103 carrier_picker()
 
 TESTS (game/tests/*.gd)
 test_civilian_work036, test_civilian_flow036; earlier test_voyage_jobs, test_voyage_flow
