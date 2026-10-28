@@ -1,9 +1,9 @@
-# Current step: v0.054 - Visible campaign boats and coastal landmarks
+# Current step: v0.055 - Local campaign intelligence and independent fleet purpose
 
-- Replace tiny campaign and title fleet glyphs with original recognizable boat artwork and real roster formations.
-- Show distinct hulls, actual fittings, headings and useful selection bounds at normal chart zoom.
-- Replace generic discovery and wreck glyphs with knowledge-aware nautical landmarks and improve harbor emphasis.
-- Give labels room around actual artwork while preserving chart navigation, coordinates, knowledge and cheap water.
+- Use local dated fleet sightings with bounded memory and staggered at-sea decisions.
+- Keep pursuit, escort and withdrawal tied to actual observations, stores and routes.
+- Resolve finite offscreen raids and patrol recovery with conserved cargo, ammunition and paid repair/replacement custody.
+- Show current contacts, old intelligence and witnessed outcomes with safe nearby hail actions.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

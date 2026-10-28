@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.054: Visible campaign boats and coastal landmarks. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: campaign_fleet_art054.gd, campaign_landmark_art054.gd, chart.gd, main.gd:click_chart.
+v0.055: Local campaign intelligence and independent fleet purpose. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: naval_orders.gd, naval_lifecycle.gd, naval_ai.gd, naval_combat.gd, naval_replacements.gd, naval_ui.gd, fleet_economy.gd, main.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

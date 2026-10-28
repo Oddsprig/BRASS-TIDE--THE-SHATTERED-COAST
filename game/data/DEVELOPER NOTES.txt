@@ -1,11 +1,11 @@
-BRASS TIDE v0.054 - VISIBLE CAMPAIGN BOATS AND COASTAL LANDMARKS
+BRASS TIDE v0.055 - LOCAL CAMPAIGN INTELLIGENCE AND INDEPENDENT FLEET PURPOSE
 27 October2026 |36 boat designs
 
 THIS VERSION
-- Replace tiny campaign and title fleet glyphs with original recognizable boat artwork and real roster formations.
-- Show distinct hulls, actual fittings, headings and useful selection bounds at normal chart zoom.
-- Replace generic discovery and wreck glyphs with knowledge-aware nautical landmarks and improve harbor emphasis.
-- Give labels room around actual artwork while preserving chart navigation, coordinates, knowledge and cheap water.
+- Use local dated fleet sightings with bounded memory and staggered at-sea decisions.
+- Keep pursuit, escort and withdrawal tied to actual observations, stores and routes.
+- Resolve finite offscreen raids and patrol recovery with conserved cargo, ammunition and paid repair/replacement custody.
+- Show current contacts, old intelligence and witnessed outcomes with safe nearby hail actions.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
