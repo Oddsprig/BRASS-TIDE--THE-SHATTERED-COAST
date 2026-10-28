@@ -1,10 +1,37 @@
 BRASS TIDE v0.063 - BOUNDED FLEET PERFORMANCE CORRECTION
+28 October 2026
 
-Two source changes reduce repeated allocations without changing boat counts,
-weapons, physical damage, command handling or simulation rates. Displayed
-tactical status stays detached; private equipment results are reused only within
-the same valid generation after all live checks.
+Two small changes remove duplicate tactical status copies and repeated private
+validation-result allocation. Nested display data stays detached. Current owner,
+engine and generation checks still run. No phase-lifetime or gameplay-rate change.
 
-Source reviewed; native correctness and rendered measurement pending.
-Installed game remains0.062 until delivery. Detailed task: work/quality-v063.
-No claimed performance gain, stable60FPS or whole-game quality acceptance yet.
+ACTUAL OBSERVED FULL-FLEET COMPARISON (v0.062 -> v0.063)
+42 light boats,300DP per side:
+  Worker per-step P95:38.807 ->37.816ms.
+  Snapshot median:14.606 ->13.8985ms;P95:16.959 ->16.988ms.
+  Frames within20ms:95.278% ->99.861%;maximum simulation lag150ms remains too high.
+16 mixed boats,300DP per side:
+  Worker per-step P95:20.187 ->19.487ms.
+  Snapshot median:7.497 ->7.314ms;P95:8.478 ->8.250ms.
+  Frames within20ms:93.889% ->99.444%;maximum simulation lag50ms.
+These short historical/current runs show modest observed gains. They do not
+isolate causality or guarantee performance in longer battles or on other systems.
+
+839unique focused checks passed:714damage/equipment+125worker/publication.
+Final Windows export and title/campaign/battle startup passed. Entire selected
+batches including setup/cleanup:31.042s,76.721s,59.463s;queue wait separate.
+First native submission had a wrong required report filename; it stays failed.
+Corrected unchanged rerun has an accepted report. No errors/exits were hidden.
+
+REMAINING LIMITS
+Overall strict quality remainsFALSE. Light worker exceeds33.333ms and100mslag
+limits; catch-up/planner gates remain open. Strict observedFPS59.996585/59.986463
+is below60; thresholds unchanged. Both frame-consistency targets now meet95%.
+No>50msframes occurred in these short cases. No claim of fully solved performance.
+Four actual battle stills reviewed; no motion, listening or full-game quality proof.
+
+Actual settings:Vulkan/mobile,safe render mode1,30Hzdataworker,100msrole choices,
+24logicalcores,2GiBjobcap,framecap120,requested2560x1600;actualwindow2560x1570,
+internalviewport1600x1000,emittedPNG2512x1570. Detailed countersON in both runs.
+Numerical crews,36boats,all actors/weapons/damage and interchangeable mounts stay.
+Next saved scope0.064: ocean/local charts and one remote prototype round trip.

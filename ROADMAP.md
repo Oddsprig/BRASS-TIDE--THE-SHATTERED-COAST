@@ -1,57 +1,50 @@
-# Active candidate: v0.063 bounded fleet performance correction
+# Current verified release: v0.063 bounded fleet performance correction
 
-The approved ocean version sequence remains below. This candidate contains two
-small copy/allocation changes; native and measured performance acceptance is
-pending. Installed game remains v0.062. Finish this scope before v0.064.
+Two reviewed copy/allocation changes and the real worker-publication regression
+are verified. **839 unique focused checks passed**, Windows startup passed, and
+both full300DP cases were measured. Observed worker P95 fell from38.807 to37.816ms
+(light42boats) and20.187 to19.487ms (mixed16boats). Both frame-consistency targets
+met in this short run. **Whole-game quality and strict performance remain open.**
 
-# Current release: v0.062 coastal detail and clearer decisions
-
-The next ten planned versions are **v0.063-v0.072**, saved in
-[Open ocean version map](docs/roadmap/OPEN%20OCEAN%20VERSION%20MAP%20v0.063-v0.072.txt).
-This plan follows the owner's direction for smaller local island groups joined
-by a much larger playable ocean chart. The installed release remains v0.062.
+Next: **v0.064**, ocean/local charts, the current Shatter Coast, one remote
+prototype group, regional entry/exit and a persistent round trip. Finish that
+scope before adding long-voyage mechanics or multiplying regions.
 
 | Version | Bounded scope |
 | --- | --- |
-| 0.063 | Correct the demonstrated full-fleet worker cost and lag. |
-| 0.064 | Ocean/local charts; sail from the current coast to one remote prototype and back. |
-| 0.065 | Long-voyage fuel, wages, rations, maintenance and return reserves. |
-| 0.066 | Ocean navigation, weather/current routes, sightings and interception. |
-| 0.067 | Complete the first remote exploration archipelago and expedition. |
-| 0.068 | Cross-region NPC shipping and scheduled distant economies/fleets. |
+| 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
+| 0.064 | Two-scale world; sail out, approach one remote group, return and save/load. |
+| 0.065 | Fuel, wages, rations, maintenance and return reserves for longer voyages. |
+| 0.066 | Ocean route choices, currents/weather, sightings, pursuit and interception. |
+| 0.067 | Complete the first useful remote exploration expedition. |
+| 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |
 | 0.069 | Expand the proven pipeline into core, frontier and remote regions. |
 | 0.070 | Extend existing jobs and support-boat roles across ocean voyages. |
 | 0.071 | Focused combat presentation, wakes, damage and sound corrections. |
-| 0.072 | Complete voyage integration, career balance and measured sector performance. |
+| 0.072 | Complete voyage integration, career balance and sector performance. |
 
-Proposed sector target: 48 groups (8 settled, 12 frontier, 28 remote), subject
-to useful destinations, navigation and performance acceptance. First prove one
-crossing and one worthwhile distant group. Preserve original local coordinates,
-physical fleets, inventories, accounts and saves across transitions. The detailed
-plan defines acceptance and exclusions for each version; no new build is started
-by saving it. Earlier v0.042-v0.062 scopes and results remain historical records.
+Detailed acceptance and exclusions: [Open ocean version map](docs/roadmap/OPEN%20OCEAN%20VERSION%20MAP%20v0.063-v0.072.txt).
+Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
+and a worthwhile destination. Current game geography remains8main islands,
+10ports and14survey sites in one region; no ocean/local transition is built yet.
 
-The scoped coast and interface corrections are verified. The whole-game quality
-milestone remains **open**. Eighteen actual chart/interface views and four active
-battle frames were reviewed; these do not establish finished art, listening,
-sustained combat feel or complete career progression.
+Remaining demonstrated gaps:
+- Light workerP9537.816ms exceeds33.333ms;lag150ms exceeds100ms;catch-up/planner
+  criteria remain unmet. Mixed worker/lag meet. Preserve actual actor counts,
+  current simulation rates and thresholds. The rejected062phase trial stays out.
+- Strict observedFPS59.996585/59.986463 remains below60; no threshold waiver or
+  claim of fully solved performance. A short historical/current comparison is
+  not a controlled causal estimate or long-play guarantee.
+- Combat motion, boat separation, wakes, sound/listening and general artwork;
+  four actual battle stills are only a bounded visual sanity review. Startup HUD
+  briefly lacks worker status before the first publication. Settings/help renderer
+  wording should reflect actual safeMode1, not imply Separate2 is active.
+- Full six-career progression and profitable naturally seeded traffic/economies;
+  prior composition proofs do not certify complete campaigns.
 
-The following demonstrated gaps carry into the plan and remain open until verified:
-
-- Light-fleet worker capacity, publication cost, impact spikes and planner/lag
-  criteria. The rejected phase-propagation optimization remains removed; retain
-  its failed receipts and avoid repeating that trial without a specific cause.
-- Current mixed-fleet frame consistency and strict performance targets, using
-  the existing short representative full300DP profile. Preserve actor counts,
-  weapons, simulation cadence and thresholds; no idle-FPS acceptance.
-- Combat presentation and actual sound/play feedback, followed by complete
-  early-to-midgame routes for the six careers. Short composition proofs are
-  useful evidence, not full progression or a reason to launch a long test soak.
-- Further original art and small-text refinement where actual play views show
-  weak silhouettes, flat terrain or dense information. Keep cheap cached water
-  and geometry, numerical crews and physical interchangeable mounts.
-
-Do not declare Starsector parity from a version number or assertion count.
-Every selected automated batch stays below120seconds including setup/export/
-startups/cleanup, using the shared background queue without input or focus.
-Full evidence: docs/VERIFICATION INDEX.txt and work/quality-v062/CURRENT STATE.txt.
+Use existing source/queue tools. Every selected whole batch<120seconds including
+setup/import/export/startup/cleanup;queue wait separate. Background/private/muted,
+shared FIFO, no mouse/focus or interference with other apps. Preserve voyages,
+music, settings, physical owners/UIDs, finite goods and conserved coin purses.
+Evidence: docs/PERFORMANCE v0.063.txt, docs/TEST RESULTS v0.063.md,
+docs/VERIFICATION INDEX.txt and work/quality-v063/CURRENT STATE.txt.

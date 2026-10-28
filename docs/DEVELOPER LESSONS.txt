@@ -453,3 +453,14 @@ SCOPED051 DELIVERY DECISION
 
 055 CAMPAIGN FIXTURE LESSONS
 Seeded NPCs may already have spent capital on stores. Stage a ready voyage with explicit existing-treasury transfers and real purchases, retaining global money conservation. Commercial food is excluded from operating food; use fleet_reserves rather than raw hold.food. Canonical yard reservations reduce EquipmentService.workforce_status.free, not necessarily raw availableWorkers. Fund replacement scenarios from quote_at_port plus actual recruiting cost instead of a guessed fixed bill. Preserve failed receipts and original meaningful assertions.
+
+28 OCTOBER 2026 - TEST BRIDGE REPORT HANDOFF AND BOUNDED STATUS
+Queued scripts receive GAME_TEST_RESULT_PATH, currently result.json in the
+attempt folder. The submission's required report must name {artifacts}/result.json.
+bridge-result.json is the queue's final verification receipt, not the script's
+fresh report input. A wrong required filename rejects the queue outcome even
+when native assertions and exits pass. Retain that rejection; correct the payload.
+Use test_bridge_wait/status with a specific job ID. The global status includes
+large multi-project job/event history; never print it into a model conversation.
+Native r1 report handoff7e80222 rejected; unchanged correctedbf2f4dfb accepted714/0
+in31.042s including10s setup. Shared lane and original failed receipt preserved.

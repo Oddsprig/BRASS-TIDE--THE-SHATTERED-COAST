@@ -1,42 +1,33 @@
-# Active v0.063 candidate - installed v0.062 preserved
+# Brass Tide v0.063 verified; finish desktop delivery, then v0.064
 
-Metadata063 prepared ONCE. Root integrated Add2ec3ad as571c42c and B3a744495 as809ed60.
-A nested-publication regression and Grok B review pending. Native/profile pending;
-no063tag/package/installation yet. Currenttask work/quality-v063/CURRENT STATE.txt.
-Root owns all engine/TestBridge work. Use existing scripts; every selected whole
-batch<120seconds. Approved063-072scopes remain in docs/roadmap/OPEN OCEAN VERSION
-MAP v0.063-v0.072.txt. Two SolMAX/ArgonHIGH/GrokHIGH/two bounded SparkHIGH team.
+Current source/tested release0c8b83d027a878c4dd94faeabb48a9834008708a.
+Metadata063preparedONCE. Do not reprepare, retag a rejected candidate or reopen
+performance tuning as a prerequisite for every later bounded version.
 
-## Preserved delivered predecessor and plan
+A dd2ec3ad ->571c42c; A regression9987d655 ->0c8b83d; B3a744495 ->809ed60.
+Argon and Grok independent source reviews read; both report no scoped blockers.
+Root reviewed complete code diffs/constructors/consumers. Sparks did bounded
+receipt extraction and existing-check shortlist only; unsupported gap suggestions
+were discarded. All6Bridge specialists are idle. Exact project IDs/offsets and
+source scopes: work/quality-v063/CURRENT STATE.txt and ROOT SOURCE REVIEW063.txt.
+Latest owner team:2Sol6.1MAX,GoogleArgonHIGH,Grok4.7HIGH,2boundedMuseSparkHIGH.
+Root alone owns integration, test queue, packaging and install; no nested helpers.
 
-28 October2026: owner requested the next version map after discussing ocean/local
-travel. Saved planned v0.063-v0.072 in docs/roadmap/OPEN OCEAN VERSION MAP
-v0.063-v0.072.txt; summaries in ROADMAP.md and VERSION MAP.txt. Next scope is a
-bounded demonstrated full-fleet performance correction, then one real crossing
-before sector expansion. Planning only: no engine run, tag, build or installation.
+Nativebf2f4dfb:714/0,31.042159s whole. Worker/Windows50ba1566:125/0,76.721212s,
+all exits0/owned cleanup. Preflight/final production source identical; only worker
+fixture expanded5checks. Total839unique checks. Wrong-report-path7e80222 stays
+failed; accepted unchanged corrected rerun is the native evidence.
 
-Installed v0.062 verified; single plain Brass Tide launcher updated. All helpers idle, no active tests. See work/quality-v062/CURRENT STATE.txt for exact receipt and remaining quality gaps.
+Runtime2d75ca70 clean59.462638s. Actual42light/16mixed,300DPside,settings match062.
+WorkerP9538.807->37.816ms/light;20.187->19.487/mixed; snapshotmedians14.606->13.8985
+and7.497->7.314ms. Frameconsistency99.861%/99.444% now meets95%. StrictqualityFALSE:
+lightworker/lag150ms/catchup/planner and strictFPS gates remain unmet. No blanket
+snapshot-tail improvement or causal/long-play claim. Root viewed4actualPNGs.
+No motion/listening or whole-game quality acceptance. Safe render1/30Hzworker/
+100msroles/36hulls/numericalcrews/physicalmounts/currentpurses remain.
 
-# Brass Tide v0.062 delivered
-
-BRASS TIDE v0.062 - Coastal detail and clearer decisions
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 8ca24775a6c5af892a4a021362c0e0daf24faa79 / v0.062
-Test Bridge: a2390e1abd784b9686c748d76aaa3060
-196 focused checks, 0 failures; menu/campaign/battle startup passed.
-Selected batch plus setup: 86.893s; owned cleanup verified.
-
-- Bring shaded coast, trees, buildings and harbor work sites into normal campaign zoom using existing bounded prepared geometry.
-- Put regional watch status, shortages and actions ahead of detailed market reports; put owned business books and controls ahead of optional charters.
-
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-SCOPED COAST AND INTERFACE UPDATE; WHOLE QUALITY MILESTONE OPEN. Source through BridgeSol6.1MAX A20307d99->Root5513dbf and Bd7e1bb25->6171d80; Root reviewed full changes and existing contracts. Root changed only private review scrolling, once-only version metadata and notes. Existing36boats, physical mounts, conserved purses/crew/stores, WASD/autopilot,30Hzdataworker/100msroles/safe renderMode1 remain.
-Clean component job0150390aa0b64bf39b7f8e1a267397d1/001:638/0 (coast438,worker120,regional80), every process exit0/cleanuptrue; whole43.603366s. Source hashes identical across componentR2 and finalR3 game code. Final native/Windowsa2390e1abd784b9686c748d76aaa3060/001:196/0 real paid voyage, export/menu/campaign/battle/cleanup passed; whole86.893480s. Every selected batch stayed below120seconds including setup/import/export/startups/cleanup; queue wait separate. Paid voyage conserved172580000coins and21566survivors+4recordedNPCdeaths=21570people; same original hull/item UIDs, actual52merchantlots delivered,4000basewages,88returnstore coins, operatingnet-7665 under disclosed basis. Controlled starting locality/capital/ammunition, later real travel/combat/shortage/service/7clear days/business shifts/return/choices/save. Composition proof, not profitable fullcareer or naturally seeded traffic balance.
-Root reviewed all18 actual1280x800 exported scope PNGs: opening6 job943a3f3abf12481db428c231edccddb6/001 whole31.075325s; coast12 job45705fba5edb4f1cabafdabf1b725dec/001 whole30.662557s. At normal zoom, shaded roofs/walls and individual tree crowns replace plain blocks;10ports have distinct working landmarks. Exact land/navigation unchanged; native peak LOD vertices1209/7833/8871 below2500/9000/18000 caps, existing immutable meshes/draw budgets. Regional status/watch actions and shore books/capital controls now precede secondary reports/charters. Pure review/close/decline and explicit join-before-action passed. Disclosure callbacks source-reviewed as visibility-only; no expanded-render/interaction claim. Camera tours and completed-watch layout contain explicitly staged metadata, not earned remote journeys/safety.
-Current actual full-fleet measurement74ff4774cafe4497a36502ecf63bf6bb/001 completed/clean59.050189s, all4PNGs Root reviewed; raw quality FALSE. Actual42light/16mixed,300DP per side, active move/fire/hit/flood/effects plusmixedmissiles. Requested2560x1600, actualwindow2560x1570/internalviewport1600x1000,275HX/RTX5090Laptop/24logical/2GB, Vulkan/mobile/safeMode1/actualONcounters. Light workerP9538.807ms>33.333, maxlag150.222ms>100, catch-up and planner criterion unmet. Mixed worker20.187ms/lag50ms meet, but93.8889%frames<=20ms misses95%. StrictFPS59.997630/59.998430 below60; no>50msframes. Performance improvement is not claimed. The trial phase optimization C2320371b->66eaee9 was removed by7983166 after two post-terminal native exit failures; both remain failed evidence. Same-fixture control and all final Windows/review/measurement exits are clean with the trial absent. Detailed native crash cause unproved; no failed-exit masking or threshold/rate/DP waiver.
-This release accepts bounded coast/readability corrections. Whole-game art, audio/listening, sustained combat feel, full six-career progression and strict performance remain OPEN. No Starsector parity claim. All tests private/background/Dummy with synthetic profiles and shared FIFO; no mouse/input/focus, other app control, Desktop autolaunch or new remote publication. Preserve two voyages,18MP3s+2notes, older builds and one plain latest verified launcher.
-
-Continue with the next saved version scope after v0.062; preserve the shared lane and120-second limit.
-
-Wholequality milestone062 remainsOPEN. Continue with specific observed gaps in ROADMAP.md; no automatic new version/source work is started by this document. The removed trial is not part of this release.
+Next scope064: two-scale chart and one remote prototype round trip; exact brief
+in docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt. Current local geography
+still8main islands/10ports/14survey sites. Ocean travel has not been implemented.
+Preserve saved voyages/music/settings/older builds/one plain launcher. No new
+GitHub publication or game autolaunch. Shared FIFO and every whole batch<120s.

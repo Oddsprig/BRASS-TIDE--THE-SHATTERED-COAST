@@ -1,18 +1,18 @@
-# Brass Tide — current working instructions
+# Brass Tide - current working instructions
 
-Installed build: v0.062 DELIVERED, localtag79ebbaa; coast/readability corrections.
-Whole quality milestone OPEN. SourceRoot8ca2477/testedreleased4e5ad1, identical
-game tree71a69f4. Clean638component checks43.603s plus196paidvoyage/Windows86.893s.
-18scope views+4activebattlePNGs Rootreviewed; opening31.075/coast30.663/runtime
-59.050s, noinput/focus/privateDesktopactivation. Allhelpersidle.
-TrialC2320371b was removed by7983166 after2failedpost-terminalnativeexits;
-assert120/0wasNOTnativepass. Controlledremoval+allfinalprocessesclean, detailed
-nativecrashcauseunproved; do not restore that trial without specific diagnosis.
-Actual062qualityflagFALSE: lightworkerP9538.807ms/lag150.222ms, catchup/planner
-criterionunmet; mixedP9520.187/lag50meetsbut93.889%frames<=20msmisses95%.
-Bothstrict59.997630/59.998430FPS<60;no>50msframes. No improvement/parityclaim.
-Currentstate/scope/evidence work/quality-v062; oldreceiptswork/quality-v042-v061.
-Do notprepare062again. Preserve2voyages/18MP3+2notes/olderbuilds/oneplainicon.
+Verified build v0.063; packaging/desktop delivery follows accepted source0c8b83d.
+Do not prepare063again. Currenttask work/quality-v063; all6helpersidle/noactivejobs.
+714nativechecks+125workerchecks=839unique/0failures; whole31.042s/76.721s.
+Runtime2d75ca70 complete59.463s; Root reviewed4actualPNGs. Source/script facts,
+retained preflight source proof, job IDs and limits are in CURRENT STATE.txt.
+Observed lightworkerP9537.816ms/lag150ms still fail33.333ms/100ms; mixed19.487ms/
+lag50ms meet. Both frameconsistency targets now meet95%; strictFPS59.996585/
+59.986463 remains below60. Whole quality OPEN; no whole-game/parity guarantee.
+Keep rejected062phase-propagation trial removed. Native report-path rejection
+7e80222 retained; correctedbf2f4dfb passes714/0. Lesson: script report=result.json,
+queue verification receipt=bridge-result.json; query queue byjobID, no global dump.
+Next saved scope064: ocean/local transition with one remote prototype, no breadth
+or logistics expansion until their later scopes. Finish current delivery first.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.

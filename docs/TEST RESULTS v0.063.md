@@ -1,0 +1,24 @@
+# v0.063 focused verification
+
+Source: `0c8b83d027a878c4dd94faeabb48a9834008708a`. Job: `50ba1566443441b8922cf92bc82b098e`.
+
+| Phase | Checks | Result |
+| --- | --- | --- |
+| import | build/startup | passed |
+| worker-battle | 125 | passed |
+| export | build/startup | passed |
+| portable-menu | build/startup | passed |
+| portable-campaign | build/startup | passed |
+| portable-battle | build/startup | passed |
+
+Whole selected batch including setup: **76.721seconds**. Owned process cleanup verified. Background/headless/Dummy; shared machine-wide queue.
+
+This covers the selected version scope and portable startup only. It does not establish full-game, rendered motion, listening or FPS acceptance. Earlier failed attempts remain in TestBridge.
+
+SCOPED v0.063 COPY/ALLOCATION CORRECTIONS VERIFIED; WHOLE QUALITY OPEN.
+Bridge team:2Sol6.1MAX(A dd2ec3ad + regression9987d655, B3a744495), GoogleArgonHIGH independentA review, Grok4.7HIGH independentB review;2boundedMuseSparkHIGH baseline extraction and existing-regression shortlist. Root reviewed actual code/notes and rejected unsupported Spark missing-case suggestions. No native/nested helpers or paid API fallback.
+Native corrected jobbf2f4dfba88443a3b006542ef2037752:714/0 (damage451,records89,equipmentdamage174), all exits0/owned cleanup,whole31.042159s. Firstjob7e80222cac2f44a9a2cbc27131e12724 failed the required report filename, despite native assertions/exits passing; failed queue receipt retained. Corrected unchanged rerun has accepted queue evidence.
+Final worker/Windows job50ba1566443441b8922cf92bc82b098e:125/0, export/title/campaign/battle startup all exit0/cleanuptrue,whole76.721212s. Source0c8b83d027a878c4dd94faeabb48a9834008708a; only game change from714preflight is existing worker test expanded by5checks. All production code unchanged; explicit source proof retains714. Total839unique focused checks/0failures.
+Actual Windows profile2d75ca709e814cf3850be0b620233570:clean complete59.462638s, same42light/16mixed/full300DPside and settings as062. Light workerP9538.807->37.816ms,snapshotmedian14.606->13.8985ms,frames<=20ms95.278->99.861%; mixed worker20.187->19.487ms,snapshot7.497->7.314ms,frameconsistency93.889->99.444%. These are two short historical/current observations, not a controlled causal effect or long-play guarantee.
+Strict qualityflag remainsFALSE. LightP9537.816ms>33.333,lag150ms>100,catchup/planner criteria unmet. Light snapshotP9516.988ms vs16.959 baseline is slightly higher; no blanket snapshot-tail improvement claimed. Mixedworker/lag meet, both frame-consistency targets nowmeet, no>50msframes; strictFPS59.996585/59.986463<60notwaived. MainpubP95.339/.173ms remainscheap. Actual2560x1570window/1600x1000viewport; emittedPNG2512x1570. 275HX/RTX5090Laptop/24cores,2GiBcap,Vulkan/mobile/safeMode1/30Hzworker/100msroles/actualONcounters. Root viewed all4 actual battlePNGs; actual move/fire/hit/flood/effects/missile coverage from the unchanged runner. Stills do not establish motion quality, listening, fun or whole-game art.
+No rejected062phasepropagation restored. No actors, shots, physical damage, fields, simulation cadence or gates removed.36boats, physical mounts,numerical crew,realcoins/stores/UIDs remain. Owner2voyages/18MP3+2notes/olderbuilds/oneplainlauncher must remain; no automatic game launch or new remote publication. Every selected whole batch<120seconds; shared FIFO/no input/focus/private Desktop activated. Finish/install this version before064two-scale-world scope.

@@ -1,5 +1,5 @@
 BRASS TIDE - OPEN OCEAN VERSION MAP v0.063-v0.072
-28 October 2026 | PLANNED | Installed game remains v0.062
+28 October 2026 | v0.063 VERIFIED; v0.064-v0.072 PLANNED
 
 PURPOSE
 Build a large ocean world from smaller, detailed island groups. Preserve the
@@ -21,7 +21,7 @@ WORLD DESIGN
 - Transition at coastal approaches, with a choice of arrival side. No magical
   jump gates, automatic hostile-fleet escape, free refueling or reset purses.
 
-0.063 - FULL-FLEET PERFORMANCE CORRECTION
+0.063 - FULL-FLEET PERFORMANCE CORRECTION [VERIFIED; STRICT QUALITY OPEN]
 Scope: address the largest demonstrated light-fleet worker cost and lag, with
 mixed-fleet frame consistency checked for regression. Keep this a bounded
 correction before adding world breadth; record unresolved failures explicitly.
@@ -125,5 +125,8 @@ queue wait is separate. Use existing scripts and meaningful small fixtures.
 No long soak, duplicate test framework, global installs or automatic publication.
 
 CURRENT STATE
-Planning only. No v0.063 source implementation, engine test, new tag, package,
-installation or change to the desktop launcher is performed by saving this plan.
+Owner authorized the sequence and named the six-specialist Bridge team.
+v0.063 verified:839unique checks, Windows startup and an actual full300DP profile.
+Worker/snapshot medians show modest observed gains; light capacity/lag and strict
+quality remain open. Current scope/evidence: ROADMAP.md and work/quality-v063.
+Next0.064 proves ocean/local transition with one remote prototype group.
