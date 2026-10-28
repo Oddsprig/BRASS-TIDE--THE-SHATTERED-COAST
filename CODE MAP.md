@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.059: Civilian careers and voyage choices. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: voyage_jobs.gd, contacts.gd, voyage_ui.gd, civilian_choices059.gd, civilian_work.gd, campaign_state_validation.gd, interface.gd, main.gd.
+v0.060: Captains, crews and fleet attachment. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: fleet_identity.gd, fleet_support.gd, campaign_state_validation.gd, tactical_runtime.gd, campaign.gd, battle.gd, salvage.gd, identity_ui.gd, economic_ui.gd, interface.gd, main.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

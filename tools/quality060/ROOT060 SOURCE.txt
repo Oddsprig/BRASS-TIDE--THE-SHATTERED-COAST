@@ -21,3 +21,33 @@ changed060 actual UI/motion fixtures once actual peer APIs are integrated; no
 all-modal tour, world/nav duplication, new test framework or051 performance
 retuning. Each whole selected batch remains strictly below120s. Broader coast
 art and exact051/wholequality targets remain OPEN062. No new remote push.
+Root private060 tour now requests6views: title/home, paid starter crew overview,
+crew care/history bottom, copied training review, and a controlled after-action
+loss. Starter15k pays actual pilot+gunner advances and berths, savedcautious/
+skirmisher through publishedA setter; no capital/people grants. Ordinary morale/
+manifest updates follow real hiring. Loss alone is explicitly staged on the
+original starter owner after publicBattle.create deploys real existing owners;
+public physical Campaign.battle_settled produces actual participant/loss/wreck
+metadata, no earned combat victory claim. Native behavioral proof and rendered
+motion remain separate and pending. All profiles/saves remain test-local.
+Root --qa-lab=attachment060 adds one declared isolated motion fixture via the
+EXISTING start_lab(prepare) path: two actual normalized Bastion examples (gun
+pressure/pilot/cautious/skirmisher and cannon anchor/gunner/aggressive/heavy)
+face comparable stock Bastions at the same initial range. Lab actors use ideal
+active staff effects and real public tactical options before worker ownership;
+no career funds/assets/hiring/progression is claimed. Physical fits are built
+normally by FleetLab; condition/mount registration and051worker stay actual.
+NativeC separately pays for analogous career acquisitions/staff/fits and proves
+saved preference wiring. A five-second private muted movie can establish motion
+readability only, not realtime FPS, combat balance, paid progression or parity.
+No new world/nav/worker framework; Root reuses public laboratory construction.
+
+FINAL COMBINED SOURCE CHECKPOINT (NATIVE UNRUN)
+A f6e0b3fd ->Root93b0407; B1186ed1f ->d54b199; C6fc5e9f1 ->f438cdd.
+Root read actual contracts, all production diffs, constructor/worker handoff,
+and the one five-probe fixture. Combined preload advisory has no issues; it
+does not prove native parsing or behavior. Metadata prepared ONCE. Focused
+identity/support component batch and attachment+Windows batch are next, with
+each whole batch<120s including import/setup/export/startups/cleanup. Private
+six-view UI and a separate five-second lab movie use existing owned runners.
+The installed059 release/saves/music/launcher are preserved until060 accepted.

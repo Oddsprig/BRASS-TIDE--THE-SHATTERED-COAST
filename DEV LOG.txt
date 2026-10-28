@@ -1,3 +1,7 @@
+28OCT2026 - v0.060 CAPTAINS, CREWS AND FLEET ATTACHMENT
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.059 VERIFIED AND PACKAGED: 185/0 focused checks, selected batch 84.766s, TestBridge 3d7126ed4d9744d5b2a5c910288318c2. Source 2e4bd187710c0db7741e2a5863471779c2e072cf.
 
 28OCT2026 - v0.059 CIVILIAN CAREERS AND VOYAGE CHOICES

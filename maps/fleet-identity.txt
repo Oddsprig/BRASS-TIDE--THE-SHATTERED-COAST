@@ -1,31 +1,36 @@
-BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.059)
+BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.060)
 
 Actual crew berths, wages and fittings -> paid specialists/conversions, useful support reserves and real timed convoy protection.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/fleet_identity.gd: 24070 bytes; extends RefCounted
-  game/scripts/fleet_identity.gd:92 ensure()
-  game/scripts/fleet_identity.gd:129 ensure_boat()
-  game/scripts/fleet_identity.gd:140 conversions()
-  game/scripts/fleet_identity.gd:144 roles()
-  game/scripts/fleet_identity.gd:153 effective()
-  game/scripts/fleet_identity.gd:206 quote_conversion()
-  game/scripts/fleet_identity.gd:262 install_conversion()
-  game/scripts/fleet_identity.gd:302 hire_specialist()
-  game/scripts/fleet_identity.gd:373 tick()
-  game/scripts/fleet_identity.gd:416 record_service()
-  game/scripts/fleet_identity.gd:55 _is_num()
-  game/scripts/fleet_identity.gd:59 _num()
-game/scripts/fleet_support.gd: 4201 bytes; extends RefCounted
-  game/scripts/fleet_support.gd:5 combat()
-  game/scripts/fleet_support.gd:8 aboard()
-  game/scripts/fleet_support.gd:11 reserve()
-  game/scripts/fleet_support.gd:18 reconcile()
-  game/scripts/fleet_support.gd:32 dismiss()
-  game/scripts/fleet_support.gd:60 repair_factor()
-  game/scripts/fleet_support.gd:65 premium()
-game/scripts/identity_ui.gd: 2448 bytes; extends RefCounted
-  game/scripts/identity_ui.gd:3 open()
+game/scripts/fleet_identity.gd: 26747 bytes; extends RefCounted
+  game/scripts/fleet_identity.gd:94 ensure()
+  game/scripts/fleet_identity.gd:131 ensure_boat()
+  game/scripts/fleet_identity.gd:145 command_preference()
+  game/scripts/fleet_identity.gd:157 set_command_preference()
+  game/scripts/fleet_identity.gd:169 conversions()
+  game/scripts/fleet_identity.gd:173 roles()
+  game/scripts/fleet_identity.gd:182 effective()
+  game/scripts/fleet_identity.gd:235 quote_conversion()
+  game/scripts/fleet_identity.gd:291 install_conversion()
+  game/scripts/fleet_identity.gd:327 specialist_quote()
+  game/scripts/fleet_identity.gd:371 hire_specialist()
+  game/scripts/fleet_identity.gd:424 tick()
+game/scripts/fleet_support.gd: 8566 bytes; extends RefCounted
+  game/scripts/fleet_support.gd:23 selected_view()
+  game/scripts/fleet_support.gd:81 combat()
+  game/scripts/fleet_support.gd:84 aboard()
+  game/scripts/fleet_support.gd:87 reserve()
+  game/scripts/fleet_support.gd:94 reconcile()
+  game/scripts/fleet_support.gd:108 dismiss()
+  game/scripts/fleet_support.gd:136 repair_factor()
+  game/scripts/fleet_support.gd:141 premium()
+game/scripts/identity_ui.gd: 10077 bytes; extends RefCounted
+  game/scripts/identity_ui.gd:19 service_summary()
+  game/scripts/identity_ui.gd:23 act()
+  game/scripts/identity_ui.gd:63 open()
+  game/scripts/identity_ui.gd:127 conversions()
+  game/scripts/identity_ui.gd:43 _intent()
 game/scripts/escort_ops.gd: 11473 bytes; extends RefCounted
   game/scripts/escort_ops.gd:40 prepare_intercept()
   game/scripts/escort_ops.gd:50 threat()

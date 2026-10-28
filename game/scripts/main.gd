@@ -23,6 +23,7 @@ const CoastalTerrain=preload("res://scripts/coastal_terrain.gd")
 const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
 const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
 const BattleCommands047=preload("res://scripts/battle_commands047.gd")
+const WorkshopBuilds060=preload("res://scripts/workshop_builds048.gd")
 
 class _DamageView051 extends RefCounted:
 	var owner: WeakRef
@@ -174,7 +175,9 @@ func _ready():
 	for argument in args:
 		if str(argument).begins_with("--qa-lab="):
 			var preset: String=str(argument).trim_prefix("--qa-lab=")
-			if FleetLab.presets().has(preset):
+			if preset == "attachment060" and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
+				_start_attachment_lab060()
+			elif FleetLab.presets().has(preset):
 				lab_config=FleetLab.preset(data,preset);start_lab()
 	if "--qa-workshop048" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
 		# Existing capture harness supplies an isolated portable copy and profile.
@@ -185,7 +188,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "freight059051", "fishing059051", "charter059051"]
+		screenshots_requested = ["title051", "home051", "crew060051", "crewcare060051", "training060051", "loss060051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -752,6 +755,38 @@ func open_lab():
 	ui.title_screen()
 	LabUI.open(ui)
 
+func _start_attachment_lab060() -> void:
+	# Declared laboratory motion fixture. The independent native060 career
+	# proof pays for these fits and hires; this arena grants no career assets.
+	var examples060: Array = WorkshopBuilds060.examples(FleetLab.hull(data, "iron_bastion"))
+	if examples060.size() < 2:push_error("Attachment060 laboratory fits missing");return
+	lab_config = FleetLab.preset(data, "duel")
+	lab_config.player = [];lab_config.enemy = [FleetLab.entry(data, "iron_bastion", 2)]
+	lab_config.formation = "";lab_config.label = "Crew and command comparison"
+	for index060 in range(2):
+		var entry060: Dictionary = FleetLab.entry(data, "iron_bastion")
+		entry060.loadout = examples060[index060].loadout.duplicate(true)
+		lab_config.player.append(entry060)
+	start_lab(func(arena060: Dictionary):
+		var allies060: Array = arena060.ships.filter(func(ship060):return ship060.team == "player")
+		var foes060: Array = arena060.ships.filter(func(ship060):return ship060.team == "enemy")
+		for index060 in range(2):
+			var ship060: Dictionary = allies060[index060]
+			ship060.name = "Pilot · gun pressure" if index060 == 0 else "Gunner · cannon anchor"
+			ship060.specialistActive = {"pilot":true} if index060 == 0 else {"gunner":true}
+			ship060.spec = Campaign.FleetIdentity.effective(ship060, ship060.spec)
+			Tactical.register(arena060, ship060, Battle._base_mounts(ship060))
+			if not Battle.set_tactical_options(arena060, [ship060.id], {"doctrine":"cautious" if index060 == 0 else "aggressive", "role":str(examples060[index060].role)}):
+				push_error("Attachment060 laboratory command refused")
+			for pair060 in [ship060, foes060[index060]]:
+				pair060.x = 600.0 if pair060.team == "player" else 1000.0
+				pair060.y = 650.0 + 400.0 * index060
+				pair060.angle = 0.0 if pair060.team == "player" else PI
+				pair060.turretAngle = pair060.angle
+				arena060.tactical.home[str(pair060.id)] = {"x":380.0 if pair060.team == "player" else 1220.0, "y":float(pair060.y)}
+	)
+	chart.zoom = 1.0;chart.camera = Vector2(800.0, 850.0);chart.follow_camera = false
+
 func start_lab(prepare051: Callable=Callable()):
 	sync_economy()
 	if lab_config.is_empty():lab_config=FleetLab.preset(data,"mixed")
@@ -1272,6 +1307,7 @@ func capture_after_start():
 	var recovery_carrier058: String = ""
 	var recovery_parts058: Array = []
 	var civilian_baseline059: Dictionary = {}
+	var crew_carrier060: String = ""
 	if views.is_empty():views = [mode]
 	for raw in views:
 		var name: String = str(raw)
@@ -1279,6 +1315,36 @@ func capture_after_start():
 			if name == "home051":
 				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)
+			elif name == "crew060051":
+				# Real affordable starter hires, with ordinary finite port labor,
+				# advances and berths. No opening capital or specialist is granted.
+				crew_carrier060 = str(core.state.fleet[0].uid)
+				for role060 in ["pilot", "gunner"]:
+					var hired060: Dictionary = core.FleetIdentity.hire_specialist(core, crew_carrier060, role060)
+					if not hired060.ok:push_error("Crew060 paid layout hire refused: " + str(hired060.message));return
+				if not core.FleetIdentity.set_command_preference(core, crew_carrier060, "cautious", "skirmisher").ok:
+					push_error("Crew060 layout intent refused");return
+				core.apply_morale();core.Manifest.allocate(core.state)
+				ui.IdentityUI.open(ui, crew_carrier060)
+			elif name == "crewcare060051":
+				ui.IdentityUI.open(ui, crew_carrier060)
+				await get_tree().process_frame
+				for scroll060 in ui.overlay.find_children("*", "ScrollContainer", true, false):scroll060.scroll_vertical = 100000
+			elif name == "training060051":
+				ui.EconomicUI.open(ui)
+			elif name == "loss060051":
+				# Declared controlled UI loss, not an earned combat outcome. Real
+				# canonical owners enter the public physical settlement path; native
+				# proof and motion review establish behavior separately.
+				var foe060: Dictionary = core.fleet_owner("patrol-0")
+				battle = Battle.create({"fleet":core.active_fleet(), "enemyFleet":foe060.boats, "seed":60060, "islands":[]})
+				var lost060: Dictionary = core.find_boat(crew_carrier060)
+				lost060.hp = 0.0;lost060.sunk = true;lost060.crew = 0.0;lost060.wounded = 0.0
+				battle.result = "lost"
+				var enemies060: Array = foe060.boats.map(func(boat060):return boat060.spec)
+				battle_report = core.battle_settled("lost", enemies060, {"kind":"patrol", "ownerId":"patrol-0"}, battle)
+				if not battle_report.has("participants"):push_error("Crew060 controlled layout settlement refused");return
+				ui.outcome("lost", battle_report, enemies060)
 			elif name in ["freight059051", "fishing059051", "charter059051"]:
 				var role059: String = "kelpnet_dory" if name == "fishing059051" else ("gullwing_daysailer" if name == "charter059051" else "fenhopper_lighter")
 				var carrier059: String = _civilian_capture059(civilian_baseline059, role059)

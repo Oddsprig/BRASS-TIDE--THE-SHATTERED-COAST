@@ -9,7 +9,10 @@ voyages/18MP3s/older058 hash-verified, one plain desktop launcher, no autolaunch
 Current060 three BridgeSol6.1MAX source lanes on delivered3598b9a follow task/
 SCOPE 060 FLEET ATTACHMENT.txt: persistent command/paid staff view, actual
 participant service/loss history, selectedcrewUI and one focused native proof.
-No060metadata/engine yet. Shared data contracts must be published early.
+All060 handoffs integrated: A93b0407, Bd54b199, Cf438cdd; exact shared contracts
+in tools/quality060. One combined source advisory issues empty. Metadata prepared
+ONCE; no060engine yet. Root private6views and separate declared lab motion
+fixture are ready for combined native/export review.059 remains installed.
 Whole-quality/coast art/strict051targets remain OPEN062.
 Read work/quality-v042-v061/CURRENT STATE.txt for installed build/live jobs.
 

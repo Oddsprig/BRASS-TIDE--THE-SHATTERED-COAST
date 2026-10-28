@@ -1,27 +1,27 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.059)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.060)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 65186 bytes; extends Node2D
-  game/scripts/main.gd:268 poll_battle051()
-  game/scripts/main.gd:331 queue_battle_command051()
-  game/scripts/main.gd:431 toggle_pause()
-  game/scripts/main.gd:436 toggle_fullscreen()
-  game/scripts/main.gd:440 save_preferences()
-  game/scripts/main.gd:443 music_context()
-  game/scripts/main.gd:453 new_game()
-  game/scripts/main.gd:473 click_chart()
-  game/scripts/main.gd:507 sail_to()
-  game/scripts/main.gd:515 respond()
-  game/scripts/main.gd:521 trade()
-  game/scripts/main.gd:530 buy_boat()
+game/scripts/main.gd: 69602 bytes; extends Node2D
+  game/scripts/main.gd:271 poll_battle051()
+  game/scripts/main.gd:334 queue_battle_command051()
+  game/scripts/main.gd:434 toggle_pause()
+  game/scripts/main.gd:439 toggle_fullscreen()
+  game/scripts/main.gd:443 save_preferences()
+  game/scripts/main.gd:446 music_context()
+  game/scripts/main.gd:456 new_game()
+  game/scripts/main.gd:476 click_chart()
+  game/scripts/main.gd:510 sail_to()
+  game/scripts/main.gd:518 respond()
+  game/scripts/main.gd:524 trade()
+  game/scripts/main.gd:533 buy_boat()
 game/scripts/preferences.gd: 1358 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()
   game/scripts/preferences.gd:22 save_options()
-game/scripts/interface.gd: 56060 bytes; extends CanvasLayer
+game/scripts/interface.gd: 57380 bytes; extends CanvasLayer
   game/scripts/interface.gd:82 setup()
   game/scripts/interface.gd:107 create_theme()
   game/scripts/interface.gd:127 box()
