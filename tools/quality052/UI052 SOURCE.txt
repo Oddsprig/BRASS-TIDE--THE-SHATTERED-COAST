@@ -1,0 +1,102 @@
+BRASS TIDE 052 - FLEET PREPARATION UI SOURCE HANDOFF
+Base: 92a5e58. Source-only bounded pass; no version metadata changes.
+Allowed files: game/scripts/campaign_ui.gd; campaign presentation only in
+game/scripts/interface.gd; this note.
+
+EARLY ENTRY POINTS FOR PROOF OWNER
+- CampaignUI.expedition(ui): existing Prepare expedition page, modal_kind
+  expedition. Interface campaign tools already calls this entry point.
+- Route remains Routes.path(core, state.position, selected destination), summed
+  with core.distance; report remains core.expedition_report(length).
+- Existing Cargo -> Prepare expedition entry and new Fleet / Boatyard links
+  return here. Cargo open_cargo owns Load reserves / Pay owed crew wages /
+  Repay up to 5,000 coins. Fleet open_fleet owns activation, storage, recruitment,
+  repair and resupply. No duplicate transactions or windows are added.
+- Navigation buttons use Interface.button and its existing economy sync.
+
+EXACT REPORT DEPENDENCY
+Integrate the math peer's named commit before native use. The baseline report
+does not contain these fields. Contract read from v052-logistics-calc-sol/tools/
+quality052/LOGISTICS052 SOURCE.txt (meeting348c6ca8/e099d077).
+Campaign.expedition_report(length), with actual travel_speed passed by its new
+wrapper, supplies all route/allowance/shortage math. No direct Expedition.report
+or CampaignGuidance.report calls are added to this UI.
+Fields consumed: legacy dailyWages/returnWages/affordableDays/reserveDays/tripDays,
+cargoWeight/usableCapacity/freeCapacity/foodDays/crew/repairKits/overload/warnings;
+bottleneck/readyForAllowance/outwardDays/returnDays/foodShortfall/fuelShortfall/
+wageShortfall/allowanceOverload/fundsAfterArrears/wageArrears/payloadAfterFood/
+looseFuel/ownedCount/ownedDP/travelingCount/inactiveCount/storedCount/battleDP/
+battleLimit/battleReserveCount/boats/supportOptions. inactiveCount INCLUDES stored.
+Boat rows use name/loadedDays/loadedFuel/fuelRequired/tankCapacity/fuelPerDay/
+fuelShortfall/tankShortfall. Support rows additionally use storedPort,
+addedCapacity/crewToMinimum/additionalDailyWages/additionalFoodPerDay/blockers.
+
+FINAL CAPTAIN FLOW / UI ENTRY POINTS
+- Existing 980x780 modal clamps to the viewport through Interface.modal. Local
+  spacing is9, two wrapping summary columns, one scrolling body. Other windows,
+  theme, battle/menu/worker logic and rendering remain unchanged.
+- Limit, exact allowance gaps, outward/return/contingency, projected purse after
+  payroll AND old wages, and payload after missing food appear first. Projected
+  remaining coins clamp at zero; any funding gap is shown separately above.
+  Payroll includes stored sailors and specialists via the math report.
+- Fuel limiter is the traveling boat with least loadedDays. Loose fuel remains
+  cargo. PayloadAfterFood explicitly precedes fuel loading. Tank shortfalls are
+  shown as refueling/route constraints, not fixed by sharing another boat's tank.
+- Original Chart course to <name> action and gate remain route.is_empty() OR
+  current r.overload>0. Allowance warnings remain soft; no new sailing policy.
+- Fuel by boat & voyage cautions toggles one initially hidden VBox with all
+  actual boat rows and all report warnings. No second window or payment action.
+- A PARTNER FOR THE NEXT VOYAGE shows owned/traveling/inactive(includes stored)
+  counts, owned points, actual battleDP/battleLimit and traveling reserve count.
+- expedition_owned_support builds one OptionButton over actual supportOptions.
+  item_selected only updates the wrapped Label from expedition_support_text.
+  Projection shows gross added hold, minimum hiring burden, existing loaded
+  fuel/current-speed allowance, and blockers. Actual collection/repair/hiring/
+  activation stays in Fleet. Reopen after slower activation to recalculate.
+- If no inactive owned option, expedition_yard_support lists up to3 local
+  transport/tanker designs from actual Harbor.catalogue (first local design as
+  fallback). expedition_yard_text uses Harbor.quote(core,hull,current_port),
+  Economy.recruit_cost(port,hull.crewMin), and Economy.daily_upkeep for a minimum
+  crew with that hull spec. It shows ready hull+advance, stock, commissioning
+  quote/time, hold, minimum crew, base wages/food and hull speed. These are quote
+  comparisons; Review local boatyard calls existing ui.open_port("Boatyard").
+- No available local design/harbor shows a visit/Fleet explanation instead of
+  invented prices. Owned reserve comparison takes priority over new purchasing.
+- Cargo, stores & accounts / Manage traveling boats and stored reserves remain
+  real existing navigation. Conditional account note points to wage arrears and
+  rescue/harbor debt. Cargo's payment controls are unchanged. New Fleet and
+  Boatyard return links open the same preparation page. Cargo return button is
+  Prepare expedition [middle dot] limits, payroll & support.
+- Explanations distinguish carrier capacity, tanker reserve cargo and paid
+  workshop repair assistance, with crew/food/fuel/speed/hold/kit burdens.
+
+MANUAL REVIEW / PREPARED ROOT CHECKS, NOT RUN
+Manually read/diffed the changed functions against the baseline, complete modal/
+button/label constructors, Harbor catalogue/quote/buy, Construction.quote price
+outputs, Economy recruit_cost/daily_upkeep, Deployment.split, FleetSupport and
+IdentityUI controls, and math peer's actual report implementation/schema.
+Only the three allowed files are included in this source commit. No external
+integration, version metadata, generated maps, release status or predecessor
+performance criteria were changed. Root prepares052 metadata once after merge.
+
+Proof owner fixture observed in its own worktree (read-only):
+game/tests/test_fleet_preparation052.gd. Source covers native campaign-tools ->
+preparation, headings, local choice, detail toggle, Cargo/Fleet/Boatyard links,
+actual paid progression/resource conservation. Root should run that fixture and
+preserved test_expedition after named math/UI/proof integration, then inspect
+actual1280x720 changed-screen captures with a selected route and shortages,
+arrears/debt, a stored reserve, and a local quote. Confirm wrapping, scroll reach,
+dropdown changes and the original soft course gate. No tests are added here.
+
+Known limits: source only; native parsing/types/signals and1280 layout have NOT
+been executed/viewed. Ownership summary is the report's campaign fleet only,
+excluding company/prize ledgers. Reserve addedCapacity is gross, not guaranteed
+net payload; projection omits repair/storage/hiring-advance charges and assumes
+current route speed. Boatyard prices exclude working stores and specialist
+premiums; commission time assumes a full team. Real service/purchase paths price
+and validate final actions. No automatic tank sharing, free crew or resources.
+No performance/gameplay/052 acceptance is claimed.
+
+No engine, import, export, test, GPU, CLI advisory, profiler, download, cleanup,
+tag, install or push has been run by this source helper. No helper/delegation or
+peer pull/cherry-pick was performed. Root owns native and changed-screen proof.

@@ -588,7 +588,8 @@ func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 		paragraph(content,"%.1f calendar days with a full team. Paid supervisors and physical materials are required."%q.estimatedDays,12)
 
 func yard_view(body: Node, p: Dictionary):
-	paragraph(body, "Buy a completed boat or commission one for less. Building consumes this town's physical stocks and takes working days. Newly launched hulls need sailors and stores. Your fleet has a 300-point deployment budget; light boats cost fewer points than capital hulls.", 15)
+	paragraph(body, "Buy a completed boat or commission one for less. Building consumes this town's physical stocks and paid working days. A new hull needs sailors and working stores. You can own more than 300 points; each battle deploys up to 300. Traveling support and stored reserves stay outside that battle line.", 15)
+	button(body,"Compare voyage needs before buying",func():CampaignUI.expedition(self))
 	for i in range(p.buildQueue.size()):
 		var index = i
 		var order = p.buildQueue[i]
@@ -618,6 +619,8 @@ func open_fleet():
 func fleet_view(body: Node, docked: bool):
 	paragraph(body, "Crew counts show minimum / full effectiveness / maximum. Wounded sailors remain aboard but cannot work. An uncrewed hull is towed and stays out of battle. All damage, stores and casualties persist.", 15)
 	label(body,"%d owned points · 300 deployable per battle · %d / %d owned hulls"%[host.core.fleet_points(),host.core.state.fleet.size(),host.core.MAX_FLEET],17,GOLD)
+	paragraph(body,"Only seaworthy, crewed traveling boats add expedition hold space. Stored and inactive hulls add none; their sailors still need food and wages. Mark a traveling partner as support through Support conversion to keep it outside battle deployment.",14)
+	button(body,"Review expedition limits & support choices",func():CampaignUI.expedition(self))
 	for boat in host.core.state.fleet:
 		var s: Dictionary = boat
 		var uid: String = s.uid
@@ -750,7 +753,7 @@ func open_cargo():
 	var body = modal("The hold", "CARGO · RESERVES · ACCOUNTS", 850, 700)
 	paragraph(body, "Trade cargo uses fleet hold space. Ready-use ammunition, fuel and repair supplies stay aboard each boat. Load reserves to transfer cargo into those working stores.")
 	label(body, "%.0f / %.0f cargo space" % [host.core.cargo_weight(), host.core.capacity()], 26, GOLD, true)
-	button(body,"Endurance, payroll & return reserves",func():CampaignUI.expedition(self))
+	button(body,"Prepare expedition · limits, payroll & support",func():CampaignUI.expedition(self))
 	for good in host.Economy.GOODS:
 		var line = row(body)
 		label(line, host.Economy.GOODS[good].name, 17).size_flags_horizontal = Control.SIZE_EXPAND_FILL

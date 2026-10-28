@@ -5,7 +5,8 @@ const Routes=preload("res://scripts/route_cache.gd")
 static func expedition(ui) -> void:
 	ui.host.sync_economy()
 	ui.modal_kind="expedition"
-	var body=ui.modal("Prepare an expedition","HOLDS · ENDURANCE · RETURN RESERVES",980,780)
+	var body=ui.modal("Prepare an expedition","VOYAGE LIMITS · RETURN ALLOWANCE · FLEET GROWTH",980,780)
+	body.add_theme_constant_override("separation",9)
 	var c=ui.host.core
 	var destination: Dictionary=c.port(ui.host.selected_port)
 	var route: Array=[]
@@ -14,20 +15,111 @@ static func expedition(ui) -> void:
 		route=Routes.path(c,c.state.position,destination)
 		for i in range(1,route.size()):length+=c.distance(route[i-1],route[i])
 	var r: Dictionary=c.expedition_report(length)
-	ui.label(body,"%d traveling boats · %d owned · %d crew"%[c.active_fleet().size(),c.state.fleet.size(),r.crew],25,ui.GOLD,true)
-	ui.paragraph(body,"Working tanks, magazines and kit racks are separate fitted storage. Loose reserves, goods and sealed freight occupy the traveling holds. Stored or inactive hulls provide no expedition capacity.",15)
-	ui.label(body,"Holds %.1f / %.1f · %.1f free"%[r.cargoWeight,r.usableCapacity,maxf(0,r.freeCapacity)],20,ui.TEAL)
-	ui.paragraph(body,"Daily payroll: %s coins\nFood: %.1f days · Fuel under way: %.1f days\nCaptain can fund %.1f payroll days · %.1f repair kits aboard"%[ui.money(r.dailyWages),r.foodDays,r.fuelDays,r.affordableDays,r.repairKits],18,ui.TEXT)
+	ui.paragraph(body,"Limit: "+str(r.bottleneck),23,ui.TEAL if r.readyForAllowance else ui.GOLD)
 	if not destination.is_empty():
-		ui.rule(body)
-		ui.label(body,"Selected destination: "+str(destination.name),22,ui.GOLD,true)
-		ui.paragraph(body,"Water route: %.0f · Round trip estimate: %.2f game days\nReturn payroll allowance: %s coins · Recommended contingency: %.1f days"%[length,r.tripDays,ui.money(r.returnWages),r.reserveDays],16)
-		ui.paragraph(body,"Travel estimates use the slowest seaworthy boat and the safe water route. Stops, fighting, surveying and towing add time. Food and wages continue while at sea.",14)
+		ui.paragraph(body,"%s · %.0f water route\n%.2f days outward + %.2f return + %.1f contingency = %.2f days to fund"%[destination.name,length,r.outwardDays,r.returnDays,r.reserveDays,r.tripDays],16,ui.TEXT)
+		if route.is_empty():ui.paragraph(body,"No safe water route found. Choose another destination on the chart.",15,ui.RED)
+	else:
+		ui.paragraph(body,"Select a destination on the chart to include outward and return travel. This preview covers only %.1f contingency days."%r.reserveDays,16,ui.TEXT)
+	var gaps: Array[String]=[]
+	if r.foodShortfall>0.001:gaps.append("%.1f food"%r.foodShortfall)
+	if r.fuelShortfall>0.001:gaps.append("%.1f working fuel"%r.fuelShortfall)
+	if r.wageShortfall>0:gaps.append("%s coins"%ui.money(r.wageShortfall))
+	if r.allowanceOverload>0.001:gaps.append("%.1f hold space"%r.allowanceOverload)
+	var gap_text: String="Food, loaded fuel, hold and payroll covered."
+	var gap_color: Color=ui.TEAL
+	if not gaps.is_empty():gap_text=" · ".join(gaps);gap_color=ui.RED
+	elif not r.readyForAllowance:gap_text="See the voyage limit above.";gap_color=ui.GOLD
+	ui.paragraph(body,"Allowance gaps: "+gap_text,16,gap_color)
+	var summary=ui.row(body)
+	summary.add_theme_constant_override("separation",24)
+	var purse=ui.column(summary)
+	ui.eyebrow(purse,"PROTECT THE RETURN")
+	ui.paragraph(purse,"Projected return purse: %s coins"%ui.money(maxf(0,float(r.fundsAfterArrears)-float(r.returnWages))),20,ui.GOLD)
+	ui.paragraph(purse,"%s payroll allowance + %s old wages\n%s coins/day · %.1f payroll days funded"%[ui.money(r.returnWages),ui.money(r.wageArrears),ui.money(r.dailyWages),r.affordableDays],14)
+	var stores=ui.column(summary)
+	ui.eyebrow(stores,"USEFUL PAYLOAD")
+	ui.paragraph(stores,"%.1f useful hold after food top-up"%r.payloadAfterFood,20,ui.TEAL)
+	ui.paragraph(stores,"%.1f / %.1f hold now · %.1f free\nFood %.1f days · %d traveling crew · %.1f repair kits"%[r.cargoWeight,r.usableCapacity,r.freeCapacity,r.foodDays,r.crew,r.repairKits],14)
+	var limiter: Dictionary={}
+	for boat: Dictionary in r.boats:
+		if limiter.is_empty() or float(boat.loadedDays)<float(limiter.loadedDays):limiter=boat
+	if not limiter.is_empty():
+		ui.paragraph(body,"Fuel limiter: %s · %.1f loaded days · %.1f more fuel needed for this allowance"%[limiter.name,limiter.loadedDays,limiter.fuelShortfall],16,ui.GOLD)
+		if limiter.tankShortfall>0.001:ui.paragraph(body,"Its allowance exceeds its fitted tank by %.1f. Plan refueling or a shorter voyage; an empty tanker adds no shared fuel."%limiter.tankShortfall,14,ui.RED)
+	ui.paragraph(body,"Payload above is before fuel loading. %.1f loose fuel is cargo, not working fuel. Load reserves through Cargo. Stops, combat, surveys and towing can add time."%r.looseFuel,13)
+	var actions=ui.row(body)
+	ui.button(actions,"Cargo, stores & accounts",ui.open_cargo)
+	ui.button(actions,"Manage traveling boats and stored reserves",ui.open_fleet)
+	if r.wageArrears>0 or float(c.state.get("debt",0))>0:
+		ui.paragraph(body,"Cargo accounts: settle owed wages and review the %s-coin rescue/harbor loan."%ui.money(c.state.get("debt",0)),14,ui.GOLD)
+	if not destination.is_empty():
 		ui.button(body,"Chart course to "+str(destination.name),func():ui.host.sail_to(destination.id);ui.close_modal(),true).disabled=route.is_empty() or r.overload>0
-	for warning in r.warnings:ui.paragraph(body,str(warning),15,ui.RED)
 	ui.rule(body)
-	ui.button(body,"Cargo, stores & accounts",ui.open_cargo)
-	ui.button(body,"Manage traveling boats and stored reserves",ui.open_fleet)
+	ui.eyebrow(body,"A PARTNER FOR THE NEXT VOYAGE")
+	ui.paragraph(body,"%d owned hulls / %d points · %d traveling · %d inactive (%d stored)\nBattle line: %d / %d points · %d traveling boats held in reserve"%[r.ownedCount,r.ownedDP,r.travelingCount,r.inactiveCount,r.storedCount,r.battleDP,r.battleLimit,r.battleReserveCount],15,ui.TEXT)
+	ui.paragraph(body,"Ownership can exceed 300 points. Only crewed, seaworthy traveling hulls add hold space. Stored sailors still draw food and wages. Traveling support can stay outside the battle line.",13)
+	if not r.supportOptions.is_empty():
+		expedition_owned_support(ui,body,r.supportOptions)
+	else:
+		expedition_yard_support(ui,body)
+	ui.paragraph(body,"A cargo partner carries more provisions or freight, but adds crew, food and fuel demand and may slow the flotilla. A tanker carries purchased reserves; each boat still needs its own fuel loaded. A paid workshop fitting helps crew repairs; kits remain finite and the fitting costs hold space and speed.",14)
+	ui.rule(body)
+	var details=ui.column(body)
+	details.visible=false
+	for boat: Dictionary in r.boats:
+		ui.paragraph(details,"%s · %.1f fuel loaded / %.1f required · %.1f days loaded\nTank %.1f · Burn %.2f/day · Short %.1f fuel · %.1f beyond fitted tank"%[boat.name,boat.loadedFuel,boat.fuelRequired,boat.loadedDays,boat.tankCapacity,boat.fuelPerDay,boat.fuelShortfall,boat.tankShortfall],14)
+	for warning in r.warnings:ui.paragraph(details,str(warning),14,ui.RED)
+	var toggle=ui.button(body,"Fuel by boat & voyage cautions",func():details.visible=not details.visible)
+	body.move_child(toggle,details.get_index())
+
+static func expedition_owned_support(ui,body: Node,options: Array) -> void:
+	ui.paragraph(body,"Compare an owned reserve · preview only",17,ui.GOLD)
+	var choice=OptionButton.new()
+	choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	for option: Dictionary in options:choice.add_item(str(option.name))
+	body.add_child(choice)
+	var details=ui.paragraph(body,expedition_support_text(ui,options[0]),14,ui.TEXT)
+	choice.item_selected.connect(func(index: int):details.text=expedition_support_text(ui,options[index]))
+	ui.paragraph(body,"Projection uses today's route speed. Collect, repair, crew and activate through Fleet, then review again if the added boat is slower. Existing sailors are already in the payroll above.",13)
+
+static func expedition_support_text(ui,option: Dictionary) -> String:
+	var location: String="With the flotilla" if str(option.storedPort).is_empty() else "Stored at "+str(ui.host.core.port(str(option.storedPort)).get("name",option.storedPort))
+	var blockers: Array[String]=[]
+	for blocker in option.blockers:blockers.append(str(blocker))
+	return "%s · Up to +%.1f hold when ready\nHire %d to minimum · +%s coins/day and +%.2f food/day for new crew\nOwn fuel %.1f loaded / %.1f allowance · %.1f short · %.1f beyond tank\n%s"%[location,option.addedCapacity,option.crewToMinimum,ui.money(option.additionalDailyWages),option.additionalFoodPerDay,option.loadedFuel,option.fuelRequired,option.fuelShortfall,option.tankShortfall,"; ".join(blockers) if not blockers.is_empty() else "Ready to review activation in Fleet."]
+
+static func expedition_yard_support(ui,body: Node) -> void:
+	var c=ui.host.core
+	var port: Dictionary=c.current_port()
+	if port.is_empty():
+		ui.paragraph(body,"No inactive owned partner to compare. Visit a harbor to see its actual boatyard prices and available support designs.",15,ui.GOLD)
+		return
+	var candidates: Array=[]
+	var catalogue: Array=c.Harbor.catalogue(c,port)
+	for id in catalogue:
+		var hull: Dictionary=c.hull(str(id))
+		if str(hull.get("civilianRole","")) in ["transport","tanker"]:candidates.append(hull)
+		if candidates.size()>=3:break
+	if candidates.is_empty() and not catalogue.is_empty():candidates.append(c.hull(str(catalogue[0])))
+	if candidates.is_empty():
+		ui.paragraph(body,"This harbor has no quoted designs. Compare an owned partner in Fleet or visit another yard.",14)
+		return
+	ui.paragraph(body,"Local yard: a possible next boat · quoted at "+str(port.name),17,ui.GOLD)
+	var choice=OptionButton.new()
+	choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	for hull: Dictionary in candidates:choice.add_item(str(hull.name))
+	body.add_child(choice)
+	var details=ui.paragraph(body,expedition_yard_text(ui,port,candidates[0]),14,ui.TEXT)
+	choice.item_selected.connect(func(index: int):details.text=expedition_yard_text(ui,port,candidates[index]))
+	ui.button(body,"Review local boatyard",func():ui.open_port("Boatyard"))
+
+static func expedition_yard_text(ui,port: Dictionary,hull: Dictionary) -> String:
+	var c=ui.host.core
+	var quote: Dictionary=c.Harbor.quote(c,hull,port)
+	var advance: int=c.Economy.recruit_cost(port,int(hull.crewMin))
+	var upkeep: Dictionary=c.Economy.daily_upkeep([{"crew":int(hull.crewMin),"spec":hull}])
+	return "%s hull + %s minimum-crew advance = %s coins before stores\n%d completed hulls in stock · Commission %s coins, about %.1f days with a full team\n%d hold · %d minimum crew · +%s wages and +%.2f food/day before specialists · %d hull speed\nCompare here, then confirm in Boatyard, where crew availability, materials and access are checked."%[ui.money(quote.readyPrice),ui.money(advance),ui.money(int(quote.readyPrice)+advance),int(port.get("shipStock",{}).get(hull.id,0)),ui.money(quote.commissionPrice),quote.estimatedDays,hull.cargo,hull.crewMin,ui.money(upkeep.wages),upkeep.food,hull.speed]
 
 static func notes(ui) -> void:
 	ui.modal_kind="developer_notes"
