@@ -62,6 +62,9 @@ func _initialize():
 	c.state=baseline.duplicate(true)
 	c.events.clear()
 	_owned_deployment052(c)
+	c.state=baseline.duplicate(true)
+	c.events.clear()
+	_island_preparation057(c)
 	print("expedition: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
 
@@ -146,3 +149,44 @@ func _owned_deployment052(c) -> void:
 	check(r.battleLimit==300 and r.battleDP==split.points and r.battleDP<=300,"Report uses the real 300-point deployment split")
 	check(split.reserve.size()>0 and split.deployed.size()+split.reserve.size()==c.state.fleet.size(),"Over-budget hulls remain owned in battle reserves")
 	check(r.battleReserveCount==split.reserve.size() and before==JSON.stringify(c.state),"Deployment preview preserves every boat, purse and resource")
+
+func _island_preparation057(c) -> void:
+	# Detached accounting fixtures only. C's separate057 voyage must earn all
+	# progress and provision through real public recruitment/purchase APIs.
+	var site: Dictionary=c.Exploration.catalog_site(c.state,"middle_chart_rock")
+	var hidden: String=JSON.stringify(c.state)
+	var unknown: Dictionary=E.preview(c,"shatter_wreck_field",str(c.data.START.port))
+	check(hidden==JSON.stringify(c.state) and unknown.siteId=="" and unknown.siteName=="Unknown landing" and not unknown.readyForAllowance,"Unknown-site preview withholds its details and preserves the career")
+	c.Exploration.discover_near(c.state,site,1.0)
+	var b: Dictionary=c.state.fleet[0]
+	b.spec=b.spec.duplicate(true)
+	b.spec.surveyFactor=2.0
+	b.crew=int(b.crewMin)+4
+	var before: String=JSON.stringify(c.state)
+	var clue: Dictionary=E.preview(c,site.id,str(c.data.START.port),"",2)
+	var paid: Dictionary=E.preview(c,site.id,str(c.data.START.port))
+	check(before==JSON.stringify(c.state),"Island route/work quotations neither sight future clues nor spend stores, hire, sail or progress work")
+	check(is_equal_approx(clue.chartDays,0.5) and clue.surveyDays==0 and is_equal_approx(paid.surveyDays,1.25),"Actual fitted surveyFactor shortens quoted chart and full paid-survey work")
+	check(paid.shoreDays>clue.shoreDays and paid.shoreKits==3 and paid.crewNeeded==4,"Paid level3 budgets the additional survey above the level2 story clue")
+	check(paid.returnPortId==str(c.data.START.port) and not str(paid.returnPortName).is_empty(),"Explicit sponsoring return harbor is named and retained")
+	check(is_equal_approx(paid.foodRequired,paid.foodPerDay*paid.payrollDays),"Shore prepaid rations are included once within whole-day fleet food accounting")
+	for row in paid.boats:
+		check(is_equal_approx(row.fuelRequired,row.fuelPerDay*(paid.travelDays+paid.reserveDays)),"Idle chart/survey days never burn working boat fuel")
+	check(is_equal_approx(paid.returnNow.shoreDays,0) and paid.returnNow.returnWages<=paid.returnWages,"Immediate return omits all optional shore work and its payroll")
+	var anchorage: Dictionary=c.Exploration.catalog_site(c.state,"rust_salvage_anchorage")
+	c.Exploration.discover_near(c.state,anchorage,1.0)
+	var side: Dictionary=E.preview(c,site.id,str(c.data.START.port),anchorage.id)
+	check(side.detour.shoreDays>side.shoreDays and side.detour.shoreKits==6,"Known optional anchorage budgets its actual remaining work and finite kit costs as well")
+	b.crew=int(b.crewMin)
+	b.fuel=0.0
+	b.supplies=0.0
+	c.state.cargo.food=0.0
+	c.state.cargo.supplies=0.0
+	c.state.cargo.fuel=90.0
+	c.state.coins=0 # Isolated shortage accounting, not a claimed funded voyage.
+	var poor: Dictionary=E.preview(c,site.id,str(c.data.START.port))
+	check(poor.crewShortfall==4 and poor.kitShortfall==3 and poor.wageShortfall>0 and poor.foodShortfall>0,"Missing spare crew, shore kits, food and actual payroll coins stay explicit")
+	check(poor.looseFuel==90 and poor.boats[0].loadedFuel==0 and poor.fuelShortfall>0 and not poor.readyForAllowance,"Cargo fuel cannot hide an individual boat's dry tank")
+	c.state.position={"x":-10000.0,"y":-10000.0}
+	var blocked: Dictionary=E.preview(c,site.id,str(c.data.START.port))
+	check(not blocked.routeOk and not blocked.readyForAllowance and not str(blocked.routeMessage).is_empty(),"A refused actual water route never becomes a zero-distance ready allowance")

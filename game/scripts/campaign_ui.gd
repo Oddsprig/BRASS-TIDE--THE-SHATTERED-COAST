@@ -1,24 +1,48 @@
 extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
+const Stories=preload("res://scripts/coastal_stories.gd")
 ## Focused campaign windows; main-thread UI only.
 
-static func expedition(ui) -> void:
+static func expedition(ui,use_site: bool=true) -> void:
 	ui.host.sync_economy()
 	ui.modal_kind="expedition"
 	var body=ui.modal("Prepare an expedition","VOYAGE LIMITS · RETURN ALLOWANCE · FLEET GROWTH",980,780)
 	body.add_theme_constant_override("separation",9)
 	var c=ui.host.core
 	var destination: Dictionary=c.port(ui.host.selected_port)
+	var site_id: String=str(ui.host.selected_site) if use_site else ""
+	var island: Dictionary=c.Expedition._known_site(c.state,site_id)
 	var route: Array=[]
 	var length: float=0.0
-	if not destination.is_empty():
+	if island.is_empty() and not destination.is_empty():
 		route=Routes.path(c,c.state.position,destination)
 		for i in range(1,route.size()):length+=c.distance(route[i-1],route[i])
 	var r: Dictionary=c.expedition_report(length)
+	if island.is_empty() and not destination.is_empty() and route.is_empty():r.readyForAllowance=false;r.bottleneck="No safe water route"
+	if not island.is_empty():
+		var return_port: String=str(destination.get("id",""))
+		for job in c.state.get("voyageJobs",[]):
+			if job.kind=="survey" and job.state=="active" and str(job.siteId)==site_id:return_port=str(job.port);break
+		var detour: String=""
+		for lead in Stories.earned_leads(c.state,"middle_sea_chart"):
+			if str(lead.id)=="rust_salvage_anchorage" and str(lead.id)!=site_id:detour=str(lead.id)
+		r=c.Expedition.preview(c,site_id,return_port,detour)
 	ui.paragraph(body,"Limit: "+str(r.bottleneck),23,ui.TEAL if r.readyForAllowance else ui.GOLD)
-	if not destination.is_empty():
+	if not island.is_empty():
+		ui.paragraph(body,"%s → return to %s\n%.2f travel + %.2f shore work + %.1f contingency = %.2f days to fund"%[r.siteName,r.returnPortName,r.travelDays,r.shoreDays,r.reserveDays,r.tripDays],16,ui.TEXT)
+		ui.paragraph(body,"Remaining chart %.2f days / full survey %.2f days · %d spare hands needed / %d available\n%.2f shore rations prepaid within normal food use · %.0f kits committed · all owned sailors remain paid."%[r.chartDays,r.surveyDays,r.crewNeeded,r.spareCrew,r.shoreFood,r.shoreKits],14)
+		ui.paragraph(body,"Payroll and rations reserve %.0f whole daily charges, including the current partial day."%r.payrollDays,13)
+		for work in r.work:ui.paragraph(body,str(work.action).capitalize()+": "+str(work.message),13)
+		ui.paragraph(body,r.routeMessage,14,ui.TEAL if r.routeOk else ui.RED)
+		expedition_comparison(ui,body,"Return now to "+str(r.returnPortName),r.returnNow)
+		if not r.detour.is_empty():
+			expedition_comparison(ui,body,"Optional "+str(r.detour.get("siteName","landing"))+" · +%.2f days versus returning now"%r.detour.extraDays,r.detour)
+		ui.paragraph(body,"Full level 3 is budgeted for paid surveys; the Chart Rock story clue needs only level 2. Recovery and combat time are additional. Fuel covers travel and contingency, never idle shore days.",13)
+		if not destination.is_empty():ui.button(body,"Prepare selected harbor instead: "+str(destination.name),func():expedition(ui,false))
+	elif not destination.is_empty():
 		ui.paragraph(body,"%s · %.0f water route\n%.2f days outward + %.2f return + %.1f contingency = %.2f days to fund"%[destination.name,length,r.outwardDays,r.returnDays,r.reserveDays,r.tripDays],16,ui.TEXT)
 		if route.is_empty():ui.paragraph(body,"No safe water route found. Choose another destination on the chart.",15,ui.RED)
+		if not use_site and not str(ui.host.selected_site).is_empty():ui.button(body,"Prepare selected island instead",func():expedition(ui,true))
 	else:
 		ui.paragraph(body,"Select a destination on the chart to include outward and return travel. This preview covers only %.1f contingency days."%r.reserveDays,16,ui.TEXT)
 	var gaps: Array[String]=[]
@@ -26,6 +50,8 @@ static func expedition(ui) -> void:
 	if r.fuelShortfall>0.001:gaps.append("%.1f working fuel"%r.fuelShortfall)
 	if r.wageShortfall>0:gaps.append("%s coins"%ui.money(r.wageShortfall))
 	if r.allowanceOverload>0.001:gaps.append("%.1f hold space"%r.allowanceOverload)
+	if int(r.get("crewShortfall",0))>0:gaps.append("%d spare sailors"%r.crewShortfall)
+	if float(r.get("kitShortfall",0))>0.001:gaps.append("%.1f shore kits"%r.kitShortfall)
 	var gap_text: String="Food, loaded fuel, hold and payroll covered."
 	var gap_color: Color=ui.TEAL
 	if not gaps.is_empty():gap_text=" · ".join(gaps);gap_color=ui.RED
@@ -53,7 +79,10 @@ static func expedition(ui) -> void:
 	ui.button(actions,"Manage traveling boats and stored reserves",ui.open_fleet)
 	if r.wageArrears>0 or float(c.state.get("debt",0))>0:
 		ui.paragraph(body,"Cargo accounts: settle owed wages and review the %s-coin rescue/harbor loan."%ui.money(c.state.get("debt",0)),14,ui.GOLD)
-	if not destination.is_empty():
+	if not island.is_empty():
+		ui.button(body,"Review landing: "+str(island.name),func():site(ui,site_id))
+		ui.button(body,"Chart landing course",func():ui.host.respond(c.chart_course(island));ui.close_modal(),true).disabled=not r.routeOk or r.overload>0 or not c.state.exploration.assignment.is_empty()
+	elif not destination.is_empty():
 		ui.button(body,"Chart course to "+str(destination.name),func():ui.host.sail_to(destination.id);ui.close_modal(),true).disabled=route.is_empty() or r.overload>0
 	ui.rule(body)
 	ui.eyebrow(body,"A PARTNER FOR THE NEXT VOYAGE")
@@ -72,6 +101,9 @@ static func expedition(ui) -> void:
 	for warning in r.warnings:ui.paragraph(details,str(warning),14,ui.RED)
 	var toggle=ui.button(body,"Fuel by boat & voyage cautions",func():details.visible=not details.visible)
 	body.move_child(toggle,details.get_index())
+
+static func expedition_comparison(ui,body: Node,title: String,r: Dictionary) -> void:
+	ui.paragraph(body,title+"\n%.2f days · %s payroll coins · %.2f food · %.1f loaded fuel · %.0f shore kits\nMissing %s coins / %.2f food / %.1f loaded fuel / %.0f kits · %s"%[r.tripDays,ui.money(r.returnWages),r.foodRequired,r.fuelRequired,r.get("shoreKits",0),ui.money(r.wageShortfall),r.foodShortfall,r.fuelShortfall,r.get("kitShortfall",0),r.bottleneck],14,ui.TEAL if r.readyForAllowance else ui.GOLD)
 
 static func expedition_owned_support(ui,body: Node,options: Array) -> void:
 	ui.paragraph(body,"Compare an owned reserve · preview only",17,ui.GOLD)
@@ -169,9 +201,6 @@ static func site(ui,site_id: String) -> void:
 		ui.label(body,"Survey findings",25,ui.GOLD,true)
 		ui.paragraph(body,s.discovery,18,ui.TEXT)
 		ui.paragraph(body,"Opportunity: "+str(s.resource)+". Knowledge identifies the site; production and recovery still require actual work and equipment.",15)
-		if not str(s.leadId).is_empty():
-			var lead: Dictionary=c.Exploration.catalog_site(c.state,s.leadId)
-			if not lead.is_empty():ui.button(body,"Follow lead: "+str(lead.name),func():site(ui,lead.id))
 	else:
 		var action: String="chart" if s.level==1 else "survey"
 		var q: Dictionary=c.Exploration.quote(c.state,site_id,action)
@@ -180,6 +209,9 @@ static func site(ui,site_id: String) -> void:
 		ui.paragraph(body,q.message,15,ui.TEAL if q.ok else ui.RED)
 		if c.distance(c.state.position,s)<=180 and not c.state.path.is_empty():ui.button(body,"Idle engines at this landing",func():c.stop_sailing();site(ui,site_id))
 		ui.button(body,"Assign shore party",func():ui.host.respond(c.begin_survey(site_id,action));site(ui,site_id),true).disabled=not q.ok or c.distance(c.state.position,s)>180 or not c.state.path.is_empty()
+	if s.level>=2 and not str(s.leadId).is_empty():
+		var lead: Dictionary=c.Expedition._known_site(c.state,str(s.leadId))
+		if not lead.is_empty():ui.button(body,"Follow earned lead: "+str(lead.name),func():site(ui,lead.id))
 	var assignment: Dictionary=c.Exploration.assignment(c.state)
 	if not assignment.is_empty():
 		ui.paragraph(body,"Party progress %.1f / %.1f days. Recall the party before sailing."%[assignment.daysDone,assignment.daysTotal],16,ui.GOLD)
@@ -187,6 +219,7 @@ static func site(ui,site_id: String) -> void:
 		ui.button(body,"Recall party",func():ui.host.respond(c.recall_survey());site(ui,site_id))
 	else:
 		ui.button(body,"Sail to landing",func():ui.host.respond(c.chart_course(s));ui.close_modal(),true)
+	ui.button(body,"Prepare this island work & named return",func():expedition(ui))
 	ui.button(body,"Island charts",func():islands(ui))
 
 static func survey_day(ui) -> void:

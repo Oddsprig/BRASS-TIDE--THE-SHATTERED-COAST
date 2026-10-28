@@ -1,0 +1,89 @@
+B057 SOURCE CANDIDATE - prepared, not run; Root owns acceptance
+
+Base: delivered056 9e9d6252cc1f2cf2b6e78a47e41abed2fdb3c7fb.
+Own checkout only; no engines, tests, parsing, source advisories or helpers run.
+
+Expedition.preview(c, site_id: String, return_port_id: String = "",
+    detour_site_id: String = "", target_level: int = 3) -> Dictionary
+is the implemented detached read-only seam for C and the existing panels.
+Default target is full level3 paid survey; target_level=2 budgets clue charting.
+Explicit return_port_id is preferred for a paid job sponsor. Empty chooses the
+nearest by straight distance accessible harbor with an actual water route from
+the selected site. Explicit sponsors are never silently replaced on refusal.
+Unknown sites refuse without exposing their catalog details. No preview buys,
+provisions, sails, advances work or changes persistent state.
+
+Result retains Expedition.report keys at top level but budgets actual outbound
+and return legs, remaining quoted shore work and two contingency days. Adds:
+siteId/siteName, returnPortId/returnPortName, routeOk/routeMessage,
+travelDays/shoreDays/chartDays/surveyDays, shoreFood/shoreKits,
+crewNeeded/spareCrew/crewShortfall, kitShortfall, work (quoted remaining rows),
+returnNow (same accounting for immediate return) and detour (empty unless a
+known explicit detour is supplied, otherwise same accounting plus extraDays).
+readyForAllowance includes actual route, shore crew, kits, food, boat fuel,
+hold and total payroll. foodRequired includes shore prepaid food once; fuel
+only budgets sailing plus sailing contingency, never idle shore work.
+Existing report(state,world,route_distance=0,actual_speed=-1) defaults stay intact.
+
+Additional accounting details:
+- payrollDays rounds up the planned horizon including the current partial day
+  for conservative actual whole-day payroll/ration charges. report's default
+  unplanned arithmetic stays unchanged. report accepts an optional fifth plan
+  dictionary used internally by preview; existing four-argument calls retain
+  all previous defaults. preview.routeDistance is the summed outward+return
+  route; report.routeDistance keeps its supplied one-way distance convention.
+- Existing saved assignment contributes only remaining days and no new food
+  or kits. surveyFoodCredit offsets normal fleet food once. Future shoreFood
+  shows prepaid quotations inside normal consumption, not additional food.
+- Work quotes come from detached Exploration.quote inputs and actual fitted
+  surveyFactor. Spare hands are capped by actual active living crew above hull
+  minima and wounds. Inactive/stored owned sailors still draw normal upkeep.
+- returnNow assumes recall first (unused rations returned); no recall occurs.
+  detour.extraDays compares the whole selected stop+optional stop against an
+  immediate return. Invalid routes keep routeOk/readyForAllowance false.
+- Only calls from opening existing panels; no per-frame route querying. The
+  existing unsaved Campaign route cache may warm. No persistent state writes.
+
+Existing panels:
+CampaignUI.expedition(ui,use_site=true) prefers a known selected_site. A real
+active survey job for that site names its sponsoring job.port return harbor;
+otherwise the selected harbor is preserved. The panel explicitly switches to
+selected harbor preparation with use_site=false; old no-site behavior stays.
+The named return, remaining quoted chart/survey, full paid level3 versus clue2,
+food/kits/payroll, individual working fuel, shortages and optional earned Rust
+detour/return-now comparison are visible. Landing review keeps existing actual
+chart_course/start/stop gates. No preview executes these actions.
+
+StoryUI uses A's exact journal.earnedLeads, outcome and recoverySites contract.
+Completed public/private outcome, actual pending/applied faction/contact
+consequences, named charter candidates and conditions remain visible. The real
+HomeUI link appears only for the local canonical HomeHarbor.quote with ok and
+affordable. Finite wreck links require actual proximity, stopped/party/hazard,
+physical-record preflight and a usable whole/partial strip or tow quote. No
+rights choice claims retroactive confiscation, free hulls or generated goods.
+Known catalog leads can be followed at charted2, matching Campaign's existing
+knowledge exposure; no unknown future site is shown just by opening a panel.
+
+Prepared-not-run checks:
+- game/tests/test_expedition.gd: all old052 logistics/ownership assertions kept;
+  detached057 unknown withholding/read-only preview, fitted factor, clue2 vs
+  paid3 time/kits/crew, named return, prepaid-food inclusion, sailing-only fuel,
+  return-now versus detour, real shortages/dry tank and actual route refusal.
+- game/tests/test_island_voyage.gd: saved ongoing paid chart assignment previews,
+  no second shore charge, food credit and restore; actual Main island/harbor
+  preparation opening. Existing physical500coin wages/food/save proofs retained.
+- These are component fixtures. Their synthetic accounting inventory is NOT a
+  claimed fully earned voyage. C owns the new actual public-API voyage proof.
+- Root should run affected native suites after integrating A+B+C and review
+  selected-site, completed-story, insufficient-reserve and optional-detour UI
+  in Root's existing private capture. FIFO/background/noinput/<120s applies.
+
+Limits: source/manual diff review only. No native parse/types/assertions, source
+advisories, engine/GPU/play/render quality or actual route viability is claimed.
+No demonstrated outside-allowlist runtime blocker was measured by this source
+pass. Recovery/combat/tow/industry setup work is explicitly extra to this quoted
+chart/survey voyage; no new risk estimate or production promise was invented.
+UI consumes A's new API and is an integration candidate until Root tests it.
+Only the five allowlisted game files plus this note changed. No metadata/maps,
+tags/packages/install/push/cleanup, other checkout writes or helper calls.
+Final exact commit SHA is returned to Root in the handoff (no self-hash cycle).
