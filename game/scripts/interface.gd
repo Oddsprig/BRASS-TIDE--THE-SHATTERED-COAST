@@ -523,7 +523,7 @@ func open_harbor_services():
 	button(body,"Trade chart · dated quotes & input needs",func():TradeUI.open(self))
 	button(body,"Faction standing & safe passage",func():FactionUI.open(self))
 	button(body,"Voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
-	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"))
+	button(body,"Fishing crews & civilian voyages",func():VoyageUI.open(self,"Fishing"),false,false)
 	button(body,"Coastal stories & expedition leads",func():StoryUI.open(self))
 	button(body,"Home harbor, storage & business",func():HomeUI.open(self))
 	button(body,"Crew training & harbor workforce",func():EconomicUI.open(self))

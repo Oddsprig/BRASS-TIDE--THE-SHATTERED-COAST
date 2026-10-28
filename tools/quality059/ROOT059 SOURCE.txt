@@ -1,0 +1,11 @@
+ROOT - CIVILIAN REVIEW CALLER INTEGRATION
+Source only; no059 native or visual acceptance.
+
+B traced one caller outside its exact allowlist: Interface's harbor-services
+Fishing crews & civilian voyages button uses default economy sync before
+entering the new pure fishing review. Root changes only its existing sync flag
+to false; the primary flag stays false. All real accept/start/recall/sale actions
+retain ordinary public transaction paths. B owns VoyageUI and its review/header
+close policy. C will exercise pending-day review/decline/header paths on oneMain.
+No engine, timing threshold, economy policy or worker ownership changes here.
+Actual changed exported views will be added/reviewed after A/B/C integration.
