@@ -1,0 +1,139 @@
+058 C - ONE FOCUSED RECOVERY VOYAGE - SOURCE HANDOFF
+Base verified057 e1102835f4fc04f8a0b1d77979bf0fc617ae9894.
+Owned files ONLY: game/tests/test_salvage_voyage.gd and this note.
+No engine, test, parser, advisory, import/export, GPU, CUA, input/focus, helper,
+cleanup, package, metadata, install or push ran. This is prepared SOURCE, not a
+native result or 058 acceptance. Root owns all execution through the shared FIFO.
+
+Read full SCOPE 058 RECOVERY CHOICES.txt, A057 NEXT058 AUDIT6602c85, C057
+GEAR058 FEASIBILITYb8e6890, recovery/equipment/expedition maps, and actual
+Campaign/Main/Flow/Salvage/Condition/Records/Recovery/Preflight/SaveValidation/
+Harbor/EquipmentService/Fitting/Refit/Expedition/Manifest/route/economy APIs.
+Read A058 TRANSACTION058 SOURCE.txt and B058 DECISIONS058 SOURCE.txt as they
+arrived, including B's IMPLEMENTED adapter/UI contract. No guessed new names.
+Final named dependency source reviewed: A8657f812da98af0686458c07886e09ed733208c1
+and B124b58e69512c57f533f9df5de7d28f6ff9eafd5. They are not integrated into this
+base checkout; Root must integrate their named commits before native execution.
+
+PREPARED PROOF, NOT RUN
+The proof creates one Main scene and one initial Campaign/world/nav.
+One new_game(83), validated once with real SaveValidation, is the shared seeded
+baseline. Branches deep-copy its state or a derived physical checkpoint while
+reusing that Campaign/nav and warmed route cache. No new world per comparison,
+scenario or save/restore; A's normal transaction may create its private action
+context with shared existing data/nav. All fourteen meaningful original assertions
+remain, including finite jettison/recovery/repeat, structural strip/tow refusal,
+remaining lots, tiny stores/ammo, bounded history/ancient-site no reseed, restore,
+global coins and actual Main recovery/drawing modals.
+
+One existing small canonical patrol-2 bilge_punt is physically damaged and sunk
+as DECLARED ENCOUNTER SETUP. Its actual actor, UID-bearing condition and onboard
+stores feed Salvage.record_battle; no acquired-item mint or source-preflight
+bypass. No hostile/owner/chart patrol is deleted, no battle victory is claimed.
+Normal elapsed Campaign.step, real clearance-aware chart_course and short
+actual sailing place work offshore and a real return at Brass Haven.
+
+The claimed useful upgrade starts with the actual 15000-coin captain purse.
+Main.recover_wreck tow, joined normal economy, real harbor repair_boat,
+recruit_crew, resupply_boat("voyage") and FleetSupport.reserve must all succeed.
+Assertions require actual tug fee, integer-day sailor wages, finite food, kit/
+material stock loss, paid finite harbor crew/stores, preserved original part
+UIDs and an actually working partner/hold. No capital transfer, goods/crew
+injection, waived stock/workforce or perfect free restoration funds this branch.
+
+The constrained alternative buys actual food to leave one hold space, then
+parks its existing excess coins into the existing Brass Haven governmentPurse
+through Money.move. This is EXPLICIT low-reserve fixture setup, NOT earned
+spending or financing of the paid upgrade. Global coins remain exact. A real
+0.25 finite timber lot fits and has smaller work commitment while tow is beyond
+that purse. Actual Main stripping must remain paid/carried and forbid tow.
+That actual purchased full-hold checkpoint also supplies the overfill refusal.
+
+Gear request: {itemUids:[actual source mount0 UID, actual source engine UID],
+carrierUid:existing starter UID, acceptForfeiture:true}, mode="gear", empty
+good, qty=0.0. Exact quote fields come from A. Checks cover preview/leave/decline,
+explicit all-selected/all-lost parts + hull/components + retained loose stores,
+unaffordable work and unrepaired/full carriers with exact state rollback.
+Root's accepted policy keeps a legitimate crewed traveling support hull's real
+hold available: supportOnly alone is NOT unsupported. The isolated refusal uses
+needsHarborRepair=true, never supportOnly alone. One pure positive quote also
+requires the legitimate support carrier to retain its working hold/eligibility.
+Selected success must preserve UID/family/typeId/hp/origin/status/cause into the
+locker without advancing birth cursor, pay positive real rounded payroll/food,
+retire the whole source, forfeit all components, mint no commodity duplicate,
+pass full global custody and refuse repeat gear/boat/component recovery.
+Later actual paid trade reserves positive locker mass, refuses one extra bale
+at the hold limit and leaves no manifest unassigned lot. Normal Refit.install
+refuses the foreign stock gun on the Tinwake design before mutation/payment.
+Main writes an isolated user-data save; real Campaign.restore must keep exact
+selected identity/damage/origin, global live UID set, parsed cargo and purse,
+retirement and carrying. Integral/zero cargo saves exactly; any fractional JSON
+drift is printed at17decimal places and limited to1e-12, while restored amounts
+must equal parsed amounts EXACTLY. No new inventory/backend/031 matrix/framework.
+
+ACTUAL MAIN IN-FLIGHT OWNERSHIP CASE (Root requested)
+Reuse the same Main. On the selected scenario, Campaign.step(DAY_SECONDS)
+creates one real pending day; Main.start_economy takes it into the existing
+copied-port worker and decrements pending_days. Call Main.recover_wreck gear
+while economy_task>=0, before any join. It MUST refuse without changing state,
+port owner, pending day count, events, money/food/custody or the Main task marker.
+Then Main.sync_economy normally joins that original job; retry must succeed.
+This uses the real worker owner, not an artificial busy flag or mock core.
+Private gear settlement must not later be overwritten by an old port snapshot.
+
+SMALLEST EXACT EXISTING API SETUP FOR ROOT'S ISOLATED LAYOUT CAPTURE
+This is a recipe only, not another fixture module or permission to claim combat.
+Use Root's single isolated Main/core and current state. Do not construct another
+Campaign/nav, delete actors, fund purses or create any new equipment item.
+
+1. Existing damaged canonical wreck (same source as this proof):
+   owner=core.fleet_owner("patrol-2")
+   actor=the owner.boats entry whose type=="bilge_punt" and sunk==false
+   actor.moduleCondition must already be a Dictionary after normal new_game.
+   Find its items with location=="mount0" and location=="engine".
+   For each call Condition.apply_component_damage(actor.moduleCondition,
+     {"itemUid":the actual item.itemUid,
+      "loss":0.375 for mount0 or0.125 for engine,
+      "cause":"Declared recovery058 fixture damage"}). Require ok.
+   Require Records.publish(actor).ok, then set actor.team="enemy";
+   actor.sunk=true; actor.hp=0.0.
+   wrecks=Salvage.record_battle(core,
+     {"ships":[actor],"chartPosition":core.state.position},
+     "recovery058-declared-encounter")
+   Require exactly one record, equipmentCustody=="wreck", sourceModuleCondition
+   present, and original actor.equipmentRetiredTo==wrecks[0].id with its original
+   moduleCondition removed. This is world/encounter setup, not earned combat.
+   Use live source UIDs from that sourceModuleCondition in the selection.
+   Existing finite stores are actor stores; never add commodity guns/engines.
+
+2. Empty already-owned prize, BOARD-ONLY context on a detached state copy:
+   owned=core.find_boat(the existing starter UID)
+   owned.captureSecured=true; owned.convoyCargo={}; owned.supportOnly=true
+   Leave its actual UID, canonical condition, crew and stores intact.
+   No new hull, transfer or combat win is implied by these fixture-only flags.
+   Restore its prior copy when comparing against the original context. A real
+   crewed traveling support boat remains a legitimate physical carrier.
+
+B's exact panel entries (do not activate the irreversible final action):
+  RecoveryUI.open(ui,wreckId)
+  RecoveryUI.gear(ui,wreckId,[real source UIDs],existingWorkingCarrierUid)
+  RecoveryUI.owned_prize(ui,existingStarterUid)
+  RecoveryUI.store_choice(ui,wreckId,"timber",0.25)
+  RecoveryUI.leave(ui)
+Decision reads use Decisions.compare(core,id,mode,good,qty,request,"brass_haven")
+and Decisions.prize(core,ownedUid,"brass_haven"). Root's requested actual tour
+remains three changed panels plus title/home, not an expanding image matrix.
+
+EXECUTION / LIMITS
+Only prepared res://tests/test_salvage_voyage.gd is commissioned. Phase markers
+print elapsed milliseconds and exact check/failure counts, bounded short sailing
+loops and a final <35000ms assertion including Main setup and cleanup. Native
+target is the existing 8% CPU/two cores; C neither sets nor measures it. Root
+must execute one bounded fixture in its whole selected batch below120seconds.
+Runtime, actual stock/workforce/purse viability, native types and UI behavior
+remain unverified. A's in-flight guard and all exact source dependencies must
+be integrated first. Queued/interrupted/timed-out is not passed. Broader coast
+art, strict051 and whole-quality remain OPEN062. Metadata/maps stay Root-owned.
+Manual source/diff review only: all original meaningful assertions retained,
+one Main/baseline, exact A/B signatures/fields, actual private settlement receipt,
+real worker ownership, unchanged support role and named allowlist inspected.
