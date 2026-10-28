@@ -12,6 +12,15 @@ const Refits=preload("res://scripts/refit.gd")
 const DAY_SECONDS: float=45.0
 static var _carrying_catalog: Dictionary=Refits.catalog()
 
+## Shared locality guard. Omitted identity is the original home campaign.
+## A present malformed identity never grants access to home interactions.
+static func home_local064(saved: Dictionary) -> bool:
+	if not saved.has("world064"):return true
+	var identity=saved.get("world064")
+	if not identity is Dictionary or identity.size()!=3:return false
+	var schema=identity.get("schema")
+	return (schema is int or schema is float) and schema==1 and identity.get("layer")=="home" and identity.get("regionId")=="shatter_coast"
+
 static func _part_material_weight(module: Dictionary) -> float:
 	var total: float=0.0
 	for good in module.get("materials",{}):
@@ -322,8 +331,8 @@ static func _island_allowance(c,outward: float,returning: float,shore: Dictionar
 static func preview(c,site_id: String,return_port_id: String="",detour_site_id: String="",target_level: int=3) -> Dictionary:
 	var site: Dictionary=_known_site(c.state,site_id)
 	var blank: Dictionary={"shoreDays":0.0,"chartDays":0.0,"surveyDays":0.0,"shoreFood":0.0,"shoreKits":0.0,"crewNeeded":0,"spareCrew":Exploration.spare_crew(c.state),"work":[],"workMessage":""}
-	if site.is_empty():
-		var refused: Dictionary=_island_allowance(c,0,0,blank,false,"This landing is not known. Earn or sight its clue first.")
+	if site.is_empty() or not home_local064(c.state):
+		var refused: Dictionary=_island_allowance(c,0,0,blank,false,"Return to Shatter Coast for this landing route." if not home_local064(c.state) else "This landing is not known. Earn or sight its clue first.")
 		refused.merge({"siteId":"","siteName":"Unknown landing","returnPortId":"","returnPortName":"Unselected","returnNow":{},"detour":{}},true)
 		return refused
 	var outbound: Dictionary={"ok":true,"distance":0.0}

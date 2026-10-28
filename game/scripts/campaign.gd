@@ -3,6 +3,7 @@ extends RefCounted
 const Damage = preload("res://scripts/damage.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Navigation = preload("res://scripts/navigation.gd")
+const OceanWorld064 = preload("res://scripts/ocean_world064.gd")
 const Routes = preload("res://scripts/route_cache.gd")
 const Version = preload("res://scripts/version.gd")
 const Goods = preload("res://scripts/goods.gd")
@@ -65,6 +66,9 @@ var events: Array = []
 var pending_days: int = 0
 var exploration_timer: float=0.0
 var sailing_clearance: float=0.0
+var ocean_context064: Dictionary={}
+var ocean_error064: String=""
+var travel_lock064: String=""
 
 func _init(world_data: Dictionary,shared_navigation: Dictionary={}):
 	data = world_data
@@ -76,6 +80,80 @@ func _init(world_data: Dictionary,shared_navigation: Dictionary={}):
 		# A paid recovery action can reuse this campaign's immutable navigation.
 		# Quotes use a data facade and never construct another Campaign.
 		nav=shared_navigation
+	var atlas=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+	if atlas is Dictionary:
+		var created: Dictionary=OceanWorld064.create(data,atlas,nav)
+		ocean_context064=created.get("context",{})
+		if not created.get("ok",false):ocean_error064=str(created.get("message","Ocean charts are unavailable."))
+	else:ocean_error064="Ocean chart definitions are unavailable."
+
+func home_local064() -> bool:
+	return Expedition.home_local064(state)
+
+func world_location064() -> Dictionary:
+	var location: Dictionary={"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"}}
+	for key in ["world064","position","heading","path","destination"]:
+		if key=="world064" and not state.has(key):continue
+		var value=state.get(key)
+		location[key]=value.duplicate(true) if value is Dictionary or value is Array else value
+	return location
+
+func _publish_location064(location: Dictionary) -> void:
+	for key in ["world064","position","heading","path","destination"]:
+		state[key]=location[key].duplicate(true) if location[key] is Dictionary or location[key] is Array else location[key]
+
+func world_view064() -> Dictionary:
+	if state.is_empty() or ocean_context064.is_empty():return {}
+	var result: Dictionary=OceanWorld064.view(ocean_context064,world_location064(),active_fleet())
+	return result.get("view",{}) if result.get("ok",false) else {}
+
+func _sailing_blocker064() -> String:
+	if not state.get("toolingRecovery",{}).is_empty():return "Recall or finish the machinery recovery party before sailing away."
+	if not state.get("exploration",{}).get("assignment",{}).is_empty():return "Recall your shore party before sailing away."
+	if active_fleet().is_empty():return "Crew a boat before setting sail."
+	if active_fleet().size()>MAX_TRAVELING:return "Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING
+	if cargo_weight()>capacity()+0.001:return "The traveling holds are overloaded. Offload cargo or activate a carrier before sailing."
+	return ""
+
+func transition_blocker064() -> String:
+	if not travel_lock064.is_empty():return travel_lock064
+	for event in events:
+		if event.get("kind","") in ["encounter","defeat"]:return "Resolve the pending encounter before changing charts."
+	var sailing: String=_sailing_blocker064()
+	if not sailing.is_empty():return sailing
+	if state.get("fleet",[]).any(func(b):return int(b.get("shoreCrew",0))>0):return "Recall every shore party before changing charts."
+	if not state.get("civilianWork",{}).get("fishing",[]).is_empty():return "Recover the fishing gear before changing charts."
+	for job in state.get("voyageJobs",[]):
+		if job.get("kind","")=="passenger_charter" and int(job.get("passengers",{}).get("n",0))>0:return "Discharge the charter passengers before leaving coastal waters."
+	for job in state.get("regionalCrises",{}).get("jobs",[]):
+		if job.get("stage","")!="holding" and int(job.get("n",0))>0:return "Land the traveling civilian cohort before leaving coastal waters."
+	if home_local064():
+		for patrol in state.get("patrols",[]):
+			var owner: Dictionary=fleet_owner(str(patrol.get("id","")))
+			if owner.is_empty() or not owner.get("active",false) or not patrol.get("active",false) or not owner.get("boats",[]).any(func(b):return not b.get("sunk",false)):continue
+			if not Politics.hostile(self,owner):continue
+			if distance(state.position,patrol)<75.0:return "A hostile fleet is in direct contact. Clear the contact before changing charts."
+			var order: Dictionary=owner.get("order",{})
+			if str(owner.get("atPort","")).is_empty() and str(order.get("targetOwnerId",""))=="player" and str(order.get("purpose","")) in ["raid","intercept"] and owner.boats.any(func(b):return not b.get("sunk",false) and float(b.get("ammo",0))>0 and float(b.get("crew",0))>=float(b.get("crewMin",1))):return "A live hostile pursuit must be resolved before changing charts."
+	return ""
+
+func approach_course064(region_id: String,approach_id: String) -> Dictionary:
+	var view: Dictionary=world_view064()
+	var approaches: Array=view.get("approaches",[])
+	if view.get("layer","")=="ocean":
+		approaches=[]
+		for region in view.get("regions",[]):approaches.append_array(region.get("approaches",[]))
+	for approach in approaches:
+		if str(approach.regionId)==region_id and str(approach.id)==approach_id:return chart_course(approach.position,"" if home_local064() else "approach:%s:%s"%[region_id,approach_id])
+	return fail("Choose an approach on the current chart.")
+
+func transition064(region_id: String,approach_id: String) -> Dictionary:
+	if ocean_context064.is_empty():return fail(ocean_error064)
+	var result: Dictionary=OceanWorld064.transition(ocean_context064,world_location064(),region_id,approach_id,Routes.clearance(self),transition_blocker064())
+	if not result.get("ok",false):return result
+	_publish_location064(result.location)
+	sailing_clearance=Routes.clearance(self)
+	return ok("Entered %s."%str(world_view064().get("name",region_id)))
 
 func cached_path(a: Dictionary,b: Dictionary,clearance: float=10.0) -> Array:
 	# Coast geometry is immutable for this Campaign instance. Cache exact numeric
@@ -135,6 +213,8 @@ func new_game(seed_value: int = 1) -> Dictionary:
 	for good in Economy.GOODS:
 		cargo[good] = float(start.food) if good == "food" else 0.0
 	state = {"mapRevision":int(data.get("MAP_REVISION",1)),"format":2,"version":Version.text(),"seed":seed_value,"nextUid":2,"coins":int(start.coins),"crewPurse":int(start.crew)*Goods.SAILOR_WAGE*10,"wageArrears":0,"debt":0,"day":1.0,"econDay":1,"renown":0,"morale":85.0,"ports":ports,"fleet":[initial],"cargo":cargo,"position":port_position(start.port),"heading":0.0,"path":[],"destination":"","lastPort":start.port,"flagship":initial.uid,"missionIndex":0,"activeContract":{},"freight":{},"doneSide":[],"wins":0,"losses":0,"kills":0,"completed":false,"patrols":[],"fleetOwners":[],"log":[],"moneyLog":[],"recoverable":{},"encounterGrace":90.0,"coinSupply":0}
+	if not ocean_context064.is_empty():state.world064={"schema":1,"layer":"home","regionId":"shatter_coast"}
+	travel_lock064=""
 	var home: Dictionary = port(start.port)
 	home.workforce = maxi(0,int(home.workforce)-int(start.crew))
 	home.recruits = maxi(0,int(home.recruits)-int(start.crew))
@@ -297,7 +377,7 @@ func crew_count() -> int:
 	return result
 
 func current_port() -> Dictionary:
-	if state.is_empty():
+	if state.is_empty() or not home_local064():
 		return {}
 	for p in state.ports:
 		if distance(state.position, p) < 65.0:
@@ -328,14 +408,17 @@ func travel_speed() -> float:
 	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
-	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall or finish the machinery recovery party before sailing away.")
-	if not state.get("exploration",{}).get("assignment",{}).is_empty():return fail("Recall your shore party before sailing away.")
-	if active_fleet().is_empty():
-		return fail("Crew a boat before setting sail.")
-	if active_fleet().size()>MAX_TRAVELING:return fail("Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING)
-	if cargo_weight()>capacity()+0.001:return fail("The traveling holds are overloaded. Offload cargo or activate a carrier before sailing.")
+	var blocked: String=_sailing_blocker064()
+	if not blocked.is_empty():return fail(blocked)
 	Manifest.allocate(state)
 	var actual: float=Routes.clearance(self)
+	if not home_local064() or destination.begins_with("approach:"):
+		if ocean_context064.is_empty():return fail(ocean_error064)
+		var plotted: Dictionary=OceanWorld064.plot(ocean_context064,world_location064(),target,destination,actual)
+		if not plotted.get("ok",false):return plotted
+		_publish_location064(plotted.location)
+		sailing_clearance=actual
+		return ok("Course set for the selected approach." if destination.begins_with("approach:") else "Course set for open water.")
 	var endpoint: Dictionary=Routes.endpoint(self,port(destination) if not destination.is_empty() else target,actual)
 	if endpoint.is_empty():return fail("No safe harbor approach for a hull this size (%.0f clearance)."%actual)
 	var path = cached_path(state.position,endpoint,actual)
@@ -353,7 +436,11 @@ func validate_sailing_route() -> bool:
 	var actual: float=Routes.clearance(self)
 	if state.get("path",[]).is_empty() or is_equal_approx(sailing_clearance,actual):return true
 	sailing_clearance=actual
-	if Navigation.path_clear(nav,state.position,state.path,actual):return true
+	if not home_local064():
+		var checked: Dictionary=OceanWorld064.prepare(world_location064(),ocean_context064,actual)
+		if checked.get("ok",false):return true
+	else:
+		if Navigation.path_clear(nav,state.position,state.path,actual):return true
 	stop_sailing()
 	log_entry("Course stopped: no safe water route for a hull this size (%.0f clearance). Position unchanged."%actual)
 	return false
@@ -367,7 +454,7 @@ func step(dt: float):
 		return
 	state.encounterGrace = maxf(0.0, state.encounterGrace - dt)
 	exploration_timer+=dt
-	if exploration_timer>=0.5 and int(data.get("MAP_REVISION",1))>=2:
+	if exploration_timer>=0.5 and int(data.get("MAP_REVISION",1))>=2 and home_local064():
 		exploration_timer=0.0
 		for site in Exploration.discover_near(state,state.position,620.0):
 			log_entry("Sighted %s. Open Island charts (I) to investigate."%site.name)
@@ -375,7 +462,17 @@ func step(dt: float):
 	var voyage_before: Dictionary=state.position.duplicate()
 	validate_sailing_route()
 	var moving: bool = not state.path.is_empty()
-	if moving:
+	var voyage_distance: float=0.0
+	if not home_local064():
+		var advanced: Dictionary=OceanWorld064.advance(ocean_context064,world_location064(),dt,travel_speed(),Routes.clearance(self))
+		if advanced.get("ok",false):
+			_publish_location064(advanced.location)
+			moving=bool(advanced.moving)
+			voyage_distance=float(advanced.distance)
+		else:
+			moving=false;stop_sailing()
+			log_entry(str(advanced.get("message","Course stopped: chart is unavailable.")))
+	elif moving:
 		var step_left = travel_speed() * dt
 		while step_left > 0 and not state.path.is_empty():
 			var target = state.path[0]
@@ -391,11 +488,12 @@ func step(dt: float):
 				state.position.x += v.x
 				state.position.y += v.y
 				step_left = 0.0
-		if state.path.is_empty() and not state.destination.is_empty():
+		if state.path.is_empty() and not state.destination.is_empty() and not state.destination.begins_with("approach:"):
 			state.lastPort = state.destination
 			events.append({"kind": "arrival", "port": state.destination})
 			state.destination = ""
-	CrisisOps.step(self,distance(voyage_before,state.position))
+	if home_local064():voyage_distance=distance(voyage_before,state.position)
+	CrisisOps.step(self,voyage_distance)
 	for s in state.fleet:
 		if s.sunk or not str(s.get("storedPort","")).is_empty():
 			continue
@@ -404,6 +502,7 @@ func step(dt: float):
 		if moving and not s.get("mothballed", false):
 			s.fuel = maxf(0.0, s.fuel - dt * (0.011 + s.spec.size * 0.0002) * maxf(0.2,float(s.spec.get("fuelUse",1.0))))
 		if s.sunk:
+			if not home_local064():Salvage.record_battle(self,{"ships":[s],"chartPosition":state.position,"world064":world_location064().world064},"voyage-loss:"+str(s.uid))
 			log_entry("%s was lost to flooding." % s.name)
 	BoardingOps.step(self,dt)
 	CrisisOps.losses(self)
@@ -530,10 +629,11 @@ func fleet_owner(id: String) -> Dictionary:
 func wait_day():
 	state.day += 1.0
 	pending_days += 1
-	state.encounterGrace = 60.0
+	state.encounterGrace = 60.0 if home_local064() else maxf(0.0,float(state.encounterGrace)-DAY_SECONDS)
 	advance_surveys(1.0)
 
 func begin_survey(site_id: String, action: String) -> Dictionary:
+	if not home_local064():return fail("Return to Shatter Coast before assigning a shore party.")
 	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall the machinery recovery party before assigning a survey.")
 	var site: Dictionary=Exploration.catalog_site(state,site_id)
 	if site.is_empty() or distance(state.position,site)>180:return fail("Approach within180water units of this landing first.")
@@ -589,9 +689,11 @@ func recovery_days(weight: float) -> float:
 	return maxf(0.1,weight/maxf(1,Exploration.spare_crew(state)*20.0))
 
 func _recovery_gate(snapshot: Dictionary,id: String,mode: String) -> String:
+	if not Expedition.home_local064(snapshot):return "Recovery is available in Shatter Coast waters."
 	var w: Dictionary={}
 	for row in snapshot.get("wrecks",[]):
 		if row is Dictionary and str(row.get("id",""))==id:w=row;break
+	if not Expedition.home_local064(w):return "This wreck belongs to another chart; its position is retained for a later voyage."
 	for point in [snapshot.get("position",{}),w]:
 		if not point is Dictionary or not Salvage._is_num(point.get("x")) or not Salvage._is_num(point.get("y")):return "This recovery has no finite chart position."
 	if w.is_empty() or distance(snapshot.get("position",{}),w)>180:return "Approach this wreck within180water units first."
@@ -724,6 +826,8 @@ func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
 	return q
 
 func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
+	var locality: String=_recovery_gate(state,id,mode)
+	if not locality.is_empty():return fail(locality)
 	if mode=="gear":return _recover_selected_gear(id,request)
 	var w: Dictionary=Salvage.find_wreck(state,id)
 	if w.is_empty() or distance(state.position,w)>180:return fail("Approach this wreck within180water units first.")
@@ -747,7 +851,7 @@ func jettison(good: String,qty: int) -> Dictionary:
 	Salvage.ensure(state)
 	state.wreckSeq+=1
 	state.cargo[good]-=qty
-	state.wrecks.append({"id":"wreck-%d"%state.wreckSeq,"sourceId":"jettison:%d"%state.wreckSeq,"hull":"","name":"Marked cargo float","x":state.position.x,"y":state.position.y,"stores":{good:float(qty)},"components":{},"status":"unclaimed","day":state.day})
+	state.wrecks.append({"id":"wreck-%d"%state.wreckSeq,"sourceId":"jettison:%d"%state.wreckSeq,"hull":"","name":"Marked cargo float","world064":world_location064().world064,"x":state.position.x,"y":state.position.y,"stores":{good:float(qty)},"components":{},"status":"unclaimed","day":state.day})
 	Salvage.ensure(state)
 	Manifest.allocate(state)
 	return ok("Cargo set on a marked float. It can be recovered later if space is available.")
@@ -1055,7 +1159,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	return result
 
 func contract_ready() -> bool:
-	return not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
+	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
 
 func finish_contract() -> Dictionary:
 	var before: Dictionary=state.activeContract.duplicate(true)
@@ -1107,6 +1211,8 @@ func _record_battle_service060(physical_battle: Dictionary,result: String) -> Ar
 	return rows
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
+	if not home_local064() and context.get("kind","") in ["patrol","escort","contract"]:return fail("This encounter belongs to Shatter Coast waters.")
+	travel_lock064=""
 	if physical_battle.get("settlementReport") is Dictionary:return physical_battle.settlementReport.duplicate(true)
 	if physical_battle.get("_battleMirror051",false) and not physical_battle.get("simulation051",{}).get("retired",false):return fail("Retire the battle worker before settling its physical owners.")
 	if physical_battle.has("convoy"):
@@ -1206,6 +1312,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	return report
 
 func salvage_quote(id: String) -> Dictionary:
+	if not home_local064():return fail("Return to Shatter Coast before recovering a hull.")
 	var h: Dictionary = hull(id)
 	if h.is_empty():
 		return {}
@@ -1215,6 +1322,7 @@ func salvage_quote(id: String) -> Dictionary:
 	return {"ordinary":ordinary,"expert":expert,"fee":fee,"total":ordinary+expert+fee}
 
 func salvage_boat(id: String) -> Dictionary:
+	if not home_local064():return fail("Return to Shatter Coast before recovering a hull.")
 	var h: Dictionary = hull(id)
 	if h.is_empty() or state.recoverable.get("hull","") != id or state.recoverable.get("claimed",true):
 		return fail("No unclaimed wreck of that design.")
@@ -1289,6 +1397,9 @@ func rescue() -> Dictionary:
 			return fail(str(staged.get("message", "Equipment birth was refused.")))
 		if birth_uid != "boat-%d" % int(state.nextUid):
 			return fail("The hull register changed before the rescue.")
+	var rescue_state064: Dictionary=state.duplicate(true)
+	var rescue_events064: Array=events.duplicate(true)
+	state.world064={"schema":1,"layer":"home","regionId":"shatter_coast"}
 	state.position = port_position(home.id)
 	state.lastPort = home.id
 	stop_sailing()
@@ -1309,10 +1420,12 @@ func rescue() -> Dictionary:
 			# Return the unused loan rather than leave a failed rescue with invented resources.
 			Money.move(state,"coins",home,"governmentPurse",borrowed,"Failed rescue loan returned",state.moneyLog)
 			state.debt -= borrowed
+			state=rescue_state064;events=rescue_events064
 			return fixed
 	if hires > 0:
 		var hired: Dictionary = Harbor.recruit(self,starter.uid,hires)
 		if not hired.ok:
+			state=rescue_state064;events=rescue_events064
 			return hired
 	starter.mothballed = false
 	state.flagship = starter.uid
@@ -1337,14 +1450,21 @@ func pop_events() -> Array:
 	return result
 
 func restore(saved: Dictionary) -> Dictionary:
+	if saved.has("world064"):
+		var raw_validation: Dictionary=SaveValidation.validate(saved,data,ocean_context064)
+		if not raw_validation.ok:return fail("Save refused: "+str(raw_validation.message))
 	if int(data.get("MAP_REVISION",1))>=2:
-		var prepared: Dictionary=CoastMigration.prepare(saved,data,nav)
+		var prepared: Dictionary=CoastMigration.prepare(saved,data,nav,ocean_context064)
 		if not prepared.ok: return fail(prepared.message)
 		saved=prepared.state
-	var validation: Dictionary = SaveValidation.validate(saved,data)
+	var validation: Dictionary = SaveValidation.validate(saved,data,ocean_context064)
 	if not validation.ok:
 		return fail("Save refused: "+str(validation.message)+" Use your backup.")
 	var incoming: Dictionary = validation.get("state", saved)
+	if incoming.has("world064") or not ocean_context064.is_empty():
+		var location: Dictionary=OceanWorld064.prepare(incoming,ocean_context064,Routes.clearance({"state":incoming}))
+		if not location.get("ok",false):return fail("Save refused: "+str(location.get("message","Invalid chart location.")))
+		for key in ["world064","position","heading","path","destination"]:incoming[key]=location.location[key]
 	if incoming.get("format", 0) != 2 or not incoming.get("fleet", null) is Array or incoming.fleet.size() > MAX_FLEET:
 		return fail("This save is not a Brass Tide v0.001 campaign.")
 	if not incoming.get("position", null) is Dictionary or not incoming.get("ports", null) is Array:
@@ -1360,6 +1480,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	sailing_clearance=0.0
 	pending_days = 0
 	state = incoming
+	travel_lock064=""
 	_refit_published()
 	state.coins = maxi(0, int(state.coins))
 	state.day = maxf(1.0, float(state.day))
@@ -1402,7 +1523,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	if not state.get("campaignFacts") is Dictionary:state.campaignFacts={"escortsSaved":0,"goodsDelivered":0,"bountyWins":0,"licensedDesigns":0}
 	if not state.get("escortEvents") is Dictionary:state.escortEvents={}
 	if not state.has("battleSeq"):state.battleSeq=0
-	if not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
+	if home_local064() and not state.recoverable.is_empty() and not state.recoverable.get("claimed",true):
 		var legacy_site: Dictionary=state.position.duplicate(true)
 		legacy_site.id="legacy-recovery"
 		Salvage.seed_site_wreck(self,legacy_site,state.recoverable.hull,"legacy-recovery")

@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 const Boarding=preload("res://scripts/boarding.gd")
 const Combat=preload("res://scripts/combat_boarding.gd")
 const Economy=preload("res://scripts/economy.gd")
@@ -53,7 +54,7 @@ class DayView extends RefCounted:
 static func step(c,dt: float) -> void:
 	for b in c.state.boardingPrizes:
 		if not b.sunk:c.Damage.tick_ship(b,dt,{"inCombat":false})
-		if b.sunk:c.Salvage.record_battle(c,{"ships":[b],"chartPosition":c.state.position},"lost-prize:"+str(b.uid))
+		if b.sunk:c.Salvage.record_battle(c,{"ships":[b],"chartPosition":c.state.position,"world064":c.state.get("world064",{"schema":1,"layer":"home","regionId":"shatter_coast"})},"lost-prize:"+str(b.uid))
 	reconcile(c)
 	c.state.boardingPrizes=c.state.boardingPrizes.filter(func(b):return not b.sunk)
 static func daily(c) -> void:
@@ -151,6 +152,7 @@ static func release(c,count: int) -> Dictionary:
 	return c.ok("%d captives released safely into this harbor's workforce. No sale or reward coins were created."%count)
 static func coastal(c,battle: Dictionary) -> void:
 	battle.coastalDefenses=[]
+	if not Locality064.home_local064(c.state):return
 	for p in c.state.ports:
 		if c.distance(c.state.position,p)>420 or not p.get("defenses",{}).get("active",false):continue
 		var team: String="enemy" if Factions.is_hostile(c.state,str(p.faction)) else "player"

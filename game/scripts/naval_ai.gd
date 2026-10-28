@@ -135,7 +135,7 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		busy[id_b] = true
 		var witnessed: bool = false
 		var position: Dictionary = state.get("position", {}) if state.get("position") is Dictionary else {}
-		if position.has("x") and position.has("y"):
+		if NavalOrders.Locality064.home_local064(state) and position.has("x") and position.has("y"):
 			var player_pos: Vector2 = Vector2(float(position.x), float(position.y))
 			for patrol in [patrol_a, patrol_b]:
 				if patrol.has("x") and patrol.has("y") and player_pos.distance_to(Vector2(float(patrol.x), float(patrol.y))) <= 1800.0:

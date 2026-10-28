@@ -17,7 +17,7 @@ static func physical_hold(c,b: Dictionary) -> float:
 	return maxf(0,Transport.available_hold(c,b)-Expedition.locker_weight(b)-captive_overflow)
 
 static func _leg(c,a: Dictionary,b: Dictionary) -> Dictionary:
-	if a.is_empty() or b.is_empty():return {"ok":false,"distance":0.0}
+	if not Expedition.home_local064(c.state) or a.is_empty() or b.is_empty():return {"ok":false,"distance":0.0}
 	var path: Array=Routes.path(c,a,b)
 	var distance: float=0.0
 	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])

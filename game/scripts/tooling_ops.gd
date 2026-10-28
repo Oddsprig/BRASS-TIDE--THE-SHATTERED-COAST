@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 ## Actual paid shore work, transport and owned workshop transactions.
 const Tooling=preload("res://scripts/industrial_tooling.gd")
 const Economy=preload("res://scripts/economy.gd")
@@ -17,6 +18,7 @@ static func ensure(c) -> void:
 	if not c.state.get("toolingRecovery") is Dictionary:c.state.toolingRecovery={}
 
 static func offer(c,site_id: String,kind: String) -> Dictionary:
+	if not Locality064.home_local064(c.state):return c.fail("Machinery recovery requires Shatter Coast waters.")
 	ensure(c)
 	if not Sources.has(site_id) or Sources[site_id].kind!=kind:return c.fail("No matching machinery is evidenced here.")
 	var site: Dictionary=c.Exploration.catalog_site(c.state,site_id)
@@ -30,6 +32,7 @@ static func offer(c,site_id: String,kind: String) -> Dictionary:
 	return result
 
 static func begin(c,site_id: String,kind: String) -> Dictionary:
+	if not Locality064.home_local064(c.state):return c.fail("Machinery recovery requires Shatter Coast waters.")
 	ensure(c)
 	if not c.state.toolingRecovery.is_empty():return c.fail("Finish or recall the current recovery party first.")
 	if not c.state.get("exploration",{}).get("assignment",{}).is_empty():return c.fail("Recall the current survey party first.")

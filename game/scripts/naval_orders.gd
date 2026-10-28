@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 ## Shared NPC fleet state lookups, reserves/performance evaluation, and order selection (v0.013).
 ## Leaf NavalAI sub-module: preloads only core economy/damage/goods scripts (no preload cycles).
 
@@ -189,7 +190,7 @@ static func sightings(state: Dictionary, observer_id: String = "player") -> Arra
 		var copy: Dictionary = record.duplicate(true)
 		copy.ageDays = age
 		copy.expired = now >= float(copy.get("expiresDay", 0.0))
-		copy.current = bool(copy.get("current", false)) and not copy.expired and age <= 1.5 / 45.0
+		copy.current = (observer_id!="player" or Locality064.home_local064(state)) and bool(copy.get("current", false)) and not copy.expired and age <= 1.5 / 45.0
 		result.append(copy)
 	return result.slice(0, MAX_SIGHTINGS)
 
@@ -208,6 +209,7 @@ static func observation_reason(purpose: String) -> String:
 
 
 static func observe(state: Dictionary, observer_id: String = "player") -> Array:
+	if observer_id=="player" and not Locality064.home_local064(state):return sightings(state,observer_id)
 	var observer: Dictionary = find_owner(state, observer_id)
 	if observer_id != "player" and (observer.is_empty() or is_story_owner(observer) or not bool(observer.get("active", false))):return []
 	var position: Dictionary = state.get("position", {}) if observer_id == "player" else find_patrol(state, observer_id)

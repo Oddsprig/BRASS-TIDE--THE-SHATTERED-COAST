@@ -43,6 +43,7 @@ class QuoteView extends RefCounted:
 		return crew
 	func distance(a: Dictionary,b: Dictionary) -> float:return Vector2(a.x,a.y).distance_to(Vector2(b.x,b.y))
 	func current_port() -> Dictionary:
+		if not Expedition.home_local064(state):return {}
 		for p in state.get("ports",[]):
 			if distance(state.position,p)<65.0:return p
 		return {}
@@ -59,6 +60,7 @@ class QuoteView extends RefCounted:
 	func fleet_owner(id: String) -> Dictionary:return _find(state.get("fleetOwners",[]),id)
 
 static func _length(v,a: Dictionary,b: Dictionary) -> float:
+	if not Expedition.home_local064(v.state):return -1.0
 	var path: Array=Routes.path(v,a,b)
 	if path.size()<2:return -1.0
 	var distance: float=0.0
@@ -112,7 +114,7 @@ static func contract_quote(c,actual_offer: Dictionary) -> Dictionary:
 			if str(offer.id)==str(j.id):j=offer;listed=true;break
 	var sponsor: Dictionary=v.port(str(j.get("port","")))
 	var target: Dictionary=v.port(str(j.get("targetPort","")))
-	var reached: bool=not target.is_empty() and v.distance(v.state.position,target)<90.0
+	var reached: bool=Expedition.home_local064(v.state) and not target.is_empty() and v.distance(v.state.position,target)<90.0
 	var distance: float=-1.0 if target.is_empty() else (0.0 if reached else _length(v,v.state.position,target))
 	var budget: Dictionary=_budget(v,maxf(0,distance))
 	var endurance: Dictionary=Expedition.report(v.state,v.data,maxf(0,distance))
@@ -196,6 +198,9 @@ static func plan(c,career: String) -> Dictionary:
 	var v=QuoteView.new(c)
 	var names: Dictionary={"explorer":"Explorer","merchant":"Merchant","escort":"Escort","privateer":"Privateer","fisher":"Fisher","passenger":"Passenger operator"}
 	var p: Dictionary={"id":career,"name":names[career],"firstGoal":"","requirements":[],"operatingCosts":_budget(v,0),"rewardSource":"","nextStep":"","actionId":"jobs","nextActionId":"supply","ready":false,"blockers":[],"basis":"Actual current fleet and harbor quotes; 100 coins per sailor-day. No jobs are accepted or progress advanced.","limits":"One early action, not a career playthrough. The full-fleet allowance includes a return and two contingency days; it is not a promise of profit. Prices and sponsor purses can change."}
+	if not Expedition.home_local064(v.state):
+		p.blockers=["Return to Shatter Coast for this coastal career quote."];p.nextStep="Return through a Shatter Coast approach."
+		return _display(p)
 	match career:
 		"explorer":_explorer(p,v)
 		"merchant":_merchant(p,v)

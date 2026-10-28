@@ -1,0 +1,109 @@
+BRASS TIDE064 - B INTEGRATION SOURCE CANDIDATE
+28 October2026; parent c835b8e5; production baseline e8406f6.
+Source only. NO engine, import, parser, advisory, native test or capture ran here.
+Root must integrate A and C by named commits before resolving the new preloads.
+No version/metadata, export, owner save, music, launcher, install or tag edits.
+
+CONTRACT / OWNERSHIP
+Read ../LOCKED064 CONTRACT.txt and both authorized narrow dependency extensions.
+A owns ocean_world064.gd, ocean_regions064.json and its model fixture; none copied.
+C owns ocean_chart064.gd; adapter read from sibling argon-chart, none copied.
+Campaign still owns one state, fleet/account/UID authority, clock and home nav.
+No empty-port facade or second economy. Home NPC routes always use campaign.nav.
+Runtime ocean_context064 contains A's geometry only, never saved.
+One shared locality predicate: Expedition.home_local064(saved)->bool.
+Missing world064 is legacy home; malformed present identity grants no home access.
+
+CORE PUBLIC ADDITIONS (existing APIs retained)
+home_local064()->bool; world_location064()->L; world_view064()->V or {} on failure.
+approach_course064(region_id,approach_id)->existing result Dictionary.
+transition_blocker064()->String; transition064(region_id,approach_id)->result.
+Home approach courses keep destination=""; home harbor IDs retain old semantics.
+Remote/ocean approaches use approach:<regionId>:<approachId> exactly as A accepts.
+Main wrappers sail_approach064/enter_approach064 join existing economy first.
+Transfer has no clock, resource, grace, hull, wage, commitment or NPC mutation.
+Existing sailing guards/Manifest allocation remain; only player spatial work varies.
+Home movement/cache unchanged. Other layers consume A.advance distance in home units.
+Existing damage/fuel/crisis/day/pending/economy/NavalLifecycle/law run once.
+wait_day retains old home behavior; offshore waiting does not refill grace.
+Block direct hostile contact<75 despite grace and currently live armed player pursuit.
+Also block pending encounter/defeat, Main live battle, unusable/overloaded fleet,
+shore sailors/assignments, tooling party, deployed gear, loaded charters/cohorts.
+No new pursuit simulation; stale sightings alone do not block transfer.
+Funded rescue sets home identity only within the existing paid transaction;
+repair/hire failure restores its prior detached state and events.
+Main keeps the battle lock until settlement/valid return, publishes explicit
+battle.world064 plus chartPosition, and guards home encounter origins/actions.
+
+RESTORE
+SaveValidation.validate(saved,world,context064={}) keeps its two-argument API valid.
+CoastMigration.prepare(saved,world,nav,context064={}) keeps its old calls valid.
+Present world record validates before chart correction; never snap/repair it.
+Absent old record goes through existing migration before default home preparation.
+Player position/path/destination use A.prepare plus actual canonical hull clearance.
+Ports/patrols/owners continue their original home validation and route reconstruction.
+Retain patrol correction, equipment preflight, original accounts and coinSupply.
+Non-home saves refuse retained coastal work parties/gear or traveling passengers.
+Present wreck provenance is validated before normalization/publication.
+Direct SaveValidation calls without a context construct the real A context;
+Campaign supplies its existing context. Root should measure any validation overhead.
+
+LOCALITY / ALLOWED LEAVES
+current_port/contract_ready, survey/discovery, recovery quotes/actions and legacy
+salvage actions require home. Wrong-region wreck IDs fail directly in Core.
+Narrow guards: naval_lifecycle player contact/log watch; naval_orders player
+observations; naval_ai player witnessing; law_ops proximity/inspection;
+boarding_ops coastal defenses/prize-loss metadata; escort_ops player threat;
+tooling_ops offer/begin; civilian_work quote/start/tick;
+career_costs dock/reachability; civilian_choices059 route quotes;
+expedition preview; campaign_ui home chart/site panels.
+Home NPC-vs-NPC combat, movement, trade, production and payroll remain active.
+
+AUTHORIZED PROVENANCE EXTENSIONS
+salvage.gd only _sanitize_wreck, record_battle and tiny _world_metadata064 helper.
+Absent unmarked battle metadata defaults HOME, independent of offshore captain.
+Explicit battle.world064 follows the encounter; player/prize flooding supplies it.
+Jettison records the player's active identity. Ordinary lookups retain provenance.
+Malformed present metadata stays invalid, never a recoverable home default.
+recovery_ui.gd only open: home-local gate and raw list/focus provenance filter.
+Chart/Main likewise exclude non-home wrecks. No recovery/payout expansion.
+
+MAIN / CHART / INTERFACE
+Main uses C.pick_region and dispatches before home harbor/site/patrol/wreck hits.
+Chart uses V bounds/geometry/boats for remote/ocean and C instance draw directly.
+Layer/region changes invalidate presentation identity; C owns its separate caches.
+Original home painter, caches, labels and legacy chart dictionary facades retained.
+WASD/Home/M/zoom use the active chart. Selections clear after transfer/load.
+Interface adds approach controls/current region and keeps fleet/hold/save/pause.
+Home shortcuts/site panels route to approaches offshore; commitments stay visible.
+Every cross preflights again in Core, regardless of disabled UI buttons.
+
+PREPARED ROOT FIXTURES - NOT RUN / NOT PASSED
+game/tests/test_ocean_voyage064.gd: one real seeded Core and normal day workers.
+Actual home departure, mid-ocean route/JSON restore, remote entry/JSON restore,
+ordinary remote wages/rations/home NPC advancement, finite jettison and return
+to Brass Haven with original owned UIDs. Exact parsed custody comparisons.
+Controlled branches cover real hostile predicate/contact during grace/live pursuit,
+parties/gear/passengers/overload/battle refusals; no-state-change failures;
+off-center exact projection/inverse; wrong-side/region and bad raw saves.
+Intentional coordinate overlaps cannot dock/customs/survey/tooling/fish at home.
+Declared controlled NPC sinking proves unmarked home origin while captain is
+remote; separate explicit remote record and malformed metadata lookup checks.
+Direct wrong-region recovery refusal checks its provenance-specific reason.
+The 55s internal fixture bound is a requested limit, not measured completion.
+Root alone schedules a bounded selected batch through the shared Test Bridge lane.
+
+PRIVATE CAPTURE EXTENSION - NOT RUN / NOT REVIEWED
+Existing --qa-opening051 sequence keeps its normal views, then appends:
+opening051-ocean064.png, opening051-glasswind064.png,
+opening051-home-return064.png. Reuses its private profile/muted runner.
+These branches actually sail/cross with Core and publish normal economy jobs;
+no injected position, fuel, cargo, grace, threat deletion or earned victory.
+Real encounter/loss or failed transfer interrupts the sequence as failure.
+Root must measure bounded runtime and inspect actual images before acceptance.
+
+LIMITS
+Native parsing/types, combined preload chains, geometry, runtime/UI layout,
+save round trips and representative voyage success remain UNVERIFIED here.
+No new economy/ports/loot/quests, logistics065, weather/pursuit066,
+sites/exploration067 or distant shipping068. No whole-game quality guarantee.

@@ -188,7 +188,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051"]
+		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051", "ocean064051", "glasswind064051", "home-return064051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -380,8 +380,8 @@ func _unhandled_input(event):
 			KEY_J: ui.open_contracts() if mode == "campaign" else null
 			KEY_H: ui.open_guide()
 			KEY_I: ui.CampaignUI.islands(ui) if mode=="campaign" else null
-			KEY_K: ui.VoyageUI.open(ui) if mode=="campaign" else null
-			KEY_L: ui.RegionalUI.open(ui) if mode=="campaign" else null
+			KEY_K: (ui.VoyageUI.open(ui) if core.home_local064() else ui.open_ocean064()) if mode=="campaign" else null
+			KEY_L: (ui.RegionalUI.open(ui) if core.home_local064() else ui.open_ocean064()) if mode=="campaign" else null
 			KEY_E: ui.open_port() if mode == "campaign" else null
 			KEY_TAB: toggle_tactical() if mode == "battle" else null
 			KEY_HOME: chart.center_camera()
@@ -474,6 +474,16 @@ func new_game(seed_override: int = 0):
 	save_game(false)
 
 func click_chart(position: Vector2):
+	var view064: Dictionary=core.world_view064()
+	if not core.home_local064():
+		var pick064: Dictionary=chart.pick_ocean064(position)
+		if not pick064.is_empty():
+			ui.open_ocean064(str(pick064.get("regionId","")));return
+		var point064: Vector2=chart.world_at(position)
+		respond(core.chart_course({"x":point064.x,"y":point064.y}));return
+	for gate064 in view064.get("approaches",[]):
+		if chart.project(Vector2(gate064.position.x,gate064.position.y)).distance_to(position)<18:
+			ui.open_ocean064(str(gate064.regionId));return
 	var nearest: Dictionary = {}
 	var nearest_distance: float=INF
 	for p in core.state.ports:
@@ -501,19 +511,35 @@ func click_chart(position: Vector2):
 			show_patrol_encounter(patrol.id)
 			return
 	for w in core.state.get("wrecks",[]):
-		if w.get("status","")=="unclaimed" and (chart.project(Vector2(w.x,w.y)).distance_to(position)<16 or Rect2(chart.campaign_wreck_art054(w).bounds).grow(3).has_point(position)):
+		if core.Expedition.home_local064(w) and w.get("status","")=="unclaimed" and (chart.project(Vector2(w.x,w.y)).distance_to(position)<16 or Rect2(chart.campaign_wreck_art054(w).bounds).grow(3).has_point(position)):
 			ui.RecoveryUI.open(ui,w.id)
 			return
 	var world = chart.world_at(position)
 	respond(core.chart_course({"x": world.x, "y": world.y}))
 
 func sail_to(id: String):
+	if not core.home_local064():ui.toast("Return through a Shatter Coast approach before charting a harbor.",true);return
 	var p = core.port(id)
 	if p.is_empty():
 		return
 	core.use_reserves()
 	respond(core.chart_course({"x": p.x, "y": p.y}, id))
 	selected_port = id
+
+func sail_approach064(region_id: String,approach_id: String):
+	if mode!="campaign":return
+	sync_economy()
+	var result: Dictionary=core.approach_course064(region_id,approach_id)
+	ui.close_modal();respond(result)
+
+func enter_approach064(region_id: String,approach_id: String):
+	if mode!="campaign" or (ui.modal_open and ui.modal_kind!="ocean064"):return
+	sync_economy()
+	var result: Dictionary=core.transition064(region_id,approach_id)
+	if result.get("ok",false):
+		selected_port="";selected_site=""
+		ui.close_modal();chart.center_camera();ui.build_hud();save_game(false)
+	respond(result)
 
 func respond(result: Dictionary):
 	ui.toast(str(result.get("message", "Done.")), not result.get("ok", false))
@@ -598,6 +624,7 @@ func resolve_contract():
 		begin_battle(specs, {"kind": "contract", "id": contract.id, "ownerId":contract.get("ownerId",""), "name": "%s approaches" % core.port(contract.targetPort).name})
 
 func show_patrol_encounter(id: String):
+	if not core.home_local064():return
 	var patrol: Dictionary = {}
 	for p in core.state.patrols:
 		if p.id == id:
@@ -644,6 +671,8 @@ func show_patrol_encounter(id: String):
 	ui.button(body, "Avoid contact", func(): core.state.encounterGrace = 90.0; ui.close_modal())
 
 func engage_patrol(patrol: Dictionary):
+	if not core.home_local064() or core.distance(core.state.position,patrol)>1800.0:
+		ui.toast("Approach this fleet in Shatter Coast waters before engaging.",true);return
 	var owner: Dictionary=core.fleet_owner(patrol.id)
 	if owner.is_empty() or not owner.get("active",false) or not owner.get("boats",[]).any(func(b):return not b.sunk):
 		ui.toast("This contact has no surviving fleet to engage.",true)
@@ -658,6 +687,7 @@ func engage_patrol(patrol: Dictionary):
 	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id,"aggression":aggression, "name": "Coastal shipping lane"})
 
 func encounter_position(context: Dictionary) -> Dictionary:
+	if not core.home_local064():return core.state.position.duplicate(true)
 	if context.get("encounterPosition") is Dictionary and context.encounterPosition.has("x") and context.encounterPosition.has("y"):
 		return context.encounterPosition.duplicate(true)
 	var contact_id: String=str(context.get("allyOwnerId","") if context.get("kind","")=="escort" else context.get("ownerId","") if context.get("kind","")=="patrol" else "")
@@ -666,6 +696,8 @@ func encounter_position(context: Dictionary) -> Dictionary:
 	return core.state.position.duplicate(true)
 
 func begin_battle(specs: Array, context: Dictionary):
+	if not core.home_local064() and context.get("kind","") in ["patrol","escort","contract"]:
+		ui.toast("This coastal contact belongs to Shatter Coast waters.",true);return
 	if core.FleetSupport.combat(core).is_empty():
 		ui.toast("You need a crewed boat marked for battle deployment.", true)
 		return
@@ -687,13 +719,17 @@ func begin_battle(specs: Array, context: Dictionary):
 		var ally_owner: Dictionary=core.fleet_owner(str(context.get("allyOwnerId","")))
 		player_fleet=ally_owner.get("boats",[]).filter(func(b):return not b.sunk and b.crew>=b.crewMin)+player_fleet
 	for boat in player_fleet:boat.supportRepairFactor=1.0
-	var options: Dictionary=CoastalTerrain.arena(data,encounter_position(context))
+	var geography064: Dictionary=data if core.home_local064() else {"ISLANDS":core.world_view064().get("islands",[])}
+	var options: Dictionary=CoastalTerrain.arena(geography064,encounter_position(context))
 	options.merge({"fleet":player_fleet,"mission":context.get("mission",{}),"enemySpecs":specs,"enemyFleet":enemy_fleet,"seed":int(core.state.seed)+core.state.wins*17+core.state.losses*5})
 	battle = Battle.create(options)
 	if not str(battle.get("startError","")).is_empty():
 		ui.toast(str(battle.startError),true)
 		battle={}
 		return
+	core.travel_lock064="Resolve the current battle before changing charts."
+	battle.world064=core.world_location064().world064
+	battle.chartPosition=core.state.position.duplicate(true)
 	battle_context.mission=battle.mission.duplicate(true)
 	battle.captureSlots=maxi(0,64-core.state.get("boardingPrizes",[]).size())
 	core.BoardingOps.coastal(core,battle)
@@ -1125,6 +1161,9 @@ func recover_salvage(id: String):
 	respond(result)
 
 func return_to_campaign():
+	if mode=="battle" and not quick_mode and not lab_active and battle.get("result")==null:
+		ui.toast("Resolve or withdraw from the current battle before returning to the chart.",true);return
+	core.travel_lock064=""
 	_retire_battle_driver051()
 	Tactical.retire_planning051(battle)
 	_leave_lab()
@@ -1255,6 +1294,7 @@ func load_game():
 		paused = false
 		chart.zoom = 1.0
 		chart.center_camera()
+		selected_port="";selected_site=""
 		ui.close_modal()
 		ui.build_hud()
 	respond(result)
@@ -1312,6 +1352,30 @@ func _regional_capture061() -> bool:
 	core.TradeFlow.observe(core)
 	return true
 
+## Existing private capture sequence only. Sail the real Core with its normal
+## economy publication; no injected location, cargo, grace or cleared threats.
+func _capture_sail064(region_id: String,approach_id: String) -> bool:
+	var plotted: Dictionary=core.approach_course064(region_id,approach_id)
+	if not plotted.get("ok",false):push_error("Ocean064 capture course: "+str(plotted.message));return false
+	for _piece064 in range(160):
+		if core.state.path.is_empty():return true
+		var length064: float=0.0
+		var previous064: Dictionary=core.state.position
+		for point064 in core.state.path:length064+=core.distance(previous064,point064);previous064=point064
+		var physical_scale064: float=10.0 if core.state.world064.layer=="ocean" else 1.0
+		core.step(minf(4.0,maxf(0.001,length064*physical_scale064/maxf(0.01,core.travel_speed()))))
+		sync_economy()
+		for event064 in core.pop_events():
+			if event064.get("kind","") in ["encounter","defeat"]:push_error("Ocean064 capture interrupted by a real encounter/loss");return false
+	push_error("Ocean064 capture route did not complete inside the bounded sequence")
+	return false
+
+func _capture_cross064(region_id: String,approach_id: String) -> bool:
+	var crossed: Dictionary=core.transition064(region_id,approach_id)
+	if not crossed.get("ok",false):push_error("Ocean064 capture transfer: "+str(crossed.message));return false
+	selected_port="";selected_site="";ui.close_modal();ui.build_hud();chart.center_camera();chart.territory_view()
+	return true
+
 func capture_after_start():
 	await get_tree().create_timer(2.0).timeout
 	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS")
@@ -1329,7 +1393,15 @@ func capture_after_start():
 	for raw in views:
 		var name: String = str(raw)
 		if name.ends_with("051") and not screenshots_requested.is_empty():
-			if name == "home051":
+			if name == "ocean064051":
+				new_game(64064);paused=true
+				if not _capture_sail064("shatter_coast","north") or not _capture_cross064("shatter_coast","north"):return
+			elif name == "glasswind064051":
+				if not _capture_sail064("glasswind_keys","south") or not _capture_cross064("glasswind_keys","south"):return
+			elif name == "home-return064051":
+				if not _capture_cross064("glasswind_keys","south"):return
+				if not _capture_sail064("shatter_coast","north") or not _capture_cross064("shatter_coast","north"):return
+			elif name == "home051":
 				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)
 			elif name == "regional061051":

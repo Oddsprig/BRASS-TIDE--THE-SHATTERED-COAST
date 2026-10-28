@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const Goods=preload("res://scripts/goods.gd")
@@ -48,6 +49,7 @@ static func prepare_intercept(c,context: Dictionary) -> Dictionary:
 	out.mission=mission
 	return out
 static func threat(c,convoy: Dictionary) -> Dictionary:
+	if not Locality064.home_local064(c.state):return {}
 	var chart: Dictionary=c.NavalAI._find_patrol(c.state,str(convoy.get("id","")))
 	if chart.is_empty() or c.distance(c.state.position,chart)>1800:return {}
 	var nearest: Dictionary={};var distance: float=1800

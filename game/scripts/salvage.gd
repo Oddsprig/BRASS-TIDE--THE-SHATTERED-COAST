@@ -122,6 +122,17 @@ static func _retain_service(source: Dictionary,target: Dictionary) -> void:
 	target.serviceHistory=history
 
 
+## Missing legacy metadata belongs to home. Invalid present metadata stays
+## explicitly invalid, so a lookup cannot turn it into recoverable home cargo.
+static func _world_metadata064(record: Dictionary) -> Dictionary:
+	if not record.has("world064"):return {"schema":1,"layer":"home","regionId":"shatter_coast"}
+	var identity=record.get("world064")
+	if identity is Dictionary:
+		var schema=identity.get("schema")
+		var pair: String=str(identity.get("layer",""))+"/"+str(identity.get("regionId",""))
+		if (schema is int or schema is float) and schema==1 and pair in ["home/shatter_coast","local/glasswind_keys","ocean/open_ocean"]:return identity.duplicate(true)
+	return {"schema":0,"layer":"invalid","regionId":"invalid"}
+
 static func _sanitize_wreck(raw) -> Dictionary:
 	if not (raw is Dictionary) or str(raw.get("id", "")).is_empty():
 		return {}
@@ -143,6 +154,7 @@ static func _sanitize_wreck(raw) -> Dictionary:
 		"hullStripped":bool(raw.get("hullStripped",false)),
 		"sourceLoadout":raw.get("sourceLoadout",{}).duplicate(true) if raw.get("sourceLoadout",{}) is Dictionary else {},
 	}
+	if raw.has("world064"):wreck.world064=_world_metadata064(raw)
 	Recovery.retain(raw, wreck)
 	_retain_service(raw,wreck)
 	return wreck
@@ -339,6 +351,10 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 	var xy := _position_xy(battle.get("chartPosition",state.get("position", {})))
 	var chart_x: float=float(xy[0]) if xy.size()==2 else 0.0
 	var chart_y: float=float(xy[1]) if xy.size()==2 else 0.0
+	# Autonomous home losses carry chartPosition; player/prize losses supply
+	# their explicit active identity. Never borrow the offshore captain's layer
+	# for an unrelated home NPC sinking.
+	var provenance: Dictionary=_world_metadata064(battle)
 	var created: Array = []
 	var seen_ships := {}
 	var pending: Array = []
@@ -383,6 +399,7 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 			"sourceLoadout":sunk.get("loadout",Refits.defaults(sunk_spec)).duplicate(true),
 			"status": STATUS_UNCLAIMED, "claimedMode": "", "towedBoatUid": "", "hullStripped":false,
 		}
+		if battle.has("world064"):wreck.world064=provenance.duplicate(true)
 		_apply_equipment(sunk, wreck, item.plan)
 		_retain_service(sunk,wreck)
 		state["wrecks"].append(wreck)

@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 ## Main-thread customs publication and cheap read-only carrier policy snapshots.
 const Law=preload("res://scripts/trade_law.gd")
 const Rules=preload("res://scripts/trade_rules.gd")
@@ -22,7 +23,7 @@ static func exportable(_view,p: Dictionary,good: String) -> float:
 	return float(Reserves.exportable(p,good)) if p.get("reserves") is Dictionary else float(p.stocks.get(good,0))
 
 static func near(c,record: Dictionary) -> bool:
-	return c.distance(c.state.position,record)<(65.0 if record.has("stocks") else 120.0)
+	return Locality064.home_local064(c.state) and c.distance(c.state.position,record)<(65.0 if record.has("stocks") else 120.0)
 
 static func eligible(c,p: Dictionary,o: Dictionary) -> bool:
 	if o.get("playerCompany",false) or o.get("kind","")!="patrol" or not o.get("active",false) or str(o.id)!=str(p.id) or str(p.get("ownerId",""))!=str(o.id):return false
@@ -63,6 +64,7 @@ static func allow_player(c,p: Dictionary,good: String) -> bool:
 	return true if commission.is_empty() else Law.trade_allowed(c,commission,str(p.faction),good)
 
 static func inspect(c,observer: Dictionary) -> Dictionary:
+	if not Locality064.home_local064(c.state):return c.fail("Customs contacts require Shatter Coast waters.")
 	var key: String=("port:" if observer.has("stocks") else "patrol:")+str(observer.id)
 	var book: Dictionary=c.state.get("tradeLaw",{})
 	if int(book.get("stamp",-1))==floori(float(c.state.day)) and book.get("seenBy",{}).has(key):return {"ok":true,"message":"Today's manifest encounter is already recorded.","repeated":true}

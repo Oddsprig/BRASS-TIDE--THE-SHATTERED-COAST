@@ -1,4 +1,5 @@
 extends RefCounted
+const Locality064=preload("res://scripts/expedition.gd")
 ## Fishing is explicit wild-resource production, never the shore food recipe.
 ## One 500-map-unit water cell supplies at most 40 preserved lots per calendar day.
 ## Crew catch, clean and preserve aboard; the sum of the existing fish labor
@@ -53,6 +54,7 @@ static func fishing_quote(c,boat_uid: String,days: float=1.0,crew: int=0) -> Dic
 		"quotaDaily":SITE_QUOTA,"quotaRemaining":remaining,"quotaInHorizon":0.0,"catchRate":0.0,"catchMax":0.0,"sellableLots":0,
 		"workingDays":0.0,"timeToFillDays":-1.0,"holdFree":0.0,"fleetHoldFree":0.0,"fuelLoaded":0.0,"foodLoaded":maxf(0,float(c.state.cargo.food)),
 		"fuelPerDay":0.0,"foodPerDay":0.0,"fuelNeeded":0.0,"foodNeeded":0.0,"limitingCause":"","limits":[]}
+	if not Locality064.home_local064(c.state):return _quote_refusal(q,"location","Fishing grounds are charted in Shatter Coast waters.")
 	if not is_finite(days) or days<=0 or days>7:return _quote_refusal(q,"duration","Choose more than zero and at most seven fishing days.")
 	var b: Dictionary=_active(c,boat_uid)
 	if b.is_empty() or str(c.hull(str(b.type)).get("civilianRole",""))!="fishing":return _quote_refusal(q,"ineligible","Choose a working, crewed fishing hull in the traveling fleet.")
@@ -112,6 +114,7 @@ static func _quote_refusal(q: Dictionary,cause: String,message: String) -> Dicti
 	return q
 
 static func start_fishing(c,boat_uid: String,days: float=1.0,crew: int=0) -> Dictionary:
+	if not Locality064.home_local064(c.state):return c.fail("Fishing grounds are charted in Shatter Coast waters.")
 	if not is_finite(days) or days<=0 or days>7:return c.fail("Choose more than zero and at most seven fishing days.")
 	var b: Dictionary=_active(c,boat_uid)
 	if b.is_empty() or str(c.hull(str(b.type)).get("civilianRole",""))!="fishing":return c.fail("Choose a working, crewed fishing hull in the traveling fleet.")
@@ -152,7 +155,7 @@ static func tick(c,dt_days: float) -> void:
 		var now: float=float(c.state.day)
 		var begin: float=maxf(float(j.lastDay),now-dt_days)
 		j.lastDay=now # A paused/invalid interval is never banked as later work.
-		if b.is_empty() or int(b.crew)<int(j.crew) or not c.current_port().is_empty() or not c.state.path.is_empty() or site_id(c.state.position)!=str(j.siteId) or not c.state.get("exploration",{}).get("assignment",{}).is_empty() or not c.state.get("toolingRecovery",{}).is_empty():
+		if not Locality064.home_local064(c.state) or b.is_empty() or int(b.crew)<int(j.crew) or not c.current_port().is_empty() or not c.state.path.is_empty() or site_id(c.state.position)!=str(j.siteId) or not c.state.get("exploration",{}).get("assignment",{}).is_empty() or not c.state.get("toolingRecovery",{}).is_empty():
 			book.fishing.erase(j);c.log_entry("Fishing stopped: the actual carrier, work party or water cell changed.");continue
 		while begin<now-EPS and float(j.daysDone)<float(j.daysTotal)-EPS:
 			var day: int=floori(begin)

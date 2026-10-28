@@ -50,7 +50,7 @@ static func refuse_route(c,p: Dictionary,reason: String) -> void:
 	if owner.get("order") is Dictionary:owner.order.reason=reason
 	if changed:
 		Fleets._log(owner,reason)
-		if c.distance(c.state.position,p)<=1800.0:c.log_entry("%s: %s"%[owner.get("name",p.id),reason])
+		if Orders.Locality064.home_local064(c.state) and c.distance(c.state.position,p)<=1800.0:c.log_entry("%s: %s"%[owner.get("name",p.id),reason])
 
 static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -> void:
 	var target: Dictionary=c.port(dest)
@@ -225,7 +225,7 @@ static func step(c,dt: float) -> void:
 			else:c.place_patrol(p)
 		owner.progress=p.progress
 		if not p.get("holding",false):owner.atPort=""
-		if p.hostile and c.state.encounterGrace<=0 and c.distance(c.state.position,p)<75 and c.state.day>2:
+		if Orders.Locality064.home_local064(c.state) and p.hostile and c.state.encounterGrace<=0 and c.distance(c.state.position,p)<75 and c.state.day>2:
 			c.state.encounterGrace=60.0;c.stop_sailing()
 			c.events.append({"kind":"encounter","patrol":p.id})
 

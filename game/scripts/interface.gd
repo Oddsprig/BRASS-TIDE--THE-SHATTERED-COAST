@@ -306,6 +306,26 @@ func build_campaign_hud(size: Vector2):
 	frame.add_child(scroll)
 	scroll.add_child(left_body)
 	left_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	if not host.core.home_local064():
+		eyebrow(left_body,"YOUR FLOTILLA")
+		flagship_label=label(left_body,"",26,TEXT,true)
+		var view064: Dictionary=host.core.world_view064()
+		paragraph(left_body,str(view064.get("name","Chart unavailable")),22,GOLD)
+		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
+		button(left_body,"Coastal approaches",open_ocean064,true,false)
+		button(left_body,"Fleet & crew",open_fleet)
+		button(left_body,"Hold & reserves",open_cargo)
+		button(left_body,"More charts & business",open_campaign_tools)
+		eyebrow(right_body,"VOYAGE")
+		paragraph(right_body,"Glasswind Keys and Shatter Coast share one ocean chart. Approach a marked side, stop, then enter its coastal waters.",16)
+		paragraph(right_body,"Harbors and coastal work are available after returning to Shatter Coast.",15,GOLD)
+		var footer064=panel(chrome,Vector2(0,size.y-85),Vector2(size.x,85))
+		var actions064=row(footer064)
+		button(actions064,"Fleet",open_fleet);button(actions064,"Hold",open_cargo);button(actions064,"Contracts",open_contracts)
+		voyage_label=label(actions064,"",12,MUTED)
+		voyage_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		dock_button=button(actions064,"Coastal approaches",open_ocean064,true)
+		return
 	eyebrow(left_body, "YOUR FLOTILLA")
 	flagship_label = label(left_body, "", 26, TEXT, true)
 	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
@@ -317,6 +337,7 @@ func build_campaign_hud(size: Vector2):
 		paragraph(left_body,str(host.data.MISSIONS[host.core.state.missionIndex].title),18,GOLD)
 	paragraph(left_body,"Review the route, paid crew and return reserves before committing.",14)
 	button(left_body,"Prepare first voyage" if host.core.state.missionIndex==0 and active.is_empty() else "Review voyage",func():GuidanceUI.open_voyage(self),true,false)
+	button(left_body,"Open ocean & coastal approaches",open_ocean064,false,false)
 	button(left_body,"More charts & business",open_campaign_tools,false,false)
 	rule(left_body)
 	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
@@ -350,6 +371,11 @@ func build_campaign_hud(size: Vector2):
 func open_campaign_tools():
 	modal_kind="campaign_tools"
 	var body=modal("More charts & business")
+	button(body,"Open ocean & coastal approaches",open_ocean064,true,false)
+	if not host.core.home_local064():
+		button(body,"Fleet & crew",open_fleet);button(body,"Hold & reserves",open_cargo)
+		button(body,"Existing contracts",open_contracts);button(body,"Close",close_modal)
+		return
 	button(body,"Captain's priorities",func():GuidanceUI.open(self),true,false)
 	button(body,"Prepare expedition",func():CampaignUI.expedition(self))
 	button(body,"Island charts & surveys     I",func():CampaignUI.islands(self))
@@ -358,6 +384,34 @@ func open_campaign_tools():
 	button(body,"Coastal stories & leads",func():StoryUI.open(self))
 	button(body,"Home harbors & warehouses",func():HomeUI.open(self))
 	button(body,"Regional goals                    L",func():RegionalUI.open(self))
+	button(body,"Close",close_modal,false,false)
+
+func open_ocean064(region_id: String=""):
+	if host.mode!="campaign":return
+	modal_kind="ocean064"
+	var view: Dictionary=host.core.world_view064()
+	var body=modal(str(view.get("name","Ocean charts")),"COASTAL APPROACHES",900,720)
+	if view.is_empty():
+		paragraph(body,"Ocean chart definitions are unavailable.",18,RED);return
+	paragraph(body,"Sail to a marked north or south approach. Stop within the approach, then cross between local waters and the ocean.",17)
+	paragraph(body,"The crossing preserves your position, heading, hulls and stores. The voyage clock advances while sailing and waiting.",15,GOLD)
+	var blocked: String=host.core.transition_blocker064()
+	if not blocked.is_empty():paragraph(body,blocked,16,RED)
+	var groups: Array=view.get("regions",[]) if view.layer=="ocean" else [{"regionId":view.regionId,"name":view.name,"approaches":view.approaches}]
+	for group in groups:
+		if not region_id.is_empty() and str(group.regionId)!=region_id:continue
+		rule(body);label(body,str(group.name),25,GOLD,true)
+		for approach in group.get("approaches",[]):
+			var gate: Dictionary=approach
+			var near: bool=host.core.distance(view.position,gate.position)<=float(gate.radius)
+			var line=row(body)
+			paragraph(line,str(gate.name),18,TEXT)
+			button(line,"Chart approach",func():host.sail_approach064(str(gate.regionId),str(gate.id)))
+			var cross=button(line,("Enter coastal waters" if view.layer=="ocean" else "Depart to open ocean"),func():host.enter_approach064(str(gate.regionId),str(gate.id)),true)
+			cross.disabled=not near or not view.path.is_empty() or not blocked.is_empty()
+			if near and not view.path.is_empty():paragraph(body,"Idle engines before crossing.",14,GOLD)
+	if not region_id.is_empty():button(body,"All approaches",func():open_ocean064())
+	button(body,"Show entire chart",func():close_modal();host.chart.territory_view())
 	button(body,"Close",close_modal,false,false)
 
 func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
@@ -407,9 +461,11 @@ func update_hud():
 	clock_label.text = "DAY %d  ·  %s" % [int(w.day), "PAUSED" if host.paused else "%d×" % host.speed if host.mode != "battle" else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]]
 	flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
 	var p = host.core.current_port()
-	dock_button.disabled = p.is_empty()
-	dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
-	voyage_label.text = "UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()]
+	dock_button.disabled = p.is_empty() if host.core.home_local064() else false
+	if not host.core.home_local064():dock_button.text="Coastal approaches"
+	else:dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
+	var region064: String=str(host.core.world_view064().get("name","Shatter Coast"))
+	voyage_label.text = region064+" / "+("UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()])
 
 func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 1030, height: float = 780) -> VBoxContainer:
 	# Detach shared notices before clearing their previous modal.
@@ -474,6 +530,7 @@ func close_modal():
 		update_hud()
 
 func open_port(tab: String = ""):
+	if not host.core.home_local064():open_ocean064();return
 	host.sync_economy()
 	var p = host.core.current_port()
 	if p.is_empty():
@@ -782,7 +839,7 @@ func open_cargo():
 func open_contracts():
 	modal_kind = "contracts"
 	var body = modal("Contracts & logbook", "THE COAST REMEMBERS WHAT YOU DO")
-	button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
+	if host.core.home_local064():button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	contracts_view(body)
 	rule(body)
 	eyebrow(body, "CAPTAIN'S LOG")
@@ -790,6 +847,14 @@ func open_contracts():
 		paragraph(body, entry, 13)
 
 func contracts_view(body: Node):
+	if not host.core.home_local064():
+		paragraph(body,"Coastal commitments keep their deadlines. Return to Shatter Coast to accept or settle harbor work.",16,GOLD)
+		for commitment064 in host.core.state.get("voyageJobs",[]):
+			paragraph(body,str(commitment064.get("title","Voyage commitment"))+" / deadline day "+str(commitment064.get("deadlineDay",0)),15)
+		var active064: Dictionary=host.core.state.get("activeContract",{})
+		if not active064.is_empty():paragraph(body,str(active064.get("title","Coastal contract")),18,GOLD)
+		button(body,"Coastal approaches",open_ocean064)
+		return
 	var w = host.core.state
 	label(body, "Story progress · %d / 8" % w.missionIndex, 24, GOLD, true)
 	if not w.activeContract.is_empty():

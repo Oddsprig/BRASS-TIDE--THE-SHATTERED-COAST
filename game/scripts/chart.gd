@@ -1,5 +1,7 @@
 extends Node2D
 
+const Locality064=preload("res://scripts/expedition.gd")
+const OceanChart064=preload("res://scripts/ocean_chart064.gd")
 const BoatArt = preload("res://scripts/boat_art.gd")
 const CombatArt = preload("res://scripts/combat_art.gd")
 const NauticalArt=preload("res://scripts/nautical_art.gd")
@@ -12,6 +14,8 @@ const FOAM = Color("95cabc")
 const ENEMY = Color("e8947a")
 const FRIEND = Color("8fc6b4")
 var host
+var _ocean_painter064=OceanChart064.new()
+var _world_key064: String=""
 var camera = Vector2(1300, 900)
 var scale_factor = 0.36
 var zoom = 1.0
@@ -195,7 +199,10 @@ func step(dt: float):
 	if host != null and "tactical_mode" in host:
 		tactical = bool(host.tactical_mode)
 	var mode_now: String = str(host.mode) if host != null else ""
-	var mode_changed := mode_now != _last_mode
+	var identity064: Dictionary=host.core.state.get("world064",{}) if host!=null and host.core!=null else {}
+	var key064: String=str(identity064.get("layer","home"))+"/"+str(identity064.get("regionId","shatter_coast"))
+	var mode_changed: bool=mode_now != _last_mode or key064!=_world_key064
+	_world_key064=key064
 	_last_mode = mode_now
 	if mode_now=="battle":_prepare_battle_coast()
 	if host != null and host.mode == "battle" and not host.battle.is_empty():
@@ -247,7 +254,7 @@ func pan_camera(screen_direction: Vector2, dt: float, fast: bool = false):
 	_campaign_follow = false
 	var speed := 1150.0 if fast else 540.0
 	camera += _screen_to_world_delta(screen_direction.normalized() * speed * dt)
-	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else Vector2(host.data.WORLD.width,host.data.WORLD.height)
+	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else active_bounds064().size
 	camera.x = clampf(camera.x, -450.0, world_size.x + 450.0)
 	camera.y = clampf(camera.y, -450.0, world_size.y + 450.0)
 	queue_redraw()
@@ -267,13 +274,31 @@ func center_camera():
 		camera = Vector2(wp.x, wp.y)
 	queue_redraw()
 
+func active_bounds064() -> Rect2:
+	if host!=null and host.mode=="campaign" and host.core!=null and not host.core.state.is_empty() and not Locality064.home_local064(host.core.state):
+		return _ocean_painter064.world_bounds(host.core.world_view064())
+	return Rect2(0,0,float(host.data.WORLD.width),float(host.data.WORLD.height))
+
+func pick_ocean064(screen: Vector2) -> Dictionary:
+	return _ocean_painter064.pick_region(host.core.world_view064(),world_at(screen))
+
 func regional_scale() -> float:
 	var viewport=get_viewport_rect().size
+	if host!=null and host.mode=="campaign" and not Locality064.home_local064(host.core.state):
+		var bounds064: Rect2=active_bounds064()
+		return maxf(0.10,minf((viewport.x-560.0)/maxf(1.0,minf(3000.0,bounds064.size.x)),(viewport.y-260.0)/maxf(1.0,minf(2000.0,bounds064.size.y))))
 	return maxf(0.15,minf((viewport.x-560.0)/2100.0,(viewport.y-260.0)/1150.0))
 
 func territory_view():
 	follow_camera=false;_campaign_follow=false
 	var viewport=get_viewport_rect().size
+	if not Locality064.home_local064(host.core.state):
+		var bounds064: Rect2=active_bounds064()
+		var usable064: Rect2=chart_label_bounds(viewport).grow(-40)
+		var fit064: float=minf(usable064.size.x/maxf(1,bounds064.size.x),usable064.size.y/maxf(1,bounds064.size.y))
+		zoom=clampf(fit064/regional_scale(),0.10,1.0)
+		camera=bounds064.get_center()-(usable064.get_center()-viewport*0.5)/maxf(0.01,regional_scale()*zoom)
+		queue_redraw();return
 	var coast: Rect2=Rect2()
 	var first: bool=true
 	for island in host.data.ISLANDS:
@@ -938,6 +963,13 @@ func trade_paths() -> Array:
 	return _trade_paths
 
 func draw_campaign():
+	if host!=null and host.core!=null and not host.core.state.is_empty() and not Locality064.home_local064(host.core.state):
+		var view064: Dictionary=host.core.world_view064()
+		if view064.is_empty():
+			text_at("Chart unavailable",get_viewport_rect().size*0.5,22,GOLD,serif,true)
+			return
+		_ocean_painter064.draw(self,view064)
+		return
 	if host.core == null or host.core.state.is_empty():
 		return
 	var world = host.core.state
@@ -994,7 +1026,7 @@ func draw_campaign():
 		LandmarkArt054.draw(self,art,selected)
 		labels.append({"at":at,"art_bounds":Rect2(art.bounds).grow(5 if selected else 0),"text":art.label if selected or not overview else "","priority":120 if selected else 20,"color":color})
 	for wreck in world.get("wrecks",[]):
-		if wreck.get("status","")!="unclaimed":continue
+		if not Locality064.home_local064(wreck) or wreck.get("status","")!="unclaimed":continue
 		var marker_pos: Vector2=project(Vector2(wreck.x,wreck.y))
 		if not get_viewport_rect().grow(50).has_point(marker_pos):continue
 		var art: Dictionary=campaign_wreck_art054(wreck)
@@ -1006,6 +1038,11 @@ func draw_campaign():
 	FleetArt054.draw(self,player_art,GOLD,true)
 	if not player_art.vessels.is_empty():
 		labels.append({"at":marker,"art_bounds":Rect2(player_art.bounds).grow(5),"text":"YOUR FLOTILLA","priority":105,"color":GOLD})
+	var gates064: Array=[] if host.core is Dictionary else host.core.world_view064().get("approaches",[])
+	for gate064 in gates064:
+		var gate_point064: Vector2=Vector2(gate064.position.x,gate064.position.y)
+		world_ring(gate_point064,float(gate064.radius),Color(GOLD,0.7),1.5)
+		labels.append({"at":project(gate_point064),"text":str(gate064.name),"priority":90,"color":GOLD})
 	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
 	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)

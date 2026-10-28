@@ -4,6 +4,7 @@ const Stories=preload("res://scripts/coastal_stories.gd")
 ## Focused campaign windows; main-thread UI only.
 
 static func expedition(ui,use_site: bool=true) -> void:
+	if not ui.host.core.home_local064():ui.open_ocean064();return
 	ui.host.sync_economy()
 	ui.modal_kind="expedition"
 	var body=ui.modal("Prepare an expedition","VOYAGE LIMITS · RETURN ALLOWANCE · FLEET GROWTH",980,780)
@@ -164,6 +165,7 @@ static func notes(ui) -> void:
 	ui.paragraph(body,"Processor: %s · %d logical threads\nHarbor production: up to %d copied-state workers · Rendering mode: %s"%[OS.get_processor_name(),OS.get_processor_count(),clampi(OS.get_processor_count()-2,1,8),render_label],14,ui.TEAL)
 
 static func islands(ui) -> void:
+	if not ui.host.core.home_local064():ui.open_ocean064();return
 	ui.modal_kind="islands"
 	var body=ui.modal("Island charts","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
 	var c=ui.host.core
@@ -187,6 +189,7 @@ static func islands(ui) -> void:
 	ui.paragraph(body,"%d known landmarks. Uncharted reaches still hold coves, workshops, resources and wreck fields."%known,15)
 
 static func site(ui,site_id: String) -> void:
+	if not ui.host.core.home_local064():ui.open_ocean064();return
 	var c=ui.host.core
 	var s: Dictionary={}
 	for item in c.Exploration.sites(c.state):

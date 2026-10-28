@@ -3,6 +3,10 @@ extends RefCounted
 const GOODS: Array=["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns","preserved_fish","fine_timber","lacquer","medicinal_plants"]
 const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
+const Locality064=preload("res://scripts/expedition.gd")
+const OceanWorld064=preload("res://scripts/ocean_world064.gd")
+const Navigation064=preload("res://scripts/navigation.gd")
+const Routes064=preload("res://scripts/route_cache.gd")
 const Refits=preload("res://scripts/refit.gd")
 const CrisisOps=preload("res://scripts/crisis_ops.gd")
 const BoardingOps=preload("res://scripts/boarding_ops.gd")
@@ -183,7 +187,7 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 			if not _number(value.labor[occupation]): return path+" has invalid worker-days."
 	return ""
 
-static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
+static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary={}) -> Dictionary:
 	saved=BoardingOps.prepare(RegionalGoodsOps.prepare(saved))
 	var error: String=_validate(saved,world)
 	if error.is_empty():error=CampaignState.validate(saved,world)
@@ -208,6 +212,30 @@ static func validate(saved: Dictionary,world: Dictionary) -> Dictionary:
 	var prepared: Dictionary=Preflight.prepare_state(saved,world)
 	if not prepared.ok:
 		return {"ok":false,"message":str(prepared.get("message","Equipment preflight refused this career.")),"state":saved}
+	if saved.has("world064") or saved.get("wrecks",[]).any(func(w):return w is Dictionary and w.has("world064")):
+		if context064.is_empty():
+			var atlas=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+			if not atlas is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
+			var home_nav: Dictionary=Navigation064.create(world.ISLANDS,float(world.WORLD.width),float(world.WORLD.height),40.0*float(world.get("CAMPAIGN_SCALE",1.0)))
+			var made: Dictionary=OceanWorld064.create(world,atlas,home_nav)
+			if not made.get("ok",false):return {"ok":false,"message":str(made.message),"state":saved}
+			context064=made.context
+		if saved.has("world064"):
+			var location: Dictionary=OceanWorld064.prepare(prepared.state,context064,Routes064.clearance({"state":prepared.state}))
+			if not location.get("ok",false):return {"ok":false,"message":str(location.message),"state":saved}
+		if saved.has("world064") and not Locality064.home_local064(saved):
+			if not saved.get("exploration",{}).get("assignment",{}).is_empty() or not saved.get("toolingRecovery",{}).is_empty() or not saved.get("civilianWork",{}).get("fishing",[]).is_empty():return {"ok":false,"message":"A non-home save cannot retain deployed coastal work parties or gear.","state":saved}
+			for boat in saved.get("fleet",[]):
+				if int(boat.get("shoreCrew",0))>0:return {"ok":false,"message":"A non-home save cannot retain home shore sailors.","state":saved}
+			for job in saved.get("voyageJobs",[]):
+				if job.get("kind","")=="passenger_charter" and int(job.get("passengers",{}).get("n",0))>0:return {"ok":false,"message":"Charter passengers must remain in home coastal waters.","state":saved}
+			for job in saved.get("regionalCrises",{}).get("jobs",[]):
+				if job.get("stage","")!="holding" and int(job.get("n",0))>0:return {"ok":false,"message":"Traveling civilian cohorts must remain in home coastal waters.","state":saved}
+		for wreck in saved.get("wrecks",[]):
+			if not wreck.has("world064"):continue
+			var anchor: Dictionary={"world064":wreck.world064,"position":{"x":wreck.x,"y":wreck.y},"heading":0.0,"path":[],"destination":""}
+			var place: Dictionary=OceanWorld064.prepare(anchor,context064,Navigation064.DEFAULT_CLEARANCE)
+			if not place.get("ok",false):return {"ok":false,"message":"Invalid wreck world provenance: "+str(place.message),"state":saved}
 	return {"ok":true,"message":"Save schema is valid.","state":prepared.state}
 
 static func _validate(s: Dictionary,world: Dictionary) -> String:
@@ -230,15 +258,16 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 	if not s.get("completed") is bool: return "Missing campaign completion flag."
 	for key in ["version","destination","lastPort","flagship"]:
 		if not _text(s.get(key),true): return "save."+key+" must be a string."
-	if not ports.has(s.lastPort) or (not s.destination.is_empty() and not ports.has(s.destination)): return "Unknown campaign harbor reference."
+	if not ports.has(s.lastPort) or (not s.has("world064") and not s.destination.is_empty() and not ports.has(s.destination)): return "Unknown campaign harbor reference."
 	var world_size=world.get("WORLD",{})
 	var width: float=2600.0
 	var height: float=1800.0
 	if world_size is Dictionary:
 		if _number(world_size.get("width"),1): width=float(world_size.width)
 		if _number(world_size.get("height"),1): height=float(world_size.height)
-	error=_point(s.get("position"),"save.position",width,height)
-	if not error.is_empty(): return error
+	if not s.has("world064"):
+		error=_point(s.get("position"),"save.position",width,height)
+		if not error.is_empty(): return error
 	error=_cargo(s.get("cargo"),"save.cargo",true)
 	if not error.is_empty(): return error
 	if not s.get("ports") is Array or s.ports.size()!=ports.size(): return "Save must contain every original harbor exactly once."
@@ -320,9 +349,10 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		if not _text(s.recoverable.get("hull")) or not hulls.has(s.recoverable.hull) or not s.recoverable.get("claimed") is bool: return "Invalid salvage claim."
 	for key in ["path","patrols","doneSide","log","moneyLog"]:
 		if not s.get(key) is Array: return "save."+key+" must be an array."
-	for point in s.path:
-		error=_point(point,"save.path",width,height)
-		if not error.is_empty(): return error
+	if not s.has("world064"):
+		for point in s.path:
+			error=_point(point,"save.path",width,height)
+			if not error.is_empty(): return error
 	for patrol in s.patrols:
 		if not patrol is Dictionary or not _text(patrol.get("id")) or not _text(patrol.get("from")) or not ports.has(patrol.from) or not _text(patrol.get("to")) or not ports.has(patrol.to): return "Invalid chart patrol route."
 		if not patrol.get("active") is bool or not patrol.get("hostile") is bool or not _number(patrol.get("progress"),0.0,1.0): return "Invalid chart patrol state."

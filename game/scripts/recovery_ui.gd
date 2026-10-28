@@ -15,6 +15,7 @@ static func _board(ui,title: String,subtitle: String,width: float=1020,height: f
 
 static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	if ui.host.mode!="campaign":return
+	if not ui.host.core.home_local064():ui.open_ocean064();return
 	var body=_board(ui,"Wrecks & recovery","KEEP A HULL · TAKE STORES · RECOVER REAL PARTS")
 	var c=ui.host.core
 	ui.paragraph(body,"Keep a damaged hull with a paid tow, take finite stores, or dismantle it for explicitly selected parts. Work takes crew time; normal wages and food continue.",16)
@@ -33,7 +34,7 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	var wrecks: Array=[]
 	var focused: Dictionary={}
 	for raw in c.state.get("wrecks",[]):
-		if str(raw.get("status",""))!="unclaimed":continue
+		if not c.Expedition.home_local064(raw) or str(raw.get("status",""))!="unclaimed":continue
 		if not encounter_ids.is_empty() and str(raw.get("id","")) not in encounter_ids:continue
 		wrecks.append(raw)
 		if str(raw.get("id",""))==focus_id:focused=raw

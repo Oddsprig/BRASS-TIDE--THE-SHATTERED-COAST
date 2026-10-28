@@ -229,36 +229,37 @@ static func _correct_current_chart(state: Dictionary, world: Dictionary, nav: Di
 		return ""
 	if not (state.get("position") is Dictionary):
 		return ""
-	var placed := place_on_water(nav, state["position"])
-	if not placed.get("ok", false):
-		return "Save refused: chart position is inland and no safe water could be found."
-	var moved: bool = bool(placed.get("moved", false))
-	if moved:
-		state["position"] = placed["point"]
-	var path: Array = state.get("path", []) if state.get("path") is Array else []
-	var blocked := moved or (not path.is_empty() and not Navigation.path_clear(nav, state["position"], path))
-	if blocked:
-		var destination := str(state.get("destination", ""))
-		var target: Dictionary = {}
-		if not destination.is_empty() and world.get("PORTS") is Array:
-			for port in world["PORTS"]:
-				if port is Dictionary and str(port.get("id", "")) == destination:
-					target = {"x": float(port["x"]), "y": float(port["y"])}
-					break
-		elif not path.is_empty() and path[path.size() - 1] is Dictionary:
-			var last: Dictionary = path[path.size() - 1]
-			var end := place_on_water(nav, last)
-			if end.get("ok", false):
-				target = end["point"]
-		if target.is_empty():
-			state["path"] = []
-		else:
-			var route: Array = Navigation.find_path(nav, state["position"], target)
-			if route.size() >= 2:
-				route.pop_front()
-				state["path"] = route
-			else:
+	if not state.has("world064"):
+		var placed := place_on_water(nav, state["position"])
+		if not placed.get("ok", false):
+			return "Save refused: chart position is inland and no safe water could be found."
+		var moved: bool = bool(placed.get("moved", false))
+		if moved:
+			state["position"] = placed["point"]
+		var path: Array = state.get("path", []) if state.get("path") is Array else []
+		var blocked := moved or (not path.is_empty() and not Navigation.path_clear(nav, state["position"], path))
+		if blocked:
+			var destination := str(state.get("destination", ""))
+			var target: Dictionary = {}
+			if not destination.is_empty() and world.get("PORTS") is Array:
+				for port in world["PORTS"]:
+					if port is Dictionary and str(port.get("id", "")) == destination:
+						target = {"x": float(port["x"]), "y": float(port["y"])}
+						break
+			elif not path.is_empty() and path[path.size() - 1] is Dictionary:
+				var last: Dictionary = path[path.size() - 1]
+				var end := place_on_water(nav, last)
+				if end.get("ok", false):
+					target = end["point"]
+			if target.is_empty():
 				state["path"] = []
+			else:
+				var route: Array = Navigation.find_path(nav, state["position"], target)
+				if route.size() >= 2:
+					route.pop_front()
+					state["path"] = route
+				else:
+					state["path"] = []
 	if state.get("patrols") is Array:
 		for patrol in state["patrols"]:
 			if not (patrol is Dictionary) or not _is_finite_number(patrol.get("x")) or not _is_finite_number(patrol.get("y")):
@@ -286,7 +287,7 @@ static func _resolve_at_sea_position(old_pos: Dictionary, scale: float, nav: Dic
 	}
 
 
-static func prepare(saved: Dictionary, world: Dictionary, nav: Dictionary) -> Dictionary:
+static func prepare(saved: Dictionary, world: Dictionary, nav: Dictionary,context064: Dictionary={}) -> Dictionary:
 	if saved == null or not (saved is Dictionary) or saved.is_empty():
 		return _fail("Save refused: save data must be a non-empty dictionary.")
 	if world == null or not (world is Dictionary) or world.is_empty():
@@ -308,7 +309,7 @@ static func prepare(saved: Dictionary, world: Dictionary, nav: Dictionary) -> Di
 
 	# Current revision path: validate against current world, verify coin conservation, return deep copy without re-scaling.
 	if rev == target_rev:
-		var current_validation: Dictionary = SaveValidation.validate(saved, world)
+		var current_validation: Dictionary = SaveValidation.validate(saved, world,context064)
 		if not current_validation.get("ok", false):
 			return _fail("Save refused: " + str(current_validation.get("message", "invalid current save schema")))
 		var current_coins: int = Money.total(saved)
@@ -322,6 +323,8 @@ static func prepare(saved: Dictionary, world: Dictionary, nav: Dictionary) -> Di
 		if Money.total(current_state) != current_coins:
 			return _fail("Save refused: coin total changed during state preparation.")
 		return _ok(current_state, "Save verified at map revision %d." % target_rev)
+
+	if saved.has("world064"):return _fail("Save refused: world064 requires the current home map revision.")
 
 	# Legacy revision (1 -> 2) path: validate against copied legacy world before any coordinate transform.
 	var scale_check: Dictionary = _parse_campaign_scale(world)
