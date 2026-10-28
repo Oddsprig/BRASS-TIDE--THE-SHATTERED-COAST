@@ -97,7 +97,7 @@ func formation_case(name_text: String,boats: Array,heading: float,scale_value: f
 		var mounts: Array=vessel.get("mounts",[])
 		check(mounts.size()==actual_mounts.size(),name_text+" neither invents nor drops fitted guns")
 		for m in range(mini(mounts.size(),actual_mounts.size())):
-			check(str(mounts[m].get("id",""))==str(actual_mounts[m].get("id","")) and str(mounts[m].get("module_id",""))==str(actual_mounts[m].get("moduleId","")) and str(mounts[m].get("kind",""))==str(actual_mounts[m].get("kind","")) and is_equal_approx(float(mounts[m].get("angle",0)),float(actual_mounts[m].get("angle",0))) and is_equal_approx(float(mounts[m].get("world_x",0)),float(actual_mounts[m].get("x",0))) and is_equal_approx(float(mounts[m].get("world_y",0)),float(actual_mounts[m].get("y",0))),name_text+" fitted module/mount identity, angle and physical origin match the effective spec")
+			check(str(mounts[m].get("id",""))==str(actual_mounts[m].get("id","")) and str(mounts[m].get("module_id",""))==str(actual_mounts[m].get("moduleId","")) and str(mounts[m].get("kind",""))==str(actual_mounts[m].get("kind","")) and is_equal_approx(float(mounts[m].get("angle",0)),float(actual_mounts[m].get("angle",0))) and is_equal_approx(float(mounts[m].get("x",0)),float(actual_mounts[m].get("x",0))) and is_equal_approx(float(mounts[m].get("y",0)),float(actual_mounts[m].get("y",0))),name_text+" fitted module/mount identity, angle and physical origin match the effective spec")
 		for previous: PackedVector2Array in footprints:overlap=overlap or not Geometry2D.intersect_polygons(footprint,previous).is_empty()
 		footprints.append(footprint)
 	check(not overlap,name_text+" rotated hull footprints do not overlap")

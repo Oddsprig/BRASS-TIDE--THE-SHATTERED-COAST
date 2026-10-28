@@ -112,3 +112,6 @@ accept finished art, gameplay, motion, audio, worker performance or rendered FPS
 The original planned campaign-AI work and remaining future quality scopes remain
 queued. This proof neither changes gameplay cadence nor claims those scopes done.
 Named proof SHA is supplied in the final handoff; no self-referential tag.
+
+ROOT NATIVE FOLLOWUP - published physical mount field names
+R1retry55788db90f144355a0dea057f117ff13 imported successfully and passed chart040127/0. Art054 ran337checks/13failures,6.880s: every failure was the same identity/origin compound check. Renderer published physical x/y and normalized local_x/local_y as its contract states; the fixture mistakenly read absent world_x/world_y (default0). Correct only those two field lookups to published x/y. Keep all337 checks, including module/id/kind/angle/physical origins, transform and actual selection. No renderer/game/resource/threshold changes. Original failure receipt retained. Root will rerun this affected fixture and export/startups; retain127unchanged chart040 with exact source-dependency proof.
