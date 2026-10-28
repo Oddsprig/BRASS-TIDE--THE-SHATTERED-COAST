@@ -1,6 +1,6 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.060 VERIFIED; packaging/install follows checkpoint.
+Current scoped build: v0.060 DELIVERED/installed; localtag705a444.
 Actual paid crew/fits, five worker probes and named loss/paid recovery accepted.
 Retained unchanged identity55/support19; six exported views and separate declared
 lab movie reviewed with limits in current task. No full progression/parity claim.
