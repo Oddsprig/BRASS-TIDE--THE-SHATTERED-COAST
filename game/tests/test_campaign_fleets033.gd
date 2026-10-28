@@ -53,6 +53,14 @@ func _isolate(ids: Array) -> void:
 				remaining -= advance
 				if remaining == 0: break
 			check(remaining == 0, "Existing treasuries fund the staged voyage")
+			# The new reserve-aware orders require actual provisions, not a
+			# financially exhausted starting fleet masquerading as a ready one.
+			var rations: int = maxi(0, ceili(float(c.Fleets.upkeep(owner).food) * 2.0 - float(owner.cargo.food)))
+			if rations > 0:
+				var wallet: Dictionary = {"coins": owner.coins, "cargo": owner.cargo}
+				var bought: Dictionary = Economy.transact(c.port(str(owner.homePort)), wallet, "food", rations, "buy", float(Orders.fleet_reserves(owner).capacity))
+				check(bool(bought.ok), "Staged voyage buys real operating food: " + str(bought.get("message", "")))
+				owner.coins = wallet.coins
 
 
 func _load_timber(owner: Dictionary, qty: int) -> void:
