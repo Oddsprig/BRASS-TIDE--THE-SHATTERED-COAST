@@ -1,0 +1,105 @@
+WORLD064 SOURCE HANDOFF - IMPLEMENTED, NATIVE ACCEPTANCE PENDING
+Owner A; 28 October 2026. Baseline e8406f6184672fb53a43ba6aad9f86d904490bd7.
+Contract proposal 07a66a74cd723685af560aaa5f1e990a0371064e is historical.
+Authority read: C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v064/LOCKED064 CONTRACT.txt.
+
+OWNED FILES ONLY
+game/scripts/ocean_world064.gd
+game/data/ocean_regions064.json
+game/tests/test_ocean_world064.gd
+tools/quality064/WORLD SOURCE.txt
+No Core/Main/Chart/validator, original world.json, version or metadata edits.
+
+EXACT PUBLIC STATIC API (all return Dictionary)
+create(home:Dictionary, atlas:Dictionary, home_nav:Dictionary)
+  R0 + context:Dictionary; validates the two-region definitions and original
+  home/nav correspondence, retains home_nav read-only and builds one remote nav.
+prepare(saved:Dictionary, context:Dictionary, clearance:float)
+  R0 + location:L; spatial copy first, strict validation, no save/account writes.
+plot(context:Dictionary, location:Dictionary, target:Dictionary,
+     destination:String, clearance:float)
+  R0 + location:L; safe local navigation or bounded straight ocean course.
+advance(context:Dictionary, location:Dictionary, dt:float, speed:float,
+        clearance:float)
+  R0 + location:L,distance:float,moving:bool,arrived:bool.
+transition(context:Dictionary, location:Dictionary, region_id:String,
+           approach_id:String, clearance:float, blocked_reason:String)
+  R0 + location:L; blocked reason, stopped route, paired radius and actual
+  clearance checks precede exact projection/inverse; no center snapping.
+view(context:Dictionary, location:Dictionary, active_boats:Array)
+  R0 + view:V; detached nested arrays/dictionaries, original supplied boat UIDs.
+R0={ok:bool,code:String,message:String}; successful code is ok. Failure payload
+context/location/view is {}; advance failure adds distance=0,moving=false,
+arrived=false. Codes: definitions,location,route,target,step,blocked,approach.
+L={world064:{schema:1,layer:String,regionId:String},position:P,heading:float,
+   path:Array[P],destination:String}; P={x:float,y:float}.
+Only these spatial fields are extracted. Returned L never includes accounts,
+boats, ports, clock, lastPort, encounterGrace, cargo, stores or pending days.
+
+GEOMETRY / PAINTER DATA
+Exactly shatter_coast/home, glasswind_keys/local and open_ocean/ocean identities.
+Home source points, dimensions (10400x7200), scale and ten port IDs are retained.
+The catalog contains no remote port, account, market, site, loot or quest.
+Glasswind is 4200x3000 with Westglass Isle, Windglass Crown and Longglass Key.
+Locked north/south centers retained for both regions, local radius80/ocean8.
+Projection = oceanOrigin + local/10; inverse = (ocean-oceanOrigin)*10.
+create checks each whole approach disk at base clearance; every transfer checks
+radius+actual hull clearance locally and its scaled paired ocean disk, and
+validates both exact current/transformed positions. Root must execute acceptance.
+Navigation.DEFAULT_CELL*home scale gives one 160-unit remote coarse grid; no
+home replacement, per-hull grid, per-frame grid construction or saved nav state.
+Ocean silhouettes are projected original polygons for presentation only.
+V keys: layer,regionId,name,bounds,position,heading,path,destination,islands,
+regions,approaches,boats,homeInteractions. Bounds={x:0,y:0,width,height}.
+RV keys: regionId,name,layer,silhouettes,approaches; exactly two RVs in all views.
+AV keys: regionId,id,name,position,radius. All RV coordinates are ocean units;
+top-level approaches use the active chart units (four on ocean, two locally).
+Local/home I.points are numeric pairs; RV silhouettes and AV.position use P.
+Ocean V.islands is empty; homeInteractions is true only at home/shatter_coast.
+No fabricated home market facade and no inferred active fleet in any view.
+
+INTEGRATION DETAILS FOR B / C
+Create once per Campaign using the real data and original home navigation.
+Treat the returned context as immutable runtime geometry; never serialize it.
+Legacy absent world064 requires successful existing CoastMigration first;
+prepare requires mapRevision2 for this absent-field case and never migrates it.
+Any present malformed/null/empty/unknown identity is refused without defaults.
+P has exactly x/y; bools, strings and nonfinite numbers are refused. Numeric
+ints become floats. Pass canonical P to plot, not a full account/port dictionary.
+Home idle positions retain base ten-unit clearance. Paths and movement require
+actual fleet clearance, and remote idle positions require actual clearance too.
+prepare validates every saved remaining segment. Plot replaces a structurally
+valid prior course with a newly safe one; advance checks each consumed segment
+at supplied clearance atomically, without resampling all distant legs per frame.
+Saved route starts exclude the current point. Nonempty destinations must agree
+with the endpoint: home service radius65, remote/ocean exact approach center.
+Home destinations are only original port ID or empty. For a home coastal approach
+plot its center with destination=""; approach:<regionId>:<north|south> is valid
+on local/ocean layers. Departure uses explicit region_id/approach_id, not lastPort.
+Home port destinations require the original port coordinate as plot target;
+Navigation.harbor_approach chooses the safe physical endpoint without snapping.
+advance speed/distance are home units; ocean chart speed=physical speed/10.
+moving means actual distance>0 this call; arrived means a prior nonempty route
+completed. Destination remains for Core to consume. No automatic transfer/event.
+view returns R0.view; C's adapter consumes that V directly. It does not consume
+the wrapper or synthesize missing remote geometry. Boats must be plain data
+with existing unique UIDs. All returned view containers are detached.
+Core owns live blockers, home-only interaction gates, fleet validity/manifest,
+fuel/upkeep/damage/clock, pending days, hostile/pursuit and encounter handling.
+Home NPC geometry/navigation/trade must remain on existing Core.data/nav/Routes.
+
+VERIFICATION STATUS / LIMITS
+Read actual campaign, migration, validation, navigation, routes and boat producers.
+Read original island bounds and base hull sizes; source data maximum size36.
+Reviewed the authored source/diff against the locked contract; this is not native
+parsing, type checking, assertion execution, geometry acceptance or play quality.
+Fixture authored for actual catalog/nav, invalid definitions/metadata/points,
+legacy absent default, unsafe saved paths, all four off-center transfer pairs,
+actual fleet clearance, blockers/radii, ocean/local distance scaling, harbor
+approaches, atomic movement refusal, split steps and deeply detached views.
+One home+one remote grid initialization for the fixture; no Campaign setup.
+No tests, parser/advisory, engine/import/build, capture or GPU job run by A.
+No helper, network/download, install, push, deletion or shared-app control used.
+Root owns native correctness and rendering; B owns actual account/time/pursuit
+round-trip integration fixtures. No whole-game quality or passing result claimed.
+No unresolved API/schema deviation identified in this bounded implementation.
