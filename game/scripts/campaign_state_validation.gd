@@ -72,7 +72,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not job.get("freight") is Dictionary:return "Invalid sealed voyage freight."
 			var freight: Dictionary=job.freight
 			if not freight.is_empty():
-				if not freight.get("good") is String or not number(freight.get("qty")) or not freight.good in ["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns"]:return "Invalid sealed voyage goods."
+				if not freight.get("good") is String or not number(freight.get("qty")) or not freight.good in ["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns","preserved_fish","fine_timber","lacquer","medicinal_plants"]:return "Invalid sealed voyage goods."
 			for key in ["title","description","siteId","ownerId"]:
 				if not job.get(key) is String:return "Invalid voyage text."
 	if s.has("doneVoyageJobs") and (not s.doneVoyageJobs is Array or s.doneVoyageJobs.size()>128):return "Invalid completed voyage records."

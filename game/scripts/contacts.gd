@@ -217,6 +217,30 @@ static func completed_work(state: Dictionary, contact_id: String) -> Dictionary:
 	return {}
 
 
+# Pure recurring-client evidence from the SAME bounded paid-work log. No visit,
+# favor, trust-only event or unconsumed introduction becomes completed work.
+# completedCount is retained evidence, not an invented lifetime career total.
+static func client_memory(state: Dictionary, contact_id: String) -> Dictionary:
+	var contact: Dictionary=_find(state,contact_id)
+	if contact.is_empty():return {}
+	var count: int=0
+	var latest: Dictionary={}
+	var seen: Dictionary={}
+	for raw in contact.get("log",[]) if contact.get("log") is Array else []:
+		if not raw is Dictionary:continue
+		var event_id: String=str(raw.get("event",""))
+		var day: float=_num(raw.get("day",-1),-1)
+		if not event_id.begins_with("job:") or not event_id.ends_with(":paid") or seen.has(event_id):continue
+		if int(_num(raw.get("amount",0)))<=0 or day<0 or day>_num(state.get("day",0)):continue
+		seen[event_id]=true;count+=1
+		if latest.is_empty() or day>=float(latest.day):latest=raw
+	if latest.is_empty():return {}
+	return {"contactId":contact_id,"name":str(contact.get("name","Client")),
+		"completedCount":count,"lastPaidDay":float(latest.day),
+		"lastEventId":str(latest.event),"lastPort":str(latest.get("port","")),
+		"detail":str(latest.get("detail",""))}
+
+
 # Called only after the ordinary job backend has funded and accepted the work.
 # A saved boolean outlives bounded event/done-id logs, so one contact cannot
 # continually reissue its earned selection as old events rotate out.

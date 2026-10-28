@@ -19,6 +19,9 @@ const Factions=preload("res://scripts/factions.gd")
 const TradeRules=preload("res://scripts/trade_rules.gd")
 const Contacts=preload("res://scripts/contacts.gd")
 const Stories=preload("res://scripts/coastal_stories.gd")
+const Expedition=preload("res://scripts/expedition.gd")
+const TradeIntel=preload("res://scripts/trade_intel.gd")
+const Regional=preload("res://scripts/regional_goods.gd")
 
 const MAX_ACTIVE := 6
 const MAX_DONE := 128
@@ -34,6 +37,9 @@ const FREIGHT_GOODS := ["preserved_fish","fine_timber","lacquer","medicinal_plan
 # Exploration work a full sighted->surveyed job may need (exploration.gd
 # ACTIONS): chart 2 crew x 1.0 day + survey 4 crew x 2.5 days = 12 crew-days.
 const SURVEY_CREW_DAYS := 12.0
+# Two useful destinations and two real load sizes, rather than a route matrix.
+const WORK_ROUTES := 2
+const WORK_LOADS := ["small","larger"]
 
 
 static func _is_num(v) -> bool:
@@ -91,7 +97,23 @@ static func _sanitize_job(raw) -> Dictionary:
 		"sponsorEventId":str(raw.get("sponsorEventId","")).left(240),
 		"sponsorEventDay":maxf(0,_num(raw.get("sponsorEventDay",0))),
 		"sponsorEventPort":str(raw.get("sponsorEventPort","")).left(80),
+		"demandNeed":maxf(0,_num(raw.get("demandNeed",0))),
+		"demandPurpose":str(raw.get("demandPurpose","")).left(480),
+		"loadTier":str(raw.get("loadTier","")).left(16),
+		"quotedDay":maxf(0,_num(raw.get("quotedDay",0))),
+		"feeBasis":str(raw.get("feeBasis","")).left(640),
+		"clientMemory":_clean_client_memory(raw.get("clientMemory",{})),
+		"fuelPolicy":"operating_tanks" if str(raw.get("fuelPolicy",""))=="operating_tanks" else "three_drum",
 	}
+
+
+static func _clean_client_memory(raw) -> Dictionary:
+	if not raw is Dictionary or str(raw.get("contactId","")).is_empty():return {}
+	return {"contactId":str(raw.contactId).left(80),"name":str(raw.get("name","Client")).left(80),
+		"completedCount":clampi(int(_num(raw.get("completedCount",0))),0,Contacts.MAX_LOG),
+		"lastPaidDay":maxf(0,_num(raw.get("lastPaidDay",0))),
+		"lastEventId":str(raw.get("lastEventId","")).left(240),
+		"lastPort":str(raw.get("lastPort","")).left(80),"detail":str(raw.get("detail","")).left(240)}
 
 
 # Normalizes state.voyageJobs / state.doneVoyageJobs. Returns the job array.
@@ -223,6 +245,165 @@ static func _destination(state: Dictionary, from: Dictionary, salt: int) -> Dict
 	return ports[(index + 1 + salt + (day % 3)) % ports.size()]
 
 
+# Read existing permissions without Politics.ensure changing a preview's state.
+static func _work_access(c,p: Dictionary,good: String="") -> bool:
+	if p.is_empty():return false
+	var access: Dictionary=Factions.access(c.state,p)
+	var pass_until: float=_num(c.state.get("relationships",{}).get("safeConduct",{}).get(str(p.id),0))
+	if not bool(access.get("contracts",false)) and pass_until<=float(c.state.day):return false
+	var origin: Dictionary=c.current_port()
+	return good.is_empty() or TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),str(origin.get("faction","")),str(p.get("faction","")),good,float(c.state.day))
+
+
+# The existing manifest allocates cargo around physical lockers. Transport's
+# legacy free-room display omits their mass and captive overflow; new job checks
+# must subtract them on the selected hull as well as checking fleet-wide room.
+static func _carrier_free(c,b: Dictionary) -> float:
+	var overflow: float=maxf(0,float(c.state.get("captiveBerths",{}).get(str(b.get("uid","")),0))-maxf(0,float(b.get("crewMax",0))-float(b.get("crew",0))))
+	return maxf(0,Transport.available_hold(c,b)-Expedition.locker_weight(b)-overflow)
+
+
+static func _freight_room(c) -> float:
+	var free: float=0.0
+	for b in c.active_fleet():free+=_carrier_free(c,b)
+	return maxf(0,minf(free,_effective_free(c,c.state)))
+
+
+# Cheap bounded candidate ranking, then only selected useful water routes.
+static func _work_destinations(c,p: Dictionary) -> Array:
+	var candidates: Array=[]
+	for target in c.state.get("ports",[]):
+		if str(target.get("id",""))!=str(p.id) and _work_access(c,target):candidates.append(target)
+	candidates.sort_custom(func(a,b):
+		var da: float=c.distance(p,a);var db: float=c.distance(p,b)
+		return str(a.id)<str(b.id) if is_equal_approx(da,db) else da<db)
+	return candidates
+
+
+static func _promised_freight(state: Dictionary,target: String,good: String) -> float:
+	var promised: float=0.0
+	for j in state.get("voyageJobs",[]):
+		if str(j.get("state",""))==STATE_ACTIVE and str(j.get("kind",""))==KIND_FREIGHT and str(j.get("targetPort",""))==target and str(j.get("freight",{}).get("good",""))==good:
+			promised+=_num(j.freight.get("qty",0))
+	return promised
+
+
+# A fixed catalog carrier tariff, never the player's arbitrary fleet bill.
+# Existing 100/sailor-day, 0.08 rations, actual hull speed/burn, quarter kit,
+# one quay worker-day and 25% margin remain the underlying route/labor model.
+static func _work_fee(c,p: Dictionary,days: float,kind: String,qty: int,weight: float) -> Dictionary:
+	var best: Dictionary={}
+	for spec in c.data.get("HULLS",[]):
+		var role: String=str(spec.get("civilianRole",""))
+		if kind==KIND_FUEL and role!="tanker":continue
+		if kind==KIND_FREIGHT and role!="transport":continue
+		if kind==KIND_CHARTER and role not in ["transport","yacht"]:continue
+		var crew: int=maxi(1,int(spec.get("crewMin",1)))
+		if kind==KIND_CHARTER and int(spec.get("crewMax",0))-crew<qty:continue
+		var transit: float=days*float(c.hull("tin_skiff").get("speed",118))/maxf(1,float(spec.get("speed",1)))
+		var paid_days: float=maxf(1,ceilf(2.0*transit+0.25))
+		var upkeep: Dictionary=Economy.daily_upkeep([{"crew":crew,"spec":spec,"sunk":false}])
+		var crew_food: float=float(upkeep.food)*paid_days
+		var passenger_food: float=Transport.quantity(qty,ceili(transit)+2) if kind==KIND_CHARTER else 0.0
+		if float(spec.get("cargo",0))+0.000001<weight+crew_food+passenger_food:continue
+		var burn: float=45.0*(0.011+float(spec.get("size",14))*0.0002)*maxf(0.2,float(spec.get("fuelUse",1)))
+		var fuel: float=burn*transit*2.0+float(upkeep.fuel)*paid_days
+		var value: float=crew*Goods.SAILOR_WAGE*paid_days+crew_food*Economy.price(p,"food")+fuel*Economy.price(p,"fuel")+0.25*Economy.price(p,"supplies")+Goods.WAGES.laborer
+		var reward: int=maxi(1,ceili(1.25*value))
+		if kind==KIND_CHARTER:reward+=qty*Goods.SAILOR_WAGE*maxi(1,ceili(transit))
+		if not best.is_empty() and reward>=int(best.reward):continue
+		best={"reward":reward,"days":transit,"feeBasis":"Catalog %s, %d minimum sailors at %d coins/day, %.0f whole payroll days for return route + quarter-day handling; %.2f rations, %.2f sailing/calendar fuel, quarter repair kit, one quay laborer-day, 25%% margin.%s Extra owned crew, specialists, delays and damage remain your costs."%[str(spec.get("name","carrier")),crew,Goods.SAILOR_WAGE,paid_days,crew_food,fuel," Charter adds %d passenger-days at %d coins."%[qty*maxi(1,ceili(transit)),Goods.SAILOR_WAGE] if kind==KIND_CHARTER else ""]}
+	return best
+
+
+# Quantity is visible in the ID; every other contractual term is fingerprinted.
+# Repricing or a changed route yields a different ID, never changed old promises.
+static func _work_id(p: Dictionary,day: int,kind: String,target: String,subject: String,qty: int,q: Dictionary) -> String:
+	var terms: Array=[q.get("reward",0),q.get("materialInvoice",0),q.get("deadlineDay",0),q.get("routeDays",0),q.get("routeDistance",0),q.get("passengers",{}),q.get("charterFood",{}),q.get("savingsHousehold",0),q.get("savingsExpert",0),q.get("fuelPolicy",""),q.get("feeBasis","")]
+	return "v059-%s-%s-%d-%s-%s-%d-%s"%[kind,str(p.id),day,target,subject,qty,JSON.stringify(terms).sha256_text().left(16)]
+
+
+static func _catalog_load_room(c,days: float,kind: String) -> int:
+	var room: float=0.0
+	for spec in c.data.get("HULLS",[]):
+		if str(spec.get("civilianRole",""))!=("tanker" if kind==KIND_FUEL else "transport"):continue
+		var transit: float=days*float(c.hull("tin_skiff").get("speed",118))/maxf(1,float(spec.get("speed",1)))
+		var paid_days: float=maxf(1,ceilf(2.0*transit+0.25))
+		var upkeep: Dictionary=Economy.daily_upkeep([{"crew":int(spec.get("crewMin",1)),"spec":spec,"sunk":false}])
+		room=maxf(room,float(spec.get("cargo",0))-float(upkeep.food)*paid_days)
+	return maxi(0,floori(room))
+
+
+# At most three monotone funding clips; never grant money or silently reprice
+# an offered ID. The resulting exact qty/invoice/fee become that ID's terms.
+static func _funded_load(c,p: Dictionary,days: float,kind: String,limit: int,good: String) -> Dictionary:
+	var qty: int=limit
+	var price: int=Economy.price(p,good)
+	for attempt in range(3):
+		if qty<1:return {}
+		var fee: Dictionary=_work_fee(c,p,days,kind,qty,qty*float(Goods.ITEMS[good].weight))
+		if fee.is_empty():return {}
+		var invoice: int=qty*price
+		if int(p.get("governmentPurse",0))>=int(fee.reward)+invoice:
+			fee.qty=qty;fee.invoice=invoice;return fee
+		qty=mini(qty-1,floori(float(int(p.get("governmentPurse",0))-int(fee.reward))/maxi(1,price)))
+	return {}
+
+
+static func _freight_needs(target: Dictionary) -> Dictionary:
+	var needs: Dictionary=TradeIntel._observed_needs(target)
+	# Reuse023's existing consumption/three-day buffer for all four finished
+	# goods; neither produce stock nor invent another population demand series.
+	var buffer: float=Regional._need_per_day(target)*Regional.BUFFER_DAYS/float(Regional.IDS.size())
+	for good in Regional.IDS:
+		needs[good]={"observedNeed":maxf(0,buffer-_num(target.get("stocks",{}).get(good,0))),
+			"needPurpose":"Existing households' %.2f-lot share of the regional three-day consumption buffer, less actual stock; the treasury funds this finite relief purchase."%buffer}
+	return needs
+
+
+static func _freight_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Array:
+	var out: Array=[]
+	var routes: int=0
+	var room: float=_freight_room(c)
+	if room<=0:return out
+	var exports: Dictionary=Reserves.report(p).goods
+	for target in _work_destinations(c,p):
+		if routes>=WORK_ROUTES:break
+		var needs: Dictionary=_freight_needs(target)
+		var selected: String="";var limit: int=0;var need: float=0.0;var score: float=-1.0
+		# Preserve a useful regional finished-goods route when actually funded;
+		# the other route favors bulk household/recipe inputs for larger holds.
+		for good in FREIGHT_GOODS:
+			if not needs.has(good) or not _work_access(c,target,good):continue
+			var gap: float=maxf(0,_num(needs[good].get("observedNeed",0))-_promised_freight(c.state,str(target.id),good))
+			var weight: float=float(Goods.ITEMS[good].weight)
+			var amount: int=floori(minf(gap,minf(_num(exports.get(good,{}).get("exportable",0)),room/weight)))
+			if amount<1:continue
+			var priority: float=gap/maxf(1,float(Economy.get_equilibrium_stock(target,good)))
+			if (routes==0 and good in Regional.IDS) or (routes>0 and good not in Regional.IDS):priority+=2.0
+			if priority<=score:continue
+			selected=good;limit=amount;need=gap;score=priority
+		if selected.is_empty():continue
+		var path: Array=Routes.path(c,p,target)
+		if path.size()<2:continue
+		var days: float=_travel_days(c,p,target)
+		limit=mini(limit,floori(float(_catalog_load_room(c,days,KIND_FREIGHT))/float(Goods.ITEMS[selected].weight)))
+		var small: int=mini(8,limit)
+		var added: bool=false
+		for tier in WORK_LOADS:
+			var fee: Dictionary=_funded_load(c,p,days,KIND_FREIGHT,small if tier=="small" else limit,selected)
+			if fee.is_empty():continue
+			var qty: int=int(fee.qty)
+			if tier=="larger" and qty<small*2:continue
+			var invoice: int=int(fee.invoice)
+			var offer: Dictionary={"title":"%s freight: %d %s to %s"%[str(tier).capitalize(),qty,str(Goods.ITEMS[selected].name),str(target.name)],"description":"Treasury purchases existing exportable cargo for a current household/production stock gap and escrows the fee; this is finite relief, not guaranteed future demand.","port":str(p.id),"targetPort":str(target.id),"kind":KIND_FREIGHT,"reward":int(fee.reward),"escrow":0,"payerKey":"governmentPurse","materialInvoice":invoice,"failed":false,"deadlineDay":float(day)+ceilf(maxf(days,float(fee.days))*2+6),"acceptedDay":0.0,"freight":{"good":selected,"qty":float(qty)},"state":STATE_OFFERED,"siteId":"","ownerId":"","demandNeed":need,"demandPurpose":str(needs[selected].needPurpose),"loadTier":tier,"quotedDay":float(c.state.day),"feeBasis":str(fee.feeBasis)}
+			offer.id=_work_id(p,day,KIND_FREIGHT,str(target.id),selected,qty,offer)
+			if taken.has(offer.id) or _is_closed(c.state,str(offer.id)):continue
+			out.append(offer);added=true
+		if added:routes+=1
+	return out
+
+
 # A preference for the accepted current objective, never another reward or
 # progression event. The journal's detached objective comes from its real gate.
 static func survey_pairing(core, port_id: String = "") -> Dictionary:
@@ -265,29 +446,7 @@ static func available(core) -> Array:
 	var taken := {}
 	for job in state["voyageJobs"]:
 		taken[str(job["id"])] = true
-	# Freight: one sealed lot to a deterministic neighboring harbor.
-	var freight_dest := _destination(state, p, 1)
-	var freight_id := "vfreight-%s-%d" % [str(p["id"]), day]
-	if not freight_dest.is_empty() and not taken.has(freight_id) and not _is_closed(state, freight_id):
-		for good in FREIGHT_GOODS:
-			var qty: int=1 if good in ["preserved_fish","fine_timber","lacquer","medicinal_plants"] else 6+(day%5)
-			var stocks: Dictionary = p.get("stocks", {}) if p.get("stocks") is Dictionary else {}
-			if _num(stocks.get(good, 0.0)) < float(qty):
-				continue
-			var days := _travel_days(core, p, freight_dest)
-			var reward := _route_reward(core, days, good)
-			var invoice: int=qty*Economy.price(p,good)
-			if int(p.get("governmentPurse",0))<reward+invoice:
-				continue
-			offers.append({
-				"id": freight_id, "title": "Sealed %s to %s" % [str(Goods.ITEMS[good]["name"]), str(freight_dest["name"])],
-				"description":"The harbor treasury buys real relief cargo from its local business and escrows your passage fee. The quote funds a small five-sailor voyage; larger fleets cost more to run.",
-				"port": str(p["id"]), "targetPort": str(freight_dest["id"]), "kind": KIND_FREIGHT,
-				"reward":reward,"escrow":0,"payerKey":"governmentPurse","materialInvoice":invoice,"failed":false,
-				"deadlineDay": float(day) + ceilf(days * 2.0 + 6.0), "acceptedDay": 0.0,
-				"freight": {"good": good, "qty": float(qty)}, "state": STATE_OFFERED,
-				"siteId": "", "ownerId": ""})
-			break
+	offers.append_array(_freight_offers(core,p,day,taken))
 	# Survey: prefer Wren's accepted current site, otherwise retain the daily
 	# catalog selection. A site already on a carried survey is not new paid work.
 	var unsurveyed: Array = []
@@ -344,8 +503,37 @@ static func available(core) -> Array:
 			break
 	offers.append_array(_civilian_offers(core,p,day,taken))
 	if state.get("storyRights") is Dictionary:offers.append_array(preload("res://scripts/story_offers.gd").available(core))
+	_attach_client_memory(core,p,offers)
 	_select_contact_work(core,p,offers)
 	return offers
+
+
+# Explain repeat business using paid work only. This does not reissue the056
+# one-use introduction, reserve an offer or create another fee/reward purse.
+static func _attach_client_memory(c,p: Dictionary,offers: Array) -> void:
+	for offer in offers:
+		if str(offer.kind)==KIND_FUEL:
+			var captain: Dictionary=Contacts.client_memory(c.state,"captain:"+str(offer.get("ownerId","")))
+			if not captain.is_empty():offer.clientMemory=captain
+		if offer.has("clientMemory"):continue
+		for definition in Contacts.DEFINITIONS:
+			if str(definition.port)!=str(p.id) or not _contact_role_fits(str(definition.role),offer):continue
+			var memory: Dictionary=Contacts.client_memory(c.state,str(definition.id))
+			if not memory.is_empty():offer.clientMemory=memory
+			break
+
+
+static func _remember_client(c,job: Dictionary,paid: bool) -> void:
+	var memory: Dictionary=job.get("clientMemory",{})
+	var contact_id: String=str(memory.get("contactId",""))
+	if contact_id.is_empty() or contact_id.begins_with("captain:"):return # Campaign records actual recipient captain service.
+	# An accepted client field is explanatory, not authority to mint trust for
+	# an unknown person: require the same role/harbor and retained paid evidence.
+	for definition in Contacts.DEFINITIONS:
+		if str(definition.id)!=contact_id or str(definition.port)!=str(job.port) or not _contact_role_fits(str(definition.role),job):continue
+		if Contacts.client_memory(c.state,contact_id).is_empty():return
+		Contacts.record(c.state,contact_id,"job:"+str(job.id)+(":paid" if paid else ":abandoned"),5 if paid else -5,str(job.title),str(c.current_port().get("id","")))
+		return
 
 
 # Select from the actual board rather than issuing a second contract/reward.
@@ -438,7 +626,8 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 	if int(p.get(str(offer["payerKey"]),0))<int(offer.reward)+int(offer.get("materialInvoice",0)):
 		return _fail(core, "The sponsor cannot fund this job's escrow today.")
 	if str(offer.kind)==KIND_CHARTER:
-		if not Transport.board_charter(core,offer,boat_uid):return _fail(core,"Charter needs real available people, funded provisions and spare berths on one transport or yacht.")
+		var selected: Dictionary=_charter_quote(core,str(offer.port),str(offer.targetPort),int(offer.passengers.n),boat_uid)
+		if selected.is_empty() or not Transport.board_charter(core,offer,str(selected.carrierUid)):return _fail(core,"Charter needs real available people, funded provisions and spare berths and hold after lockers on the selected transport or yacht.")
 		offer.state=STATE_ACTIVE;offer.acceptedDay=float(state.day)
 		state.voyageJobs.append(offer)
 		if not str(offer.get("sponsorContactId","")).is_empty():Contacts.claim_work_opportunity(state,str(offer.sponsorContactId))
@@ -457,6 +646,7 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 			return _fail(core, "The sponsor no longer holds that sealed cargo.")
 		if weight > _effective_free(core, state):
 			return _fail(core, "Your hold, counting every other commitment, cannot fit that sealed cargo.")
+		if str(offer.kind)==KIND_FREIGHT and weight>_freight_room(core)+0.000001:return _fail(core,"The actual working holds, including their own lockers and stores, cannot fit this sealed cargo.")
 		stocks[str(freight["good"])] = _num(stocks.get(str(freight["good"]), 0.0)) - float(freight["qty"])
 		p["stocks"] = stocks
 	offer["escrow"] = 0
@@ -517,7 +707,7 @@ static func finish(core, id: String) -> Dictionary:
 		var owner: Dictionary=_fuel_owner(core,str(job.ownerId))
 		if not _at_port(core,state,str(job.targetPort)) or owner.is_empty() or str(owner.get("atPort",""))!=str(job.targetPort):return _fail(core,"Deliver at the actual recipient fleet's harbor while that fleet is present.")
 		if not _fuel_allowed(core,core.port(str(job.port)),owner):return _fail(core,"War or an existing fuel embargo blocks this treasury's delivery. Return the sealed lot safely to abandon.")
-		if float(job.freight.get("qty",0))<=0 or fuel_demand(owner)+0.000001<float(job.freight.get("qty",0)):return _fail(core,"The actual recipient no longer needs or can receive this sealed lot; return it safely or wait for demand.")
+		if float(job.freight.get("qty",0))<=0 or fuel_demand(owner,str(job.get("fuelPolicy","three_drum"))=="operating_tanks")+0.000001<float(job.freight.get("qty",0)):return _fail(core,"The actual recipient no longer needs or can receive this sealed lot; return it safely or wait for demand.")
 	if kind==KIND_CHARTER:
 		if not _at_port(core,state,str(job.targetPort)) or job.passengers.is_empty():return _fail(core,"Bring the actual passenger cohort to its destination harbor.")
 		if float(job.voyageDistance)+65.0<float(job.routeDistance) or float(job.elapsedDays)<=0:return _fail(core,"The charter needs observed sailing along its actual water route.")
@@ -540,13 +730,18 @@ static func finish(core, id: String) -> Dictionary:
 	if not Money.move(job, "escrow", state, "coins", paid, "Voyage job payment from escrow", ledger):
 		return _fail(core, "The job escrow could not be released.")
 	state["moneyLog"] = ledger
+	_remember_client(core,job,true)
 	var freight := _clean_freight(job.get("freight", {}))
 	if kind==KIND_FUEL:
 		var owner: Dictionary=_fuel_owner(core,str(job.ownerId))
 		var left: float=float(freight.qty)
+		var full_tanks: bool=str(job.get("fuelPolicy","three_drum"))=="operating_tanks"
 		for b in owner.boats:
 			if b.sunk:continue
-			var moved: float=minf(left,maxf(0,minf(3.0,float(b.spec.get("fuelCapacity",60)))-float(b.fuel)))
+			if full_tanks and float(b.crew)<float(b.crewMin):continue
+			var target: float=maxf(0,float(b.spec.get("fuelCapacity",60)))
+			if not full_tanks:target=minf(3.0,target)
+			var moved: float=minf(left,maxf(0,target-float(b.fuel)))
 			b.fuel=float(b.fuel)+moved;left-=moved
 		if left>0:owner.cargo.fuel=float(owner.cargo.get("fuel",0))+left
 		job.freight={}
@@ -583,6 +778,7 @@ static func abandon(core, id: String) -> Dictionary:
 	if str(job.kind)==KIND_CHARTER and not job.passengers.is_empty():
 		if dock.is_empty() or not Transport.discharge_charter(core,job,dock):return _fail(core,"Bring passengers to an actual harbor with safe reception room before abandoning.")
 	_refund_escrow(core, state, job, "Abandoned voyage job escrow refunded")
+	_remember_client(core,job,false)
 	if not freight.is_empty():
 		var stocks: Dictionary = dock.get("stocks", {}) if dock.get("stocks") is Dictionary else {}
 		stocks[str(freight["good"])] = _num(stocks.get(str(freight["good"]), 0.0)) + float(freight["qty"])
@@ -601,47 +797,118 @@ static func _fuel_allowed(c,sponsor: Dictionary,owner: Dictionary) -> bool:
 	var a: String=str(sponsor.get("faction",""));var b: String=str(owner.get("faction",""))
 	return (a==b or Factions.relation(c.state,a,b)>Factions.ENEMY_AT) and TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),a,b,"fuel",float(c.state.day))
 
-static func fuel_demand(owner: Dictionary) -> float:
-	# Same three-drum operating target used by Fleets.dock, bounded by real tanks.
+static func fuel_demand(owner: Dictionary,full_tanks: bool=false) -> float:
+	# Old callers/jobs keep the three-drum emergency target. New059 restocking
+	# uses only actual empty tank space and deducts ALL owner cargo fuel first.
 	var need: float=0.0
 	for b in owner.get("boats",[]):
-		if not b.sunk and float(b.crew)>=float(b.crewMin):need+=maxf(0,minf(3.0,float(b.spec.get("fuelCapacity",60)))-float(b.fuel))
+		if b.sunk or float(b.crew)<float(b.crewMin):continue
+		var target: float=maxf(0,float(b.spec.get("fuelCapacity",60)))
+		if not full_tanks:target=minf(3.0,target)
+		need+=maxf(0,target-float(b.fuel))
 	return maxf(0,need-float(owner.get("cargo",{}).get("fuel",0)))
 
 static func _fuel_carrier(c,qty: float,uid: String="") -> String:
 	for b in c.active_fleet():
 		if not uid.is_empty() and str(b.uid)!=uid:continue
-		if str(c.hull(str(b.type)).get("civilianRole","")) in ["transport","tanker"] and Transport.available_hold(c,b)+0.000001>=qty:return str(b.uid)
+		if str(c.hull(str(b.type)).get("civilianRole","")) in ["transport","tanker"] and _carrier_free(c,b)+0.000001>=qty:return str(b.uid)
 	return ""
+
+
+static func _fuel_promised(c,owner_id: String,excluding: String="") -> float:
+	var promised: float=0.0
+	for j in c.state.get("voyageJobs",[]):
+		if str(j.get("id",""))!=excluding and str(j.get("kind",""))==KIND_FUEL and str(j.get("ownerId",""))==owner_id and str(j.get("state",""))==STATE_ACTIVE:
+			promised+=_num(j.get("freight",{}).get("qty",0))
+	return promised
+
+
+# Pure live status. Observation age describes the offered/accepted information,
+# never a reservation of an independent fleet's tanks or its location.
+static func recipient_status(c,job: Dictionary) -> Dictionary:
+	var owner_id: String=str(job.get("ownerId",""))
+	var owner: Dictionary=_fuel_owner(c,owner_id)
+	var target: String=str(job.get("targetPort",""))
+	var current: String=str(owner.get("atPort",""))
+	var observed: float=_num(job.get("quotedDay",0))
+	if observed<=0:observed=_num(job.get("acceptedDay",c.state.day))
+	var eligible: bool=not owner.is_empty() and _fuel_allowed(c,c.port(str(job.get("port",""))),owner) and _work_access(c,c.port(target),"fuel")
+	var present: bool=not owner.is_empty() and not target.is_empty() and current==target
+	var demand: float=fuel_demand(owner,str(job.get("fuelPolicy","three_drum"))=="operating_tanks")
+	var promised: float=_fuel_promised(c,owner_id,str(job.get("id","")))
+	var message: String="Live recipient is present; it may sail or restock before you arrive."
+	if not eligible:message="Recipient is inactive, unavailable or blocked by current sponsorship/access rules."
+	elif not present:message="Recipient has departed or changed harbor; delivery is unpaid until it is present at the contracted harbor."
+	elif demand<float(job.get("freight",{}).get("qty",0)):message="Recipient no longer has enough unfilled demand for the entire sealed lot; wait or return it safely."
+	return {"ownerId":owner_id,"present":present,"eligible":eligible,"targetPort":target,"currentPort":current,"demand":demand,"promised":promised,"observedDay":observed,"ageDays":maxf(0,float(c.state.day)-observed),"message":message}
+
+
+static func _charter_quote(c,origin: String,target: String,count: int,uid: String="") -> Dictionary:
+	for b in c.active_fleet():
+		if not uid.is_empty() and str(b.uid)!=uid:continue
+		if str(c.hull(str(b.type)).get("civilianRole","")) not in ["transport","yacht"] or Transport.spare(c,b)<count:continue
+		var q: Dictionary=Transport.charter_quote(c,origin,target,count,str(b.uid))
+		if not q.is_empty() and _carrier_free(c,b)+0.000001>=float(q.charterFood.get("food",0)):return q
+	return {}
+
 
 static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Array:
 	var out: Array=[]
+	var fuel_routes: int=0
+	var fuel_room: float=0.0
+	for b in c.active_fleet():
+		if str(c.hull(str(b.type)).get("civilianRole","")) in ["transport","tanker"]:fuel_room=maxf(fuel_room,_carrier_free(c,b))
+	fuel_room=minf(fuel_room,_effective_free(c,c.state))
+	var export_fuel: float=Reserves.exportable(p,"fuel")
 	for owner in c.state.get("fleetOwners",[]):
+		if fuel_routes>=WORK_ROUTES:break
 		var target: Dictionary=c.port(str(owner.get("atPort","")))
-		if _fuel_owner(c,str(owner.id)).is_empty() or not _fuel_allowed(c,p,owner) or target.is_empty() or str(target.id)==str(p.id):continue
-		var promised: float=0.0
-		for j in c.state.voyageJobs:
-			if j.kind==KIND_FUEL and j.ownerId==owner.id and j.state==STATE_ACTIVE:promised+=float(j.freight.get("qty",0))
-		var qty: int=floori(minf(12,minf(fuel_demand(owner)-promised,Reserves.exportable(p,"fuel"))))
-		var id: String="vfuel-%s-%d-%s"%[p.id,day,owner.id]
-		if qty<=0 or taken.has(id) or _is_closed(c.state,id) or _fuel_carrier(c,qty).is_empty() or qty>c.capacity()-c.cargo_weight():continue
-		var path: Array=Routes.path(c,c.state.position,target)
+		if _fuel_owner(c,str(owner.id)).is_empty() or not _fuel_allowed(c,p,owner) or target.is_empty() or str(target.id)==str(p.id) or not _work_access(c,target,"fuel"):continue
+		var demand: float=maxf(0,fuel_demand(owner,true)-_fuel_promised(c,str(owner.id)))
+		var limit: int=floori(minf(demand,minf(export_fuel,fuel_room)))
+		if limit<1:continue
+		var path: Array=Routes.path(c,p,target)
 		if path.size()<2:continue
 		var days: float=_travel_days(c,p,target)
-		var reward: int=_route_reward(c,days,"fuel")
-		var invoice: int=qty*Economy.price(p,"fuel")
-		if int(p.governmentPurse)<reward+invoice:continue
-		out.append({"id":id,"title":"Fuel for %s at %s"%[owner.name,target.name],"description":"Treasury buys real fuel; sealed drums must reach this actual needy fleet. Payment only on receipt.","kind":KIND_FUEL,"port":p.id,"targetPort":target.id,"ownerId":owner.id,"payerKey":"governmentPurse","reward":reward,"materialInvoice":invoice,"freight":{"good":"fuel","qty":float(qty)},"deadlineDay":float(day)+ceilf(days*2+6),"state":STATE_OFFERED})
-	var destination: Dictionary=_destination(c.state,p,0)
-	var id: String="vcharter-%s-%d"%[p.id,day]
-	if not destination.is_empty() and destination.id!=p.id and not taken.has(id) and not _is_closed(c.state,id):
-		for n in range(4,0,-1):
-			var q: Dictionary=Transport.charter_quote(c,str(p.id),str(destination.id),n)
-			if q.is_empty():continue
-			var reward: int=_route_reward(c,float(q.routeDays))+n*Goods.SAILOR_WAGE*int(q.routeDays)
-			if int(p.governmentPurse)<reward+int(q.materialInvoice):continue
-			q.merge({"id":id,"title":"Passenger charter to %s"%destination.name,"description":"Existing civilians, savings and bought provisions travel in one transport or yacht. Fee remains escrowed until physical arrival.","kind":KIND_CHARTER,"port":p.id,"targetPort":destination.id,"payerKey":"governmentPurse","reward":reward,"deadlineDay":float(day)+int(q.routeDays)*2+6,"state":STATE_OFFERED,"freight":{}})
-			out.append(q);break
+		limit=mini(limit,_catalog_load_room(c,days,KIND_FUEL))
+		var small: int=mini(8,limit);var added: bool=false
+		for tier in WORK_LOADS:
+			var load: Dictionary=_funded_load(c,p,days,KIND_FUEL,small if tier=="small" else limit,"fuel")
+			if load.is_empty():continue
+			var qty: int=int(load.qty)
+			if tier=="larger" and qty<small*2:continue
+			var q: Dictionary={"title":"%s fuel restock: %d drums for %s at %s"%[str(tier).capitalize(),qty,str(owner.name),str(target.name)],"description":"Treasury buys real fuel for unfilled operating tanks, after the recipient's existing cargo fuel and promises. The independent fleet may sail or restock; payment only on actual receipt.","kind":KIND_FUEL,"port":str(p.id),"targetPort":str(target.id),"ownerId":str(owner.id),"payerKey":"governmentPurse","reward":int(load.reward),"materialInvoice":int(load.invoice),"freight":{"good":"fuel","qty":float(qty)},"deadlineDay":float(day)+ceilf(maxf(days,float(load.days))*2+6),"state":STATE_OFFERED,"fuelPolicy":"operating_tanks","loadTier":tier,"quotedDay":float(c.state.day),"demandNeed":demand,"demandPurpose":"Existing living, crewed boats' unfilled real tanks; all already-carried recipient fuel deducted. No tank reservation; recipient can depart or buy fuel.","feeBasis":str(load.feeBasis)}
+			q.id=_work_id(p,day,KIND_FUEL,str(target.id),str(owner.id),qty,q)
+			if taken.has(q.id) or _is_closed(c.state,str(q.id)):continue
+			out.append(q);added=true
+		if added:fuel_routes+=1
+	var charter_routes: int=0
+	for destination in _work_destinations(c,p):
+		if charter_routes>=WORK_ROUTES:break
+		var largest: int=0
+		for b in c.active_fleet():
+			if str(c.hull(str(b.type)).get("civilianRole","")) in ["transport","yacht"]:largest=maxi(largest,Transport.spare(c,b))
+		var limit: int=mini(32,mini(largest,mini(int(p.get("availableWorkers",0)),Transport.charter_room(c,destination))))
+		if limit<1:continue
+		var days: float=_travel_days(c,p,destination)
+		var small: int=mini(4,limit);var added: bool=false
+		for tier in WORK_LOADS:
+			var count: int=small if tier=="small" else limit
+			if tier=="larger" and count<=small:continue
+			var q: Dictionary={};var fee: Dictionary={}
+			# Only the small option falls back through at most four real people.
+			for n in range(count,(0 if tier=="small" else count-1),-1):
+				q=_charter_quote(c,str(p.id),str(destination.id),n)
+				if q.is_empty():continue
+				fee=_work_fee(c,p,days,KIND_CHARTER,n,0)
+				if not fee.is_empty() and int(p.governmentPurse)>=int(fee.reward)+int(q.materialInvoice):break
+				q={}
+			if q.is_empty() or fee.is_empty():continue
+			q.merge({"title":"%s charter: %d people to %s"%[str(tier).capitalize(),int(q.passengers.n),str(destination.name)],"description":"Existing civilians, their own savings and purchased provisions travel in one transport or yacht. Savings are custody, never your earnings. Actual destination housing and people limit this passage.","kind":KIND_CHARTER,"port":str(p.id),"targetPort":str(destination.id),"payerKey":"governmentPurse","reward":int(fee.reward),"deadlineDay":float(day)+int(q.routeDays)*2+6,"state":STATE_OFFERED,"freight":{},"demandNeed":float(limit),"demandPurpose":"Existing available workers seeking passage into actual uncommitted destination housing, with real berths and bought food.","loadTier":tier,"quotedDay":float(c.state.day),"feeBasis":str(fee.feeBasis)})
+			q.id=_work_id(p,day,KIND_CHARTER,str(destination.id),"people",int(q.passengers.n),q)
+			if taken.has(q.id) or _is_closed(c.state,str(q.id)):continue
+			out.append(q);added=true
+		if added:charter_routes+=1
 	return out
 
 static func tick(c,dt_days: float) -> void:
@@ -672,7 +939,8 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		if not _is_num(j.get("reward")) or floorf(float(j.reward))!=float(j.reward) or float(j.reward)<=0:return "Invalid civilian job fee."
 		if j.kind==KIND_FUEL:
 			if not s.fleetOwners.any(func(o):return str(o.id)==str(j.ownerId)):return "Unknown fuel recipient."
-			if not j.freight.is_empty() and (j.freight.get("good","")!="fuel" or not _is_num(j.freight.get("qty")) or float(j.freight.qty)<0 or float(j.freight.qty)>12 or floorf(float(j.freight.qty))!=float(j.freight.qty)):return "Invalid sealed fuel lot."
+			var lot_limit: float=float(hulls.get(str(boat.get("type","")),{}).get("cargo",0)) if str(j.get("fuelPolicy","three_drum"))=="operating_tanks" else 12.0
+			if not j.freight.is_empty() and (j.freight.get("good","")!="fuel" or not _is_num(j.freight.get("qty")) or float(j.freight.qty)<0 or float(j.freight.qty)>lot_limit or floorf(float(j.freight.qty))!=float(j.freight.qty)):return "Invalid sealed fuel lot."
 			if j.state==STATE_ACTIVE and (j.freight.is_empty() or float(j.freight.qty)<=0 or int(j.escrow)!=int(j.reward)):return "Unfunded or missing active fuel shipment."
 			continue
 		if not j.get("passengers") is Dictionary or not j.get("charterFood") is Dictionary:return "Invalid charter cohort/provisions."

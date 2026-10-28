@@ -1,0 +1,118 @@
+059 A SHARED SOURCE CONTRACT - 2026-10-28 - EARLY HANDOFF
+Base: delivered058 1ae1964b04530a2db78802adc42009e401993054.
+Owned voyage_jobs.gd, contacts.gd and this note. Root's explicit expansion adds
+campaign_state_validation.gd ONLY for four existing regional freight good IDs.
+SOURCE ONLY; no other file is owned here.
+
+PUBLIC API (existing callers unchanged)
+VoyageJobs.available(core)->Array remains the board builder; calls ensure().
+VoyageJobs.accept(core,id:String,boat_uid:String="")->Dictionary;
+finish(core,id), abandon(core,id), contact_opportunity(core,contact_id) unchanged.
+Campaign.accept_voyage_job / settle_voyage_job remain actual mutation seams.
+New PURE VoyageJobs.recipient_status(core,job:Dictionary)->Dictionary:
+{ownerId:String,present:bool,eligible:bool,targetPort:String,currentPort:String,
+ demand:float,promised:float,observedDay:float,ageDays:float,message:String}.
+No ensure/expiry, movement, reservation or payment from this status read.
+New PURE Contacts.client_memory(state:Dictionary,contact_id:String)->Dictionary:
+{} without actual paid memory; otherwise {contactId,name,completedCount:int,
+ lastPaidDay:float,lastEventId:String,lastPort:String,detail:String}.
+Count is retained paid events, not an invented lifetime total. Captain IDs work.
+
+ADDITIVE OFFER / SAVED JOB FIELDS (optional for old saves)
+demandNeed:float = actual unpromised need observed at offer time.
+demandPurpose:String = human reason / production input / actual people.
+loadTier:String = small or larger. quotedDay:float = demand observation day.
+feeBasis:String = explicit standard labor/route/load basis, never fleet subsidy.
+clientMemory:Dictionary = detached client_memory result, explanatory only.
+fuelPolicy:String = "operating_tanks" on NEW059 fuel jobs; missing/old jobs
+sanitize to "three_drum". Public fuel_demand(owner,full_tanks:bool=false)
+keeps the old default; new quotes/status/finish use true for operating_tanks.
+New actual need = SUM(max(0, real fuelCapacity - loaded fuel)) over living,
+minimum-crewed recipient boats, MINUS all existing recipient cargo fuel,
+MINUS active sealed promises (old and new). No imaginary reserve or cargo hold.
+New delivery fills only those same real crewed tanks to their actual capacities.
+Old active three_drum jobs still demand/fill min(3,real capacity), even after059.
+Fuel lot cap now comes from actual demand, stock, carrier hold and sponsor funds,
+not12. Live owner/presence/access/demand rechecked; AI remains independent.
+Existing freight{good,qty}, passengers{n,...}, carrierUid, charterFood,
+materialInvoice, routeDays/Distance, reward, payerKey, escrow and sponsorEvent*
+retain meanings. Passenger savings remain escrow custody, never fee income.
+New explanatory fields are sanitized/preserved; no new purse/save subsystem.
+
+IDS / COMPATIBILITY
+New civilian offer IDs start v059- and encode kind, origin, calendar day,
+target, good/owner, quantity and quoted fee/invoice/route term fingerprint.
+Same ID always means same promised quantity/fee/route; changed real availability
+may remove it or produce a different ID, never silently shrink an old ID.
+accepted/closed IDs suppressed; active old jobs are never repriced/rebuilt.
+Legacy freight/survey/bounty/charter/fuel active records keep their exact terms.
+056 workOpportunityUsed is never reset; earned introductions remain one-use.
+Recurring client explanation comes from actual paid logs, with no extra reward.
+057 survey pairing untouched. No demand, population, stock or treasury grants.
+
+BOUNDED CHOICES / SOURCE IMPLEMENTED; ROOT NATIVE ACCEPTANCE OPEN
+At most a few funded routes/load options per kind, constrained by actual need,
+origin exportable stock, access, physical hold/berths, population and sponsor.
+Small work remains available alongside eligible larger real loads. No UI/tests
+or engine/parsing/advisory runs in this lane. Root/C own native proof and any
+reported actual fee/load bottleneck. This note is a source contract, not a pass.
+058 carrying: owned job acceptance will subtract the chosen physical hull's
+locker weight and captive overflow from Transport.available_hold, and recheck
+its selected cargo/provisions plus aggregate room. No Transport edits required.
+
+FINAL SOURCE DESIGN / EXACT REVIEW NOTES
+- Freight: at most2 useful destinations, each small<=8 plus a funded larger
+  load when at least twice that small lot. Existing FREIGHT_GOODS retained.
+  First route favors a real regional finished-good gap; second favors base
+  recipe/household bulk. Base need comes from TradeIntel._observed_needs;
+  regional need reuses Regional._need_per_day*BUFFER_DAYS/4 less real stock.
+  Active inbound promises reduce need. Origin Reserves.exportable, actual
+  fleet room, catalog carrying ceiling and fee+invoice funding all cap loads.
+- Fuel: at most2 present eligible recipient routes, small<=8 plus actual larger
+  load. New operating_tanks policy is aligned at quote/status/finish/validation.
+  Save lot bound is the selected carrier's real catalog hold; old lot limit12
+  and old three-drum filling remain unchanged. No fuel goes to player tanks.
+- Charter: at most2 destinations, small<=4 and one larger actual cohort, up to
+  existing32-person backend limit. Existing population, available workforce,
+  housing commitments, per-boat berths, purchased provisions and finite treasury
+  remain authoritative. Savings stay in the existing job escrow through discharge.
+- Fee: choose cheapest capable standard catalog hull of the working role
+  (transport/tanker/transport-or-yacht), never owned-fleet operating costs.
+  Reference transit uses its catalog speed on the selected water route.
+  Whole payroll days=ceil(2*transit+.25), minimum1. Fee=ceil1.25*(minimum crew
+  wages100/day + existing upkeep rations at local replacement price + actual
+  round-trip sailing burn plus existing calendar fuel upkeep + .25 repair kit
+  + one100-coin quay laborer-day). Existing charter passenger-day tariff adds
+  count*100*max(1,ceil(reference transit)); passenger savings never enter fee.
+  Extra stored/owned crew, specialists, damage and delays are NOT subsidized.
+- IDs exactly: v059-KIND-ORIGIN-DAY-TARGET-SUBJECT-QTY-16HEX. SUBJECT is good,
+  ownerID or people. SHA256 first16 of JSON array[reward,materialInvoice,
+  deadlineDay,routeDays,routeDistance,passengers,charterFood,savingsHousehold,
+  savingsExpert,fuelPolicy,feeBasis]. Demand observations are explanatory;
+  they never rewrite an already accepted job's promise.
+- Recurring clientMemory comes only from actual retained paid log entries,
+  including captain memories. Success/abandonment updates the existing authored
+  client's log through deduplicated Contacts.record; Campaign continues actual
+  recipient-captain service. 056 contact_opportunity remains one-use and its
+  saved consumption boolean is never reset. No second job/reward purse.
+
+EXACT DEPENDENCY REPORTED; NARROW FIX AUTHORIZED AND APPLIED
+Delivered058 campaign_state_validation.gd:77 excludes the four regional goods from ACTIVE
+sealed freight. Campaign.restore:1295 -> SaveValidation.validate ->
+save_validation.gd:189 -> CampaignState.validate reaches that check. Existing
+test_civilian_voyage settles its regional lot BEFORE final reload, so does not
+cover active regional freight reload. Root explicitly expanded A's allowlist
+for this exact dependency. Added only preserved_fish/fine_timber/lacquer/
+medicinal_plants to that validator's existing good list. Numeric finite quantity,
+known IDs and every other state gate are unchanged. No schema or migration change.
+Regional offers retain actual demand/stock/funding; active reload needs Root proof.
+
+LIMITS / REQUIRED ROOT PROOF
+No engines, tests, parser, advisory, import/export, GPU or computer input run here.
+No profit/progression/native correctness claimed. Whole-career proof remains C/
+Root. A changed legacy assertion expecting NO freight after accepting ONE is
+intentionally obsolete with multiple bounded choices; duplicate-ID suppression,
+physical stock/escrow/once-payment/refund/old terms remain required.
+Current stock/economy may legitimately leave no funded route; no demand filler.
+Transport's inherited available_hold conservatively counts sealed reservations;
+A adds selected locker/captive guard and does not broadly rewrite carrying.
