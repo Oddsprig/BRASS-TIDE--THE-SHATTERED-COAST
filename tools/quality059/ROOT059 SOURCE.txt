@@ -21,3 +21,17 @@ Fishing position alone staged at actual nearby water; no catch/demand/work grant
 No job accepted by capture. Independent native059 fixture proves paid voyages.
 Native/export/visual acceptance remain pending. No051 threshold/cadence change.
 Root private opening tour passes seed59059 through backward-compatible optional Main.new_game seed override; ordinary careers retain current-time seed. One state initialization, existing world/nav, no second world. This makes declared paid UI branches reproducible.
+
+FINAL COMBINED ACCEPTANCE CANDIDATE
+A446ad2ee ->57de9a2 physical .25day service and shared recipient presence;
+A2a839310 ->5f52f68 current company recall at expiry without dock replay.
+B0b482a08 ->8d6c2d4 extends the existing real paid company food voyage only.
+Cd0631409 ->9a25ac2 records actual encounter crewLostA/B descriptively, counts
+unique actual reports with complete bounded coverage in the existing native
+fixture, and observes up to24 real .05day fuel-arrival steps. All elapsed wages,
+food and return/departure work remain paid. Unknown loss/unpaid delivery fails.
+R2 diagnostic33a423b2 established actual4->0 NPCraider crew loss in the day3
+patrol action, all coins exact; no observed-deficit exception was introduced.
+One combined advisory on changed service/jobs/combat/Main/company/career source
+has no issues and invokes no engine. Maps refreshed; metadata not rerun.
+Native/Windows/actual UI acceptance remains pending on this exact source.

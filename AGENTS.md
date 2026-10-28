@@ -7,10 +7,14 @@ One icon/two voyages/18MP3s/older057 retained, no game autolaunch or remote push
 Current059 three BridgeSolMAX source handoffs are integrated: A68df2e1,
 B370b4d2, C5c7e94b plus Root pure caller/declared actual UI capture fixtures.
 Metadata prepared ONCE; preflight5e3c5597 passed53/0 in43.619s whole.
-First career6a181595 failed148/3 in44.206s whole; no export ran. A owns real
-fuel-opportunity failure, C exact close-caption and population accounting.
-No costs, recipient demand or assertions may be waived.058 remains installed.
-Native/export/actual-view059 acceptance is pending. Whole-quality/coast art and
+First career6a181595 failed148/3; diagnostic33a423b2 failed148/2, proving the
+four missing people were actual NPC deaths. All failed receipts remain.
+Named corrections integrated: finite actual harbor service446ad2ee, company
+recall2a839310, real company regression0b482a08, exact recorded crew losses and
+bounded actual fuel observationd0631409. One new combined advisory issues empty.
+Native preflight/career/export/actual-view059 acceptance is pending.058 stays
+installed; metadata was prepared once. No costs/demand/assertions waived.
+Whole-quality/coast art and
 strict051targets remain OPEN062. Read task/CURRENT STATE.txt for live handoffs.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN

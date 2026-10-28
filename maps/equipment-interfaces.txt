@@ -52,7 +52,7 @@ game/scripts/fleet_economy.gd: 19468 bytes; extends RefCounted
   game/scripts/fleet_economy.gd:65 civilian_hulls()
   game/scripts/fleet_economy.gd:78 create_owners()
   game/scripts/fleet_economy.gd:149 subsidize()
-game/scripts/naval_combat.gd: 23655 bytes; extends RefCounted
+game/scripts/naval_combat.gd: 24349 bytes; extends RefCounted
   game/scripts/naval_combat.gd:21 spatial_index()
   game/scripts/naval_combat.gd:64 are_hostile()
   game/scripts/naval_combat.gd:82 nearby_hostile_pairs()

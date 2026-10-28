@@ -3,13 +3,13 @@ BRASS TIDE — VOYAGE-JOBS MAP (generated; v0.059)
 Real sponsors/stock/crew/time -> funded freight/fuel/charters, finite wild catch, actual carriers/people and witnessed captain memory.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/voyage_jobs.gd: 58197 bytes; extends RefCounted
-  game/scripts/voyage_jobs.gd:120 ensure()
-  game/scripts/voyage_jobs.gd:169 pending_freight_weight()
-  game/scripts/voyage_jobs.gd:409 survey_pairing()
-  game/scripts/voyage_jobs.gd:435 available()
-  game/scripts/voyage_jobs.gd:580 contact_opportunity()
-  game/scripts/voyage_jobs.gd:601 accept()
+game/scripts/voyage_jobs.gd: 58836 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:121 ensure()
+  game/scripts/voyage_jobs.gd:170 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:410 survey_pairing()
+  game/scripts/voyage_jobs.gd:436 available()
+  game/scripts/voyage_jobs.gd:581 contact_opportunity()
+  game/scripts/voyage_jobs.gd:602 accept()
 game/scripts/civilian_work.gd: 14586 bytes; extends RefCounted
   game/scripts/civilian_work.gd:17 ensure()
   game/scripts/civilian_work.gd:22 site_id()
