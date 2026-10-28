@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.055: Local campaign intelligence and independent fleet purpose. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: naval_orders.gd, naval_lifecycle.gd, naval_ai.gd, naval_combat.gd, naval_replacements.gd, naval_ui.gd, fleet_economy.gd, main.gd.
+v0.056: Faction choices and remembered work. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: factions.gd, faction_ui.gd, politics.gd, main.gd:show_patrol_encounter, contacts.gd, voyage_jobs.gd, voyage_ui.gd, campaign.gd:settle_voyage_job.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

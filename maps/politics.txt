@@ -1,9 +1,9 @@
-BRASS TIDE — POLITICS MAP (generated; v0.055)
+BRASS TIDE — POLITICS MAP (generated; v0.056)
 
 Witnessed player actions, public standing, claims and faction pairs -> explained access, paid conduct and explicit commissions.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/factions.gd: 38260 bytes; extends RefCounted
+game/scripts/factions.gd: 39520 bytes; extends RefCounted
   game/scripts/factions.gd:58 ensure()
   game/scripts/factions.gd:109 standing()
   game/scripts/factions.gd:117 adjust()
@@ -11,24 +11,26 @@ game/scripts/factions.gd: 38260 bytes; extends RefCounted
   game/scripts/factions.gd:202 set_relation()
   game/scripts/factions.gd:223 access()
   game/scripts/factions.gd:306 is_hostile()
-  game/scripts/factions.gd:310 commission()
-  game/scripts/factions.gd:363 _repair_book()
-  game/scripts/factions.gd:404 _faction_defs()
-  game/scripts/factions.gd:416 _new_standing()
-  game/scripts/factions.gd:420 _repair_standing()
-game/scripts/politics.gd: 5704 bytes; extends RefCounted
+  game/scripts/factions.gd:311 commission_terms()
+  game/scripts/factions.gd:345 commission()
+  game/scripts/factions.gd:361 accept_commission()
+  game/scripts/factions.gd:416 _repair_book()
+  game/scripts/factions.gd:457 _faction_defs()
+game/scripts/politics.gd: 8061 bytes; extends RefCounted
   game/scripts/politics.gd:6 ensure()
   game/scripts/politics.gd:12 access()
-  game/scripts/politics.gd:20 permit()
-  game/scripts/politics.gd:31 inspect()
-  game/scripts/politics.gd:39 parley()
-  game/scripts/politics.gd:64 job_completed()
-  game/scripts/politics.gd:72 declare_attack()
-  game/scripts/politics.gd:82 settled()
-  game/scripts/politics.gd:91 hostile()
-game/scripts/faction_ui.gd: 2449 bytes; extends RefCounted
+  game/scripts/politics.gd:41 encounter()
+  game/scripts/politics.gd:53 permit()
+  game/scripts/politics.gd:64 inspect()
+  game/scripts/politics.gd:72 parley()
+  game/scripts/politics.gd:97 job_completed()
+  game/scripts/politics.gd:105 declare_attack()
+  game/scripts/politics.gd:115 settled()
+  game/scripts/politics.gd:124 hostile()
+  game/scripts/politics.gd:31 _standing_reason()
+game/scripts/faction_ui.gd: 3385 bytes; extends RefCounted
   game/scripts/faction_ui.gd:4 open()
-  game/scripts/faction_ui.gd:32 terms()
+  game/scripts/faction_ui.gd:34 terms()
 
 TESTS (game/tests/*.gd)
 test_factions, test_political_voyage

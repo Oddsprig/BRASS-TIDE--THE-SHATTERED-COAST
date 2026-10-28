@@ -185,7 +185,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051"]
+		screenshots_requested = ["title051", "home051", "convoy051", "trafficcurrent051", "trafficold051", "hostile051", "civilian051", "discovery051", "overview051", "factions051", "commission051", "contactwork051", "encounter051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -1297,6 +1297,27 @@ func capture_after_start():
 					chart.scale_factor = chart.regional_scale()
 					break
 			elif name == "overview051":chart.territory_view()
+			elif name == "factions051":ui.FactionUI.open(ui)
+			elif name == "commission051":
+				# Isolated terms-layout fixture; native cases verify earned standing
+				# and explicit consent separately. No commission is signed here.
+				core.Factions.adjust(core.state, "compact", 20, "QA terms layout: friendly standing")
+				ui.FactionUI.terms(ui, "compact")
+			elif name == "contactwork051":
+				# Exercise actual escrow and settlement; only the completed survey
+				# condition is staged for this isolated UI capture, not a long voyage.
+				for offer056: Dictionary in core.VoyageJobs.available(core):
+					if str(offer056.kind) != "survey":continue
+					if core.accept_voyage_job(str(offer056.id)).ok:
+						core.state.exploration.sites[str(offer056.siteId)].level = 3
+						core.settle_voyage_job(str(offer056.id))
+					break
+				ui.VoyageUI.open(ui)
+			elif name == "encounter051":
+				var patrol056: Dictionary = core.NavalAI._find_patrol(core.state, "patrol-2")
+				if not patrol056.is_empty():
+					core.state.position = {"x":float(patrol056.x), "y":float(patrol056.y)}
+					show_patrol_encounter("patrol-2")
 			elif name == "voyage051":Interface.GuidanceUI.open_voyage(ui)
 			elif name == "harbor051":ui.open_port()
 			elif name == "preparation051":

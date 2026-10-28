@@ -1,14 +1,16 @@
 # Brass Tide — current working instructions
 
-Current scoped build: v0.055 VERIFIED, packaging/install follows this checkpoint.
+Current candidate: v0.056 faction choices and remembered work, metadata prepared.
+Installed scoped build: v0.055 VERIFIED/taggedf909c00; one desktop launcher,
+two voyage hashes and18MP3tracks preserved, previous054 retained.
 Native6c496cce/attempt001216/0+export3starts82.869s; actual18d92609/attempt001
 nine exported UI/chart PNGs30.969s, Root viewed. Tested044c5ce and Root9a913ba
 share the same game tree; original failed fixture receipts remain preserved.
 Whole-game acceptance remains OPEN062. Read work/quality-v042-v061/CURRENT STATE.txt
 for the exact installed build and live jobs; this header is a checkpoint.
-Next056 source candidates are prepared in separate Bridge SolMAX checkouts:
-commission104e71f, access4ac33a5, contacts2bf23f5, all based0559498afd. Integrate
-only after055delivery and preserve later055fixture fixes. Metadata56 NOT prepared.
+056BridgeSolMAX handoffs104e71f/4ac33a5/2bf23f5 integrated on delivered055,
+preserving later055fixture fixes. Root adds isolated actual-UI capture cases.
+Native056 and actual view acceptance remain pending; no057 implementation yet.
 
 Owner: "OKAY - BUILD ONE VERSION ON TOP OF THE OTHER 3 SOL 6.1 MAX - YOU CAN
 USE GROK 4.7 ON HIGH TO HELP." Majority source implementation through Bridge;

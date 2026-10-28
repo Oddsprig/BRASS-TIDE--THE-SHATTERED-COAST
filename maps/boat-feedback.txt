@@ -1,4 +1,4 @@
-BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.055)
+BRASS TIDE — BOAT-FEEDBACK MAP (generated; v0.056)
 
 Actual transom / bounded hit records -> visible machinery, localized damage and cheap colored meshes; live weapons keep their firing plane.
 
