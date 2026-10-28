@@ -1,81 +1,44 @@
 BRASS TIDE - STARSECTOR QUALITY ROADMAP
 
 CURRENT CORE CHECKPOINT - 27 October 2026
-Active0.051; Desktop remains verified0.050. Core gate OPEN; no052 breadth.
-Verified gameplay/art source Root44ecfcc/releaseaf4b106; all36designs retained.
-R61 PASS18150/0,81.265s whole;73405bdce40a42e9839d8da2270827b9.
-R62 PASS7585/0,87.360s incl5088feedback/Art205/Weapon2292/export3starts;
-1f4afa2a86eb4a7197175d1d13beba98. Same703gameinput hashes asR61.
-R29 actual COMPLETE58.172s/cleanuptrue/QUALITY FAILED;
-a80b735c9a47406e8343af9bfb37baa5. Both end PNGs Root viewed.
-Light42/full300DPside22.605FPS,simulation11.454ms/P9518.151;
-all42moved39moving,ZEROstalls. Mixed16~59.997FPS/5.226ms/P958.321;
-15evermoved10moving,ZEROstalls. All real active-combat coverage retained.
-Damage drawing fell2.946->2.5045ms light,2.5025->1.9255ms mixed;
-route-pending offer fairness removed the R28 persistent wait in these runs.
+v0.051 SCOPED USABILITY ACCEPTED; packaging/desktop verification in progress.
+Full Starsector-equivalent/whole-game quality acceptance remains OPEN at0.061.
 
-Counter calibration COMPLETE; instrumentation does not explain the slowdown.
-R63 export3starts PASS52.468s;bf12557538a7425d9bacae6f6a6a119b.
-Root e7933d4/release6d98b63 differs fromR29 ONLY in runtime_profile043.gd;
-other702trackedgame inputs unchanged. Same new exe/PCK used for both controls.
-R30 OFF:f4c5cf3462cc4ed182d954919b947f1a COMPLETE57.937s/cleanuptrue;
-light22.297FPS/11.8095ms/P9518.534; mixed59.970FPS/5.858ms/P959.658.
-R31 ON:1f0447b973e5454883b53c600c192a23 COMPLETE59.937s/cleanuptrue;
-light20.754FPS/11.728ms/P9518.511; mixed60FPS/5.5175ms/P958.687.
-Both modes have ZEROstalls and complete real movement/fire/hits/flood/missiles.
-All four actual end PNGs Root viewed. Exact criteria/workload/60Hz unchanged.
-Original R31 08f57dc616224917a475702969c2246a failed BEFORE engine in shared
-queue atomic Move/access; preserved separately, unchanged retry measured above.
-Normal and detailed runs vary with worker timing; no exact attribution of small
-timing differences. Fine counters off means attribution absent, not zero work.
+Owner-directed architecture: authoritative combat30Hz on a data worker; Main
+owns input/command queue, UI/audio/render submission and interpolated poses.
+Role/target choices stay100ms. Existing synchronous Battle APIs remain public
+references. All36boats, real mounts,300DPside, original coins/purses/resources,
+numerical crews, event ordering and complete retire accounting remain intact.
+Safe render mode1 remains active; Separate2 is not claimed.
 
-LATEST USER-AUTHORIZED ARCHITECTURE CHANGE
-Owner explicitly rejects60Hz calculations and heavy Main-thread simulation.
-Implement30Hz authoritative battle on a data-only worker, independent60+FPS
-presentation/interpolation; existing role/target planning stays100ms. Earlier
-60Hz physical-policy statements are historical baseline, superseded here.
-Main input/commands/UI/audio/rendering only; owned simulation state stays on
-worker, and plain presentation/events/telemetry cross an explicit boundary.
-Do not silently report Main publication time as total simulation cost. Native
-proof must cover actual worker identity, commands/current collisions/resources,
-pause/result/retirement and real-time30Hz capacity/lag plus rendered60FPS.
-See WORKER BATTLE051 CONTRACT.txt in the current task for shared ownership/API.
-Reviewed worker architecture is now integrated as SOURCE ONLY:
-driver06dd17a->Root7ee77b4, presentationd6a4dc9->5f574f8, commandscfef2a9
-->07fef3a, proof31c2549->d92eecd. Actual Main battle loop polls worker30Hz;
-Chart interpolates detached visual records. Commands/boarding/crew/repair and
-Lab-only refill queue to the worker; result/exit retires before settlement.
-Root source API advisory found no issues; this is NOT native validation.
-R64 native import/parsePASS; worker110/2 onlyterminalfixture assumed18000
-projectiles despite public5000limit. Correctedfixture378183c->Rootec316d6,
-release756688b; no productionchange. R65/R32 prereqguards launchedNOengine.
-R66 d58a7ed4f56345f189784b960af166fa PASS1537/0 in44.641s whole:
-worker112, goals851, fire123, damage451. R67 dd313a78ee3d4693923f5ffe828b79f9
-PASS7618/0 in90.688s inclArt205/Weapons2292/Feedback5121/export/3starts.
-Identical705trackedgameinputs acrossR66/R67; cleanuptrue inboth.
-R33 6a8fa34477eb4b7983d11da00d25479e actualCOMPLETE58.344s/cleanuptrue,
-QUALITYFALSE: worker30Hz moves numerical combat offMain and light42/full300DP
-renders59.998FPS versusoldroughly22; mixed16 renders60.012. Bothfullcoverage,
-zero50msstutters/unresolvedstalls; all42/all16evermoved. EndPNGsRootviewed.
-MainpublicationP950.326/0.220ms; lightworker snapshotmedian43.008ms/mixed24.221
-creates283/120msmaxlag; workerP95capacity36.768/35.305ms. Current bounded
-follow-up: cheaper detachedpublication, no actor/stat/cadence/gameplay change.
-Separateworkerstep/job/snapshot/Mainpoll/lag costs; no zeroMain=zeroSimulation.
-Nativeproof and real60FPS gain do not yet accept remaininglag or gamequality.
-R68 6ba0a27822f14313845a7f042cf2146b PASS5297/0,90.203s incl119worker/HUD,
-57commandreference,5121feedback/export3starts/cleanuptrue. Nativecopy9ea310
-->Root4b000e3; HUDproof41fc640->c5e64d0; release9223c45.
-R34 87950dd298e54596bb51fb8720d0da2b actualCOMPLETE58.234s/cleanuptrue,
-QUALITYFALSE: light/mixed59.986FPS, no50msstutters/unresolvedstalls/fullcoverage;
-bothendPNGsRootviewed. Snapshotlight43->28.06ms,mixed24->12.719ms. Mixed
-workerP9525.325ms/maxlag66.613ms nowPASS; lightP9536.331/maxlag199.989ms
-stillmiss. Currentnarrowfollowup reusesexisting CURRENT damage status inside
-worker-onlypublication with checkedunsealedpoststep phase, freshlegacy/result
-fallback, plusrealactiveflood/repairinexistingcanonicalHUDcase. No staleHUD
-frequency/newcacheframework/actor/stat/cadence/threshold changes.
-Three BridgeSol6.1MAX passes completed; driver/proof owners handle one measured
-publicationcopy follow-up; third stays idle. No extrahelpers/framework.
-No tag/install/push, Desktop050 preserved; no052 breadth until usable core.
+R69 unchangedretry3873d885a89f4747934a9fff2564d18c PASS5692/0 in83.735s whole:
+worker/HUD120,owned damage451,feedback5121,export/menu/campaign/battle/cleanup.
+R68command57,R66goals851/fire123 andR67hull205/weapon2292 retained by unchanged
+source dependencies. Exact receipts and source proof are in tests/ and task.
+OriginalR69 yielded to another game; its interruption is preserved separately.
+Tested release08a03ff51c2bee4c0b540305e4c9ff595eb8649a; gameplayRoote9c499e
+has identical Gitgame tree/all705newline-normalizedcontents before final notes.
+
+ActualR36 470ecd2b7c8e40d7949cffcf71d80e53 COMPLETE58.016s/cleanuptrue;
+strictqualityflagFALSE. Full42light/16mixed actors,300DPside, worker30Hz:
+Light59.999FPS,99.72%frames<=20ms,snapshot14.443ms,MainpublicationP950.345ms.
+Mixed59.987FPS,100%frames<=20ms,snapshot7.446ms,MainpublicationP950.189ms.
+Both no>50msframes/unresolvedplannerstalls; all42/16moved and full active combat
+coverage. Both end PNGs Root viewed. Old Main combat light ran roughly22FPS.
+Worker snapshotlight43->28->14ms,mixed24->13->7ms acrossR33/R34/R36.
+
+STRICT REMAINING TARGETS, CARRIED TO0.061: lightworkerP9538.435ms vs33.333ms,
+maxlag151.409ms vs100ms; rawstrictFPS>=60 also misses the measured values.
+Simultaneous impact phases38/36ms cause the largest peaks near0.47/0.97s;
+medianlag84.722ms, endwall-minus-sim66.836ms, no growing backlog. Mixedworker
+P9520.095ms/maxlag52.294ms meets those worker targets. Root accepts this useful
+bounded0.051 improvement under the owner's scope preference. No threshold or
+receipt changed; this is not a claim every performance/quality target passed.
+
+Package/verify the one Desktop launcher without auto-launching, retaining older
+builds,two voyages and18music files. Then next scope0.052 is satisfying fleet
+growth/logistics, using existing cargo/fuel/crew/wages/repair/storage/ownership
+and300DPdeployment. Do not broaden this threading pass into another framework.
 Source checks, native assertions and stills are not gameplay/FPS/audio acceptance.
 
 THE TARGET
@@ -340,6 +303,10 @@ result in traffic, safety, inventories and faction opportunity. Operations
 stall or fail for explained resource/strategic reasons, not arbitrary resets.
 
 0.061 - WHOLE-GAME QUALITY MILESTONE
+Carry measured051 impact-burst targets: light workerP95<=33.333ms and maxlag
+<=100ms, plus full rendered60FPS/frame-time targets. R36 scoped051 acceptance
+does not waive these:38.435ms/151.409ms remained, rawqualityflagFALSE.
+
 Bring the art, sound, interfaces, progression, economy, AI, exploration, recovery
 and regional consequences together. Review early/mid/late fleet compositions,
 all six careers and differing faction relationships. Finish practical onboarding,

@@ -1,3 +1,5 @@
+v0.051 VERIFIED AND PACKAGED: 5692/0 focused checks, selected batch 83.810s, TestBridge 3873d885a89f4747934a9fff2564d18c. Source e9c499e.
+
 27OCT2026 - v0.051 FIRST VOYAGE AND CORE QUALITY MILESTONE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

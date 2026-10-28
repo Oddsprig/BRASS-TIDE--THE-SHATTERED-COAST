@@ -375,3 +375,51 @@ OWNED-PHASE FIXTURES - 27 OCTOBER2026
 - Runtime chart counters wrap the actual drawing frame under last_frame.
   Read that object when attributing drawing costs; empty wrapper medians are
   an analysis extraction error, not zero drawing work.
+
+WORKER BATTLE OWNERSHIP AND REAL RENDERING - 27 OCTOBER2026
+- The owner explicitly rejected mandatory60Hz heavy Main simulation. Actual
+  Main/Lab encounters now use an authoritative30Hz data worker; Main owns
+  input/queued commands, UI/audio and independent interpolated drawing. Keep
+  existing synchronous Battle APIs as reference/fallback, not a hidden live
+  Main-loop path. Engine60Hz callbacks do not count as completed worker steps.
+- Worker ownership must include RNG, damage contexts, tactical child tasks,
+  original ship/campaign-port accounting and retirement. Deep duplicate(true)
+  does not clone Objects or preserve every cross-container alias. Sanitize
+  ingress, rebuild private owners, relink convoy/captured/escaped hulls and
+  join before restoring original UID/port identities or settling the campaign.
+- Main UI getters can accidentally run heavy numerical work. Published status
+  and explicit command proxies are part of the worker boundary. Queue admission
+  is not validation success; expose worker receipts once. Do not read or enable
+  shared detailed counter dictionaries while numerical jobs own them.
+- R33 actual full42/full300DP rendered~60FPS versus~22 with old Main combat;
+  mixed16 also~60FPS, both no50msstutters and complete active coverage. This
+  proved a real rendering gain, not finished simulation capacity: recursive
+  publication copies cost43/24ms and maxlag283/120ms. R34 audited native deep
+  copies reduced snapshots to28/12.7ms; mixed capacity/lag passed, light still
+  lagged200ms. Read whole worker jobs, actual completed steps, snapshot cost,
+  Main publication and real-time lag separately. Low Main time is not free work.
+- Native copy is allowed only for specifically audited plain publication groups.
+  Initial state, commands/input, unknown fields and broader legacy predictions
+  keep sanitization. Preserve full payload and current numeric data; never
+  share live mutable specs, module records, contexts, RNG or task/phase handles.
+- The current-status follow-up reuses an existing UNSEALED post-step damage
+  phase on the exclusive worker. Check actual owner/generation and current
+  scalar inputs after all physical writes; fresh public/result/legacy fallback
+  remains. R69 worker120, owned451 and feedback5121 passed before a shared-lane
+  yield. Complete export/startup retry and rendered measurement remain required.
+- A raw requested weapon speed18000 was publicly clamped to5000. A terminal
+  fixture could not cross a300-unit gap in one1/30 step; use valid5000 and a
+  separate100-unit target to prove actual swept hit/sink/wreck/event/ammo. Do
+  not change gameplay speeds or insert projectiles to satisfy a bad fixture.
+- Shared-lane yield is interruption, not a code regression or passed batch.
+  Stop only owned identity-matched children, keep cleanup and failed receipt,
+  then queue the unchanged candidate. Source work may continue; no new tuning
+  is justified by another game starting. All whole selected batches stay<120s.
+
+SCOPED051 DELIVERY DECISION
+- R69 unchanged retry passed5692/0 in83.735s; R36 complete58.016s. Current
+  worker status reuse reduced snapshots to14.443/7.446ms; both nominal60FPS
+  with no>50msframes/stuckplanners. LightworkerP9538.435ms/maxlag151.409ms
+  remain beyond33.333/100targets. Keep rawqualityflagFALSE. Root accepts the
+  useful bounded051release and carries these targets to061; do not turn tiny
+  FPS rounding or two early impact bursts into endless pre-production tuning.
