@@ -48,7 +48,10 @@ static func payoff(ui,body: Node,entry: Dictionary) -> void:
 		ui.label(body,str(outcome.title),22,ui.GOLD,true)
 		ui.paragraph(body,str(outcome.body),16)
 		for consequence in outcome.get("consequences",[]):
-			ui.paragraph(body,"%s · %d · %s (%s)"%[consequence.target,int(consequence.amount),consequence.reason,"recorded" if consequence.applied else "pending"],14,ui.TEAL)
+			var recipient: String=str(consequence.target)
+			if str(consequence.kind)=="contact":recipient=str(c.Contacts._find(c.state,recipient).get("name",recipient))
+			elif str(consequence.kind)=="faction":recipient=str(c.Factions.standing(c.state,recipient).get("name",recipient))
+			ui.paragraph(body,"%s · %+d · %s (%s)"%[recipient,int(consequence.amount),consequence.reason,"recorded" if consequence.applied else "pending"],14,ui.TEAL)
 		var charter: Dictionary=outcome.get("charter",{})
 		if not charter.is_empty():
 			ui.paragraph(body,str(charter.conditions),14)
