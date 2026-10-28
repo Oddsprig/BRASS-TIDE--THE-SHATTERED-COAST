@@ -1,0 +1,54 @@
+BRASS TIDE v0.063 - SNAPSHOT SOURCE CANDIDATE
+28 October 2026 | Source-only specialist candidate; not accepted or measured
+
+Baseline: 7936307c540b2079d74002ecad34c07fcd11b07d
+Baseline game tree: 71a69f433b87eb27c14bb85719ab82c240cb78f2
+Scope: game/scripts/battle_driver051.gd, _snapshot only.
+
+ONE REPEATED COST
+Tactical.status creates a fresh dictionary on every call. Its nonempty live
+return explicitly deep-copies weapons, options and mounts; its remaining scalar
+fields are constructed strings. The mirror branch also returns a deep copy,
+and the missing/non-player branch returns a fresh empty dictionary. _snapshot
+then deep-copied that whole result again for every ship on every publication.
+
+CORRECTION
+Publish the fresh Tactical.status row directly after deep-copying only its
+path and exit branches, when present. Those two arrays are shallow copies in
+Tactical.status, so their nested values still require detachment. Preserve empty
+status rows exactly, without adding path/exit keys. Weapons/options/mounts keep
+their existing first deep copies; no branches borrow authoritative containers.
+
+OWNERSHIP AND FRESHNESS
+Tactical.status is still called once per ship for every with_status snapshot,
+at the same point and with the same two arguments. All current goal validity,
+manual weapon reasons and mount refreshes still execute. No cached older status,
+downsampling, cadence change or public-field removal. The fresh row is local to
+this publication; the worker never retains it. Path/exit receive the same native
+recursive detachment previously provided by the whole-row copy. The audited
+plain-data contract is unchanged; unknown fields and predictions still use
+_plain. Initial acquisition, commands and input retain their sanitizers.
+No phase is passed through Tactical.status, and no phase lifetime is extended.
+Damage status, owner/UID reconciliation, actors, shots and accounting are intact.
+
+EXPECTED METRIC (HYPOTHESIS ONLY)
+Fewer dictionary/array allocations and repeated native copies inside snapshotUs,
+especially for the 21 player status rows in the light full300DP fixture. Compare
+workerSnapshots median/P95 and whole-job per-step capacity/lag on unchanged
+light42 and mixed16 fixtures. No numerical speedup estimate or improvement claim.
+Actual062 recorded light snapshot median14.606ms/P9516.959ms,
+worker-capacity P9538.807ms and maximum lag150.222ms; mixed snapshot
+median7.497ms/P958.478ms. Main publication P950.327ms was already cheap.
+
+SOURCE SELF-REVIEW / VERIFICATION LIMITS
+Read the complete driver, Tactical.status return branches, tactical ensure/live
+and mount registration/refresh, Battle mount constructors, damage phase/status
+ownership guards, relevant maps/lessons and existing worker regression source.
+Reviewed the exact diff and whitespace. No source-check script, engine parsing,
+native test, build, GPU work or game/editor launch was run by this specialist.
+This candidate is untested and not accepted. Root must run native correctness,
+clean terminal completion and representative rendered performance checks through
+the shared Test Bridge lane before acceptance. Existing worker coverage includes
+detached publications, current HUD mounts/status, accounting and terminal cleanup;
+Root should also verify nested status path/exit/options/weapons/mount isolation.
+Do not infer a quality pass, measured improvement, crash fix or shipping approval.
