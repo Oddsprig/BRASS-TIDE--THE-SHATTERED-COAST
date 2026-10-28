@@ -4,7 +4,6 @@ BRASS TIDE v0.062 - COASTAL DETAIL AND CLEARER DECISIONS
 THIS VERSION
 - Bring shaded coast, trees, buildings and harbor work sites into normal campaign zoom using existing bounded prepared geometry.
 - Put regional watch status, shortages and actions ahead of detailed market reports; put owned business books and controls ahead of optional charters.
-- Reuse the already-validated post-step damage phase during worker tactical display construction, preserving fresh status and complete detached snapshots.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -18,5 +17,6 @@ publication cost. It does not claim whole-game quality or Starsector parity.
 All36boat designs/physical mounts remain, crews numerical, wages100coins/day.
 Combat remains30Hzdataworker/100msrole decisions andsafe renderMode1.
 The last delivered061measurement still missed lightworker33.333ms/100mslag
-and strict60FPS targets. This candidate has not yet been measured. Audio,
+and strict60FPS targets. The proposed snapshot optimization was removed after two failed native exits;
+no performance improvement is claimed. This art/UI candidate is not measured yet. Audio,
 actualplay and complete six-career progression remain separate evidence gaps.

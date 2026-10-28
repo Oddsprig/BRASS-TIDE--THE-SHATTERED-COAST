@@ -3,8 +3,8 @@
 Installed build: v0.061 DELIVERED, localtagda960d5,276/0+Windows92.860s.
 Active0.062 bounded quality corrections; metadata prepared ONCE. Whole quality
 milestone OPEN. A20307d99->5513dbf coast, Bd7e1bb25->6171d80 readability,
-C2320371b->66eaee9 phase-aware snapshot status all Root source-reviewed and
-integrated. All3BridgeSolMAX idle. One combined6filepreloadadvisory issuesempty;
+C2320371b->66eaee9 was reviewed/integrated then reverted by7983166 after
+two failed post-terminal native exits. Its benefit was never accepted. A/Bidle; Cboundedsource-onlyfailurediagnosis. Combinedsourceadvisory empty;
 native/export/actual newviews/perf pending, no062tag/package/install yet.
 Root privateMaincapture resetswatch/homebook scroll0 forprimarytoplayout.
 Currentstate/scope work/quality-v062. Earlier061receipts remain in
