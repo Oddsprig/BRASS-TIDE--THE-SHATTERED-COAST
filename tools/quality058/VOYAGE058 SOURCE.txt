@@ -5,7 +5,37 @@ No engine, test, parser, advisory, import/export, GPU, CUA, input/focus, helper,
 cleanup, package, metadata, install or push ran. This is prepared SOURCE, not a
 native result or 058 acceptance. Root owns all execution through the shared FIFO.
 
-R1 BOUNDED FOLLOW-UP - RECRUITMENT CORRECTION / DISCLOSURE DIAGNOSTICS
+R2 FINAL BOUNDED FOLLOW-UP - RAW DISCLOSURE / EXACT ZERO-ONLY NORMALIZATION
+Root job7db41c19f74545f39abbf3c3e01d6d65 / attempt-001 / salvage-voyage /
+native.log establishes214 checks,1 failure;24.458s internal and45.969s whole
+batch (whole timing supplied by Root). This remains FAILED R2 evidence.
+Recruitment exactly matches: raw recruits143/workforce2375/qualified138,
+eligible138,3 hires -> recruits135/workforce2372/qualified135; coins7638->4638,
+crewPurse6000->9000. All recruitment/physical workforce requirements remain.
+
+R2 selectedEqual/allEqual/forfeitedHull are TRUE; component exact/rawExact are
+TRUE. retainedStores rawExact is TRUE: quote/raw have20 keys, including17 exact
+zeros, while find_wreck has3 keys. Positive ammo1/fuel3/supplies2 match EXACTLY
+at17 decimal places. The failed assertion compared different representations
+after its own lookup; R2 establishes a fixture assumption, not a backend defect.
+
+Before calling find_wreck, require complete quoted components/stores to equal
+the authoritative deep-copied raw snapshot. Build expected normalized stores
+by omitting ONLY entries whose raw quantity equals zero exactly. The existing
+full-disclosure assertion also requires lookup stores to equal that dictionary:
+EVERY nonzero quantity survives EXACTLY, with no added keys or quantity change,
+and only zero entries disappear. No tolerance, rounding or positive filtering.
+Keep the existing post-lookup component equality, selected/all-part identity,
+hull forfeiture and every diagnostic; print the two new exact conjuncts too.
+Fold these requirements into the same assertion, preserving all214 checks.
+
+Only the two owned files change; no backend/API change, engine/test/parser/
+advisory or other source exploration. Manual patch review only; the final
+correction remains SOURCE ONLY pending Root's same bounded native rerun.
+No claim of058 acceptance, new framework or future/performance work.
+
+R1 HISTORICAL FOLLOW-UP - RECRUITMENT CORRECTION / DISCLOSURE DIAGNOSTICS
+The R2 correction above supersedes R1's still-unestablished disclosure diagnosis.
 Root executed combined866179fc8def4b6e0a17bf39a082b3190dd68f59 in release058.
 Root job a443a62c2bfd454290b0a84dbedacb6d / attempt-001 / salvage-voyage /
 native.log was read in full:214 checks,2 failures;24.788s internal,28.719s native
@@ -173,8 +203,8 @@ print elapsed milliseconds and exact check/failure counts, bounded short sailing
 loops and a final <35000ms assertion including Main setup and cleanup. Native
 target is the existing 8% CPU/two cores; C neither sets nor measures it. Root
 must execute one bounded fixture in its whole selected batch below120seconds.
-Root R1 established the stated runtime and completed paid flows, with the two
-failures above. This bounded source correction/diagnostics remain unexecuted;
+Root R1/R2 established the stated runtimes and completed paid flows, with two
+then one failure above. This final bounded source correction remains unexecuted;
 058 acceptance and UI/export review stay Root-owned. A's in-flight guard and
 all exact source dependencies must be integrated. Queued/interrupted/timed-out
 is not passed. Broader coast

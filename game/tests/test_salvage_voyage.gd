@@ -368,11 +368,16 @@ func selected_gear() -> bool:
 	if not conserved("Normal Main worker completion"):return false
 	quote=c.recovery_quote(wreck_id,"gear","",0.0,gear_request)
 	if not check(bool(quote.ok),"Gear can retry after normal completion: "+str(quote.message)):return false
-	# Diagnostics only: retain the raw observer input before the existing lookup.
-	# Keep the disclosure requirement unchanged until Root has exact native values.
+	# Compare the complete quoted losses/stores with authoritative raw data before
+	# find_wreck normalizes it; that lookup may remove only exactly zero entries.
 	var raw_disclosure: Dictionary={}
 	for row in c.state.wrecks:
 		if str(row.get("id",""))==wreck_id:raw_disclosure=row.duplicate(true);break
+	var raw_stores: Dictionary=raw_disclosure.get("stores",{})
+	var raw_disclosure_exact: bool=not raw_disclosure.is_empty() and quote.get("forfeitedComponents",{})==raw_disclosure.get("components",{}) and quote.get("retainedStores",{})==raw_stores
+	var normalized_stores: Dictionary={}
+	for good in raw_stores:
+		if raw_stores[good]!=0:normalized_stores[good]=raw_stores[good]
 	var wreck: Dictionary=Salvage.find_wreck(c.state,wreck_id)
 	var stores: Dictionary=wreck.stores.duplicate(true)
 	var components: Dictionary=wreck.components.duplicate(true)
@@ -395,7 +400,8 @@ func selected_gear() -> bool:
 			for good in lots:lot_keys[good]=true
 		for good in sorted_keys(lot_keys):
 			print("salvage058 disclosure lot ",field,"/",good,": quotedPresent=",quoted_lots.has(good)," quoted=%.17f"%float(quoted_lots.get(good,-1))," actualPresent=",actual_lots.has(good)," actual=%.17f"%float(actual_lots.get(good,-1))," rawPresent=",raw_lots.has(good)," raw=%.17f"%float(raw_lots.get(good,-1))," quotedType=",typeof(quoted_lots.get(good))," actualType=",typeof(actual_lots.get(good))," exact=",quoted_lots.get(good)==actual_lots.get(good))
-	check(selected_ids==wanted and all_ids==sorted_keys(source_parts) and quote.get("forfeitedHull",false) and quote.get("forfeitedComponents",{})==components and quote.get("retainedStores",{})==stores,"Before committing, selected/lost parts, hull, all component losses and retained loose stores are explicit")
+	print("salvage058 disclosure rawComplete=",raw_disclosure_exact," lookupOnlyZeroEntries=",stores==normalized_stores," expectedNormalizedKeys=",sorted_keys(normalized_stores))
+	check(selected_ids==wanted and all_ids==sorted_keys(source_parts) and quote.get("forfeitedHull",false) and raw_disclosure_exact and quote.get("forfeitedComponents",{})==components and stores==normalized_stores,"Before committing, selected/lost parts, hull, all component losses and retained loose stores are explicit")
 	var wallet: int=int(c.state.coins)
 	var savings: int=int(c.state.crewPurse)
 	var cargo: Dictionary=c.state.cargo.duplicate(true)
