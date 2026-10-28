@@ -1,0 +1,70 @@
+063 DAMAGE RECORD RESULT REUSE - SOURCE CANDIDATE; NATIVE/PROFILE UNRUN
+28 October 2026; isolated sol-damage checkout.
+Parent 7936307c540b2079d74002ecad34c07fcd11b07d.
+Baseline game tree 71a69f433b87eb27c14bb85719ab82c240cb78f2.
+
+Diagnosis and one bounded change
+- Records._battle_records051 already uses the admitted immutable descriptor
+  and current engine HP/watermark guards, but allocates a five-field success
+  Dictionary on every invocation. Owned absorption, transaction pre/post
+  validation, snapshot refresh and projection refresh can request the same
+  result repeatedly. Its consumers only read the success fields.
+- Retain one read-only result on the existing owned entry, keyed by its exact
+  generation and currently validated engine HP. A repeated successful read
+  returns that result instead of rebuilding the five-field Dictionary.
+- This changes allocation only. Every original authority/condition/items guard,
+  engine unit check and watermark tolerance check still runs BEFORE reuse.
+  Zero HP always constructs a fresh result to preserve signed-zero behavior.
+  No public validator, public snapshot, status input or status schema changes.
+
+Ownership and invalidation proof (source review)
+- Damage._admit_battle_owner051 remains the sole entry constructor: existing
+  complete inspection, exact encounter membership, identity/reference guards,
+  disallowed aliases and detached frozen descriptor remain. It initializes the
+  new records result to null and recordsGeneration to -1.
+- _battle_records051 still rejects an invalid entry or another condition/items
+  dictionary before looking at the retained result. Damage._battle_entry051
+  continues to reject a foreign/same-ID boat or replaced owner references.
+- Existing _battle_dirty051 now also releases this result and resets its
+  generation before every official equipment writer and priority refresh.
+  Retention is bounded to the same admitted generation, never a broader epoch.
+- Kernel pre/post checks may share a generation while engine HP changes; an
+  exact nonzero float comparison forces a new result for that change. The
+  current watermark/unit guards still run even if HP did not change.
+- Failed writes revoke valid; drop/close invalidate the original entry. Hits
+  still revoke before the public transaction and fully re-admit on success.
+  Ordinary checked tick/read/publish fallbacks remain unchanged.
+- The retained fields are booleans/numbers and the descriptor's already frozen
+  UID-location dictionary. The result itself is read-only. No live item rows,
+  native Objects/RIDs, global cache, additional context or thread handoff.
+  Core mutation kernels read records, then mutate condition through the same
+  requests, arithmetic, budgets, ordering, rollback and RNG paths as before.
+
+Scope and limits
+- Production edits: damage.gd entry initialization; equipment_records.gd dirty
+  invalidation and private result reuse. equipment_damage.gd was read only.
+  No driver, tactical, fixture, metadata, version, build or release edits.
+  Does not restore the removed post-step Tactical.status phase trial.
+- Review covered Records snapshot/publication and Core projection, legacy
+  absorption, component damage and repair consumers; none mutates records.
+- git diff --check clean. No engine/GPU, fixture, benchmark, export, import,
+  preload advisory or other test was run under this source-only assignment.
+- Actual062 remains the supplied baseline: light worker P95 38.807 ms / max
+  lag 150.222 ms (42 boats, full300DP); mixed 20.187 ms / 50 ms. Those are not
+  measurements of this candidate. No improvement, parity or quality claim.
+- Risk: extra generation/scalar lookups and read-only construction may offset
+  allocation savings during frequent engine writes. Healthy ticks may already
+  bypass this adapter. Native parsing, regression and sustained capacity await
+  Root; code is a reviewable candidate, not accepted or delivered.
+
+Existing Root test selection (separate bounded shared-lane jobs as needed)
+- game/tests/test_damage_hotpath040.gd: owned/public complete boat/report/RNG
+  parity; real legacy/repair/fire writes; jury-cap boundaries; healthy scalar
+  transitions; copy/replacement/revocation/closure and fallback paths.
+- game/tests/test_equipment_records.gd and test_equipment_damage.gd: public
+  freshness/corruption refusals, real paid machinery damage and repair.
+- game/tests/test_worker_battle051.gd: actual 30Hz worker, plain detached
+  publication, completed steps/events/ammo/stores and original UID retirement.
+- Root's existing full300DP light/mixed Windows measurement: targeted worker
+  cost/lag, mixed consistency and clean native startup/exit. Static review
+  cannot substitute for these tests. All assertions and fixture files unchanged.

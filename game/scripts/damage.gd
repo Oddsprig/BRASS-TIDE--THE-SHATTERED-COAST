@@ -351,7 +351,7 @@ static func _admit_battle_owner051(owned: BattleOwned051, s: Dictionary, generat
 		if not (breach is Dictionary) or not EquipmentDamage.Core._number(breach.get("area")): return
 	var descriptor: Dictionary = EquipmentDamage.Records._battle_descriptor051(s)
 	if not bool(descriptor.get("ok",false)): return
-	var entry: Dictionary = {"valid":true,"shipRef":s,"conditionRef":s.moduleCondition,"itemsRef":s.moduleCondition.items,"specRef":s.spec,"baseSpecRef":s.get("baseSpec"),"loadoutRef":s.get("loadout"),"identity":[s.get("id"),s.get("uid"),s.get("type")],"descriptor":descriptor,"generation":generation,"infoGeneration":generation,"projectionGeneration":-1,"info":EquipmentDamage.Records._battle_freeze051(info),"projection":{},"statusInputs":[],"status":{},"healthy":false,"priority":s.moduleCondition.repairPriority}
+	var entry: Dictionary = {"valid":true,"shipRef":s,"conditionRef":s.moduleCondition,"itemsRef":s.moduleCondition.items,"specRef":s.spec,"baseSpecRef":s.get("baseSpec"),"loadoutRef":s.get("loadout"),"identity":[s.get("id"),s.get("uid"),s.get("type")],"descriptor":descriptor,"generation":generation,"recordsGeneration":-1,"records":null,"infoGeneration":generation,"projectionGeneration":-1,"info":EquipmentDamage.Records._battle_freeze051(info),"projection":{},"statusInputs":[],"status":{},"healthy":false,"priority":s.moduleCondition.repairPriority}
 	owned.entries[slot] = entry
 
 static func _bind_battle_owned051(phase, owned, ships: Array, source: Dictionary) -> void:

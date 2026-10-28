@@ -441,6 +441,7 @@ static func _battle_descriptor051(boat: Dictionary) -> Dictionary:
 
 static func _battle_dirty051(entry: Dictionary) -> void:
 	entry.generation = int(entry.generation) + 1
+	entry.records = null; entry.recordsGeneration = -1
 	entry.info = {}; entry.projection = {}; entry.statusInputs = []
 	entry.infoGeneration = -1; entry.projectionGeneration = -1
 	entry.healthy = false
@@ -459,7 +460,16 @@ static func _battle_records051(condition: Dictionary, entry: Dictionary) -> Dict
 		engine_hp = float(hp)
 	# UIDs, placement, schema and locker count are immutable admission facts.
 	# Engine HP is live; the shared mutation kernels retain request/budget guards.
-	return {"ok":true,"hasEngine":descriptor.hasEngine,"engineHp":engine_hp,"locations":descriptor.locations,"locker":descriptor.locker}
+	# Reuse only this generation's immutable result, AFTER all live guards above.
+	# A kernel's pre/post validation shares a generation, so engine HP must match
+	# exactly too. Dirty/revoke never lends an earlier result to another writer.
+	# Zero keeps the fresh path: numeric equality cannot distinguish signed zero.
+	if engine_hp != 0.0 and int(entry.recordsGeneration) == int(entry.generation) and entry.records.engineHp == engine_hp:
+		return entry.records
+	var records: Dictionary = {"ok":true,"hasEngine":descriptor.hasEngine,"engineHp":engine_hp,"locations":descriptor.locations,"locker":descriptor.locker}
+	records.make_read_only() # Nested locations already belong to the frozen descriptor.
+	entry.records = records; entry.recordsGeneration = entry.generation
+	return records
 
 static func _battle_write051(condition: Dictionary, request: Dictionary, entry: Dictionary, kernel: Callable, want_receipt051: bool = true) -> Dictionary:
 	_battle_dirty051(entry) # Revoke derived generations before an official write.
