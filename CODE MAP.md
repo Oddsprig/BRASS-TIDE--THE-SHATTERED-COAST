@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.062: Coastal detail and clearer decisions. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: coast_art050.gd, regional_ui.gd, home_ui.gd, battle_driver051.gd, tactical_runtime.gd, main.gd.
+v0.063: Bounded fleet performance correction. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: battle_driver051.gd, damage.gd, equipment_records.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

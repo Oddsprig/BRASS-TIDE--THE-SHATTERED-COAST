@@ -1,9 +1,9 @@
-BRASS TIDE v0.062 - COASTAL DETAIL AND CLEARER DECISIONS
+BRASS TIDE v0.063 - BOUNDED FLEET PERFORMANCE CORRECTION
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Bring shaded coast, trees, buildings and harbor work sites into normal campaign zoom using existing bounded prepared geometry.
-- Put regional watch status, shortages and actions ahead of detailed market reports; put owned business books and controls ahead of optional charters.
+- Avoid a redundant whole-row copy of freshly detached tactical status while preserving nested path and exit isolation.
+- Reuse immutable private equipment-validation results only within the same admitted generation, after current ownership and engine-condition checks.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -11,12 +11,12 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-QUALITY MILESTONE REMAINS OPEN
-This version makes bounded corrections to the observed coast, books and worker
-publication cost. It does not claim whole-game quality or Starsector parity.
-All36boat designs/physical mounts remain, crews numerical, wages100coins/day.
-Combat remains30Hzdataworker/100msrole decisions andsafe renderMode1.
-The last delivered061measurement still missed lightworker33.333ms/100mslag
-and strict60FPS targets. The proposed snapshot optimization was removed after two failed native exits;
-no performance improvement is claimed. This art/UI candidate is not measured yet. Audio,
-actualplay and complete six-career progression remain separate evidence gaps.
+PERFORMANCE SCOPE
+This version removes repeated tactical status copies and repeated private
+equipment-validation result allocation. Every current owner/engine check still
+runs; nested display data stays separate from live combat. The rejected v0.062
+phase-threading trial remains removed. Simulation remains30Hz on a data worker,
+role decisions100ms, safe render mode1. No fluid simulation or animated crews.
+Read packaged tests/ and PERFORMANCE v0.063.txt for actual measurements and
+remaining limits. Whole-game art, combat feel, listening and progression remain
+separate quality work; this version makes no Starsector parity claim.

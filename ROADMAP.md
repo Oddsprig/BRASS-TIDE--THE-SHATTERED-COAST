@@ -1,3 +1,9 @@
+# Active candidate: v0.063 bounded fleet performance correction
+
+The approved ocean version sequence remains below. This candidate contains two
+small copy/allocation changes; native and measured performance acceptance is
+pending. Installed game remains v0.062. Finish this scope before v0.064.
+
 # Current release: v0.062 coastal detail and clearer decisions
 
 The next ten planned versions are **v0.063-v0.072**, saved in

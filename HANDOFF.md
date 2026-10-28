@@ -1,3 +1,14 @@
+# Active v0.063 candidate - installed v0.062 preserved
+
+Metadata063 prepared ONCE. Root integrated Add2ec3ad as571c42c and B3a744495 as809ed60.
+A nested-publication regression and Grok B review pending. Native/profile pending;
+no063tag/package/installation yet. Currenttask work/quality-v063/CURRENT STATE.txt.
+Root owns all engine/TestBridge work. Use existing scripts; every selected whole
+batch<120seconds. Approved063-072scopes remain in docs/roadmap/OPEN OCEAN VERSION
+MAP v0.063-v0.072.txt. Two SolMAX/ArgonHIGH/GrokHIGH/two bounded SparkHIGH team.
+
+## Preserved delivered predecessor and plan
+
 28 October2026: owner requested the next version map after discussing ocean/local
 travel. Saved planned v0.063-v0.072 in docs/roadmap/OPEN OCEAN VERSION MAP
 v0.063-v0.072.txt; summaries in ROADMAP.md and VERSION MAP.txt. Next scope is a

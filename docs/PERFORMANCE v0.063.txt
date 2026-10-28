@@ -1,0 +1,10 @@
+BRASS TIDE v0.063 - BOUNDED FLEET PERFORMANCE CORRECTION
+
+Two source changes reduce repeated allocations without changing boat counts,
+weapons, physical damage, command handling or simulation rates. Displayed
+tactical status stays detached; private equipment results are reused only within
+the same valid generation after all live checks.
+
+Source reviewed; native correctness and rendered measurement pending.
+Installed game remains0.062 until delivery. Detailed task: work/quality-v063.
+No claimed performance gain, stable60FPS or whole-game quality acceptance yet.
