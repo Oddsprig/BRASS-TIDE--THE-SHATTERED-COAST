@@ -248,6 +248,17 @@ func paid_voyage() -> void:
 	if not travel(intent_remote(),fixed_speed):return
 	check(c.state.world064.layer=="local" and c.state.world064.regionId=="glasswind_keys","Outward next actions actually enter Glasswind Keys")
 	var outward_moving: float=moving_seconds
+	# Review the real return button at the actual remote arrival. The original
+	# home-entry choice differs from the outbound arrival side and must survive.
+	scene.ui.voyage_intent065=intent_here(intent_remote())
+	scene.ui.open_voyage_preparation065()
+	var review_before: PackedByteArray=protected_state()
+	var return_button: Button=button_in(scene.ui.overlay,"Plan return to Shatter Coast")
+	check(return_button!=null,"Actual remote panel exposes return planning")
+	if return_button!=null:return_button.pressed.emit()
+	check(scene.ui.voyage_intent065.targetRegionId=="shatter_coast" and scene.ui.voyage_intent065.targetApproachId=="north" and scene.ui.voyage_intent065.outExit=="south","Return planning preserves the selected home entry and remote departure")
+	check(protected_state()==review_before,"Actual return-plan review changes no voyage, stores or pending payroll")
+	scene.ui.close_modal()
 	if not advance(float(planned.timing.idleDays)*c.DAY_SECONDS,false):return
 	if not travel(intent_home(),fixed_speed):return
 	check(c.current_port().get("id","")=="brass_haven","Actual return reaches the named home harbor")
