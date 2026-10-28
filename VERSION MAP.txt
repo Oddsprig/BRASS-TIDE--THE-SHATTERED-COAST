@@ -1,5 +1,5 @@
 BRASS TIDE - STARSECTOR QUALITY VERSION MAP
-27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.050
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.052
 
 Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
 The target is the complete experience, not a matching list of features.
@@ -35,12 +35,12 @@ All36 boats and their guns reach the proven visual and role standard.
 0.050 - COASTAL WORLD ART [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
 Distinct designed ports/regions, authored terrain and readable real navigation.
 
-0.051 - FIRST-VOYAGE MILESTONE [IN PROGRESS; CORE QUALITY GATE OPEN] [DONE]
+0.051 - FIRST-VOYAGE MILESTONE [SCOPED BUILD DELIVERED; CORE QUALITY GATE OPEN]
 A satisfying opening voyage and fleet decision clear the whole core-quality bar.
 
 
 MILESTONE B - PROGRESSION AND THE LIVING COAST (0.052-0.056)
-0.052 - FLEET GROWTH AND LOGISTICS [PLANNED]
+0.052 - FLEET GROWTH AND LOGISTICS [SCOPED BUILD DELIVERED]
 Useful support boats, affordable progression and clear operating/return reserves.
 
 0.053 - MEANINGFUL LTV TRADE [PLANNED]

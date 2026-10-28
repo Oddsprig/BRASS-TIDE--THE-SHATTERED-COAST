@@ -1,16 +1,18 @@
-BRASS TIDE v0.052 - FLEET GROWTH AND EXPEDITION PREPARATION
-27 October2026 |36 boat designs
+BRASS TIDE v0.052 - Fleet growth and expedition preparation
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 0da1dbe / v0.052
+Test Bridge: 7eeec97a289748af93491a5af05b941e
+403 focused checks, 0 failures; menu/campaign/battle startup passed.
+Selected batch plus setup: 93.246s; owned cleanup verified.
 
-THIS VERSION
 - Explain the voyage limiter and real food, fuel and wage allowance for a planned return.
 - Show useful payload and separate owned, stored and traveling boats from300-point battle deployment.
 - Make the value and operating burden of a next or support boat visible through existing real quotes and reserve choices.
 - Link preparation to existing crew, cargo, reserves, storage and shipyard actions without duplicating transactions.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+052 scoped verification: native R2 job7eeec97a289748af93491a5af05b941e passed403 checks/0 failures (expedition75, actual Main paid growth/UI54, first-voyage274), Windows export/menu/campaign/battle starts and cleanup. Whole batch93.246seconds including10s setup debit, below120s. R1 expedition setup timeout remains separately preserved; repeated full campaign setup was shared without removing assertions.
+Actual export five-view capture R2 job924d7d99c21a4a51ac928180b44b0cde passed30.062seconds including setup,1280x800 private desktop never activated, no input/focus, muted Dummy. Root inspected title/home/voyage/harbor/preparation PNGs; preparation hierarchy, route/allowance, payload, loaded-fuel limiter, ownership and local priced partner are readable, long details scroll. This establishes still layout only, not motion, sound, new FPS or whole-game quality acceptance.
+Tested release9df848309a5c8d02f085f626168cad64f8edc118 and Root0da1dbe have identical706newline-normalized tracked game inputs; actual build bytes are bound by the R2 plan. 051 authoritative30Hz combat worker/render interpolation is unchanged; earlier measured performance and remaining strict061 targets remain documented. No new economy or free resources. Reports/projections do not buy/activate/load supplies. Older051, voyages/music and one plain launcher are preserved at desktop install.
+

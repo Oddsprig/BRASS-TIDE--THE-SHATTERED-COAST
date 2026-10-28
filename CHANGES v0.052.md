@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Link preparation to existing crew, cargo, reserves, storage and shipyard actions without duplicating transactions.
 
 See docs/TEST RESULTS v0.052.md for actual focused checks and remaining limits.
+
+Verification: 403 focused assertions/0 failures, Windows export and portable menu/campaign/battle startup. Whole selected batch plus setup 93.246s. Preserved earlier failures; no broad acceptance claim.

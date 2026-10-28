@@ -1,10 +1,5 @@
-CURRENT052 SCOPE - SOURCE CANDIDATE
-Active052fleetgrowth/logistics;051scopedbuildinstalled+verified.
-Versionmetadata52preparedONCE; do not rerunprepare_version.py. Integrated
-sourcecandidates await Rootnative/export andchanged-screenreview. No053breadth.
-051workercombat stays30Hz/renderinterpolated; rawimpactbudgettargetsremain
-OPENat061andarenot052scope. RootownsallmutedbackgroundFIFOtests<120s.
-Read current task/CURRENT STATE.txt for exactqueuedjobs/helpercommits.
+CURRENT052 SCOPE - VERIFIED SCOPED BUILD
+052fleet preparation passed403/0 focused checks and export/startups; five actual1280x800 screens reviewed. No new performance or whole-game acceptance claim. Continue053 meaningful LTV trade only after052 packaging/desktop verification.051 strict performance targets remain open061. Root owns muted background shared-lane tests below120s. Read task/CURRENT STATE.txt for current provenance.
 
 # Brass Tide - current working instructions
 
