@@ -1,5 +1,5 @@
 extends RefCounted
-## Original, flat nautical artwork over the real coast. Preparation is a scene /
+## Original, shaded nautical artwork over the real coast. Preparation is a scene /
 ## encounter-boundary operation; drawing only submits immutable colored meshes.
 ## All opaque triangles are clipped to the collider ring. Reef strokes and pier
 ## symbols are chart ink, never additional land or a second navigation model.
@@ -66,6 +66,15 @@ static func _oval(at: Vector2,size: Vector2) -> PackedVector2Array:
 	for i in range(8):result.append(at+Vector2.from_angle(float(i)*TAU/8.0)*size)
 	return result
 
+static func _patch(at: Vector2,size: Vector2,phase: int=0) -> PackedVector2Array:
+	# A bounded, lobed brush shape, used only while preparing the three meshes.
+	# Unequal shoulders break the old regular octagon without a texture or RNG.
+	var lobes: Array=[0.86,1.0,0.81,0.97,0.87,1.04,0.82,0.96,0.90,1.02,0.79,0.95]
+	var result:=PackedVector2Array()
+	for i in range(lobes.size()):
+		result.append(at+Vector2.from_angle(float(i)*TAU/float(lobes.size()))*size*float(lobes[(i+phase)%lobes.size()]))
+	return result
+
 static func _ribbon(plan: Dictionary,points: PackedVector2Array,width: float,color: Color,first_lod: int) -> void:
 	for i in range(1,points.size()):
 		var a: Vector2=points[i-1];var b: Vector2=points[i]
@@ -81,7 +90,7 @@ static func _profile(id: String) -> Dictionary:
 	# These compositions follow the eight actual islands; no copied map, new
 	# region, extra island, decorative lagoon or procedural land silhouette.
 	match id:
-		"isl_lantern":return {"biome":"chalk headland / orchard coast","ground":"899470","rock":"a6a18a","leaf":"42684d","beach":[[0.0,0.30],[0.48,0.61]],"ridge":[[0.14,0.12],[0.24,0.28],[0.38,0.39],[0.46,0.55],[0.31,0.77]],"groves":[[0.25,0.28],[0.36,0.42],[0.28,0.61],[0.19,0.80],[0.52,0.38]],"fields":false}
+		"isl_lantern":return {"biome":"chalk headland / orchard coast","ground":"899470","rock":"a6a18a","leaf":"42684d","beach":[[0.0,0.30],[0.48,0.61]],"ridge":[[0.14,0.12],[0.24,0.28],[0.38,0.39],[0.46,0.55],[0.31,0.77]],"groves":[[0.25,0.28],[0.36,0.42],[0.28,0.61],[0.19,0.80],[0.52,0.38],[0.68,0.47]],"fields":false}
 		"isl_kelp":return {"biome":"tidal reedbanks / salt meadow","ground":"819779","rock":"aab19a","leaf":"527c5c","beach":[[0.0,0.41],[0.72,0.86]],"ridge":[[0.22,0.20],[0.34,0.40],[0.53,0.57],[0.40,0.76]],"groves":[[0.21,0.31],[0.36,0.48],[0.53,0.55],[0.34,0.72],[0.18,0.70]],"fields":true}
 		"isl_sawtooth":return {"biome":"ironwood slopes / pale crags","ground":"7b8b6b","rock":"aaa996","leaf":"365947","beach":[[0.08,0.25]],"ridge":[[0.19,0.22],[0.34,0.34],[0.47,0.46],[0.60,0.61],[0.69,0.78]],"groves":[[0.23,0.29],[0.35,0.40],[0.49,0.57],[0.62,0.65],[0.76,0.20]],"fields":false}
 		"isl_verdigris":return {"biome":"polder terraces / windbreaks","ground":"9ca478","rock":"c0b98e","leaf":"567650","beach":[[0.0,0.18],[0.36,0.53]],"ridge":[[0.43,0.19],[0.48,0.36],[0.62,0.52],[0.69,0.72]],"groves":[[0.43,0.20],[0.50,0.36],[0.68,0.56],[0.76,0.74]],"fields":true}
@@ -96,34 +105,87 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 	for i in range(land.size()):
 		var a: Vector2=land[i];var b: Vector2=land[(i+1)%land.size()]
 		var middle: Vector2=(a+b)*0.5
+		var along: Vector2=(b-a).normalized()
 		var inward: Vector2=(b-a).orthogonal().normalized()
 		if not Geometry2D.is_point_in_polygon(middle+inward*3.0,land):inward=-inward
 		var sand: bool=false
 		for span in profile.beach:
 			if float(i)/land.size()>=float(span[0]) and float(i)/land.size()<=float(span[1]):sand=true
-		var width: float=(32.0+float(i%4)*6.0) if sand else (18.0+float(i%3)*8.0)
-		_paint(plan,0,PackedVector2Array([a,b,b+inward*width,a+inward*width]),Color("d5c79b") if sand else Color(profile.rock).darkened(0.27))
-		_paint(plan,1,PackedVector2Array([a+inward*(width-4),b+inward*(width-4),b+inward*(width+4),a+inward*(width+4)]),Color("b6b58a") if sand else Color(profile.rock).lightened(0.16))
+		var width: float=(30.0+float(i%4)*5.0) if sand else (20.0+float(i%3)*5.0)
+		var inner_a: Vector2=a+inward*width*0.78
+		var inner_b: Vector2=b+inward*width*0.91
+		var shoulder: Vector2=a.lerp(b,0.43)+inward*width*1.18
+		var rock: Color=Color(profile.rock)
+		var face: float=clampf(inward.dot(Vector2(0.6,0.8))*0.12,-0.12,0.12)
+		_paint(plan,0,PackedVector2Array([a,b,inner_b,shoulder,inner_a]),Color("cbbb90") if sand else rock.darkened(0.25+face))
+		# Wet sand, dry berm and broken turf lie INSIDE the actual shore. The
+		# changing upper edge replaces the ruler-straight rectangular coast bands.
+		if sand:
+			_paint(plan,1,PackedVector2Array([a,b,b+inward*7.0,middle+inward*10.0,a+inward*5.0]),Color("9eac96"))
+			_paint(plan,1,PackedVector2Array([a+inward*13.0,b+inward*12.0,inner_b,shoulder,inner_a]),Color("dfcea0"))
+		else:
+			_paint(plan,1,PackedVector2Array([a+inward*width*0.35,b+inward*width*0.48,inner_b,shoulder,inner_a]),rock.lightened(0.10-face))
+			if i%3==0:
+				var crag: Vector2=middle+inward*width*0.6
+				_paint(plan,1,PackedVector2Array([crag-along*19.0,crag+inward*16.0,crag+along*15.0]),rock.lightened(0.24))
+		_paint(plan,1,PackedVector2Array([inner_a,shoulder,inner_b,inner_b+inward*9.0,middle+inward*(width+19.0),inner_a+inward*8.0]),Color(profile.ground).lightened(0.07))
+		if i%4==1:
+			var stone: Vector2=middle+inward*(width+10.0)
+			_paint(plan,1,_patch(stone,Vector2(12,7),i%12),rock.darkened(0.07))
+			_paint(plan,2,_oval(stone+Vector2(-2,-2),Vector2(7,3)),rock.lightened(0.24))
 		# Deliberately transparent, broken seabed hatching rather than opaque
 		# rocks on water a captain is allowed to cross. It has no blocking meaning.
 		if sand and i%4==0 and plan.reef.size()<MAX_REEF_SEGMENTS*2:
-			var along: Vector2=(b-a).normalized()*22.0
 			var at: Vector2=middle-inward*(64.0+float(i%3)*18.0)
-			plan.reef.append(at-along);plan.reef.append(at+along)
+			plan.reef.append(at-along*22.0);plan.reef.append(at+along*22.0)
+
+static func _relief(plan: Dictionary,profile: Dictionary,ridge: PackedVector2Array,breadth: float) -> void:
+	var ground: Color=Color(profile.ground);var rock: Color=Color(profile.rock)
+	var craggy: bool=plan.id in ["isl_cinder","isl_sawtooth","isl_oilstone","isl_shatter"]
+	for i in range(1,ridge.size()):
+		var a: Vector2=ridge[i-1];var b: Vector2=ridge[i]
+		var side: Vector2=(b-a).normalized().orthogonal()
+		if side.dot(Vector2(-0.6,-0.8))<0.0:side=-side
+		var width: float=breadth*(0.12 if craggy else 0.10)
+		var crest: Vector2=a.lerp(b,0.48)+side*width*0.13
+		# A soft foothill below an asymmetric ridge. Large light/shade masses
+		# carry the relief at home zoom; smaller ledges do not have to do that job.
+		_paint(plan,0,PackedVector2Array([a-side*width*0.7,a-side*width*1.12+(b-a)*0.33,b-side*width*0.65,b+side*width*0.65,a+side*width*0.84]),ground.darkened(0.08))
+		_paint(plan,0,PackedVector2Array([a,a+side*width*0.63,crest+side*width*0.77,b+side*width*0.45,b,crest]),ground.lerp(rock,0.50).lightened(0.06))
+		_paint(plan,0,PackedVector2Array([a,crest,b,b-side*width*0.61,crest-side*width*0.92,a-side*width*0.54]),ground.lerp(rock,0.40).darkened(0.13))
+		var ledge: PackedVector2Array=PackedVector2Array([a+side*width*0.26,crest+side*width*0.35,b+side*width*0.19])
+		_ribbon(plan,ledge,12.0 if craggy else 9.0,rock.lightened(0.18).lerp(ground,0.25),1)
+		for j in range(2):
+			var spur: Vector2=a.lerp(b,0.30+float(j)*0.40)
+			_paint(plan,1,PackedVector2Array([spur+side*width*0.20,spur-side*width*0.55+(b-a)*0.10,spur-side*width*0.39-(b-a)*0.07]),rock.darkened(0.16).lerp(ground,0.35))
+			if craggy:
+				_paint(plan,1,PackedVector2Array([spur,spur+side*width*0.36,spur+(b-a)*0.14]),rock.lightened(0.25))
+		_ribbon(plan,PackedVector2Array([a,crest,b]),4.0,rock.lightened(0.29),2)
+
+static func _reeds(plan: Dictionary,at: Vector2,height: float,leaf: Color,first_lod: int=1) -> void:
+	for i in range(3):
+		var root: Vector2=at+Vector2(float(i-1)*7.0,0)
+		var tip: Vector2=root+Vector2(float(i-1)*4.0+3.0,-height*(0.80+float(i%2)*0.20))
+		_paint(plan,first_lod,PackedVector2Array([root-Vector2(3,0),tip,root+Vector2(3,1)]),leaf.lightened(float(i)*0.08))
 
 static func _grove(plan: Dictionary,at: Vector2,radius: float,leaf: Color,wet: bool) -> void:
-	_paint(plan,1,_oval(at+Vector2(8,12),Vector2(radius,radius*0.63)),leaf.darkened(0.15))
-	_paint(plan,1,_oval(at,Vector2(radius*0.90,radius*0.59)),leaf)
-	var offsets: Array=[[-0.52,-0.12],[-0.19,-0.32],[0.19,-0.29],[0.52,-0.04],[-0.31,0.17],[0.03,0.10],[0.37,0.21]]
+	_paint(plan,0,_patch(at,Vector2(radius*1.04,radius*0.59)),Color(plan.ground).lerp(leaf,0.28))
+	_paint(plan,1,_patch(at+Vector2(7,14),Vector2(radius*0.95,radius*0.55),3),leaf.darkened(0.19).lerp(Color(plan.ground),0.18))
+	var offsets: Array=[[-0.59,-0.19],[-0.28,-0.39],[0.08,-0.33],[0.47,-0.22],[0.67,0.03],[-0.53,0.16],[-0.12,0.12],[0.29,0.12],[0.08,0.41]]
 	for i in range(offsets.size()):
 		var p: Vector2=at+Vector2(offsets[i][0],offsets[i][1])*radius
-		var r: float=radius*(0.20+float(i%3)*0.025)
-		if wet:
-			for dx in [-7.0,0.0,7.0]:
-				_paint(plan,2,PackedVector2Array([p+Vector2(dx-2,12),p+Vector2(dx+3,-r),p+Vector2(dx+4,12)]),leaf.lightened(0.17))
-		else:
-			_paint(plan,2,_oval(p+Vector2(3,6),Vector2(r,r*0.74)),leaf.darkened(0.24))
-			_paint(plan,2,_oval(p,Vector2(r,r*0.69)),leaf.lightened(0.10+float(i%2)*0.07))
+		var r: float=radius*(0.23+float(i%3)*0.025)
+		var crown: Vector2=p-Vector2(2,r*0.30)
+		# Exposed forked trunks and overlapping scalloped crowns are regional
+		# artwork. Close LOD adds twigs, rather than switching trees on at .8.
+		var tone: Color=leaf.lightened(0.04+float(i%3)*0.055)
+		_paint(plan,1,_patch(crown+Vector2(3,5),Vector2(r,r*0.79),i),leaf.darkened(0.23))
+		_paint(plan,1,_oval(crown-Vector2(r*0.15,r*0.13),Vector2(r*0.83,r*0.65)),tone)
+		_ribbon(plan,PackedVector2Array([p+Vector2(3,r*0.77),p+Vector2(0,r*0.20),p+Vector2(-r*0.37,-r*0.10)]),5.0,Color("686d4b"),1)
+		_ribbon(plan,PackedVector2Array([p+Vector2(0,r*0.20),p+Vector2(r*0.40,-r*0.15)]),4.0,Color("686d4b"),1)
+		_paint(plan,1,PackedVector2Array([crown+Vector2(-r*0.63,-r*0.23),crown+Vector2(-r*0.18,-r*0.57),crown+Vector2(r*0.26,-r*0.28),crown+Vector2(-r*0.10,-r*0.06)]),tone.lightened(0.14))
+		_ribbon(plan,PackedVector2Array([crown+Vector2(-r*0.20,r*0.30),crown+Vector2(r*0.07,0),crown+Vector2(r*0.39,-r*0.18)]),2.5,leaf.darkened(0.10),2)
+		if wet and i%2==0:_reeds(plan,p+Vector2(r*0.90,r*0.62),r*0.95,Color("879b63"))
 
 static func prepare_island(island: Dictionary) -> Dictionary:
 	var land: PackedVector2Array=_ring(island.get("points",[]))
@@ -136,21 +198,18 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 	var bounds: Rect2=plan.bounds
 	var ridge: PackedVector2Array=_mapped(bounds,profile.ridge)
 	var breadth: float=minf(bounds.size.x,bounds.size.y)
-	_ribbon(plan,ridge,breadth*0.24,Color(profile.rock).darkened(0.14),0)
-	_ribbon(plan,ridge,breadth*0.12,Color(profile.rock).lightened(0.06),0)
-	for i in range(1,ridge.size()):
-		var at: Vector2=ridge[i];var prior: Vector2=ridge[i-1]
-		var side: Vector2=(at-prior).normalized().orthogonal()*breadth*0.10
-		_paint(plan,1,PackedVector2Array([prior-side,at,at+side*0.65]),Color(profile.rock).lightened(0.18))
-		_paint(plan,1,PackedVector2Array([prior-side,at,prior-side*1.65]),Color(profile.rock).darkened(0.22))
-		_ribbon(plan,PackedVector2Array([prior,at]),5.0,Color(profile.rock).lightened(0.33),2)
+	_relief(plan,profile,ridge,breadth)
 	_shore(plan,profile)
 	if bool(profile.fields):
 		# Contour-following strips are land crops / salt meadow, never extra water.
 		for i in range(5):
 			var center: Vector2=bounds.position+bounds.size*Vector2(0.34+float(i)*0.045,0.37+float(i)*0.09)
-			_paint(plan,1,_box(center,Vector2(breadth*0.27,breadth*0.055)),Color("b4b58a") if i%2==0 else Color("9ca873"))
-			_ribbon(plan,PackedVector2Array([center-Vector2(breadth*0.135,0),center+Vector2(breadth*0.135,0)]),3.0,Color("74875e"),2)
+			var terrace: PackedVector2Array=PackedVector2Array([center+Vector2(-breadth*0.14,-breadth*0.016),center+Vector2(breadth*0.08,-breadth*0.028),center+Vector2(breadth*0.14,breadth*0.013),center+Vector2(-breadth*0.10,breadth*0.029)])
+			_paint(plan,1,terrace,Color("b4b58a") if i%2==0 else Color("9ca873"))
+			_ribbon(plan,PackedVector2Array([terrace[3],terrace[2]]),7.0,Color("73875f"),1)
+			for j in range(2):
+				var furrow: Vector2=center+Vector2(0,float(j)*breadth*0.015)
+				_ribbon(plan,PackedVector2Array([furrow-Vector2(breadth*0.10,0),furrow+Vector2(breadth*0.09,-breadth*0.009)]),3.0,Color("c5be8c"),2)
 	var wet: bool=plan.id in ["isl_kelp","isl_fen","isl_verdigris"]
 	for at: Vector2 in _mapped(bounds,profile.groves):_grove(plan,at,breadth*(0.075 if wet else 0.085),Color(profile.leaf),wet)
 	plan.outline=land.duplicate();plan.outline.append(land[0])
@@ -196,59 +255,266 @@ static func _harbor_design(id: String) -> Dictionary:
 static func _local(plan: Dictionary,p: Vector2) -> Vector2:
 	return Vector2(plan.anchor)+Vector2(plan.tangent)*p.x+Vector2(plan.inland)*p.y
 
+static func _building_base(plan: Dictionary,at: Vector2,size: Vector2,lift: Vector2,wall: Color,first_lod: int,windows: bool=true) -> void:
+	var base: PackedVector2Array=_box(at,size,plan.tangent,plan.inland)
+	_paint(plan,first_lod,_box(at+Vector2(6,9),size+Vector2(5,5),plan.tangent,plan.inland),Color("526451"))
+	_paint(plan,first_lod,base,wall.darkened(0.24))
+	var doorway: bool=false
+	for i in range(4):
+		var a: Vector2=base[i];var b: Vector2=base[(i+1)%4]
+		var edge: Vector2=(b-a).normalized()
+		var outward:=Vector2(edge.y,-edge.x)
+		if outward.dot(lift)>=0.0:continue
+		var face: Color=wall.darkened(0.21) if outward.x>0.3 else wall
+		_paint(plan,first_lod,PackedVector2Array([a,b,b+lift,a+lift]),face)
+		_paint(plan,1,PackedVector2Array([a,b,b+lift*0.23,a+lift*0.23]),Color("687263"))
+		if not windows:continue
+		var count: int=2 if a.distance_to(b)<60.0 else 3
+		for j in range(count):
+			var center: Vector2=a.lerp(b,(float(j)+0.5)/float(count))
+			var half: Vector2=edge*3.5
+			_paint(plan,1,PackedVector2Array([center-half+lift*0.32,center+half+lift*0.32,center+half+lift*0.76,center-half+lift*0.76]),Color("344f50"))
+			_paint(plan,2,PackedVector2Array([center-half+lift*0.29,center+half+lift*0.29,center+half+lift*0.36,center-half+lift*0.36]),Color("e0cf9f"))
+		if not doorway and a.distance_to(b)>30.0:
+			var center: Vector2=a.lerp(b,0.5);var half: Vector2=edge*5.0
+			_paint(plan,1,PackedVector2Array([center-half,center+half,center+half+lift*0.77,center-half+lift*0.77]),Color("496152"))
+			doorway=true
+
+static func _hip_roof(plan: Dictionary,at: Vector2,size: Vector2,roof: Color,first_lod: int) -> void:
+	var axis: Vector2=plan.tangent;var across: Vector2=plan.inland
+	var span: float=size.x;var depth: float=size.y
+	if size.y>size.x:
+		axis=plan.inland;across=-Vector2(plan.tangent);span=size.y;depth=size.x
+	var rim: PackedVector2Array=_box(at,Vector2(span+6,depth+6),axis,across)
+	_paint(plan,first_lod,rim,Color("455951"))
+	var corners: PackedVector2Array=_box(at,Vector2(span+2,depth+2),axis,across)
+	var left: Vector2=at-axis*maxf(span*0.18,span*0.5-depth*0.28)
+	var right: Vector2=at+axis*maxf(span*0.18,span*0.5-depth*0.28)
+	# Four pitched planes meet a real ridge, rather than a line bisecting a
+	# flat rectangle. World-northwest light is shared with walls and foliage.
+	var north_light: bool=(-across).dot(Vector2(-0.6,-0.8))>0.0
+	var end_light: bool=(-axis).dot(Vector2(-0.6,-0.8))>0.0
+	_paint(plan,first_lod,PackedVector2Array([corners[0],corners[1],right,left]),roof.lightened(0.24) if north_light else roof.darkened(0.17))
+	_paint(plan,first_lod,PackedVector2Array([left,right,corners[2],corners[3]]),roof.darkened(0.17) if north_light else roof.lightened(0.24))
+	_paint(plan,first_lod,PackedVector2Array([corners[0],left,corners[3]]),roof.lightened(0.10) if end_light else roof.darkened(0.27))
+	_paint(plan,first_lod,PackedVector2Array([corners[1],corners[2],right]),roof.darkened(0.27) if end_light else roof.lightened(0.10))
+	_ribbon(plan,PackedVector2Array([left,right]),3.5,roof.lightened(0.46),1)
+	if span>55.0:
+		for offset in [-0.22,0.22]:
+			var seam: Vector2=at+axis*span*offset
+			_ribbon(plan,PackedVector2Array([seam-across*depth*0.44,seam,seam+across*depth*0.44]),2.0,roof.lightened(0.08),2)
+
+static func _rack(plan: Dictionary,at: Vector2,size: Vector2,first_lod: int) -> void:
+	var tangent: Vector2=plan.tangent;var inland: Vector2=plan.inland
+	_paint(plan,first_lod,_box(at+Vector2(4,6),size+Vector2(3,3),tangent,inland),Color("586b51"))
+	_paint(plan,first_lod,_box(at,size,tangent,inland),Color("706b4b"))
+	for offset in [-0.38,0.0,0.38]:
+		_paint(plan,1,_box(at+tangent*size.x*offset,Vector2(5,size.y+9),tangent,inland),Color("d5bd87"))
+	for offset in [-0.25,0.25]:
+		_paint(plan,1,_box(at+inland*size.y*offset,Vector2(size.x+4,3.5),tangent,inland),Color("d8cc9c"))
+	for i in range(5):
+		var p: Vector2=at+tangent*(float(i)-2.0)*size.x*0.16
+		_paint(plan,1,PackedVector2Array([p-inland*size.y*0.28-tangent*2.8,p+inland*size.y*0.26-tangent*2.0,p+inland*size.y*0.36+tangent*2.2,p-inland*size.y*0.23+tangent*3.0]),Color("acb6a0"))
+
+static func _slip(plan: Dictionary,at: Vector2,size: Vector2,first_lod: int) -> void:
+	var tangent: Vector2=plan.tangent;var inland: Vector2=plan.inland
+	_paint(plan,first_lod,_box(at,size+Vector2(8,4),tangent,inland),Color("b2a880"))
+	_paint(plan,first_lod,_box(at,size-Vector2(7,0),tangent,inland),Color("485e59"))
+	for offset in [-0.43,0.43]:
+		_paint(plan,1,_box(at+tangent*size.x*offset,Vector2(4,size.y),tangent,inland),Color("d2c39b"))
+	for i in range(5):
+		var y: float=(float(i)-2.0)*size.y*0.17
+		_paint(plan,1,_box(at+inland*y,Vector2(size.x*0.88,6),tangent,inland),Color("92794f"))
+	# Timber keel and exposed ribs are a land-clipped construction landmark,
+	# not a spawned boat, fake water-filled dock, or navigable silhouette.
+	var keel:=PackedVector2Array()
+	for p in [[0,-0.43],[0.28,-0.25],[0.30,0.30],[0.14,0.43],[-0.14,0.43],[-0.30,0.30],[-0.28,-0.25]]:
+		keel.append(at+tangent*float(p[0])*size.x+inland*float(p[1])*size.y)
+	_paint(plan,1,keel,Color("a3895f"))
+	_paint(plan,1,_box(at,Vector2(5,size.y*0.80),tangent,inland),Color("e0c99b"))
+	for i in range(5):
+		var p: Vector2=at+inland*(float(i)-2.0)*size.y*0.14
+		_ribbon(plan,PackedVector2Array([p-tangent*size.x*0.27-inland*5,p-tangent*size.x*0.18,p+tangent*size.x*0.18,p+tangent*size.x*0.27-inland*5]),4.0,Color("e0c99b"),1)
+
 static func _roof(plan: Dictionary,item: Array,index: int) -> void:
 	var at: Vector2=_local(plan,Vector2(item[0],item[1]))
 	var size:=Vector2(item[2],item[3]);var kind: int=int(item[4])
 	var tangent: Vector2=plan.tangent;var inland: Vector2=plan.inland
-	var roof: Color=plan.color
-	if kind==1:roof=Color("727d79")
-	elif kind==3:roof=Color("b19a6d")
-	elif kind==5:roof=Color("697875")
+	var roof: Color=Color(plan.color).lightened(float(index%3)*0.045)
+	if kind==1:roof=Color("6f8580")
+	elif kind==3:roof=Color("b59b64")
+	elif kind==5:roof=Color("7e8b80")
 	var shape: PackedVector2Array=_box(at,size,tangent,inland)
 	if kind==2:shape=_oval(at,size*0.5)
 	var pieces: Array=Geometry2D.intersect_polygons(shape,plan.land)
 	for piece in pieces:
 		if plan.roofs.size()<MAX_ROOFS:plan.roofs.append(piece)
 	var first_lod: int=0 if index<3 else 1
-	_paint(plan,first_lod,_box(at+tangent*5+inland*7,size,tangent,inland),Color("4d5d51"))
-	_paint(plan,first_lod,shape,roof)
+	if kind==4:
+		_rack(plan,at,size,first_lod)
+		return
+	if plan.id=="anvil_dock" and index<2:
+		_slip(plan,at,size,first_lod)
+		return
+	var lift:=Vector2(-3,-12 if kind==3 or kind==5 else -9)
 	if kind==2:
-		_paint(plan,1,_oval(at-Vector2(3,4),size*0.37),Color("c1c3a6"))
-		_paint(plan,2,_box(at,Vector2(9,9),tangent,inland),Color("5d7773"))
-	else:
-		_paint(plan,first_lod,_box(at-tangent*size.x*0.25,Vector2(size.x*0.5,size.y),tangent,inland),roof.lightened(0.16))
-		_paint(plan,1,_box(at,Vector2(2,size.y),tangent,inland),Color("d6c29a"))
-		if kind==4:
-			for offset in [-0.3,0.0,0.3]:_paint(plan,2,_box(at+tangent*size.x*offset,Vector2(3,size.y),tangent,inland),Color("d4bd8b"))
-		elif kind==5:
-			_paint(plan,1,_box(at,size*0.64,tangent,inland),Color("9a9b7e"))
-		elif kind==1:
-			_paint(plan,2,_box(at-inland*size.y*0.12,Vector2(size.x*0.52,4),tangent,inland),Color("a9b7ac"))
-		elif kind==3:
-			# Public exchange / market arcade, distinct from a warehouse roof.
-			for offset in [-0.36,-0.12,0.12,0.36]:
-				_paint(plan,1,_box(at+tangent*size.x*offset-inland*size.y*0.36,Vector2(5,8),tangent,inland),Color("e0d0a9"))
+		_paint(plan,first_lod,_oval(at+Vector2(5,7),size*0.54),Color("4e6258"))
+		_paint(plan,first_lod,shape,Color("617c77"))
+		_paint(plan,first_lod,_oval(at+lift,size*0.50),Color("d0cdae"))
+		_paint(plan,1,_oval(at+lift+Vector2(2,2),size*0.38),Color("a3b1a0"))
+		_paint(plan,1,_oval(at+lift-Vector2(3,3),size*0.22),Color("c6cdb4"))
+		_paint(plan,1,_box(at+lift,Vector2(7,7),tangent,inland),Color("597b78"))
+		return
+	var wall: Color=Color("c5b58f") if kind==0 or kind==3 else Color("a5ae98")
+	_building_base(plan,at,size,lift,wall,first_lod)
+	if kind==5:
+		_paint(plan,first_lod,_box(at+lift,size+Vector2(4,4),tangent,inland),Color("566962"))
+		_paint(plan,1,_box(at+lift,size-Vector2(5,5),tangent,inland),Color("c0bea0"))
+		_paint(plan,1,_box(at+lift,size*0.61,tangent,inland),Color("536e63"))
+		_paint(plan,1,_box(at+lift-Vector2(2,3),size*0.43,tangent,inland),Color("999f7e"))
+		for offset in [-0.38,0.0,0.38]:
+			for side in [-1.0,1.0]:
+				_paint(plan,1,_box(at+lift+tangent*size.x*offset+inland*size.y*0.44*side,Vector2(7,6),tangent,inland),Color("e0cc9c"))
+		return
+	_hip_roof(plan,at+lift,size,roof,first_lod)
+	if kind==1:
+		# The raised skylight is part of the regional roof, ahead of close seams.
+		var vent: Vector2=at+lift-inland*size.y*0.17
+		_paint(plan,1,_box(vent,Vector2(size.x*0.48,7),tangent,inland),Color("334f52"))
+		_paint(plan,1,_box(vent-inland*3,Vector2(size.x*0.48,3),tangent,inland),Color("b8c7b1"))
+	elif kind==3:
+		# Open arcade on the inland-facing side of the public market/exchange.
+		for offset in [-0.35,-0.12,0.12,0.35]:
+			var p: Vector2=at+tangent*size.x*offset+inland*(size.y*0.5+2.0)+lift*0.45
+			_paint(plan,1,_box(p,Vector2(7,10),tangent,inland),Color("344f4e"))
+			_paint(plan,1,_box(p+tangent*5,Vector2(3,12),tangent,inland),Color("e4cfa0"))
+	elif index%3==1:
+		var chimney: Vector2=at+lift+tangent*size.x*0.21
+		_paint(plan,1,_box(chimney,Vector2(6,9),tangent,inland),Color("6b6851"))
+		_paint(plan,1,_box(chimney-Vector2(1,3),Vector2(8,4),tangent,inland),Color("d0b187"))
+
+static func _work_pile(plan: Dictionary,point: Vector2,size: Vector2,color: Color) -> void:
+	var at: Vector2=_local(plan,point)
+	var lift:=Vector2(-2,-5)
+	_building_base(plan,at,size,lift,color.darkened(0.08),1,false)
+	_paint(plan,1,_box(at+lift,size,plan.tangent,plan.inland),color.lightened(0.13))
+	for offset in [-0.22,0.22]:
+		_paint(plan,1,_box(at+lift+Vector2(plan.tangent)*size.x*offset,Vector2(3,size.y),plan.tangent,plan.inland),color.darkened(0.22))
+
+static func _chimney(plan: Dictionary,point: Vector2,size: Vector2,height: float,color: Color) -> void:
+	var at: Vector2=_local(plan,point);var lift:=Vector2(-3,-height)
+	_building_base(plan,at,size,lift,color,1,false)
+	_paint(plan,1,_box(at+lift,size+Vector2(5,5),plan.tangent,plan.inland),color.lightened(0.20))
+	_paint(plan,1,_box(at+lift,size*0.62,plan.tangent,plan.inland),Color("3c5351"))
+	_ribbon(plan,PackedVector2Array([at+lift*0.52-Vector2(plan.tangent)*size.x*0.5,at+lift*0.52+Vector2(plan.tangent)*size.x*0.5]),3.0,color.lightened(0.25),1)
+
+static func _gantry(plan: Dictionary,y: float) -> void:
+	var left: Vector2=_local(plan,Vector2(-98,y));var right: Vector2=_local(plan,Vector2(40,y))
+	var rise:=Vector2(-5,-28)
+	for foot: Vector2 in [left,right]:
+		_building_base(plan,foot,Vector2(13,20),rise,Color("737d63"),1,false)
+		_paint(plan,1,_box(foot+rise,Vector2(16,14),plan.tangent,plan.inland),Color("d2b572"))
+	_ribbon(plan,PackedVector2Array([left+rise+Vector2(2,4),right+rise+Vector2(2,4)]),10.0,Color("485d57"),1)
+	_ribbon(plan,PackedVector2Array([left+rise,right+rise]),7.0,Color("d8ba76"),1)
+	_ribbon(plan,PackedVector2Array([left+rise*0.30,left+rise+(right-left)*0.18]),4.0,Color("c1a56b"),1)
+	_ribbon(plan,PackedVector2Array([right+rise*0.30,right+rise-(right-left)*0.18]),4.0,Color("c1a56b"),1)
+	var hook: Vector2=left.lerp(right,0.57)+rise
+	_ribbon(plan,PackedVector2Array([hook,hook+Vector2(0,18),hook+Vector2(6,21),hook+Vector2(8,15)]),3.0,Color("354e4e"),1)
 
 static func _landmark(plan: Dictionary) -> void:
 	var tangent: Vector2=plan.tangent;var inland: Vector2=plan.inland
 	match str(plan.id):
+		"brass_haven":
+			# The exchange's copper clock turret anchors the opening title/home
+			# composition at normal scale, above its warm roof and pale arcade.
+			var tower: Vector2=_local(plan,Vector2(8,82))+Vector2(-3,-9)
+			var rise:=Vector2(-3,-24)
+			_building_base(plan,tower,Vector2(20,23),rise,Color("d1c297"),1,false)
+			_hip_roof(plan,tower+rise,Vector2(24,27),Color("5c9083"),1)
+			var clock: Vector2=tower+rise*0.45+Vector2(7,2)
+			_paint(plan,1,_oval(clock,Vector2(5,5)),Color("eddbac"))
+			_ribbon(plan,PackedVector2Array([clock+Vector2(0,-3),clock,clock+Vector2(3,1)]),1.8,Color("45635b"),1)
+			_work_pile(plan,Vector2(-110,53),Vector2(21,17),Color("b29466"))
+			_work_pile(plan,Vector2(113,55),Vector2(23,14),Color("ae8a5a"))
+			_work_pile(plan,Vector2(132,78),Vector2(15,18),Color("c2aa7e"))
+		"kelp_reach":
+			for point in [Vector2(-58,144),Vector2(38,142)]:
+				var at: Vector2=_local(plan,point)
+				var crown: Vector2=at-inland*24+Vector2(-2,-8)
+				for spread in [-1.0,0.0,1.0]:
+					_ribbon(plan,PackedVector2Array([crown,at+tangent*spread*31+inland*12]),3.0,Color("bcc19b"),1)
+				_ribbon(plan,PackedVector2Array([at-tangent*31+inland*12,at+tangent*31+inland*12]),3.0,Color("5b7861"),1)
+			_chimney(plan,Vector2(-93,75),Vector2(10,12),17.0,Color("797a61"))
+			_work_pile(plan,Vector2(65,53),Vector2(25,15),Color("a7ad84"))
+			_work_pile(plan,Vector2(-128,127),Vector2(18,24),Color("aa9568"))
 		"anvil_dock":
-			for y in [58.0,171.0]:
-				_paint(plan,1,_box(_local(plan,Vector2(-29,y)),Vector2(137,8),tangent,inland),Color("c4ad70"))
-				for x in [-98.0,40.0]:_paint(plan,1,_box(_local(plan,Vector2(x,y)),Vector2(12,25),tangent,inland),Color("4d6263"))
+			for y in [58.0,171.0]:_gantry(plan,y)
+			_work_pile(plan,Vector2(77,132),Vector2(29,17),Color("8d9b92"))
+			_work_pile(plan,Vector2(87,224),Vector2(29,14),Color("a18758"))
 		"cinder_quay":
 			for x in [-73.0,79.0]:
-				_paint(plan,1,_box(_local(plan,Vector2(x,82)),Vector2(12,38),tangent,inland),Color("4b5550"))
-				_paint(plan,2,_box(_local(plan,Vector2(x,64)),Vector2(16,11),tangent,inland),Color("c68a57"))
+				_chimney(plan,Vector2(x,82),Vector2(18,24),35.0,Color("796e58"))
+				var mouth: Vector2=_local(plan,Vector2(x,94))
+				_paint(plan,1,_box(mouth,Vector2(12,9),tangent,inland),Color("435750"))
+				_paint(plan,1,_box(mouth,Vector2(7,5),tangent,inland),Color("d29a58"))
+			_work_pile(plan,Vector2(62,218),Vector2(35,16),Color("9aa397"))
+			_work_pile(plan,Vector2(-62,192),Vector2(32,14),Color("927c5c"))
+		"sawtooth_mill":
+			for y in [162.0,194.0,226.0]:
+				_work_pile(plan,Vector2(-27,y),Vector2(70,12),Color("bf9b61"))
+				for x in [-51.0,-27.0,-3.0]:
+					_paint(plan,1,_oval(_local(plan,Vector2(x,y+5)),Vector2(4,4)),Color("dec18c"))
+			var wheel: Vector2=_local(plan,Vector2(-46,70))+Vector2(-3,-8)
+			_paint(plan,1,_oval(wheel,Vector2(14,14)),Color("455b54"))
+			_paint(plan,1,_oval(wheel,Vector2(10,10)),Color("aa9563"))
+			for dir in [Vector2(1,0),Vector2(0,1)]:
+				_ribbon(plan,PackedVector2Array([wheel-dir*11,wheel+dir*11]),4.0,Color("d4bf90"),1)
+			_chimney(plan,Vector2(37,71),Vector2(12,15),26.0,Color("7d7b61"))
+		"silt_hollow":
+			for point in [Vector2(-60,78),Vector2(0,89),Vector2(60,100)]:
+				var at: Vector2=_local(plan,point+Vector2(0,33))
+				_paint(plan,1,_box(at,Vector2(17,10),tangent,inland),Color("536955"))
+				_paint(plan,1,_box(at+inland*6,Vector2(22,5),tangent,inland),Color("decc9a"))
+			for point in [Vector2(-49,190),Vector2(-27,220),Vector2(0,250)]:
+				for x in [-22.0,0.0,22.0]:
+					var sack: Vector2=_local(plan,point+Vector2(x,0))
+					_paint(plan,1,_oval(sack+Vector2(2,3),Vector2(10,6)),Color("837d54"))
+					_paint(plan,1,_oval(sack,Vector2(8,5)),Color("dbc68e"))
+		"reed_floats":
+			for point in [Vector2(-76,186),Vector2(-8,207),Vector2(60,208)]:
+				var at: Vector2=_local(plan,point)+Vector2(-2,-5)
+				_hip_roof(plan,at,Vector2(25,18),Color("b8ac70"),1)
+				_paint(plan,1,_box(at+tangent*5,Vector2(5,17),tangent,inland),Color("4f8272"))
+			_work_pile(plan,Vector2(-116,105),Vector2(18,14),Color("ac9769"))
+			_work_pile(plan,Vector2(114,125),Vector2(18,14),Color("b7ad7a"))
 		"naphtha_bay":
-			_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-104,110)),_local(plan,Vector2(-105,247)),_local(plan,Vector2(78,247))]),4.0,Color("d3b77d"),1)
+			_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-104,110)),_local(plan,Vector2(-105,247)),_local(plan,Vector2(78,247))]),7.0,Color("586e61"),1)
+			_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-104,110)),_local(plan,Vector2(-105,247)),_local(plan,Vector2(78,247))]),3.5,Color("d3b77d"),1)
+			_chimney(plan,Vector2(110,174),Vector2(18,24),38.0,Color("a1ae99"))
+			_chimney(plan,Vector2(110,212),Vector2(13,18),27.0,Color("8b9e90"))
+			_work_pile(plan,Vector2(59,69),Vector2(28,16),Color("858f78"))
+		"rust_anchorage":
+			var hub: Vector2=_local(plan,Vector2(-61,157))
+			_paint(plan,1,_oval(hub,Vector2(16,13)),Color("4e655b"))
+			_paint(plan,1,_oval(hub-Vector2(2,3),Vector2(12,10)),Color("be9768"))
+			_ribbon(plan,PackedVector2Array([hub-tangent*22,hub+tangent*22]),5.0,Color("d2b788"),1)
+			for i in range(3):
+				var scrap: Vector2=_local(plan,Vector2(11+float(i)*17,181+float(i%2)*8))
+				_paint(plan,1,_box(scrap,Vector2(9,31),tangent+inland*0.3,inland),Color("a88d68") if i%2==0 else Color("7e9386"))
+			_work_pile(plan,Vector2(-116,151),Vector2(20,16),Color("9c895f"))
+			_work_pile(plan,Vector2(94,175),Vector2(22,17),Color("9d9d7b"))
 		"shatter_spire":
 			var wall:=PackedVector2Array()
 			for p in [[-118,44],[117,44],[128,191],[73,219],[-83,207],[-118,44]]:wall.append(_local(plan,Vector2(p[0],p[1])))
-			_ribbon(plan,wall,9.0,Color("515e59"),1)
-		"sawtooth_mill":
-			for y in [162.0,194.0,226.0]:
-				_paint(plan,1,_box(_local(plan,Vector2(-27,y)),Vector2(70,8),tangent,inland),Color("ba945c"))
+			_ribbon(plan,wall,13.0,Color("455c54"),1)
+			var parapet:=PackedVector2Array()
+			for p in wall:parapet.append(p+Vector2(-2,-5))
+			_ribbon(plan,parapet,6.0,Color("b9b795"),1)
+			for x in [-71.0,71.0]:
+				var gun: Vector2=_local(plan,Vector2(x,123))
+				_paint(plan,1,_box(gun,Vector2(20,22),tangent,inland),Color("b3ad84"))
+				_paint(plan,1,_box(gun-inland*9,Vector2(7,25),tangent,inland),Color("42615d"))
+			_work_pile(plan,Vector2(-35,262),Vector2(30,17),Color("929f8b"))
 
 static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	var berth:=Vector2(float(port.x),float(port.y))
@@ -276,6 +542,11 @@ static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	var design: Dictionary=_harbor_design(plan.id)
 	plan.landmark=design.landmark
 	if land.size()<3:return _finish(plan)
+	# Paving remains on actual land; the real berth connector below stays ink.
+	var apron:=PackedVector2Array()
+	for p in [[-146,17],[141,18],[151,51],[98,60],[-36,45],[-149,57]]:apron.append(_local(plan,Vector2(p[0],p[1])))
+	_paint(plan,1,apron,Color("b3ac87"))
+	_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-139,22)),_local(plan,Vector2(137,23))]),5.0,Color("dbcca0"),1)
 	for road in design.roads:
 		var points:=PackedVector2Array()
 		for p in road:points.append(_local(plan,Vector2(p[0],p[1])))

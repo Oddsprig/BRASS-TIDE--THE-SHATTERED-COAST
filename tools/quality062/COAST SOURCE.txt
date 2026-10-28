@@ -1,0 +1,105 @@
+BRASS TIDE 0.062 / A COAST - SOURCE CANDIDATE, ACCEPTANCE OPEN
+
+BASE AND OWNERSHIP
+Delivered061 da960d5d04440bbb7a5a106afe2203667d15ca89.
+Isolated coast-sol checkout. Exact owned files:
+  game/scripts/coast_art050.gd
+  tools/quality062/COAST SOURCE.txt (this note)
+No other source, metadata, tests, assets, Main, Chart or nautical_art edit.
+Root alone integrates, runs native checks, captures actual views and accepts.
+
+INPUT READ AND APPROACH
+Read AGENTS.md and ../SCOPE062 QUALITY CORRECTIONS.txt first, then the entire
+coast renderer and existing test_coast_art050.gd source, NauticalArt facade,
+Chart projection/cache/draw consumers, actual world island/port records,
+coastal_terrain encounter translation, relevant map/roadmap and prior coast
+handoff/lessons. Inspected actual061 opening051-title.png and opening051-home.png
+from Test Bridge job 5e78f6138cad4f1895cad5b2771da904 / attempt-001 / runtime.
+Images were read from files; no app, focus, keyboard, mouse or game control.
+The references show flat octagonal groves and plain roof blocks at the normal
+home view. Main forms now belong to LOD1 (.22 <= scale < .8), including at .4.
+Only seams, twigs, small sills, stone highlights and crop furrows wait for LOD2.
+
+COHERENT TERRAIN GRAMMAR / EIGHT EXISTING ISLANDS
+Asymmetric shaded slopes and foothills replace the broad flat ridge ribbons;
+lit ledges and branching shaded spurs establish relief at practical scales.
+Existing biome colors, ridge compositions and eight original identities remain:
+  Lantern: chalk headland and orchard coast; added one inland orchard group
+    near the home harbor approach, inside the unchanged real land silhouette.
+  Kelp: salt meadow, willows and upright reed fans.
+  Sawtooth: ironwood crowns, pale crags and broken ridge ledges.
+  Verdigris: polder terraces, hedged field edges and wet windbreaks.
+  Cinder: narrow ash spine, warm quarried ledges and sparse vegetation.
+  Fen: wooded levees, reed fans and irregular meadow terraces.
+  Oilstone: cool slate benches and dry scrub.
+  Shatter: dark basalt relief and sparse burnt-heath groves.
+Each grove has a low understory, nine overlapping individual crowns, exposed
+forked trunks, lobe shadows and northwest crown highlights in LOD1. Wet groves
+also carry reed fans in LOD1. The large octagon is no longer the grove artwork.
+Shore painting adds an irregular inner berm, wet/dry sand bands, lit cliff
+shelves, broken turf and small landward stones. All remain on real collider
+land. The original translucent offshore chart hatching keeps its meaning.
+
+BUILDINGS / TEN EXISTING PORTS
+Shared grammar: four shaded hipped roof planes, dark overhanging eaves, pale
+wall faces and stone bases, visible dark windows, roof ridges, loading/arcade
+details and prepared working supplies. Roof axes follow the existing building
+footprints. Lighting is consistently northwest across roofs, walls and trees.
+Artwork is planar relief painted inside land, not physical building elevation.
+The existing layouts and canonical industries/specialties are retained.
+Three exemplars anchor the pass:
+  Brass Haven: warm exchange roofs, pale arcade, copper clock turret and
+    bonded cargo piles; intended to read in the title and normal home view.
+  Kelp Reach: shaded curing sheds, vented smokehouse, open trestle racks,
+    hanging catch and broad drying/net fans, with shore-side working stores.
+  Anvil Dock: two open assembly beds with timber keels, exposed ribs and rails,
+    tall cross-braced gantries, hanging hooks and material piles. The keel
+    frames are land-clipped yard illustrations, not boats or new water docks.
+The remaining ports use the same materials and scale of detail:
+  Sawtooth Mill: saw hall, flywheel, chimney and layered timber stacks.
+  Silt Hollow: granary loading thresholds and stacked grain sacks.
+  Cinder Quay: furnace chimneys, warm furnace mouths and casting stock.
+  Reedwater Floats: covered market arcade, striped stall canopies and supplies.
+  Naphtha Bay: shaded cylindrical tank lids/sides, broad pipe run and columns.
+  Rust Anchorage: salvage winch, irregular plate/timber stacks and prize stores.
+  Shatter Spire: inset gun courts, parapets, crenels and gunwork equipment.
+The paved apron and quay edge remain land-clipped; actual berth links stay ink.
+
+UNCHANGED CONTRACTS / SOURCE REVIEW
+Public prepare_island, prepare_harbor, harbor_caption, lod and draw signatures
+and all existing plan keys remain. Collider rings, world, navigation, routes,
+berths, labels, UI, gameplay, simulation and renderer modes are untouched.
+_new, _paint, _finish and the entire draw/culling path are unchanged.
+All new opaque art goes through the existing clipped _paint path; z remains 0.
+No caller passes clip=false for decoration; only the unchanged exact land base
+uses that existing bypass. Roof footprint metadata still uses clipped pieces.
+Three prepared immutable ArrayMeshes remain, one submitted per visible plan.
+No preparation or Geometry2D work was added to draw. No texture framework,
+download, water fill, fake island, boat shadow or per-frame construction.
+Unchanged hard ceilings: 2500 / 9000 / 18000 vertices, MAX_ROOFS 26,
+MAX_REEF_SEGMENTS 20; unchanged draw bound of at most three native calls/plan.
+Existing deterministic bounded loops spend the same finite mesh budgets.
+Reviewed the source and actual diff manually, including the entire constructor
+and preparation paths and unchanged consumers; this is not executable proof.
+
+SOURCE-ONLY LIMITS / ROOT ACCEPTANCE REMAINING
+No engine, parser/import, test, advisory script, GPU, export, render/capture,
+download, sound, nested helper, global setting or remote push ran here.
+No new test framework and no assertion changes. The existing coast fixture was
+read but was NOT run. No parsing, triangle containment, actual peak vertex
+counts, preparation timing, FPS, visual quality or whole-game pass is claimed.
+Hard vertex caps still reject geometry over their budget; native measurement
+and actual views must check detail survives clipping/caps on all real islands.
+Root should run the existing bounded native coast fixture through Test Bridge,
+then review actual 1280x800 title/home (.4 / LOD1), regional view, the three
+exemplars and the remaining ports/islands, plus translated coastal battle art.
+Check visible windows/wall depth, roof and landmark silhouettes, foliage mass,
+shore agreement with collision and culling near land/viewport boundaries.
+Extra prepared triangles may affect preparation cost; timing is unmeasured.
+Broader sound, careers, actual play, strict051 performance and whole quality062
+remain OPEN. No build/tag/package/install or accepted-release claim here.
+
+Commit handoff identifies the exact named SHA containing these two files.
+No reset, amend, GC or maintenance. Git mutations use gc.auto=0,
+maintenance.auto=false and the owner-stop-empty-hooks hooksPath per assignment.
+Return that SHA and source-only limits, then remain idle for Root.
