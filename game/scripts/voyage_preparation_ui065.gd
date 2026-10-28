@@ -15,7 +15,7 @@ static func open(ui, region_id: String = "", approach_id: String = "") -> void:
 	var view: Dictionary = c.world_view064()
 	var chart_name: String = str(view.get("name", "Ocean charts"))
 	var body = ui.modal(chart_name + " · Voyage Preparation", "COASTAL APPROACHES · LONG-VOYAGE FORECAST & RESERVES", 1120, 720)
-	body.add_theme_constant_override("separation", 10)
+	body.add_theme_constant_override("separation", 8)
 	if view.is_empty():
 		ui.paragraph(body, "Ocean chart definitions are unavailable.", 18, ui.RED)
 		ui.button(body, "Close", ui.close_modal, false, false)
@@ -146,12 +146,26 @@ static func render_quote(ui, body: VBoxContainer, view: Dictionary, intent: Dict
 	_render_footer_bar(ui, body, c, view, intent, quote, next_action)
 
 
+static func _wrapped_label(ui, parent: Node, text: String, font_size: int = 16, color: Color = Color.WHITE, serif: bool = false) -> Label:
+	var lbl: Label = ui.label(parent, text, font_size, color, serif)
+	lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return lbl
+
+
+static func _wrapped_eyebrow(ui, parent: Node, text: String) -> Label:
+	var lbl: Label = ui.eyebrow(parent, text)
+	lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	return lbl
+
+
 static func _render_route_controls(ui, body: VBoxContainer, c, view: Dictionary, intent: Dictionary, quote: Dictionary, named: Dictionary, target_region: String, target_region_name: String, return_port_id: String, return_port_name: String, distances: Dictionary, by_layer: Dictionary, timing: Dictionary, expected: Dictionary) -> void:
 	var card := PanelContainer.new()
-	card.add_theme_stylebox_override("panel", ui.box(Color("15313a"), ui.LINE, 14))
+	card.add_theme_stylebox_override("panel", ui.box(Color("15313a"), ui.LINE, 10))
 	body.add_child(card)
 	var col = ui.column(card)
-	col.add_theme_constant_override("separation", 6)
+	col.add_theme_constant_override("separation", 5)
 
 	var status_row = ui.row(col)
 	var route_ok: bool = bool(quote.get("routeOk", false))
@@ -161,10 +175,10 @@ static func _render_route_controls(ui, body: VBoxContainer, c, view: Dictionary,
 	var day_now: float = float(origin.get("day", c.state.get("day", 1.0)))
 	var econ_day: int = int(origin.get("econDay", c.state.get("econDay", 1)))
 	var pending_days: int = int(expected.get("pendingDays", maxi(0, floori(day_now) - econ_day)))
-	ui.label(status_row, "Origin: %s · Day %.2f (settled day %d · %d pending day%s)  →  Target: %s  →  Return harbor: %s" % [
+	ui.paragraph(status_row, "Origin: %s · Day %.2f (settled day %d · %d pending day%s)  →  Target: %s  →  Return harbor: %s" % [
 		str(view.get("name", "Chart")), day_now, econ_day, pending_days, "" if pending_days == 1 else "s",
 		target_region_name, return_port_name
-	], 15, ui.TEXT).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	], 15, ui.TEXT)
 	ui.label(status_row, "READY FOR ALLOWANCE" if ready_ok else ("ROUTE VALID · CHECK RESERVES" if route_ok else "ROUTE REFUSED"), 13, status_color)
 
 	var metrics_text: String = "Route distance: %.0f water units (%.0f outward + %.0f return · Home %.0f · Ocean %.0f at 1:10 chart scale · Remote local %.0f)  ·  Current speed: %.1f units/s  ·  Moving: %.1f s  ·  Est. arrival: Day %.2f" % [
@@ -175,21 +189,30 @@ static func _render_route_controls(ui, body: VBoxContainer, c, view: Dictionary,
 	ui.paragraph(col, metrics_text, 13, ui.MUTED)
 	ui.paragraph(col, str(quote.get("message", "Select route and crossing choices to inspect the voyage forecast.")) + "  (Viewing, selecting or refreshing spends 0 coins and settles no pending payroll.)", 14, status_color)
 
-	var target_row = ui.row(col)
-	ui.label(target_row, "DESTINATION & RETURN:", 12, ui.GOLD)
-	var btn_remote = ui.button(target_row, "Target: Glasswind Keys", func(): _apply_draft(ui, {"targetRegionId": REMOTE_REGION}), false, false)
-	btn_remote.custom_minimum_size.y = 34
+	var dest_row := HFlowContainer.new()
+	dest_row.add_theme_constant_override("h_separation", 8)
+	dest_row.add_theme_constant_override("v_separation", 6)
+	col.add_child(dest_row)
+	ui.label(dest_row, "DESTINATION & RETURN:", 12, ui.GOLD)
+	var btn_remote = ui.button(dest_row, "Target: Glasswind Keys", func(): _apply_draft(ui, {"targetRegionId": REMOTE_REGION}), false, false)
+	btn_remote.custom_minimum_size.y = 32
 	btn_remote.add_theme_color_override("font_color", ui.GOLD if target_region == REMOTE_REGION else ui.TEXT)
-	var btn_home = ui.button(target_row, "Target: Shatter Coast (Home)", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
-	btn_home.custom_minimum_size.y = 34
+	var btn_home = ui.button(dest_row, "Target: Shatter Coast (Home)", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
+	btn_home.custom_minimum_size.y = 32
 	btn_home.add_theme_color_override("font_color", ui.GOLD if target_region == HOME_REGION else ui.TEXT)
 	if str(view.get("regionId", "")) == REMOTE_REGION or str(quote.get("nextAction", {}).get("kind", "")) == "none":
-		var btn_return_plan = ui.button(target_row, "Plan return to Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), target_region != HOME_REGION, false)
-		btn_return_plan.custom_minimum_size.y = 34
+		var btn_return_plan = ui.button(dest_row, "Plan return to Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), target_region != HOME_REGION, false)
+		btn_return_plan.custom_minimum_size.y = 32
 
-	ui.label(target_row, "Return harbor:", 12, ui.MUTED)
+	var harbor_idle_row := HFlowContainer.new()
+	harbor_idle_row.add_theme_constant_override("h_separation", 8)
+	harbor_idle_row.add_theme_constant_override("v_separation", 6)
+	col.add_child(harbor_idle_row)
+	ui.label(harbor_idle_row, "Return harbor:", 12, ui.MUTED)
 	var port_picker := OptionButton.new()
-	port_picker.custom_minimum_size = Vector2(185, 34)
+	port_picker.custom_minimum_size = Vector2(210, 32)
+	port_picker.fit_to_longest_item = false
+	port_picker.clip_text = true
 	var port_ids: Array = []
 	var selected_port_idx: int = 0
 	for p in c.state.get("ports", []):
@@ -209,17 +232,18 @@ static func _render_route_controls(ui, body: VBoxContainer, c, view: Dictionary,
 			if idx >= 0 and idx < port_ids.size():
 				_apply_draft(ui, {"returnPortId": str(port_ids[idx])})
 		)
-	target_row.add_child(port_picker)
+	harbor_idle_row.add_child(port_picker)
 
 	var idle_days: float = float(intent.get("idleDays", 0.0))
-	ui.label(target_row, "Idle wait: %.2fd" % idle_days, 12, ui.MUTED)
+	ui.label(harbor_idle_row, "Idle wait: %.2fd" % idle_days, 12, ui.MUTED)
 	for preset in [0.0, 0.25, 1.0, 2.0]:
 		var val: float = float(preset)
-		var b_idle = ui.button(target_row, "%sd" % ("0" if val == 0.0 else ("0.25" if val == 0.25 else str(int(val)))), func(): _apply_draft(ui, {"idleDays": val}), false, false)
-		b_idle.custom_minimum_size.y = 34
+		var b_idle = ui.button(harbor_idle_row, "%sd" % ("0" if val == 0.0 else ("0.25" if val == 0.25 else str(int(val)))), func(): _apply_draft(ui, {"idleDays": val}), false, false)
+		b_idle.custom_minimum_size.y = 32
 		b_idle.add_theme_color_override("font_color", ui.GOLD if is_equal_approx(idle_days, val) else ui.TEXT)
 
 	var gates_row = ui.row(col)
+	gates_row.add_theme_constant_override("separation", 8)
 	_render_gate_selector(ui, gates_row, "Outward exit", "outExit", str(intent.get("outExit", "")), str(named.get("outExitName", "")))
 	_render_gate_selector(ui, gates_row, "Target approach", "targetApproachId", str(intent.get("targetApproachId", "")), str(named.get("targetApproachName", "")))
 	_render_gate_selector(ui, gates_row, "Return exit", "backExit", str(intent.get("backExit", "")), str(named.get("backExitName", "")))
@@ -234,12 +258,13 @@ static func _render_gate_selector(ui, parent: Node, title: String, field: String
 	var col = ui.column(box_panel)
 	col.add_theme_constant_override("separation", 4)
 	if current_val.is_empty():
-		ui.label(col, "%s: Unused on this layer" % title, 12, ui.MUTED)
-		ui.label(col, "Stripped to empty for current chart/target", 11, ui.MUTED)
+		ui.paragraph(col, "%s: Unused on this layer" % title, 12, ui.MUTED)
+		ui.paragraph(col, "Stripped to empty for current chart/target", 11, ui.MUTED)
 		return
 	var detail: String = readable_name if not readable_name.is_empty() else current_val.capitalize()
-	ui.label(col, "%s: %s" % [title, detail], 12, ui.GOLD)
+	ui.paragraph(col, "%s: %s" % [title, detail], 12, ui.GOLD)
 	var btns = ui.row(col)
+	btns.add_theme_constant_override("separation", 6)
 	for side in ["north", "south"]:
 		var chosen: String = str(side)
 		var btn = ui.button(btns, chosen.capitalize(), func(): _apply_draft(ui, {field: chosen}), false, false)
@@ -250,7 +275,7 @@ static func _render_gate_selector(ui, parent: Node, title: String, field: String
 
 static func _render_phase_columns(ui, body: VBoxContainer, quote: Dictionary, distances: Dictionary, timing: Dictionary, expected: Dictionary, by_phase: Dictionary, allowance: Dictionary, funding: Dictionary, stores: Dictionary, return_port_name: String) -> void:
 	var cols = ui.row(body)
-	cols.add_theme_constant_override("separation", 12)
+	cols.add_theme_constant_override("separation", 10)
 	var out_fuel: float = 0.0
 	var ret_fuel: float = 0.0
 	var cont_fuel: float = 0.0
@@ -262,13 +287,13 @@ static func _render_phase_columns(ui, body: VBoxContainer, quote: Dictionary, di
 	# Column 1: Outward Leg
 	var out_card := PanelContainer.new()
 	out_card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	out_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 12))
+	out_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 10))
 	cols.add_child(out_card)
 	var out_col = ui.column(out_card)
 	out_col.add_theme_constant_override("separation", 4)
-	ui.eyebrow(out_col, "1 · OUTWARD LEG (EXPECTED)")
+	_wrapped_eyebrow(ui, out_col, "1 · OUTWARD LEG (EXPECTED)")
 	var out_phase: Dictionary = by_phase.get("outward", {})
-	ui.label(out_col, "%.0f water units  ·  %.2f sailing days" % [float(distances.get("outward", 0.0)), float(timing.get("outwardDays", 0.0))], 16, ui.TEXT, true)
+	_wrapped_label(ui, out_col, "%.0f water units  ·  %.2f sailing days" % [float(distances.get("outward", 0.0)), float(timing.get("outwardDays", 0.0))], 16, ui.TEXT, true)
 	ui.paragraph(out_col, "Moving fuel: %.2f drums across active/towed burners\nCrossed calendar days: %.0f  ·  Rations: %.2f bales\nExpected outward payroll: %s coins (%s base + %s specialist + %s arrears)" % [
 		out_fuel, float(out_phase.get("payrollDays", 0.0)), float(out_phase.get("food", 0.0)),
 		ui.money(out_phase.get("coinsRequired", 0)), ui.money(out_phase.get("baseWages", 0)),
@@ -279,14 +304,14 @@ static func _render_phase_columns(ui, body: VBoxContainer, quote: Dictionary, di
 	# Column 2: Return Leg & Planned Idle
 	var ret_card := PanelContainer.new()
 	ret_card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	ret_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 12))
+	ret_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 10))
 	cols.add_child(ret_card)
 	var ret_col = ui.column(ret_card)
 	ret_col.add_theme_constant_override("separation", 4)
-	ui.eyebrow(ret_col, "2 · RETURN LEG & IDLE WAIT")
+	_wrapped_eyebrow(ui, ret_col, "2 · RETURN LEG & IDLE WAIT")
 	var ret_phase: Dictionary = by_phase.get("return", {})
 	var idle_phase: Dictionary = by_phase.get("idle", {})
-	ui.label(ret_col, "To %s: %.0f units  ·  %.2fd + %.2fd idle" % [return_port_name, float(distances.get("return", 0.0)), float(timing.get("returnDays", 0.0)), float(timing.get("idleDays", 0.0))], 16, ui.TEXT, true)
+	_wrapped_label(ui, ret_col, "To %s: %.0f units  ·  %.2fd + %.2fd idle" % [return_port_name, float(distances.get("return", 0.0)), float(timing.get("returnDays", 0.0)), float(timing.get("idleDays", 0.0))], 16, ui.TEXT, true)
 	ui.paragraph(ret_col, "Return moving fuel: %.2f drums (idle wait burns 0 moving fuel)\nIdle crossed days: %.0f (%s coins · %.2f food bales)\nReturn crossed days: %.0f (%s coins · %.2f food bales)" % [
 		ret_fuel,
 		float(idle_phase.get("payrollDays", 0.0)), ui.money(idle_phase.get("coinsRequired", 0)), float(idle_phase.get("food", 0.0)),
@@ -297,14 +322,14 @@ static func _render_phase_columns(ui, body: VBoxContainer, quote: Dictionary, di
 	# Column 3: Contingency Reserve & Pending vs Expected Horizon
 	var res_card := PanelContainer.new()
 	res_card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	res_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 12))
+	res_card.add_theme_stylebox_override("panel", ui.box(Color("16333c"), ui.LINE, 10))
 	cols.add_child(res_card)
 	var res_col = ui.column(res_card)
 	res_col.add_theme_constant_override("separation", 4)
-	ui.eyebrow(res_col, "3 · 2-DAY CONTINGENCY & RESERVES")
+	_wrapped_eyebrow(ui, res_col, "3 · 2-DAY CONTINGENCY & RESERVES")
 	var pend_phase: Dictionary = by_phase.get("pending", {})
 	var reserve_days: float = float(allowance.get("reserveDays", 2.0))
-	ui.label(res_col, "%.1f contingency days  ·  %.2f reserve fuel drums" % [reserve_days, cont_fuel], 16, ui.GOLD, true)
+	_wrapped_label(ui, res_col, "%.1f contingency days  ·  %.2f reserve fuel drums" % [reserve_days, cont_fuel], 16, ui.GOLD, true)
 	ui.paragraph(res_col, "Unsettled pending earned: %.0f day(s) (%s coins · %.2f food bales)\nExpected total crossed: %.0f days (%s coins · %.2f food bales)\nConservative allowance ceiling: %.0f whole days (%s return wages · %.2f food bales)" % [
 		float(pend_phase.get("payrollDays", expected.get("pendingDays", 0.0))),
 		ui.money(pend_phase.get("coinsRequired", 0)), float(pend_phase.get("food", 0.0)),
@@ -330,7 +355,7 @@ static func _legs_summary(legs: Array, phase: String) -> String:
 
 static func _render_funding_and_holds(ui, body: VBoxContainer, c, expected: Dictionary, allowance: Dictionary, funding: Dictionary, stores: Dictionary) -> void:
 	var bar := PanelContainer.new()
-	bar.add_theme_stylebox_override("panel", ui.box(Color("132c35"), ui.LINE, 12))
+	bar.add_theme_stylebox_override("panel", ui.box(Color("132c35"), ui.LINE, 10))
 	body.add_child(bar)
 	var col = ui.column(bar)
 	col.add_theme_constant_override("separation", 4)
@@ -349,21 +374,21 @@ static func _render_funding_and_holds(ui, body: VBoxContainer, c, expected: Dict
 	var hold_free: float = float(allowance.get("freeCapacity", 0.0))
 	var hold_over: float = float(allowance.get("allowanceOverload", 0.0))
 
-	ui.label(col, "Purse: %s coins  ·  Daily wages: %s coins/day (%d crew across %d owned hulls, %d traveling, %d stored)  ·  Expected debit: %s coins  ·  Full allowance + arrears: %s coins (base arrears %s + specialist arrears %s)  ·  Wage shortfall: %s coins" % [
+	ui.paragraph(col, "Purse: %s coins  ·  Daily wages: %s coins/day (%d crew across %d owned hulls, %d traveling, %d stored)  ·  Expected debit: %s coins  ·  Full allowance + arrears: %s coins (base arrears %s + specialist arrears %s)  ·  Wage shortfall: %s coins" % [
 		ui.money(coins_now), ui.money(allowance.get("dailyWages", 0)), int(allowance.get("crew", 0)),
 		int(allowance.get("ownedCount", 0)), int(allowance.get("travelingCount", 0)), int(allowance.get("storedCount", 0)),
 		ui.money(expected.get("coinsRequired", 0)), ui.money(req_coins), ui.money(base_arrears), ui.money(prem_arrears),
 		ui.money(wage_shortfall)
 	], 13, ui.RED if wage_shortfall > 0 else ui.TEAL)
 
-	ui.label(col, "Rations: %.2f / %.2f food bales (shortfall %.2f bales · %.1f food days)  ·  Loaded fuel shortfall: %.2f drums (%.2f beyond fitted tanks)  ·  Hold space: %.1f / %.1f used (%.1f free · %.1f after food top-up · overload %.1f)" % [
+	ui.paragraph(col, "Rations: %.2f / %.2f food bales (shortfall %.2f bales · %.1f food days)  ·  Loaded fuel shortfall: %.2f drums (%.2f beyond fitted tanks)  ·  Hold space: %.1f / %.1f used (%.1f free · %.1f after food top-up · overload %.1f)" % [
 		food_avail, food_req, food_short, float(allowance.get("foodDays", 0.0)),
 		fuel_short, tank_short, hold_used, hold_cap, hold_free, float(allowance.get("payloadAfterFood", 0.0)), hold_over
 	], 13, ui.RED if (food_short > 0.001 or fuel_short > 0.001 or hold_over > 0.001) else ui.TEXT)
 
 
 static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Dictionary, stores: Dictionary, allowance: Dictionary) -> void:
-	ui.eyebrow(body, "PER-BOAT WORKING FUEL TANKS, HOLD RESERVES & EXPLICIT MANUAL TRANSFER")
+	_wrapped_eyebrow(ui, body, "PER-BOAT WORKING FUEL TANKS, HOLD RESERVES & EXPLICIT MANUAL TRANSFER")
 	var boats: Array = stores.get("boats", [])
 	ui.paragraph(body, "Total working fuel required: %.2f drums  ·  Loaded shortfall: %.2f drums  ·  Beyond fitted tanks: %.2f drums  ·  Loose hold fuel: %.1f drums  ·  Loose hold repair kits: %.1f\nEach boat burns only its own loaded tank fuel while moving (including fueled tows). Loose hold fuel is cargo until loaded. Support and tanker tanks are never shared automatically; transfer exact working fuel between boats below while stopped, or load hold reserves (loads loose ammunition, fuel and repair kits; food stays in the hold)." % [
 		float(stores.get("fuelRequired", allowance.get("fuelRequired", 0.0))),
@@ -391,27 +416,33 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 		var tank_cap: float = maxf(0.01, float(entry.get("tankCapacity", 60.0)))
 		var short_fuel: float = float(entry.get("loadedShortfall", entry.get("fuelShortfall", 0.0)))
 		var tank_short: float = float(entry.get("tankShortfall", 0.0))
-		ui.label(b_head, "%s (%s)  ·  %s" % [b_name, b_uid, role_tag], 15, ui.GOLD if traveling else ui.TEXT, true).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		_wrapped_label(ui, b_head, "%s (%s)  ·  %s" % [b_name, b_uid, role_tag], 15, ui.GOLD if traveling else ui.TEXT, true)
 		ui.label(b_head, "Tank %.2f / %.1f drums  ·  Shortfall %.2f" % [loaded_fuel, tank_cap, short_fuel], 13, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		var bar = ui.progress(b_col, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		bar.value = clampf(loaded_fuel / tank_cap * 100.0, 0.0, 100.0)
-		ui.label(b_col, "Burn %.2f drums/day (%.1f loaded days / %.1f tank days)  ·  Outward %.2f + Return %.2f + 2-day contingency %.2f = %.2f required  ·  Beyond fitted tank: %.2f  ·  Carrier hold fuel: %.1f  ·  Kits aboard: %.1f" % [
+		ui.paragraph(b_col, "Burn %.2f drums/day (%.1f loaded days / %.1f tank days)  ·  Outward %.2f + Return %.2f + 2-day contingency %.2f = %.2f required  ·  Beyond fitted tank: %.2f  ·  Carrier hold fuel: %.1f  ·  Kits aboard: %.1f" % [
 			float(entry.get("fuelPerDay", 0.0)), float(entry.get("loadedDays", 0.0)), float(entry.get("tankDays", 0.0)),
 			float(entry.get("outwardFuel", 0.0)), float(entry.get("returnFuel", 0.0)), float(entry.get("contingencyFuel", 0.0)),
 			float(entry.get("fuelRequired", 0.0)), tank_short, float(entry.get("cargoFuel", 0.0)), float(entry.get("loadedSupplies", 0.0))
 		], 12, ui.MUTED)
 
 	var xfer_panel := PanelContainer.new()
-	xfer_panel.add_theme_stylebox_override("panel", ui.box(Color("173640"), ui.GOLD, 12))
+	xfer_panel.add_theme_stylebox_override("panel", ui.box(Color("173640"), ui.GOLD, 10))
 	body.add_child(xfer_panel)
 	var xfer_col = ui.column(xfer_panel)
 	xfer_col.add_theme_constant_override("separation", 6)
-	ui.eyebrow(xfer_col, "EXPLICIT WORKING FUEL TRANSFER & HOLD RESERVE LOADING")
-	var xfer_row = ui.row(xfer_col)
+	_wrapped_eyebrow(ui, xfer_col, "EXPLICIT WORKING FUEL TRANSFER & HOLD RESERVE LOADING")
+	var pickers_row = ui.row(xfer_col)
 	var source_picker := OptionButton.new()
 	var target_picker := OptionButton.new()
-	source_picker.custom_minimum_size = Vector2(210, 36)
-	target_picker.custom_minimum_size = Vector2(210, 36)
+	source_picker.custom_minimum_size = Vector2(200, 34)
+	target_picker.custom_minimum_size = Vector2(200, 34)
+	source_picker.fit_to_longest_item = false
+	target_picker.fit_to_longest_item = false
+	source_picker.clip_text = true
+	target_picker.clip_text = true
+	source_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	target_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var uids: Array = []
 	var default_src: int = 0
 	var default_tgt: int = 0
@@ -431,8 +462,14 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 	if not uids.is_empty():
 		source_picker.select(default_src)
 		target_picker.select(default_tgt)
-	xfer_row.add_child(source_picker)
-	xfer_row.add_child(target_picker)
+	pickers_row.add_child(source_picker)
+	pickers_row.add_child(target_picker)
+
+	var xfer_row := HFlowContainer.new()
+	xfer_row.add_theme_constant_override("h_separation", 8)
+	xfer_row.add_theme_constant_override("v_separation", 6)
+	xfer_col.add_child(xfer_row)
+	ui.label(xfer_row, "Transfer quantity:", 12, ui.MUTED)
 
 	var qty_box := SpinBox.new()
 	qty_box.min_value = 0.125
@@ -446,13 +483,13 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 		if tgt_short > 0.001:
 			initial_qty = clampf(snappedf(minf(tgt_short, minf(src_avail, tgt_room)), 0.125), 0.125, 240.0)
 	qty_box.value = initial_qty
-	qty_box.custom_minimum_size = Vector2(110, 36)
+	qty_box.custom_minimum_size = Vector2(110, 34)
 	xfer_row.add_child(qty_box)
 
 	for preset_qty in [0.125, 1.0, 4.0]:
 		var q_val: float = float(preset_qty)
 		var q_btn = ui.button(xfer_row, "%s drum%s" % [str(q_val), "" if q_val == 1.0 else "s"], func(): qty_box.value = q_val, false, false)
-		q_btn.custom_minimum_size.y = 36
+		q_btn.custom_minimum_size.y = 34
 
 	var can_transfer: bool = uids.size() >= 2 and view.get("path", []).is_empty() and c.travel_lock064.is_empty()
 	var btn_xfer = ui.button(xfer_row, "Transfer working fuel", func():
@@ -462,19 +499,19 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 		var t_uid: String = str(uids[clampi(target_picker.selected, 0, uids.size() - 1)])
 		ui.host.transfer_fuel065(s_uid, t_uid, float(qty_box.value))
 	, true, false)
-	btn_xfer.custom_minimum_size.y = 36
+	btn_xfer.custom_minimum_size.y = 34
 	btn_xfer.disabled = not can_transfer
 
 	var reserve_row = ui.row(xfer_col)
 	var btn_load = ui.button(reserve_row, "Load hold reserves (ammo, fuel & kits)", func():
 		ui.host.load_reserves065()
 	, false, false)
-	btn_load.custom_minimum_size.y = 36
+	btn_load.custom_minimum_size.y = 34
 	ui.paragraph(reserve_row, "Loads loose hold ammunition, fuel and repair kits into boat working stores in fleet order; food stays in the hold. Sealed job freight is never touched.", 12, ui.MUTED)
 
 
 static func _render_maintenance_and_conditions(ui, body: VBoxContainer, quote: Dictionary, maintenance: Dictionary, stores: Dictionary) -> void:
-	ui.eyebrow(body, "MAINTENANCE, CONDITIONAL REPAIR KITS & DECLARED QUOTE CONDITIONS")
+	_wrapped_eyebrow(ui, body, "MAINTENANCE, CONDITIONAL REPAIR KITS & DECLARED QUOTE CONDITIONS")
 	var known: bool = bool(maintenance.get("usageKnown", false))
 	var expected_kits = maintenance.get("expectedSupplies", null)
 	var loose_kits: float = float(maintenance.get("looseSupplies", stores.get("looseSupplies", 0.0)))
@@ -529,13 +566,16 @@ static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, int
 	var scroll_node: Node = body.get_parent()
 	var outer: Node = scroll_node.get_parent() if scroll_node != null else body
 	ui.rule(outer)
-	var actions = ui.row(outer)
+	var actions := HFlowContainer.new()
+	actions.add_theme_constant_override("h_separation", 10)
+	actions.add_theme_constant_override("v_separation", 6)
+	outer.add_child(actions)
 	var next_kind: String = str(next_action.get("kind", "none"))
 	var next_title: String = str(next_action.get("title", "Destination reached"))
 	var primary_btn = ui.button(actions, next_title, func():
 		ui.host.voyage_action065(intent.duplicate(true))
 	, true, false)
-	primary_btn.custom_minimum_size.y = 38
+	primary_btn.custom_minimum_size.y = 36
 	if next_kind == "course":
 		primary_btn.disabled = not bool(quote.get("routeOk", false)) or not c._sailing_blocker064().is_empty()
 	elif next_kind == "transition":
@@ -545,18 +585,18 @@ static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, int
 
 	if next_kind == "none" or str(view.get("regionId", "")) == REMOTE_REGION:
 		var home_btn = ui.button(actions, "Destination: Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
-		home_btn.custom_minimum_size.y = 38
+		home_btn.custom_minimum_size.y = 36
 
 	var refresh_btn = ui.button(actions, "Refresh", func(): open(ui), false, false)
-	refresh_btn.custom_minimum_size.y = 38
+	refresh_btn.custom_minimum_size.y = 36
 	var fleet_btn = ui.button(actions, "Fleet & crew", ui.open_fleet, false, false)
-	fleet_btn.custom_minimum_size.y = 38
+	fleet_btn.custom_minimum_size.y = 36
 	var hold_btn = ui.button(actions, "Hold & reserves", ui.open_cargo, false, false)
-	hold_btn.custom_minimum_size.y = 38
+	hold_btn.custom_minimum_size.y = 36
 	var chart_btn = ui.button(actions, "Show entire chart", func():
 		ui.close_modal()
 		ui.host.chart.territory_view()
 	, false, false)
-	chart_btn.custom_minimum_size.y = 38
+	chart_btn.custom_minimum_size.y = 36
 	var close_btn = ui.button(actions, "Close", ui.close_modal, false, false)
-	close_btn.custom_minimum_size.y = 38
+	close_btn.custom_minimum_size.y = 36
