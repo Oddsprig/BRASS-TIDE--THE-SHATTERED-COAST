@@ -448,3 +448,7 @@ Whole-game art/audio/fun/strict performance remains OPEN.
 v0.067: work/quality-v067/ACTUAL067 CHECKS.json;578focused/0;17Root-reviewed
 private exported-PCK stills. Actual paid round trip and staged UI capture are separate.
 Whole-game art/audio/fun/strict performance remains OPEN.
+
+v0.068: work/quality-v068/ACTUAL068 CHECKS.json;555 focused/0;
+21Root-reviewed private PCK stills. Scoped shipping/finite branch only.
+Whole-game art/audio/fun/strict performance remains OPEN.

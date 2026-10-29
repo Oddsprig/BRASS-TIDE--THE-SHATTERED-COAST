@@ -504,3 +504,25 @@ teleport migration. Author landings in real navigable water, then test actual co
 Regional parties reserve actual boat sailors and block departure. Cargo-only
 cache work uses normal Core.step and payroll, with a once-only source tombstone.
 Review broad textual UI replacements before native parsing; update_hud must not create buttons.
+v0.068 test harness: Windows PowerShell can emit its OEM code page for a
+non-ASCII process/queue name. A Python UTF8 decoder then fails before native
+launch. Set Console.OutputEncoding to UTF8 in the existing detector command;
+keep the canonical read-only detector, strict complete-result checks and FIFO.
+Do not count such a failed preflight as an executed game test or a pass.
+The shipping voyage now refuses zero clock progress immediately and records
+the actual last refusal, rather than spending iterations on an unadvanced day.
+v0.068 shipping render handoff: a new Dictionary key assigned with dot syntax
+can be a StringName while the plain-data validator requires String keys. JSON
+printing hides that distinction. The mounted merchant used dot assignment;
+the working existing renderer used bracket assignment. Use explicit String
+keys at this DTO boundary and exercise the actual producer with a detached
+mounted boat. Unfitted factory boats do not establish mounted-boat coverage.
+The actual voyage advanced through delivery after the producer correction.
+v0.068 chart review: state.ports now spans charts. HOME drawing and picking must both filter regionId; a separate remote DTO does not prevent an all-ports loop from leaking a remote label onto HOME.
+
+v0.068: Adding a port requires checking all exact-port catalogs and home-only
+job/AI destination selectors, not only the main save validator. Keep one
+canonical owner/location and the existing daily payroll; geographic ownership
+must not claim an entire archipelago from one harbor. Factory defaults must
+be zeroed before funding a historical branch split. Pending installation may
+retry on a published day, but installed accounts never refill on load.

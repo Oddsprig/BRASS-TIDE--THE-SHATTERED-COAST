@@ -1,5 +1,5 @@
 BRASS TIDE - OPEN OCEAN VERSION MAP v0.063-v0.072
-28 October 2026 | v0.063-v0.067 VERIFIED; v0.068-v0.072 PLANNED
+28 October 2026 | v0.063-v0.068 VERIFIED; v0.069-v0.072 PLANNED
 
 PURPOSE
 Build a large ocean world from smaller, detailed island groups. Preserve the
@@ -73,7 +73,7 @@ Acceptance: discover, investigate, choose what fits aboard and bring it home.
 Unknown information stays unknown. Recovery uses real capacity, crew, time and
 supplies; a revealed resource is not an automatically granted cargo reward.
 
-0.068 - INTERREGIONAL SHIPPING AND DISTANT SIMULATION
+0.068 - INTERREGIONAL SHIPPING AND DISTANT SIMULATION [VERIFIED SCOPED]
 Scope: extend existing NPC objectives and accounting across ocean/local layers.
 Merchant fleets deliver real cargo; pirates intercept; patrols respond; survivors
 return for paid service. Offscreen regions advance on scheduled data updates.
@@ -165,3 +165,7 @@ Next067scope only; whole-game quality/performance remains OPEN.
 0.067 scoped acceptance: 578focused native assertions/0failures; Windows
 export/menu and17reviewed private stills. Actual067 CHECKS.json holds receipts.
 No new whole-game quality/performance claim. Next saved scope068 only.
+
+0.068 scoped acceptance: 555 focused native assertions/0failures; Windows
+export/menu and21reviewed private stills. Actual068 CHECKS.json holds
+receipts. Wider generation/territorial expansion/strict quality remain open.

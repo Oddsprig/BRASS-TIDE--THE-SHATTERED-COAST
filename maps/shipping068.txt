@@ -1,0 +1,9 @@
+INTERREGIONAL SHIPPING068 SOURCE MAP
+shipping068.gd: pure merchant route/phase, conservative reserves, bounded watches.
+shipping_flow068.gd: funded branch split, finite invoice/market actions and known-port DTO.
+ocean_campaign066/ocean_travel066: one clipped shared motion/intelligence update.
+naval_orders/fleet_economy/naval_ai/naval_combat: enrolled-owner guards, paid service and actual conflict custody.
+World064/SaveValidation/Law/Crisis catalogs: one canonical optional remote harbor, raw save preflight.
+contracts/voyage_jobs: home-only destinations stay home.
+shipping_ui068/ocean_chart064/chart/Interface: known port, actual boat art, finite market and existing contact actions.
+Actual native and paused screen evidence are separate; full sector generation is069.

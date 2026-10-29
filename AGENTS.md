@@ -1,20 +1,12 @@
 # Brass Tide - current working instructions
 
-Active scoped work v0.068 ONLY. Read work/quality-v068/SCOPE068.txt and its
-locked contract when written. Six authorized Bridge specialists work in
-isolated source-only scopes; Root reviews, integrates and alone tests/delivers.
-First resolve the minimum funded second-region shipping endpoint; Glasswind067
-has no port. No fake interregional delivery/free settlement or full069worldgen.
-Installed067 is complete/preserved. No068metadata/native yet; prepare it once
-only after reviewed source integration, then finish Windows/screens/launcher.
-
-Current verified release v0.067: first useful Glasswind expedition.
-Tested source e98b2e851731280a375f103c0096c16e22e803b4; 578 focused checks/0failures, Windows export/menu,
-17Root-reviewed private PCK stills. Actual receipts work/quality-v067/ACTUAL067
-CHECKS.json and DELIVERED v0.067.json. Do not prepare067 again.
-Prior whole-game quality/performance limits OPEN. Next saved scope068: supplied
-interregional shipping; do not advance without the current delivery complete.
-Root alone owns queued background native tests and launcher delivery.
+Current verified release v0.068: working interregional shipping and one funded
+Westglass branch. Tested source b1d59410a89e644cf28216f5ff8fbe3cf0c6744c; 555 focused/0.
+Windows export/menu and21Root-reviewed private PCK stills. Actual
+receipts work/quality-v068/ACTUAL068 CHECKS.json and DELIVERED v0.068.json.
+Do not prepare/rebuild068 again. Next saved069: seeded sector geography and
+starting island/harbor ownership, including mixed-faction groups. Whole-game
+quality/strict performance remain OPEN. Root alone owns queued native/delivery.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -24,7 +16,7 @@ factions, with peaceful mixed ownership or conflict. Geographic sectors and
 political ownership/influence are distinct. Seeded generation, shipping/trading/
 pirate actors, faction relationships and funded territorial expansion are the
 required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
-this model. Current067 is a two-region foundation, not a generated living sector.
+this model. Current068 retains two authored regions; the wider generated sector is planned.
 Keep068 shipping bounded;069 must include seeded geography and starting asset
 ownership. Dynamic expansion/capture need explicit later bounded milestones.
 
@@ -40,7 +32,7 @@ given another bounded task. Finish the current delivery before advancing the nex
 Next planned scopes063-072 are authoritative in docs/roadmap/OPEN OCEAN VERSION
 MAP v0.063-v0.072.txt (28October2026 owner request). First063bounded performance
 correction, then064ocean/local transition with one remote prototype before breadth.
-063 and064 are scoped verified steps; later scopes remain planned. Earlier quality limits remain.
+063 through068 are scoped verified steps;069-072 remain planned. Earlier quality limits remain.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
 fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain

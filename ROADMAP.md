@@ -1,9 +1,10 @@
-# Current verified release: v0.067 Glasswind expedition
+# Current verified release: v0.068 working interregional shipping
 
-Three distinct islands, earned survey bearings, real shore crews and stores,
-finite cargo recovery and the physical return home. 578focused native
-checks/0failures and17reviewed interface stills. Earlier whole-game quality and
-strict performance targets remain open. Next saved scope: v0.068 shipping.
+One funded Westglass branch and existing merchant connect the local charts
+through open seas, retaining physical cargo, crews, purses and dated sightings.
+555 focused checks/0failures and21reviewed private stills.
+Earlier whole-game quality and strict performance targets remain open.
+Next saved scope: v0.069 seeded sector geography and starting ownership.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
@@ -19,7 +20,7 @@ build is their foundation. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%2
 | 0.065 | Verified: forecasts, return reserves, actual paid voyage and finite tank transfers. |
 | 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
 | 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
-| 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |
+| 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
 | 0.069 | Seed the wider core, frontier and remote world, including starting island/harbor ownership and mixed-faction groups. |
 | 0.070 | Extend existing jobs and support-boat roles across ocean voyages. |
 | 0.071 | Focused combat presentation, wakes, damage and sound corrections. |

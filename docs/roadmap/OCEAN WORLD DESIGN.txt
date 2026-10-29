@@ -73,7 +73,8 @@ SCOPE AND IMPLEMENTATION STATUS
 v0.067 is the delivered two-region expedition foundation, not the generated
 living sector. Existing code has reputation, faction-pair relationships and
 home-region fleet conflict; full sector ownership and ongoing expansion are open.
-v0.068 remains the bounded interregional shipping/scheduled-simulation step.
+v0.068 delivered a bounded interregional shipping step and one funded branch;
+the full generated world and ongoing territorial expansion remain open.
 v0.069 must produce seeded sector geography AND the starting island/harbor
 ownership model, including at least one useful mixed-faction archipelago.
 Later jobs/access must consume those owners and existing relationship systems.
