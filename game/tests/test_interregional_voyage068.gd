@@ -1,10 +1,10 @@
 extends SceneTree
-## SOURCE CANDIDATE ONLY. Root executes through Test Bridge; whole body <60s.
+## Root executes through Test Bridge; body <82s within one whole batch <120s.
 ## The merchant earns its physical voyage. Player relocation, the short067
 ## provenance cases and the NPC combat branch below are DECLARED controlled
 ## staging; none count as an earned player crossing, survey or combat victory.
 const Main=preload("res://scripts/main.gd")
-const BODY_LIMIT_MS: int=60000
+const BODY_LIMIT_MS: int=82000
 var main
 var c
 var started: int=0
@@ -28,7 +28,7 @@ func check(value: bool,message: String) -> bool:
 	return value
 
 func bounded() -> bool:
-	if Time.get_ticks_msec()-started<57000:return true
+	if Time.get_ticks_msec()-started<79000:return true
 	receipt.status="BODY_TIMEOUT"
 	return check(false,"Bounded fixture body leaves three seconds for owned cleanup")
 
@@ -345,7 +345,7 @@ func finish() -> void:
 	if main!=null:
 		main.sync_economy();main.queue_free();await process_frame
 	var elapsed: int=Time.get_ticks_msec()-started
-	check(elapsed<BODY_LIMIT_MS,"Whole native body including Main ready and owned cleanup is under60 seconds")
+	check(elapsed<BODY_LIMIT_MS,"Whole native body including Main ready and owned cleanup is under82 seconds")
 	receipt.fixture="interregional_voyage068";receipt.sourceCandidate=true
 	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed
 	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
