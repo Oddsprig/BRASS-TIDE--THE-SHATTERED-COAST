@@ -145,7 +145,9 @@ func _run() -> void:
 	# rather than counting a former player home leg toward its travel time.
 	for _piece in range(180):
 		if not c.ocean_view066().contacts.is_empty():break
-		if not advance(4.0):await _finish();return
+		# Once offshore, sample before a four-second sweep can pass first sighting.
+		var offshore: bool=str(c.state.ocean066.contact.get("location",{}).get("world064",{}).get("layer",""))=="ocean"
+		if not advance(0.1 if offshore else 4.0):await _finish();return
 		if (_piece+1)%60==0:diagnose()
 	if not check(not c.ocean_view066().contacts.is_empty(),"Actual offshore sighting of existing UID, no synthetic contact"):await _finish();return
 	check(c.NavalAI.spatial_index(c.state).values().all(func(cell):return "patrol-0" not in cell),"Enrolled raider excluded from all HOME spatial cells")
