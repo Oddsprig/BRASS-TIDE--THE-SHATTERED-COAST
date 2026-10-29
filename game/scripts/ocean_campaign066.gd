@@ -135,7 +135,8 @@ static func powered(boats: Array) -> bool:
 
 static func actors(c,book: Dictionary) -> Array:
 	var player_power: bool=powered(c.active_fleet())
-	var player: Dictionary={"ownerId":"player","location":c.world_location064(),"baseSpeed":c.travel_speed() if player_power else 0.0,"clearance":Routes.clearance(c),"canMove":not c.home_local064() and player_power,"canIntercept":player_power and not c.home_local064() and float(c.state.encounterGrace)<=0.0 and not c.FleetSupport.combat(c).is_empty(),"detectionRange":1800.0,"interceptRange":75.0,"boats":render_boats(c.active_fleet())}
+	# Coastal grace stays with HOME encounters; offshore capability follows physical readiness.
+	var player: Dictionary={"ownerId":"player","location":c.world_location064(),"baseSpeed":c.travel_speed() if player_power else 0.0,"clearance":Routes.clearance(c),"canMove":not c.home_local064() and player_power,"canIntercept":player_power and not c.home_local064() and not c.FleetSupport.combat(c).is_empty(),"detectionRange":1800.0,"interceptRange":75.0,"boats":render_boats(c.active_fleet())}
 	var result: Array=[player]
 	var contact: Dictionary=book.get("contact",{})
 	if contact.is_empty() or contact.phase=="lost":return result
@@ -145,7 +146,7 @@ static func actors(c,book: Dictionary) -> Array:
 	var performance: Dictionary=Orders.fleet_performance(snapshot)
 	var npc_power: bool=powered(snapshot.get("boats",[]))
 	var armed: bool=Orders.living_boats(snapshot).any(func(b):return float(b.get("ammo",0))>0.0 and float(b.get("crew",0))-float(b.get("wounded",0))>=float(b.get("crewMin",1)))
-	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase=="patrol" and not c.home_local064() and float(c.state.encounterGrace)<=0.0,"detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
+	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase=="patrol" and not c.home_local064(),"detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
 	return result
 
 static func relations(c,participants: Array) -> Array:
