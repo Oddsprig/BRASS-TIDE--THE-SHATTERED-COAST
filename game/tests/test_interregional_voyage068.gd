@@ -262,6 +262,7 @@ func controlled_conflict() -> bool:
 	c.state=conflict_start.duplicate(true)
 	var location: Dictionary={"world064":{"schema":1,"layer":"ocean","regionId":"open_ocean"},"position":{"x":1400.0,"y":500.0},"heading":0.0,"path":[],"destination":""}
 	var route: Dictionary=c.state.shipping068.model.route
+	route["ownerId"]="patrol-7"
 	route.phase="outbound";route.sequence=2;route.location=location.duplicate(true);route.nextDueSecond=float(c.state.day)*45.0
 	var merchant: Dictionary=c.fleet_owner("patrol-7")
 	merchant.atPort="";merchant.erase("harborServiceUntilDay")
@@ -310,6 +311,7 @@ func _run() -> void:
 	if food>0 and not check(c.trade(str(harbor.id),"food",food,"buy").get("ok",false),"Player waiting rations purchased from actual stock"):await finish();return
 	if not check(c.trade(str(harbor.id),"supplies",2,"buy").get("ok",false),"Targeted067 tools purchased rather than seeded"):await finish();return
 	conflict_start=c.state.duplicate(true)
+	if not controlled_conflict():await finish();return
 	var starting_days: float=float(c.fleet_owner("patrol-7").daysOperated)
 	var starting_econ: int=int(c.state.econDay)
 	phase("earned_merchant_round_trip")
@@ -340,7 +342,7 @@ func _run() -> void:
 	check(c.fleet_owner("patrol-7").boats.map(func(b):return str(b.uid))==uids,"Physical carrier retains original hull UIDs throughout the earned voyage")
 	check(is_equal_approx(float(c.fleet_owner("patrol-7").daysOperated)-starting_days,float(int(c.state.econDay)-starting_econ)),"Fleets.tick applies exactly one ordinary upkeep day per published economy day")
 	check(float(c.fleet_owner("patrol-7").harborServiceUntilDay)>float(c.state.day) and c.fleet_owner("patrol-7").atPort=="kelp_reach","Physical HOME arrival publishes one real quarter-day paid service")
-	if not targeted067() or not controlled_conflict():await finish();return
+	if not targeted067():await finish();return
 	if failures==0:receipt.status="COMPLETED"
 	await finish()
 
