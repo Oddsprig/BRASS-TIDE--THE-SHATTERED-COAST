@@ -1,5 +1,10 @@
 # Brass Tide - current working instructions
 
+Installed v0.066 DELIVERED; plainDesktopBrassTideicon targetsDesktop/Brass Tide/v0.066.
+Localtage82cc0c;211focusedchecks,Windowsexport/menustartup,12RootviewedPCKstills.
+Owner2saves/20musicfiles preserved; old065retained. Actualreceipt:
+work/quality-v066/DELIVERED v0.066.json. Do notprepare/retag/reinstall066 again.
+
 Current verified release v0.066: open-ocean conditions, dated sightings and physical
 pursuit/interception. Tested source 6e1e9d80a5132e78a7458cf799f2652fa5a6401a;211unique focused checks/0failures.
 Twelve private exported stills reviewed; Windows export/startup clean. Actual

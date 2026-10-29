@@ -1,3 +1,6 @@
+HISTORICAL NATIVE CHECKPOINT: Windowsdeliveryhasnowcompleted.
+See TEST RESULTS v0.066.md andwork/quality-v066/DELIVERED v0.066.json.
+
 BRASS TIDE v0.066 - FOCUSED NATIVE ACCEPTANCE ONLY
 
 211checks/0failures:129model plus82actualphysicalvoyage.
