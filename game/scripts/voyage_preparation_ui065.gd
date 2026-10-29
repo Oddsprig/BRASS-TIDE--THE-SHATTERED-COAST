@@ -2,6 +2,7 @@ extends RefCounted
 ## Main-thread long-voyage preparation presenter for v0.065-v0.066.
 ## Consumes Core.voyage_quote065(intent) read-only and never settles economy on view.
 
+const ShippingUI068 = preload("res://scripts/shipping_ui068.gd")
 const HOME_REGION: String = "shatter_coast"
 const REMOTE_REGION: String = "glasswind_keys"
 const INTENT_KEYS: Array = ["targetRegionId", "targetApproachId", "outExit", "backExit", "homeEntry", "returnPortId", "idleDays"]
@@ -143,6 +144,7 @@ static func render_quote(ui, body: VBoxContainer, view: Dictionary, intent: Dict
 	_render_boats_and_transfer(ui, body, c, view, stores, allowance)
 	ui.rule(body)
 	_render_maintenance_and_conditions(ui, body, quote, maintenance, stores)
+	ShippingUI068.render_preparation_summary068(ui, body, c, view)
 	_render_footer_bar(ui, body, c, view, intent, quote, next_action)
 
 
@@ -651,6 +653,8 @@ static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, int
 		survey_btn.custom_minimum_size.y = 36
 		var salvage_btn = ui.button(actions, "Salvage & cache", func(): ui.RecoveryUI.open(ui), false, false)
 		salvage_btn.custom_minimum_size.y = 36
+	var ship_btn068 = ui.button(actions, "Shipping & anchorage", func(): ShippingUI068.open(ui), false, false)
+	ship_btn068.custom_minimum_size.y = 36
 
 	if ui.has_method("open_ocean_contact066") and c.has_method("ocean_view066"):
 		var v066: Dictionary = c.ocean_view066()

@@ -25,6 +25,7 @@ const CACHE_LIMIT: int = 8
 var _local_region_cache: Dictionary = {}
 var _ocean_region_cache: Dictionary = {}
 var _zone_cache: Dictionary = {}
+var _harbor_cache068: Dictionary = {}
 var _fallback_font: SystemFont = null
 
 
@@ -259,6 +260,98 @@ static func _resolve_exploration_view067(chart, exploration_view067 = null) -> D
 	return {}
 
 
+static func _resolve_shipping_view068(chart, shipping_view068 = null) -> Dictionary:
+	if shipping_view068 is Dictionary:
+		return shipping_view068
+	if shipping_view068 == null and chart != null:
+		if chart is Object and chart.has_method("_shipping_view068"):
+			var v = chart._shipping_view068()
+			if v is Dictionary:
+				return v
+		var h = chart.get("host")
+		if h != null and h.get("core") != null and h.core is Object and h.core.has_method("shipping_view068"):
+			var v2 = h.core.shipping_view068()
+			if v2 is Dictionary:
+				return v2
+	return {}
+
+
+static func _extract_local_ports068(view064: Dictionary, view068: Dictionary) -> Array:
+	if str(view064.get("layer", "")) != "local" or view068.is_empty():
+		return []
+	var active_region: String = str(view064.get("regionId", "glasswind_keys"))
+	var raw_ports = view068.get("ports", null)
+	if not (raw_ports is Array) or raw_ports.is_empty():
+		return []
+	var out: Array = []
+	for raw_p in raw_ports:
+		if not (raw_p is Dictionary):
+			continue
+		if raw_p.has("known") and not bool(raw_p["known"]):
+			continue
+		if raw_p.has("installed") and not bool(raw_p["installed"]):
+			continue
+		var pid: String = str(raw_p.get("id", "")).strip_edges()
+		if pid.is_empty() or not _is_finite_number(raw_p.get("x", null)) or not _is_finite_number(raw_p.get("y", null)):
+			continue
+		var p_reg: String = str(raw_p.get("regionId", active_region))
+		if p_reg != active_region:
+			continue
+		out.append({
+			"id": pid,
+			"name": str(raw_p.get("name", "Westglass Anchorage")),
+			"regionId": p_reg,
+			"islandId": str(raw_p.get("islandId", "glasswind_west")),
+			"faction": str(raw_p.get("faction", "reed")),
+			"industry": str(raw_p.get("industry", "timber")),
+			"specialty": str(raw_p.get("specialty", "logs")),
+			"x": float(raw_p["x"]),
+			"y": float(raw_p["y"]),
+			"atBerth": bool(raw_p.get("atBerth", false))
+		})
+	return out
+
+
+static func _extract_ownership068(view068: Dictionary) -> Dictionary:
+	var by_island: Dictionary = {}
+	var by_region: Dictionary = {}
+	if view068.is_empty():
+		return {"islands": by_island, "regions": by_region}
+	var raw_own = view068.get("ownership", null)
+	if raw_own is Array:
+		for item in raw_own:
+			if not (item is Dictionary):
+				continue
+			var reg_id: String = str(item.get("regionId", "")).strip_edges()
+			var isl_id: String = str(item.get("islandId", "")).strip_edges()
+			var port_id: String = str(item.get("portId", "")).strip_edges()
+			var fac: String = str(item.get("faction", "")).strip_edges()
+			if not isl_id.is_empty() and not fac.is_empty():
+				by_island[isl_id] = {"islandId": isl_id, "portId": port_id, "faction": fac, "regionId": reg_id}
+			if not reg_id.is_empty() and not fac.is_empty():
+				if not by_region.has(reg_id):
+					by_region[reg_id] = []
+				by_region[reg_id].append({"islandId": isl_id, "portId": port_id, "faction": fac})
+	var raw_ports = view068.get("ports", null)
+	if raw_ports is Array:
+		for p in raw_ports:
+			if not (p is Dictionary):
+				continue
+			if p.has("known") and not bool(p["known"]):
+				continue
+			if p.has("installed") and not bool(p["installed"]):
+				continue
+			var reg_id: String = str(p.get("regionId", "glasswind_keys")).strip_edges()
+			var isl_id: String = str(p.get("islandId", "glasswind_west")).strip_edges()
+			var port_id: String = str(p.get("id", "")).strip_edges()
+			var fac: String = str(p.get("faction", "reed")).strip_edges()
+			if not isl_id.is_empty() and not by_island.has(isl_id):
+				by_island[isl_id] = {"islandId": isl_id, "portId": port_id, "faction": fac, "regionId": reg_id}
+			if not reg_id.is_empty() and not by_region.has(reg_id):
+				by_region[reg_id] = [{"islandId": isl_id, "portId": port_id, "faction": fac}]
+	return {"islands": by_island, "regions": by_region}
+
+
 static func _extract_local_sites067(view064: Dictionary, view067: Dictionary) -> Array:
 	if str(view064.get("layer", "")) != "local" or view067.is_empty():
 		return []
@@ -464,6 +557,153 @@ func pick_local067(chart, view_or_exp067: Dictionary, screen_or_exp067, maybe_sc
 			return {"kind": "wreck", "wreckId": str(best_w["id"])}
 	if not best_s.is_empty():
 		return {"kind": "site", "siteId": str(best_s["id"])}
+	return {}
+
+
+func _prepare_local_harbor068(port: Dictionary, islands: Array) -> Dictionary:
+	var pid: String = str(port.get("id", "westglass_anchorage"))
+	var px: float = float(port.get("x", 756.0))
+	var py: float = float(port.get("y", 732.0))
+	var cache_key: String = "%s:%.1f,%.1f:%s:%d" % [pid, px, py, str(port.get("faction", "reed")), islands.size()]
+	if _harbor_cache068.has(cache_key):
+		return _harbor_cache068[cache_key]
+	var norm_islands: Array = []
+	for isl in islands:
+		if not (isl is Dictionary):
+			continue
+		var pairs: Array = _extract_island_pairs(isl.get("points", []))
+		if pairs.size() >= 3:
+			norm_islands.append({
+				"id": str(isl.get("id", "")),
+				"name": str(isl.get("name", "")),
+				"points": pairs
+			})
+	var plan: Dictionary = NauticalArt.settlement_plan({
+		"id": pid,
+		"name": str(port.get("name", "Westglass Anchorage")),
+		"faction": str(port.get("faction", "reed")),
+		"industry": str(port.get("industry", "timber")),
+		"specialty": str(port.get("specialty", "logs")),
+		"x": px,
+		"y": py
+	}, norm_islands)
+	if _harbor_cache068.size() >= CACHE_LIMIT:
+		_harbor_cache068.erase(_harbor_cache068.keys()[0])
+	_harbor_cache068[cache_key] = plan
+	return plan
+
+
+func _draw_local_ports068(chart, view064: Dictionary, view068: Dictionary, labels: Array, metrics: Dictionary) -> void:
+	var ports: Array = _extract_local_ports068(view064, view068)
+	if ports.is_empty():
+		return
+	var islands: Array = view064.get("islands", []) if view064.get("islands") is Array else []
+	var projector: Callable = chart._projector()
+	var scale_val: float = _scale_factor(chart)
+	var viewport_rect: Rect2 = chart.get_viewport_rect()
+	var destination: String = str(view064.get("destination", ""))
+	var h = chart.get("host")
+	var selected_port: String = str(h.selected_port) if (h != null and h.get("selected_port") is String) else ""
+	for p in ports:
+		var pid: String = str(p["id"])
+		var plan: Dictionary = _prepare_local_harbor068(p, islands)
+		var started: int = Time.get_ticks_usec() if bool(chart.get("_profile_drawing")) else 0
+		var calls: int = NauticalArt.draw_settlement(chart, projector, plan, scale_val, viewport_rect)
+		_record_coast_profile(chart, calls, started)
+		metrics["coast_draw_calls"] = int(metrics.get("coast_draw_calls", 0)) + calls
+		var berth_world := Vector2(float(p["x"]), float(p["y"]))
+		var berth_screen: Vector2 = chart.project(berth_world)
+		var anchor_world: Vector2 = plan.get("anchor", berth_world)
+		var anchor_screen: Vector2 = chart.project(anchor_world)
+		var is_at_berth: bool = bool(p.get("atBerth", false))
+		var is_selected: bool = (selected_port == pid or destination == pid or is_at_berth)
+		var ring_col: Color = GOLD if is_selected else FRIEND
+		chart.draw_line(anchor_screen, berth_screen, Color("a99878", 0.56), 1.6, true)
+		chart.draw_arc(berth_screen, 9.5 if is_selected else 7.5, -0.35, PI * 0.85, 16, Color(ring_col, 0.92 if is_selected else 0.78), 1.8 if is_selected else 1.5, true)
+		chart.draw_arc(berth_screen, 9.5 if is_selected else 7.5, PI * 1.15, PI * 1.85, 14, Color(ring_col, 0.92 if is_selected else 0.78), 1.8 if is_selected else 1.5, true)
+		chart.draw_circle(berth_screen, 2.6, GOLD if is_selected else Color("dfcea3"))
+		var sub: String = "DOCKED · REEDWATER TIMBER QUAY" if is_at_berth else ("COURSE TARGET · REEDWATER QUAY" if destination == pid else "REEDWATER TIMBER BRANCH · BERTH")
+		var art_rect: Rect2 = _project_rect(chart, plan.get("bounds", Rect2(berth_world - Vector2(40, 40), Vector2(80, 80))))
+		labels.append({
+			"at": berth_screen,
+			"art_bounds": art_rect.expand(berth_screen).grow(6.0),
+			"text": str(p["name"]).to_upper(),
+			"subtitle": sub,
+			"priority": 98 if is_selected else 91,
+			"color": GOLD if is_selected else Color("e5d5ad")
+		})
+		metrics["ports_drawn"] = int(metrics.get("ports_drawn", 0)) + 1
+
+
+func pick_port068(chart, view_or_ship068: Dictionary, screen_or_ship068, maybe_screen = null) -> Dictionary:
+	if chart == null:
+		return {}
+	var view064: Dictionary = {}
+	var view068: Dictionary = {}
+	var screen := Vector2.INF
+	if maybe_screen is Vector2:
+		view064 = view_or_ship068
+		if screen_or_ship068 is Dictionary:
+			view068 = screen_or_ship068
+		screen = maybe_screen
+	elif screen_or_ship068 is Vector2:
+		screen = screen_or_ship068
+		if view_or_ship068.has("ports") and not view_or_ship068.has("layer"):
+			view068 = view_or_ship068
+			var h = chart.get("host")
+			if h != null and h.get("core") != null and h.core is Object and h.core.has_method("world_view064"):
+				var v64 = h.core.world_view064()
+				if v64 is Dictionary:
+					view064 = v64
+		else:
+			view064 = view_or_ship068
+			view068 = _resolve_shipping_view068(chart, null)
+	else:
+		return {}
+	if not screen.is_finite() or str(view064.get("layer", "")) != "local":
+		return {}
+	var ports: Array = _extract_local_ports068(view064, view068)
+	if ports.is_empty():
+		return {}
+	var islands: Array = view064.get("islands", []) if view064.get("islands") is Array else []
+	var best_p: Dictionary = {}
+	var best_dist: float = INF
+	for p in ports:
+		var berth_world := Vector2(float(p["x"]), float(p["y"]))
+		var berth_screen: Vector2 = chart.project(berth_world)
+		var dist: float = berth_screen.distance_to(screen)
+		var hit: bool = (dist <= 42.0)
+		var plan: Dictionary = _prepare_local_harbor068(p, islands)
+		if not hit and not plan.is_empty():
+			for roof: PackedVector2Array in plan.get("roofs", []):
+				var poly := PackedVector2Array()
+				for pt in roof:
+					poly.append(chart.project(pt))
+				if Geometry2D.is_point_in_polygon(screen, poly):
+					hit = true
+					dist = minf(dist, 18.0)
+					break
+			if not hit:
+				var pier: PackedVector2Array = plan.get("pier", PackedVector2Array())
+				if pier.size() >= 2:
+					var a: Vector2 = chart.project(pier[0])
+					var b: Vector2 = chart.project(pier[1])
+					var seg_d: float = Geometry2D.get_closest_point_to_segment(screen, a, b).distance_to(screen)
+					if seg_d <= 14.0:
+						hit = true
+						dist = minf(dist, seg_d)
+		if hit and dist < best_dist:
+			best_dist = dist
+			best_p = p
+	if not best_p.is_empty():
+		return {
+			"kind": "port",
+			"portId": str(best_p["id"]),
+			"regionId": str(best_p.get("regionId", "glasswind_keys")),
+			"islandId": str(best_p.get("islandId", "glasswind_west")),
+			"x": float(best_p["x"]),
+			"y": float(best_p["y"])
+		}
 	return {}
 
 
@@ -687,16 +927,19 @@ func _draw_zones066(chart, view064: Dictionary, view066: Dictionary, labels: Arr
 	return count
 
 
-static func _extract_contacts066(view064: Dictionary, view066: Dictionary) -> Array:
-	if view066.is_empty():
-		return []
-	var raw_contacts = view066.get("contacts", null)
-	if not (raw_contacts is Array) or raw_contacts.is_empty():
+static func _extract_contacts066(view064: Dictionary, view066: Dictionary, view068: Dictionary = {}) -> Array:
+	var combined: Array = []
+	if not view066.is_empty() and view066.get("contacts") is Array:
+		combined.append_array(view066["contacts"])
+	if not view068.is_empty() and view068.get("contacts") is Array:
+		combined.append_array(view068["contacts"])
+	if combined.is_empty():
 		return []
 	var active_layer: String = str(view064.get("layer", ""))
 	var active_region: String = str(view064.get("regionId", ""))
 	var out: Array = []
-	for raw_c in raw_contacts:
+	var seen_ids: Dictionary = {}
+	for raw_c in combined:
 		if not (raw_c is Dictionary):
 			continue
 		var vis: String = str(raw_c.get("visibility", ""))
@@ -712,8 +955,11 @@ static func _extract_contacts066(view064: Dictionary, view066: Dictionary) -> Ar
 			continue
 		var cid: String = str(raw_c.get("id", raw_c.get("ownerId", "")))
 		var oid: String = str(raw_c.get("ownerId", cid))
-		if cid.is_empty():
+		if cid.is_empty() or seen_ids.has(cid) or (not oid.is_empty() and seen_ids.has(oid)):
 			continue
+		seen_ids[cid] = true
+		if not oid.is_empty():
+			seen_ids[oid] = true
 		var heading: float = float(raw_c["heading"]) if _is_finite_number(raw_c.get("heading", null)) else 0.0
 		var unc: float = maxf(0.0, float(raw_c["uncertaintyRadius"])) if _is_finite_number(raw_c.get("uncertaintyRadius", null)) else 0.0
 		var age_sec: float = maxf(0.0, float(raw_c["ageSeconds"])) if _is_finite_number(raw_c.get("ageSeconds", null)) else 0.0
@@ -771,8 +1017,8 @@ func _draw_resume_course066(chart, player_pos: Vector2, view066: Dictionary) -> 
 		chart.draw_arc(end_screen, 4.5, 0.0, TAU, 16, Color(FOAM, 0.62), 1.1, true)
 
 
-func _draw_contacts066(chart, view064: Dictionary, view066: Dictionary, labels: Array, metrics: Dictionary) -> void:
-	var contacts: Array = _extract_contacts066(view064, view066)
+func _draw_contacts066(chart, view064: Dictionary, view066: Dictionary, labels: Array, metrics: Dictionary, view068: Dictionary = {}) -> void:
+	var contacts: Array = _extract_contacts066(view064, view066, view068)
 	if contacts.is_empty():
 		return
 	var viewport_rect: Rect2 = chart.get_viewport_rect()
@@ -785,7 +1031,8 @@ func _draw_contacts066(chart, view064: Dictionary, view066: Dictionary, labels: 
 		var screen_pos: Vector2 = chart.project(pos)
 		var heading: float = float(c["heading"])
 		var hostile: bool = bool(c["hostile"])
-		var base_color: Color = ENEMY if hostile else FRIEND
+		var is_trader: bool = not hostile and str(c.get("role", "")).to_lower() == "trader"
+		var base_color: Color = ENEMY if hostile else (GOLD if is_trader else FRIEND)
 		var art: Dictionary = FleetArt054.layout(
 			c["boats"],
 			screen_pos,
@@ -871,7 +1118,8 @@ func pick_contact(chart, view_or_ocean066: Dictionary, screen_or_ocean066, maybe
 		return {}
 	if not screen.is_finite():
 		return {}
-	var contacts: Array = _extract_contacts066(view064, view066)
+	var view068: Dictionary = _resolve_shipping_view068(chart, null)
+	var contacts: Array = _extract_contacts066(view064, view066, view068)
 	if contacts.is_empty():
 		return {}
 	var viewport_rect: Rect2 = chart.get_viewport_rect()
@@ -1243,7 +1491,8 @@ static func _empty_metrics(layer: String = "", region_id: String = "", delegate_
 		"uncertain_drawn": 0,
 		"sites_drawn": 0,
 		"wrecks_drawn": 0,
-		"leads_drawn": 0
+		"leads_drawn": 0,
+		"ports_drawn": 0
 	}
 
 
@@ -1397,7 +1646,7 @@ func _record_coast_profile(chart, calls: int, started_usec: int) -> void:
 		pf["coast_us"] = int(pf.get("coast_us", 0)) + (Time.get_ticks_usec() - started_usec)
 
 
-func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}) -> Dictionary:
+func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}, view068: Dictionary = {}) -> Dictionary:
 	var region_id: String = str(view["regionId"])
 	var metrics: Dictionary = _empty_metrics("local", region_id, false)
 	var region_plan: Dictionary = prepare_local_region(view)
@@ -1411,6 +1660,8 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	var zoom_val: float = _zoom(chart)
 	var bounds_rect: Rect2 = region_plan["bounds"]
 	var labels: Array = []
+	var own068: Dictionary = _extract_ownership068(view068)
+	var own_islands: Dictionary = own068.get("islands", {})
 	_draw_graticule(chart, bounds_rect, overview, 1000, 500)
 	metrics["zones_drawn"] = _draw_zones066(chart, view, view066, labels)
 	var sheets: Array = region_plan["sheets"]
@@ -1422,21 +1673,29 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 		_record_coast_profile(chart, calls, started)
 		metrics["coast_draw_calls"] = int(metrics["coast_draw_calls"]) + calls
 		metrics["islands_drawn"] = int(metrics["islands_drawn"]) + 1
+		var isl_id: String = str(islands[i].get("id", sheet.get("id", ""))) if i < islands.size() else str(sheet.get("id", ""))
 		var isl_name: String = str(islands[i].get("name", sheet.get("name", ""))) if i < islands.size() else str(sheet.get("name", ""))
 		if not isl_name.is_empty():
+			var isl_sub: String = ""
+			if own_islands.has(isl_id):
+				var fac: String = str(own_islands[isl_id].get("faction", "")).to_lower()
+				if fac == "reed":
+					isl_sub = "REEDWATER BRANCH HOLDING"
 			labels.append({
 				"at": chart.project(sheet.label),
 				"art_bounds": _project_rect(chart, sheet.bounds),
 				"text": isl_name,
+				"subtitle": isl_sub,
 				"priority": 45,
 				"color": Color("c4d2b0")
 			})
 	metrics["approaches_drawn"] = draw_approaches(chart, view, labels)
 	_draw_local_sites_and_wrecks067(chart, view, view067, labels, metrics)
+	_draw_local_ports068(chart, view, view068, labels, metrics)
 	var player_pos: Vector2 = _to_vec2(view["position"])
 	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
-	_draw_contacts066(chart, view, view066, labels, metrics)
+	_draw_contacts066(chart, view, view066, labels, metrics, view068)
 	var marker: Vector2 = chart.project(player_pos)
 	var player_art: Dictionary = FleetArt054.layout(
 		view["boats"],
@@ -1461,7 +1720,7 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	var title_text: String = str(view.get("name", "GLASSWIND KEYS")).to_upper()
 	chart.text_at(title_text, Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
 	chart.text_at("Local coastal waters  ·  Northern and Southern sea approaches", Vector2(size.x * 0.5, size.y - 144.0), 22, Color("c7d4bd"), chart.get("serif"), true)
-	chart.text_at("WASD CAMERA  ·  I SURVEYS  ·  M TERRITORY  ·  CLICK LANDING, WRECK, CONTACT OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
+	chart.text_at("WASD CAMERA  ·  I SURVEYS  ·  M TERRITORY  ·  CLICK HARBOR, LANDING, WRECK, CONTACT OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, false)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))
 	metrics["ok"] = true
@@ -1469,7 +1728,7 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	return metrics
 
 
-func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}) -> Dictionary:
+func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}, view068: Dictionary = {}) -> Dictionary:
 	var metrics: Dictionary = _empty_metrics("ocean", "open_ocean", false)
 	_ensure_chart_fonts(chart)
 	var viewport_rect: Rect2 = chart.get_viewport_rect()
@@ -1479,6 +1738,8 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	var zoom_val: float = _zoom(chart)
 	var bounds_rect: Rect2 = world_bounds(view)
 	var labels: Array = []
+	var own068: Dictionary = _extract_ownership068(view068)
+	var own_regions: Dictionary = own068.get("regions", {})
 	_draw_graticule(chart, bounds_rect, overview, 800, 400)
 	metrics["zones_drawn"] = _draw_zones066(chart, view, view066, labels)
 	var regions: Array = view["regions"]
@@ -1509,13 +1770,17 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 			metrics["islands_drawn"] = int(metrics["islands_drawn"]) + 1
 		metrics["regions_drawn"] = int(metrics["regions_drawn"]) + 1
 		var is_home_group: bool = str(rv["layer"]) == "home"
+		var rv_reg_id: String = str(rv.get("regionId", ""))
+		var group_sub: String = "HOME WATERS" if is_home_group else "REMOTE KEYS"
+		if not is_home_group and own_regions.has(rv_reg_id):
+			group_sub = "REMOTE KEYS · 1 KNOWN REED BRANCH (OTHER ISLES UNCLAIMED)"
 		var group_screen: Vector2 = chart.project(group_center)
 		var group_screen_bounds: Rect2 = _project_rect(chart, reg_plan["group_bounds"])
 		labels.append({
 			"at": group_screen,
 			"art_bounds": group_screen_bounds,
 			"text": str(rv["name"]).to_upper(),
-			"subtitle": "HOME WATERS" if is_home_group else "REMOTE KEYS",
+			"subtitle": group_sub,
 			"priority": 92 if is_home_group else 88,
 			"color": GOLD if is_home_group else Color("d7e1cc")
 		})
@@ -1533,7 +1798,7 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	var player_pos: Vector2 = _to_vec2(view["position"])
 	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
-	_draw_contacts066(chart, view, view066, labels, metrics)
+	_draw_contacts066(chart, view, view066, labels, metrics, view068)
 	var marker: Vector2 = chart.project(player_pos)
 	var player_art: Dictionary = FleetArt054.layout(
 		view["boats"],
@@ -1573,16 +1838,17 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	return metrics
 
 
-func draw(chart, view: Dictionary, ocean_view066 = null, exploration_view067 = null) -> Dictionary:
+func draw(chart, view: Dictionary, ocean_view066 = null, exploration_view067 = null, shipping_view068 = null) -> Dictionary:
 	if chart == null or not _valid_view(view, true):
 		return _empty_metrics()
 	var view066: Dictionary = _resolve_ocean_view066(chart, ocean_view066)
 	var view067: Dictionary = _resolve_exploration_view067(chart, exploration_view067)
+	var view068: Dictionary = _resolve_shipping_view068(chart, shipping_view068)
 	var layer: String = str(view["layer"])
 	if layer == "home":
 		return _empty_metrics("home", "shatter_coast", true)
 	if layer == "local":
-		return _draw_local_layer(chart, view, view066, view067)
+		return _draw_local_layer(chart, view, view066, view067, view068)
 	if layer == "ocean":
-		return _draw_ocean_layer(chart, view, view066)
+		return _draw_ocean_layer(chart, view, view066, view067, view068)
 	return _empty_metrics()

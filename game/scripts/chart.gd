@@ -291,6 +291,16 @@ func _exploration_view067() -> Dictionary:
 		if v is Dictionary:return v
 	return {}
 
+func _shipping_view068() -> Dictionary:
+	if host!=null and host.core!=null and host.core is Object and host.core.has_method("shipping_view068"):
+		var v=host.core.shipping_view068()
+		if v is Dictionary:return v
+	return {}
+
+func pick_port068(screen: Vector2) -> Dictionary:
+	if host==null or host.core==null:return {}
+	return _ocean_painter064.pick_port068(self,host.core.world_view064(),_shipping_view068(),screen)
+
 func pick_local067(screen: Vector2) -> Dictionary:
 	if host==null or host.core==null:return {}
 	return _ocean_painter064.pick_local067(self,host.core.world_view064(),_exploration_view067(),screen)
@@ -303,6 +313,8 @@ func pick_ocean064(screen: Vector2) -> Dictionary:
 	var view064: Dictionary=host.core.world_view064()
 	var hit066: Dictionary=_ocean_painter064.pick_contact(self,view064,_ocean_view066(),screen)
 	if not hit066.is_empty():return hit066
+	var hit068: Dictionary=_ocean_painter064.pick_port068(self,view064,_shipping_view068(),screen)
+	if not hit068.is_empty():return hit068
 	var hit067: Dictionary=_ocean_painter064.pick_local067(self,view064,_exploration_view067(),screen)
 	if not hit067.is_empty():return hit067
 	return _ocean_painter064.pick_region(view064,world_at(screen))
@@ -993,7 +1005,7 @@ func draw_campaign():
 		if view064.is_empty():
 			text_at("Chart unavailable",get_viewport_rect().size*0.5,22,GOLD,serif,true)
 			return
-		_ocean_painter064.draw(self,view064,_ocean_view066(),_exploration_view067())
+		_ocean_painter064.draw(self,view064,_ocean_view066(),_exploration_view067(),_shipping_view068())
 		return
 	if host.core == null or host.core.state.is_empty():
 		return

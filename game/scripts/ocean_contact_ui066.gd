@@ -11,15 +11,17 @@ class _ContactSilhouetteStrip066 extends Control:
 	var boats: Array = []
 	var heading: float = 0.0
 	var hostile: bool = true
+	var is_trader: bool = false
 	var visibility: String = "visible"
 	var uncertainty_radius: float = 0.0
 	var age_seconds: float = 0.0
 	var mono_font: Font = null
 
-	func _init(p_boats: Array, p_heading: float, p_hostile: bool, p_vis: String, p_unc: float, p_age: float, p_font: Font) -> void:
+	func _init(p_boats: Array, p_heading: float, p_hostile: bool, p_vis: String, p_unc: float, p_age: float, p_font: Font, p_trader: bool = false) -> void:
 		boats = p_boats
 		heading = p_heading
 		hostile = p_hostile
+		is_trader = p_trader
 		visibility = p_vis
 		uncertainty_radius = p_unc
 		age_seconds = p_age
@@ -37,7 +39,7 @@ class _ContactSilhouetteStrip066 extends Control:
 		var mid_y: float = rect.size.y * 0.52
 		draw_line(Vector2(12.0, mid_y), Vector2(rect.size.x - 12.0, mid_y), Color(0.58, 0.78, 0.70, 0.12), 1.0, true)
 		var center := Vector2(rect.size.x * 0.5, mid_y)
-		var base_color: Color = Color("e8947a") if hostile else Color("8fc6b4")
+		var base_color: Color = Color("e8947a") if hostile else (Color("dfbd7d") if is_trader else Color("8fc6b4"))
 		var is_stale: bool = (visibility != "visible")
 		if is_stale:
 			var ring_r: float = clampf(uncertainty_radius * 0.25, 24.0, minf(rect.size.x * 0.36, rect.size.y * 0.42))
@@ -82,7 +84,8 @@ static func open(ui, contact_id: String = "") -> void:
 	ui.modal_kind = "ocean_contact066"
 	var view064: Dictionary = c.world_view064() if c.has_method("world_view064") else {}
 	var view066: Dictionary = c.ocean_view066() if c.has_method("ocean_view066") else {}
-	var contacts: Array = OceanChart064._extract_contacts066(view064, view066)
+	var view068: Dictionary = c.shipping_view068() if c.has_method("shipping_view068") else {}
+	var contacts: Array = OceanChart064._extract_contacts066(view064, view066, view068)
 	var selected: Dictionary = _select_contact(contacts, contact_id, view066)
 	var title_name: String = str(selected.get("name", "Offshore Sighting & Course Orders")) if not selected.is_empty() else "Offshore Sighting & Course Orders"
 	var body: VBoxContainer = ui.modal(title_name, "OCEAN SIGHTING & COURSE ORDERS", 860, 620)
@@ -99,7 +102,7 @@ static func open(ui, contact_id: String = "") -> void:
 	if selected.is_empty():
 		_render_no_contact_card(ui, body, view064, view066)
 	else:
-		_render_contact_card(ui, body, selected, view064, view066)
+		_render_contact_card(ui, body, selected, view064, view066, view068)
 
 	_render_travel_and_zone_card(ui, body, view064, view066)
 	_render_footer(ui, body, selected, view064, view066)
@@ -155,7 +158,7 @@ static func _render_no_contact_card(ui, body: VBoxContainer, view064: Dictionary
 	ui.paragraph(col, "No active or unexpired last-known fleet sighting is currently selected on %s. Unspotted fleets never disclose hidden positions or hull rosters; sightings appear only within current visual detection range and expire 30 simulated seconds after contact is lost." % str(view064.get("name", "this chart")), 14, ui.TEXT)
 
 
-static func _render_contact_card(ui, body: VBoxContainer, contact: Dictionary, view064: Dictionary, _view066: Dictionary) -> void:
+static func _render_contact_card(ui, body: VBoxContainer, contact: Dictionary, view064: Dictionary, _view066: Dictionary, view068: Dictionary = {}) -> void:
 	var card := PanelContainer.new()
 	card.add_theme_stylebox_override("panel", ui.box(Color("15313a"), ui.LINE, 10))
 	body.add_child(card)
@@ -209,9 +212,22 @@ static func _render_contact_card(ui, body: VBoxContainer, contact: Dictionary, v
 			prov_parts.append("Observed activity: " + intent_label)
 		ui.paragraph(col, "  ·  ".join(prov_parts), 13, ui.GOLD)
 
+	var is_trader: bool = (not hostile and role_text.to_lower() == "trader") or owner_id == "patrol-7"
+	var route068: Dictionary = view068.get("route", {}) if view068.get("route") is Dictionary else {}
+	if is_trader:
+		if not route068.is_empty() and str(route068.get("ownerId", "patrol-7")) == owner_id:
+			var r_phase: String = str(route068.get("phase", "")).strip_edges()
+			var r_reason: String = str(route068.get("reason", "")).strip_edges()
+			ui.paragraph(col, "Observed shipping leg: %s%s" % [
+				r_phase.replace("_", " ").to_upper() if not r_phase.is_empty() else "INTERREGIONAL RUN",
+				("  ·  " + r_reason) if not r_reason.is_empty() else ""
+			], 12, ui.TEAL)
+		if not hostile:
+			ui.paragraph(col, "Course orders remain Investigate, Avoid, Engage, and Resume. Engaging a non-hostile Reedwater merchant convoy carries piracy reputation and port access consequences.", 12, ui.MUTED)
+
 	var boats: Array = contact.get("boats", [])
 	var mono_font: Font = ui.host.chart.get("mono") if ui.host.get("chart") != null else null
-	var strip := _ContactSilhouetteStrip066.new(boats, float(contact.get("heading", 0.0)), hostile, vis, unc_radius, age_sec, mono_font)
+	var strip := _ContactSilhouetteStrip066.new(boats, float(contact.get("heading", 0.0)), hostile, vis, unc_radius, age_sec, mono_font, is_trader)
 	col.add_child(strip)
 
 	ui.paragraph(col, _describe_sighted_boats(boats, is_visible, str(view064.get("name", "Ocean chart"))), 12, ui.TEXT)
@@ -329,6 +345,12 @@ static func _render_footer(ui, body: VBoxContainer, contact: Dictionary, _view06
 		ui.open_voyage_preparation065()
 	, false, false)
 	btn_prep.custom_minimum_size.y = 34
+
+	var btn_ship068: Button = ui.button(actions, "Shipping & anchorage", func():
+		if ui.has_method("open_shipping068"):
+			ui.open_shipping068()
+	, false, false)
+	btn_ship068.custom_minimum_size.y = 34
 
 	var btn_refresh: Button = ui.button(actions, "Refresh", func():
 		open(ui, action_id)

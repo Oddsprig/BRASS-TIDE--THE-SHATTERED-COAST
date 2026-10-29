@@ -28,6 +28,7 @@ const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
 const VoyagePreparation065=preload("res://scripts/voyage_preparation_ui065.gd")
 const OceanContact066=preload("res://scripts/ocean_contact_ui066.gd")
+const ShippingUI068=preload("res://scripts/shipping_ui068.gd")
 const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
@@ -317,23 +318,27 @@ func build_campaign_hud(size: Vector2):
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
 		button(left_body,"Coastal approaches",open_ocean064,true,false)
 		if str(view064.get("layer",""))=="local":
+			button(left_body,"Westglass anchorage & shipping",func():open_shipping068(),false,false)
 			button(left_body,"Island surveys (I)",func():CampaignUI.islands(self),false,false)
 			button(left_body,"Salvage & cache",func():RecoveryUI.open(self),false,false)
+		else:
+			button(left_body,"Shipping & remote holdings",func():open_shipping068(),false,false)
 		button(left_body,"Fleet & crew",open_fleet,false,false)
 		button(left_body,"Hold & reserves",open_cargo,false,false)
 		button(left_body,"More charts & business",open_campaign_tools)
 		eyebrow(right_body,"VOYAGE")
 		paragraph(right_body,"Glasswind Keys and Shatter Coast share one ocean chart. Approach a marked side, stop, then enter its coastal waters.",16)
-		paragraph(right_body,"Harbors and coastal work are available after returning to Shatter Coast.",15,GOLD)
+		paragraph(right_body,"Known remote branch quays trade finite goods and provisions at berth; boatyards, crew hiring, refit, and contracts remain at Shatter Coast.",15,GOLD)
 		var footer064=panel(chrome,Vector2(0,size.y-85),Vector2(size.x,85))
 		var actions064=row(footer064)
 		button(actions064,"Fleet",open_fleet,false,false);button(actions064,"Hold",open_cargo,false,false);button(actions064,"Contracts",open_contracts)
 		if str(view064.get("layer",""))=="local":
+			button(actions064,"Anchorage",func():open_shipping068(),false,false)
 			button(actions064,"Surveys",func():CampaignUI.islands(self),false,false)
 			button(actions064,"Salvage",func():RecoveryUI.open(self),false,false)
 		voyage_label=label(actions064,"",12,MUTED)
 		voyage_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-		dock_button=button(actions064,"Coastal approaches",open_ocean064,true,false)
+		dock_button=button(actions064,"Coastal approaches",_on_remote_dock_button068,true,false)
 		return
 	eyebrow(left_body, "YOUR FLOTILLA")
 	flagship_label = label(left_body, "", 26, TEXT, true)
@@ -381,6 +386,7 @@ func open_campaign_tools():
 	modal_kind="campaign_tools"
 	var body=modal("More charts & business")
 	button(body,"Open ocean & coastal approaches",open_ocean064,true,false)
+	button(body,"Interregional shipping & anchorage",func():open_shipping068(),false,false)
 	if not host.core.home_local064():
 		if str(host.core.world_view064().get("layer",""))=="local":
 			button(body,"Island charts & surveys     I",func():CampaignUI.islands(self),false,false)
@@ -416,6 +422,20 @@ func open_voyage_preparation065(region_id: String="",approach_id: String="") -> 
 func open_ocean_contact066(id: String="") -> void:
 	if host.mode!="campaign":return
 	OceanContact066.open(self,id)
+
+func open_shipping068(port_id: String="") -> void:
+	if host.mode!="campaign":return
+	ShippingUI068.open(self,port_id)
+
+func open_remote_port068(port_id: String="") -> void:
+	open_shipping068(port_id)
+
+func _on_remote_dock_button068() -> void:
+	if host.mode!="campaign" or host.core==null:return
+	if host.core is Object and host.core.has_method("remote_port068") and not host.core.remote_port068().is_empty():
+		open_shipping068("westglass_anchorage")
+		return
+	open_ocean064()
 
 func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
 	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, primary)
@@ -465,10 +485,14 @@ func update_hud():
 	flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
 	var p = host.core.current_port()
 	dock_button.disabled = p.is_empty() if host.core.home_local064() else false
-	if not host.core.home_local064():dock_button.text="Coastal approaches"
+	if not host.core.home_local064():
+		var rp068: Dictionary=host.core.remote_port068() if (host.core is Object and host.core.has_method("remote_port068")) else {}
+		dock_button.text=("Enter %s  ↗" % str(rp068.get("name","Westglass Anchorage"))) if not rp068.is_empty() else "Coastal approaches"
 	else:dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
 	var region064: String=str(host.core.world_view064().get("name","Shatter Coast"))
-	voyage_label.text = region064+" / "+("UNDERWAY · %s" % host.core.port(w.destination).get("name", "Open water") if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()])
+	var dest_name068: String=str(host.core.port(w.destination).get("name", "Open water"))
+	if dest_name068=="Open water" and str(w.destination)=="westglass_anchorage":dest_name068="Westglass Anchorage"
+	voyage_label.text = region064+" / "+("UNDERWAY · %s" % dest_name068 if not w.path.is_empty() else "%d RENOWN   ·   HOLD %.0f / %.0f" % [w.renown, host.core.cargo_weight(), host.core.capacity()])
 
 func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 1030, height: float = 780) -> VBoxContainer:
 	# Detach shared notices before clearing their previous modal.
@@ -498,7 +522,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -533,7 +557,12 @@ func close_modal():
 		update_hud()
 
 func open_port(tab: String = ""):
-	if not host.core.home_local064():open_ocean064();return
+	if not host.core.home_local064():
+		if host.core is Object and host.core.has_method("remote_port068") and not host.core.remote_port068().is_empty():
+			open_shipping068("westglass_anchorage");return
+		if str(host.core.world_view064().get("layer",""))=="local" and host.core is Object and host.core.has_method("shipping_view068") and not host.core.shipping_view068().get("ports",[]).is_empty():
+			open_shipping068("westglass_anchorage");return
+		open_ocean064();return
 	host.sync_economy()
 	var p = host.core.current_port()
 	if p.is_empty():

@@ -13,7 +13,10 @@ static func lod(chart_scale: float) -> int:
 
 static func _ring(source: Array) -> PackedVector2Array:
 	var result:=PackedVector2Array()
-	for p in source:result.append(Vector2(float(p[0]),float(p[1])))
+	for p in source:
+		if p is Vector2:result.append(p)
+		elif p is Dictionary:result.append(Vector2(float(p.get("x",0.0)),float(p.get("y",0.0))))
+		elif p is Array and p.size()>=2:result.append(Vector2(float(p[0]),float(p[1])))
 	return result
 
 static func _bounds(points: PackedVector2Array) -> Rect2:
@@ -236,6 +239,7 @@ static func harbor_caption(port: Dictionary) -> String:
 		"naphtha_bay":return "FUEL DISTILLERY"
 		"rust_anchorage":return "SALVAGE WHARVES"
 		"shatter_spire":return "FORTIFIED GUNWORKS"
+		"westglass_anchorage":return "TIMBER BRANCH QUAY"
 	return str(port.get("industry","harbor")).to_upper()
 
 static func _harbor_design(id: String) -> Dictionary:
@@ -253,6 +257,7 @@ static func _harbor_design(id: String) -> Dictionary:
 		"naphtha_bay":return {"landmark":"tank farm and cracking hall","roofs":[[0,76,90,38,1],[-74,132,47,47,2],[-12,155,53,53,2],[59,140,47,47,2],[-59,205,39,39,2],[29,222,47,47,2],[110,194,27,81,1],[-100,282,41,29,0],[-35,303,38,25,0],[42,297,47,31,1]],"roads":[[[-136,44],[0,41],[138,47]],[[-132,51],[-131,230],[-93,313]],[[-129,255],[19,263],[134,249]]]}
 		"rust_anchorage":return {"landmark":"salvage fan and prize sheds","roofs":[[0,81,91,40,1],[-97,100,46,30,1],[94,124,52,35,1],[-62,157,65,19,4],[11,181,78,21,4],[-101,225,36,28,0],[-38,259,43,27,0],[29,246,38,26,0],[92,216,35,30,0],[9,311,62,39,5]],"roads":[[[-149,54],[-28,40],[142,78]],[[-28,43],[-15,128],[-62,218],[9,321]],[[-124,219],[-62,218],[40,207],[126,174]]]}
 		"shatter_spire":return {"landmark":"bastioned gun court and armored yard","roofs":[[0,98,117,66,5],[-90,78,31,38,5],[90,81,31,38,5],[-91,164,35,43,5],[88,173,36,43,5],[-36,223,61,29,1],[45,238,59,32,1],[-93,278,40,31,0],[2,304,47,33,5],[88,294,37,29,0]],"roads":[[[-144,43],[0,39],[145,45]],[[0,40],[0,168],[-9,308]],[[-130,203],[-5,187],[128,220]]]}
+		"westglass_anchorage":return {"landmark":"timber storehouse, drying rack and log quay","roofs":[[0,68,56,30,1],[-44,112,48,15,4],[38,116,32,22,0]],"roads":[[[-52,34],[0,32],[52,36]],[[0,24],[0,132]]]}
 	return {"landmark":"working harbor","roofs":[[0,78,78,41,1],[-66,144,38,27,0],[42,183,41,29,0]],"roads":[[[0,30],[0,220]]]}
 
 static func _local(plan: Dictionary,p: Vector2) -> Vector2:
@@ -518,6 +523,11 @@ static func _landmark(plan: Dictionary) -> void:
 				_paint(plan,1,_box(gun,Vector2(20,22),tangent,inland),Color("b3ad84"))
 				_paint(plan,1,_box(gun-inland*9,Vector2(7,25),tangent,inland),Color("42615d"))
 			_work_pile(plan,Vector2(-35,262),Vector2(30,17),Color("929f8b"))
+		"westglass_anchorage":
+			_work_pile(plan,Vector2(-38,56),Vector2(24,14),Color("bf9b61"))
+			_work_pile(plan,Vector2(36,62),Vector2(20,13),Color("a7ad84"))
+			for x in [-48.0,-38.0,-28.0]:
+				_paint(plan,1,_oval(_local(plan,Vector2(x,60)),Vector2(3.5,3.5)),Color("dec18c"))
 
 static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	var berth:=Vector2(float(port.x),float(port.y))
@@ -547,9 +557,11 @@ static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	if land.size()<3:return _finish(plan)
 	# Paving remains on actual land; the real berth connector below stays ink.
 	var apron:=PackedVector2Array()
-	for p in [[-146,17],[141,18],[151,51],[98,60],[-36,45],[-149,57]]:apron.append(_local(plan,Vector2(p[0],p[1])))
+	var apron_pts: Array=[[-68,14],[68,14],[74,42],[0,46],[-72,42]] if plan.id=="westglass_anchorage" else [[-146,17],[141,18],[151,51],[98,60],[-36,45],[-149,57]]
+	for p in apron_pts:apron.append(_local(plan,Vector2(p[0],p[1])))
 	_paint(plan,1,apron,Color("b3ac87"))
-	_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-139,22)),_local(plan,Vector2(137,23))]),5.0,Color("dbcca0"),1)
+	var cope_x: float=62.0 if plan.id=="westglass_anchorage" else 138.0
+	_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-cope_x,20 if plan.id=="westglass_anchorage" else 22)),_local(plan,Vector2(cope_x,21 if plan.id=="westglass_anchorage" else 23))]),5.0,Color("dbcca0"),1)
 	for road in design.roads:
 		var points:=PackedVector2Array()
 		for p in road:points.append(_local(plan,Vector2(p[0],p[1])))
