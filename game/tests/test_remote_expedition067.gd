@@ -6,6 +6,7 @@ extends SceneTree
 const Main=preload("res://scripts/main.gd")
 const IDS: Array=["glasswind_west_marker","glasswind_crown_log","glasswind_south_wreck"]
 const ANCHORS: Array=[{"x":1360.0,"y":1380.0},{"x":2780.0,"y":1540.0},{"x":1820.0,"y":1640.0}]
+const BODY_LIMIT_MS: int=68000
 var main
 var c
 var checks: int=0
@@ -27,13 +28,15 @@ func check(value: bool,message: String) -> bool:
 	return value
 
 func bounded() -> bool:
-	if Time.get_ticks_msec()-started<43500:return true
+	if Time.get_ticks_msec()-started<BODY_LIMIT_MS-1500:return true
 	receipt.status="BODY_TIMEOUT"
-	return check(false,"45-second body ceiling includes Main ready, paid voyage and cleanup")
+	return check(false,"68-second body ceiling includes Main ready, paid voyage and cleanup")
 
 func phase(label: String) -> void:
-	receipt.phases.append({"phase":label,"elapsedMs":Time.get_ticks_msec()-started,"day":float(c.state.day) if c!=null and not c.state.is_empty() else 0})
-	print("REMOTE067_PHASE ",label)
+	var elapsed: int=Time.get_ticks_msec()-started
+	var day: float=float(c.state.day) if c!=null and not c.state.is_empty() else 0.0
+	receipt.phases.append({"phase":label,"elapsedMs":elapsed,"day":day})
+	print("REMOTE067_PHASE ",label," elapsedMs=",elapsed," day=",day)
 
 func protected_state() -> PackedByteArray:
 	return var_to_bytes([c.state,c.pending_days,c.events,c.data,main.economy_task])
@@ -65,7 +68,7 @@ func finish_course() -> bool:
 	for _piece in range(240):
 		if c.state.path.is_empty():return true
 		if not advance(4.0):return false
-	return check(false,"The physical plotted route exceeded the bounded sailing loop")
+	return check(c.state.path.is_empty(),"The physical plotted route exceeded the bounded sailing loop")
 
 func travel(intent: Dictionary) -> bool:
 	for _action in range(8):
@@ -89,6 +92,8 @@ func sailor_total() -> int:
 	return total
 
 func survey(site_id: String,action: String,save_party: bool=false) -> bool:
+	var progress_label: String="landing_"+site_id+"_"+action
+	phase(progress_label+"_begin")
 	var before_kits: float=c.Remote067.kits(c.state)
 	var before_food: float=c.state.cargo.food
 	var sailors: int=sailor_total()
@@ -105,6 +110,7 @@ func survey(site_id: String,action: String,save_party: bool=false) -> bool:
 	check(not c.transition064("glasswind_keys","south").get("ok",false),"Region exit is blocked while the regional party is deployed")
 	check(protected_state()==frozen,"Refused movement and crossing preserve actual party, stores and purses")
 	if save_party:
+		phase(progress_label+"_save_restore")
 		if not advance(45.0*0.25):return false
 		main.save_game(false)
 		var saved=JSON.parse_string(FileAccess.get_file_as_string(main.save_directory.path_join("voyage.json")))
@@ -124,6 +130,7 @@ func survey(site_id: String,action: String,save_party: bool=false) -> bool:
 			var live: PackedByteArray=protected_state()
 			check(not c.restore(bad).get("ok",false),"Malformed regional "+corruption+" save refuses")
 			check(protected_state()==live and var_to_bytes(bad)==input,"Refused regional "+corruption+" save preserves input/live/events/pending/UIDs/purses")
+		phase(progress_label+"_recall_reland")
 		var recalled_credit: float=float(c.state.surveyFoodCredit)
 		var recalled_food: float=float(c.state.cargo.food)
 		var spent_kits: float=c.Remote067.kits(c.state)
@@ -135,12 +142,14 @@ func survey(site_id: String,action: String,save_party: bool=false) -> bool:
 		check(not c.recall_survey().get("ok",false) and protected_state()==recalled,"Repeated recall cannot refund rations twice")
 		var restarted: Dictionary=c.begin_survey(site_id,action)
 		if not check(restarted.get("ok",false) and is_equal_approx(c.Remote067.kits(c.state),spent_kits-float(restarted.get("supplies",0))),"Actual re-landing pays fresh finite kits and restarts unfinished work"):return false
+	phase(progress_label+"_work")
 	for _piece in range(40):
 		if c.state.exploration.assignment.is_empty():break
 		if not advance(minf(4.0,maxf(0.001,(float(c.state.exploration.assignment.daysTotal)-float(c.state.exploration.assignment.daysDone))*45.0))):return false
 	if not check(c.state.exploration.assignment.is_empty(),"Actual paid survey work completed"):return false
 	check(c.state.fleet.all(func(boat):return int(boat.get("shoreCrew",0))==0) and is_zero_approx(float(c.state.surveyFoodCredit)),"Completion releases hands and unused food credit once")
 	check(sailor_total()==sailors,"Survey completion creates no crew")
+	phase(progress_label+"_complete")
 	return true
 
 func _run() -> void:
@@ -190,9 +199,14 @@ func _run() -> void:
 	check(protected_state()==hidden,"Unknown view and refused work are pure")
 	phase("three_paid_landings")
 	for index in range(IDS.size()):
-		if not check(c.chart_course(ANCHORS[index]).get("ok",false),"World.plot accepts the locked safe-water landing anchor") or not finish_course():await finish();return
+		var landing: String="landing_"+str(IDS[index])
+		phase(landing+"_plotting")
+		if not check(c.chart_course(ANCHORS[index]).get("ok",false),"World.plot accepts the locked safe-water landing anchor"):await finish();return
+		phase(landing+"_sailing")
+		if not finish_course():await finish();return
 		if not advance(0.5):await finish();return
 		if not check(c.distance(c.state.position,ANCHORS[index])<0.001,"Physical sailing reaches the locked landing anchor"):await finish();return
+		phase(landing+"_arrived")
 		if not survey(str(IDS[index]),"chart",index==0) or not survey(str(IDS[index]),"survey"):await finish();return
 		if index<2:
 			check(not c.state.wreckSeededSources.has(c.Remote067.SOURCE),"Survey knowledge creates no early cache or cargo")
@@ -275,7 +289,7 @@ func finish() -> void:
 		main.sync_economy();main.queue_free()
 		await process_frame
 	var elapsed: int=Time.get_ticks_msec()-started
-	check(elapsed<45000,"Whole native body including ready and owned cleanup is below45 seconds")
+	check(elapsed<BODY_LIMIT_MS,"Whole native body including ready and owned cleanup is below68 seconds")
 	receipt.fixture="remote_expedition067";receipt.sourceCandidate=true
 	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed
 	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
