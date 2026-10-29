@@ -15,6 +15,7 @@ var supply: int=0
 var uids: Array=[]
 var parsed_midleg: bool=false
 var player_staged: bool=false
+var conflict_start: Dictionary={}
 var visited: Dictionary={}
 var receipt: Dictionary={"status":"UNFINISHED","phases":[],"invoices":[],"controlled":[]}
 
@@ -257,12 +258,15 @@ func targeted067() -> bool:
 func controlled_conflict() -> bool:
 	phase("controlled_real_npc_resolver")
 	var live: Dictionary=c.state
-	c.state=live.duplicate(true)
+	# Separate earlier-state branch: the voyage's actual deaths remain in live.
+	c.state=conflict_start.duplicate(true)
 	var location: Dictionary={"world064":{"schema":1,"layer":"ocean","regionId":"open_ocean"},"position":{"x":1400.0,"y":500.0},"heading":0.0,"path":[],"destination":""}
 	var route: Dictionary=c.state.shipping068.model.route
 	route.phase="outbound";route.sequence=2;route.location=location.duplicate(true);route.nextDueSecond=float(c.state.day)*45.0
 	var merchant: Dictionary=c.fleet_owner("patrol-7")
 	merchant.atPort="";merchant.erase("harborServiceUntilDay")
+	var merchant_patrol: Dictionary=c.NavalAI._find_patrol(c.state,"patrol-7")
+	merchant_patrol.active=false;merchant_patrol.hidden=true;merchant_patrol.holding=true;merchant_patrol.course=[];merchant_patrol.erase("interceptPoint")
 	var raider: Dictionary=c.fleet_owner("patrol-0")
 	var home: Dictionary=c.ocean_context064.regions.shatter_coast
 	var gate: Dictionary=c.OceanWorld064._project(c.ocean_context064,home,home.approaches[0].position)
@@ -276,7 +280,7 @@ func controlled_conflict() -> bool:
 	c.state.navalAi.encounters=[]
 	var before: Dictionary=physical()
 	var result: Dictionary=c.NavalAI.resolve_at068(c,"patrol-0","patrol-7",location,location)
-	receipt.controlled.append({"kind":"co-located existing NPCs; real resolver outcome, not earned travel/win","result":result.duplicate(true)})
+	receipt.controlled.append({"kind":"Separate earlier living-fleet snapshot, co-located existing NPCs; real resolver outcome, no earned travel/win or resurrection in the completed campaign","result":result.duplicate(true)})
 	check(result.get("ok",false),"Controlled physical NPC pair uses the real salvo/prize resolver")
 	if result.get("ok",false):
 		check(c.Money.total(c.state)==supply,"Real NPC conflict/prize transfers conserve the global purses")
@@ -305,6 +309,7 @@ func _run() -> void:
 	if not check(c.Money.move(harbor,"governmentPurse",c.state,"coins",waiting_transfer,"Declared068 fixture player waiting wages and stores",c.state.moneyLog),"Finite derived waiting budget from actual existing harbor treasury"):await finish();return
 	if food>0 and not check(c.trade(str(harbor.id),"food",food,"buy").get("ok",false),"Player waiting rations purchased from actual stock"):await finish();return
 	if not check(c.trade(str(harbor.id),"supplies",2,"buy").get("ok",false),"Targeted067 tools purchased rather than seeded"):await finish();return
+	conflict_start=c.state.duplicate(true)
 	var starting_days: float=float(c.fleet_owner("patrol-7").daysOperated)
 	var starting_econ: int=int(c.state.econDay)
 	phase("earned_merchant_round_trip")
