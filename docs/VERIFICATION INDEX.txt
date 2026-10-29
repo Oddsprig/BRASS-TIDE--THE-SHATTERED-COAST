@@ -444,3 +444,7 @@ v0.066: work/quality-v066/ACTUAL066 CHECKS.json;211unique/0;12Root-reviewed
 private exported stills; Windows export/startups and actual physical ocean voyage.
 Earlier failed whole jobs remain failed; only strict source-proven passed phases retained.
 Whole-game art/audio/fun/strict performance remains OPEN.
+
+v0.067: work/quality-v067/ACTUAL067 CHECKS.json;578focused/0;17Root-reviewed
+private exported-PCK stills. Actual paid round trip and staged UI capture are separate.
+Whole-game art/audio/fun/strict performance remains OPEN.

@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Choose finite salvage lots that fit your holds, then carry them home through the existing ocean voyage.
 
 See docs/TEST RESULTS v0.067.md for actual focused checks and remaining limits.
+
+Verification: 578 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 98.509s. Preserved earlier failures; no broad acceptance claim.

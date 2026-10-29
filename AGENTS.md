@@ -1,25 +1,12 @@
 # Brass Tide - current working instructions
 
-Active scoped work: v0.067 ONLY, first useful Glasswind expedition.
-Task work/quality-v067/SCOPE067.txt and LOCKED067 CONTRACT.txt bind source
-allowlists/APIs/finite cargo-onlycache. A/B/CsourceproductionthroughBridge; Root
-allqueuednative/delivery. BoardparticipationauthorizedgenericONLYwithoutgame
-identity/source/paths/plans; onlyRootposts. Installed066remainsverifieduntil067
-packaged/reviewed/installed. 067source integrated and metadata prepared ONCE;
-native/Windows/screens/delivery pending. Do notredo066 orprepare067 again.
-
-Installed v0.066 DELIVERED; plainDesktopBrassTideicon targetsDesktop/Brass Tide/v0.066.
-Localtage82cc0c;211focusedchecks,Windowsexport/menustartup,12RootviewedPCKstills.
-Owner2saves/20musicfiles preserved; old065retained. Actualreceipt:
-work/quality-v066/DELIVERED v0.066.json. Do notprepare/retag/reinstall066 again.
-
-Current verified release v0.066: open-ocean conditions, dated sightings and physical
-pursuit/interception. Tested source 6e1e9d80a5132e78a7458cf799f2652fa5a6401a;211unique focused checks/0failures.
-Twelve private exported stills reviewed; Windows export/startup clean. Actual
-receipts and failed-attempt lessons in work/quality-v066. Do not prepare066 again.
-Check DELIVERED v0.066.json for completed installation. Next067scope only:
-first useful remote exploration expedition. Prior whole-game quality/performance
-limits OPEN. Root alone owns queued background native/GPU tests and delivery.
+Current verified release v0.067: first useful Glasswind expedition.
+Tested source e98b2e851731280a375f103c0096c16e22e803b4; 578 focused checks/0failures, Windows export/menu,
+17Root-reviewed private PCK stills. Actual receipts work/quality-v067/ACTUAL067
+CHECKS.json and DELIVERED v0.067.json. Do not prepare067 again.
+Prior whole-game quality/performance limits OPEN. Next saved scope068: supplied
+interregional shipping; do not advance without the current delivery complete.
+Root alone owns queued background native tests and launcher delivery.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
@@ -98,7 +85,7 @@ to pass. Source/static checks are advisory, not native execution.
 
 Background/hidden/silent only, synthetic APPDATA/saves and Dummy/muted audio.
 No mouse/keyboard/focus/computer control, no Desktop game autolaunch. Keep owner
-voyages/settings/18MP3s/older builds and one plain Brass Tide shortcut intact.
+voyages/settings/20MP3s/older builds and one plain Brass Tide shortcut intact.
 Cleanup must match PID AND creation time/retained handle; no broad process kills.
 Use existing Godot4.7.2/Python, no global installs or system setting changes.
 UI/Scene/resources remain on main; workers own copied data and publish only after
@@ -126,7 +113,7 @@ Refits use weapons:Array; effective_spec returns the spec directly. Preserve UID
 Prepare each version once, build on the accepted predecessor and preserve exact
 source/hash/tag provenance. Export from the isolated reviewed release checkout.
 Tag/package/install only after that scope's acceptance. Preserve older releases,
-two voyages,18music tracks and the single unambiguous latest verified launcher.
+two voyages,20music tracks and the single unambiguous latest verified launcher.
 No retagging rejected candidates. Retain failed receipts and distinguish source,
 native checks, rendered measurement, art review, listening and actual play quality.
 

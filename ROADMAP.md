@@ -1,11 +1,9 @@
-# Current verified release: v0.066 open-ocean travel
+# Current verified release: v0.067 Glasswind expedition
 
-Physical ocean route changes, inexpensive current/weather zones, dated sightings,
-pursuit/interception with one actual existing finite raider fleet and existing
-battle settlement. 211unique focused checks and twelve reviewed stills.
-Whole-game quality and earlier strict performance targets remain open.
-
-Next: **v0.067**, first useful remote exploration expedition. Finish each scope.
+Three distinct islands, earned survey bearings, real shore crews and stores,
+finite cargo recovery and the physical return home. 578focused native
+checks/0failures and17reviewed interface stills. Earlier whole-game quality and
+strict performance targets remain open. Next saved scope: v0.068 shipping.
 
 | Version | Bounded scope |
 | --- | --- |
@@ -13,7 +11,7 @@ Next: **v0.067**, first useful remote exploration expedition. Finish each scope.
 | 0.064 | Verified prototype: ocean/local charts, Glasswind Keys, persistent round trip. |
 | 0.065 | Verified: forecasts, return reserves, actual paid voyage and finite tank transfers. |
 | 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
-| 0.067 | Complete the first useful remote exploration expedition. |
+| 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
 | 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |
 | 0.069 | Expand the proven pipeline into core, frontier and remote regions. |
 | 0.070 | Extend existing jobs and support-boat roles across ocean voyages. |

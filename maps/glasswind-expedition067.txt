@@ -1,0 +1,9 @@
+GLASSWIND067 SOURCE MAP
+exploration.gd/island_sites.json: three regional sites, masked knowledge and paid survey model.
+remote_expedition067.gd: pure current-chart DTO, physical party validation, paid live-clock cargo recovery.
+campaign.gd/salvage.gd: existing survey events, one finite64-weight cargo source and tombstone.
+save_validation/campaign_state_validation: raw copy-first regional party/cache preflight.
+ocean_regions064/coast_art050: three articulated coastlines carved inside previous land.
+ocean_chart064/chart: separate067 known marker DTO and picks; strict064 view unchanged.
+campaign_ui/recovery_ui/interface/voyage_preparation_ui065: existing survey, finite-lot and return controls.
+Actual paid voyage and isolated staged PCK compositions have distinct receipts.

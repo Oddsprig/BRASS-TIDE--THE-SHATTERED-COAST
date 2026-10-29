@@ -1,12 +1,18 @@
-# Brass Tide v0.067 - active scoped candidate
+# Brass Tide v0.067 delivered
 
-Installed066 is delivered/preserved. Task work/quality-v067 SCOPE067 and
-LOCKED067 CONTRACT authoritative. Only the Glasswind expedition: three
-survey sites, visible clues, paid shore crews, finite cargo salvage and real
-return. Source candidates reviewed/integrated; metadata prepared ONCE.
-Native acceptance/export/private screens/tag/install pending. Never prepare again.
-Root alone owns background shared-lane tests; complete whole selected suites
-below120seconds, preserve actual receipts and finish the Windows delivery.
-No input/focus/app control, native helpers or repeated passed component checks.
-No068shipping/069breadth/071combat art or general performance refactor.
-Board participation is generic only; no game name/source/plans/assets disclosed.
+BRASS TIDE v0.067 - The Glasswind expedition
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: e98b2e851731280a375f103c0096c16e22e803b4 / v0.067
+Test Bridge: 226e93d0f5d049e4aa592fa5dddceeb1
+578 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 98.509s; owned cleanup verified.
+
+- Explore three distinct Glasswind islands and follow survey clues to an abandoned cargo cache.
+- Assign real shore crews, pay for tools and provisions, and recall them before sailing.
+- Choose finite salvage lots that fit your holds, then carry them home through the existing ocean voyage.
+
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+v0.067 Glasswind expedition verified on e98b2e851731280a375f103c0096c16e22e803b4: 578 focused assertions/0 failures, Windows export/title startup. Actual native receipts and timings: work/quality-v067/ACTUAL067 CHECKS.json. Every selected batch including setup/cleanup below120seconds; queue wait separate. The actual private Main/Core voyage buys stores and hires with one disclosed finite treasury budget, sails the existing south routes, pays three surveys, recalls/relands a real party, saves/restores, recovers one finite engine commodity and carries it home to ordinary market trade. Three fixed landing anchors are accepted by actual navigation. Unknown sites remain hidden; earned bearings do not reveal unseen destinations. Same boat/crew/equipment owners, finite kits/food/cache and conserved coins. The unique count excludes repeated assertions from earlier attempts. Earlier failed timeout and notification-capture receipts remain preserved; they are not whole-suite passes. Seventeen private exported-PCK interface stills viewed by Root with the same Godot4.7.2 runtime; actual Windows EXE startup checked separately. Legacy approaches and new survey/party/cache views are declared paused compositions with staged positions/knowledge, not earned expedition proof. Bridge team:2Sol6.1MAX, GoogleArgonHIGH, Grok4.7HIGH,2boundedMuseSparkHIGH. Root reviewed/integrated and alone owned queued native jobs. Public board participation used generic tool metadata only; no private game/source/paths/plans/assets disclosed or downloaded code executed. No whole-game, motion, listening, fun or FPS acceptance; earlier strict worker/lag/FPS targets remain OPEN. No068shipping,069sector breadth or071combat art/audio. 36boats,300DP, numerical crew, physical mounts,cheap water,30Hz data worker,100ms role decisions,safe render1 retained. Owner saves/settings/music/old builds and one plain launcher preserved; no autolaunch or remote publication.
+
+Continue with the next saved version scope after v0.067; preserve the shared lane and120-second limit.
