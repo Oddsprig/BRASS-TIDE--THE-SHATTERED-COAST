@@ -77,6 +77,17 @@ func advance(seconds: float) -> bool:
 		for actor in c.OceanCampaign066.actors(c,c.state.ocean066):
 			if not c.OceanCampaign066.Travel._boats_valid(actor.boats):
 				receipt.failure.invalidRenderActors.append({"ownerId":actor.ownerId,"boats":actor.boats})
+		var staged: Dictionary=c.ShippingFlow068.stage(c,seconds)
+		receipt.failure["stagedMerchant"]=staged.get("actor",{})
+		receipt.failure["stagedTypes"]=[]
+		for boat in staged.get("actor",{}).get("boats",[]):
+			var types: Dictionary={"uid":type_string(typeof(boat.uid)),"engineModule":type_string(typeof(boat.get("engineModule"))),"spec":{},"mounts":[]}
+			for key in boat.spec:types.spec[key]=type_string(typeof(boat.spec[key]))
+			for mount in boat.spec.get("weaponMounts",[]):
+				var fields: Dictionary={}
+				for key in mount:fields[key]=type_string(typeof(mount[key]))
+				types.mounts.append(fields)
+			receipt.failure.stagedTypes.append(types)
 		print("SHIPPING068_FAILURE ",JSON.stringify(receipt.failure))
 		return check(false,"Shared travel stage accepted no clock progress; see SHIPPING068_FAILURE for the actual refusal and shipping state")
 	if not check(float(c.state.day)>=before and float(c.state.day)<=before+seconds/45.0+0.000001,"One accepted shared clock interval"):return false
