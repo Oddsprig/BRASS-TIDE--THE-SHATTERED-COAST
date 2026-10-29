@@ -73,6 +73,10 @@ func advance(seconds: float) -> bool:
 	if float(c.state.day)<=before:
 		receipt.status="NO_CLOCK_PROGRESS"
 		receipt.failure={"dayBefore":before,"day":float(c.state.day),"log":c.state.log.slice(0,3).duplicate(true),"holding":str(c.state.shipping068.holding),"model":c.state.shipping068.model.duplicate(true)}
+		receipt.failure["invalidRenderActors"]=[]
+		for actor in c.OceanCampaign066.actors(c,c.state.ocean066):
+			if not c.OceanCampaign066.Travel._boats_valid(actor.boats):
+				receipt.failure.invalidRenderActors.append({"ownerId":actor.ownerId,"boats":actor.boats})
 		print("SHIPPING068_FAILURE ",JSON.stringify(receipt.failure))
 		return check(false,"Shared travel stage accepted no clock progress; see SHIPPING068_FAILURE for the actual refusal and shipping state")
 	if not check(float(c.state.day)>=before and float(c.state.day)<=before+seconds/45.0+0.000001,"One accepted shared clock interval"):return false
