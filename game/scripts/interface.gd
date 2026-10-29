@@ -1017,13 +1017,10 @@ func toast(message: String, bad: bool = false):
 		var old = notices.get_child(0)
 		notices.remove_child(old)
 		old.queue_free()
-	var tween = create_tween()
+	var tween = container.create_tween()
 	tween.tween_interval(4.0)
 	tween.tween_property(container, "modulate:a", 0.0, 0.4)
-	tween.tween_callback(func():
-		if is_instance_valid(container):
-			container.queue_free()
-	)
+	tween.tween_callback(container.queue_free)
 
 func money(value) -> String:
 	var s = str(int(value))

@@ -144,7 +144,7 @@ static func _focused(ui,body,w: Dictionary,encounter_ids: Array) -> void:
 		for gk in lots:
 			var g_str: String=str(gk)
 			total_wt+=float(lots[gk])*float(c.Goods.ITEMS.get(g_str,{"weight":1.0}).weight)
-		ui.paragraph(body,"Collapsed supply coaster · finite cargo-only salvage. The hull frame is broken on the reef and has no towable hull or canonical fittings. Select explicit cargo lots that fit your traveling hold.",15,ui.GOLD)
+		ui.paragraph(body,"Collapsed supply coaster · finite cargo salvage. Its frame is broken on the reef; the hull and fittings cannot be recovered. Choose cargo lots that fit your traveling hold.",15,ui.GOLD)
 		ui.paragraph(body,"Remaining cache weight: %.1f hold units · Free traveling hold: %.1f units · Spare able hands: %d\nRemote recovery consumes 1 repair kit per working day (cargo first, then boat racks) plus normal payroll and rations."%[total_wt,free_hold,c.Exploration.spare_crew(c.state)],14,ui.TEXT)
 		ui.label(body,"Surviving cargo lots",21,ui.GOLD,true)
 		for good_key in lots:
