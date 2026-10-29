@@ -173,9 +173,14 @@ func shared_step() -> void:
 	if not check(not raider_boats.is_empty() and raider_valid,"Actual unfitted patrol-0 render DTO validates without assumed equipment"):
 		print("raider_boats=",raider_boats,"; Travel._boats_valid=",raider_valid)
 		return
-	# create_owners does not fit mounts; exercise numeric size with a declared DTO.
-	var numeric_mount_boats: Array=[{"uid":"controlled-numeric-mount","spec":{"id":"controlled-mount-hull","weaponMounts":[{"id":"controlled-mount","size":1}]}}]
-	if not check(Travel._boats_valid(numeric_mount_boats),"Explicit controlled render DTO validates its numeric mount size field"):
+	# Factory boats are unfitted; insert one controlled mount into a detached merchant copy.
+	var merchant_boats: Array=owner.boats.duplicate(true)
+	var numeric_mount: Dictionary={"id":"controlled-mount","size":1}
+	merchant_boats[0]["spec"]["weaponMounts"]=[numeric_mount]
+	var merchant_render_boats: Array=Shipping._render_boats(merchant_boats)
+	var merchant_valid: bool=Travel._boats_valid(merchant_render_boats)
+	if not check(not merchant_render_boats.is_empty() and merchant_render_boats[0].spec.get("weaponMounts",[])==[numeric_mount] and merchant_valid,"Shipping producer validates actual detached patrol-7 boats with a controlled numeric mount"):
+		print("merchant_render_boats=",merchant_render_boats,"; Travel._boats_valid=",merchant_valid)
 		return
 	var participants: Array=[]
 	var relations: Array=[]

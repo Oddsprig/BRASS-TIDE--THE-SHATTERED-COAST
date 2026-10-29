@@ -310,7 +310,7 @@ static func _render_boats(boats: Array) -> Array:
 			for key in ["id","moduleId","kind","size","x","y","angle"]:
 				if mount.has(key):item[key]=mount[key]
 			mounts.append(item)
-		if not mounts.is_empty():spec.weaponMounts=mounts
+		if not mounts.is_empty():spec["weaponMounts"]=mounts
 		result.append({"uid":str(boat.uid),"spec":spec,"engineModule":str(boat.get("engineModule","stock_engine"))})
 	return result
 
