@@ -5,6 +5,13 @@ finite cargo recovery and the physical return home. 578focused native
 checks/0failures and17reviewed interface stills. Earlier whole-game quality and
 strict performance targets remain open. Next saved scope: v0.068 shipping.
 
+Campaign design: one ocean-covered planet, no major continents. Open seas serve
+the hyperspace role, archipelagos the star-system role, and individual islands
+the planet role. Different factions may own islands and harbors inside the same
+group. Generated geography, mixed ownership, shipping, diplomacy and funded
+territorial expansion are required campaign systems. The current two-region
+build is their foundation. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
+
 | Version | Bounded scope |
 | --- | --- |
 | 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
@@ -13,7 +20,7 @@ strict performance targets remain open. Next saved scope: v0.068 shipping.
 | 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
 | 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
 | 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |
-| 0.069 | Expand the proven pipeline into core, frontier and remote regions. |
+| 0.069 | Seed the wider core, frontier and remote world, including starting island/harbor ownership and mixed-faction groups. |
 | 0.070 | Extend existing jobs and support-boat roles across ocean voyages. |
 | 0.071 | Focused combat presentation, wakes, damage and sound corrections. |
 | 0.072 | Complete voyage integration, career balance and sector performance. |
@@ -22,7 +29,10 @@ Detailed acceptance and exclusions: [Open ocean version map](docs/roadmap/OPEN%2
 Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
 and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.
 v0.064 added ocean/local crossings and the three-island Glasswind Keys prototype;
-sector breadth and useful remote exploration remain later scoped versions.
+v0.067 proved the first useful remote expedition. The full seeded world,
+sector-wide political ownership and ongoing faction expansion remain open.
+Expansion, capture and changing political control need explicit bounded
+follow-on milestones; the existing068-072 sequence does not complete them.
 
 Remaining demonstrated gaps:
 - Light workerP9537.816ms exceeds33.333ms;lag150ms exceeds100ms;catch-up/planner

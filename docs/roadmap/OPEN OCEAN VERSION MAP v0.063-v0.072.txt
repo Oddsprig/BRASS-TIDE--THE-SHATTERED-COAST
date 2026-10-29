@@ -8,6 +8,16 @@ playable ocean chart; approaching another group opens its local waters. Combat
 continues on a separate encounter map reflecting the actual location.
 
 WORLD DESIGN
+- Owner clarification29October2026: one ocean-covered planet, no major
+  continents. Open seas serve the hyperspace role; island groups serve the
+  star-system role; individual islands serve the planet role. Harbors/outposts
+  are markets/installations. Larger geographic sectors contain several groups.
+- An archipelago may contain different factions' islands and harbors. Show
+  peaceful mixed ownership, alliance/shared administration and contested control
+  accurately; one faction's presence does not automatically own the whole group.
+- Seeded generation, faction relationships, shipping/trading/pirate actors and
+  funded expansion are mandatory campaign direction. Full ownership rules and
+  remaining implementation gaps: docs/roadmap/OCEAN WORLD DESIGN.txt.
 - Settled core: busy faction harbors, production, fishing and trade routes.
 - Frontier: scattered settlements, disputed waters and pirate anchorages.
 - Distant archipelagos: discoveries, ruins, wrecks and resources worth a voyage.
@@ -74,11 +84,18 @@ Bounded worker jobs publish safe data; never run full battles everywhere at once
 0.069 - THE WIDER CORE, FRONTIER AND WILDERNESS
 Scope: expand the proven region pipeline toward the 48-group sector target, with
 authored important locations and deterministic variation for remote geography
-and site placement. Seeded regions persist; economies need explicit finite capital,
+and site placement. Generate the campaign's archipelago placement/connections,
+island geography/resources and starting island/harbor faction ownership from a
+saved seed. Include mixed-faction groups, neutral frontiers and disputed assets;
+never assume one group means one faction. Preserve old voyages and existing
+geography/ownership when migrating. Seeded regions persist; economies need explicit finite capital,
 workers and stocks. Use distinct silhouettes, landmarks and readable map labels.
 Acceptance: the world has alternative useful routes, genuinely distant expeditions
 and recognizable regions. Validate density, reachable approaches and travel costs;
 record any content shortfall rather than filling the map with empty destination dots.
+The outer chart summarizes known control; local charts identify actual owned
+islands, ports and facilities. Unknown bases remain hidden. Repeat visits and
+save/load retain geography and owners instead of regenerating destinations.
 
 0.070 - JOBS AND FLEET ROLES ACROSS THE OCEAN
 Scope: extend existing freight, escort, survey, salvage, fuel and passenger work
@@ -107,6 +124,10 @@ representative full300DP battles. Fix demonstrated integration faults only.
 Unmet art, combat, audio, career or performance criteria remain explicitly open.
 
 RULES FOR EVERY VERSION
+ONGOING WORLD DIRECTION: faction strategy, financed outpost expansion, blockades,
+capture and treaties must eventually change real territorial control across
+groups. These require explicit bounded follow-on milestones; initial069 owner
+colors or the072 integration pass do not constitute a complete expansion system.
 One .001 increment, one saved scope, one accepted predecessor. This file is a
 plan, not authorization evidence for claiming any future feature delivered.
 Preserve v0.062 installation, two voyages, music, settings and older releases.

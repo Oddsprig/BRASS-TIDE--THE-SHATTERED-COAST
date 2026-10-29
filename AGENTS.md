@@ -8,6 +8,18 @@ Prior whole-game quality/performance limits OPEN. Next saved scope068: supplied
 interregional shipping; do not advance without the current delivery complete.
 Root alone owns queued background native tests and launcher delivery.
 
+Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
+major continents. Open seas fill the hyperspace role; island groups fill the
+star-system role; individual islands fill the planet role. Harbors/outposts are
+markets/installations. Groups can contain islands and ports owned by different
+factions, with peaceful mixed ownership or conflict. Geographic sectors and
+political ownership/influence are distinct. Seeded generation, shipping/trading/
+pirate actors, faction relationships and funded territorial expansion are the
+required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
+this model. Current067 is a two-region foundation, not a generated living sector.
+Keep068 shipping bounded;069 must include seeded geography and starting asset
+ownership. Dynamic expansion/capture need explicit later bounded milestones.
+
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
 Majority source implementation through Bridge. Phase tasks within Bridge limits;

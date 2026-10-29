@@ -1,5 +1,13 @@
 # Brass Tide v0.067 delivered
 
+Owner clarified the world model29October2026: one ocean planet with no major
+continents. Open seas play the hyperspace role; island groups the system role;
+individual islands the planet role. Different factions can own islands/ports
+inside one group. Read docs/roadmap/OCEAN WORLD DESIGN.txt before068 proposals.
+069 requires seeded geography and starting ownership; dynamic funded expansion
+and capture remain required, separately scoped future work. This clarification
+updates planning only; v0.067's installed executable and release tag are unchanged.
+
 BRASS TIDE v0.067 - The Glasswind expedition
 DELIVERED SCOPED WINDOWS BUILD
 Source/tag: e98b2e851731280a375f103c0096c16e22e803b4 / v0.067

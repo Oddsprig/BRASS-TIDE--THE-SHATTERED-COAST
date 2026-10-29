@@ -1,0 +1,83 @@
+BRASS TIDE - OCEAN WORLD AND FACTION DESIGN
+29 October 2026 | Owner clarification | Required campaign direction
+
+WORLD STRUCTURE
+The setting is one ocean-covered planet with islands and groups of islands.
+There are no major continents. This is a large campaign world whose geography,
+politics, shipping and exploration persist between visits.
+
+Use these gameplay roles consistently:
+- Open seas: the hyperspace role. A large playable travel layer connecting
+  archipelagos, with shipping, pursuit, piracy, sightings and route choices.
+- Island group / archipelago: the star-system role. Enter its local coastal
+  chart to navigate islands, visit harbors, explore and meet nearby fleets.
+- Individual island: the planet role. Its resources, settlements, industry,
+  hazards, exploration opportunities and political control make it distinct.
+- Harbor, outpost or facility: a market or installation on an island. Its
+  actual workforce, inventory, productive equipment and purses remain finite.
+- Sector: a larger geographic part of the ocean, containing several groups.
+  Sector identity is distinct from a faction's changing territorial influence.
+  Sectors are regions/overlays on the open-seas chart, not another travel layer.
+
+This is a sea-world analogy, not literal space travel. Open seas remain water;
+the existing boats, cargo, crews, fuel and clock continue across both layers.
+An island may have several harbors or installations. Its strategic role must
+not collapse into a destination dot with one generic menu.
+
+GENERATED CAMPAIGNS
+The sector-generation step must create a persistent campaign from a seed:
+archipelago placement, useful navigable connections, island layouts/resources,
+settlements and starting faction ownership. Blend authored important locations
+and stories with procedural variation. The current 48-group target is breadth
+to prove, not a substitute for useful destinations or a delivered generator.
+Preserve the starting coast and existing voyages when adding world generation;
+old saves must not silently regenerate their islands, ownership or inventories.
+Visited regions remain the same on return. Unvisited regions still have stable
+identities and a saved simulation history; loading one does not reroll its wealth.
+
+POLITICAL OWNERSHIP AND THE MAP
+An archipelago is a geographic container, not an exclusive faction container.
+Different factions may own different islands in the same group. Different
+harbors on one island may also be controlled by different factions.
+The outer map must distinguish a single-owner group, mixed peaceful ownership,
+allied/shared administration, contested territory, neutral/unclaimed and unknown.
+Show known ownership with faction emblems/segments and a readable summary;
+the local chart shows which actual islands, harbors and outposts support it.
+Do not reveal unsighted bases or private political intelligence through an overlay.
+
+Ownership, claims, access rights, military presence and influence are distinct.
+Sailing a patrol through a group does not transfer ownership of its islands.
+Shared control of a GROUP naturally follows different factions holding assets
+inside it. Actual joint administration of one harbor needs an explicit agreement
+about control, access, revenue and defense, with one inventory and workforce.
+Private businesses and shipping-company assets are separate from sovereignty.
+
+FACTIONS AND A CHANGING WORLD
+Use multiple political and commercial actors: trading powers, shipping firms,
+industrial or fishing interests, independent settlements, patrols and pirates.
+Commercial alignment, player reputation and faction-to-faction relationships
+affect access, inspections, prices, commissions, protection and hostile behavior.
+Fleets must act on those relationships and pursue real campaign objectives.
+Merchants ship actual goods; escorts protect them; raiders intercept them;
+patrols respond, and hostile factions can fight without the player present.
+
+Faction expansion is a required later campaign milestone, not completed work.
+Establish or improve outposts using transported workers, materials, machinery,
+fuel, construction wages and operating capital. Fund escorts and supply routes.
+Blockades, defenses, capture, withdrawal, treaties and peace can change control.
+An ownership change preserves physical assets, damage, workers, stores and
+accounts; it does not duplicate fleets, mint coins or reset a settlement.
+Record territorial changes and their reasons so the player can understand them.
+
+SCOPE AND IMPLEMENTATION STATUS
+v0.067 is the delivered two-region expedition foundation, not the generated
+living sector. Existing code has reputation, faction-pair relationships and
+home-region fleet conflict; full sector ownership and ongoing expansion are open.
+v0.068 remains the bounded interregional shipping/scheduled-simulation step.
+v0.069 must produce seeded sector geography AND the starting island/harbor
+ownership model, including at least one useful mixed-faction archipelago.
+Later jobs/access must consume those owners and existing relationship systems.
+Ongoing faction strategy, funded expansion and territorial capture require
+explicit bounded follow-on milestones; do not hide them inside an already
+accepted version or label them finished after merely drawing faction colors.
+Keep each version's implementation scope and short shared-lane checks intact.
