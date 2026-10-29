@@ -1,0 +1,52 @@
+Brass Tide066 A source candidate - ocean model, 28 October2026.
+Base4b5d91a4302a7fb6c09a8385db7c5c36152620cd; proposal parentf143b680.
+LOCKED066 CONTRACT.txt governs this candidate. No release acceptance claim.
+
+Files: ocean_travel066.gd, ocean_conditions066.json, voyage_costs065.gd,
+test_ocean_travel066.gd, MODEL API.txt and this note; no B/Core/C/UI edits.
+Exact construction/schema handoff is MODEL API.txt (published before implementation).
+create(existing064Context,seed,savedMemoryOrNull,["player","patrol-0"],now)
+returns shared read-only context and detached memory. Null alone means absent.
+Only default_data reads the bundled JSON. Step/command/forecast are pure data work.
+Runtime context and both064 navigation graphs are never deep-copied or rebuilt.
+
+Authored three non-overlapping ocean zones: eastward Shatter set, slower Grey Veil
+fog cover and northward Glasswind reach. Currents affect along-course speed only;
+15s seed/phase weather changes speed/detection. No fluids, damage, RNG or idle drift.
+Shared integrator: <=2 actors, <=2 relations, dt0..4s, <=8 ocean waypoints,
+<=128 trace/spatial/weather splits per actor. Overflow refuses the entire frame.
+One scheduled watch at frame start; <=2 selected NPC decisions, no missed-watch replay.
+Replans gated by3s and160physical units; expiry resumes the original NPC goal.
+Swept piecewise contact returns earliest actual encounter/player coordinate and
+acceptedSeconds. Core/B must apply exactly that interval ONCE to clock/resources.
+No hull, owner, cargo, crew, currency, service, burn, upkeep or fleet creation here.
+Core supplies actual stores-limited capabilities; zero speed/canMove=false never drifts.
+
+Commands divert/investigate/avoid preserve one original goal; resume replots from
+today's point. Investigation/search use dated observations, not hidden live targets.
+Sighting.heading/boats are frozen explicit String-key render DTOs, copied on actual
+detection (including swept contact). Live fuel/crew/condition dictionaries refuse.
+An intervening watch refreshes matching pursuit dates without an unscheduled replan.
+Chart change alone cannot erase pursuit; expiry/incapacity or Core battle settlement
+releases it. Guard blocks transition/pending encounter, never course/stop/escape.
+
+Quote runtime.ocean066 is the shared Context directly. Absence retains inherited065
+calculation order, values and wording. Presence forecasts BEFORE access/payroll/
+allowance: expected consumption uses current-held weather; access and readiness use
+slowest authored weather. The existing two-day reserve remains an extra allowance.
+Physical distances and non-ocean leg durations stay unchanged. Forecast validity is
+next15s boundary, with explicit changing-weather assumptions, not an arrival promise.
+
+One compact fixture authored for Root: res://tests/test_ocean_travel066.gd.
+Its source has a55s body guard, one064 geometry setup, no campaign ticks/purchases/
+money/stores. Cases cover scale/current, idle/zero capability, zone/weather splits,
+fog detection, frozen intel/art, physical contact actions/resume, dated pursuit/
+expiry/incapacity/transition retention, deferred decisions, swept exact/clipped
+encounter, tie ordering, copy-first save-shaped restore, forecast and atomic refusal.
+Source review only: helpers ran NO engine/import/test/advisory/process/GPU/UI jobs.
+Body duration, native parse/types/assertions and quote/Core integration remain
+UNVERIFIED until Root's shared-lane run. This note is not a test receipt.
+Physical provenance, canonical enrollment, actual elapsed-time/resource application,
+save-envelope validation, separate ocean_view066, engagement and settlement are B's
+integration responsibilities. Root alone tests/builds/tags/installs/delivers.
+Candidate stops at named commit; no independent fine-tuning or owner065 changes.

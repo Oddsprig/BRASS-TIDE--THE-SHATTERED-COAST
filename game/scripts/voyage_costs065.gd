@@ -1,6 +1,7 @@
 extends RefCounted
 ## Detached voyage estimate only. Campaign remains the movement/payment authority.
 const OceanWorld = preload("res://scripts/ocean_world064.gd")
+const OceanTravel066 = preload("res://scripts/ocean_travel066.gd")
 const Expedition = preload("res://scripts/expedition.gd")
 const Economy = preload("res://scripts/economy.gd")
 const FleetSupport = preload("res://scripts/fleet_support.gd")
@@ -50,23 +51,43 @@ static func quote(state: Dictionary, world: Dictionary, context064: Dictionary, 
 	var speed: float = float(runtime.speed)
 	var outward: float = float(distances.outward) / speed / Expedition.DAY_SECONDS
 	var returning: float = float(distances["return"]) / speed / Expedition.DAY_SECONDS
+	var conservative_outward: float = outward
+	var conservative_returning: float = returning
+	var weather: Dictionary = {}
+	if runtime.has("ocean066"):
+		if not runtime.ocean066 is Dictionary:return _refuse(result, "forecast", "Supply the prepared shared ocean weather context.")
+		weather = OceanTravel066.forecast(runtime.ocean066, itinerary.legs, speed, float(state.day) * Expedition.DAY_SECONDS)
+		if not weather.ok:return _refuse(result, str(weather.code), str(weather.message))
+		var durations: Dictionary = {"outward": 0.0, "return": 0.0, "safeOutward": 0.0, "safeReturn": 0.0}
+		for index in range(itinerary.legs.size()):
+			var leg: Dictionary = itinerary.legs[index]
+			var time: Dictionary = weather.legTimes[index]
+			leg["seconds"] = time.expectedSeconds
+			leg["conservativeSeconds"] = time.conservativeSeconds
+			durations[leg.phase] += float(time.expectedSeconds)
+			durations["safeOutward" if leg.phase == "outward" else "safeReturn"] += float(time.conservativeSeconds)
+		outward = float(durations.outward) / Expedition.DAY_SECONDS
+		returning = float(durations["return"]) / Expedition.DAY_SECONDS
+		conservative_outward = float(durations.safeOutward) / Expedition.DAY_SECONDS
+		conservative_returning = float(durations.safeReturn) / Expedition.DAY_SECONDS
 	var end_day: float = float(state.day) + outward + float(intent.idleDays) + returning
-	if not is_finite(end_day):return _refuse(result, "time", "The chosen route does not have a finite travel time.")
+	var conservative_end_day: float = float(state.day) + conservative_outward + float(intent.idleDays) + conservative_returning
+	if not is_finite(end_day) or not is_finite(conservative_end_day):return _refuse(result, "time", "The chosen route does not have a finite travel time.")
 	var access: Dictionary = Factions.access(state, port)
 	var safe_until = state.get("relationships", {}).get("safeConduct", {}).get(str(port.id), 0.0)
 	if not _number(safe_until):return _refuse(result, "harbor", "The return harbor's safe-conduct expiry is invalid.")
-	if not bool(access.get("legal", false)) and float(safe_until) <= end_day:
+	if not bool(access.get("legal", false)) and float(safe_until) <= conservative_end_day:
 		return _refuse(result, "access", "The selected home harbor needs legal access or safe conduct lasting past the estimated arrival.")
 	# No normalization, daily settlement, inventory loading or publication reaches live state.
 	var snapshot: Dictionary = state.duplicate(true)
 	HoldManifest.allocate(snapshot)
 	var pending: float = maxf(0.0, floorf(float(state.day)) - float(state.econDay))
-	var plan: Dictionary = {"outwardDays": outward, "returnDays": returning,
+	var plan: Dictionary = {"outwardDays": conservative_outward, "returnDays": conservative_returning,
 		"shoreDays": float(intent.idleDays) + pending, "foodCredit": float(state.get("surveyFoodCredit", 0.0))}
 	var allowance: Dictionary = Expedition.report(snapshot, world, float(distances.outward), speed, plan)
 	if not _finite_data(allowance):return _refuse(result, "stores", "Current stores or carrying space cannot produce a finite allowance.")
 	var expected: Dictionary = _expected(snapshot, outward, returning, float(intent.idleDays), pending)
-	var stores: Dictionary = _stores(snapshot, allowance, outward, returning)
+	var stores: Dictionary = _stores(snapshot, allowance, outward, returning) if weather.is_empty() else _stores(snapshot, allowance, outward, returning, conservative_outward, conservative_returning)
 	var maintenance: Dictionary = _maintenance(snapshot)
 	var premium_arrears: int = FleetSupport.premium(snapshot, true)
 	var required: float = float(allowance.returnWages) + float(allowance.wageArrears) + premium_arrears
@@ -78,6 +99,17 @@ static func quote(state: Dictionary, world: Dictionary, context064: Dictionary, 
 	result.distances = distances
 	result.timing = {"speed": speed, "movingSeconds": float(distances.total) / speed,
 		"outwardDays": outward, "returnDays": returning, "idleDays": float(intent.idleDays), "endDay": end_day}
+	if not weather.is_empty():
+		result.timing["movingSeconds"] = float(weather.expectedSeconds)
+		result.timing["conservativeMovingSeconds"] = float(weather.conservativeSeconds)
+		result.timing["conservativeOutwardDays"] = conservative_outward
+		result.timing["conservativeReturnDays"] = conservative_returning
+		result.timing["conservativeEndDay"] = conservative_end_day
+		result["weatherForecast"] = {"conditions": weather.conditions, "validUntilSecond": weather.validUntilSecond, "assumptions": weather.assumptions}
+		result.assumptions[0] = "Fitted specifications and crew stay fixed; ocean speed follows the disclosed current and weather assumptions."
+		result.assumptions[4] = "Moving fuel uses forecast travel time. Whole movement steps can burn extra fuel at each arrival."
+		result.assumptions.append("Readiness uses slowest-weather travel time plus the separate two-day contingency; expected consumption uses current-held weather.")
+		result.assumptions.append_array(weather.assumptions)
 	result.expected = expected
 	result.allowance = allowance # Preserve the existing report, including its original boat rows.
 	result.funding = funding
@@ -396,7 +428,7 @@ static func _expected(state: Dictionary, outward: float, returning: float, idle:
 	return result
 
 
-static func _stores(state: Dictionary, allowance: Dictionary, outward: float, returning: float) -> Dictionary:
+static func _stores(state: Dictionary, allowance: Dictionary, outward: float, returning: float, safe_outward: float = -1.0, safe_returning: float = -1.0) -> Dictionary:
 	var traveling: Dictionary = {}
 	for row in allowance.boats:traveling[str(row.uid)] = true
 	var result: Dictionary = {"looseFuel": float(state.cargo.get("fuel", 0.0)), "looseSupplies": float(state.cargo.get("supplies", 0.0)),
@@ -405,7 +437,9 @@ static func _stores(state: Dictionary, allowance: Dictionary, outward: float, re
 	for boat in state.fleet:
 		if boat.get("sunk", false) or not str(boat.get("storedPort", "")).is_empty():continue
 		var burns: bool = not boat.get("mothballed", false)
-		var row: Dictionary = Expedition._fuel_allowance(boat, outward + returning + float(allowance.reserveDays) if burns else 0.0)
+		var forecasted: bool = safe_outward >= 0.0 and safe_returning >= 0.0
+		var moving_days: float = safe_outward + safe_returning if forecasted else outward + returning
+		var row: Dictionary = Expedition._fuel_allowance(boat, moving_days + float(allowance.reserveDays) if burns else 0.0)
 		row.merge({"traveling": traveling.has(str(boat.uid)), "burnsWhileMoving": burns,
 			"mothballed": bool(boat.get("mothballed", false)), "towed": bool(boat.get("towed", false)),
 			"needsHarborRepair": bool(boat.get("needsHarborRepair", false)),
@@ -414,6 +448,9 @@ static func _stores(state: Dictionary, allowance: Dictionary, outward: float, re
 			"returnFuel": float(row.fuelPerDay) * returning if burns else 0.0,
 			"contingencyFuel": float(row.fuelPerDay) * float(allowance.reserveDays) if burns else 0.0,
 			"loadedShortfall": float(row.fuelShortfall), "manualTransferRequired": float(row.fuelShortfall) > STORE_EPSILON})
+		if forecasted:
+			row["conservativeOutwardFuel"] = float(row.fuelPerDay) * safe_outward if burns else 0.0
+			row["conservativeReturnFuel"] = float(row.fuelPerDay) * safe_returning if burns else 0.0
 		result.boats.append(row)
 		result.fuelRequired += float(row.fuelRequired)
 		result.loadedShortfall += float(row.loadedShortfall)

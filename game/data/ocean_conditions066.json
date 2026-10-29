@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "zones": [
+    {
+      "id": "shatter_set", "name": "Shatter Eastward Set", "kind": "current",
+      "rect": {"x": 1180.0, "y": 1060.0, "width": 760.0, "height": 820.0},
+      "current": {"x": 20.0, "y": 0.0}, "phaseOffset": 0,
+      "weather": [
+        {"id": "clear", "label": "Clear following set", "speedFactor": 1.0, "visibilityFactor": 1.0},
+        {"id": "rain", "label": "Rain over the set", "speedFactor": 0.82, "visibilityFactor": 0.65}
+      ]
+    },
+    {
+      "id": "grey_veil", "name": "Grey Veil", "kind": "weather",
+      "rect": {"x": 2040.0, "y": 940.0, "width": 900.0, "height": 420.0},
+      "current": {"x": -12.0, "y": 4.0}, "phaseOffset": 1,
+      "weather": [
+        {"id": "mist", "label": "Broken mist", "speedFactor": 0.9, "visibilityFactor": 0.75},
+        {"id": "fog", "label": "Dense sea fog", "speedFactor": 0.65, "visibilityFactor": 0.35}
+      ]
+    },
+    {
+      "id": "glasswind_reach", "name": "Glasswind Northward Reach", "kind": "current",
+      "rect": {"x": 3060.0, "y": 540.0, "width": 650.0, "height": 680.0},
+      "current": {"x": 0.0, "y": -16.0}, "phaseOffset": 0,
+      "weather": [
+        {"id": "clear", "label": "Clear northward reach", "speedFactor": 1.0, "visibilityFactor": 1.0},
+        {"id": "squall", "label": "Passing headwind", "speedFactor": 0.75, "visibilityFactor": 0.6}
+      ]
+    }
+  ]
+}

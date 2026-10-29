@@ -1,0 +1,61 @@
+LOCKED066 implementation handoff A -> Root/B; source candidate API, 28 October 2026.
+Script: res://scripts/ocean_travel066.gd; constants DAY_SECONDS=45, SCALE=10.
+default_data() -> {schema:1,zones:[Zone]} loads only the small authored JSON.
+create(context064,seed,savedMemory=null,ownerIds=["player","patrol-0"],now=0)
+  -> prepare(context064,default_data().zones,seed,savedMemory,ownerIds,now).
+prepare(context064,zones,seed,savedMemory,ownerIds,now)
+  -> {ok,code,message,context,memory}; null alone defaults new memory.
+Context={world064Context:SHARED064,seed:int,zones:[Zone],ownerIds:[String]}.
+Context retains SHARED064 by reference, validates/copies only small zones/IDs.
+Keep one immutable context; do not duplicate(true) or rebuild its navigation.
+Keep both ownerIds admitted even while an actor is absent, retaining dated intel.
+empty_memory() -> {schema:1,intents:{},sightings:{},pursuits:{}}.
+validate_memory(context,memory,now) -> {ok,code,message,memory}; present {} refuses.
+Memory is persisted ONLY at state.ocean066.memory; no extra intel cache.
+step(context,actors,relations,memory,frame) -> {ok,code,message,locations,memory,
+  acceptedSeconds,encounter,conditions}; failure has empty payload and accepted=0.
+Actor={ownerId,location,baseSpeed,clearance,canMove,canIntercept,detectionRange,
+  interceptRange,boats}. <=2 actors; location is the five-field064 spatial DTO.
+Boats is an Array of detached render DTOs (below), not assets/resources/conditions.
+Core derives finite store-limited speed/capabilities, no powered motion on zero fuel.
+Relation={observerId,targetId,hostile}; <=2 directed entries, active actor references.
+Frame={startSecond,dt,watchDue,decisionOwnerIds}; dt in [0,4], <=2 decision IDs.
+Only watchDue=true runs sensing/coarse decisions, once at startSecond (no replay).
+Core supplies its existing >=1s scheduled flag; decision IDs exclude player.
+Move={ownerId,location,distance,moving,arrived,reason}; physical distance in local units.
+Encounter={} or {attackerId,defenderId,world064,position,atSecond}; position is the
+  actual player point, atSecond=startSecond+acceptedSeconds. Commit the clipped
+  interval to all resources/clock/home schedules ONCE before any battle handoff.
+command(context,actor,memory,action,now) -> {ok,code,message,location,memory}.
+Action={kind:"divert",target:{x,y},destination:String},
+  {kind:"investigate"|"avoid",targetId:String}, or {kind:"resume"}.
+Intent={kind,targetId,goal,returnGoal,lastPlanSecond}; Goal={} or
+  {world064,target:{x,y},destination:String}. The original goal is retained once.
+Sighting={world064,position,velocity,seenSecond,expiresSecond,heading,boats}.
+Pursuit={targetId,phase:"tracking"|"searching"|"engaged",searchUntilSecond}.
+Only detection copies heading/boats; velocity in local units/s; expiry=seen+30s.
+Detection refreshes a matching pursuit deadline even without a selected replan.
+transition_blocker(actors,relations,memory,pendingEncounter) -> String.
+No time argument: only step expiry/incapacity or Core battle reconciliation removes
+  pursuit. Course/stop/replot remain available while this blocks chart crossing.
+conditions(context,location,now) -> {ok,code,message,condition}; unchanged local/home.
+zone_view(context,now) -> [Zone+condition:Condition] detached chart definitions.
+Condition={zoneId,label,current:{x,y},speedFactor,visibilityFactor,validUntilSecond}.
+Zone={id,name,kind,rect:{x,y,width,height},current,weather:[Weather,Weather],phaseOffset}.
+Weather={id,label,speedFactor,visibilityFactor}. Current vector local units/s.
+forecast(context,legs,baseSpeed,now) -> {ok,code,message,legTimes,expectedSeconds,
+  conservativeSeconds,validUntilSecond,conditions,assumptions}. <=16 existing065legs.
+  legTimes=[{expectedSeconds,conservativeSeconds}]; no distance changes.
+VoyageCosts065 optional runtime.ocean066 is the Context DIRECTLY; state.day*45
+  supplies forecast time. Absence preserves065 keys/numbers/wording exactly.
+With context, timing.*Days and expected use expected weather durations;
+timing.conservativeOutwardDays/conservativeReturnDays/conservativeEndDay feed access,
+allowance and loaded fuel readiness BEFORE computation. TWO-DAY reserve stays extra.
+quote.weatherForecast={conditions,validUntilSecond,assumptions}; no runtime grids.
+Render DTO={uid:String,spec:{id:String,role?:String,size?:number,tier?:number,
+  faction?:String,weapon?:String,fuelUse?:number,weaponMounts?:[Mount]},engineModule?:String}.
+Mount={id:String,moduleId?:String,kind?:String,size?:number|String,x?:number,y?:number,
+  angle?:number}; only these finite String-key fields, <=36 boats/<=16 mounts each.
+No live condition, crew, money, cargo, fuel quantity or EquipmentDamage object in DTO.
+Last-known contacts must use saved sighting.position/heading/boats, never Actor live.
+Native fixture: res://tests/test_ocean_travel066.gd (Root ONLY, <=55s body).
