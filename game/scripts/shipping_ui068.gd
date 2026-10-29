@@ -89,7 +89,7 @@ static func _faction_display_name(c, faction_id: String) -> String:
 
 
 static func _good_meta(c, good_key: String) -> Dictionary:
-	var item: Dictionary = c.Goods.ITEMS.get(good_key, {}) if (c != null and "Goods" in c and c.Goods != null) else {}
+	var item: Dictionary = c.Goods.ITEMS.get(good_key, {})
 	if not item.is_empty():
 		return {
 			"name": str(item.name),
@@ -171,8 +171,6 @@ static func _render_ownership_and_shipping_card(ui, body: VBoxContainer, c, view
 	if not known_port.is_empty():
 		var p_name: String = str(known_port.get("name", "Westglass Anchorage"))
 		var p_faction: String = _faction_display_name(c, str(known_port.get("faction", "reed")))
-		var p_x: float = float(known_port.get("x", REMOTE_BERTH.x))
-		var p_y: float = float(known_port.get("y", REMOTE_BERTH.y))
 		var status_tag: String = "DOCKED AT WATER BERTH" if is_docked else "SIGHTED / KNOWN BRANCH ANCHORAGE"
 		var status_col: Color = ui.TEAL if is_docked else ui.GOLD
 		_wrapped_label(ui, col, "%s  ·  %s  ·  %s" % [p_name, p_faction, status_tag], 18, status_col, true)
@@ -320,7 +318,7 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 	, false, false)
 	btn_load_res.custom_minimum_size.y = 32
 
-	var goods_items: Dictionary = c.Goods.ITEMS if (c != null and "Goods" in c and c.Goods != null) else {}
+	var goods_items: Dictionary = c.Goods.ITEMS
 	var ordered_goods: Array = []
 	for g_key in BRANCH_GOODS_ORDER:
 		if goods_items.has(g_key):
