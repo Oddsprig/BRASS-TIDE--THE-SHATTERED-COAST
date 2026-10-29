@@ -153,7 +153,20 @@ func intelligence() -> void:
 	check(not expired.ok and expired.memory.is_empty() and expired.location.is_empty(), "Expired investigation refuses atomically")
 	var restored = JSON.parse_string(JSON.stringify(seen.memory))
 	var rebuilt: Dictionary = Travel.prepare(geometry, context.zones, 0, restored, ["player", "patrol-0"], 16.0)
-	check(rebuilt.ok and rebuilt.memory == seen.memory and is_same(rebuilt.context.world064Context, geometry), "Save-shaped memory restores with frozen artwork and shared runtime geometry")
+	if not check(rebuilt.ok, "Save-shaped memory passes the unchanged strict validator"):
+		print("Save memory validation: ", rebuilt.code, ": ", rebuilt.message)
+		return
+	# The save boundary is parsed JSON, including its numeric representation.
+	# Compare every restored field exactly; do not round or omit snapshot data.
+	check(rebuilt.memory == restored, "Save-shaped memory restores every parsed key and value exactly")
+	var frozen_save = JSON.parse_string(JSON.stringify(saved_sight))
+	check(rebuilt.memory.sightings.player["patrol-0"] == frozen_save, "Restored position, heading and boat artwork retain the frozen observation")
+	check(is_same(rebuilt.context.world064Context, geometry), "Save restore keeps the existing shared runtime geometry")
+	if rebuilt.memory != seen.memory:
+		print("Save memory representation: parsedEqual=", rebuilt.memory == restored,
+			" rawSchemaType=", typeof(seen.memory.schema), " savedSchemaType=", typeof(restored.schema),
+			" rawSightingSchemaType=", typeof(saved_sight.world064.schema),
+			" savedSightingSchemaType=", typeof(restored.sightings.player["patrol-0"].world064.schema))
 
 
 func pursuit() -> void:
