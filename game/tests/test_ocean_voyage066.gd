@@ -1,7 +1,7 @@
 extends SceneTree
 ## SOURCE CANDIDATE, NOT RUN. Root owns the shared native lane and55s process cap.
 ## One Main/Core, real finite treasury advance/purchases, physical patrol/course/
-## pursuit, save/refusal and worker battle withdrawal. The final flooding branch
+## pursuit, save/refusal and worker battle withdrawal. The final fatal-hit branch
 ## is DECLARED controlled damage to an existing boat, not an earned combat win.
 const Main=preload("res://scripts/main.gd")
 const DIAGNOSTIC_LIMIT: int=48
@@ -232,8 +232,9 @@ func _run() -> void:
 	var living: Array=foe.boats.filter(func(b):return not b.get("sunk",false))
 	if not living.is_empty():
 		var damaged: Dictionary=living[0]
-		damaged.water=float(damaged.capacity)
-		c.Damage.tick_ship(damaged,0.1,{"inCombat":false})
+		var damage_rng:=RandomNumberGenerator.new();damage_rng.seed=66066
+		c.Damage.apply_hit(damaged,{"kind":"torpedo","damage":float(damaged.maxHp)*4.0+float(damaged.armor)*4.0,"penetration":float(damaged.armor)+1.0},damage_rng)
+		if not check(bool(damaged.sunk),"Declared controlled fatal hit sinks the same physical boat through the public damage API"):await _finish();return
 		c.OceanCampaign066.record_losses(c)
 	var wrecks: Array=c.state.wrecks.filter(func(w):return str(w.get("uid",""))==owned_uid and c.OceanCampaign066.Travel.same_world(w.get("world064",{}),main.battle.world064))
 	check(not wrecks.is_empty(),"Actual physical UID/equipment becomes a wreck in its offshore region")
@@ -255,7 +256,7 @@ func _finish() -> void:
 		await process_frame
 	var elapsed: int=Time.get_ticks_msec()-started
 	check(elapsed<55000,"Whole body including ready/startup and cleanup stays below55 seconds")
-	var receipt: Dictionary={"fixture":"ocean_voyage066","sourceCandidate":true,"checks":checks,"failures":failures,"elapsedMs":elapsed,"invoices":invoices,"diagnostics":diagnostics,"diagnosticCount":diagnostic_count,"controlledLoss":"Existing retired boat flooded for regional wreck custody; no earned combat win asserted."}
+	var receipt: Dictionary={"fixture":"ocean_voyage066","sourceCandidate":true,"checks":checks,"failures":failures,"elapsedMs":elapsed,"invoices":invoices,"diagnostics":diagnostics,"diagnosticCount":diagnostic_count,"controlledLoss":"Existing retired boat receives a declared public fatal hit for regional wreck custody; no earned combat win asserted."}
 	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	if directory.is_absolute_path():
 		var file=FileAccess.open(directory.path_join("ocean-voyage066-result.json"),FileAccess.WRITE)
