@@ -1,7 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.065: Long-voyage preparation and fuel transfers. Read current ROADMAP.md and targeted maps/*.txt.
-Verified749unique checks and11exported stills; see maps/voyage-costs065.txt.
-Current changed entry points: voyage_costs065.gd, voyage_preparation_ui065.gd, campaign.gd, main.gd, interface.gd.
+v0.066: Open-ocean navigation, sightings and pursuit. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: ocean_travel066.gd, ocean_campaign066.gd, ocean_chart064.gd, campaign.gd, main.gd, save_validation.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

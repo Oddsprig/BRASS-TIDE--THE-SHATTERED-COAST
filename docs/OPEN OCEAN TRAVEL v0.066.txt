@@ -1,0 +1,23 @@
+BRASS TIDE v0.066 — OPEN OCEAN TRAVEL
+
+Currents change sailing speed along a course. A stopped fleet does not drift.
+Weather changes speed and visibility. The chart uses inexpensive effects.
+Expected voyage time uses current weather; the conservative allowance allows
+for slower weather and keeps a separate two-day reserve. Conditions can change;
+check the forecast's validity and refresh before choosing an action.
+
+A visible contact shows boats you can currently observe. A dated sighting keeps
+its last-known position and boats until it is seen again or the report expires.
+Investigate sails toward that report, without tracking a hidden live position.
+Avoid plots a physical escape course. It grants no immunity or free supplies.
+Resume replots your remembered destination from your current position.
+
+A capable pursuer or pending encounter can block a chart crossing. Ordinary
+course changes remain available to flee. Closing a panel does not clear pursuit
+or settle pending wages. Explicit actions refresh the current voyage first.
+
+The first offshore raider uses its existing boats, sailors, stores and purse.
+It must leave and return physically and buy harbor service with actual coins.
+This version has one such raider, not a finished interregional shipping network.
+Fuel, food and repair stores are finite; sailors earn wages and purchases cost
+coins. Keep the return allowance and the original long-voyage preparation guide.

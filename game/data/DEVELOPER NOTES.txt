@@ -1,10 +1,10 @@
-BRASS TIDE v0.065 - LONG-VOYAGE PREPARATION AND FUEL TRANSFERS
+BRASS TIDE v0.066 - OPEN-OCEAN NAVIGATION, SIGHTINGS AND PURSUIT
 28 October2026 |36 boat designs
 
 THIS VERSION
-- Prepare actual coastal and ocean routes with separate outward costs, a homeward leg and a two-day contingency allowance.
-- Inspect pending wages, food, per-boat fuel, hold capacity and conditional repair needs without spending or advancing the voyage.
-- Transfer finite fuel between your stopped boats explicitly, preserving their actual tanks, stores and accounts.
+- Choose ocean routes through inexpensive current and weather zones that affect sailing time and visibility.
+- Investigate dated sightings, plot a physical escape course and resume a remembered destination.
+- Meet a real supply-limited raider fleet offshore, with existing physical boats, accounts and battle settlement.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
