@@ -425,9 +425,12 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 		ui.label(b_head, "Tank %.2f / %.1f drums  ·  Shortfall %.2f" % [loaded_fuel, tank_cap, short_fuel], 13, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		var bar = ui.progress(b_col, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		bar.value = clampf(loaded_fuel / tank_cap * 100.0, 0.0, 100.0)
+		var forecasted: bool = entry.has("conservativeOutwardFuel") and entry.has("conservativeReturnFuel")
+		if forecasted:
+			ui.paragraph(b_col, "Expected moving fuel: %.2f outward + %.2f return. Reserve requirement below uses slower weather for both legs." % [float(entry.get("outwardFuel",0.0)),float(entry.get("returnFuel",0.0))],12,ui.MUTED)
 		ui.paragraph(b_col, "Burn %.2f drums/day (%.1f loaded days / %.1f tank days)  ·  Outward %.2f + Return %.2f + 2-day contingency %.2f = %.2f required  ·  Beyond fitted tank: %.2f  ·  Carrier hold fuel: %.1f  ·  Kits aboard: %.1f" % [
 			float(entry.get("fuelPerDay", 0.0)), float(entry.get("loadedDays", 0.0)), float(entry.get("tankDays", 0.0)),
-			float(entry.get("outwardFuel", 0.0)), float(entry.get("returnFuel", 0.0)), float(entry.get("contingencyFuel", 0.0)),
+			float(entry.get("conservativeOutwardFuel", entry.get("outwardFuel", 0.0))), float(entry.get("conservativeReturnFuel", entry.get("returnFuel", 0.0))), float(entry.get("contingencyFuel", 0.0)),
 			float(entry.get("fuelRequired", 0.0)), tank_short, float(entry.get("cargoFuel", 0.0)), float(entry.get("loadedSupplies", 0.0))
 		], 12, ui.MUTED)
 
