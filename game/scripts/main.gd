@@ -249,24 +249,26 @@ func _physics_process(dt: float):
 		_finish_economy(false)
 		if economy_task>=0:return # Await copied port jobs without stalling a frame or trading stale purses.
 		core.step(dt * speed)
-		for event in core.pop_events():
-			match event.kind:
-				"arrival":
-					core.StoryOps.refresh(core)
-					selected_port = event.port
-					ui.toast("Arrived at %s. Enter harbor to trade, recruit, and refit." % core.port(event.port).name)
-					audio.play("bell")
-				"defeat":
-					paused = true
-					var body = ui.modal("A skiff, a second chance", "HARBOR RESCUE", 700, 500)
-					ui.paragraph(body, "Brass Haven can fund a replacement and crew from its treasury. The actual cost becomes a loan owed to the harbor.", 19)
-					ui.button(body, "Accept harbor rescue", accept_rescue, true)
-				"encounter":
-					show_patrol_encounter(event.patrol)
-				"ocean_encounter066":
-					contact_action066(str(event.ownerId),"engage")
-				"survey_complete":ui.toast("%s: %s"%[event.siteName,event.levelName])
+		handle_campaign_events067()
 	# Battle numerical work belongs to the driver; rendering polls it in _process.
+
+## Paid remote work can reach the same event boundary while a modal is open.
+func handle_campaign_events067() -> void:
+	for event in core.pop_events():
+		match event.kind:
+			"arrival":
+				core.StoryOps.refresh(core)
+				selected_port = event.port
+				ui.toast("Arrived at %s. Enter harbor to trade, recruit, and refit." % core.port(event.port).name)
+				audio.play("bell")
+			"defeat":
+				paused = true
+				var body = ui.modal("A skiff, a second chance", "HARBOR RESCUE", 700, 500)
+				ui.paragraph(body, "Brass Haven can fund a replacement and crew from its treasury. The actual cost becomes a loan owed to the harbor.", 19)
+				ui.button(body, "Accept harbor rescue", accept_rescue, true)
+			"encounter":show_patrol_encounter(event.patrol)
+			"ocean_encounter066":contact_action066(str(event.ownerId),"engage")
+			"survey_complete":ui.toast("%s: %s"%[event.siteName,event.levelName])
 
 func _publish_battle051(display: Dictionary) -> void:
 	_publishing_battle051=true
@@ -492,6 +494,10 @@ func click_chart(position: Vector2):
 		var pick064: Dictionary=chart.pick_ocean064(position)
 		if not pick064.is_empty():
 			if str(pick064.get("kind",""))=="contact":ui.open_ocean_contact066(str(pick064.get("contactId",pick064.get("ownerId",pick064.get("id","")))));return
+			if str(pick064.get("kind",""))=="site":
+				selected_site=str(pick064.get("siteId",""))
+				ui.CampaignUI.site(ui,selected_site);return
+			if str(pick064.get("kind",""))=="wreck":ui.RecoveryUI.open(ui,str(pick064.get("wreckId","")));return
 			var region064: String=str(pick064.get("regionId",""))
 			var approach064: String=str(pick064.get("approachId",""))
 			if str(view064.get("layer",""))=="ocean":

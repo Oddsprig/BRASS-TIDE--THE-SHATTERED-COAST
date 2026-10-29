@@ -1,0 +1,48 @@
+B integration contract for C - v0.067 - locked 29 October 2026
+Core/Main source candidate written and manually reviewed; native unverified.
+Root alone runs verification after integrating A's model/data and C's UI/geometry.
+
+Core.exploration_view067() -> detached PURE Dictionary:
+{world064:{schema:1,layer:"home"|"local"|"ocean",regionId:String},
+ sites:Array, wrecks:Array, assignment:Dictionary, summary:Dictionary}.
+sites is A's current-region visible_sites DTO (no level 0):
+ id,regionId,x,y,level,levelName,name,clue; only earned level fields from A.
+wrecks markers only: id,name,x,y,world064,status,cargoOnly (no stores/spec/gear).
+Only known current-region wrecks; the Glasswind cache requires all three surveys.
+assignment is copied current-region assignment or {}; no hidden location hints.
+summary: regionId,totalSites,sighted,charted,surveyed,cargoOnlyAvailable,message.
+No navigation, route or return quote is constructed in this view.
+
+C chart.pick_ocean064(screen_position) keeps approach/contact priorities and
+adds {kind:"site",siteId:String} / {kind:"wreck",wreckId:String} for local DTOs.
+B Main.click_chart routes site -> selected_site=siteId; CampaignUI.site(ui,siteId)
+and wreck -> RecoveryUI.open(ui,wreckId), before generic course handling.
+Home chart behavior remains unchanged.
+
+Existing UI action hooks (no new executor):
+ui.host.respond(c.begin_survey(site_id,"chart"|"survey")); reopen site panel.
+ui.host.respond(c.recall_survey()); reopen site/islands panel.
+c.stop_sailing() for explicit idle action; c.chart_course(visible_site_or_marker).
+ui.host.recover_wreck(wreck_id,"strip",good,quantity) -> Dictionary.
+ui.open_voyage_preparation065(region_id,approach_id) / host.voyage_action065(intent)
+retain physical approach/course/crossing; explicit open/refresh only.
+
+c.recovery_quote(id,"strip",good="",qty=0,request={}) is PURE.
+For the remote cache, blank good/qty returns ok=false plus availableItems for
+the explicit lot picker. availableItems is the remaining finite goods map.
+Remote-only extras: cargoOnly=true, availableItems, spareCrew, workDays,
+effortDays,payrollDays,wages,arrears,food,coinsRequired,kitsRequired,kitsAvailable.
+Existing fields retained: items,weight,quantity,freeCapacity,ok,message,mode.
+workDays is ceil(existing effort), minimum 1; kitsRequired=workDays.
+No tow/gear/collect-all action for this cache; no physical-equipment preview.
+Use this direct quote for remote choices, not home RecoveryDecisions route code.
+Display availableItems only after selecting a surveyed wreck marker.
+Successful remote action: ok=true,completed=true,elapsedDays,kitsConsumed,
+wagesPaid,foodConsumed,foodCreditUsed,dayAfter,coinsAfter,foodAfter.
+Interrupted paid work: ok=false,completed=false,elapsedDays and actual debit
+receipt; encounter/time/stores remain actual, no goods granted. Main handles
+pending encounter through the ordinary campaign event path.
+RecoveryFlow immediately closes the recovery modal and dispatches an interrupted
+encounter through Main.handle_campaign_events067(). C must not reopen recovery
+after completed=false if host.mode changed or a rescue/encounter modal is open.
+Quote refusal/inspection never spends kits, wages, food, time or pending days.

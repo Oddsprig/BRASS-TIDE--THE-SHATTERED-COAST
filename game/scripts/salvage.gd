@@ -40,6 +40,9 @@ const TOW_SPEED_FACTOR := 0.55
 const _COIN_LIMIT := 9223372036854775807
 # Site-seeded wrecks use one fixed recoverable fraction: no rolls, no rerolls.
 const SITE_FRACTION := 0.30
+const EXPEDITION067_SOURCE := "site:glasswind_keys:abandoned_cache067"
+const EXPEDITION067_STORES := {"engines":1,"copper":8,"supplies":12,"timber":16}
+const EXPEDITION067_SITES := ["glasswind_west_marker","glasswind_crown_log","glasswind_south_wreck"]
 
 ## Read-only campaign facade for quotes. No Campaign/world constructor, state
 ## swap, economy tick or migration is needed to inspect an ordinary strip/tow.
@@ -214,7 +217,7 @@ static func _by_source(state: Dictionary, source_id: String) -> Array:
 	var out: Array = []
 	if source_id.is_empty():
 		return out
-	for wreck in state["wrecks"]:
+	for wreck in state.get("wrecks",[]):
 		if str(wreck.get("sourceId", "")) == source_id:
 			out.append(wreck)
 	return out
@@ -333,6 +336,7 @@ static func _repair_from_max(max_hp: float) -> Dictionary:
 # Idempotent per source_id: re-recording the same battle returns the existing
 # records and adds nothing. Returns copies of the records for that source.
 static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
+	if source_id==EXPEDITION067_SOURCE:return []
 	if core == null or not (core.get("state") is Dictionary):
 		return []
 	var state: Dictionary = core.state
@@ -416,6 +420,9 @@ static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
 static func seed_site_wreck(core, site: Dictionary, hull_id: String, source_id: String = "", stores: Dictionary = {}) -> Dictionary:
 	if core == null or not (core.get("state") is Dictionary):
 		return {}
+	# This named historical source has one fixed cargo-only birth below. Neither
+	# a raw generic seeder nor a changed caller manifest may manufacture it.
+	if source_id==EXPEDITION067_SOURCE or site.get("regionId")=="glasswind_keys" or str(site.get("id","")) in EXPEDITION067_SITES:return {}
 	var state: Dictionary = core.state
 	ensure(state)
 	var source := source_id if not source_id.is_empty() else "site:%s" % str(site.get("id", ""))
@@ -443,6 +450,88 @@ static func seed_site_wreck(core, site: Dictionary, hull_id: String, source_id: 
 	_prune(state)
 	return wreck.duplicate(true)
 
+
+## Raw, read-only finite source/tombstone gate, used before save normalization.
+static func validate_expedition067(state: Dictionary) -> String:
+	var tombstones=state.get("wreckSeededSources",{})
+	if not tombstones is Dictionary:return "Invalid wreck provenance ledger."
+	if tombstones.has(EXPEDITION067_SOURCE) and (not tombstones[EXPEDITION067_SOURCE] is bool or tombstones[EXPEDITION067_SOURCE]!=true):return "Invalid expedition cache tombstone."
+	if not state.get("wrecks",[]) is Array:return "Invalid wreck collection."
+	var count: int=0
+	for wreck in state.get("wrecks",[]):
+		if not wreck is Dictionary or wreck.get("sourceId")!=EXPEDITION067_SOURCE:continue
+		count+=1
+		if count>1 or not tombstones.has(EXPEDITION067_SOURCE):return "Expedition cache provenance is duplicated or missing."
+		var identity= wreck.get("world064")
+		if not identity is Dictionary or identity.size()!=3 or not _is_num(identity.get("schema")) or identity.schema!=1 or identity.get("layer")!="local" or identity.get("regionId")!="glasswind_keys":return "Invalid expedition cache chart provenance."
+		if not _is_num(wreck.get("x")) or not _is_num(wreck.get("y")) or float(wreck.x)!=1820.0 or float(wreck.y)!=1640.0:return "Invalid expedition cache anchor."
+		if wreck.get("hull")!="tideledger_coaster" or wreck.get("name")!="Collapsed Supply Coaster" or wreck.get("hullStripped")!=true:return "Invalid cargo-only cache identity."
+		if not wreck.get("hullStripped") is bool or str(wreck.get("uid",""))!="" or str(wreck.get("shipId",""))!="" or str(wreck.get("towedBoatUid",""))!="":return "An abandoned cargo cache cannot own a living hull."
+		if wreck.has("sourceModuleCondition") or not wreck.get("components") is Dictionary or not wreck.components.is_empty():return "The expedition cache cannot create physical fittings or derived material."
+		if not wreck.get("sourceLoadout",{}) is Dictionary or not wreck.get("sourceLoadout",{}).is_empty():return "The expedition cache has no recoverable equipment."
+		if not wreck.get("stores") is Dictionary:return "Invalid finite cache stores."
+		for good in wreck.stores:
+			if not EXPEDITION067_STORES.has(good) or not _is_num(wreck.stores[good]) or float(wreck.stores[good])<0 or float(wreck.stores[good])>float(EXPEDITION067_STORES[good]):return "Expedition cache stores exceed their one authored source."
+		var remaining: bool=not _strip_items(wreck).is_empty()
+		if wreck.get("status")!=(STATUS_UNCLAIMED if remaining else STATUS_STRIPPED):return "Expedition cache depletion does not match its finite stores."
+		var ex=state.get("exploration",{})
+		if not ex is Dictionary or not ex.get("sites") is Dictionary:return "Expedition cache needs its earned survey records."
+		for id in EXPEDITION067_SITES:
+			var progress=ex.sites.get(id,{})
+			if not progress is Dictionary or not _is_num(progress.get("level")) or progress.level!=3 or not progress.get("rewarded") is bool or progress.rewarded!=true:return "Expedition cache needs three completed surveys."
+	return ""
+
+## Historical abandoned stores, never a new canonical hull/crew/equipment owner.
+## Stage and validate the fixed64-weight pile before publishing one source birth.
+static func seed_expedition067(core,site: Dictionary) -> Dictionary:
+	if core==null or not core.get("state") is Dictionary:return {}
+	var state: Dictionary=core.state
+	if not validate_expedition067(state).is_empty():return {}
+	# Refuse raw identity/inventory collisions before legacy ensure can drop or
+	# normalize them. A failed reveal publishes neither cleanup nor a new pile.
+	var ids: Dictionary={}
+	for row in state.get("wrecks",[]):
+		if not row is Dictionary or not row.get("id") is String or row.id.is_empty() or ids.has(row.id):return {}
+		ids[row.id]=true
+		if row.has("status") and row.status not in [STATUS_UNCLAIMED,STATUS_STRIPPED,STATUS_TOWED]:return {}
+		for key in ["stores","components"]:
+			if not row.get(key,{}) is Dictionary:return {}
+			for good in row.get(key,{}):
+				if not Goods.ITEMS.has(good) or not _is_num(row[key][good]) or float(row[key][good])<0:return {}
+	if state.has("wreckSeq") and (not _is_num(state.wreckSeq) or float(state.wreckSeq)<0 or floorf(float(state.wreckSeq))!=float(state.wreckSeq)):return {}
+	var current=state.get("world064")
+	if not current is Dictionary or current.size()!=3 or not _is_num(current.get("schema")) or current.schema!=1 or current.get("layer")!="local" or current.get("regionId")!="glasswind_keys":return {}
+	if site.get("id")!="glasswind_south_wreck" or site.get("regionId")!="glasswind_keys" or not _is_num(site.get("x")) or not _is_num(site.get("y")) or float(site.x)!=1820.0 or float(site.y)!=1640.0:return {}
+	var ex=state.get("exploration",{})
+	if not ex is Dictionary or not ex.get("sites") is Dictionary:return {}
+	for id in EXPEDITION067_SITES:
+		var record=ex.sites.get(id,{})
+		if not record is Dictionary or not _is_num(record.get("level")) or record.level!=3 or record.get("rewarded")!=true:return {}
+	var existing: Array=_by_source(state,EXPEDITION067_SOURCE)
+	if not existing.is_empty():return existing[0].duplicate(true)
+	if state.get("wreckSeededSources",{}).has(EXPEDITION067_SOURCE):return {}
+	if core.hull("tideledger_coaster").is_empty():return {}
+	var staged: Dictionary=state.duplicate(true)
+	ensure(staged)
+	var wreck: Dictionary={"id":_next_id(staged),"sourceId":EXPEDITION067_SOURCE,"shipId":"","uid":"",
+		"hull":"tideledger_coaster","name":"Collapsed Supply Coaster","team":"","friendly":false,
+		"world064":{"schema":1,"layer":"local","regionId":"glasswind_keys"},"x":1820.0,"y":1640.0,
+		"battleX":0.0,"battleY":0.0,"cause":"abandoned cargo cache","day":_num(state.get("day",0)),
+		"stores":EXPEDITION067_STORES.duplicate(true),"components":{},"sourceLoadout":{},
+		"status":STATUS_UNCLAIMED,"claimedMode":"","towedBoatUid":"","hullStripped":true}
+	if staged.wrecks.any(func(row):return row.get("id")==wreck.id):return {}
+	staged.wrecks.append(wreck)
+	staged.wreckSeededSources[EXPEDITION067_SOURCE]=true
+	_prune(staged)
+	if not validate_expedition067(staged).is_empty() or not is_equal_approx(_goods_weight(wreck.stores),64.0):return {}
+	state.wrecks=staged.wrecks;state.wreckSeq=staged.wreckSeq;state.wreckSeededSources=staged.wreckSeededSources
+	return wreck.duplicate(true)
+
+
+static func _is_expedition067(state: Dictionary,id: String) -> bool:
+	for row in state.get("wrecks",[]):
+		if row is Dictionary and row.get("id")==id and row.get("sourceId")==EXPEDITION067_SOURCE:return true
+	return false
 
 
 
@@ -526,6 +615,8 @@ static func _raw_tow_preflight(state: Dictionary, wreck_id: String) -> String:
 # wreck beyond ensure() normalization. Tow preflight runs before that.
 static func quote(core, wreck_id: String, mode, request: Dictionary={}) -> Dictionary:
 	var key := str(mode)
+	if core!=null and core.get("state") is Dictionary and _is_expedition067(core.state,wreck_id):
+		return {"ok":false,"message":"This cargo cache requires an explicit paid campaign lot quote.","wreckId":wreck_id,"mode":key,"cargoOnly":true}
 	if key==MODE_GEAR:return _gear_stage(core,wreck_id,request).quote
 	var base := {"ok": false, "wreckId": wreck_id, "mode": key, "message": ""}
 	if core == null or not (core.get("state") is Dictionary):
@@ -588,6 +679,7 @@ static func quote(core, wreck_id: String, mode, request: Dictionary={}) -> Dicti
 # nothing when ineligible. Tow stages every fallible check again and only then
 # pays, books workers, and adds the hull. It does not return failure after that.
 static func recover(core, wreck_id: String, mode, request: Dictionary={}) -> Dictionary:
+	if core!=null and core.get("state") is Dictionary and _is_expedition067(core.state,wreck_id):return {"ok":false,"message":"Use the paid campaign action with an explicit finite cargo lot."}
 	# Selected equipment is inseparable from Campaign's paid work transaction.
 	# Do not expose a lower-level path that publishes exact parts for free.
 	if str(mode)==MODE_GEAR:
@@ -833,6 +925,7 @@ static func _publish_tow(core, state: Dictionary, wreck: Dictionary, staged: Dic
 
 
 static func strip_good(core,wreck_id: String,good: String,qty: float) -> Dictionary:
+	if core!=null and core.get("state") is Dictionary and _is_expedition067(core.state,wreck_id):return {"ok":false,"message":"Use the paid campaign action with an explicit finite cargo lot."}
 	var wreck: Dictionary=find_wreck(core.state,wreck_id)
 	if wreck.is_empty() or wreck.status!=STATUS_UNCLAIMED or not Goods.ITEMS.has(good) or not is_finite(qty) or qty<=0:return {"ok":false,"message":"No recoverable lot of that kind."}
 	var blocked := Recovery.refusal(wreck)
@@ -872,6 +965,7 @@ static func _gear_stage(core,wreck_id: String,request: Dictionary) -> Dictionary
 		"lockerWeight":0.0,"carrierCapacity":0.0,"carrierLockerCapacity":0.0,"freeCapacity":0.0}
 	if core==null or not core.get("state") is Dictionary or not core.get("data") is Dictionary:
 		return _gear_refused(q,"No campaign state for exact equipment recovery.")
+	if _is_expedition067(core.state,wreck_id):return _gear_refused(q,"This collapsed cache contains cargo only; no physical fittings can be recovered.")
 	for key in request:
 		if key not in ["itemUids","carrierUid","acceptForfeiture"]:return _gear_refused(q,"Unknown selected equipment request field.")
 	if not request.get("carrierUid",null) is String or not request.get("itemUids",null) is Array:

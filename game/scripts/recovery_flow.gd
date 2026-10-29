@@ -25,14 +25,19 @@ static func recover(host,id: String,choice: String,good: String="",qty: float=0.
 	# A declined/refused selection must not charge even an unrelated pending day.
 	# Main already debited an in-flight worker's pending day. Its old port result
 	# must finish normally before a new private transaction can own that day.
-	if choice=="gear" and int(host.economy_task)>=0:
+	var remote: bool=not host.core.home_local064()
+	if (choice=="gear" or remote) and int(host.economy_task)>=0:
 		var busy: Dictionary={"ok":false,"message":"A normal economy day is still settling. Let it finish, then retry selected recovery; no recovery work was charged."}
 		host.respond(busy)
 		return busy
-	if choice!="gear":host.sync_economy()
+	if choice!="gear" and not remote:host.sync_economy()
 	var result: Dictionary=host.core.recover_wreck(id,choice,good,qty,request)
 	host.respond(result)
-	if result.get("ok",false):
+	if remote and not result.get("completed",false) and host.core.events.any(func(event):return str(event.get("kind","")) in ["encounter","ocean_encounter066","defeat"]):
+		host.ui.close_modal()
+		host.handle_campaign_events067()
+		return result
+	if result.get("ok",false) or (remote and float(result.get("elapsedDays",0))>0):
 		host.start_economy()
 		host.sync_economy()
 		host.save_game(false)

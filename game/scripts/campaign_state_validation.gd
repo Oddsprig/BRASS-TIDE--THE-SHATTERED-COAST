@@ -2,11 +2,16 @@ extends RefCounted
 const Goods=preload("res://scripts/goods.gd")
 const Workshop=preload("res://scripts/fleet_workshop.gd")
 const Home=preload("res://scripts/home_harbor.gd")
+const Exploration067=preload("res://scripts/exploration.gd")
+const Remote067=preload("res://scripts/remote_expedition067.gd")
 ## Optional campaign-extension schema; legacy voyages omit these fields.
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
 static func validate(s: Dictionary,world: Dictionary) -> String:
+	var regional_error: String=Exploration067.validate_remote067(s)
+	if regional_error.is_empty():regional_error=Remote067.validate_saved(s)
+	if not regional_error.is_empty():return regional_error
 	# B's raw optional paid-work-day gate must precede any legacy normalization.
 	var home_error: String=Home.validate(s)
 	if not home_error.is_empty():return home_error
@@ -20,19 +25,23 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		var ids: Dictionary={}
 		for site in ex.catalog:
 			if not site is Dictionary or not site.get("id") is String or ids.has(site.id):return "Invalid or duplicate island site."
-			if not number(site.get("x"),0,float(world.WORLD.width)) or not number(site.get("y"),0,float(world.WORLD.height)):return "Invalid island location."
+			var width: float=4200.0 if site.get("regionId","")=="glasswind_keys" else float(world.WORLD.width)
+			var height: float=3000.0 if site.get("regionId","")=="glasswind_keys" else float(world.WORLD.height)
+			if not number(site.get("x"),0,width) or not number(site.get("y"),0,height):return "Invalid island location."
 			for key in ["name","kind","region","clue","discovery","hazard","resource","leadId"]:
 				if not site.get(key) is String:return "Invalid island text."
 			ids[site.id]=true
 		for id in ex.sites:
 			var rec=ex.sites[id]
-			if not ids.has(id) or not rec is Dictionary or not number(rec.get("level"),0,3) or not rec.get("rewarded") is bool:return "Invalid island progress."
+			if not ids.has(id) or not rec is Dictionary or not number(rec.get("level"),0,3) or floorf(float(rec.level))!=float(rec.level) or not rec.get("rewarded") is bool:return "Invalid island progress."
 		if not ex.get("assignment") is Dictionary:return "Invalid survey assignment."
 		var a: Dictionary=ex.assignment
 		if not a.is_empty():
 			if not ids.has(a.get("siteId","")) or a.get("action","") not in ["chart","survey"]:return "Unknown survey site/action."
 			for key in ["crewReserved","daysTotal","daysDone","foodSpent","suppliesSpent","targetLevel"]:
 				if not number(a.get(key),0,1000):return "Invalid survey accounting."
+			for key in ["crewReserved","targetLevel"]:
+				if floorf(float(a[key]))!=float(a[key]):return "Survey crew and target level must be whole numbers."
 			if float(a.daysTotal)<=0 or float(a.daysDone)>float(a.daysTotal):return "Invalid survey duration."
 		for key in ["leads","log"]:
 			if not ex.get(key) is Array or ex[key].size()>128:return "Invalid exploration "+key+"."
@@ -42,7 +51,10 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		for w in s.wrecks:
 			if not w is Dictionary or not w.get("id") is String or wreck_ids.has(w.id):return "Invalid or duplicate wreck identity."
 			wreck_ids[w.id]=true
-			if not number(w.get("x"),0,float(world.WORLD.width)) or not number(w.get("y"),0,float(world.WORLD.height)):return "Invalid wreck location."
+			var provenance: Dictionary=Remote067.identity(w)
+			var width: float=4200.0 if provenance.get("regionId")=="glasswind_keys" else (4800.0 if provenance.get("layer")=="ocean" else float(world.WORLD.width))
+			var height: float=3000.0 if provenance.get("regionId")=="glasswind_keys" else (2800.0 if provenance.get("layer")=="ocean" else float(world.WORLD.height))
+			if not number(w.get("x"),0,width) or not number(w.get("y"),0,height):return "Invalid wreck location."
 			if w.get("status","") not in ["unclaimed","stripped","towed"]:return "Invalid wreck status."
 			if w.has("sourceLoadout") and not w.sourceLoadout is Dictionary:return "Invalid wreck equipment."
 			for key in ["stores","components"]:

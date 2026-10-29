@@ -20,6 +20,7 @@ const VoyageCosts065=preload("res://scripts/voyage_costs065.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
 const Exploration=preload("res://scripts/exploration.gd")
 const Salvage=preload("res://scripts/salvage.gd")
+const Remote067=preload("res://scripts/remote_expedition067.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const CivilianWork=preload("res://scripts/civilian_work.gd")
 const Contacts=preload("res://scripts/contacts.gd")
@@ -148,6 +149,7 @@ func _world_view_result064() -> Dictionary:
 func _sailing_blocker064() -> String:
 	if not state.get("toolingRecovery",{}).is_empty():return "Recall or finish the machinery recovery party before sailing away."
 	if not state.get("exploration",{}).get("assignment",{}).is_empty():return "Recall your shore party before sailing away."
+	if state.get("fleet",[]).any(func(b):return int(b.get("shoreCrew",0))>0):return "Recall every shore sailor before sailing away."
 	if active_fleet().is_empty():return "Crew a boat before setting sail."
 	if active_fleet().size()>MAX_TRAVELING:return "Store boats at a harbor: up to %d active boats may accompany one expedition."%MAX_TRAVELING
 	if cargo_weight()>capacity()+0.001:return "The traveling holds are overloaded. Offload cargo or activate a carrier before sailing."
@@ -421,6 +423,10 @@ func voyage_quote065(intent: Dictionary={}) -> Dictionary:
 func ocean_view066() -> Dictionary:
 	return OceanCampaign066.view(self)
 
+## Detached knowledge/marker DTO; no quotes, navigation or live normalization.
+func exploration_view067() -> Dictionary:
+	return Remote067.view(self)
+
 func contact_action066(id: String,action: String) -> Dictionary:
 	return OceanCampaign066.action(self,id,action)
 
@@ -540,7 +546,7 @@ func _step066(dt: float) -> float:
 	OceanCampaign066.commit(self,staged)
 	state.encounterGrace = maxf(0.0, state.encounterGrace - dt)
 	exploration_timer+=dt
-	if exploration_timer>=0.5 and int(data.get("MAP_REVISION",1))>=2 and home_local064():
+	if exploration_timer>=0.5 and int(data.get("MAP_REVISION",1))>=2 and (home_local064() or Remote067.local(state)):
 		exploration_timer=0.0
 		for site in Exploration.discover_near(state,state.position,620.0):
 			log_entry("Sighted %s. Open Island charts (I) to investigate."%site.name)
@@ -717,7 +723,7 @@ func wait_day():
 	step(DAY_SECONDS)
 
 func begin_survey(site_id: String, action: String) -> Dictionary:
-	if not home_local064():return fail("Return to Shatter Coast before assigning a shore party.")
+	if not home_local064():return Remote067.survey_begin(self,site_id,action)
 	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall the machinery recovery party before assigning a survey.")
 	var site: Dictionary=Exploration.catalog_site(state,site_id)
 	if site.is_empty() or distance(state.position,site)>180:return fail("Approach within180water units of this landing first.")
@@ -736,6 +742,8 @@ func begin_survey(site_id: String, action: String) -> Dictionary:
 
 func recall_survey() -> Dictionary:
 	if state.exploration.assignment.is_empty():return fail("No shore party is assigned.")
+	var regional_error: String=Remote067.party_error(state)
+	if not regional_error.is_empty():return fail(regional_error)
 	state.exploration.assignment={}
 	for b in state.fleet:b.shoreCrew=0
 	state.cargo.food+=float(state.get("surveyFoodCredit",0))
@@ -745,19 +753,26 @@ func recall_survey() -> Dictionary:
 
 func advance_surveys(days: float) -> void:
 	if int(data.get("MAP_REVISION",1))<2:return
+	var remote: bool=Remote067.local(state)
+	if not home_local064() and (not remote or not Remote067.party_error(state).is_empty()):return
 	for event in Exploration.advance(state,days):
 		for b in state.fleet:b.shoreCrew=0
+		if remote:
+			state.cargo.food+=float(state.get("surveyFoodCredit",0))
+			state.surveyFoodCredit=0.0
+			Manifest.allocate(state)
 		log_entry("%s: %s. %s"%[event.siteName,event.levelName,event.discovery])
 		events.append(event)
 		FleetIdentity.record_service(self,active_fleet().map(func(b):return b.uid),"survey")
 		StoryOps.refresh(self)
 		var lead: String=str(event.get("leadId",""))
 		var next: Dictionary=Exploration.catalog_site(state,lead)
-		if not next.is_empty():Exploration.discover_near(state,next,1.0)
+		if not remote and not next.is_empty():Exploration.discover_near(state,next,1.0)
 		if int(event.level)>=3:
 			var found: Dictionary=Exploration.catalog_site(state,event.siteId)
-			if str(found.get("kind","")) in ["wreck_field","salvage_anchorage"]:Salvage.seed_site_wreck(self,found,"harbor_sloop")
-			if str(found.get("kind",""))=="workshop_ruin":
+			if remote:Salvage.seed_expedition067(self,Exploration.catalog_site(state,"glasswind_south_wreck"))
+			elif str(found.get("kind","")) in ["wreck_field","salvage_anchorage"]:Salvage.seed_site_wreck(self,found,"harbor_sloop")
+			if not remote and str(found.get("kind",""))=="workshop_ruin":
 				state.blueprints["manta_strike"]=true
 				log_entry("Recovered Manta Strike workshop drawings. License them at a shipyard to unlock paid construction.")
 
@@ -773,7 +788,7 @@ func recovery_days(weight: float) -> float:
 	return maxf(0.1,weight/maxf(1,Exploration.spare_crew(state)*20.0))
 
 func _recovery_gate(snapshot: Dictionary,id: String,mode: String) -> String:
-	if not Expedition.home_local064(snapshot):return "Recovery is available in Shatter Coast waters."
+	if not Expedition.home_local064(snapshot):return Remote067.recovery_gate(self,snapshot,id,mode)
 	var w: Dictionary={}
 	for row in snapshot.get("wrecks",[]):
 		if row is Dictionary and str(row.get("id",""))==id:w=row;break
@@ -813,6 +828,8 @@ func _gear_work_quote(q: Dictionary,snapshot: Dictionary) -> Dictionary:
 ## Pure board/fixture quote. Normal strip/tow retain their action contracts;
 ## selected equipment adds whole paid work, actual food and arrears preflight.
 func recovery_quote(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
+	var raw: Dictionary=Remote067.raw_wreck(state,id)
+	if not home_local064() or Remote067.cargo_only(raw):return Remote067.quote(self,id,mode,good,qty)
 	var view=Salvage.QuoteView.new(self)
 	var q: Dictionary=Salvage.quote(view,id,mode,request)
 	if mode=="strip" and not good.is_empty():
@@ -840,15 +857,15 @@ func recovery_quote(id: String,mode: String,good: String="",qty: float=0.0,reque
 ## Run exactly the ordinary per-harbor economy day on this detached campaign,
 ## with the same seeds/options as Main's worker, then the normal settlement.
 ## No workers or navigation/world rebuilds are started by this source seam.
-func _settle_recovery_economy(days: int) -> Dictionary:
+func _settle_recovery_economy(days: int,require_funded: bool=true) -> Dictionary:
 	var receipt: Dictionary={"ok":true,"message":"Normal recovery payroll and provisions settled.","wagesPaid":0,"foodConsumed":0.0,"foodCreditUsed":0.0}
 	for _day in range(days):
 		var due: Dictionary=Economy.daily_upkeep(state.fleet)
 		var coins: int=int(due.wages)+FleetSupport.premium(state)+FleetSupport.premium(state,true)
 		var food: float=maxf(0,float(due.food)-float(state.get("surveyFoodCredit",0)))
-		if int(state.coins)<coins or float(state.cargo.get("food",0))+0.0000001<food:return fail("Ordinary payroll or provisions changed during staged recovery; nothing was published.")
-		receipt.wagesPaid+=coins
-		receipt.foodConsumed+=food
+		if require_funded and (int(state.coins)<coins or float(state.cargo.get("food",0))+0.0000001<food):return fail("Ordinary payroll or provisions changed during staged recovery; nothing was published.")
+		receipt.wagesPaid+=mini(int(state.coins),coins)
+		receipt.foodConsumed+=minf(float(state.cargo.get("food",0)),food)
 		receipt.foodCreditUsed+=minf(float(due.food),float(state.get("surveyFoodCredit",0)))
 		var blocked: Array=TradeFlow.blockades(self)
 		var ports: Array=[]
@@ -860,7 +877,7 @@ func _settle_recovery_economy(days: int) -> Dictionary:
 			messages.append_array(Economy.tick_ports([p],1,{"blockaded":blocked,"interport_trade":false,"rng":rng}))
 			ports.append(p)
 		apply_economy(ports,messages,1)
-		if int(state.wageArrears)>0 or FleetSupport.premium(state,true)>0:return fail("Staged recovery could not fully settle ordinary wages; nothing was published.")
+		if require_funded and (int(state.wageArrears)>0 or FleetSupport.premium(state,true)>0):return fail("Staged recovery could not fully settle ordinary wages; nothing was published.")
 	return receipt
 
 func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
@@ -912,6 +929,7 @@ func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
 func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
 	var locality: String=_recovery_gate(state,id,mode)
 	if not locality.is_empty():return fail(locality)
+	if Remote067.local(state):return Remote067.recover(self,id,good,qty)
 	if mode=="gear":return _recover_selected_gear(id,request)
 	var w: Dictionary=Salvage.find_wreck(state,id)
 	if w.is_empty() or distance(state.position,w)>180:return fail("Approach this wreck within180water units first.")
@@ -1574,8 +1592,11 @@ func pop_events() -> Array:
 	return result
 
 func restore(saved: Dictionary) -> Dictionary:
-	# Optional066 is validated by SaveValidation on a copy before any publication.
+	# Optional regional work/provenance is read raw before any migration/ensure.
 	saved=saved.duplicate(true)
+	var regional_error: String=Exploration.validate_remote067(saved)
+	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
+	if not regional_error.is_empty():return fail("Save refused: "+regional_error)
 	if saved.has("ocean066"):
 		var pre066: Dictionary=OceanCampaign066.prepare(saved,ocean_context064)
 		if not pre066.get("ok",false):return fail("Save refused: "+str(pre066.message))

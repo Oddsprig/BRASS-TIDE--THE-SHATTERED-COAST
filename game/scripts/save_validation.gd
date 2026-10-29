@@ -23,6 +23,8 @@ const CampaignState=preload("res://scripts/campaign_state_validation.gd")
 const Preflight=preload("res://scripts/equipment_campaign.gd")
 const CivilianWork=preload("res://scripts/civilian_work.gd")
 const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
+const Exploration067=preload("res://scripts/exploration.gd")
+const Remote067=preload("res://scripts/remote_expedition067.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
@@ -190,6 +192,9 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 
 static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary={}) -> Dictionary:
 	saved=saved.duplicate(true)
+	var regional_error: String=Exploration067.validate_remote067(saved)
+	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
+	if not regional_error.is_empty():return {"ok":false,"message":regional_error,"state":saved}
 	if saved.has("ocean066") and context064.is_empty():
 		var atlas066=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
 		if not atlas066 is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
@@ -236,9 +241,11 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 			var location: Dictionary=OceanWorld064.prepare(prepared.state,context064,Routes064.clearance({"state":prepared.state}))
 			if not location.get("ok",false):return {"ok":false,"message":str(location.message),"state":saved}
 		if saved.has("world064") and not Locality064.home_local064(saved):
-			if not saved.get("exploration",{}).get("assignment",{}).is_empty() or not saved.get("toolingRecovery",{}).is_empty() or not saved.get("civilianWork",{}).get("fishing",[]).is_empty():return {"ok":false,"message":"A non-home save cannot retain deployed coastal work parties or gear.","state":saved}
+			if not saved.get("toolingRecovery",{}).is_empty() or not saved.get("civilianWork",{}).get("fishing",[]).is_empty():return {"ok":false,"message":"A non-home save cannot retain deployed home machinery parties or fishing gear.","state":saved}
+			var regional_party: Dictionary=saved.get("exploration",{}).get("assignment",{})
+			if not regional_party.is_empty() and (not Remote067.local(saved) or not Remote067.party_error(saved).is_empty()):return {"ok":false,"message":"A non-home shore party must match its stationary Glasswind landing and actual reserved sailors.","state":saved}
 			for boat in saved.get("fleet",[]):
-				if int(boat.get("shoreCrew",0))>0:return {"ok":false,"message":"A non-home save cannot retain home shore sailors.","state":saved}
+				if int(boat.get("shoreCrew",0))>0 and regional_party.is_empty():return {"ok":false,"message":"A non-home save cannot retain unassigned shore sailors.","state":saved}
 			for job in saved.get("voyageJobs",[]):
 				if job.get("kind","")=="passenger_charter" and int(job.get("passengers",{}).get("n",0))>0:return {"ok":false,"message":"Charter passengers must remain in home coastal waters.","state":saved}
 			for job in saved.get("regionalCrises",{}).get("jobs",[]):
