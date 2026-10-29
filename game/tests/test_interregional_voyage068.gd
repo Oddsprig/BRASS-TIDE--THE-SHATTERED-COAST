@@ -70,6 +70,11 @@ func advance(seconds: float) -> bool:
 	if not bounded():return false
 	var before: float=float(c.state.day)
 	c.step(seconds);main.sync_economy()
+	if float(c.state.day)<=before:
+		receipt.status="NO_CLOCK_PROGRESS"
+		receipt.failure={"dayBefore":before,"day":float(c.state.day),"log":c.state.log.slice(0,3).duplicate(true),"holding":str(c.state.shipping068.holding),"model":c.state.shipping068.model.duplicate(true)}
+		print("SHIPPING068_FAILURE ",JSON.stringify(receipt.failure))
+		return check(false,"Shared travel stage accepted no clock progress; see SHIPPING068_FAILURE for the actual refusal and shipping state")
 	if not check(float(c.state.day)>=before and float(c.state.day)<=before+seconds/45.0+0.000001,"One accepted shared clock interval"):return false
 	if not check(c.Money.total(c.state)==supply,"All port, fleet and player coins remain in the original supply"):return false
 	for event in c.pop_events():
