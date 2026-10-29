@@ -169,7 +169,13 @@ func shared_step() -> void:
 	if not check(made.get("ok",false),"One shared ocean runtime admits exactly three owners"):
 		return
 	var raider_boats: Array=OceanCampaign.render_boats(Orders.find_owner(core.state,"patrol-0").get("boats",[]))
-	if not check(not raider_boats.is_empty() and raider_boats[0].spec.get("weaponMounts",[]).any(func(m):return m.get("size")==1) and Travel._boats_valid(raider_boats),"Actual armed patrol-0 render DTO validates its numeric mount size field"):
+	var raider_valid: bool=Travel._boats_valid(raider_boats)
+	if not check(not raider_boats.is_empty() and raider_valid,"Actual unfitted patrol-0 render DTO validates without assumed equipment"):
+		print("raider_boats=",raider_boats,"; Travel._boats_valid=",raider_valid)
+		return
+	# create_owners does not fit mounts; exercise numeric size with a declared DTO.
+	var numeric_mount_boats: Array=[{"uid":"controlled-numeric-mount","spec":{"id":"controlled-mount-hull","weaponMounts":[{"id":"controlled-mount","size":1}]}}]
+	if not check(Travel._boats_valid(numeric_mount_boats),"Explicit controlled render DTO validates its numeric mount size field"):
 		return
 	var participants: Array=[]
 	var relations: Array=[]
