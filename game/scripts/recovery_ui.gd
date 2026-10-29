@@ -4,6 +4,22 @@ const Flow=preload("res://scripts/recovery_flow.gd")
 const Decisions=preload("res://scripts/recovery_decisions.gd")
 const EquipmentRecovery=preload("res://scripts/equipment_recovery.gd")
 
+static func _is_local_or_home067(c) -> bool:
+	if c.home_local064():return true
+	var v: Dictionary=c.world_view064() if c is Object and c.has_method("world_view064") else {}
+	return str(v.get("layer",""))=="local"
+
+static func _wreck_in_current_region067(c,w: Dictionary) -> bool:
+	if c.home_local064():
+		return c.Expedition.home_local064(w)
+	var v: Dictionary=c.world_view064() if c is Object and c.has_method("world_view064") else {}
+	var active_reg: String=str(v.get("regionId","glasswind_keys"))
+	var ww: Dictionary=w.get("world064",{}) if w.get("world064") is Dictionary else {}
+	return str(ww.get("layer",""))=="local" and str(ww.get("regionId",""))==active_reg
+
+static func _is_cargo_only067(c,w: Dictionary) -> bool:
+	return not c.home_local064() or bool(w.get("cargoOnly",false)) or str(w.get("sourceId",""))=="site:glasswind_keys:abandoned_cache067"
+
 static func _board(ui,title: String,subtitle: String,width: float=1020,height: float=800):
 	# Interface captures its close-button sync policy while constructing a modal.
 	# Reuse its existing read-only voyage-review policy, then expose recovery's
@@ -15,14 +31,19 @@ static func _board(ui,title: String,subtitle: String,width: float=1020,height: f
 
 static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	if ui.host.mode!="campaign":return
-	if not ui.host.core.home_local064():ui.open_ocean064();return
-	var body=_board(ui,"Wrecks & recovery","KEEP A HULL · TAKE STORES · RECOVER REAL PARTS")
 	var c=ui.host.core
-	ui.paragraph(body,"Keep a damaged hull with a paid tow, take finite stores, or dismantle it for explicitly selected parts. Work takes crew time; normal wages and food continue.",16)
+	if not _is_local_or_home067(c):ui.open_ocean064();return
+	var is_home: bool=c.home_local064()
+	var body=_board(ui,"Wrecks & recovery" if is_home else "Expedition salvage & cache recovery","KEEP A HULL · TAKE STORES · RECOVER REAL PARTS" if is_home else "FINITE SURVIVING STORES · PAID CREW WORK · HOLD CAPACITY")
+	ui.paragraph(body,"Keep a damaged hull with a paid tow, take finite stores, or dismantle it for explicitly selected parts. Work takes crew time; normal wages and food continue." if is_home else "Recover finite surviving cargo lots from the surveyed wreck site. Remote recovery requires real spare hands, 1 repair kit per working day, and funded payroll and provisions.",16)
 	ui.label(body,"Traveling hold %.1f / %.1f"%[c.cargo_weight(),c.capacity()],22,ui.GOLD,true)
-	ui.button(body,"Leave wrecks marked · return to coast",func():leave(ui),false,false)
+	var top_row=ui.row(body)
+	ui.button(top_row,"Leave wrecks marked · return to chart",func():leave(ui),false,false)
+	if not is_home:
+		ui.button(top_row,"Glasswind Keys surveys",func():ui.CampaignUI.islands(ui),false,false)
+		ui.button(top_row,"Plan return voyage to Shatter Coast",func():ui.open_voyage_preparation065("shatter_coast"),false,false)
 	ui.paragraph(body,"Closing takes nothing and does no recovery work. Captured boats are already yours and remain in your roster.",14)
-	var prizes: Array=captured_prizes(c)
+	var prizes: Array=captured_prizes(c) if is_home else []
 	if not prizes.is_empty():
 		ui.rule(body)
 		ui.label(body,"Already-owned prizes",23,ui.GOLD,true)
@@ -34,13 +55,15 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	var wrecks: Array=[]
 	var focused: Dictionary={}
 	for raw in c.state.get("wrecks",[]):
-		if not c.Expedition.home_local064(raw) or str(raw.get("status",""))!="unclaimed":continue
+		if not (raw is Dictionary) or not _wreck_in_current_region067(c,raw) or str(raw.get("status",""))!="unclaimed":continue
 		if not encounter_ids.is_empty() and str(raw.get("id","")) not in encounter_ids:continue
 		wrecks.append(raw)
 		if str(raw.get("id",""))==focus_id:focused=raw
 	if focused.is_empty() and focus_id.is_empty():
 		for w in wrecks:
 			if c.distance(c.state.position,w)<=180:focused=w;break
+		if focused.is_empty() and not is_home and wrecks.size()==1:
+			focused=wrecks[0]
 	if not encounter_ids.is_empty():ui.paragraph(body,"Only this encounter's wrecks are listed. Escaped boats keep their cargo.",14,ui.TEAL)
 	# Only this single focused wreck can stage custody, route or service quotes.
 	if not focused.is_empty():_focused(ui,body,focused,encounter_ids)
@@ -49,11 +72,13 @@ static func open(ui,focus_id: String="",encounter_ids: Array=[]) -> void:
 	for w in wrecks:
 		var id: String=str(w.id)
 		var row=ui.row(body)
-		ui.paragraph(row,"%s · %.0f water units · %s"%[str(w.get("name","Wreck")),c.distance(c.state.position,w),"hull forfeited; finite lots remain" if w.get("hullStripped",false) else "unclaimed"],15)
+		var status_lbl: String="cargo-only supply cache" if _is_cargo_only067(c,w) else ("hull forfeited; finite lots remain" if w.get("hullStripped",false) else "unclaimed")
+		ui.paragraph(row,"%s · %.0f water units · %s"%[str(w.get("name","Wreck")),c.distance(c.state.position,w),status_lbl],15)
 		ui.button(row,"Inspected" if id==str(focused.get("id","")) else "Inspect",func():open(ui,id,encounter_ids),false,false)
 	if wrecks.is_empty():ui.paragraph(body,"No unclaimed wrecks in this view. Battles and surveyed salvage sites can reveal individual hulls and stores.",16)
 	if not focus_id.is_empty() or not encounter_ids.is_empty():ui.button(body,"All marked wrecks",func():open(ui),false,false)
-	ui.button(body,"Recovered drawings",func():blueprints(ui),false,false)
+	if is_home:
+		ui.button(body,"Recovered drawings",func():blueprints(ui),false,false)
 
 static func _boat_summary(boat: Dictionary) -> String:
 	var role: String="support / reserve boat" if boat.get("supportOnly",false) else "crewed roster hull"
@@ -103,13 +128,43 @@ static func _service(ui,body,model: Dictionary) -> void:
 static func _focused(ui,body,w: Dictionary,encounter_ids: Array) -> void:
 	var c=ui.host.core
 	var id: String=str(w.id)
+	var cargo_only: bool=_is_cargo_only067(c,w)
 	ui.rule(body)
 	ui.label(body,str(w.get("name","Wreck")),27,ui.GOLD,true)
-	ui.paragraph(body,"%s · recorded day %.1f · %.0f water units away"%["Friendly loss" if w.get("friendly",false) else "Marked find",float(w.get("day",0)),c.distance(c.state.position,w)],14,ui.TEAL)
+	ui.paragraph(body,"%s · recorded day %.1f · %.0f water units away"%["Friendly loss" if w.get("friendly",false) else ("Surveyed expedition cache" if cargo_only else "Marked find"),float(w.get("day",0)),c.distance(c.state.position,w)],14,ui.TEAL)
+	var nav_row=ui.row(body)
+	ui.button(nav_row,"Chart wreck location",func():ui.host.respond(c.chart_course(w));ui.close_modal()).disabled=not c.state.get("exploration",{}).get("assignment",{}).is_empty()
+	if c.distance(c.state.position,w)<=180 and not c.state.path.is_empty():
+		ui.button(nav_row,"Idle engines for recovery",func():c.stop_sailing();open(ui,id,encounter_ids))
+	if cargo_only:
+		var base_q: Dictionary=c.recovery_quote(id,"strip")
+		var lots: Dictionary=base_q.get("items",{}) if base_q.get("items") is Dictionary and not base_q.get("items",{}).is_empty() else c.Salvage._strip_items(w)
+		var free_hold: float=maxf(0,c.capacity()-c.cargo_weight())
+		var total_wt: float=0.0
+		for gk in lots:
+			var g_str: String=str(gk)
+			total_wt+=float(lots[gk])*float(c.Goods.ITEMS.get(g_str,{"weight":1.0}).weight)
+		ui.paragraph(body,"Collapsed supply coaster · finite cargo-only salvage. The hull frame is broken on the reef and has no towable hull or canonical fittings. Select explicit cargo lots that fit your traveling hold.",15,ui.GOLD)
+		ui.paragraph(body,"Remaining cache weight: %.1f hold units · Free traveling hold: %.1f units · Spare able hands: %d\nRemote recovery consumes 1 repair kit per working day (cargo first, then boat racks) plus normal payroll and rations."%[total_wt,free_hold,c.Exploration.spare_crew(c.state)],14,ui.TEXT)
+		ui.label(body,"Surviving cargo lots",21,ui.GOLD,true)
+		for good_key in lots:
+			var good: String=str(good_key)
+			var qty: float=float(lots[good])
+			if qty<=0.0 or not c.Goods.ITEMS.has(good):continue
+			var unit_wt: float=float(c.Goods.ITEMS[good].weight)
+			var row=ui.row(body)
+			ui.paragraph(row,"%s · %.0f available (%.1f wt each · %.1f total wt)"%[str(c.Goods.ITEMS[good].name),qty,unit_wt,qty*unit_wt],14)
+			var fits_whole: float=minf(qty,floorf((free_hold+0.00001)/maxf(0.01,unit_wt)))
+			var fits: float=fits_whole if fits_whole>=1.0 else minf(qty,free_hold/maxf(0.01,unit_wt))
+			ui.button(row,"Review 1",func():store_choice(ui,id,good,minf(1.0,qty),encounter_ids),false,false)
+			if qty>=4.0:
+				ui.button(row,"Review 4",func():store_choice(ui,id,good,minf(4.0,qty),encounter_ids),false,false)
+			ui.button(row,"Review what fits (%.0f)"%fits,func():store_choice(ui,id,good,fits,encounter_ids),false,false).disabled=fits<=0.0
+		if lots.is_empty():
+			ui.paragraph(body,"No surviving cargo lots remain on this wreck.",14)
+		return
 	var model: Dictionary=Decisions.compare(c,id,"tow")
 	var q: Dictionary=model.get("quote",{})
-	ui.button(body,"Chart wreck location",func():ui.host.respond(c.chart_course(w));ui.close_modal()).disabled=not c.state.get("exploration",{}).get("assignment",{}).is_empty()
-	if c.distance(c.state.position,w)<=180 and not c.state.path.is_empty():ui.button(body,"Idle engines for recovery",func():c.stop_sailing();open(ui,id,encounter_ids))
 	ui.paragraph(body,"Real fitted parts · towing preserves their recorded damage.",15,ui.GOLD)
 	_parts(ui,body,model.get("equipment",Decisions.equipment(w)))
 	ui.button(body,"Choose real parts and destination locker",func():gear(ui,id,[],"",encounter_ids),false,false).disabled=not EquipmentRecovery.is_active(w) or bool(w.get("hullStripped",false))
@@ -139,8 +194,38 @@ static func store_choice(ui,id: String,good: String,qty: float,encounter_ids: Ar
 	if ui.host.mode!="campaign":return
 	var body=_board(ui,"Take a finite lot","SELECTED STORES · CREW WORK · HOLD SPACE",1000,780)
 	var c=ui.host.core
+	var w: Dictionary=c.Salvage.find_wreck(c.state,id)
+	if _is_cargo_only067(c,w):
+		var q: Dictionary=c.recovery_quote(id,"strip",good,qty)
+		var amount: float=float(q.get("quantity",qty))
+		var good_name: String=str(c.Goods.ITEMS.get(good,{"name":good}).name)
+		var unit_wt: float=float(c.Goods.ITEMS.get(good,{"weight":1.0}).weight)
+		var avail: float=float(w.get("stores",{}).get(good,0.0))
+		var free_hold: float=maxf(0.0,c.capacity()-c.cargo_weight())
+		ui.label(body,"%.2f %s"%[amount,good_name],26,ui.GOLD,true)
+		ui.paragraph(body,"Explicit cargo lot from %s · %.0f available on wreck · %.1f hold weight (%.1f free hold)."%[str(w.get("name","Collapsed Supply Coaster")),avail,float(q.get("weight",amount*unit_wt)),free_hold],16,ui.TEAL)
+		var work_days: float=float(q.get("workDays",1.0))
+		var kits_req: float=float(q.get("kitsRequired",q.get("supplies",work_days)))
+		var payroll_days: int=int(q.get("payrollDays",int(work_days)))
+		var wages: int=int(q.get("wages",0))
+		var arrears: int=int(q.get("arrears",0))
+		var food_req: float=float(q.get("food",0.0))
+		ui.paragraph(body,"Work & preflight: %.0f working days · %.0f repair kits required (cargo first, then boat racks)\nPayroll: %d days · %s wages + %s existing arrears · %.2f food bales required."%[work_days,kits_req,payroll_days,ui.money(wages),ui.money(arrears),food_req],15,ui.GOLD)
+		ui.paragraph(body,str(q.get("message","Quote unavailable.")),15,ui.TEAL if bool(q.get("ok",false)) else ui.RED)
+		var preset_row=ui.row(body)
+		for preset in [1.0,2.0,4.0,8.0]:
+			if preset<=avail:
+				ui.button(preset_row,"Lot %.0f"%preset,func():store_choice(ui,id,good,preset,encounter_ids),false,false)
+		var fits_whole: float=minf(avail,floorf((free_hold+0.00001)/maxf(0.01,unit_wt)))
+		if fits_whole>=1.0:
+			ui.button(preset_row,"What fits (%.0f)"%fits_whole,func():store_choice(ui,id,good,fits_whole,encounter_ids),false,false)
+		if avail>0.0:
+			ui.button(preset_row,"All (%.0f)"%avail,func():store_choice(ui,id,good,avail,encounter_ids),false,false)
+		ui.button(body,"Recover %.2f %s"%[amount,good_name],func():recover(ui,id,"strip",good,amount,encounter_ids),true,false).disabled=not bool(q.get("ok",false))
+		ui.button(body,"Decline · return to wreck manifest",func():open(ui,id,encounter_ids),false,false)
+		return
 	var model: Dictionary=Decisions.compare(c,id,"strip",good,qty)
-	var w: Dictionary=model.get("wreck",{})
+	w=model.get("wreck",w)
 	var q: Dictionary=model.get("quote",{})
 	var amount: float=float(q.get("quantity",qty))
 	ui.label(body,"%.2f %s"%[amount,str(c.Goods.ITEMS.get(good,{"name":good}).name)],26,ui.GOLD,true)
@@ -161,6 +246,9 @@ static func gear(ui,id: String,selected: Array=[],carrier_uid: String="",encount
 	var w: Dictionary={}
 	for candidate in c.state.get("wrecks",[]):
 		if str(candidate.get("id",""))==id:w=candidate;break
+	if _is_cargo_only067(c,w):
+		open(ui,id,encounter_ids)
+		return
 	var items: Array=Decisions.equipment(w)
 	ui.paragraph(body,"Choose each physical part and an existing working boat. Nothing is selected automatically. Integral pumps stay with the lost hull.",16)
 	for item in items:

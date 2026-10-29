@@ -285,6 +285,16 @@ func _ocean_view066() -> Dictionary:
 		if v is Dictionary:return v
 	return {}
 
+func _exploration_view067() -> Dictionary:
+	if host!=null and host.core!=null and host.core is Object and host.core.has_method("exploration_view067"):
+		var v=host.core.exploration_view067()
+		if v is Dictionary:return v
+	return {}
+
+func pick_local067(screen: Vector2) -> Dictionary:
+	if host==null or host.core==null:return {}
+	return _ocean_painter064.pick_local067(self,host.core.world_view064(),_exploration_view067(),screen)
+
 func pick_contact066(screen: Vector2) -> Dictionary:
 	if host==null or host.core==null:return {}
 	return _ocean_painter064.pick_contact(self,host.core.world_view064(),_ocean_view066(),screen)
@@ -293,6 +303,8 @@ func pick_ocean064(screen: Vector2) -> Dictionary:
 	var view064: Dictionary=host.core.world_view064()
 	var hit066: Dictionary=_ocean_painter064.pick_contact(self,view064,_ocean_view066(),screen)
 	if not hit066.is_empty():return hit066
+	var hit067: Dictionary=_ocean_painter064.pick_local067(self,view064,_exploration_view067(),screen)
+	if not hit067.is_empty():return hit067
 	return _ocean_painter064.pick_region(view064,world_at(screen))
 
 func regional_scale() -> float:
@@ -981,7 +993,7 @@ func draw_campaign():
 		if view064.is_empty():
 			text_at("Chart unavailable",get_viewport_rect().size*0.5,22,GOLD,serif,true)
 			return
-		_ocean_painter064.draw(self,view064,_ocean_view066())
+		_ocean_painter064.draw(self,view064,_ocean_view066(),_exploration_view067())
 		return
 	if host.core == null or host.core.state.is_empty():
 		return
@@ -1028,6 +1040,7 @@ func draw_campaign():
 		labels.append({"at":project(Vector2(p.x,p.y)),"art_bounds":campaign_harbor_bounds054(p),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else CoastArt050.harbor_caption(p) if p.id==host.selected_port or p.id==world.lastPort else "","color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
 	var knowledge: Dictionary=world.get("exploration",{})
 	for site in knowledge.get("catalog",[]):
+		if str(site.get("regionId","shatter_coast"))!="shatter_coast":continue
 		var level: int=int(knowledge.get("sites",{}).get(site.id,{}).get("level",0))
 		if level<=0:continue
 		var at: Vector2=project(Vector2(site.x,site.y))

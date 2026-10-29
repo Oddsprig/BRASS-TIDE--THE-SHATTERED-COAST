@@ -3,6 +3,78 @@ const Routes=preload("res://scripts/route_cache.gd")
 const Stories=preload("res://scripts/coastal_stories.gd")
 ## Focused campaign windows; main-thread UI only.
 
+static func _is_local_or_home067(c) -> bool:
+	if c.home_local064():return true
+	var v: Dictionary=c.world_view064() if c is Object and c.has_method("world_view064") else {}
+	return str(v.get("layer",""))=="local"
+
+static func _exploration_view067(c) -> Dictionary:
+	if c is Object and c.has_method("exploration_view067"):
+		var v=c.exploration_view067()
+		if v is Dictionary:return v
+	return {}
+
+static func _visible_sites067(c) -> Array:
+	if c.home_local064():
+		var home_out: Array=[]
+		for item in c.Exploration.sites(c.state):
+			if int(item.get("level",0))<=0:continue
+			if str(item.get("regionId","shatter_coast"))!="shatter_coast":continue
+			home_out.append(item)
+		return home_out
+	var raw_sites: Array=[]
+	var exp067: Dictionary=_exploration_view067(c)
+	if exp067.get("sites") is Array:
+		raw_sites=exp067.get("sites",[])
+	elif c.Exploration is Object and c.Exploration.has_method("visible_sites"):
+		raw_sites=c.Exploration.visible_sites(c.state)
+	var out: Array=[]
+	for item in raw_sites:
+		if not (item is Dictionary):continue
+		var lvl: int=int(item.get("level",0))
+		if lvl<=0:continue
+		var copy: Dictionary=item.duplicate(true)
+		if not copy.has("region") or str(copy.get("region","")).is_empty():
+			copy["region"]="Glasswind Keys"
+		if lvl<2:
+			copy["hazard"]=""
+		if lvl<3:
+			copy["discovery"]=""
+			copy["resource"]=""
+			copy["leadId"]=""
+		out.append(copy)
+	return out
+
+static func _find_visible_site067(c,site_id: String) -> Dictionary:
+	if site_id.is_empty():return {}
+	for item in _visible_sites067(c):
+		if str(item.get("id",""))==site_id:return item
+	return {}
+
+static func _local_assignment067(c) -> Dictionary:
+	var exp067: Dictionary=_exploration_view067(c)
+	if not c.home_local064() and exp067.get("assignment") is Dictionary:
+		return exp067.get("assignment",{})
+	var a: Dictionary=c.Exploration.assignment(c.state)
+	if a.is_empty():return {}
+	var active_reg: String="shatter_coast" if c.home_local064() else str(c.world_view064().get("regionId","glasswind_keys"))
+	var a_reg: String=str(a.get("world064",{}).get("regionId","shatter_coast")) if a.get("world064") is Dictionary else "shatter_coast"
+	return a if a_reg==active_reg else {}
+
+static func _local_wrecks067(c) -> Array:
+	var exp067: Dictionary=_exploration_view067(c)
+	var out: Array=[]
+	if exp067.get("wrecks") is Array:
+		for w in exp067.get("wrecks",[]):
+			if w is Dictionary and str(w.get("status","unclaimed"))=="unclaimed":out.append(w)
+		return out
+	var active_reg: String="shatter_coast" if c.home_local064() else str(c.world_view064().get("regionId","glasswind_keys"))
+	for w in c.state.get("wrecks",[]):
+		if not (w is Dictionary) or str(w.get("status",""))!="unclaimed":continue
+		var w_reg: String=str(w.get("world064",{}).get("regionId","shatter_coast")) if w.get("world064") is Dictionary else "shatter_coast"
+		if w_reg==active_reg:out.append(w)
+	return out
+
 static func expedition(ui,use_site: bool=true) -> void:
 	if not ui.host.core.home_local064():ui.open_ocean064();return
 	ui.host.sync_economy()
@@ -93,7 +165,7 @@ static func expedition(ui,use_site: bool=true) -> void:
 		expedition_owned_support(ui,body,r.supportOptions)
 	else:
 		expedition_yard_support(ui,body)
-	ui.paragraph(body,"A cargo partner carries more provisions or freight, but adds crew, food and fuel demand and may slow the flotilla. A tanker carries purchased reserves; each boat still needs its own fuel loaded. A paid workshop fitting helps crew repairs; kits remain finite and the fitting costs hold space and speed.",14)
+	ui.paragraph(body,"A partner carries more provisions or freight, but adds crew, food and fuel demand and may slow the flotilla. A tanker carries purchased reserves; each boat still needs its own fuel loaded. A paid workshop fitting helps crew repairs; kits remain finite and the fitting costs hold space and speed.",14)
 	ui.rule(body)
 	var details=ui.column(body)
 	details.visible=false
@@ -165,70 +237,93 @@ static func notes(ui) -> void:
 	ui.paragraph(body,"Processor: %s · %d logical threads\nHarbor production: up to %d copied-state workers · Rendering mode: %s"%[OS.get_processor_name(),OS.get_processor_count(),clampi(OS.get_processor_count()-2,1,8),render_label],14,ui.TEAL)
 
 static func islands(ui) -> void:
-	if not ui.host.core.home_local064():ui.open_ocean064();return
-	ui.modal_kind="islands"
-	var body=ui.modal("Island charts","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
 	var c=ui.host.core
-	var assignment: Dictionary=c.Exploration.assignment(c.state)
+	if not _is_local_or_home067(c):ui.open_ocean064();return
+	ui.modal_kind="islands"
+	var is_home: bool=c.home_local064()
+	var body=ui.modal("Island charts" if is_home else "Glasswind Keys surveys","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
+	var assignment: Dictionary=_local_assignment067(c)
 	ui.paragraph(body,"Sail near a landmark to sight it. Chart the approaches, then land a deeper survey. Your party needs real spare hands, rations and kits. Wages continue while ashore.",16)
 	if not assignment.is_empty():
-		ui.label(body,"Party ashore: %s · %.1f / %.1f days"%[assignment.siteId,assignment.daysDone,assignment.daysTotal],20,ui.GOLD)
+		ui.label(body,"Party ashore: %s · %.1f / %.1f days"%[str(assignment.get("siteId","")),float(assignment.get("daysDone",0.0)),float(assignment.get("daysTotal",0.0))],20,ui.GOLD)
 		ui.button(body,"Advance one survey day",func():survey_day(ui),true)
 		ui.button(body,"Recall shore party",func():ui.host.respond(c.recall_survey());islands(ui))
+	var visible: Array=_visible_sites067(c)
 	var known: int=0
-	for item in c.Exploration.sites(c.state):
-		if item.level==0:continue
+	for item in visible:
+		if int(item.get("level",0))<=0:continue
 		known+=1
 		var s: Dictionary=item
+		var lvl: int=int(s.get("level",0))
+		var reg_lbl: String=str(s.get("region","Shatter Coast" if is_home else "Glasswind Keys"))
 		ui.rule(body)
-		ui.label(body,str(s.name),23,ui.GOLD,true)
-		ui.paragraph(body,"%s · %s · %.0f water units away"%[s.region,str(s.levelName).capitalize(),c.distance(c.state.position,s)],14,ui.TEAL)
-		ui.paragraph(body,s.clue if s.level<3 else s.discovery,15)
-		ui.button(body,"Inspect landmark / chart approach",func():site(ui,s.id))
+		ui.label(body,str(s.get("name","Landmark")),23,ui.GOLD,true)
+		ui.paragraph(body,"%s · %s · %.0f water units away"%[reg_lbl,str(s.get("levelName","")).capitalize(),c.distance(c.state.position,s)],14,ui.TEAL)
+		ui.paragraph(body,str(s.get("clue","")) if lvl<3 else str(s.get("discovery",s.get("clue",""))),15)
+		ui.button(body,"Inspect landmark / chart approach",func():site(ui,str(s.id)))
 	ui.rule(body)
 	ui.paragraph(body,"%d known landmarks. Uncharted reaches still hold coves, workshops, resources and wreck fields."%known,15)
+	if not is_home:
+		var local_wrecks: Array=_local_wrecks067(c)
+		var nav_row=ui.row(body)
+		if not local_wrecks.is_empty():
+			ui.button(nav_row,"Recover stores at "+str(local_wrecks[0].get("name","Collapsed Supply Coaster")),func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
+		ui.button(nav_row,"Plan return voyage to Shatter Coast",func():ui.open_voyage_preparation065("shatter_coast"))
 
 static func site(ui,site_id: String) -> void:
-	if not ui.host.core.home_local064():ui.open_ocean064();return
 	var c=ui.host.core
-	var s: Dictionary={}
-	for item in c.Exploration.sites(c.state):
-		if item.id==site_id:s=item;break
-	if s.is_empty() or s.level==0:return
+	if not _is_local_or_home067(c):ui.open_ocean064();return
+	var s: Dictionary=_find_visible_site067(c,site_id)
+	if s.is_empty() or int(s.get("level",0))<=0:return
+	var is_home: bool=c.home_local064()
+	var lvl: int=int(s.get("level",0))
+	var reg_lbl: String=str(s.get("region","Shatter Coast" if is_home else "Glasswind Keys"))
 	ui.host.selected_site=site_id
 	ui.modal_kind="island_site"
-	var body=ui.modal(s.name,"%s · %s"%[s.region,str(s.levelName).to_upper()],950,780)
-	ui.paragraph(body,s.clue,18,ui.TEXT)
-	ui.paragraph(body,"Approach: "+s.hazard,15,ui.GOLD)
-	if s.level>=3:
+	var body=ui.modal(str(s.get("name","Landmark")),"%s · %s"%[reg_lbl,str(s.get("levelName","")).to_upper()],950,780)
+	ui.paragraph(body,str(s.get("clue","")),18,ui.TEXT)
+	if lvl>=2 and not str(s.get("hazard","")).is_empty():
+		ui.paragraph(body,"Approach: "+str(s.get("hazard","")),15,ui.GOLD)
+	if lvl>=3:
 		ui.label(body,"Survey findings",25,ui.GOLD,true)
-		ui.paragraph(body,s.discovery,18,ui.TEXT)
-		ui.paragraph(body,"Opportunity: "+str(s.resource)+". Knowledge identifies the site; production and recovery still require actual work and equipment.",15)
+		ui.paragraph(body,str(s.get("discovery","")),18,ui.TEXT)
+		ui.paragraph(body,"Opportunity: "+str(s.get("resource",""))+". Knowledge identifies the site; production and recovery still require actual work and equipment.",15)
+		if not is_home:
+			var local_wrecks: Array=_local_wrecks067(c)
+			if not local_wrecks.is_empty():
+				ui.button(body,"Inspect collapsed supply coaster & recover stores",func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
 	else:
-		var action: String="chart" if s.level==1 else "survey"
+		var action: String="chart" if lvl==1 else "survey"
 		var q: Dictionary=c.Exploration.quote(c.state,site_id,action)
 		ui.label(body,"Chart the approaches" if action=="chart" else "Land a resource survey",24,ui.GOLD,true)
-		ui.paragraph(body,"%d spare crew · %.1f days · %.2f prepaid rations · %.0f kits\nThe payroll continues at %s coins/day for your existing crew."%[q.crewNeeded,q.days,q.food,q.supplies,ui.money(c.Economy.daily_upkeep(c.state.fleet).wages)],16)
-		ui.paragraph(body,q.message,15,ui.TEAL if q.ok else ui.RED)
+		ui.paragraph(body,"%d spare crew · %.1f days · %.2f prepaid rations · %.0f kits\nThe payroll continues at %s coins/day for your existing crew."%[int(q.get("crewNeeded",0)),float(q.get("days",0.0)),float(q.get("food",0.0)),float(q.get("supplies",0.0)),ui.money(c.Economy.daily_upkeep(c.state.fleet).wages)],16)
+		ui.paragraph(body,str(q.get("message","")),15,ui.TEAL if bool(q.get("ok",false)) else ui.RED)
 		if c.distance(c.state.position,s)<=180 and not c.state.path.is_empty():ui.button(body,"Idle engines at this landing",func():c.stop_sailing();site(ui,site_id))
-		ui.button(body,"Assign shore party",func():ui.host.respond(c.begin_survey(site_id,action));site(ui,site_id),true).disabled=not q.ok or c.distance(c.state.position,s)>180 or not c.state.path.is_empty()
-	if s.level>=2 and not str(s.leadId).is_empty():
-		var lead: Dictionary=c.Expedition._known_site(c.state,str(s.leadId))
-		if not lead.is_empty():ui.button(body,"Follow earned lead: "+str(lead.name),func():site(ui,lead.id))
-	var assignment: Dictionary=c.Exploration.assignment(c.state)
+		ui.button(body,"Assign shore party",func():ui.host.respond(c.begin_survey(site_id,action));site(ui,site_id),true).disabled=not bool(q.get("ok",false)) or c.distance(c.state.position,s)>180 or not c.state.path.is_empty()
+	var lead_id: String=str(s.get("leadId",""))
+	if lvl>=2 and not lead_id.is_empty():
+		var lead: Dictionary=_find_visible_site067(c,lead_id)
+		if not lead.is_empty():ui.button(body,"Follow earned lead: "+str(lead.get("name",lead_id)),func():site(ui,str(lead.id)))
+	var assignment: Dictionary=_local_assignment067(c)
 	if not assignment.is_empty():
-		ui.paragraph(body,"Party progress %.1f / %.1f days. Recall the party before sailing."%[assignment.daysDone,assignment.daysTotal],16,ui.GOLD)
-		ui.button(body,"Advance one survey day",func():survey_day(ui),true)
+		ui.paragraph(body,"Party progress %.1f / %.1f days. Recall the party before sailing."%[float(assignment.get("daysDone",0.0)),float(assignment.get("daysTotal",0.0))],16,ui.GOLD)
+		ui.button(body,"Advance one survey day",func():survey_day(ui,site_id),true)
 		ui.button(body,"Recall party",func():ui.host.respond(c.recall_survey());site(ui,site_id))
 	else:
 		ui.button(body,"Sail to landing",func():ui.host.respond(c.chart_course(s));ui.close_modal(),true)
-	ui.button(body,"Prepare this island work & named return",func():expedition(ui))
+	if is_home:
+		ui.button(body,"Prepare this island work & named return",func():expedition(ui))
+	else:
+		ui.button(body,"Plan return voyage to Shatter Coast",func():ui.open_voyage_preparation065("shatter_coast"))
 	ui.button(body,"Island charts",func():islands(ui))
 
-static func survey_day(ui) -> void:
+static func survey_day(ui,reopen_site_id: String="") -> void:
 	ui.host.sync_economy()
 	ui.host.core.wait_day()
 	ui.host.start_economy()
 	ui.host.sync_economy()
 	ui.host.save_game(false)
-	islands(ui)
+	if not reopen_site_id.is_empty() and not _find_visible_site067(ui.host.core,reopen_site_id).is_empty():
+		site(ui,reopen_site_id)
+	else:
+		islands(ui)

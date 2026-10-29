@@ -646,6 +646,11 @@ static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, int
 	if next_kind == "none" or str(view.get("regionId", "")) == REMOTE_REGION:
 		var home_btn = ui.button(actions, "Destination: Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
 		home_btn.custom_minimum_size.y = 36
+	if str(view.get("layer", "")) == "local":
+		var survey_btn = ui.button(actions, "Island surveys", func(): ui.CampaignUI.islands(ui), false, false)
+		survey_btn.custom_minimum_size.y = 36
+		var salvage_btn = ui.button(actions, "Salvage & cache", func(): ui.RecoveryUI.open(ui), false, false)
+		salvage_btn.custom_minimum_size.y = 36
 
 	if ui.has_method("open_ocean_contact066") and c.has_method("ocean_view066"):
 		var v066: Dictionary = c.ocean_view066()

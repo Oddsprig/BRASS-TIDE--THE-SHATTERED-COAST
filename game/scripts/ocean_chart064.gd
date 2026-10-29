@@ -6,6 +6,7 @@ extends RefCounted
 const CoastArt050 = preload("res://scripts/coast_art050.gd")
 const NauticalArt = preload("res://scripts/nautical_art.gd")
 const FleetArt054 = preload("res://scripts/campaign_fleet_art054.gd")
+const LandmarkArt054 = preload("res://scripts/campaign_landmark_art054.gd")
 
 const GOLD := Color("dfbd7d")
 const FOAM := Color("95cabc")
@@ -239,6 +240,230 @@ static func _resolve_ocean_view066(chart, ocean_view066 = null) -> Dictionary:
 			var v2 = h.core.ocean_view066()
 			if v2 is Dictionary:
 				return v2
+	return {}
+
+
+static func _resolve_exploration_view067(chart, exploration_view067 = null) -> Dictionary:
+	if exploration_view067 is Dictionary:
+		return exploration_view067
+	if exploration_view067 == null and chart != null:
+		if chart is Object and chart.has_method("_exploration_view067"):
+			var v = chart._exploration_view067()
+			if v is Dictionary:
+				return v
+		var h = chart.get("host")
+		if h != null and h.get("core") != null and h.core is Object and h.core.has_method("exploration_view067"):
+			var v2 = h.core.exploration_view067()
+			if v2 is Dictionary:
+				return v2
+	return {}
+
+
+static func _extract_local_sites067(view064: Dictionary, view067: Dictionary) -> Array:
+	if str(view064.get("layer", "")) != "local" or view067.is_empty():
+		return []
+	var active_region: String = str(view064.get("regionId", "glasswind_keys"))
+	if view067.get("world064") is Dictionary and not view067["world064"].is_empty():
+		var w64: Dictionary = view067["world064"]
+		if w64.has("layer") and str(w64["layer"]) != "local":
+			return []
+		if w64.has("regionId") and str(w64["regionId"]) != active_region:
+			return []
+	var raw_sites = view067.get("sites", null)
+	if not (raw_sites is Array) or raw_sites.is_empty():
+		return []
+	var out: Array = []
+	for raw_s in raw_sites:
+		if not (raw_s is Dictionary):
+			continue
+		var sid: String = str(raw_s.get("id", "")).strip_edges()
+		if sid.is_empty() or not _is_finite_number(raw_s.get("x", null)) or not _is_finite_number(raw_s.get("y", null)):
+			continue
+		var lvl: int = int(raw_s["level"]) if _is_finite_number(raw_s.get("level", null)) else 0
+		if lvl <= 0:
+			continue
+		var s_reg: String = str(raw_s.get("regionId", active_region))
+		if s_reg != active_region:
+			continue
+		out.append({
+			"id": sid,
+			"regionId": s_reg,
+			"x": float(raw_s["x"]),
+			"y": float(raw_s["y"]),
+			"level": lvl,
+			"levelName": str(raw_s.get("levelName", "Sighted" if lvl == 1 else ("Charted" if lvl == 2 else "Surveyed"))),
+			"name": str(raw_s.get("name", "Uncharted Landing")),
+			"clue": str(raw_s.get("clue", "")),
+			"hazard": str(raw_s.get("hazard", "")) if lvl >= 2 else "",
+			"discovery": str(raw_s.get("discovery", "")) if lvl >= 3 else "",
+			"resource": str(raw_s.get("resource", "")) if lvl >= 3 else "",
+			"leadId": str(raw_s.get("leadId", "")) if lvl >= 3 else ""
+		})
+	return out
+
+
+static func _extract_local_wrecks067(view064: Dictionary, view067: Dictionary) -> Array:
+	if str(view064.get("layer", "")) != "local" or view067.is_empty():
+		return []
+	var active_region: String = str(view064.get("regionId", "glasswind_keys"))
+	var raw_wrecks = view067.get("wrecks", null)
+	if not (raw_wrecks is Array) or raw_wrecks.is_empty():
+		return []
+	var out: Array = []
+	for raw_w in raw_wrecks:
+		if not (raw_w is Dictionary):
+			continue
+		var wid: String = str(raw_w.get("id", "")).strip_edges()
+		if wid.is_empty() or not _is_finite_number(raw_w.get("x", null)) or not _is_finite_number(raw_w.get("y", null)):
+			continue
+		var status: String = str(raw_w.get("status", "unclaimed"))
+		if status != "unclaimed":
+			continue
+		if raw_w.get("world064") is Dictionary and not raw_w["world064"].is_empty():
+			var ww: Dictionary = raw_w["world064"]
+			if ww.has("layer") and str(ww["layer"]) != "local":
+				continue
+			if ww.has("regionId") and str(ww["regionId"]) != active_region:
+				continue
+		out.append({
+			"id": wid,
+			"name": str(raw_w.get("name", "Collapsed Supply Coaster")),
+			"x": float(raw_w["x"]),
+			"y": float(raw_w["y"]),
+			"status": status,
+			"cargoOnly": bool(raw_w.get("cargoOnly", true))
+		})
+	return out
+
+
+func _draw_local_sites_and_wrecks067(chart, view064: Dictionary, view067: Dictionary, labels: Array, metrics: Dictionary) -> void:
+	var sites: Array = _extract_local_sites067(view064, view067)
+	var wrecks: Array = _extract_local_wrecks067(view064, view067)
+	if sites.is_empty() and wrecks.is_empty():
+		return
+	var scale_val: float = _scale_factor(chart)
+	var visible_by_id: Dictionary = {}
+	for s in sites:
+		visible_by_id[str(s["id"])] = s
+	var assignment: Dictionary = view067.get("assignment", {}) if view067.get("assignment") is Dictionary else {}
+	var active_site_id: String = str(assignment.get("siteId", ""))
+	var selected_site_id: String = ""
+	var h = chart.get("host")
+	if h != null and h.get("selected_site") is String:
+		selected_site_id = str(h.selected_site)
+	var destination: String = str(view064.get("destination", ""))
+	for s in sites:
+		if int(s["level"]) < 3:
+			continue
+		var lead_id: String = str(s.get("leadId", ""))
+		if lead_id.is_empty() or not visible_by_id.has(lead_id):
+			continue
+		var target_s: Dictionary = visible_by_id[lead_id]
+		var p0: Vector2 = chart.project(Vector2(float(s["x"]), float(s["y"])))
+		var p1: Vector2 = chart.project(Vector2(float(target_s["x"]), float(target_s["y"])))
+		chart.draw_dashed_line(p0, p1, Color(GOLD, 0.56), 1.35, 6.0, true)
+		metrics["leads_drawn"] = int(metrics.get("leads_drawn", 0)) + 1
+	for s in sites:
+		var sid: String = str(s["id"])
+		var lvl: int = int(s["level"])
+		var pos := Vector2(float(s["x"]), float(s["y"]))
+		var screen_pos: Vector2 = chart.project(pos)
+		var is_working: bool = (active_site_id == sid)
+		var is_selected: bool = (selected_site_id == sid or destination == sid or is_working)
+		var art: Dictionary = LandmarkArt054.plan(s, lvl, screen_pos, scale_val)
+		LandmarkArt054.draw(chart, art, is_selected)
+		if is_working:
+			chart.draw_arc(screen_pos, 18.0, 0.0, TAU, 24, Color(GOLD, 0.82), 1.4, true)
+		var sub: String = "SIGHTED LANDING" if lvl == 1 else ("CHARTED LANDING" if lvl == 2 else "SURVEYED")
+		if is_working:
+			sub = "SHORE PARTY WORKING"
+		elif lvl >= 3 and not str(s.get("leadId", "")).is_empty() and visible_by_id.has(str(s["leadId"])):
+			sub = "SURVEYED · BEARING LOGGED"
+		labels.append({
+			"at": screen_pos,
+			"art_bounds": Rect2(art.get("bounds", Rect2())).grow(4.0),
+			"text": str(s["name"]),
+			"subtitle": sub,
+			"priority": 92 if is_selected else (84 if lvl >= 2 else 78),
+			"color": GOLD if (is_selected or lvl >= 2) else FOAM
+		})
+		metrics["sites_drawn"] = int(metrics.get("sites_drawn", 0)) + 1
+	for w in wrecks:
+		var wid: String = str(w["id"])
+		var pos := Vector2(float(w["x"]), float(w["y"]))
+		var screen_pos: Vector2 = chart.project(pos)
+		var art: Dictionary = LandmarkArt054.wreck_plan(w, screen_pos, scale_val)
+		LandmarkArt054.draw(chart, art, destination == wid)
+		labels.append({
+			"at": screen_pos,
+			"art_bounds": Rect2(art.get("bounds", Rect2())).grow(4.0),
+			"text": str(w["name"]),
+			"subtitle": "CARGO CACHE" if bool(w.get("cargoOnly", true)) else "WRECK",
+			"priority": 88,
+			"color": GOLD
+		})
+		metrics["wrecks_drawn"] = int(metrics.get("wrecks_drawn", 0)) + 1
+
+
+func pick_local067(chart, view_or_exp067: Dictionary, screen_or_exp067, maybe_screen = null) -> Dictionary:
+	if chart == null:
+		return {}
+	var view064: Dictionary = {}
+	var view067: Dictionary = {}
+	var screen := Vector2.INF
+	if maybe_screen is Vector2:
+		view064 = view_or_exp067
+		if screen_or_exp067 is Dictionary:
+			view067 = screen_or_exp067
+		screen = maybe_screen
+	elif screen_or_exp067 is Vector2:
+		screen = screen_or_exp067
+		if view_or_exp067.has("sites") and not view_or_exp067.has("layer"):
+			view067 = view_or_exp067
+			var h = chart.get("host")
+			if h != null and h.get("core") != null and h.core is Object and h.core.has_method("world_view064"):
+				var v64 = h.core.world_view064()
+				if v64 is Dictionary:
+					view064 = v64
+		else:
+			view064 = view_or_exp067
+			view067 = _resolve_exploration_view067(chart, null)
+	else:
+		return {}
+	if not screen.is_finite() or str(view064.get("layer", "")) != "local":
+		return {}
+	var scale_val: float = _scale_factor(chart)
+	var sites: Array = _extract_local_sites067(view064, view067)
+	var wrecks: Array = _extract_local_wrecks067(view064, view067)
+	var best_w: Dictionary = {}
+	var best_w_dist: float = INF
+	for w in wrecks:
+		var pos := Vector2(float(w["x"]), float(w["y"]))
+		var screen_pos: Vector2 = chart.project(pos)
+		var art: Dictionary = LandmarkArt054.wreck_plan(w, screen_pos, scale_val)
+		var art_bounds: Rect2 = Rect2(art.get("bounds", Rect2()))
+		var dist: float = screen_pos.distance_to(screen)
+		if (art_bounds.has_area() and art_bounds.grow(4.0).has_point(screen)) or dist <= 20.0:
+			if dist < best_w_dist:
+				best_w_dist = dist
+				best_w = w
+	var best_s: Dictionary = {}
+	var best_s_dist: float = INF
+	for s in sites:
+		var pos := Vector2(float(s["x"]), float(s["y"]))
+		var screen_pos: Vector2 = chart.project(pos)
+		var art: Dictionary = LandmarkArt054.plan(s, int(s["level"]), screen_pos, scale_val)
+		var art_bounds: Rect2 = Rect2(art.get("bounds", Rect2()))
+		var dist: float = screen_pos.distance_to(screen)
+		if (art_bounds.has_area() and art_bounds.grow(4.0).has_point(screen)) or dist <= 22.0:
+			if dist < best_s_dist:
+				best_s_dist = dist
+				best_s = s
+	if not best_w.is_empty():
+		if best_s.is_empty() or int(best_s.get("level", 0)) >= 3 or best_w_dist + 2.0 < best_s_dist:
+			return {"kind": "wreck", "wreckId": str(best_w["id"])}
+	if not best_s.is_empty():
+		return {"kind": "site", "siteId": str(best_s["id"])}
 	return {}
 
 
@@ -1015,7 +1240,10 @@ static func _empty_metrics(layer: String = "", region_id: String = "", delegate_
 		"coast_draw_calls": 0,
 		"zones_drawn": 0,
 		"contacts_drawn": 0,
-		"uncertain_drawn": 0
+		"uncertain_drawn": 0,
+		"sites_drawn": 0,
+		"wrecks_drawn": 0,
+		"leads_drawn": 0
 	}
 
 
@@ -1169,7 +1397,7 @@ func _record_coast_profile(chart, calls: int, started_usec: int) -> void:
 		pf["coast_us"] = int(pf.get("coast_us", 0)) + (Time.get_ticks_usec() - started_usec)
 
 
-func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dictionary:
+func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}) -> Dictionary:
 	var region_id: String = str(view["regionId"])
 	var metrics: Dictionary = _empty_metrics("local", region_id, false)
 	var region_plan: Dictionary = prepare_local_region(view)
@@ -1204,6 +1432,7 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dic
 				"color": Color("c4d2b0")
 			})
 	metrics["approaches_drawn"] = draw_approaches(chart, view, labels)
+	_draw_local_sites_and_wrecks067(chart, view, view067, labels, metrics)
 	var player_pos: Vector2 = _to_vec2(view["position"])
 	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
@@ -1232,7 +1461,7 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dic
 	var title_text: String = str(view.get("name", "GLASSWIND KEYS")).to_upper()
 	chart.text_at(title_text, Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
 	chart.text_at("Local coastal waters  ·  Northern and Southern sea approaches", Vector2(size.x * 0.5, size.y - 144.0), 22, Color("c7d4bd"), chart.get("serif"), true)
-	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK WATER OR APPROACH  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
+	chart.text_at("WASD CAMERA  ·  I SURVEYS  ·  M TERRITORY  ·  CLICK LANDING, WRECK, CONTACT OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, false)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))
 	metrics["ok"] = true
@@ -1240,7 +1469,7 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dic
 	return metrics
 
 
-func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dictionary:
+func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view067: Dictionary = {}) -> Dictionary:
 	var metrics: Dictionary = _empty_metrics("ocean", "open_ocean", false)
 	_ensure_chart_fonts(chart)
 	var viewport_rect: Rect2 = chart.get_viewport_rect()
@@ -1300,6 +1529,7 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dic
 			true
 		)
 	metrics["approaches_drawn"] = draw_approaches(chart, view, labels)
+	_draw_local_sites_and_wrecks067(chart, view, view067, labels, metrics)
 	var player_pos: Vector2 = _to_vec2(view["position"])
 	_draw_resume_course066(chart, player_pos, view066)
 	_draw_course(chart, player_pos, view["path"])
@@ -1343,15 +1573,16 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}) -> Dic
 	return metrics
 
 
-func draw(chart, view: Dictionary, ocean_view066 = null) -> Dictionary:
+func draw(chart, view: Dictionary, ocean_view066 = null, exploration_view067 = null) -> Dictionary:
 	if chart == null or not _valid_view(view, true):
 		return _empty_metrics()
 	var view066: Dictionary = _resolve_ocean_view066(chart, ocean_view066)
+	var view067: Dictionary = _resolve_exploration_view067(chart, exploration_view067)
 	var layer: String = str(view["layer"])
 	if layer == "home":
 		return _empty_metrics("home", "shatter_coast", true)
 	if layer == "local":
-		return _draw_local_layer(chart, view, view066)
+		return _draw_local_layer(chart, view, view066, view067)
 	if layer == "ocean":
 		return _draw_ocean_layer(chart, view, view066)
 	return _empty_metrics()

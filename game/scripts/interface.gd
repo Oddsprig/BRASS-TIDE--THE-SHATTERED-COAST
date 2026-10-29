@@ -316,6 +316,9 @@ func build_campaign_hud(size: Vector2):
 		paragraph(left_body,str(view064.get("name","Chart unavailable")),22,GOLD)
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
 		button(left_body,"Coastal approaches",open_ocean064,true,false)
+		if str(view064.get("layer",""))=="local":
+			button(left_body,"Island surveys (I)",func():CampaignUI.islands(self),false,false)
+			button(left_body,"Salvage & cache",func():RecoveryUI.open(self),false,false)
 		button(left_body,"Fleet & crew",open_fleet,false,false)
 		button(left_body,"Hold & reserves",open_cargo,false,false)
 		button(left_body,"More charts & business",open_campaign_tools)
@@ -325,6 +328,9 @@ func build_campaign_hud(size: Vector2):
 		var footer064=panel(chrome,Vector2(0,size.y-85),Vector2(size.x,85))
 		var actions064=row(footer064)
 		button(actions064,"Fleet",open_fleet,false,false);button(actions064,"Hold",open_cargo,false,false);button(actions064,"Contracts",open_contracts)
+		if str(view064.get("layer",""))=="local":
+			button(actions064,"Surveys",func():CampaignUI.islands(self),false,false)
+			button(actions064,"Salvage",func():RecoveryUI.open(self),false,false)
 		voyage_label=label(actions064,"",12,MUTED)
 		voyage_label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		dock_button=button(actions064,"Coastal approaches",open_ocean064,true,false)
@@ -376,6 +382,9 @@ func open_campaign_tools():
 	var body=modal("More charts & business")
 	button(body,"Open ocean & coastal approaches",open_ocean064,true,false)
 	if not host.core.home_local064():
+		if str(host.core.world_view064().get("layer",""))=="local":
+			button(body,"Island charts & surveys     I",func():CampaignUI.islands(self),false,false)
+			button(body,"Wrecks & recovery",func():RecoveryUI.open(self),false,false)
 		button(body,"Fleet & crew",open_fleet,false,false);button(body,"Hold & reserves",open_cargo,false,false)
 		button(body,"Existing contracts",open_contracts,false,false);button(body,"Close",close_modal,false,false)
 		return
@@ -844,6 +853,9 @@ func open_contracts():
 
 func contracts_view(body: Node):
 	if not host.core.home_local064():
+		if str(host.core.world_view064().get("layer",""))=="local":
+			button(body,"Island charts & surveys     I",func():CampaignUI.islands(self),false,false)
+			button(body,"Wrecks & recovery",func():RecoveryUI.open(self),false,false)
 		paragraph(body,"Coastal commitments keep their deadlines. Return to Shatter Coast to accept or settle harbor work.",16,GOLD)
 		for commitment064 in host.core.state.get("voyageJobs",[]):
 			paragraph(body,str(commitment064.get("title","Voyage commitment"))+" / deadline day "+str(commitment064.get("deadlineDay",0)),15)

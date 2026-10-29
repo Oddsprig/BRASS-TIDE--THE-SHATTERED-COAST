@@ -98,6 +98,9 @@ static func _profile(id: String) -> Dictionary:
 		"isl_fen":return {"biome":"reed fen / wooded levees","ground":"829c79","rock":"a8b28d","leaf":"3e7455","beach":[[0.0,0.25],[0.45,0.70]],"ridge":[[0.47,0.13],[0.55,0.32],[0.49,0.45],[0.34,0.61],[0.24,0.80]],"groves":[[0.46,0.23],[0.58,0.40],[0.30,0.63],[0.24,0.79],[0.73,0.61]],"fields":true}
 		"isl_oilstone":return {"biome":"slate benches / dry scrub","ground":"8e927e","rock":"7f8d89","leaf":"63745b","beach":[[0.09,0.25],[0.69,0.80]],"ridge":[[0.22,0.28],[0.38,0.40],[0.53,0.57],[0.65,0.74]],"groves":[[0.32,0.28],[0.40,0.44],[0.62,0.59],[0.73,0.38]],"fields":false}
 		"isl_shatter":return {"biome":"basalt teeth / burnt heath","ground":"85866b","rock":"6c7775","leaf":"4f6550","beach":[[0.43,0.57]],"ridge":[[0.44,0.16],[0.32,0.34],[0.26,0.53],[0.45,0.71],[0.65,0.78]],"groves":[[0.43,0.29],[0.33,0.48],[0.38,0.68],[0.62,0.73]],"fields":false}
+		"glasswind_west","glasswind_keys_ocean_0":return {"biome":"wind-scoured limestone / beacon scrub","ground":"728f84","rock":"a7b1a5","leaf":"446c5b","beach":[[0.11,0.22],[0.48,0.68]],"ridge":[[0.20,0.52],[0.38,0.34],[0.56,0.44],[0.74,0.62]],"groves":[[0.30,0.44],[0.48,0.36],[0.64,0.52],[0.42,0.66],[0.56,0.68]],"fields":false}
+		"glasswind_crown","glasswind_keys_ocean_1":return {"biome":"weather-bleached crown ridge / sea-pine","ground":"7c968b","rock":"b3b9aa","leaf":"48705e","beach":[[0.22,0.34],[0.64,0.82]],"ridge":[[0.18,0.48],[0.36,0.28],[0.56,0.34],[0.74,0.54],[0.62,0.74]],"groves":[[0.28,0.42],[0.46,0.34],[0.66,0.46],[0.54,0.66],[0.38,0.64]],"fields":true}
+		"glasswind_south","glasswind_keys_ocean_2":return {"biome":"reef-cut basalt key / driftwood shoals","ground":"68877d","rock":"8f9c96","leaf":"3d6454","beach":[[0.11,0.29],[0.66,0.78]],"ridge":[[0.18,0.62],[0.36,0.38],[0.56,0.42],[0.76,0.58]],"groves":[[0.28,0.54],[0.46,0.44],[0.64,0.52],[0.52,0.68],[0.36,0.68]],"fields":false}
 	return {"biome":"rocky coastal heath","ground":"82956b","rock":"a3a48b","leaf":"466b50","beach":[[0.0,0.25]],"ridge":[[0.30,0.30],[0.50,0.50],[0.65,0.65]],"groves":[[0.40,0.40]],"fields":false}
 
 static func _shore(plan: Dictionary,profile: Dictionary) -> void:
@@ -141,7 +144,7 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 
 static func _relief(plan: Dictionary,profile: Dictionary,ridge: PackedVector2Array,breadth: float) -> void:
 	var ground: Color=Color(profile.ground);var rock: Color=Color(profile.rock)
-	var craggy: bool=plan.id in ["isl_cinder","isl_sawtooth","isl_oilstone","isl_shatter"]
+	var craggy: bool=plan.id in ["isl_cinder","isl_sawtooth","isl_oilstone","isl_shatter","glasswind_crown","glasswind_south","glasswind_keys_ocean_1","glasswind_keys_ocean_2"]
 	for i in range(1,ridge.size()):
 		var a: Vector2=ridge[i-1];var b: Vector2=ridge[i]
 		var side: Vector2=(b-a).normalized().orthogonal()
@@ -210,7 +213,7 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 			for j in range(2):
 				var furrow: Vector2=center+Vector2(0,float(j)*breadth*0.015)
 				_ribbon(plan,PackedVector2Array([furrow-Vector2(breadth*0.10,0),furrow+Vector2(breadth*0.09,-breadth*0.009)]),3.0,Color("c5be8c"),2)
-	var wet: bool=plan.id in ["isl_kelp","isl_fen","isl_verdigris"]
+	var wet: bool=plan.id in ["isl_kelp","isl_fen","isl_verdigris","glasswind_south","glasswind_keys_ocean_2"]
 	for at: Vector2 in _mapped(bounds,profile.groves):_grove(plan,at,breadth*(0.075 if wet else 0.085),Color(profile.leaf),wet)
 	plan.outline=land.duplicate();plan.outline.append(land[0])
 	plan.label=bounds.get_center()
