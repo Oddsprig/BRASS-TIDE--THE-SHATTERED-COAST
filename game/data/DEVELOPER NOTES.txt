@@ -1,10 +1,10 @@
-BRASS TIDE v0.066 - OPEN-OCEAN NAVIGATION, SIGHTINGS AND PURSUIT
-28 October2026 |36 boat designs
+BRASS TIDE v0.067 - THE GLASSWIND EXPEDITION
+29 October2026 |36 boat designs
 
 THIS VERSION
-- Choose ocean routes through inexpensive current and weather zones that affect sailing time and visibility.
-- Investigate dated sightings, plot a physical escape course and resume a remembered destination.
-- Meet a real supply-limited raider fleet offshore, with existing physical boats, accounts and battle settlement.
+- Explore three distinct Glasswind islands and follow survey clues to an abandoned cargo cache.
+- Assign real shore crews, pay for tools and provisions, and recall them before sailing.
+- Choose finite salvage lots that fit your holds, then carry them home through the existing ocean voyage.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

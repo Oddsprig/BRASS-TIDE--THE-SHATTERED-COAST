@@ -1,0 +1,27 @@
+BRASS TIDE v0.067 - THE GLASSWIND EXPEDITION
+
+Prepare crew, cargo space, food, survey kits and the return allowance before
+leaving home. Sail through a coastal approach into the ocean, then enter
+Glasswind Keys. Approach the island shores to notice landings.
+
+Chart a sighted landing, then survey it. Shore parties need spare sailors above
+the boat minimums; assigned hands stay ashore, wages continue, and tools and
+rations are paid. Keep survey kits in cargo. The quote shows actual crew,
+time and stores. Recall the party or finish its work before sailing onward.
+
+Read the bearing you earned and investigate the next island yourself. A clue
+does not reveal every landing or add goods to your hold. Survey all three
+sites to identify the collapsed supply coaster's surviving cargo.
+
+The cache is finite: one engine assembly, eight copper lots, twelve repair kits
+and sixteen plank bundles. Its64hold units may exceed your free space. Choose
+a good and quantity, review crew work, kits, wages, food and space, then commit.
+Unrecovered goods stay there. This collapsed cache yields cargo, not a new hull
+or weapon fitting. Recovery uses normal time; an interruption is still real.
+
+Open return preparation and sail the approach/ocean/home legs with your existing
+boats. Carry recovered goods home for ordinary market trade; prices and coins
+come from the existing economy. Discoveries do not grant a free coin reward.
+
+Add music to music/. WASD moves the camera; flagship autopilot is the default.
+Use the existing Brass Tide desktop icon for the latest completed build.

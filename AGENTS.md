@@ -1,5 +1,13 @@
 # Brass Tide - current working instructions
 
+Active scoped work: v0.067 ONLY, first useful Glasswind expedition.
+Task work/quality-v067/SCOPE067.txt and LOCKED067 CONTRACT.txt bind source
+allowlists/APIs/finite cargo-onlycache. A/B/CsourceproductionthroughBridge; Root
+allqueuednative/delivery. BoardparticipationauthorizedgenericONLYwithoutgame
+identity/source/paths/plans; onlyRootposts. Installed066remainsverifieduntil067
+packaged/reviewed/installed. 067source integrated and metadata prepared ONCE;
+native/Windows/screens/delivery pending. Do notredo066 orprepare067 again.
+
 Installed v0.066 DELIVERED; plainDesktopBrassTideicon targetsDesktop/Brass Tide/v0.066.
 Localtage82cc0c;211focusedchecks,Windowsexport/menustartup,12RootviewedPCKstills.
 Owner2saves/20musicfiles preserved; old065retained. Actualreceipt:
