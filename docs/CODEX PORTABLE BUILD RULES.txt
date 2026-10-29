@@ -71,3 +71,9 @@ The working folders fit Codex and its tools. The build, review, record-keeping, 
 Reference for AGENTS.md convention:
 https://developers.openai.com/cookbook/examples/codex/iterating-development-workflows-with-codex
 Everything else here is the owner's adapted project workflow, not a claim that Codex requires these filenames.
+
+BRASS TIDE verification budget:180seconds TOTAL per version including retries,
+setup/import/export/startup/cleanup; queuewaitseparate. Each selectedbatchstill
+under120seconds. Stop furtherengine/GPUverification atbudget; label remaining
+source unverified and preserve lastverifiedlauncher. Never silentlyresetbudget
+or relabel failed/interrupted attempts aspasses.066spent303.413s beforethisclarification.

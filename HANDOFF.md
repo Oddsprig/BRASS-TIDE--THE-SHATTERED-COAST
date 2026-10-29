@@ -1,14 +1,34 @@
-# Brass Tide v0.066 — active source candidate
+# Brass Tide v0.066 - source saved, verification budget spent
 
-Installed065 is delivered/preserved; do not redo its metadata/tag/install/tests.
-Task work/quality-v066; SCOPE066 and LOCKED066 CONTRACT are authoritative.
-Root has reviewed/integrated named source candidates. Only066: ocean route
-conditions, dated sightings, physical avoid/investigate/resume, and one real
-finite raider fleet with regional ownership and existing battle reconciliation.
-No shipping068, exploration chains067 or broader sector069. Prior whole-game
-quality and strict battle performance remain OPEN.
+Installed verified game remains v0.065. No066tag/package/install/export is claimed.
+Metadata066 was prepared ONCE; never rerun preparation. CurrentRootsource d7c66d0
+contains all reviewed066production plus a TESTONLY sampling correction UNVERIFIED.
+Last nativeproduction541d797, R6jobfcd279ab538842c0b43c2687aa5652d7 attempt002:
+model117/0passed; voyage39checks/1fail. Coarse4sfixturewaiting skipped frombefore
+firstpublicsighting toactualphysicalinterception; pursuitnowworks. Rootd7c66d0
+changesONLYthatwaitloop to0.1s whenNPCoffshore, retains180loop/allassertions/
+physicalcontacts/failures/bodybudget. No nativeverification of thiscorrection.
 
-Metadata prepared ONCE. Native verification/export/tag/install are pending.
-Root alone owns queued background/private/muted tests; no input/focus control.
-Entire selected batches<120seconds including setup/import/export/cleanup.
-Helpers remain source-only. Do not rerun completed065 work.
+Owner asked if WHOLEsuiteunder3minutes. Eachbatch<2minutes, but combined066
+retries303.413s inclsetup/interrupteddebit. Root reported this honestly and stopped
+further066engine/GPUverification. TEST BUDGET066.json hasactualreceiptmath.
+New budget:180secondsTOTAL perversion inclretries/setup/import/export/startups/
+cleanup; eachselectedbatchstill<120s. Queuewaitseparate. Do not silently reset.
+No pending066test: R6jobterminalFAILED002;001yielded/interrupted,ownedcleanup[].
+No falsepass/completion. Waitforownersteeringbeforeadditional066enginework.
+
+TaskSCOPE066/LOCKED066 CONTRACT authoritative; game scopeonlyoceanconditions,
+sightings/pursuit/interception with actualexistingfinitepatrol0, oneclock/physical
+battlecustody. Earlierstrictquality/performance remainsOPEN. No newshipping,
+sectorbreadth,067loot or071combatart/audio. Actualchanges/failedreceiptsinCURRENTSTATE.
+A/B2SolMAX,CArgonHIGH,DGrokHIGH,E/FboundedSparkHIGH usedthroughBridge.
+Helperssourceonly; noengine/ownerfile/control. Lookahead short067proposals only
+wereallowedwhilequeueblocked; NO067production/build/versionmetadata hasstarted.
+
+Existingrecord066.py/prepare_capture066.py/verify_delivery066.py are preparedNOTRUN;
+requireactualacceptedreceipts/actualattempt/12Rootviewedstills. finish_package now
+supportsvalidatedretainedattemptdefault001, samephase/sourceassertions. Python-Xutf8
+for taskrecordscript preservesUTF8oncp1252host. Neveruse001interruptionaspassed002.
+Desktopbefore066snapshot2saves/20music; all20RootmusicSHA match; noDesktopwrites.
+Do notlaunchgame/takeinput/focus. Sharedqueueonlybehindexistingapps; nevercontrol
+otherprojects. Do notpushGitHub. Preservealloldbuilds/ownerfiles/oneplain065icon.

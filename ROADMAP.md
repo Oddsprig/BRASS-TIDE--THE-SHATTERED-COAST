@@ -22,8 +22,9 @@ Next: **v0.066**, playable ocean travel. Finish each saved scope before the next
 
 Detailed acceptance and exclusions: [Open ocean version map](docs/roadmap/OPEN%20OCEAN%20VERSION%20MAP%20v0.063-v0.072.txt).
 Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
-and a worthwhile destination. Current game geography remains8main islands,
-10ports and14survey sites in one region; no ocean/local transition is built yet.
+and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.
+v0.064 added ocean/local crossings and the three-island Glasswind Keys prototype;
+sector breadth and useful remote exploration remain later scoped versions.
 
 Remaining demonstrated gaps:
 - Light workerP9537.816ms exceeds33.333ms;lag150ms exceeds100ms;catch-up/planner

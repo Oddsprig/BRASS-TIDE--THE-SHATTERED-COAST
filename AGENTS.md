@@ -72,6 +72,13 @@ raw commands and never nest another lease. Preserve job IDs and actual receipts.
 Yield only our own identity-verified process if another game starts.
 <!-- END GAME TEST LANE -->
 
+Verification budget clarification after owner asks whole suite under3minutes:
+Root enforces180seconds TOTAL per version including retries/setup/import/export/
+startup/cleanup; queuewaitseparate. Every selected batchstill<120seconds. Stop
+further native/GPU verification when totalbudget isspent; retain unverifiedsource
+asunverified, do not silentlyresetbudget orclaimdelivery. Current066spent303.413s
+conservativeinclinterruptedsetup; nofurther066engine/GPUjobs. Installed065preserved.
+
 Whole selected test batches MUST finish below120seconds including setup/import,
 export/startups and cleanup; queue wait is separate. Split useful small batches
 before the limit. Retain passed unchanged component evidence with source hashes;
