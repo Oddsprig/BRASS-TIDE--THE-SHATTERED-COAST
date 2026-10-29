@@ -17,7 +17,10 @@ static func available(core) -> Array:
 	if p.is_empty():
 		return offers
 	var day: int = int(core.state.day)
-	var destination: Dictionary = core.state.ports[(core.state.ports.find(p)+day%3+1)%core.state.ports.size()]
+	# These remain coastal offers; the authored remote branch opens no new jobs.
+	var home_ports: Array = core.state.ports.filter(func(port):return str(port.get("regionId","shatter_coast"))=="shatter_coast")
+	if home_ports.size()<2 or not home_ports.has(p):return offers
+	var destination: Dictionary = home_ports[(home_ports.find(p)+day%3+1)%home_ports.size()]
 	var grade: int = mini(3,1+int(core.state.missionIndex/3))
 	var enemy_ids: Array = ["bilge_punt"]
 	if grade >= 2:

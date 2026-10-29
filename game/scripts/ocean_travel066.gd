@@ -124,7 +124,7 @@ static func step(context: Dictionary, actors: Array, relations: Array, memory: D
 	if error.is_empty():error = _frame_error(context, actors, relations, frame)
 	if error.is_empty():error = _memory_error(context, memory, float(frame.startSecond))
 	if not error.is_empty():return _failure("step", error)
-	var work: Array = _copy(actors) # Only <=2 tiny actors; never copy the context/nav.
+	var work: Array = _copy(actors) # Only <=3 tiny actors; never copy the context/nav.
 	var intel: Dictionary = _copy(memory)
 	var now: float = float(frame.startSecond)
 	_expire(work, intel, now)
@@ -165,7 +165,7 @@ static func step(context: Dictionary, actors: Array, relations: Array, memory: D
 
 static func transition_blocker(actors: Array, relations: Array, memory: Dictionary, pending_encounter: bool) -> String:
 	if pending_encounter:return "Resolve the pending physical encounter before changing charts."
-	if actors.size() > 2 or relations.size() > 2 or not memory.get("pursuits") is Dictionary:return "Ocean pursuit memory is invalid."
+	if actors.size() > 3 or relations.size() > 6 or not memory.get("pursuits") is Dictionary:return "Ocean pursuit memory is invalid."
 	for relation in relations:
 		if not _keys(relation, ["observerId", "targetId", "hostile"]) or not relation.hostile is bool:return "Ocean pursuit relations are invalid."
 		if not relation.hostile:continue
@@ -226,8 +226,8 @@ static func _context_error(context: Dictionary) -> String:
 	if ocean.width != 4800.0 or ocean.height != 2800.0 or ocean.localUnitsPerUnit != SCALE:return "The ocean model requires the existing064 bounds and ten-to-one physical scale."
 	if not _number(context.seed) or float(context.seed) != floorf(float(context.seed)):
 		return "Ocean weather needs an integer campaign seed."
-	if not context.ownerIds is Array or context.ownerIds.is_empty() or context.ownerIds.size() > 2:
-		return "Admit one player and at most one existing owner."
+	if not context.ownerIds is Array or context.ownerIds.is_empty() or context.ownerIds.size() > 3:
+		return "Admit one player and at most two existing owners."
 	var ids: Dictionary = {}
 	for owner_id in context.ownerIds:
 		if not _text(owner_id) or ids.has(owner_id):return "Admitted ocean owner IDs must be distinct strings."
@@ -281,7 +281,7 @@ static func _actor_error(context: Dictionary, actor) -> String:
 
 
 static func _frame_error(context: Dictionary, actors: Array, relations: Array, frame: Dictionary) -> String:
-	if actors.size() > 2 or relations.size() > 2:return "Only the player and one actual enrolled owner may move or sense."
+	if actors.size() > 3 or relations.size() > 6:return "Only the player and two actual enrolled owners may move or sense."
 	if not _keys(frame, ["startSecond", "dt", "watchDue", "decisionOwnerIds"]) or not _time(frame.startSecond) or not _number(frame.dt) or frame.dt < 0.0 or frame.dt > 4.0 or not is_finite(float(frame.startSecond) + float(frame.dt)):
 		return "A frame needs finite simulated time and dt between zero and four seconds."
 	if not frame.watchDue is bool or not frame.decisionOwnerIds is Array or frame.decisionOwnerIds.size() > 2:return "Supply one scheduled watch flag and at most two decision IDs."
@@ -310,7 +310,7 @@ static func _memory_error(context: Dictionary, memory, now: float) -> String:
 	if not _time(now) or not _keys(memory, ["schema", "intents", "sightings", "pursuits"]) or not _number(memory.schema) or memory.schema != 1:
 		return "Present ocean memory needs schema one and all three dictionaries."
 	for group in ["intents", "sightings", "pursuits"]:
-		if not memory[group] is Dictionary or memory[group].size() > 2:return "Ocean memory groups must contain at most two admitted owners."
+		if not memory[group] is Dictionary or memory[group].size() > 3:return "Ocean memory groups must contain at most three admitted owners."
 		for owner_id in memory[group]:
 			if not owner_id is String or owner_id not in context.ownerIds:return "Ocean memory references an unknown owner."
 	for owner_id in memory.intents:
@@ -324,7 +324,7 @@ static func _memory_error(context: Dictionary, memory, now: float) -> String:
 		if not _goal_valid(context, intent.goal) or not _goal_valid(context, intent.returnGoal):return "Saved intent goals must retain supported safe chart targets."
 	for observer_id in memory.sightings:
 		var sightings = memory.sightings[observer_id]
-		if not sightings is Dictionary or sightings.size() > 1:return "One observer can retain only the one admitted contact."
+		if not sightings is Dictionary or sightings.size() > 2:return "One observer can retain at most two admitted contacts."
 		for target_id in sightings:
 			if not target_id is String or target_id == observer_id or target_id not in context.ownerIds:return "Saved sightings must reference another admitted owner."
 			var sight = sightings[target_id]

@@ -6,6 +6,8 @@ const Fleets = preload("res://scripts/fleet_economy.gd")
 const NavalOrders = preload("res://scripts/naval_orders.gd")
 const NavalCombat = preload("res://scripts/naval_combat.gd")
 const NavalReplacements = preload("res://scripts/naval_replacements.gd")
+const World068 = preload("res://scripts/ocean_world064.gd")
+const Travel068 = preload("res://scripts/ocean_travel066.gd")
 
 const CELL_SIZE: float = NavalCombat.CELL_SIZE
 const ENCOUNTER_RADIUS: float = NavalCombat.ENCOUNTER_RADIUS
@@ -147,6 +149,95 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 	return outcome
 
 
+## Same physical salvo/prize resolver as coastal NPCs, reached only with exact
+## canonical chart positions. Refusals occur before ensure()/daily bookkeeping.
+static func resolve_at068(core, aId: String, bId: String, locationA: Dictionary, locationB: Dictionary) -> Dictionary:
+	if not core is Object or not core.has_method("world_location064"):return {"ok":false,"reason":"physical_campaign_required"}
+	var state: Dictionary=core.state
+	if aId==bId or aId=="player" or bId=="player" or not (NavalOrders.enrolled066(state,aId) or NavalOrders.enrolled066(state,bId)):return {"ok":false,"reason":"invalid_npc_pair"}
+	for id in [aId,bId]:
+		if state.get("fleetOwners",[]).filter(func(o):return o is Dictionary and o.get("id")==id).size()!=1 or state.get("patrols",[]).filter(func(p):return p is Dictionary and p.get("id")==id).size()!=1:return {"ok":false,"reason":"ambiguous_physical_owners"}
+	var owner_a: Dictionary=NavalOrders.find_owner(state,aId)
+	var owner_b: Dictionary=NavalOrders.find_owner(state,bId)
+	if owner_a.is_empty() or owner_b.is_empty() or NavalOrders.is_story_owner(owner_a) or NavalOrders.is_story_owner(owner_b) or owner_a.get("playerCompany",false) or owner_b.get("playerCompany",false):return {"ok":false,"reason":"invalid_physical_owners"}
+	if not owner_a.get("active",false) or not owner_b.get("active",false) or NavalOrders.living_boats(owner_a).is_empty() or NavalOrders.living_boats(owner_b).is_empty():return {"ok":false,"reason":"no_living_boats"}
+	if not NavalCombat.faction_hostile068(state,owner_a,owner_b):return {"ok":false,"reason":"not_hostile"}
+	for side in [[aId,owner_a,locationA],[bId,owner_b,locationB]]:
+		var actual: Dictionary=NavalOrders.canonical_location068(state,str(side[0]))
+		var claimed: Dictionary=side[2]
+		if actual.is_empty() or actual.get("world064")!=claimed.get("world064") or actual.get("position")!=claimed.get("position"):return {"ok":false,"reason":"canonical_location_changed"}
+		var clearance: float=10.0
+		for boat in side[1].get("boats",[]):
+			if not boat.get("sunk",false):clearance=maxf(clearance,float(boat.get("spec",{}).get("size",10.0)))
+		if not World068.prepare(claimed,core.ocean_context064,clearance).get("ok",false):return {"ok":false,"reason":"unsafe_actual_location"}
+	if not Travel068.same_world(locationA.world064,locationB.world064):return {"ok":false,"reason":"different_charts"}
+	var scale: float=10.0 if locationA.world064.layer=="ocean" else 1.0
+	if World068._distance(locationA.position,locationB.position)*scale>ENCOUNTER_RADIUS:return {"ok":false,"reason":"outside_physical_range"}
+	if not _custody_valid068(state,[owner_a,owner_b]):return {"ok":false,"reason":"ambiguous_physical_custody"}
+	# Check the shared budget on a detached ledger before ensure can normalize it.
+	var ledger: Dictionary=state.get("navalAi",{}).duplicate(true)
+	_encounter_day(state,ledger)
+	if int(ledger.get("encounterCount",0))>=MAX_ENCOUNTERS_PER_DAY:return {"ok":false,"reason":"daily_encounter_limit"}
+	if ledger.encounterOwners.has(aId) or ledger.encounterOwners.has(bId):return {"ok":false,"reason":"owner_already_engaged"}
+	var nav_ai: Dictionary=ensure(state)
+	var outcome: Dictionary=NavalCombat._resolve_physical068(state,owner_a,owner_b,NavalOrders.find_patrol(state,aId),NavalOrders.find_patrol(state,bId),int(state.get("seed",1)))
+	if not outcome.get("ok",false):return outcome
+	nav_ai.encounterCount=int(nav_ai.encounterCount)+1
+	nav_ai.encounterOwners[aId]=true;nav_ai.encounterOwners[bId]=true
+	var witnessed: bool=false
+	if Travel068.same_world(state.get("world064"),locationA.world064):
+		witnessed=minf(World068._distance(state.position,locationA.position),World068._distance(state.position,locationB.position))*scale<=1800.0
+	outcome.event["witnessed"]=witnessed
+	for side in [[owner_a,locationA],[owner_b,locationB]]:
+		_record_losses068(core,side[0],side[1])
+	NavalCombat.spatial_index(state)
+	return outcome
+
+
+static func _custody_valid068(state: Dictionary, owners: Array) -> bool:
+	var counts: Dictionary={}
+	var all_boats: Array=state.get("fleet",[])+state.get("boardingPrizes",[])
+	for owner in state.get("fleetOwners",[]):
+		if not owner is Dictionary or not owner.get("boats") is Array:return false
+		all_boats+=owner.boats
+	for boat in all_boats:
+		if not boat is Dictionary:return false
+		var uid: String=str(boat.get("uid",""))
+		if not uid.is_empty():counts[uid]=int(counts.get(uid,0))+1
+	for owner in owners:
+		for boat in owner.get("boats",[]):
+			if int(counts.get(str(boat.get("uid","")),0))!=1:return false
+	return true
+
+
+static func _record_losses068(core, owner: Dictionary, location: Dictionary) -> void:
+	var state: Dictionary=core.state
+	if not NavalOrders.enrolled066(state,str(owner.id)):return # Existing HOME recorder owns ordinary coastal losses.
+	var salvage: Script=load("res://scripts/salvage.gd")
+	var pending: Array=owner.boats.filter(func(b):return b.get("sunk",false) and not b.get("wreckRecorded",false))
+	var remaining: int=pending.size()
+	var living: int=NavalOrders.living_boats(owner).size()
+	for boat in pending:
+		var prefix: String="shipping-npc:" if str(owner.id)=="patrol-7" else "ocean-npc:"
+		var records: Array=salvage.record_battle(core,{"ships":[boat],"chartPosition":location.position,"world064":location.world064},prefix+str(boat.uid))
+		if records.is_empty():continue # Keep original pending hull/equipment for existing retry.
+		var wreck: Dictionary=salvage.find_wreck(state,str(records[0].id))
+		for good in owner.cargo:
+			var lost: float=maxf(0.0,float(owner.cargo[good]))/maxi(1,living+remaining)
+			owner.cargo[good]=maxf(0.0,float(owner.cargo[good])-lost)
+			wreck.stores[good]=float(wreck.stores.get(good,0.0))+lost*0.5
+			if good==owner.get("tradeGood",""):owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-lost)
+		boat.wreckRecorded=true;remaining-=1
+	if living>0:return
+	owner.active=false;owner.atPort="";owner.erase("harborServiceUntilDay")
+	var route: Dictionary=state.get("shipping068",{}).get("model",{}).get("route",{}) if str(owner.id)=="patrol-7" else state.get("ocean066",{}).get("contact",{})
+	if not route.is_empty():route.phase="lost";route.location.path=[];route.location.destination=""
+	var memory: Dictionary=state.get("ocean066",{}).get("memory",{})
+	for id in memory.get("pursuits",{}).keys():
+		if id==owner.id or memory.pursuits[id].get("targetId")==owner.id:memory.pursuits.erase(id)
+	memory.get("intents",{}).erase(str(owner.id))
+
+
 static func _encounter_day(state: Dictionary, nav_ai: Dictionary) -> void:
 	var day: int = int(state.get("econDay", 1))
 	if int(nav_ai.get("encounterDay", -1)) == day and nav_ai.get("encounterOwners") is Dictionary and nav_ai.has("encounterCount"):
@@ -180,6 +271,21 @@ static func scan_encounters(core) -> Array:
 		var outcome: Dictionary = resolve_encounter(state, NavalOrders.find_owner(state, id_a), NavalOrders.find_owner(state, id_b), NavalOrders.find_patrol(state, id_a), NavalOrders.find_patrol(state, id_b), int(state.get("seed", 1)))
 		if bool(outcome.get("ok", false)) and bool(outcome.event.get("witnessed", false)):
 			messages.append(str(outcome.get("summary", "")))
+	# HOME patrols can respond to a physically present shared-travel fleet.
+	# Their old dormant projection never enters the coastal grid or resolver.
+	if core is Object and core.has_method("world_location064"):
+		for id in ["patrol-0","patrol-7"]:
+			if not NavalOrders.enrolled066(state,id) or busy.has(id):continue
+			var actual: Dictionary=NavalOrders.canonical_location068(state,id)
+			if actual.get("world064",{}).get("layer")!="home":continue
+			for patrol in state.get("patrols",[]):
+				if int(nav_ai.encounterCount)>=MAX_ENCOUNTERS_PER_DAY or busy.has(id):break
+				var other_id: String=str(patrol.get("id",""))
+				if not patrol.get("active",false) or NavalOrders.enrolled066(state,other_id) or busy.has(other_id):continue
+				var other: Dictionary=NavalOrders.canonical_location068(state,other_id)
+				if other.is_empty() or World068._distance(actual.position,other.position)>ENCOUNTER_RADIUS:continue
+				var outcome: Dictionary=resolve_at068(core,id,other_id,actual,other)
+				if outcome.get("ok",false) and outcome.event.get("witnessed",false):messages.append(str(outcome.get("summary","")))
 	return messages
 
 

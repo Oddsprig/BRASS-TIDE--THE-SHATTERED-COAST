@@ -237,6 +237,8 @@ static func _expire_overdue(core, state: Dictionary) -> void:
 
 static func _destination(state: Dictionary, from: Dictionary, salt: int) -> Dictionary:
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+	ports=ports.filter(func(port):return port is Dictionary and str(port.get("regionId","shatter_coast"))=="shatter_coast")
+	if str(from.get("regionId","shatter_coast"))!="shatter_coast":return {}
 	if ports.size() < 2:
 		return {}
 	var index := ports.find(from)

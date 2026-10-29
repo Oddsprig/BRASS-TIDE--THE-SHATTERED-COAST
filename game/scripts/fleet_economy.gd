@@ -5,10 +5,15 @@ const Damage=preload("res://scripts/damage.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Goods=preload("res://scripts/goods.gd")
 const EquipmentOwnerService=preload("res://scripts/equipment_owner_service.gd")
+const World068=preload("res://scripts/ocean_world064.gd")
+const Factions068=preload("res://scripts/factions.gd")
+const Money068=preload("res://scripts/money.gd")
 const SAILOR_WAGE: int=100
 
 static func enrolled066(owner: Dictionary,core) -> bool:
-	return core!=null and str(core.state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==str(owner.get("id","")) and not str(owner.get("id","")).is_empty()
+	if core==null or str(owner.get("id","")).is_empty():return false
+	var owner_id: String=str(owner.id)
+	return str(core.state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==owner_id or str(core.state.get("shipping068",{}).get("model",{}).get("route",{}).get("ownerId",""))==owner_id
 
 static func _log(owner: Dictionary,message: String) -> void:
 	owner.log.push_front(message)
@@ -180,6 +185,10 @@ static func allowed_trade(owner: Dictionary,port: Dictionary,good: String,core=n
 
 static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false,core=null,commercial: bool=false) -> int:
 	if enrolled066(owner,core):return 0
+	if str(port.get("regionId","shatter_coast"))!="shatter_coast":return 0
+	return _purchase_finite068(owner,port,good,quantity,crew_paid,working,core,commercial)
+
+static func _purchase_finite068(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false,core=null,commercial: bool=false) -> int:
 	if quantity<=0 or not allowed_trade(owner,port,good,core):
 		return 0
 	var purse: String="crewPurse" if crew_paid else "coins"
@@ -207,6 +216,7 @@ static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: 
 
 static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 	if enrolled066(owner,core):return []
+	if str(port.get("regionId","shatter_coast"))!="shatter_coast":return []
 	normalize_owner(owner)
 	if owner.get("playerCompany",false) and core==null:return []
 	var messages: Array=[]
@@ -280,6 +290,10 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 
 static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary,core=null) -> void:
 	if enrolled066(owner,core):return
+	if str(port.get("regionId","shatter_coast"))!="shatter_coast":return
+	_repair_finite068(owner,port,boat,core)
+
+static func _repair_finite068(owner: Dictionary,port: Dictionary,boat: Dictionary,core=null) -> void:
 	if EquipmentOwnerService.is_canonical_or_foreign_boat(boat) or EquipmentOwnerService.is_foreign_owner(owner):
 		EquipmentOwnerService.repair_owner_boat(owner,port,boat,core)
 		return
@@ -340,6 +354,74 @@ static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary,core=nul
 		boat[key]+=amount
 	else:
 		boat[key]-=amount
+
+## An explicit canonical-berth entry point, never a temporary enrollment bypass.
+static func _berth_error068(owner: Dictionary,port: Dictionary,location: Dictionary,core) -> String:
+	if core==null or not enrolled066(owner,core) or owner.get("id")!="patrol-7":return "Service needs the actual enrolled merchant."
+	var route: Dictionary=core.state.get("shipping068",{}).get("model",{}).get("route",{})
+	if route.get("phase") not in ["home_service","remote_service"] or route.get("location")!=location:return "Service location is not the merchant's canonical stopped call."
+	if not core.state.get("fleetOwners",[]).any(func(o):return is_same(o,owner)) or not core.state.get("ports",[]).any(func(p):return is_same(p,port)):return "Service requires the original physical owner and actual market."
+	var remote: bool=port.get("id")=="westglass_anchorage"
+	if port.get("id") not in ["kelp_reach","westglass_anchorage"] or location.get("world064",{}).get("layer")!=("local" if remote else "home") or location.world064.get("regionId")!=("glasswind_keys" if remote else "shatter_coast"):return "Service port and actual chart disagree."
+	if not location.get("path") is Array or not location.path.is_empty() or not World068._is_point(location.get("position")) or World068._distance(location.position,port)>=40.0:return "Reach and stop at the actual harbor berth before service."
+	if not owner.get("active",false) or owner.get("atPort")!=port.id:return "Service requires the published real harbor visit."
+	if Factions068.relation(core.state,str(owner.get("faction","")),str(port.get("faction","")))<=-20 and owner.get("faction")!=port.get("faction"):return "Hostile harbor refuses service."
+	var clearance: float=10.0
+	for boat in owner.get("boats",[]):
+		if not boat.get("sunk",false):clearance=maxf(clearance,float(boat.get("spec",{}).get("size",10.0)))
+	var checked: Dictionary=World068.prepare(location,core.ocean_context064,clearance)
+	return "" if checked.get("ok",false) else str(checked.get("message","Unsafe service berth."))
+
+static func purchase_at068(owner: Dictionary,port: Dictionary,location: Dictionary,good: String,quantity: int,core,crewPaid: bool=false,working: bool=false) -> int:
+	if not _berth_error068(owner,port,location,core).is_empty() or not Goods.ITEMS.has(good):return 0
+	return _purchase_finite068(owner,port,good,quantity,crewPaid,working,core)
+
+static func dock_at068(owner: Dictionary,port: Dictionary,location: Dictionary,requiredDays: float,core) -> Dictionary:
+	var error: String=_berth_error068(owner,port,location,core)
+	if not error.is_empty():return {"ok":false,"message":error}
+	if not is_finite(requiredDays) or requiredDays<=0.0:return {"ok":false,"message":"Service needs a finite conservative voyage duration."}
+	var sequence: int=int(core.state.shipping068.model.route.get("sequence",-1))
+	if sequence%6 in [1,4]:return {"ok":true,"spent":0,"total":0,"message":"This harbor service invoice is already committed."}
+	if sequence%6 not in [0,3]:return {"ok":false,"message":"This route is not awaiting a service invoice."}
+	var now: float=float(core.state.day)
+	if owner.has("harborServiceUntilDay") and float(owner.harborServiceUntilDay)>now:
+		return {"ok":true,"spent":0,"message":"This paid harbor call is already in progress."}
+	var before: int=int(owner.coins)+int(owner.crewPurse)
+	var costs: Dictionary=upkeep(owner)
+	var personal_food: float=maxf(0.0,float(owner.cargo.get("food",0.0))-(float(owner.tradeCargo) if owner.tradeGood=="food" else 0.0))
+	var food: int=maxi(0,ceili(float(costs.food)*requiredDays-personal_food))
+	var advance: int=maxi(0,food*Economy.price(port,"food","buy")-int(owner.crewPurse))
+	advance=mini(advance,int(owner.coins))
+	if advance>0:Money068.move(owner,"coins",owner,"crewPurse",advance,"Shipping ration advance",core.state.moneyLog)
+	_purchase_finite068(owner,port,"food",food,true,false,core)
+	var living: int=owner.boats.filter(func(b):return not b.get("sunk",false)).size()
+	var fuel_target: float=maxf(float(living)*0.6,ceilf(float(costs.fuel)*requiredDays))
+	var fuel_aboard: float=0.0
+	for boat in owner.boats:
+		if not boat.sunk:fuel_aboard+=float(boat.get("fuel",0.0))
+	var fuel_need: int=maxi(0,ceili(fuel_target-fuel_aboard-float(owner.cargo.get("fuel",0.0))))
+	_purchase_finite068(owner,port,"fuel",fuel_need,false,true,core)
+	for boat in owner.boats:
+		if boat.sunk:continue
+		# Fuel lots remain finite, but are divided across the original tanks;
+		# per-hull rounding cannot spend more than the quoted aggregate need.
+		var fuel_moved: float=minf(maxf(0.0,fuel_target/maxi(1,living)-float(boat.fuel)),float(owner.cargo.get("fuel",0.0)))
+		owner.cargo.fuel=maxf(0.0,float(owner.cargo.get("fuel",0.0))-fuel_moved)
+		boat.fuel=float(boat.fuel)+fuel_moved
+		for good in ["supplies","ammo"]:
+			var target: float=2.0 if good=="supplies" else 50.0
+			var conversion: float=50.0 if good=="ammo" else 1.0
+			var need: int=maxi(0,ceili((target-float(boat.get(good,0.0)))/conversion))
+			var have: int=mini(need,_integer(owner.cargo.get(good,0.0)))
+			if have<need:_purchase_finite068(owner,port,good,need-have,false,true,core)
+			var moved: int=mini(need,_integer(owner.cargo.get(good,0.0)))
+			owner.cargo[good]=maxf(0.0,float(owner.cargo.get(good,0.0))-moved)
+			if good==owner.tradeGood:owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-moved)
+			boat[good]=float(boat.get(good,0.0))+moved*conversion
+		_repair_finite068(owner,port,boat,core)
+	owner.harborServiceUntilDay=now+0.25
+	var spent: int=before-int(owner.coins)-int(owner.crewPurse)
+	return {"ok":true,"spent":spent,"total":spent,"message":"Finite harbor service recorded; unfunded readiness still holds departure."}
 
 static func _performance(owner: Dictionary) -> void:
 	owner.performanceFactor=clampf(float(owner.morale)/85.0,0.35,1.0)

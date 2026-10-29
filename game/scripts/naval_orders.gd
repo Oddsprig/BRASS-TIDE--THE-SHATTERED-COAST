@@ -19,10 +19,30 @@ const SIGHTING_MEMORY_DAYS: float = 0.25
 const SIGHTING_HISTORY_DAYS: float = 1.0
 const MAX_SIGHTINGS: int = 24
 
-## The one enrolled physical fleet is owned by the ocean adapter on every chart.
+## Enrolled physical fleets are owned by the shared travel adapter on every chart.
 ## Its old patrol is a dormant projection, never a second local participant.
 static func enrolled066(state: Dictionary, owner_id: String) -> bool:
-	return not owner_id.is_empty() and str(state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==owner_id
+	if owner_id.is_empty():return false
+	return str(state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==owner_id or str(state.get("shipping068",{}).get("model",{}).get("route",{}).get("ownerId",""))==owner_id
+
+
+static func home_ports064(state: Dictionary) -> Array:
+	return state.get("ports",[]).filter(func(p):return p is Dictionary and str(p.get("regionId","shatter_coast"))=="shatter_coast")
+
+
+static func home_port064(state: Dictionary, port_id: String) -> Dictionary:
+	var port: Dictionary = find_port(state,port_id)
+	return port if str(port.get("regionId","shatter_coast"))=="shatter_coast" else {}
+
+
+static func canonical_location068(state: Dictionary, owner_id: String) -> Dictionary:
+	var contact: Dictionary = state.get("ocean066",{}).get("contact",{})
+	if contact.get("ownerId")!=owner_id:contact=state.get("shipping068",{}).get("model",{}).get("route",{})
+	if contact.get("ownerId")==owner_id:
+		return {} if contact.get("phase")=="lost" else contact.get("location",{}).duplicate(true)
+	var patrol: Dictionary = find_patrol(state,owner_id)
+	if patrol.is_empty() or not patrol.get("active",false) or not patrol.has("x") or not patrol.has("y"):return {}
+	return {"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"},"position":{"x":float(patrol.x),"y":float(patrol.y)},"heading":0.0,"path":[],"destination":""}
 
 
 static func is_story_owner(owner: Dictionary) -> bool:
@@ -167,7 +187,8 @@ static func owner_position(state: Dictionary, owner: Dictionary) -> Vector2:
 	var at_id: String = str(owner.get("atPort", ""))
 	if at_id.is_empty():
 		at_id = str(owner.get("homePort", ""))
-	var p: Dictionary = find_port(state, at_id)
+	var p: Dictionary = home_port064(state, at_id)
+	if p.is_empty():return Vector2(INF,INF)
 	return Vector2(float(p.get("x", 0.0)), float(p.get("y", 0.0)))
 
 
@@ -180,10 +201,10 @@ static func target_destination(state: Dictionary, owner: Dictionary) -> String:
 	if patrol.is_empty() or not bool(patrol.get("active", false)):
 		return ""
 	var dest: String = str(patrol.get("to", ""))
-	if find_port(state, dest).is_empty():
+	if home_port064(state, dest).is_empty():
 		var order: Dictionary = owner.get("order", {}) if owner.get("order") is Dictionary else {}
 		dest = str(order.get("destination", ""))
-	return dest if not find_port(state, dest).is_empty() else ""
+	return dest if not home_port064(state, dest).is_empty() else ""
 
 
 static func sightings(state: Dictionary, observer_id: String = "player") -> Array:
@@ -193,7 +214,6 @@ static func sightings(state: Dictionary, observer_id: String = "player") -> Arra
 	var result: Array = []
 	for record in records:
 		if not (record is Dictionary):continue
-		if enrolled066(state,str(record.get("ownerId",""))):continue
 		var age: float = maxf(0.0, now - float(record.get("day", now)))
 		if age > SIGHTING_HISTORY_DAYS:continue
 		var copy: Dictionary = record.duplicate(true)
@@ -235,12 +255,16 @@ static func observe(state: Dictionary, observer_id: String = "player") -> Array:
 	# is queried; selectors subsequently inspect only these bounded snapshots.
 	for patrol in state.get("patrols", []):
 		var id: String = str(patrol.get("id", ""))
-		if enrolled066(state,id):continue
-		if id == observer_id or id.begins_with("story-") or bool(patrol.get("hidden", false)):continue
-		var point: Vector2 = Vector2(float(patrol.get("x", 0.0)), float(patrol.get("y", 0.0)))
+		var enrolled: bool=enrolled066(state,id)
+		if id == observer_id or id.begins_with("story-") or (not enrolled and bool(patrol.get("hidden", false))):continue
+		var location: Dictionary=canonical_location068(state,id) if enrolled else {}
+		if enrolled and location.get("world064",{}).get("layer")!="home":continue
+		var position_record: Dictionary=location.position if enrolled else patrol
+		var point: Vector2 = Vector2(float(position_record.get("x", 0.0)), float(position_record.get("y", 0.0)))
 		if origin.distance_to(point) > radius:continue
 		var other: Dictionary = find_owner(state, id)
-		var destination: String = target_destination(state, other)
+		var destination: String = str(other.get("homePort","")) if enrolled and other.get("active",false) and not living_boats(other).is_empty() else target_destination(state, other)
+		if home_port064(state,destination).is_empty():destination=""
 		# A locally observed inactive/empty contact ends pursuit.
 		remembered = remembered.filter(func(r):return str(r.get("ownerId", "")) != id)
 		if destination.is_empty():continue
@@ -450,10 +474,11 @@ static func needs_home_recovery(owner: Dictionary, res: Dictionary, perf: Dictio
 
 static func build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "", keep_destination: bool = false) -> Dictionary:
 	if enrolled066(state,str(owner.get("id",""))):return owner.get("order",{})
-	if enrolled066(state,target_owner_id):target_owner_id=""
+	# Enrolled targets can be followed only through an actual dated HOME
+	# observation below; their dormant patrol coordinates remain excluded.
 	var res: Dictionary = fleet_reserves(owner)
 	var perf: Dictionary = fleet_performance(owner)
-	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+	var ports: Array = home_ports064(state)
 	var fallback_port: String = str(owner.get("homePort", ""))
 	if fallback_port.is_empty() and not ports.is_empty() and ports[0] is Dictionary:
 		var first_port: Dictionary = ports[0]
@@ -469,11 +494,11 @@ static func build_order(state: Dictionary, owner: Dictionary, purpose: String = 
 			reason = "%s sea lanes; contact expired or ended locally, pursuit stopped." % ("Raiding merchant" if kind == "raider" else ("Sailing trade" if kind == "trader" else "Patrolling"))
 		else:
 			dest = str(contact.get("destination", dest))
-	if dest.is_empty() or find_port(state, dest).is_empty():
+	if dest.is_empty() or home_port064(state, dest).is_empty():
 		var route: Array = owner.get("route", []) if owner.get("route") is Array else []
-		if route.size() >= 2 and not find_port(state, str(route[1])).is_empty():
+		if route.size() >= 2 and not home_port064(state, str(route[1])).is_empty():
 			dest = str(route[1])
-		elif not route.is_empty() and not find_port(state, str(route[0])).is_empty():
+		elif not route.is_empty() and not home_port064(state, str(route[0])).is_empty():
 			dest = str(route[0])
 		else:
 			dest = fallback_port
@@ -591,7 +616,7 @@ static func select_trader_order(state: Dictionary, owner: Dictionary, current_po
 	var best_id: String = ""
 	var best_score: float = -INF
 	var best_reason: String = ""
-	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+	var ports: Array = home_ports064(state)
 	for p_var in ports:
 		if not (p_var is Dictionary):
 			continue
@@ -644,7 +669,7 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 		if bool(other.get("expired", true)) or not sighting_hostile(state, owner, other):continue
 		if str(other.get("kind", "")) != "raider":continue
 		var r_dest: String = str(other.get("destination", ""))
-		if r_dest.is_empty() or find_port(state, r_dest).is_empty():continue
+		if r_dest.is_empty() or home_port064(state, r_dest).is_empty():continue
 		var r_pos: Vector2 = Vector2(float(other.x), float(other.y))
 		var dist: float = my_pos.distance_to(r_pos)
 		if float(other.get("threat", 0.0)) > power * 1.6:continue
@@ -661,7 +686,7 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 		if bool(other.get("expired", true)) or sighting_hostile(state, owner, other):continue
 		if str(other.get("kind", "")) != "trader" or not bool(other.get("loaded", false)):continue
 		var t_dest: String = str(other.get("destination", ""))
-		if t_dest.is_empty() or find_port(state, t_dest).is_empty():continue
+		if t_dest.is_empty() or home_port064(state, t_dest).is_empty():continue
 		var dist: float = my_pos.distance_to(Vector2(float(other.x), float(other.y)))
 		var score: float = 1600.0 - dist * 0.8 - float(other.get("ageDays", 0.0)) * 1500.0
 		if score > best_trader_score:
@@ -690,11 +715,11 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 	var route: Array = owner.get("route", []) if owner.get("route") is Array else []
 	for r_id_var in route:
 		var r_id: String = str(r_id_var)
-		if r_id != current_port_id and not find_port(state, r_id).is_empty():
+		if r_id != current_port_id and not home_port064(state, r_id).is_empty():
 			fallback_dest = r_id
 			break
 	if fallback_dest.is_empty():
-		var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+		var ports: Array = home_ports064(state)
 		for p_var in ports:
 			if p_var is Dictionary:
 				var p: Dictionary = p_var
@@ -724,7 +749,7 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 		if bool(other.get("expired", true)) or not sighting_hostile(state, owner, other):continue
 		if str(other.get("kind", "")) != "trader" or not bool(other.get("loaded", false)):continue
 		var t_dest: String = str(other.get("destination", ""))
-		if t_dest.is_empty() or find_port(state, t_dest).is_empty():continue
+		if t_dest.is_empty() or home_port064(state, t_dest).is_empty():continue
 		var threat: float = float(other.get("threat", 0.0))
 		if threat > power * 1.3:continue
 		var dist: float = my_pos.distance_to(Vector2(float(other.x), float(other.y)))
@@ -747,11 +772,11 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 	var route: Array = owner.get("route", []) if owner.get("route") is Array else []
 	for r_id_var in route:
 		var r_id: String = str(r_id_var)
-		if r_id != current_port_id and not find_port(state, r_id).is_empty():
+		if r_id != current_port_id and not home_port064(state, r_id).is_empty():
 			raid_port = r_id
 			break
 	if raid_port.is_empty():
-		var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+		var ports: Array = home_ports064(state)
 		for p_var in ports:
 			if p_var is Dictionary:
 				var p: Dictionary = p_var
@@ -845,7 +870,7 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 	if enrolled066(state,str(owner.get("id",""))):return str(owner.get("destination",""))
 	Fleets.normalize_owner(owner)
 	var home_id: String = str(owner.get("homePort", ""))
-	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
+	var ports: Array = home_ports064(state)
 	if home_id.is_empty() and not ports.is_empty() and ports[0] is Dictionary:
 		var first_p: Dictionary = ports[0]
 		home_id = str(first_p.get("id", ""))
@@ -904,7 +929,7 @@ static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_po
 		if plan.is_empty():plan = select_patrol_order(state, owner, dock_id)
 
 	var next_port: String = str(plan.get("destination", home_id))
-	if find_port(state, next_port).is_empty():
+	if home_port064(state, next_port).is_empty():
 		next_port = home_id
 	build_order(
 		state,

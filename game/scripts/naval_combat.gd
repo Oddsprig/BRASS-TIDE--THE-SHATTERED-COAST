@@ -64,6 +64,10 @@ static func spatial_index(state: Dictionary, cell_size: float = CELL_SIZE) -> Di
 
 static func are_hostile(state: Dictionary, owner_a: Dictionary, patrol_a: Dictionary, owner_b: Dictionary, patrol_b: Dictionary) -> bool:
 	if NavalOrders.enrolled066(state,str(owner_a.get("id",""))) or NavalOrders.enrolled066(state,str(owner_b.get("id",""))):return false
+	return faction_hostile068(state,owner_a,owner_b)
+
+
+static func faction_hostile068(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary) -> bool:
 	if owner_a.is_empty() or owner_b.is_empty() or str(owner_a.get("id", "")) == str(owner_b.get("id", "")):
 		return false
 	if NavalOrders.is_story_owner(owner_a) or NavalOrders.is_story_owner(owner_b):
@@ -288,6 +292,12 @@ static func _should_withdraw_side(owner: Dictionary, initial_boats: int, enemy_f
 
 static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary:
 	if NavalOrders.enrolled066(state,str(owner_a.get("id",""))) or NavalOrders.enrolled066(state,str(owner_b.get("id",""))):return {"ok":false,"reason":"ocean_owner_excluded"}
+	return _resolve_physical068(state,owner_a,owner_b,patrol_a,patrol_b,seed_val)
+
+
+## NavalAI.resolve_at068 validates canonical location/custody/budget first.
+## Keep the existing salvo/prize ledger; never clear enrollment to call it.
+static func _resolve_physical068(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary:
 	if NavalOrders.is_story_owner(owner_a) or NavalOrders.is_story_owner(owner_b):
 		return {"ok": false, "reason": "story_owner_excluded"}
 	var boats_a: Array = NavalOrders.living_boats(owner_a)
@@ -468,6 +478,12 @@ static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: D
 		var opp: Dictionary = pair[2]
 		var res_now: Dictionary = NavalOrders.fleet_reserves(own)
 		var perf_now: Dictionary = NavalOrders.fleet_performance(own)
+		if NavalOrders.enrolled066(state,str(own.get("id",""))):
+			# The shared spatial adapter retains this fleet's actual position and
+			# loss/return phase. Coastal orders cannot teleport it back HOME.
+			if int(res_now.get("boats",0))<=0:
+				own["active"]=false;own["atPort"]="";own.erase("harborServiceUntilDay")
+			continue
 		var home_id: String = str(own.get("homePort", ""))
 		var home_name: String = str(NavalOrders.find_port(state, home_id).get("name", home_id))
 		if int(res_now.get("boats", 0)) <= 0:
