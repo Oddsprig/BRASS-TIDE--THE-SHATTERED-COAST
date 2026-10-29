@@ -27,6 +27,7 @@ const FactionUI=preload("res://scripts/faction_ui.gd")
 const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
 const VoyagePreparation065=preload("res://scripts/voyage_preparation_ui065.gd")
+const OceanContact066=preload("res://scripts/ocean_contact_ui066.gd")
 const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
 const EquipmentPicker=preload("res://scripts/equipment_picker.gd")
 
@@ -403,6 +404,10 @@ func open_voyage_preparation065(region_id: String="",approach_id: String="") -> 
 	if host.mode!="campaign":return
 	VoyagePreparation065.open(self,region_id,approach_id)
 
+func open_ocean_contact066(id: String="") -> void:
+	if host.mode!="campaign":return
+	OceanContact066.open(self,id)
+
 func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
 	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, primary)
 	clash.name="CoastalClash"
@@ -484,7 +489,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)

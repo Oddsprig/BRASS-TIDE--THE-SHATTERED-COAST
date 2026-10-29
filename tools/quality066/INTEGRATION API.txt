@@ -1,0 +1,31 @@
+EARLY PUBLIC API - B integration, locked066, source-only; candidate not yet tested.
+Root lock overrides proposals. Proposal committed f1ec9ac85b55d3033bb0c4d5e226bb6d406b24de.
+Core.ocean_view066() -> Dictionary, pure detached {zones,conditions,forecast,contacts,travel066}.
+world_view064 stays unchanged. Zones/conditions follow A and Root lock; no per-draw quote/nav build.
+contacts: {id,ownerId,name,faction,role,hostile,visibility,world064,position,heading,
+  uncertaintyRadius,ageSeconds,sightedDay,intentLabel,provenance,boats}.
+visibility is visible/last_known; omit unknown/expired. Last-known geometry/art frozen in A sighting.
+boats are sanitized FleetArt054 String-key DTOs; no live resource/equipment/cargo fields.
+travel066={mode,contactId,resumeDestination,resumePath,activeZoneSummary} from A memory.
+Core.contact_action066(id:String,action:String)->Dictionary supports investigate/avoid.
+Core.resume_voyage066()->Dictionary; Core.encounter_context066(id:String)->{ok,message,context}.
+Main.contact_action066(id:String,action:String)->Dictionary supports investigate/avoid/engage.
+Main.resume_voyage066()->Dictionary. Both sync/revalidate/save only explicit actions.
+Interface.open_ocean_contact066(id:String="")->void delegates OceanContact066.open(self,id).
+Interface preload: OceanContact066=res://scripts/ocean_contact_ui066.gd, C-owned leaf.
+C leaf sets modal_kind=ocean_contact066; ui.modal(title,subtitle,width,height) has four args.
+Interface header-X whitelist includes ocean_contact066; C's close/action buttons use sync=false.
+Open/close/display never sync economy, replot, resupply, clear pursuit or grant grace.
+Main.click_chart offshore calls C's chart.pick_contact066(screen_position:Vector2) first.
+C picker returns kind=contact/contactId (with sanitized fields) or {}; Main opens Interface contact delegate.
+Then existing chart.pick_ocean064 gates and ordinary chart_course retain their normal behavior.
+Main show_patrol_encounter routes enrolled offshore ID to the same contact delegate, not home modal.
+Core book={schema:1,contact:{},memory:A.Memory}; canonical NPC is contact.location; player stays064.
+ALL enrolled-owner home adapters are excluded until a real gate/home arrival retires enrollment.
+A step staged before any Core commit; acceptedSeconds clipped before damage/fuel/clock/home NPC dt.
+NPC upkeep remains Fleets.tick only; finite paid harbor departure/return, one existing patrol-0.
+Engage uses freshly validated physical owner/position/range, actual boat references and existing battle.
+Avoid is A physical course action; ordinary chart_course remains available while pursuit blocks unsafe gates.
+Forecast context is passed once as runtime.ocean066 to existing voyage_quote065.
+Capture declaration appends opening051-ocean-travel066; old eleven remain intact.
+Locked hookups for C; B makes no C-owned painter/leaf edits.

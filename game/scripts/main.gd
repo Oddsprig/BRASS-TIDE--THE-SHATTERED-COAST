@@ -116,8 +116,11 @@ var dev_tools
 var simulation_us: int=0
 var preferences_path=""
 var runtime_profile043=null
+var qa_ocean066: bool=false
 
 func _ready():
+	if qa_ocean066 and not OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
+		push_error("Ocean066 fixture requires an isolated GAME_TEST_ARTIFACTS directory.");get_tree().quit(2);return
 	if "--qa-runtime043" in OS.get_cmdline_user_args():
 		runtime_profile043=RuntimeProfile043.new()
 		if not runtime_profile043.prepare(self):
@@ -127,7 +130,10 @@ func _ready():
 	else:
 		preferences_path=ProjectSettings.globalize_path("res://../settings.json") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("settings.json")
 		if DisplayServer.get_name()=="headless":preferences_path=OS.get_user_data_dir().path_join("qa-settings.json")
-	var options: Dictionary=Preferences.load_options(preferences_path) if runtime_profile043==null else runtime_profile043.options()
+	var options: Dictionary=Preferences.defaults() if qa_ocean066 else (Preferences.load_options(preferences_path) if runtime_profile043==null else runtime_profile043.options())
+	if qa_ocean066:
+		options=Preferences.defaults();options.audio_enabled=false;options.music_enabled=false;options.fullscreen=false
+		preferences_path=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("ocean066-profile/settings.json")
 	Engine.max_fps = options.frame_cap
 	dev_enabled=options.dev_enabled
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -147,6 +153,7 @@ func _ready():
 	audio.enabled=options.audio_enabled;audio.weapon_volume=options.weapon_volume;audio.ambience_volume=options.ambience_volume
 	add_child(audio)
 	music=Music.new()
+	if qa_ocean066:music.include_desktop=false
 	music.enabled=options.music_enabled;music.volume=options.music_volume
 	if runtime_profile043!=null:music.include_desktop=false
 	add_child(music)
@@ -158,6 +165,7 @@ func _ready():
 	dev_tools.setup(self)
 	save_directory = ProjectSettings.globalize_path("res://saves") if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("saves")
 	if runtime_profile043!=null:save_directory=runtime_profile043.save_directory
+	if qa_ocean066:save_directory=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("ocean066-profile/saves")
 	ui.title_screen()
 	get_viewport().size_changed.connect(_resize_interface)
 	print("BRASS TIDE v", Version.text(), " | ", OS.get_processor_name(), " | ", OS.get_processor_count(), " logical threads | ", RenderingServer.get_video_adapter_name())
@@ -188,7 +196,7 @@ func _ready():
 		screenshots_requested = ["home", "overview"]
 		for port in data.PORTS:screenshots_requested.append(str(port.id))
 	if "--qa-opening051" in args and OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
-		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051", "ocean064051", "glasswind064051", "home-return064051", "preparation065051", "transfer065051"]
+		screenshots_requested = ["title051", "home051", "regional061051", "watch061051", "homebook061051", "harbor061051", "ocean064051", "glasswind064051", "home-return064051", "preparation065051", "transfer065051", "ocean-travel066051"]
 	if "--qa-capture" in args:
 		capture_after_start.call_deferred()
 
@@ -255,6 +263,8 @@ func _physics_process(dt: float):
 					ui.button(body, "Accept harbor rescue", accept_rescue, true)
 				"encounter":
 					show_patrol_encounter(event.patrol)
+				"ocean_encounter066":
+					contact_action066(str(event.ownerId),"engage")
 				"survey_complete":ui.toast("%s: %s"%[event.siteName,event.levelName])
 	# Battle numerical work belongs to the driver; rendering polls it in _process.
 
@@ -477,8 +487,11 @@ func new_game(seed_override: int = 0):
 func click_chart(position: Vector2):
 	var view064: Dictionary=core.world_view064()
 	if not core.home_local064():
+		var contact066: Dictionary=chart.pick_contact066(position)
+		if not contact066.is_empty():ui.open_ocean_contact066(str(contact066.get("contactId",contact066.get("ownerId",contact066.get("id","")))));return
 		var pick064: Dictionary=chart.pick_ocean064(position)
 		if not pick064.is_empty():
+			if str(pick064.get("kind",""))=="contact":ui.open_ocean_contact066(str(pick064.get("contactId",pick064.get("ownerId",pick064.get("id","")))));return
 			var region064: String=str(pick064.get("regionId",""))
 			var approach064: String=str(pick064.get("approachId",""))
 			if str(view064.get("layer",""))=="ocean":
@@ -676,6 +689,9 @@ func resolve_contract():
 		begin_battle(specs, {"kind": "contract", "id": contract.id, "ownerId":contract.get("ownerId",""), "name": "%s approaches" % core.port(contract.targetPort).name})
 
 func show_patrol_encounter(id: String):
+	if core.NavalAI.NavalOrders.enrolled066(core.state,id):
+		if not core.home_local064():ui.open_ocean_contact066(id)
+		return
 	if not core.home_local064():return
 	var patrol: Dictionary = {}
 	for p in core.state.patrols:
@@ -723,6 +739,7 @@ func show_patrol_encounter(id: String):
 	ui.button(body, "Avoid contact", func(): core.state.encounterGrace = 90.0; ui.close_modal())
 
 func engage_patrol(patrol: Dictionary):
+	if core.NavalAI.NavalOrders.enrolled066(core.state,str(patrol.get("id",""))):contact_action066(str(patrol.id),"engage");return
 	if not core.home_local064() or core.distance(core.state.position,patrol)>1800.0:
 		ui.toast("Approach this fleet in Shatter Coast waters before engaging.",true);return
 	var owner: Dictionary=core.fleet_owner(patrol.id)
@@ -739,6 +756,7 @@ func engage_patrol(patrol: Dictionary):
 	begin_battle(specs, {"kind": "patrol", "id": patrol.id, "ownerId":patrol.id,"aggression":aggression, "name": "Coastal shipping lane"})
 
 func encounter_position(context: Dictionary) -> Dictionary:
+	if str(context.get("kind",""))=="ocean066":return context.encounterPosition.duplicate(true)
 	if not core.home_local064():return core.state.position.duplicate(true)
 	if context.get("encounterPosition") is Dictionary and context.encounterPosition.has("x") and context.encounterPosition.has("y"):
 		return context.encounterPosition.duplicate(true)
@@ -748,6 +766,15 @@ func encounter_position(context: Dictionary) -> Dictionary:
 	return core.state.position.duplicate(true)
 
 func begin_battle(specs: Array, context: Dictionary):
+	if str(context.get("kind",""))=="ocean066":
+		sync_economy()
+		var checked066: Dictionary=core.encounter_context066(str(context.get("ownerId","")))
+		if not checked066.get("ok",false):ui.toast(str(checked066.message),true);return
+		context=checked066.context
+		var physical066: Array=core.fleet_owner(str(context.ownerId)).get("boats",[]).filter(func(b):return not b.get("sunk",false))
+		if physical066.is_empty():ui.toast("This contact has no surviving physical fleet.",true);return
+		context["ownerUids066"]=physical066.map(func(b):return str(b.uid))
+		specs=physical066.map(func(b):return b.spec.duplicate(true))
 	if not core.home_local064() and context.get("kind","") in ["patrol","escort","contract"]:
 		ui.toast("This coastal contact belongs to Shatter Coast waters.",true);return
 	if core.FleetSupport.combat(core).is_empty():
@@ -766,6 +793,7 @@ func begin_battle(specs: Array, context: Dictionary):
 	battle_context = context.duplicate(true)
 	var owner = core.fleet_owner(str(context.get("ownerId","")))
 	var enemy_fleet = owner.get("boats",[]).filter(func(b):return not b.sunk) if not owner.is_empty() else []
+	if str(context.get("kind",""))=="ocean066" and enemy_fleet.is_empty():ui.toast("Offshore contact lost its physical boats.",true);return
 	var player_fleet: Array=core.FleetSupport.combat(core)
 	if context.get("kind","")=="escort":
 		var ally_owner: Dictionary=core.fleet_owner(str(context.get("allyOwnerId","")))
@@ -781,11 +809,32 @@ func begin_battle(specs: Array, context: Dictionary):
 		return
 	core.travel_lock064="Resolve the current battle before changing charts."
 	battle.world064=core.world_location064().world064
-	battle.chartPosition=core.state.position.duplicate(true)
+	battle.chartPosition=encounter_position(context)
 	battle_context.mission=battle.mission.duplicate(true)
 	battle.captureSlots=maxi(0,64-core.state.get("boardingPrizes",[]).size())
 	core.BoardingOps.coastal(core,battle)
 	_enter_battle()
+
+func contact_action066(id: String,action: String) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the chart before choosing a contact action.")
+	sync_economy()
+	if action=="engage":
+		var checked: Dictionary=core.encounter_context066(id)
+		if not checked.get("ok",false):respond(checked);return checked
+		begin_battle([],checked.context)
+		return {"ok":mode=="battle","message":"Offshore engagement started." if mode=="battle" else "Offshore engagement could not start."}
+	var result: Dictionary=core.contact_action066(id,action)
+	if result.get("ok",false):ui.close_modal();save_game(false)
+	respond(result)
+	return result
+
+func resume_voyage066() -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the chart before resuming a voyage.")
+	sync_economy()
+	var result: Dictionary=core.resume_voyage066()
+	if result.get("ok",false):ui.close_modal();save_game(false)
+	respond(result)
+	return result
 
 func quick_battle():
 	lab_config=FleetLab.preset(data,"mixed")
@@ -1215,6 +1264,7 @@ func recover_salvage(id: String):
 func return_to_campaign():
 	if mode=="battle" and not quick_mode and not lab_active and battle.get("result")==null:
 		ui.toast("Resolve or withdraw from the current battle before returning to the chart.",true);return
+	if mode=="battle" and str(battle_context.get("kind",""))=="ocean066" and battle_report.is_empty():ui.toast("Complete physical settlement before returning to the chart.",true);return
 	core.travel_lock064=""
 	_retire_battle_driver051()
 	Tactical.retire_planning051(battle)
@@ -1518,6 +1568,23 @@ func capture_after_start():
 				ui.open_voyage_preparation065()
 				await get_tree().process_frame
 				for scroll065 in ui.overlay.find_children("*","ScrollContainer",true,false):scroll065.scroll_vertical=100000
+			elif name == "ocean-travel066051":
+				# Declared paused layout, not an earned voyage/contact or battle.
+				# Same existing owner/boats/accounts; only chart positions are staged.
+				new_game(66066);paused=true;ui.close_modal()
+				var loc066: Dictionary={"world064":{"schema":1,"layer":"ocean","regionId":"open_ocean"},"position":{"x":1300.0,"y":1130.0},"heading":0.0,"path":[{"x":1600.0,"y":1130.0}],"destination":""}
+				core._publish_location064(loc066)
+				var foe066: Dictionary=core.fleet_owner("patrol-0")
+				var npc066: Dictionary=loc066.duplicate(true);npc066["position"]={"x":1340.0,"y":1130.0};npc066["path"]=[]
+				core.state.ocean066["contact"]={"ownerId":"patrol-0","phase":"patrol","location":npc066,"gate":{"regionId":"shatter_coast","approachId":"north"},"waypoint":{"x":1300.0,"y":1130.0}}
+				foe066["atPort"]="";foe066.erase("harborServiceUntilDay")
+				var projection066: Dictionary=core.NavalAI._find_patrol(core.state,"patrol-0")
+				projection066["active"]=false;projection066["hidden"]=true;projection066["holding"]=true;projection066["course"]=[];projection066["courseLength"]=0.0;projection066["progress"]=0.0
+				var staged066: Dictionary=core.OceanCampaign066.stage(core,0.0)
+				if not staged066.get("ok",false):push_error(str(staged066.message));return
+				core.OceanCampaign066.commit(core,staged066)
+				chart.center_camera();ui.build_hud()
+				ui.toast("Declared chart layout: weather, a dated existing-fleet sighting and voyage controls; no earned voyage claimed.")
 			elif name == "home051":
 				new_game(59059);paused = true;chart.center_camera()
 				civilian_baseline059 = core.state.duplicate(true)

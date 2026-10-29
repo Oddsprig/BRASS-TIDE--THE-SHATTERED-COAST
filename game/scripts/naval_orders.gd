@@ -19,6 +19,11 @@ const SIGHTING_MEMORY_DAYS: float = 0.25
 const SIGHTING_HISTORY_DAYS: float = 1.0
 const MAX_SIGHTINGS: int = 24
 
+## The one enrolled physical fleet is owned by the ocean adapter on every chart.
+## Its old patrol is a dormant projection, never a second local participant.
+static func enrolled066(state: Dictionary, owner_id: String) -> bool:
+	return not owner_id.is_empty() and str(state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==owner_id
+
 
 static func is_story_owner(owner: Dictionary) -> bool:
 	return str(owner.get("id", "")).begins_with("story-")
@@ -155,6 +160,7 @@ static func living_boats(owner: Dictionary) -> Array:
 
 
 static func owner_position(state: Dictionary, owner: Dictionary) -> Vector2:
+	if enrolled066(state,str(owner.get("id",""))):return Vector2(INF,INF)
 	var patrol: Dictionary = find_patrol(state, str(owner.get("id", "")))
 	if not patrol.is_empty() and patrol.has("x") and patrol.has("y"):
 		return Vector2(float(patrol.get("x", 0.0)), float(patrol.get("y", 0.0)))
@@ -166,6 +172,7 @@ static func owner_position(state: Dictionary, owner: Dictionary) -> Vector2:
 
 
 static func target_destination(state: Dictionary, owner: Dictionary) -> String:
+	if enrolled066(state,str(owner.get("id",""))):return ""
 	# Raw chart lookup: callers must establish local observation first.
 	if owner.is_empty() or is_story_owner(owner) or not bool(owner.get("active", false)) or living_boats(owner).is_empty():
 		return ""
@@ -180,11 +187,13 @@ static func target_destination(state: Dictionary, owner: Dictionary) -> String:
 
 
 static func sightings(state: Dictionary, observer_id: String = "player") -> Array:
+	if enrolled066(state,observer_id):return []
 	var now: float = float(state.get("day", state.get("econDay", 1)))
 	var records: Array = state.get("navalAi", {}).get("sightingsByObserver", {}).get(observer_id, [])
 	var result: Array = []
 	for record in records:
 		if not (record is Dictionary):continue
+		if enrolled066(state,str(record.get("ownerId",""))):continue
 		var age: float = maxf(0.0, now - float(record.get("day", now)))
 		if age > SIGHTING_HISTORY_DAYS:continue
 		var copy: Dictionary = record.duplicate(true)
@@ -209,6 +218,7 @@ static func observation_reason(purpose: String) -> String:
 
 
 static func observe(state: Dictionary, observer_id: String = "player") -> Array:
+	if enrolled066(state,observer_id):return []
 	if observer_id=="player" and not Locality064.home_local064(state):return sightings(state,observer_id)
 	var observer: Dictionary = find_owner(state, observer_id)
 	if observer_id != "player" and (observer.is_empty() or is_story_owner(observer) or not bool(observer.get("active", false))):return []
@@ -225,6 +235,7 @@ static func observe(state: Dictionary, observer_id: String = "player") -> Array:
 	# is queried; selectors subsequently inspect only these bounded snapshots.
 	for patrol in state.get("patrols", []):
 		var id: String = str(patrol.get("id", ""))
+		if enrolled066(state,id):continue
 		if id == observer_id or id.begins_with("story-") or bool(patrol.get("hidden", false)):continue
 		var point: Vector2 = Vector2(float(patrol.get("x", 0.0)), float(patrol.get("y", 0.0)))
 		if origin.distance_to(point) > radius:continue
@@ -438,6 +449,8 @@ static func needs_home_recovery(owner: Dictionary, res: Dictionary, perf: Dictio
 
 
 static func build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "", keep_destination: bool = false) -> Dictionary:
+	if enrolled066(state,str(owner.get("id",""))):return owner.get("order",{})
+	if enrolled066(state,target_owner_id):target_owner_id=""
 	var res: Dictionary = fleet_reserves(owner)
 	var perf: Dictionary = fleet_performance(owner)
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []
@@ -781,6 +794,7 @@ static func apply_regional_plan(state: Dictionary, owner: Dictionary, plan: Dict
 
 static func refresh_at_sea(state: Dictionary, owner: Dictionary) -> Dictionary:
 	var current: Dictionary = owner.get("order", {})
+	if enrolled066(state,str(owner.get("id",""))):return current
 	if is_story_owner(owner) or bool(owner.get("playerCompany", false)) or not bool(owner.get("active", false)):return current
 	# Authored corridor orders already have a local live adapter and route quote.
 	if not RegionalOrders.operation(state, owner).is_empty():return current
@@ -828,6 +842,7 @@ static func refresh_at_sea(state: Dictionary, owner: Dictionary) -> Dictionary:
 
 
 static func assign_post_dock_order(state: Dictionary, owner: Dictionary, dock_port: Dictionary = {}, context: Dictionary = {}) -> String:
+	if enrolled066(state,str(owner.get("id",""))):return str(owner.get("destination",""))
 	Fleets.normalize_owner(owner)
 	var home_id: String = str(owner.get("homePort", ""))
 	var ports: Array = state.get("ports", []) if state.get("ports") is Array else []

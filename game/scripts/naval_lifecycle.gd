@@ -17,6 +17,7 @@ const REPLAN_DISTANCE: float=160.0
 const HARBOR_SERVICE_DAYS: float=0.25
 
 static func harbor_service(c,owner: Dictionary,p: Dictionary={}) -> Dictionary:
+	if Orders.enrolled066(c.state,str(owner.get("id",""))):return {}
 	var deadline=owner.get("harborServiceUntilDay")
 	if not (deadline is int or deadline is float) or not is_finite(float(deadline)):return {}
 	var remaining: float=float(deadline)-float(c.state.day)
@@ -29,6 +30,7 @@ static func harbor_service(c,owner: Dictionary,p: Dictionary={}) -> Dictionary:
 	return {"portId":str(dock.id),"departureDay":float(deadline),"elapsedDays":clampf(HARBOR_SERVICE_DAYS-remaining,0.0,HARBOR_SERVICE_DAYS),"remainingDays":minf(remaining,HARBOR_SERVICE_DAYS)}
 
 static func hire(c,owner: Dictionary,p: Dictionary) -> void:
+	if Orders.enrolled066(c.state,str(owner.get("id",""))):return
 	for boat in owner.boats:
 		if boat.sunk:continue
 		var survivors: int=maxi(0,floori(float(boat.crew)))
@@ -40,6 +42,7 @@ static func hire(c,owner: Dictionary,p: Dictionary) -> void:
 			boat.wounded=minf(float(boat.wounded),float(boat.crew))
 
 static func refuse_route(c,p: Dictionary,reason: String) -> void:
+	if Orders.enrolled066(c.state,str(p.get("id",""))):return
 	var changed: bool=str(p.get("routeFailure",""))!=reason
 	p.routeFailure=reason;p.holding=true;p.course=[];p.courseLength=0.0;p.progress=0.0
 	var owner: Dictionary=c.fleet_owner(str(p.id))
@@ -53,6 +56,7 @@ static func refuse_route(c,p: Dictionary,reason: String) -> void:
 		if Orders.Locality064.home_local064(c.state) and c.distance(c.state.position,p)<=1800.0:c.log_entry("%s: %s"%[owner.get("name",p.id),reason])
 
 static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -> void:
+	if Orders.enrolled066(c.state,str(p.get("id",""))):return
 	var target: Dictionary=c.port(dest)
 	if target.is_empty():return
 	var owner: Dictionary=c.fleet_owner(p.id)
@@ -83,6 +87,7 @@ static func route(c,p: Dictionary,dest: String,intercept_point: Dictionary={}) -
 	p.holding=false;owner.atPort=""
 
 static func holding(c,owner: Dictionary) -> bool:
+	if Orders.enrolled066(c.state,str(owner.get("id",""))):return true
 	if str(owner.get("atPort","")).is_empty():return false
 	if not harbor_service(c,owner).is_empty():return true
 	if owner.get("playerCompany",false):
@@ -99,6 +104,7 @@ static func reconcile_losses(c) -> bool:
 	# relaunch a lost hull. Record first; a refused equipment transfer stays pending.
 	var complete: bool=true
 	for p in c.state.get("patrols",[]):
+		if Orders.enrolled066(c.state,str(p.get("id",""))):continue
 		var owner: Dictionary=c.fleet_owner(str(p.id))
 		if owner.is_empty() or AI.is_story_owner(owner):continue
 		var pending: Array=owner.get("boats",[]).filter(func(b):return bool(b.get("sunk",false)) and not bool(b.get("wreckRecorded",false)))
@@ -127,6 +133,7 @@ static func reconcile_losses(c) -> bool:
 	return complete
 
 static func publish_order(c,p: Dictionary) -> void:
+	if Orders.enrolled066(c.state,str(p.get("id",""))):return
 	var owner: Dictionary=c.fleet_owner(str(p.id))
 	if owner.is_empty() or not bool(p.get("active",false)):return
 	var order: Dictionary=owner.get("order",{})
@@ -165,6 +172,7 @@ static func step(c,dt: float) -> void:
 			var patrol: Dictionary=preload("res://scripts/naval_orders.gd").find_patrol(c.state,str(id))
 			if not patrol.is_empty():publish_order(c,patrol)
 	for p in c.state.patrols:
+		if Orders.enrolled066(c.state,str(p.get("id",""))):continue
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
 		p.hostile=false if owner.get("playerCompany",false) else Factions.is_hostile(c.state,str(owner.faction))
@@ -237,6 +245,7 @@ static func daily(c) -> void:
 	Contacts.witnessed_encounters(c.state)
 	c.state.erase("yardsAdvancedThisDay")
 	for p in c.state.patrols:
+		if Orders.enrolled066(c.state,str(p.get("id",""))):continue
 		var owner: Dictionary=c.fleet_owner(p.id)
 		if owner.is_empty():continue
 		if owner.get("playerCompany",false):c.CompanyOps.reconcile(c,owner)

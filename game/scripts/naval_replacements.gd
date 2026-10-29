@@ -64,6 +64,7 @@ static func available_recruits(port: Dictionary) -> int:
 
 
 static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int, staged: Dictionary = {}, core = null) -> Dictionary:
+	if NavalOrders.enrolled066(state,str(owner.get("id",""))):return {}
 	if staged.is_empty() or not bool(staged.get("ok", false)):
 		return {}
 	var was_empty: bool=NavalOrders.living_boats(owner).is_empty()
@@ -150,6 +151,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 				continue
 			var ord: Dictionary = ord_var
 			var npc_id: String = str(ord.get("npcOwnerId", ""))
+			if NavalOrders.enrolled066(state,npc_id):continue
 			if npc_id.is_empty():
 				continue
 			if not bool(ord.get("ready", false)) or int(ord.get("escrow", 0)) != 0:
@@ -217,6 +219,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 
 
 static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, hull_id: String = "") -> Dictionary:
+	if NavalOrders.enrolled066(NavalOrders.state_of(core),str(owner.get("id",""))):return {"ok":false,"reason":"ocean_owner_excluded"}
 	if owner.get("playerCompany",false):return {"ok":false,"message":"Company losses need actual owned replacement hulls; no public subsidy or automatic respawn."}
 	var state: Dictionary = NavalOrders.state_of(core)
 	var world: Dictionary = NavalOrders.world_of(core)

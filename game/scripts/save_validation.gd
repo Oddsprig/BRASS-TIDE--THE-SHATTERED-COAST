@@ -5,6 +5,7 @@ const MAX_COINS: float=9007199254740991.0
 ## v0.002 refit contract module (Argon High helper); read-only use: catalog/normalize/effective_spec.
 const Locality064=preload("res://scripts/expedition.gd")
 const OceanWorld064=preload("res://scripts/ocean_world064.gd")
+const OceanCampaign066=preload("res://scripts/ocean_campaign066.gd")
 const Navigation064=preload("res://scripts/navigation.gd")
 const Routes064=preload("res://scripts/route_cache.gd")
 const Refits=preload("res://scripts/refit.gd")
@@ -188,6 +189,17 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 	return ""
 
 static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary={}) -> Dictionary:
+	saved=saved.duplicate(true)
+	if saved.has("ocean066") and context064.is_empty():
+		var atlas066=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+		if not atlas066 is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
+		var nav066: Dictionary=Navigation064.create(world.ISLANDS,float(world.WORLD.width),float(world.WORLD.height),40.0*float(world.get("CAMPAIGN_SCALE",1.0)))
+		var made066: Dictionary=OceanWorld064.create(world,atlas066,nav066)
+		if not made066.get("ok",false):return {"ok":false,"message":str(made066.message),"state":saved}
+		context064=made066.context
+	var ocean066: Dictionary=OceanCampaign066.prepare(saved,context064)
+	if not ocean066.get("ok",false):return {"ok":false,"message":str(ocean066.message),"state":saved}
+	saved["ocean066"]=ocean066.book
 	saved=BoardingOps.prepare(RegionalGoodsOps.prepare(saved))
 	var error: String=_validate(saved,world)
 	if error.is_empty():error=CampaignState.validate(saved,world)

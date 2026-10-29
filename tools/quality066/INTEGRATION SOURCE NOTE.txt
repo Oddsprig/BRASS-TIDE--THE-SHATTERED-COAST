@@ -1,0 +1,44 @@
+v0.066 B SOURCE CANDIDATE - Root native acceptance still required.
+Base4b5d91a4302a7fb6c09a8385db7c5c36152620cd; proposal f1ec9ac.
+LOCKED066 CONTRACT overrides the earlier85line proposal/fixture budget.
+Dependencies: A ocean_travel066.gd + ocean_conditions066.json + forecast integration;
+C Chart.pick_contact066 / ocean_contact_ui066.gd, including Root's modal_kind fix.
+No dependency source, C-owned leaf/painter, metadata, installed build or owner file edited.
+Public API: INTEGRATION API.txt, separate detached066view; four-arg UI modal,
+header-X read-only whitelist and default-empty Interface contact delegate.
+Canonical NPC location: ocean066.contact.location; A.Memory nested once at memory.
+patrol-0 only; dormant home projection excluded through NavalOrders.enrolled066,
+direct NavalCombat grid/pair resolution, AI ordering/ensure/replacement, lifecycle,
+law and service adapters. All other home owners retain normal activity.
+Authorized subordinate guards only: naval_replacements.gd and law_ops.gd.
+Fleets.tick alone debits NPC wages/food/fuel. Admission pays real ration purchases
+from existing operating/crew purses; no new hull/capital/subsidy or hidden refuel.
+Actual next home visit, finite quarter-day service, short gate patrol/physical return;
+after return enrollment retires before ordinary paid harbor service resumes.
+066 movement requires an eligible powered living boat with finite positive fuel;
+all-empty player/NPC tanks give canMove=false/baseSpeed0, without changing home policy.
+Pure A step stages before clipping acceptedSeconds and publishing one clock/store/
+damage/home-NPC interval. Public day wait splits bounded<=4-second intervals.
+Ordinary course fleeing stays legal; avoid supplies no grace/pursuit clear.
+Fresh actual-range context starts existing battle with original owner.boats;
+worker retirement/UID/equipment/cargo/region-wreck settlement remains physical/idempotent.
+Captured hold goods use existing convoyCargo on the exact held prize hull;
+sunk hold goods retain existing half-recoverable/lost-at-sea policy.
+No new salvage UI/loot chains; existing recovery action home limit stays explicit.
+Read-only views use A-frozen heading/boat render DTOs. Render snapshot cap36 follows
+A's locked DTO bound; full physical roster still determines speed/costs/battle.
+Forecast immutable context passed once to VoyageCosts065 runtime.ocean066.
+Fixture test_ocean_voyage066.gd: one Main/Core, await ready, synthetic profile,
+calculated existing-treasury transfer, paid invoices/readiness, actual voyages/
+pursuit/save refusals/worker withdrawal.53.5s watchdog,55s whole-body assertion.
+One controlled empty-tank save variant exercises actual Core motion/clock, then
+reloads the original paid fixture; no hidden production refueling is added.
+Final flooding branch is DECLARED controlled damage to a real retired boat for
+regional wreck custody; no earned combat victory is assigned or claimed.
+Opening capture appends ONLY opening051-ocean-travel066; old11views preserved.
+New view explicitly declares paused positions; no earned voyage/contact claim.
+Review performed: read own source/diff and named API/schema; NO engine/import/
+tests/advisories/GPU/capture/build/export/install/publication performed by B.
+Root must verify parsing/types/native receipts, <=55s fixture budget, actual paid
+departure/return, custody, battle retirement and rendered chart presentation.
+Stop at this named source candidate; no independent fine-tuning/delivery claims.

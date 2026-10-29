@@ -7,6 +7,9 @@ const Goods=preload("res://scripts/goods.gd")
 const EquipmentOwnerService=preload("res://scripts/equipment_owner_service.gd")
 const SAILOR_WAGE: int=100
 
+static func enrolled066(owner: Dictionary,core) -> bool:
+	return core!=null and str(core.state.get("ocean066",{}).get("contact",{}).get("ownerId",""))==str(owner.get("id","")) and not str(owner.get("id","")).is_empty()
+
 static func _log(owner: Dictionary,message: String) -> void:
 	owner.log.push_front(message)
 	if owner.log.size()>16:
@@ -176,6 +179,7 @@ static func allowed_trade(owner: Dictionary,port: Dictionary,good: String,core=n
 	return TradeRules.allowed(bans,str(owner.get("faction","")),str(port.get("faction","")),good,day)
 
 static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: int,crew_paid: bool=false,working: bool=false,core=null,commercial: bool=false) -> int:
+	if enrolled066(owner,core):return 0
 	if quantity<=0 or not allowed_trade(owner,port,good,core):
 		return 0
 	var purse: String="crewPurse" if crew_paid else "coins"
@@ -202,6 +206,7 @@ static func _purchase(owner: Dictionary,port: Dictionary,good: String,quantity: 
 	return int(result.qty)
 
 static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
+	if enrolled066(owner,core):return []
 	normalize_owner(owner)
 	if owner.get("playerCompany",false) and core==null:return []
 	var messages: Array=[]
@@ -274,6 +279,7 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 	return messages
 
 static func _repair(owner: Dictionary,port: Dictionary,boat: Dictionary,core=null) -> void:
+	if enrolled066(owner,core):return
 	if EquipmentOwnerService.is_canonical_or_foreign_boat(boat) or EquipmentOwnerService.is_foreign_owner(owner):
 		EquipmentOwnerService.repair_owner_boat(owner,port,boat,core)
 		return
@@ -369,7 +375,7 @@ static func tick(owners: Array,ports: Array,days: float,core=null) -> Array:
 			owner.lastPayroll=paid
 			if core!=null and owner.get("playerCompany",false):core.CompanyOps.record(core,owner,"wages",paid)
 			owner.daysOperated+=h
-			var port: Dictionary=_find(ports,str(owner.atPort))
+			var port: Dictionary={} if enrolled066(owner,core) else _find(ports,str(owner.atPort))
 			if not port.is_empty():
 				messages.append_array(dock(owner,port,core))
 			var needed: float=costs.food*h

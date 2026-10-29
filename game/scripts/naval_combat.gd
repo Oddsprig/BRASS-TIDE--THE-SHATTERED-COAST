@@ -29,6 +29,7 @@ static func spatial_index(state: Dictionary, cell_size: float = CELL_SIZE) -> Di
 		if not bool(patrol.get("active", false)):
 			continue
 		var pid: String = str(patrol.get("id", ""))
+		if NavalOrders.enrolled066(state,pid):continue
 		if pid.is_empty() or pid.begins_with("story-"):
 			continue
 		var owner: Dictionary = NavalOrders.find_owner(state, pid)
@@ -62,6 +63,7 @@ static func spatial_index(state: Dictionary, cell_size: float = CELL_SIZE) -> Di
 
 
 static func are_hostile(state: Dictionary, owner_a: Dictionary, patrol_a: Dictionary, owner_b: Dictionary, patrol_b: Dictionary) -> bool:
+	if NavalOrders.enrolled066(state,str(owner_a.get("id",""))) or NavalOrders.enrolled066(state,str(owner_b.get("id",""))):return false
 	if owner_a.is_empty() or owner_b.is_empty() or str(owner_a.get("id", "")) == str(owner_b.get("id", "")):
 		return false
 	if NavalOrders.is_story_owner(owner_a) or NavalOrders.is_story_owner(owner_b):
@@ -91,6 +93,7 @@ static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RA
 		if not bool(patrol_a.get("active", false)):
 			continue
 		var id_a: String = str(patrol_a.get("id", ""))
+		if NavalOrders.enrolled066(state,id_a):continue
 		if id_a.is_empty() or id_a.begins_with("story-"):
 			continue
 		var owner_a: Dictionary = NavalOrders.find_owner(state, id_a)
@@ -284,6 +287,7 @@ static func _should_withdraw_side(owner: Dictionary, initial_boats: int, enemy_f
 
 
 static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary:
+	if NavalOrders.enrolled066(state,str(owner_a.get("id",""))) or NavalOrders.enrolled066(state,str(owner_b.get("id",""))):return {"ok":false,"reason":"ocean_owner_excluded"}
 	if NavalOrders.is_story_owner(owner_a) or NavalOrders.is_story_owner(owner_b):
 		return {"ok": false, "reason": "story_owner_excluded"}
 	var boats_a: Array = NavalOrders.living_boats(owner_a)

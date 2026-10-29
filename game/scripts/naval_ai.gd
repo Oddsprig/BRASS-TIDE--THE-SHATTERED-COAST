@@ -44,6 +44,7 @@ static func order_slice(state: Dictionary) -> Array:
 	while visited < owners.size() and decided.size() < MAX_ORDER_DECISIONS:
 		var owner: Dictionary = owners[cursor]
 		cursor = (cursor + 1) % owners.size();visited += 1
+		if NavalOrders.enrolled066(state,str(owner.get("id",""))):continue
 		if NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)) or not bool(owner.get("active", false)):continue
 		var patrol: Dictionary = NavalOrders.find_patrol(state, str(owner.get("id", "")))
 		if patrol.is_empty() or not bool(patrol.get("active", false)) or not str(owner.get("atPort", "")).is_empty():continue
@@ -107,6 +108,7 @@ static func nearby_hostile_pairs(state: Dictionary, radius: float = ENCOUNTER_RA
 
 
 static func resolve_encounter(state: Dictionary, owner_a: Dictionary, owner_b: Dictionary, patrol_a: Dictionary = {}, patrol_b: Dictionary = {}, seed_val: int = 1) -> Dictionary:
+	if NavalOrders.enrolled066(state,str(owner_a.get("id",""))) or NavalOrders.enrolled066(state,str(owner_b.get("id",""))):return {"ok":false,"reason":"ocean_owner_excluded"}
 	var nav_ai: Dictionary = ensure(state)
 	if nav_ai.is_empty():
 		return {"ok": false, "reason": "no_campaign"}
@@ -259,6 +261,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 			continue
 		var owner: Dictionary = owner_var
 		Fleets.normalize_owner(owner)
+		if NavalOrders.enrolled066(state,str(owner.get("id",""))):continue
 		var boats: Array = owner.get("boats", []) if owner.get("boats") is Array else []
 		if not owner.has("targetBoats"):
 			owner["targetBoats"] = maxi(1, boats.size())
@@ -311,6 +314,7 @@ static func ensure(state: Dictionary, _world: Dictionary = {}) -> Dictionary:
 
 static func arrived(core, owner: Dictionary, dock: Dictionary = {}) -> String:
 	var state: Dictionary = NavalOrders.state_of(core)
+	if NavalOrders.enrolled066(state,str(owner.get("id",""))):return str(owner.get("destination",""))
 	ensure(state, NavalOrders.world_of(core))
 	var losses_ready: bool = _reconcile_losses(core)
 	Fleets.normalize_owner(owner)
@@ -369,7 +373,7 @@ static func tick(core, days = 1) -> Array:
 			if not (owner_var is Dictionary):
 				continue
 			var owner: Dictionary = owner_var
-			if NavalOrders.is_story_owner(owner) or owner.get("playerCompany",false):
+			if NavalOrders.enrolled066(state,str(owner.get("id",""))) or NavalOrders.is_story_owner(owner) or owner.get("playerCompany",false):
 				continue
 			var res: Dictionary = NavalOrders.fleet_reserves(owner)
 			var living: int = int(res.get("boats", 0))
@@ -394,7 +398,7 @@ static func tick(core, days = 1) -> Array:
 			if not (owner_var is Dictionary):
 				continue
 			var owner: Dictionary = owner_var
-			if NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)):
+			if NavalOrders.enrolled066(state,str(owner.get("id",""))) or NavalOrders.is_story_owner(owner) or bool(owner.get("playerCompany", false)):
 				# ensure() refreshes derived stats without replacing authored/player intent.
 				continue
 			NavalOrders.refresh_at_sea(day_state, owner)
