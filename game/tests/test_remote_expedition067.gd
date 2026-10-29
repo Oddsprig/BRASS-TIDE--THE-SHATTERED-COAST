@@ -283,4 +283,5 @@ func finish() -> void:
 		var file=FileAccess.open(directory.path_join("remote-expedition067-result.json"),FileAccess.WRITE)
 		if file:file.store_string(JSON.stringify(receipt,"\t"));file.close()
 	print("REMOTE067_RESULT ",JSON.stringify(receipt))
+	print("%d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
