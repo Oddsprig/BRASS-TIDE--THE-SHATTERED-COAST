@@ -969,8 +969,8 @@ static func _extract_contacts066(view064: Dictionary, view066: Dictionary, view0
 			"ownerId": oid,
 			"name": str(raw_c.get("name", "Offshore Contact")),
 			"faction": str(raw_c.get("faction", "")),
-			"role": str(raw_c.get("role", "raider")),
-			"hostile": bool(raw_c.get("hostile", true)),
+			"role": str(raw_c.get("role", "trader" if oid == "patrol-7" else "raider")),
+			"hostile": bool(raw_c.get("hostile", oid != "patrol-7" and str(raw_c.get("role", "")).to_lower() != "trader")),
 			"visibility": vis,
 			"position": {"x": float(raw_c["position"]["x"]), "y": float(raw_c["position"]["y"])},
 			"heading": heading,
@@ -1089,7 +1089,7 @@ func _draw_contacts066(chart, view064: Dictionary, view066: Dictionary, labels: 
 			})
 
 
-func pick_contact(chart, view_or_ocean066: Dictionary, screen_or_ocean066, maybe_screen = null) -> Dictionary:
+func pick_contact(chart, view_or_ocean066: Dictionary, screen_or_ocean066, maybe_screen = null, maybe_shipping068 = null) -> Dictionary:
 	if chart == null:
 		return {}
 	var view064: Dictionary = {}
@@ -1118,7 +1118,7 @@ func pick_contact(chart, view_or_ocean066: Dictionary, screen_or_ocean066, maybe
 		return {}
 	if not screen.is_finite():
 		return {}
-	var view068: Dictionary = _resolve_shipping_view068(chart, null)
+	var view068: Dictionary = _resolve_shipping_view068(chart, maybe_shipping068)
 	var contacts: Array = _extract_contacts066(view064, view066, view068)
 	if contacts.is_empty():
 		return {}

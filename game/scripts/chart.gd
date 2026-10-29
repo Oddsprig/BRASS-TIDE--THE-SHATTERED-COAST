@@ -307,13 +307,14 @@ func pick_local067(screen: Vector2) -> Dictionary:
 
 func pick_contact066(screen: Vector2) -> Dictionary:
 	if host==null or host.core==null:return {}
-	return _ocean_painter064.pick_contact(self,host.core.world_view064(),_ocean_view066(),screen)
+	return _ocean_painter064.pick_contact(self,host.core.world_view064(),_ocean_view066(),screen,_shipping_view068())
 
 func pick_ocean064(screen: Vector2) -> Dictionary:
 	var view064: Dictionary=host.core.world_view064()
-	var hit066: Dictionary=_ocean_painter064.pick_contact(self,view064,_ocean_view066(),screen)
+	var view068: Dictionary=_shipping_view068()
+	var hit066: Dictionary=_ocean_painter064.pick_contact(self,view064,_ocean_view066(),screen,view068)
 	if not hit066.is_empty():return hit066
-	var hit068: Dictionary=_ocean_painter064.pick_port068(self,view064,_shipping_view068(),screen)
+	var hit068: Dictionary=_ocean_painter064.pick_port068(self,view064,view068,screen)
 	if not hit068.is_empty():return hit068
 	var hit067: Dictionary=_ocean_painter064.pick_local067(self,view064,_exploration_view067(),screen)
 	if not hit067.is_empty():return hit067

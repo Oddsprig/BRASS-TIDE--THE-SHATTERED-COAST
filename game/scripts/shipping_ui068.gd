@@ -9,7 +9,7 @@ const REMOTE_REGION_ID: String = "glasswind_keys"
 const HOME_REGION_ID: String = "shatter_coast"
 const REMOTE_BERTH: Dictionary = {"x": 756.0, "y": 732.0}
 const PROVISION_GOODS: Array = ["food", "fuel", "supplies", "ammo"]
-const BRANCH_GOODS_ORDER: Array = ["food", "fuel", "supplies", "ammo", "timber", "logs", "iron", "tools", "ore"]
+const BRANCH_GOODS_ORDER: Array = ["food", "fuel", "supplies", "ammo", "timber", "logs", "iron", "ore"]
 
 static var _open_generation: int = 0
 
@@ -89,39 +89,30 @@ static func _faction_display_name(c, faction_id: String) -> String:
 
 
 static func _good_meta(c, good_key: String) -> Dictionary:
-	if c != null and c.get("Economy") != null and c.Economy.get("GOODS") is Dictionary and c.Economy.GOODS.has(good_key):
-		var g: Dictionary = c.Economy.GOODS[good_key]
+	var item: Dictionary = c.Goods.ITEMS.get(good_key, {}) if (c != null and "Goods" in c and c.Goods != null) else {}
+	if not item.is_empty():
 		return {
-			"name": str(g.get("name", good_key.capitalize())),
-			"weight": float(g.get("weight", 1.0)),
-			"color": Color(str(g.get("color", "#dfbd7d"))).lightened(0.35)
+			"name": str(item.name),
+			"weight": float(item.weight),
+			"color": Color(str(item.get("color", "#dfbd7d"))).lightened(0.35)
 		}
-	return {
-		"name": good_key.replace("_", " ").capitalize(),
-		"weight": 1.0,
-		"color": Color("dfbd7d")
-	}
+	return {}
 
 
-static func _unit_price(c, remote_port: Dictionary, good_key: String, side: String) -> int:
+static func _unit_price(remote_port: Dictionary, good_key: String, side: String) -> int:
 	var prices = remote_port.get("prices", {})
-	if prices is Dictionary:
-		if prices.get(good_key) is Dictionary:
-			var gd: Dictionary = prices[good_key]
-			var raw_p = gd.get(side, gd.get("buy" if side == "buy" else "sell", null))
-			if _is_finite_num(raw_p):
-				return maxi(1, roundi(float(raw_p)))
-		if prices.get(side) is Dictionary and _is_finite_num(prices[side].get(good_key, null)):
-			return maxi(1, roundi(float(prices[side][good_key])))
-		if _is_finite_num(prices.get(good_key, null)):
-			var base_p: int = maxi(1, roundi(float(prices[good_key])))
-			if side == "buy":
-				return base_p
-			if c != null and c.get("Economy") != null and remote_port.get("stocks") is Dictionary:
-				return maxi(1, int(c.Economy.price(remote_port, good_key, "sell")))
-			return maxi(1, roundi(float(base_p) * 0.82))
-	if c != null and c.get("Economy") != null and remote_port.get("stocks") is Dictionary:
-		return maxi(1, int(c.Economy.price(remote_port, good_key, side)))
+	if not (prices is Dictionary):
+		return 0
+	if prices.get(good_key) is Dictionary:
+		var gd: Dictionary = prices[good_key]
+		var raw_p = gd.get(side, null)
+		if _is_finite_num(raw_p) and float(raw_p) > 0.0:
+			return roundi(float(raw_p))
+	if prices.get(side) is Dictionary:
+		var sd: Dictionary = prices[side]
+		var raw_s = sd.get(good_key, null)
+		if _is_finite_num(raw_s) and float(raw_s) > 0.0:
+			return roundi(float(raw_s))
 	return 0
 
 
@@ -329,19 +320,19 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 	, false, false)
 	btn_load_res.custom_minimum_size.y = 32
 
+	var goods_items: Dictionary = c.Goods.ITEMS if (c != null and "Goods" in c and c.Goods != null) else {}
 	var ordered_goods: Array = []
 	for g_key in BRANCH_GOODS_ORDER:
-		if stocks.has(g_key) or (c.get("Economy") != null and c.Economy.GOODS.has(g_key)):
+		if goods_items.has(g_key):
 			ordered_goods.append(g_key)
 	for g_key in stocks.keys():
 		var ks: String = str(g_key)
-		if ks not in ordered_goods:
+		if goods_items.has(ks) and ks not in ordered_goods:
 			ordered_goods.append(ks)
-	if c.get("Economy") != null and c.Economy.get("GOODS") is Dictionary:
-		for g_key in c.Economy.GOODS.keys():
-			var ks: String = str(g_key)
-			if ks not in ordered_goods and float(player_cargo.get(ks, 0.0)) > 0.0:
-				ordered_goods.append(ks)
+	for g_key in goods_items.keys():
+		var ks: String = str(g_key)
+		if ks not in ordered_goods and float(player_cargo.get(ks, 0.0)) > 0.0:
+			ordered_goods.append(ks)
 
 	ui.rule(col)
 	_wrapped_eyebrow(ui, col, "PROVISIONS, TIMBER & CARGO LOTS")
@@ -353,8 +344,10 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 		if stock_qty <= 0 and hold_qty < 0.01 and key not in ["food", "fuel", "supplies", "ammo", "timber", "logs"]:
 			continue
 		var meta: Dictionary = _good_meta(c, key)
-		var buy_price: int = _unit_price(c, remote_port, key, "buy")
-		var sell_price: int = _unit_price(c, remote_port, key, "sell")
+		if meta.is_empty():
+			continue
+		var buy_price: int = _unit_price(remote_port, key, "buy")
+		var sell_price: int = _unit_price(remote_port, key, "sell")
 		var is_prov: bool = key in ["food", "fuel", "supplies", "ammo"]
 		var tag_str: String = " [PROVISIONS]" if is_prov else (" [BRANCH SPECIALTY]" if key in ["timber", "logs"] else "")
 
@@ -372,13 +365,15 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 		var hold_lbl: Label = ui.label(line, "In hold: %.1f (wt %.0f)" % [hold_qty, float(meta["weight"])], 13, ui.GOLD if hold_qty >= 1.0 else ui.MUTED)
 		hold_lbl.custom_minimum_size.x = 145
 
-		var btn_buy: Button = ui.button(line, "Buy · %s coins/u" % ui.money(buy_price), func():
+		var buy_label: String = ("Buy · %s coins/u" % ui.money(buy_price)) if buy_price > 0 else "Buy · unavailable"
+		var btn_buy: Button = ui.button(line, buy_label, func():
 			_invoke_remote_trade(ui, key, maxi(1, int(ui.trade_qty)), "buy", port_id)
-		, is_prov and stock_qty > 0, false)
+		, is_prov and stock_qty > 0 and buy_price > 0, false)
 		btn_buy.custom_minimum_size.y = 32
 		btn_buy.disabled = (stock_qty <= 0 or buy_price <= 0 or player_coins < buy_price or free_cap + 0.0001 < float(meta["weight"]))
 
-		var btn_sell: Button = ui.button(line, "Sell · %s coins/u" % ui.money(sell_price), func():
+		var sell_label: String = ("Sell · %s coins/u" % ui.money(sell_price)) if sell_price > 0 else "Sell · unavailable"
+		var btn_sell: Button = ui.button(line, sell_label, func():
 			_invoke_remote_trade(ui, key, maxi(1, int(ui.trade_qty)), "sell", port_id)
 		, false, false)
 		btn_sell.custom_minimum_size.y = 32
@@ -448,7 +443,8 @@ static func _render_footer(ui, body: VBoxContainer, c, view064: Dictionary, view
 	btn_prep.custom_minimum_size.y = 34
 
 	var contacts066: Array = view066.get("contacts", []) if view066.get("contacts") is Array else []
-	if not contacts066.is_empty():
+	var contacts068: Array = _view068.get("contacts", []) if _view068.get("contacts") is Array else []
+	if not contacts066.is_empty() or not contacts068.is_empty():
 		var btn_contacts: Button = ui.button(actions, "Sightings & course orders", func():
 			ui.open_ocean_contact066()
 		, false, false)
@@ -524,10 +520,8 @@ static func _invoke_remote_trade(ui, good: String, qty: int, side: String, port_
 
 static func render_preparation_summary068(ui, body: VBoxContainer, c, view064: Dictionary) -> void:
 	var view068: Dictionary = _shipping_view068(c)
-	var remote_port: Dictionary = _remote_port068(c)
 	var known_port: Dictionary = _find_known_port068(view068)
-	if known_port.is_empty() and not remote_port.is_empty():
-		known_port = remote_port
+	var is_docked: bool = bool(known_port.get("atBerth", false))
 	var route: Dictionary = view068.get("route", {}) if view068.get("route") is Dictionary else {}
 	var receipts: Array = view068.get("receipts", []) if view068.get("receipts") is Array else []
 	var home_summary: String = str(view068.get("summary", "")).strip_edges()
@@ -544,7 +538,6 @@ static func render_preparation_summary068(ui, body: VBoxContainer, c, view064: D
 	if not known_port.is_empty():
 		var p_name: String = str(known_port.get("name", "Westglass Anchorage"))
 		var p_fac: String = _faction_display_name(c, str(known_port.get("faction", "reed")))
-		var is_docked: bool = not remote_port.is_empty() or bool(known_port.get("atBerth", false))
 		ui.paragraph(col, "Known remote holding: %s (%s · timber & logs branch on Westglass Isle at 756, 732 · %s). Other Glasswind islands remain unclaimed; Reedwater holds this one branch, not the whole archipelago." % [
 			p_name, p_fac, "Docked at berth" if is_docked else "Known anchorage"
 		], 12, ui.TEAL if is_docked else ui.TEXT)
@@ -565,9 +558,9 @@ static func render_preparation_summary068(ui, body: VBoxContainer, c, view064: D
 	col.add_child(btn_row)
 	var btn_open: Button = ui.button(btn_row, "Westglass Anchorage & shipping" if not known_port.is_empty() else "Interregional shipping status", func():
 		open(ui, str(known_port.get("id", REMOTE_PORT_ID)))
-	, not remote_port.is_empty(), false)
+	, is_docked, false)
 	btn_open.custom_minimum_size.y = 32
-	if str(view064.get("layer", "")) == "local" and not known_port.is_empty() and remote_port.is_empty():
+	if str(view064.get("layer", "")) == "local" and not known_port.is_empty() and not is_docked:
 		var btn_sail: Button = ui.button(btn_row, "Sail to Westglass berth (756, 732)", func():
 			_sail_to_remote_port(ui, known_port)
 		, false, false)

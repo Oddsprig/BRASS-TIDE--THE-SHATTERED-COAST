@@ -486,7 +486,14 @@ func update_hud():
 	var p = host.core.current_port()
 	dock_button.disabled = p.is_empty() if host.core.home_local064() else false
 	if not host.core.home_local064():
-		var rp068: Dictionary=host.core.remote_port068() if (host.core is Object and host.core.has_method("remote_port068")) else {}
+		var rp068: Dictionary={}
+		var sv068: Dictionary=host.core.shipping_view068() if (host.core is Object and host.core.has_method("shipping_view068")) else {}
+		var ports068=sv068.get("ports",[])
+		if ports068 is Array:
+			for candidate in ports068:
+				if candidate is Dictionary and bool(candidate.get("atBerth",false)):
+					rp068=candidate
+					break
 		dock_button.text=("Enter %s  ↗" % str(rp068.get("name","Westglass Anchorage"))) if not rp068.is_empty() else "Coastal approaches"
 	else:dock_button.text = "Enter %s  ↗" % p.name if not p.is_empty() else "At sea"
 	var region064: String=str(host.core.world_view064().get("name","Shatter Coast"))
