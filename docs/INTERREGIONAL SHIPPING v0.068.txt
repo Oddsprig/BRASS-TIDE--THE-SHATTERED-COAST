@@ -1,0 +1,29 @@
+BRASS TIDE v0.068 - WORKING INTERREGIONAL SHIPPING
+
+Open seas link local island groups. An island group may contain holdings of
+different factions; owning one harbor does not own the entire archipelago.
+
+Westglass Anchorage is a Reedwater branch on Westglass Isle in Glasswind Keys.
+Its residents, operating reserves and opening stores are accounted for through
+Kelp Reach. Its market has finite stocks and coins; local wages and production
+continue while you sail elsewhere. Sight the harbor before using its chart entry.
+Approach its actual berth, stop and open the anchorage market to trade.
+
+An existing Kelp merchant buys cargo and supplies, sails through the coastal
+approaches and ocean, trades at the branch, then returns for paid service.
+Its boats, crew, cargo, damage and purse stay with the same owner throughout.
+An unfunded or unready merchant holds at harbor instead of receiving free fuel,
+crew or cargo. Inspect dated sightings carefully; old positions are not live.
+Piracy and existing hostile-faction relationships can interrupt shipping.
+Destroyed or stolen goods cannot also be delivered by a later arrival.
+
+Use existing investigate, avoid, engage and resume-course actions. Attacking
+peaceful traffic has the existing political consequences. Paid ship/crew work,
+cargo room and return provisions still matter. No new player escort-order mode.
+
+Glasswind's three surveys and finite wreck cache remain available. Recall a
+shore party before leaving its landing. Harbors and settlement businesses on
+Shatter Coast retain their existing functions; this branch offers its limited
+market and supplies. A full generated sector and territorial expansion remain
+later roadmap work. WASD moves the camera; flagship autopilot is the default.
+Use the plain Brass Tide desktop icon for the latest completed build.

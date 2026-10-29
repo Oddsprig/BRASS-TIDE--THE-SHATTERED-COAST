@@ -1,26 +1,13 @@
-# Brass Tide v0.067 delivered
+# Brass Tide v0.068 - active scoped candidate
 
-Owner clarified the world model29October2026: one ocean planet with no major
-continents. Open seas play the hyperspace role; island groups the system role;
-individual islands the planet role. Different factions can own islands/ports
-inside one group. Read docs/roadmap/OCEAN WORLD DESIGN.txt before068 proposals.
-069 requires seeded geography and starting ownership; dynamic funded expansion
-and capture remain required, separately scoped future work. This clarification
-updates planning only; v0.067's installed executable and release tag are unchanged.
-
-BRASS TIDE v0.067 - The Glasswind expedition
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: e98b2e851731280a375f103c0096c16e22e803b4 / v0.067
-Test Bridge: 226e93d0f5d049e4aa592fa5dddceeb1
-578 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 98.509s; owned cleanup verified.
-
-- Explore three distinct Glasswind islands and follow survey clues to an abandoned cargo cache.
-- Assign real shore crews, pay for tools and provisions, and recall them before sailing.
-- Choose finite salvage lots that fit your holds, then carry them home through the existing ocean voyage.
-
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-v0.067 Glasswind expedition verified on e98b2e851731280a375f103c0096c16e22e803b4: 578 focused assertions/0 failures, Windows export/title startup. Actual native receipts and timings: work/quality-v067/ACTUAL067 CHECKS.json. Every selected batch including setup/cleanup below120seconds; queue wait separate. The actual private Main/Core voyage buys stores and hires with one disclosed finite treasury budget, sails the existing south routes, pays three surveys, recalls/relands a real party, saves/restores, recovers one finite engine commodity and carries it home to ordinary market trade. Three fixed landing anchors are accepted by actual navigation. Unknown sites remain hidden; earned bearings do not reveal unseen destinations. Same boat/crew/equipment owners, finite kits/food/cache and conserved coins. The unique count excludes repeated assertions from earlier attempts. Earlier failed timeout and notification-capture receipts remain preserved; they are not whole-suite passes. Seventeen private exported-PCK interface stills viewed by Root with the same Godot4.7.2 runtime; actual Windows EXE startup checked separately. Legacy approaches and new survey/party/cache views are declared paused compositions with staged positions/knowledge, not earned expedition proof. Bridge team:2Sol6.1MAX, GoogleArgonHIGH, Grok4.7HIGH,2boundedMuseSparkHIGH. Root reviewed/integrated and alone owned queued native jobs. Public board participation used generic tool metadata only; no private game/source/paths/plans/assets disclosed or downloaded code executed. No whole-game, motion, listening, fun or FPS acceptance; earlier strict worker/lag/FPS targets remain OPEN. No068shipping,069sector breadth or071combat art/audio. 36boats,300DP, numerical crew, physical mounts,cheap water,30Hz data worker,100ms role decisions,safe render1 retained. Owner saves/settings/music/old builds and one plain launcher preserved; no autolaunch or remote publication.
-
-Continue with the next saved version scope after v0.067; preserve the shared lane and120-second limit.
+Installed067 is delivered/preserved. Read work/quality-v068/SCOPE068.txt,
+LOCKED068 CONTRACT.txt and CURRENT STATE.txt for exact source/acceptance.
+Only working interregional shipping and one funded authored Westglass branch.
+Ocean planet/no major continents; open seas=hyperspace role, groups=systems,
+islands=planets. Holdings do not automatically own the entire archipelago.
+Source integrated/reviewed; metadata prepared ONCE. Native/export/screens/
+tag/package/Desktop delivery pending. Never prepare068 again.
+Root alone owns shared-queue background tests, each selected batch<120seconds
+including setup/cleanup. No input/focus, native helpers, ownerfile loss, public
+game disclosure or automatic GitHub push. Finish the scoped Windows delivery.
+069seeded world and later territorial expansion remain separate planned work.

@@ -176,7 +176,7 @@ static func _render_ownership_and_shipping_card(ui, body: VBoxContainer, c, view
 		var status_tag: String = "DOCKED AT WATER BERTH" if is_docked else "SIGHTED / KNOWN BRANCH ANCHORAGE"
 		var status_col: Color = ui.TEAL if is_docked else ui.GOLD
 		_wrapped_label(ui, col, "%s  ·  %s  ·  %s" % [p_name, p_faction, status_tag], 18, status_col, true)
-		ui.paragraph(col, "Westglass Anchorage is a small Reedwater branch from Kelp Reach, settled on the northwest coast of Westglass Isle (glasswind_west) at water berth (%.0f, %.0f) for timber and logs. It is one known holding, not control of the whole Glasswind Keys archipelago—Crown Key and Southglass Reef remain unclaimed." % [p_x, p_y], 13, ui.TEXT)
+		ui.paragraph(col, "A Reedwater timber quay on Westglass Isle, supplied from Kelp Reach. Other islands in Glasswind Keys have no recorded faction holding.", 13, ui.TEXT)
 	else:
 		var home_summary: String = str(view068.get("summary", "")).strip_edges()
 		if c.home_local064() and not home_summary.is_empty():
@@ -208,7 +208,7 @@ static func _render_ownership_and_shipping_card(ui, body: VBoxContainer, c, view
 			route_line += "\nRoute / holding note: " + reason_str
 		ui.paragraph(col, route_line, 13, ui.GOLD)
 	else:
-		ui.paragraph(col, "One Kelp Reach merchant (patrol-7) sails this interregional run in her own hull, crew, and cargo. You see her while sighted; older reports stay marked by date, and unseen positions or manifests are never disclosed. If a voyage cannot be paid from real purses after conservative round-trip reserves, she holds in port and waits.", 12, ui.MUTED)
+		ui.paragraph(col, "Kelp Reach merchants carry food outward and logs home. They pay for cargo, crew and provisions, and wait in port if they cannot afford the voyage. Sightings show when a fleet was last seen.", 12, ui.MUTED)
 
 	var contacts: Array = view068.get("contacts", []) if view068.get("contacts") is Array else []
 	if contacts.is_empty() and view066.get("contacts") is Array:
@@ -273,7 +273,7 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 					open(ui, str(known_port.get("id", REMOTE_PORT_ID)))
 				, false, false)
 				btn_stop.custom_minimum_size.y = 34
-		ui.paragraph(col, "Branch service scope: Westglass Anchorage trades only its real finite stocks and cash. Boatyard construction, hull sales, drydock refits, harbor storage, and home contracts remain exclusive to Shatter Coast harbors.", 12, ui.MUTED)
+		ui.paragraph(col, "Trade and provisions are available here. Return to Shatter Coast for shipyards, workshops, storage and contracts.", 12, ui.MUTED)
 		return
 
 	var port_id: String = str(remote_port.get("id", REMOTE_PORT_ID))
@@ -285,7 +285,7 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 	var stocks: Dictionary = remote_port.get("stocks", {}) if remote_port.get("stocks") is Dictionary else {}
 	var player_cargo: Dictionary = c.state.get("cargo", {}) if c.state.get("cargo") is Dictionary else {}
 
-	ui.paragraph(col, "Docked at Westglass Anchorage water berth  ·  Anchorage cash: %s coins  ·  Your purse: %s coins  ·  Hold: %.1f / %.1f used (%.1f free)" % [
+	ui.paragraph(col, "Docked at Westglass Anchorage  ·  Harbor purse: %s coins  ·  Your purse: %s coins  ·  Hold: %.1f / %.1f used (%.1f free)" % [
 		ui.money(port_cash), ui.money(player_coins), used_cap, total_cap, free_cap
 	], 14, ui.TEAL)
 	ui.paragraph(col, "Trade uses actual port stocks and coins on both ends. Buy provisions into your hold, then load hold reserves into boat fuel tanks, magazines, and repair racks before sailing home.", 13, ui.TEXT)

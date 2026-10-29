@@ -1,5 +1,13 @@
 # Brass Tide - current working instructions
 
+Active scoped work v0.068 ONLY. Read work/quality-v068/SCOPE068.txt and its
+locked contract when written. Six authorized Bridge specialists work in
+isolated source-only scopes; Root reviews, integrates and alone tests/delivers.
+First resolve the minimum funded second-region shipping endpoint; Glasswind067
+has no port. No fake interregional delivery/free settlement or full069worldgen.
+Installed067 is complete/preserved. No068metadata/native yet; prepare it once
+only after reviewed source integration, then finish Windows/screens/launcher.
+
 Current verified release v0.067: first useful Glasswind expedition.
 Tested source e98b2e851731280a375f103c0096c16e22e803b4; 578 focused checks/0failures, Windows export/menu,
 17Root-reviewed private PCK stills. Actual receipts work/quality-v067/ACTUAL067

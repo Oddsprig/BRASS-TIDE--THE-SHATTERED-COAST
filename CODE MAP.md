@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.067: The Glasswind expedition. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: exploration.gd, remote_expedition067.gd, campaign.gd, salvage.gd, save_validation.gd, ocean_chart064.gd.
+v0.068: Working interregional shipping. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: shipping068.gd, shipping_flow068.gd, ocean_campaign066.gd, campaign.gd, shipping_ui068.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

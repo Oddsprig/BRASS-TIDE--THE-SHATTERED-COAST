@@ -1,10 +1,10 @@
-BRASS TIDE v0.067 - THE GLASSWIND EXPEDITION
+BRASS TIDE v0.068 - WORKING INTERREGIONAL SHIPPING
 29 October2026 |36 boat designs
 
 THIS VERSION
-- Explore three distinct Glasswind islands and follow survey clues to an abandoned cargo cache.
-- Assign real shore crews, pay for tools and provisions, and recall them before sailing.
-- Choose finite salvage lots that fit your holds, then carry them home through the existing ocean voyage.
+- Visit Westglass Anchorage, a funded Reedwater holding within Glasswind Keys.
+- Follow an existing merchant carrying real cargo between local waters and the open seas.
+- Keep distant trade, piracy, crew upkeep and arrival invoices on one campaign clock.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
