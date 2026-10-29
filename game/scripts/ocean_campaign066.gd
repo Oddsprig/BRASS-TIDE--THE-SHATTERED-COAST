@@ -195,7 +195,8 @@ static func _control(c,book: Dictionary) -> void:
 	if contact.phase=="supply":
 		if float(c.state.day)<float(owner.get("harborServiceUntilDay",INF)):return
 		contact["phase"]="outbound"
-		_plan(c,book,_gate(c,contact.gate,false),"approach:shatter_coast:"+str(contact.gate.approachId))
+		# Like Core.approach_course064, HOME targets the gate with no destination label.
+		_plan(c,book,_gate(c,contact.gate,false))
 	var return_days: float=_return_days(c,contact,speed)
 	if contact.phase in ["outbound","patrol"] and (not Orders.needs_home_recovery(copy,reserves,performance).is_empty() or float(reserves.get("foodDays",0))<=return_days or float(reserves.get("wageDays",0))<=return_days):
 		contact["phase"]="return"
@@ -263,7 +264,8 @@ static func _admit(c) -> void:
 	for id in ["north","south"]:
 		var gate: Dictionary={"regionId":"shatter_coast","approachId":id}
 		var location: Dictionary={"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"},"position":{"x":float(patrol.x),"y":float(patrol.y)},"heading":0.0,"path":[],"destination":""}
-		var route: Dictionary=World.plot(c.ocean_context064,location,_gate(c,gate,false),"approach:shatter_coast:"+id,clearance(owner))
+		# HOME accepts a port ID or empty; approach labels belong to OCEAN/LOCAL.
+		var route: Dictionary=World.plot(c.ocean_context064,location,_gate(c,gate,false),"",clearance(owner))
 		if not route.get("ok",false):continue
 		var length: float=0.0
 		var previous: Dictionary=location.position
