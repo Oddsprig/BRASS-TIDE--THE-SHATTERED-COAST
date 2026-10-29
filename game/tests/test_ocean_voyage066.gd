@@ -235,7 +235,7 @@ func _run() -> void:
 		damaged.water=float(damaged.capacity)
 		c.Damage.tick_ship(damaged,0.1,{"inCombat":false})
 		c.OceanCampaign066.record_losses(c)
-	var wrecks: Array=c.state.wrecks.filter(func(w):return str(w.get("uid",""))==owned_uid and w.get("world064",{})==main.battle.world064)
+	var wrecks: Array=c.state.wrecks.filter(func(w):return str(w.get("uid",""))==owned_uid and c.OceanCampaign066.Travel.same_world(w.get("world064",{}),main.battle.world064))
 	check(not wrecks.is_empty(),"Actual physical UID/equipment becomes a wreck in its offshore region")
 	check(c.Money.total(c.state)==int(c.state.coinSupply),"Battle/controlled wreck custody preserves original global coin supply")
 	enter_phase("read_only_contact_ui")
