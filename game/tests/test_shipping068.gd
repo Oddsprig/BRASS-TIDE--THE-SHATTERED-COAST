@@ -4,6 +4,7 @@ extends SceneTree
 ## crossing, funded branch installation, combat win or whole-game acceptance.
 const Shipping = preload("res://scripts/shipping068.gd")
 const Travel = preload("res://scripts/ocean_travel066.gd")
+const OceanCampaign = preload("res://scripts/ocean_campaign066.gd")
 const World = preload("res://scripts/ocean_world064.gd")
 const Navigation = preload("res://scripts/navigation.gd")
 const Economy = preload("res://scripts/economy.gd")
@@ -167,11 +168,14 @@ func shared_step() -> void:
 	var made: Dictionary=Travel.create(context,17,null,["player","patrol-0",Shipping.OWNER],56.25)
 	if not check(made.get("ok",false),"One shared ocean runtime admits exactly three owners"):
 		return
+	var raider_boats: Array=OceanCampaign.render_boats(Orders.find_owner(core.state,"patrol-0").get("boats",[]))
+	if not check(not raider_boats.is_empty() and raider_boats[0].spec.get("weaponMounts",[]).any(func(m):return m.get("size")==1) and Travel._boats_valid(raider_boats),"Actual armed patrol-0 render DTO validates its numeric mount size field"):
+		return
 	var participants: Array=[]
 	var relations: Array=[]
 	for id in ["player","patrol-0",Shipping.OWNER]:
 		# Controlled nearby DTOs exercise shared sensing caps, not fleet relocation.
-		participants.append({"ownerId":id,"location":Shipping._location("ocean",World.OCEAN,{"x":2400.0+participants.size(),"y":1400.0}),"baseSpeed":0.0,"clearance":20.0,"canMove":false,"canIntercept":false,"detectionRange":1800.0,"interceptRange":75.0,"boats":[]})
+		participants.append({"ownerId":id,"location":Shipping._location("ocean",World.OCEAN,{"x":2400.0+participants.size(),"y":1400.0}),"baseSpeed":0.0,"clearance":20.0,"canMove":false,"canIntercept":false,"detectionRange":1800.0,"interceptRange":75.0,"boats":raider_boats if id=="patrol-0" else []})
 	for a in participants:
 		for b in participants:
 			if a.ownerId!=b.ownerId:relations.append({"observerId":a.ownerId,"targetId":b.ownerId,"hostile":false})

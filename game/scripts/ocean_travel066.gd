@@ -364,7 +364,8 @@ static func _boats_valid(boats) -> bool:
 				if mount.has(key) and not mount[key] is String:return false
 			for key in ["x", "y", "angle"]:
 				if mount.has(key) and not _number(mount[key]):return false
-			if mount.has("size") and not (_number(mount.size) or mount.size is String):return false
+			# Brackets select the DTO field instead of Dictionary's size method.
+			if mount.has("size") and not (_number(mount["size"]) or mount["size"] is String):return false
 	return true
 
 
