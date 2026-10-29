@@ -23,6 +23,11 @@ static func empty_memory() -> Dictionary:
 	return {"schema": 1, "intents": {}, "sightings": {}, "pursuits": {}}
 
 
+static func same_world(a, b) -> bool:
+	# Strict schema-one identities allow both JSON floats and runtime integers.
+	return _identity_valid(a) and _identity_valid(b) and a.layer == b.layer and a.regionId == b.regionId
+
+
 static func create(context064: Dictionary, seed: int, saved_memory = null, owner_ids: Array = ["player", "patrol-0"], now: float = 0.0) -> Dictionary:
 	var data: Dictionary = default_data()
 	if not _keys(data, ["schema", "zones"]) or not _number(data.schema) or data.schema != 1 or not data.zones is Array:
@@ -99,7 +104,7 @@ static func command(context: Dictionary, actor: Dictionary, memory: Dictionary, 
 		target_id = action.targetId
 		var sight: Dictionary = memory.sightings.get(actor.ownerId, {}).get(target_id, {})
 		if sight.is_empty() or now >= float(sight.expiresSecond):return _failure("sighting", "This contact has no unexpired last sighting.")
-		if sight.world064 != actor.location.world064:return _failure("sighting", "The last sighting is on another chart.")
+		if not same_world(sight.world064, actor.location.world064):return _failure("sighting", "The last sighting is on another chart.")
 		var target: Dictionary = _escape(context, actor, sight.position) if kind == "avoid" else _point(sight.position)
 		if target.is_empty():return _failure("route", "There is no safe escape course away from that sighting.")
 		goal = {"world064": _copy(sight.world064), "target": target, "destination": ""}
@@ -495,7 +500,7 @@ static func _encounter(actors: Array, relations: Array, traces: Array, now: floa
 		if not relation.hostile:continue
 		var a: int = _actor_index(actors, str(relation.observerId))
 		var b: int = _actor_index(actors, str(relation.targetId))
-		if not actors[a].canIntercept or actors[a].location.world064 != actors[b].location.world064 or actors[a].location.world064.layer != "ocean":continue
+		if not actors[a].canIntercept or not same_world(actors[a].location.world064, actors[b].location.world064) or actors[a].location.world064.layer != "ocean":continue
 		if actors[a].ownerId != "player" and actors[b].ownerId != "player":continue
 		var hit: float = _sweep(traces[a].segments, traces[b].segments, float(actors[a].interceptRange) / SCALE)
 		if hit < 0.0 or hit > dt:continue
@@ -552,7 +557,7 @@ static func _observe(context: Dictionary, actors: Array, relations: Array, memor
 	for relation in relations:
 		var observer: Dictionary = _actor(actors, str(relation.observerId))
 		var target: Dictionary = _actor(actors, str(relation.targetId))
-		if observer.location.world064 != target.location.world064:continue
+		if not same_world(observer.location.world064, target.location.world064):continue
 		var scale: float = SCALE if observer.location.world064.layer == "ocean" else 1.0
 		var first: Dictionary = _condition(context, observer.location, now)
 		var second: Dictionary = _condition(context, target.location, now)
@@ -564,7 +569,7 @@ static func _capture(observer: Dictionary, target: Dictionary, memory: Dictionar
 	var by_observer: Dictionary = memory.sightings.get(observer.ownerId, {})
 	var previous: Dictionary = by_observer.get(target.ownerId, {})
 	var velocity: Dictionary = {"x": 0.0, "y": 0.0}
-	if not previous.is_empty() and previous.world064 == target.location.world064 and now - float(previous.seenSecond) >= EPS:
+	if not previous.is_empty() and same_world(previous.world064, target.location.world064) and now - float(previous.seenSecond) >= EPS:
 		var scale: float = SCALE if target.location.world064.layer == "ocean" else 1.0
 		var elapsed: float = now - float(previous.seenSecond)
 		velocity = {"x": (float(target.location.position.x) - float(previous.position.x)) * scale / elapsed,
@@ -601,7 +606,7 @@ static func _decide(context: Dictionary, actor: Dictionary, relations: Array, me
 	for relation in relations:
 		if relation.observerId != actor.ownerId or not relation.hostile:continue
 		var candidate: Dictionary = memory.sightings.get(actor.ownerId, {}).get(relation.targetId, {})
-		if not candidate.is_empty() and candidate.world064 == actor.location.world064 and now < float(candidate.expiresSecond):
+		if not candidate.is_empty() and same_world(candidate.world064, actor.location.world064) and now < float(candidate.expiresSecond):
 			sight = candidate
 			target_id = relation.targetId
 			break
@@ -634,7 +639,7 @@ static func _decide(context: Dictionary, actor: Dictionary, relations: Array, me
 		if now - float(previous.lastPlanSecond) < REPLAN_SECONDS:return
 		var old_goal: Dictionary = previous.goal
 		var scale: float = SCALE if actor.location.world064.layer == "ocean" else 1.0
-		if previous.kind == kind and previous.targetId == target_id and not old_goal.is_empty() and old_goal.world064 == actor.location.world064 and _distance(old_goal.target, point) * scale < REPLAN_DISTANCE and not actor.location.path.is_empty():return
+		if previous.kind == kind and previous.targetId == target_id and not old_goal.is_empty() and same_world(old_goal.world064, actor.location.world064) and _distance(old_goal.target, point) * scale < REPLAN_DISTANCE and not actor.location.path.is_empty():return
 	var goal: Dictionary = {"world064": _copy(actor.location.world064), "target": point, "destination": ""}
 	var plotted: Dictionary = _plot_goal(context, actor, goal)
 	if not plotted.ok:return
@@ -657,7 +662,7 @@ static func _plot_goal(context: Dictionary, actor: Dictionary, goal: Dictionary)
 		stopped["path"] = []
 		stopped["destination"] = ""
 		return {"ok": true, "location": stopped}
-	if goal.world064 != actor.location.world064:return _failure("resume", "The saved voyage goal is on another chart; plot the matching approach explicitly.")
+	if not same_world(goal.world064, actor.location.world064):return _failure("resume", "The saved voyage goal is on another chart; plot the matching approach explicitly.")
 	return World.plot(context.world064Context, actor.location, goal.target, str(goal.destination), float(actor.clearance))
 
 

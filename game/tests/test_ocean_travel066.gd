@@ -167,6 +167,27 @@ func intelligence() -> void:
 			" rawSchemaType=", typeof(seen.memory.schema), " savedSchemaType=", typeof(restored.schema),
 			" rawSightingSchemaType=", typeof(saved_sight.world064.schema),
 			" savedSightingSchemaType=", typeof(restored.sightings.player["patrol-0"].world064.schema))
+	var loaded_before: PackedByteArray = var_to_bytes(rebuilt.memory)
+	var saved_world: Dictionary = rebuilt.memory.sightings.player["patrol-0"].world064
+	check(typeof(player.location.world064.schema) == TYPE_INT and typeof(saved_world.schema) == TYPE_FLOAT, "Save regression crosses real integer/JSON-float identity representations")
+	check(Travel.same_world(saved_world, player.location.world064) and Travel.same_world(player.location.world064, saved_world), "World identity is symmetric across the save boundary")
+	var loaded_command: Dictionary = Travel.command(context, player, rebuilt.memory, {"kind": "investigate", "targetId": "patrol-0"}, 16.0)
+	check(loaded_command.ok and loaded_command.location.path[-1].x == 2300.0 and loaded_command.memory.sightings == rebuilt.memory.sightings, "Post-load investigate accepts the canonical actor and retains exact frozen intel")
+	var pursuer: Dictionary = npc.duplicate(true)
+	pursuer["canIntercept"] = true
+	var loaded_step: Dictionary = stepped([player, pursuer], rebuilt.memory, 16.0, 1.0, true, ["patrol-0"], relations)
+	check(loaded_step.ok and loaded_step.memory.pursuits.has("patrol-0") and loaded_step.memory.pursuits["patrol-0"].phase == "searching" and loaded_step.locations[1].location.path[-1].x == 2200.0, "Post-load scheduled pursuit uses the saved sighting with a canonical actor")
+	var saved_route = JSON.parse_string(JSON.stringify(investigate.memory))
+	var loaded_resume: Dictionary = Travel.command(context, player, saved_route, {"kind": "resume"}, 17.0)
+	check(loaded_resume.ok and loaded_resume.location.path[-1].x == 2600.0, "Post-load resume accepts the original JSON-float voyage goal")
+	check(loaded_before == var_to_bytes(rebuilt.memory), "Post-load commands and step preserve the exact parsed memory representation")
+	for mismatch in [{"schema": 1.0, "layer": "ocean", "regionId": World.HOME}, {"schema": 1.0, "layer": "home", "regionId": World.OCEAN}, {"schema": 2.0, "layer": "ocean", "regionId": World.OCEAN}]:
+		check(not Travel.same_world(saved_world, mismatch) and not Travel.same_world(mismatch, saved_world), "Wrong region, layer or schema still fails strict identity matching")
+	var other_chart: Dictionary = rebuilt.memory.duplicate(true)
+	other_chart.sightings.player["patrol-0"]["world064"] = {"schema": 1.0, "layer": "home", "regionId": World.HOME}
+	other_chart.sightings.player["patrol-0"]["position"] = {"x": 5200.0, "y": 300.0}
+	var refused: Dictionary = Travel.command(context, player, other_chart, {"kind": "investigate", "targetId": "patrol-0"}, 16.0)
+	check(not refused.ok and refused.code == "sighting" and refused.location.is_empty() and refused.memory.is_empty(), "A valid saved sighting on another chart still refuses atomically")
 
 
 func pursuit() -> void:
@@ -204,9 +225,10 @@ func pursuit() -> void:
 func crossing() -> void:
 	var player: Dictionary = actor("player", 1000.0, 500.0, 1100.0, 500.0)
 	var npc: Dictionary = actor("patrol-0", 1100.0, 500.0, 1000.0, 500.0)
+	npc.location.world064["schema"] = 1.0
 	npc["canIntercept"] = true
 	var crossed: Dictionary = stepped([player, npc], Travel.empty_memory(), 2.0, 4.0, false, [], relations)
-	if not check(crossed.ok and not crossed.encounter.is_empty(), "Swept crossing catches fast fleets between watches"):
+	if not check(crossed.ok and not crossed.encounter.is_empty(), "Swept crossing catches fast fleets with integer/JSON-float world identities"):
 		return
 	check(close(crossed.acceptedSeconds, 0.98) and close(crossed.encounter.atSecond, 2.98), "Earliest physical interception clips the accepted clock interval")
 	check(close(crossed.locations[0].location.position.x, 1049.0) and close(crossed.encounter.position.x, 1049.0), "Encounter uses the exact player's offshore point")
