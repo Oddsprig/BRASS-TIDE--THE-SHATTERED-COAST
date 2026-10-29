@@ -362,7 +362,7 @@ static func diverted(c,target: Dictionary,destination: String) -> Dictionary:
 	var prior: Dictionary=memory.intents.get("player",{})
 	# A new chart has no active prior course. Preserve dated intel/pursuit, not a
 	# stale completed course as the original goal of every later ocean diversion.
-	if not prior.is_empty() and prior.get("goal",{}).get("world064")!=player.location.world064:memory.intents.erase("player")
+	if not prior.is_empty() and not Travel.same_world(prior.get("goal",{}).get("world064"),player.location.world064):memory.intents.erase("player")
 	var result: Dictionary=Travel.command(c.ocean_context066,player,memory,{"kind":"divert","target":target,"destination":destination},float(c.state.day)*45.0)
 	if result.get("ok",false) and player.location.path.is_empty() and memory.intents.get("player",{}).get("returnGoal",{}).is_empty():result.memory.intents.player["kind"]="route"
 	return result
@@ -376,21 +376,21 @@ static func blocker(c) -> String:
 static func encounter(c,id: String,settlement: Dictionary={}) -> Dictionary:
 	var book: Dictionary=c.state.get("ocean066",empty_book())
 	if c.home_local064() or book.contact.is_empty() or str(book.contact.ownerId)!=id or book.contact.phase=="lost":return _fail("This is not an enrolled offshore contact.")
-	if not c.state.get("world064",{}).is_empty() and c.state.world064!=book.contact.location.world064:return _fail("This contact belongs to another chart.")
+	if not c.state.get("world064",{}).is_empty() and not Travel.same_world(c.state.world064,book.contact.location.world064):return _fail("This contact belongs to another chart.")
 	var owner: Dictionary=_owner(c.state,id)
 	if not owner.get("active",false) or Orders.living_boats(owner).is_empty():return _fail("This contact has no surviving physical fleet.")
 	var scale: float=10.0 if c.state.world064.layer=="ocean" else 1.0
 	if c.distance(c.state.position,book.contact.location.position)*scale>75.0001:return _fail("Approach within actual interception range first.")
 	var seen: Dictionary=book.memory.sightings.get("player",{}).get(id,{})
-	if seen.is_empty() or seen.world064!=c.state.world064 or float(c.state.day)*45.0-float(seen.seenSecond)>1.5:return _fail("A fresh physical sighting is needed to engage.")
+	if seen.is_empty() or not Travel.same_world(seen.world064,c.state.world064) or float(c.state.day)*45.0-float(seen.seenSecond)>1.5:return _fail("A fresh physical sighting is needed to engage.")
 	if not settlement.is_empty():
-		if settlement.get("world064")!=c.state.world064 or settlement.get("encounterPosition")!=c.state.position:return _fail("The offshore encounter provenance changed.")
+		if not Travel.same_world(settlement.get("world064"),c.state.world064) or settlement.get("encounterPosition")!=c.state.position:return _fail("The offshore encounter provenance changed.")
 	return {"ok":true,"message":"Physical offshore contact validated.","context":{"kind":"ocean066","id":id,"ownerId":id,"world064":c.state.world064.duplicate(true),"encounterPosition":c.state.position.duplicate(true),"name":"Offshore interception"}}
 
 static func settlement_error(c,context: Dictionary,battle: Dictionary) -> String:
 	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact
 	if battle.is_empty() or contact.is_empty() or str(context.get("ownerId",""))!=str(contact.ownerId) or str(contact.ownerId)!=OWNER:return "Offshore settlement needs the enrolled physical owner."
-	if context.get("world064")!=c.state.get("world064") or battle.get("world064")!=context.get("world064") or context.get("encounterPosition")!=c.state.position or battle.get("chartPosition")!=context.get("encounterPosition"):return "Offshore battle position or world provenance changed."
+	if not Travel.same_world(context.get("world064"),c.state.get("world064")) or not Travel.same_world(battle.get("world064"),context.get("world064")) or context.get("encounterPosition")!=c.state.position or battle.get("chartPosition")!=context.get("encounterPosition"):return "Offshore battle position or world provenance changed."
 	if not context.get("ownerUids066") is Array or context.ownerUids066.is_empty():return "Offshore settlement needs its original boat UIDs."
 	var seen: Dictionary={}
 	for uid in context.ownerUids066:
@@ -440,11 +440,11 @@ static func view(c) -> Dictionary:
 	var original: Dictionary=intent.get("returnGoal",{})
 	if not original.is_empty():
 		output.travel066["resumeDestination"]=str(original.get("destination",""))
-		if original.get("world064")==c.state.get("world064"):output.travel066["resumePath"]=[original.target.duplicate(true)]
+		if Travel.same_world(original.get("world064"),c.state.get("world064")):output.travel066["resumePath"]=[original.target.duplicate(true)]
 	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact
 	if contact.is_empty() or contact.phase=="lost":return output
 	var seen: Dictionary=memory.sightings.get("player",{}).get(OWNER,{})
-	if seen.is_empty() or float(seen.expiresSecond)<=now or seen.world064!=c.state.get("world064"):return output
+	if seen.is_empty() or float(seen.expiresSecond)<=now or not Travel.same_world(seen.world064,c.state.get("world064")):return output
 	var owner: Dictionary=_owner(c.state)
 	var age: float=maxf(0.0,now-float(seen.seenSecond))
 	var current: bool=age<=1.5
