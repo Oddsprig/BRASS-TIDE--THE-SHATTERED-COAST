@@ -1,15 +1,9 @@
-BRASS TIDE v0.066 - OPEN-OCEAN NAVIGATION, SIGHTINGS AND PURSUIT
-28 October2026 |36 boat designs
+BRASS TIDE v0.066 - NATIVE VERIFIED, WINDOWS DELIVERY PENDING
 
-THIS VERSION
-- Choose ocean routes through inexpensive current and weather zones that affect sailing time and visibility.
-- Investigate dated sightings, plot a physical escape course and resume a remembered destination.
-- Meet a real supply-limited raider fleet offshore, with existing physical boats, accounts and battle settlement.
-
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
-
-STATUS: current source candidate; focused checks/export pending.
+211focused native checks/0failures:129model +82actual voyage.
+Tested source32e82615c6d892208622ece0bbff8b938242653a.
+Resumedverification165.144517/180seconds inclretries/setup/cleanup.
+Windows export/startup,12privateviews,tag/install remainPENDING.
+Installed verified desktop build remains v0.065.
+No whole-game quality, rendered/audio/fun or newFPS acceptance.
+See HANDOFF.md and work/quality-v066/ACCEPTED NATIVE066.json.

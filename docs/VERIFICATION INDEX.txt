@@ -434,3 +434,8 @@ Nativebf2f4dfba88443a3b006542ef2037752:714/0whole31.042159s. Worker/Windows50ba1
 v0.065: work/quality-v065/ACTUAL065 CHECKS.json;624native+125worker=749unique;11reviewedstills.
 Paid real voyage, forecast/transfer/UI purity, Windows export/startups; earlier failures retained.
 Whole-game art/audio/fun/strict performance remains OPEN.
+
+v0.066 nativeonly: work/quality-v066/ACCEPTED NATIVE066.json;129model+82actual
+voyage=211/0. R8wholeFAILEDretainsmodelphasewithstrictR8->R10test-onlyproof;
+R10wholePASSED. Resumedtotal165.144517s inclfailedretries. Windows/export/
+12privateviews/tag/install PENDING. Installed065unchanged. No broadacceptance.

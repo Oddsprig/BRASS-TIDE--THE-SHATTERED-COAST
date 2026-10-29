@@ -1,0 +1,11 @@
+BRASS TIDE v0.066 - FOCUSED NATIVE ACCEPTANCE ONLY
+
+211checks/0failures:129model plus82actualphysicalvoyage.
+Testedsource:32e82615c6d892208622ece0bbff8b938242653a
+R8modelphasepassed, wholeR8failed; sourceproofretainsmodelonly.
+R10actualvoyagewholepassed39.099967s inclsetup/cleanup; ownedpids[].
+Resumedverification165.144517s including earlierfailedretries; budget180s.
+Priorhistory303.413205s retained separately; queuewaitnotcharged.
+Windows export/startup,12privateimages,tag/install remainPENDING.
+See work/quality-v066/ACCEPTED NATIVE066.json and RESUMED VERIFICATION066.json.
+Controlledpublicfatalhit testswreckcustody, not an earnedcombatvictory.

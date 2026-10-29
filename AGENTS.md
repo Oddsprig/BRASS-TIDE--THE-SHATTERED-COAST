@@ -1,16 +1,14 @@
 # Brass Tide - current working instructions
 
-Installed v0.065 DELIVERED, local taga5995c9; owner files preserved.
-Current verified release v0.065: long-voyage preparation and explicit finite fuel
-transfers. Tested source bb13acd822e85d57a4e1692c9b9d051c2c5d5fa2;624native+125worker=749unique checks.
-Eleven private exported UI stills reviewed; Windows export/startup clean. Task
-work/quality-v065 contains actual receipts and prior failed setup attempts.
-Do not prepare, retag, reinstall or repeat passed065 checks. Actual delivery
-receipt:work/quality-v065/DELIVERED v0.065.json.2saves/20musicfiles preserved.
-Next066 after delivery: playable ocean travel. Prior battle quality/performance
-limits OPEN. No helper engine or owner-file work; Root owns shared-lane tests
-and delivery. Read queue byjobID; fresh report=result.json; final receipt is
-bridge-result.json.
+Installed verified game remains v0.065. Current v0.066 source32e82615c6d892208622ece0bbff8b938242653a
+has211focused native checks passed:129model retained by strict test-only source
+proof +82actual voyage. Windows export/startup/private12viewreview/tag/install
+remain PENDING. Do not mark066delivered or start067production. Metadata066 was
+preparedONCE; never prepareagain. ACCEPTED NATIVE066.json hasactualreceipts.
+Owner resumed29Octwithqueueavailable; resumedtestbudget165.145/180secondsused,
+14.855remaining insufficientfornextfullenginebatch. No pendingtest orfurther
+engine/GPUjobswithoutownersteering. Prior303.413seconds remainhistorical, noterased.
+PlainDesktopBrassTideiconstill065;2owner saves/20musicunchanged.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
@@ -76,8 +74,9 @@ Verification budget clarification after owner asks whole suite under3minutes:
 Root enforces180seconds TOTAL per version including retries/setup/import/export/
 startup/cleanup; queuewaitseparate. Every selected batchstill<120seconds. Stop
 further native/GPU verification when totalbudget isspent; retain unverifiedsource
-asunverified, do not silentlyresetbudget orclaimdelivery. Current066spent303.413s
-conservativeinclinterruptedsetup; nofurther066engine/GPUjobs. Installed065preserved.
+asunverified, do not silentlyresetbudget orclaimdelivery. Prior066spent303.413s conservatively inclinterruptedsetup; ownerresumed29Oct
+withfreshboundedpass165.145s. Preservebothhistories; nofurthertestswithinremaining
+14.855s. Installed065preserved.
 
 Whole selected test batches MUST finish below120seconds including setup/import,
 export/startups and cleanup; queue wait is separate. Split useful small batches

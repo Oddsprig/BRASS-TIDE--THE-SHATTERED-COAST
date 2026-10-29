@@ -484,3 +484,10 @@ Long unwrapped labels and one-line control bars inflate modal minimum width.
 Use local word-wrap, bounded pickers and flow rows; inspect actual1280x800capture.
 No global modal rebuild needed. Fast multi-new-game capture welcome toasts remain
 a transient existing presentation limitation; no motion/audio acceptance claimed.
+
+v0.066 native129+82: validate then compare chart identity fields, not Dictionary
+Variant equality across JSONinteger/float schema representations. Preserve strict
+wrongregion/layer refusals. Setting water exactly to capacity is not a guaranteed
+loss fixture: pumps bail before sinking sanitation. Use declared controlled public
+damage and assert actualsunk beforechecking existingUID wreckcustody; do not
+weaken gamepumps/repair or claim a controlledloss as earned combat.
