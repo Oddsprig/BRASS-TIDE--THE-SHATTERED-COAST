@@ -1,3 +1,5 @@
+v0.066 VERIFIED AND PACKAGED: 211/0 focused checks, selected batch 38.890s, TestBridge 6854280a57fd4b0eb09cf518e3e015dc. Source 6e1e9d80a5132e78a7458cf799f2652fa5a6401a.
+
 28OCT2026 - v0.066 OPEN-OCEAN NAVIGATION, SIGHTINGS AND PURSUIT
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

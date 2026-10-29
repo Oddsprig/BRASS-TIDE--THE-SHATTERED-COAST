@@ -1,0 +1,12 @@
+OPEN OCEAN066 — CURRENT SOURCE MAP
+ocean_travel066.gd: bounded pure motion/current/weather/observations/pursuit, shared064geometry.
+ocean_conditions066.json: inexpensive authored current/weather zones, deterministic phases.
+ocean_campaign066.gd: one existing raider, finite paid departure/return, one canonical position.
+campaign.gd: staged accepted time; one clock; home NPCs/economy continue once offshore.
+naval guards: enrolled owner has no duplicate home motion/combat/service/replacement.
+Main/Core: actual encounter position/region/physical owned boats and worker retirement.
+save_validation.gd: copy-first optional066 book; absent legacy defaults, malformed refuses.
+ocean_chart064.gd/chart.gd: separate sanitized066 view, frozen dated art and cheap zones.
+ocean_contact_ui066.gd: read-only view; explicit investigate/avoid/resume/engage actions.
+voyage_costs065/preparation: disclose current forecast and conservative reserve separately.
+Actual receipts and failed attempts remain in quality-v066; no future shipping/loot breadth.

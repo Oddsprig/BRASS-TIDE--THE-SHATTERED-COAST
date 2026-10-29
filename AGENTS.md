@@ -1,14 +1,12 @@
 # Brass Tide - current working instructions
 
-Installed verified game remains v0.065. Current v0.066 source32e82615c6d892208622ece0bbff8b938242653a
-has211focused native checks passed:129model retained by strict test-only source
-proof +82actual voyage. Windows export/startup/private12viewreview/tag/install
-remain PENDING. Do not mark066delivered or start067production. Metadata066 was
-preparedONCE; never prepareagain. ACCEPTED NATIVE066.json hasactualreceipts.
-Owner resumed29Octwithqueueavailable; resumedtestbudget165.145/180secondsused,
-14.855remaining insufficientfornextfullenginebatch. No pendingtest orfurther
-engine/GPUjobswithoutownersteering. Prior303.413seconds remainhistorical, noterased.
-PlainDesktopBrassTideiconstill065;2owner saves/20musicunchanged.
+Current verified release v0.066: open-ocean conditions, dated sightings and physical
+pursuit/interception. Tested source 6e1e9d80a5132e78a7458cf799f2652fa5a6401a;211unique focused checks/0failures.
+Twelve private exported stills reviewed; Windows export/startup clean. Actual
+receipts and failed-attempt lessons in work/quality-v066. Do not prepare066 again.
+Check DELIVERED v0.066.json for completed installation. Next067scope only:
+first useful remote exploration expedition. Prior whole-game quality/performance
+limits OPEN. Root alone owns queued background native/GPU tests and delivery.
 
 Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
 HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
@@ -70,13 +68,14 @@ raw commands and never nest another lease. Preserve job IDs and actual receipts.
 Yield only our own identity-verified process if another game starts.
 <!-- END GAME TEST LANE -->
 
-Verification budget clarification after owner asks whole suite under3minutes:
-Root enforces180seconds TOTAL per version including retries/setup/import/export/
-startup/cleanup; queuewaitseparate. Every selected batchstill<120seconds. Stop
-further native/GPU verification when totalbudget isspent; retain unverifiedsource
-asunverified, do not silentlyresetbudget orclaimdelivery. Prior066spent303.413s conservatively inclinterruptedsetup; ownerresumed29Oct
-withfreshboundedpass165.145s. Preservebothhistories; nofurthertestswithinremaining
-14.855s. Installed065preserved.
+29October owner correction: finish and install the current version. Do not turn
+elapsed test time into a stop-work rule before packaging. Keep each complete
+selected verification suite under120seconds (owner absoluteceiling3minutes),
+including setup/import/export/startup/cleanup; queuewaitseparate. Reuse passed
+unchanged components with strict source proof and avoid repeated unnecessary
+checks. Continue through Windows export, actualscreenreview and launcher delivery.
+Historical retries remain recorded honestly; they are not a lifetime version
+budget or permission gate. No requesting another budget reset just to finish.
 
 Whole selected test batches MUST finish below120seconds including setup/import,
 export/startups and cleanup; queue wait is separate. Split useful small batches

@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Meet a real supply-limited raider fleet offshore, with existing physical boats, accounts and battle settlement.
 
 See docs/TEST RESULTS v0.066.md for actual focused checks and remaining limits.
+
+Verification: 211 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 38.890s. Preserved earlier failures; no broad acceptance claim.

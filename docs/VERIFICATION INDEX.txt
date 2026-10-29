@@ -439,3 +439,8 @@ v0.066 nativeonly: work/quality-v066/ACCEPTED NATIVE066.json;129model+82actual
 voyage=211/0. R8wholeFAILEDretainsmodelphasewithstrictR8->R10test-onlyproof;
 R10wholePASSED. Resumedtotal165.144517s inclfailedretries. Windows/export/
 12privateviews/tag/install PENDING. Installed065unchanged. No broadacceptance.
+
+v0.066: work/quality-v066/ACTUAL066 CHECKS.json;211unique/0;12Root-reviewed
+private exported stills; Windows export/startups and actual physical ocean voyage.
+Earlier failed whole jobs remain failed; only strict source-proven passed phases retained.
+Whole-game art/audio/fun/strict performance remains OPEN.

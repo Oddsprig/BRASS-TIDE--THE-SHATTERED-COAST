@@ -1,18 +1,18 @@
-# Current verified release: v0.065 long-voyage preparation
+# Current verified release: v0.066 open-ocean travel
 
-Actual coastal/ocean route forecasts, expected spending, separate return and two-day
-allowance, per-boat fuel and explicit transfers.749unique checks, Windows startups
-and eleven reviewed exported stills. Whole-game quality and earlier strict battle
-performance targets remain open.
+Physical ocean route changes, inexpensive current/weather zones, dated sightings,
+pursuit/interception with one actual existing finite raider fleet and existing
+battle settlement. 211unique focused checks and twelve reviewed stills.
+Whole-game quality and earlier strict performance targets remain open.
 
-Next: **v0.066**, playable ocean travel. Finish each saved scope before the next.
+Next: **v0.067**, first useful remote exploration expedition. Finish each scope.
 
 | Version | Bounded scope |
 | --- | --- |
 | 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
 | 0.064 | Verified prototype: ocean/local charts, Glasswind Keys, persistent round trip. |
 | 0.065 | Verified: forecasts, return reserves, actual paid voyage and finite tank transfers. |
-| 0.066 | Ocean route choices, currents/weather, sightings, pursuit and interception. |
+| 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
 | 0.067 | Complete the first useful remote exploration expedition. |
 | 0.068 | Interregional NPC shipping and scheduled distant economies/fleets. |
 | 0.069 | Expand the proven pipeline into core, frontier and remote regions. |

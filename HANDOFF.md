@@ -1,46 +1,18 @@
-# Brass Tide v0.066 - native verified; Windows delivery pending
+# Brass Tide v0.066 delivered
 
-Installed verified build remains v0.065. No066tag/export/install is claimed.
-Current tested source32e82615c6d892208622ece0bbff8b938242653a.
-Metadata066 PREPARED ONCE; never run preparation again.
-Task work/quality-v066/ACCEPTED NATIVE066.json records211focused checks/0failures:
--129model checks from a61277b1e5e54c5f8560423623f5124b/attempt-001 modelphase.
- WholeR8failedvoyage and remainsFAILED; strictR8->R10sourceproof changesONLY
- game/tests/test_ocean_voyage066.gd. Production is identical, not a source waiver.
--82actual voyage checks from5da6049eed4d4b0497314bf41ec69eaa/attempt-001,
- whole39.099967s incsetup, clean exit and ownedpids[]. Actual paid NPCdeparture,
- sightings/pursuit/avoid/resume, save/refusal/emptytanks, battlewithdrawal/settlement,
- conservedcoins, read-onlyUI and regional wreck custody checked.
- Wreck loss is declared controlled public fatal-hit, NOT an earned combatwin.
+BRASS TIDE v0.066 - Open-ocean navigation, sightings and pursuit
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 6e1e9d80a5132e78a7458cf799f2652fa5a6401a / v0.066
+Test Bridge: 6854280a57fd4b0eb09cf518e3e015dc
+211 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 38.890s; owned cleanup verified.
 
-Owner resumed29Oct 'SHOULD HAVE A SLOT IN THE QUEUE NOW'. Resumed verification
-165.144517/180seconds including failedretries/setup/cleanup;14.855483remain.
-RESUMED VERIFICATION066.json records allspent. Prior303.413205s remain in
-TEST BUDGET066.json. No silent reset, no pendingenginejob. Nextcompletebatch
-cannotfitremainingbudget: no moreengine/GPUjobs untilownersteering.
+- Choose ocean routes through inexpensive current and weather zones that affect sailing time and visibility.
+- Investigate dated sightings, plot a physical escape course and resume a remembered destination.
+- Meet a real supply-limited raider fleet offshore, with existing physical boats, accounts and battle settlement.
 
-Actualfixes: validated same_world accepts schema1/int vs1.0/JSON while rejecting
-otherlayers/regions/schema; A3617683 -> Root851467b, B6783bda -> Roote95d45c.
-Fixture32e8261 uses normal public fatal hit: water-at-capacity was bailed before
-sinking; no production pump/repair behavior altered. World-filterfix4ceb847
-uses the same strict semantic identity. Both controlledsetup corrections retain
-originalphysicalUID/equipment/cargo/coins; modelreceipt:129checks.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-Nextdelivery work ONLY after renewed engineauthorization/budget: existing combined
-Windows config currently rerunsvoyage; removealready-passedvoyage to avoidrepeat,
-export/menu startup (actualcampaign+battle already nativechecked), thenprivate
-12viewtour via prepare_capture066.py and run_runtime_profile.py. Capturemayuse
-capture_quit_frames240 but still requiresALL12actualfiles and Rootviewingthem.
-No more native model/voyage repeats ifgamecodeunchanged; strictR10->finalproof.
-record066.py is preparedNOTRUN and currentlyexpects combinedWindowsvoyagechecks;
-update it truthfully for chosenactualplan/receipts beforeuse. finish_package and
-record_delivery acceptactualattempt; retainedproofoptionalattemptvalidated.
+v0.066 scoped open-ocean travel verified on 6e1e9d80a5132e78a7458cf799f2652fa5a6401a. Model129/0; actual voyage82/0; Windows export/title startup exit0. Total211unique focused checks. Actual job IDs, timings and strict source proofs in work/quality-v066/ACTUAL066 CHECKS.json. Each selected batch plus setup/cleanup below120seconds; queued time separate. Twelve private exported-PCK stills viewed by Root via the same Godot4.7.2 runtime; Windows EXE startup checked separately. Legacy approach positions and the new ocean contact view are controlled paused compositions, not earned travel proof. Separate native voyage covers physical departure, pursuit/avoid/resume, save/refusal, empty tanks and actual battle withdrawal/settlement. The unchanged125battleworker assertions were not repeated in this resumed scope. Final wreck branch is a declared controlled public fatal hit on an existing retired boat, not an earned combat victory. One clock and original physical boat/crew/cargo/purse ownership retained. Finite actual purchases and no minted stores or duplicated fleets. Currents affect course speed; weather affects speed and visibility; expected forecast differs from conservative return allowance. Earlier failed receipts remain preserved and are not suite passes. See task current state for causes and bounded corrections. Bridge team:2Sol6.1MAX, GoogleArgonHIGH, Grok4.7HIGH,2boundedMuseSparkHIGH. Root reviewed/integrated and alone owned queued native jobs. No motion/listening/fun/FPS acceptance or new battle performance claim. Prior strict worker/lag/FPS limits remain OPEN. No exploration rewards067, interregional shipping068, sector breadth069 or new combat art/audio071. 36boats, numerical crew, physical mounts,300DP per side, cheap water,30Hz data worker,100ms role decisions,safe render1 retained. Owner saves/settings/music/old builds and one plain launcher preserved; no autolaunch or remote publication.
 
-NoWindowsbinaryverified066, no private066PNGsreviewed. No whole-gameart/audio/
-fun/FPS acceptance. Strict earlierbattleperformance remainsOPEN. 36boats/300DP/
-numericalcrew/30Hzworker/100msroledecisions/safe rendering1 remain.
-
-Desktopbefore066snapshot2saves/20musicstillmatches29Oct. Preservelatestownerfiles/
-allolderbuilds/oneplainshortcut; noautolaunch/foreground/input/focus/appcontrol.
-SharedFIFO behindexistingGodot/Unity/exports/leases, eachbatch<120s. NoGitHubpush.
-No067production until066Windowsdelivery; lookaheadproposalsonly, unreviewed.
+Continue with the next saved version scope after v0.066; preserve the shared lane and120-second limit.

@@ -491,3 +491,9 @@ wrongregion/layer refusals. Setting water exactly to capacity is not a guarantee
 loss fixture: pumps bail before sinking sanitation. Use declared controlled public
 damage and assert actualsunk beforechecking existingUID wreckcustody; do not
 weaken gamepumps/repair or claim a controlledloss as earned combat.
+
+v0.066: Parsed JSON numbers may differ in Variant type; compare parsed save fields strictly
+and separately validate original immutable geometry/art. A fixture waiting in a live
+harbor can encounter a real hostile; depart physically before offshore staging.
+Capture phase/day/world/event and actual admission refusal when diagnosing travel.
+Never label a real encounter, an unfunded departure or controlled wreck as earned success.
