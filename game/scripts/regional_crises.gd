@@ -6,6 +6,7 @@ const LIMIT = 1000000000000
 const PEOPLE = 1000000
 const ROLES = ["sailor", "gunner", "mechanic", "boarder"]
 const KINDS = ["food", "unrest", "wages"]
+const World068=preload("res://scripts/ocean_world064.gd")
 var hooks: Dictionary = {}
 
 func configure(callbacks: Dictionary) -> void:
@@ -108,6 +109,10 @@ func ensure(core) -> bool:
 
 func validate(state: Dictionary, world) -> Array:
 	var catalog = _catalog(world)
+	# Optional installed record extends validation only; HOME job offers stay HOME.
+	var shipping068=state.get("shipping068",{})
+	if shipping068 is Dictionary and shipping068.get("schema")==1 and shipping068.get("installation") is Dictionary and shipping068.installation.get("status")=="installed":
+		catalog[World068.REMOTE_PORT068]=World068.remote_port068()
 	var day = _day(state)
 	if catalog.is_empty() or day < 0: return ["Invalid world/day."]
 	var ports = state.get("ports")
@@ -117,6 +122,9 @@ func validate(state: Dictionary, world) -> Array:
 		if not _port_ok(p): return ["Invalid civilian pools/purses."]
 		var id = p.get("id")
 		if not catalog.has(id) or seen.has(id): return ["Unknown/duplicate port."]
+		if id==World068.REMOTE_PORT068:
+			for key in World068.remote_port068():
+				if p.get(key)!=World068.remote_port068()[key]:return ["Invalid canonical Westglass harbor definition."]
 		seen[id] = true
 	if not state.has(KEY): return []
 	var s = state[KEY]
@@ -132,7 +140,7 @@ func validate(state: Dictionary, world) -> Array:
 		var r = s.crises[key]
 		if not _shape(r, "port kind bad good active seen started recovered evidence advice"):
 			return ["Invalid crisis record."]
-		if not catalog.has(r.port) or not (r.kind in KINDS): return ["Invalid crisis identity."]
+		if not catalog.has(r.port) or r.port==World068.REMOTE_PORT068 or not (r.kind in KINDS): return ["Invalid home crisis identity."]
 		if key != "%s:%s" % [r.port, r.kind]: return ["Unstable crisis ID."]
 		if not _whole(r.bad, 0, 999) or not _whole(r.good, 0, 999): return ["Invalid streak."]
 		if r.bad > 0 and r.good > 0: return ["Contradictory streaks."]
@@ -150,7 +158,7 @@ func validate(state: Dictionary, world) -> Array:
 		if not _whole(j.serial, 1, s.nextId - 1): return ["Invalid voyage serial."]
 		if j.id != "rs_%d" % int(j.serial) or seen.has(j.id): return ["Duplicate/unstable voyage ID."]
 		seen[j.id] = true
-		if not catalog.has(j.origin) or not catalog.has(j.destination) or j.origin == j.destination:
+		if not catalog.has(j.origin) or not catalog.has(j.destination) or j.origin == j.destination or j.origin==World068.REMOTE_PORT068 or j.destination==World068.REMOTE_PORT068:
 			return ["Invalid voyage endpoints."]
 		if not _whole(j.n, 1, 32) or not _subsets(j.n, j.specialists, j.recruits, j.qualified):
 			return ["Invalid passenger subsets."]
@@ -301,6 +309,7 @@ func _observe(s, p, day: int) -> void:
 		if fact[0] < 0: r.advice = "Day %d: Restore verified observations before intervention." % day
 
 func _quote(core, origin: String, destination: String, maximum: int) -> Dictionary:
+	if origin==World068.REMOTE_PORT068 or destination==World068.REMOTE_PORT068:return {}
 	var s = core.state[KEY]
 	if s.jobs.size() >= 8 or origin == destination or not _bad(s, origin) or _bad(s, destination): return {}
 	var p = core.port(origin)
@@ -442,7 +451,8 @@ func daily(core):
 	var day = _day(core.state)
 	if day <= s.lastDay: return core.ok("Regional day already processed.")
 	s.lastDay = day
-	for p in core.state.ports: _observe(s, p, day)
+	for p in core.state.ports:
+		if p.get("id")!=World068.REMOTE_PORT068:_observe(s, p, day)
 	for j in s.jobs.duplicate():
 		if j.lastFed < day:
 			if _atomic(core, [], {"action": "eat", "job": j, "day": day}):

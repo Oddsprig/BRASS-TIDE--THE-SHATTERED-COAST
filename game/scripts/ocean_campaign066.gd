@@ -45,7 +45,7 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 	if not _keys(book,["schema","contact","memory"]) or book.schema!=1 or not book.contact is Dictionary:return _fail("Invalid ocean066 book.")
 	if not _finite(saved.get("day"),1.0):return _fail("Invalid ocean066 clock.")
 	if not _finite(saved.get("seed"),0.0) or not saved.get("fleetOwners") is Array or not saved.get("patrols") is Array or not saved.get("fleet") is Array or not saved.get("boardingPrizes",[]) is Array:return _fail("Ocean066 requires valid campaign collections.")
-	var made: Dictionary=Travel.create(context064,int(saved.get("seed",0)),book.memory,["player",OWNER],float(saved.day)*45.0)
+	var made: Dictionary=Travel.create(context064,int(saved.get("seed",0)),book.memory,["player",OWNER,"patrol-7"],float(saved.day)*45.0)
 	if not made.get("ok",false):return _fail(str(made.get("message","Invalid ocean066 memory.")))
 	var contact: Dictionary=book.contact
 	if not contact.is_empty():
@@ -139,20 +139,42 @@ static func actors(c,book: Dictionary) -> Array:
 	var player: Dictionary={"ownerId":"player","location":c.world_location064(),"baseSpeed":c.travel_speed() if player_power else 0.0,"clearance":Routes.clearance(c),"canMove":not c.home_local064() and player_power,"canIntercept":player_power and not c.home_local064() and not c.FleetSupport.combat(c).is_empty(),"detectionRange":1800.0,"interceptRange":75.0,"boats":render_boats(c.active_fleet())}
 	var result: Array=[player]
 	var contact: Dictionary=book.get("contact",{})
-	if contact.is_empty() or contact.phase=="lost":return result
+	if contact.is_empty() or contact.phase=="lost":return _with_shipping(c,result)
 	var owner: Dictionary=_owner(c.state,str(contact.ownerId))
 	# Performance queries normalize; use a detached physical snapshot here.
 	var snapshot: Dictionary=owner.duplicate(true)
 	var performance: Dictionary=Orders.fleet_performance(snapshot)
 	var npc_power: bool=powered(snapshot.get("boats",[]))
 	var armed: bool=Orders.living_boats(snapshot).any(func(b):return float(b.get("ammo",0))>0.0 and float(b.get("crew",0))-float(b.get("wounded",0))>=float(b.get("crewMin",1)))
-	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase=="patrol" and not c.home_local064(),"detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
-	return result
+	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase=="patrol","detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
+	return _with_shipping(c,result)
+
+static func _with_shipping(c,participants: Array) -> Array:
+	var merchant: Dictionary=c.ShippingFlow068.actor(c)
+	if not merchant.is_empty():participants.append(merchant)
+	return participants
 
 static func relations(c,participants: Array) -> Array:
-	if participants.size()!=2:return []
-	var hostile: bool=bool(c.Politics.hostile(c,_owner(c.state)))
-	return [{"observerId":"player","targetId":OWNER,"hostile":hostile},{"observerId":OWNER,"targetId":"player","hostile":hostile}]
+	var result: Array=[]
+	for observer in participants:
+		for target in participants:
+			if observer.ownerId==target.ownerId:continue
+			var hostile: bool
+			if observer.ownerId=="player" or target.ownerId=="player":
+				var npc: String=str(target.ownerId) if observer.ownerId=="player" else str(observer.ownerId)
+				hostile=bool(c.Politics.hostile(c,_owner(c.state,npc)))
+			else:
+				var a: Dictionary=_owner(c.state,str(observer.ownerId))
+				var b: Dictionary=_owner(c.state,str(target.ownerId))
+				hostile=str(a.get("faction",""))!=str(b.get("faction","")) and c.Factions.relation(c.state,str(a.get("faction","")),str(b.get("faction","")))<=-20
+				# The real NPC resolver permits one participation per owner/day and
+				# a shared daily cap. A spent slot must not clip every later tick to0.
+				var ledger: Dictionary=c.state.get("navalAi",{})
+				if int(ledger.get("encounterDay",-1))==int(c.state.get("econDay",1)):
+					var busy: Dictionary=ledger.get("encounterOwners",{})
+					if int(ledger.get("encounterCount",0))>=c.NavalAI.MAX_ENCOUNTERS_PER_DAY or busy.has(str(observer.ownerId)) or busy.has(str(target.ownerId)):hostile=false
+			result.append({"observerId":str(observer.ownerId),"targetId":str(target.ownerId),"hostile":hostile})
+	return result
 
 static func _gate(c,gate: Dictionary,ocean: bool) -> Dictionary:
 	var region: Dictionary=c.ocean_context064.regions[gate.regionId]
@@ -223,7 +245,10 @@ static func stage(c,dt: float) -> Dictionary:
 		return {"ok":true,"acceptedSeconds":dt,"locations":[],"book":c.state.get("ocean066",empty_book()).duplicate(true),"encounter":{},"conditions":[],"watchDue":false}
 	var book: Dictionary=c.state.get("ocean066",empty_book()).duplicate(true)
 	if c.ocean_watch066>=1.0 or (not book.contact.is_empty() and book.contact.location.path.is_empty()):_control(c,book)
-	var participants: Array=actors(c,book)
+	var shipping: Dictionary=c.ShippingFlow068.stage(c,dt)
+	if not shipping.get("ok",false):return shipping
+	var participants: Array=actors(c,book).filter(func(a):return str(a.ownerId)!="patrol-7")
+	if not shipping.actor.is_empty():participants.append(shipping.actor)
 	var watch: bool=c.ocean_watch066>=1.0
 	var decisions: Array=[OWNER] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" else []
 	var stepped: Dictionary=Travel.step(c.ocean_context066,participants,relations(c,participants),book.memory,{"startSecond":float(c.state.day)*45.0,"dt":dt,"watchDue":watch,"decisionOwnerIds":decisions})
@@ -232,13 +257,16 @@ static func stage(c,dt: float) -> Dictionary:
 	if not _finite(accepted,0.0) or float(accepted)>dt:return _fail("Ocean travel refused an invalid accepted interval.")
 	for move in stepped.locations:
 		if str(move.ownerId)==OWNER:book.contact["location"]=move.location.duplicate(true)
+		elif str(move.ownerId)=="patrol-7" and not shipping.model.route.is_empty():shipping.model.route["location"]=move.location.duplicate(true)
 	book["memory"]=stepped.memory
 	stepped["book"]=book
+	stepped["shipping068"]=shipping
 	stepped["watchDue"]=watch
 	return stepped
 
 static func commit(c,staged: Dictionary) -> void:
 	c.state["ocean066"]=staged.book
+	if staged.has("shipping068"):c.ShippingFlow068.commit(c,staged.shipping068)
 	for move in staged.locations:
 		if str(move.ownerId)=="player" and not c.home_local064():c._publish_location064(move.location)
 	var contact: Dictionary=staged.book.contact
@@ -347,7 +375,7 @@ static func action(c,id: String,kind: String) -> Dictionary:
 	if kind not in ["investigate","avoid","resume"]:return _fail("Choose a physical ocean travel action.")
 	if not c.travel_lock064.is_empty():return _fail(c.travel_lock064)
 	var participants: Array=actors(c,c.state.get("ocean066",empty_book()))
-	if kind!="resume" and (id!=OWNER or participants.size()!=2):return _fail("This contact is no longer present on the ocean chart.")
+	if kind!="resume" and (id not in [OWNER,"patrol-7"] or not participants.any(func(a):return str(a.ownerId)==id)):return _fail("This contact is no longer present on the ocean chart.")
 	var requested: Dictionary={"kind":kind}
 	if kind!="resume":requested["targetId"]=id
 	var result: Dictionary=Travel.command(c.ocean_context066,participants[0],c.state.ocean066.memory,requested,float(c.state.day)*45.0)
@@ -375,12 +403,13 @@ static func blocker(c) -> String:
 
 static func encounter(c,id: String,settlement: Dictionary={}) -> Dictionary:
 	var book: Dictionary=c.state.get("ocean066",empty_book())
-	if c.home_local064() or book.contact.is_empty() or str(book.contact.ownerId)!=id or book.contact.phase=="lost":return _fail("This is not an enrolled offshore contact.")
-	if not c.state.get("world064",{}).is_empty() and not Travel.same_world(c.state.world064,book.contact.location.world064):return _fail("This contact belongs to another chart.")
+	var contact: Dictionary=book.contact if id==OWNER else c.state.get("shipping068",{}).get("model",{}).get("route",{}) if id=="patrol-7" else {}
+	if c.home_local064() or contact.is_empty() or str(contact.ownerId)!=id or contact.phase=="lost":return _fail("This is not an enrolled offshore contact.")
+	if not c.state.get("world064",{}).is_empty() and not Travel.same_world(c.state.world064,contact.location.world064):return _fail("This contact belongs to another chart.")
 	var owner: Dictionary=_owner(c.state,id)
 	if not owner.get("active",false) or Orders.living_boats(owner).is_empty():return _fail("This contact has no surviving physical fleet.")
 	var scale: float=10.0 if c.state.world064.layer=="ocean" else 1.0
-	if c.distance(c.state.position,book.contact.location.position)*scale>75.0001:return _fail("Approach within actual interception range first.")
+	if c.distance(c.state.position,contact.location.position)*scale>75.0001:return _fail("Approach within actual interception range first.")
 	var seen: Dictionary=book.memory.sightings.get("player",{}).get(id,{})
 	if seen.is_empty() or not Travel.same_world(seen.world064,c.state.world064) or float(c.state.day)*45.0-float(seen.seenSecond)>1.5:return _fail("A fresh physical sighting is needed to engage.")
 	if not settlement.is_empty():
@@ -388,20 +417,22 @@ static func encounter(c,id: String,settlement: Dictionary={}) -> Dictionary:
 	return {"ok":true,"message":"Physical offshore contact validated.","context":{"kind":"ocean066","id":id,"ownerId":id,"world064":c.state.world064.duplicate(true),"encounterPosition":c.state.position.duplicate(true),"name":"Offshore interception"}}
 
 static func settlement_error(c,context: Dictionary,battle: Dictionary) -> String:
-	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact
-	if battle.is_empty() or contact.is_empty() or str(context.get("ownerId",""))!=str(contact.ownerId) or str(contact.ownerId)!=OWNER:return "Offshore settlement needs the enrolled physical owner."
+	var id: String=str(context.get("ownerId",""))
+	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact if id==OWNER else c.state.get("shipping068",{}).get("model",{}).get("route",{}) if id=="patrol-7" else {}
+	if battle.is_empty() or contact.is_empty() or str(contact.ownerId)!=id:return "Offshore settlement needs the enrolled physical owner."
 	if not Travel.same_world(context.get("world064"),c.state.get("world064")) or not Travel.same_world(battle.get("world064"),context.get("world064")) or context.get("encounterPosition")!=c.state.position or battle.get("chartPosition")!=context.get("encounterPosition"):return "Offshore battle position or world provenance changed."
 	if not context.get("ownerUids066") is Array or context.ownerUids066.is_empty():return "Offshore settlement needs its original boat UIDs."
 	var seen: Dictionary={}
 	for uid in context.ownerUids066:
 		if not uid is String or uid.is_empty() or seen.has(uid):return "Offshore battle has invalid original boat UIDs."
-		if not _owner(c.state).get("boats",[]).any(func(b):return str(b.get("uid",""))==uid):return "Offshore battle lost its original owner custody before reconciliation."
+		if not _owner(c.state,id).get("boats",[]).any(func(b):return str(b.get("uid",""))==uid):return "Offshore battle lost its original owner custody before reconciliation."
 		seen[uid]=true
 	return ""
 
 static func settled(c,battle: Dictionary,context: Dictionary,wrecks: Array) -> void:
 	if str(context.get("kind",""))!="ocean066" or battle.get("oceanCargoSettled066",false):return
-	var owner: Dictionary=_owner(c.state)
+	var id: String=str(context.get("ownerId",""))
+	var owner: Dictionary=_owner(c.state,id)
 	var lost: Array=[]
 	var prizes: Array=[]
 	for wreck in wrecks:
@@ -421,9 +452,13 @@ static func settled(c,battle: Dictionary,context: Dictionary,wrecks: Array) -> v
 			if not prize.get("convoyCargo") is Dictionary:prize["convoyCargo"]={}
 			prize.convoyCargo[good]=float(prize.convoyCargo.get(good,0))+per_hull
 	battle["oceanCargoSettled066"]=true
-	_resolve_memory(c.state.ocean066.memory)
-	if not c.state.ocean066.contact.is_empty():c.state.ocean066.contact["phase"]="return"
-	record_losses(c)
+	if id==OWNER:
+		_resolve_memory(c.state.ocean066.memory)
+		if not c.state.ocean066.contact.is_empty():c.state.ocean066.contact["phase"]="return"
+		record_losses(c)
+	else:
+		c.ShippingFlow068._forget_pursuits(c,id)
+		c.ShippingFlow068.record_losses(c)
 
 static func view(c) -> Dictionary:
 	var output: Dictionary={"zones":[],"conditions":c.ocean_conditions066.duplicate(true),"forecast":{},"contacts":[],"travel066":{"mode":"route","contactId":"","resumeDestination":"","resumePath":[],"activeZoneSummary":"Clear water"}}

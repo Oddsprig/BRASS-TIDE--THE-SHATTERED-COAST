@@ -24,6 +24,7 @@ const RuntimeBenchmark=preload("res://scripts/runtime_benchmark.gd")
 const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
 const BattleCommands047=preload("res://scripts/battle_commands047.gd")
 const WorkshopBuilds060=preload("res://scripts/workshop_builds048.gd")
+const ShippingUI068=preload("res://scripts/shipping_ui068.gd")
 
 class _DamageView051 extends RefCounted:
 	var owner: WeakRef
@@ -248,6 +249,7 @@ func _physics_process(dt: float):
 		# Publish the worker's port snapshot before NPC arrivals can trade with these purses.
 		_finish_economy(false)
 		if economy_task>=0:return # Await copied port jobs without stalling a frame or trading stale purses.
+		if core.pending_days>0:start_economy();return
 		core.step(dt * speed)
 		handle_campaign_events067()
 	# Battle numerical work belongs to the driver; rendering polls it in _process.
@@ -498,6 +500,7 @@ func click_chart(position: Vector2):
 				selected_site=str(pick064.get("siteId",""))
 				ui.CampaignUI.site(ui,selected_site);return
 			if str(pick064.get("kind",""))=="wreck":ui.RecoveryUI.open(ui,str(pick064.get("wreckId","")));return
+			if str(pick064.get("kind",""))=="port":ShippingUI068.open(ui,str(pick064.get("portId","")));return
 			var region064: String=str(pick064.get("regionId",""))
 			var approach064: String=str(pick064.get("approachId",""))
 			if str(view064.get("layer",""))=="ocean":
@@ -513,6 +516,7 @@ func click_chart(position: Vector2):
 	var nearest: Dictionary = {}
 	var nearest_distance: float=INF
 	for p in core.state.ports:
+		if str(p.get("regionId","shatter_coast"))!="shatter_coast":continue
 		var d = chart.project(Vector2(p.x, p.y)).distance_to(position)
 		if chart.campaign_harbor_hit054(p,position) and d < nearest_distance:
 			nearest = p
@@ -626,6 +630,15 @@ func trade(good: String, amount: int, side: String):
 	respond(core.trade(p.id, good, amount, side))
 	ui.open_port("Market")
 	save_game(false)
+
+func remote_trade068(good: String,qty: int,side: String) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before trading at the anchorage.")
+	sync_economy()
+	var result: Dictionary=core.remote_trade068(good,qty,side)
+	respond(result)
+	if result.get("ok",false):save_game(false)
+	if ui.modal_open and ui.modal_kind=="shipping068":ShippingUI068.open(ui,core.ShippingFlow068.PORT)
+	return result
 
 func buy_boat(id: String):
 	sync_economy()

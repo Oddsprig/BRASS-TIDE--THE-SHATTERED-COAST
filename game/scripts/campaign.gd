@@ -5,6 +5,7 @@ const Economy = preload("res://scripts/economy.gd")
 const Navigation = preload("res://scripts/navigation.gd")
 const OceanWorld064 = preload("res://scripts/ocean_world064.gd")
 const OceanCampaign066 = preload("res://scripts/ocean_campaign066.gd")
+const ShippingFlow068 = preload("res://scripts/shipping_flow068.gd")
 const Routes = preload("res://scripts/route_cache.gd")
 const Version = preload("res://scripts/version.gd")
 const Goods = preload("res://scripts/goods.gd")
@@ -93,7 +94,7 @@ func _init(world_data: Dictionary,shared_navigation: Dictionary={}):
 		if not created.get("ok",false):ocean_error064=str(created.get("message","Ocean charts are unavailable."))
 	else:ocean_error064="Ocean chart definitions are unavailable."
 	if not ocean_context064.is_empty():
-		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,1)
+		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,1,null,["player","patrol-0","patrol-7"])
 		if made066.get("ok",false):ocean_context066=made066.context
 
 func home_local064() -> bool:
@@ -262,7 +263,7 @@ func new_game(seed_value: int = 1) -> Dictionary:
 	state["ocean066"]=OceanCampaign066.empty_book()
 	ocean_watch066=1.0;ocean_conditions066=[]
 	if not ocean_context064.is_empty():
-		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,seed_value)
+		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,seed_value,null,["player","patrol-0","patrol-7"])
 		if made066.get("ok",false):ocean_context066=made066.context
 	var home: Dictionary = port(start.port)
 	home.workforce = maxi(0,int(home.workforce)-int(start.crew))
@@ -344,6 +345,7 @@ func new_game(seed_value: int = 1) -> Dictionary:
 			NavalAI.refresh_order_stats(owner, owner.order)
 			by_owner[str(owner.get("id", ""))] = owner.order
 	Manifest.allocate(state)
+	ShippingFlow068.install(self)
 	log_entry("You inherited a Tinwake skiff, five sailors, and a debt-free start. The coast is yours to explore.")
 	events.clear()
 	return published
@@ -453,9 +455,19 @@ func current_port() -> Dictionary:
 	if state.is_empty() or not home_local064():
 		return {}
 	for p in state.ports:
+		if str(p.get("regionId","shatter_coast"))!="shatter_coast":continue
 		if distance(state.position, p) < 65.0:
 			return p
 	return {}
+
+func shipping_view068() -> Dictionary:
+	return ShippingFlow068.view(self)
+
+func remote_port068() -> Dictionary:
+	return ShippingFlow068.remote_view(self)
+
+func remote_trade068(good: String,qty: int,side: String) -> Dictionary:
+	return ShippingFlow068.market(self,good,qty,side)
 
 func distance(a: Dictionary, b: Dictionary) -> float:
 	return Vector2(a.x, a.y).distance_to(Vector2(b.x, b.y))
@@ -481,6 +493,8 @@ func travel_speed() -> float:
 	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
+	if destination==ShippingFlow068.PORT and (not ShippingFlow068.installed(state) or ShippingFlow068.PORT not in state.get("shipping068",{}).get("knownPorts",[])):
+		return fail("Sight the actual Westglass harbor before selecting its berth.")
 	var blocked: String=_sailing_blocker064()
 	if not blocked.is_empty():return fail(blocked)
 	Manifest.allocate(state)
@@ -609,9 +623,14 @@ func _step066(dt: float) -> float:
 	NavalLifecycle.step(self,dt)
 	LawOps.check_patrols(self)
 	OceanCampaign066.after_step(self,bool(staged.watchDue))
+	ShippingFlow068.after_step(self,bool(staged.watchDue))
 	if not staged.encounter.is_empty() and not state.fleet.is_empty():
-		stop_sailing()
-		events.append({"kind":"ocean_encounter066","ownerId":"patrol-0"})
+		var attacker: String=str(staged.encounter.get("attackerId",""))
+		var defender: String=str(staged.encounter.get("defenderId",""))
+		if attacker=="player" or defender=="player":
+			stop_sailing()
+			events.append({"kind":"ocean_encounter066","ownerId":defender if attacker=="player" else attacker})
+		else:ShippingFlow068.resolve_encounter(self,staged.encounter)
 	return dt
 
 func apply_economy(ports: Array, messages: Array, days: int):
@@ -648,6 +667,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		for message in Fleets.tick(state.fleetOwners,state.ports,1.0,self).slice(0,2):
 			log_entry(str(message))
 		OceanCampaign066.record_losses(self)
+		ShippingFlow068.daily(self)
 		for message in FleetIdentity.tick(self,1):log_entry(str(message))
 		YardDevelopment.daily(self)
 		Harbor.tick_yards(self,1)
@@ -1594,6 +1614,11 @@ func pop_events() -> Array:
 func restore(saved: Dictionary) -> Dictionary:
 	# Optional regional work/provenance is read raw before any migration/ensure.
 	saved=saved.duplicate(true)
+	var raw068: String=ShippingFlow068.raw_error(saved)
+	if not raw068.is_empty():return fail("Save refused: "+raw068)
+	if saved.has("shipping068"):
+		var pre068: Dictionary=ShippingFlow068.prepare(saved,data,ocean_context064)
+		if not pre068.get("ok",false):return fail("Save refused: "+str(pre068.message))
 	var regional_error: String=Exploration.validate_remote067(saved)
 	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
 	if not regional_error.is_empty():return fail("Save refused: "+regional_error)
@@ -1619,7 +1644,7 @@ func restore(saved: Dictionary) -> Dictionary:
 		return fail("This save is not a Brass Tide v0.001 campaign.")
 	if not incoming.get("position", null) is Dictionary or not incoming.get("ports", null) is Array:
 		return fail("The save has missing world data.")
-	if incoming.ports.size() != data.PORTS.size():
+	if incoming.ports.size() != data.PORTS.size()+(1 if ShippingFlow068.installed(incoming) else 0):
 		return fail("The save has the wrong coast layout.")
 	for s in incoming.fleet:
 		if not s is Dictionary or hull(str(s.get("type", ""))).is_empty():
@@ -1632,7 +1657,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	state = incoming
 	travel_lock064=""
 	state["ocean066"]=incoming.get("ocean066",OceanCampaign066.empty_book())
-	var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,int(state.seed),state.ocean066.memory,["player","patrol-0"],float(state.day)*DAY_SECONDS)
+	var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,int(state.seed),state.ocean066.memory,["player","patrol-0","patrol-7"],float(state.day)*DAY_SECONDS)
 	if made066.get("ok",false):ocean_context066=made066.context
 	ocean_watch066=1.0;ocean_conditions066=[]
 	_refit_published()
@@ -1690,6 +1715,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	CrisisOps.ensure(self)
 	LawOps.ensure(self)
 	StoryOps.refresh(self)
+	ShippingFlow068.install(self)
 	return ok("Voyage restored.")
 
 func canonical_npc_boat(boat: Dictionary, _player_owned: bool = false) -> void:

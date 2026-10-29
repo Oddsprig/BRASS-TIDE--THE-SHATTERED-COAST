@@ -1,0 +1,50 @@
+B API068 / locked contract implementation handoff / 29 October 2026
+Source-only; Root owns execution and acceptance. No production acceptance claim.
+Core.shipping_view068()->detached Dictionary; Core.remote_port068()->detached port DTO;
+Core.remote_trade068(good:String,qty:int,side:String)->{ok,message,receipt?}.
+Main.remote_trade068(good:String,qty:int,side:String) synchronizes economy, responds,
+and refreshes the existing modal; callbacks bind the existing Main instance.
+current_port() and home_local064() KEEP HOME semantics. Sailing uses existing
+Main/Core.chart_course({x:756.0,y:732.0},"westglass_anchorage").
+Remote trade requires installed/known port, local glasswind_keys, empty path,
+within40units of actual berth, access, free hold space and finite stock/accounts.
+remote_port068() is {} unless this gate passes; otherwise only id/name/faction,
+regionId/islandId/x/y, stocks/prices/cash, playerCoins/freeCapacity are published.
+shipping_view068 keys: ports:Array,ownership:Array,contacts:Array,route:Dictionary,
+receipts:Array,summary:String. No raw state/owner/port references are published.
+ports: known installed {id,name,regionId,islandId,faction,industry,specialty,x,y,atBerth:bool}.
+ownership: known {regionId,islandId,portId,faction}; only glasswind_west/harbor reed.
+contacts: dated Travel066 frozen observation DTOs, same shape as ocean_view066 contacts;
+merchant action id="patrol-7" uses existing investigate/avoid/engage/resume dispatch.
+route: {} without a current observation; otherwise {ownerId,phase,reason,seenSecond}.
+receipts: last16 player remote trades only {sequence,day,portId,good,qty,side,total}.
+summary gives installation pending reason only at HOME; remote unknown port stays omitted.
+state.shipping068={schema:1,installation:{status,reason,invoice,attemptDay},model:A.empty_book(),
+knownPorts:[],receipts:[],invoices:[],nextReceipt:1,launch:{done:false,amount:0},holding:""}.
+invoice once installed: {donorId,workers,wage,operating,household,government,labor,
+purchases:Array[{good,qty,total}],consumed:{timber:8,iron:2,supplies:4},total}.
+A exclusively owns nested shipping068.model (schema1/route) and validates it raw.
+Snapshot passed to A.plan/actor: owner,patrol,originPort,remotePort,reserves,
+performance,clearance,campaignScale; all detached physical snapshots, never DTO leaks.
+B adds merchant actor to OceanCampaign066.stage's ONE Travel066.step and memory.
+stage computes pure A.plan, commit publishes accepted location; after_step applies
+load/deliver/service at real berth, changes phase only after a successful transaction.
+Commands are sequence-guarded real Economy.transact/Fleets mutations; failed funding holds.
+B flow entrypoints: install(c),prepare(saved,world,context064),stage(c,dt),commit(c,staged),
+after_step(c,watch_due=false),daily(c),view(c),market(c,good,qty,side),snapshot(c).
+Main chart pick "port" opens ShippingUI068.open(ui,portId); Main.remote_trade068
+refreshes that same leaf modal after synchronized finite trade. No extra C wrapper required.
+Root approved trade_law.gd/regional_crises.gd additions: recognize only the
+canonical installed optional port for validation; HOME crisis jobs remain HOME.
+Installation is copy-first/all-or-nothing after legacy/raw validation; a pending
+branch retries at most once per published econDay using real changed conditions.
+Installed branch invoices/ports never reset. Internal NPC invoices are last16
+{sequence,day,kind,portId,good,qty,total}; player DTO exposes only player receipts.
+An existing paid food manifest retains at most64lots; excess is actually sold
+at Kelp if affordable, otherwise the merchant holds with its original cargo.
+Return optional trade good is logs, including qty0 retaining an unsold food lot.
+The initial derived readiness deficit includes discrete existing payroll/store
+boundaries during the quarter-day call plus at most one accepted4s scheduling
+interval; this funds real upcoming upkeep, not another upkeep path or trade lot.
+No refill,
+coinSupply increase, boat/crew creation, player relocation, party or cache refresh.

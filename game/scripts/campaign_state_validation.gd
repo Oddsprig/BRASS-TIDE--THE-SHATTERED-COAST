@@ -4,11 +4,14 @@ const Workshop=preload("res://scripts/fleet_workshop.gd")
 const Home=preload("res://scripts/home_harbor.gd")
 const Exploration067=preload("res://scripts/exploration.gd")
 const Remote067=preload("res://scripts/remote_expedition067.gd")
+const Shipping068=preload("res://scripts/shipping_flow068.gd")
 ## Optional campaign-extension schema; legacy voyages omit these fields.
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
 static func validate(s: Dictionary,world: Dictionary) -> String:
+	var shipping_error: String=Shipping068.raw_error(s)
+	if not shipping_error.is_empty():return shipping_error
 	var regional_error: String=Exploration067.validate_remote067(s)
 	if regional_error.is_empty():regional_error=Remote067.validate_saved(s)
 	if not regional_error.is_empty():return regional_error

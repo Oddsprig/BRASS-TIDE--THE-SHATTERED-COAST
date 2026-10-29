@@ -12,6 +12,13 @@ const HOME_HEIGHT: float = 7200.0
 const COAST_SCALE: float = 4.0
 const APPROACH_RADIUS: float = 80.0
 const POINT_EPSILON: float = 0.000001
+const REMOTE_PORT068: String = "westglass_anchorage"
+
+static func remote_port068() -> Dictionary:
+	# Geometry only. Campaign installation/knowledge controls whether this harbor exists.
+	return {"id":REMOTE_PORT068,"name":"Westglass Anchorage","regionId":REMOTE,
+		"islandId":"glasswind_west","faction":"reed","industry":"timber","specialty":"logs",
+		"x":756.0,"y":732.0}
 
 
 static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary) -> Dictionary:
@@ -61,6 +68,8 @@ static func plot(context: Dictionary, location: Dictionary, target: Dictionary, 
 		return _failure("target", intent.message)
 	if intent.has("approach") and not _same_point(endpoint, intent.approach.position):
 		return _failure("target", "An approach course must target its matching center.")
+	if loc.world064.layer == "local" and intent.has("port") and not _same_point(endpoint,intent.port):
+		return _failure("target", "A remote harbor course must target its actual water berth.")
 	var actual: float = Navigation.hull_clearance(clearance)
 	var ocean: bool = loc.world064.layer == "ocean"
 	if not ocean and loc.world064.layer == "home":
@@ -487,6 +496,8 @@ static func _destination(context: Dictionary, identity: Dictionary, destination:
 		if context.ports.has(destination):
 			return {"ok": true, "port": context.ports[destination]}
 		return {"ok": false, "message": "Home destinations must be original home port IDs or empty."}
+	if identity.layer == "local" and identity.regionId == REMOTE and destination == REMOTE_PORT068:
+		return {"ok":true,"port":_point(remote_port068())}
 	var parts: PackedStringArray = destination.split(":", true)
 	if parts.size() != 3 or parts[0] != "approach" or not context.regions.has(parts[1]):
 		return {"ok": false, "message": "Unknown regional approach destination."}
