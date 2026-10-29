@@ -1049,6 +1049,7 @@ func draw_campaign():
 		labels.append({"at":s,"art_bounds":art.bounds,"text":str(patrol.get("name","Fleet")) if not overview else "","priority":10,"color":color})
 	for i in range(world.ports.size()):
 		var p: Dictionary=world.ports[i]
+		if str(p.get("regionId","shatter_coast"))!="shatter_coast":continue
 		draw_harbor(p, i)
 		labels.append({"at":project(Vector2(p.x,p.y)),"art_bounds":campaign_harbor_bounds054(p),"text":str(p.name),"priority":110 if p.id==host.selected_port else 100 if p.id==target_id else 80 if p.id==world.lastPort else 60,"subtitle":"CONTRACT DESTINATION" if p.id==target_id else CoastArt050.harbor_caption(p) if p.id==host.selected_port or p.id==world.lastPort else "","color":GOLD if p.id==host.selected_port or p.id==target_id else Color("d7e1cc")})
 	var knowledge: Dictionary=world.get("exploration",{})
