@@ -5,6 +5,11 @@ extends RefCounted
 ## State lives under state["exploration"] as plain JSON-friendly types.
 
 const CATALOG_PATH := "res://data/island_sites.json"
+const WorldIdentity = preload("res://scripts/ocean_travel066.gd")
+const HOME_REGION := "shatter_coast"
+const REMOTE_REGION := "glasswind_keys"
+const REMOTE_IDS := ["glasswind_west_marker", "glasswind_crown_log", "glasswind_south_wreck"]
+const WORK_RADIUS := 180.0
 const STATE_VERSION := 1
 const LEVEL_UNKNOWN := 0
 const LEVEL_SIGHTED := 1
@@ -34,11 +39,37 @@ static var _catalog_loaded := false
 
 
 static func _is_num(v) -> bool:
-	return (v is int or v is float) and is_finite(float(v))
+	return (v is int or v is float) and not v is bool and is_finite(float(v))
 
 
 static func _num(v, fallback: float = 0.0) -> float:
 	return float(v) if _is_num(v) else fallback
+
+
+static func current_region(state: Dictionary) -> String:
+	if not state.has("world064"):
+		return HOME_REGION
+	var identity = state.get("world064")
+	if not WorldIdentity.same_world(identity, identity):
+		return ""
+	return str(identity["regionId"]) if identity["layer"] in ["home", "local"] else ""
+
+
+static func _site_region(site: Dictionary) -> String:
+	if not site.has("regionId"):
+		return HOME_REGION
+	var region = site.get("regionId")
+	return region if region is String and region in [HOME_REGION, REMOTE_REGION] else ""
+
+
+static func _remote_stationary(state: Dictionary, site: Dictionary) -> bool:
+	var xy := _position_xy(state.get("position"))
+	var path = state.get("path")
+	if xy.size() != 2 or not path is Array or not path.is_empty():
+		return false
+	var dx: float = float(xy[0]) - float(site["x"])
+	var dy: float = float(xy[1]) - float(site["y"])
+	return dx * dx + dy * dy <= WORK_RADIUS * WORK_RADIUS
 
 
 static func _clean_site(raw) -> Dictionary:
@@ -47,7 +78,7 @@ static func _clean_site(raw) -> Dictionary:
 	var id := str(raw.get("id", ""))
 	if id.is_empty() or not _is_num(raw.get("x", null)) or not _is_num(raw.get("y", null)):
 		return {}
-	return {
+	var out := {
 		"id": id, "name": str(raw.get("name", id)),
 		"x": float(raw["x"]), "y": float(raw["y"]),
 		"kind": str(raw.get("kind", "")), "region": str(raw.get("region", "")),
@@ -55,6 +86,11 @@ static func _clean_site(raw) -> Dictionary:
 		"hazard": str(raw.get("hazard", "")), "resource": str(raw.get("resource", "")),
 		"leadId": str(raw.get("leadId", "")),
 	}
+	if raw.has("regionId"):
+		if _site_region(raw).is_empty():
+			return {}
+		out["regionId"] = raw["regionId"]
+	return out
 
 
 static func _sort_sites(list: Array) -> void:
@@ -102,7 +138,156 @@ static func _fallback_catalog() -> Array:
 	for r in rows:
 		out.append({"id": r[0], "name": r[1], "x": r[2], "y": r[3], "kind": r[4], "region": r[5],
 			"clue": "", "discovery": "", "hazard": "", "resource": r[6], "leadId": r[7]})
+	# Same three identities/anchors as the authored remote catalog; no reward seed.
+	var remote_rows := [
+		[REMOTE_IDS[0], "Westglass Bearing Stones", 1360.0, 1380.0, "bearing_marker", "Westglass Isle", "Pale stones stand above a narrow landing.", "The stones give an eastward bearing toward a raised signal ridge.", REMOTE_IDS[1]],
+		[REMOTE_IDS[1], "Windglass Keeper's Log", 2780.0, 1540.0, "signal_log", "Windglass Crown", "A broken signal frame stands on the ridge.", "A keeper's log gives a south-west bearing toward a split stern.", REMOTE_IDS[2]],
+		[REMOTE_IDS[2], "Longglass Supply Wreck", 1820.0, 1640.0, "expedition_cache", "Longglass Key", "Split timbers interrupt the pale surf.", "A collapsed supply coaster holds finite surviving stores. Recovery needs a separate working party and hold space.", ""],
+	]
+	for r in remote_rows:
+		out.append({"id": r[0], "name": r[1], "x": r[2], "y": r[3], "kind": r[4], "region": r[5],
+			"regionId": REMOTE_REGION, "clue": r[6], "discovery": r[7], "hazard": "Swell and loose timbers make the landing slow.", "resource": "supplies" if r[0] == REMOTE_IDS[2] else "", "leadId": r[8]})
 	return out
+
+
+static func _remote_catalog() -> Array:
+	var out: Array = []
+	for site in _load_catalog():
+		if site["id"] in REMOTE_IDS:
+			out.append(site)
+	return out
+
+
+static func _whole(value, low: int, high: int) -> bool:
+	return _is_num(value) and float(value) >= low and float(value) <= high and float(value) == floorf(float(value))
+
+
+# This gate reads the RAW save, before ensure can clamp/coerce/append anything.
+# General fleet/custody/economy validation and publication remain B's boundary.
+static func validate_remote067(saved: Dictionary) -> String:
+	if saved.has("world064") and not WorldIdentity.same_world(saved["world064"], saved["world064"]):
+		return "Invalid exploration world identity."
+	if not saved.has("exploration"):
+		return ""
+	var raw = saved["exploration"]
+	if not raw is Dictionary:
+		return "Invalid exploration book."
+	var ex: Dictionary = raw
+	if not _whole(ex.get("version"), STATE_VERSION, STATE_VERSION) or not ex.get("catalog") is Array or not ex.get("sites") is Dictionary or not ex.get("assignment") is Dictionary:
+		return "Invalid exploration catalog/progress/assignment."
+	if ex["catalog"].size() > 128 or ex["sites"].size() > 128:
+		return "Oversized exploration book."
+	for key in ["leads", "log"]:
+		if not ex.get(key) is Array or ex[key].size() > 128:
+			return "Invalid exploration history."
+	var authored: Dictionary = {}
+	for site in _remote_catalog():
+		authored[site["id"]] = site
+	var known: Dictionary = {}
+	for site in ex["catalog"]:
+		if not site is Dictionary or not site.get("id") is String or site["id"].is_empty() or known.has(site["id"]):
+			return "Invalid or duplicate exploration site."
+		var region := _site_region(site)
+		if region.is_empty() or not _is_num(site.get("x")) or not _is_num(site.get("y")):
+			return "Invalid exploration region/location."
+		if (site["id"] in REMOTE_IDS) != (region == REMOTE_REGION):
+			return "Exploration site and region disagree."
+		var width: float = 4200.0 if region == REMOTE_REGION else 10400.0
+		var height: float = 3000.0 if region == REMOTE_REGION else 7200.0
+		if float(site["x"]) < 0.0 or float(site["y"]) < 0.0 or float(site["x"]) > width or float(site["y"]) > height:
+			return "Exploration location is outside its region."
+		for key in ["name", "kind", "region", "clue", "discovery", "hazard", "resource", "leadId"]:
+			if not site.get(key) is String:
+				return "Invalid exploration text."
+		if region == REMOTE_REGION:
+			var canonical: Dictionary = authored.get(site["id"], {})
+			if canonical.is_empty() or float(site["x"]) != float(canonical["x"]) or float(site["y"]) != float(canonical["y"]):
+				return "Remote exploration anchor is not authoritative."
+			for key in ["name", "kind", "region", "clue", "discovery", "hazard", "resource", "leadId"]:
+				if site[key] != canonical[key]:
+					return "Remote exploration catalog does not match its authored site."
+		known[site["id"]] = site
+	for site in known.values():
+		var next_id: String = site["leadId"]
+		if not next_id.is_empty() and (not known.has(next_id) or _site_region(known[next_id]) != _site_region(site)):
+			return "Exploration lead crosses or leaves its catalog."
+	for id in ex["sites"]:
+		var rec = ex["sites"][id]
+		if not id is String or not known.has(id) or not rec is Dictionary or not _whole(rec.get("level"), LEVEL_UNKNOWN, LEVEL_SURVEYED) or not rec.get("rewarded") is bool:
+			return "Invalid exploration progress."
+		if id in REMOTE_IDS and rec["rewarded"] != (rec["level"] == LEVEL_SURVEYED):
+			return "Remote exploration finding disagrees with progress."
+	if int(_site_record(ex, REMOTE_IDS[2]).get("level", 0)) == LEVEL_SURVEYED and not _remote_prerequisites(ex):
+		return "Remote final survey lacks its earlier findings."
+	for lead in ex["leads"]:
+		if not lead is Dictionary:
+			return "Invalid exploration lead."
+		if lead.get("fromSite") in REMOTE_IDS or lead.get("toSite") in REMOTE_IDS:
+			var from_id = lead.get("fromSite")
+			if not from_id is String or not known.has(from_id) or from_id not in REMOTE_IDS or known[from_id]["leadId"] != lead.get("toSite") or int(_site_record(ex, from_id).get("level", 0)) != LEVEL_SURVEYED:
+				return "Remote exploration lead is unearned."
+			if lead.get("id") != "%s->%s" % [from_id, lead["toSite"]] or not lead.get("claimed") is bool:
+				return "Invalid remote exploration lead identity."
+	return _validate_assignment067(saved, ex, known)
+
+
+static func _remote_prerequisites(ex: Dictionary) -> bool:
+	return int(_site_record(ex, REMOTE_IDS[0]).get("level", 0)) == LEVEL_SURVEYED and int(_site_record(ex, REMOTE_IDS[1]).get("level", 0)) == LEVEL_SURVEYED
+
+
+static func _validate_assignment067(saved: Dictionary, ex: Dictionary, known: Dictionary) -> String:
+	var a: Dictionary = ex["assignment"]
+	if a.is_empty():
+		return ""
+	var id = a.get("siteId")
+	if not id is String or not known.has(id):
+		return "Unknown exploration assignment site."
+	var site: Dictionary = known[id]
+	var region := _site_region(site)
+	var identity = a.get("world064", {"schema": 1, "layer": "home", "regionId": HOME_REGION})
+	var current = saved.get("world064", {"schema": 1, "layer": "home", "regionId": HOME_REGION})
+	if region != current_region(saved) or not WorldIdentity.same_world(identity, current):
+		return "Exploration assignment belongs to another world."
+	if region != REMOTE_REGION:
+		return "" # Existing home accounting remains with the original validator.
+	if not a.has("world064") or not _remote_stationary(saved, site):
+		return "Remote party needs its local identity and stopped landing anchor."
+	var action = a.get("action")
+	if not action is String or not ACTIONS.has(action):
+		return "Invalid remote exploration action."
+	var spec: Dictionary = ACTIONS[action]
+	if not _whole(a.get("targetLevel"), int(spec["to"]), int(spec["to"])) or not _whole(a.get("crewReserved"), int(spec["crew"]), int(spec["crew"])):
+		return "Invalid remote exploration target/reservation."
+	if int(_site_record(ex, id).get("level", 0)) != int(spec["from"]) or (id == REMOTE_IDS[2] and action == ACTION_SURVEY and not _remote_prerequisites(ex)):
+		return "Remote party lacks the required exploration progress."
+	for key in ["daysTotal", "daysDone", "foodSpent", "suppliesSpent"]:
+		if not _is_num(a.get(key)) or float(a[key]) < 0.0 or float(a[key]) > 1000.0:
+			return "Invalid remote exploration accounting."
+	if float(a["daysTotal"]) <= 0.0 or float(a["daysDone"]) >= float(a["daysTotal"]):
+		return "Invalid remote exploration duration."
+	if float(a["suppliesSpent"]) != float(spec["supplies"]) or not is_equal_approx(float(a["foodSpent"]), snappedf(FOOD_PER_CREW_DAY * float(a["crewReserved"]) * float(a["daysTotal"]), 0.01)):
+		return "Invalid remote exploration stores."
+	var credit = saved.get("surveyFoodCredit", 0.0)
+	if not _is_num(credit) or float(credit) < 0.0 or float(credit) > float(a["foodSpent"]) + 0.0000001 or not saved.get("fleet") is Array:
+		return "Invalid remote party food credit/fleet."
+	var reserved: int = 0
+	for boat in saved["fleet"]:
+		if not boat is Dictionary or not _whole(boat.get("shoreCrew", 0), 0, 1000):
+			return "Invalid remote shore crew reservation."
+		var shore: int = int(boat.get("shoreCrew", 0))
+		if shore == 0:
+			continue
+		if boat.get("sunk", false) or boat.get("mothballed", false) or not str(boat.get("storedPort", "")).is_empty():
+			return "Inactive boats cannot reserve remote shore crew."
+		for key in ["crew", "wounded", "crewMin"]:
+			if not _is_num(boat.get(key)) or float(boat[key]) < 0.0:
+				return "Invalid remote party crew capacity."
+		if shore > int(boat["crew"]) - ceili(float(boat["wounded"])) - int(boat["crewMin"]):
+			return "Remote party exceeds able spare sailors."
+		reserved += shore
+	if reserved != int(a["crewReserved"]):
+		return "Remote shore sailors do not match the assignment."
+	return ""
 
 
 static func _catalog(state: Dictionary) -> Array:
@@ -165,6 +350,14 @@ static func ensure(state: Dictionary, world: Dictionary = {}) -> Dictionary:
 		ex["catalog"] = catalog.duplicate(true)
 	if not (ex.get("sites") is Dictionary):
 		ex["sites"] = {}
+	# Old v1 catalogs are frozen. Extend only the three new authored identities;
+	# existing home rows, records, assignment and leads remain in place.
+	for site in _remote_catalog():
+		var remote_id: String = site["id"]
+		if not ex["catalog"].any(func(s): return s is Dictionary and s.get("id") == remote_id):
+			ex["catalog"].append(site.duplicate(true))
+		if not ex["sites"].has(remote_id):
+			ex["sites"][remote_id] = {"level": LEVEL_UNKNOWN, "rewarded": false}
 	# Drop progress for ids absent from the stored catalog; clamp levels.
 	var known := {}
 	for site in ex["catalog"]:
@@ -198,6 +391,41 @@ static func sites(state: Dictionary) -> Array:
 	return out
 
 
+static func _visible_site(state: Dictionary, site: Dictionary) -> Dictionary:
+	if _site_region(site) != current_region(state):
+		return {}
+	var ex: Dictionary = state.get("exploration", {}) if state.get("exploration") is Dictionary else {}
+	var level: int = clampi(int(_site_record(ex, str(site["id"])).get("level", LEVEL_UNKNOWN)), LEVEL_UNKNOWN, LEVEL_SURVEYED)
+	if level == LEVEL_UNKNOWN:
+		return {}
+	var out := {"id": str(site["id"]), "regionId": _site_region(site),
+		"x": float(site["x"]), "y": float(site["y"]), "level": level, "levelName": LEVEL_NAMES[level],
+		"name": "Uncharted shore landmark" if level == LEVEL_SIGHTED else str(site["name"]), "clue": str(site.get("clue", ""))}
+	if level >= LEVEL_CHARTED:
+		out["hazard"] = str(site.get("hazard", ""))
+	if level >= LEVEL_SURVEYED:
+		out["discovery"] = str(site.get("discovery", ""))
+		out["resource"] = str(site.get("resource", ""))
+		var next := catalog_site(state, str(site.get("leadId", "")))
+		if not next.is_empty() and _site_region(next) == _site_region(site) and int(_site_record(ex, str(next["id"])).get("level", LEVEL_UNKNOWN)) >= LEVEL_SIGHTED:
+			out["leadId"] = str(next["id"])
+	return out
+
+
+# Render/UI boundary: never ensure/normalize the caller or expose level-zero rows.
+static func visible_sites(state: Dictionary) -> Array:
+	if current_region(state).is_empty():
+		return []
+	var out: Array = []
+	for site in _catalog(state):
+		if site is Dictionary:
+			var dto := _visible_site(state, site)
+			if not dto.is_empty():
+				out.append(dto)
+	_sort_sites(out)
+	return out
+
+
 static func _position_xy(position) -> Array:
 	if position is Dictionary and _is_num(position.get("x", null)) and _is_num(position.get("y", null)):
 		return [float(position["x"]), float(position["y"])]
@@ -214,11 +442,12 @@ static func discover_near(state: Dictionary, position, radius) -> Array:
 	var ex := ensure(state)
 	var xy := _position_xy(position)
 	var r := _num(radius, -1.0)
-	if xy.size() != 2 or r < 0.0:
+	var region := current_region(state)
+	if xy.size() != 2 or r < 0.0 or region.is_empty():
 		return []
 	var found: Array = []
 	for site in _catalog(state):
-		if not (site is Dictionary):
+		if not (site is Dictionary) or _site_region(site) != region:
 			continue
 		var dx: float=float(site["x"])-float(xy[0])
 		var dy: float=float(site["y"])-float(xy[1])
@@ -230,8 +459,9 @@ static func discover_near(state: Dictionary, position, radius) -> Array:
 			continue
 		rec["level"] = LEVEL_SIGHTED
 		ex["sites"][id] = rec
-		_log(ex, "Sighted %s: %s" % [str(site["name"]), str(site.get("clue", ""))])
-		found.append(_merged(state, site))
+		var observed := _visible_site(state, site) if region == REMOTE_REGION else _merged(state, site)
+		_log(ex, "Sighted %s: %s" % [str(observed["name"]), str(observed.get("clue", ""))])
+		found.append(observed)
 	_sort_sites(found)
 	return found
 
@@ -250,7 +480,7 @@ static func spare_crew(state: Dictionary) -> int:
 			continue
 		if str(boat.get("storedPort", "")) != "":
 			continue
-		spare += maxi(0,int(_num(boat.get("crew",0)))-ceili(_num(boat.get("wounded",0)))-int(_num(boat.get("crewMin",0))))
+		spare += maxi(0,int(_num(boat.get("crew",0)))-ceili(_num(boat.get("wounded",0)))-int(_num(boat.get("crewMin",0)))-int(_num(boat.get("shoreCrew",0))))
 	return spare
 
 
@@ -267,19 +497,24 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 	var key := _action_key(action)
 	var site := catalog_site(state, site_id)
 	var base := {"ok": false, "siteId": site_id, "action": key, "message": ""}
-	if site.is_empty():
+	var region := current_region(state)
+	if site.is_empty() or region.is_empty() or _site_region(site) != region:
+		base["message"] = "Unknown site."
+		return base
+	var ex: Dictionary = state["exploration"]
+	var level := int(_site_record(ex, site_id).get("level", LEVEL_UNKNOWN))
+	var remote: bool = region == REMOTE_REGION
+	if remote and level == LEVEL_UNKNOWN:
 		base["message"] = "Unknown site."
 		return base
 	if not ACTIONS.has(key):
 		base["message"] = "Unknown exploration action."
 		return base
 	var spec: Dictionary = ACTIONS[key]
-	var ex: Dictionary = state["exploration"]
-	var level := int(_site_record(ex, site_id).get("level", LEVEL_UNKNOWN))
 	var crew := int(spec["crew"])
 	var survey_factor: float=1.0
 	for boat in state.get("fleet",[]):
-		if not boat.get("sunk",false) and not boat.get("mothballed",false) and str(boat.get("storedPort","")).is_empty() and float(boat.get("crew",0))-float(boat.get("wounded",0))>float(boat.get("crewMin",1)):survey_factor=maxf(survey_factor,float(boat.get("spec",{}).get("surveyFactor",1)))
+		if not boat.get("sunk",false) and not boat.get("mothballed",false) and str(boat.get("storedPort","")).is_empty() and float(boat.get("crew",0))-float(boat.get("wounded",0))-float(boat.get("shoreCrew",0))>float(boat.get("crewMin",1)):survey_factor=maxf(survey_factor,float(boat.get("spec",{}).get("surveyFactor",1)))
 	var days := float(spec["days"])/survey_factor
 	var food := snappedf(FOOD_PER_CREW_DAY * float(crew) * days, 0.01)
 	var cargo: Dictionary = state.get("cargo", {}) if state.get("cargo") is Dictionary else {}
@@ -289,19 +524,24 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 		if not boat.get("sunk",false) and not boat.get("mothballed",false) and str(boat.get("storedPort","")).is_empty():have_supplies+=maxf(0,_num(boat.get("supplies",0)))
 	var spare := spare_crew(state)
 	base.merge({
-		"siteName": str(site["name"]), "level": level, "levelName": LEVEL_NAMES[level],
+		"siteName": "Uncharted shore landmark" if remote and level == LEVEL_SIGHTED else str(site["name"]), "level": level, "levelName": LEVEL_NAMES[level],
 		"targetLevel": int(spec["to"]), "crewNeeded": crew, "spareCrew": spare,
 		"days": days, "food": food, "supplies": float(spec["supplies"]),
 		"haveFood": have_food, "haveSupplies": have_supplies,
-		"hazard": str(site.get("hazard", "")), "resource": str(site.get("resource", "")),
+		"hazard": str(site.get("hazard", "")) if not remote or level >= LEVEL_CHARTED else "",
+		"resource": str(site.get("resource", "")) if not remote or level >= LEVEL_SURVEYED else "",
 	}, true)
 	var busy: Dictionary = ex.get("assignment", {})
-	if level < int(spec["from"]):
+	if remote and not _remote_stationary(state, site):
+		base["message"] = "Stop the fleet within 180 water units of the observed landing first."
+	elif remote and site_id == REMOTE_IDS[2] and key == ACTION_SURVEY and not _remote_prerequisites(ex):
+		base["message"] = "Survey the other two landings and connect their bearings first."
+	elif level < int(spec["from"]):
 		base["message"] = "Site must be %s first." % LEVEL_NAMES[int(spec["from"])]
 	elif level >= int(spec["to"]):
 		base["message"] = "Already %s; surveys do not repeat." % LEVEL_NAMES[int(spec["to"])]
 	elif not busy.is_empty():
-		base["message"] = "A survey party is already assigned to %s." % str(busy.get("siteId", "another site"))
+		base["message"] = "A shore party is already assigned; recall it before another landing." if remote else "A survey party is already assigned to %s." % str(busy.get("siteId", "another site"))
 	elif spare < crew:
 		base["message"] = "Needs %d spare crew above boat minimums; %d available." % [crew, spare]
 	elif have_food < food:
@@ -340,6 +580,8 @@ static func begin(state: Dictionary, site_id: String, action) -> Dictionary:
 		"crewReserved": int(q["crewNeeded"]), "daysTotal": float(q["days"]),
 		"daysDone": 0.0, "foodSpent": float(q["food"]), "suppliesSpent": float(q["supplies"]),
 	}
+	if current_region(state) == REMOTE_REGION:
+		ex["assignment"]["world064"] = {"schema": 1, "layer": "local", "regionId": REMOTE_REGION}
 	_log(ex, "%s party landed at %s (%d crew, %.1f days)." % [str(q["action"]).capitalize(), str(q["siteName"]), int(q["crewNeeded"]), float(q["days"])])
 	var out := q.duplicate(true)
 	out["assignment"] = (ex["assignment"] as Dictionary).duplicate(true)
@@ -376,16 +618,22 @@ static func advance(state: Dictionary, days) -> Array:
 	var assignment: Dictionary = ex.get("assignment", {}) if ex.get("assignment") is Dictionary else {}
 	if step <= 0.0 or assignment.is_empty():
 		return []
+	var site_id := str(assignment.get("siteId", ""))
+	var site := catalog_site(state, site_id)
+	var region := current_region(state)
+	if site.is_empty() or region.is_empty() or _site_region(site) != region:
+		return []
+	if region == REMOTE_REGION:
+		if not WorldIdentity.same_world(assignment.get("world064"), state.get("world064")) or not _remote_stationary(state, site):
+			return []
+	elif assignment.has("world064") and not WorldIdentity.same_world(assignment["world064"], state.get("world064", {"schema": 1, "layer": "home", "regionId": HOME_REGION})):
+		return []
 	assignment["daysDone"] = minf(float(assignment.get("daysTotal", 0.0)),
 		maxf(0.0, _num(assignment.get("daysDone", 0.0))) + step)
 	ex["assignment"] = assignment
 	if float(assignment["daysDone"]) < float(assignment.get("daysTotal", 0.0)):
 		return []
-	var site_id := str(assignment.get("siteId", ""))
-	var site := catalog_site(state, site_id)
 	ex["assignment"] = {}
-	if site.is_empty():
-		return []
 	var rec := _site_record(ex, site_id)
 	var target := clampi(int(assignment.get("targetLevel", LEVEL_UNKNOWN)), LEVEL_SIGHTED, LEVEL_SURVEYED)
 	if int(rec.get("level", LEVEL_UNKNOWN)) >= target:
@@ -396,7 +644,20 @@ static func advance(state: Dictionary, days) -> Array:
 		"level": target, "levelName": LEVEL_NAMES[target],
 		"discovery": str(site.get("discovery", "")), "resource": str(site.get("resource", "")),
 		"leadId": str(site.get("leadId", ""))}
-	if target == LEVEL_SURVEYED and not bool(rec.get("rewarded", false)):
+	if region == REMOTE_REGION:
+		ex["sites"][site_id] = rec
+		var dto := _visible_site(state, site)
+		event["regionId"] = region
+		event["discovery"] = str(dto.get("discovery", ""))
+		event["resource"] = str(dto.get("resource", ""))
+		event["leadId"] = str(dto.get("leadId", ""))
+		event["lead"] = {}
+		if target == LEVEL_SURVEYED and not bool(rec.get("rewarded", false)):
+			rec["rewarded"] = true
+			var lead := _add_lead(ex, site)
+			if not str(dto.get("leadId", "")).is_empty():
+				event["lead"] = lead.duplicate(true)
+	elif target == LEVEL_SURVEYED and not bool(rec.get("rewarded", false)):
 		rec["rewarded"] = true
 		event["lead"] = _add_lead(ex, site)
 	elif target == LEVEL_CHARTED:
