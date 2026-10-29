@@ -29,10 +29,14 @@ ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlis
 source-only helpers; integrate named commits. Completed helpers stay idle until
 given another bounded task. Finish the current delivery before advancing the next saved release.
 
-Next planned scopes063-072 are authoritative in docs/roadmap/OPEN OCEAN VERSION
-MAP v0.063-v0.072.txt (28October2026 owner request). First063bounded performance
-correction, then064ocean/local transition with one remote prototype before breadth.
-063 through068 are scoped verified steps;069-072 remain planned. Earlier quality limits remain.
+Next ten scopes 069-078 are authoritative in docs/roadmap/QUALITY VERSION MAP
+v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are
+preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy 075,
+funded territorial change 076, exploration chains 077 and quality review 078.
+Current request is PLANNING ONLY: no new executable, engine tests, release tag,
+launcher change or claim of parity. Start 069 implementation only when requested.
+063 through 068 remain scoped verified; 069-078 are planned. Earlier quality
+limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
 fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain

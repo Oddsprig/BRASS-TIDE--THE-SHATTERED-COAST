@@ -1,30 +1,32 @@
-29 OCTOBER 2026 - v0.063-v0.068 VERIFIED SCOPES; v0.069-v0.072 PLANNED
-Owner direction: smaller detailed island groups linked by a large playable ocean
-chart, with a settled core, frontier and distant exploration archipelagos.
-Authoritative scope/acceptance: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
-Owner world/ownership clarification29October2026: docs/roadmap/OCEAN WORLD DESIGN.txt.
-Ocean planet, no major continents: open seas=hyperspace role, groups=systems,
-islands=planets. Groups can contain several factions' islands and harbors.
-Current summary and unresolved quality criteria: ROADMAP.md.
+29 OCTOBER 2026 - v0.068 DELIVERED; v0.069-v0.078 PLANNED
+Authoritative forward scope/acceptance:
+docs/roadmap/QUALITY VERSION MAP v0.069-v0.078.txt
+World structure: docs/roadmap/OCEAN WORLD DESIGN.txt
+Accepted 063-068 history: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
 
-0.063 - FULL-FLEET PERFORMANCE CORRECTION [VERIFIED; STRICT QUALITY OPEN]
-0.064 - TWO-SCALE WORLD AND TRANSITIONS [VERIFIED PROTOTYPE]
-0.065 - LONG-VOYAGE PREPARATION AND COSTS [VERIFIED SCOPED]
-0.066 - PLAYABLE OPEN-OCEAN TRAVEL [VERIFIED SCOPED]
-0.067 - FIRST REMOTE EXPLORATION ARCHIPELAGO [VERIFIED SCOPED]
-0.068 - INTERREGIONAL SHIPPING AND DISTANT SIMULATION [VERIFIED SCOPED]
-0.069 - THE WIDER CORE, FRONTIER AND WILDERNESS [PLANNED]
-        Seeded geography, starting island/harbor ownership, mixed-faction groups.
-0.070 - JOBS AND FLEET ROLES ACROSS THE OCEAN [PLANNED]
-0.071 - COMBAT FEEL AND PRESENTATION CORRECTIONS [PLANNED]
-0.072 - COMPLETE VOYAGE AND SECTOR QUALITY CHECK [PLANNED]
+0.069 - A GENERATED OCEAN SECTOR
+0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+0.071 - COMBAT FEEL, WAKES AND SOUND
+0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR
+0.073 - FINISHED BOAT AND WEAPON ASSETS
+0.074 - TACTICAL AI WITH COUNTERPLAY
+0.075 - FACTIONS THAT PURSUE AND PAY FOR A STRATEGY
+0.076 - FUNDED EXPANSION AND CHANGING CONTROL
+0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS
+0.078 - CAMPAIGN POLISH AND QUALITY REVIEW
 
-Sector design target:48groups (8settled/12frontier/28remote), not yet built.
-Prove currentcoast->ocean->one remote group->return before multiplying regions.
-One scoped .001 step at a time; retain unmet quality gates and shared background
-test batches below120seconds. Planning changes no executable or launcher.
-Dynamic faction strategy, funded expansion/capture and territorial changes remain
-required follow-on milestones to schedule explicitly; they are not complete in072.
+Ocean planet, no major continents. Open seas fill the hyperspace role;
+archipelagos the system role; islands the planet role. Different factions can
+own different islands or harbors inside a group. 48 groups remains a design
+target (8 settled / 12 frontier / 28 remote), not delivered geography or a quality claim.
+
+Keep 36 existing hulls, physical mounts, numerical crew, cheap water, finite
+coins/goods/people and actual service/construction costs. One scoped .001
+release on the last accepted build. No new test framework or unbounded polish.
+Queued private/muted background batches <120 seconds, full selected suite <180 seconds
+including setup/cleanup; queue waits separate. Preserve saves/music/old builds.
+Planning changes no executable, launcher or release tag. Quality review 078
+records actual strengths and remaining gaps; version numbers do not prove parity.
 
 HISTORICAL v0.042-v0.062 PLAN AND OUTCOMES FOLLOW
 27 OCTOBER 2026 PRIORITY UPDATE

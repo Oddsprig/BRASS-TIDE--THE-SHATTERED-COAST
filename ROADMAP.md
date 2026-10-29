@@ -21,19 +21,27 @@ build is their foundation. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%2
 | 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
 | 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
 | 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
-| 0.069 | Seed the wider core, frontier and remote world, including starting island/harbor ownership and mixed-faction groups. |
-| 0.070 | Extend existing jobs and support-boat roles across ocean voyages. |
-| 0.071 | Focused combat presentation, wakes, damage and sound corrections. |
-| 0.072 | Complete voyage integration, career balance and sector performance. |
+| 0.069 | Generated ocean sector: useful core/frontier/remote archipelagos and starting mixed faction ownership. |
+| 0.070 | Profitable voyages and purposeful fleets: interregional jobs, support roles and normal-start progression. |
+| 0.071 | Combat feel: readable weapon fire, wakes, impacts, flooding, sinking and distinct sound. |
+| 0.072 | Complete voyage integration and measured campaign/full-fleet performance corrections. |
+| 0.073 | Finished boat and weapon assets across the 36 existing hulls, matching physical mounts and refit previews. |
+| 0.074 | Tactical AI counterplay: flanking/harassment, screening, firing passes, retreat and dependable orders. |
+| 0.075 | Funded faction strategy: actual convoys, piracy, patrol response, supply interdiction and paid replacements. |
+| 0.076 | Funded outposts, blockade/access changes and capture/surrender/peace with persistent physical assets. |
+| 0.077 | Two original exploration/contact chains with choices, risky recovery and lasting consequences. |
+| 0.078 | Six-career playability, guidance, interface/balance polish and whole-loop quality review. |
 
-Detailed acceptance and exclusions: [Open ocean version map](docs/roadmap/OPEN%20OCEAN%20VERSION%20MAP%20v0.063-v0.072.txt).
+Detailed acceptance and exclusions: [Next ten quality milestones](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
+The prior 063-072 map preserves the accepted history. All 069-078 entries are planned;
+quality is judged from complete voyages, battles, actual presentation and player feedback.
 Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
 and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.
 v0.064 added ocean/local crossings and the three-island Glasswind Keys prototype;
 v0.067 proved the first useful remote expedition. The full seeded world,
 sector-wide political ownership and ongoing faction expansion remain open.
-Expansion, capture and changing political control need explicit bounded
-follow-on milestones; the existing068-072 sequence does not complete them.
+Funded cross-region strategy is scheduled for 075; expansion, capture and changing
+political control for 076. These remain unbuilt; ownership colors alone do not complete them.
 
 Remaining demonstrated gaps:
 - Light workerP9537.816ms exceeds33.333ms;lag150ms exceeds100ms;catch-up/planner

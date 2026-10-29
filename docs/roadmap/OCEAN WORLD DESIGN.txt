@@ -78,7 +78,8 @@ the full generated world and ongoing territorial expansion remain open.
 v0.069 must produce seeded sector geography AND the starting island/harbor
 ownership model, including at least one useful mixed-faction archipelago.
 Later jobs/access must consume those owners and existing relationship systems.
-Ongoing faction strategy, funded expansion and territorial capture require
-explicit bounded follow-on milestones; do not hide them inside an already
-accepted version or label them finished after merely drawing faction colors.
+Ongoing faction strategy is now scheduled in 075; funded expansion, blockade
+access changes and capture/surrender/peace in 076. Full boundaries are in
+QUALITY VERSION MAP v0.069-v0.078.txt. These are planned, not delivered; do not
+hide them inside an accepted version or mark them complete after drawing colors.
 Keep each version's implementation scope and short shared-lane checks intact.

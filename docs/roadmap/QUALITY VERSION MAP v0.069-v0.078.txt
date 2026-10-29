@@ -1,0 +1,189 @@
+BRASS TIDE - NEXT TEN QUALITY MILESTONES
+29 October 2026 | v0.069-v0.078 PLANNED | Current delivered game: v0.068
+
+PURPOSE AND PLAYER LOOP
+Reach the standard the owner expects in fleet combat, exploration, fleet
+building, trade, presentation and responsiveness. Judge the result through
+complete voyages, battles, rendered motion, recorded sound and player feedback.
+Feature names, assertion totals and a higher version number do not establish
+that quality. Every version below is a bounded delivery, not a parity claim.
+
+Find an opportunity -> prepare an affordable fleet -> choose a route and risk
+-> trade, explore, fight or negotiate -> recover and bring something home
+-> make a useful fleet or fitting choice -> discover the next opportunity.
+
+This extends the existing plan: preserve the 0.069-0.072 sequence, then add
+0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
+All ten entries are planned; this planning update changes no game executable.
+
+0.069 - A GENERATED OCEAN SECTOR
+Focus: persistent seeded geography and starting political ownership.
+Build a settled core, frontier and distant archipelagos. Preserve the starting
+coast and existing voyages. Open seas connect local island groups; individual
+islands and harbors have owners, resources, services and discoveries. Different
+factions can own different islands or harbors within one group. Keep geographic
+sectors distinct from political control and respect unknown information.
+The design target remains 48 groups: 8 settled, 12 frontier, 28 remote. Destinations
+need recognizable geography and useful opportunities; publish any shortfall.
+Reuse prepared geography/site/industry templates with seeded variation and
+author a few signature places. Remote islands do not each need a new market.
+Acceptance: the same seed produces the same reachable geography and starting
+owners; return visits/save-load retain it. Demonstrate a useful mixed-faction
+group, alternative routes and a distant expedition. Give economies finite,
+recorded opening workers, goods and capital; preserve migration accounting.
+Boundary: starting ownership only. Expansion and conquest belong to v0.076.
+
+0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+Focus: extend existing work and support roles across the generated sector.
+Offer compatible freight, escort, survey, salvage, fuel and passenger work
+through existing contacts. Show gross reward, likely operating costs, required
+hold/berths and return reserves. Make scouts, carriers, tankers and repair boats
+useful. Compare existing fittings and explain what a purchase changes.
+Acceptance: a normal starter can fund a voyage, return with worthwhile profit
+or useful recovery, then afford a meaningful fitting or fleet improvement.
+Prove this from actual starting accounts without test-only treasury transfers.
+Fund clients and NPC trade from real accounts; delivered cargo changes stocks.
+Boundary: improve the existing jobs/refit/economy, not parallel frameworks,
+additional hull rosters or guaranteed profit for every route and risk.
+
+0.071 - COMBAT FEEL, WAKES AND SOUND
+Focus: make the existing battle understandable and forceful in motion.
+Improve firing/recoil, tracers, impacts, engine damage, sparks, fire, flooding,
+explosions and sinking. Attach wakes to the stern and actual speed/turning.
+Keep machine guns, cannons, rockets and torpedoes visually and audibly distinct.
+Use appropriate weapon recordings with recorded provenance and usable licenses;
+keep generated music and the owner's tracks separate from weapon sound design.
+Acceptance: normal battle zoom makes shots, hits, disabling damage, danger and
+withdrawal legible. Review actual motion and an offline sound recording; muted
+live tests remain mandatory. Record anything not listened to or played.
+Boundary: existing damage/effects/audio systems, inexpensive water, existing
+boat assets. New complete hull/weapon asset production belongs to v0.073.
+
+0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR
+Focus: integrate v0.069-v0.071 and fix the largest demonstrated runtime costs.
+Complete prepare -> sail -> work/explore -> encounter -> repair/recover ->
+return -> upgrade on normal accounts. Review loading, camera, chart labels,
+orders, save/load and the explanation of costs and consequences.
+Measure representative active 300-vs-300 DP light and mixed battles plus campaign
+travel, region changes and distant updates. Queue and stagger data work where
+measurements justify it; render resources, UI and audio stay on main.
+Acceptance: the voyage works without special setup; expensive targeting,
+navigation and economy decisions have bounded schedules. Record frame times,
+simulation lag, command response, loading and memory on stated hardware/settings.
+Carry forward unresolved worker/lag/FPS targets; report substantive stalls and
+costs without spending the release chasing fractional frame-cap noise.
+Boundary: a bounded integration/performance pass, not all future features.
+
+0.073 - FINISHED BOAT AND WEAPON ASSETS
+Focus: a consistent original asset standard across the 36 existing hulls.
+Give boats distinct silhouettes, construction/material detail, engines or
+outboards, deck equipment and recognizable weapon models. Preserve physical
+mount IDs, positions, arcs, scale and interchangeable weapons. Hulls, weapons,
+damage overlays and wakes must agree in battle, chart views and refit previews.
+Use offline authored/baked assets where useful, with cheap runtime rendering.
+Reuse authored components and the existing asset workflow across the hull
+families; this is not a requirement to invent a new renderer or modeling tool.
+Acceptance: identify hull roles and installed weapons at normal play zoom;
+inspect every existing boat for mount alignment, floating/intersecting parts,
+waterline contact and damage appearance. Review representative models moving
+and firing, not only a large gallery close-up. Preserve original asset rights.
+Boundary: asset production and its display integration; no new hull roster,
+weapon framework, economic rebalance or expensive water simulation.
+
+0.074 - TACTICAL AI WITH COUNTERPLAY
+Focus: make existing roles, loadouts and fleet orders work together.
+Light boats flank, encircle, harass and disengage. Escorts screen carriers and
+damaged allies; heavy boats cover approaches and punish reckless flankers.
+Coordinate firing passes, torpedo/rocket pressure, reload openings and retreat.
+Use existing damage, ammunition, flooding, repair and movement constraints.
+Acceptance: show small repeatable matchups where screening counters harassment,
+different fittings change behavior, concentration can be escaped or punished,
+and attack/escort/defend/retreat orders produce readable responses. Orders must
+not cause constant target switching, orbiting jitter or stalled formations.
+Boundary: improve existing tactical AI and orders; default flagship autopilot,
+WASD camera and 300 DP deployment remain. No new officer progression framework.
+
+0.075 - FACTIONS THAT PURSUE AND PAY FOR A STRATEGY
+Focus: independent campaign objectives across regions.
+Shipping interests pursue actual deliveries; pirates seek worthwhile cargo;
+patrols respond to known threats. Hostile factions coordinate supply routes,
+escorts, raids and supply interdiction. Survivors retreat for actual service, and funded
+yards commission replacements using workers, materials, crews and accounts.
+Acceptance: a visible sequence of intention, dispatch, interception/response,
+loss or delivery and paid recovery changes actual trade and local availability.
+Explain witnessed events through dated intelligence. Distant simulation uses
+scheduled data jobs and existing resolution, not full tactical battles everywhere.
+Boundary: strategy and military presence; harbor closure/access changes and
+sovereign transfer follow in v0.076, using the same ownership records.
+
+0.076 - FUNDED EXPANSION AND CHANGING CONTROL
+Focus: an end-to-end territorial operation using existing economy and combat.
+Transport workers, machinery, materials and operating capital to establish or
+improve a coastal outpost. Supply and defend it. Existing defenses, blockade,
+boarding/surrender and negotiation can change a harbor's owner; withdrawal or
+peace can end the operation. Keep businesses separate from sovereignty.
+Acceptance: demonstrate one funded expansion and one contested control change,
+including interruption and its consequences. Workers, goods, damage, stores,
+boat/equipment IDs and purses persist through transfer. Record who owns each
+asset and why; a fleet's mere presence does not capture an entire group.
+Boundary: one complete operation and ownership path, not land RTS combat,
+an unrestricted empire simulator or a second settlement economy.
+
+0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS
+Focus: authored content on the existing exploration/contact systems.
+Build two bounded original chains: one discovery mystery and one lost-expedition
+or disputed-recovery story. Connect clues, recognizable island sites, recurring
+contacts, a risky recovery and a faction choice. Let discovery provide useful
+equipment, cargo, intelligence or access through actual work and consequences.
+Acceptance: each chain has a clear lead, a meaningful decision and a worthwhile
+return. Contacts remember the outcome; revisiting the place reflects it. Cargo
+space, crew/endurance and faction access make taking everything impractical.
+Boundary: reuse existing jobs, surveying, salvage, dialogue and state; no new
+quest engine, copied stories or requirement to author every remote island.
+
+0.078 - CAMPAIGN POLISH AND QUALITY REVIEW
+Focus: finish the loop built in v0.069-v0.077 through a bounded balance/clarity pass.
+Review explorer, merchant, escort, privateer, fisher and passenger careers with
+short saved scenarios and actual normal-start progression. Refine early goals,
+cost/reward curves, fleet/refit comparisons, intelligence, menus, tooltips,
+settings, notifications and recovery from setbacks. Recheck representative
+battle/campaign performance after the asset and AI changes.
+Acceptance: understand the first voyage, choose between useful opportunities,
+grow from a cheap boat to a purposeful fleet and recover from affordable losses.
+Review actual presentation and play decisions with the owner. Record which
+quality goals passed and any bounded follow-on corrections still required.
+Boundary: no unrelated systems or guarantee that parity arrives at this version.
+
+QUALITY RULES THROUGHOUT
+- Map: useful readable places, routes and faction information at normal zoom;
+  original island world, no major continents and no substitute destination dots.
+- Fleet: consequential existing fittings and varied roles, clear mount previews,
+  physical condition, crew, logistics and affordable progression.
+- Battles: readable decisions and effects, useful commands, AI counterplay and
+  meaningful withdrawal/recovery. Added content does not certify combat quality.
+- Economy: coins, 100 coins per ordinary sailor-day, finite goods/people/accounts,
+  paid construction/service and commercially meaningful traffic. Disclose actual
+  shortages and insolvency; no test-only funding in progression acceptance.
+- Presentation: a numerical pass or still image cannot establish motion, sound,
+  enjoyment or visual parity. Use short actual captures and owner play feedback.
+- Performance: preserve actual actor counts, equipment and simulation behavior.
+  Record existing unmet targets; never silently waive them or claim Separate mode 2.
+- Keep water cheap and crew numerical. Preserve the current data worker design,
+  safe rendering, physical owners/UIDs and compatible saves.
+
+DELIVERY AND VERIFICATION
+One .001 release, one bounded scope, on the last accepted build. Deliver the
+portable Windows package, notes, source/tag and one latest desktop shortcut.
+Preserve owner saves, music/settings and old releases; no automatic GitHub push.
+Update relevant in-game TXT notes when actually building the corresponding
+version. This plan does not modify or relabel the verified v0.068 executable.
+Reuse the authorized Bridge specialists in isolated scopes; Root coordinates,
+reviews and alone owns queued engine/GPU jobs. No helper engines or new test
+framework. Keep every complete selected batch below 120 seconds and the final
+selected verification suite below 180 seconds including setup and cleanup.
+Queue waits are separate; earlier failed attempts remain failed. Reuse passed
+unchanged work only with source proof. Tests stay private/background/muted;
+no mouse, keyboard, foreground/focus control or interference with other apps.
+If a scope proves too large, split it explicitly into subsequent .001 releases
+and update this map honestly. Do not conceal unfinished work or turn one pass
+into an indefinite attempt to finish the whole game.

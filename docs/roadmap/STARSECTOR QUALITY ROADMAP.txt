@@ -1,3 +1,8 @@
+29 OCTOBER 2026 FORWARD PLAN
+Current delivered 068; next 069-078: docs/roadmap/QUALITY VERSION MAP v0.069-v0.078.txt.
+This file preserves earlier quality goals and unresolved evidence. Those goals
+remain open wherever unmet; the new map does not certify parity.
+
 27 OCTOBER 2026 PRIORITY UPDATE
 User rejects the actual053 campaign marker art. Insert focused054 visual correction now; saved054-061scopes move to055-062 without being dropped. Whole-game milestone is now062. All exact051remaining performance/quality targets stay OPEN and unchanged, carried into062; this reorder does not waive them or certify parity. Continue one bounded scope at a time.
 
