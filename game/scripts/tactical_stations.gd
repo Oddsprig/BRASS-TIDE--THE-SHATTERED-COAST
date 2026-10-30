@@ -147,6 +147,38 @@ static func _incoming_threat(enemy: Dictionary, protected: Dictionary, leash: fl
 	# makes the screen interpose instead of crossing behind its protected hull.
 	return Roles.protection_threat(enemy, protected, now, leash) > 0.0
 
+static func _flank_direction(protected: Dictionary, enemy: Dictionary) -> Vector2:
+	# One already chosen contact. Outside every fitted arc, and not dead ahead
+	# or astern, is flank pressure the escort guns are not covering.
+	if protected.is_empty() or enemy.is_empty():
+		return Vector2.ZERO
+	var delta: Vector2 = Roles.pos(enemy) - Roles.pos(protected)
+	var distance: float = delta.length()
+	if distance < 1.0:
+		return Vector2.ZERO
+	for mount: Dictionary in Roles.mounts(protected):
+		var reach: float = maxf(1.0, Roles.number(mount.get("range"), 80.0))
+		var heading: float = Roles.number(protected.get("angle")) + Roles.number(mount.get("angle"))
+		var half: float = clampf(Roles.number(mount.get("arc"), TAU), 0.01, TAU) * 0.5
+		if distance <= reach and absf(angle_difference(heading, delta.angle())) <= half:
+			return Vector2.ZERO
+	var off_bow: float = absf(angle_difference(Roles.number(protected.get("angle")), delta.angle()))
+	if off_bow < 0.6 or off_bow > PI - 0.6:
+		return Vector2.ZERO
+	return delta / distance
+
+static func _working_gun(view: Dictionary, ship: Dictionary) -> Dictionary:
+	var best: Dictionary = {}
+	var weight: float = -1.0
+	for mount: Dictionary in Roles.useful_mounts(view, ship):
+		if Roles.fixed_tube(mount):
+			continue
+		var value: float = Roles.number(mount.get("damage")) * Roles.number(mount.get("fireRate"))
+		if value > weight:
+			weight = value
+			best = mount
+	return best
+
 static func formation_offset(view: Dictionary, ship: Dictionary, protected: Dictionary) -> Vector2:
 	var opts: Dictionary = Roles.options(view, ship)
 	var groups: Dictionary = Roles.dictionary(view.get("groups"))
@@ -560,6 +592,36 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 		targets.erase(selected_target)
 		targets.push_front(selected_target)
 	var incoming_by_target: Dictionary = {}
+	# Existing friendly reservations only. Bearings are read off the stored
+	# anchor or sector; this is not a pairwise path search.
+	var reservation_notes: Dictionary = {}
+	for reserved_id: Variant in reservations:
+		if str(reserved_id) == str(ship.id):
+			continue
+		var occupied: Dictionary = Roles.dictionary(reservations[reserved_id])
+		if occupied.is_empty() or Roles.number(occupied.get("until")) <= Roles.number(view.get("time")):
+			continue
+		var reserved_target_id: String = str(occupied.get("targetId", ""))
+		var reserved_sector: int = int(Roles.number(occupied.get("sector"), -1.0))
+		if reserved_target_id.is_empty() or reserved_sector < 0 or reserved_sector > 7:
+			continue
+		var reserved_owner: Dictionary = Roles.dictionary(context.get(str(reserved_id)))
+		if reserved_owner.is_empty() or reserved_owner.get("team") != ship.get("team"):
+			continue
+		var reserved_enemy: Dictionary = Roles.dictionary(context.get(reserved_target_id))
+		if reserved_enemy.is_empty():
+			continue
+		var reserved_pos: Vector2 = Roles.pos(reserved_enemy)
+		var reserved_course: float = Roles.velocity(reserved_enemy).angle() if Roles.velocity(reserved_enemy).length() > 2.0 else Roles.number(reserved_enemy.get("angle"))
+		var reserved_bearing: float = reserved_course + float(reserved_sector) * TAU / 8.0
+		var reserved_anchor: Variant = occupied.get("anchor")
+		var held_point: Vector2 = reserved_pos + Vector2.from_angle(reserved_bearing) * 100.0
+		if reserved_anchor is Vector2 and reserved_anchor.distance_squared_to(reserved_pos) > 1.0:
+			held_point = reserved_anchor
+			reserved_bearing = (reserved_anchor - reserved_pos).angle()
+		if not reservation_notes.has(reserved_target_id):
+			reservation_notes[reserved_target_id] = []
+		reservation_notes[reserved_target_id].append({"sector": reserved_sector, "bearing": reserved_bearing, "held": held_point})
 	for i: int in range(MAX_OFFERS):
 		var target_index: int = 1 if i >= 6 and targets.size() > 1 and order not in ["attack", "board"] else 0
 		var other: Dictionary = Roles.dictionary(context.get(str(targets[target_index])))
@@ -579,8 +641,18 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				anchor = committed_anchor
 				if anchor.distance_squared_to(Roles.pos(other)) > 1.0:
 					radial = (anchor - Roles.pos(other)).normalized()
-		var tangent: Vector2 = radial.orthogonal() * orbit_side
-		var pass_end: Vector2 = Roles.pos(other) + (anchor - Roles.pos(other)).rotated(0.28 * orbit_side)
+		var pass_side: float = orbit_side
+		if str(state.role) in ["skirmisher", "striker"]:
+			var nearest_gap: float = INF
+			var open_mates: Array = reservation_notes.get(str(other.id), [])
+			for mate: Dictionary in open_mates:
+				var gap: float = angle_difference(radial.angle(), float(mate.bearing))
+				var gap_abs: float = absf(gap)
+				if gap_abs > 0.05 and gap_abs < nearest_gap:
+					nearest_gap = gap_abs
+					pass_side = -signf(gap)
+		var tangent: Vector2 = radial.orthogonal() * pass_side
+		var pass_end: Vector2 = Roles.pos(other) + (anchor - Roles.pos(other)).rotated(0.28 * pass_side)
 		var entry: Vector2 = anchor
 		var exit_point: Vector2 = pass_end + radial * 180.0 + tangent * 100.0
 		var screen_exit_corner: Variant = null
@@ -611,7 +683,13 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			anchor = Roles.pos(protected) + (threat_direction * guard_distance + lateral + Roles.velocity(protected) * 0.5).limit_length(leash)
 			if not incoming_by_target.has(str(other.id)):
 				incoming_by_target[str(other.id)] = _incoming_threat(other, protected, leash, Roles.number(view.get("time")))
-			if str(opts.get("formation", "line")) != "screen" and not bool(incoming_by_target[str(other.id)]):
+			var incoming: bool = bool(incoming_by_target[str(other.id)])
+			var flank: Vector2 = Vector2.ZERO if incoming else _flank_direction(protected, other)
+			if flank.length_squared() > 0.01 and Roles.pos(other).distance_to(Roles.pos(protected)) <= leash:
+				# Beam bearing of this flanker, between the hulls, never outside the leash.
+				var stand: float = clampf(Roles.pos(other).distance_to(Roles.pos(protected)) * 0.45, ally_clearance, leash)
+				anchor = Roles.pos(protected) + (flank * stand + Roles.velocity(protected) * 0.5).limit_length(leash)
+			elif str(opts.get("formation", "line")) != "screen" and not incoming:
 				anchor = Roles.pos(protected) + formation_offset(view, ship, protected).limit_length(leash)
 			entry = anchor
 			pass_end = anchor
@@ -624,19 +702,40 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 				if exit_side == 0.0:exit_side = 1.0 if sector % 2 == 0 else -1.0
 				screen_exit_corner = Roles.pos(protected) + threat_direction.orthogonal() * exit_side * (ally_clearance + 12.0)
 		elif str(state.role) == "heavy":
-			# Anchor useful water once in the firing band instead of chasing every
-			# target refresh. The unchanged helm rotates the fitted working arcs.
-			var toward: Vector2 = (Roles.pos(other) - position).normalized()
-			var distance: float = position.distance_to(Roles.pos(other))
-			var advance: float = 0.0 if distance >= maxf(clearance + 24.0, reach * 0.55) and distance <= reach * 0.88 else clampf(distance - maxf(clearance + 24.0, reach * 0.78), -90.0, 150.0)
-			anchor = position + toward * advance + toward.orthogonal() * float((sector % 3) - 1) * (Roles.radius(ship) + 12.0)
+			# Hold the fitted working arc toward the flanker. Stay in the existing
+			# firing band on the current radial. Exit is that hold. A hull that
+			# cannot yaw may shift the hold by at most 0.65 rad; any other hull
+			# rotates in place instead of chasing the bow line.
+			var band_near: float = maxf(clearance + 24.0, reach * 0.55)
+			var band_far: float = maxf(band_near, reach * 0.88)
+			var committed_hold: bool = sector == old_sector and str(other.id) == str(state.get("targetId", "")) and Roles.number(state.get("commitUntil")) > Roles.number(view.get("time"))
+			var committed_point: Vector2 = _point(state.get("anchor"), position)
+			var committed_range: float = committed_point.distance_to(Roles.pos(other))
+			if committed_hold and committed_range + 0.001 >= band_near and committed_range <= band_far + 0.001:
+				anchor = committed_point
+			else:
+				var radial_from_target: Vector2 = position - Roles.pos(other)
+				if radial_from_target.length_squared() < 1.0:
+					radial_from_target = -Vector2.from_angle(Roles.number(other.get("angle")))
+				var hold_range: float = clampf(radial_from_target.length(), band_near, band_far)
+				var yaw: float = 0.0
+				var work: Dictionary = _working_gun(view, ship)
+				var half_arc: float = clampf(Roles.number(work.get("arc"), TAU), 0.01, TAU) * 0.5
+				if not work.is_empty() and half_arc < PI - 0.01 and Roles.turn_rate(ship) <= 0.01:
+					var predicted: Vector2 = Roles.pos(other) + Roles.velocity(other) * 0.75
+					var off_arc: float = angle_difference(Roles.number(ship.get("angle")) + Roles.number(work.get("angle")), (predicted - position).angle())
+					if absf(off_arc) > half_arc:
+						yaw = clampf(absf(off_arc) - half_arc, 0.0, 0.65) * signf(off_arc)
+				anchor = Roles.pos(other) + radial_from_target.normalized().rotated(yaw) * hold_range
+			if anchor.distance_to(Roles.pos(other)) < clearance:
+				var push: Vector2 = anchor - Roles.pos(other)
+				if push.length_squared() < 1.0:
+					push = radial if radial.length_squared() > 1.0 else Vector2.RIGHT
+				anchor = Roles.pos(other) + push.normalized() * (clearance + 1.0)
 			entry = anchor
 			pass_end = anchor
-			# This pressure maneuver ends in a checked hold at the gun station.
-			# A later danger/withdrawal uses the separate routed branch above;
-			# this request grants no future escape to a distant rally.
 			exit_point = anchor
-		var approach: Array = _target_approach(position, entry, other, clearance, orbit_side)
+		var approach: Array = _target_approach(position, entry, other, clearance, pass_side)
 		if approach.is_empty() or anchor.distance_to(Roles.pos(other)) < clearance:
 			continue
 		if entry.distance_to(anchor) > 0.0001:
@@ -646,7 +745,7 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 		var exit_goals: Array = [screen_exit_corner, exit_point] if screen_exit_corner is Vector2 else [exit_point]
 		var cursor: Vector2 = pass_end
 		for goal: Vector2 in exit_goals:
-			var escape: Array = _target_approach(cursor, goal, other, clearance, orbit_side)
+			var escape: Array = _target_approach(cursor, goal, other, clearance, pass_side)
 			if escape.is_empty():
 				exit_path = []
 				break
@@ -685,6 +784,16 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			requested_fire = []
 			pass_targets = {}
 		result.append(_candidate(view, ship, state, str(other.id), sector, approach, pass_path, exit_path, requested_fire, result.size(), pass_targets))
+	if result.is_empty():
+		# No legal complementary or ordinary station. One finite regroup, not a
+		# wait for a partner or a closed ring. An orbit that cannot fit is omitted.
+		var away: Vector2 = (position - Roles.pos(target)).normalized()
+		if away.length_squared() < 0.01:
+			away = -Vector2.from_angle(Roles.number(target.get("angle")))
+		var regroup_goal: Vector2 = position + away * maxf(target_clearance + 45.0, Roles.speed(ship) * 2.0)
+		var regroup_path: Array = _target_approach(position, regroup_goal, target, target_clearance, orbit_side)
+		if not regroup_path.is_empty() and regroup_path.size() <= MAX_LEG:
+			result.append(_candidate(view, ship, state, "", -1, regroup_path, [regroup_goal], [regroup_goal], [], 0))
 	# Only invariant observations are hoisted. Each offered station still
 	# recomputes its own range/arc exposure, in the original summation order.
 	var hostile_descriptors: Array = []
@@ -718,6 +827,22 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			if str(other_id) != str(ship.id) and Roles.number(occupied.get("until")) > Roles.number(view.get("time")) and occupied.get("targetId") == candidate.targetId and occupied.get("sector") == candidate.sector:
 				rank += 100.0
 				break
+		var mates: Array = reservation_notes.get(str(candidate.targetId), [])
+		if not mates.is_empty():
+			var observed_target: Dictionary = Roles.dictionary(context.get(str(candidate.targetId)))
+			if not observed_target.is_empty() and station.distance_squared_to(Roles.pos(observed_target)) > 1.0:
+				var lead: float = minf(position.distance_to(station) / maxf(40.0, Roles.speed(ship)), 1.5)
+				var future: Vector2 = Roles.pos(observed_target) + Roles.velocity(observed_target) * lead
+				var own_bearing: float = (station - future).angle()
+				var best_gap: float = 0.0
+				for mate: Dictionary in mates:
+					if int(mate.sector) == int(candidate.sector):
+						continue
+					var mate_point: Vector2 = mate.held if mate.get("held") is Vector2 else Vector2.ZERO
+					var mate_bearing: float = (mate_point - future).angle() if mate_point.distance_squared_to(future) > 1.0 else float(mate.bearing)
+					best_gap = maxf(best_gap, absf(angle_difference(own_bearing, mate_bearing)))
+				# One open side is enough. Travel and enemy-arc exposure stay in rank.
+				rank -= (best_gap / PI) * 4.0
 		# A screen must try its chosen protection target before incidental targets.
 		# Keep alternatives for genuinely blocked, rejected or occupied offers.
 		var primary_screen: bool = str(state.role) == "screen" and phase == "screen" and candidate.targetId == str(state.get("targetId", ""))
