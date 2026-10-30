@@ -832,6 +832,9 @@ func wait_day():
 	step(DAY_SECONDS)
 
 func begin_survey(site_id: String, action: String) -> Dictionary:
+	for work in ["improvement","control"]:
+		if not state.get("territorial076",{}).get(work,{}).get("crewByBoat",{}).is_empty():
+			return fail("Withdraw the harbor work party before assigning a survey.")
 	if not home_local064():return Remote067.survey_begin(self,site_id,action)
 	if not state.get("toolingRecovery",{}).is_empty():return fail("Recall the machinery recovery party before assigning a survey.")
 	var site: Dictionary=Exploration.catalog_site(state,site_id)
