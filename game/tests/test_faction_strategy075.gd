@@ -27,6 +27,15 @@ var artifacts: Array = []
 var history: Dictionary = {"corridor":{}, "load":{}, "delivery":{}, "loss":{}, "dispatch":{}, "choice":{}, "npc_contact":{}, "recovery":{}}
 var seen_events: Dictionary = {}
 var crew_losses: float = 0.0
+var mode: String = "cold"
+var resume_args: PackedStringArray = []
+var prepared_from: Array = []
+var prepared_prefix: bool = false
+var opening: Dictionary = {}
+var people: float = 0.0
+var geography: String = ""
+var slices: int = 0
+var step_tracing: bool = false
 
 func _initialize() -> void:
 	started = Time.get_ticks_msec()
@@ -34,7 +43,32 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 func progress(stage: String) -> void:
-	print("FactionStrategy075 progress ", stage, " elapsed_ms=", Time.get_ticks_msec() - started)
+	print("FactionStrategy075 progress ", stage, " elapsed_ms=", Time.get_ticks_msec() - started,
+		" step_costs075=" + JSON.stringify(c.get("step_costs075")) if step_tracing and c != null else "")
+
+func normalized(value) -> String:
+	# Saved JSON numbers are decoded consistently before comparing geometry.
+	return JSON.stringify(JSON.parse_string(JSON.stringify(value, "", true, true)), "", true, true)
+
+func enable_step_trace() -> void:
+	# Optional source instrumentation supplied by A; no dependency before integration.
+	for property in c.get_property_list():
+		if str(property.name) == "trace_steps075":
+			c.set("trace_steps075", true)
+			step_tracing = true
+			return
+
+func arguments() -> bool:
+	var args: PackedStringArray = OS.get_cmdline_user_args()
+	if args.is_empty(): return true # Original cold natural chronology remains available.
+	if args[0] == "--prepare":
+		mode = "prepare"
+		return check(args.size() == 1, "Preparation takes only --prepare")
+	mode = "resume"
+	if not check(args.size() == 5 and args[0] == "--resume", "Continuation takes --resume STATEPATH STATESHA TRACEPATH TRACESHA"):
+		return false
+	resume_args = args
+	return true
 
 func opening_quotes() -> void:
 	var quoted: int = 0
@@ -76,7 +110,7 @@ func bounded() -> bool:
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
-	var row: Dictionary = {"kind":kind, "day":float(c.state.day), "elapsed_ms":Time.get_ticks_msec() - started}
+	var row: Dictionary = {"kind":kind, "day":float(c.state.day), "elapsed_ms":Time.get_ticks_msec() - started, "batch":mode}
 	row.merge(values, true)
 	observations.append(row)
 
@@ -408,10 +442,10 @@ func finite_accounts(state: Dictionary) -> Array:
 		rows.append(row)
 	return rows
 
-func legacy_boundary(opening: Dictionary) -> bool:
+func legacy_boundary(initial: Dictionary) -> bool:
 	# One synthetic compatibility case, derived from the untouched fresh opening.
 	# Remove exactly the declared generated accounts/sites; no owner save is read.
-	var old: Dictionary = JSON.parse_string(JSON.stringify(opening))
+	var old: Dictionary = JSON.parse_string(JSON.stringify(initial))
 	var ids: Array = old.sector069.harbors.map(func(p): return str(p.id))
 	var sites: Array = old.sector069.sites.map(func(s): return str(s.id))
 	var removed: int = 0
@@ -426,7 +460,7 @@ func legacy_boundary(opening: Dictionary) -> bool:
 	for key in ["sector069", "sectorApplied069", "sectorKnowledge069", "islandOwnership069"]: old.erase(key)
 	if not check(Money.total(old) == int(old.coinSupply), "Synthetic two-region input subtracts only removed generated purses"):
 		return false
-	var expected: String = JSON.stringify(finite_accounts(old), "", true, true)
+	var expected: String = normalized(finite_accounts(old))
 	var raw: PackedByteArray = var_to_bytes(old)
 	var restored: Dictionary = c.restore(old)
 	if not check(restored.get("ok", false), "One ordinary parsed older two-region save restores: " + str(restored.get("message", ""))):
@@ -436,17 +470,139 @@ func legacy_boundary(opening: Dictionary) -> bool:
 	var chosen: Dictionary = Shipping.select_corridor075(c.state, c.ocean_context064, owner)
 	var retained: bool = not c.state.has("sector069") and c.ocean_context064.regions.size() == 2 \
 		and not chosen.get("ok", false) and before == var_to_bytes(c.state) and raw == var_to_bytes(old) \
-		and Money.total(c.state) == int(old.coinSupply) and expected == JSON.stringify(finite_accounts(c.state), "", true, true)
+		and Money.total(c.state) == int(old.coinSupply) and expected == normalized(finite_accounts(c.state))
 	note("legacy_two_region_roundtrip", {"generated_purses_removed":removed, "regions":c.ocean_context064.regions.size(), "coin_supply":Money.total(c.state), "fallback":chosen.get("reason", chosen.get("message", "")), "retained":retained, "controlled":"Synthetic compatibility input only; no earned legacy voyage or personal save claim."})
 	return check(retained, "Older two-region fallback preserves every existing purse, stock, workforce, boat and item without migration births")
 
+func save_preparation() -> bool:
+	var current: Dictionary = route()
+	var corridor: Dictionary = current.get("corridor075", {})
+	if not check(not history.corridor.is_empty() and normalized(corridor) == normalized(history.corridor), "Preparation reaches the actual naturally admitted funded corridor"):
+		return false
+	var yard: Dictionary = c.port(str(corridor.homeId))
+	var owner: Dictionary = Orders.find_owner(c.state, str(corridor.ownerId))
+	if not check(not yard.is_empty() and not owner.is_empty() and current.phase == "yard_service" and current.location.world064.layer == "home" \
+		and current.location.path.is_empty() and c.distance(current.location.position, yard) < 40.0 \
+		and owner.has("harborServiceUntilDay") and int(owner.coins) > 0, "Preparation stops at the real paid stopped home berth, before sailing the selected corridor"):
+		return false
+	if not check(["load", "delivery", "loss", "dispatch", "choice", "npc_contact", "recovery"].all(func(key): return history[key].is_empty()), "Preparation claims no generated voyage, contact, outcome or recovery"):
+		return false
+	if not check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply \
+		and absf(people - crew_total(c.state) - crew_losses) < 0.000001 \
+		and geography == normalized([c.state.sector069, c.state.islandOwnership069]), "The actual prefix preserves all original coins, people and seeded geography"):
+		return false
+	var physical: Dictionary = Custody.check_state(c.state, c.data)
+	if not check(physical.get("ok", false) and physical.get("ready", false), "Preparation preserves unique existing physical hull and item custody"):
+		return false
+	note("preparation_checkpoint", {"slices":slices, "scope":"Real funded admission only; the full voyage remains uncompleted."})
+	if not save_actual("preparation"): return false
+	var trace: Dictionary = {"schema":1, "fixture":"faction_preparation075", "seed":SEED, "day":float(c.state.day),
+		"state_artifact":artifacts[-1].duplicate(true), "history":history, "observations":observations,
+		"coinSupply":supply, "people":people, "crew_losses":crew_losses, "seen_events":seen_events,
+		"geography_normalized":geography, "opening":opening, "slices":slices}
+	var path: String = OS.get_environment("GAME_TEST_ARTIFACTS").path_join("faction075-trace.json")
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if not check(file != null, "Separate actual preparation trace opens in Root's private directory"): return false
+	file.store_string(JSON.stringify(trace, "\t"))
+	file.close()
+	var digest: String = FileAccess.get_sha256(path)
+	if not check(digest.length() == 64, "Separate actual preparation trace has a SHA256"): return false
+	artifacts.append({"kind":"trace", "path":path, "sha256":digest, "day":float(c.state.day), "source":"Fixture history and original baselines only; not a career serializer"})
+	return true
+
+func restore_preparation(definitions: Dictionary) -> bool:
+	# Root binds all five literal arguments in the accepted continuation plan.
+	# Verify both actual files before constructing or restoring any Campaign.
+	for offset in [1, 3]:
+		var path: String = resume_args[offset]
+		var digest: String = resume_args[offset + 1]
+		if not check(path.is_absolute_path() and FileAccess.file_exists(path) and digest.length() == 64 \
+			and FileAccess.get_sha256(path) == digest, "Continuation verifies the exact parent file SHA256 before restore: " + path):
+			return false
+	var saved = JSON.parse_string(FileAccess.get_file_as_string(resume_args[1]))
+	var trace = JSON.parse_string(FileAccess.get_file_as_string(resume_args[3]))
+	if not check(saved is Dictionary and trace is Dictionary, "Both hash-bound parent JSON files decode"): return false
+	if not check(trace.get("schema") == 1 and trace.get("fixture") == "faction_preparation075" and trace.get("seed") == SEED \
+		and trace.get("state_artifact", {}).get("path") == resume_args[1] and trace.state_artifact.get("sha256") == resume_args[2] \
+		and trace.get("history") is Dictionary and trace.get("observations") is Array and trace.get("seen_events") is Dictionary \
+		and trace.get("opening") is Dictionary and trace.get("geography_normalized") is String \
+		and int(trace.get("slices", 0)) > 0 and int(trace.slices) < 450, "The separate actual trace binds this exact admitted career and original baselines"):
+		return false
+	supply = int(trace.coinSupply)
+	people = float(trace.people)
+	crew_losses = float(trace.crew_losses)
+	geography = str(trace.geography_normalized)
+	if not check(saved.get("seed") == SEED and float(saved.day) == float(trace.day) \
+		and int(saved.coinSupply) == supply and Money.total(saved) == supply and Money.total(trace.opening) == supply \
+		and crew_total(trace.opening) == people and absf(people - crew_total(saved) - crew_losses) < 0.000001 \
+		and geography == normalized([saved.sector069, saved.islandOwnership069]) \
+		and geography == normalized([trace.opening.sector069, trace.opening.islandOwnership069]), "Hash-bound prefix and original opening reconcile coins, crews, casualties, time and normalized geography"):
+		return false
+	# Reproduce only the ordinary constructor's immutable home Navigation and hull
+	# prices. Restore itself builds the saved atlas/actor contexts once. No new_game.
+	progress("restore navigation begin")
+	for hull in definitions.HULLS: hull.price = Campaign.Construction.quote(hull).readyPrice
+	var nav: Dictionary = Campaign.Navigation.create(definitions.ISLANDS, float(definitions.WORLD.width), float(definitions.WORLD.height), 40.0 * float(definitions.get("CAMPAIGN_SCALE", 1.0)))
+	c = Campaign.new(definitions, nav, false)
+	var atlas = JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+	if not check(atlas is Dictionary, "Ordinary restore reads the existing authored anchor atlas"): return false
+	c.ocean_anchors064 = atlas.duplicate(true)
+	progress("Campaign.restore begin")
+	var restored: Dictionary = c.restore(saved)
+	progress("Campaign.restore end")
+	if not check(restored.get("ok", false), "The exact accepted prefix uses ordinary Campaign.restore: " + str(restored.get("message", ""))): return false
+	if not check(normalized(finite_accounts(c.state)) == normalized(finite_accounts(saved)) \
+		and normalized(c.world_location064()) == normalized({"world064":saved.world064, "position":saved.position, "heading":saved.heading, "path":saved.path, "destination":saved.destination}) \
+		and float(c.state.day) == float(saved.day) and normalized(route()) == normalized(saved.shipping068.model.route) \
+		and normalized(c.state.ocean066) == normalized(saved.ocean066), "Ordinary restore preserves actual accounts, cargo, crews, poses, actor memory, corridor and clock"):
+		return false
+	history = trace.history.duplicate(true)
+	observations = trace.observations.duplicate(true)
+	seen_events = trace.seen_events.duplicate(true)
+	opening = trace.opening.duplicate(true)
+	slices = int(trace.slices)
+	if not check(normalized(history.get("corridor", {})) == normalized(route().get("corridor075", {})) \
+		and not history.corridor.is_empty() and ["load", "delivery", "loss", "dispatch", "choice", "npc_contact", "recovery"].all(func(key): return history.get(key, null) is Dictionary and history[key].is_empty()), "Continuation resumes the admitted boundary with actual prefix history and no posterior outcomes"):
+		return false
+	prepared_from = [{"kind":"preparation", "path":resume_args[1], "sha256":resume_args[2]}, {"kind":"trace", "path":resume_args[3], "sha256":resume_args[4]}]
+	note("restored_preparation", {"prepared_from":prepared_from, "slices":slices, "scope":"Normal restore at the accepted tick boundary; prefix checks are not counted again."})
+	return true
+
 func _run() -> void:
 	progress("run")
+	if not arguments():
+		finish(); return
 	if not check(DisplayServer.get_name() == "headless", "Root's private native fixture uses the headless backend"):
 		finish(); return
 	var definitions = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	if not check(definitions is Dictionary, "Actual game definitions decode"):
 		finish(); return
+	if mode == "resume":
+		if not restore_preparation(definitions):
+			finish(); return
+	else:
+		if not fresh_opening(definitions):
+			finish(); return
+	enable_step_trace()
+	var initial_slice: int = slices
+	for _slice in range(slices, 450):
+		if _slice == initial_slice: progress("first tick begin")
+		var advanced: bool = tick()
+		slices = _slice + 1
+		if _slice == initial_slice: progress("first tick end")
+		if not advanced: break
+		if mode == "prepare" and not history.corridor.is_empty(): break
+		if (_slice + 1) % 20 == 0:
+			progress("slice %d day=%.5f phase=%s holding=%s" % [_slice + 1, float(c.state.day), str(route().get("phase", "unadmitted")), str(c.state.get("shipping068", {}).get("holding", ""))])
+		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
+	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days})
+	if mode == "prepare":
+		if failures == 0 and bounded(): prepared_prefix = save_preparation()
+		finish(); return
+	assert_chronology()
+	finish()
+
+func fresh_opening(definitions: Dictionary) -> bool:
 	progress("Campaign.new begin")
 	c = Campaign.new(definitions)
 	progress("Campaign.new end")
@@ -454,32 +610,26 @@ func _run() -> void:
 	var made: Dictionary = c.new_game(SEED)
 	progress("new_game end")
 	if not check(made.get("ok", false), "One ordinary fresh seeded career initializes: " + str(made.get("message", ""))):
-		finish(); return
+		return false
 	supply = int(c.state.coinSupply)
-	var opening: Dictionary = c.state.duplicate(true)
-	var people: float = crew_total(c.state)
-	var geography: PackedByteArray = var_to_bytes([c.state.sector069, c.state.islandOwnership069])
+	opening = c.state.duplicate(true)
+	people = crew_total(c.state)
+	geography = normalized([c.state.sector069, c.state.islandOwnership069])
 	check(c.ocean_context064.regions.size() == 48 and definitions.HULLS.size() == 36 and c.Goods.SAILOR_WAGE == 100, "Existing48 groups,36 hull designs and100coin sailor-day remain")
 	check(Money.total(c.state) == supply, "Opening accounts are exactly the ordinary finite world supply")
 	note("normal_opening", {"seed":SEED, "coin_supply":supply, "people":people, "staging":"Only the player is placed at the existing Glasswind north approach through prepare_player/_publish_location064 before chronology, avoiding unrelated HOME interception. No earned player voyage; NPCs, accounts, cargo, crew and intel retain their ordinary opening."})
 	opening_quotes()
 	if not check(var_to_bytes(c.state) == var_to_bytes(opening), "Pure opening merchant quotations leave the entire ordinary career unchanged") or not bounded():
-		finish(); return
+		return false
 	var vantage: Dictionary = {"world064":{"schema":1, "layer":"local", "regionId":c.OceanWorld064.REMOTE}, "position":c.ocean_context064.regions[c.OceanWorld064.REMOTE].approaches[0].position, "heading":0.0, "path":[], "destination":""}
 	var prepared: Dictionary = c.OceanWorld064.prepare_player(vantage, c.ocean_context064, c.Routes.clearance(c))
 	if not check(prepared.get("ok", false), "Declared opening-only player placement passes normal safe-water preparation: " + str(prepared.get("message", ""))):
-		finish(); return
+		return false
 	c._publish_location064(prepared.location)
 	note("declared_opening_player_placement", {"location":c.world_location064(), "earned_travel":false})
-	for _slice in range(450):
-		if _slice == 0: progress("first tick begin")
-		var advanced: bool = tick()
-		if _slice == 0: progress("first tick end")
-		if not advanced: break
-		if (_slice + 1) % 20 == 0:
-			progress("slice %d day=%.5f phase=%s holding=%s" % [_slice + 1, float(c.state.day), str(route().get("phase", "unadmitted")), str(c.state.get("shipping068", {}).get("holding", ""))])
-		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
-	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days})
+	return failures == 0
+
+func assert_chronology() -> void:
 	check(not history.corridor.is_empty(), "An affordable generic corridor naturally admits an existing serviced home trader")
 	if not history.corridor.is_empty():
 		var a: Dictionary = c.port(str(history.corridor.originId))
@@ -498,7 +648,7 @@ func _run() -> void:
 			and float(outcome.get("day", INF)) <= float(history.recovery.day), "One actual dated load, dispatch, observed choice, contact, delivery/loss and funded recovery stays in order")
 	check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply, "Every purchase, wage, prize, service and normal yard keeps the original coin supply")
 	check(absf(people - crew_total(c.state) - crew_losses) < 0.000001, "All original workers and crews reconcile with actual encounter casualties")
-	check(geography == var_to_bytes([c.state.sector069, c.state.islandOwnership069]), "Actual chronology preserves seeded geography and mixed island ownership without076 transfers")
+	check(geography == normalized([c.state.sector069, c.state.islandOwnership069]), "Actual chronology preserves seeded geography and mixed island ownership without076 transfers")
 	var physical: Dictionary = Custody.check_state(c.state, c.data)
 	check(physical.get("ok", false) and physical.get("ready", false), "Existing equipment preflight validates unique actual hull/item/wreck custody")
 	var item_uids: Array = physical.get("itemUids", []).duplicate()
@@ -506,16 +656,20 @@ func _run() -> void:
 	note("closing_accounts", {"coin_supply":Money.total(c.state), "people":crew_total(c.state), "crew_losses":crew_losses, "holders":physical.get("holders", []), "item_uid_count":item_uids.size(), "item_uids_sha256":JSON.stringify(item_uids).sha256_text()})
 	if failures == 0 and bounded():
 		if save_actual("outcome") and legacy_boundary(opening): complete = true
-	finish()
 
 func finish() -> void:
 	if workers.group_id >= 0: workers.finish(true)
+	if step_tracing and c != null: note("measured_campaign_step_costs", {"step_costs075":c.get("step_costs075").duplicate(true)})
 	c = null
-	check(complete and not expired, "The full finite chronology and compact legacy boundary actually complete")
+	if mode == "prepare":
+		check(prepared_prefix and not expired, "The real funded admission prefix and separate trace actually prepare; full voyage remains uncompleted")
+	else:
+		check(complete and not expired, "The full finite chronology and compact legacy boundary actually complete")
 	var elapsed: int = Time.get_ticks_msec() - started
 	check(elapsed < BODY_LIMIT_MS, "Whole native fixture body including setup and owned worker cleanup stays below forty seconds")
-	print(JSON.stringify({"fixture":"faction_strategy075", "checks":checks, "failures":failures, "elapsed_ms":elapsed,
-		"complete":complete and not expired and failures == 0, "failure_labels":failure_labels, "observations":observations,
+	print(JSON.stringify({"fixture":"faction_preparation075" if mode == "prepare" else "faction_strategy075", "batch":mode, "checks":checks, "failures":failures, "elapsed_ms":elapsed,
+		"prepared":prepared_prefix and not expired and failures == 0, "complete":mode != "prepare" and complete and not expired and failures == 0,
+		"prepared_from":prepared_from, "failure_labels":failure_labels, "observations":observations,
 		"artifacts":artifacts, "limits":"Source fixture until Root executes. One ordinary finite seeded NPC corridor; no rendered, listening, whole-game quality or strict performance acceptance.074combat and073art require unchanged source proof."}))
-	print("FactionStrategy075: %d checks, %d failures" % [checks, failures])
+	print(("FactionPreparation075" if mode == "prepare" else "FactionStrategy075") + ": %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
