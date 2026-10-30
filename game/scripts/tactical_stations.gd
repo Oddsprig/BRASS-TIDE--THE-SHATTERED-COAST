@@ -783,6 +783,31 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 			exit_path = [local_station]
 			requested_fire = []
 			pass_targets = {}
+		if str(state.role) == "heavy" and Roles.turn_rate(ship) > 0.01:
+			# Helm skips points inside 14px and yaws only after the path is
+			# exhausted. A firing request at that hold is rejected on the
+			# current heading, so certification never reaches the helm.
+			# Drop fire until a fitted mount bears; resampling restores it.
+			var hold_closed: bool = true
+			for point: Vector2 in approach:
+				if position.distance_to(point) >= 14.0:
+					hold_closed = false
+					break
+			if hold_closed:
+				for point: Vector2 in pass_path:
+					if position.distance_to(point) >= 14.0:
+						hold_closed = false
+						break
+			if hold_closed:
+				var bearing_now: bool = false
+				var pose_angle: float = Roles.number(ship.get("angle"))
+				for mount: Dictionary in Roles.useful_mounts(view, ship):
+					if _mount_bears_on(ship, position, pose_angle, mount, other):
+						bearing_now = true
+						break
+				if not bearing_now:
+					requested_fire = []
+					pass_targets = {}
 		result.append(_candidate(view, ship, state, str(other.id), sector, approach, pass_path, exit_path, requested_fire, result.size(), pass_targets))
 	if result.is_empty():
 		# No legal complementary or ordinary station. One finite regroup, not a
@@ -842,7 +867,15 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 					var mate_bearing: float = (mate_point - future).angle() if mate_point.distance_squared_to(future) > 1.0 else float(mate.bearing)
 					best_gap = maxf(best_gap, absf(angle_difference(own_bearing, mate_bearing)))
 				# One open side is enough. Travel and enemy-arc exposure stay in rank.
-				rank -= (best_gap / PI) * 4.0
+				# A useful opening is a right angle inside 1.25 weapon reach.
+				# Credit one sector of that ring, capped under the +100 occupancy
+				# penalty and the -100 commit hysteresis, so travel cannot hide it.
+				var bearing_credit: float = (best_gap / PI) * 4.0
+				var ring: float = station.distance_to(Roles.pos(observed_target))
+				if best_gap + 0.0001 >= PI * 0.5 and ring <= float(decision.range) * 1.25:
+					var sector_travel: float = ring * 2.0 * sin(PI / 8.0) / maxf(40.0, Roles.speed(ship))
+					bearing_credit += minf(sector_travel, 16.0)
+				rank -= bearing_credit
 		# A screen must try its chosen protection target before incidental targets.
 		# Keep alternatives for genuinely blocked, rejected or occupied offers.
 		var primary_screen: bool = str(state.role) == "screen" and phase == "screen" and candidate.targetId == str(state.get("targetId", ""))
