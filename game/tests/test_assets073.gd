@@ -196,6 +196,43 @@ func inspect_weapon(id: String,entry: Dictionary,source: String) -> bool:
 	check(seen.has("base"),id+" base layer is present")
 	return true
 
+func inspect_chart_hulls(hulls: Array) -> int:
+	var manifest: Dictionary=read_json("res://assets/campaign054/boats/asset-manifest.json")
+	var entries: Dictionary=manifest.get("hulls",{})
+	check(manifest.get("schema")=="brass-tide-campaign-boats054-v1" and hulls.size()==36 and entries.size()==36 and manifest.get("installed_weapons_baked",true)==false,"chart schema/all36 hull IDs/no baked installed weapons")
+	var inputs: Dictionary=manifest.get("input_sha256",{})
+	var paths: Array=["game/scripts/hull_profiles.gd","game/scripts/mount_layout.gd","game/data/world.json","tools/quality049/catalog.json","game/scripts/boat_deck_detail.gd","game/scripts/motor_art.gd","tools/quality054/build_campaign_boats.py"]
+	check(inputs.size()==paths.size(),"chart all seven current source input receipts including recipe catalog")
+	for relative in paths:
+		if not within_deadline():return 0
+		var path: String=source_path(str(relative))
+		var expected: String=str(inputs.get(relative,""))
+		check(FileAccess.file_exists(path) and expected.length()==64 and FileAccess.get_sha256(path)==expected,"chart actual frozen input SHA256: "+str(relative))
+	var artifacts: String=OS.get_environment("GAME_TEST_ARTIFACTS")
+	check(artifacts.is_empty() or artifacts.is_absolute_path(),"chart existing artifact directory is absolute")
+	var completed: int=0
+	for hull in hulls:
+		if not within_deadline():break
+		var id: String=str(hull.id)
+		var entry: Dictionary=entries.get(id,{})
+		var path: String=str(entry.get("path",""))
+		var pixels=entry.get("source_size",[])
+		if not check(not entry.is_empty() and path=="res://assets/campaign054/boats/"+id+".svg" and FileAccess.file_exists(path),id+" chart own source SVG exists"):continue
+		check(str(entry.get("sha256","")).length()==64 and FileAccess.get_sha256(path)==str(entry.get("sha256","")),id+" chart actual source SVG SHA256")
+		if not check(Sprite._finite_hull_array(pixels,2) and float(int(pixels[0]))==float(pixels[0]) and float(int(pixels[1]))==float(pixels[1]) and int(pixels[0])>0 and int(pixels[1])>0 and int(pixels[0])*int(pixels[1])*4<=32*MIB,id+" chart integral bounded source dimensions"):continue
+		var image:=Image.new()
+		if not check(image.load_svg_from_string(FileAccess.get_file_as_string(path))==OK and not image.is_empty(),id+" chart SVG CPU rasterizes"):continue
+		var size:=Vector2i(int(pixels[0]),int(pixels[1]))
+		check(image.get_size()==size,id+" chart actual source pixel dimensions")
+		var used: Rect2i=image.get_used_rect()
+		check(used.size.x>0 and used.size.y>0 and used.position.x>0 and used.position.y>0 and used.end.x<size.x and used.end.y<size.y,id+" chart nonempty alpha with all four margins")
+		if artifacts.is_absolute_path():
+			check(image.save_png(artifacts.path_join("chart073-"+id+".png"))==OK,id+" chart raster inspection artifact saved")
+		image=null
+		completed+=1
+	check(completed==36,"all36 chart hull SVGs actually decoded and inspected")
+	return completed
+
 func run() -> void:
 	var manifest: Dictionary=read_json(Sprite.HULL_MANIFEST)
 	var weapons: Dictionary=read_json(Sprite.WEAPON_MANIFEST)
@@ -210,6 +247,7 @@ func run() -> void:
 	check(weapons.get("schema")=="brass-tide-weapons042-v1" and variants.size()==7 and float(weapons.get("deck_height",0))==9.7 and weapons.get("projection")=={"x":.82,"y":.41,"height":1},"actual seven variants and unchanged shared projection/deck")
 	var hull_source: String=source_hash(HULL_SOURCES)
 	var weapon_source: String=source_hash(WEAPON_SOURCES,true)
+	var chart_count: int=inspect_chart_hulls(hulls)
 	var hull_count: int=0;var weapon_count: int=0;var layer_count: int=0
 	var seen: Dictionary={}
 	for hull in hulls:
@@ -227,6 +265,6 @@ func run() -> void:
 	var total_mips: int=int(mip_bytes.hull_atlas)+int(mip_bytes.portrait)+int(mip_bytes.weapon_atlas)
 	check(total_base>0 and total_base<=TOTAL_BASE_LIMIT and total_mips<=TOTAL_MIP_LIMIT,"bounded complete RGBA8 base/mip totals (estimates, not measured VRAM)")
 	within_deadline()
-	print(JSON.stringify({"fixture":"assets073","checks":checks,"failures":failures,"hulls_inspected":hull_count,"weapon_variants_inspected":weapon_count,"weapon_atlases_inspected":layer_count,"complete":failures==0 and not expired,"elapsed_ms":Time.get_ticks_msec()-started,"RGBA8_base_bytes":base_bytes,"RGBA8_with_mips_bytes":mip_bytes,"total_base_bytes":total_base,"total_with_mips_bytes":total_mips,"limits":"Pixel/receipt/physical asset coverage only. No aesthetic, gun-free mesh visual, imported texture residency, motion, refit-screen, performance or gameplay acceptance. Root must view all36 and moving/refit witnesses."}))
+	print(JSON.stringify({"fixture":"assets073","checks":checks,"failures":failures,"hulls_inspected":hull_count,"chart_hulls_inspected":chart_count,"weapon_variants_inspected":weapon_count,"weapon_atlases_inspected":layer_count,"complete":failures==0 and not expired,"elapsed_ms":Time.get_ticks_msec()-started,"RGBA8_base_bytes":base_bytes,"RGBA8_with_mips_bytes":mip_bytes,"total_base_bytes":total_base,"total_with_mips_bytes":total_mips,"limits":"Pixel/receipt/physical asset coverage only. No aesthetic, gun-free mesh visual, imported texture residency, motion, refit-screen, performance or gameplay acceptance. Root must view all36 and moving/refit witnesses."}))
 	print("ASSETS073: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
