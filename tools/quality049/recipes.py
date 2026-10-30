@@ -8,7 +8,7 @@ import json
 from math import cos, sin, pi, hypot
 from pathlib import Path
 
-REVISION = "049-roster-detail-r2"
+REVISION = "073-roster-detail-r1"
 CATALOG = json.loads(Path(__file__).with_name("catalog.json").read_text(encoding="utf-8"))
 
 
@@ -50,6 +50,7 @@ class Yard:
         # A broad glazing band reads at normal zoom; no window-sized pinpricks.
         for side in (-1,1):
             self.block("side_glazing",x,side*(width/2+.003),length*.76,.018,top-4,top-1.7,"glass",.12)
+            self.block("side_glass_sky_band",x,side*(width/2+.004),length*.72,.019,top-2.05,top-1.75,"glass_edge",.08)
             self.block("window_sill",x,side*(width/2+.014),length*.80,.023,top-4.4,top-4,"ivory",.12)
             for offset in (-.24,0,.24):
                 self.block("wheelhouse_window_mullion",x+offset*length,side*(width/2+.018),.022,.028,top-4.1,top-1.55,"ivory",.09)
@@ -58,18 +59,30 @@ class Yard:
             self.pipe("door_grab_handle",[(x-length*.18,side*(width/2+.036),door_bottom+.6),
                 (x-length*.18,side*(width/2+.036),min(door_top-.15,door_bottom+2))],.12,"brass")
         self.block("forward_glazing",x+length/2+.003,0,.018,width*.76,top-4,top-1.7,"glass",.12)
+        self.block("forward_glass_sky_band",x+length/2+.004,0,.019,width*.72,top-2.05,top-1.75,"glass_edge",.08)
         for side in (-1,1):
             self.block("forward_window_frame",x+length/2+.016,side*width*.15,.026,.022,top-4.1,top-1.55,"ivory",.09)
-        self.block("roof_service_hatch",x-.08,0,length*.28,width*.36,top,top+.35,"tin",.18)
+        self.block("roof_hatch_gasket",x-.08,0,length*.34,width*.44,top,top+.18,"seam",.18)
+        self.block("roof_service_hatch",x-.08,0,length*.28,width*.36,top+.18,top+.35,"tin",.14)
+        for side in (-1,1):
+            self.pipe("roof_grab_rail",[(x-length*.24,side*width*.36,top-.05),
+                (x-length*.24,side*width*.36,top+.35),(x+length*.24,side*width*.36,top+.35)],.18,"steel")
 
     def cockpit(self, x=-.28, length=.66, width=.46, stepped=False):
         self.block("open_cockpit_recess",x,0,length,width,8.4,8.9,"seam",.45)
         self.block("cockpit_sole",x,0,length-.07,width-.07,8.9,9.1,"deck",.35)
         for y in (-width*.24,width*.24):
             self.block("fixed_helm_seat",x-.12,y,.17,.15,9.1,11.7,"canvas",.35)
+            self.block("fixed_seat_back",x-.19,y,.055,.15,10.8,13.0,"canvas",.25)
             if stepped:self.block("raised_aft_bench",x-.26,y,.11,.16,9.1,12.8,"ivory",.3)
         self.block("helm_console",x+length*.36,0,.075,width*.90,9.0,13.3,"teal_light",.4)
         self.block("raked_windscreen",x+length*.41,0,.025,width*.95,13.3,15.8,"glass",.25)
+        self.block("windscreen_sky_band",x+length*.41,0,.025,width*.86,15.0,15.35,"glass_edge",.10)
+        self.block("windscreen_top_frame",x+length*.41,0,.025,width*.95,15.45,15.8,"ivory",.10)
+        for side in (-1,1):
+            self.block("windscreen_side_frame",x+length*.41,side*width*.44,.025,width*.06,13.3,15.8,"ivory",.10)
+        wheel=[(x+length*.27,width*.18+.055*cos(2*pi*j/20),12.0+.7*sin(2*pi*j/20)) for j in range(20)]
+        self.pipe("fixed_helm_wheel",wheel,.16,"rubber",True)
 
     def motor(self, x=-1.0, y=0, length=.32, width=.36, top=12.8, mat="machinery"):
         self.engines.append((x,y,length,width,top))
@@ -77,11 +90,16 @@ class Yard:
 
     def funnel(self, x, y, height=21, radius=.95, mat="brass"):
         self.drum("exhaust_trunk",x,y,radius,12.0,height,mat)
-        self.drum("exhaust_dark_mouth",x,y,radius*.76,height-.08,height+.05,"seam")
         for z in (14.0,height-3,height-.6):
             self.api["lathe"](self.m,"exhaust_iron_collar",self.point(x,y,0),
                 [(radius,z),(radius*1.18,z+.12),(radius*1.18,z+.42),(radius,z+.55)],"brass",16)
         self.pipe("exhaust_intake",[(x+.08,y,11),(x+.08,y,14),(x,y,15)],.26,"steel")
+        # Keep the lip and dark throat broad for normal zoom.
+        self.api["lathe"](self.m,"flared_exhaust_lip",self.point(x,y,0),
+            [(radius*.78,height-.35),(radius*1.16,height-.20),
+             (radius*1.16,height+.18),(radius*.78,height+.18)],"armor_light",16)
+        self.api["lathe"](self.m,"exhaust_dark_mouth",self.point(x,y,0),
+            [(0,height+.08),(radius*.76,height+.08)],"seam",16)
 
     def shaft(self, y, jet=False):
         stern = self.data["stations"][0][0]
@@ -90,6 +108,10 @@ class Yard:
             self.block("jet_pump_casing",stern-.04,y,.24,.16,6.0,10.3,"armor_light",.6)
             self.pipe("jet_nozzle",[(stern+.02,y,3.5),(stern-.13,y,3.5)],.8,"steel")
             self.drum("jet_service_cover",stern-.04,y,1.0,10.3,10.7,"ivory")
+            self.pipe("jet_dark_outlet",[(stern-.145,y,3.5),(stern-.16,y,3.5)],.58,"seam")
+            for side in (-1,1):
+                self.pipe("jet_steering_ram",[(stern+.04,y+side*.05,7.7),
+                    (stern-.09,y+side*.05,6.8)],.16,"steel")
         else:
             self.api["drive"](self.m,stern,y,True)
 
@@ -120,6 +142,34 @@ class Yard:
             self.block("hold_end_coaming",x+side*length/2,y,.035,width,8.5,9.3,"timber",.12)
         if covered:
             self.block("removable_hold_cover",x,y,length-.04,width-.04,9.3,9.65,"canvas",.25)
+            for offset in (-.28,0,.28):
+                self.block("hold_cover_batten",x+offset*length,y,length*.055,width-.05,9.55,9.65,"timber",.04)
+        else:
+            for offset in (-.26,0,.26):
+                self.block("hold_floor_bearer",x+offset*length,y,length*.065,width*.83,9.0,9.2,"timber",.05)
+
+    def vent(self, x, y, length=.40, width=.16, top=12.0, mat="ivory"):
+        self.api["ventilator"](self.m,x,y,8.8,length,width,top,mat)
+
+    def windlass(self, x, y=0, length=.24, width=.28):
+        self.api["deck_windlass"](self.m,x,y,8.8,length,width)
+
+    def skylight(self, x, y=0, length=.34, width=.25, top=11.2):
+        self.holds.append((x,y,length,width))
+        self.block("skylight_coaming",x,y,length,width,8.8,top-.35,"ivory",.25)
+        self.block("skylight_gasket",x,y,length*.88,width*.86,top-.35,top-.18,"seam",.10)
+        self.block("large_deck_skylight",x,y,length*.76,width*.73,top-.18,top,"glass",.10)
+        self.block("skylight_center_bar",x,y,length*.045,width*.78,top-.08,top+.12,"ivory",.06)
+
+    def hose_reel(self, x, y, length=.28, width=.21):
+        self.block("hose_reel_bed",x,y,length,width,8.8,9.3,"ivory",.18)
+        radius=min(1.4,length*self.m.size*.32)
+        for side in (-1,1):
+            points=[(x+radius/self.m.size*cos(2*pi*j/20),y+side*width*.35,
+                10.4+radius*sin(2*pi*j/20)) for j in range(20)]
+            self.pipe("hose_reel_cheek",points,.22,"oxide",True)
+        self.pipe("wound_work_hose",[(x,y-width*.29,10.4),(x,y+width*.29,10.4)],radius*.76,"rubber")
+        self.block("hose_reel_support",x,y,length*.16,width*.82,9.3,10.5,"steel",.15)
 
     def tank(self, name, x, y, length, width, bottom=9.0, height=5.8):
         """Large horizontal elliptical storage vessel, never a weapon-well ring."""
@@ -189,6 +239,8 @@ class Yard:
                     current=(x,y,11.6)
                     if previous is not None and self.safe_guard_span(previous,current):
                         self.pipe("deck_guard_top",[previous,current],.24,"ivory")
+                        self.pipe("deck_guard_mid",[(previous[0],previous[1],10.3),
+                            (current[0],current[1],10.3)],.15,"steel")
                     previous=current
             for x in (xmin+.22,xmax-.44):
                 beam=self.api["width_at"](st,x)
@@ -196,17 +248,26 @@ class Yard:
                     y=offset+side*beam*.55
                     if self.safe_fitting(x,y,.12):self.api["cleat"](self.m,x,y,9.0,"mooring_cleat")
         if not any(abs(x-.17)<length/2+.16 and abs(y)<width/2+.16 for x,y,length,width in self.holds):
-            self.block("gasketed_inspection_hatch",.17,0,.26,.28,8.8,9.5,"teal_light",.22)
+            length,width=(.44,.50) if self.m.size>=24 else (.30,.34)
+            self.block("inspection_hatch_dark_gasket",.17,0,length,width,8.7,9.1,"seam",.22)
+            self.block("gasketed_inspection_hatch",.17,0,length-.045,width-.045,9.1,9.5,"teal_light",.22)
             self.pipe("inspection_hatch_handle",[(.13,-.05,9.6),(.13,.05,9.6)],.13,"steel")
-        # Real grilles over the aft machinery; these follow its physical bay.
-        for x,y,length,width,top in self.engines:
-            self.block("engine_grille_surround",x,y,length*.72,width*.65,top+.12,top+.36,"ivory",.1)
-            for i in range(5):
-                self.block("engine_room_service_grille",x+length*(-.26+i*.13),y,length*.045,width*.54,top+.36,top+.49,"seam",.045)
+        # Two readable service trunks occupy the house-side walkways. Their
+        # forward edge stays behind the side wells even on the smallest hulls.
+        lane=.62 if cat else self.api["width_at"](st,-.28)*.73
+        for side in (-1,1):
+            self.block("service_walkway_inset",-.28,side*lane,.58,.20,8.48,8.85,"seam",.12)
+            if self.data["civilian_role"]!="tanker":
+                self.vent(-.28,side*lane,.40,.14,11.7,self.data["trim_material"])
 
     def locker(self, name, x, y, length=.24, width=.18, top=12.0, mat="ivory"):
         self.block(name,x,y,length,width,8.6,top,mat,.35)
-        self.block(name+"_binding",x,y,.035,width+.012,top,top+.18,"brass",.08)
+        self.block(name+"_lid_seam",x,y,length*.90,width*.90,top-.32,top-.12,"seam",.10)
+        self.block(name+"_lid",x,y,length*.87,width*.86,top-.12,top+.08,mat,.10)
+        for offset in (-.29,.29):
+            self.block(name+"_binding",x+offset*length,y,.035,width+.012,top+.08,top+.18,
+                "rope" if mat=="canvas" else "brass",.06)
+        self.block(name+"_front_latch",x+length*.46,y,length*.035,width*.22,top-1.0,top-.2,"armor",.08)
 
     def mast(self, x=-.40, y=0, height=24, spread=.20):
         self.pipe("signal_mast",[(x,y,16),(x,y,height)],.22,"steel")
@@ -266,6 +327,8 @@ def bilge_punt(y):
     y.shaft(-.13)
     y.block("riveted_replacement_cheek",-.25,.48,.76,.04,4.5,8,"oxide",.12)
     y.locker("salvage_bin",1.65,0,.26,.22,11,"tin");y.reel(-1.08,-.29,1.0,11.5)
+    y.pipe_run("salvage_motor_protection_frame",[(-.94,-.04,8.8),(-.94,-.04,14.2),
+        (-.94,.31,14.2),(-.94,.31,8.8)],.28,"oxide")
 
 
 def lantern_skiff(y):
@@ -274,6 +337,8 @@ def lantern_skiff(y):
     y.drum("customs_searchlight_pedestal",-.29,0,.7,18.2,20,"brass")
     y.block("searchlight_lens",-.20,0,.025,.16,19,21.4,"glass_edge",.28)
     y.locker("sealed_customs_chest",1.64,0,.28,.28,11.9)
+    y.block("searchlight_rain_hood",-.22,0,.19,.22,21.4,21.8,"teal_light",.25)
+    y.windlass(-1.79,0,.20,.26)
 
 
 def marsh_dart(y):
@@ -281,6 +346,8 @@ def marsh_dart(y):
     y.shaft(0,True);y.foil(.18)
     y.block("shallow_step_skeg",.12,0,.30,.76,1.2,2.2,"tin",.28)
     y.locker("shoal_pole_lockers",1.64,0,.36,.16,10.5,"teal_light")
+    y.pipe_run("raised_shoal_air_intake",[(-1.02,0,12.4),(-1.02,0,15.8),(-.88,0,15.8)],.43,"ivory")
+    y.block("shoal_intake_dark_mouth",-.86,0,.025,.065,15.3,16.3,"seam",.12)
 
 
 def scab_cutter(y):
@@ -291,6 +358,7 @@ def scab_cutter(y):
         for x in (1.45,1.65,1.85):
             y.block("sawtooth_bow_fender",x,side*.25,.12,.09,7,9.1,"ivory",.14,side*.4)
     y.locker("boarding_hook_bin",1.65,0,.30,.20,11.1,"armor_light")
+    y.hose_reel(-1.73,-.31,.22,.19)
 
 
 def gale_cutter(y):
@@ -298,6 +366,10 @@ def gale_cutter(y):
     y.motor(y=-.20,width=.16,top=14.2);y.motor(y=.20,width=.16,top=14.2)
     y.shaft(-.28,True);y.shaft(.28,True);y.foil(.14,.75,True)
     y.pipe("supercharger_crossover",[(-1.12,-.18,14.5),(-1.12,0,15.3),(-1.12,.18,14.5)],.32,"brass")
+    for side in (-1,1):
+        y.block("ram_air_scoop",-1.0,side*.20,.17,.14,14.2,16.5,"ivory",.35)
+        y.block("scoop_dark_intake",-.91,side*.20,.015,.10,14.8,16.1,"seam",.12)
+    y.skylight(1.66,0,.30,.28,10.9)
 
 
 def silt_lugger(y):
@@ -305,6 +377,7 @@ def silt_lugger(y):
     for side in (-1,1):
         y.motor(y=side*.24,width=.18,top=11.8,mat="teal_light");y.shaft(side*.62)
         y.hold(1.53,side*.62,.56,.32);y.locker("dry_cargo_bale",-.94,side*.64,.40,.28,13,"canvas")
+        y.locker("stern_lashed_sacks",-1.68,side*.62,.27,.24,12.3,"canvas")
     y.block("removable_foredeck_grating",.22,0,.32,.74,8.9,9.3,"timber",.22)
 
 
@@ -314,6 +387,7 @@ def hook_raider(y):
     for side in (-1,1):
         y.shaft(side*.62,True);y.locker("contraband_locker",-1.10,side*.64,.38,.24,11.8,"timber")
     y.davit(-.38,.68,.18,22);y.hold(1.62,0,.42,.65,True)
+    y.hose_reel(1.49,-.62,.24,.20)
 
 
 def mercantile_clipper(y):
@@ -323,7 +397,9 @@ def mercantile_clipper(y):
         y.motor(y=side*.23,width=.18,top=13.4);y.shaft(side*.62)
         y.locker("bonded_bullion_safe",-1.07,side*.64,.36,.25,12.8,"tin")
         y.hold(1.64,side*.62,.46,.33,True)
+        y.locker("registered_stern_cargo",-1.82,side*.62,.27,.27,13.8,"canvas")
     y.mast(-.40,0,27,.22)
+    y.davit(-.44,-.62,-.15,27)
 
 
 def harbor_sloop(y):
@@ -331,6 +407,8 @@ def harbor_sloop(y):
     y.motor(width=.38,top=12.9);y.funnel(-1.01,0,20,.85)
     y.shaft(0);y.mast(-.41,0,24,.15)
     y.drum("tow_capstan",1.61,0,1.15,8.8,11.8,"brass")
+    y.pipe_run("stern_towing_staple",[(-1.76,-.30,8.8),(-1.76,-.30,13),
+        (-1.76,.30,13),(-1.76,.30,8.8)],.32,"steel")
 
 
 def aegis_corvette(y):
@@ -339,6 +417,7 @@ def aegis_corvette(y):
     y.motor(width=.42,top=13.5);y.funnel(-1.01,0,22,1.05,"steel")
     y.shaft(-.25);y.shaft(.25);y.mast(-.44,0,28,.22)
     for side in (-1,1):y.locker("damage_control_chest",1.63,side*.18,.32,.20,11.8)
+    y.hose_reel(-1.84,0,.22,.26)
 
 
 def reed_stinger(y):
@@ -347,6 +426,8 @@ def reed_stinger(y):
     # Compressed-air auxiliaries, deliberately no fixed torpedo or launcher tube.
     for side in (-1,1):y.drum("air_receiver",1.57,side*.13,.65,8.7,11.3,"steel")
     y.pipe("air_cross_manifold",[(1.55,-.13,10.8),(1.55,.13,10.8)],.21,"brass")
+    y.block("raised_compressor_head",-1.0,0,.18,.24,12.2,14.1,"ivory",.35)
+    y.block("compressor_intake",-.90,0,.02,.18,12.8,13.8,"seam",.12)
 
 
 def krill_torpedo(y):
@@ -355,6 +436,7 @@ def krill_torpedo(y):
     y.shaft(-.22);y.shaft(.22)
     y.block("empty_reload_skid",1.65,0,.44,.28,8.7,9.4,"armor_light",.18)
     for side in (-1,1):y.pipe("reload_skid_rail",[(1.44,side*.13,9.6),(1.86,side*.13,9.6)],.18,"ivory")
+    y.hose_reel(1.67,0,.28,.24)
 
 
 def manta_strike(y):
@@ -363,6 +445,8 @@ def manta_strike(y):
     y.shaft(-.30,True);y.shaft(.30,True);y.foil(.14,.81,True)
     y.block("command_fin",-.47,0,.34,.055,17.6,25,"teal_light",.5)
     y.drum("hydraulic_reservoir",1.66,0,1.4,8.6,11.2,"tin")
+    y.locker("hydraulic_control_cabinet",1.64,.20,.28,.12,11.7,"ivory")
+    y.pipe_run("fore_hydraulic_header",[(1.66,0,10.8),(1.76,0,10.8),(1.76,.20,10.8)],.28,"brass")
 
 
 def slag_gunboat(y):
@@ -371,6 +455,7 @@ def slag_gunboat(y):
     y.funnel(-1.02,-.17,21,.78,"steel");y.funnel(-1.02,.17,21,.78,"steel")
     y.shaft(-.25);y.shaft(.25)
     y.block("river_ram_cheek",1.62,0,.42,.48,5.4,9.4,"armor_light",.65)
+    y.windlass(1.65,0,.25,.28)
 
 
 def bellows_gunboat(y):
@@ -380,6 +465,8 @@ def bellows_gunboat(y):
     y.shaft(-.28);y.shaft(.28)
     for side in (-1,1):
         y.pipe("bellows_bilge_manifold",[(-.55,side*.61,9),(-.55,side*.61,12.8),(-.03,side*.61,12.8)],.42,"brass")
+        y.hose_reel(-1.73,side*.48,.24,.19)
+    y.windlass(1.73,0,.24,.28)
 
 
 def furnace_turret(y):
@@ -388,6 +475,7 @@ def furnace_turret(y):
     y.motor(width=.48,top=14.2);y.funnel(-1.02,-.20,25,1.2,"steel");y.funnel(-1.02,.20,25,1.2,"steel")
     y.shaft(-.30);y.shaft(.30)
     for i in range(3):y.drum("steam_bilge_ejector",1.66,(i-1)*.12,.90,8.7,13,"brass")
+    for side in (-1,1):y.vent(1.65,side*.32,.26,.14,12.2,"armor_light")
 
 
 def barbed_lance(y):
@@ -397,6 +485,7 @@ def barbed_lance(y):
     for side in (-1,1):
         y.block("scow_push_cheek",-.18,side*.72,.70,.12,3.1,8.3,"timber",.32)
         y.locker("sealed_igniter_box",-1.04,side*.59,.33,.20,11.4,"ivory")
+        y.hose_reel(1.40,side*.47,.26,.18)
 
 
 def cinder_monitor(y):
@@ -406,6 +495,7 @@ def cinder_monitor(y):
     for side in (-1,1):
         y.locker("insulated_ammunition_safe",-1.04,side*.66,.35,.24,12.2,"tin")
     y.block("empty_blast_apron",1.66,0,.42,.52,8.8,9.5,"ivory",.25)
+    y.hose_reel(1.66,0,.28,.28)
 
 
 def wraith_rocket(y):
@@ -414,6 +504,9 @@ def wraith_rocket(y):
     y.motor(y=-.24,width=.17,top=13.8);y.motor(y=.24,width=.17,top=13.8)
     y.shaft(-.28,True);y.shaft(.28,True);y.mast(-.43,0,30,.28)
     for side in (-1,1):y.locker("salvo_service_caisson",1.69,side*.22,.45,.22,12.4,"tin")
+    y.windlass(-1.88,0,.22,.30)
+    y.block("roof_radio_cabinet",-.35,0,.20,.20,25,27.1,"ivory",.35)
+    y.block("radio_cabinet_panel",-.245,0,.015,.14,25.4,26.7,"glass",.12)
 
 
 def cobalt_frigate(y):
@@ -422,6 +515,8 @@ def cobalt_frigate(y):
     y.motor(y=-.20,width=.17,top=14);y.motor(y=.20,width=.17,top=14)
     y.funnel(-1.01,-.20,24,.90,"brass");y.funnel(-1.01,.20,24,.90,"brass")
     y.shaft(-.26);y.shaft(.26);y.mast(-.43,0,31,.24)
+    y.windlass(1.76,0,.24,.28)
+    y.skylight(.13,0,.30,.32,10.9)
 
 
 def iron_bastion(y):
@@ -430,6 +525,9 @@ def iron_bastion(y):
     y.motor(width=.46,top=15);y.funnel(-1.02,-.22,29,1.40,"steel");y.funnel(-1.02,.22,29,1.40,"steel")
     y.shaft(-.29);y.shaft(.29);y.mast(-.44,0,35,.28)
     y.drum("damage_control_pump_dome",1.71,0,2.1,8.6,12.6,"tin")
+    y.skylight(.13,0,.34,.46,11.8)
+    y.hose_reel(-1.86,-.34,.22,.22)
+    y.windlass(1.92,0,.20,.22)
 
 
 def maiden_dreadnought(y):
@@ -441,10 +539,11 @@ def maiden_dreadnought(y):
     for side in (-1,1):y.locker("capital_pump_room_access",1.73,side*.24,.45,.23,13.6,"tin")
     for side in (-1,1):
         y.locker("aft_damage_control_caisson",-1.92,side*.30,.28,.22,12.2,"ivory")
-        y.block("armored_vent_bank",-.34,side*.56,.46,.18,8.7,11.6,"armor_light",.45)
-        for i in range(5):y.block("vent_bank_louver",-.50+i*.08,side*.56,.025,.15,11.6,11.8,"seam",.06)
+        y.block("armored_vent_bank",-1.89,side*.54,.34,.16,8.7,11.6,"armor_light",.45)
+        for i in range(4):y.block("vent_bank_louver",-2.01+i*.08,side*.54,.035,.14,11.6,11.8,"seam",.06)
         y.pipe_run("deck_fire_main",[(-.62,side*.69,9.0),(-.62,side*.69,10.7),(-.02,side*.69,10.7)],.32,"brass")
     y.drum("fore_mooring_capstan",1.84,0,1.7,8.8,12.5,"brass")
+    y.skylight(.13,0,.36,.48,12.1)
 
 
 def kelpnet_dory(y):
@@ -453,6 +552,9 @@ def kelpnet_dory(y):
     y.locker("net_stack",1.64,0,.34,.34,11,"canvas")
     y.api["rope_coil"](y.m,1.64,0,11.2,2.0)
     y.pipe("dory_thwart",[(-.66,-.40,9.4),(-.66,.40,9.4)],.35,"timber")
+    y.pipe_run("stern_net_roller_frame",[(-1.88,-.36,8.8),(-1.88,-.36,10.7),
+        (-1.88,.36,10.7),(-1.88,.36,8.8)],.35,"ivory")
+    y.pipe("stern_net_roller",[(-1.88,-.28,10.7),(-1.88,.28,10.7)],.52,"timber")
 
 
 def brinehook_longliner(y):
@@ -460,6 +562,7 @@ def brinehook_longliner(y):
     y.motor(width=.30,top=12);y.shaft(0)
     y.reel(-1.94,-.20,1.1,11.5);y.reel(-1.94,.20,1.1,11.5)
     y.davit(-.42,.43,.15,21);y.hold(1.66,0,.44,.41)
+    y.locker("covered_bait_station",-1.10,-.39,.28,.18,11.8,"ivory")
 
 
 def mother_gull_trawler(y):
@@ -468,6 +571,7 @@ def mother_gull_trawler(y):
         y.motor(y=side*.23,width=.18,top=12.5);y.shaft(side*.62)
         y.reel(-1.83,side*.61,1.65,12.0)
         y.locker("covered_net_stack",1.67,side*.62,.44,.30,12.4,"canvas")
+        y.locker("fish_sorting_bin",-1.10,side*.62,.34,.28,12.7,"tin")
     y.pipe("trawl_gantry",[(-.45,-.78,8.7),(-.45,-.78,22),(-.45,.78,22),(-.45,.78,8.7)],.40,"ivory")
     y.hold(.17,0,.30,.75)
 
@@ -479,6 +583,7 @@ def fenhopper_lighter(y):
         for x in (-1.91,1.61):y.locker("lashed_compressed_bales",x,side*.62,.34,.37,13,"canvas")
     y.hold(.18,0,.32,.90,True)
     y.block("lighter_loading_ramp",1.94,0,.26,.58,6.0,8.7,"timber",.3)
+    y.windlass(.18,.62,.22,.25)
 
 
 def tideledger_coaster(y):
@@ -488,6 +593,8 @@ def tideledger_coaster(y):
         y.locker("bonded_hold_strongbox",-1.99,side*.62,.38,.32,12.9,"tin")
         y.hold(1.69,side*.62,.58,.39,True)
     y.davit(-.39,.61,.15,25)
+    y.skylight(.17,0,.28,.44,11.5)
+    y.windlass(.16,-.62,.22,.24)
 
 
 def fourport_packet(y):
@@ -497,6 +604,7 @@ def fourport_packet(y):
         y.motor(y=side*.23,width=.18,top=13);y.funnel(-1.02,side*.23,21,.8,"brass")
         y.shaft(side*.62);y.hold(1.72,side*.62,.70,.42,True)
         y.locker("covered_manifest_cabinet",-1.96,side*.62,.32,.26,12.2,"timber")
+        y.locker("passenger_deck_bench",.16,side*.62,.22,.23,11.5,"canvas")
     y.mast(-.45,0,29,.23)
 
 
@@ -511,6 +619,7 @@ def seepoil_tanker(y):
             (.95,side*.64,12.0),(1.40,side*.46,12.0),(1.62,side*.30,12.0)],.34,"brass")
         y.block("transfer_pump_housing",-.25,side*.64,.32,.17,8.8,11.5,"teal_light",.4)
         y.drum("transfer_valve",-.13,side*.64,1.0,11.5,12.3,"ivory")
+        y.hose_reel(.14,side*.56,.28,.20)
 
 
 def blackwater_fleet_tanker(y):
@@ -521,6 +630,7 @@ def blackwater_fleet_tanker(y):
         for x,length in ((-2.08,.48),(1.82,.62)):
             y.tank("longitudinal_cargo_tank",x,side*.27,length,.30,height=5.8)
         y.pipe("tank_transfer_main",[(-.65,side*.72,10.8),(-.65,side*.72,12.5),(-.04,side*.72,12.5)],.43,"brass")
+        y.hose_reel(.13,side*.62,.30,.22)
     y.shaft(0);y.hold(.18,0,.31,.38,True)
 
 
@@ -529,6 +639,9 @@ def gullwing_daysailer(y):
     y.shaft(0,True);y.foil(.12,.68,True)
     y.block("fore_sunpad",1.66,0,.34,.32,8.8,10.2,"canvas",.45)
     y.pipe("windscreen_hoop",[(-.02,-.25,12.6),(-.02,0,16),(-.02,.25,12.6)],.23,"ivory")
+    y.skylight(.22,0,.24,.30,10.8)
+    for side in (-1,1):
+        y.block("sunpad_side_bolster",1.66,side*.12,.30,.06,10.2,11.4,"canvas",.25)
 
 
 def osprey_cabin_cruiser(y):
@@ -537,6 +650,10 @@ def osprey_cabin_cruiser(y):
     y.block("salon_skylight",-.43,0,.27,.25,20.4,20.8,"glass",.30)
     y.motor(width=.34,top=12.4,mat="ivory");y.shaft(-.21);y.shaft(.21)
     y.block("lacquered_foredeck_locker",1.69,0,.42,.34,8.8,11.2,"timber",.8)
+    y.block("aft_settee_plinth",-1.93,0,.25,.56,8.8,10.4,"ivory",.4)
+    y.block("aft_settee_cushion",-1.93,0,.25,.52,10.4,11.6,"canvas",.35)
+    y.block("aft_settee_back",-2.02,0,.055,.52,11.4,13.3,"canvas",.28)
+    y.windlass(2.12,0,.18,.17)
 
 
 def aurelian_court_yacht(y):
@@ -547,6 +664,10 @@ def aurelian_court_yacht(y):
     y.shaft(-.28);y.shaft(.28);y.mast(-.46,0,31,.23)
     y.block("foredeck_cushioned_settee",1.72,0,.40,.42,8.8,11,"canvas",.55)
     y.hold(-2.05,0,.36,.42,True)
+    y.skylight(.15,0,.30,.34,11.5)
+    for side in (-1,1):
+        y.block("settee_cushioned_back",1.72,side*.15,.36,.055,11,12.5,"canvas",.3)
+    y.windlass(2.16,0,.18,.20)
 
 
 DESIGNS = {fn.__name__:fn for fn in (

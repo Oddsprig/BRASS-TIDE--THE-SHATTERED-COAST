@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from math import cos, sin, pi, sqrt
 
 TAU = 2 * pi
-REVISION = "042-authored-hulls-r1"
+REVISION = "073-authored-hulls-r1"
 
 
 def add(a, b):
@@ -236,10 +236,22 @@ def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=5
                 nx += dzdx*(yh-yl)
             n = unit((nx, zh-zl, -(yh-yl)))
             p.normals.append(n)
+    # A broad painted sheer uses the existing shell surface, not a larger hull.
+    band = m.part(name+"_painted_sheer", stripe)
+    edge_rows = tuple(range(5))+tuple(range(ring-5, ring))
+    for i in range(samples+1):
+        for j in edge_rows:
+            band.vertices.append(p.vertices[i*ring+j])
+            band.normals.append(p.normals[i*ring+j])
     for i in range(samples):
         for j in range(ring-1):
             # Parametric X / section orientation has outward winding.
-            p.quad((i*ring+j+1, (i+1)*ring+j+1, (i+1)*ring+j, i*ring+j))
+            if 4 <= j < ring-5:
+                p.quad((i*ring+j+1, (i+1)*ring+j+1, (i+1)*ring+j, i*ring+j))
+        for side in (0, 5):
+            for j in range(4):
+                a = i*10+side+j
+                band.quad((a+1, a+11, a+10, a))
     # Close stern transom with separate flat normals.
     for i, reverse in ((0, True), (samples, False)):
         verts = [p.vertices[i*ring+j] for j in range(ring)]
@@ -263,6 +275,19 @@ def hull_shell(m, name, stations, offset, deck_z, mat, stripe="brass", samples=5
     for i in range(samples):
         for j in range(8):
             d.quad((i*9+j, (i+1)*9+j, (i+1)*9+j+1, i*9+j+1))
+    # Inset waterways separate the working deck from the caprail at small zoom.
+    for side in (-1, 1):
+        margin = m.part(name+"_waterway_inlay"+str(side), stripe)
+        for i in range(samples+1):
+            x = stations[0][0]+(stations[-1][0]-stations[0][0])*i/samples
+            w = width_at(stations, x)
+            for t in (side*.74, side*.89):
+                z = deck_z+.45*(abs(x)/max(abs(stations[0][0]), stations[-1][0]))**3+.35*(1-t*t)+.045
+                margin.vertices.append(m.p(x, offset+w*t, z))
+                margin.normals.append(unit((0, .7*t/(max(w, .02)*m.size), 1)))
+        for i in range(samples):
+            ids = (i*2, (i+1)*2, (i+1)*2+1, i*2+1)
+            margin.quad(ids if side > 0 else tuple(reversed(ids)))
     for side in (-1, 1):
         pts = []
         belt = []
@@ -343,9 +368,9 @@ def railing(m, name, xs, side, width, z, mat="ivory", offset=0):
     # Fixed gaps at weapon decks; posts have a substantial visual thickness.
     pts = [m.p(x, offset+side*width(x), z) for x in xs]
     for k, pt in enumerate(pts):
-        tube(m, name+"_post"+str(k), [add(pt, (0, 0, -2.7)), pt], .14, mat, 6)
-    tube(m, name+"_top", pts, .17, mat, 8)
-    tube(m, name+"_mid", [add(p, (0, 0, -1.45)) for p in pts], .09, "steel", 6)
+        tube(m, name+"_post"+str(k), [add(pt, (0, 0, -2.7)), pt], .19, mat, 6)
+    tube(m, name+"_top", pts, .23, mat, 8)
+    tube(m, name+"_mid", [add(p, (0, 0, -1.45)) for p in pts], .14, "steel", 6)
 
 
 def cleat(m, x, y, z, label="cleat"):
@@ -358,11 +383,11 @@ def cleat(m, x, y, z, label="cleat"):
 def rope_coil(m, x, y, z, radius=1.4):
     c = m.p(x, y, z)
     pts = []
-    for j in range(97):
+    for j in range(73):
         t = TAU*j/24
-        r = radius*(.3+.7*j/96)
+        r = max(.1, radius-.1)*(.3+.7*j/72)
         pts.append(add(c, (r*cos(t), r*sin(t), .10)))
-    tube(m, "mooring_hawser", pts, .11, "rope", 6)
+    tube(m, "mooring_hawser", pts, .20, "rope", 6)
 
 
 def hatch(m, x, y, z, length, width, mat="teal"):
@@ -375,24 +400,80 @@ def hatch(m, x, y, z, length, width, mat="teal"):
                            add(c, (.6, .7, 1.4)), add(c, (.6, .7, 1.0))], .11, "steel", 6)
 
 
+def ventilator(m, x, y, z, length=.40, width=.16, top=12.0, mat="ivory"):
+    """Raised rectangular air trunk, with large dark slots and separate blades."""
+    c = m.p(x,y,0)
+    box(m,"vent_plinth",add(c,(0,0,z+.25)),(length*m.size,width*m.size,.5),"seam",.18)
+    box(m,"vent_hood",add(c,(0,0,(z+.45+top)*.5)),
+        (length*m.size*.94,width*m.size*.94,top-z-.45),mat,.3)
+    box(m,"vent_dark_recess",add(c,(0,0,top-.13)),
+        (length*m.size*.80,width*m.size*.72,.30),"seam",.10)
+    for j in range(3):
+        box(m,"vent_cross_blade",add(c,((j-1)*length*m.size*.25,0,top-.02)),
+            (length*m.size*.10,width*m.size*.82,.24),"steel",.08)
+
+
+def deck_windlass(m, x, y, z, length=.24, width=.28):
+    """A transverse rope drum, cheeks and gearbox read as working deck gear."""
+    c = m.p(x,y,z)
+    box(m,"windlass_bed",add(c,(0,0,.22)),(length*m.size,width*m.size,.44),"teal",.18)
+    radius = min(1.0,length*m.size*.30)
+    axle_z = z+radius+.55
+    for side in (-1,1):
+        box(m,"windlass_cheek",m.p(x,y+side*width*.36,z+1.0),
+            (length*m.size*.66,width*m.size*.12,1.8),"ivory",.2)
+        points=[m.p(x+radius/m.size*cos(TAU*j/20),y+side*width*.26,
+                    axle_z+radius*sin(TAU*j/20)) for j in range(20)]
+        tube(m,"windlass_flange",points,.18,"brass",8,True)
+    tube(m,"windlass_hawser_drum",[m.p(x,y-width*.22,axle_z),m.p(x,y+width*.22,axle_z)],
+         radius*.70,"rope",12)
+    box(m,"windlass_gearbox",m.p(x,y+width*.37,z+.9),
+        (length*m.size*.62,width*m.size*.18,1.25),"machinery",.25)
+
+
 def engine(m, x, y, z, length, width, top, mat="machinery"):
     c = m.p(x, y, (z+top)*.5)
     box(m, "diesel_crankcase", c, (length*m.size, width*m.size, top-z), mat, .6)
-    for j in range(7):
-        xx = x-length*.38+j*length*.76/6
-        box(m, "cooling_louver", m.p(xx, y, top+.15), (.25, width*m.size*.75, .3), "armor_light", .09)
+    box(m, "engine_cover_gasket", m.p(x,y,top-.08),
+        (length*m.size*.94,width*m.size*.94,.24), "seam", .12)
     for side in (-1, 1):
+        box(m, "split_rocker_cover", m.p(x,y+side*width*.24,top+.18),
+            (length*m.size*.84,width*m.size*.36,.65), "armor_light", .24)
+    for j in range(4):
+        xx = x-length*.30+j*length*.20
+        box(m, "cooling_louver", m.p(xx, y, top+.54),
+            (length*m.size*.10,width*m.size*.76,.22), "seam", .07)
+    for side in (-1, 1):
+        box(m, "engine_radiator_face", m.p(x,y+side*width*.47,(z+top)*.5),
+            (length*m.size*.72,.16,max(.5,(top-z)*.50)), "seam", .08)
+        for j in range(3):
+            box(m, "radiator_divider", m.p(x+length*(-.24+j*.24),y+side*width*.475,(z+top)*.5),
+                (max(.25,length*m.size*.06),.17,max(.6,(top-z)*.54)), "steel", .07)
         tube(m, "coolant_manifold", [m.p(x-length*.4, y+side*width*.47, z+.6),
                                    m.p(x+length*.35, y+side*width*.47, z+.6)], .23, "brass", 8)
+    tube(m, "engine_oil_filler", [m.p(x+length*.28,y,top-.1),m.p(x+length*.28,y,top+.64)], .32, "brass", 10)
+    box(m, "engine_drive_belt", m.p(x+length*.46,y,(z+top)*.5),
+        (.16,width*m.size*.64,max(.6,(top-z)*.64)), "rubber", .1)
 
 
 def drive(m, transom, y, outboard=False):
     x = transom-.15
     box(m, "drive_bracket", m.p(transom-.02, y, 7.0), (1.5, 1.8, 3.4), "steel", .35)
     box(m, "sculpted_motor_cowling", m.p(x, y, 9.5), (3.6, 2.4, 4.7), "teal" if outboard else "machinery", .8)
+    c = m.p(x,y,0)
+    box(m, "motor_lower_gasket", add(c,(0,0,8.05)), (3.5,2.3,.34), "rubber", .13)
+    box(m, "motor_raised_top", add(c,(0,0,11.50)), (3.0,2.1,.55), "ivory" if outboard else "armor_light", .25)
+    for side in (-1,1):
+        box(m, "motor_side_flash", add(c,(0,side*1.15,10.1)), (2.5,.08,.62), "ivory", .13)
+        box(m, "motor_side_inlet", add(c,(-.70,side*1.15,9.15)), (1.10,.09,.62), "seam", .13)
+        tube(m, "trim_hydraulic_ram", [m.p(transom-.025,y+side*.04,7.9),
+            m.p(x-.04,y+side*.04,5.3)], .19, "steel", 8)
     box(m, "motor_badge", m.p(x-.015, y+.046, 10.0), (2.0, .2, .7), "brass", .15)
     for j in range(4):
         box(m, "motor_intake", m.p(x-.06+j*.035, y, 11.95), (.2, 1.6, .16), "seam", .05)
+    tube(m, "steering_link", [m.p(transom-.09,y-.045,7.8),m.p(transom-.09,y+.045,7.8)], .19, "brass", 8)
+    tube(m, "motor_control_hose", [m.p(transom+.005,y,8.4),m.p(transom-.045,y,9.1),
+        m.p(x+.025,y,9.1)], .20, "rubber", 8)
     tube(m, "drive_leg", [m.p(x-.04, y, 8.0), m.p(x-.15, y, 1.25)], .6, "armor", 12)
     # Above-water prop guard / shaft housing; no underwater black blob.
     pts = [m.p(x-.20, y+.07*cos(TAU*j/24), 1.8+1.25*sin(TAU*j/24)) for j in range(24)]
@@ -406,6 +487,8 @@ def window(m, x, y, z, length, width, height, yaw=0):
     c = m.p(x, y, z)
     box(m, "window_gasket", c, (length*m.size, width*m.size, height), "rubber", .22, yaw)
     box(m, "window_glass", add(c, (0, 0, .10)), (length*m.size-.24, width*m.size+.08, height-.25), "glass", .16, yaw)
+    box(m, "window_sky_edge", add(c, (0, 0, height*.5-.33)),
+        (max(.05,length*m.size-.28),max(.05,width*m.size-.06),.24), "glass_edge", .08, yaw)
 
 
 def lamp(m, x, y, z, mat="lamp"):
@@ -449,6 +532,11 @@ def tin_skiff():
     rope_coil(m,1.42,.16,10.6,.75)
     box(m,"bow_nosing",m.p(1.83,0,9.2),(2.2,2.2,1.5),"rubber",.6)
     box(m,"tool_locker",m.p(-1.20,-.30,11.2),(2.8,2.0,1.7),"teal",.3)
+    box(m,"portable_fuel_tank",m.p(-1.10,.35,11.3),(.25*14,.16*14,2.0),"oxide",.4)
+    for x in (-1.18,-1.02):
+        box(m,"fuel_tank_strap",m.p(x,.35,12.35),(.35,.17*14,.22),"steel",.07)
+    tube(m,"exposed_fuel_hose",[m.p(-1.02,.34,11.2),m.p(-.88,.34,11.2),m.p(-.88,.19,11.2)],.18,"rubber",8)
+    deck_windlass(m,1.66,0,10.7,.21,.25)
     lamp(m,-.02,-.28,18.3,"red")
     lamp(m,-.02,.28,18.3,"teal_light")
     mounting_rings(m,10.2)
@@ -500,6 +588,12 @@ def ash_corvette():
         tube(m,"lifering",pts,.28,"ivory",8,True)
     hatch(m,1.56,0,11.3,.26,.24,"armor_light")
     rope_coil(m,1.60,-.20,11.6,1.0)
+    for side in (-1,1):
+        ventilator(m,-.31,side*.49,11.0,.42,.15,14.1,"oxide")
+        box(m,"vent_walk_grating",m.p(-.31,side*.49,11.10),(.56*21,.24*21,.24),"seam",.15)
+        for j in range(4):
+            box(m,"walk_grating_bar",m.p(-.50+j*.13,side*.49,11.27),(.50,.21*21,.16),"steel",.05)
+    deck_windlass(m,1.78,0,11.2,.21,.25)
     mounting_rings(m,10.8)
     return m
 
@@ -547,6 +641,15 @@ def brasswind_motor_galleon():
         cleat(m,2.10,side*.72,11.2)
         cleat(m,-2.20,side*.83,10.9)
         rope_coil(m,1.91,side*.72,11.4,1.5)
+        ventilator(m,-.22,side*.66,10.8,.44,.18,14.2,"ivory")
+        deck_windlass(m,2.15,side*.62,10.9,.20,.24)
+        # Raised cargo runners and iron corners break up the broad bridge deck.
+        for x in (-2.08,-1.78):
+            for edge in (-1,1):
+                box(m,"crate_corner_iron",m.p(x+edge*.105,side*.62,12.8),
+                    (.55,.30*28,4.1),"armor",.15)
+        box(m,"paired_cargo_skylight_frame",m.p(.16,side*.63,10.95),(.28*28,.24*28,.6),"ivory",.25)
+        box(m,"paired_cargo_skylight",m.p(.16,side*.63,11.30),(.21*28,.17*28,.25),"glass",.10)
     # Visible industrial cargo derrick: collar, gooseneck, boom, sheave and rigging.
     for side,height in ((-1,35.5),(1,31.5)):
         x,y=-.55,side*.57
