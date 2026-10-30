@@ -78,6 +78,9 @@ var ocean_context066: Dictionary={}
 var ocean_watch066: float=1.0
 var ocean_conditions066: Array=[]
 var ocean_anchors064: Dictionary={}
+# Opt-in tooling timings for the last substep, in microseconds; never saved.
+var trace_steps075: bool=false
+var step_costs075: Dictionary={}
 
 func _init(world_data: Dictionary,shared_navigation: Dictionary={},initialize_ocean: bool=true):
 	data = world_data
@@ -622,7 +625,11 @@ func step(dt: float):
 func _step066(dt: float) -> float:
 	if state.is_empty():
 		return 0.0
+	var trace_mark075: int=Time.get_ticks_usec() if trace_steps075 else 0
 	var staged: Dictionary=OceanCampaign066.stage(self,dt)
+	if trace_steps075:
+		step_costs075={"ocean_stage_us":Time.get_ticks_usec()-trace_mark075}
+		trace_mark075=Time.get_ticks_usec()
 	if not staged.get("ok",false):log_entry(str(staged.get("message","Ocean movement refused.")));return -1.0
 	dt=float(staged.acceptedSeconds)
 	# No clock, damage, fuel, home AI or survey publication precedes clipping.
@@ -690,10 +697,21 @@ func _step066(dt: float) -> float:
 		pending_days += int(state.day) - old_day
 	LawOps.clock(self)
 	CivilianWork.tick(self,dt/DAY_SECONDS)
+	if trace_steps075:
+		step_costs075["commit_player_us"]=Time.get_ticks_usec()-trace_mark075
+		trace_mark075=Time.get_ticks_usec()
 	NavalLifecycle.step(self,dt)
 	LawOps.check_patrols(self)
+	if trace_steps075:
+		step_costs075["naval_lifecycle_patrol_check_us"]=Time.get_ticks_usec()-trace_mark075
+		trace_mark075=Time.get_ticks_usec()
 	OceanCampaign066.after_step(self,bool(staged.watchDue))
+	if trace_steps075:
+		step_costs075["ocean_after_step_us"]=Time.get_ticks_usec()-trace_mark075
+		trace_mark075=Time.get_ticks_usec()
 	ShippingFlow068.after_step(self,bool(staged.watchDue))
+	if trace_steps075:
+		step_costs075["shipping_after_step_us"]=Time.get_ticks_usec()-trace_mark075
 	if not staged.encounter.is_empty() and not state.fleet.is_empty():
 		var attacker: String=str(staged.encounter.get("attackerId",""))
 		var defender: String=str(staged.encounter.get("defenderId",""))
