@@ -114,6 +114,8 @@ def machine_gun(m, twin):
 
     The wide brow sits lower than the receiver cap. A wide plate at the top
     would stretch the side-on sprite without making the gun easier to read.
+    A moving barrel root at the bore line joins the receiver to the jacket.
+    The fixed shield does not travel with recoil, so it is not that joint.
     """
     m.mount()
     m.box("fork_crossmember", (0.15, 0, 3.05),
@@ -136,6 +138,9 @@ def machine_gun(m, twin):
     for y in barrels:
         m.box("receiver", (-0.45, y, 4.05), (3.05, receiver_w, 2.35), "dark", 0.1)
         m.box("receiver_cover", (-0.5, y, 5.28), (2.7, 0.9, 0.68), "brass", 0.05)
+        # Receiver ends at 1.075 and the jacket starts at 2.55. Same radius as
+        # the jacket, so the outer wall is one piece and stays in its envelope.
+        m.tube("barrel_root", (0.9, y, 4.8), (2.7, y, 4.8), jacket_r, 0.14, vertices=12)
         m.tube("cooling_jacket", (2.55, y, 4.8), (4.55, y, 4.8), jacket_r, 0.14, vertices=12)
         m.tube("barrel", (4.4, y, 4.8), (7.4, y, 4.8), barrel_r, 0.12, vertices=12)
         m.tube("muzzle", (7.2, y, 4.8), (8.8, y, 4.8), muzzle_r, 0.16, "brass", 12)
@@ -146,7 +151,8 @@ def cannon(m):
     """One barrel and a broad shield. Cradle rods no longer imitate extra guns.
 
     The breech stops behind the shield opening, and the brass brow clears the
-    barrel. Shield width is kept low, where it does not add side-on height.
+    barrel. The barrel starts inside the breech. Shield width is kept low,
+    where it does not add side-on height.
     """
     m.mount(3.0)
     m.box("cradle", (-0.5, 0, 3.0), (5.0, 3.3, 1.4), "paint", 0.1)
@@ -160,7 +166,8 @@ def cannon(m):
     m.layer = "moving"
     m.box("breech_block", (-1.3, 0, 5.6), (3.2, 2.05, 2.3), "dark", 0.1)
     m.cylinder("breech_cap", (-3.25, 0, 5.6), (-2.55, 0, 5.6), 0.96, "brass", 12)
-    m.tube("barrel", (0.55, 0, 5.8), (12.0, 0, 5.8), 0.74, 0.2, vertices=16)
+    # Breech face is x=0.3. Starting at 0.2 seats the tube in the block.
+    m.tube("barrel", (0.2, 0, 5.8), (12.0, 0, 5.8), 0.74, 0.2, vertices=16)
     m.tube("barrel_band", (6.4, 0, 5.8), (7.55, 0, 5.8), 0.94, 0.24, "brass", 12)
     m.tube("muzzle_brake", (11.85, 0, 5.8), (14.2, 0, 5.8), 1.06, 0.3, "brass", 12)
 
@@ -182,14 +189,18 @@ def rockets(m, six):
 
 
 def torpedoes(m, twin):
-    """Dark tube, two long brass bands, and a brass mouth. Bands use the old lip radius."""
+    """Dark tube, two long brass bands, and a brass mouth. Bands use the old lip radius.
+
+    The pressure tube overlaps the rear breech. No extra band is added.
+    """
     m.mount(2.7 if twin else 2.2)
     for y in ((-1.5, 1.5) if twin else (0.0,)):
         for x in (-3.1, 3.1):
             m.box("tube_saddle_foot", (x, y, 0.68), (1.55, 2.5, 1.05), "paint", 0.08)
         m.box("tube_cradle", (0.15, y, 1.72), (7.0, 1.25, 1.05), "paint", 0.08)
         m.cylinder("rear_breech", (-7.15, y, 2.8), (-6.35, y, 2.8), 1.24, "steel", 16)
-        m.tube("torpedo_pressure_tube", (-6.2, y, 2.8), (5.6, y, 2.8),
+        # Breech ends at -6.35. Starting at -6.5 overlaps it by 0.15.
+        m.tube("torpedo_pressure_tube", (-6.5, y, 2.8), (5.6, y, 2.8),
                1.16, 0.3, "dark", 16)
         m.tube("brass_band_aft", (-2.5, y, 2.8), (-0.9, y, 2.8),
                1.36, 0.3, "brass", 16)
