@@ -308,16 +308,16 @@ static func _island_faction(c,port: Dictionary) -> String:
 
 static func _quote_text(quote: Dictionary) -> String:
 	if not quote.get("ok",false):return str(quote.get("message","Dock at a home harbor for a quote."))
-	var home: Dictionary=quote.get("homeQuote",{})
 	return "Current net warehouse bill: %d coins after a %d-coin credit for your supplied materials. Have %d coins temporarily for the setup transaction. %d paid work days remain; fleet payroll %d coins per day and %.1f work repair kits."%[int(quote.get("netCost",quote.get("cost",0))),int(quote.get("materialCredit",0)),int(quote.get("cashRequired",quote.get("cost",0))),int(quote.get("remainingDays",0)),int(quote.get("payrollPerDay",0)),float(quote.get("workSupplies",0))]
 
-static func _status_text(view: Dictionary) -> String:
+static func _status_text(view: Dictionary,c) -> String:
 	var lines: PackedStringArray=[]
 	for key in ["improvement","control"]:
 		var job: Dictionary=view.get(key,{})
 		if job.is_empty():continue
 		var days: int=int(job.get("paidDays",0)) if key=="improvement" else int(job.get("supportDays",0))
-		lines.append("%s: %s, %d of %d paid days. %s"%["Berth work" if key=="improvement" else "Control operation",str(job.get("status","awaiting work")),days,int(view.get("workDays",2)),str(job.get("reason",""))])
+		var place: String=str(c.port(str(job.get("portId",""))).get("name","the harbor"))
+		lines.append("%s at %s: %s, %d of %d paid days. %s"%["Berth work" if key=="improvement" else "Control operation",place,str(job.get("status","awaiting work")),days,int(view.get("workDays",2)),str(job.get("reason",""))])
 	var bill: Dictionary=view.get("improvement",{}).get("setupBill",{})
 	if not bill.is_empty():lines.append("Paid warehouse bill: %d gross, %d material credit, %d net coins."%[int(bill.get("grossCost",0)),int(bill.get("materialCredit",0)),int(bill.get("netCost",0))])
 	return "\n".join(lines) if not lines.is_empty() else "No harbor operation started. Review the requirements before committing goods or coins."
@@ -346,7 +346,7 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 	var faction: String=str(port.get("faction",""))
 	var faction_name: String=str(Factions.CANON_NAMES.get(faction,"Unidentified"))
 	ui.paragraph(box,"%s governs %s. A surrender changes this harbor alone; private companies and island jurisdictions remain separate."%[faction_name,str(port.get("name","this harbor"))],16,ui.GOLD)
-	ui.paragraph(box,_status_text(view),15,ui.TEAL)
+	ui.paragraph(box,_status_text(view,c),15,ui.TEAL)
 	ui.paragraph(box,_quote_text(quote),15)
 	var actions=ui.row(box)
 	var im: Dictionary=view.get("improvement",{})
