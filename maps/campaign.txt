@@ -10,7 +10,7 @@ game/scripts/main.gd: 92110 bytes; extends Node2D
   game/scripts/main.gd:448 toggle_pause()
   game/scripts/main.gd:453 toggle_fullscreen()
   game/scripts/main.gd:457 save_preferences()
-game/scripts/campaign.gd: 96465 bytes; extends RefCounted
+game/scripts/campaign.gd: 96472 bytes; extends RefCounted
   game/scripts/campaign.gd:104 home_local064()
   game/scripts/campaign.gd:107 world_location064()
   game/scripts/campaign.gd:119 world_view064()

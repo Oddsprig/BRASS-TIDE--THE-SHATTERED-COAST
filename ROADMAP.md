@@ -1,17 +1,16 @@
-# Current verified release: v0.068 working interregional shipping
+# Current verified release: v0.069 generated ocean sector
 
-One funded Westglass branch and existing merchant connect the local charts
-through open seas, retaining physical cargo, crews, purses and dated sightings.
-555 focused checks/0failures and21reviewed private stills.
-Earlier whole-game quality and strict performance targets remain open.
-Next saved scope: v0.069 seeded sector geography and starting ownership.
+48 seeded island groups, starting mixed ownership, finite markets and paid survey
+landings. Older careers retain their physical economies and two-region world.
+585 focused checks/0failures; Windows/menu and9 reviewed private stills.
+Next070: rewarding voyages and useful fleet roles. Whole-game quality remains open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
 the planet role. Different factions may own islands and harbors inside the same
 group. Generated geography, mixed ownership, shipping, diplomacy and funded
-territorial expansion are required campaign systems. The current two-region
-build is their foundation. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
+territorial expansion are required campaign systems. The generated sector retains the original two regions as anchor charts;
+older saves keep their original world. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
 
 | Version | Bounded scope |
 | --- | --- |
@@ -21,7 +20,7 @@ build is their foundation. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%2
 | 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
 | 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
 | 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
-| 0.069 | Generated ocean sector: useful core/frontier/remote archipelagos and starting mixed faction ownership. |
+| 0.069 | Verified scoped:48 seeded groups, finite generated harbors, paid surveys and starting mixed ownership. |
 | 0.070 | Profitable voyages and purposeful fleets: interregional jobs, support roles and normal-start progression. |
 | 0.071 | Combat feel: readable weapon fire, wakes, impacts, flooding, sinking and distinct sound. |
 | 0.072 | Complete voyage integration and measured campaign/full-fleet performance corrections. |

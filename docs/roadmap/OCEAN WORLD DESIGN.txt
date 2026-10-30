@@ -1,3 +1,7 @@
+CURRENT v0.069:48 seeded groups in fresh careers; original anchor charts and
+legacy two-region saves retained. Starting mixed island/harbor ownership is
+implemented. Dynamic territorial expansion remains the separate v0.076 scope.
+
 BRASS TIDE - OCEAN WORLD AND FACTION DESIGN
 29 October 2026 | Owner clarification | Required campaign direction
 

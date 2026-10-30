@@ -1,10 +1,13 @@
+CURRENT v0.069 VERIFIED SCOPED: 585 focused/0, Windows/menu and9 reviewed private stills.
+Next saved scope070. Historical plans/receipts below remain dated context.
+
 29 OCTOBER 2026 - v0.068 DELIVERED; v0.069-v0.078 PLANNED
 Authoritative forward scope/acceptance:
 docs/roadmap/QUALITY VERSION MAP v0.069-v0.078.txt
 World structure: docs/roadmap/OCEAN WORLD DESIGN.txt
 Accepted 063-068 history: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
 
-0.069 - A GENERATED OCEAN SECTOR
+0.069 - A GENERATED OCEAN SECTOR [DONE]
 0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
 0.071 - COMBAT FEEL, WAKES AND SOUND
 0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR

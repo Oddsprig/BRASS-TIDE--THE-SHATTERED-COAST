@@ -1,3 +1,15 @@
+v0.069: JSON numeric schema/ledger checks need exact numeric structural equality,
+not strict Array membership or Dictionary type equality. Keep physical accounts
+exact. Read-only world queries and NPC transitions cannot evict player navigation;
+explicit player methods own the one active generated grid. Route quotes own a
+private shallow context. Market selection must use the actual berth consistently
+for headings, prices, receipt identity and refresh. Failed native receipts remain
+failed; a saved synthetic checkpoint is diagnosis only. Both diagnostic and
+normal checks must compare the same expected values. The late Westglass branch
+must initialize its empty training book before first save; loading already
+normalizes an absent book. Check existing books and physical accounts exactly;
+only derived reserve forecasts use canonical recalculation.
+
 062 SCOPED COAST/READABILITY; WHOLE QUALITY OPEN
 Make visible art details appear at normal play zoom, while preparing immutable clipped meshes within the existing budgets. Put status, unpaid wages and actions before optional reports. After a post-terminal crash, assertions alone are not a native pass; preserve failures, use one unchanged repeat and a bounded controlled removal, then accept only clean source-bound exits. A measurable bottleneck does not justify shipping an unaccepted optimization. Actual stills and completed measurements do not establish whole-game fun, audio or strict target acceptance.
 

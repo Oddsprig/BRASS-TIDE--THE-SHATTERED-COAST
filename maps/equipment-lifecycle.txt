@@ -24,7 +24,7 @@ game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:260 is_active()
   game/scripts/equipment_recovery.gd:271 is_store_good()
   game/scripts/equipment_recovery.gd:276 retain()
-game/scripts/campaign.gd: 96465 bytes; extends RefCounted
+game/scripts/campaign.gd: 96472 bytes; extends RefCounted
   game/scripts/campaign.gd:104 home_local064()
   game/scripts/campaign.gd:107 world_location064()
   game/scripts/campaign.gd:119 world_view064()

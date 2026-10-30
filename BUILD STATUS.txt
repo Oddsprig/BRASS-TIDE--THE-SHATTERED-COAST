@@ -1,15 +1,14 @@
-BRASS TIDE v0.069 - A GENERATED OCEAN SECTOR
-29 October2026 |36 boat designs
+BRASS TIDE v0.069 - A generated ocean sector
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: be5bc828deb2166e90581894a7a7fd377e3be6f3 / v0.069
+Test Bridge: 97e8add6b483442f8b7b3a6fb5d7a0cc
+585 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 94.751s; owned cleanup verified.
 
-THIS VERSION
 - Start a seeded campaign across 48 island groups, with a settled core, frontier and distant exploration waters.
 - Visit finite harbor markets and paid survey landings; discover which factions hold individual islands and harbors.
 - Keep existing two-region voyages, their economies and physical assets intact when loading older saves.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+v0.069 generated ocean sector, tested source be5bc828deb2166e90581894a7a7fd377e3be6f3; 585 focused assertions/0 failures. Actual jobs and timings: work/quality-v069/ACTUAL069 CHECKS.json. All selected batches including setup/cleanup below120seconds; final selected suite below180seconds. Queue wait separate. Same-seed geography, mixed island/harbor ownership, finite opening labor/goods/capital, read-only knowledge views and bounded player navigation verified. A normal fresh career earned a generated crossing, finite food purchase, paid chart/survey, home return and parsed save reload; constructed legacy compatibility is separately labeled. Windows export/title startup and nine Root-reviewed private exported-PCK stills passed. Capture positions/proximity knowledge are declared staging; stills do not prove earned travel, combat motion, sound, FPS or fun. Earlier failed batches and the hash-bound checkpoint diagnostic remain distinct historical evidence, not additional passed voyage checks. 48 groups:8settled/12frontier/28remote;19 new finite harbors and46 new survey landings. Older two-region careers are not endowed or forcibly expanded. Bridge team:2Sol6.1MAX,2Grok4.7HIGH,2boundedMuseSparkHIGH. Both Gemini3.8Flash tasks remained pending at provider quota; no substitute/API fallback. Flash code was reviewed and corrected before integration. 36boats, numerical crews,physical mounts,300DP,safe render1,30Hz battle data worker/100ms role choices retained. Whole-game quality and earlier strict performance targets remain open. Owner files/music/older builds preserved; no input/focus, game autolaunch or remote publication. Next scope070 improves rewarding voyages/support roles; no conquest or new hull-art claim.

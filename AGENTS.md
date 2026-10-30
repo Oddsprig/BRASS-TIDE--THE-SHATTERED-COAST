@@ -1,12 +1,11 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.068: working interregional shipping and one funded
-Westglass branch. Tested source b1d59410a89e644cf28216f5ff8fbe3cf0c6744c; 555 focused/0.
-Windows export/menu and21Root-reviewed private PCK stills. Actual
-receipts work/quality-v068/ACTUAL068 CHECKS.json and DELIVERED v0.068.json.
-Do not prepare/rebuild068 again. Next saved069: seeded sector geography and
-starting island/harbor ownership, including mixed-faction groups. Whole-game
-quality/strict performance remain OPEN. Root alone owns queued native/delivery.
+Current verified release v0.069: a generated ocean sector. Tested source be5bc828deb2166e90581894a7a7fd377e3be6f3;
+585 focused checks/0 failures, Windows export/menu and9 Root-reviewed private
+PCK stills. Receipts: work/quality-v069/ACTUAL069 CHECKS.json and DELIVERED v0.069.json.
+Do not rebuild069. Next saved scope070: rewarding voyages and useful fleet roles.
+Whole-game quality and earlier strict performance targets remain OPEN.
+Root alone owns queued native/GPU tests and delivery.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -16,9 +15,8 @@ factions, with peaceful mixed ownership or conflict. Geographic sectors and
 political ownership/influence are distinct. Seeded generation, shipping/trading/
 pirate actors, faction relationships and funded territorial expansion are the
 required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
-this model. Current068 retains two authored regions; the wider generated sector is planned.
-Keep068 shipping bounded;069 must include seeded geography and starting asset
-ownership. Dynamic expansion/capture need explicit later bounded milestones.
+this model. Current069 fresh careers contain48 seeded groups; older careers retain their two authored regions.
+069 delivers seeded geography and starting asset ownership; retain068 physical shipping. Dynamic expansion/capture need explicit later bounded milestones.
 
 Latest owner team authorization (29 October 2026): 2 Sol 6.1 MAX, 2 Grok 4.7
 HIGH, 2 Gemini 3.8 Flash and 2 Muse Spark HIGH. Flash tasks must be small,
@@ -36,7 +34,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through 068 remain scoped verified; 069-078 are planned. Earlier quality
+063 through069 are scoped verified;070-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
@@ -86,8 +84,8 @@ Yield only our own identity-verified process if another game starts.
 <!-- END GAME TEST LANE -->
 
 29October owner correction: finish and install the current version. Do not turn
-elapsed test time into a stop-work rule before packaging. Keep each complete
-selected verification suite under120seconds (owner absoluteceiling3minutes),
+elapsed test time into a stop-work rule before packaging. Keep each bounded batch below120seconds and the entire
+selected verification suite below180seconds (latest owner three-minute ceiling),
 including setup/import/export/startup/cleanup; queuewaitseparate. Reuse passed
 unchanged components with strict source proof and avoid repeated unnecessary
 checks. Continue through Windows export, actualscreenreview and launcher delivery.

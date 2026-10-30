@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Keep existing two-region voyages, their economies and physical assets intact when loading older saves.
 
 See docs/TEST RESULTS v0.069.md for actual focused checks and remaining limits.
+
+Verification: 585 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 94.751s. Preserved earlier failures; no broad acceptance claim.

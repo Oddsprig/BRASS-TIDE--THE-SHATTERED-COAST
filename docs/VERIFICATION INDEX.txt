@@ -1,3 +1,7 @@
+v0.069 CURRENT: 585 focused/0,9 reviewed private stills.
+work/quality-v069/ACTUAL069 CHECKS.json; Windows export/title startup.
+Final selected suite 126.519s including setup/cleanup. Whole-game quality OPEN.
+
 CURRENT064 SCOPED OCEAN/LOCAL PROTOTYPE VERIFIED; WHOLE QUALITY OPEN
 431native+125worker=556unique/0. Whole batches47.738/77.322s, Windows startup all0.
 Actual private9view capture33.560s, Root viewed all; no motion/audio/FPS acceptance.
