@@ -14,6 +14,11 @@ static func _exploration_view067(c) -> Dictionary:
 		if v is Dictionary:return v
 	return {}
 
+static func _local_name069(c) -> String:
+	if c.home_local064():return "Shatter Coast"
+	var view: Dictionary=c.world_view064() if c is Object and c.has_method("world_view064") else {}
+	return str(view.get("name","Local island group"))
+
 static func _visible_sites067(c) -> Array:
 	if c.home_local064():
 		var home_out: Array=[]
@@ -35,7 +40,7 @@ static func _visible_sites067(c) -> Array:
 		if lvl<=0:continue
 		var copy: Dictionary=item.duplicate(true)
 		if not copy.has("region") or str(copy.get("region","")).is_empty():
-			copy["region"]="Glasswind Keys"
+			copy["region"]=_local_name069(c)
 		if lvl<2:
 			copy["hazard"]=""
 		if lvl<3:
@@ -241,7 +246,7 @@ static func islands(ui) -> void:
 	if not _is_local_or_home067(c):ui.open_ocean064();return
 	ui.modal_kind="islands"
 	var is_home: bool=c.home_local064()
-	var body=ui.modal("Island charts" if is_home else "Glasswind Keys surveys","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
+	var body=ui.modal("Island charts" if is_home else _local_name069(c)+" surveys","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
 	var assignment: Dictionary=_local_assignment067(c)
 	ui.paragraph(body,"Sail near a landmark to sight it. Chart the approaches, then land a deeper survey. Your party needs real spare hands, rations and kits. Wages continue while ashore.",16)
 	if not assignment.is_empty():
@@ -255,7 +260,7 @@ static func islands(ui) -> void:
 		known+=1
 		var s: Dictionary=item
 		var lvl: int=int(s.get("level",0))
-		var reg_lbl: String=str(s.get("region","Shatter Coast" if is_home else "Glasswind Keys"))
+		var reg_lbl: String=str(s.get("region",_local_name069(c)))
 		ui.rule(body)
 		ui.label(body,str(s.get("name","Landmark")),23,ui.GOLD,true)
 		ui.paragraph(body,"%s · %s · %.0f water units away"%[reg_lbl,str(s.get("levelName","")).capitalize(),c.distance(c.state.position,s)],14,ui.TEAL)
@@ -277,7 +282,7 @@ static func site(ui,site_id: String) -> void:
 	if s.is_empty() or int(s.get("level",0))<=0:return
 	var is_home: bool=c.home_local064()
 	var lvl: int=int(s.get("level",0))
-	var reg_lbl: String=str(s.get("region","Shatter Coast" if is_home else "Glasswind Keys"))
+	var reg_lbl: String=str(s.get("region",_local_name069(c)))
 	ui.host.selected_site=site_id
 	ui.modal_kind="island_site"
 	var body=ui.modal(str(s.get("name","Landmark")),"%s · %s"%[reg_lbl,str(s.get("levelName","")).to_upper()],950,780)
