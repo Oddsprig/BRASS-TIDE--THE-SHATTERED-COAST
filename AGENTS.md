@@ -6,6 +6,16 @@ Receipts work/quality-v071/ACTUAL071 CHECKS.json and DELIVERED v0.071.json.
 Do not rebuild071. Next072: complete voyage integration and measured runtime costs.
 Whole-game quality/strict performance OPEN. Root owns tests and delivery.
 
+ACTIVE SOURCE072: complete voyage integration and bounded current performance
+measurement. work/quality-v072/SCOPE072.txt and isolated ROLE072.txt define the
+exact four source roles. Finish072 before073. Historical063 costs justify one
+small safe publication correction, not a new ownership/cache architecture or
+fresh-baseline claim. No chase of fractional60FPS cap noise. Root alone queues
+all actual engine/GPU tests; preserve installed071 until072 accepted. Metadata
+for072 has not been prepared. Two SolMAX/two GrokHIGH through Bridge; requested
+Gemini media work pending availability, no paid fallback; bounded Spark work is
+reviewed before use. No new hull/AI/strategy/economy frameworks in072.
+
 071 audible quality remains UNVERIFIED. Root reviewed20 temporal frames and
 source/PCM integrity; this was not listening. Sparse sample and exact limits:
 docs/audio/OFFLINE REVIEW v0.071.txt. Spark media route declined; explicit Google
