@@ -606,7 +606,7 @@ static func _execute(c,command: Dictionary,proposal: Dictionary) -> Dictionary:
 			if result.get("ok",false) and qty>0:owner["tradeGood"]=good;owner["tradeCargo"]=float(result.qty)
 		elif kind=="deliver":
 			var expected: String=str(corridor.remoteId) if current.phase=="outbound" else str(corridor.homeId)
-			if current.phase not in ["outbound","to_yard"] or port.id!=expected or good!=str(owner.tradeGood) or qty<0 or qty>Shipping._delivery075(owner,port):return _fail("Generated delivery exceeds its actual surviving manifest, buyer cash or demand.")
+			if current.phase not in ["outbound","to_yard"] or port.id!=expected or good!=str(owner.tradeGood) or qty<0 or qty>Shipping._delivery075(owner,port):return _fail("Generated delivery exceeds its actual surviving manifest, buyer coins or demand.")
 			result=_trade(owner,port,good,qty,"sell",c)
 			if result.get("ok",false):owner["tradeCargo"]=maxf(0.0,float(owner.tradeCargo)-float(result.qty));owner["tradeDelivered"]=float(owner.get("tradeDelivered",0.0))+float(result.qty)
 		else:return _fail("Unknown generated shipment mutation.")

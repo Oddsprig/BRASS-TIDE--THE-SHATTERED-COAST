@@ -49,7 +49,7 @@ static func cargo_offer075(owner: Dictionary, origin: Dictionary, destination: D
 		if value<=best_value:continue
 		best_value=value
 		best={"ok":true,"good":good,"qty":qty,"buyCoins":cost,"sellCoins":qty*sell,"margin":qty*sell-cost,"retained":held>EPS,"reason":"Funded %.0f %s from %s to %s: %d coins purchase, at most %d coins sale into actual demand; %d coins retained for voyage and recovery."%[float(qty),good,str(origin.get("name",origin.id)),str(destination.get("name",destination.id)),cost,qty*sell,reserveCoins]}
-	return best if not best.is_empty() else _fail("No affordable exportable lot meets actual destination demand and cash after voyage reserves.")
+	return best if not best.is_empty() else _fail("No affordable exportable lot meets actual destination demand and available coins after voyage reserves.")
 
 
 ## One bounded candidate, using existing owners/markets only. The caller owns
