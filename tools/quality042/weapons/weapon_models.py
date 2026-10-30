@@ -4,6 +4,13 @@ Offline model SOURCE ONLY. Root owns every bake invocation.
 Coordinates: +X muzzle, +Y starboard, +Z up; origin is the deck mounting pivot.
 One model unit is WeaponGeometry.unit(...); base deck height is added at runtime.
 The returned layers permit recoil of actual receivers/barrels without rebaking.
+
+Ordinary battle zoom leaves only a few pixels for a size-18 tier-1 weapon.
+Each mechanism is therefore one heavy profile: machine-gun receiver, cannon
+shield and barrel, rocket cell pod, or banded torpedo tube. Materials are the
+shared dockyard keys (teal mounts, dark machinery, armor steel, brass).
+Sub-pixel rings, vents, spokes and straps are omitted. Nothing here claims
+a baked or on-screen visual pass.
 """
 import math
 from models import Model, box as rounded_box, add, sub, mul, cross, unit
@@ -34,7 +41,7 @@ class Author:
     def box(self, name, center, size, mat="steel", bevel=0.06):
         return rounded_box(self.model, name, center, size, MATERIAL_KEYS[mat], bevel=bevel)
 
-    def cylinder(self, name, a, b, radius, mat="steel", vertices=20):
+    def cylinder(self, name, a, b, radius, mat="steel", vertices=16):
         axis = unit(sub(b, a))
         across = unit(cross(axis, (0, 0, 1) if abs(axis[2]) < .95 else (0, 1, 0)))
         up = cross(across, axis)
@@ -59,7 +66,7 @@ class Author:
             for i in range(vertices): cap.faces.append((0, i+1, (i+1) % vertices+1))
         return side
 
-    def tube(self, name, a, b, radius, wall=0.16, mat="steel", vertices=20):
+    def tube(self, name, a, b, radius, wall=0.16, mat="steel", vertices=16):
         """A physical open tube, including inner wall and annular mouth.
 
         Recessed darkness is a lit inner wall, never a solid black front disc.
@@ -68,7 +75,7 @@ class Author:
         across = unit(cross(axis, (0, 0, 1) if abs(axis[2]) < .95 else (0, 1, 0)))
         up = cross(across, axis)
         for inside, r, material in ((False, radius, MATERIAL_KEYS[mat]),
-                                     (True, radius-wall, MATERIAL_KEYS["bore"])):
+                                     (True, max(0.08, radius-wall), MATERIAL_KEYS["bore"])):
             side = self.model.part(name+("_inner_wall" if inside else "_outer_wall"), material)
             for center in (a, b):
                 for i in range(vertices):
@@ -81,7 +88,7 @@ class Author:
                 side.quad((i, j, vertices+j, vertices+i))
         for end, sign in ((a, -1), (b, 1)):
             rim = self.model.part(name+"_annular_mouth", MATERIAL_KEYS["edge"])
-            for r in (radius, radius-wall):
+            for r in (radius, max(0.08, radius-wall)):
                 for i in range(vertices):
                     t = i*math.tau/vertices
                     off = add(mul(across, math.cos(t)*r), mul(up, math.sin(t)*r))
@@ -92,115 +99,104 @@ class Author:
                 rim.quad((i, j, vertices+j, vertices+i))
         return rim
 
-    def bolts(self, z, xs, ys):
-        for x in xs:
-            for y in ys:
-                self.cylinder("hex_bolt", (x, y, z), (x, y, z+0.13), 0.15,
-                              "edge", vertices=6)
-
     def mount(self, radius=2.2):
-        # Eight cut corners, stepped bearing race and separated bolt heads.
-        self.cylinder("octagonal_bolted_foot", (0, 0, 0.08), (0, 0, 0.38),
+        # Teal foot matches hull paint. The steel race is the readable step.
+        self.cylinder("octagonal_bolted_foot", (0, 0, 0.08), (0, 0, 0.42),
                       radius, "paint", vertices=8)
-        self.cylinder("bearing_outer_race", (0, 0, 0.39), (0, 0, 0.65),
-                      radius*0.70, "edge", vertices=24)
-        self.cylinder("bearing_neck", (0, 0, 0.64), (0, 0, 2.3),
-                      radius*0.48, "paint", vertices=20)
-        self.bolts(0.38, [-radius*0.58, radius*0.58], [-radius*0.58, radius*0.58])
-        self.box("traverse_gear_case", (-1.1, 0.72, 1.5), (1.2, 0.65, 0.75), "dark")
+        self.cylinder("bearing_outer_race", (0, 0, 0.40), (0, 0, 0.72),
+                      radius*0.72, "edge", vertices=16)
+        self.cylinder("bearing_neck", (0, 0, 0.70), (0, 0, 2.35),
+                      radius*0.46, "paint", vertices=12)
 
 
 def machine_gun(m, twin):
+    """Tall dark receiver, narrow barrel, brass muzzle. Shield stays on the base.
+
+    The wide brow sits lower than the receiver cap. A wide plate at the top
+    would stretch the side-on sprite without making the gun easier to read.
+    """
     m.mount()
-    m.box("fork_crossmember", (0, 0, 2.7), (2.5, 2.5 if twin else 2.1, 0.7), "paint")
-    for y in [-1.1, 1.1]:
-        m.box("fork_cheek", (-0.25, y, 3.45), (1.6, 0.38, 2.0), "paint")
-        m.cylinder("elevation_trunnion", (-0.25, y-0.25, 4.2),
-                   (-0.25, y+0.25, 4.2), 0.42, "brass")
-    # Fixed broad ammunition chest and feed apron break up the barrel silhouette.
-    m.box("ammunition_chest", (-1.5, -2.0, 3.7), (2.7, 1.2, 2.1), "case", 0.10)
-    m.box("ammunition_lid", (-1.5, -2.0, 4.8), (2.9, 1.3, 0.18), "edge", 0.04)
-    m.box("feed_bridge", (-0.9, -1.05, 4.65), (1.3, 1.3, 0.30), "dark")
-    for i in range(5):
-        y = -1.7+i*0.25
-        m.cylinder("linked_brass_round", (-1.45, y, 4.9), (-0.75, y, 4.9), 0.13, "brass", 10)
+    m.box("fork_crossmember", (0.15, 0, 3.05),
+          (2.0, 2.8 if twin else 2.1, 0.7), "paint", 0.08)
+    m.box("ammunition_chest", (-1.5, -1.9, 3.45), (2.4, 1.15, 1.9), "case", 0.1)
+    m.box("ammunition_lid", (-1.5, -1.9, 4.48), (2.45, 1.2, 0.3), "brass", 0.04)
+    cheek_y = 1.28 if twin else 1.08
+    for y in (-cheek_y, cheek_y):
+        m.box("receiver_shield", (1.85, y, 4.15), (1.15, 0.56, 2.05), "steel", 0.06)
+        m.cylinder("elevation_trunnion", (0.15, y-0.34, 4.2),
+                   (0.15, y+0.34, 4.2), 0.42, "brass", 12)
+    m.box("shield_brow", (1.8, 0, 5.22),
+          (1.2, 3.15 if twin else 2.7, 0.4), "brass", 0.04)
     m.layer = "moving"
-    for y in [-0.53, 0.53] if twin else [0.0]:
-        m.box("receiver", (-0.55, y, 4.6), (4.0, 0.84, 1.25), "steel", 0.08)
-        m.box("receiver_cover", (-0.7, y, 5.28), (3.4, 0.92, 0.22), "edge", 0.04)
-        m.tube("ribbed_cooling_jacket", (1.25, y, 4.8), (6.5, y, 4.8), 0.45, 0.13)
-        for x in [2.0, 3.0, 4.0, 5.0, 6.0]:
-            m.tube("cooling_ring", (x, y, 4.8), (x+0.14, y, 4.8), 0.52, 0.14, "dark", 16)
-        m.tube("muzzle_sleeve", (6.45, y, 4.8), (8.8, y, 4.8), 0.32, 0.10)
-        m.tube("flash_suppressor", (8.25, y, 4.8), (8.8, y, 4.8), 0.43, 0.15, "edge")
-        m.box("charging_handle", (-1.0, y+0.53, 4.65), (0.8, 0.35, 0.25), "dark")
-    m.box("rear_spade_grip_bar", (-2.9, 0, 4.5), (0.32, 2.2, 0.28), "dark")
-    for y in [-0.95, 0.95]:
-        m.box("rubber_spade_grip", (-2.9, y, 4.15), (0.36, 0.38, 0.85), "rubber")
-    m.box("front_sight_post", (1.4, 0, 5.7), (0.2, 0.16, 0.72), "dark", 0.02)
+    barrels = (-0.7, 0.7) if twin else (0.0,)
+    jacket_r = 0.36 if twin else 0.7
+    barrel_r = 0.3 if twin else 0.48
+    muzzle_r = 0.4 if twin else 0.64
+    receiver_w = 0.9 if twin else 1.22
+    for y in barrels:
+        m.box("receiver", (-0.45, y, 4.05), (3.05, receiver_w, 2.35), "dark", 0.1)
+        m.box("receiver_cover", (-0.5, y, 5.28), (2.7, 0.9, 0.68), "brass", 0.05)
+        m.tube("cooling_jacket", (2.55, y, 4.8), (4.55, y, 4.8), jacket_r, 0.14, vertices=12)
+        m.tube("barrel", (4.4, y, 4.8), (7.4, y, 4.8), barrel_r, 0.12, vertices=12)
+        m.tube("muzzle", (7.2, y, 4.8), (8.8, y, 4.8), muzzle_r, 0.16, "brass", 12)
+    m.box("spade_grip", (-2.4, 0, 4.0), (1.05, 1.35, 1.2), "rubber", 0.08)
 
 
 def cannon(m):
+    """One barrel and a broad shield. Cradle rods no longer imitate extra guns.
+
+    The breech stops behind the shield opening, and the brass brow clears the
+    barrel. Shield width is kept low, where it does not add side-on height.
+    """
     m.mount(3.0)
-    m.box("cradle", (-0.4, 0, 2.75), (6.6, 4.0, 1.15), "paint", 0.15)
-    for y in [-1.8, 1.8]:
-        m.box("cradle_side", (-0.35, y, 4.1), (5.4, 0.56, 2.2), "paint", 0.12)
-        m.cylinder("elevation_bearing", (0.2, y-0.35, 5.4), (0.2, y+0.35, 5.4), 0.72, "edge")
-        m.cylinder("recoil_cylinder", (-1.3, y, 6.0), (3.9, y, 6.0), 0.40, "steel")
-        m.cylinder("polished_recoil_piston", (3.8, y, 6.0), (5.3, y, 6.0), 0.20, "edge")
-    m.box("angular_gun_shield", (1.1, 0, 4.3), (0.48, 5.1, 2.7), "paint", 0.1)
-    m.box("loading_tray", (-3.8, 0, 4.3), (2.6, 1.45, 0.35), "dark")
-    m.cylinder("handwheel_axis", (-1.3, 2.1, 3.6), (-1.3, 2.6, 3.6), 0.15, "brass")
-    # A wheel with actual spokes and open gaps, not a black filled disc.
-    for theta in [i*math.tau/8 for i in range(8)]:
-        m.cylinder("handwheel_spoke", (-1.3, 2.6, 3.6),
-                   (-1.3+math.cos(theta)*0.65, 2.6, 3.6+math.sin(theta)*0.65), 0.06, "brass", 8)
+    m.box("cradle", (-0.5, 0, 3.0), (5.0, 3.3, 1.4), "paint", 0.1)
+    m.box("gun_shield_face", (1.25, 0, 3.7), (1.5, 4.6, 1.55), "steel", 0.08)
+    for y in (-1.58, 1.58):
+        m.box("gun_shield_cheek", (1.35, y, 5.05), (1.2, 0.72, 2.85), "steel", 0.06)
+        m.cylinder("elevation_bearing", (0.4, y-0.4, 5.1),
+                   (0.4, y+0.4, 5.1), 0.52, "brass", 12)
+    m.box("gun_shield_brow", (1.25, 0, 6.78), (1.3, 2.2, 0.46), "brass", 0.04)
+    m.box("loading_tray", (-3.7, 0, 4.05), (2.5, 1.45, 0.65), "dark", 0.08)
     m.layer = "moving"
-    m.box("breech_block", (-1.15, 0, 5.8), (4.6, 2.6, 2.35), "steel", 0.16)
-    m.box("interrupted_screw_breech", (-3.45, 0, 5.8), (0.52, 2.2, 1.95), "dark", 0.07)
-    m.box("breech_operating_lever", (-3.0, 1.58, 6.15), (1.8, 0.26, 0.27), "brass")
-    m.tube("reinforced_chamber", (0.8, 0, 5.8), (5.3, 0, 5.8), 1.04, 0.28, "dark")
-    m.tube("barrel", (4.8, 0, 5.8), (13.0, 0, 5.8), 0.64, 0.19)
-    for x in [5.2, 7.0]:
-        m.tube("barrel_band", (x, 0, 5.8), (x+0.3, 0, 5.8), 0.78, 0.21, "edge")
-    m.tube("slotted_muzzle_brake", (12.5, 0, 5.8), (14.2, 0, 5.8), 0.93, 0.31)
-    for x in [12.8, 13.45]:
-        for y in [-0.93, 0.93]:
-            m.box("muzzle_brake_vent_recess", (x, y, 5.8), (0.25, 0.04, 0.62), "bore", 0.02)
-    m.bolts(7.0, [-2.4, -0.2], [-0.9, 0.9])
+    m.box("breech_block", (-1.3, 0, 5.6), (3.2, 2.05, 2.3), "dark", 0.1)
+    m.cylinder("breech_cap", (-3.25, 0, 5.6), (-2.55, 0, 5.6), 0.96, "brass", 12)
+    m.tube("barrel", (0.55, 0, 5.8), (12.0, 0, 5.8), 0.74, 0.2, vertices=16)
+    m.tube("barrel_band", (6.4, 0, 5.8), (7.55, 0, 5.8), 0.94, 0.24, "brass", 12)
+    m.tube("muzzle_brake", (11.85, 0, 5.8), (14.2, 0, 5.8), 1.06, 0.3, "brass", 12)
 
 
 def rockets(m, six):
+    """A dark pod with a brass face and three open cells, not hairline tubes."""
     m.mount(3.0)
-    m.box("rack_saddle", (-0.8, 0, 2.7), (4.8, 5.7, 0.9), "paint", 0.12)
-    for y in [-2.7, 2.7]:
-        m.box("triangular_rack_cheek", (-1.9, y, 3.6), (1.35, 0.35, 2.2), "paint")
+    m.box("rack_saddle", (-0.15, 0, 2.95), (6.2, 5.3, 1.55), "paint", 0.1)
     for row in range(2 if six else 1):
         rise = row*1.9
-        for y in [-1.8, 0, 1.8]:
-            m.tube("open_launch_cell", (-4.8, y, 4.5+rise), (5.9, y, 6.0+rise), 0.76, 0.15)
-            m.tube("launch_mouth_collar", (5.45, y, 5.94+rise), (5.9, y, 6.0+rise), 0.89, 0.25, "edge")
-            m.cylinder("rear_loaded_rocket", (-4.5, y, 4.55+rise), (-3.1, y, 4.74+rise), 0.40, "case")
-            m.box("ignition_terminal", (-4.6, y, 4.15+rise), (0.30, 0.45, 0.45), "brass")
-        for x, z in [(-2.2, 4.0), (3.5, 4.8)]:
-            m.box("rack_cross_tie", (x, 0, z+rise), (0.38, 6.2, 0.42), "paint")
-    m.box("ignition_junction_box", (-2.0, -3.2, 3.0), (1.6, 0.7, 1.0), "warning")
-    m.cylinder("protected_ignition_conduit", (-4.6, -2.6, 3.9), (-2.1, -2.6, 3.1), 0.11, "brass", 12)
+        zc = 5.05+rise
+        m.box("cell_pod", (0.1, 0, zc), (8.2, 5.05, 2.85), "dark", 0.1)
+        m.box("cell_face", (3.95, 0, zc), (1.2, 5.05, 2.85), "brass", 0.06)
+        for y, z in ((0.0, 6.0), (-1.86, 4.4), (1.86, 4.4)):
+            m.tube("launch_cell", (4.4, y, z+rise), (5.9, y, z+rise),
+                   0.66, 0.18, "steel", 12)
+    m.box("ignition_junction_box", (-2.15, -3.02, 3.35),
+          (1.65, 0.82, 1.15), "warning", 0.08)
 
 
 def torpedoes(m, twin):
+    """Dark tube, two long brass bands, and a brass mouth. Bands use the old lip radius."""
     m.mount(2.7 if twin else 2.2)
-    for y in [-1.5, 1.5] if twin else [0.0]:
-        for x in [-3.1, 3.1]:
-            m.box("tube_saddle_foot", (x, y, 0.65), (1.5, 2.7, 1.0), "paint", 0.10)
-            m.tube("retaining_strap", (x-0.25, y, 2.8), (x+0.25, y, 2.8), 1.34, 0.20, "brass")
-        m.tube("torpedo_pressure_tube", (-7.1, y, 2.8), (7.9, y, 2.8), 1.16, 0.20, "paint")
-        m.tube("bronze_mouth_lip", (6.9, y, 2.8), (7.9, y, 2.8), 1.36, 0.37, "brass")
-        m.cylinder("closed_rear_breech", (-7.3, y, 2.8), (-6.9, y, 2.8), 1.23, "steel")
-        m.cylinder("air_pipe", (-5.7, y+0.85, 3.95), (0.5, y+0.85, 3.95), 0.13, "brass", 12)
-        m.box("air_flask_valve", (-1.1, y+0.85, 4.12), (1.35, 0.6, 0.65), "brass")
-        m.box("firing_latch", (4.9, y, 4.0), (1.1, 0.65, 0.6), "steel")
-        m.cylinder("rear_door_hinge", (-7.2, y-1.2, 2.0), (-7.2, y-1.2, 3.6), 0.18, "brass", 12)
+    for y in ((-1.5, 1.5) if twin else (0.0,)):
+        for x in (-3.1, 3.1):
+            m.box("tube_saddle_foot", (x, y, 0.68), (1.55, 2.5, 1.05), "paint", 0.08)
+        m.box("tube_cradle", (0.15, y, 1.72), (7.0, 1.25, 1.05), "paint", 0.08)
+        m.cylinder("rear_breech", (-7.15, y, 2.8), (-6.35, y, 2.8), 1.24, "steel", 16)
+        m.tube("torpedo_pressure_tube", (-6.2, y, 2.8), (5.6, y, 2.8),
+               1.16, 0.3, "dark", 16)
+        m.tube("brass_band_aft", (-2.5, y, 2.8), (-0.9, y, 2.8),
+               1.36, 0.3, "brass", 16)
+        m.tube("brass_band_forward", (1.5, y, 2.8), (3.1, y, 2.8),
+               1.36, 0.3, "brass", 16)
+        m.tube("bronze_mouth", (5.6, y, 2.8), (7.9, y, 2.8),
+               1.36, 0.34, "brass", 16)
 
 
 def build_weapon(variant):
