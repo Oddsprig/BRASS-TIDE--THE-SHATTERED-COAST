@@ -362,6 +362,8 @@ static func daily(c) -> void:
 			p.stocks = stocks
 			job.status = "interrupted";job.reason = str(built.get("message", "Actual warehouse setup is currently unavailable."))
 			continue
+		# Publish the same canonical new-business defaults used by ordinary restore.
+		Home.ensure(c.state)
 		# This fresh quote and establish run without a time step or price change.
 		# Home just paid materialCost + margin into port.cash, so that receipt
 		# funds this exact credit; labor, margin, duty and working capital remain.

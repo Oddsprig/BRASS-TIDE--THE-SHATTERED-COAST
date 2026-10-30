@@ -408,6 +408,13 @@ func control_opening() -> bool:
 	var restored: Dictionary = restored_core.restore(saved)
 	if not check(bool(restored.get("ok", false)), "The finite declared control opening passes ordinary Campaign.restore: " + str(restored.get("message", ""))): return false
 	c = restored_core
+	var before_assets = JSON.parse_string(physical_before)
+	var after_assets: Dictionary = assets(c.state)
+	var differences: Dictionary = {}
+	for key in before_assets:
+		if normalized(before_assets[key]) != normalized(after_assets.get(key)):
+			differences[key] = {"before":before_assets[key], "after":after_assets.get(key)}
+	if not differences.is_empty():note("control_restore_asset_differences", differences)
 	check(physical_before == normalized(assets(c.state)) and int(c.Factions.standing(c.state, "forge").score) == 20, "Ordinary restore retains exact physical custody and the disclosed valid political opening")
 	note("declared_control_opening", declared_politics)
 	return failures == 0
