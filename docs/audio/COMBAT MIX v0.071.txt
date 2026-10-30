@@ -1,0 +1,117 @@
+BRASS TIDE v0.071 — RECORDED COMBAT MIX
+Source-only mix pass. No Godot run, no playback, no asset edit, no download.
+
+FILES
+- game/scripts/sound.gd
+- docs/audio/COMBAT MIX v0.071.txt
+No other file is part of this pass. Banks, imports, events, and art are unchanged.
+
+BANKS
+Existing cuts only, as named in game/assets/sfx/manifest.json and
+docs/audio/RECORDED AUDIO CREDITS.txt:
+- gun-1..3, cannon-1..3, rocket-1..3, splash-1..3, wood-1..3, metal-1..3
+  Edited CC0-1.0 excerpts. This pass does not re-verify licenses or hashes.
+- engine.wav remains the original procedural bed on BrassAmbience.
+  It is not a field recording and is not used as a weapon layer.
+No synthetic attack, ping, or new recording was added.
+
+ROUTING
+event_layers stays pure and returns at most two {sound, gain, pitch} layers.
+Gains below are player dB before world attenuation and bus volume.
+The loudest layer is -14 dB. Nothing in the table is hotter than -14.
+
+- MG fire: gun -22 at pitch 1.00. One cut is already a burst.
+- MG hit: wood or metal contact -23 at 1.06. Armor, metal and engine contacts use metal.
+- MG miss: water splash -28 at 1.08, or wood -28 at 1.02.
+- Cannon fire: cannon -15 at 0.88. The deep report.
+- Cannon hit: contact -18 at 0.84, plus a cannon body. Body is -22.5, or -19 when the event reports a breach.
+- Cannon miss: splash or wood -26 at 0.92.
+- Rocket fire: rocket -18 at 1.06. Launch only.
+- Rocket hit: brighter cannon blast -15.5 at 1.16, plus a quiet contact -23.
+- Rocket miss: splash or wood -26 at 0.98.
+- Torpedo fire: splash -21 at 0.90. The launch.
+- Torpedo hit: louder lower splash -15.5 at 0.80, plus a low cannon body -23.5 at 0.68.
+- Torpedo miss: splash or wood -26 at 0.82.
+- Engine trouble: metal -18. Pitch 0.76, or 0.84 when reason is fire. This is not the looping bed.
+- Sink: splash -14 plus wood. Hull loss is splash 0.70 / wood -20.5 at 0.74.
+  Flooding (reason flooding) is darker: splash 0.66 / wood -22 at 0.72.
+  Fire (incendiary or reason fire) lifts the hull layer: splash 0.76 / wood -19 at 0.90.
+Heavy variant still multiplies pitch by 0.88. Sequence still adds the existing
+0.97..1.03 variation. Final pitch is clamped to 0.65..1.25.
+
+WHY THE FAMILIES STAY DISTINCT
+MG stays on the short gun cuts and sits about 7 dB under a cannon report.
+Cannon report, rocket launch and rocket blast do not share a pitch.
+Torpedo launch, torpedo impact and sinking use the same splash bank at different
+pitch and level, and only the impact adds the low cannon body.
+Sinking always keeps a wood hull layer. Engine trouble stays a low metal knock,
+separate from an MG hit on metal.
+
+ADMISSION
+Unchanged bounds: 32 voices, 12 admissions per consume including accent layers,
+128 rapid-source keys, gun interval 0.16 seconds, cull at 2200 world units.
+Primaries are scheduled before accents, so a crowded torpedo salvo keeps splash
+attacks and drops the dry body first.
+Same-source routine MG fire, hit and miss still collapse to one cue per 0.16s.
+A reported breach, engine hit or killing blow is not collapsed.
+Cannon, rocket and torpedo reports and hits are never collapsed.
+Their misses hold 0.40s per source so splash spam cannot take the 12 slots.
+Voices admitted later in a full consume are trimmed by 0.45 dB per voice already
+playing, capped at 5 dB. Higher-priority events are admitted first, so they keep
+their level and routine overlaps give up the headroom.
+
+PRIORITY AT THE SAME DISTANCE
+Sink, breach or killing hit, heavy hit, engine trouble, heavy report,
+MG breach, MG hit, MG burst, heavy miss, MG miss.
+Close range (inside 900 world units) adds up to +4 for hits and engine trouble
+and +2 for sinking. Routine MG bursts and misses lose priority faster with distance.
+An equal-distance sink stays above a breach. A point-blank heavy hit stays above
+a sink near the 2200-unit edge.
+
+DISTANCE, ZOOM, MUTE, HEADLESS
+attenuation_db uses world distance only. It is 0 at the listener, strictly
+decreasing out to 2200, and never a boost. Players keep attenuation 0 and a
+non-culling max distance, so Godot's own falloff cannot tie loudness to zoom.
+Pan still uses the chart's projected position.
+enabled false still counts the sequence and schedules nothing, including no rapid
+reservation. Headless still refuses play() on weapon voices and the engine bed.
+BrassWeapons and BrassAmbience stay separate. Zero weapon volume still uses the
+existing silent bus floor. The existing limiter class is kept, and only when
+this node creates a bus that has no effect yet. Weapons ceiling -1.5 dB and
+threshold -6 dB. Ambience ceiling -1.5 dB and threshold -12 dB. soft_clip_db is
+3. soft_clip_ratio is assigned 6; current Godot documents that ratio as having
+no effect on this deprecated limiter, so the ceiling, the threshold, the lower
+layer gains and the stack trim are the actual headroom.
+
+API
+No caller signature change. Unchanged public surface:
+- consume(events, chart)
+- priority(event, camera) -> float
+- event_layers(event) -> Array
+- attenuation_db(distance) -> float
+- reset_battle()
+- set_engine(running, load_value=0.0)
+- play(kind)
+- enabled, weapon_volume, ambience_volume
+- VOICE_LIMIT 32, EVENT_VOICE_LIMIT 12, AUDIBLE_RADIUS 2200, RAPID_INTERVAL 0.16, RAPID_SOURCE_LIMIT 128
+Additive mix constants, not a replacement of those bounds:
+- MISS_HOLD 0.40
+- CLOSE_RADIUS 900
+- STACK_TRIM_DB 0.45
+- STACK_TRIM_CAP 5.0
+event_layers and attenuation_db remain pure. consume still ignores a repeated
+sequence, does not mutate combat records, and does not synthesize an event.
+
+SOURCE REVIEW DONE HERE
+Static read of sound.gd against test_audio.gd, test_combat_feedback040.gd and
+test_presentation045.gd. Those fixtures were not run. A separate numeric model
+checked the pure gain, pitch, routing, attenuation and priority rules, including
+the fixture inequalities those tests encode. It is not a Godot parse and not a pass.
+Checked by reading the source: six-bank load list, no new paths, attenuation 0 on
+players, headless/mute guards, primary-before-accent admission, 12/32 caps.
+
+NOT CLAIMED
+No listening, no clipping measurement, no pan check, no music-ducking check.
+No license page was opened and no hash was recomputed. Root verifies licensing
+and records the offline mix. Silent scheduling checks still do not prove the
+mix is convincing. Queued or unrun fixtures are not passes.

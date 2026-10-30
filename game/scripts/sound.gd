@@ -1,10 +1,15 @@
 extends Node2D
-## Recorded combat banks and an original procedural engine loop; bounded camera-aware voices.
+## Recorded combat mix for the existing CC0 banks and the original engine loop.
+## World distance sets loudness. Zoom only changes pan. Mute and headless stay silent.
 const VOICE_LIMIT=32
 const EVENT_VOICE_LIMIT=12
 const AUDIBLE_RADIUS=2200.0
 const RAPID_INTERVAL=0.16
 const RAPID_SOURCE_LIMIT=128
+const MISS_HOLD=0.40
+const CLOSE_RADIUS=900.0
+const STACK_TRIM_DB=0.45
+const STACK_TRIM_CAP=5.0
 var enabled=true
 var weapon_volume=0.85
 var ambience_volume=0.35
@@ -25,13 +30,9 @@ var engine_player: AudioStreamPlayer
 
 func _ready():
 	headless=DisplayServer.get_name()=="headless"
-	for bus_name in ["BrassWeapons","BrassAmbience"]:
-		if AudioServer.get_bus_index(bus_name)<0:
-			AudioServer.add_bus()
-			var index=AudioServer.bus_count-1
-			AudioServer.set_bus_name(index,bus_name)
-			var limiter=AudioEffectLimiter.new()
-			AudioServer.add_bus_effect(index,limiter)
+	# Arm a limiter only on a bus this node creates. Never replace a host effect.
+	_arm_limiter("BrassWeapons",-1.5,-6.0)
+	_arm_limiter("BrassAmbience",-1.5,-12.0)
 	for kind in ["gun","cannon","rocket","splash","wood","metal"]:
 		bank[kind]=[]
 		for n in range(1,4):
@@ -54,6 +55,20 @@ func _ready():
 			engine_player.stream.loop_mode=AudioStreamWAV.LOOP_FORWARD
 			engine_player.stream.loop_end=88200
 
+func _arm_limiter(bus_name: String,ceiling: float,threshold: float) -> void:
+	var index=AudioServer.get_bus_index(bus_name)
+	if index<0:
+		AudioServer.add_bus()
+		index=AudioServer.bus_count-1
+		AudioServer.set_bus_name(index,bus_name)
+	if AudioServer.get_bus_effect_count(index)>0:return
+	var limiter=AudioEffectLimiter.new()
+	limiter.ceiling_db=ceiling
+	limiter.threshold_db=threshold
+	limiter.soft_clip_db=3.0
+	limiter.soft_clip_ratio=6.0
+	AudioServer.add_bus_effect(index,limiter)
+
 func reset_battle():
 	last_seq=0;received=0;scheduled=0;dropped=0;peak_voices=0
 	teams.clear();families.clear();rapid_until.clear()
@@ -68,52 +83,98 @@ func _process(dt: float):
 		engine_player.stop()
 
 func priority(event: Dictionary,camera: Vector2) -> float:
-	var value=100.0 if event.kind=="sink" else (82.0 if event.family in ["torpedo","cannon","rocket"] else 58.0)
-	if event.kind=="hit":value+=12.0
-	if event.kind=="hit" and (event.get("breach",false) or event.get("engineDamaged",false)):
-		value=minf(98.0,value+8.0)
-	if event.kind=="engine":value=90.0
-	if event.kind=="miss":value-=24.0
-	return value-Vector2(event.x,event.y).distance_to(camera)/80.0
+	# Equal distance: sink, heavy breach, heavy hit, engine trouble, heavy report,
+	# MG breach, MG hit, MG burst, heavy miss, MG miss. Close damage gains a little.
+	# Routine bursts and misses fall off faster than damage.
+	var kind=str(event.kind)
+	var family=str(event.family)
+	var distance=Vector2(event.x,event.y).distance_to(camera)
+	if not is_finite(distance):return -100000.0
+	var heavy=family in ["torpedo","cannon","rocket"]
+	var close=clampf(1.0-distance/CLOSE_RADIUS,0.0,1.0)
+	var value=80.0 if heavy else 54.0
+	var fall=distance/75.0
+	match kind:
+		"fire":
+			if not heavy:
+				value=50.0
+				fall=distance/50.0
+		"hit":
+			value+=12.0
+			if event.get("breach",false) or event.get("engineDamaged",false) or event.get("sunk",false):
+				value=minf(96.0,value+8.0)
+			value+=4.0*close
+			fall=distance/90.0
+		"miss":
+			value-=36.0
+			fall=distance/48.0
+		"engine":
+			value=88.0+4.0*close
+			fall=distance/120.0
+		"sink":
+			value=104.0+2.0*close
+			fall=distance/120.0
+	return value-fall
 
 static func event_layers(event: Dictionary) -> Array:
-	# Pure routing used by consume and silent fixtures. Never synthesize an attack
-	# or infer damage: a contact, breach, engine failure or sinking must be reported.
-	var family: String=str(event.get("family",""))
-	var contact: String="metal" if str(event.get("material","")) in ["armor","metal","engine"] else "wood"
-	var primary: Dictionary={"sound":"","gain":-23.0,"pitch":1.0}
-	var accent: Dictionary={}
-	match str(event.get("kind","")):
+	# Pure routing. A contact, breach, engine failure or sinking must already be
+	# reported. Pitch and gain only; the six recorded banks are not extended.
+	var family=str(event.get("family",""))
+	var kind=str(event.get("kind",""))
+	var material=str(event.get("material",""))
+	var contact="metal" if material in ["armor","metal","engine"] else "wood"
+	var primary={"sound":"","gain":-24.0,"pitch":1.0}
+	var accent={}
+	match kind:
 		"fire":
 			match family:
-				"gun":primary={"sound":"gun","gain":-18.0,"pitch":1.04}
-				"cannon":primary={"sound":"cannon","gain":-12.0,"pitch":0.94}
-				"rocket":primary={"sound":"rocket","gain":-18.0,"pitch":1.02}
-				"torpedo":primary={"sound":"splash","gain":-22.0,"pitch":0.84}
+				"gun":primary={"sound":"gun","gain":-22.0,"pitch":1.0}
+				"cannon":primary={"sound":"cannon","gain":-15.0,"pitch":0.88}
+				"rocket":primary={"sound":"rocket","gain":-18.0,"pitch":1.06}
+				"torpedo":primary={"sound":"splash","gain":-21.0,"pitch":0.90}
 		"miss":
-			primary={"sound":"splash" if event.get("material","")=="water" else "wood","gain":-25.0 if family=="gun" else -22.0,"pitch":0.82 if family=="torpedo" else 1.0}
+			var thin=family=="gun"
+			var miss_pitch=0.92
+			if family=="torpedo":miss_pitch=0.82
+			elif family=="rocket":miss_pitch=0.98
+			elif thin:
+				miss_pitch=1.08 if material=="water" else 1.02
+			primary={"sound":"splash" if material=="water" else "wood","gain":-28.0 if thin else -26.0,"pitch":miss_pitch}
 		"hit":
 			match family:
-				"gun":primary={"sound":contact,"gain":-23.0,"pitch":1.08}
+				"gun":primary={"sound":contact,"gain":-23.0,"pitch":1.06}
 				"cannon":
-					primary={"sound":contact,"gain":-20.0,"pitch":0.88}
-					if event.get("breach",false):accent={"sound":"cannon","gain":-25.0,"pitch":0.82}
+					primary={"sound":contact,"gain":-18.0,"pitch":0.84}
+					accent={"sound":"cannon","gain":-19.0 if event.get("breach",false) else -22.5,"pitch":0.78}
 				"rocket":
-					primary={"sound":"cannon","gain":-14.0,"pitch":1.10}
-					accent={"sound":contact,"gain":-24.0,"pitch":1.02}
+					primary={"sound":"cannon","gain":-15.5,"pitch":1.16}
+					accent={"sound":contact,"gain":-23.0,"pitch":1.0}
 				"torpedo":
-					# Water is the admitted attack; the subdued recording under it is
-					# a low impact layer, distinct from a rocket's sharp dry report.
-					primary={"sound":"splash","gain":-16.0,"pitch":0.76}
-					accent={"sound":"cannon","gain":-23.0,"pitch":0.70}
-		"engine":primary={"sound":"metal","gain":-22.0,"pitch":0.80}
+					primary={"sound":"splash","gain":-15.5,"pitch":0.80}
+					accent={"sound":"cannon","gain":-23.5,"pitch":0.68}
+		"engine":
+			primary={"sound":"metal","gain":-18.0,"pitch":0.84 if str(event.get("reason",""))=="fire" else 0.76}
 		"sink":
-			primary={"sound":"splash","gain":-19.0,"pitch":0.78}
-			accent={"sound":"wood","gain":-25.0,"pitch":0.76}
+			var cause=str(event.get("reason",""))
+			var burning=bool(event.get("incendiary",false)) or cause=="fire"
+			var flooded=cause=="flooding"
+			var splash_pitch=0.70
+			var hull_gain=-20.5
+			var hull_pitch=0.74
+			if burning:
+				splash_pitch=0.76
+				hull_gain=-19.0
+				hull_pitch=0.90
+			elif flooded:
+				splash_pitch=0.66
+				hull_gain=-22.0
+				hull_pitch=0.72
+			primary={"sound":"splash","gain":-14.0,"pitch":splash_pitch}
+			accent={"sound":"wood","gain":hull_gain,"pitch":hull_pitch}
 	if str(primary.sound).is_empty():return []
 	var layers: Array=[primary]
 	if not accent.is_empty():layers.append(accent)
-	var weight: float=0.88 if event.get("variant","light")=="heavy" else 1.0
+	var weight: float=0.88 if str(event.get("variant","light"))=="heavy" else 1.0
 	var variation: float=0.97+float(int(event.get("seq",0))%7)*0.01
 	for layer in layers:layer.pitch=clampf(float(layer.pitch)*weight*variation,0.65,1.25)
 	return layers
@@ -121,18 +182,29 @@ static func event_layers(event: Dictionary) -> Array:
 static func attenuation_db(distance: float) -> float:
 	if not is_finite(distance):return -36.0
 	var d: float=clampf(distance,0.0,AUDIBLE_RADIUS)
-	# Continuous distance falloff and a soft far edge; zoom cannot alter loudness.
-	return -20.0*log(1.0+d/320.0)/log(10.0)-18.0*smoothstep(1600.0,AUDIBLE_RADIUS,d)
+	# Continuous world-unit falloff. Display zoom cannot change this gain.
+	# Close fighting stays intelligible; the existing 2200-unit edge still fades out.
+	var body: float=-14.0*log(1.0+d/360.0)/log(10.0)
+	var edge: float=-22.0*smoothstep(1500.0,AUDIBLE_RADIUS,d)
+	return body+edge
 
 func _rapid_key(event: Dictionary) -> String:
-	# Each recorded burst already contains several shots. Keep its source audible
-	# without stacking every mount's gun burst or routine contact on the same boat.
-	# Significant damage and every other weapon family retain normal admission.
-	if event.family!="gun" or event.kind not in ["fire","hit","miss"]:return ""
-	if event.kind=="hit" and (event.get("breach",false) or event.get("engineDamaged",false) or event.get("sunk",false)):return ""
+	# Each gun cut is already a burst. One routine gun cue per source per interval.
+	# Cannon, rocket and torpedo reports and hits always play. Their misses do not
+	# stack. A reported breach, engine hit or killing blow is never coalesced.
+	var kind=str(event.kind)
+	var family=str(event.family)
+	var routine_gun=family=="gun" and kind in ["fire","hit","miss"]
+	var heavy_miss=kind=="miss" and family in ["cannon","rocket","torpedo"]
+	if not routine_gun and not heavy_miss:return ""
+	if kind=="hit" and (event.get("breach",false) or event.get("engineDamaged",false) or event.get("sunk",false)):return ""
 	var source=str(event.get("sourceUid",event.get("sourceId","")))
 	if source.is_empty():return ""
-	return "%s/%s/%s/%s"%[event.get("sourceTeam",event.team),source,event.family,event.kind]
+	return "%s/%s/%s/%s"%[event.get("sourceTeam",event.team),source,family,kind]
+
+func _rapid_hold(event: Dictionary) -> float:
+	if str(event.kind)=="miss" and str(event.family)!="gun":return MISS_HOLD
+	return RAPID_INTERVAL
 
 func consume(events: Array,chart):
 	var admitted: Array=[]
@@ -163,15 +235,31 @@ func consume(events: Array,chart):
 		var rank: float=priority(event,chart.camera)
 		if _schedule(str(primary.sound),projected,float(primary.gain)+loss,float(primary.pitch),rank):
 			count+=1
-			if not rapid_key.is_empty():rapid_until[rapid_key]=clock+RAPID_INTERVAL
+			if not rapid_key.is_empty():rapid_until[rapid_key]=clock+_rapid_hold(event)
 			if layers.size()>1:
 				var accent: Dictionary=layers[1]
 				accents.append({"sound":accent.sound,"position":projected,"gain":float(accent.gain)+loss,"pitch":accent.pitch,"rank":rank-1.0})
-	# Primary reports/impacts come before secondary layers. Layers share the same
-	# admission budget, rather than doubling it during a crowded sinking salvo.
+	# Primary reports and impacts come before secondary layers. Layers share the
+	# same admission budget, rather than doubling it during a crowded sinking salvo.
 	for accent in accents:
 		if count>=EVENT_VOICE_LIMIT:break
 		if _schedule(accent.sound,accent.position,accent.gain,accent.pitch,accent.rank):count+=1
+
+func _pick_variant(kind: String,variants: Array) -> int:
+	# Rotate, and skip a cut that is still playing when another cut is free.
+	var last=int(last_variant.get(kind,-1))
+	var best=(last+1)%variants.size()
+	var best_uses=999999
+	for step in range(variants.size()):
+		var index=(last+1+step)%variants.size()
+		var uses=0
+		for slot in voices:
+			if float(slot.until)>clock and slot.player.stream==variants[index]:uses+=1
+		if uses<best_uses:
+			best_uses=uses
+			best=index
+			if uses==0:break
+	return best
 
 func _schedule(kind: String,position: Vector2,db: float,pitch: float,rank: float) -> bool:
 	if not position.is_finite() or not is_finite(db) or not is_finite(pitch) or not is_finite(rank) or pitch<0.65 or pitch>1.25:return false
@@ -185,14 +273,20 @@ func _schedule(kind: String,position: Vector2,db: float,pitch: float,rank: float
 	if chosen<0:return false
 	var slot: Dictionary=voices[chosen]
 	if slot.until>clock and slot.priority>rank:dropped+=1;return false
-	var index=(int(last_variant.get(kind,-1))+1)%variants.size()
+	var index=_pick_variant(kind,variants)
 	last_variant[kind]=index
 	var stream: AudioStream=variants[index]
 	var duration: float=stream.get_length()/pitch
 	if not is_finite(duration) or duration<=0.0:return false
+	var others=0
+	for i in range(voices.size()):
+		if i==chosen:continue
+		if float(voices[i].until)>clock:others+=1
+	# The first admitted voices are the meaningful ones. Later overlaps yield a few dB.
+	var trim=minf(STACK_TRIM_CAP,float(others)*STACK_TRIM_DB)
 	slot.player.stream=stream
 	slot.player.position=position
-	slot.player.volume_db=db
+	slot.player.volume_db=db-trim
 	slot.player.pitch_scale=pitch
 	slot.priority=rank
 	slot.until=clock+duration
