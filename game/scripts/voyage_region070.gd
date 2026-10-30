@@ -118,17 +118,28 @@ static func ranked_surveys(core,p: Dictionary,day: int,unsurveyed: Array,pairing
 		if str(candidate.id)==str(pairing.get("siteId","")):unsurveyed.erase(candidate);unsurveyed.push_front(candidate);break
 	return unsurveyed.slice(0,MAX_CANDIDATES)
 
-static func survey_reward(core,p: Dictionary,days: float) -> int:
-	# A fixed catalog Tinwake can sail with three and send four ashore. Extra
-	# owned boats/crew never enlarge a client's tariff; a full survey needs seven.
+static func survey_reward(core,p: Dictionary,days: float,site: Dictionary={}) -> int:
+	var level: int=int(site.get("level",Exploration.LEVEL_SIGHTED))
+	if level>=Exploration.LEVEL_SURVEYED:return 0
+	var shore_days: float=0.0
+	var kits: float=0.0
+	var spare: int=0
+	for key in [Exploration.ACTION_CHART,Exploration.ACTION_SURVEY]:
+		var spec: Dictionary=Exploration.ACTIONS[key]
+		if level>=int(spec.to):continue
+		shore_days+=float(spec.days);kits+=float(spec.supplies)
+		spare=maxi(spare,int(spec.crew))
+	# Keep the maximum remaining shore party aboard for the entire voyage,
+	# including charting: three sailing plus four survey crew on the Tinwake.
+	# Extra owned boats/crew never enlarge a client's tariff.
 	var reference: Dictionary=core.hull("tin_skiff")
-	var crew: int=maxi(1,int(reference.get("crewMin",3)))+4
-	var work_days: float=maxf(1,ceilf(days*2.0+3.5))
+	var crew: int=maxi(1,int(reference.get("crewMin",3)))+spare
+	var work_days: float=maxf(1,ceilf(days*2.0+shore_days))
 	var upkeep: Dictionary=Economy.daily_upkeep([{"crew":crew,"spec":reference,"sunk":false}])
 	var burn: float=45.0*(0.011+float(reference.get("size",14))*0.0002)*maxf(0.2,float(reference.get("fuelUse",1)))
 	var survey_value: float=crew*Goods.SAILOR_WAGE*work_days+float(upkeep.food)*work_days*Economy.price(p,"food")
-	survey_value+=(burn*days*2.0+float(upkeep.fuel)*work_days)*Economy.price(p,"fuel")
-	survey_value+=3.0*Economy.price(p,"supplies")+Goods.WAGES.laborer
+	survey_value+=burn*days*2.0*Economy.price(p,"fuel")
+	survey_value+=kits*Economy.price(p,"supplies")+Goods.WAGES.laborer
 	return maxi(1,ceili(survey_value*1.25))
 
 static func survey_offer(p: Dictionary,site: Dictionary,pairing: Dictionary,survey_id: String,day: int,days: float,reward: int) -> Dictionary:
@@ -141,7 +152,7 @@ static func survey_offer(p: Dictionary,site: Dictionary,pairing: Dictionary,surv
 		"deadlineDay": float(day) + ceilf(days * 2.0 + 14.0), "acceptedDay": 0.0,
 		"freight": {}, "state": "offered",
 		"siteId": str(site["id"]), "ownerId": "",
-		"feeBasis":"Fixed catalog Tinwake with minimum sailing crew plus four spare surveyors; whole payroll days for return travel and full 3.5-day chart/survey, real rations/fuel, three kits, one registration laborer-day and 25% margin. Extra fleet costs remain yours."}
+		"feeBasis":"Fixed catalog Tinwake with minimum sailing crew plus four spare surveyors throughout; whole payroll days for return travel and remaining base chart/survey phases, real rations/moving fuel, remaining phase kits, one registration laborer-day and 25% margin. Extra fleet costs remain yours."}
 
 static func _gate_pairs(context: Dictionary,location: Dictionary,target: Dictionary,home: Dictionary) -> Array:
 	var read: Dictionary=World.view(context,location,[])
@@ -302,11 +313,11 @@ static func offer_view(c,offer: Dictionary) -> Dictionary:
 	# A whole-trip replacement value. Shore food prepays the SAME daily ration
 	# consumption, so it is a maximum rather than a second food bill.
 	var costs: Dictionary={"coins":float(expected.coinsRequired)+float(snapshot.get("wageArrears",0)),"food":maxf(float(expected.food),float(work.food)),
-		"fuel":burn*(outward+returning)+float(upkeep.fuel)*float(expected.totalPayrollDays),"supplies":float(work.supplies),"payrollDays":float(expected.totalPayrollDays),
+		"fuel":burn*(outward+returning),"supplies":float(work.supplies),"payrollDays":float(expected.totalPayrollDays),
 		"baseWages":float(expected.baseWages),"premiums":float(expected.premiums),"includesReturn":true,"basis":"All living owned crew, fitted upkeep and moving hull fuel; whole calendar settlements, work and return; replacement stores priced at the sponsor's existing buy prices."}
 	costs.totalValue=_value(costs,p)
 	var reserve_days: float=ceilf(safe_back+2.0)
-	var reserve: Dictionary={"coins":float(allowance.dailyWages)*reserve_days,"food":float(upkeep.food)*reserve_days,"fuel":burn*(safe_back+2.0)+float(upkeep.fuel)*reserve_days,"supplies":0.0,
+	var reserve: Dictionary={"coins":float(allowance.dailyWages)*reserve_days,"food":float(upkeep.food)*reserve_days,"fuel":burn*(safe_back+2.0),"supplies":0.0,
 		"days":safe_back+2.0,"contingencyDays":2.0,"overlapsExpected":true,"basis":"Conservative return and two-day contingency. Informational overlap; do not subtract this again from whole-trip expected costs."}
 	reserve.totalValue=_value(reserve,p)
 	out.merge({"ok":true,"routeOk":true,"outwardDays":outward,"workDays":float(work.days),"returnDays":returning,"routeDistance":float(journey.outwardDistance)+float(journey.returnDistance),"crewNeeded":int(work.crew),

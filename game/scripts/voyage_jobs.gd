@@ -310,12 +310,12 @@ static func _work_fee(c,p: Dictionary,days: float,kind: String,qty: int,weight: 
 		var passenger_food: float=Transport.quantity(qty,ceili(transit)+2) if kind==KIND_CHARTER else 0.0
 		if float(spec.get("cargo",0))+0.000001<weight+crew_food+passenger_food:continue
 		var burn: float=45.0*(0.011+float(spec.get("size",14))*0.0002)*maxf(0.2,float(spec.get("fuelUse",1)))
-		var fuel: float=burn*transit*2.0+float(upkeep.fuel)*paid_days
+		var fuel: float=burn*transit*2.0
 		var value: float=crew*Goods.SAILOR_WAGE*paid_days+crew_food*Economy.price(p,"food")+fuel*Economy.price(p,"fuel")+0.25*Economy.price(p,"supplies")+Goods.WAGES.laborer
 		var reward: int=maxi(1,ceili(1.25*value))
 		if kind==KIND_CHARTER:reward+=qty*Goods.SAILOR_WAGE*maxi(1,ceili(transit))
 		if not best.is_empty() and reward>=int(best.reward):continue
-		best={"reward":reward,"days":transit,"feeBasis":"Catalog %s, %d minimum sailors at %d coins/day, %.0f whole payroll days for return route + quarter-day handling; %.2f rations, %.2f sailing/calendar fuel, quarter repair kit, one quay laborer-day, 25%% margin.%s Extra owned crew, specialists, delays and damage remain your costs."%[str(spec.get("name","carrier")),crew,Goods.SAILOR_WAGE,paid_days,crew_food,fuel," Charter adds %d passenger-days at %d coins."%[qty*maxi(1,ceili(transit)),Goods.SAILOR_WAGE] if kind==KIND_CHARTER else ""]}
+		best={"reward":reward,"days":transit,"feeBasis":"Catalog %s, %d minimum sailors at %d coins/day, %.0f whole payroll days for return route + quarter-day handling; %.2f rations, %.2f sailing fuel, quarter repair kit, one quay laborer-day, 25%% margin.%s Extra owned crew, specialists, delays and damage remain your costs."%[str(spec.get("name","carrier")),crew,Goods.SAILOR_WAGE,paid_days,crew_food,fuel," Charter adds %d passenger-days at %d coins."%[qty*maxi(1,ceili(transit)),Goods.SAILOR_WAGE] if kind==KIND_CHARTER else ""]}
 	return best
 
 
@@ -462,8 +462,8 @@ static func available(core) -> Array:
 			var route: Dictionary=WorkRegion070.route(core,site,p,true)
 			if not route.ok:continue
 			var days: float=float(route.referenceDays)
-			var reward: int=_route_reward(core,days,"",true,p)
-			if int(p.get("governmentPurse",0))<reward:continue
+			var reward: int=WorkRegion070.survey_reward(core,p,days,site)
+			if reward<=0 or int(p.get("governmentPurse",0))<reward:continue
 			offers.append(WorkRegion070.survey_offer(p,site,pairing,survey_id,day,days,reward))
 			break
 	# Bounty: the first actually active patrol raider owner, if one is at sea.
