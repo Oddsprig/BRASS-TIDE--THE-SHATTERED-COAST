@@ -102,11 +102,12 @@ func check(ok: bool, label: String) -> bool:
 	return ok
 
 func bounded() -> bool:
-	if not expired and Time.get_ticks_msec() - started < BODY_LIMIT_MS - 500:
+	var stop_ms: int = BODY_LIMIT_MS - (1500 if mode == "resume" else 500)
+	if not expired and Time.get_ticks_msec() - started < stop_ms:
 		return true
 	if not expired:
 		expired = true
-		check(false, "Actual chronology stops new work at39.5seconds within the forty-second body budget")
+		check(false, "Actual %s chronology stops new work at%dms within the forty-second body budget" % [mode, stop_ms])
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
