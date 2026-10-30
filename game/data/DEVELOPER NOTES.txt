@@ -11,3 +11,10 @@ remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
+
+DEVELOPER TOOLS
+Campaign.trace_steps075 is off by default. When enabled by a private developer
+scenario, step_costs075 records the last real campaign substep in microseconds:
+ocean staging, continuous work, naval/patrol decisions and both after-step calls.
+It never changes simulation order or enters a saved career. Preparation and
+continuation fixtures preserve real state and trace files with SHA256 bindings.
