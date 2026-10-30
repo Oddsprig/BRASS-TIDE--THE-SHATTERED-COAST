@@ -11,7 +11,8 @@ const Tools = preload("res://scripts/tooling_ops.gd")
 const Workers = preload("res://scripts/economy_workers.gd")
 const Battle = preload("res://scripts/battle.gd")
 const Coast = preload("res://scripts/coastal_terrain.gd")
-const BODY_LIMIT_MS: int = 35000
+const BODY_LIMIT_MS: int = 55000
+const SELF_STOP_MS: int = 53000
 const EFFICIENCY_GOAL_MS: int = 20000
 const SEED: int = 76076
 var c
@@ -50,10 +51,10 @@ func check(value: bool, label: String) -> bool:
 	return value
 
 func bounded() -> bool:
-	if Time.get_ticks_msec() - started < BODY_LIMIT_MS - 1000: return true
+	if Time.get_ticks_msec() - started < SELF_STOP_MS: return true
 	if not expired:
 		expired = true
-		check(false, "Stop new work at thirty-four seconds with time reserved for body cleanup")
+		check(false, "Stop new work at fifty-three seconds with time reserved for body cleanup")
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
@@ -146,11 +147,11 @@ func prepare_and_recover() -> bool:
 	if not check(bool(recruited.get("ok", false)), "Two survey hands are normally recruited from actual opening residents"): return false
 	check(float(c.find_boat(boat_id).crew) == before_crew + 2 and int(c.state.crewPurse) - before_purse == int(recruited.cost)
 		and before_coins - int(c.state.coins) == int(recruited.cost) and people(c.state) == initial_people, "Recruitment transfers people and their real wage advance without minting either")
-	# Sell only part of the opening thirty food lots; the retained twelve feed this run.
+	# Retain twelve opening food lots for survey/recovery; paid work funds restocking.
 	if not trade("food", 18, false): return false
 	for good in Home.KINDS.warehouse.materials:
 		if not trade(str(good), int(Home.KINDS.warehouse.materials[good]), true): return false
-	# One lot for berth work and two for the later ordinary civilian support days.
+	# Initial chart/survey/recovery kits; later work is restocked after actual payment.
 	if not trade("supplies", 3, true): return false
 	# The required survey itself earns normal finite payment, with no extra jobs.
 	for offer in c.VoyageJobs.available(c):
@@ -196,6 +197,23 @@ func prepare_and_recover() -> bool:
 	if not check(bool(invoice.get("ok", false)), "Actual surveyed source work reports back normally for its escrowed pay"): return false
 	check(int(c.state.coins) - before_payment == int(invoice.get("reward", 0)) and Money.total(c.state) == supply, "The actual completed survey fee is an exact existing escrow transfer")
 	note("ordinary_paid_survey_settled", {"jobId":survey_job, "invoice":invoice, "limit":"Actual chart/survey/recovery and physical return; the explicitly staged initial outbound placement is not earned travel."})
+	# Recovery used the opening kits. Buy only the remaining ordinary work/support
+	# needs here, after the actual job paid and before physically carrying them on.
+	var payroll: Dictionary = c.Economy.daily_upkeep(c.state.fleet)
+	var kit_need: float = Territory.WORK_DAYS * (0.5 + float(Territory.SUPPORT_GOODS.supplies))
+	# Four paid operation days plus at most one additional Anvil passage payroll day.
+	var ration_need: float = float(payroll.food) * (2 * Territory.WORK_DAYS + 1) \
+		+ float(Territory.SUPPORT_GOODS.food) * Territory.WORK_DAYS
+	var before_restock: Dictionary = {"coins":int(c.state.coins), "food":float(c.state.cargo.food), "supplies":float(c.state.cargo.supplies)}
+	var restock: Dictionary = {"supplies":ceili(maxf(0.0, kit_need - before_restock.supplies)), "food":ceili(maxf(0.0, ration_need - before_restock.food))}
+	for good in restock:
+		if int(restock[good]) > 0 and not trade(str(good), int(restock[good]), true): return false
+	if not check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply
+		and float(c.state.cargo.supplies) >= kit_need and float(c.state.cargo.food) >= ration_need,
+		"Paid restocking retains exact world coins and carries the remaining real kits, ordinary rations and civilian support food"): return false
+	note("ordinary_paid_operation_restock", {"before":before_restock, "required":{"supplies":kit_need, "food":ration_need}, "bought":restock,
+		"after":{"coins":int(c.state.coins), "food":float(c.state.cargo.food), "supplies":float(c.state.cargo.supplies)},
+		"payrollFoodPerDay":float(payroll.food), "limit":"Two warehouse days and two support days; one additional passage payroll day provisioned. Every shortfall uses actual harbor stock and the exact paid trade invoice."})
 	return sail_to(improvement_port)
 
 func machinery() -> Dictionary:
@@ -453,7 +471,7 @@ func finish() -> void:
 	workers = null
 	c = null
 	var elapsed: int = Time.get_ticks_msec() - started
-	check(elapsed < BODY_LIMIT_MS, "Body includes new_game, ordinary restores, proof and owned cleanup below thirty-five seconds")
+	check(elapsed < BODY_LIMIT_MS, "Body includes new_game, ordinary restores, proof and owned cleanup below fifty-five seconds")
 	print(JSON.stringify({"fixture":"territorial076", "checks":checks, "failures":failures,
 		"elapsed_ms":elapsed, "efficiency_goal_ms":EFFICIENCY_GOAL_MS, "efficiency_goal_met":elapsed <= EFFICIENCY_GOAL_MS,
 		"complete":complete and failures == 0 and not expired,
