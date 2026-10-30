@@ -732,6 +732,7 @@ func apply_economy(ports: Array, messages: Array, days: int):
 		Money.move(state,"coins",state,"crewPurse",paid,"Captain pays sailors",state.moneyLog)
 		state.wageArrears += due-paid
 		ToolingOps.paid_day(self,paid,due)
+		RegionalOps.paid_day(self,paid,due)
 		if paid < due:
 			state.morale = maxf(10.0,state.morale-8.0)
 			log_entry("Crew wages short by %d coins. Unpaid wages accumulate and morale falls."%(due-paid))
@@ -1523,7 +1524,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	var loot: int = 0
 	var salvage: Dictionary = {}
 	var owner: Dictionary = fleet_owner(str(context.get("ownerId","")))
-	RegionalOps.battle(self,owner,result,bool(context.get("objectiveOnly",false)))
+	RegionalOps.battle(self,owner,result,bool(context.get("objectiveOnly",false)),physical_battle)
 	EscortOps.settled(self,result,context,convoy_outcome)
 	if result == "won" and not context.get("objectiveOnly",false):
 		state.wins += 1
@@ -1712,6 +1713,8 @@ func restore(saved: Dictionary) -> Dictionary:
 	if not (revision is int or revision is float) or not is_finite(float(revision)) or floorf(float(revision))!=float(revision) or int(revision) not in [1,2]:return fail("Save refused: invalid or unsupported coast revision.")
 	var accounts: String=ShippingFlow068.sector_error069(saved)
 	if not accounts.is_empty():return fail("Save refused: "+accounts)
+	var territory: String=RegionalOps.validate(saved,data)
+	if not territory.is_empty():return fail("Save refused: "+territory)
 	var jobs070: String=SaveValidation.job_error070(saved,data)
 	if not jobs070.is_empty():return fail("Save refused: "+jobs070)
 	if saved.has("sector069"):saved.sector069=sector.sector
@@ -1792,6 +1795,8 @@ func _finish_restore069() -> Dictionary:
 	FleetIdentity.ensure(state)
 	StoryOps.ensure(self)
 	HomeOps.ensure(self)
+	var territory: String=RegionalOps.validate(state,data)
+	if not territory.is_empty():return fail("Save refused: "+territory)
 	RegionalOps.ensure(self)
 	TrainingOps.ensure(self)
 	ReserveOps.ensure(self)

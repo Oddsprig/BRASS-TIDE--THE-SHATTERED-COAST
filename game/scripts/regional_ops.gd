@@ -5,6 +5,7 @@ const Rules=preload("res://scripts/regional_rules.gd")
 const Politics=preload("res://scripts/politics.gd")
 const Orders=preload("res://scripts/naval_orders.gd")
 const Lifecycle=preload("res://scripts/naval_lifecycle.gd")
+const Territory=preload("res://scripts/territorial076.gd")
 
 static func ensure(c) -> void:
 	Regional.ensure(c.state)
@@ -20,6 +21,7 @@ static func ensure(c) -> void:
 			if d<best:nearest=p.id;best=d
 		c.state.campaignFocus={"fromPort":first,"toPort":nearest,"portId":first,"peaceA":"compact","peaceB":"raiders"}
 	if not c.state.has("regionalOrigin"):c.state.regionalOrigin=""
+	Territory.ensure(c)
 
 static func start(c,id: String) -> Dictionary:
 	ensure(c)
@@ -115,7 +117,9 @@ static func delivered(c,to: String,qty: float,from: String="",player: bool=true)
 		var key: String=Rules.route_key([from,to])
 		c.state.regionalFacts.passages[key]=int(c.state.regionalFacts.passages.get(key,0))+1
 
-static func battle(c,owner: Dictionary,result: String,objective_only: bool) -> void:
+static func battle(c,owner: Dictionary,result: String,objective_only: bool,physical: Dictionary={}) -> void:
+	# The physical battle is the actual contest. An empty report cannot count as a win.
+	Territory.after_battle(c,owner,result,objective_only,physical)
 	if result!="won" or owner.is_empty():return
 	ensure(c)
 	if owner.get("kind","")=="raider" and not objective_only:c.state.campaignFacts.bountyWins=int(c.state.campaignFacts.get("bountyWins",0))+1
@@ -133,3 +137,30 @@ static func daily(c) -> void:
 	for e in Regional.tick(c,1):
 		c.log_entry("Regional "+str(e.kind)+": "+str(e.get("completionId",e.get("target","")))+". "+str(e.cause))
 		if e.get("kind","")=="complete" and e.get("goal","")=="corridor":refresh(c)
+	Territory.daily(c)
+
+static func paid_day(c,paid: int,due: int) -> void:
+	Territory.paid_day(c,paid,due)
+
+# A's check accepts an ordinary save with no book, and refuses an unexplained sovereign change.
+static func validate(saved: Dictionary,world: Dictionary) -> String:
+	if not saved is Dictionary:return "Invalid territorial save."
+	return Territory.validate(saved,world)
+
+static func territory_view(c,port_id: String) -> Dictionary:
+	return Territory.view(c,port_id)
+
+static func territory_quote(c,port_id: String) -> Dictionary:
+	return Territory.quote_improve(c,port_id)
+
+static func territory_improve(c,port_id: String) -> Dictionary:
+	return Territory.improve(c,port_id)
+
+static func territory_start(c,port_id: String,new_faction: String) -> Dictionary:
+	return Territory.start(c,port_id,new_faction)
+
+static func territory_withdraw(c) -> Dictionary:
+	return Territory.withdraw(c)
+
+static func territory_negotiate(c) -> Dictionary:
+	return Territory.negotiate(c)
