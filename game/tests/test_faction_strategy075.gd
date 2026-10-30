@@ -47,8 +47,8 @@ func progress(stage: String) -> void:
 		" step_costs075=" + JSON.stringify(c.get("step_costs075")) if step_tracing and c != null else "")
 
 func normalized(value) -> String:
-	# Saved JSON numbers are decoded consistently before comparing geometry.
-	return JSON.stringify(JSON.parse_string(JSON.stringify(value, "", true, true)), "", true, true)
+	# Match Main.save_game's default JSON precision before comparing geometry.
+	return JSON.stringify(JSON.parse_string(JSON.stringify(value, "", true)), "", true)
 
 func enable_step_trace() -> void:
 	# Optional source instrumentation supplied by A; no dependency before integration.
@@ -531,7 +531,7 @@ func restore_preparation(definitions: Dictionary) -> bool:
 	supply = int(trace.coinSupply)
 	people = float(trace.people)
 	crew_losses = float(trace.crew_losses)
-	geography = str(trace.geography_normalized)
+	geography = normalized(JSON.parse_string(trace.geography_normalized))
 	if not check(saved.get("seed") == SEED and float(saved.day) == float(trace.day) \
 		and int(saved.coinSupply) == supply and Money.total(saved) == supply and Money.total(trace.opening) == supply \
 		and crew_total(trace.opening) == people and absf(people - crew_total(saved) - crew_losses) < 0.000001 \
