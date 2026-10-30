@@ -420,6 +420,9 @@ func open_ocean064(region_id: String="",approach_id: String=""):
 	if host.mode!="campaign":return
 	var view064: Dictionary=host.core.world_view064()
 	var current_region: String=str(view064.get("regionId",""))
+	if region_id.is_empty() and str(view064.get("layer",""))=="local" and current_region not in ["shatter_coast","glasswind_keys"]:
+		open_voyage_preparation065(current_region,approach_id)
+		return
 	if str(view064.get("layer","")) in ["home","local"] and region_id==current_region and approach_id in ["north","south"]:
 		# Authored coasts keep the paired voyage. A generated gate does not retarget to Shatter Coast.
 		if region_id=="shatter_coast":
