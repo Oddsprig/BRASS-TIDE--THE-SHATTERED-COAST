@@ -55,6 +55,8 @@ func expected_restore_ports(snapshot: Dictionary) -> Array:
 	var forecasts: Dictionary={"ports":snapshot.ports.duplicate(true),"fleetOwners":snapshot.fleetOwners}
 	c.ReserveOps.refresh({"state":forecasts})
 	for index in range(expected.size()):
+		# Pre-fix synthetic Westglass saves lack this book; keep all existing books exact.
+		if expected[index].id=="westglass_anchorage" and not expected[index].has("training"):c.TrainingOps.Training.ensure(expected[index])
 		for key in ["observedDemand","incoming","contractedLots","availableRecipes"]:
 			expected[index].reserves[key]=forecasts.ports[index].reserves[key]
 	return expected
@@ -278,6 +280,7 @@ func generated() -> bool:
 	var home: Dictionary=c.port("brass_haven")
 	if not check(c.chart_course({"x":home.x,"y":home.y},str(home.id)).get("ok",false),"Actual home harbor return course") or not finish_course():return false
 	check(c.current_port().get("id")=="brass_haven" and c.state.fleet[0].uid==owned and int(c.state.wageArrears)==0,"Same original boat returns on actual starting funds with wages paid")
+	check(same_values(c.port("westglass_anchorage").get("training"),{"schema":1,"nextId":0,"qualified":{"sailor":0,"gunner":0,"mechanic":0,"boarder":0},"jobs":[]}),"Funded Westglass branch has an empty training book with no qualified crew or escrow before save")
 	var saved: Dictionary=parsed_save()
 	if saved.is_empty():return false
 	var expected: Dictionary=expected_restore_values(saved,supply)

@@ -327,6 +327,7 @@ static func install(c) -> Dictionary:
 	definition.merge({"description":"A pre-existing Kelp Reach timber branch; its founding accounts and eight residents were split once from Kelp Reach.","population":8,"workforce":8,"workers":0,"employedWorkers":0,"publicWorkers":0,"availableWorkers":8,"specialists":0,"specialistWorkers":0,"availableSpecialists":0,"recruits":0,"recruitRemainder":0.0,"cash":0,"householdPurse":0,"expertPurse":0,"governmentPurse":0,"stocks":{},"publicStores":{},"shipStock":{},"shipIds":[],"buildQueue":[]},true)
 	for good in Economy.GOODS:definition.stocks[good]=0.0;definition.publicStores[good]=0.0
 	var remote: Dictionary=Economy.create_port(definition)
+	c.TrainingOps.Training.ensure(remote)
 	var invoice: Dictionary={"donorId":ORIGIN,"workers":8,"wage":Economy.ORDINARY_WAGE,"operating":20*8*Economy.ORDINARY_WAGE,"household":5*8*Economy.ORDINARY_WAGE,"government":10*8*Economy.ORDINARY_WAGE,"labor":32*Economy.ORDINARY_WAGE,"purchases":[],"consumed":QUAY.duplicate(),"total":35*8*Economy.ORDINARY_WAGE+32*Economy.ORDINARY_WAGE}
 	var purchase_cost: int=0
 	for good in PURCHASES:
