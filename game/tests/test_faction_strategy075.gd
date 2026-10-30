@@ -596,7 +596,7 @@ func _run() -> void:
 		if (_slice + 1) % 20 == 0:
 			progress("slice %d day=%.5f phase=%s holding=%s" % [_slice + 1, float(c.state.day), str(route().get("phase", "unadmitted")), str(c.state.get("shipping068", {}).get("holding", ""))])
 		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
-	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days})
+	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days, "raider_admission":Ocean.admission_reason075(c)})
 	if mode == "prepare":
 		if failures == 0 and bounded(): prepared_prefix = save_preparation()
 		finish(); return
