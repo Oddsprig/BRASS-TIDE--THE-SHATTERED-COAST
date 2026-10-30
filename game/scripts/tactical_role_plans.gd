@@ -333,8 +333,11 @@ static func protection_threat(enemy: Dictionary, ally: Dictionary, now: float, l
 	# Read the observed fit/motion, never the opponent's order or chosen role.
 	var flank_reach: float = 0.0
 	var light: bool = radius(enemy) <= 24.0 and number(dictionary(enemy.get("spec")).get("speed")) >= 95.0
-	for mount: Dictionary in working_mounts(enemy):
-		if light or fixed_tube(mount):
+	# Hostile observations omit ammo; an unknown hold is not known to be dry.
+	var observed_mounts: Array = working_mounts(enemy) if enemy.has("ammo") else mounts(enemy)
+	var weapons_active: bool = number(dictionary(enemy.get("status")).get("weaponFactor"), 1.0) > 0.01
+	for mount: Dictionary in observed_mounts:
+		if weapons_active and number(mount.get("damage"), 1.0) > 0.0 and (light or fixed_tube(mount)):
 			flank_reach = maxf(flank_reach, number(mount.get("range")))
 	var distance: float = delta.length()
 	var radial_speed: float = delta.dot(relative) / maxf(1.0, distance)
