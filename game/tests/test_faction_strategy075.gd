@@ -648,12 +648,34 @@ func controlled_opening() -> bool:
 		and [merchant, raider].all(func(o): return o.active and not Orders.is_story_owner(o) and o.boats.all(func(b): return not b.sunk and float(b.wounded) == 0.0)), "Declared risk pair uses existing paid commercial cargo and healthy hostile original hulls"): return false
 	var corridor: Dictionary = history.corridor.duplicate(true)
 	corridor.ownerId = str(merchant.id); corridor.homeId = str(merchant.homePort)
-	var gate: Dictionary = {"regionId":"shatter_coast", "approachId":"north"}
+	var risk = Campaign.new(c.data, c.nav, false)
+	risk.ocean_anchors064 = c.ocean_anchors064
+	var restored: Dictionary = risk.restore(saved)
+	if not check(restored.get("ok", false), "Return quotes use the actual fresh opening restored on shared Navigation: " + str(restored.get("message", ""))): return false
+	var trial: Dictionary = Orders.find_owner(risk.state, str(raider.id)).duplicate(true)
+	var reserves: Dictionary = Orders.fleet_reserves(trial)
+	var performance: Dictionary = Orders.fleet_performance(trial)
+	var speed: float = float(performance.speed) * 0.38 * float(risk.data.get("CAMPAIGN_SCALE", 1.0))
+	var gate: Dictionary = {}
+	var best_days: float = INF
+	var quotes: Array = []
+	for approach_id in ["north", "south"]:
+		var candidate: Dictionary = {"regionId":"shatter_coast", "approachId":approach_id}
+		var position: Dictionary = Ocean._ocean_gate(risk.ocean_context064, candidate)
+		position.x = float(position.x) + 8.0
+		var contact: Dictionary = {"ownerId":str(raider.id), "gate":candidate, "location":{"world064":{"layer":"ocean"}, "position":position}}
+		var days: float = Ocean._return_days(risk, contact, speed)
+		var reason: String = Orders.needs_home_recovery(trial, reserves, performance)
+		var viable: bool = reason.is_empty() and performance.seaworthy and is_finite(days) and ["foodDays", "wageDays", "fuelDays"].all(func(key): return float(reserves[key]) > days + 0.25)
+		quotes.append({"gate":candidate, "return_days":days, "margin_days":0.25, "viable":viable, "reason":reason if not reason.is_empty() else ("" if viable else "No finite return within unchanged food/wage/fuel reserves plus margin.")})
+		if viable and days < best_days: gate = candidate; best_days = days
+	note("risk_opening_return_quotes", {"ownerId":str(raider.id), "day":float(risk.state.day), "reserves":reserves, "speed":speed, "quotes":quotes, "basis":"Read-only _return_days on restored actual fresh opening; includes its conservative unadmitted-ocean allowance. No purchases or resources added."})
+	if not check(not gate.is_empty(), "An existing fresh-raider HOME gate fits actual food/wages/fuel plus 0.25 day; see actual return quotes"): return false
 	corridor.homeGate = gate.duplicate(true)
 	var point: Dictionary = Ocean._ocean_gate(c.ocean_context064, gate)
 	var locations: Array = []
-	for offset in [20.0, 8.0]:
-		var location: Dictionary = {"world064":{"schema":1, "layer":"ocean", "regionId":"open_ocean"}, "position":{"x":float(point.x) + offset, "y":float(point.y)}, "heading":PI, "path":[point.duplicate(true)], "destination":"approach:shatter_coast:north"}
+	for offset in [68.0, 8.0]:
+		var location: Dictionary = {"world064":{"schema":1, "layer":"ocean", "regionId":"open_ocean"}, "position":{"x":float(point.x) + offset, "y":float(point.y)}, "heading":PI, "path":[point.duplicate(true)], "destination":"approach:shatter_coast:" + str(gate.approachId)}
 		var valid: Dictionary = Ocean.World.prepare(location, c.ocean_context064, Ocean.clearance(merchant if locations.is_empty() else raider))
 		if not check(valid.get("ok", false), "Declared initial NPC pose/path passes ordinary safe-water validation: " + str(valid.get("message", ""))): return false
 		locations.append(valid.location)
@@ -677,11 +699,10 @@ func controlled_opening() -> bool:
 	if not check(accounts == normalized(finite_accounts(saved)) and normalized(saved.ocean066.memory) == normalized(Travel.empty_memory()) \
 		and c.distance(locations[0].position, locations[1].position) * Travel.SCALE > 75.0 \
 		and c.distance(locations[0].position, locations[1].position) * Travel.SCALE < 900.0, "Opening enrollment preserves every original purse/stock/crew/UID/store/condition and seeds no intel/intent/contact outcome; gap is outside interception but inside detection"): return false
-	var risk = Campaign.new(c.data, c.nav, false)
-	risk.ocean_anchors064 = c.ocean_anchors064
-	var restored: Dictionary = risk.restore(saved)
+	restored = risk.restore(saved)
 	if not check(restored.get("ok", false), "Separate controlled opening passes ordinary Campaign.restore on shared immutable Navigation: " + str(restored.get("message", ""))): return false
 	c = risk
+	if not check(Ocean._return_days(c, c.state.ocean066.contact, speed) + 0.25 < minf(float(reserves.foodDays), minf(float(reserves.wageDays), float(reserves.fuelDays))), "Selected gate also fits the actual enrolled-corridor return forecast and margin"): return false
 	if not check(accounts == normalized(finite_accounts(c.state)), "Ordinary controlled-opening restore preserves the unchanged original financial and physical accounts"): return false
 	for key in history: history[key] = {}
 	history.corridor = corridor
