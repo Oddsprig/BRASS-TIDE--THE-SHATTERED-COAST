@@ -20,8 +20,9 @@ this model. Current068 retains two authored regions; the wider generated sector 
 Keep068 shipping bounded;069 must include seeded geography and starting asset
 ownership. Dynamic expansion/capture need explicit later bounded milestones.
 
-Latest owner team authorization (28 October 2026): 2 Sol 6.1 MAX, 1 Google Argon
-HIGH, 1 Grok 4.7 HIGH, and 2 Muse Spark HIGH for small bounded low-cost tasks.
+Latest owner team authorization (29 October 2026): 2 Sol 6.1 MAX, 2 Grok 4.7
+HIGH, 2 Gemini 3.8 Flash and 2 Muse Spark HIGH. Flash tasks must be small,
+explicitly bounded and reviewed by Root/the specialists before integration.
 Majority source implementation through Bridge. Phase tasks within Bridge limits;
 Root coordinates/reviews/integrates and alone owns all engine/GPU jobs.
 No native/nested helpers, new chats,
@@ -33,8 +34,8 @@ Next ten scopes 069-078 are authoritative in docs/roadmap/QUALITY VERSION MAP
 v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are
 preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy 075,
 funded territorial change 076, exploration chains 077 and quality review 078.
-Current request is PLANNING ONLY: no new executable, engine tests, release tag,
-launcher change or claim of parity. Start 069 implementation only when requested.
+Owner authorized implementation on 29 October: start 069 on accepted 068,
+deliver one bounded version before advancing. Do not claim parity from tags.
 063 through 068 remain scoped verified; 069-078 are planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.

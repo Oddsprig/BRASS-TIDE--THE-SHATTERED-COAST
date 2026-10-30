@@ -1,3 +1,17 @@
+# Brass Tide v0.069 active - Bridge implementation
+
+Installed v0.068 stays preserved. Current work: seeded ocean sector only.
+Read work/quality-v069/CURRENT STATE.txt and LOCKED069 CONTRACT.txt.
+Two Sol and Grok chart production tasks run in isolated source workspaces;
+Grok independently reviews, two bounded Spark outputs are reviewed. Both
+requested Gemini Flash tasks are pending Google plan99%; no fallback.
+Root alone reviews/integrates/tests/packages. No tests started for069.
+Fresh campaigns get48groups; existing voyages retain their exact2region world.
+Do not implement070-078 before accepted069 delivery.
+
+---
+Preserved prior delivery record:
+
 # Brass Tide v0.068 delivered
 
 BRASS TIDE v0.068 - Working interregional shipping
