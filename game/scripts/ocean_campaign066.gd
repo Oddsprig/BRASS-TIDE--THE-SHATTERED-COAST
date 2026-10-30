@@ -474,12 +474,15 @@ static func _admit(c) -> void:
 	for id in ["north","south"]:
 		var gate: Dictionary={"regionId":"shatter_coast","approachId":id}
 		var location: Dictionary={"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"},"position":{"x":float(patrol.x),"y":float(patrol.y)},"heading":0.0,"path":[],"destination":""}
-		# HOME accepts a port ID or empty; approach labels belong to OCEAN/LOCAL.
-		var route: Dictionary=World.plot(c.ocean_context064,location,_gate(c,gate,false),"",clearance(owner))
-		if not route.get("ok",false):continue
+		# Validate HOME context/water; its immutable nav is shared with Campaign.
+		var prepared: Dictionary=World.prepare(location,c.ocean_context064,clearance(owner))
+		if not prepared.get("ok",false):continue
+		var path: Array=c.cached_path(location.position,_gate(c,gate,false),clearance(owner))
+		if path.size()<2:continue
+		path.pop_front()
 		var length: float=0.0
 		var previous: Dictionary=location.position
-		for point in route.location.path:length+=c.distance(previous,point);previous=point
+		for point in path:length+=c.distance(previous,point);previous=point
 		var ocean_seconds: float=1600.0/0.25/speed
 		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
 		if not points.is_empty():
