@@ -86,6 +86,11 @@ func physical(snapshot: Dictionary) -> Dictionary:
 	player.fleet=snapshot.fleet.map(func(b):return physical_boat(b))
 	var out: Dictionary={"ports":ports,"owners":owners,"player":player,"coinSupply":snapshot.coinSupply,"totalCoins":c.Money.total(snapshot)}
 	for key in ["voyageJobs","doneVoyageJobs","contacts","marketSnapshots","exploration","specialists","specialistSeq","shipping068","sector069","sectorApplied069","sectorKnowledge069","islandOwnership069"]:out[key]=snapshot.get(key)
+	# Missing legacy lifecycle flags mean false; retain every paid specialist value.
+	out.specialists=snapshot.get("specialists",[]).duplicate(true)
+	for specialist in out.specialists:
+		specialist.discharged=bool(specialist.get("discharged",false))
+		specialist.lost=bool(specialist.get("lost",false))
 	return out.duplicate(true)
 
 func parsed_save(label: String) -> Dictionary:
