@@ -117,7 +117,7 @@ func restore_diff070(expected,actual,path: String,rows: Array,has_expected: bool
 	if rows.size()>=8:return
 	if has_expected and has_actual and same_values(expected,actual):return
 	if not has_expected or not has_actual or typeof(expected)!=typeof(actual):
-		rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true) if has_expected else "<missing>","actual":JSON.stringify(actual,"",true,true) if has_actual else "<missing>"});return
+		rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true).left(320) if has_expected else "<missing>","actual":JSON.stringify(actual,"",true,true).left(320) if has_actual else "<missing>"});return
 	if expected is Dictionary:
 		for key in expected:
 			restore_diff070(expected[key],actual.get(key),path+"."+str(key),rows,true,actual.has(key))
@@ -126,7 +126,7 @@ func restore_diff070(expected,actual,path: String,rows: Array,has_expected: bool
 	elif expected is Array:
 		for index in range(maxi(expected.size(),actual.size())):
 			restore_diff070(expected[index] if index<expected.size() else null,actual[index] if index<actual.size() else null,path+"["+str(index)+"]",rows,index<expected.size(),index<actual.size())
-	else:rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true),"actual":JSON.stringify(actual,"",true,true)})
+	else:rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true).left(320),"actual":JSON.stringify(actual,"",true,true).left(320)})
 
 func checkpoint070(path: String,bound: String) -> void:
 	receipt.status="CHECKPOINT_DIAGNOSTIC";receipt.diagnosticOnly=true;receipt.earnedVoyage=false
