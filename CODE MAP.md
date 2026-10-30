@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.073: Original fleet hull, weapon and campaign boat detail. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: models.py, recipes.py, weapon_models.py, build_campaign_boats.py, test_assets073.gd.
+v0.074: Tactical AI with counterplay. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: tactical_role_plans.gd, tactical_stations.gd, test_counterplay074.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

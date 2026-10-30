@@ -1,3 +1,7 @@
+30OCT2026 - v0.074 TACTICAL AI WITH COUNTERPLAY
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 30OCT2026 - v0.073 ORIGINAL FLEET HULL, WEAPON AND CAMPAIGN BOAT DETAIL
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

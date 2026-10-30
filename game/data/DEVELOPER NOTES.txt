@@ -1,10 +1,10 @@
-BRASS TIDE v0.073 - ORIGINAL FLEET HULL, WEAPON AND CAMPAIGN BOAT DETAIL
+BRASS TIDE v0.074 - TACTICAL AI WITH COUNTERPLAY
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Rebuild all36 existing hull sprites with stronger materials, rear engineering, framed glass and role-specific working deck equipment.
-- Replace the seven interchangeable weapon models with clearer machine-gun, cannon, rocket and torpedo mechanisms within existing mount geometry.
-- Match campaign boat colors, wheelhouses and machinery to the fleet, using existing baked sprites and inexpensive chart assets.
+- Coordinate separated, finite harassment approaches using existing observed targets and friendly reservations.
+- Let escorts interpose against flank pressure within their leash, while heavy boats prefer stations that support their working arcs.
+- Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

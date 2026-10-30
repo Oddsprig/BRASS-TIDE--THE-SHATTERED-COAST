@@ -6,6 +6,14 @@ Receipts work/quality-v073/ACTUAL073 CHECKS.json and DELIVERED v0.073.json.
 Do not rebuild073. Next074: tactical AI with counterplay.
 Whole-game quality/strict performance and071 listening remain OPEN. Root owns tests/delivery.
 
+ACTIVE SOURCE074: bounded target-policy and approach-station counterplay in
+tactical_role_plans.gd and tactical_stations.gd. Isolated Bridge roles/allowlists
+and project IDs: work/quality-v074/TEAM074 PROJECTS.json and ROLE074.txt.
+Two Sol6.1MAX/two Grok4.7HIGH own implementation/behavior fixture/review; two
+SparkHIGH bounded text checks reviewed. GeminiFlash remains at its weekly limit.
+No roster/render/economy/cadence changes. Root alone queues native/Windows/private
+moving witness. Deliver074 before starting075. Installed073 remains current.
+
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
 star-system role; individual islands fill the planet role. Harbors/outposts are

@@ -1,7 +1,11 @@
-# Current verified release: v0.073 original fleet assets
+# Current step: v0.074 - Tactical AI with counterplay
 
-13892 focused/0; all36 hulls/charts, seven weapon variants/ten layers, one reviewed motion/refit capture.
-Next074: tactical AI with counterplay. Earlier quality limits remain open.
+- Coordinate separated, finite harassment approaches using existing observed targets and friendly reservations.
+- Let escorts interpose against flank pressure within their leash, while heavy boats prefer stations that support their working arcs.
+- Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
+
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
