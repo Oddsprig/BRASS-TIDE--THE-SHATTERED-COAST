@@ -1,4 +1,16 @@
-# Brass Tide v0.069 delivered
+# Brass Tide v0.070 active source work; v0.069 delivered
+
+Next scope: rewarding voyages and useful existing fleet roles across generated
+harbors, using the existing job/escrow/manifest and finite client accounts.
+Active task: work/quality-v070/SCOPE070.txt, API070.txt, TEAM070.json and
+CURRENT STATE.txt. Four isolated source roles (2SolMAX/2GrokHIGH) are working.
+Two small SparkHIGH drafts reviewed/corrected; Gemini pair pending quota.
+Root alone owns all queued engine/GPU tests, export, screen review and delivery.
+No070metadata prepared or070engine run yet. Keep each batch<120s and final
+selected suite<180s, including setup and cleanup. No speculative broad audit.
+Desktop069 is verified and the single plain Brass Tide icon targets it.
+Owner2saves/20music files and068 retained; no auto-launch or remote push.
+Deliver070 before071. Accepted069 record follows; do not rebuild it.
 
 BRASS TIDE v0.069 - A generated ocean sector
 DELIVERED SCOPED WINDOWS BUILD

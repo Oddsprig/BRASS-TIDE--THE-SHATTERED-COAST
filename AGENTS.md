@@ -7,6 +7,12 @@ Do not rebuild069. Next saved scope070: rewarding voyages and useful fleet roles
 Whole-game quality and earlier strict performance targets remain OPEN.
 Root alone owns queued native/GPU tests and delivery.
 
+ACTIVE SOURCE SCOPE v0.070: voyages that pay and useful fleet support roles.
+work/quality-v070/SCOPE070.txt and API070.txt own the bounded integration contract.
+2SolMAX/2GrokHIGH source roles;2SparkHIGH drafts reviewed by Root. Gemini pair
+remains pending provider quota. Desktop069 stays installed until070 passes and
+is packaged. Do not rerun069 or advance071 before this delivery.
+
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
 star-system role; individual islands fill the planet role. Harbors/outposts are
