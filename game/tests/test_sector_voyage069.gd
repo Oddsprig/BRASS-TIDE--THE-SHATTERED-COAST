@@ -54,6 +54,7 @@ func difference_value(value,present: bool=true) -> Dictionary:
 func restore_differences(saved,actual,path: String,rows: Array,saved_present: bool=true,actual_present: bool=true) -> void:
 	# Keep one extra row to disclose truncation; no coercion or approximate equality.
 	if rows.size()>=5:return
+	if saved_present and actual_present and (saved is int or saved is float) and (actual is int or actual is float) and saved==actual:return
 	if not saved_present or not actual_present or typeof(saved)!=typeof(actual):
 		rows.append({"path":path,"saved":difference_value(saved,saved_present),"restored":difference_value(actual,actual_present)});return
 	if saved is Dictionary:
