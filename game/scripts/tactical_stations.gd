@@ -615,10 +615,13 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 		var reserved_course: float = Roles.velocity(reserved_enemy).angle() if Roles.velocity(reserved_enemy).length() > 2.0 else Roles.number(reserved_enemy.get("angle"))
 		var reserved_bearing: float = reserved_course + float(reserved_sector) * TAU / 8.0
 		var reserved_anchor: Variant = occupied.get("anchor")
-		var held_point: Vector2 = reserved_pos + Vector2.from_angle(reserved_bearing) * 100.0
+		# Same-batch reservations can omit the anchor. Use the friendly's real
+		# observed position rather than treating a heavy/screen sector as a ray.
+		var held_point: Vector2 = Roles.pos(reserved_owner)
 		if reserved_anchor is Vector2 and reserved_anchor.distance_squared_to(reserved_pos) > 1.0:
 			held_point = reserved_anchor
-			reserved_bearing = (reserved_anchor - reserved_pos).angle()
+		if held_point.distance_squared_to(reserved_pos) > 1.0:
+			reserved_bearing = (held_point - reserved_pos).angle()
 		if not reservation_notes.has(reserved_target_id):
 			reservation_notes[reserved_target_id] = []
 		reservation_notes[reserved_target_id].append({"sector": reserved_sector, "bearing": reserved_bearing, "held": held_point})
@@ -725,7 +728,7 @@ static func candidates(view: Dictionary, ship: Dictionary, decision: Dictionary,
 					var predicted: Vector2 = Roles.pos(other) + Roles.velocity(other) * 0.75
 					var off_arc: float = angle_difference(Roles.number(ship.get("angle")) + Roles.number(work.get("angle")), (predicted - position).angle())
 					if absf(off_arc) > half_arc:
-						yaw = clampf(absf(off_arc) - half_arc, 0.0, 0.65) * signf(off_arc)
+						yaw = -clampf(absf(off_arc) - half_arc, 0.0, 0.65) * signf(off_arc)
 				anchor = Roles.pos(other) + radial_from_target.normalized().rotated(yaw) * hold_range
 			if anchor.distance_to(Roles.pos(other)) < clearance:
 				var push: Vector2 = anchor - Roles.pos(other)
