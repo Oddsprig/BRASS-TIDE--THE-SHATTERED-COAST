@@ -48,7 +48,7 @@ static func plan(s: Dictionary,owner: Dictionary,current: String,context: Dictio
 	var objective: String="Patrol the actual corridor endpoints."
 	if not hostile.is_empty():
 		purpose="intercept";target=hostile
-		var sighting: Dictionary=_patrol(s,str(hostile.id))
+		var sighting: Dictionary=hostile.get("_chartPoint",_patrol(s,str(hostile.id)))
 		intercept_point={"x":float(sighting.x),"y":float(sighting.y)}
 		objective="Intercept nearby hostile %s%s."%[str(hostile.get("name",hostile.id))," threatening "+str(convoy.get("name",convoy.id)) if not convoy.is_empty() else " on the corridor"]
 	elif not convoy.is_empty():
@@ -207,6 +207,7 @@ static func _load(owner: Dictionary) -> float:
 
 static func _convoy(s: Dictionary,owner: Dictionary,op: Dictionary) -> Dictionary:
 	var best: Dictionary={}
+	var best_load: float=-1.0
 	var distance: float=LOCAL_RANGE
 	var own: Dictionary=_patrol(s,str(owner.id))
 	for other in s.get("fleetOwners",[]):
@@ -215,8 +216,11 @@ static func _convoy(s: Dictionary,owner: Dictionary,op: Dictionary) -> Dictionar
 		var actor: Dictionary=_patrol(s,str(other.id))
 		if bool(actor.get("holding",false)) or not _near(s,op,actor):continue
 		if not str(actor.get("from","")) in op.ends or not str(actor.to) in op.ends or actor.get("from","")==actor.to:continue
+		var load: float=_load(other)
 		var d: float=_position(own).distance_to(_position(actor))
-		if d<distance:best=other;distance=d
+		if d>=LOCAL_RANGE:continue
+		if load>best_load+0.000001 or (absf(load-best_load)<=0.000001 and d<distance):
+			best=other;best_load=load;distance=d
 	return best
 
 static func _hostile(s: Dictionary,owner: Dictionary,op: Dictionary,convoy: Dictionary) -> Dictionary:
@@ -224,13 +228,46 @@ static func _hostile(s: Dictionary,owner: Dictionary,op: Dictionary,convoy: Dict
 	var distance: float=LOCAL_RANGE
 	var own: Dictionary=_patrol(s,str(owner.id))
 	for other in s.get("fleetOwners",[]):
-		if not _live(s,other) or not _enemy(s,owner,other):continue
-		var actor: Dictionary=_patrol(s,str(other.id))
-		if not _near(s,op,actor):continue
-		var d: float=_position(own).distance_to(_position(actor))
+		if _protected(other) or not _enemy(s,owner,other):continue
+		var point: Dictionary=_chart_point(s,other,str(owner.get("id","")))
+		if point.is_empty() or not _near(s,op,point):continue
+		var d: float=_position(own).distance_to(_position(point))
 		if d>=distance:continue
 		if not convoy.is_empty():
-			var threatens: bool=str(other.get("order",{}).get("targetOwnerId",""))==str(convoy.id) or _position(actor).distance_to(_position(_patrol(s,str(convoy.id))))<=LOCAL_RANGE
+			var threatens: bool=str(other.get("order",{}).get("targetOwnerId",""))==str(convoy.id) or _position(point).distance_to(_position(_patrol(s,str(convoy.id))))<=LOCAL_RANGE
 			if not threatens:continue
-		best=other;distance=d
+		var chosen: Dictionary=other.duplicate(false)
+		chosen["_chartPoint"]=point
+		best=chosen;distance=d
 	return best
+
+static func _afloat(owner: Dictionary) -> bool:
+	if _protected(owner) or not bool(owner.get("active",false)):return false
+	for boat in owner.get("boats",[]):
+		if not bool(boat.get("sunk",false)):return true
+	return false
+
+static func _chart_point(s: Dictionary,owner: Dictionary,observer_id: String) -> Dictionary:
+	# Live marker first. Otherwise only a home-chart enrollment or this patrol's
+	# own unexpired sighting. No scan of an unseen hold or another chart.
+	if _live(s,owner):
+		var actor: Dictionary=_patrol(s,str(owner.get("id","")))
+		if actor.has("x") and actor.has("y"):return {"x":float(actor.x),"y":float(actor.y)}
+	if not _afloat(owner):return {}
+	var id: String=str(owner.get("id",""))
+	var shipping_route: Dictionary=s.get("shipping068",{}).get("model",{})
+	if not shipping_route is Dictionary:shipping_route={}
+	for book in [s.get("ocean066",{}).get("contact",{}), shipping_route.get("route",{})]:
+		if not book is Dictionary or str(book.get("ownerId",""))!=id or str(book.get("phase",""))=="lost":continue
+		var loc: Dictionary=book.get("location",{})
+		if str(loc.get("world064",{}).get("layer",""))!="home":continue
+		var pos: Dictionary=loc.get("position",{})
+		if pos.has("x") and pos.has("y"):return {"x":float(pos.x),"y":float(pos.y)}
+	var now: float=float(s.get("day",s.get("econDay",1.0)))
+	var memory: Array=s.get("navalAi",{}).get("sightingsByObserver",{}).get(observer_id,[])
+	if not memory is Array:return {}
+	for record in memory:
+		if not record is Dictionary or str(record.get("ownerId",""))!=id or bool(record.get("expired",false)):continue
+		if not record.has("expiresDay") or float(record.get("expiresDay",0.0))<=now:continue
+		if record.has("x") and record.has("y"):return {"x":float(record.x),"y":float(record.y)}
+	return {}

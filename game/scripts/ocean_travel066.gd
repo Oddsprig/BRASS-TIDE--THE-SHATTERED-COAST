@@ -124,7 +124,9 @@ static func step(context: Dictionary, actors: Array, relations: Array, memory: D
 	if error.is_empty():error = _frame_error(context, actors, relations, frame)
 	if error.is_empty():error = _memory_error(context, memory, float(frame.startSecond))
 	if not error.is_empty():return _failure("step", error)
-	var work: Array = _copy(actors) # Only <=3 tiny actors; never copy the context/nav.
+	# Three actors is the budget for this step, not a world population cap.
+	# Callers schedule the watch; this does not simulate every fleet at 60Hz.
+	var work: Array = _copy(actors) # At most three actors this step; never copy the context/nav.
 	var intel: Dictionary = _copy(memory)
 	var now: float = float(frame.startSecond)
 	_expire(work, intel, now)
@@ -227,6 +229,7 @@ static func _context_error(context: Dictionary) -> String:
 	if ocean.width != (12800.0 if generated else 4800.0) or ocean.height != (8400.0 if generated else 2800.0) or ocean.localUnitsPerUnit != SCALE:return "The ocean model requires canonical legacy/sector bounds and ten-to-one physical scale."
 	if not _number(context.seed) or float(context.seed) != floorf(float(context.seed)):
 		return "Ocean weather needs an integer campaign seed."
+	# Per prepared context, not the campaign roster: one player and two owners.
 	if not context.ownerIds is Array or context.ownerIds.is_empty() or context.ownerIds.size() > 3:
 		return "Admit one player and at most two existing owners."
 	var ids: Dictionary = {}
@@ -498,6 +501,7 @@ static func _clip(trace: Dictionary, accepted: float) -> Dictionary:
 
 
 static func _encounter(actors: Array, relations: Array, traces: Array, now: float, dt: float) -> Dictionary:
+	# The player may watch. Two hostile owners on the same ocean chart still meet.
 	var result: Dictionary = {}
 	var earliest: float = dt + 1.0
 	for relation in relations:
@@ -505,14 +509,14 @@ static func _encounter(actors: Array, relations: Array, traces: Array, now: floa
 		var a: int = _actor_index(actors, str(relation.observerId))
 		var b: int = _actor_index(actors, str(relation.targetId))
 		if not actors[a].canIntercept or not same_world(actors[a].location.world064, actors[b].location.world064) or actors[a].location.world064.layer != "ocean":continue
-		if actors[a].ownerId != "player" and actors[b].ownerId != "player":continue
 		var hit: float = _sweep(traces[a].segments, traces[b].segments, float(actors[a].interceptRange) / SCALE)
 		if hit < 0.0 or hit > dt:continue
 		if hit > earliest + EPS or (absf(hit - earliest) <= EPS and not result.is_empty() and str(actors[a].ownerId) >= str(result.attackerId)):continue
 		earliest = hit
-		var player_trace: Dictionary = traces[a] if actors[a].ownerId == "player" else traces[b]
+		var watched: Dictionary = traces[a]
+		if actors[b].ownerId == "player":watched = traces[b]
 		result = {"attackerId": actors[a].ownerId, "defenderId": actors[b].ownerId, "world064": _copy(actors[a].location.world064),
-			"position": _clip(player_trace, hit).location.position, "atSecond": now + hit}
+			"position": _clip(watched, hit).location.position, "atSecond": now + hit}
 	return result
 
 
