@@ -171,6 +171,14 @@ func sail(port_id: String) -> bool:
 	return check(c.work_port070().get("id")==port_id and is_same(c.work_port070(),c.port(port_id)),"Stopped actual berth resolves the one live "+port_id+" account")
 
 func accept(offer: Dictionary) -> bool:
+	# Another compatible acceptance can change local material prices. Compare
+	# this transaction with its current offer, not the earlier board snapshot.
+	var shown: int=int(offer.get("reward",0))
+	var fresh: Dictionary={}
+	for candidate in c.VoyageJobs.available(c):
+		if str(candidate.id)==str(offer.id):fresh=candidate;break
+	if not check(not fresh.is_empty(),"Selected work still has a current funded offer"):return false
+	offer=fresh
 	var port: Dictionary=c.port(str(offer.port))
 	var purse: int=int(port[str(offer.payerKey)])
 	var coins: int=int(c.state.coins)
@@ -180,6 +188,7 @@ func accept(offer: Dictionary) -> bool:
 	if not check(result.get("ok",false),"Normal funded acceptance: "+str(result.get("message",""))):return false
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(offer.id))
 	var invoice: int=int(offer.get("materialInvoice",0)) if offer.payerKey=="governmentPurse" else 0
+	receipt.lastAcceptance={"kind":offer.kind,"earlierFee":shown,"currentFee":offer.reward,"heldEscrow":job.escrow,"payerBefore":purse,"payerAfter":port[str(offer.payerKey)],"invoice":invoice,"playerBefore":coins,"playerAfter":c.state.coins}
 	if not check(int(job.escrow)==int(offer.reward) and int(port[str(offer.payerKey)])==purse-int(offer.reward)-invoice and int(c.state.coins)==coins,"Actual client's existing purse funds escrow; captain receives no advance"):return false
 	if not freight.is_empty() and not check(float(port.stocks[str(freight.good)])==stock-float(freight.qty),"One sealed freight lot leaves the actual sponsor stock"):return false
 	receipt.accepted.append({"id":job.id,"kind":job.kind,"port":job.port,"targetPort":job.targetPort,"grossFee":job.reward,"escrow":job.escrow,"materialInvoice":invoice})
