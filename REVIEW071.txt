@@ -1,0 +1,46 @@
+BRASS TIDE v0.071 — presentation acceptance
+Base: delivered v0.070, ce6024ee39c26058122fbca0986bf060f1f03557.
+Fixture: game/tests/test_combat_presentation071.gd
+Seat: source review only. sol-wake, sol-effects and grok-audio own production.
+Root runs the fixture once, headless and muted, through Test Bridge. Body target under 10 seconds.
+No new framework. No economy, save, AI or performance work in this seat.
+
+Pass only when every item below holds. A still is not motion. A codec check is not a heard mix.
+
+1. Routing
+- A reported fire, hit, miss, engine failure or sinking keeps that kind. A miss or a muzzle report is not turned into a hit. An unknown kind adds no sound layer.
+- MG, cannon, rocket and torpedo fires use distinct recorded banks: gun, cannon, rocket, splash. Hits, misses, engine trouble and sinking use only gun, cannon, rocket, splash, wood or metal. Engine trouble uses metal. Sinking uses splash plus a second layer.
+- CombatArt.effect draws a fresh reported effect and draws nothing for an empty or expired one.
+
+2. Budget
+- Step, event-ring, effect and wreck caps drop overflow. They do not grow without a bound.
+- One Sound.consume admits at most EVENT_VOICE_LIMIT layers, accents included. Accents do not get a second cap. The voice pool stays VOICE_LIMIT. Events past audible radius are dropped. With audio disabled, sequence still advances and nothing is scheduled.
+- A wake draw stays within MAX_PRIMITIVES.
+
+3. Sequence
+- id, seq and sequence advance together. pop_events drains the queue once.
+- Sound ignores a seq at or below the last admitted seq, including a lower seq that arrives later in the same batch.
+- Voices may play in priority order. Accent layers are scheduled after that event's primary and share the same admission cap.
+
+4. Mounts
+- emit_fire keeps the muzzle it was given, plus that mount's id and index. The mount dictionary is not rewritten. The per-mount shot time is the battle time.
+- The drawn muzzle or impact sits on that reported point, nearer to it than to a distant decoy.
+
+5. Speed and stop
+- A stern path that actually travelled paints a bounded wash. A stopped stern and samples older than wake life paint nothing. Drawing does not change the samples.
+- The wake producer appends only when the hull center travels. Zero speed, turning in place and a sunk hull do not append and do not refresh an existing sample time. Old samples expire where they were left.
+
+6. Worker-safe
+- Pose preparation interpolates x, y, angle and turretAngle on a copy. The published ship, including nested mounts, stays byte-identical. Editing the copy's scalars does not write the live ship.
+- v0.070 uses Dictionary.duplicate() without deep copy. Nested mounts, spec and condition objects are still the published instances. Draw and audio must not write those objects.
+- Effect drawing, wake drawing and sound admission do not mutate the dictionaries they read.
+
+7. Outside this fixture
+- No polygon golden masters, roster crawl, battle loop, economy, save or performance pass.
+- This script does not prove on-screen motion or a heard mix. Root reviews rendered motion and offline sound separately.
+- No new production symbols. Callers stay on the existing CombatEvents, CombatArt.effect, Sound.event_layers / consume / attenuation_db, wake draw, Chart wake update and Chart pose preparation. Publish a one-line delta before changing those names, caps or the six bank ids.
+
+Limits of this seat
+- The fixture was not executed here.
+- Presentation fixtures from v0.045 onward are committed without a .uid. None is added.
+- The cross-family review waits until Root supplies the touched production diffs.
