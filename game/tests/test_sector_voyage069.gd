@@ -63,19 +63,16 @@ func difference_value(value,present: bool=true) -> Dictionary:
 	return {"type":type_string(typeof(value)) if present else "MISSING","value":JSON.stringify(value,"",true,true) if present else "<missing>"}
 
 func restore_differences(saved,actual,path: String,rows: Array,saved_present: bool=true,actual_present: bool=true) -> void:
-	# Keep one extra row to disclose truncation; no coercion or approximate equality.
+	# Match the assertion: equal numeric values and equivalent string keys are equal.
+	# Keep one extra row to disclose truncation; no financial tolerances.
 	if rows.size()>=5:return
-	if saved_present and actual_present and (saved is int or saved is float) and (actual is int or actual is float) and saved==actual:return
+	if saved_present and actual_present and same_values(saved,actual):return
 	if not saved_present or not actual_present or typeof(saved)!=typeof(actual):
-		rows.append({"path":path,"saved":difference_value(saved,saved_present),"restored":difference_value(actual,actual_present)});return
+		rows.append({"path":path,"expected":difference_value(saved,saved_present),"restored":difference_value(actual,actual_present)});return
 	if saved is Dictionary:
-		var actual_keys: Array=actual.keys()
 		for key in saved:
 			var child: String=path+"["+type_string(typeof(key))+":"+JSON.stringify(key,"",true,true)+"]"
 			if actual.has(key):
-				var index: int=actual_keys.find(key)
-				if index>=0 and typeof(key)!=typeof(actual_keys[index]):
-					rows.append({"path":child+"{key}","saved":difference_value(key),"restored":difference_value(actual_keys[index])})
 				restore_differences(saved[key],actual[key],child,rows)
 			else:restore_differences(saved[key],null,child,rows,true,false)
 			if rows.size()>=5:return
@@ -87,28 +84,33 @@ func restore_differences(saved,actual,path: String,rows: Array,saved_present: bo
 			restore_differences(saved[index] if index<saved.size() else null,actual[index] if index<actual.size() else null,path+"["+str(index)+"]",rows,index<saved.size(),index<actual.size())
 			if rows.size()>=5:return
 	elif saved!=actual:
-		rows.append({"path":path,"saved":difference_value(saved),"restored":difference_value(actual)})
+		rows.append({"path":path,"expected":difference_value(saved),"restored":difference_value(actual)})
 
-func restore_scopes(snapshot: Dictionary) -> Dictionary:
-	var owner: Dictionary={}
-	for candidate in snapshot.get("fleetOwners",[]):
-		if candidate.get("id")=="patrol-7":owner=candidate;break
-	# Include the complete physical owner/boat condition and shipping book, not just
-	# the smaller merchant() account projection used by the earned voyage check.
-	return {"sector069":snapshot.get("sector069"),"ports":snapshot.get("ports"),"merchant":{"fleetOwner":owner,"shipping068":snapshot.get("shipping068")}}
+func expected_restore_values(snapshot: Dictionary,total_coins: int) -> Dictionary:
+	# Capture before restore in both modes; diagnostics must use this exact composite.
+	return {"sector069":snapshot.sector069,"ports":expected_restore_ports(snapshot),"merchant":merchant(snapshot),"coinSupply":snapshot.coinSupply,"totalCoins":total_coins}
 
-func report_restore_differences(saved: Dictionary) -> void:
-	var expected: Dictionary=restore_scopes(saved)
-	var actual: Dictionary=restore_scopes(c.state)
-	receipt.restoreComparison="decoded_saved_snapshot"
-	receipt.restoreDifferences=[];receipt.restoreDifferenceLimitPerScope=4;receipt.restoreDifferencesTruncatedScopes=[]
-	for scope in ["sector069","ports","merchant"]:
+func compare_restore(expected: Dictionary) -> bool:
+	var actual: Dictionary={"sector069":c.state.sector069,"ports":c.state.ports,"merchant":merchant(),"coinSupply":c.state.coinSupply,"totalCoins":c.Money.total(c.state)}
+	var components: Dictionary={}
+	var matches: bool=true
+	for scope in expected:
+		components[scope]=same_values(actual[scope],expected[scope])
+		if not components[scope]:matches=false
+	receipt.restoreComparison="canonical_expected_restore_composite";receipt.restoreComponents=components
+	print("SECTOR069_RESTORE_COMPONENTS ",JSON.stringify(components))
+	receipt.restoreDifferences=[];receipt.restoreDifferenceLimit=12;receipt.restoreDifferenceLimitPerScope=4;receipt.restoreDifferencesTruncatedScopes=[]
+	if matches:return true
+	# Money scalars first so truncating nested differences cannot hide conservation.
+	for scope in ["coinSupply","totalCoins","sector069","ports","merchant"]:
 		var rows: Array=[]
 		restore_differences(expected[scope],actual[scope],scope,rows)
-		if rows.size()>4:receipt.restoreDifferencesTruncatedScopes.append(scope)
-		for row in rows.slice(0,4):
+		var limit: int=mini(4,12-receipt.restoreDifferences.size())
+		if rows.size()>limit:receipt.restoreDifferencesTruncatedScopes.append(scope)
+		for row in rows.slice(0,limit):
 			receipt.restoreDifferences.append(row)
 			print("SECTOR069_RESTORE_DIFF ",JSON.stringify(row))
+	return false
 
 func checkpoint_diagnostic(options: Dictionary) -> void:
 	receipt.status="CHECKPOINT_DIAGNOSTIC";receipt.diagnosticOnly=true;receipt.earnedVoyage=false
@@ -122,9 +124,10 @@ func checkpoint_diagnostic(options: Dictionary) -> void:
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	if not check(world is Dictionary,"Diagnostic campaign definitions decode"):return
 	c=Campaign.new(world)
+	var expected: Dictionary=expected_restore_values(saved,int(saved.coinSupply))
 	var restored: Dictionary=c.restore(saved)
 	if not check(restored.get("ok",false),"Checkpoint restore: "+str(restored.get("message",""))):return
-	report_restore_differences(saved)
+	check(compare_restore(expected),"Checkpoint matches the exact earned-voyage restore composite")
 
 func protected_state() -> PackedByteArray:
 	return var_to_bytes([c.state,c.events,c.pending_days,c.ocean_context064,c.ocean_context066,c.route_cache,c.ocean_watch066,c.ocean_conditions066,c.exploration_timer,c.sailing_clearance,c.travel_lock064])
@@ -277,11 +280,9 @@ func generated() -> bool:
 	check(c.current_port().get("id")=="brass_haven" and c.state.fleet[0].uid==owned and int(c.state.wageArrears)==0,"Same original boat returns on actual starting funds with wages paid")
 	var saved: Dictionary=parsed_save()
 	if saved.is_empty():return false
-	var accounts: Array=expected_restore_ports(saved)
-	var physical: Dictionary=merchant(saved)
+	var expected: Dictionary=expected_restore_values(saved,supply)
 	if not check(c.restore(saved).get("ok",false),"Actual parsed generated career restores"):return false
-	if not check(same_values(c.state.sector069,saved.sector069) and same_values(c.state.ports,accounts) and same_values(merchant(),physical) and c.state.coinSupply==saved.coinSupply and c.Money.total(c.state)==supply,"Restore keeps exact saved geography, physical harbor/merchant accounts and supply; reserve forecasts match canonical recalculation"):
-		report_restore_differences(saved)
+	check(compare_restore(expected),"Restore keeps exact saved geography, physical harbor/merchant accounts and supply; reserve forecasts match canonical recalculation")
 	for kind in ["ledger","missing_port","missing_site","null_sector"]:
 		if not bounded():return false
 		var bad: Dictionary=JSON.parse_string(JSON.stringify(saved))
