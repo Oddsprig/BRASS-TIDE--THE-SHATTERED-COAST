@@ -246,6 +246,18 @@ func pay(id: String) -> bool:
 	receipt.payments.append({"id":id,"coins":job.escrow,"actualPort":port.id,"day":float(c.state.day)})
 	return check(c.Money.total(c.state)==supply,"Payment only transfers the original finite escrow")
 
+func compatible_freight070(target: String,jobs: Array) -> bool:
+	# Each row is actually offered, funded and fitted in the existing hold.
+	for _slot in range(6):
+		if c.state.voyageJobs.size()>=6:break
+		var next: Dictionary={}
+		for candidate in c.VoyageJobs.available(c):
+			if candidate.kind=="freight" and str(candidate.targetPort)==target:next=candidate;break
+		if next.is_empty():break
+		if not accept(next):return false
+		jobs.append(next)
+	return true
+
 func survey(action: String) -> bool:
 	var kits: float=c.Remote067.kits(c.state)
 	var crew: int=c.crew_count()
@@ -279,6 +291,7 @@ func buy_useful_improvement() -> bool:
 	var quote: Dictionary=c.FleetIdentity.quote_conversion(c,uid,"cargo_rig")
 	if not check(quote.get("ok",false),"Existing useful Cargo Rig quote: "+str(quote.get("message",""))):return false
 	var net: int=int(c.state.coins)-int(c.data.START.coins)
+	receipt.improvementQuote={"cost":quote.cost,"netAfterAllCosts":net,"purse":c.state.coins,"materials":quote.materials,"materialCost":quote.materialCost,"workerWages":quote.shipwrightWages}
 	if not check(net>=int(quote.cost) and int(quote.materialCost)>0 and int(quote.shipwrightWages)>0,"True net voyage earnings after payroll/replacements cover the complete useful conversion"):return false
 	var stocks: Dictionary=port.stocks.duplicate(true)
 	var purses: Dictionary={}
@@ -317,19 +330,22 @@ func earned_voyage() -> bool:
 	if not check(preview.get("routeOk",false) and protected_state()==frozen and int(preview.grossFee)==int(survey_job.reward) and int(preview.crewNeeded)==4 and preview.expectedCosts.get("includesReturn",false) and preview.likelySurplus==float(preview.grossFee)-float(preview.expectedCosts.totalValue),"Selected pure preview prices actual7crew and subtracts whole-trip costs/return once"):return false
 	receipt.surveyQuote={"grossFee":preview.grossFee,"expectedCosts":preview.expectedCosts,"returnReserve":preview.returnReserve,"likelySurplus":preview.likelySurplus}
 	if not accept(freight) or not accept(survey_job):return false
+	var outbound: Array=[freight]
+	if not compatible_freight070(DESTINATION,outbound):return false
 	var active: Dictionary=parsed_save("active")
 	if active.is_empty() or not restore_exact(active,"active") or not controlled_save_cases(active):return false
 	phase("earned_freight_and_paid_shore_work")
-	if not sail(DESTINATION) or not pay(str(freight.id)):return false
+	if not sail(DESTINATION):return false
+	for delivery in outbound:
+		if not pay(str(delivery.id)):return false
 	# Use the same circuit's return hold only if an actual funded client and
 	# exportable stock now exist. No reverse contract or stock is manufactured.
-	var return_freight: Dictionary={}
-	for offer in c.VoyageJobs.available(c):
-		if offer.kind=="freight" and offer.targetPort==SPONSOR:return_freight=offer;break
-	receipt.returnFreightAvailable=not return_freight.is_empty()
-	if not return_freight.is_empty() and not accept(return_freight):return false
+	var return_freight: Array=[]
+	if not compatible_freight070(SPONSOR,return_freight):return false
+	receipt.compatibleLoads={"outbound":outbound.size(),"return":return_freight.size()}
 	if not sail(SPONSOR):return false
-	if not return_freight.is_empty() and not pay(str(return_freight.id)):return false
+	for delivery in return_freight:
+		if not pay(str(delivery.id)):return false
 	if not survey("chart") or not survey("survey") or not pay(str(survey_job.id)):return false
 	phase("earned_home_return_and_replacement_costs")
 	if not gate(REGION,"north") or not gate("shatter_coast","south") or not sail("brass_haven"):return false
