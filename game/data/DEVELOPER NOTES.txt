@@ -1,10 +1,10 @@
-BRASS TIDE v0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+BRASS TIDE v0.071 - COMBAT FEEL, STERN WAKES AND RECORDED WEAPON SOUND
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Take funded work from known regional harbors using actual stock, crew, cargo and client escrow.
-- Review the selected voyage fee, current-fleet costs, return reserve, cargo and spare hands before committing.
-- Combine useful work, return with real earnings and buy existing paid fleet improvements.
+- Make short stern wash follow actual speed and turning; keep engine trouble, fire and flooding visible at normal zoom.
+- Separate weapon flashes, impacts, engine failures and sinking using the existing bounded combat effects.
+- Refine the existing recorded weapon mix while preserving finite voices and keeping music separate.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

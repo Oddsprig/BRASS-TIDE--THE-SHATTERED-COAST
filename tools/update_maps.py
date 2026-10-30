@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "combat-presentation071": (["chart","wake_art045","boat_art","combat_art","combat_events","sound"],
+                              "Actual stern motion and reported combat/equipment state -> bounded wash, distinct weapon impulses, engine/fire/flooding/sinking cues and recorded audio voices. Main draws/mixes; worker owns battle data.",
+                              "test_combat_presentation071 and test_audio_policy071; actual queued Windows/motion/audio receipts in work/quality-v071 after acceptance"),
     "voyage-work070": (["voyage_jobs","voyage_region070","campaign","contacts","voyage_ui","voyage_panel070"],
                        "Known physical work berths -> the existing funded job/escrow/manifest; private regional routes, selected current-fleet costs, return reserves and paid support roles. HOME service gates remain separate.",
                        "test_voyage_career070; current actual receipts in work/quality-v070 and docs/TEST RESULTS v0.070.md after native verification"),

@@ -1,9 +1,11 @@
-# Current verified release: v0.070 funded regional voyage work
+# Current step: v0.071 - Combat feel, stern wakes and recorded weapon sound
 
-Known harbors sponsor actual cargo/survey work from finite accounts. The selected
-quote shows current-fleet costs and overlapping return reserves.
-232 focused/0; Windows/menu and9 reviewed private stills.
-Next071: combat presentation, wakes and sound. Whole-game quality remains open.
+- Make short stern wash follow actual speed and turning; keep engine trouble, fire and flooding visible at normal zoom.
+- Separate weapon flashes, impacts, engine failures and sinking using the existing bounded combat effects.
+- Refine the existing recorded weapon mix while preserving finite voices and keeping music separate.
+
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

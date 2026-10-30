@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.070: Voyages that pay and fleets worth building. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: voyage_jobs.gd, voyage_region070.gd, campaign.gd, contacts.gd, voyage_panel070.gd, voyage_ui.gd.
+v0.071: Combat feel, stern wakes and recorded weapon sound. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: chart.gd, wake_art045.gd, boat_art.gd, combat_art.gd, combat_events.gd, sound.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

@@ -1,0 +1,26 @@
+BRASS TIDE v0.071 - READING A BATTLE
+
+The flagship starts on autopilot. WASD moves the camera. Pause to issue orders,
+choose targets or change damage-control priorities. Resume to watch the fleet.
+
+Machine guns use short repeated flashes and sharp recorded bursts. Cannons
+use a stronger single flash, recoil and a heavier report. Rockets have exhaust
+and a distinct launch sound. Torpedoes run along the water and strike with a
+water plume. A splash can be a miss; it does not automatically mean hull damage.
+
+Watch the boat as well as its health bar. Engine trouble, active fire and water
+aboard are different conditions. Crew repair and pumping use the existing crew,
+time and supplies. A damaged boat can remain useful if it can withdraw in time.
+Sinking boats settle into the water; not every loss needs a fiery explosion.
+
+Wakes begin at the stern and follow the boat's recent movement. A boat slowing
+or stopping should lose its wash. Water uses inexpensive drawing rather than
+fluid simulation. Crews remain numerical; the combat view does not animate them.
+
+Sound options control weapons and ambience separately from your music tracks.
+Weapon attacks use existing licensed recordings; source credits are in
+docs/audio/RECORDED AUDIO CREDITS.txt. Generated music stays in music/.
+
+This version improves the existing presentation. Complete boat and gun asset
+production remains v0.073; tactical behavior v0.074; campaign strategy v0.075.
+Read tests/RESULTS.txt for the actual checks, recorded motion and audio review.
