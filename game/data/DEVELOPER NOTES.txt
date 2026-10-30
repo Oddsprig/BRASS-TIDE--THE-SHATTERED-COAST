@@ -12,7 +12,7 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-CURRENT CANDIDATE STATUS: Source integrated; narrow reviewed corrections and native/export/rendered acceptance are pending. No069 pass or delivery claimed.
+Verification receipts and remaining limits are packaged in the tests and docs directories. This note describes the v0.069 scope; it does not certify whole-game quality.
 Fresh-world allocations:19harbors,280workers,980000coins declared once at new-game creation; no old-save extension or player grant. Legacy voyages remain two-region careers.
 Team:2Sol6.1MAX,2Grok4.7HIGH,2boundedMuseSparkHIGH. Gemini3.8Flash requests pending: Bridge refused first at Google seven-day99%; no paid fallback/substitution. Root and Sol reviewed Spark code and corrected three selection/caption faults; Grok found a read-only nav cache activation issue; pure reads and explicit player preparation now correct it before testing.
 No whole-game art/audio/fun/FPS or parity acceptance;070-078 remain separate scopes. Safe rendering and existing data workers retained.
