@@ -18,6 +18,7 @@ static func open_voyage(ui,offer_id: String="") -> void:
 	var body=ui.modal("Voyage review","ROUTE · PAYROLL · RETURN RESERVES",980,820)
 	if offer.is_empty():
 		ui.paragraph(body,"No current contract offer. Inspect the contracts or funded work board at a harbor.")
+		VoyagePanel.connect_views(ui,body,true,true)
 		ui.button(body,"Open contracts & logbook",ui.open_contracts)
 		ui.button(body,"Close",ui.close_modal,false,false)
 		return
@@ -35,15 +36,20 @@ static func open_voyage(ui,offer_id: String="") -> void:
 		ui.paragraph(body,"Estimated reward less full allowance, if funded and completed: %d coins. This values all reserve stores; owned stores reduce purchases."%int(q.estimatedSurplusCoins),15,ui.GOLD)
 	ui.paragraph(body,"Future damage, ammunition, paid fitting and time spent fighting are extra. Quotes refresh when this review opens; final actions recheck the live contract.",13)
 	for blocker in q.blockers:ui.paragraph(body,str(blocker),14,ui.RED)
+	VoyagePanel.connect_views(ui,body,true,false)
 	if q.active:
 		if c.contract_ready():
 			ui.button(body,"Deliver & collect reward" if offer.get("cleared",false) else "Engage hostile flotilla",ui.host.resolve_contract,true).disabled=not q.funded
-		else:
+		elif c.home_local064():
 			ui.button(body,"Chart destination",func():ui.host.sail_to(str(offer.targetPort));ui.close_modal(),true).disabled=not q.routeAvailable
+		else:
+			ui.paragraph(body,"The contract harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
 	elif q.atSponsor:
 		ui.button(body,"Accept contract",func():ui.host.accept_contract(str(offer.id));open_voyage(ui),true).disabled=not q.canAccept
-	else:
+	elif c.home_local064():
 		ui.button(body,"Go to sponsor",func():ui.host.sail_to(str(offer.port));ui.close_modal(),true)
+	else:
+		ui.paragraph(body,"The sponsor harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
 	if not q.active:
 		for candidate in offers:
 			if candidate.get("kind","")=="delivery" and str(candidate.id)!=str(offer.id):
@@ -55,10 +61,11 @@ static func open_voyage(ui,offer_id: String="") -> void:
 		ui.label(body,"Towards a second hull",20,ui.TEAL,true)
 		ui.paragraph(body,"Lowest local ready-hull entry: %s, %d coins + %d coins for %d sailors' advance; %d in stock. Commission hull alone: %d coins, with materials and paid construction required."%[str(hull.name),int(hull.readyCoins),int(hull.crewAdvanceCoins),int(hull.minimumCrew),int(hull.stock),int(hull.commissionCoins)],14)
 		if q.routeAvailable:ui.paragraph(body,"Estimated shortfall if this contract pays, after protecting the full voyage allowance: %d coins. New-boat stores, fitting and ongoing payroll are extra."%int(hull.gapCoins),14)
-	var services=ui.row(body)
-	ui.button(services,"Paid repairs & crew",func():ui.open_port("Crew & repairs"))
-	ui.button(services,"Paid fitting",func():ui.open_port("Refit"))
-	ui.button(services,"Local boatyard quotes",func():ui.open_port("Boatyard"))
+	if not VoyagePanel.service_berth(c).is_empty():
+		var services=ui.row(body)
+		ui.button(services,"Paid repairs & crew",func():ui.open_port("Crew & repairs"))
+		ui.button(services,"Paid fitting",func():ui.open_port("Refit"))
+		ui.button(services,"Local boatyard quotes",func():ui.open_port("Boatyard"))
 	ui.button(body,"Refresh voyage quote",func():open_voyage(ui,str(offer.id)),false,false)
 	ui.button(body,"Close",ui.close_modal,false,false)
 
@@ -143,10 +150,11 @@ static func open(ui) -> void:
 		journey+="The estimate is a round trip from your current position plus %.0f reserve days."%float(budget.reserveDays) if sailing_quote else "No safe sailing route. Sailing quote unavailable; reserve-only budget, excluding travel."
 	ui.paragraph(body,journey+"\n%.1f %s days · %s coins daily payroll · %s coins %s payroll · %.1f food days · %.1f working-fuel days · %.1f repair kits.
 Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks. Estimate for the current fleet."%[float(budget.tripDays),"planned" if sailing_quote else "reserve",str(budget.dailyWages),str(budget.returnWages),"return" if sailing_quote else "reserve",float(budget.foodDays),float(budget.fuelDays),float(budget.repairKits),float(budget.cargoWeight),float(budget.usableCapacity)],15)
+	VoyagePanel.connect_views(ui,body,false,true)
 	var dock: Dictionary=VoyagePanel.board_header(c)
 	var dock_chart: String=str(dock.region) if not str(dock.region).is_empty() else "this chart"
 	if bool(dock.docked):
-		var dock_kind: String="Home harbor" if str(dock.kind)=="home" else "Work berth"
+		var dock_kind: String="Service harbor" if str(dock.kind)=="home" else "Work berth"
 		ui.paragraph(body,"%s: %s · %s. The funded board lists gross fees. Review one job there for its voyage estimate. The allowance above is this career screen's own figure. Opening the board buys nothing."%[dock_kind,str(dock.name),dock_chart],15)
 		ui.button(body,"Open funded work at this berth",func():ui.VoyageUI.open(ui),true,false)
 	elif not bool(dock.get("berthKnown",false)):

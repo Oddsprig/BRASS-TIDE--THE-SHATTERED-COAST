@@ -174,7 +174,13 @@ static func leg_lines(view: Dictionary) -> Array:
 			var gate := str(leg.get("approachId", "")).strip_edges()
 			lines.append("%s: cross by the %s approach." % [phase, gate if not gate.is_empty() else "marked"])
 		else:
-			lines.append("%s: sail the current chart." % phase)
+			var destination := str(leg.get("destination", ""))
+			var where := "open water on this chart"
+			if destination.begins_with("approach:"):
+				where = "the selected approach"
+			elif not destination.is_empty():
+				where = "the selected berth"
+			lines.append("%s: sail toward %s." % [phase, where])
 	return lines
 
 
@@ -261,7 +267,7 @@ static func _fitting_quotes(c, boats: Array, conversions: Dictionary) -> Array:
 	var service := service_berth(c)
 	var work := work_berth(c)
 	if service.is_empty():
-		return ["Cargo, survey, workshop and auxiliary-tank prices are quoted at a home service harbor."]
+		return ["Cargo, survey, workshop and auxiliary-tank prices are quoted at a Shatter Coast service harbor. This list does not buy a fitting."]
 	if not work.is_empty() and str(work.get("id", "")) != str(service.get("id", "")):
 		return ["Fitting prices are from %s. The work berth is %s." % [str(service.get("name", "the home harbor")), str(work.get("name", "this berth"))]]
 	var lines: Array = []
@@ -306,6 +312,154 @@ static func _saved_site_level(c, site_id: String) -> int:
 	if sites is Dictionary and sites.get(site_id) is Dictionary:
 		return int(sites[site_id].get("level", 0))
 	return 0
+
+
+static func course_line(c) -> String:
+	if c == null or not c.get("state") is Dictionary:
+		return "Current course: none. No campaign is loaded."
+	var state: Dictionary = c.state
+	var path: Array = state.get("path", []) if state.get("path") is Array else []
+	var destination := str(state.get("destination", ""))
+	if path.is_empty() and destination.is_empty():
+		return "Current course: none."
+	if destination.begins_with("approach:"):
+		var approach := _approach_name(c, destination)
+		if approach.is_empty():
+			return "Current course: a coastal approach on this chart."
+		return "Current course: %s." % approach
+	if not destination.is_empty() and c.has_method("port"):
+		var name := str(c.port(destination).get("name", "")).strip_edges()
+		if not name.is_empty():
+			return "Current course: %s." % name
+		return "Current course is set."
+	return "Current course: open water on this chart."
+
+
+static func selection_note(c, selected_id: String) -> String:
+	var picked := str(selected_id).strip_edges()
+	if picked.is_empty() or c == null or not c.has_method("port"):
+		return ""
+	var name := str(c.port(picked).get("name", "")).strip_edges()
+	if name.is_empty():
+		return ""
+	var destination := ""
+	if c.get("state") is Dictionary:
+		destination = str(c.state.get("destination", ""))
+	if destination == picked:
+		return ""
+	if destination.is_empty():
+		return "Chart pick: %s. An allowance can use this pick. It is not the current course." % name
+	var course := str(c.port(destination).get("name", "")).strip_edges()
+	if course.is_empty():
+		return "Chart pick: %s. A different course is already set." % name
+	return "Chart pick: %s. Current course remains %s." % [name, course]
+
+
+static func services_line(c) -> String:
+	var service := service_berth(c)
+	var work := work_berth(c)
+	if not service.is_empty():
+		var named := str(service.get("name", "this harbor"))
+		if not work.is_empty() and str(work.get("id", "")) != str(service.get("id", "")):
+			return "Ordinary services at %s: market, paid drydock, paid fitting and yard quotes. Funded work is listed at %s." % [named, str(work.get("name", "the work berth"))]
+		return "Ordinary services at %s: market, paid drydock, paid fitting and yard quotes. Funded work listed here is a separate board." % named
+	if not work.is_empty():
+		return "Work berth: %s. Funded jobs can be reviewed here. Paid drydock, fitting and yard quotes stay at a Shatter Coast service harbor." % str(work.get("name", "this berth"))
+	return "No harbor berth. Paid drydock, fitting and yard quotes need a Shatter Coast service harbor. Funded work appears only while stopped at a known harbor."
+
+
+static func reserve_line(report: Dictionary) -> String:
+	if not report.has("foodDays") or not report.has("fuelDays") or not report.has("repairKits"):
+		return ""
+	return "Reserves now: %.1f food days · %.1f loaded-fuel days · %.1f repair kits." % [float(report.foodDays), float(report.fuelDays), float(report.repairKits)]
+
+
+static func connect_views(ui, body, work_button: bool = true, service_buttons: bool = true) -> void:
+	if ui == null or ui.host == null:
+		return
+	var c = ui.host.core
+	ui.paragraph(body, course_line(c), 15, ui.TEAL)
+	var note := selection_note(c, str(ui.host.selected_port))
+	if not note.is_empty():
+		ui.paragraph(body, note, 14, ui.GOLD)
+	var lock := ""
+	if c != null and c.get("travel_lock064") is String:
+		lock = str(c.travel_lock064).strip_edges()
+	var pending := _pending_contact(c)
+	if not lock.is_empty():
+		ui.paragraph(body, lock, 15, ui.GOLD)
+	elif not pending.is_empty():
+		ui.paragraph(body, _contact_sentence(pending), 15, ui.GOLD)
+		if str(pending.get("kind", "")) != "defeat":
+			var held := pending.duplicate(true)
+			ui.button(body, "Open the waiting contact", func(): _open_contact(ui, held), true, false)
+	ui.paragraph(body, services_line(c), 14)
+	var actions = ui.row(body)
+	ui.button(actions, "Long-voyage preparation", func(): ui.open_voyage_preparation065(), false, false)
+	if work_button and c != null:
+		var header := board_header(c)
+		if bool(header.get("docked", false)):
+			ui.button(actions, "Open funded work at this berth", func(): ui.VoyageUI.open(ui), false, false)
+		elif c.has_method("home_local064") and c.home_local064():
+			ui.button(actions, "Open funded work board", func(): ui.VoyageUI.open(ui), false, false)
+	if c != null and c.has_method("home_local064") and not c.home_local064():
+		ui.button(actions, "Plan return voyage to Shatter Coast", func(): ui.open_voyage_preparation065("shatter_coast"), true, false)
+	if service_buttons and not service_berth(c).is_empty():
+		ui.button(actions, "Paid repairs & crew", func(): ui.open_port("Crew & repairs"), false, false)
+		ui.button(actions, "Paid fitting", func(): ui.open_port("Refit"), false, false)
+
+
+static func _approach_name(c, destination: String) -> String:
+	if c == null or not c.has_method("world_view064"):
+		return ""
+	var parts := destination.split(":")
+	if parts.size() != 3:
+		return ""
+	var view: Dictionary = c.world_view064()
+	var approaches: Array = view.get("approaches", []) if view.get("approaches") is Array else []
+	if view.get("regions") is Array:
+		for region in view.regions:
+			if region is Dictionary and region.get("approaches") is Array:
+				approaches.append_array(region.approaches)
+	for approach in approaches:
+		if not approach is Dictionary:
+			continue
+		if str(approach.get("regionId", "")) == parts[1] and str(approach.get("id", "")) == parts[2]:
+			return str(approach.get("name", "")).strip_edges()
+	return ""
+
+
+static func _pending_contact(c) -> Dictionary:
+	if c == null or not c.get("events") is Array:
+		return {}
+	for event in c.events:
+		if not event is Dictionary:
+			continue
+		var kind := str(event.get("kind", ""))
+		if kind == "encounter":
+			return {"kind": kind, "id": str(event.get("patrol", ""))}
+		if kind == "ocean_encounter066":
+			return {"kind": kind, "id": str(event.get("ownerId", ""))}
+		if kind == "defeat":
+			return {"kind": kind, "id": ""}
+	return {}
+
+
+static func _contact_sentence(pending: Dictionary) -> String:
+	if str(pending.get("kind", "")) == "defeat":
+		return "A loss is waiting. Resolve it before changing course."
+	return "A contact is waiting. Resolve it before changing course or loading reserves."
+
+
+static func _open_contact(ui, pending: Dictionary) -> void:
+	var kind := str(pending.get("kind", ""))
+	var id := str(pending.get("id", ""))
+	var c = ui.host.core
+	if kind == "encounter" and c != null and c.has_method("home_local064") and c.home_local064() and not id.is_empty():
+		ui.host.show_patrol_encounter(id)
+		return
+	if ui.has_method("open_ocean_contact066"):
+		ui.open_ocean_contact066(id)
 
 
 static func _action(view: Dictionary) -> Dictionary:

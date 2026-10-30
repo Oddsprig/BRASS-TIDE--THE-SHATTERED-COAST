@@ -83,7 +83,9 @@ static func _local_wrecks067(c) -> Array:
 	return out
 
 static func expedition(ui,use_site: bool=true) -> void:
-	if not ui.host.core.home_local064():ui.open_ocean064();return
+	if not ui.host.core.home_local064():
+		_away_expedition(ui)
+		return
 	ui.host.sync_economy()
 	ui.modal_kind="expedition"
 	var body=ui.modal("Prepare an expedition","VOYAGE LIMITS · RETURN ALLOWANCE · FLEET GROWTH",980,780)
@@ -93,6 +95,7 @@ static func expedition(ui,use_site: bool=true) -> void:
 	var prep_chart: String=str(prep_header.region) if not str(prep_header.region).is_empty() else "this chart"
 	var prep_place: String=str(prep_header.name) if bool(prep_header.docked) else "under way"
 	ui.paragraph(body,"Preparing on %s · %s. A landing on this chart can be prepared here. Another region's chart uses the voyage approaches."%[prep_place,prep_chart],15)
+	VoyagePanel.connect_views(ui,body)
 	var destination: Dictionary=c.port(ui.host.selected_port)
 	var site_id: String=str(ui.host.selected_site) if use_site else ""
 	var island: Dictionary=c.Expedition._known_site(c.state,site_id)
@@ -235,6 +238,23 @@ static func expedition_yard_support(ui,body: Node) -> void:
 	choice.item_selected.connect(func(index: int):details.text=expedition_yard_text(ui,port,candidates[index]))
 	ui.button(body,"Review local boatyard",func():ui.open_port("Boatyard"))
 
+static func _away_expedition(ui) -> void:
+	ui.host.sync_economy()
+	var c=ui.host.core
+	ui.modal_kind="expedition"
+	var view: Dictionary=c.world_view064() if c.has_method("world_view064") else {}
+	var chart: String=str(view.get("name","")).strip_edges()
+	if chart.is_empty():chart="This chart"
+	var body=ui.modal("Prepare an expedition","CURRENT COURSE · RESERVES · ORDINARY SERVICES",980,780)
+	ui.paragraph(body,"You are on %s. Shatter Coast route lengths are not used on this chart."%chart,16,ui.TEXT)
+	VoyagePanel.connect_views(ui,body)
+	var report: Dictionary=c.expedition_report(0.0)
+	ui.paragraph(body,"Limit: "+str(report.get("bottleneck","")),20,ui.TEAL if bool(report.get("readyForAllowance",false)) else ui.GOLD)
+	var reserves: String=VoyagePanel.reserve_line(report)
+	if not reserves.is_empty():ui.paragraph(body,reserves+" Purse after recorded arrears: %s coins. No sailing distance is included; the two-day contingency is."%ui.money(report.get("fundsAfterArrears",0)),15)
+	if _is_local_or_home067(c):ui.button(body,"Island charts & surveys",func():islands(ui),false,false)
+	if not VoyagePanel.work_berth(c).is_empty():ui.button(body,"Open harbor trade",func():ui.open_port(),false,false)
+
 static func expedition_yard_text(ui,port: Dictionary,hull: Dictionary) -> String:
 	var c=ui.host.core
 	var quote: Dictionary=c.Harbor.quote(c,hull,port)
@@ -260,6 +280,7 @@ static func islands(ui) -> void:
 	var body=ui.modal("Island charts" if is_home else _local_name069(c)+" surveys","EXPLORE · SURVEY · FOLLOW A LEAD",1000,790)
 	var assignment: Dictionary=_local_assignment067(c)
 	ui.paragraph(body,"Sail near a landmark to sight it. Chart the approaches, then land a deeper survey. Your party needs real spare hands, rations and kits. Wages continue while ashore.",16)
+	VoyagePanel.connect_views(ui,body)
 	if not assignment.is_empty():
 		ui.label(body,"Party ashore: %s · %.1f / %.1f days"%[str(assignment.get("siteId","")),float(assignment.get("daysDone",0.0)),float(assignment.get("daysTotal",0.0))],20,ui.GOLD)
 		ui.button(body,"Advance one survey day",func():survey_day(ui),true)
@@ -281,10 +302,8 @@ static func islands(ui) -> void:
 	ui.paragraph(body,"%d known landmarks. Uncharted reaches still hold coves, workshops, resources and wreck fields."%known,15)
 	if not is_home:
 		var local_wrecks: Array=_local_wrecks067(c)
-		var nav_row=ui.row(body)
 		if not local_wrecks.is_empty():
-			ui.button(nav_row,"Recover stores at "+str(local_wrecks[0].get("name","Collapsed Supply Coaster")),func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
-		ui.button(nav_row,"Plan return voyage to Shatter Coast",func():ui.open_voyage_preparation065("shatter_coast"))
+			ui.button(body,"Recover stores at "+str(local_wrecks[0].get("name","Collapsed Supply Coaster")),func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
 
 static func site(ui,site_id: String) -> void:
 	var c=ui.host.core
@@ -298,6 +317,7 @@ static func site(ui,site_id: String) -> void:
 	ui.modal_kind="island_site"
 	var body=ui.modal(str(s.get("name","Landmark")),"%s · %s"%[reg_lbl,str(s.get("levelName","")).to_upper()],950,780)
 	ui.paragraph(body,str(s.get("clue","")),18,ui.TEXT)
+	VoyagePanel.connect_views(ui,body)
 	if lvl>=2 and not str(s.get("hazard","")).is_empty():
 		ui.paragraph(body,"Approach: "+str(s.get("hazard","")),15,ui.GOLD)
 	if lvl>=3:
@@ -327,10 +347,7 @@ static func site(ui,site_id: String) -> void:
 		ui.button(body,"Recall party",func():ui.host.respond(c.recall_survey());site(ui,site_id))
 	else:
 		ui.button(body,"Prepare route to "+str(s.get("name","this landing")),func():VoyagePanel.prepare_known_point(ui,s,""),true)
-	if is_home:
-		ui.button(body,"Prepare this island work & named return",func():expedition(ui))
-	else:
-		ui.button(body,"Plan return voyage to Shatter Coast",func():ui.open_voyage_preparation065("shatter_coast"))
+	if is_home:ui.button(body,"Prepare this island work & named return",func():expedition(ui))
 	ui.button(body,"Island charts",func():islands(ui))
 
 static func survey_day(ui,reopen_site_id: String="") -> void:

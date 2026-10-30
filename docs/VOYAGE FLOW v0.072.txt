@@ -1,0 +1,32 @@
+BRASS TIDE v0.072 — VOYAGE FLOW (guidance, source only)
+Role C. Base delivered v0.071 commit 9428ae7. No engine, test, GPU, helper, or settings run from this seat.
+
+What the player can read
+Prepare, captain priorities, voyage review, island charts, and a landing now share one status strip.
+- Current course is the live path and destination. A chart pick that is not that course is named as a chart pick.
+- Reserves on a non-home prepare screen come from the existing expedition report with zero sailing distance, plus the purse after recorded arrears. Home prepare and the contract review keep their existing quotes.
+- Ordinary services means a Shatter Coast dock (market, paid drydock, paid fitting, yard quotes). A remote stop is a work berth. Fitting prices stay a quote, not a purchase.
+
+Actions wired to existing host wrappers
+- Long-voyage preparation: Interface.open_voyage_preparation065.
+- Funded work: VoyageUI.open, only at a known berth or on the Shatter Coast chart.
+- Return: open_voyage_preparation065("shatter_coast") when not on the home chart.
+- Paid repairs and paid fitting: Interface.open_port, only while current_port is non-empty.
+- Harbor trade from a remote work berth: Interface.open_port, which already opens shipping.
+- Waiting contact: Main.show_patrol_encounter on a home encounter event, otherwise Interface.open_ocean_contact066.
+- Story "Chart destination" and "Go to sponsor" still call Main.sail_to, and only on the Shatter Coast chart. Away from it, those buttons are not shown.
+- Away from Shatter Coast, Prepare expedition stays on the expedition screen. It no longer jumps straight to the ocean chart.
+
+Display API on VoyagePanel (no new route, price, or id)
+course_line(c), selection_note(c, selected_id), services_line(c), reserve_line(report), connect_views(ui, body, work_button=true, service_buttons=true).
+board_header kind "home" is unchanged and still means a Shatter Coast service dock. It does not mean a hometown.
+
+Dependency for Root
+game/scripts/voyage_ui.gd is outside this allowlist. Its work-board header still prints kind "home" as "Home harbor". Captain's priorities now say "Service harbor" for that same flag. Align that one label when voyage_ui is in an allowlist. No other caller change is required.
+
+Limits
+Source only. No economy, battle, art, fund, or future078 change. No new DTO. Root runs tests on the shared lane.
+Suggested batch, not run here: test_career_flow038.gd, test_fleet_preparation052.gd, test_island_voyage.gd, test_campaign_logistics.gd.
+Keep that batch under 120s including setup, and the final selected suite under 180s. A queued or skipped run is not a pass.
+Commit files only: game/scripts/guidance_ui.gd, game/scripts/campaign_ui.gd, game/scripts/voyage_panel070.gd, and this note.
+AGENTS.md and ROLE072.txt stay unstaged.
