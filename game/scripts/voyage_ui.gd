@@ -57,7 +57,7 @@ static func open(ui,tab: String="Work board") -> void:
 			ui.button(body,"Review voyage costs, load and carrier",func():review_job(ui,offer),true,false)
 		else:
 			ui.button(body,"Review voyage costs and readiness",func():review_estimate(ui,offer),false,false)
-			ui.button(body,"Accept funded job",func():ui.host.respond(c.accept_voyage_job(offer.id));ui.host.save_game(false);open(ui),true).disabled=c.state.voyageJobs.size()>=6
+			ui.button(body,"Accept funded job",func():ui.host.accept_voyage_job(offer.id);open(ui),true).disabled=c.state.voyageJobs.size()>=6
 		ui.rule(body)
 	ui.button(body,"Story contracts & captain's log",ui.open_contracts)
 
@@ -91,7 +91,7 @@ static func review_estimate(ui,offer: Dictionary) -> void:
 	_paint_selected(ui,body,c,offer,view)
 	_prepare_button(ui,body,view)
 	if str(offer.get("kind","")) not in Choices.CIVILIAN_KINDS and int(offer.get("escrow",0))<=0:
-		ui.button(body,"Accept funded job",func():ui.host.respond(c.accept_voyage_job(str(offer.get("id",""))));ui.host.save_game(false);open(ui),true).disabled=c.state.get("voyageJobs",[]).size()>=6
+		ui.button(body,"Accept funded job",func():ui.host.accept_voyage_job(str(offer.get("id","")));open(ui),true).disabled=c.state.get("voyageJobs",[]).size()>=6
 	ui.button(body,"Return to the work board",func():open(ui),false,false)
 
 static func _paint_selected(ui,body,c,offer: Dictionary,view: Dictionary) -> void:
@@ -152,8 +152,7 @@ static func survey_terms(c,job: Dictionary) -> String:
 	return terms
 
 static func settle(ui,id: String,abandon: bool) -> void:
-	ui.host.respond(ui.host.core.settle_voyage_job(id,abandon))
-	ui.host.save_game(false)
+	ui.host.settle_voyage_job(id,abandon)
 	open(ui)
 
 static func contacts(ui,body) -> void:
@@ -243,9 +242,8 @@ static func review_job(ui,offer: Dictionary,_carrier_uid: String="") -> void:
 
 static func _accept_reviewed(ui,job: Dictionary,uid: String) -> void:
 	var carrier: String=uid if str(job.kind) in ["fuel_delivery","passenger_charter"] else ""
-	var result: Dictionary=ui.host.core.accept_voyage_job(str(job.id),carrier)
-	ui.host.respond(result)
-	if result.ok:ui.host.save_game(false);open(ui)
+	var result: Dictionary=ui.host.accept_voyage_job(str(job.id),carrier)
+	if result.ok:open(ui)
 
 static func _budget(ui,body,r: Dictionary,net: int,route_ok: bool,remaining: bool=false) -> void:
 	var basis: String="Remaining work + return" if remaining else "Work + return"

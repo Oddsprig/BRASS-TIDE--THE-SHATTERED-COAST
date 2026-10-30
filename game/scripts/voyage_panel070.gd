@@ -129,22 +129,15 @@ static func prepare_label(view: Dictionary) -> String:
 
 static func prepare_from_quote(ui, view: Dictionary) -> void:
 	var c = ui.host.core
-	var action := _action(view)
-	var kind := str(action.get("kind", "none"))
-	var approach := str(action.get("approachId", ""))
-	var region := str(action.get("regionId", ""))
 	if not prepare_ready(c, view):
 		_respond(ui, str(view.get("message", "No further course is available from this chart.")))
 		return
-	if kind == "transition" or not approach.is_empty():
-		ui.host.sail_approach064(region, approach)
-		return
-	var target: Dictionary = action.get("target", {})
-	ui.host.respond(c.chart_course({"x": float(target.x), "y": float(target.y)}, str(action.get("destination", ""))))
-	ui.close_modal()
+	# The host joins pending work and re-quotes the actual job before mutation.
+	ui.host.prepare_voyage_job070(str(view.get("offerId","")))
 
 
 static func prepare_known_point(ui, point: Dictionary, destination: String = "") -> void:
+	ui.host.sync_economy()
 	var c = ui.host.core
 	if c == null or not point is Dictionary:
 		return
@@ -163,8 +156,9 @@ static func prepare_known_point(ui, point: Dictionary, destination: String = "")
 		ui.host.sail_to(destination)
 		ui.close_modal()
 		return
-	ui.host.respond(c.chart_course(point, destination))
-	ui.close_modal()
+	var result: Dictionary=c.chart_course(point,destination)
+	ui.host.respond(result)
+	if result.get("ok",false):ui.host.save_game(false);ui.close_modal()
 
 
 static func leg_lines(view: Dictionary) -> Array:
