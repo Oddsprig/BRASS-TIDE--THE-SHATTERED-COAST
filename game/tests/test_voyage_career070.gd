@@ -71,6 +71,7 @@ func physical(snapshot: Dictionary,rebuild_forecasts: bool=false) -> Dictionary:
 		var forecast: Dictionary={"ports":snapshot.ports.duplicate(true),"fleetOwners":snapshot.fleetOwners}
 		c.ReserveOps.refresh({"state":forecast})
 		for index in range(ports.size()):
+			if not ports[index].has("reserves"):c.Reserves.ensure(ports[index])
 			for key in ["observedDemand","incoming","contractedLots","availableRecipes"]:ports[index].reserves[key]=forecast.ports[index].reserves[key]
 	var owners: Array=[]
 	for owner in snapshot.fleetOwners:
@@ -105,7 +106,38 @@ func restore_exact(saved: Dictionary,label: String) -> bool:
 	for key in expected:scopes[key]=same_values(expected[key],actual[key])
 	receipt[label+"RestoreScopes"]=scopes
 	print("CAREER070_RESTORE ",label," ",JSON.stringify(scopes))
+	if not same_values(expected,actual):
+		var rows: Array=[]
+		restore_diff070(expected,actual,"restore",rows)
+		receipt.restoreDifferences=rows
+		for row in rows:print("CAREER070_RESTORE_DIFF ",JSON.stringify(row))
 	return check(same_values(expected,actual) and var_to_bytes(saved)==input,label+" retains exact decoded physical books and original client escrow without recall/resupply")
+
+func restore_diff070(expected,actual,path: String,rows: Array,has_expected: bool=true,has_actual: bool=true) -> void:
+	if rows.size()>=8:return
+	if has_expected and has_actual and same_values(expected,actual):return
+	if not has_expected or not has_actual or typeof(expected)!=typeof(actual):
+		rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true) if has_expected else "<missing>","actual":JSON.stringify(actual,"",true,true) if has_actual else "<missing>"});return
+	if expected is Dictionary:
+		for key in expected:
+			restore_diff070(expected[key],actual.get(key),path+"."+str(key),rows,true,actual.has(key))
+		for key in actual:
+			if not expected.has(key):restore_diff070(null,actual[key],path+"."+str(key),rows,false,true)
+	elif expected is Array:
+		for index in range(maxi(expected.size(),actual.size())):
+			restore_diff070(expected[index] if index<expected.size() else null,actual[index] if index<actual.size() else null,path+"["+str(index)+"]",rows,index<expected.size(),index<actual.size())
+	else:rows.append({"path":path,"expected":JSON.stringify(expected,"",true,true),"actual":JSON.stringify(actual,"",true,true)})
+
+func checkpoint070(path: String,bound: String) -> void:
+	receipt.status="CHECKPOINT_DIAGNOSTIC";receipt.diagnosticOnly=true;receipt.earnedVoyage=false
+	var allowed: String="C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/c6d7e124ba124a838ac05ef701879a11/attempt-001/voyage-career/career070-active.json"
+	if not check(path.replace("\\","/").simplify_path()==allowed and bound=="2d64250f608faefbaf6e828fa49092669b586acef98bd2e55a18df1ac61a3c1b" and FileAccess.get_sha256(path)==bound,"Hash-bound synthetic checkpoint only"):return
+	var saved=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not check(saved is Dictionary,"Synthetic active-job checkpoint decodes"):return
+	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+	c=Campaign.new(world)
+	supply=int(saved.coinSupply)
+	restore_exact(saved,"checkpoint")
 
 func controlled_save_cases(saved: Dictionary) -> bool:
 	phase("CONTROLLED_corrupt_endpoint_refusals")
@@ -308,6 +340,11 @@ func earned_voyage() -> bool:
 	return true
 
 func _run() -> void:
+	var checkpoint: String="";var bound: String=""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--restore-checkpoint="):checkpoint=argument.trim_prefix("--restore-checkpoint=")
+		elif argument.begins_with("--checkpoint-sha256="):bound=argument.trim_prefix("--checkpoint-sha256=")
+	if not checkpoint.is_empty():checkpoint070(checkpoint,bound);finish();return
 	if not check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies a private test artifact/profile directory"):finish();return
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	if not check(world is Dictionary,"Actual campaign definitions decode"):finish();return

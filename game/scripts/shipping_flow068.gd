@@ -328,6 +328,7 @@ static func install(c) -> Dictionary:
 	for good in Economy.GOODS:definition.stocks[good]=0.0;definition.publicStores[good]=0.0
 	var remote: Dictionary=Economy.create_port(definition)
 	c.TrainingOps.Training.ensure(remote)
+	Reserves.ensure(remote)
 	var invoice: Dictionary={"donorId":ORIGIN,"workers":8,"wage":Economy.ORDINARY_WAGE,"operating":20*8*Economy.ORDINARY_WAGE,"household":5*8*Economy.ORDINARY_WAGE,"government":10*8*Economy.ORDINARY_WAGE,"labor":32*Economy.ORDINARY_WAGE,"purchases":[],"consumed":QUAY.duplicate(),"total":35*8*Economy.ORDINARY_WAGE+32*Economy.ORDINARY_WAGE}
 	var purchase_cost: int=0
 	for good in PURCHASES:
