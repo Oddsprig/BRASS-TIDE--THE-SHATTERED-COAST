@@ -611,3 +611,13 @@ terminal regex. R7 remains a failed aggregate; R8 corrected the binding and pass
 Preflight fixture/report contract and output path with a small sample before a
 heavy job. This uses the existing runner, not another framework. Keep this rule
 in AGENTS and future helper briefs so a new chat does not relearn it expensively.
+
+Peer130's layered folder reading is adopted through small maps/docs/tools guides.
+They point at existing generated maps and current authority, not another index.
+Do not add mandatory structure tests merely to enforce taste or arbitrary size
+limits. Peer137/v20 also adds report-schema preflight; no duplicate contribution
+was needed. A recorded format failure is not automatically a game regression.
+Source077 Sol reads stalled while Root/Grok reads worked; after a bounded retry,
+Root supplied hash-bound named-file packets and content/contract inline. Keep
+packet scope complete (code plus accepted content), then return a patch without
+competing writes. Do not repeat whole-folder reads or silently switch models.
