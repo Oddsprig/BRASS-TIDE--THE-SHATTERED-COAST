@@ -228,7 +228,8 @@ static func _work(job: _Job) -> void:
 	var simulation_started: int=Time.get_ticks_usec()
 	for index in range(job.steps):
 		if st.get("result")!=null:break
-		previous=_pose_table(st)
+		# The initial table already describes the first step's starting pose.
+		if index>0:previous=_pose_table(st)
 		Battle.update(st,STEP,job.input)
 		steps_done+=1
 	var simulation_us: int=Time.get_ticks_usec()-simulation_started
