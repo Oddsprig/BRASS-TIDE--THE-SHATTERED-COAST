@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.069)
+BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.070)
 
 Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
 
@@ -24,20 +24,20 @@ game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:260 is_active()
   game/scripts/equipment_recovery.gd:271 is_store_good()
   game/scripts/equipment_recovery.gd:276 retain()
-game/scripts/campaign.gd: 96472 bytes; extends RefCounted
+game/scripts/campaign.gd: 97842 bytes; extends RefCounted
   game/scripts/campaign.gd:104 home_local064()
   game/scripts/campaign.gd:107 world_location064()
   game/scripts/campaign.gd:119 world_view064()
   game/scripts/campaign.gd:163 transition_blocker064()
   game/scripts/campaign.gd:187 approach_course064()
   game/scripts/campaign.gd:199 transition064()
-game/scripts/save_validation.gd: 29278 bytes; extends RefCounted
-  game/scripts/save_validation.gd:212 validate()
+game/scripts/save_validation.gd: 29632 bytes; extends RefCounted
+  game/scripts/save_validation.gd:212 job_error070()
+  game/scripts/save_validation.gd:217 validate()
   game/scripts/save_validation.gd:34 _number()
   game/scripts/save_validation.gd:40 _text()
   game/scripts/save_validation.gd:43 _numbers()
   game/scripts/save_validation.gd:49 _cargo()
-  game/scripts/save_validation.gd:60 _point()
 game/scripts/harbor.gd: 13773 bytes; extends RefCounted
   game/scripts/harbor.gd:12 catalogue()
   game/scripts/harbor.gd:21 quote()

@@ -1,3 +1,7 @@
+30OCT2026 - v0.070 VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.069 VERIFIED AND PACKAGED: 585/0 focused checks, selected batch 94.751s, TestBridge 97e8add6b483442f8b7b3a6fb5d7a0cc. Source be5bc828deb2166e90581894a7a7fd377e3be6f3.
 
 29OCT2026 - v0.069 A GENERATED OCEAN SECTOR

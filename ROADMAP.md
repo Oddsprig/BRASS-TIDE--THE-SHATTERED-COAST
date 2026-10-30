@@ -1,9 +1,11 @@
-# Current verified release: v0.069 generated ocean sector
+# Current step: v0.070 - Voyages that pay and fleets worth building
 
-48 seeded island groups, starting mixed ownership, finite markets and paid survey
-landings. Older careers retain their physical economies and two-region world.
-585 focused checks/0failures; Windows/menu and9 reviewed private stills.
-Next070: rewarding voyages and useful fleet roles. Whole-game quality remains open.
+- Take funded work from known regional harbors using actual stock, crew, cargo and client escrow.
+- Review the selected voyage fee, current-fleet costs, return reserve, cargo and spare hands before committing.
+- Combine useful work, return with real earnings and buy existing paid fleet improvements.
+
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

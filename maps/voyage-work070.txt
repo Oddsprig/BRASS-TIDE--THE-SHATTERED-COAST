@@ -1,0 +1,52 @@
+BRASS TIDE — VOYAGE-WORK070 MAP (generated; v0.070)
+
+Known physical work berths -> the existing funded job/escrow/manifest; private regional routes, selected current-fleet costs, return reserves and paid support roles. HOME service gates remain separate.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/voyage_jobs.gd: 59067 bytes; extends RefCounted
+  game/scripts/voyage_jobs.gd:123 ensure()
+  game/scripts/voyage_jobs.gd:172 pending_freight_weight()
+  game/scripts/voyage_jobs.gd:413 survey_pairing()
+  game/scripts/voyage_jobs.gd:440 available()
+  game/scripts/voyage_jobs.gd:577 contact_opportunity()
+  game/scripts/voyage_jobs.gd:584 offer_view070()
+game/scripts/voyage_region070.gd: 26373 bytes; extends RefCounted
+  game/scripts/voyage_region070.gd:18 region()
+  game/scripts/voyage_region070.gd:21 work_port()
+  game/scripts/voyage_region070.gd:26 known_port()
+  game/scripts/voyage_region070.gd:31 fuel_port()
+  game/scripts/voyage_region070.gd:63 rank()
+  game/scripts/voyage_region070.gd:68 destinations()
+game/scripts/campaign.gd: 97842 bytes; extends RefCounted
+  game/scripts/campaign.gd:104 home_local064()
+  game/scripts/campaign.gd:107 world_location064()
+  game/scripts/campaign.gd:119 world_view064()
+  game/scripts/campaign.gd:163 transition_blocker064()
+  game/scripts/campaign.gd:187 approach_course064()
+  game/scripts/campaign.gd:199 transition064()
+game/scripts/contacts.gd: 14121 bytes; extends RefCounted
+  game/scripts/contacts.gd:94 ensure()
+  game/scripts/contacts.gd:155 visit()
+  game/scripts/contacts.gd:180 list_contacts()
+  game/scripts/contacts.gd:193 record()
+  game/scripts/contacts.gd:220 completed_work()
+  game/scripts/contacts.gd:237 client_memory()
+game/scripts/voyage_ui.gd: 29558 bytes; extends RefCounted
+  game/scripts/voyage_ui.gd:5 open()
+  game/scripts/voyage_ui.gd:86 review_estimate()
+  game/scripts/voyage_ui.gd:148 survey_terms()
+  game/scripts/voyage_ui.gd:154 settle()
+  game/scripts/voyage_ui.gd:158 contacts()
+  game/scripts/voyage_ui.gd:179 sponsor_reason()
+game/scripts/voyage_panel070.gd: 12724 bytes; extends RefCounted
+  game/scripts/voyage_panel070.gd:12 region_name()
+  game/scripts/voyage_panel070.gd:19 work_berth()
+  game/scripts/voyage_panel070.gd:27 service_berth()
+  game/scripts/voyage_panel070.gd:35 board_header()
+  game/scripts/voyage_panel070.gd:49 listed_offers()
+  game/scripts/voyage_panel070.gd:66 selected_quote()
+
+TESTS (game/tests/*.gd)
+test_voyage_career070; current actual receipts in work/quality-v070 and docs/TEST RESULTS v0.070.md after native verification
+
+Full symbols: rg -n '^func |^static func ' on named files.

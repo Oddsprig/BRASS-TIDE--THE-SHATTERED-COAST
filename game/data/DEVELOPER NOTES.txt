@@ -1,18 +1,13 @@
-BRASS TIDE v0.069 - A GENERATED OCEAN SECTOR
-29 October2026 |36 boat designs
+BRASS TIDE v0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+30 October2026 |36 boat designs
 
 THIS VERSION
-- Start a seeded campaign across 48 island groups, with a settled core, frontier and distant exploration waters.
-- Visit finite harbor markets and paid survey landings; discover which factions hold individual islands and harbors.
-- Keep existing two-region voyages, their economies and physical assets intact when loading older saves.
+- Take funded work from known regional harbors using actual stock, crew, cargo and client escrow.
+- Review the selected voyage fee, current-fleet costs, return reserve, cargo and spare hands before committing.
+- Combine useful work, return with real earnings and buy existing paid fleet improvements.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
-
-Verification receipts and remaining limits are packaged in the tests and docs directories. This note describes the v0.069 scope; it does not certify whole-game quality.
-Fresh-world allocations:19harbors,280workers,980000coins declared once at new-game creation; no old-save extension or player grant. Legacy voyages remain two-region careers.
-Team:2Sol6.1MAX,2Grok4.7HIGH,2boundedMuseSparkHIGH. Gemini3.8Flash requests pending: Bridge refused first at Google seven-day99%; no paid fallback/substitution. Root and Sol reviewed Spark code and corrected three selection/caption faults; Grok found a read-only nav cache activation issue; pure reads and explicit player preparation now correct it before testing.
-No whole-game art/audio/fun/FPS or parity acceptance;070-078 remain separate scopes. Safe rendering and existing data workers retained.

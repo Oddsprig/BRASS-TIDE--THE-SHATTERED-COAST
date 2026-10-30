@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.069: A generated ocean sector. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: sector_world069.gd, ocean_world064.gd, campaign.gd, exploration.gd, ocean_chart064.gd.
+v0.070: Voyages that pay and fleets worth building. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: voyage_jobs.gd, voyage_region070.gd, campaign.gd, contacts.gd, voyage_panel070.gd, voyage_ui.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

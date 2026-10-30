@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "voyage-work070": (["voyage_jobs","voyage_region070","campaign","contacts","voyage_ui","voyage_panel070"],
+                       "Known physical work berths -> the existing funded job/escrow/manifest; private regional routes, selected current-fleet costs, return reserves and paid support roles. HOME service gates remain separate.",
+                       "test_voyage_career070; current actual receipts in work/quality-v070 and docs/TEST RESULTS v0.070.md after native verification"),
     "equipment-lifecycle": (["equipment_lifecycle", "equipment_campaign", "equipment_recovery", "campaign", "save_validation", "harbor", "naval_replacements", "boarding_ops"],
                             "Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.",
                             "Custody75/7 before to75/0 after; commission/repair204/9 before to204/0 after. Merged life75/UI167/save89/naval227/service204/NPC140/campaigncoins458 all pass. Final-fitting order-stat refresh purity24/0. Exact evidence: docs/ROOT COMBINED EQUIPMENT VERIFICATION. Working live/tow union has Lab99/0, equipment voyage67/0 and salvage voyage14/0; MainUI167/save89/player204/owner140/coins458 pass; canonical40 performance and release remain open."),

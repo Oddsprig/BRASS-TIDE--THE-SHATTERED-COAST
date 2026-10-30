@@ -1,0 +1,45 @@
+BRASS TIDE v0.070 - WORK, VOYAGES AND FLEET GROWTH
+
+Stop at a known harbor's actual berth to review funded work. A client pays
+from that harbor's existing purse. Accepting freight purchases real exportable
+stock and seals it in your hold; delivering it adds those goods at the destination.
+Your fee stays in escrow until you complete the agreed work. Client funds are
+not preparation money. Several compatible jobs can share one voyage.
+
+Select a job to review its route and current-fleet estimate. Gross fee is the
+payment before wages, provisions, fuel and repair stores. Expected costs cover
+the whole remaining outward journey, work and return. The return reserve is
+an overlapping allowance with a contingency; do not subtract it a second time.
+Delays, damage, extra boats and extra crew can change the outcome.
+
+Every sailor aboard earns wages, including spare hands. A full survey needs
+four spare sailors beyond the crew required to operate the boats. The starting
+Tinwake needs three to sail, so seven aboard can operate it and complete a
+full survey. Survey parties still consume actual kits, rations and paid time.
+
+Load loose fuel, ammunition and kits from the hold into boat tanks, magazines
+and repair racks before leaving. Hold room and passenger accommodation are
+different limits. Sealed freight still takes space if its contract expires;
+unload or return it through the existing abandonment action.
+
+Existing boats and paid conversions have useful tradeoffs. Cargo Rigs enlarge
+the hold at the expense of speed and handling. Survey Rigs speed shore work
+while reducing hold space. Workshops improve crew repairs and still consume
+kits. Tug Rigs improve towing and pumping. Auxiliary Tanks improve endurance
+and fuel use while taking hold space. Read the actual quote for materials,
+worker wages, expert time, price and the fitted boat's resulting statistics.
+
+Transports carry larger loads; tankers support fuel work; yachts offer passenger
+accommodation. Work requires the actual suitable boat, supplies and real client
+or recipient. Remote passenger charters stay within one local island group.
+Existing escort and recovery activities require real loaded boats or wrecks;
+opening the board does not create a convoy, wreck, cargo or reward.
+
+Crew recruitment, shipyards, refitting and fleet storage remain home-coast
+services. Regional work desks do not grant those services remotely. Bring the
+same boats, crew and earnings home, replace consumed stores, then choose a
+useful improvement whose full labor and material costs you can afford.
+
+Existing careers and the single story contract remain available. A fresh
+campaign uses the 48-group world; old two-region saves retain their world.
+Read tests/RESULTS.txt for this release's actual verification and limitations.
