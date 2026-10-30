@@ -159,3 +159,18 @@
 "docs/QA CAMPAIGN PUBLICATION v0.031.txt" -text
 
 "docs/QA CAMPAIGN PUBLICATION v0.031.json" -text
+
+# Reproducible v0.073 art receipts use the actual source and SVG bytes.
+"tools/quality042/models.py" -text
+"tools/quality042/bake.py" -text
+"tools/quality049/recipes.py" -text
+"tools/quality049/catalog.json" -text
+"tools/quality042/weapons/weapon_models.py" -text
+"tools/quality042/weapons/bake_weapons.py" -text
+"tools/quality054/build_campaign_boats.py" -text
+"game/scripts/hull_profiles.gd" -text
+"game/scripts/mount_layout.gd" -text
+"game/scripts/weapon_geometry.gd" -text
+"game/scripts/boat_deck_detail.gd" -text
+"game/scripts/motor_art.gd" -text
+"game/assets/campaign054/boats/*.svg" -text
