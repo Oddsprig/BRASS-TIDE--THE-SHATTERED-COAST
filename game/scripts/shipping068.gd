@@ -1,6 +1,7 @@
 extends RefCounted
 ## One scheduled physical trader. No clock, inventory, payroll or ocean memory.
 const World = preload("res://scripts/ocean_world064.gd")
+const Travel = preload("res://scripts/ocean_travel066.gd")
 const Economy = preload("res://scripts/economy.gd")
 const Goods = preload("res://scripts/goods.gd")
 const Harbor = preload("res://scripts/harbor_reserves.gd")
@@ -104,10 +105,10 @@ static func select_corridor075(state: Dictionary, context: Dictionary, owner: Di
 	for origin in ports:
 		for remote in ports:
 			if origin.regionId==remote.regionId:continue
-			# Straight local distances are optimistic; the same conservative ocean
-			# speed, wages and home recovery still apply. Never spend a path slot
-			# on a pair that cannot fund even this lower bound and one real lot.
-			var lower: Dictionary = _route_quote_gates075(context,home,origin,remote,speed,homes,bounds[origin.id],bounds[remote.id])
+			# Straight local distances and the ocean's fastest allowed speed are
+			# optimistic screening only. No forecasts or navigation grids here;
+			# the three real quotes must fund slowest-weather time and recovery.
+			var lower: Dictionary = _route_quote_gates075(context,home,origin,remote,speed,homes,bounds[origin.id],bounds[remote.id],views,true)
 			if not lower.get("ok",false):continue
 			var reserve: Dictionary = _voyage_reserve075(owner,home_prices,float(lower.days),upkeep,count,reserveCoins)
 			var offer: Dictionary = _cargo_offer075(owner,origin,remote,int(reserve.reserveCoins),markets[origin.id],markets[remote.id])
@@ -144,24 +145,48 @@ static func _voyage_reserve075(owner: Dictionary, homePrices: Dictionary, days: 
 
 static func route_quote075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, clearance: float, speed: float, views: Dictionary = {}) -> Dictionary:
 	if not _number(speed,EPS) or not _number(clearance,0.0):return _fail("A corridor quote needs finite actual speed and clearance.")
+	if not views.has("forecastContext075"):
+		# Only conservativeSeconds is used: both authored weather phases are
+		# minimized along each directed leg, independent of seed or phase time.
+		var prepared: Dictionary = Travel.create(context,0,null,["player"],0.0)
+		if not prepared.get("ok",false):return _fail(str(prepared.message))
+		views["forecastContext075"]=prepared.context
 	var homes: Array = _port_gates075(context,home,clearance,views)
 	var origins: Array = _port_gates075(context,origin,clearance,views)
 	var remotes: Array = _port_gates075(context,remote,clearance,views)
-	return _route_quote_gates075(context,home,origin,remote,speed,homes,origins,remotes)
+	return _route_quote_gates075(context,home,origin,remote,speed,homes,origins,remotes,views)
 
 
-static func _route_quote_gates075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, speed: float, homes: Array, origins: Array, remotes: Array) -> Dictionary:
+static func _route_quote_gates075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, speed: float, homes: Array, origins: Array, remotes: Array, views: Dictionary = {}, lowerBound: bool = false) -> Dictionary:
 	var best: Dictionary = {}
-	var length: float = INF
+	var seconds: float = INF
 	for h in homes:
 		for a in origins:
 			for b in remotes:
-				var ocean: float = (World._distance(h.ocean,a.ocean)+World._distance(a.ocean,b.ocean)+World._distance(b.ocean,h.ocean))*float(context.ocean.localUnitsPerUnit)/0.25
-				var actual: float = 2.0*(float(h.length)+float(a.length)+float(b.length))+ocean
-				if actual>=length:continue
-				length=actual
-				best={"ok":true,"days":actual/speed/DAY_SECONDS+1.0,"homeGate":{"regionId":str(home.get("regionId",World.HOME)),"approachId":str(h.id)},"originGate":{"regionId":str(origin.regionId),"approachId":str(a.id)},"remoteGate":{"regionId":str(remote.regionId),"approachId":str(b.id)}}
+				var ocean: float
+				if lowerBound:
+					ocean=(World._distance(h.ocean,a.ocean)+World._distance(a.ocean,b.ocean)+World._distance(b.ocean,h.ocean))*float(context.ocean.localUnitsPerUnit)/(1.5*speed)
+				else:
+					ocean=_ocean_seconds075(h.ocean,a.ocean,speed,views)+_ocean_seconds075(a.ocean,b.ocean,speed,views)+_ocean_seconds075(b.ocean,h.ocean,speed,views)
+				var actual: float = 2.0*(float(h.length)+float(a.length)+float(b.length))/speed+ocean
+				if not is_finite(actual) or actual>=seconds:continue
+				seconds=actual
+				best={"ok":true,"days":actual/DAY_SECONDS+1.0,"homeGate":{"regionId":str(home.get("regionId",World.HOME)),"approachId":str(h.id)},"originGate":{"regionId":str(origin.regionId),"approachId":str(a.id)},"remoteGate":{"regionId":str(remote.regionId),"approachId":str(b.id)}}
 	return best if not best.is_empty() else _fail("No real safe harbor-to-approach route connects this generated pair and its home yard.")
+
+
+static func _ocean_seconds075(start: Dictionary, finish: Dictionary, speed: float, views: Dictionary) -> float:
+	var key: String = "ocean075:"+JSON.stringify([start,finish,speed])
+	if views.has(key):return float(views[key])
+	if not views.has("forecastContext075"):return INF
+	var distance: float = World._distance(start,finish)*Travel.SCALE
+	var leg: Dictionary = {"kind":"sail","layer":"ocean","from":start,"to":finish,"path":[finish],"physicalDistance":distance,"seconds":distance/speed}
+	var forecast: Dictionary = Travel.forecast(views.forecastContext075,[leg],speed,0.0)
+	# A refused whole-leg bound cannot admit a route. Cache both directions
+	# separately: an adverse current must not reuse the following-leg time.
+	var seconds: float = float(forecast.conservativeSeconds) if forecast.get("ok",false) else INF
+	views[key]=seconds
+	return seconds
 
 
 static func _port_gates075(context: Dictionary, port: Dictionary, clearance: float, views: Dictionary, lowerBound: bool = false) -> Array:
