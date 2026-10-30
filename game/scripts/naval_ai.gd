@@ -213,12 +213,15 @@ static func _custody_valid068(state: Dictionary, owners: Array) -> bool:
 static func _record_losses068(core, owner: Dictionary, location: Dictionary) -> void:
 	var state: Dictionary=core.state
 	if not NavalOrders.enrolled066(state,str(owner.id)):return # Existing HOME recorder owns ordinary coastal losses.
+	var shipping_route: Dictionary=state.get("shipping068",{}).get("model",{}).get("route",{})
+	var ocean_contact: Dictionary=state.get("ocean066",{}).get("contact",{})
+	var is_shipping: bool=not shipping_route.is_empty() and str(shipping_route.get("ownerId",""))==str(owner.id)
 	var salvage: Script=load("res://scripts/salvage.gd")
 	var pending: Array=owner.boats.filter(func(b):return b.get("sunk",false) and not b.get("wreckRecorded",false))
 	var remaining: int=pending.size()
 	var living: int=NavalOrders.living_boats(owner).size()
 	for boat in pending:
-		var prefix: String="shipping-npc:" if str(owner.id)=="patrol-7" else "ocean-npc:"
+		var prefix: String="shipping-npc:" if is_shipping else "ocean-npc:"
 		var records: Array=salvage.record_battle(core,{"ships":[boat],"chartPosition":location.position,"world064":location.world064},prefix+str(boat.uid))
 		if records.is_empty():continue # Keep original pending hull/equipment for existing retry.
 		var wreck: Dictionary=salvage.find_wreck(state,str(records[0].id))
@@ -230,7 +233,7 @@ static func _record_losses068(core, owner: Dictionary, location: Dictionary) -> 
 		boat.wreckRecorded=true;remaining-=1
 	if living>0:return
 	owner.active=false;owner.atPort="";owner.erase("harborServiceUntilDay")
-	var route: Dictionary=state.get("shipping068",{}).get("model",{}).get("route",{}) if str(owner.id)=="patrol-7" else state.get("ocean066",{}).get("contact",{})
+	var route: Dictionary=shipping_route if is_shipping else (ocean_contact if str(ocean_contact.get("ownerId",""))==str(owner.id) else {})
 	if not route.is_empty():route.phase="lost";route.location.path=[];route.location.destination=""
 	var memory: Dictionary=state.get("ocean066",{}).get("memory",{})
 	for id in memory.get("pursuits",{}).keys():
