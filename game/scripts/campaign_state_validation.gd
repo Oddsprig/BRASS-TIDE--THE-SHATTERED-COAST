@@ -260,6 +260,9 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 	for b in s.get("fleet",[]):
 		if b.has("berthArrears") and not number(b.berthArrears):return "Invalid stored berth account."
 	var port_ids: Array=world.PORTS.map(func(p):return p.id)
+	var delivery_ports: Array=port_ids.duplicate()
+	if Shipping068.installed(s):delivery_ports.append(Shipping068.PORT)
+	for harbor in Shipping068.harbors069(s):delivery_ports.append(str(harbor.id))
 	if s.has("regionalOrigin") and (not s.regionalOrigin is String or (s.regionalOrigin!="" and not s.regionalOrigin in port_ids)):return "Invalid regional departure."
 	if s.has("campaignFocus"):
 		if not s.campaignFocus is Dictionary:return "Invalid regional focus."
@@ -273,7 +276,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not s.regionalFacts.get(key) is Dictionary or s.regionalFacts[key].size()>64:return "Invalid bounded regional facts."
 			for id in s.regionalFacts[key]:
 				if not number(s.regionalFacts[key][id]):return "Invalid regional activity amount."
-				if key=="deliveries" and not id in port_ids:return "Unknown regional delivery harbor."
+				if key=="deliveries" and not id in delivery_ports:return "Unknown regional delivery harbor."
 				if key=="passages":
 					var ends: PackedStringArray=str(id).split("|")
 					if ends.size()!=2 or not ends[0] in port_ids or not ends[1] in port_ids or ends[0]==ends[1]:return "Invalid physical corridor."
