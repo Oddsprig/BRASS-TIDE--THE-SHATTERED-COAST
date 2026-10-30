@@ -1382,6 +1382,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 		for contact in Contacts.list_contacts(state):
 			if contact.has("ownerId"):continue
 			var remembers: bool=contact.port==completed_at and (not abandon or contact.port==before.get("port",""))
+			if contact.id=="harbor:"+str(before.get("port","")):remembers=true
 			if not sponsor_id.is_empty():remembers=contact.id==sponsor_id and contact.port==before.get("port","")
 			if remembers:Contacts.record(state,contact.id,event_id,-5 if abandon else 5,str(before.get("title","Voyage job")),completed_at)
 	Manifest.allocate(state)
