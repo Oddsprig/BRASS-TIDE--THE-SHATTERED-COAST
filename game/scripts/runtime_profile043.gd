@@ -2,6 +2,7 @@ extends RefCounted
 ## Explicit, source-candidate observer of the real Main/Lab/Chart runtime.
 ## Root supplies the exported binary, private desktop, synthetic APPDATA and lane.
 const Lab=preload("res://scripts/fleet_lab.gd")
+const Battle=preload("res://scripts/battle.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
@@ -51,6 +52,8 @@ var last_event_seq: int=0
 var published: Dictionary={}
 var idle_since051: Dictionary={}
 var main_thread_id051: int=0
+var hold_probe_issued072: bool=false
+var hold_probe_seq_floor072: int=0
 
 func prepare(game_host) -> bool:
 	host=game_host
@@ -144,7 +147,7 @@ func _memory() -> Dictionary:
 	return {"engineStaticBytes":int(Performance.get_monitor(Performance.MEMORY_STATIC)) if OS.is_debug_build() else null,"engineStaticPeakBytes":int(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)) if OS.is_debug_build() else null,"engineStaticSupported":OS.is_debug_build(),"renderVideoBytes":int(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)) if rendered else null,"renderTextureBytes":int(Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED)) if rendered else null,"renderBufferBytes":int(Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED)) if rendered else null,"scope":"Godot allocation counters; static allocation monitors unsupported in release are null. Zero VRAM may mean unsupported. Not process working set or adapter capacity. Wrapper must sample process working set/CPU and resource limits separately.","adapterCapacityBytes":null}
 
 func _limits() -> Dictionary:
-	return {"cohort":"owner-authorized worker30Hz / Engine60Hz / independent interpolated rendering","warmupWallUs":WARMUP_US,"activeWallUs":ACTIVE_US,"cooperativeReadyToFinishUs":WALL_LIMIT_US,"wrapperGlobalLimitUs":70000000,"physics":"Actual Main/Lab driver only. Jobs may batch real fixed1/30 steps; completedSteps and stepsInJob must agree. Engine callbacks are separate. No observer simulation updates.","workerStepBudgetUs":WORKER_BUDGET_US,"mainPublicationP95BudgetUs":MAIN_PUBLICATION_BUDGET_US,"simulationLagBudgetUs":LAG_BUDGET_US,"historicalMainSimulationTarget":"median6ms/P9510ms at60Hz is historical and not an acceptance gate for worker30Hz","frames":"Consecutive frame_post_draw intervals; Chart.presentation_us is CPU submission, not GPU/display duration. Headless/dummy rejected.","catchUp":"Engine callbacks/draw and completed worker steps/draw are separate; acceptance uses worker real-time lag and wall-minus-authoritative-time deficit.","observer":"In-memory rows only during active interval. Snapshot/job/publication costs read from joined published data; no concurrent worker-global reads.","safety":"Root owns shared TestBridge FIFO, private desktop, synthetic APPDATA, muted audio, external70s whole bound including setup/captures/retirement/cleanup. Cooperative68s clock cannot interrupt blocked joins/readback/filesystem.","sourceStatus":"Source candidate; no native/rendered pass, speed claim or version acceptance implied."}
+	return {"cohort":"owner-authorized worker30Hz / Engine60Hz / independent interpolated rendering","warmupWallUs":WARMUP_US,"activeWallUs":ACTIVE_US,"cooperativeReadyToFinishUs":WALL_LIMIT_US,"wrapperGlobalLimitUs":70000000,"physics":"Actual Main/Lab driver only. Jobs may batch real fixed1/30 steps; completedSteps and stepsInJob must agree. Engine callbacks are separate. No observer simulation updates.","workerStepBudgetUs":WORKER_BUDGET_US,"mainPublicationP95BudgetUs":MAIN_PUBLICATION_BUDGET_US,"simulationLagBudgetUs":LAG_BUDGET_US,"historicalMainSimulationTarget":"median6ms/P9510ms at60Hz is historical and not an acceptance gate for worker30Hz","frames":"Consecutive frame_post_draw intervals; Chart.presentation_us is CPU submission, not GPU/display duration. Headless/dummy rejected.","catchUp":"Engine callbacks/draw and completed worker steps/draw are separate; acceptance uses worker real-time lag and wall-minus-authoritative-time deficit.","observer":"In-memory rows only during active interval. Snapshot/job/publication costs read from joined published data; no concurrent worker-global reads.","safety":"Root owns shared TestBridge FIFO, private desktop, synthetic APPDATA, muted audio, external70s whole bound including setup/captures/retirement/cleanup. Cooperative68s clock cannot interrupt blocked joins/readback/filesystem.","sourceStatus":"Source candidate; no native/rendered pass, speed claim or version acceptance implied.","orderProbe072":"Once per active case, after about 1s, one public Battle.issue_order Hold on one living player boat through the Main mirror. Records monotonic queue time and the joined command sequence, kind and ok. Response latency stays unavailable unless that acknowledgement carries it. Sample durations and strict gates are unchanged."}
 
 func _start_case() -> void:
 	if results.size()>=requested.size():
@@ -190,6 +193,7 @@ func _start_case() -> void:
 	published=host.battle_driver051.telemetry()
 	last_worker_steps=int(published.get("completedSteps",0));last_worker_time=float(published.get("stateTime",0.0));last_event_seq=0
 	frame_ticks=0;frame_sim_us=0;frame_worker_steps=0;frame_polls=0;last_draw_us=0;last_sample_us=0
+	hold_probe_issued072=false;hold_probe_seq_floor072=0
 	stage="opening";phase_us=Time.get_ticks_usec()
 
 func configure_battle051(st: Dictionary) -> void:
@@ -267,6 +271,7 @@ func _sample_worker051() -> void:
 	if host.battle_driver051==null:return
 	var observed: int=Time.get_ticks_usec()
 	published=host.battle_driver051.telemetry()
+	_observe_hold_ack072()
 	var steps: int=int(published.get("completedSteps",0))
 	var state_time: float=float(published.get("stateTime",0.0))
 	var added: int=steps-last_worker_steps
@@ -375,6 +380,8 @@ func _sample_frame(source: String) -> void:
 	row.workerTelemetry=published.duplicate(true)
 	if now-last_sample_us>=1000000:
 		row.memory=_memory();last_sample_us=now
+	if stage=="active" and not hold_probe_issued072 and now-active_us>=1000000 and host.battle.get("result")==null and not host.paused and not host.result_handled and not host.ui.modal_open:
+		_issue_hold_probe072()
 	row.observerUs=Time.get_ticks_usec()-now
 	current.frames.append(row)
 	last_draw_us=now;frame_ticks=0;frame_sim_us=0;frame_worker_steps=0;frame_polls=0
@@ -389,6 +396,7 @@ func _retire_worker051() -> void:
 	# Audio gets exactly the same drained batch; all QA audio is muted.
 	host.audio.consume(final_events,host.chart)
 	published=driver.telemetry()
+	_observe_hold_ack072()
 	# Let Main publish/reconcile final state and clear its render-pose ownership.
 	# Its retirement is idempotent; no state replacement bypasses Main's setter.
 	host._retire_battle_driver051()
@@ -522,10 +530,83 @@ func _end_case() -> void:
 	# An idle, unresolved fleet is not a valid route to a higher frame rate.
 	current.summary.targets.noPersistentPlannerDeadlocks="met" if current.plannerDeadlocks051.is_empty() else "unmet"
 	current.counterTotals={"damage":published.get("damageCounters"),"tactical":published.get("tacticalCounters"),"chart":_optional(host.chart,"profile_read"),"workerFineScope":"Unavailable shared global sinks remain null; only published counters are eligible."}
+	_finalize_hold_probe072()
+	current.summary.orderProbe072=current.orderProbe072.duplicate(true)
 	current.complete=bool(current.get("activeIntervalComplete",false))
 	_write_json("runtime043-%s.json"%current.id,current)
 	results.append({"id":current.id,"complete":current.complete,"file":"runtime043-%s.json"%current.id,"actual":current.actual,"summary":current.summary})
 	stage="between";_start_case.call_deferred()
+
+func _living_player_id072() -> String:
+	var preferred: String=str(host.battle.get("playerId",""))
+	var fallback: String=""
+	for ship in host.battle.get("ships",[]):
+		if str(ship.get("team",""))!="player" or bool(ship.get("sunk",false)) or bool(ship.get("captureSecured",false)):continue
+		var id: String=str(ship.get("id",""))
+		if id.is_empty():continue
+		if id==preferred:return id
+		if fallback.is_empty():fallback=id
+	return fallback
+
+func _issue_hold_probe072() -> void:
+	# One ordinary public order through the published mirror. The driver queues it;
+	# this does not write worker state, clocks, weapons, actors or time scale.
+	hold_probe_issued072=true
+	var probe: Dictionary={"once":true,"order":"hold","afterActiveUs":1000000,"shipId":"","queued":false,"queueMonotonicUs":null,"priorLastCommandSequence":null,"acknowledgement":null,"responseLatencyUs":null,"responseLatency":"unavailable","workload":"One real Hold is part of this active case. Not an isolated comparison to historical063."}
+	current.orderProbe072=probe
+	if host.battle_driver051==null or not bool(host.battle.get("_battleMirror051",false)):
+		probe.reason="Main mirror/driver was not attached. No order was issued."
+		return
+	var ship_id: String=_living_player_id072()
+	probe.shipId=ship_id
+	if ship_id.is_empty():
+		probe.reason="No living player boat was on the published mirror. No order was issued."
+		return
+	var prior: Dictionary=host.battle_driver051.telemetry()
+	hold_probe_seq_floor072=int(prior.get("lastCommandSequence",0))
+	probe.priorLastCommandSequence=hold_probe_seq_floor072
+	var queued_at: int=Time.get_ticks_usec()
+	var queued: bool=Battle.issue_order(host.battle,[ship_id],"hold",{})
+	probe.queued=queued
+	if not queued:
+		probe.reason="Battle.issue_order did not queue Hold."
+		return
+	probe.queueMonotonicUs=queued_at
+	probe.reason="Queued. Waiting for the joined command acknowledgement."
+
+func _ack_latency072(receipt: Dictionary):
+	# Only a latency field on the joined acknowledgement counts. Job costs are not latency.
+	for key in ["responseLatencyUs","latencyUs","ackLatencyUs"]:
+		if receipt.has(key) and (receipt[key] is int or receipt[key] is float):return receipt[key]
+	return null
+
+func _observe_hold_ack072() -> void:
+	if current.is_empty() or not bool(current.get("orderProbe072",{}).get("queued",false)):return
+	var probe: Dictionary=current.orderProbe072
+	if probe.acknowledgement!=null:return
+	var results=published.get("commandResults",[])
+	if not results is Array:return
+	for receipt in results:
+		if not receipt is Dictionary or not receipt.has("sequence") or not receipt.has("kind"):continue
+		if int(receipt.sequence)<=hold_probe_seq_floor072 or str(receipt.kind)!="order":continue
+		var latency=_ack_latency072(receipt)
+		probe.acknowledgement={"sequence":int(receipt.sequence),"kind":str(receipt.kind),"ok":receipt.get("ok") if receipt.has("ok") else null}
+		probe.joinedOutsideActiveInterval=stage!="active"
+		probe.responseLatencyUs=latency
+		probe.responseLatency="reported" if latency!=null else "unavailable"
+		probe.reason="Latency copied from the joined acknowledgement." if latency!=null else "Joined acknowledgement has sequence, kind and ok only. workerJobUs, simulationUs, snapshotUs and mainPollUs are job costs, not queue-to-ack latency."
+		return
+
+func _finalize_hold_probe072() -> void:
+	if current.is_empty():return
+	if not current.has("orderProbe072"):
+		current.orderProbe072={"once":true,"order":"hold","queued":false,"queueMonotonicUs":null,"acknowledgement":null,"responseLatencyUs":null,"responseLatency":"unavailable","reason":"Hold probe was not issued."}
+		return
+	var probe: Dictionary=current.orderProbe072
+	if bool(probe.get("queued",false)) and probe.get("acknowledgement")==null:
+		probe.responseLatencyUs=null
+		probe.responseLatency="unavailable"
+		probe.reason="Driver telemetry did not present a joined order acknowledgement before the case closed."
 
 func _write_json(name: String,value) -> bool:
 	var path: String=output.path_join(name)
@@ -543,6 +624,7 @@ func _abort(reason: String) -> void:
 	if stage=="done":return
 	errors.append(reason)
 	if not current.is_empty():
+		_finalize_hold_probe072()
 		current.incompleteReason=reason
 		_write_json("runtime043-%s-incomplete.json"%current.id,current)
 	_finish()
