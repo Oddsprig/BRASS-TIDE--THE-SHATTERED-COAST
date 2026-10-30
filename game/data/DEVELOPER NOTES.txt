@@ -1,10 +1,10 @@
-BRASS TIDE v0.074 - TACTICAL AI WITH COUNTERPLAY
+BRASS TIDE v0.075 - FUNDED FACTION STRATEGY ACROSS GENERATED ISLAND GROUPS
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Coordinate separated, finite harassment approaches using existing observed targets and friendly reservations.
-- Let escorts interpose against flank pressure within their leash, while heavy boats prefer stations that support their working arcs.
-- Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
+- Connect a funded generated-group shipping corridor to existing merchant, pirate and patrol objectives.
+- Resolve independent hostile NPC encounters through actual cargo, stores, damage and relations.
+- Keep recovery, repairs and replacement vessels tied to physical yards and real accounts, labor, materials and crews.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -1,7 +1,11 @@
-# Current verified release: v0.074 tactical AI with counterplay
+# Current step: v0.075 - Funded faction strategy across generated island groups
 
-20 focused/0; Windows/menu and one reviewed private prefix. 073 assets retained by exact byte proof.
-Next075: faction strategy. Earlier quality limits remain open.
+- Connect a funded generated-group shipping corridor to existing merchant, pirate and patrol objectives.
+- Resolve independent hostile NPC encounters through actual cargo, stores, damage and relations.
+- Keep recovery, repairs and replacement vessels tied to physical yards and real accounts, labor, materials and crews.
+
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

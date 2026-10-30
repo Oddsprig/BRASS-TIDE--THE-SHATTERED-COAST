@@ -20,7 +20,7 @@ their own yard instead. Sightings are dated. A hold you have not seen
 stays unknown.
 
 DELIVERY
-Cargo that reaches the other harbor sells for cash that harbor has,
+Cargo that reaches the other harbor sells for coins that harbor has,
 and only up to the stock it still wants. Shelves and purses change by
 that sale. Goods left unpaid stay aboard. Cargo, coins, crew, and
 boats remain the ones already paid for.
@@ -34,9 +34,10 @@ unseen.
 
 PAID RECOVERY
 Home is an existing yard. Repair, rations, and sailors are invoiced.
-A replacement hull comes from harbor stock or a slip only after a
-survivor is physically back at that home yard, only one hull at a
-time, and only when the purse covers the hull, the duty, and the crew.
+Surviving boats must physically return before replacement collection.
+A fleet recorded entirely lost can fund a new hull through its existing
+home business. A replacement comes from harbor stock or a slip, one hull
+at a time, when the purse covers the hull, duty, workers and crew.
 Wages stay one hundred coins per sailor-day. A new hull appears at
 the yard, after it is paid for.
 

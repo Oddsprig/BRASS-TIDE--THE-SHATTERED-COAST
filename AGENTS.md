@@ -6,6 +6,14 @@ Receipts work/quality-v074/ACTUAL074 CHECKS.json and DELIVERED v0.074.json.
 Do not rebuild074. Next075: faction strategy.
 Whole-game quality/strict performance and071 listening remain OPEN. Root owns tests/delivery.
 
+ACTIVE SOURCE075: one bounded generic funded corridor across generated groups,
+independent observed NPC conflicts and physical paid recovery. Exact Bridge
+projects/allowlists: work/quality-v075/TEAM075 PROJECTS.json and ROLE075.txt.
+Two Sol6.1MAX/two Grok4.7HIGH, source-only; Root alone owns native/Windows/private
+chart witness and delivery. Retain074 combat/073 assets without broad reruns.
+No sovereignty/access076, free resources or new simulation framework. Deliver075
+before076 source; installed074 remains current.
+
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
 star-system role; individual islands fill the planet role. Harbors/outposts are
@@ -47,7 +55,7 @@ Architecture: authoritative combat30Hz on a data worker, role/target choices100m
 per side. Main owns input/command publication, UI/audio/render submission and
 independently interpolated poses. Workers own detached plain data/RNG/contexts;
 retirement joins children and reconciles original physical owners. Public
-synchronous Battle APIs remain references. Safe render mode1 is active; Separate2
+synchronous Battle APIs remain references. Safe render mode1 is requested; the072 monitor returned no actual mode value. Separate2
 previously caused native errors and must not be claimed active.
 
 ## Scope and design
@@ -99,11 +107,11 @@ to pass. Source/static checks are advisory, not native execution.
 
 Background/hidden/silent only, synthetic APPDATA/saves and Dummy/muted audio.
 No mouse/keyboard/focus/computer control, no Desktop game autolaunch. Keep owner
-voyages/settings/20MP3s/older builds and one plain Brass Tide shortcut intact.
+voyages/settings/18MP3s plus music manifest/readme/older builds and one plain Brass Tide shortcut intact.
 Cleanup must match PID AND creation time/retained handle; no broad process kills.
 Use existing Godot4.7.2/Python, no global installs or system setting changes.
 UI/Scene/resources remain on main; workers own copied data and publish only after
-join. Actual safe render thread mode1: Separate2 caused native texture/finalizer
+join. Safe render thread mode1 is requested; Separate2 caused native texture/finalizer
 errors; never claim Separate active. Existing economy/tactical workers remain.
 Profile actual representative battles before increasing concurrency. No expensive
 fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authorized
@@ -127,7 +135,7 @@ Refits use weapons:Array; effective_spec returns the spec directly. Preserve UID
 Prepare each version once, build on the accepted predecessor and preserve exact
 source/hash/tag provenance. Export from the isolated reviewed release checkout.
 Tag/package/install only after that scope's acceptance. Preserve older releases,
-two voyages,20music tracks and the single unambiguous latest verified launcher.
+two voyages,18music tracks plus manifest/readme and the single unambiguous latest verified launcher.
 No retagging rejected candidates. Retain failed receipts and distinguish source,
 native checks, rendered measurement, art review, listening and actual play quality.
 
