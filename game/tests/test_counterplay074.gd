@@ -234,4 +234,5 @@ func _initialize() -> void:
 	check(physical_ok,"inherited: existing real event/cooldown/ammunition audit remains strict",true)
 	check(not expired and Time.get_ticks_msec()-started<15000,"bounded fixture completes below fifteen seconds; incomplete work fails")
 	print(JSON.stringify(F.encode({"fixture":"counterplay074","checks":checks,"failures":failures,"inherited_checks":inherited_checks,"scope074_checks":checks-inherited_checks,"elapsed_ms":Time.get_ticks_msec()-started,"ticks":ticks,"complete":not expired and failures==0,"failure_labels":failure_labels,"physical_issues":physical_issues,"observations":observations,"limits":"Source fixture until Root executes. No rendered motion, listening, whole-game quality, strict FPS, worker scheduling or 073 art claim."})))
+	print("Counterplay074: %d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
