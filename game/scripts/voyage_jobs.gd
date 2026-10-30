@@ -23,6 +23,7 @@ const Stories=preload("res://scripts/coastal_stories.gd")
 const Expedition=preload("res://scripts/expedition.gd")
 const TradeIntel=preload("res://scripts/trade_intel.gd")
 const Regional=preload("res://scripts/regional_goods.gd")
+const WorkRegion070=preload("res://scripts/voyage_region070.gd")
 
 const MAX_ACTIVE := 6
 const MAX_DONE := 128
@@ -76,6 +77,7 @@ static func _sanitize_job(raw) -> Dictionary:
 		"id": str(raw["id"]), "title": str(raw.get("title", "Voyage job")),
 		"description": str(raw.get("description", "")), "port": str(raw.get("port", "")),
 		"targetPort": str(raw.get("targetPort", "")), "kind": str(raw.get("kind", KIND_FREIGHT)),
+		"regionId":str(raw.get("regionId","")).left(80),"targetRegionId":str(raw.get("targetRegionId","")).left(80),
 		"reward": maxi(0, int(_num(raw.get("reward", 0)))),
 		"escrow": maxi(0, int(_num(raw.get("escrow", 0)))),
 		"payerKey": payer,
@@ -197,10 +199,20 @@ static func _travel_days(core, a: Dictionary, b: Dictionary) -> float:
 # Wages-derived route reward, mirroring contracts.gd delivery pricing: the
 # captain's living crew at 100 coins/sailor-day for a there-and-back margin
 # (x2 the one-way time), plus one lot of cargo handling value.
-static func _route_reward(core,days: float,good: String="",survey: bool=false) -> int:
-	var p: Dictionary=core.current_port()
-	var crew: int=6 if survey else 5
-	var work_days: float=maxf(1,days*2.0+(3.5 if survey else 0.25))
+static func _route_reward(core,days: float,good: String="",survey: bool=false,p: Dictionary={}) -> int:
+	if p.is_empty():p=WorkRegion070.work_port(core)
+	# A fixed catalog Tinwake can sail with three and send four ashore. Extra
+	# owned boats/crew never enlarge a client's tariff; a full survey needs seven.
+	var reference: Dictionary=core.hull("tin_skiff")
+	var crew: int=maxi(1,int(reference.get("crewMin",3)))+4 if survey else 5
+	var work_days: float=maxf(1,ceilf(days*2.0+(3.5 if survey else 0.25)))
+	if survey:
+		var upkeep: Dictionary=Economy.daily_upkeep([{"crew":crew,"spec":reference,"sunk":false}])
+		var burn: float=45.0*(0.011+float(reference.get("size",14))*0.0002)*maxf(0.2,float(reference.get("fuelUse",1)))
+		var survey_value: float=crew*Goods.SAILOR_WAGE*work_days+float(upkeep.food)*work_days*Economy.price(p,"food")
+		survey_value+=(burn*days*2.0+float(upkeep.fuel)*work_days)*Economy.price(p,"fuel")
+		survey_value+=3.0*Economy.price(p,"supplies")+Goods.WAGES.laborer
+		return maxi(1,ceili(survey_value*1.25))
 	var value: float=crew*Goods.SAILOR_WAGE*work_days
 	value+=crew*0.08*work_days*Economy.price(p,"food")
 	value+=maxf(0.15,days*2)*0.65*Economy.price(p,"fuel")
@@ -254,7 +266,7 @@ static func _work_access(c,p: Dictionary,good: String="",origin: Dictionary={}) 
 	var access: Dictionary=Factions.access(c.state,p)
 	var pass_until: float=_num(c.state.get("relationships",{}).get("safeConduct",{}).get(str(p.id),0))
 	if not bool(access.get("contracts",false)) and pass_until<=float(c.state.day):return false
-	if origin.is_empty():origin=c.current_port()
+	if origin.is_empty():origin=WorkRegion070.work_port(c)
 	return good.is_empty() or TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),str(origin.get("faction","")),str(p.get("faction","")),good,float(c.state.day))
 
 
@@ -275,12 +287,8 @@ static func _freight_room(c) -> float:
 # Cheap bounded candidate ranking, then only selected useful water routes.
 static func _work_destinations(c,p: Dictionary) -> Array:
 	var candidates: Array=[]
-	for target in c.state.get("ports",[]):
-		if str(target.get("regionId","shatter_coast"))!="shatter_coast":continue
-		if str(target.get("id",""))!=str(p.id) and _work_access(c,target):candidates.append(target)
-	candidates.sort_custom(func(a,b):
-		var da: float=c.distance(p,a);var db: float=c.distance(p,b)
-		return str(a.id)<str(b.id) if is_equal_approx(da,db) else da<db)
+	for target in WorkRegion070.destinations(c,p):
+		if _work_access(c,target):candidates.append(target)
 	return candidates
 
 
@@ -388,9 +396,9 @@ static func _freight_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Array
 			if priority<=score:continue
 			selected=good;limit=amount;need=gap;score=priority
 		if selected.is_empty():continue
-		var path: Array=Routes.path(c,p,target)
-		if path.size()<2:continue
-		var days: float=_travel_days(c,p,target)
+		var route: Dictionary=WorkRegion070.route(c,target,p)
+		if not route.ok:continue
+		var days: float=float(route.referenceDays)
 		limit=mini(limit,floori(float(_catalog_load_room(c,days,KIND_FREIGHT))/float(Goods.ITEMS[selected].weight)))
 		var small: int=mini(8,limit)
 		var added: bool=false
@@ -401,6 +409,7 @@ static func _freight_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Array
 			if tier=="larger" and qty<small*2:continue
 			var invoice: int=int(fee.invoice)
 			var offer: Dictionary={"title":"%s freight: %d %s to %s"%[str(tier).capitalize(),qty,str(Goods.ITEMS[selected].name),str(target.name)],"description":"Treasury purchases existing exportable cargo for a current household/production stock gap and escrows the fee; this is finite relief, not guaranteed future demand.","port":str(p.id),"targetPort":str(target.id),"kind":KIND_FREIGHT,"reward":int(fee.reward),"escrow":0,"payerKey":"governmentPurse","materialInvoice":invoice,"failed":false,"deadlineDay":float(day)+ceilf(maxf(days,float(fee.days))*2+6),"acceptedDay":0.0,"freight":{"good":selected,"qty":float(qty)},"state":STATE_OFFERED,"siteId":"","ownerId":"","demandNeed":need,"demandPurpose":str(needs[selected].needPurpose),"loadTier":tier,"quotedDay":float(c.state.day),"feeBasis":str(fee.feeBasis)}
+			offer.regionId=WorkRegion070.region(p);offer.targetRegionId=WorkRegion070.region(target)
 			offer.id=_work_id(p,day,KIND_FREIGHT,str(target.id),selected,qty,offer)
 			if taken.has(offer.id) or _is_closed(c.state,str(offer.id)):continue
 			out.append(offer);added=true
@@ -414,16 +423,17 @@ static func survey_pairing(core, port_id: String = "") -> Dictionary:
 	var state := _state(core)
 	if state.is_empty():return {}
 	var harbor: String=port_id
-	if harbor.is_empty():harbor=str(core.current_port().get("id",""))
+	if harbor.is_empty():harbor=str(WorkRegion070.work_port(core).get("id",""))
 	if harbor!="reed_floats":return {}
-	for entry in Stories.journal(state):
+	for entry in Stories.journal(state.duplicate(true)):
 		if str(entry.get("chainId",""))!="middle_sea_chart" or bool(entry.get("done",false)):continue
 		var objective: Dictionary=entry.get("objective",{})
 		var site_id: String=str(objective.get("siteId",""))
 		if site_id.is_empty():return {}
 		for job in state.get("voyageJobs",[]):
 			if str(job.get("kind",""))==KIND_SURVEY and str(job.get("siteId",""))==site_id:return {}
-		for site in Exploration.sites(state):
+		for raw in Exploration._catalog(state):
+			var site: Dictionary=Exploration._merged(state,raw)
 			if str(site.id)==site_id and int(site.level)<Exploration.LEVEL_SURVEYED:
 				return {"chainId":"middle_sea_chart","siteId":site_id,"siteName":str(site.name),
 					"storyLevel":int(objective.get("requiredLevel",Exploration.LEVEL_SURVEYED)),
@@ -440,44 +450,59 @@ static func available(core) -> Array:
 	var state := _state(core)
 	if state.is_empty() or not core.has_method("current_port"):
 		return []
-	ensure(core)
 	var offers: Array = []
-	var p: Dictionary = core.current_port()
+	var p: Dictionary = WorkRegion070.work_port(core)
 	if p.is_empty():
 		return offers
-	if core.has_method("faction") and not preload("res://scripts/politics.gd").access(core,p).contracts:return offers
+	if not _work_access(core,p):return offers
 	var day := int(_num(state.get("day", 1.0)))
 	var taken := {}
-	for job in state["voyageJobs"]:
+	for job in state.get("voyageJobs",[]):
 		taken[str(job["id"])] = true
 	offers.append_array(_freight_offers(core,p,day,taken))
 	# Survey: prefer Wren's accepted current site, otherwise retain the daily
 	# catalog selection. A site already on a carried survey is not new paid work.
 	var unsurveyed: Array = []
-	for site in Exploration.sites(state):
+	for site in WorkRegion070.survey_sites(state,p):
 		var carried: bool=false
-		for job in state["voyageJobs"]:
+		for job in state.get("voyageJobs",[]):
 			if str(job.get("kind",""))==KIND_SURVEY and str(job.get("siteId",""))==str(site.id):carried=true;break
 		if not carried and int(site.get("level", 0)) < Exploration.LEVEL_SURVEYED:
 			unsurveyed.append(site)
 	if not unsurveyed.is_empty():
-		var site: Dictionary = unsurveyed[(day + int(state["ports"].find(p))) % unsurveyed.size()]
 		var pairing: Dictionary=survey_pairing(core,str(p.id))
+		# Preserve the authored daily first choice and accepted story pairing.
+		# Remote work is earned and ranked on its own actual region geometry.
+		if WorkRegion070.region(p)==Exploration.HOME_REGION:
+			var authored: Array=unsurveyed.filter(func(s):return WorkRegion070.region(s)==Exploration.HOME_REGION)
+			if not authored.is_empty():
+				var first: Dictionary=authored[(day+maxi(0,int(state.ports.find(p))))%authored.size()]
+				unsurveyed.erase(first);unsurveyed.push_front(first)
+		else:
+			unsurveyed.sort_custom(func(a,b):
+				var da: float=WorkRegion070.rank(core,p,a);var db: float=WorkRegion070.rank(core,p,b)
+				return str(a.id)<str(b.id) if is_equal_approx(da,db) else da<db)
 		for candidate in unsurveyed:
-			if str(candidate.id)==str(pairing.get("siteId","")):site=candidate;break
-		var survey_id := "vsurvey-%s-%d-%s" % [str(p["id"]), day, str(site["id"])]
-		if not taken.has(survey_id) and not _is_closed(state, survey_id):
-			var days := _travel_days(core, p, {"x": float(site["x"]), "y": float(site["y"])})
-			var reward: int=_route_reward(core,days,"",true)
-			if int(p.get("governmentPurse", 0)) >= reward:
-				offers.append({
+			if str(candidate.id)==str(pairing.get("siteId","")):unsurveyed.erase(candidate);unsurveyed.push_front(candidate);break
+		for site in unsurveyed.slice(0,WorkRegion070.MAX_CANDIDATES):
+			var survey_id := "vsurvey-%s-%d-%s" % [str(p["id"]), day, str(site["id"])]
+			if taken.has(survey_id) or _is_closed(state,survey_id):continue
+			var route: Dictionary=WorkRegion070.route(core,site,p,true)
+			if not route.ok:continue
+			var days: float=float(route.referenceDays)
+			var reward: int=_route_reward(core,days,"",true,p)
+			if int(p.get("governmentPurse",0))<reward:continue
+			offers.append({
 					"id": survey_id, "title": "Survey %s" % str(site["name"]),
 					"description": ("Pairs with your accepted Middle Sea lead. " if str(pairing.get("siteId",""))==str(site.id) else "")+"The harbor government escrows a survey fee. Full level 3 survey and a report here are required. Clue: %s" % str(site.get("clue", "")),
 					"port": str(p["id"]), "targetPort": str(p["id"]), "kind": KIND_SURVEY,
+					"regionId":WorkRegion070.region(p),"targetRegionId":WorkRegion070.region(site),
 					"reward": reward, "escrow": 0, "payerKey": "governmentPurse",
 					"deadlineDay": float(day) + ceilf(days * 2.0 + 14.0), "acceptedDay": 0.0,
 					"freight": {}, "state": STATE_OFFERED,
-					"siteId": str(site["id"]), "ownerId": ""})
+					"siteId": str(site["id"]), "ownerId": "",
+					"feeBasis":"Fixed catalog Tinwake with minimum sailing crew plus four spare surveyors; whole payroll days for return travel and full 3.5-day chart/survey, real rations/fuel, three kits, one registration laborer-day and 25% margin. Extra fleet costs remain yours."})
+			break
 	# Bounty: the first actually active patrol raider owner, if one is at sea.
 	var bounty_id := "vbounty-%s-%d" % [str(p["id"]), day]
 	if not taken.has(bounty_id) and not _is_closed(state, bounty_id):
@@ -485,6 +510,7 @@ static func available(core) -> Array:
 			if not (owner is Dictionary) or str(owner.get("kind", "")) != "raider" or not str(owner.get("id", "")).begins_with("patrol-") or not bool(owner.get("active", false)):
 				continue
 			if str(owner.get("faction",""))==str(p.get("faction","")):continue
+			if str(owner.get("world064",{}).get("regionId",Exploration.HOME_REGION))!=WorkRegion070.region(p):continue
 			var living := 0
 			var enemy_value := 0.0
 			for boat in owner.get("boats", []) if owner.get("boats") is Array else []:
@@ -520,6 +546,10 @@ static func _attach_client_memory(c,p: Dictionary,offers: Array) -> void:
 			var captain: Dictionary=Contacts.client_memory(c.state,"captain:"+str(offer.get("ownerId","")))
 			if not captain.is_empty():offer.clientMemory=captain
 		if offer.has("clientMemory"):continue
+		if WorkRegion070.region(p)!=Exploration.HOME_REGION:
+			var harbor_memory: Dictionary=Contacts.client_memory(c.state,"harbor:"+str(p.id))
+			if not harbor_memory.is_empty():offer.clientMemory=harbor_memory
+			continue # Core records this existing harbor desk's actual payment.
 		for definition in Contacts.DEFINITIONS:
 			if str(definition.port)!=str(p.id) or not _contact_role_fits(str(definition.role),offer):continue
 			var memory: Dictionary=Contacts.client_memory(c.state,str(definition.id))
@@ -544,7 +574,7 @@ static func _remember_client(c,job: Dictionary,paid: bool) -> void:
 # Only one original contact lives at each authored harbor. The original offer
 # id remains authoritative for duplicate suppression and all transactions.
 static func _select_contact_work(core, p: Dictionary, offers: Array) -> void:
-	if core.state.voyageJobs.size()>=MAX_ACTIVE or core.active_fleet().is_empty() or not core.state.path.is_empty():return
+	if core.state.get("voyageJobs",[]).size()>=MAX_ACTIVE or core.active_fleet().is_empty() or not core.state.path.is_empty():return
 	for definition in Contacts.DEFINITIONS:
 		if str(definition.port)!=str(p.id):continue
 		var contact: Dictionary=Contacts._find(core.state,str(definition.id))
@@ -588,6 +618,10 @@ static func contact_opportunity(core, contact_id: String) -> Dictionary:
 	return {}
 
 
+static func offer_view070(core,offer: Dictionary) -> Dictionary:
+	return WorkRegion070.offer_view(core,offer)
+
+
 static func _fail(core, message: String) -> Dictionary:
 	return core.fail(message) if core != null and core.has_method("fail") else {"ok": false, "message": message}
 
@@ -624,14 +658,15 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 			active_count += 1
 	if state.voyageJobs.size()>=MAX_ACTIVE:
 		return _fail(core, "You already carry %d side jobs. Finish or abandon one first." % MAX_ACTIVE)
-	var p: Dictionary = core.current_port() if core.has_method("current_port") else {}
+	var p: Dictionary = WorkRegion070.work_port(core)
 	if p.is_empty() or str(p.get("id", "")) != str(offer["port"]):
 		return _fail(core, "Accept this job at its sponsoring harbor.")
 	if int(p.get(str(offer["payerKey"]),0))<int(offer.reward)+int(offer.get("materialInvoice",0)):
 		return _fail(core, "The sponsor cannot fund this job's escrow today.")
 	if str(offer.kind)==KIND_CHARTER:
 		var selected: Dictionary=_charter_quote(core,str(offer.port),str(offer.targetPort),int(offer.passengers.n),boat_uid)
-		if selected.is_empty() or not Transport.board_charter(core,offer,str(selected.carrierUid)):return _fail(core,"Charter needs real available people, funded provisions and spare berths and hold after lockers on the selected transport or yacht.")
+		var passenger_view=WorkRegion070.charter_view(core,p,core.port(str(offer.targetPort)))
+		if selected.is_empty() or passenger_view==null or not Transport.board_charter(passenger_view,offer,str(selected.carrierUid)):return _fail(core,"Charter needs real available people, funded provisions and spare berths and hold after lockers on the selected transport or yacht.")
 		offer.state=STATE_ACTIVE;offer.acceptedDay=float(state.day)
 		state.voyageJobs.append(offer)
 		if not str(offer.get("sponsorContactId","")).is_empty():Contacts.claim_work_opportunity(state,str(offer.sponsorContactId))
@@ -671,7 +706,7 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 	if not str(offer.get("sponsorContactId","")).is_empty():Contacts.claim_work_opportunity(state,str(offer.sponsorContactId))
 	if str(offer["kind"]) == KIND_SURVEY:
 		var site := Exploration.catalog_site(state, str(offer["siteId"]))
-		if not site.is_empty():
+		if not site.is_empty() and WorkRegion070.region(site)==Exploration.current_region(state):
 			Exploration.discover_near(state, {"x": float(site["x"]), "y": float(site["y"])}, 1.0)
 	if core.has_method("log_entry"):
 		core.log_entry("Accepted voyage job %s; %d coins moved from the sponsor into escrow." % [str(offer["title"]), int(offer["reward"])])
@@ -679,10 +714,8 @@ static func accept(core, id: String,boat_uid: String="") -> Dictionary:
 
 
 static func _at_port(core, state: Dictionary, port_id: String) -> bool:
-	if core.has_method("current_port"):
-		var dock: Dictionary = core.current_port()
-		return not dock.is_empty() and str(dock.get("id", "")) == port_id
-	return false
+	var dock: Dictionary=WorkRegion070.work_port(core)
+	return not dock.is_empty() and str(dock.get("id",""))==port_id
 
 
 static func _bounty_cleared(state: Dictionary, owner_id: String,baseline: int=0) -> bool:
@@ -720,10 +753,7 @@ static func finish(core, id: String) -> Dictionary:
 	if kind in [KIND_SURVEY, KIND_BOUNTY] and not _at_port(core, state, str(job["port"])):
 		return _fail(core, "Report back at the sponsoring harbor to be paid.")
 	if kind == KIND_SURVEY:
-		var level := -1
-		for site in Exploration.sites(state):
-			if str(site.get("id", "")) == str(job["siteId"]):
-				level = int(site.get("level", -1))
+		var level: int=int(state.get("exploration",{}).get("sites",{}).get(str(job.siteId),{}).get("level",-1))
 		if level < Exploration.LEVEL_SURVEYED:
 			return _fail(core, "The site is not fully surveyed yet.")
 	if kind==KIND_BOUNTY and not _bounty_cleared(state,str(job.ownerId),int(job.get("baselineDefeats",0))):
@@ -731,7 +761,7 @@ static func finish(core, id: String) -> Dictionary:
 	var paid := int(job.get("escrow",0))-int(job.get("savingsHousehold",0))-int(job.get("savingsExpert",0))
 	if paid != int(job.get("reward", 0)) or paid <= 0:
 		return _fail(core, "The job escrow is incomplete.")
-	if kind==KIND_CHARTER and not Transport.discharge_charter(core,job,core.current_port()):return _fail(core,"The actual destination cannot safely receive this cohort yet.")
+	if kind==KIND_CHARTER and not Transport.discharge_charter(core,job,WorkRegion070.work_port(core)):return _fail(core,"The actual destination cannot safely receive this cohort yet.")
 	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
 	if not Money.move(job, "escrow", state, "coins", paid, "Voyage job payment from escrow", ledger):
 		return _fail(core, "The job escrow could not be released.")
@@ -778,7 +808,7 @@ static func abandon(core, id: String) -> Dictionary:
 	if job.is_empty():
 		return _fail(core, "No such voyage job.")
 	var freight := _clean_freight(job.get("freight", {}))
-	var dock: Dictionary = core.current_port() if core.has_method("current_port") else {}
+	var dock: Dictionary = WorkRegion070.work_port(core)
 	if not freight.is_empty() and dock.is_empty():
 		return _fail(core, "Dock at a harbor to unload the sealed freight before abandoning.")
 	if str(job.kind)==KIND_CHARTER and not job.passengers.is_empty():
@@ -806,11 +836,21 @@ static func _fuel_allowed(c,sponsor: Dictionary,owner: Dictionary) -> bool:
 static func _fuel_port(c,owner: Dictionary) -> Dictionary:
 	if owner.is_empty():return {}
 	var dock: Dictionary=c.port(str(owner.get("atPort","")))
-	if dock.is_empty():return {}
+	if dock.is_empty() or not WorkRegion070.known_port(c,dock):return {}
+	# The shipping carrier has a real independent spatial record; its stale
+	# HOME patrol projection is never evidence of a remote fuel recipient.
+	if str(owner.get("id",""))==WorkRegion070.Shipping.OWNER and WorkRegion070.Shipping.installed(c.state):
+		var actor: Dictionary=WorkRegion070.Shipping.actor(c)
+		if actor.is_empty():return {}
+		var location: Dictionary=actor.location
+		if str(location.world064.regionId)!=WorkRegion070.region(dock) or location.world064.layer=="ocean" or not location.path.is_empty() or c.distance(location.position,dock)>=40.0:return {}
+		return dock
 	for p in c.state.get("patrols",[]):
 		if str(p.get("id",""))!=str(owner.get("id","")):continue
 		if not p.get("active",false) or not p.get("holding",false) or p.has("interceptPoint"):return {}
-		if c.distance(p,dock)>=40.0 or not Navigation.is_water(c.nav,p.x,p.y,Routes.clearance(c,p)):return {}
+		if str(p.get("world064",{}).get("regionId",Exploration.HOME_REGION))!=WorkRegion070.region(dock):return {}
+		var geometry: Dictionary=c.nav if WorkRegion070.region(dock)==Exploration.HOME_REGION else c.ocean_context064.get("regionGeometry",{}).get(WorkRegion070.region(dock),{})
+		if c.distance(p,dock)>=40.0 or not Navigation.is_water(geometry,p.x,p.y,Routes.clearance(c,p)):return {}
 		return dock
 	return {}
 
@@ -861,10 +901,12 @@ static func recipient_status(c,job: Dictionary) -> Dictionary:
 
 
 static func _charter_quote(c,origin: String,target: String,count: int,uid: String="") -> Dictionary:
+	var passenger_view=WorkRegion070.charter_view(c,c.port(origin),c.port(target))
+	if passenger_view==null:return {}
 	for b in c.active_fleet():
 		if not uid.is_empty() and str(b.uid)!=uid:continue
 		if str(c.hull(str(b.type)).get("civilianRole","")) not in ["transport","yacht"] or Transport.spare(c,b)<count:continue
-		var q: Dictionary=Transport.charter_quote(c,origin,target,count,str(b.uid))
+		var q: Dictionary=Transport.charter_quote(passenger_view,origin,target,count,str(b.uid))
 		if not q.is_empty() and _carrier_free(c,b)+0.000001>=float(q.charterFood.get("food",0)):return q
 	return {}
 
@@ -884,9 +926,9 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 		var demand: float=maxf(0,fuel_demand(owner,true)-_fuel_promised(c,str(owner.id)))
 		var limit: int=floori(minf(demand,minf(export_fuel,fuel_room)))
 		if limit<1:continue
-		var path: Array=Routes.path(c,p,target)
-		if path.size()<2:continue
-		var days: float=_travel_days(c,p,target)
+		var route: Dictionary=WorkRegion070.route(c,target,p)
+		if not route.ok:continue
+		var days: float=float(route.referenceDays)
 		limit=mini(limit,_catalog_load_room(c,days,KIND_FUEL))
 		var small: int=mini(8,limit);var added: bool=false
 		for tier in WORK_LOADS:
@@ -895,6 +937,7 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 			var qty: int=int(load.qty)
 			if tier=="larger" and qty<small*2:continue
 			var q: Dictionary={"title":"%s fuel restock: %d drums for %s at %s"%[str(tier).capitalize(),qty,str(owner.name),str(target.name)],"description":"Treasury buys real fuel for unfilled operating tanks, after the recipient's existing cargo fuel and promises. The independent fleet may sail or restock; payment only on actual receipt.","kind":KIND_FUEL,"port":str(p.id),"targetPort":str(target.id),"ownerId":str(owner.id),"payerKey":"governmentPurse","reward":int(load.reward),"materialInvoice":int(load.invoice),"freight":{"good":"fuel","qty":float(qty)},"deadlineDay":float(day)+ceilf(maxf(days,float(load.days))*2+6),"state":STATE_OFFERED,"fuelPolicy":"operating_tanks","loadTier":tier,"quotedDay":float(c.state.day),"demandNeed":demand,"demandPurpose":"Existing living, crewed boats' unfilled real tanks; all already-carried recipient fuel deducted. No tank reservation; recipient can depart or buy fuel.","feeBasis":str(load.feeBasis)}
+			q.regionId=WorkRegion070.region(p);q.targetRegionId=WorkRegion070.region(target)
 			q.id=_work_id(p,day,KIND_FUEL,str(target.id),str(owner.id),qty,q)
 			if taken.has(q.id) or _is_closed(c.state,str(q.id)):continue
 			out.append(q);added=true
@@ -902,12 +945,17 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 	var charter_routes: int=0
 	for destination in _work_destinations(c,p):
 		if charter_routes>=WORK_ROUTES:break
+		# Existing passenger time/distance accounting is local-coordinate based.
+		# Its SAME-region boarding/food/savings rules stay authoritative.
+		if WorkRegion070.region(destination)!=WorkRegion070.region(p):continue
 		var largest: int=0
 		for b in c.active_fleet():
 			if str(c.hull(str(b.type)).get("civilianRole","")) in ["transport","yacht"]:largest=maxi(largest,Transport.spare(c,b))
 		var limit: int=mini(32,mini(largest,mini(int(p.get("availableWorkers",0)),Transport.charter_room(c,destination))))
 		if limit<1:continue
-		var days: float=_travel_days(c,p,destination)
+		var route: Dictionary=WorkRegion070.route(c,destination,p)
+		if not route.ok:continue
+		var days: float=float(route.referenceDays)
 		var small: int=mini(4,limit);var added: bool=false
 		for tier in WORK_LOADS:
 			var count: int=small if tier=="small" else limit
@@ -922,6 +970,7 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 				q={}
 			if q.is_empty() or fee.is_empty():continue
 			q.merge({"title":"%s charter: %d people to %s"%[str(tier).capitalize(),int(q.passengers.n),str(destination.name)],"description":"Existing civilians, their own savings and purchased provisions travel in one transport or yacht. Savings are custody, never your earnings. Actual destination housing and people limit this passage.","kind":KIND_CHARTER,"port":str(p.id),"targetPort":str(destination.id),"payerKey":"governmentPurse","reward":int(fee.reward),"deadlineDay":float(day)+int(q.routeDays)*2+6,"state":STATE_OFFERED,"freight":{},"demandNeed":float(limit),"demandPurpose":"Existing available workers seeking passage into actual uncommitted destination housing, with real berths and bought food.","loadTier":tier,"quotedDay":float(c.state.day),"feeBasis":str(fee.feeBasis)})
+			q.regionId=WorkRegion070.region(p);q.targetRegionId=WorkRegion070.region(destination)
 			q.id=_work_id(p,day,KIND_CHARTER,str(destination.id),"people",int(q.passengers.n),q)
 			if taken.has(q.id) or _is_closed(c.state,str(q.id)):continue
 			out.append(q);added=true
