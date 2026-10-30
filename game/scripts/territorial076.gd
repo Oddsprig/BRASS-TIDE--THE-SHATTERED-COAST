@@ -165,11 +165,15 @@ static func quote_improve(c, port_id: String) -> Dictionary:
 	elif not _crew_ok(c.state, old):return _result(false, "Recall the interrupted party before assigning healthy replacement sailors.")
 	if party.is_empty():return _result(false, "Two healthy existing sailors above minimum crews are required; recall other shore work first.")
 	var materials: Dictionary = Home.KINDS.warehouse.materials.duplicate(true)
-	# Forecast the actual carried contribution on a detached harbor; no live
-	# quote normalization or requirement for a second set of destination goods.
-	var quote: Dictionary = Home.quote(QuoteView.new(c, _port(c.state, port_id), materials if old.is_empty() else {}), "warehouse", port_id)
+	if not old.is_empty() and old.get("reservedMaterials") != materials:return _result(false, "This project lacks its actual reserved construction materials; old spent contributions cannot be recreated.")
+	# Forecast the carried bill before start, or the actual project inventory on
+	# resume. Neither read-only quote lends these goods to the market economy.
+	var quote: Dictionary = Home.quote(QuoteView.new(c, _port(c.state, port_id), materials if old.is_empty() else old.reservedMaterials), "warehouse", port_id)
 	if not quote.get("ok", false):return quote
-	if not quote.get("affordable", false):return _result(false, "The captain must fund the actual warehouse setup and its normal working-capital reserve.", {"homeQuote": quote})
+	var bill: Dictionary = {"homeQuote": quote, "cost": int(quote.cost),
+		"grossCost": int(quote.cost), "cashRequired": int(quote.cost),
+		"materialCredit": int(quote.materialCost), "netCost": int(quote.cost) - int(quote.materialCost)}
+	if not quote.get("affordable", false):return _result(false, "Retain the gross warehouse setup and working capital temporarily; supplied material value is credited from the harbor on completion.", bill)
 	var remaining: int = WORK_DAYS - int(old.get("paidDays", 0))
 	if float(item.condition) + 0.000001 < remaining * 0.01:return _result(false, "The actual machinery needs one percent condition for each remaining work day.")
 	for good in materials:
@@ -178,10 +182,11 @@ static func quote_improve(c, port_id: String) -> Dictionary:
 	var payroll: Dictionary = Economy.daily_upkeep(c.state.fleet)
 	if float(c.state.cargo.get("food", 0)) < float(payroll.food) * remaining:return _result(false, "Carry the fleet's ordinary rations for every remaining paid work day.")
 	if int(c.state.coins) < int(quote.cost) + int(payroll.wages) * remaining:return _result(false, "Retain warehouse capital and the fleet's actual payroll for the remaining work days.")
-	return _result(true, "Two paid days using carried machinery and sailors, followed by the existing funded warehouse setup.",
+	bill.merge(
 		{"portId": port_id, "machineryId": str(item.id), "crewByBoat": party.duplicate(true),
-		"materials": materials, "homeQuote": quote, "cost": int(quote.cost),
+		"materials": materials,
 		"remainingDays": remaining, "payrollPerDay": int(payroll.wages), "workSupplies": remaining * 0.5})
+	return _result(true, "Two paid days using carried machinery and sailors, followed by funded warehouse setup with one supplied-material credit.", bill)
 
 static func improve(c, port_id: String) -> Dictionary:
 	var quote: Dictionary = quote_improve(c, port_id)
@@ -189,19 +194,19 @@ static func improve(c, port_id: String) -> Dictionary:
 	ensure(c)
 	var job: Dictionary = _book(c.state).improvement
 	if job.is_empty():
-		var p: Dictionary = _port(c.state, port_id)
-		# Explicit contribution, not a sale/refund. The existing economy owns it now.
+		# Actual carried goods become this harbor project's inventory, once. They
+		# are unavailable to market production and remain here during withdrawal.
 		for good in quote.materials:
 			c.state.cargo[good] = float(c.state.cargo.get(good, 0)) - float(quote.materials[good])
-			p.stocks[good] = float(p.stocks.get(good, 0)) + float(quote.materials[good])
 		job.merge({"portId": port_id, "status": "active", "businessId": "",
 			"machineryId": str(quote.machineryId), "crewByBoat": {},
 			"startedDay": int(c.state.econDay), "lastPaidDay": int(c.state.econDay),
-			"paidDays": 0, "materials": quote.materials.duplicate(true), "reason": ""})
+			"paidDays": 0, "materials": quote.materials.duplicate(true),
+			"reservedMaterials": quote.materials.duplicate(true), "setupBill": {}, "reason": ""})
 	if job.crewByBoat.is_empty():_reserve(c, job, quote.crewByBoat)
 	job.status = "active";job.reason = "Keep the moored party supplied and ordinary fleet payroll fully paid."
 	Manifest.allocate(c.state)
-	return _result(true, "Berth work underway. Donated materials stay at this harbor; setup capital is charged by HomeHarbor on completion.", {"improvement": job.duplicate(true)})
+	return _result(true, "Berth work underway. Materials stay reserved for this project at this harbor; funded setup credits their value once on completion.", {"improvement": job.duplicate(true)})
 
 static func _owner_near(c, owner: Dictionary, p: Dictionary) -> bool:
 	if Orders.enrolled066(c.state, str(owner.get("id", ""))):return false
@@ -279,7 +284,7 @@ static func withdraw(c) -> Dictionary:
 		var job: Dictionary = _book(c.state).get(key, {})
 		if job.is_empty() or job.get("status") in ["complete", "withdrawn"]:continue
 		_release(c, job)
-		job.status = "withdrawn";job.reason = "Party recalled to its original hulls. Earned wages, wear, donations and operating support remain spent; progress can resume here."
+		job.status = "withdrawn";job.reason = "Party recalled to its original hulls. Project materials stay reserved here; earned wages, wear and operating support remain spent. Progress can resume here."
 		changed = true
 	return _result(true, "Shore work withdrawn; existing assets and paid contributions remain with their actual recipients.", {"changed": changed})
 
@@ -342,10 +347,29 @@ static func daily(c) -> void:
 			if not reason.is_empty():job.status = "interrupted";job.reason = reason
 			continue
 		if int(job.paidDays) < WORK_DAYS:continue
-		var built: Dictionary = Home.establish(c, "warehouse", str(job.portId))
+		if job.get("reservedMaterials") != Home.KINDS.warehouse.materials:
+			job.status = "interrupted";job.reason = "The project's actual reserved construction materials are missing; no replacement goods are granted."
+			continue
+		var p: Dictionary = _port(c.state, str(job.portId))
+		var stocks: Dictionary = p.stocks.duplicate(true)
+		# A synchronous handoff to existing paid setup. On refusal, restore the
+		# exact prior stocks (including absent keys), leaving our held bill intact.
+		for good in job.reservedMaterials:
+			p.stocks[good] = float(p.stocks.get(good, 0)) + float(job.reservedMaterials[good])
+		var quote: Dictionary = Home.quote(c, "warehouse", str(job.portId))
+		var built: Dictionary = Home.establish(c, "warehouse", str(job.portId)) if quote.get("ok", false) else quote
 		if not built.get("ok", false):
+			p.stocks = stocks
 			job.status = "interrupted";job.reason = str(built.get("message", "Actual warehouse setup is currently unavailable."))
 			continue
+		# This fresh quote and establish run without a time step or price change.
+		# Home just paid materialCost + margin into port.cash, so that receipt
+		# funds this exact credit; labor, margin, duty and working capital remain.
+		var credit: int = int(quote.materialCost)
+		Money.move(p, "cash", c.state, "coins", credit, "076 supplied construction materials credit", c.state.moneyLog)
+		job.reservedMaterials = {}
+		job.setupBill = {"grossCost": int(built.cost), "materialCredit": credit,
+			"netCost": int(built.cost) - credit, "homeQuote": quote.duplicate(true)}
 		job.businessId = str(built.business.id)
 		job.status = "complete";job.reason = "Paid warehouse and rented berth completed; its business remains distinct from harbor sovereignty."
 		_release(c, job)
@@ -429,11 +453,20 @@ static func validate(saved: Dictionary, world: Dictionary) -> String:
 		if key == "improvement":
 			if not j.get("businessId") is String or not j.get("machineryId") is String:return "Invalid territorial asset identity."
 			if j.get("materials") != Home.KINDS.warehouse.materials:return "Invalid territorial material contribution."
+			if not j.get("reservedMaterials") is Dictionary or not j.get("setupBill") is Dictionary:return "Missing territorial project inventory or setup receipt; spent old goods cannot be recreated."
+			if j.status != "complete" and (j.reservedMaterials != j.materials or not j.setupBill.is_empty()):return "Unfinished territorial work must retain its exact reserved bill and no completion credit."
 			var found: bool = false
 			for item in saved.get("tooling", {}).get("items", []):
 				if item.get("id") == j.machineryId and item.get("kind") == "machine_tools":found = true
 			if not found:return "Missing original territorial machinery record."
 			if j.status == "complete":
+				var bill: Dictionary = j.setupBill
+				if not j.reservedMaterials.is_empty() or bill.size() != 4 or not bill.get("homeQuote") is Dictionary:return "Completed territorial work retains materials or lacks its actual setup receipt."
+				for field in ["grossCost", "materialCredit", "netCost"]:
+					if not BoardingRules._w(bill.get(field), BoardingRules.CASH):return "Invalid territorial supplied-material credit."
+				var quote: Dictionary = bill.homeQuote
+				if quote.get("ok") != true or quote.get("kind") != "warehouse" or quote.get("portId") != j.portId or quote.get("materials") != j.materials:return "Territorial setup receipt does not match its project."
+				if quote.get("cost") != bill.grossCost or quote.get("materialCost") != bill.materialCredit or bill.materialCredit > bill.grossCost or bill.netCost != bill.grossCost - bill.materialCredit:return "Territorial gross bill and supplied-material credit do not reconcile."
 				var b: Dictionary = Home.business_view(saved, str(j.businessId))
 				if int(j.paidDays) != WORK_DAYS or b.get("kind") != "warehouse" or b.get("homePort") != j.portId:return "Completed territorial berth lacks its actual paid warehouse."
 			elif j.businessId != "":return "Unfinished territorial berth claims a business."
