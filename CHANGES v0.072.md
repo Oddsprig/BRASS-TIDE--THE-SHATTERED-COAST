@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Clarify voyage actions and record current active fleet workloads, command response, loading and memory with honest remaining limits.
 
 See docs/TEST RESULTS v0.072.md for actual focused checks and remaining limits.
+
+Verification: 307 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 105.817s. Preserved earlier failures; no broad acceptance claim.

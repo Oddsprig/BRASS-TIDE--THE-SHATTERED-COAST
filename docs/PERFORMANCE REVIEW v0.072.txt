@@ -1,0 +1,53 @@
+30 October2026. Root reviewed actual exported runtime job45ef93c829b64755ad4a2df8c6fcf1ce,
+not a diagnostic run. Source9b76b9795dc7c9695a457e9639f3ef0afc126d33.
+Full3s warmup/12s active per case,300vs300DP;42light boats and16mixed boats.
+Actual CoreUltra9 275HX,24logicalCPUs,RTX5090Laptop,Vulkan/mobile,120frame cap.
+Requested2560x1600, actual window2560x1570, viewport1600x1000; captured content
+2512x1570. CLI --render-thread safe; runtime threadModel monitor is NULL, so
+do not represent that monitor as confirmation of mode1. Source default1 remains.
+No input/focus, private desktop never activated, Dummy audio; owned child exited,
+active processes0, cleanup complete. Unthrottled24CPU/2GiB envelope, peak owned
+job memory1609031680bytes, CPUuser53.625/kernel3.21875seconds. Godot GPU counters
+are allocation estimates, not measured total adapter capacity or process RAM.
+
+Light:60.005775868FPS,99.861303745%frames<=20ms,no>50ms frames. Worker capacity
+P9536.448ms misses33.333ms; snapshotmedian13.765/P9516.322ms; maxlag149.999ms
+misses100ms, P95100.744ms. Main publicationP950.343ms meets6ms. Hold sequence1,
+kindorder,oktrue; exact queue-to-joined observation50.377ms, insideactiveinterval.
+Catch-up target also unmet. Frames, Main publication, deadlock and stutter targets
+met. There is still a genuine light-fleet worker/publication cost to address in
+a later demonstrated performance scope; this release does not claim it resolved.
+
+Mixed:60.010031080FPS,99.861303745%frames<=20ms,no>50ms frames. Worker capacity
+P9519.299ms; snapshotmedian7.177/P958.079ms; maxlag50ms. Main publicationP950.184ms.
+Hold sequence1,kindorder,oktrue; queue-to-joined observation17.139ms insideactive.
+Every recorded strict mixed target met. Overallquality_target_pass FALSE because
+the light case has misses. Do not substitute measurement completion for quality.
+Hold spans include queue scheduling/poll delay, not internal worker execution.
+
+Root viewed all FOUR actual PNGs: light-opening/light-end/mixed-opening/mixed-end
+under runtime/runtime043-56328-2600595. Opening and end show the complete HUD,
+real differing hulls/weapon placements,42/16actors, islands, evolved fleet positions,
+hits/fire/smoke/wakes and changed HP; this is active rendering, not idle FPS.
+Light end has crowded pairs and an ordered boat waiting for helm clearance;
+mixed end shows the held boat at its position. UI retains a stale TACTICAL PAUSE
+banner during these active cases. Record that presentation issue for078 rather
+than claim the HUD polished. At this fleet zoom small weapon distinctions and
+boat surface detail remain weak;073 asset scope addresses legibility. No giant
+under-hull reflection is visible. These four stills do not prove continuous
+motion quality, sustained performance, audible sound quality or game parity.
+071's separately reviewed temporal-frame sample and unverified listening status
+remain historical; no fresh listening or motion acceptance implied here.
+
+Historical063 has different source/workload and no fresh matching071 baseline.
+Do not claim a causal speedup from the tiny discarded-pose correction. The
+unaltered cadence/ownership/detachment reference passed28nativechecks. Complete
+ordinary-account voyage passed279: actual loaded work, live hostile contact,
+worker battle damage/withdrawal, real stocked repair, home and paid specialist.
+Campaign phase wall timings include simulation/economy/save work; they are not
+campaign chart FPS. Whole voyage body53.661s, physical return49.933->52.413s,
+funded regional work15.825->39.856s. No measured component attribution invented.
+
+Authoritative machine data: ACTUAL072 PERFORMANCE.json, PERFORMANCE072 FACTS.txt
+and job runtime_report/hash. Root accepts scoped integration and measurement;
+strict light performance, broader art/AI/UI quality and071 listening remain open.

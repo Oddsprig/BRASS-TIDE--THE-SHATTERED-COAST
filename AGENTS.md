@@ -1,26 +1,10 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.071: combat presentation, stern wakes and recorded sound.
-Tested 7ee3a993e697dabfc8260b057b47b49d93c11dc6;189 focused/0; Windows/menu and two reviewed private movie captures.
-Receipts work/quality-v071/ACTUAL071 CHECKS.json and DELIVERED v0.071.json.
-Do not rebuild071. Next072: complete voyage integration and measured runtime costs.
-Whole-game quality/strict performance OPEN. Root owns tests and delivery.
-
-ACTIVE SOURCE072: complete voyage integration and bounded current performance
-measurement. work/quality-v072/SCOPE072.txt and isolated ROLE072.txt define the
-exact four source roles. Finish072 before073. Historical063 costs justify one
-small safe publication correction, not a new ownership/cache architecture or
-fresh-baseline claim. No chase of fractional60FPS cap noise. Root alone queues
-all actual engine/GPU tests; preserve installed071 until072 accepted. Metadata
-for072 has not been prepared. Two SolMAX/two GrokHIGH through Bridge; requested
-Gemini media work pending availability, no paid fallback; bounded Spark work is
-reviewed before use. No new hull/AI/strategy/economy frameworks in072.
-
-071 audible quality remains UNVERIFIED. Root reviewed20 temporal frames and
-source/PCM integrity; this was not listening. Sparse sample and exact limits:
-docs/audio/OFFLINE REVIEW v0.071.txt. Spark media route declined; explicit Google
-plan audio call timed out. Two Spark text drafts reviewed; erroneous layer-level
-sum rejected. No paid/model fallback. Gemini media reviews pending availability.
+Current verified release v0.072: complete voyage and measured runtime costs.
+Tested 9b76b9795dc7c9695a457e9639f3ef0afc126d33; 307 focused/0; Windows/menu and two active rendered300DP cases.
+Receipts work/quality-v072/ACTUAL072 CHECKS.json and DELIVERED v0.072.json.
+Do not rebuild072. Next073: original hull and weapon asset detail across36boats.
+Whole-game quality/strict performance OPEN; see actual review. Root owns tests/delivery.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -49,7 +33,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through071 are scoped verified;072-078 remain planned. Earlier quality
+063 through072 are scoped verified;073-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051

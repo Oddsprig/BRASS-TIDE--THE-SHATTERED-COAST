@@ -1,4 +1,4 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.071)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.072)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
@@ -40,12 +40,12 @@ game/scripts/career_costs.gd: 27940 bytes; extends RefCounted
   game/scripts/career_costs.gd:62 _length()
   game/scripts/career_costs.gd:70 _budget()
   game/scripts/career_costs.gd:151 _second_hull()
-game/scripts/guidance_ui.gd: 12478 bytes; extends RefCounted
+game/scripts/guidance_ui.gd: 12968 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
-  game/scripts/guidance_ui.gd:65 action_label()
-  game/scripts/guidance_ui.gd:68 action()
-  game/scripts/guidance_ui.gd:91 career_plan()
-  game/scripts/guidance_ui.gd:114 open()
+  game/scripts/guidance_ui.gd:72 action_label()
+  game/scripts/guidance_ui.gd:75 action()
+  game/scripts/guidance_ui.gd:98 career_plan()
+  game/scripts/guidance_ui.gd:121 open()
 
 TESTS (game/tests/*.gd)
 test_career_balance038, test_career_flow038; earlier test_campaign_cash, test_runtime, test_voyage

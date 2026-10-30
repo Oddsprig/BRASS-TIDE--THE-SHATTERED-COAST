@@ -1,3 +1,7 @@
+v0.072 CURRENT:307/0; Windows/title, complete ordinary-account voyage and actual rendered300DP measurements.
+work/quality-v072/ACTUAL072 CHECKS.json; final selected 167.557s.
+Strict target and quality limits: docs/PERFORMANCE REVIEW v0.072.txt.
+
 v0.071 CURRENT:189/0; Windows/title, two private movies and offline sound review.
 work/quality-v071/ACTUAL071 CHECKS.json; final selected 139.264s.
 Whole-game quality and strict performance targets remain open.

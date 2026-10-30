@@ -1,4 +1,4 @@
-BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.071)
+BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.072)
 
 Existing companies, spatial positions, stores and shipyards -> actual trade, escorts/intercepts, paid combat, recovery and replacements.
 

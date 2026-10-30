@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-29 October 2026 | v0.069-v0.071 VERIFIED SCOPED; v0.072-v0.078 PLANNED | Current delivered game: v0.071
+29 October 2026 | v0.069-v0.072 VERIFIED SCOPED; v0.073-v0.078 PLANNED | Current delivered game: v0.072
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069-v0.071 are delivered within scope; the remaining seven entries are planned.
+v0.069-v0.072 are delivered within scope; the remaining six entries are planned.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -62,7 +62,7 @@ live tests remain mandatory. Record anything not listened to or played.
 Boundary: existing damage/effects/audio systems, inexpensive water, existing
 boat assets. New complete hull/weapon asset production belongs to v0.073.
 
-0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR
+0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR [VERIFIED SCOPED]
 Focus: integrate v0.069-v0.071 and fix the largest demonstrated runtime costs.
 Complete prepare -> sail -> work/explore -> encounter -> repair/recover ->
 return -> upgrade on normal accounts. Review loading, camera, chart labels,

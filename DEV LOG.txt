@@ -1,3 +1,5 @@
+v0.072 VERIFIED AND PACKAGED: 307/0 focused checks, selected batch 105.817s, TestBridge bb5cfa142547409e855d118304e1de65. Source 9b76b9795dc7c9695a457e9639f3ef0afc126d33.
+
 30OCT2026 - v0.072 COMPLETE VOYAGE INTEGRATION AND MEASURED FLEET PERFORMANCE
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

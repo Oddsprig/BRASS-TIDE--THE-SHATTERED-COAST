@@ -1,11 +1,7 @@
-# Current step: v0.072 - Complete voyage integration and measured fleet performance
+# Current verified release: v0.072 voyage integration
 
-- Connect the existing preparation, work, encounter, paid repair, return and improvement loop using ordinary accounts and actual fleets.
-- Remove one discarded pre-step pose allocation while retaining detached worker publications and the existing simulation rate.
-- Clarify voyage actions and record current active fleet workloads, command response, loading and memory with honest remaining limits.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+307 focused/0; Windows/menu, actual voyage and two active rendered300DP measurements.
+Next073: original boat and weapon assets. Unmet quality targets remain open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

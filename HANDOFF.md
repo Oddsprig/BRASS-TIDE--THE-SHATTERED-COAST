@@ -1,10 +1,18 @@
-# Brass Tide v0.072
+# Brass Tide v0.072 delivered
 
-Current candidate: Complete voyage integration and measured fleet performance.
+BRASS TIDE v0.072 - Complete voyage integration and measured fleet performance
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 9b76b9795dc7c9695a457e9639f3ef0afc126d33 / v0.072
+Test Bridge: bb5cfa142547409e855d118304e1de65
+307 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 105.817s; owned cleanup verified.
 
 - Connect the existing preparation, work, encounter, paid repair, return and improvement loop using ordinary accounts and actual fleets.
 - Remove one discarded pre-step pose allocation while retaining detached worker publications and the existing simulation rate.
 - Clarify voyage actions and record current active fleet workloads, command response, loading and memory with honest remaining limits.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Tested source 9b76b9795dc7c9695a457e9639f3ef0afc126d33; 307 focused assertions/0 failures; Windows export/title. Final selected suite 167.557s including setup/import/export/startup/cleanup; queue wait separate. Same ordinary starting boat and world accounts complete funded freight/survey, real physical hostile contact, authoritative worker combat and withdrawal, stocked paid repair at Cinder Quay, physical Brass Haven return and a useful paid surveyor. Starting15000; client escrow8271; hiring2000; payroll3500; repair1444; replacement stores3382; specialist1000; ending11945 coins. All173560000 world coins conserved, no wage arrears. Risky detour spends3055 starting capital; unchanged070 retains its stronger profitable-only proof. Publication0/1/3step reference, detached snapshots and joined ownership regression28/0; complete voyage279/0. One discarded pre-step pose traversal removed; no measured causal speedup claim. UI distinguishes live course, chart selection, ordinary reserves and reached service harbor. Service repair still requires actual local stock and labor; the voyage correctly selected the stocked Cinder fallback. R1startup exit and R2stock refusal remain failed receipts. Requested Gemini text roles both refused before send because Google seven-day plan is100%; no fallback. Root reviewed bounded Spark text drafts.071 listening quality remains unverified. Actual evidence: work/quality-v072/ACTUAL072 CHECKS.json and ROOT PERFORMANCE REVIEW072.txt. Rendered measurement complete does not mean every strict performance target passed. Historical063 is context, not a fresh matching baseline or isolated speedup proof. One ordinary Hold per active case records queue-to-joined observation including scheduling/poll delay. The voyage uses ordinary starting accounts, funded work, physical travel, an existing hostile owner, actual worker damage/withdrawal, stocked paid repair and a paid useful improvement. The risky detour may spend starting capital; the unchanged070 fixture retains its separate profit-only proof. Existing36boats/48freshgroups,300DP,numericalcrews,defaultauto,WASD,safe render1,30Hz dataworker and100ms role choices retained. Owner files/music/older builds preserved. No live audio, input/focus, autolaunch or remote publication.071 listening quality and whole-game quality remain open. Next073: original hull/weapon asset detail.
+
+Continue with the next saved version scope after v0.072; preserve the shared lane and120-second limit.

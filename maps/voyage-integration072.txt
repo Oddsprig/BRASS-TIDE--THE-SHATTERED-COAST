@@ -1,0 +1,51 @@
+BRASS TIDE — VOYAGE-INTEGRATION072 MAP (generated; v0.072)
+
+Existing earned work, physical encounter/withdrawal, paid repair and return -> useful improvement. Live course and ordinary harbor services stay distinct; detached driver poses and actual joined order observations support current measurement.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/battle_driver051.gd: 23870 bytes; extends RefCounted
+  game/scripts/battle_driver051.gd:89 advance()
+  game/scripts/battle_driver051.gd:105 queue_command()
+  game/scripts/battle_driver051.gd:113 take_events()
+  game/scripts/battle_driver051.gd:118 telemetry()
+  game/scripts/battle_driver051.gd:125 presentation_fraction()
+  game/scripts/battle_driver051.gd:128 presentation_poses()
+game/scripts/campaign_ui.gd: 25321 bytes; extends RefCounted
+  game/scripts/campaign_ui.gd:85 expedition()
+  game/scripts/campaign_ui.gd:195 expedition_comparison()
+  game/scripts/campaign_ui.gd:198 expedition_owned_support()
+  game/scripts/campaign_ui.gd:208 expedition_support_text()
+  game/scripts/campaign_ui.gd:214 expedition_yard_support()
+  game/scripts/campaign_ui.gd:258 expedition_yard_text()
+game/scripts/guidance_ui.gd: 12968 bytes; extends RefCounted
+  game/scripts/guidance_ui.gd:7 open_voyage()
+  game/scripts/guidance_ui.gd:72 action_label()
+  game/scripts/guidance_ui.gd:75 action()
+  game/scripts/guidance_ui.gd:98 career_plan()
+  game/scripts/guidance_ui.gd:121 open()
+game/scripts/voyage_panel070.gd: 19816 bytes; extends RefCounted
+  game/scripts/voyage_panel070.gd:12 region_name()
+  game/scripts/voyage_panel070.gd:19 work_berth()
+  game/scripts/voyage_panel070.gd:27 service_berth()
+  game/scripts/voyage_panel070.gd:35 board_header()
+  game/scripts/voyage_panel070.gd:49 listed_offers()
+  game/scripts/voyage_panel070.gd:66 selected_quote()
+game/scripts/voyage_ui.gd: 29675 bytes; extends RefCounted
+  game/scripts/voyage_ui.gd:5 open()
+  game/scripts/voyage_ui.gd:86 review_estimate()
+  game/scripts/voyage_ui.gd:148 survey_terms()
+  game/scripts/voyage_ui.gd:154 settle()
+  game/scripts/voyage_ui.gd:158 contacts()
+  game/scripts/voyage_ui.gd:179 sponsor_reason()
+game/scripts/runtime_profile043.gd: 47766 bytes; extends RefCounted
+  game/scripts/runtime_profile043.gd:58 prepare()
+  game/scripts/runtime_profile043.gd:95 options()
+  game/scripts/runtime_profile043.gd:121 start()
+  game/scripts/runtime_profile043.gd:199 configure_battle051()
+  game/scripts/runtime_profile043.gd:244 after_process()
+  game/scripts/runtime_profile043.gd:256 after_physics()
+
+TESTS (game/tests/*.gd)
+test_complete_voyage072 and test_publication072; actual native/Windows/rendered evidence in work/quality-v072 after verification
+
+Full symbols: rg -n '^func |^static func ' on named files.
