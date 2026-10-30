@@ -2,7 +2,7 @@ extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
 const Guidance=preload("res://scripts/campaign_guidance.gd")
 const Costs=preload("res://scripts/career_costs.gd")
-const Panel=preload("res://scripts/voyage_panel070.gd")
+const VoyagePanel=preload("res://scripts/voyage_panel070.gd")
 
 static func open_voyage(ui,offer_id: String="") -> void:
 	# Quotes are prepared only on opening/refresh, never by the campaign HUD tick.
@@ -143,7 +143,7 @@ static func open(ui) -> void:
 		journey+="The estimate is a round trip from your current position plus %.0f reserve days."%float(budget.reserveDays) if sailing_quote else "No safe sailing route. Sailing quote unavailable; reserve-only budget, excluding travel."
 	ui.paragraph(body,journey+"\n%.1f %s days · %s coins daily payroll · %s coins %s payroll · %.1f food days · %.1f working-fuel days · %.1f repair kits.
 Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks. Estimate for the current fleet."%[float(budget.tripDays),"planned" if sailing_quote else "reserve",str(budget.dailyWages),str(budget.returnWages),"return" if sailing_quote else "reserve",float(budget.foodDays),float(budget.fuelDays),float(budget.repairKits),float(budget.cargoWeight),float(budget.usableCapacity)],15)
-	var dock: Dictionary=Panel.board_header(c)
+	var dock: Dictionary=VoyagePanel.board_header(c)
 	var dock_chart: String=str(dock.region) if not str(dock.region).is_empty() else "this chart"
 	if bool(dock.docked):
 		var dock_kind: String="Home harbor" if str(dock.kind)=="home" else "Work berth"

@@ -23,6 +23,9 @@ for relative in args.files:
         issues.append({'file': relative, 'line': source.count('\n', 0, match.start()) + 1,
                        'issue': 'namespace is reserved in the current Godot parser; review the declaration'})
     for alias, target in preload.findall(source):
+        if alias == 'Panel':
+            issues.append({'file': relative, 'preload': target,
+                           'issue': 'Panel is a native Godot class; choose a distinct preload alias'})
         dependency = args.game / target
         if not dependency.is_file():
             issues.append({'file': relative, 'preload': target, 'issue': 'Missing preload file'})

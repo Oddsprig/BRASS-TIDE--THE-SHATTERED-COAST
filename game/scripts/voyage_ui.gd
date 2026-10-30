@@ -1,6 +1,6 @@
 extends RefCounted
 const Choices=preload("res://scripts/civilian_choices059.gd")
-const Panel=preload("res://scripts/voyage_panel070.gd")
+const VoyagePanel=preload("res://scripts/voyage_panel070.gd")
 ## Several funded commitments, original contacts and honest dated reports.
 static func open(ui,tab: String="Work board") -> void:
 	if tab=="Fishing":review_fishing(ui);return
@@ -42,7 +42,7 @@ static func open(ui,tab: String="Work board") -> void:
 		ui.button(body,"Abandon / unload remaining freight",func():settle(ui,job.id,true))
 	ui.rule(body)
 	ui.label(body,"Available at this harbor",25,ui.GOLD,true)
-	var offers: Array=Panel.listed_offers(c)
+	var offers: Array=VoyagePanel.listed_offers(c)
 	if offers.is_empty():ui.paragraph(body,_empty_board(c),16)
 	for item in offers:
 		var offer: Dictionary=item.duplicate(true)
@@ -51,7 +51,7 @@ static func open(ui,tab: String="Work board") -> void:
 		if offer.kind=="survey":ui.paragraph(body,survey_terms(c,offer),15,ui.TEAL)
 		if not str(offer.get("sponsorContactId","")).is_empty():ui.paragraph(body,sponsor_reason(c,offer),15,ui.TEAL)
 		if not str(offer.get("loadTier","")).is_empty():ui.paragraph(body,"%s load · %s"%[str(offer.loadTier).capitalize(),str(offer.get("demandPurpose",offer.description))],15,ui.TEAL)
-		ui.paragraph(body,"%s → %s"%[Panel.origin_name(c,offer),Panel.destination_name(c,offer)],15,ui.TEAL)
+		ui.paragraph(body,"%s → %s"%[VoyagePanel.origin_name(c,offer),VoyagePanel.destination_name(c,offer)],15,ui.TEAL)
 		ui.paragraph(body,"Gross fee %s · deadline day %.0f"%[ui.money(int(offer.get("reward",0))),float(offer.get("deadlineDay",0))],16,ui.GOLD)
 		if str(offer.kind) in Choices.CIVILIAN_KINDS:
 			ui.button(body,"Review voyage costs, load and carrier",func():review_job(ui,offer),true,false)
@@ -62,13 +62,13 @@ static func open(ui,tab: String="Work board") -> void:
 	ui.button(body,"Story contracts & captain's log",ui.open_contracts)
 
 static func _empty_board(c) -> String:
-	var header: Dictionary=Panel.board_header(c)
+	var header: Dictionary=VoyagePanel.board_header(c)
 	if not bool(header.get("berthKnown",false)):return "The work berth is not on this campaign yet. Published offers stay listed without a home-waters cost. Completed jobs do not reroll."
 	if not bool(header.docked):return "Dock at a known harbor for funded work. Offers need an actual sponsor purse and physical cargo; completed jobs do not reroll."
 	return "No funded offer is published at %s today. Offers need an actual sponsor purse and physical cargo; completed jobs do not reroll."%str(header.name)
 
 static func _paint_board_context(ui,body,c) -> void:
-	var header: Dictionary=Panel.board_header(c)
+	var header: Dictionary=VoyagePanel.board_header(c)
 	var chart: String=str(header.region) if not str(header.region).is_empty() else "this chart"
 	if not bool(header.get("berthKnown",false)):
 		ui.paragraph(body,"No work berth is published on this campaign yet. This chart is %s. Gross fees below are the published offers. Review one job for its voyage estimate. Nothing on this board buys cargo or installs a fitting."%chart,16)
@@ -79,13 +79,13 @@ static func _paint_board_context(ui,body,c) -> void:
 		ui.paragraph(body,"%s: %s · %s. Gross fees below are the published offers. Review one job for voyage costs, the return reserve and readiness. This list does not buy cargo or install a fitting."%[kind,str(header.name),chart],16)
 	var details=ui.column(body)
 	details.visible=false
-	for line in Panel.fleet_notes(c):ui.paragraph(details,str(line),14,ui.TEAL)
+	for line in VoyagePanel.fleet_notes(c):ui.paragraph(details,str(line),14,ui.TEAL)
 	var toggle=ui.button(body,"Current fleet roles and fitting quotes",func():details.visible=not details.visible,false,false)
 	body.move_child(toggle,details.get_index())
 
 static func review_estimate(ui,offer: Dictionary) -> void:
 	var c=ui.host.core
-	var view: Dictionary=Panel.selected_quote(c,offer)
+	var view: Dictionary=VoyagePanel.selected_quote(c,offer)
 	ui.modal_kind="voyage_review"
 	var body=ui.modal("Voyage estimate","ONE JOB · CURRENT FLEET · NOT A PAYMENT",1020,800)
 	_paint_selected(ui,body,c,offer,view)
@@ -97,7 +97,7 @@ static func review_estimate(ui,offer: Dictionary) -> void:
 static func _paint_selected(ui,body,c,offer: Dictionary,view: Dictionary) -> void:
 	var gross: int=int(view.get("grossFee",offer.get("reward",0)))
 	var region: String=str(view.get("targetRegionName","")).strip_edges()
-	var place: String="%s → %s"%[Panel.origin_name(c,offer),Panel.destination_name(c,offer)]
+	var place: String="%s → %s"%[VoyagePanel.origin_name(c,offer),VoyagePanel.destination_name(c,offer)]
 	if not region.is_empty():place+=" · %s"%region
 	ui.paragraph(body,place,16,ui.TEAL)
 	ui.paragraph(body,"Gross fee %s."%ui.money(gross),20,ui.GOLD)
@@ -131,8 +131,8 @@ static func _paint_selected(ui,body,c,offer: Dictionary,view: Dictionary) -> voi
 	var blockers: Array=view.get("blockers",[]) if view.get("blockers") is Array else []
 	for blocker in blockers:ui.paragraph(body,str(blocker),14,ui.RED)
 	if view.has("operatingCost") and not str(view.get("message","")).is_empty():ui.paragraph(body,str(view.message),14,ui.TEAL)
-	var extra: Array=Panel.support_lines(view)
-	extra.append_array(Panel.leg_lines(view))
+	var extra: Array=VoyagePanel.support_lines(view)
+	extra.append_array(VoyagePanel.leg_lines(view))
 	if not extra.is_empty():
 		var details=ui.column(body)
 		details.visible=false
@@ -141,9 +141,9 @@ static func _paint_selected(ui,body,c,offer: Dictionary,view: Dictionary) -> voi
 		body.move_child(toggle,details.get_index())
 
 static func _prepare_button(ui,body,view: Dictionary) -> void:
-	var ready: bool=Panel.prepare_ready(ui.host.core,view)
+	var ready: bool=VoyagePanel.prepare_ready(ui.host.core,view)
 	var held: Dictionary=view.duplicate(true)
-	ui.button(body,Panel.prepare_label(view) if ready else "No route step on this chart",func():Panel.prepare_from_quote(ui,held),true).disabled=not ready
+	ui.button(body,VoyagePanel.prepare_label(view) if ready else "No route step on this chart",func():VoyagePanel.prepare_from_quote(ui,held),true).disabled=not ready
 
 static func survey_terms(c,job: Dictionary) -> String:
 	var harbor: Dictionary=c.port(str(job.get("port","")))
@@ -157,7 +157,7 @@ static func settle(ui,id: String,abandon: bool) -> void:
 
 static func contacts(ui,body) -> void:
 	var c=ui.host.core
-	var offers: Array=Panel.listed_offers(c)
+	var offers: Array=VoyagePanel.listed_offers(c)
 	ui.paragraph(body,"Personal trust belongs to the person you helped. Visits, fulfilled promises and failures are remembered. Faction standing is a separate relationship.",16)
 	for person in c.Contacts.list_contacts(c.state):
 		var contact: Dictionary=person
@@ -207,7 +207,7 @@ static func review_job(ui,offer: Dictionary,_carrier_uid: String="") -> void:
 	var active: bool=false
 	for carried in c.state.get("voyageJobs",[]):
 		if str(carried.get("id",""))==str(offer.get("id","")):job=carried;active=true;break
-	var view: Dictionary=Panel.selected_quote(c,job)
+	var view: Dictionary=VoyagePanel.selected_quote(c,job)
 	ui.modal_kind="voyage_review" # Existing header-X contract: no economy sync.
 	var body=ui.modal("Review civilian work","ONE LOAD · ACTUAL FLEET · SELECTED QUOTE",1020,800)
 	ui.paragraph(body,str(job.get("title",offer.get("title",""))),24,ui.GOLD)
@@ -229,7 +229,7 @@ static func review_job(ui,offer: Dictionary,_carrier_uid: String="") -> void:
 		var contact_id: String=str(job.get("sponsorContactId",""))
 		if contact_id.is_empty() and str(job.get("kind",""))=="fuel_delivery":contact_id="captain:"+str(job.get("ownerId",""))
 		if not contact_id.is_empty():memory=c.Contacts.client_memory(c.state,contact_id)
-	_client(ui,body,{"clientMemory":memory,"originName":Panel.origin_name(c,job),"job":job})
+	_client(ui,body,{"clientMemory":memory,"originName":VoyagePanel.origin_name(c,job),"job":job})
 	if str(job.get("kind",""))=="fuel_delivery" and c.VoyageJobs!=null and c.VoyageJobs.has_method("recipient_status"):
 		var recipient: Dictionary=c.VoyageJobs.recipient_status(c,job)
 		var place: String=str(c.port(str(recipient.get("currentPort",""))).get("name","At sea / not present"))
@@ -334,7 +334,7 @@ static func review_fishing(ui,boat_uid: String="",days: float=1.0,crew: int=0,bu
 	duration.value_changed.connect(changed);hands.value_changed.connect(changed)
 	if buyers.item_count>0:buyers.item_selected.connect(func(_index: int):launch.disabled=true)
 	if not str(buyer.portId).is_empty():
-		ui.button(body,"Prepare route to %s · sailing ends fishing"%buyer.name,func():Panel.prepare_known_point(ui,c.port(str(buyer.portId)),str(buyer.portId)),true).disabled=str(buyer.portId).is_empty()
+		ui.button(body,"Prepare route to %s · sailing ends fishing"%buyer.name,func():VoyagePanel.prepare_known_point(ui,c.port(str(buyer.portId)),str(buyer.portId)),true).disabled=str(buyer.portId).is_empty()
 		if str(c.current_port().get("id",""))==str(buyer.portId):ui.button(body,"Open buyer Market · sell actual whole lots",func():ui.open_port("Market"))
 	ui.button(body,"Close review · return to chart",ui.close_modal,false,false)
 
