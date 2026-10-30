@@ -92,7 +92,7 @@ static func expedition(ui,use_site: bool=true) -> void:
 	var prep_header: Dictionary=Panel.board_header(c)
 	var prep_chart: String=str(prep_header.region) if not str(prep_header.region).is_empty() else "this chart"
 	var prep_place: String=str(prep_header.name) if bool(prep_header.docked) else "under way"
-	ui.paragraph(body,"Preparing in %s · %s. The route uses the landing or harbor you selected."%[prep_place,prep_chart],15)
+	ui.paragraph(body,"Preparing on %s · %s. A landing on this chart can be prepared here. Another region's chart uses the voyage approaches."%[prep_place,prep_chart],15)
 	var destination: Dictionary=c.port(ui.host.selected_port)
 	var site_id: String=str(ui.host.selected_site) if use_site else ""
 	var island: Dictionary=c.Expedition._known_site(c.state,site_id)
@@ -164,10 +164,13 @@ static func expedition(ui,use_site: bool=true) -> void:
 	if r.wageArrears>0 or float(c.state.get("debt",0))>0:
 		ui.paragraph(body,"Cargo accounts: settle owed wages and review the %s-coin rescue/harbor loan."%ui.money(c.state.get("debt",0)),14,ui.GOLD)
 	if not island.is_empty():
+		var island_region: String=str(island.get("regionId","shatter_coast"))
+		var foreign_island: bool=not island_region.is_empty() and island_region!="shatter_coast"
 		ui.button(body,"Review landing: "+str(island.name),func():site(ui,site_id))
-		ui.button(body,"Prepare route to "+str(island.name),func():ui.host.respond(c.chart_course(island));ui.close_modal(),true).disabled=not r.routeOk or r.overload>0 or not c.state.exploration.assignment.is_empty()
+		ui.button(body,"Prepare route to "+str(island.name),func():Panel.prepare_known_point(ui,island,""),true).disabled=(not r.routeOk and not foreign_island) or r.overload>0 or not c.state.exploration.assignment.is_empty()
 	elif not destination.is_empty():
-		ui.button(body,"Prepare route to "+str(destination.name),func():ui.host.sail_to(destination.id);ui.close_modal(),true).disabled=route.is_empty() or r.overload>0
+		var foreign_harbor: bool=str(destination.get("regionId","shatter_coast"))!="shatter_coast"
+		ui.button(body,"Prepare route to "+str(destination.name),func():Panel.prepare_known_point(ui,destination,str(destination.id)),true).disabled=(route.is_empty() and not foreign_harbor) or r.overload>0
 	ui.rule(body)
 	ui.eyebrow(body,"A PARTNER FOR THE NEXT VOYAGE")
 	ui.paragraph(body,"%d owned hulls / %d points · %d traveling · %d inactive (%d stored)\nBattle line: %d / %d points · %d traveling boats held in reserve"%[r.ownedCount,r.ownedDP,r.travelingCount,r.inactiveCount,r.storedCount,r.battleDP,r.battleLimit,r.battleReserveCount],15,ui.TEXT)
@@ -323,7 +326,7 @@ static func site(ui,site_id: String) -> void:
 		ui.button(body,"Advance one survey day",func():survey_day(ui,site_id),true)
 		ui.button(body,"Recall party",func():ui.host.respond(c.recall_survey());site(ui,site_id))
 	else:
-		ui.button(body,"Prepare route to "+str(s.get("name","this landing")),func():ui.host.respond(c.chart_course(s));ui.close_modal(),true)
+		ui.button(body,"Prepare route to "+str(s.get("name","this landing")),func():Panel.prepare_known_point(ui,s,""),true)
 	if is_home:
 		ui.button(body,"Prepare this island work & named return",func():expedition(ui))
 	else:

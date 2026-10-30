@@ -146,9 +146,12 @@ Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks. Estima
 	var dock: Dictionary=Panel.board_header(c)
 	var dock_chart: String=str(dock.region) if not str(dock.region).is_empty() else "this chart"
 	if bool(dock.docked):
-		var dock_kind: String="Home harbor" if str(dock.kind)=="home" else "Known berth"
-		ui.paragraph(body,"%s: %s · %s. Open the funded board for compatible jobs, their fees and estimates for this fleet. Opening it buys nothing."%[dock_kind,str(dock.name),dock_chart],15)
+		var dock_kind: String="Home harbor" if str(dock.kind)=="home" else "Work berth"
+		ui.paragraph(body,"%s: %s · %s. The funded board lists gross fees. Review one job there for its voyage estimate. The allowance above is this career screen's own figure. Opening the board buys nothing."%[dock_kind,str(dock.name),dock_chart],15)
 		ui.button(body,"Open funded work at this berth",func():ui.VoyageUI.open(ui),true,false)
+	elif not bool(dock.get("berthKnown",false)):
+		ui.paragraph(body,"The funded board lists published gross fees. Review one job for its voyage estimate. This career allowance is separate. Opening the board buys nothing.",15)
+		ui.button(body,"Open funded work board",func():ui.VoyageUI.open(ui),false,false)
 	else:
 		ui.paragraph(body,"The funded board lists work only at a known harbor you are docked at. Opening it buys nothing.",15)
 		ui.button(body,"Open funded work board",func():ui.VoyageUI.open(ui),false,false)
