@@ -6,6 +6,14 @@ Receipts work/quality-v070/ACTUAL070 CHECKS.json and DELIVERED v0.070.json.
 Do not rebuild070. Next saved071: combat presentation, wakes and sound.
 Whole-game quality/earlier strict performance remain OPEN. Root owns all queued tests/delivery.
 
+ACTIVE SOURCE071: combat presentation, short stern wakes and recorded sound.
+work/quality-v071/SCOPE071.txt and isolated ROLE071.txt own the exact scope.
+2SolMAX/2GrokHIGH source roles through Bridge;2SparkHIGH bounded drafts reviewed
+by Root, Gemini3.8Flash pendingGoogle99.9% quota. Root alone owns all engine/GPU
+tests, Windows export, actual motion/audio review and delivery. No071metadata or
+release claim yet; preserve installed070 until accepted. No hull asset production
+or AI/performance/economy changes in071. Deliver before advancing072.
+
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
 star-system role; individual islands fill the planet role. Harbors/outposts are
