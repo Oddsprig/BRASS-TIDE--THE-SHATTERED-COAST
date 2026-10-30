@@ -1,3 +1,9 @@
+30OCT2026 - v0.072 COMPLETE VOYAGE INTEGRATION AND MEASURED FLEET PERFORMANCE
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
+v0.071 VERIFIED AND PACKAGED: 189/0 focused checks, selected batch 59.459s, TestBridge 9698bcb5b6ff4b98b142ce4a932a94de. Source 7ee3a993e697dabfc8260b057b47b49d93c11dc6.
+
 v0.071 VERIFIED AND PACKAGED: 189/0 focused checks, selected batch 59.459s, TestBridge 9698bcb5b6ff4b98b142ce4a932a94de. Source 7ee3a993e697dabfc8260b057b47b49d93c11dc6.
 
 30OCT2026 - v0.071 COMBAT FEEL, STERN WAKES AND RECORDED WEAPON SOUND

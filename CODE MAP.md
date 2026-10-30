@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.071: Combat feel, stern wakes and recorded weapon sound. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: chart.gd, wake_art045.gd, boat_art.gd, combat_art.gd, combat_events.gd, sound.gd.
+v0.072: Complete voyage integration and measured fleet performance. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: battle_driver051.gd, campaign_ui.gd, guidance_ui.gd, voyage_panel070.gd, runtime_profile043.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

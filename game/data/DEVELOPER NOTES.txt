@@ -1,10 +1,10 @@
-BRASS TIDE v0.071 - COMBAT FEEL, STERN WAKES AND RECORDED WEAPON SOUND
+BRASS TIDE v0.072 - COMPLETE VOYAGE INTEGRATION AND MEASURED FLEET PERFORMANCE
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Make short stern wash follow actual speed and turning; keep engine trouble, fire and flooding visible at normal zoom.
-- Separate weapon flashes, impacts, engine failures and sinking using the existing bounded combat effects.
-- Refine the existing recorded weapon mix while preserving finite voices and keeping music separate.
+- Connect the existing preparation, work, encounter, paid repair, return and improvement loop using ordinary accounts and actual fleets.
+- Remove one discarded pre-step pose allocation while retaining detached worker publications and the existing simulation rate.
+- Clarify voyage actions and record current active fleet workloads, command response, loading and memory with honest remaining limits.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
