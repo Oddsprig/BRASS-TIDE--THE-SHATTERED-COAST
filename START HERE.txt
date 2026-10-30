@@ -1,7 +1,8 @@
-BRASS TIDE v0.031 - DAMAGEABLE EQUIPMENT
-Portable Windows build: outputs/Brass Tide v0.031/Brass Tide.exe.
-The seven equipment fixtures passed1677/0 and portable startup passed.
-See BUILD STATUS.txt, CHANGES v0.031.md and docs/TEST RESULTS v0.031.md.
-24 boats. Later systems and full-game performance tuning remain on the roadmap.
-Owner saves and every previous release are preserved. Desktop delivery uses a
-new version folder and launcher; do not launch during the background test queue.
+BRASS TIDE - START HERE
+Play the current delivered game using the single plain Brass Tide desktop icon.
+Delivered: v0.075. Source candidate: v0.076; not installed or accepted yet.
+Read HANDOFF.md for the current task, AGENTS.md for working rules, CODE MAP.md
+for source locations and docs/DEVELOPER LESSONS.txt for reusable lessons.
+36 boats. Earlier performance and audible-quality goals remain open.
+Owner voyages, settings, music and older releases are preserved. Tests stay
+background and queued; do not launch the owner's game for a test.

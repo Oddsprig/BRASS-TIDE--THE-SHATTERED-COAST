@@ -120,6 +120,15 @@ fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authoriz
 
 ## Source, handoff and delivery
 
+30October board adoption: start with START HERE.txt, HANDOFF.md and the relevant
+map before opening source. Keep one current authority; older test contracts are
+historical where the owner superseded them. Batch related checks per engine
+boot, reset shared state, retain actual source/evidence bindings and skips.
+Declared staged openings are not earned career progress; neither test may fake
+its measured result. Still images do not establish motion, sound or enjoyment.
+Do not add mandatory tests for every trivial reversible edit or re-run unchanged
+passes. See docs/DEVELOPER LESSONS.txt for what was taken and what was rejected.
+
 Read relevant maps and actual API/schema before editing. Use rg and bounded file
 reads; docs/DEVELOPER LESSONS.txt and docs/VERIFICATION INDEX.txt hold reusable
 lessons/evidence. Give helpers isolated checkouts, exact source and file allowlists.

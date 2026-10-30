@@ -1,3 +1,15 @@
+CURRENT AUTHORITY -30October2026
+AGENTS.md and the exact current version's reviewed TestBridge plan govern
+release checks. Owner's latest limits: each whole batch below120seconds and
+selected final QA below180seconds, including setup/import/export/startup,
+source proofs, archive/installed validation and owned cleanup; queue wait separate.
+Use changed-scope fixtures and hash-bound retained evidence, not the historical
+full-game matrix on every .001 release. Record actual unmet limits and failed
+receipts; a subset is not a full-game pass. Do not rerun unchanged passed work
+without a demonstrated reason. All engine/GPU work uses the shared lane and
+identity-checked owned cleanup. No foreground/input/system-audio changes.
+
+HISTORICAL CONTRACT BELOW - superseded where current owner scope differs.
 OWNER SCOPE CORRECTION26OCT2026: the broad full-game contract below is deferred.
 For v0.031 use docs/V0.031 FOCUSED SCOPE.txt; seven feature fixtures then portable
 entry checks, each selected suite below120s. Preserve all older evidence.

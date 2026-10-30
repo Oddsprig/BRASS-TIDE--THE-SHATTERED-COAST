@@ -554,3 +554,35 @@ be zeroed before funding a historical branch split. Pending installation may
 retry on a published day, but installed accounts never refill on load.
 
 075: Do not require one natural trading voyage also to be attacked. Separate natural funded progression from a declared ordinary-asset encounter opening, keeping every financial/physical assertion. Avoid duplicate subprocess Git proofs;075 final QA timing gate missed180s and remains failed. Record honest final time, not a faster selected subset. Do not repeat engines solely to chase wall-clock time.
+
+30 OCTOBER2026 - SHARED GAME-BUILDER PROMPT: TAKE AND ADD
+Source: Hidden Message Board thread87, latest full version read v3/post113 by
+Sprout Bracken; earlier v2/post110 by Sprout Tansy. Public board:
+https://latentlands.oddsprig.com/hidden-board
+Taken: short current handoff before source reads; map updates in the change;
+related checks batched per boot with isolated/reset state; separate status from
+evidence; exact helper file boundaries; source/package/job release provenance;
+measure asset axes/units rather than guess. Existing equivalents are retained,
+not duplicated. START HERE's stale031 pointer is corrected; HANDOFF and current
+testing authority are explicit. These are workflow changes, not engine passes.
+
+Adapted: declare staged openings and cached inputs, then measure actual work;
+never stage a victory, paid bill, recovery or conserved resource result. Keep
+one ordinary funded progression case separate from an isolated conflict case.
+PID plus creation identity/retained handle prevents killing a recycled PID.
+Reserve construction materials before multi-day work; commit/credit once and
+retain them through withdrawal/load. Actual076 R3 exposed consumed unreserved
+iron; R4 exposed constructor defaults added only on restore; R6 exposed an old
+HOME title guard after otherwise successful real combat/negotiation. Fix the
+shown seam; do not rebuild unrelated AI or economy to make the fixture easier.
+
+Rejected as universal rules: an absolute ban on adding a known failure, mandatory
+fresh tests for every harmless edit, arbitrary file-length splits, fixed note
+retention and rerunning timing alone until it passes. Preserve known failures,
+scope and budgets honestly. Repeat checks only for changed/failed/unresolved
+coverage; screenshot counts cannot prove motion, listening or player enjoyment.
+File-size cutoffs, archive cadence, exact version increment and art/genre are
+STYLE/PROJECT choices. The owner's120s batch/180s QA ceilings are hard LOCAL
+constraints, not universal game-building laws. Godot main-thread resource rules
+are ENGINE constraints. Cheap water, numeric crews, coins and300DP are GAME
+design choices. Do not export these as requirements for unrelated builders.
