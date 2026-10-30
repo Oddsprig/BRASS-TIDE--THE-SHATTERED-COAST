@@ -59,8 +59,13 @@ static func generate(seed: int, home: Dictionary, anchors: Dictionary) -> Dictio
 		var name: String = "%s %s" % [templates.names[(index - 2 + name_offset) % 46], layout.label]
 		var shapes: Dictionary = _shapes(id, name, layout, templates.profiles, rng)
 		var slot: Dictionary = slots[index - 2]
+		# Keep the original two RNG draws, so only ocean placement changes.
+		var offset_x: int = _draw(rng, -465, 465)
+		var offset_y: int = _draw(rng, -345, 345)
+		var origin: Dictionary = _offset_origin(slot, anchors, offset_x, offset_y)
+		if origin.is_empty():return _failure("No safe bounded offset for a generated chart.")
 		var region: Dictionary = {"id": id, "name": name, "layer": "local", "width": 4200.0, "height": 3000.0,
-			"oceanOrigin": {"x": float(slot.x + _draw(rng, -60, 60)), "y": float(slot.y + _draw(rng, -60, 60))},
+			"oceanOrigin": origin,
 			"islands": shapes.islands, "approaches": [
 				{"id":"north", "name":name + " North Approach", "position":{"x":2100.0,"y":200.0}, "radius":80.0},
 				{"id":"south", "name":name + " South Approach", "position":{"x":2100.0,"y":2800.0}, "radius":80.0}]}
@@ -116,22 +121,38 @@ static func _band(id: String) -> String:
 
 static func _slots(anchors: Dictionary) -> Array:
 	var slots: Array = []
-	# 56 bounded candidates, reserved anchor rectangles padded by 280 ocean units.
-	# Generated charts are 420x300, with >=730 units between unjittered rows.
+	# Safe fallback lattice; assignment still uses its original near/far bands.
+	# Offsets of 30% cell spacing leave >=200 horizontal / 160 vertical clear
+	# ocean units between 420x300 charts, even with opposing neighbor offsets.
 	for row in range(7):
 		for column in range(8):
 			var candidate: Dictionary = {"x":600 + 1550 * column, "y":500 + 1150 * row}
-			var blocked: bool = false
-			for anchor in anchors.regions:
-				var w: float = 1040.0 if anchor.id == World.HOME else 420.0
-				var h: float = 720.0 if anchor.id == World.HOME else 300.0
-				if candidate.x < anchor.oceanOrigin.x + w + 280.0 and candidate.x + 420.0 > anchor.oceanOrigin.x - 280.0 and candidate.y < anchor.oceanOrigin.y + h + 280.0 and candidate.y + 300.0 > anchor.oceanOrigin.y - 280.0:
-					blocked = true
-			if not blocked:
+			if _slot_clear(candidate, anchors):
 				candidate["distance2"] = pow(float(candidate.x) + 210.0 - 1220.0, 2.0) + pow(float(candidate.y) + 150.0 - 1460.0, 2.0)
 				slots.append(candidate)
 	slots.sort_custom(func(a, b): return a.distance2 < b.distance2 if a.distance2 != b.distance2 else (a.y < b.y if a.y != b.y else a.x < b.x))
 	return slots
+
+
+static func _offset_origin(slot: Dictionary, anchors: Dictionary, offset_x: int, offset_y: int) -> Dictionary:
+	# A fixed five-candidate search, never a reroll. Reflections retain useful
+	# displacement beside anchors; the original safe slot is checked last too.
+	for offset in [[offset_x, offset_y], [-offset_x, offset_y], [offset_x, -offset_y], [-offset_x, -offset_y], [0, 0]]:
+		var candidate: Dictionary = {"x":float(slot.x) + float(offset[0]), "y":float(slot.y) + float(offset[1])}
+		if _slot_clear(candidate, anchors):return candidate
+	return {}
+
+
+static func _slot_clear(candidate: Dictionary, anchors: Dictionary) -> bool:
+	if candidate.x < 0.0 or candidate.y < 0.0 or candidate.x + 420.0 > 12800.0 or candidate.y + 300.0 > 8400.0:return false
+	# Check the FINAL rectangle, including every fallback, against both unchanged
+	# authored charts and their 280-unit ocean buffer.
+	for anchor in anchors.regions:
+		var w: float = 1040.0 if anchor.id == World.HOME else 420.0
+		var h: float = 720.0 if anchor.id == World.HOME else 300.0
+		if candidate.x < anchor.oceanOrigin.x + w + 280.0 and candidate.x + 420.0 > anchor.oceanOrigin.x - 280.0 and candidate.y < anchor.oceanOrigin.y + h + 280.0 and candidate.y + 300.0 > anchor.oceanOrigin.y - 280.0:
+			return false
+	return true
 
 
 static func _shapes(id: String, name: String, layout: Dictionary, profiles: Dictionary, rng: Array) -> Dictionary:
