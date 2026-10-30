@@ -267,8 +267,11 @@ static func _context_error(context: Dictionary) -> String:
 
 
 static func _actor_error(context: Dictionary, actor) -> String:
-	if not _keys(actor, ["ownerId", "location", "baseSpeed", "clearance", "canMove", "canIntercept", "detectionRange", "interceptRange", "boats"]):
-		return "An actor needs exactly its spatial, capability and render snapshot fields."
+	if not _allowed(actor, ["ownerId", "location", "baseSpeed", "clearance", "canMove", "canIntercept", "detectionRange", "interceptRange", "boats", "observation075"], ["ownerId", "location", "baseSpeed", "clearance", "canMove", "canIntercept", "detectionRange", "interceptRange", "boats"]):
+		return "An actor needs its spatial, capability and render snapshot fields."
+	if actor.has("observation075"):
+		var observed: String = _observation_error(actor.observation075)
+		if not observed.is_empty():return observed
 	if not actor.ownerId is String or actor.ownerId not in context.ownerIds or not actor.location is Dictionary:return "An actor must reference an admitted physical owner and location."
 	if not _keys(actor.location, ["world064", "position", "heading", "path", "destination"]) or not _identity_valid(actor.location.world064) or not _point_valid(actor.location.position) or not _number(actor.location.heading) or not actor.location.destination is String:
 		return "Actor locations must contain only the five plain 064 spatial fields."
@@ -332,7 +335,11 @@ static func _memory_error(context: Dictionary, memory, now: float) -> String:
 		for target_id in sightings:
 			if not target_id is String or target_id == observer_id or target_id not in context.ownerIds:return "Saved sightings must reference another admitted owner."
 			var sight = sightings[target_id]
-			if not _keys(sight, ["world064", "position", "velocity", "seenSecond", "expiresSecond", "heading", "boats"]):return "Saved sightings need position, dates and frozen heading/artwork."
+			if not _allowed(sight, ["world064", "position", "velocity", "seenSecond", "expiresSecond", "heading", "boats", "intention075", "manifest075"], ["world064", "position", "velocity", "seenSecond", "expiresSecond", "heading", "boats"]):return "Saved sightings need position, dates and frozen heading/artwork."
+			if sight.has("intention075") or sight.has("manifest075"):
+				if not sight.has("intention075") or not sight.has("manifest075"):return "A dated observation needs both its intention and manifest."
+				var observed: String = _observation_error({"intention075": sight.intention075, "manifest075": sight.manifest075})
+				if not observed.is_empty():return observed
 			if not _identity_valid(sight.world064) or not _point_valid(sight.position) or not _point_valid(sight.velocity) or not _number(sight.heading) or not _boats_valid(sight.boats):return "Saved sighting spatial/artwork data is invalid."
 			if not _time(sight.seenSecond) or float(sight.seenSecond) > now + EPS or not _time(sight.expiresSecond) or absf(float(sight.expiresSecond) - float(sight.seenSecond) - SIGHT_SECONDS) > EPS:
 				return "Sighting dates must be actual past observations with a thirty-second expiry."
@@ -345,6 +352,17 @@ static func _memory_error(context: Dictionary, memory, now: float) -> String:
 		if not _time(pursuit.searchUntilSecond) or float(pursuit.searchUntilSecond) > now + SIGHT_SECONDS + EPS:return "A saved pursuit has an invalid search deadline."
 		var sight: Dictionary = memory.sightings.get(owner_id, {}).get(pursuit.targetId, {})
 		if sight.is_empty() or absf(float(pursuit.searchUntilSecond) - float(sight.expiresSecond)) > EPS:return "A pursuit must retain its matching dated sighting."
+	return ""
+
+
+static func _observation_error(sample) -> String:
+	if not _keys(sample, ["intention075", "manifest075"]):return "A dated observation needs its intention and manifest."
+	var intention = sample.intention075
+	var manifest = sample.manifest075
+	if not _keys(intention, ["purpose", "destination", "reason", "day"]) or not _keys(manifest, ["cargoGood", "cargoQuantity", "cargoValue"]):return "A dated observation changed its intention or manifest fields."
+	if not intention.purpose is String or not intention.destination is String or not intention.reason is String or not manifest.cargoGood is String:return "A dated observation needs text intention and cargo fields."
+	if intention.purpose.length() > 128 or intention.destination.length() > 128 or intention.reason.length() > 240 or manifest.cargoGood.length() > 128:return "A dated observation exceeds its text bounds."
+	if not _time(intention.day) or not _number(manifest.cargoQuantity) or float(manifest.cargoQuantity) < 0.0 or not _number(manifest.cargoValue) or float(manifest.cargoValue) < 0.0:return "A dated observation needs a real day and nonnegative cargo figures."
 	return ""
 
 
@@ -582,9 +600,14 @@ static func _capture(observer: Dictionary, target: Dictionary, memory: Dictionar
 		var elapsed: float = now - float(previous.seenSecond)
 		velocity = {"x": (float(target.location.position.x) - float(previous.position.x)) * scale / elapsed,
 			"y": (float(target.location.position.y) - float(previous.position.y)) * scale / elapsed}
-	by_observer[target.ownerId] = {"world064": _copy(target.location.world064), "position": _point(target.location.position),
+	var captured: Dictionary = {"world064": _copy(target.location.world064), "position": _point(target.location.position),
 		"velocity": velocity, "seenSecond": now, "expiresSecond": now + SIGHT_SECONDS,
 		"heading": float(target.location.heading), "boats": _copy(target.boats)}
+	# Sample only what the actor carried at this sighting. No later live route is read.
+	if target.has("observation075"):
+		captured["intention075"] = _copy(target.observation075.intention075)
+		captured["manifest075"] = _copy(target.observation075.manifest075)
+	by_observer[target.ownerId] = captured
 	memory.sightings[observer.ownerId] = by_observer
 	var pursuit: Dictionary = memory.pursuits.get(observer.ownerId, {})
 	if pursuit.get("targetId") == target.ownerId:

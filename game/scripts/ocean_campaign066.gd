@@ -6,6 +6,7 @@ const Orders=preload("res://scripts/naval_orders.gd")
 const Routes=preload("res://scripts/route_cache.gd")
 const Fleets=preload("res://scripts/fleet_economy.gd")
 const Money=preload("res://scripts/money.gd")
+const Flow=preload("res://scripts/shipping_flow068.gd")
 const OWNER="patrol-0"
 const PHASES=["supply","outbound","patrol","return","lost"]
 
@@ -45,7 +46,7 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 	if not _keys(book,["schema","contact","memory"]) or book.schema!=1 or not book.contact is Dictionary:return _fail("Invalid ocean066 book.")
 	if not _finite(saved.get("day"),1.0):return _fail("Invalid ocean066 clock.")
 	if not _finite(saved.get("seed"),0.0) or not saved.get("fleetOwners") is Array or not saved.get("patrols") is Array or not saved.get("fleet") is Array or not saved.get("boardingPrizes",[]) is Array:return _fail("Ocean066 requires valid campaign collections.")
-	var made: Dictionary=Travel.create(context064,int(saved.get("seed",0)),book.memory,["player",OWNER,"patrol-7"],float(saved.day)*45.0)
+	var made: Dictionary=Travel.create(context064,int(saved.get("seed",0)),book.memory,admitted_owner_ids(saved),float(saved.day)*45.0)
 	if not made.get("ok",false):return _fail(str(made.get("message","Invalid ocean066 memory.")))
 	var contact: Dictionary=book.contact
 	if not contact.is_empty():
@@ -73,8 +74,8 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 		var ocean_gate: Dictionary={}
 		for approach in region.approaches:
 			if str(approach.id)==str(contact.gate.approachId):ocean_gate={"x":float(region.oceanOrigin.x)+float(approach.position.x)/10.0,"y":float(region.oceanOrigin.y)+float(approach.position.y)/10.0}
-		var corridor: Dictionary=_corridor_geometry(saved,context064)
-		var remote: Dictionary=corridor.get("remoteOcean",{})
+		var points: Dictionary=_corridor_points(saved,context064)
+		var remote: Dictionary=points.get("remoteOcean",{})
 		var on_corridor: bool=not remote.is_empty() and str(contact.gate.regionId)=="shatter_coast" and World._distance(contact.waypoint,remote)<=0.001
 		if ocean_gate.is_empty() or (World._distance(contact.waypoint,ocean_gate)>80.000001 and not on_corridor):return _fail("The one raider's patrol must remain a short gate-local loop.")
 		var living: Array=Orders.living_boats(owner)
@@ -192,66 +193,129 @@ static func relations(c,participants: Array) -> Array:
 	return result
 
 static func _observed_load(c,observer: Dictionary,target: Dictionary) -> float:
-	# Cargo is read only after the same visibility test Travel._observe uses.
-	if c.ocean_context066.is_empty() or not Travel.same_world(observer.location.world064,target.location.world064):return -1.0
+	# Prefer cargo only from a sighting sampled while the target was visible.
+	var sight=c.state.get("ocean066",{}).get("memory",{}).get("sightings",{}).get(str(observer.ownerId),{}).get(str(target.ownerId),{})
+	if not sight is Dictionary or sight.is_empty():return -1.0
 	var now: float=float(c.state.day)*45.0
-	var first: Dictionary=Travel.conditions(c.ocean_context066,observer.location,now)
-	var second: Dictionary=Travel.conditions(c.ocean_context066,target.location,now)
-	if not first.get("ok",false) or not second.get("ok",false):return -1.0
-	var scale: float=10.0 if str(observer.location.world064.layer)=="ocean" else 1.0
-	var reach: float=float(observer.detectionRange)*minf(float(first.condition.visibilityFactor),float(second.condition.visibilityFactor))
-	if c.distance(observer.location.position,target.location.position)*scale>reach:return -1.0
-	var owner: Dictionary=_owner(c.state,str(target.ownerId))
-	var good: String=str(owner.get("tradeGood",""))
-	return maxf(0.0,minf(float(owner.get("tradeCargo",0.0)),float(owner.get("cargo",{}).get(good,0.0))))
+	if float(sight.get("expiresSecond",0.0))<=now:return -1.0
+	if not Travel.same_world(sight.get("world064"),target.location.world064):return -1.0
+	var manifest=sight.get("manifest075",{})
+	if not manifest is Dictionary or not manifest.has("cargoValue"):return -1.0
+	return maxf(0.0,float(manifest.cargoValue))
 
-static func _ocean_approach(context064: Dictionary,region_id: String,approach_id: String) -> Dictionary:
-	var region: Dictionary=context064.get("regions",{}).get(region_id,{})
+static func _exact_corridor(corridor) -> Dictionary:
+	if not corridor is Dictionary:return {}
+	if not _keys(corridor,["ownerId","homeId","originId","remoteId","homeGate","originGate","remoteGate"]):return {}
+	for key in ["ownerId","homeId","originId","remoteId"]:
+		if not corridor[key] is String or str(corridor[key]).is_empty():return {}
+	for key in ["homeGate","originGate","remoteGate"]:
+		var gate=corridor[key]
+		if not gate is Dictionary or not _keys(gate,["regionId","approachId"]):return {}
+		if not gate.regionId is String or not gate.approachId is String or str(gate.regionId).is_empty() or str(gate.approachId).is_empty():return {}
+	return corridor
+
+static func _published_corridor(state: Dictionary) -> Dictionary:
+	return _exact_corridor(Flow.corridor075(state))
+
+static func _route_corridor(route: Dictionary) -> Dictionary:
+	if not route is Dictionary:return {}
+	return _exact_corridor(route.get("corridor075",{}))
+
+## Player, the enrolled raider, and the selected trader. Legacy ids apply only
+## while the shipping book has no exact corridor075 record.
+static func admitted_owner_ids(state: Dictionary,staged_route: Dictionary={}) -> Array:
+	var corridor: Dictionary=_route_corridor(staged_route)
+	if corridor.is_empty():corridor=_published_corridor(state)
+	if corridor.is_empty():
+		var legacy: String=str(Flow.owner_id075(state))
+		if legacy.is_empty() or legacy=="player":legacy="patrol-7"
+		var legacy_ids: Array=["player",OWNER]
+		if not legacy_ids.has(legacy):legacy_ids.append(legacy)
+		return legacy_ids
+	var trader: String=str(corridor.ownerId)
+	var contact=state.get("ocean066",{}).get("contact",{})
+	var raider: String=OWNER
+	if contact is Dictionary and not str(contact.get("ownerId","")).is_empty():raider=str(contact.ownerId)
+	var ids: Array=["player"]
+	if raider!="player" and not ids.has(raider):ids.append(raider)
+	if trader!="player" and not ids.has(trader):ids.append(trader)
+	return ids
+
+static func _ocean_gate(context064: Dictionary,gate: Dictionary) -> Dictionary:
+	if not context064.get("ocean") is Dictionary or not context064.get("regions") is Dictionary:return {}
+	var region: Dictionary=context064.regions.get(str(gate.get("regionId","")),{})
 	if region.is_empty() or not region.get("oceanOrigin") is Dictionary:return {}
-	for approach in region.get("approaches",[]):
-		if str(approach.get("id",""))!=approach_id or not approach.get("position") is Dictionary:continue
-		return {"x":float(region.oceanOrigin.x)+float(approach.position.x)/10.0,"y":float(region.oceanOrigin.y)+float(approach.position.y)/10.0}
+	var approach: Dictionary=World._approach(region,str(gate.get("approachId","")))
+	if approach.is_empty() or not approach.get("position") is Dictionary:return {}
+	return World._project(context064,region,approach.position)
+
+static func _corridor_points(state: Dictionary,context064: Dictionary,staged_route: Dictionary={}) -> Dictionary:
+	var corridor: Dictionary=_route_corridor(staged_route)
+	if corridor.is_empty():corridor=_published_corridor(state)
+	if corridor.is_empty():return {}
+	var origin: Dictionary=_ocean_gate(context064,corridor.originGate)
+	var remote: Dictionary=_ocean_gate(context064,corridor.remoteGate)
+	if origin.is_empty() or remote.is_empty():return {}
+	return {"originOcean":origin,"remoteOcean":remote,"corridor":corridor}
+
+static func _port_label(state: Dictionary,id: String) -> String:
+	for port in state.get("ports",[]):
+		if port is Dictionary and str(port.get("id",""))==id:
+			var name: String=str(port.get("name",""))
+			return name if not name.is_empty() else id
+	return id
+
+static func _release_unadmitted(memory: Dictionary,ids: Array) -> void:
+	for group in ["intents","sightings","pursuits"]:
+		if not memory.get(group) is Dictionary:continue
+		for key in memory[group].keys():
+			if not ids.has(str(key)):memory[group].erase(key)
+	if memory.get("intents") is Dictionary:
+		for owner_id in memory.intents.keys():
+			var target: String=str(memory.intents[owner_id].get("targetId",""))
+			if not target.is_empty() and not ids.has(target):memory.intents.erase(owner_id)
+	if memory.get("sightings") is Dictionary:
+		for observer_id in memory.sightings.keys():
+			var sights: Dictionary=memory.sightings[observer_id]
+			if not sights is Dictionary:
+				memory.sightings.erase(observer_id)
+				continue
+			for target_id in sights.keys():
+				if not ids.has(str(target_id)):sights.erase(target_id)
+			if sights.is_empty():memory.sightings.erase(observer_id)
+	if memory.get("pursuits") is Dictionary:
+		for owner_id in memory.pursuits.keys():
+			if not ids.has(str(memory.pursuits[owner_id].get("targetId",""))):memory.pursuits.erase(owner_id)
+
+static func _bind_admitted(c,book: Dictionary,ids: Array) -> void:
+	if c.ocean_context066.is_empty():return
+	c.ocean_context066["ownerIds"]=ids.duplicate()
+	_release_unadmitted(book.memory,ids)
+
+static func _observation075(c,owner: Dictionary) -> Dictionary:
+	var order=owner.get("order",{})
+	if not order is Dictionary:order={}
+	var purpose: String=str(order.get("purpose","")).left(128)
+	var destination: String=str(order.get("destination","")).left(128)
+	var reason: String=str(order.get("reason",""))
+	if reason.is_empty() and not purpose.is_empty():reason=Orders.observation_reason(purpose)
+	var manifest: Dictionary=Orders.observed_manifest075(owner)
+	if not manifest is Dictionary:manifest={}
+	return {"intention075":{"purpose":purpose,"destination":destination,"reason":reason.left(240),"day":float(c.state.day)},"manifest075":{"cargoGood":str(manifest.get("cargoGood","")).left(128),"cargoQuantity":maxf(0.0,float(manifest.get("cargoQuantity",0.0))),"cargoValue":maxf(0.0,float(manifest.get("cargoValue",0.0)))}}
+
+static func _attach_observations(c,participants: Array) -> void:
+	for actor in participants:
+		if str(actor.get("ownerId",""))=="player":continue
+		var owner: Dictionary=_owner(c.state,str(actor.get("ownerId","")))
+		if owner.is_empty():continue
+		actor["observation075"]=_observation075(c,owner)
+
+static func _physical_contact(c,id: String) -> Dictionary:
+	var contact=c.state.get("ocean066",empty_book()).get("contact",{})
+	if contact is Dictionary and str(contact.get("ownerId",""))==id:return contact
+	var route=c.state.get("shipping068",{}).get("model",{}).get("route",{})
+	if route is Dictionary and not route.is_empty() and str(route.get("ownerId",""))==id:return route
 	return {}
-
-static func _corridor_geometry(state: Dictionary,context064: Dictionary) -> Dictionary:
-	if int(context064.get("atlasSchema",1))!=2 or not state.has("sector069"):return {}
-	var origin_port: String=""
-	var remote_port: String=""
-	for port in state.get("ports",[]):
-		if not port is Dictionary:continue
-		var id: String=str(port.get("id",""))
-		if id=="settled_01_harbor_01":origin_port=id
-		elif id=="settled_02_harbor_01":remote_port=id
-	if origin_port.is_empty() or remote_port.is_empty():return {}
-	var origin_ocean: Dictionary=_ocean_approach(context064,"settled_01","north")
-	var remote_ocean: Dictionary=_ocean_approach(context064,"settled_02","north")
-	if origin_ocean.is_empty() or remote_ocean.is_empty():return {}
-	return {"originPortId":origin_port,"remotePortId":remote_port,"originRegionId":"settled_01","remoteRegionId":"settled_02","approachId":"north","originOcean":origin_ocean,"remoteOcean":remote_ocean}
-
-## One funded generated pair for the two owners already admitted to a travel step.
-## Legacy two-region careers get an empty result and keep the short home-gate loop.
-static func funded_corridor(state: Dictionary,context064: Dictionary) -> Dictionary:
-	var geometry: Dictionary=_corridor_geometry(state,context064)
-	if geometry.is_empty():return {}
-	var raider: String=""
-	var trader: String=""
-	for id in ["patrol-0","patrol-7"]:
-		var owner: Dictionary=_owner(state,id)
-		if owner.is_empty() or not bool(owner.get("active",false)) or bool(owner.get("playerCompany",false)):continue
-		var kind: String=str(owner.get("kind",""))
-		if kind=="raider" and raider.is_empty():raider=id
-		elif kind=="trader" and trader.is_empty():trader=id
-	if raider.is_empty() or trader.is_empty():return {}
-	var yard: String=str(_owner(state,raider).get("homePort",""))
-	if yard.is_empty():return {}
-	var yard_found: bool=false
-	for port in state.get("ports",[]):
-		if port is Dictionary and str(port.get("id",""))==yard:yard_found=true
-	if not yard_found:return {}
-	geometry["traderOwnerId"]=trader
-	geometry["raiderOwnerId"]=raider
-	geometry["yardPortId"]=yard
-	return geometry
 
 static func _gate(c,gate: Dictionary,ocean: bool) -> Dictionary:
 	var region: Dictionary=c.ocean_context064.regions[gate.regionId]
@@ -311,15 +375,15 @@ static func _control(c,book: Dictionary) -> void:
 		contact["location"]=crossed.location
 		if contact.phase=="outbound":
 			contact["phase"]="patrol"
-			var corridor: Dictionary=_corridor_geometry(c.state,c.ocean_context064)
-			if not corridor.is_empty() and c.distance(contact.waypoint,corridor.remoteOcean)<=0.001:_plan(c,book,corridor.originOcean)
+			var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
+			if not points.is_empty() and c.distance(contact.waypoint,points.remoteOcean)<=0.001:_plan(c,book,points.originOcean)
 			else:_plan(c,book,contact.waypoint)
 		else:_plan(c,book,c.port(str(owner.homePort)),str(owner.homePort))
 	elif contact.phase=="patrol" and book.memory.pursuits.is_empty():
 		var gate: Dictionary=_gate(c,contact.gate,true)
-		var corridor: Dictionary=_corridor_geometry(c.state,c.ocean_context064)
-		if not corridor.is_empty() and c.distance(contact.waypoint,corridor.remoteOcean)<=0.001:
-			var origin: Dictionary=corridor.originOcean
+		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
+		if not points.is_empty() and c.distance(contact.waypoint,points.remoteOcean)<=0.001:
+			var origin: Dictionary=points.originOcean
 			var at_origin: bool=c.distance(contact.location.position,origin)<0.001
 			# Enter at generated A, then sail to generated B. Home return stays on contact.gate.
 			_plan(c,book,contact.waypoint if at_origin else origin)
@@ -334,17 +398,33 @@ static func stage(c,dt: float) -> Dictionary:
 	if c.ocean_watch066>=1.0 or (not book.contact.is_empty() and book.contact.location.path.is_empty()):_control(c,book)
 	var shipping: Dictionary=c.ShippingFlow068.stage(c,dt)
 	if not shipping.get("ok",false):return shipping
-	var participants: Array=actors(c,book).filter(func(a):return str(a.ownerId)!="patrol-7")
-	if not shipping.actor.is_empty():participants.append(shipping.actor)
+	var staged_route: Dictionary={}
+	if shipping.get("model") is Dictionary and shipping.model.get("route") is Dictionary:staged_route=shipping.model.route
+	var ids: Array=admitted_owner_ids(c.state,staged_route)
+	_bind_admitted(c,book,ids)
+	var trader: String=str(Flow.owner_id075(c.state))
+	if not _route_corridor(staged_route).is_empty():trader=str(_route_corridor(staged_route).ownerId)
+	elif not staged_route.is_empty() and staged_route.get("ownerId") is String:trader=str(staged_route.ownerId)
+	elif not _published_corridor(c.state).is_empty():trader=str(_published_corridor(c.state).ownerId)
+	if trader.is_empty() or trader=="player":trader="patrol-7"
+	var participants: Array=[]
+	for actor in actors(c,book):
+		var id: String=str(actor.get("ownerId",""))
+		if id==trader or not ids.has(id):continue
+		participants.append(actor)
+	if not shipping.actor.is_empty():
+		var merchant_id: String=str(shipping.actor.get("ownerId",""))
+		if ids.has(merchant_id) and not participants.any(func(a):return str(a.ownerId)==merchant_id):participants.append(shipping.actor)
+	_attach_observations(c,participants)
 	var watch: bool=c.ocean_watch066>=1.0
-	var decisions: Array=[OWNER] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" else []
+	var decisions: Array=[OWNER] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" and participants.any(func(a):return str(a.ownerId)==OWNER) else []
 	var stepped: Dictionary=Travel.step(c.ocean_context066,participants,relations(c,participants),book.memory,{"startSecond":float(c.state.day)*45.0,"dt":dt,"watchDue":watch,"decisionOwnerIds":decisions})
 	if not stepped.get("ok",false):return stepped
 	var accepted=stepped.get("acceptedSeconds")
 	if not _finite(accepted,0.0) or float(accepted)>dt:return _fail("Ocean travel refused an invalid accepted interval.")
 	for move in stepped.locations:
-		if str(move.ownerId)==OWNER:book.contact["location"]=move.location.duplicate(true)
-		elif str(move.ownerId)=="patrol-7" and not shipping.model.route.is_empty():shipping.model.route["location"]=move.location.duplicate(true)
+		if not book.contact.is_empty() and str(move.ownerId)==str(book.contact.ownerId):book.contact["location"]=move.location.duplicate(true)
+		elif not staged_route.is_empty() and str(move.ownerId)==str(staged_route.get("ownerId","")):shipping.model.route["location"]=move.location.duplicate(true)
 	book["memory"]=stepped.memory
 	stepped["book"]=book
 	stepped["shipping068"]=shipping
@@ -387,10 +467,10 @@ static func _admit(c) -> void:
 		var previous: Dictionary=location.position
 		for point in route.location.path:length+=c.distance(previous,point);previous=point
 		var ocean_local: float=1600.0
-		var corridor: Dictionary=funded_corridor(c.state,c.ocean_context064)
-		if not corridor.is_empty():
+		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
+		if not points.is_empty():
 			var entered: Dictionary=_gate(c,gate,true)
-			ocean_local=2.0*(c.distance(entered,corridor.originOcean)+c.distance(corridor.originOcean,corridor.remoteOcean))*10.0
+			ocean_local=2.0*(c.distance(entered,points.originOcean)+c.distance(points.originOcean,points.remoteOcean))*10.0
 		var days: float=(2.0*length+ocean_local/0.25)/speed/45.0+1.0
 		if days<best_days:best_days=days;best={"gate":gate,"location":location}
 	if best.is_empty():return
@@ -407,14 +487,14 @@ static func _admit(c) -> void:
 	if float(reserve.get("fuel",0))<float(costs.fuel)*best_days:return
 	if not Orders.fleet_performance(owner.duplicate(true)).get("seaworthy",false):return
 	var gate_point: Dictionary=_gate(c,best.gate,true)
-	var corridor_now: Dictionary=funded_corridor(c.state,c.ocean_context064)
+	var corridor_now: Dictionary=_corridor_points(c.state,c.ocean_context064)
 	var waypoint: Dictionary=corridor_now.remoteOcean.duplicate(true) if not corridor_now.is_empty() else {"x":gate_point.x+80.0,"y":gate_point.y}
 	owner["harborServiceUntilDay"]=maxf(float(c.state.day)+0.25,float(owner.get("harborServiceUntilDay",0)))
 	c.state.ocean066["contact"]={"ownerId":OWNER,"phase":"supply","location":best.location,"gate":best.gate,"waypoint":waypoint}
 	patrol["active"]=false;patrol["hidden"]=true;patrol["holding"]=true;patrol["course"]=[];patrol["courseLength"]=0.0;patrol["progress"]=0.0
 	patrol.erase("interceptPoint")
 	if corridor_now.is_empty():c.log_entry("Reef raiders are provisioning a short ocean patrol from %s using their existing boats, purse and purchased rations."%str(home.name))
-	else:c.log_entry("Reef raiders are provisioning a funded run from %s toward %s and %s on their existing boats, purse and purchased rations."%[str(home.name),str(corridor_now.originPortId),str(corridor_now.remotePortId)])
+	else:c.log_entry("Reef raiders are provisioning a funded run from %s toward %s and %s on their existing boats, purse and purchased rations."%[str(home.name),_port_label(c.state,str(corridor_now.corridor.originId)),_port_label(c.state,str(corridor_now.corridor.remoteId))])
 
 static func record_losses(c) -> void:
 	var contact: Dictionary=c.state.get("ocean066",{}).get("contact",{})
@@ -469,7 +549,7 @@ static func action(c,id: String,kind: String) -> Dictionary:
 	if kind not in ["investigate","avoid","resume"]:return _fail("Choose a physical ocean travel action.")
 	if not c.travel_lock064.is_empty():return _fail(c.travel_lock064)
 	var participants: Array=actors(c,c.state.get("ocean066",empty_book()))
-	if kind!="resume" and (id not in [OWNER,"patrol-7"] or not participants.any(func(a):return str(a.ownerId)==id)):return _fail("This contact is no longer present on the ocean chart.")
+	if kind!="resume" and (id=="player" or not participants.any(func(a):return str(a.ownerId)==id)):return _fail("This contact is no longer present on the ocean chart.")
 	var requested: Dictionary={"kind":kind}
 	if kind!="resume":requested["targetId"]=id
 	var result: Dictionary=Travel.command(c.ocean_context066,participants[0],c.state.ocean066.memory,requested,float(c.state.day)*45.0)
@@ -497,7 +577,7 @@ static func blocker(c) -> String:
 
 static func encounter(c,id: String,settlement: Dictionary={}) -> Dictionary:
 	var book: Dictionary=c.state.get("ocean066",empty_book())
-	var contact: Dictionary=book.contact if id==OWNER else c.state.get("shipping068",{}).get("model",{}).get("route",{}) if id=="patrol-7" else {}
+	var contact: Dictionary=_physical_contact(c,id)
 	if c.home_local064() or contact.is_empty() or str(contact.ownerId)!=id or contact.phase=="lost":return _fail("This is not an enrolled offshore contact.")
 	if not c.state.get("world064",{}).is_empty() and not Travel.same_world(c.state.world064,contact.location.world064):return _fail("This contact belongs to another chart.")
 	var owner: Dictionary=_owner(c.state,id)
@@ -512,7 +592,7 @@ static func encounter(c,id: String,settlement: Dictionary={}) -> Dictionary:
 
 static func settlement_error(c,context: Dictionary,battle: Dictionary) -> String:
 	var id: String=str(context.get("ownerId",""))
-	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact if id==OWNER else c.state.get("shipping068",{}).get("model",{}).get("route",{}) if id=="patrol-7" else {}
+	var contact: Dictionary=_physical_contact(c,id)
 	if battle.is_empty() or contact.is_empty() or str(contact.ownerId)!=id:return "Offshore settlement needs the enrolled physical owner."
 	if not Travel.same_world(context.get("world064"),c.state.get("world064")) or not Travel.same_world(battle.get("world064"),context.get("world064")) or context.get("encounterPosition")!=c.state.position or battle.get("chartPosition")!=context.get("encounterPosition"):return "Offshore battle position or world provenance changed."
 	if not context.get("ownerUids066") is Array or context.ownerUids066.is_empty():return "Offshore settlement needs its original boat UIDs."
@@ -577,5 +657,8 @@ static func view(c) -> Dictionary:
 	var owner: Dictionary=_owner(c.state)
 	var age: float=maxf(0.0,now-float(seen.seenSecond))
 	var current: bool=age<=1.5
-	output.contacts.append({"id":OWNER,"ownerId":OWNER,"name":str(owner.get("name","Reef raiders")),"faction":str(owner.get("faction","raiders")),"role":str(owner.get("kind","raider")),"hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if current else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if current else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":"Dated sighting; investigate or avoid","provenance":"Existing fleet %s; paid departure from %s"%[OWNER,str(owner.get("homePort",""))],"boats":seen.boats.duplicate(true)})
+	var observed=seen.get("intention075",{})
+	var label: String="Dated sighting; investigate or avoid"
+	if observed is Dictionary and not str(observed.get("reason","")).is_empty():label=str(observed.reason)
+	output.contacts.append({"id":OWNER,"ownerId":OWNER,"name":str(owner.get("name","Reef raiders")),"faction":str(owner.get("faction","raiders")),"role":str(owner.get("kind","raider")),"hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if current else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if current else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":label,"provenance":"Existing fleet %s; paid departure from %s"%[OWNER,str(owner.get("homePort",""))],"boats":seen.boats.duplicate(true)})
 	return output

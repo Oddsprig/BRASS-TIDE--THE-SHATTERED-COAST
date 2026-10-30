@@ -248,21 +248,20 @@ static func _afloat(owner: Dictionary) -> bool:
 	return false
 
 static func _chart_point(s: Dictionary,owner: Dictionary,observer_id: String) -> Dictionary:
-	# Live marker first. Otherwise only a home-chart enrollment or this patrol's
-	# own unexpired sighting. No scan of an unseen hold or another chart.
+	# Live marker first. Otherwise only this raider's home-chart enrollment or
+	# this patrol's own unexpired sighting. Never the live shipping route.
 	if _live(s,owner):
 		var actor: Dictionary=_patrol(s,str(owner.get("id","")))
 		if actor.has("x") and actor.has("y"):return {"x":float(actor.x),"y":float(actor.y)}
 	if not _afloat(owner):return {}
 	var id: String=str(owner.get("id",""))
-	var shipping_route: Dictionary=s.get("shipping068",{}).get("model",{})
-	if not shipping_route is Dictionary:shipping_route={}
-	for book in [s.get("ocean066",{}).get("contact",{}), shipping_route.get("route",{})]:
-		if not book is Dictionary or str(book.get("ownerId",""))!=id or str(book.get("phase",""))=="lost":continue
-		var loc: Dictionary=book.get("location",{})
-		if str(loc.get("world064",{}).get("layer",""))!="home":continue
-		var pos: Dictionary=loc.get("position",{})
-		if pos.has("x") and pos.has("y"):return {"x":float(pos.x),"y":float(pos.y)}
+	# Home-chart enrollment only. The shipping route is not a sensor.
+	var contact: Dictionary=s.get("ocean066",{}).get("contact",{})
+	if contact is Dictionary and str(contact.get("ownerId",""))==id and str(contact.get("phase",""))!="lost":
+		var loc: Dictionary=contact.get("location",{})
+		if str(loc.get("world064",{}).get("layer",""))=="home":
+			var pos: Dictionary=loc.get("position",{})
+			if pos is Dictionary and pos.has("x") and pos.has("y"):return {"x":float(pos.x),"y":float(pos.y)}
 	var now: float=float(s.get("day",s.get("econDay",1.0)))
 	var memory: Array=s.get("navalAi",{}).get("sightingsByObserver",{}).get(observer_id,[])
 	if not memory is Array:return {}
