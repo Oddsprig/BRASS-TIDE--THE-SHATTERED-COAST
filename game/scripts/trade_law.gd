@@ -2,6 +2,7 @@ class_name TradeLaw
 extends RefCounted
 const Rules=preload("res://scripts/trade_rules.gd")
 const World068=preload("res://scripts/ocean_world064.gd")
+const Territorial076=preload("res://scripts/territorial076.gd")
 static var api:Dictionary={}
 const CAP:=80
 const MAX_Q:=1000000
@@ -81,6 +82,7 @@ static func validate(s:Dictionary,w:Dictionary,pending:bool=false)->Array:
 	for k in ["patrols","fleetOwners"]:
 		if not s.get(k,[]) is Array:return ["Invalid fleet observer collection."]
 	var ids:={}
+	var changed_home:bool=false
 	for p in s.ports:
 		if not p is Dictionary:return ["Malformed saved harbor."]
 		var id=p.get("id")
@@ -93,13 +95,21 @@ static func validate(s:Dictionary,w:Dictionary,pending:bool=false)->Array:
 		if generated.has(id):
 			for key in ["id","name","regionId","islandId","x","y","industry","specialty"]:
 				if p.get(key)!=generated[id].get(key):return ["Invalid canonical generated harbor identity."]
-		elif p.get("faction")!=defs[id]:return ["Harbor faction does not match the coast."]
+		elif p.get("faction")!=defs[id]:changed_home=true
 		if not w.factions.has(p.get("faction")):return ["Unknown live harbor faction."]
 		if not _stock(p.get("stocks"),w.goods) or not _stock(p.get("publicStores",{}),w.goods):return ["Invalid physical harbor inventory."]
 		for k in ["cash","householdPurse","expertPurse","governmentPurse"]:
 			if not _uint(p.get(k)):return ["Invalid harbor coin purse."]
 		for k in ["availableWorkers","availableSpecialists","_yardWorkersUsed","_yardSpecialistsUsed"]:
 			if not _num(p.get(k,0 if k.begins_with("_") else null)):return ["Invalid service workforce capacity."]
+	if changed_home:
+		# Reuse the complete paid-operation validator. Westglass and generated
+		# harbors retain their existing, separate canonical ownership rules.
+		var home_definitions:Array=[]
+		for definition in w.ports:
+			if definition.id!=World068.REMOTE_PORT068 and not generated.has(definition.id):home_definitions.append(definition)
+		var territory_error:String=Territorial076.validate(s,{"PORTS":home_definitions})
+		if not territory_error.is_empty():return [territory_error]
 	if not s.get("moneyLog") is Array:return ["Missing coin transfer ledger."]
 	if not s.has("tradeLaw"):return []
 	var b=s.tradeLaw
