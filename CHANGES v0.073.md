@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Match campaign boat colors, wheelhouses and machinery to the fleet, using existing baked sprites and inexpensive chart assets.
 
 See docs/TEST RESULTS v0.073.md for actual focused checks and remaining limits.
+
+Verification: 13892 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 45.350s. Preserved earlier failures; no broad acceptance claim.

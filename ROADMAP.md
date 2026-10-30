@@ -1,11 +1,7 @@
-# Current step: v0.073 - Original fleet hull, weapon and campaign boat detail
+# Current verified release: v0.073 original fleet assets
 
-- Rebuild all36 existing hull sprites with stronger materials, rear engineering, framed glass and role-specific working deck equipment.
-- Replace the seven interchangeable weapon models with clearer machine-gun, cannon, rocket and torpedo mechanisms within existing mount geometry.
-- Match campaign boat colors, wheelhouses and machinery to the fleet, using existing baked sprites and inexpensive chart assets.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+13892 focused/0; all36 hulls/charts, seven weapon variants/ten layers, one reviewed motion/refit capture.
+Next074: tactical AI with counterplay. Earlier quality limits remain open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

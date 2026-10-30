@@ -1,3 +1,6 @@
+v0.073 CURRENT:13892/0; fleet assets and Windows/title; one private battle movie/still and actual starter workshop still reviewed by Root.
+work/quality-v073/ACTUAL073 CHECKS.json. Earlier strict performance,071 listening and whole-game quality remain open.
+
 v0.072 CURRENT:307/0; Windows/title, complete ordinary-account voyage and actual rendered300DP measurements.
 work/quality-v072/ACTUAL072 CHECKS.json; final selected 167.557s.
 Strict target and quality limits: docs/PERFORMANCE REVIEW v0.072.txt.

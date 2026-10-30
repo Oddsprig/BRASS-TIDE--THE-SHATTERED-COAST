@@ -1,19 +1,10 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.072: complete voyage and measured runtime costs.
-Tested 9b76b9795dc7c9695a457e9639f3ef0afc126d33; 307 focused/0; Windows/menu and two active rendered300DP cases.
-Receipts work/quality-v072/ACTUAL072 CHECKS.json and DELIVERED v0.072.json.
-Do not rebuild072. Next073: original hull and weapon asset detail across36boats.
-Whole-game quality/strict performance OPEN; see actual review. Root owns tests/delivery.
-
-ACTIVE SOURCE073: original hull/weapon and matching campaign assets across all36
-existing boats. work/quality-v073/SCOPE073.txt and isolated ROLE073.txt own exact
-four allowlists. Two SolMAX/two GrokHIGH implement through Bridge; Google Flash
-weekly100%, no API/model fallback. Root checks bounded Spark work before use.
-Reuse CPU bake.py/weaponbake and sprite/SVG consumers; no new renderer/Blender
-adapter, roster, water, AI/economy or simulation changes. Root alone queues
-bounded owned asset production and final QA, then packages before074. Source
-073 metadata not yet prepared. Installed072 remains current until073 accepted.
+Current verified release v0.073: original fleet hull, weapon and chart boat assets.
+Tested c16b2bef4679b185c3c63a3dbd24edb5489677c0; 13892 focused/0; Windows/menu and one reviewed private capture.
+Receipts work/quality-v073/ACTUAL073 CHECKS.json and DELIVERED v0.073.json.
+Do not rebuild073. Next074: tactical AI with counterplay.
+Whole-game quality/strict performance and071 listening remain OPEN. Root owns tests/delivery.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -42,7 +33,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through072 are scoped verified;073-078 remain planned. Earlier quality
+063 through073 are scoped verified;074-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
