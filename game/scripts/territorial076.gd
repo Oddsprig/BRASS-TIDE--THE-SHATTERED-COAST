@@ -176,6 +176,7 @@ static func quote_improve(c, port_id: String) -> Dictionary:
 		if old.is_empty() and float(c.state.cargo.get(good, 0)) < float(materials[good]):return _result(false, "Carry the warehouse's actual timber, logs and iron to this harbor before starting.")
 	if float(c.state.cargo.get("supplies", 0)) < remaining * 0.5:return _result(false, "Carry half a repair-kit lot for each remaining paid work day.")
 	var payroll: Dictionary = Economy.daily_upkeep(c.state.fleet)
+	if float(c.state.cargo.get("food", 0)) < float(payroll.food) * remaining:return _result(false, "Carry the fleet's ordinary rations for every remaining paid work day.")
 	if int(c.state.coins) < int(quote.cost) + int(payroll.wages) * remaining:return _result(false, "Retain warehouse capital and the fleet's actual payroll for the remaining work days.")
 	return _result(true, "Two paid days using carried machinery and sailors, followed by the existing funded warehouse setup.",
 		{"portId": port_id, "machineryId": str(item.id), "crewByBoat": party.duplicate(true),
@@ -249,10 +250,11 @@ static func start(c, port_id: String, new_faction: String) -> Dictionary:
 		defender = _defender(c, p, str(old.get("defenderId", "")))
 		if defender.is_empty():return _result(false, "An actual hostile defending fleet must be present; fleet presence alone gives no surrender claim.")
 	var remaining: int = WORK_DAYS - int(old.get("supportDays", 0))
-	for good in SUPPORT_GOODS:
-		if float(c.state.cargo.get(good, 0)) < float(SUPPORT_GOODS[good]) * remaining:return _result(false, "Carry real civilian food and repair kits for the remaining support days.")
-	var capital: int = SUPPORT_CAPITAL if old.is_empty() else 0
 	var payroll: Dictionary = Economy.daily_upkeep(c.state.fleet)
+	for good in SUPPORT_GOODS:
+		var per_day: float = float(SUPPORT_GOODS[good]) + (float(payroll.food) if good == "food" else 0.0)
+		if float(c.state.cargo.get(good, 0)) < per_day * remaining:return _result(false, "Carry civilian support food, the fleet's ordinary rations and repair kits for every remaining support day.")
+	var capital: int = SUPPORT_CAPITAL if old.is_empty() else 0
 	if not BoardingRules._w(c.state.get("coins"), BoardingRules.CASH) or int(c.state.coins) < capital + int(payroll.wages) * remaining:return _result(false, "Fund the existing fleet payroll and 800-coin harbor operating contribution.")
 	if not BoardingRules._w(p.get("governmentPurse"), BoardingRules.CASH) or int(p.governmentPurse) + capital > BoardingRules.CASH:return _result(false, "The existing harbor treasury cannot accept the support contribution.")
 	ensure(c)
