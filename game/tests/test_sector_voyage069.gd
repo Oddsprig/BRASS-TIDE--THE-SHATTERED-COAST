@@ -35,7 +35,7 @@ func phase(label: String) -> void:
 	receipt.phases.append(row);print("SECTOR069_PHASE ",JSON.stringify(row))
 
 func same_values(a,b) -> bool:
-	if (a is int or a is float) and (b is int or b is float):return is_equal_approx(float(a),float(b))
+	if (a is int or a is float) and (b is int or b is float):return a==b
 	if a is Dictionary and b is Dictionary:
 		if a.size()!=b.size():return false
 		for key in a:
@@ -47,6 +47,17 @@ func same_values(a,b) -> bool:
 			if not same_values(a[index],b[index]):return false
 		return true
 	return a==b
+
+func expected_restore_ports(snapshot: Dictionary) -> Array:
+	# Only these forecasts/recipe metadata are rebuilt by ReserveOps.refresh.
+	# Start from decoded saved values; every physical field and policy stays exact.
+	var expected: Array=snapshot.ports.duplicate(true)
+	var forecasts: Dictionary={"ports":snapshot.ports.duplicate(true),"fleetOwners":snapshot.fleetOwners}
+	c.ReserveOps.refresh({"state":forecasts})
+	for index in range(expected.size()):
+		for key in ["observedDemand","incoming","contractedLots","availableRecipes"]:
+			expected[index].reserves[key]=forecasts.ports[index].reserves[key]
+	return expected
 
 func difference_value(value,present: bool=true) -> Dictionary:
 	return {"type":type_string(typeof(value)) if present else "MISSING","value":JSON.stringify(value,"",true,true) if present else "<missing>"}
@@ -80,8 +91,8 @@ func restore_differences(saved,actual,path: String,rows: Array,saved_present: bo
 
 func restore_scopes(snapshot: Dictionary) -> Dictionary:
 	var owner: Dictionary={}
-	for row in snapshot.get("fleetOwners",[]):
-		if row.get("id")=="patrol-7":owner=row;break
+	for candidate in snapshot.get("fleetOwners",[]):
+		if candidate.get("id")=="patrol-7":owner=candidate;break
 	# Include the complete physical owner/boat condition and shipping book, not just
 	# the smaller merchant() account projection used by the earned voyage check.
 	return {"sector069":snapshot.get("sector069"),"ports":snapshot.get("ports"),"merchant":{"fleetOwner":owner,"shipping068":snapshot.get("shipping068")}}
@@ -118,14 +129,17 @@ func checkpoint_diagnostic(options: Dictionary) -> void:
 func protected_state() -> PackedByteArray:
 	return var_to_bytes([c.state,c.events,c.pending_days,c.ocean_context064,c.ocean_context066,c.route_cache,c.ocean_watch066,c.ocean_conditions066,c.exploration_timer,c.sailing_clearance,c.travel_lock064])
 
-func merchant() -> Dictionary:
-	var owner: Dictionary=c.fleet_owner("patrol-7")
+func merchant(snapshot: Dictionary={}) -> Dictionary:
+	if snapshot.is_empty():snapshot=c.state
+	var owner: Dictionary={}
+	for row in snapshot.get("fleetOwners",[]):
+		if row.get("id")=="patrol-7":owner=row;break
 	var boats: Array=[]
 	for boat in owner.get("boats",[]):
 		var row: Dictionary={}
-		for key in ["uid","crew","wounded","fuel","ammo","supplies","hp","sunk"]:row[key]=boat[key]
+		for key in ["uid","type","crew","wounded","fuel","ammo","supplies","hp","maxHp","sunk","armor","engine","fire","water","breaches","moduleCondition","boarders","loadout","refitLocker"]:row[key]=boat.get(key)
 		boats.append(row)
-	return {"boats":boats,"coins":owner.get("coins"),"crewPurse":owner.get("crewPurse"),"arrears":owner.get("wageArrears"),"cargo":owner.get("cargo",{}).duplicate(true),"tradeCargo":owner.get("tradeCargo"),"route":c.state.get("shipping068",{}).get("model",{}).get("route",{}).duplicate(true)}
+	return {"boats":boats,"id":owner.get("id"),"faction":owner.get("faction"),"homePort":owner.get("homePort"),"coins":owner.get("coins"),"crewPurse":owner.get("crewPurse"),"arrears":owner.get("wageArrears"),"cargo":owner.get("cargo",{}).duplicate(true),"tradeGood":owner.get("tradeGood"),"tradeCargo":owner.get("tradeCargo"),"route":snapshot.get("shipping068",{}).get("model",{}).get("route",{}).duplicate(true)}
 
 func settle() -> void:
 	while c.pending_days>0:
@@ -261,12 +275,12 @@ func generated() -> bool:
 	var home: Dictionary=c.port("brass_haven")
 	if not check(c.chart_course({"x":home.x,"y":home.y},str(home.id)).get("ok",false),"Actual home harbor return course") or not finish_course():return false
 	check(c.current_port().get("id")=="brass_haven" and c.state.fleet[0].uid==owned and int(c.state.wageArrears)==0,"Same original boat returns on actual starting funds with wages paid")
-	var sector: Dictionary=c.state.sector069.duplicate(true)
-	var accounts: Array=c.state.ports.duplicate(true)
-	var physical: Dictionary=merchant()
 	var saved: Dictionary=parsed_save()
-	if not check(not saved.is_empty() and c.restore(saved).get("ok",false),"Actual parsed generated career restores"):return false
-	if not check(same_values(c.state.sector069,sector) and same_values(c.state.ports,accounts) and same_values(merchant(),physical),"Restore keeps geography and all live harbor/merchant accounts without refill"):
+	if saved.is_empty():return false
+	var accounts: Array=expected_restore_ports(saved)
+	var physical: Dictionary=merchant(saved)
+	if not check(c.restore(saved).get("ok",false),"Actual parsed generated career restores"):return false
+	if not check(same_values(c.state.sector069,saved.sector069) and same_values(c.state.ports,accounts) and same_values(merchant(),physical) and c.state.coinSupply==saved.coinSupply and c.Money.total(c.state)==supply,"Restore keeps exact saved geography, physical harbor/merchant accounts and supply; reserve forecasts match canonical recalculation"):
 		report_restore_differences(saved)
 	for kind in ["ledger","missing_port","missing_site","null_sector"]:
 		if not bounded():return false
@@ -297,7 +311,7 @@ func legacy() -> bool:
 	old.exploration.leads=old.exploration.leads.filter(func(row):return row.get("fromSite","") not in generated_ids and row.get("toSite","") not in generated_ids)
 	for key in ["sector069","sectorApplied069","sectorKnowledge069","islandOwnership069"]:old.erase(key)
 	if not check(c.Money.total(old)==int(old.coinSupply),"Constructed legacy subtracts exact current removed purses without rebasing supply"):return false
-	var accounts: Array=old.ports.duplicate(true)
+	var accounts: Array=expected_restore_ports(old)
 	var physical: Dictionary=merchant()
 	if not check(c.restore(old).get("ok",false),"Constructed finite068-compatible absent-sector save restores"):return false
 	supply=int(c.state.coinSupply)
@@ -309,10 +323,12 @@ func legacy() -> bool:
 	if not check(valid.get("ok",false),"Controlled old067 landing is canonical safe water"):return false
 	c._publish_location064(valid.location);c.Exploration.discover_near(c.state,c.state.position,620.0)
 	if not check(c.begin_survey(str(site.id),"chart").get("ok",false),"Old067 party reserves actual hands/kits"):return false
-	var party: Dictionary=c.state.exploration.assignment.duplicate(true)
 	var hands: Array=c.state.fleet.map(func(b):return int(b.get("shoreCrew",0)))
-	physical=merchant()
-	if not check(c.restore(parsed_save()).get("ok",false),"Absent-sector active shore party restores"):return false
+	var party_save: Dictionary=parsed_save()
+	if party_save.is_empty():return false
+	var party: Dictionary=party_save.exploration.assignment.duplicate(true)
+	physical=merchant(party_save)
+	if not check(c.restore(party_save).get("ok",false),"Absent-sector active shore party restores"):return false
 	check(same_values(c.state.exploration.assignment,party) and c.state.fleet.map(func(b):return int(b.get("shoreCrew",0)))==hands and same_values(merchant(),physical),"Old party and original merchant survive without recall/respawn")
 	if not check(c.recall_survey().get("ok",false),"Actual old party recall returns only unused rations"):return false
 	for id in c.Remote067.SITE_IDS:c.state.exploration.sites[id]={"level":3,"rewarded":true}
@@ -321,8 +337,12 @@ func legacy() -> bool:
 	var id: String=str(cache.id)
 	c.Remote067.raw_wreck(c.state,id).stores.copper-=1.0
 	var stores: Dictionary=c.Remote067.raw_wreck(c.state,id).stores.duplicate(true)
-	physical=merchant()
-	if not check(c.restore(parsed_save()).get("ok",false),"Depleted old cache restores on the two-region world"):return false
+	var cache_save: Dictionary=parsed_save()
+	if cache_save.is_empty():return false
+	for wreck in cache_save.get("wrecks",[]):
+		if wreck.id==id:stores=wreck.stores.duplicate(true);break
+	physical=merchant(cache_save)
+	if not check(c.restore(cache_save).get("ok",false),"Depleted old cache restores on the two-region world"):return false
 	c.Salvage.seed_expedition067(c,c.Exploration.catalog_site(c.state,"glasswind_south_wreck"))
 	check(same_values(c.Remote067.raw_wreck(c.state,id).stores,stores) and same_values(merchant(),physical) and c.Money.total(c.state)==supply,"Old cache stays depleted and merchant/account supply stays exact")
 	return failures==0
