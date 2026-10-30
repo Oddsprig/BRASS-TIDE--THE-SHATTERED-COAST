@@ -201,18 +201,9 @@ static func _travel_days(core, a: Dictionary, b: Dictionary) -> float:
 # (x2 the one-way time), plus one lot of cargo handling value.
 static func _route_reward(core,days: float,good: String="",survey: bool=false,p: Dictionary={}) -> int:
 	if p.is_empty():p=WorkRegion070.work_port(core)
-	# A fixed catalog Tinwake can sail with three and send four ashore. Extra
-	# owned boats/crew never enlarge a client's tariff; a full survey needs seven.
-	var reference: Dictionary=core.hull("tin_skiff")
-	var crew: int=maxi(1,int(reference.get("crewMin",3)))+4 if survey else 5
+	if survey:return WorkRegion070.survey_reward(core,p,days)
+	var crew: int=5
 	var work_days: float=maxf(1,ceilf(days*2.0+(3.5 if survey else 0.25)))
-	if survey:
-		var upkeep: Dictionary=Economy.daily_upkeep([{"crew":crew,"spec":reference,"sunk":false}])
-		var burn: float=45.0*(0.011+float(reference.get("size",14))*0.0002)*maxf(0.2,float(reference.get("fuelUse",1)))
-		var survey_value: float=crew*Goods.SAILOR_WAGE*work_days+float(upkeep.food)*work_days*Economy.price(p,"food")
-		survey_value+=(burn*days*2.0+float(upkeep.fuel)*work_days)*Economy.price(p,"fuel")
-		survey_value+=3.0*Economy.price(p,"supplies")+Goods.WAGES.laborer
-		return maxi(1,ceili(survey_value*1.25))
 	var value: float=crew*Goods.SAILOR_WAGE*work_days
 	value+=crew*0.08*work_days*Economy.price(p,"food")
 	value+=maxf(0.15,days*2)*0.65*Economy.price(p,"fuel")
@@ -462,29 +453,10 @@ static func available(core) -> Array:
 	offers.append_array(_freight_offers(core,p,day,taken))
 	# Survey: prefer Wren's accepted current site, otherwise retain the daily
 	# catalog selection. A site already on a carried survey is not new paid work.
-	var unsurveyed: Array = []
-	for site in WorkRegion070.survey_sites(state,p):
-		var carried: bool=false
-		for job in state.get("voyageJobs",[]):
-			if str(job.get("kind",""))==KIND_SURVEY and str(job.get("siteId",""))==str(site.id):carried=true;break
-		if not carried and int(site.get("level", 0)) < Exploration.LEVEL_SURVEYED:
-			unsurveyed.append(site)
+	var unsurveyed: Array=WorkRegion070.survey_candidates(core,p)
 	if not unsurveyed.is_empty():
 		var pairing: Dictionary=survey_pairing(core,str(p.id))
-		# Preserve the authored daily first choice and accepted story pairing.
-		# Remote work is earned and ranked on its own actual region geometry.
-		if WorkRegion070.region(p)==Exploration.HOME_REGION:
-			var authored: Array=unsurveyed.filter(func(s):return WorkRegion070.region(s)==Exploration.HOME_REGION)
-			if not authored.is_empty():
-				var first: Dictionary=authored[(day+maxi(0,int(state.ports.find(p))))%authored.size()]
-				unsurveyed.erase(first);unsurveyed.push_front(first)
-		else:
-			unsurveyed.sort_custom(func(a,b):
-				var da: float=WorkRegion070.rank(core,p,a);var db: float=WorkRegion070.rank(core,p,b)
-				return str(a.id)<str(b.id) if is_equal_approx(da,db) else da<db)
-		for candidate in unsurveyed:
-			if str(candidate.id)==str(pairing.get("siteId","")):unsurveyed.erase(candidate);unsurveyed.push_front(candidate);break
-		for site in unsurveyed.slice(0,WorkRegion070.MAX_CANDIDATES):
+		for site in WorkRegion070.ranked_surveys(core,p,day,unsurveyed,pairing):
 			var survey_id := "vsurvey-%s-%d-%s" % [str(p["id"]), day, str(site["id"])]
 			if taken.has(survey_id) or _is_closed(state,survey_id):continue
 			var route: Dictionary=WorkRegion070.route(core,site,p,true)
@@ -492,16 +464,7 @@ static func available(core) -> Array:
 			var days: float=float(route.referenceDays)
 			var reward: int=_route_reward(core,days,"",true,p)
 			if int(p.get("governmentPurse",0))<reward:continue
-			offers.append({
-					"id": survey_id, "title": "Survey %s" % str(site["name"]),
-					"description": ("Pairs with your accepted Middle Sea lead. " if str(pairing.get("siteId",""))==str(site.id) else "")+"The harbor government escrows a survey fee. Full level 3 survey and a report here are required. Clue: %s" % str(site.get("clue", "")),
-					"port": str(p["id"]), "targetPort": str(p["id"]), "kind": KIND_SURVEY,
-					"regionId":WorkRegion070.region(p),"targetRegionId":WorkRegion070.region(site),
-					"reward": reward, "escrow": 0, "payerKey": "governmentPurse",
-					"deadlineDay": float(day) + ceilf(days * 2.0 + 14.0), "acceptedDay": 0.0,
-					"freight": {}, "state": STATE_OFFERED,
-					"siteId": str(site["id"]), "ownerId": "",
-					"feeBasis":"Fixed catalog Tinwake with minimum sailing crew plus four spare surveyors; whole payroll days for return travel and full 3.5-day chart/survey, real rations/fuel, three kits, one registration laborer-day and 25% margin. Extra fleet costs remain yours."})
+			offers.append(WorkRegion070.survey_offer(p,site,pairing,survey_id,day,days,reward))
 			break
 	# Bounty: the first actually active patrol raider owner, if one is at sea.
 	var bounty_id := "vbounty-%s-%d" % [str(p["id"]), day]
@@ -834,25 +797,7 @@ static func _fuel_allowed(c,sponsor: Dictionary,owner: Dictionary) -> bool:
 	return (a==b or Factions.relation(c.state,a,b)>Factions.ENEMY_AT) and TradeRules.allowed(c.state.get("tradeLaw",{}).get("bans",[]),a,b,"fuel",float(c.state.day))
 
 static func _fuel_port(c,owner: Dictionary) -> Dictionary:
-	if owner.is_empty():return {}
-	var dock: Dictionary=c.port(str(owner.get("atPort","")))
-	if dock.is_empty() or not WorkRegion070.known_port(c,dock):return {}
-	# The shipping carrier has a real independent spatial record; its stale
-	# HOME patrol projection is never evidence of a remote fuel recipient.
-	if str(owner.get("id",""))==WorkRegion070.Shipping.OWNER and WorkRegion070.Shipping.installed(c.state):
-		var actor: Dictionary=WorkRegion070.Shipping.actor(c)
-		if actor.is_empty():return {}
-		var location: Dictionary=actor.location
-		if str(location.world064.regionId)!=WorkRegion070.region(dock) or location.world064.layer=="ocean" or not location.path.is_empty() or c.distance(location.position,dock)>=40.0:return {}
-		return dock
-	for p in c.state.get("patrols",[]):
-		if str(p.get("id",""))!=str(owner.get("id","")):continue
-		if not p.get("active",false) or not p.get("holding",false) or p.has("interceptPoint"):return {}
-		if str(p.get("world064",{}).get("regionId",Exploration.HOME_REGION))!=WorkRegion070.region(dock):return {}
-		var geometry: Dictionary=c.nav if WorkRegion070.region(dock)==Exploration.HOME_REGION else c.ocean_context064.get("regionGeometry",{}).get(WorkRegion070.region(dock),{})
-		if c.distance(p,dock)>=40.0 or not Navigation.is_water(geometry,p.x,p.y,Routes.clearance(c,p)):return {}
-		return dock
-	return {}
+	return WorkRegion070.fuel_port(c,owner)
 
 static func fuel_demand(owner: Dictionary,full_tanks: bool=false) -> float:
 	# Old callers/jobs keep the three-drum emergency target. New059 restocking
