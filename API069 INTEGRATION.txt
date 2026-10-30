@@ -1,0 +1,34 @@
+B INTEGRATION069 - locked-contract implementation handoff (source only)
+Core.world_view064() is the ONLY geometry DTO, including all 48 regions on fresh campaigns.
+Core.sector_view069()->{schema:1,seed:int,generated:bool,regionId:String,groups:Array,ownership:Array,ports:Array,sites:Array,summary:String}.
+Legacy: generated=false, groups/ownership/ports/sites=[], summary explains preserved two-region career.
+groups: {regionId,band,knowledge,ownershipSummary,segments:[{factionId,knownAssets}]}.
+knowledge is unknown/public_chart/sighted/charted/surveyed; ownershipSummary is unknown/single/mixed/neutral.
+An unknown group still has its public geographic ID/band, but segments=[], ownershipSummary="unknown".
+ownership: {regionId,islandId,faction}, or {regionId,islandId,portId,faction}; only known actual assets.
+ports: same shipping068 DTO {id,name,regionId,islandId,faction,industry,specialty,x,y,atBerth}; never private stocks/purses.
+sites: same earned Exploration.visible_sites shape {id,regionId,x,y,level,levelName,name,clue,hazard? ,discovery?,resource?,leadId?}.
+Sighted sites say "Uncharted shore landmark"; hazard needs chart, resource/discovery needs survey.
+Example unknown group: {regionId:"remote_01",band:"remote",knowledge:"unknown",ownershipSummary:"unknown",segments:[]}.
+Example mixed three-island group: {regionId:"settled_01",band:"settled",knowledge:"public_chart",ownershipSummary:"mixed",segments:[{factionId:"",knownAssets:1},{factionId:"compact",knownAssets:2},{factionId:"reed",knownAssets:2}]} (counts reflect actual known records; another layout can add a neutral island).
+sector_view069 is detached/read-only: no geometry, nav creation, quotes, ensure, mint or knowledge mutation.
+Public opening charts may disclose settled generated assets with stored provenance; frontier/remote interiors require proximity/survey.
+Core.remote_port068(port_id:String="")->existing market DTO or {}. Empty picks the stopped current known berth.
+Core.remote_trade068(good:String,qty:int,side:String,port_id:String="")->existing finite trade result/receipt.
+Main.remote_trade068 has the same optional fourth argument and synchronizes economy before calling Core.
+Explicit IDs must be canonical, known, same-region, stopped within40units, legally accessible and free of active party/encounter.
+The old three-argument Westglass call continues to work at Westglass; HOME current_port() keeps HOME behavior.
+Exploration_view067/begin_survey/recall_survey stay existing APIs; generated canonical sites use the same paid physical party path.
+state.ports is the single live economy. sector069.initialOwnership/openingLedger are provenance, never live duplicate accounts.
+Fresh new_game calls Sector.generate(state.seed,data,authoredAtlas), installs every declared harbor once with explicit finite defaults, then fixes final coinSupply.
+Absent sector069 on restore retains old two-region world/accounts; present corrupt sector refuses before publication. Restore never generates or installs a sector.
+B's persisted sectorKnowledge069 records public-chart provenance and earned groups/islands/ports; restore validates it raw before any ensure.
+Actual A adapter: sector069.openingLedger.harbors[].allocation is merged into Economy.create_port with shipStock={},shipIds=[],buildQueue=[]; 19 harbors,280 workers,980000 declared opening coins.
+sectorApplied069={schema:1,provenance:"new_game_only:069.1",ports:[canonical harbor IDs in canonical order]}; absent/incomplete journal or live accounts refuse restore.
+islandOwnership069 holds the complete live {regionId,islandId,faction} array; port.faction is live harbor authority. Canonical initialOwnership stays immutable provenance.
+sectorKnowledge069={schema:1,groups:{regionId:{source,day}},islands:{"regionId/islandId":{source,day}},ports:{portId:{source,day}}}; sources public_chart069 (settled only) or observed069.
+Actual port examples: settled_01_harbor_01/compact on settled_01_island_01, settled_01_harbor_02/reed on island_02. Saved coordinates are always authoritative.
+The old Westglass installation remains its finite Kelp split. Restore preserves pending/installed accounts as saved; the old daily path may retry a pending branch later.
+Explicit voyage quotation uses an isolated runtime cache slot; it cannot evict or replace the live current generated navigation grid.
+Allowlist: campaign/campaign_state_validation/save_validation/remote_expedition067/shipping_flow068/exploration/trade_law/regional_crises/salvage(provenance only)/main(wrappers only), and test_sector_voyage069.gd.
+Root alone runs tests, integrates named commits and accepts delivery. No engine, tests or advisories executed by B.

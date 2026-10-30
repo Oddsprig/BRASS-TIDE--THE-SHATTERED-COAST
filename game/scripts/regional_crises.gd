@@ -109,10 +109,17 @@ func ensure(core) -> bool:
 
 func validate(state: Dictionary, world) -> Array:
 	var catalog = _catalog(world)
+	var home_catalog: Dictionary=catalog.duplicate()
 	# Optional installed record extends validation only; HOME job offers stay HOME.
 	var shipping068=state.get("shipping068",{})
 	if shipping068 is Dictionary and shipping068.get("schema")==1 and shipping068.get("installation") is Dictionary and shipping068.installation.get("status")=="installed":
 		catalog[World068.REMOTE_PORT068]=World068.remote_port068()
+	var generated: Dictionary={}
+	var sector=state.get("sector069")
+	if sector is Dictionary and sector.get("harbors") is Array:
+		for row in sector.harbors:
+			if not row is Dictionary or not row.get("id") is String:return ["Invalid generated harbor identity."]
+			generated[row.id]=row;catalog[row.id]=row
 	var day = _day(state)
 	if catalog.is_empty() or day < 0: return ["Invalid world/day."]
 	var ports = state.get("ports")
@@ -125,6 +132,9 @@ func validate(state: Dictionary, world) -> Array:
 		if id==World068.REMOTE_PORT068:
 			for key in World068.remote_port068():
 				if p.get(key)!=World068.remote_port068()[key]:return ["Invalid canonical Westglass harbor definition."]
+		if generated.has(id):
+			for key in ["id","name","regionId","islandId","x","y","industry","specialty"]:
+				if p.get(key)!=generated[id].get(key):return ["Invalid canonical generated harbor definition."]
 		seen[id] = true
 	if not state.has(KEY): return []
 	var s = state[KEY]
@@ -140,7 +150,7 @@ func validate(state: Dictionary, world) -> Array:
 		var r = s.crises[key]
 		if not _shape(r, "port kind bad good active seen started recovered evidence advice"):
 			return ["Invalid crisis record."]
-		if not catalog.has(r.port) or r.port==World068.REMOTE_PORT068 or not (r.kind in KINDS): return ["Invalid home crisis identity."]
+		if not home_catalog.has(r.port) or not (r.kind in KINDS): return ["Invalid home crisis identity."]
 		if key != "%s:%s" % [r.port, r.kind]: return ["Unstable crisis ID."]
 		if not _whole(r.bad, 0, 999) or not _whole(r.good, 0, 999): return ["Invalid streak."]
 		if r.bad > 0 and r.good > 0: return ["Contradictory streaks."]
@@ -158,7 +168,7 @@ func validate(state: Dictionary, world) -> Array:
 		if not _whole(j.serial, 1, s.nextId - 1): return ["Invalid voyage serial."]
 		if j.id != "rs_%d" % int(j.serial) or seen.has(j.id): return ["Duplicate/unstable voyage ID."]
 		seen[j.id] = true
-		if not catalog.has(j.origin) or not catalog.has(j.destination) or j.origin == j.destination or j.origin==World068.REMOTE_PORT068 or j.destination==World068.REMOTE_PORT068:
+		if not home_catalog.has(j.origin) or not home_catalog.has(j.destination) or j.origin == j.destination:
 			return ["Invalid voyage endpoints."]
 		if not _whole(j.n, 1, 32) or not _subsets(j.n, j.specialists, j.recruits, j.qualified):
 			return ["Invalid passenger subsets."]
@@ -310,6 +320,7 @@ func _observe(s, p, day: int) -> void:
 
 func _quote(core, origin: String, destination: String, maximum: int) -> Dictionary:
 	if origin==World068.REMOTE_PORT068 or destination==World068.REMOTE_PORT068:return {}
+	if str(core.port(origin).get("regionId","shatter_coast"))!="shatter_coast" or str(core.port(destination).get("regionId","shatter_coast"))!="shatter_coast":return {}
 	var s = core.state[KEY]
 	if s.jobs.size() >= 8 or origin == destination or not _bad(s, origin) or _bad(s, destination): return {}
 	var p = core.port(origin)
@@ -333,6 +344,7 @@ func offers(core) -> Array:
 	var out = []
 	if not ensure(core) or not _ready(): return out
 	for p in core.state.ports:
+		if str(p.get("regionId","shatter_coast"))!="shatter_coast":continue
 		if not _bad(core.state[KEY], p.id): continue
 		for destination in core.state.ports:
 			var offer = _quote(core, p.id, destination.id, 32)
@@ -452,7 +464,7 @@ func daily(core):
 	if day <= s.lastDay: return core.ok("Regional day already processed.")
 	s.lastDay = day
 	for p in core.state.ports:
-		if p.get("id")!=World068.REMOTE_PORT068:_observe(s, p, day)
+		if str(p.get("regionId","shatter_coast"))=="shatter_coast":_observe(s, p, day)
 	for j in s.jobs.duplicate():
 		if j.lastFed < day:
 			if _atomic(core, [], {"action": "eat", "job": j, "day": day}):

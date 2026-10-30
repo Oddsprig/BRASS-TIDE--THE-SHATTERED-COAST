@@ -631,13 +631,16 @@ func trade(good: String, amount: int, side: String):
 	ui.open_port("Market")
 	save_game(false)
 
-func remote_trade068(good: String,qty: int,side: String) -> Dictionary:
+func remote_trade068(good: String,qty: int,side: String,port_id: String="") -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the campaign chart before trading at the anchorage.")
 	sync_economy()
-	var result: Dictionary=core.remote_trade068(good,qty,side)
+	var result: Dictionary=core.remote_trade068(good,qty,side,port_id)
 	respond(result)
 	if result.get("ok",false):save_game(false)
-	if ui.modal_open and ui.modal_kind=="shipping068":ShippingUI068.open(ui,core.ShippingFlow068.PORT)
+	if ui.modal_open and ui.modal_kind=="shipping068":
+		var shown: String=str(result.get("receipt",{}).get("portId",port_id))
+		if shown.is_empty():shown=str(core.remote_port068().get("id",core.ShippingFlow068.PORT))
+		ShippingUI068.open(ui,shown)
 	return result
 
 func buy_boat(id: String):

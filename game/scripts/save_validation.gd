@@ -26,6 +26,7 @@ const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 const Exploration067=preload("res://scripts/exploration.gd")
 const Remote067=preload("res://scripts/remote_expedition067.gd")
 const Shipping068=preload("res://scripts/shipping_flow068.gd")
+const Sector069=preload("res://scripts/sector_world069.gd")
 ## Roster safety cap, not an ownership rule: 300 DP of 8-DP hulls is 37 boats, plus margin.
 const MAX_ROSTER: int=96
 const MAX_LOCKER: int=256
@@ -191,18 +192,53 @@ static func _order(value,hulls: Dictionary,path: String) -> String:
 			if not _number(value.labor[occupation]): return path+" has invalid worker-days."
 	return ""
 
+static func _context_matches069(context: Dictionary,atlas: Dictionary,harbors: Array=[]) -> bool:
+	if context.get("ocean")!=atlas.get("ocean") or not context.get("regions") is Dictionary or not atlas.get("regions") is Array or context.regions.size()!=atlas.regions.size():return false
+	for row in atlas.regions:
+		if not row is Dictionary or not context.regions.get(row.get("id")) is Dictionary:return false
+		var actual: Dictionary=context.regions[row.id]
+		for key in ["id","name","layer","oceanOrigin","approaches"]:
+			if actual.get(key)!=row.get(key):return false
+		if row.id!=OceanWorld064.HOME:
+			for key in ["width","height","islands"]:
+				if actual.get(key)!=row.get(key):return false
+	if not context.get("harbors") is Dictionary or context.harbors.size()!=harbors.size():return false
+	for row in harbors:
+		if not context.harbors.get(row.id) is Dictionary:return false
+		for key in ["id","regionId","islandId","x","y"]:
+			if context.harbors[row.id].get(key)!=row[key]:return false
+	return true
+
 static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary={}) -> Dictionary:
 	saved=saved.duplicate(true)
+	# Canonical present-sector validation precedes every legacy normalizer.
+	# Never generate a world or apply opening allocations while loading.
+	var atlas069: Dictionary={}
+	var sector069: Dictionary={}
+	if saved.has("sector069"):
+		var anchors=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+		if not anchors is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
+		var prepared069: Dictionary=Sector069.prepare(saved,world,anchors)
+		if not prepared069.get("ok",false):return {"ok":false,"message":str(prepared069.message),"state":saved}
+		if saved.get("mapRevision")!=2:return {"ok":false,"message":"A generated sector requires the current coast revision.","state":saved}
+		sector069=prepared069.sector;atlas069=prepared069.atlas
+		saved.sector069=sector069
+	var account_error: String=Shipping068.sector_error069(saved)
+	if not account_error.is_empty():return {"ok":false,"message":account_error,"state":saved}
 	var raw068: String=Shipping068.raw_error(saved)
 	if not raw068.is_empty():return {"ok":false,"message":raw068,"state":saved}
 	var regional_error: String=Exploration067.validate_remote067(saved)
 	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
 	if not regional_error.is_empty():return {"ok":false,"message":regional_error,"state":saved}
-	if (saved.has("ocean066") or saved.has("shipping068")) and context064.is_empty():
-		var atlas066=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
-		if not atlas066 is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
-		var nav066: Dictionary=Navigation064.create(world.ISLANDS,float(world.WORLD.width),float(world.WORLD.height),40.0*float(world.get("CAMPAIGN_SCALE",1.0)))
-		var made066: Dictionary=OceanWorld064.create(world,atlas066,nav066)
+	if saved.has("sector069") or saved.has("ocean066") or saved.has("shipping068") or saved.has("world064"):
+		if atlas069.is_empty():
+			var legacy_atlas=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+			if not legacy_atlas is Dictionary:return {"ok":false,"message":"Ocean definitions are unavailable.","state":saved}
+			atlas069=legacy_atlas
+	if not atlas069.is_empty() and not _context_matches069(context064,atlas069,sector069.get("harbors",[])):
+		var nav066: Dictionary=context064.get("homeNav",{})
+		if nav066.is_empty():nav066=Navigation064.create(world.ISLANDS,float(world.WORLD.width),float(world.WORLD.height),40.0*float(world.get("CAMPAIGN_SCALE",1.0)))
+		var made066: Dictionary=OceanWorld064.create(world,atlas069,nav066,sector069.get("harbors",[]))
 		if not made066.get("ok",false):return {"ok":false,"message":str(made066.message),"state":saved}
 		context064=made066.context
 	var shipping068: Dictionary=Shipping068.prepare(saved,world,context064)
@@ -249,7 +285,7 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 		if saved.has("world064") and not Locality064.home_local064(saved):
 			if not saved.get("toolingRecovery",{}).is_empty() or not saved.get("civilianWork",{}).get("fishing",[]).is_empty():return {"ok":false,"message":"A non-home save cannot retain deployed home machinery parties or fishing gear.","state":saved}
 			var regional_party: Dictionary=saved.get("exploration",{}).get("assignment",{})
-			if not regional_party.is_empty() and (not Remote067.local(saved) or not Remote067.party_error(saved).is_empty()):return {"ok":false,"message":"A non-home shore party must match its stationary Glasswind landing and actual reserved sailors.","state":saved}
+			if not regional_party.is_empty() and (not Remote067.local(saved) or not Remote067.party_error(saved).is_empty()):return {"ok":false,"message":"A non-home shore party must match its canonical stopped landing and actual reserved sailors.","state":saved}
 			for boat in saved.get("fleet",[]):
 				if int(boat.get("shoreCrew",0))>0 and regional_party.is_empty():return {"ok":false,"message":"A non-home save cannot retain unassigned shore sailors.","state":saved}
 			for job in saved.get("voyageJobs",[]):
@@ -259,7 +295,8 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 		for wreck in saved.get("wrecks",[]):
 			if not wreck.has("world064"):continue
 			var anchor: Dictionary={"world064":wreck.world064,"position":{"x":wreck.x,"y":wreck.y},"heading":0.0,"path":[],"destination":""}
-			var place: Dictionary=OceanWorld064.prepare(anchor,context064,Navigation064.DEFAULT_CLEARANCE)
+			# Wreck provenance needs geometry/clearance, never an offscreen grid.
+			var place: Dictionary=OceanWorld064._read_location(anchor,context064,Navigation064.DEFAULT_CLEARANCE,true)
 			if not place.get("ok",false):return {"ok":false,"message":"Invalid wreck world provenance: "+str(place.message),"state":saved}
 	return {"ok":true,"message":"Save schema is valid.","state":prepared.state}
 
@@ -270,7 +307,9 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 	for p in world.PORTS:
 		if not p is Dictionary or not _text(p.get("id")): return "Invalid world port definition."
 		ports[p.id]=true
+	var home_ports: Dictionary=ports.duplicate()
 	if Shipping068.installed(s):ports[Shipping068.PORT]=true
+	for p in Shipping068.harbors069(s):ports[p.id]=true
 	for h in world.HULLS:
 		if not h is Dictionary or not _text(h.get("id")) or not _number(h.get("hp"),1) or not _number(h.get("crewMax")): return "Invalid world hull definition."
 		hulls[h.id]=h
@@ -311,7 +350,13 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		if not error.is_empty(): return error
 		error=_cargo(p.get("stocks"),p.id+".stocks",true)
 		if not error.is_empty(): return error
-		error=_point(p,p.id,width,height)
+		var port_width: float=width
+		var port_height: float=height
+		if not home_ports.has(p.id):
+			var region: Dictionary=Exploration067.region_record069(s,str(p.get("regionId","")))
+			if region.is_empty():return "Harbor belongs to a region absent from this career."
+			port_width=float(region.width);port_height=float(region.height)
+		error=_point(p,p.id,port_width,port_height)
 		if not error.is_empty(): return error
 		for key in ["name","industry","faction"]:
 			if not _text(p.get(key)): return p.id+" has invalid "+key+"."
@@ -331,7 +376,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 	for boat in s.fleet:
 		error=_boat(boat,hulls,"save.fleet",true,modules)
 		if not error.is_empty(): return error
-		if not str(boat.get("storedPort","")).is_empty() and (not ports.has(boat.storedPort) or boat.storedPort==Shipping068.PORT):return "Stored boat has an unknown home harbor."
+		if not str(boat.get("storedPort","")).is_empty() and not home_ports.has(boat.storedPort):return "Stored boat has an unknown home harbor."
 		if uids.has(boat.uid): return "Duplicate player boat uid."
 		uids[boat.uid]=true
 	if not s.get("fleetOwners") is Array: return "NPC fleet owners must be an array."
@@ -343,7 +388,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		if not error.is_empty(): return error
 		if not _text(owner.get("homePort")) or not ports.has(owner.homePort) or not owner.get("active") is bool or not owner.get("boats") is Array:
 			return owner.id+" has invalid home, active flag or boats."
-		if owner.homePort==Shipping068.PORT:return "The bounded anchorage cannot create a new fleet home."
+		if not home_ports.has(owner.homePort):return "Limited remote markets cannot create new fleet homes."
 		if not owner.get("kind") in ["trader","patrol","raider"] or not _text(owner.get("name")) or not _number(owner.get("morale"),0.0,100.0): return owner.id+" has invalid fleet identity/morale."
 		if not _text(owner.get("faction")): return owner.id+" has invalid faction."
 		if owner.has("tradeGood") and (not _text(owner.tradeGood) or not GOODS.has(owner.tradeGood)): return owner.id+" has invalid traded good."
@@ -351,7 +396,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		if not error.is_empty(): return error
 		if not owner.get("route") is Array or not owner.get("log") is Array: return owner.id+" has invalid route/log."
 		for id in owner.route:
-			if not _text(id) or not ports.has(id) or id==Shipping068.PORT: return owner.id+" has unknown home route harbor."
+			if not _text(id) or not home_ports.has(id): return owner.id+" has unknown home route harbor."
 		if not _text(owner.get("atPort"),true) or (not owner.atPort.is_empty() and not ports.has(owner.atPort)): return owner.id+" has invalid dock."
 		for boat in owner.boats:
 			error=_boat(boat,hulls,owner.id+".boats",false,modules)
@@ -382,7 +427,7 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 			if not error.is_empty(): return error
 	for patrol in s.patrols:
 		if not patrol is Dictionary or not _text(patrol.get("id")) or not _text(patrol.get("from")) or not ports.has(patrol.from) or not _text(patrol.get("to")) or not ports.has(patrol.to): return "Invalid chart patrol route."
-		if patrol.from==Shipping068.PORT or patrol.to==Shipping068.PORT:return "A remote fleet cannot use a HOME chart projection."
+		if not home_ports.has(patrol.from) or not home_ports.has(patrol.to):return "A remote fleet cannot use a HOME chart projection."
 		if not patrol.get("active") is bool or not patrol.get("hostile") is bool or not _number(patrol.get("progress"),0.0,1.0): return "Invalid chart patrol state."
 		error=_point(patrol,"save.patrols",width,height)
 		if not error.is_empty(): return error

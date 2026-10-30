@@ -18,7 +18,9 @@ static func identity(record: Dictionary) -> Dictionary:
 	if not world is Dictionary or world.size()!=3 or not number(world.get("schema"),1,1):return {}
 	if not world.get("layer") is String or not world.get("regionId") is String:return {}
 	var pair: String=str(world.layer)+"/"+str(world.regionId)
-	return world.duplicate(true) if pair in ["home/shatter_coast","local/glasswind_keys","ocean/open_ocean"] else {}
+	var valid: bool=pair in ["home/shatter_coast","local/glasswind_keys","ocean/open_ocean"]
+	if world.layer=="local" and world.regionId not in ["shatter_coast","open_ocean"] and not world.regionId.is_empty() and world.regionId.length()<=80 and world.regionId.is_valid_identifier():valid=true
+	return world.duplicate(true) if valid else {}
 
 static func same_world(a: Dictionary,b: Dictionary) -> bool:
 	var left: Dictionary=identity(a)
@@ -27,7 +29,15 @@ static func same_world(a: Dictionary,b: Dictionary) -> bool:
 
 static func local(state: Dictionary) -> bool:
 	var world: Dictionary=identity(state)
-	return not world.is_empty() and world.layer=="local" and world.regionId==REGION
+	return not world.is_empty() and world.layer=="local" and not Exploration.region_record069(state,str(world.regionId)).is_empty()
+
+static func canonical_site(state: Dictionary,id: String) -> Dictionary:
+	var site: Dictionary=Exploration.catalog_site(state,id)
+	if site.is_empty():return {}
+	if str(site.get("regionId",""))==REGION:return site if id in SITE_IDS else {}
+	for row in Exploration.generated_sites069(state):
+		if row.get("id")==id and row.get("regionId")==site.get("regionId"):return site
+	return {}
 
 static func all_surveyed(state: Dictionary) -> bool:
 	var ex=state.get("exploration",{})
@@ -61,7 +71,7 @@ static func party_error(state: Dictionary) -> String:
 	var ex=state.get("exploration",{})
 	if not ex is Dictionary or not ex.get("assignment",{}) is Dictionary:return "Invalid regional shore assignment."
 	var assignment: Dictionary=ex.get("assignment",{})
-	var remote: bool=local(state) or identity(assignment).get("regionId")==REGION or str(assignment.get("siteId","")) in SITE_IDS
+	var remote: bool=local(state) or identity(assignment).get("layer")=="local" or str(assignment.get("siteId","")) in SITE_IDS
 	if not remote:return ""
 	var reserved: int=0
 	if not state.get("fleet",[]) is Array:return "Invalid regional party fleet."
@@ -80,13 +90,13 @@ static func party_error(state: Dictionary) -> String:
 		# It remains the same finite food account, even on a later remote voyage.
 		return "Regional shore sailors have no assignment." if reserved>0 else ""
 	if not local(state) or not assignment.has("world064") or not same_world(state,assignment):return "Regional shore party does not match the current local chart."
-	if not str(assignment.get("siteId","")) in SITE_IDS:return "Regional shore party needs an authored landing."
+	if canonical_site(state,str(assignment.get("siteId",""))).is_empty():return "Regional shore party needs a canonical landing."
 	if not state.get("path",[]) is Array or not state.get("path",[]).is_empty():return "A deployed regional shore party must remain stopped."
 	var site: Dictionary={}
 	for row in ex.get("catalog",[]):
 		if row is Dictionary and row.get("id")==assignment.siteId:site=row;break
 	var position=state.get("position",{})
-	if site.is_empty() or site.get("regionId")!=REGION or not position is Dictionary:return "Regional shore party has no matching landing."
+	if site.is_empty() or site.get("regionId")!=identity(state).get("regionId") or not position is Dictionary:return "Regional shore party has no matching landing."
 	for point in [position,site]:
 		if not number(point.get("x")) or not number(point.get("y")):return "Regional shore party has no finite landing."
 	if Vector2(float(position.x)-float(site.x),float(position.y)-float(site.y)).length()>180.000001:return "Regional shore party is beyond its landing."
@@ -110,7 +120,12 @@ static func view(core) -> Dictionary:
 	var state: Dictionary=core.state
 	var world: Dictionary=identity(state)
 	var sites: Array=Exploration.visible_sites(state)
-	var summary: Dictionary={"regionId":str(world.get("regionId","")),"totalSites":3 if local(state) else sites.size(),"sighted":0,"charted":0,"surveyed":0,"cargoOnlyAvailable":false,"message":"Observe landings, chart them and assign paid shore surveys."}
+	var total: int=sites.size()
+	if local(state):
+		total=0
+		for row in Exploration._catalog(state):
+			if row.get("regionId")==world.regionId:total+=1
+	var summary: Dictionary={"regionId":str(world.get("regionId","")),"totalSites":total,"sighted":0,"charted":0,"surveyed":0,"cargoOnlyAvailable":false,"message":"Observe landings, chart them and assign paid shore surveys."}
 	for site in sites:
 		if int(site.get("level",0))>=1:summary.sighted+=1
 		if int(site.get("level",0))>=2:summary.charted+=1
@@ -133,6 +148,7 @@ static func work_blocker(core) -> String:
 
 static func survey_begin(core,site_id: String,action: String) -> Dictionary:
 	if not local(core.state):return core.fail("Choose a landing on the current local chart.")
+	if canonical_site(core.state,site_id).is_empty():return core.fail("Choose a canonical landing on the current chart.")
 	var prior_error: String=party_error(core.state)
 	if not prior_error.is_empty():return core.fail(prior_error)
 	var visible: Dictionary={}
@@ -150,7 +166,7 @@ static func survey_begin(core,site_id: String,action: String) -> Dictionary:
 		staged["surveyFoodCredit"]=0.0
 	var result: Dictionary=Exploration.begin(staged,site_id,action)
 	if not result.get("ok",false):return result
-	staged.exploration.assignment["world064"]={"schema":1,"layer":"local","regionId":REGION}
+	staged.exploration.assignment["world064"]={"schema":1,"layer":"local","regionId":Exploration.current_region(staged)}
 	staged["surveyFoodCredit"]=float(staged.get("surveyFoodCredit",0))+float(result.food)
 	var left: int=int(result.crewNeeded)
 	for boat in Expedition.traveling(staged):

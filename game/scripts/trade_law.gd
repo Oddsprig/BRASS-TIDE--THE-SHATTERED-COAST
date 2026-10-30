@@ -41,7 +41,11 @@ static func _json(v,budget,depth:int=0)->bool:
 static func _world(c)->Dictionary:
 	var ports: Array=c.data.PORTS.duplicate(true)
 	if _installed068(c.state):ports.append(World068.remote_port068())
+	ports.append_array(_sector_ports069(c.state))
 	return {"ports":ports,"factions":api.get("factions",[]),"goods":api.get("items",{})}
+static func _sector_ports069(s:Dictionary)->Array:
+	var sector=s.get("sector069")
+	return sector.harbors if sector is Dictionary and sector.get("harbors") is Array else []
 static func _installed068(s: Dictionary)->bool:
 	var book=s.get("shipping068",{})
 	return book is Dictionary and book.get("schema")==1 and book.get("installation") is Dictionary and book.installation.get("status")=="installed"
@@ -65,6 +69,10 @@ static func validate(s:Dictionary,w:Dictionary,pending:bool=false)->Array:
 	var defs:={}
 	for p in w.ports:defs[p.id]=p.faction
 	if _installed068(s):defs[World068.REMOTE_PORT068]="reed"
+	var generated:={}
+	for p in _sector_ports069(s):
+		if not p is Dictionary or not p.get("id") is String:return ["Invalid canonical sector harbor."]
+		generated[p.id]=p;defs[p.id]=p.faction
 	for key in ["coins","crewPurse","econDay"]:
 		if not _uint(s.get(key)):return ["Invalid captain purse or economic day."]
 	if not _num(s.get("day")):return ["Invalid calendar day."]
@@ -82,7 +90,11 @@ static func validate(s:Dictionary,w:Dictionary,pending:bool=false)->Array:
 		if id==World068.REMOTE_PORT068:
 			for key in World068.remote_port068():
 				if p.get(key)!=World068.remote_port068()[key]:return ["Invalid canonical Westglass harbor definition."]
-		if p.get("faction")!=defs[id] or not w.factions.has(p.faction):return ["Harbor faction does not match the coast."]
+		if generated.has(id):
+			for key in ["id","name","regionId","islandId","x","y","industry","specialty"]:
+				if p.get(key)!=generated[id].get(key):return ["Invalid canonical generated harbor identity."]
+		elif p.get("faction")!=defs[id]:return ["Harbor faction does not match the coast."]
+		if not w.factions.has(p.get("faction")):return ["Unknown live harbor faction."]
 		if not _stock(p.get("stocks"),w.goods) or not _stock(p.get("publicStores",{}),w.goods):return ["Invalid physical harbor inventory."]
 		for k in ["cash","householdPurse","expertPurse","governmentPurse"]:
 			if not _uint(p.get(k)):return ["Invalid harbor coin purse."]

@@ -8,6 +8,7 @@ const Fleets=preload("res://scripts/fleet_economy.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Money=preload("res://scripts/money.gd")
 const Reserves=preload("res://scripts/harbor_reserves.gd")
+const Exploration069=preload("res://scripts/exploration.gd")
 const OWNER: String="patrol-7"
 const ORIGIN: String="kelp_reach"
 const PORT: String="westglass_anchorage"
@@ -35,6 +36,202 @@ static func _number(value,low: float=0.0,whole: bool=false) -> bool:
 
 static func installed(state: Dictionary) -> bool:
 	return str(state.get("shipping068",{}).get("installation",{}).get("status",""))=="installed"
+
+static func harbors069(state: Dictionary) -> Array:
+	var sector=state.get("sector069")
+	return sector.harbors if sector is Dictionary and sector.get("harbors") is Array else []
+
+static func definition069(state: Dictionary,id: String) -> Dictionary:
+	for row in harbors069(state):
+		if row is Dictionary and row.get("id")==id:return row
+	return {}
+
+static func known069(state: Dictionary,id: String) -> bool:
+	var book=state.get("sectorKnowledge069")
+	return book is Dictionary and book.get("ports") is Dictionary and book.ports.has(id) and not definition069(state,id).is_empty()
+
+static func _knowledge069() -> Dictionary:
+	return {"schema":1,"groups":{},"islands":{},"ports":{}}
+
+# Called ONLY from explicit fresh new_game, before the final coinSupply. All
+# defaults that create goods/people/money/hulls are overridden by the saved
+# finite ledger. A visit/restore has no entry into this function.
+static func install_sector069(c,sector: Dictionary) -> Dictionary:
+	if c.state.has("sector069") or c.state.has("sectorApplied069") or not sector.get("openingLedger") is Dictionary:return _fail("A generated sector can be installed only once on a fresh career.")
+	var staged: Array=[]
+	var applied: Array=[]
+	var allocations: Dictionary={}
+	for row in sector.openingLedger.harbors:allocations[row.portId]=row.allocation
+	var people: int=0
+	var coins: int=0
+	for harbor in sector.harbors:
+		if not c.port(str(harbor.id)).is_empty() or not allocations.has(harbor.id):return _fail("A generated harbor has duplicate or missing opening provenance.")
+		var definition: Dictionary=harbor.duplicate(true)
+		definition.merge(allocations[harbor.id].duplicate(true),true)
+		definition.merge({"shipStock":{},"shipIds":[],"buildQueue":[],"industryProgress":0.0,"recruitRemainder":0.0},true)
+		var port: Dictionary=Economy.create_port(definition)
+		for key in allocations[harbor.id]:
+			if port.get(key)!=allocations[harbor.id][key]:return _fail("Generated opening defaults did not reconcile: "+str(harbor.id)+"."+str(key))
+		# No HOME nearest-harbor route quote is meaningful in local coordinates.
+		# Store the existing finite reserve policy once, without constructing nav.
+		Reserves.ensure(port)
+		staged.append(port);applied.append(str(harbor.id))
+		people+=int(port.workforce);coins+=Money.port_total(port)
+	if people!=int(sector.openingLedger.totals.workers) or coins!=int(sector.openingLedger.totals.coins):return _fail("Generated opening totals do not reconcile.")
+	var knowledge: Dictionary=_knowledge069()
+	var islands: Array=[]
+	for region_id in sector.regionOrder:
+		if sector.bands[region_id]=="settled":knowledge.groups[region_id]={"source":"public_chart069","day":float(c.state.day)}
+	for row in sector.initialOwnership:
+		if row.has("portId"):continue
+		islands.append(row.duplicate(true))
+		if sector.bands[row.regionId]=="settled":knowledge.islands[str(row.regionId)+"/"+str(row.islandId)]={"source":"public_chart069","day":float(c.state.day)}
+	for row in sector.harbors:
+		if sector.bands[row.regionId]=="settled":knowledge.ports[row.id]={"source":"public_chart069","day":float(c.state.day)}
+	c.state.ports.append_array(staged)
+	c.state["sector069"]=sector
+	c.state["sectorApplied069"]={"schema":1,"provenance":"new_game_only:069.1","ports":applied}
+	c.state["islandOwnership069"]=islands
+	c.state["sectorKnowledge069"]=knowledge
+	return {"ok":true,"message":"Created finite opening world accounts once: %d workers and %d coins in %d generated harbors."%[people,coins,staged.size()]}
+
+# Sector.prepare validates canonical geometry/ledger before this account gate.
+# These checks read live records without repairing missing ports or knowledge.
+static func sector_error069(saved: Dictionary) -> String:
+	if not saved.has("sector069"):
+		for key in ["sectorApplied069","islandOwnership069","sectorKnowledge069"]:
+			if saved.has(key):return "Sector records cannot extend a legacy two-region career."
+		return ""
+	var sector=saved.sector069
+	if not sector is Dictionary or not sector.get("harbors") is Array or not sector.get("initialOwnership") is Array or not sector.get("bands") is Dictionary:return "Invalid generated sector records."
+	if not _number(saved.get("seed"),0.0,true) or not _number(sector.get("seed"),0.0,true) or int(saved.seed)!=int(sector.seed):return "Campaign seed and generated sector provenance disagree."
+	var journal=saved.get("sectorApplied069")
+	if not _keys(journal,["schema","provenance","ports"]) or journal.schema!=1 or journal.provenance!="new_game_only:069.1" or not journal.ports is Array:return "Missing or invalid once-only sector installation journal."
+	var expected: Array=[]
+	var definitions: Dictionary={}
+	for row in sector.harbors:
+		if not row is Dictionary or not row.get("id") is String:return "Invalid generated harbor definition."
+		expected.append(row.id);definitions[row.id]=row
+	if journal.ports!=expected:return "Generated opening installation is incomplete or duplicated; restore cannot refill it."
+	if not saved.get("ports") is Array:return "Missing generated harbor accounts."
+	var seen: Dictionary={}
+	for port in saved.ports:
+		if not port is Dictionary:return "Invalid harbor account."
+		if not definitions.has(port.get("id")):continue
+		if seen.has(port.id):return "Duplicate generated harbor account."
+		seen[port.id]=true
+		for key in ["id","name","regionId","islandId","industry","specialty","x","y"]:
+			if port.get(key)!=definitions[port.id].get(key):return "Generated harbor identity/berth does not match its saved definition."
+		if port.get("faction") not in ["compact","forge","reed","raiders"]:return "Invalid live generated harbor owner."
+		if port.get("shipStock")!={} or port.get("shipIds")!=[] or port.get("buildQueue")!=[]:return "Generated limited markets cannot contain boatyard assets."
+		if not port.get("reserves") is Dictionary:return "Missing saved generated reserve policy."
+		if not port.get("publicStores") is Dictionary:return "Missing explicit generated public stores."
+		for good in Economy.GOODS:
+			if not _number(port.publicStores.get(good)):return "Invalid generated public store."
+		for key in ["population","workforce","workers","employedWorkers","availableWorkers","publicWorkers","specialists","specialistWorkers","availableSpecialists","recruits"]:
+			if not _number(port.get(key),0.0,true):return "Invalid generated workforce account."
+		if int(port.workers)+int(port.publicWorkers)+int(port.availableWorkers)!=int(port.workforce) or int(port.employedWorkers)!=int(port.workers) or int(port.specialistWorkers)!=int(port.specialists) or int(port.specialists)>int(port.workforce) or int(port.availableSpecialists)>mini(int(port.specialists),int(port.availableWorkers)) or int(port.recruits)>int(port.workforce):return "Generated workforce subsets do not reconcile."
+	if seen.size()!=definitions.size():return "A generated harbor account is missing; restore cannot initialize it."
+	var island_defs: Dictionary={}
+	for row in sector.initialOwnership:
+		if row is Dictionary and not row.has("portId"):island_defs[str(row.regionId)+"/"+str(row.islandId)]=row
+	var islands=saved.get("islandOwnership069")
+	if not islands is Array or islands.size()!=island_defs.size():return "Missing live sector island ownership."
+	seen.clear()
+	for row in islands:
+		if not _keys(row,["regionId","islandId","faction"]) or not row.regionId is String or not row.islandId is String or row.faction not in ["","compact","forge","reed","raiders"]:return "Invalid live island ownership."
+		var key: String=row.regionId+"/"+row.islandId
+		if not island_defs.has(key) or seen.has(key):return "Unknown or duplicate live island ownership."
+		seen[key]=true
+	var knowledge=saved.get("sectorKnowledge069")
+	if not _keys(knowledge,["schema","groups","islands","ports"]) or knowledge.schema!=1:return "Invalid sector knowledge book."
+	for kind in ["groups","islands","ports"]:
+		if not knowledge[kind] is Dictionary:return "Invalid sector knowledge collection."
+		var catalog: Dictionary=sector.bands if kind=="groups" else (island_defs if kind=="islands" else definitions)
+		if knowledge[kind].size()>catalog.size():return "Oversized sector knowledge."
+		for key in knowledge[kind]:
+			var record=knowledge[kind][key]
+			if not key is String or not catalog.has(key) or not _keys(record,["source","day"]) or record.source not in ["public_chart069","observed069"] or not _number(record.day,1.0) or not _number(saved.get("day"),1.0) or float(record.day)>float(saved.day):return "Invalid earned sector knowledge provenance."
+			var region: String=key if kind=="groups" else str(catalog[key].regionId)
+			if record.source=="public_chart069" and sector.bands.get(region)!="settled":return "An unknown frontier/remote holding cannot be disclosed by an opening public chart."
+	for key in knowledge.islands:
+		if not knowledge.groups.has(island_defs[key].regionId):return "Known island has no earned group observation."
+	for id in knowledge.ports:
+		var definition: Dictionary=definitions[id]
+		if not knowledge.groups.has(definition.regionId) or not knowledge.islands.has(str(definition.regionId)+"/"+str(definition.islandId)):return "Known harbor has no earned island/group observation."
+	return ""
+
+static func observe_sector069(c) -> void:
+	if not c.state.has("sector069"):return
+	var region: String=Exploration069.current_region(c.state)
+	if region.is_empty() or region==World.HOME:return
+	var book: Dictionary=c.state.sectorKnowledge069
+	var observation: Dictionary={"source":"observed069","day":float(c.state.day)}
+	if not book.groups.has(region):book.groups[region]=observation.duplicate()
+	for site in c.state.sector069.sites:
+		if site.regionId==region and World._distance(c.state.position,site)<=620.0:
+			var key: String=str(region)+"/"+str(site.islandId)
+			if not book.islands.has(key):book.islands[key]=observation.duplicate()
+	for harbor in c.state.sector069.harbors:
+		if harbor.regionId!=region or World._distance(c.state.position,harbor)>620.0:continue
+		if not book.ports.has(harbor.id):book.ports[harbor.id]=observation.duplicate()
+		var key: String=str(region)+"/"+str(harbor.islandId)
+		if not book.islands.has(key):book.islands[key]=observation.duplicate()
+
+static func _port_dto069(port: Dictionary,location: Dictionary) -> Dictionary:
+	var dto: Dictionary={}
+	for key in ["id","name","regionId","islandId","faction","industry","specialty","x","y"]:dto[key]=port[key]
+	dto["atBerth"]=_at_berth(location,port)
+	return dto
+
+static func sector_view069(c) -> Dictionary:
+	var region: String=str(c.state.get("world064",{}).get("regionId",World.HOME))
+	var output: Dictionary={"schema":1,"seed":int(c.state.get("seed",0)),"generated":c.state.has("sector069"),"regionId":region,"groups":[],"ownership":[],"ports":[],"sites":[],"summary":"Existing two-region career preserved. Start a fresh campaign for the seeded 48-group ocean."}
+	if not c.state.has("sector069"):return output
+	var sector: Dictionary=c.state.sector069
+	var knowledge: Dictionary=c.state.sectorKnowledge069
+	var counts: Dictionary={}
+	for id in sector.regionOrder:counts[id]={}
+	for row in c.state.islandOwnership069:
+		if not knowledge.islands.has(str(row.regionId)+"/"+str(row.islandId)):continue
+		output.ownership.append(row.duplicate(true))
+		var tally: Dictionary=counts[row.regionId]
+		tally[row.faction]=int(tally.get(row.faction,0))+1
+	var location: Dictionary=c.world_location064()
+	for port in c.state.ports:
+		var remote: bool=port.get("id")==PORT and installed(c.state) and PORT in c.state.shipping068.knownPorts
+		var generated: bool=known069(c.state,str(port.id))
+		var home: bool=str(port.get("regionId",World.HOME))==World.HOME
+		if not home and not remote and not generated:continue
+		var row: Dictionary={"regionId":str(port.get("regionId",World.HOME)),"islandId":str(port.get("islandId","")),"portId":str(port.id),"faction":str(port.faction)}
+		if home:
+			for initial in sector.initialOwnership:
+				if initial.get("portId")==port.id:row.islandId=initial.islandId;break
+		else:output.ports.append(_port_dto069(port,location))
+		if row.islandId.is_empty():continue
+		output.ownership.append(row)
+		var tally: Dictionary=counts[row.regionId]
+		tally[row.faction]=int(tally.get(row.faction,0))+1
+	# The existing exploration boundary supplies only current-region earned rows.
+	output.sites=Exploration069.visible_sites(c.state)
+	var progress: Dictionary={}
+	var records: Dictionary=c.state.get("exploration",{}).get("sites",{})
+	for site in c.state.get("exploration",{}).get("catalog",[]):
+		var site_region: String=str(site.get("regionId",World.HOME))
+		progress[site_region]=maxi(int(progress.get(site_region,0)),int(records.get(site.id,{}).get("level",0)))
+	for id in sector.regionOrder:
+		var parts: Array=[]
+		var tally: Dictionary=counts[id]
+		var faction_ids: Array=tally.keys();faction_ids.sort()
+		for faction_id in faction_ids:parts.append({"factionId":str(faction_id),"knownAssets":int(tally[faction_id])})
+		var summary: String="unknown"
+		if not parts.is_empty():summary="mixed" if parts.size()>1 else ("neutral" if parts[0].factionId=="" else "single")
+		var level: String="unknown"
+		if knowledge.groups.has(id):level="public_chart" if knowledge.groups[id].source=="public_chart069" else "sighted"
+		if int(progress.get(id,0))>=2:level="surveyed" if int(progress[id])>=3 else "charted"
+		output.groups.append({"regionId":str(id),"band":str(sector.bands[id]),"knowledge":level,"ownershipSummary":summary,"segments":parts})
+	output.summary="48 seeded island groups. Public settled charts and earned observations show known ownership; paid surveys reveal resources and hazards. Finite opening world accounts were declared once when this campaign began."
+	return output
 
 static func _invoice_error(invoice) -> String:
 	if not _keys(invoice,["donorId","workers","wage","operating","household","government","labor","purchases","consumed","total"]):return "Invalid branch installation invoice."
@@ -69,14 +266,14 @@ static func raw_error(saved: Dictionary) -> String:
 	if not book.receipts is Array or book.receipts.size()>MAX_RECEIPTS or not book.invoices is Array or book.invoices.size()>MAX_RECEIPTS:return "Invalid bounded shipping receipts."
 	var previous: int=0
 	for row in book.receipts:
-		if not _keys(row,["sequence","day","portId","good","qty","side","total"]) or not _number(row.sequence,1.0,true) or int(row.sequence)<=previous or int(row.sequence)>=int(book.nextReceipt) or not _number(row.day,1.0) or row.portId!=PORT or not row.good is String or not Economy.GOODS.has(row.good) or not _number(row.qty,1.0,true) or row.side not in ["buy","sell"] or not _number(row.total,1.0,true):return "Invalid player remote trade receipt."
+		if not _keys(row,["sequence","day","portId","good","qty","side","total"]) or not _number(row.sequence,1.0,true) or int(row.sequence)<=previous or int(row.sequence)>=int(book.nextReceipt) or not _number(row.day,1.0) or not row.portId is String or (row.portId!=PORT and not known069(saved,row.portId)) or not row.good is String or not Economy.GOODS.has(row.good) or not _number(row.qty,1.0,true) or row.side not in ["buy","sell"] or not _number(row.total,1.0,true):return "Invalid player remote trade receipt."
 		previous=int(row.sequence)
 	previous=0
 	for row in book.invoices:
 		if not _keys(row,["sequence","day","kind","portId","good","qty","total"]) or not _number(row.sequence,1.0,true) or int(row.sequence)<=previous or not _number(row.day,1.0) or row.kind not in ["load","deliver","service"] or row.portId not in [ORIGIN,PORT] or row.good not in ["","food","logs"] or not _number(row.qty,0.0,true) or not _number(row.total,0.0,true):return "Invalid physical shipment invoice."
 		previous=int(row.sequence)
 	if book.installation.status=="pending":
-		if not remote.is_empty() or not book.installation.invoice.is_empty() or not book.model.get("route",{}).is_empty() or not book.knownPorts.is_empty() or not book.receipts.is_empty() or not book.invoices.is_empty() or book.launch.done:return "Pending installation cannot own a harbor, shipment or money."
+		if not remote.is_empty() or not book.installation.invoice.is_empty() or not book.model.get("route",{}).is_empty() or not book.knownPorts.is_empty() or book.receipts.any(func(r):return r.portId==PORT) or not book.invoices.is_empty() or book.launch.done:return "Pending installation cannot own a Westglass harbor, shipment or money."
 		return ""
 	if saved.get("mapRevision")!=2 or remote.size()!=1:return "Installed shipping needs one migrated remote harbor."
 	var error: String=_invoice_error(book.installation.invoice)
@@ -103,7 +300,7 @@ static func prepare(saved: Dictionary,_world: Dictionary,context064: Dictionary)
 	return {"ok":true,"book":book}
 
 static func _pending(c,message: String) -> Dictionary:
-	var book: Dictionary=empty_book()
+	var book: Dictionary=c.state.get("shipping068",empty_book()).duplicate(true)
 	book.installation["reason"]=message.left(600)
 	book.installation["attemptDay"]=int(c.state.get("econDay",1))
 	c.state["shipping068"]=book
@@ -145,7 +342,7 @@ static func install(c) -> Dictionary:
 	donor.population-=8;donor.workforce-=8;donor.availableWorkers-=8
 	donor.recruits=maxi(0,int(donor.recruits)-8)
 	Economy.sync_workforce(donor)
-	var book: Dictionary=empty_book()
+	var book: Dictionary=c.state.get("shipping068",empty_book()).duplicate(true)
 	book.installation={"status":"installed","reason":"","invoice":invoice,"attemptDay":int(c.state.get("econDay",1))}
 	candidate.ports.append(remote);candidate["shipping068"]=book
 	if Money.total(candidate)!=Money.total(c.state):return _pending(c,"Westglass branch installation refused an inconsistent account split.")
@@ -393,30 +590,42 @@ static func resolve_encounter(c,encounter: Dictionary) -> Dictionary:
 		if result.get("event",{}).get("witnessed",false):c.log_entry(str(result.get("summary","The observed fleets exchanged fire.")))
 	return result
 
-static func remote_gate(c) -> Dictionary:
-	if not installed(c.state) or PORT not in c.state.shipping068.knownPorts:return _fail("Sight the installed Westglass Anchorage first.")
-	var port: Dictionary=c.port(PORT)
-	if not _at_berth(c.world_location064(),port):return _fail("Stop at the actual Westglass water berth to trade.")
+static func remote_gate(c,port_id: String="") -> Dictionary:
+	var selected: String=port_id
+	var location: Dictionary=c.world_location064()
+	if selected.is_empty():
+		for row in c.state.get("ports",[]):
+			if row.get("regionId",World.HOME)==World.HOME:continue
+			if not (row.id==PORT and installed(c.state) and PORT in c.state.shipping068.knownPorts) and not known069(c.state,str(row.id)):continue
+			if _at_berth(location,row):selected=str(row.id);break
+	var known: bool=(selected==PORT and installed(c.state) and PORT in c.state.shipping068.knownPorts) or known069(c.state,selected)
+	if not known:return _fail("Choose a known installed harbor on the current local chart.")
+	var port: Dictionary=c.port(selected)
+	if port.is_empty() or not _at_berth(location,port):return _fail("Stop within40water units of this harbor's actual berth to trade.")
 	if not c.travel_lock064.is_empty():return _fail(c.travel_lock064)
+	if not c.state.get("exploration",{}).get("assignment",{}).is_empty() or not c.state.get("toolingRecovery",{}).is_empty() or c.state.get("fleet",[]).any(func(b):return int(b.get("shoreCrew",0))>0):return _fail("Recall every active work party before trading.")
 	if c.events.any(func(e):return str(e.get("kind","")) in ["encounter","ocean_encounter066","defeat"]):return _fail("Resolve the physical encounter before trading.")
+	var blocked: String=c.OceanCampaign066.blocker(c)
+	if not blocked.is_empty():return _fail(blocked)
 	# Permission observation may normalize faction books; isolate those writes from views.
-	var access: Dictionary=c.Politics.access({"state":c.state.duplicate(true),"data":c.data},port)
+	var policy_state: Dictionary={"day":c.state.day,"relationships":c.state.get("relationships",{}).duplicate(true)}
+	var access: Dictionary=c.Politics.access({"state":policy_state,"data":c.data},port)
 	if not access.get("legal",false):return _fail(str(access.get("reason","Harbor entry is refused.")))
 	return {"ok":true,"port":port,"access":access}
 
-static func remote_view(c) -> Dictionary:
-	var gate: Dictionary=remote_gate(c)
+static func remote_view(c,port_id: String="") -> Dictionary:
+	var gate: Dictionary=remote_gate(c,port_id)
 	if not gate.get("ok",false):return {}
 	var port: Dictionary=gate.port
-	var view: Dictionary=World.remote_port068()
+	var view: Dictionary=_port_dto069(port,c.world_location064())
 	view["stocks"]=port.stocks.duplicate(true);view["cash"]=int(port.cash)
 	view["prices"]={}
 	for good in Economy.GOODS:view.prices[good]={"buy":Economy.price(port,good,"buy"),"sell":Economy.price(port,good,"sell")}
 	view["playerCoins"]=int(c.state.coins);view["freeCapacity"]=maxf(0.0,c.capacity()-c.cargo_weight())
 	return view
 
-static func market(c,good: String,qty: int,side: String) -> Dictionary:
-	var gate: Dictionary=remote_gate(c)
+static func market(c,good: String,qty: int,side: String,port_id: String="") -> Dictionary:
+	var gate: Dictionary=remote_gate(c,port_id)
 	if not gate.get("ok",false):return gate
 	if not c.LawOps.allow_player(c,gate.port,good):return _fail("Your carrier agreement restricts this good here.")
 	if side=="buy" and good in gate.access.get("restrictedGoods",[]):return _fail("The harbor restricts this military commodity.")
@@ -426,7 +635,7 @@ static func market(c,good: String,qty: int,side: String) -> Dictionary:
 	c.LawOps.reconcile(c)
 	c.Manifest.allocate(c.state)
 	var book: Dictionary=c.state.shipping068
-	var receipt: Dictionary={"sequence":int(book.nextReceipt),"day":float(c.state.day),"portId":PORT,"good":good,"qty":int(result.qty),"side":side,"total":int(result.total)}
+	var receipt: Dictionary={"sequence":int(book.nextReceipt),"day":float(c.state.day),"portId":str(gate.port.id),"good":good,"qty":int(result.qty),"side":side,"total":int(result.total)}
 	book.receipts.append(receipt);book.nextReceipt+=1
 	while book.receipts.size()>MAX_RECEIPTS:book.receipts.pop_front()
 	result["receipt"]=receipt.duplicate(true)
@@ -435,7 +644,12 @@ static func market(c,good: String,qty: int,side: String) -> Dictionary:
 static func view(c) -> Dictionary:
 	var output: Dictionary={"ports":[],"ownership":[],"contacts":[],"route":{},"receipts":[],"summary":""}
 	if c.state.is_empty():return output
+	for port in c.state.get("ports",[]):
+		if not known069(c.state,str(port.id)):continue
+		output.ports.append(_port_dto069(port,c.world_location064()))
+		output.ownership.append({"regionId":str(port.regionId),"islandId":str(port.islandId),"portId":str(port.id),"faction":str(port.faction)})
 	var book: Dictionary=c.state.get("shipping068",empty_book())
+	output.receipts=book.receipts.duplicate(true)
 	if not installed(c.state):
 		if c.home_local064():output.summary=str(book.installation.reason)
 		return output

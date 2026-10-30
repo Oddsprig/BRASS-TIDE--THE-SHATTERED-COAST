@@ -25,6 +25,7 @@ const Records=preload("res://scripts/equipment_records.gd")
 const Preflight=preload("res://scripts/equipment_campaign.gd")
 const Expedition=preload("res://scripts/expedition.gd")
 const Manifest=preload("res://scripts/hold_manifest.gd")
+const WorldIdentity069=preload("res://scripts/ocean_travel066.gd")
 
 const MAX_WRECKS := 128
 const MODE_STRIP := "strip"
@@ -130,10 +131,9 @@ static func _retain_service(source: Dictionary,target: Dictionary) -> void:
 static func _world_metadata064(record: Dictionary) -> Dictionary:
 	if not record.has("world064"):return {"schema":1,"layer":"home","regionId":"shatter_coast"}
 	var identity=record.get("world064")
-	if identity is Dictionary:
-		var schema=identity.get("schema")
-		var pair: String=str(identity.get("layer",""))+"/"+str(identity.get("regionId",""))
-		if (schema is int or schema is float) and schema==1 and pair in ["home/shatter_coast","local/glasswind_keys","ocean/open_ocean"]:return identity.duplicate(true)
+	# Syntax is accepted here; SaveValidation checks actual context membership and
+	# water coordinates before publication. No generated wreck becomes HOME.
+	if WorldIdentity069.same_world(identity,identity):return identity.duplicate(true)
 	return {"schema":0,"layer":"invalid","regionId":"invalid"}
 
 static func _sanitize_wreck(raw) -> Dictionary:

@@ -259,6 +259,7 @@ static func daily(c) -> void:
 			var home: Dictionary=c.port(owner.homePort)
 			if int(home.get("availableSpecialists",0))<1 and owner.boats.any(func(b):return not b.sunk and b.engine<0.68) and int(owner.coins)>=150:
 				for yard in c.state.ports:
+					if str(yard.get("regionId","shatter_coast"))!="shatter_coast":continue
 					if yard.id==home.id or int(yard.get("availableSpecialists",0))<1 or float(yard.stocks.supplies)<1 or Factions.relation(c.state,owner.faction,yard.faction)<=-20:continue
 					AI.build_order(c.state,owner,"repair",yard.id,"Diverting to %s for an available paid engine specialist."%yard.name)
 					route(c,p,yard.id)

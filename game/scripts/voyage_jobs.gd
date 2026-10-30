@@ -276,6 +276,7 @@ static func _freight_room(c) -> float:
 static func _work_destinations(c,p: Dictionary) -> Array:
 	var candidates: Array=[]
 	for target in c.state.get("ports",[]):
+		if str(target.get("regionId","shatter_coast"))!="shatter_coast":continue
 		if str(target.get("id",""))!=str(p.id) and _work_access(c,target):candidates.append(target)
 	candidates.sort_custom(func(a,b):
 		var da: float=c.distance(p,a);var db: float=c.distance(p,b)

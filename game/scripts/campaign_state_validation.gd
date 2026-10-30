@@ -10,6 +10,8 @@ static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
 static func validate(s: Dictionary,world: Dictionary) -> String:
+	var sector_error: String=Shipping068.sector_error069(s)
+	if not sector_error.is_empty():return sector_error
 	var shipping_error: String=Shipping068.raw_error(s)
 	if not shipping_error.is_empty():return shipping_error
 	var regional_error: String=Exploration067.validate_remote067(s)
@@ -28,8 +30,11 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		var ids: Dictionary={}
 		for site in ex.catalog:
 			if not site is Dictionary or not site.get("id") is String or ids.has(site.id):return "Invalid or duplicate island site."
-			var width: float=4200.0 if site.get("regionId","")=="glasswind_keys" else float(world.WORLD.width)
-			var height: float=3000.0 if site.get("regionId","")=="glasswind_keys" else float(world.WORLD.height)
+			var region: String=str(site.get("regionId","shatter_coast"))
+			var bounds: Dictionary=Exploration067.region_record069(s,region)
+			if bounds.is_empty():return "Island site belongs to a region absent from this career."
+			var width: float=float(world.WORLD.width) if region=="shatter_coast" else float(bounds.width)
+			var height: float=float(world.WORLD.height) if region=="shatter_coast" else float(bounds.height)
 			if not number(site.get("x"),0,width) or not number(site.get("y"),0,height):return "Invalid island location."
 			for key in ["name","kind","region","clue","discovery","hazard","resource","leadId"]:
 				if not site.get(key) is String:return "Invalid island text."
@@ -55,8 +60,12 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not w is Dictionary or not w.get("id") is String or wreck_ids.has(w.id):return "Invalid or duplicate wreck identity."
 			wreck_ids[w.id]=true
 			var provenance: Dictionary=Remote067.identity(w)
-			var width: float=4200.0 if provenance.get("regionId")=="glasswind_keys" else (4800.0 if provenance.get("layer")=="ocean" else float(world.WORLD.width))
-			var height: float=3000.0 if provenance.get("regionId")=="glasswind_keys" else (2800.0 if provenance.get("layer")=="ocean" else float(world.WORLD.height))
+			if provenance.is_empty():return "Invalid wreck world identity."
+			var bounds: Dictionary=Exploration067.region_record069(s,str(provenance.regionId))
+			if provenance.layer=="ocean":bounds=s.get("sector069",{}).get("atlas",{}).get("ocean",{"width":4800.0,"height":2800.0})
+			if bounds.is_empty():return "Wreck provenance is absent from this career's sector."
+			var width: float=float(world.WORLD.width) if provenance.layer=="home" else float(bounds.width)
+			var height: float=float(world.WORLD.height) if provenance.layer=="home" else float(bounds.height)
 			if not number(w.get("x"),0,width) or not number(w.get("y"),0,height):return "Invalid wreck location."
 			if w.get("status","") not in ["unclaimed","stripped","towed"]:return "Invalid wreck status."
 			if w.has("sourceLoadout") and not w.sourceLoadout is Dictionary:return "Invalid wreck equipment."

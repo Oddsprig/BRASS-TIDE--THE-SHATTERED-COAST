@@ -52,14 +52,36 @@ static func current_region(state: Dictionary) -> String:
 	var identity = state.get("world064")
 	if not WorldIdentity.same_world(identity, identity):
 		return ""
-	return str(identity["regionId"]) if identity["layer"] in ["home", "local"] else ""
+	var region: String = str(identity["regionId"])
+	return region if identity["layer"] in ["home", "local"] and not region_record069(state, region).is_empty() else ""
+
+
+# Definitions are resolved once on a fresh campaign. Looking up a region never
+# generates it, builds navigation, installs an account or reveals a finding.
+static func region_record069(state: Dictionary, region: String) -> Dictionary:
+	if region == HOME_REGION:
+		return {"id": HOME_REGION, "width": 10400.0, "height": 7200.0}
+	if region == REMOTE_REGION:
+		return {"id": REMOTE_REGION, "width": 4200.0, "height": 3000.0}
+	var sector = state.get("sector069")
+	if not sector is Dictionary or not sector.get("atlas") is Dictionary or not sector.atlas.get("regions") is Array:
+		return {}
+	for row in sector.atlas.regions:
+		if row is Dictionary and row.get("id") == region:
+			return row
+	return {}
+
+
+static func generated_sites069(state: Dictionary) -> Array:
+	var sector = state.get("sector069")
+	return sector.sites if sector is Dictionary and sector.get("sites") is Array else []
 
 
 static func _site_region(site: Dictionary) -> String:
 	if not site.has("regionId"):
 		return HOME_REGION
 	var region = site.get("regionId")
-	return region if region is String and region in [HOME_REGION, REMOTE_REGION] else ""
+	return region if region is String and not region.is_empty() and region.length() <= 80 and region.is_valid_identifier() and region != "open_ocean" else ""
 
 
 static func _remote_stationary(state: Dictionary, site: Dictionary) -> bool:
@@ -168,7 +190,7 @@ static func validate_remote067(saved: Dictionary) -> String:
 	if saved.has("world064") and not WorldIdentity.same_world(saved["world064"], saved["world064"]):
 		return "Invalid exploration world identity."
 	if not saved.has("exploration"):
-		return ""
+		return "A generated sector requires its saved exploration catalog." if saved.has("sector069") else ""
 	var raw = saved["exploration"]
 	if not raw is Dictionary:
 		return "Invalid exploration book."
@@ -183,6 +205,11 @@ static func validate_remote067(saved: Dictionary) -> String:
 	var authored: Dictionary = {}
 	for site in _remote_catalog():
 		authored[site["id"]] = site
+	for row in generated_sites069(saved):
+		var site := _clean_site(row)
+		if site.is_empty() or authored.has(site.id) or _site_region(site) in [HOME_REGION, REMOTE_REGION]:
+			return "Invalid generated exploration definition."
+		authored[site.id] = site
 	var known: Dictionary = {}
 	for site in ex["catalog"]:
 		if not site is Dictionary or not site.get("id") is String or site["id"].is_empty() or known.has(site["id"]):
@@ -190,16 +217,21 @@ static func validate_remote067(saved: Dictionary) -> String:
 		var region := _site_region(site)
 		if region.is_empty() or not _is_num(site.get("x")) or not _is_num(site.get("y")):
 			return "Invalid exploration region/location."
+		if authored.has(site.id) and _site_region(authored[site.id])!=region:
+			return "Canonical exploration site changed regions."
 		if (site["id"] in REMOTE_IDS) != (region == REMOTE_REGION):
 			return "Exploration site and region disagree."
-		var width: float = 4200.0 if region == REMOTE_REGION else 10400.0
-		var height: float = 3000.0 if region == REMOTE_REGION else 7200.0
+		var bounds: Dictionary = region_record069(saved, region)
+		if bounds.is_empty():
+			return "Exploration region is absent from the saved sector."
+		var width: float = float(bounds.width)
+		var height: float = float(bounds.height)
 		if float(site["x"]) < 0.0 or float(site["y"]) < 0.0 or float(site["x"]) > width or float(site["y"]) > height:
 			return "Exploration location is outside its region."
 		for key in ["name", "kind", "region", "clue", "discovery", "hazard", "resource", "leadId"]:
 			if not site.get(key) is String:
 				return "Invalid exploration text."
-		if region == REMOTE_REGION:
+		if region != HOME_REGION:
 			var canonical: Dictionary = authored.get(site["id"], {})
 			if canonical.is_empty() or float(site["x"]) != float(canonical["x"]) or float(site["y"]) != float(canonical["y"]):
 				return "Remote exploration anchor is not authoritative."
@@ -207,6 +239,9 @@ static func validate_remote067(saved: Dictionary) -> String:
 				if site[key] != canonical[key]:
 					return "Remote exploration catalog does not match its authored site."
 		known[site["id"]] = site
+	for row in generated_sites069(saved):
+		if not known.has(row.id) or not ex.sites.has(row.id):
+			return "Generated exploration catalog/progress is incomplete; restore cannot refill it."
 	for site in known.values():
 		var next_id: String = site["leadId"]
 		if not next_id.is_empty() and (not known.has(next_id) or _site_region(known[next_id]) != _site_region(site)):
@@ -215,16 +250,20 @@ static func validate_remote067(saved: Dictionary) -> String:
 		var rec = ex["sites"][id]
 		if not id is String or not known.has(id) or not rec is Dictionary or not _whole(rec.get("level"), LEVEL_UNKNOWN, LEVEL_SURVEYED) or not rec.get("rewarded") is bool:
 			return "Invalid exploration progress."
-		if id in REMOTE_IDS and rec["rewarded"] != (rec["level"] == LEVEL_SURVEYED):
+		if _site_region(known[id]) != HOME_REGION and rec["rewarded"] != (rec["level"] == LEVEL_SURVEYED):
 			return "Remote exploration finding disagrees with progress."
 	if int(_site_record(ex, REMOTE_IDS[2]).get("level", 0)) == LEVEL_SURVEYED and not _remote_prerequisites(ex):
 		return "Remote final survey lacks its earlier findings."
 	for lead in ex["leads"]:
 		if not lead is Dictionary:
 			return "Invalid exploration lead."
-		if lead.get("fromSite") in REMOTE_IDS or lead.get("toSite") in REMOTE_IDS:
+		var regional_lead: bool = false
+		for key in ["fromSite", "toSite"]:
+			if known.has(lead.get(key)) and _site_region(known[lead[key]]) != HOME_REGION:
+				regional_lead = true
+		if regional_lead:
 			var from_id = lead.get("fromSite")
-			if not from_id is String or not known.has(from_id) or from_id not in REMOTE_IDS or known[from_id]["leadId"] != lead.get("toSite") or int(_site_record(ex, from_id).get("level", 0)) != LEVEL_SURVEYED:
+			if not from_id is String or not known.has(from_id) or _site_region(known[from_id]) == HOME_REGION or known[from_id]["leadId"] != lead.get("toSite") or int(_site_record(ex, from_id).get("level", 0)) != LEVEL_SURVEYED:
 				return "Remote exploration lead is unearned."
 			if lead.get("id") != "%s->%s" % [from_id, lead["toSite"]] or not lead.get("claimed") is bool:
 				return "Invalid remote exploration lead identity."
@@ -248,7 +287,7 @@ static func _validate_assignment067(saved: Dictionary, ex: Dictionary, known: Di
 	var current = saved.get("world064", {"schema": 1, "layer": "home", "regionId": HOME_REGION})
 	if region != current_region(saved) or not WorldIdentity.same_world(identity, current):
 		return "Exploration assignment belongs to another world."
-	if region != REMOTE_REGION:
+	if region == HOME_REGION:
 		return "" # Existing home accounting remains with the original validator.
 	if not a.has("world064") or not _remote_stationary(saved, site):
 		return "Remote party needs its local identity and stopped landing anchor."
@@ -358,6 +397,16 @@ static func ensure(state: Dictionary, world: Dictionary = {}) -> Dictionary:
 			ex["catalog"].append(site.duplicate(true))
 		if not ex["sites"].has(remote_id):
 			ex["sites"][remote_id] = {"level": LEVEL_UNKNOWN, "rewarded": false}
+	# Only fresh-world installation supplies these saved canonical definitions.
+	# Raw restore validation requires the catalog/progress already be complete.
+	for raw in generated_sites069(state):
+		var site := _clean_site(raw)
+		if site.is_empty():
+			continue
+		if not ex.catalog.any(func(s): return s is Dictionary and s.get("id") == site.id):
+			ex.catalog.append(site)
+		if not ex.sites.has(site.id):
+			ex.sites[site.id] = {"level": LEVEL_UNKNOWN, "rewarded": false}
 	# Drop progress for ids absent from the stored catalog; clamp levels.
 	var known := {}
 	for site in ex["catalog"]:
@@ -459,7 +508,7 @@ static func discover_near(state: Dictionary, position, radius) -> Array:
 			continue
 		rec["level"] = LEVEL_SIGHTED
 		ex["sites"][id] = rec
-		var observed := _visible_site(state, site) if region == REMOTE_REGION else _merged(state, site)
+		var observed := _visible_site(state, site) if region != HOME_REGION else _merged(state, site)
 		_log(ex, "Sighted %s: %s" % [str(observed["name"]), str(observed.get("clue", ""))])
 		found.append(observed)
 	_sort_sites(found)
@@ -503,7 +552,7 @@ static func quote(state: Dictionary, site_id: String, action) -> Dictionary:
 		return base
 	var ex: Dictionary = state["exploration"]
 	var level := int(_site_record(ex, site_id).get("level", LEVEL_UNKNOWN))
-	var remote: bool = region == REMOTE_REGION
+	var remote: bool = region != HOME_REGION
 	if remote and level == LEVEL_UNKNOWN:
 		base["message"] = "Unknown site."
 		return base
@@ -580,8 +629,8 @@ static func begin(state: Dictionary, site_id: String, action) -> Dictionary:
 		"crewReserved": int(q["crewNeeded"]), "daysTotal": float(q["days"]),
 		"daysDone": 0.0, "foodSpent": float(q["food"]), "suppliesSpent": float(q["supplies"]),
 	}
-	if current_region(state) == REMOTE_REGION:
-		ex["assignment"]["world064"] = {"schema": 1, "layer": "local", "regionId": REMOTE_REGION}
+	if current_region(state) != HOME_REGION:
+		ex["assignment"]["world064"] = {"schema": 1, "layer": "local", "regionId": current_region(state)}
 	_log(ex, "%s party landed at %s (%d crew, %.1f days)." % [str(q["action"]).capitalize(), str(q["siteName"]), int(q["crewNeeded"]), float(q["days"])])
 	var out := q.duplicate(true)
 	out["assignment"] = (ex["assignment"] as Dictionary).duplicate(true)
@@ -623,7 +672,7 @@ static func advance(state: Dictionary, days) -> Array:
 	var region := current_region(state)
 	if site.is_empty() or region.is_empty() or _site_region(site) != region:
 		return []
-	if region == REMOTE_REGION:
+	if region != HOME_REGION:
 		if not WorldIdentity.same_world(assignment.get("world064"), state.get("world064")) or not _remote_stationary(state, site):
 			return []
 	elif assignment.has("world064") and not WorldIdentity.same_world(assignment["world064"], state.get("world064", {"schema": 1, "layer": "home", "regionId": HOME_REGION})):
@@ -644,7 +693,7 @@ static func advance(state: Dictionary, days) -> Array:
 		"level": target, "levelName": LEVEL_NAMES[target],
 		"discovery": str(site.get("discovery", "")), "resource": str(site.get("resource", "")),
 		"leadId": str(site.get("leadId", ""))}
-	if region == REMOTE_REGION:
+	if region != HOME_REGION:
 		ex["sites"][site_id] = rec
 		var dto := _visible_site(state, site)
 		event["regionId"] = region
