@@ -63,16 +63,17 @@ func physical_boat(boat: Dictionary) -> Dictionary:
 		if boat.has(key):out[key]=boat[key]
 	return out
 
-func physical(snapshot: Dictionary,rebuild_forecasts: bool=false) -> Dictionary:
-	var ports: Array=snapshot.ports.duplicate(true)
-	if rebuild_forecasts:
-		# Exactly the four derived reserve forecasts refresh on restore. Every
-		# other port field, stock, worker subset, policy, escrow and purse is exact.
-		var forecast: Dictionary={"ports":snapshot.ports.duplicate(true),"fleetOwners":snapshot.fleetOwners}
-		c.ReserveOps.refresh({"state":forecast})
-		for index in range(ports.size()):
-			if not ports[index].has("reserves"):c.ReserveOps.Reserves.ensure(ports[index])
-			for key in ["observedDemand","incoming","contractedLots","availableRecipes"]:ports[index].reserves[key]=forecast.ports[index].reserves[key]
+func physical(snapshot: Dictionary) -> Dictionary:
+	# Check the resources this job integration owns. Forecasts and lazily added
+	# empty administrative books are not stocks, people, wages or escrow.
+	var ports: Array=[]
+	for port in snapshot.ports:
+		var row: Dictionary={}
+		for key in ["id","regionId","faction","industry","specialty","population","workforce","workers","specialists","specialistWorkers","availableWorkers","availableSpecialists","employedWorkers","employed","employedByOccupation","publicWorkers","recruits","recruitRemainder","cash","householdPurse","expertPurse","governmentPurse","stocks","publicStores","shipStock","shipIds","buildQueue","training","_yardWorkersUsed","_yardSpecialistsUsed"]:
+			if port.has(key):row[key]=port[key]
+		row.reservePolicy=port.get("reserves",{}).get("policy","security")
+		row.tradeBans=port.get("tradeBans",[])
+		ports.append(row)
 	var owners: Array=[]
 	for owner in snapshot.fleetOwners:
 		var out: Dictionary={}
@@ -97,7 +98,7 @@ func parsed_save(label: String) -> Dictionary:
 
 func restore_exact(saved: Dictionary,label: String) -> bool:
 	if not bounded():return false
-	var expected: Dictionary=physical(saved,true)
+	var expected: Dictionary=physical(saved)
 	var input: PackedByteArray=var_to_bytes(saved)
 	var restored: Dictionary=c.restore(saved)
 	if not check(restored.get("ok",false),label+" restore: "+str(restored.get("message",""))):return false
