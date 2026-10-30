@@ -7,6 +7,7 @@ const Routes=preload("res://scripts/route_cache.gd")
 const Fleets=preload("res://scripts/fleet_economy.gd")
 const Money=preload("res://scripts/money.gd")
 const Flow=preload("res://scripts/shipping_flow068.gd")
+const HarborReserves=preload("res://scripts/harbor_reserves.gd")
 const OWNER="patrol-0"
 const PHASES=["supply","outbound","patrol","return","lost"]
 
@@ -74,15 +75,14 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 		var waypoint: Dictionary={"world064":{"schema":1,"layer":"ocean","regionId":"open_ocean"},"position":contact.waypoint,"heading":0.0,"path":[],"destination":""}
 		if not World.prepare(waypoint,context064,clearance(owner)).get("ok",false):return _fail("Ocean patrol waypoint is unsafe.")
 		if located.location.world064.layer not in ["home","ocean"]:return _fail("The bounded raider patrol cannot enter a remote region.")
-		if (contact.phase=="outbound" and located.location.world064.layer!="home") or (contact.phase=="patrol" and located.location.world064.layer!="ocean"):return _fail("Ocean patrol phase and chart disagree.")
+		if (contact.phase=="outbound" and located.location.world064.layer!="home" and corridor.is_empty()) or (contact.phase=="patrol" and located.location.world064.layer!="ocean"):return _fail("Ocean patrol phase and chart disagree.")
 		var region: Dictionary=context064.regions["shatter_coast"]
 		var ocean_gate: Dictionary={}
 		for approach in region.approaches:
 			if str(approach.id)==str(contact.gate.approachId):ocean_gate={"x":float(region.oceanOrigin.x)+float(approach.position.x)/10.0,"y":float(region.oceanOrigin.y)+float(approach.position.y)/10.0}
 		var points: Dictionary=_corridor_points(saved,context064)
-		var remote: Dictionary=points.get("remoteOcean",{})
-		var on_corridor: bool=not remote.is_empty() and str(contact.gate.regionId)=="shatter_coast" and World._distance(contact.waypoint,remote)<=0.001
-		if ocean_gate.is_empty() or (World._distance(contact.waypoint,ocean_gate)>80.000001 and not on_corridor):return _fail("The one raider's patrol must remain a short gate-local loop.")
+		var on_corridor: bool=not points.is_empty() and (World._distance(contact.waypoint,points.originOcean)<=0.001 or World._distance(contact.waypoint,points.remoteOcean)<=0.001)
+		if ocean_gate.is_empty() or (not corridor.is_empty() and not on_corridor) or (corridor.is_empty() and World._distance(contact.waypoint,ocean_gate)>80.000001):return _fail("The raider waypoint must be a corridor choke point or a legacy short gate-local loop.")
 		var living: Array=Orders.living_boats(owner)
 		if contact.phase=="lost":
 			if not living.is_empty() or owner.get("active",true) or not str(owner.get("atPort","")).is_empty():return _fail("Lost offshore owner cannot retain living hulls or a home berth.")
@@ -155,7 +155,7 @@ static func actors(c,book: Dictionary) -> Array:
 	var performance: Dictionary=Orders.fleet_performance(snapshot)
 	var npc_power: bool=powered(snapshot.get("boats",[]))
 	var armed: bool=Orders.living_boats(snapshot).any(func(b):return float(b.get("ammo",0))>0.0 and float(b.get("crew",0))-float(b.get("wounded",0))>=float(b.get("crewMin",1)))
-	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase=="patrol","detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
+	result.append({"ownerId":str(contact.ownerId),"location":contact.location.duplicate(true),"baseSpeed":float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0)) if npc_power else 0.0,"clearance":clearance(snapshot),"canMove":npc_power and contact.phase!="supply","canIntercept":npc_power and armed and contact.phase in ["outbound","patrol"] and contact.location.world064.layer=="ocean","detectionRange":900.0,"interceptRange":75.0,"boats":render_boats(owner.get("boats",[]))})
 	return _with_shipping(c,result)
 
 static func _with_shipping(c,participants: Array) -> Array:
@@ -389,26 +389,21 @@ static func _control(c,book: Dictionary) -> void:
 		contact.location["path"]=[];contact.location["destination"]=""
 		_plan(c,book,_gate(c,contact.gate,true) if contact.location.world064.layer=="ocean" else c.port(str(owner.homePort)),"approach:shatter_coast:"+str(contact.gate.approachId) if contact.location.world064.layer=="ocean" else str(owner.homePort))
 	if not contact.location.path.is_empty():return
-	if contact.phase=="outbound" or (contact.phase=="return" and contact.location.world064.layer=="ocean"):
+	if contact.phase=="outbound" and contact.location.world064.layer=="ocean":
+		if not book.memory.pursuits.is_empty():return
+		contact["phase"]="patrol"
+	if (contact.phase=="outbound" and contact.location.world064.layer=="home") or (contact.phase=="return" and contact.location.world064.layer=="ocean"):
 		if not book.memory.pursuits.is_empty():return
 		var crossed: Dictionary=World.transition(c.ocean_context064,contact.location,"shatter_coast",str(contact.gate.approachId),clearance(owner),"")
 		if not crossed.get("ok",false):return
 		contact["location"]=crossed.location
 		if contact.phase=="outbound":
-			contact["phase"]="patrol"
-			var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
-			if not points.is_empty() and c.distance(contact.waypoint,points.remoteOcean)<=0.001:_plan(c,book,points.originOcean)
-			else:_plan(c,book,contact.waypoint)
+			if _published_corridor(c.state).is_empty():contact["phase"]="patrol"
+			_plan(c,book,contact.waypoint)
 		else:_plan(c,book,c.port(str(owner.homePort)),str(owner.homePort))
 	elif contact.phase=="patrol" and book.memory.pursuits.is_empty():
 		var gate: Dictionary=_gate(c,contact.gate,true)
-		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
-		if not points.is_empty() and c.distance(contact.waypoint,points.remoteOcean)<=0.001:
-			var origin: Dictionary=points.originOcean
-			var at_origin: bool=c.distance(contact.location.position,origin)<0.001
-			# Enter at generated A, then sail to generated B. Home return stays on contact.gate.
-			_plan(c,book,contact.waypoint if at_origin else origin)
-		else:_plan(c,book,gate if c.distance(contact.location.position,contact.waypoint)<0.001 else contact.waypoint)
+		_plan(c,book,gate if c.distance(contact.location.position,contact.waypoint)<0.001 else contact.waypoint)
 
 static func stage(c,dt: float) -> Dictionary:
 	# One call moves the player and at most two admitted owners. It does not step the world.
@@ -439,7 +434,7 @@ static func stage(c,dt: float) -> Dictionary:
 	_attach_observations(c,participants)
 	var watch: bool=c.ocean_watch066>=1.0
 	var raider: String=str(book.contact.get("ownerId",""))
-	var decisions: Array=[raider] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" and participants.any(func(a):return str(a.ownerId)==raider) else []
+	var decisions: Array=[raider] if watch and not book.contact.is_empty() and book.contact.phase in ["outbound","patrol"] and participants.any(func(a):return str(a.ownerId)==raider and a.location.world064.layer=="ocean") else []
 	var stepped: Dictionary=Travel.step(c.ocean_context066,participants,relations(c,participants),book.memory,{"startSecond":float(c.state.day)*45.0,"dt":dt,"watchDue":watch,"decisionOwnerIds":decisions})
 	if not stepped.get("ok",false):return stepped
 	var accepted=stepped.get("acceptedSeconds")
@@ -477,25 +472,36 @@ static func _admit(c) -> void:
 	for owner in candidates:
 		if _try_admit(c,owner):return
 
-static func _try_admit(c,owner: Dictionary) -> bool:
-	if not c.state.get("ocean066",{}).get("contact",{}).is_empty():return false
+## Read-only gameplay quote; only the existing exact-endpoint route cache is touched.
+static func _admission_quote(c,owner: Dictionary) -> Dictionary:
+	if not c.state.get("ocean066",{}).get("contact",{}).is_empty():return _fail("An ocean raider is already admitted.")
 	var id: String=str(owner.get("id",""))
 	var patrol: Dictionary=_patrol(c.state,id)
-	if owner.is_empty() or id.is_empty() or patrol.is_empty() or not owner.get("active",false) or owner.get("kind","")!="raider" or Orders.is_story_owner(owner) or owner.get("playerCompany",false) or Orders.enrolled066(c.state,id) or not Orders.RegionalOrders.operation(c.state,owner).is_empty():return false
+	if owner.is_empty() or id.is_empty() or patrol.is_empty() or not owner.get("active",false) or owner.get("kind","")!="raider" or Orders.is_story_owner(owner) or owner.get("playerCompany",false) or Orders.enrolled066(c.state,id) or not Orders.RegionalOrders.operation(c.state,owner).is_empty():return _fail("No active unassigned nonstory raider and home projection.")
 	var home: Dictionary=c.port(str(owner.get("homePort","")))
-	if home.is_empty() or str(home.get("regionId","shatter_coast"))!="shatter_coast" or str(owner.get("atPort",""))!=str(home.id) or not patrol.get("active",false) or patrol.get("hidden",false) or not patrol.get("holding",false) or patrol.has("interceptPoint") or c.distance(patrol,home)>=40.0:return false
+	if home.is_empty() or str(home.get("regionId","shatter_coast"))!="shatter_coast" or str(owner.get("atPort",""))!=str(home.id) or not patrol.get("active",false) or patrol.get("hidden",false) or not patrol.get("holding",false) or patrol.has("interceptPoint") or c.distance(patrol,home)>=40.0:return _fail("Waiting for the actual stopped HOME yard visit.")
 	# Reject damaged or undercrewed fleets before provisioning can spend anything.
 	var snapshot: Dictionary=owner.duplicate(true)
 	var performance: Dictionary=Orders.fleet_performance(snapshot)
-	if not performance.get("seaworthy",false) or not Orders.needs_home_recovery(snapshot,Orders.fleet_reserves(snapshot),performance).is_empty():return false
+	var reserves: Dictionary=Orders.fleet_reserves(snapshot)
+	var recovery: String=Orders.needs_home_recovery(snapshot,reserves,performance)
+	if not recovery.is_empty():return _fail(recovery)
+	if not performance.get("seaworthy",false):return _fail("The existing fleet is not seaworthy.")
 	# Do not detach hulls from a funded yard collection that is already underway.
 	for port in c.state.ports:
 		for order in port.get("buildQueue",[]):
-			if str(order.get("npcOwnerId",""))==id:return false
+			if str(order.get("npcOwnerId",""))==id:return _fail("Waiting for the funded yard collection.")
 	var speed: float=float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
-	if speed<=0.0:return false
+	if speed<=0.0:return _fail("The physical fleet has no travel speed.")
+	var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
+	if not _published_corridor(c.state).is_empty() and points.is_empty():return _fail("The published corridor has no valid ocean choke points.")
+	var costs: Dictionary=Fleets.upkeep(snapshot)
+	var stock: int=maxi(0,floori(float(home.get("stocks",{}).get("food",0))))
+	if home.get("reserves") is Dictionary:stock=mini(stock,floori(HarborReserves.exportable(home,"food")))
+	var price: int=c.Economy.price(home,"food","buy")
+	var repair: int=int(reserves.boats)*c.Economy.ORDINARY_WAGE if not points.is_empty() else 0
 	var best: Dictionary={}
-	var best_days: float=INF
+	var rejected: Dictionary={}
 	for approach_id in ["north","south"]:
 		var gate: Dictionary={"regionId":"shatter_coast","approachId":approach_id}
 		var location: Dictionary={"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"},"position":{"x":float(patrol.x),"y":float(patrol.y)},"heading":0.0,"path":[],"destination":""}
@@ -508,35 +514,72 @@ static func _try_admit(c,owner: Dictionary) -> bool:
 		var length: float=0.0
 		var previous: Dictionary=location.position
 		for point in path:length+=c.distance(previous,point);previous=point
-		var ocean_seconds: float=1600.0/0.25/speed
-		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
+		var home_length: float=length
 		if not points.is_empty():
-			var entered: Dictionary=_gate(c,gate,true)
-			ocean_seconds=_ocean_seconds075(c,entered,[points.originOcean,points.remoteOcean,points.originOcean,entered],speed)
-		var days: float=(2.0*length/speed+ocean_seconds)/45.0+1.0
-		if days<best_days:best_days=days;best={"gate":gate,"location":location}
-	if best.is_empty():return false
+			var local_gate: Dictionary=_gate(c,gate,false)
+			var home_path: Array=Routes.path(c,{"id":id,"x":local_gate.x,"y":local_gate.y},home,clearance(owner))
+			if home_path.size()<2:continue
+			home_length=0.0
+			for i in range(1,home_path.size()):home_length+=c.distance(home_path[i-1],home_path[i])
+		var entered: Dictionary=_gate(c,gate,true)
+		var targets: Array=[points.originOcean,points.remoteOcean] if not points.is_empty() else [{"x":entered.x+80.0,"y":entered.y}]
+		for waypoint in targets:
+			var ocean_seconds: float=_ocean_seconds075(c,entered,[waypoint,entered],speed) if not points.is_empty() else 1600.0/0.25/speed
+			# One ambush and paid HOME return, retaining the one-day service/recovery margin.
+			var days: float=((length+home_length)/speed+ocean_seconds)/45.0+1.0
+			if not is_finite(days):continue
+			var food: int=maxi(0,ceili(float(costs.food)*days-float(reserves.food)))
+			var advance: int=maxi(0,food*price-int(owner.get("crewPurse",0)))
+			var wages: int=ceili(float(costs.wages)*days)+maxi(0,int(owner.get("wageArrears",0)))
+			var required: int=wages+repair+advance
+			var reason: String=""
+			if int(owner.get("coins",0))<required:reason="Needs %d coins (%d wages/arrears, %d recovery, %d ration advance); has %d."%[required,wages,repair,advance,int(owner.get("coins",0))]
+			elif float(reserves.fuel)<float(costs.fuel)*days:reason="Needs %.2f actual fuel; has %.2f."%[float(costs.fuel)*days,float(reserves.fuel)]
+			elif c.Economy.cargo_weight(owner.cargo)+food*float(Fleets.Goods.ITEMS.food.weight)>Fleets._capacity(owner):reason="The real hold cannot carry the required rations."
+			elif food>0 and (food>stock or not Fleets.allowed_trade(owner,home,"food",c)):reason="Needs %d purchasable ration lots; actual exportable stock %d."%[food,stock]
+			var quote: Dictionary={"ok":reason.is_empty(),"message":reason,"days":days,"requiredCoins":required,"availableCoins":int(owner.get("coins",0)),"gate":gate,"location":location,"waypoint":waypoint.duplicate(true),"food":food,"advance":advance}
+			if quote.ok and (best.is_empty() or days<float(best.days)):best=quote
+			elif not quote.ok and (rejected.is_empty() or days<float(rejected.days)):rejected=quote
+	if not best.is_empty():return best
+	return rejected if not rejected.is_empty() else _fail("No safe HOME gate and conservative ocean round-trip quote.")
+
+## Optional fixture/view trace: no transfers, purchases, actor/intel changes or saved fields.
+static func admission_reason075(c) -> Dictionary:
+	var checks: Array=[]
+	for owner in c.state.get("fleetOwners",[]):
+		if str(owner.get("kind",""))!="raider" or Orders.is_story_owner(owner):continue
+		if _published_corridor(c.state).is_empty() and str(owner.get("id",""))!=OWNER:continue
+		var quote: Dictionary=_admission_quote(c,owner)
+		var row: Dictionary={"ownerId":str(owner.id),"ok":quote.ok,"reason":str(quote.get("message",""))}
+		for key in ["days","requiredCoins","availableCoins","gate","waypoint"]:
+			if quote.has(key):row[key]=quote[key]
+		checks.append(row)
+	return {"ok":checks.any(func(row):return row.ok),"checks":checks}
+
+static func _try_admit(c,owner: Dictionary) -> bool:
+	var best: Dictionary=_admission_quote(c,owner)
+	if not best.get("ok",false):return false
+	var id: String=str(owner.id)
+	var patrol: Dictionary=_patrol(c.state,id)
+	var home: Dictionary=c.port(str(owner.homePort))
 	var costs: Dictionary=Fleets.upkeep(owner)
-	var food: int=maxi(0,ceili(float(costs.food)*best_days-float(owner.cargo.get("food",0))))
-	var bill: int=food*c.Economy.price(home,"food","buy")
-	var advance: int=maxi(0,bill-int(owner.get("crewPurse",0)))
-	if float(owner.get("coins",0))<ceilf(float(costs.wages)*best_days)+advance:return false
-	if float(owner.get("cargo",{}).get("food",0))+food>Fleets._capacity(owner):return false
+	var best_days: float=float(best.days)
+	var food: int=int(best.food)
+	var advance: int=int(best.advance)
 	if advance>0 and not Money.move(owner,"coins",owner,"crewPurse",advance,"Ocean patrol ration advance",c.state.moneyLog):return false
-	if food>0:Fleets._purchase(owner,home,"food",food,true,false,c)
+	if food>0 and Fleets._purchase(owner,home,"food",food,true,false,c)!=food:return false
 	var reserve: Dictionary=Orders.fleet_reserves(owner.duplicate(true))
-	if float(reserve.get("foodDays",0))<best_days or float(reserve.get("wageDays",0))<best_days:return false
+	if float(reserve.get("food",0))<float(costs.food)*best_days or int(owner.get("coins",0))<int(best.requiredCoins)-advance:return false
 	if float(reserve.get("fuel",0))<float(costs.fuel)*best_days:return false
 	if not Orders.fleet_performance(owner.duplicate(true)).get("seaworthy",false):return false
-	var gate_point: Dictionary=_gate(c,best.gate,true)
 	var corridor_now: Dictionary=_corridor_points(c.state,c.ocean_context064)
-	var waypoint: Dictionary=corridor_now.remoteOcean.duplicate(true) if not corridor_now.is_empty() else {"x":gate_point.x+80.0,"y":gate_point.y}
 	owner["harborServiceUntilDay"]=maxf(float(c.state.day)+0.25,float(owner.get("harborServiceUntilDay",0)))
-	c.state.ocean066["contact"]={"ownerId":id,"phase":"supply","location":best.location,"gate":best.gate,"waypoint":waypoint}
+	c.state.ocean066["contact"]={"ownerId":id,"phase":"supply","location":best.location,"gate":best.gate,"waypoint":best.waypoint}
+	_bind_admitted(c,c.state.ocean066,admitted_owner_ids(c.state))
 	patrol["active"]=false;patrol["hidden"]=true;patrol["holding"]=true;patrol["course"]=[];patrol["courseLength"]=0.0;patrol["progress"]=0.0
 	patrol.erase("interceptPoint")
 	if corridor_now.is_empty():c.log_entry("Reef raiders are provisioning a short ocean patrol from %s using their existing boats, purse and purchased rations."%str(home.name))
-	else:c.log_entry("Reef raiders are provisioning a funded run from %s toward %s and %s on their existing boats, purse and purchased rations."%[str(home.name),_port_label(c.state,str(corridor_now.corridor.originId)),_port_label(c.state,str(corridor_now.corridor.remoteId))])
+	else:c.log_entry("Reef raiders are provisioning a funded ambush from %s at the %s corridor approach, with a paid return reserve."%[str(home.name),_port_label(c.state,str(corridor_now.corridor.originId if c.distance(best.waypoint,corridor_now.originOcean)<=0.001 else corridor_now.corridor.remoteId))])
 	return true
 
 static func record_losses(c) -> void:
@@ -582,6 +625,7 @@ static func after_step(c,watch_due: bool=false) -> void:
 	_resolve_memory(c.state.ocean066.memory,str(contact.ownerId))
 	c.state.ocean066.memory.intents.erase(str(contact.ownerId))
 	c.state.ocean066["contact"]={}
+	_bind_admitted(c,c.state.ocean066,admitted_owner_ids(c.state))
 	owner["atPort"]=str(home.id);owner["progress"]=0.0
 	Fleets.dock(owner,home,c);c.NavalLifecycle.hire(c,owner,home)
 	owner["harborServiceUntilDay"]=float(c.state.day)+0.25
@@ -677,7 +721,7 @@ static func settled(c,battle: Dictionary,context: Dictionary,wrecks: Array) -> v
 		c.ShippingFlow068._forget_pursuits(c,id)
 		c.ShippingFlow068.record_losses(c)
 
-static func view(c) -> Dictionary:
+static func view(c,trace_admission075: bool=false) -> Dictionary:
 	var output: Dictionary={"zones":[],"conditions":c.ocean_conditions066.duplicate(true),"forecast":{},"contacts":[],"travel066":{"mode":"route","contactId":"","resumeDestination":"","resumePath":[],"activeZoneSummary":"Clear water"}}
 	if c.state.is_empty() or c.ocean_context066.is_empty():return output
 	var now: float=float(c.state.day)*45.0
@@ -694,6 +738,7 @@ static func view(c) -> Dictionary:
 		output.travel066["resumeDestination"]=str(original.get("destination",""))
 		if Travel.same_world(original.get("world064"),c.state.get("world064")):output.travel066["resumePath"]=[original.target.duplicate(true)]
 	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact
+	if trace_admission075 and contact.is_empty():output["admission075"]=admission_reason075(c)
 	if contact.is_empty() or contact.phase=="lost":return output
 	var id: String=str(contact.ownerId)
 	var seen: Dictionary=memory.sightings.get("player",{}).get(id,{})
