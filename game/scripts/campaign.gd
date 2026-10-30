@@ -1041,7 +1041,10 @@ func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
 func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
 	var locality: String=_recovery_gate(state,id,mode)
 	if not locality.is_empty():return fail(locality)
-	if Remote067.local(state):return Remote067.recover(self,id,good,qty)
+	if Remote067.local(state):
+		var receipt: Dictionary=Remote067.recover(self,id,good,qty)
+		if bool(receipt.get("ok",false)) and bool(receipt.get("completed",false)):StoryOps.after_recovery077(self,id,receipt)
+		return receipt
 	if mode=="gear":return _recover_selected_gear(id,request)
 	var w: Dictionary=Salvage.find_wreck(state,id)
 	if w.is_empty() or distance(state.position,w)>180:return fail("Approach this wreck within180water units first.")

@@ -58,6 +58,25 @@ static func _find_visible_site067(c,site_id: String) -> Dictionary:
 		if str(item.get("id",""))==site_id:return item
 	return {}
 
+static func _explicit_cache067(c, site: Dictionary, wrecks: Array) -> Dictionary:
+	var first: Dictionary={}
+	var cache: Dictionary={}
+	for w in wrecks:
+		if not (w is Dictionary):continue
+		if first.is_empty():first=w
+		if not c.Remote067.cargo_only(w):continue
+		if cache.is_empty():cache=w
+		if site.is_empty():return w
+		if not (w.get("x") is float or w.get("x") is int) or not (w.get("y") is float or w.get("y") is int):continue
+		if not (site.get("x") is float or site.get("x") is int) or not (site.get("y") is float or site.get("y") is int):continue
+		if c.distance(site,w)<=180:return w
+	if not site.is_empty():return {}
+	return cache if not cache.is_empty() else first
+
+static func _open_lot067(ui, wreck_id: String) -> void:
+	if ui==null or not is_instance_valid(ui) or ui.host==null or ui.host.mode!="campaign":return
+	ui.RecoveryUI.open(ui,wreck_id)
+
 static func _local_assignment067(c) -> Dictionary:
 	var exp067: Dictionary=_exploration_view067(c)
 	if not c.home_local064() and exp067.get("assignment") is Dictionary:
@@ -302,8 +321,11 @@ static func islands(ui) -> void:
 	ui.paragraph(body,"%d known landmarks. Uncharted reaches still hold coves, workshops, resources and wreck fields."%known,15)
 	if not is_home:
 		var local_wrecks: Array=_local_wrecks067(c)
-		if not local_wrecks.is_empty():
-			ui.button(body,"Recover stores at "+str(local_wrecks[0].get("name","Collapsed Supply Coaster")),func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
+		var focus: Dictionary=_explicit_cache067(c,{},local_wrecks)
+		if not focus.is_empty():
+			var focus_id: String=str(focus.get("id",""))
+			var focus_name: String=str(focus.get("name","Collapsed Supply Coaster"))
+			ui.button(body,("Review explicit cargo lots at " if c.Remote067.cargo_only(focus) else "Recover stores at ")+focus_name,(func(id):_open_lot067.call_deferred(ui,id)).bind(focus_id),true)
 
 static func site(ui,site_id: String) -> void:
 	var c=ui.host.core
@@ -317,6 +339,8 @@ static func site(ui,site_id: String) -> void:
 	ui.modal_kind="island_site"
 	var body=ui.modal(str(s.get("name","Landmark")),"%s · %s"%[reg_lbl,str(s.get("levelName","")).to_upper()],950,780)
 	ui.paragraph(body,str(s.get("clue","")),18,ui.TEXT)
+	var reflection: String=str(Stories.site_reflection(c.state,site_id)).strip_edges()
+	if not reflection.is_empty():ui.paragraph(body,reflection,15,ui.TEAL)
 	VoyagePanel.connect_views(ui,body)
 	if lvl>=2 and not str(s.get("hazard","")).is_empty():
 		ui.paragraph(body,"Approach: "+str(s.get("hazard","")),15,ui.GOLD)
@@ -325,9 +349,10 @@ static func site(ui,site_id: String) -> void:
 		ui.paragraph(body,str(s.get("discovery","")),18,ui.TEXT)
 		ui.paragraph(body,"Opportunity: "+str(s.get("resource",""))+". Knowledge identifies the site; production and recovery still require actual work and equipment.",15)
 		if not is_home:
-			var local_wrecks: Array=_local_wrecks067(c)
-			if not local_wrecks.is_empty():
-				ui.button(body,"Inspect collapsed supply coaster & recover stores",func():ui.RecoveryUI.open(ui,str(local_wrecks[0].get("id",""))),true)
+			var cache: Dictionary=_explicit_cache067(c,s,_local_wrecks067(c))
+			if not cache.is_empty() and c.Remote067.cargo_only(cache):
+				var cache_id: String=str(cache.get("id",""))
+				ui.button(body,"Review explicit cargo lots",(func(id):_open_lot067.call_deferred(ui,id)).bind(cache_id),true)
 	else:
 		var action: String="chart" if lvl==1 else "survey"
 		var q: Dictionary=c.Exploration.quote(c.state,site_id,action)
