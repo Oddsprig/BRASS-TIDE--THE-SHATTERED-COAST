@@ -67,8 +67,10 @@ func _run(home: Dictionary, anchors: Dictionary) -> void:
 			_check(Navigation.path_clear(geometry, {"x":2100.0,"y":y}, [{"x":2100.0,"y":berth.y}, berth], 90.0), "landing reachable from both approaches: " + landing.id + "/" + str(y))
 	var saved: Dictionary = {"sector069":JSON.parse_string(JSON.stringify(sector))}
 	var saved_before: String = JSON.stringify(saved)
+	var expected_sector: Dictionary = saved.sector069.duplicate(true)
+	expected_sector.seed = int(expected_sector.seed)
 	var restored: Dictionary = Sector.prepare(saved, home, anchors)
-	_check(restored.ok and restored.sector == sector, "restore retains resolved geography and opening provenance")
+	_check(restored.ok and restored.sector == expected_sector, "restore retains resolved geography and opening provenance: " + str(restored.message))
 	if not restored.ok:return
 	restored.sector.harbors[0].name = "detached result"
 	_check(JSON.stringify(saved) == saved_before, "restore output detached / saved input unchanged")

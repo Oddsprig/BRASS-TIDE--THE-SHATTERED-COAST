@@ -294,8 +294,26 @@ static func _sector_error(sector: Dictionary, home: Dictionary, anchors: Diction
 	var second: Dictionary = harbor_ids["settled_01_harbor_02"]
 	if first.faction != "compact" or first.specialty != "food" or first.industry != "agriculture" or second.faction != "reed" or second.specialty != "logs" or second.industry != "timber":return "The mixed starting group needs complementary food/logs owners."
 	if sector.initialOwnership != _ownership(home, sector.atlas, sector.harbors):return "Starting island/harbor ownership provenance is inconsistent."
-	if sector.openingLedger != _opening(sector.harbors, sector.bands):return "Opening allocations or finite endowment totals are inconsistent."
+	if not _opening_matches(sector.openingLedger, _opening(sector.harbors, sector.bands)):return "Opening allocations or finite endowment totals are inconsistent."
 	return ""
+
+
+static func _opening_matches(actual, expected) -> bool:
+	# JSON decodes numbers as floats. Compare exact values without changing saved
+	# allocations; booleans are never numbers and structure must match completely.
+	if actual is int or actual is float or expected is int or expected is float:
+		return _number(actual) and _number(expected) and actual == expected
+	if expected is Dictionary:
+		if not actual is Dictionary or actual.size() != expected.size():return false
+		for key in expected:
+			if not key is String or not actual.has(key) or not _opening_matches(actual[key], expected[key]):return false
+		return true
+	if expected is Array:
+		if not actual is Array or actual.size() != expected.size():return false
+		for index in range(expected.size()):
+			if not _opening_matches(actual[index], expected[index]):return false
+		return true
+	return typeof(actual) == typeof(expected) and actual == expected
 
 
 static func _landing_reachable(physical: Dictionary, point: Dictionary) -> bool:
