@@ -198,7 +198,7 @@ func approach_course064(region_id: String,approach_id: String) -> Dictionary:
 
 func transition064(region_id: String,approach_id: String) -> Dictionary:
 	if ocean_context064.is_empty():return fail(ocean_error064)
-	var result: Dictionary=OceanWorld064.transition(ocean_context064,world_location064(),region_id,approach_id,Routes.clearance(self),transition_blocker064())
+	var result: Dictionary=OceanWorld064.transition_player(ocean_context064,world_location064(),region_id,approach_id,Routes.clearance(self),transition_blocker064())
 	if not result.get("ok",false):return result
 	_publish_location064(result.location)
 	sailing_clearance=Routes.clearance(self)

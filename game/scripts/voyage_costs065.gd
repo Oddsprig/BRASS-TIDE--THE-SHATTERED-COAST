@@ -20,28 +20,31 @@ static func quote(state: Dictionary, world: Dictionary, context064: Dictionary, 
 		return _refuse(result, "speed", "A voyage needs a traveling fleet with a finite positive current speed.")
 	if not _number(runtime.get("clearance")) or float(runtime.clearance) < 0.0 or not runtime.get("blocker") is String:
 		return _refuse(result, "runtime", "Supply the actual fleet clearance and current transition blocker.")
-	var prepared: Dictionary = OceanWorld.prepare(state, context064, float(runtime.clearance))
+	# Own the simulated player's runtime slot even for direct quote callers.
+	# Geometry and pinned/current grids remain shared immutable data.
+	var context: Dictionary = context064.duplicate()
+	var prepared: Dictionary = OceanWorld.prepare_player(state, context, float(runtime.clearance))
 	if not prepared.ok:return _refuse(result, str(prepared.code), str(prepared.message))
 	var location: Dictionary = prepared.location
 	result.origin = {"world064": location.world064.duplicate(true), "position": location.position.duplicate(true),
 		"day": float(state.day), "econDay": float(state.econDay)}
-	error = _intent_error(intent, location, context064)
+	error = _intent_error(intent, location, context)
 	if not error.is_empty():return _refuse(result, "intent", error)
 	var port: Dictionary = {}
 	for candidate in state.ports:
 		if candidate is Dictionary and candidate.get("id") == intent.returnPortId:
 			if not port.is_empty():return _refuse(result, "harbor", "The return harbor ID is repeated.")
 			port = candidate
-	if port.is_empty() or not context064.ports.has(intent.returnPortId):
+	if port.is_empty() or not context.ports.has(intent.returnPortId):
 		return _refuse(result, "harbor", "Choose an existing home harbor for the return.")
-	if not _number(port.get("x")) or not _number(port.get("y")) or _point(port) != context064.ports[intent.returnPortId]:
+	if not _number(port.get("x")) or not _number(port.get("y")) or _point(port) != context.ports[intent.returnPortId]:
 		return _refuse(result, "harbor", "The return harbor must retain its actual home coordinates.")
 	# Gate views need no boats. Runtime fitted dictionaries are not strict 064 DTOs.
-	var viewed: Dictionary = OceanWorld.view(context064, location, [])
+	var viewed: Dictionary = OceanWorld.view(context, location, [])
 	if not viewed.ok:return _refuse(result, str(viewed.code), str(viewed.message))
 	result.intent = _named_intent(intent, viewed.view, location, port)
 	if Expedition.traveling(state).is_empty():return _refuse(result, "fleet", "No seaworthy crewed boat is traveling.")
-	var itinerary: Dictionary = _itinerary(context064, location, intent, port, runtime)
+	var itinerary: Dictionary = _itinerary(context, location, intent, port, runtime)
 	if not itinerary.ok:return _refuse(result, str(itinerary.code), str(itinerary.message))
 	var distances: Dictionary = {"outward": 0.0, "return": 0.0, "total": 0.0, "byLayer": {"home": 0.0, "local": 0.0, "ocean": 0.0}}
 	for leg in itinerary.legs:
@@ -383,10 +386,10 @@ static func _sail(context: Dictionary, journey: Dictionary, phase: String, targe
 static func _cross(context: Dictionary, journey: Dictionary, phase: String, region_id: String, approach_id: String) -> bool:
 	# Future geometry is independent of today's pursuit/shore blocker. Readiness
 	# records that blocker separately; Main/Core recheck it for the explicit action.
-	var transferred: Dictionary = OceanWorld.transition(context, journey.location, region_id, approach_id, float(journey.clearance), "")
+	var transferred: Dictionary = OceanWorld.transition_player(context, journey.location, region_id, approach_id, float(journey.clearance), "")
 	if not transferred.ok:
 		if not _sail_gate(context, journey, phase, region_id, approach_id):return false
-		transferred = OceanWorld.transition(context, journey.location, region_id, approach_id, float(journey.clearance), "")
+		transferred = OceanWorld.transition_player(context, journey.location, region_id, approach_id, float(journey.clearance), "")
 	if not transferred.ok:return _route_failure(journey, str(transferred.code), str(transferred.message))
 	var start: Dictionary = journey.location
 	var finish: Dictionary = transferred.location

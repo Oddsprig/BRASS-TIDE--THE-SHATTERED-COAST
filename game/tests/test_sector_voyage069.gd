@@ -184,6 +184,11 @@ func generated() -> bool:
 	check(not c.begin_survey(str(landing.id),"survey").get("ok",false) and protected_state()==frozen,"Survey finding cannot be paid/rewarded twice")
 	check(not c.state.wreckSeededSources.has(c.Remote067.SOURCE),"Generated findings grant no Glasswind cache or cargo")
 	phase("earned_home_return_and_parsed_restore")
+	frozen=protected_state()
+	var return_quote: Dictionary=c.VoyageCosts065.quote(c.state,c.data,c.ocean_context064,
+		{"targetRegionId":"shatter_coast","targetApproachId":"south","outExit":"north","backExit":"","homeEntry":"","returnPortId":"brass_haven","idleDays":0.0},
+		{"speed":c.travel_speed(),"clearance":c.Routes.clearance(c),"blocker":c.transition_blocker064()})
+	if not check(return_quote.get("ok",false) and protected_state()==frozen,"Direct generated return quote preserves live navigation and all accounts: "+str(return_quote.get("message",""))):return false
 	if not gate("settled_01","north") or not gate("shatter_coast","south"):return false
 	var home: Dictionary=c.port("brass_haven")
 	if not check(c.chart_course({"x":home.x,"y":home.y},str(home.id)).get("ok",false),"Actual home harbor return course") or not finish_course():return false
