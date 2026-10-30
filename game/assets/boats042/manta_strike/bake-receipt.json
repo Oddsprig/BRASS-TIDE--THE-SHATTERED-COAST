@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "manta_strike",
   "headings": 32,
-  "atlas_sha256": "471055afb85bdeac1d51850674b298c6e6ab626ac5656d27ff496f4e87458409",
+  "atlas_sha256": "ae45e8f8dfff55d4cfe40f6fdab020e6823ca7cd54a148a0dc6cd6a8948b6128",
   "canvas_config": {
     "cell_px": [
       272,
@@ -135,13 +135,13 @@
       60,
       15,
       162,
-      126
+      127
     ],
     [
       77,
       9,
       126,
-      136
+      137
     ],
     [
       84,
@@ -165,13 +165,13 @@
       65,
       9,
       126,
-      136
+      137
     ],
     [
       46,
       15,
       162,
-      126
+      127
     ],
     [
       30,
@@ -230,9 +230,9 @@
         227,
         136
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         32.681427001953125,
         18.289031982421875,
@@ -248,7 +248,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.061,
-      "png_sha256": "70165ea2b08a5402f363435cfe3ec701bf1cd6191581b6dca4656d36737ba140",
+      "seconds": 2.928,
+      "png_sha256": "0b3dbcf563c538338b70d1ca6cacba5d206749bcf3093338e6c2f666e91e13f8",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         208,
         144
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         48.61009216308594,
         12.207763671875,
@@ -397,7 +397,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.11,
-      "png_sha256": "26269a441d07d125ea68b6ca75eb472c98ec15882b5aeba995393c02990f4501",
+      "seconds": 2.011,
+      "png_sha256": "3d31401e029ffa0ee688d171c435a3397f47939eff1d2b79b7e49fbcabdfeca8",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         191,
         149
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         67.82024383544922,
         8.299423217773438,
@@ -546,7 +546,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.077,
-      "png_sha256": "a6232199415a86b3b0ea7ba4638a13132629cee8c1ccdcc61b69a5a7862baf88",
+      "seconds": 2.16,
+      "png_sha256": "cce863d67172d6c513497c24d07544f46e6316301f462663f6bb1950182f50f0",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         184,
         152
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         86.22775268554688,
         6.6975555419921875,
@@ -695,7 +695,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.072,
-      "png_sha256": "52d1b52d7b0d6c613e97d1869d9fb02e18bdaa8c27917df1aef0596120cdc3a0",
+      "seconds": 2.06,
+      "png_sha256": "7e334320f2777aba0d9ff7dbcca2b2d333ed27158d1dd3ee0541a7a3765029f4",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         182,
         153
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         88.49763488769531,
         7.4471588134765625,
@@ -844,7 +844,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.063,
-      "png_sha256": "e00f667a482f97cd5371630b8774f2cf09ff22d6ba1e5d5421d48d8723307fc0",
+      "seconds": 2.038,
+      "png_sha256": "578dc650f81f2c10598afe2ac4dfec67ceb9fc94a49cecd978e67166a5a709f2",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         184,
         152
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         86.9196548461914,
         6.6975555419921875,
@@ -993,7 +993,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "b97e392fe2a2c635e49d975ad438a5ff9241fa85c011b2e1563ee1c04985d6ff",
+      "seconds": 1.941,
+      "png_sha256": "13c18cc936ac06ef25c87f043e1c0cc0c42912d2837dcafe693c8cccff7535f3",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         203,
         149
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         79.67282104492188,
         8.299423217773438,
@@ -1142,7 +1142,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.073,
-      "png_sha256": "290fdc1de3351fa330fd9e12ea3497d5ebceafb7f40a213311553103ebc336ca",
+      "seconds": 2.022,
+      "png_sha256": "8a2aeaa897c9a73294ffab4f5011ce48c2c18c00785dab7b7655928a5a916576",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         222,
         144
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         62.66857147216797,
         12.207763671875,
@@ -1291,7 +1291,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.096,
-      "png_sha256": "77fc87f9243ac9848ffddb577167035d3911df89cd015557e9b7c67c9e14bd69",
+      "seconds": 2.232,
+      "png_sha256": "2db100418771fd4869e5ad51e2e771dc6bf4e27c133aa43ff250b568c46a7aa8",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         238,
         136
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         43.48590087890625,
         18.289031982421875,
@@ -1440,7 +1440,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.08,
-      "png_sha256": "bff51682939a751415f00272644187640581b7347728b7943a274f10fc00cec5",
+      "seconds": 2.153,
+      "png_sha256": "9f13a9f9dd46bd6d49483d83757b2f21a541f754d3a1aad528019575cf93f3fa",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         250,
         127
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         27.781646728515625,
         26.259876251220703,
@@ -1589,7 +1589,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.071,
-      "png_sha256": "d7230fff4f5a62406f7c8587c0d841606c044d292493e4e58af92d0b51b262f7",
+      "seconds": 1.922,
+      "png_sha256": "ccdb6905285ff5cf971f1f51474230a675060a3f6bc0fbd980fe806f3e4033e7",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         258,
         116
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         16.15929412841797,
         31.85894012451172,
@@ -1738,7 +1738,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.072,
-      "png_sha256": "3d07d691bd01161398552af0d54aa1377408a6f3a187ad2a620baa66d5a1b300",
+      "seconds": 1.957,
+      "png_sha256": "39e7cc08591c74599b69f1573af056ae6998c412cacb0745a77e40a7ee3dbb06",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         261,
         105
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         9.065498352050781,
         35.11443328857422,
@@ -1887,7 +1887,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.094,
-      "png_sha256": "56786b29c5f293a9a9a7fd9828a208156825d761b93d763821f7a3a25604bf9b",
+      "seconds": 1.879,
+      "png_sha256": "4a16f9aac17702c6c58d4c7f890b2da945a662f1c1de96aafd5930a54af19b31",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         260,
         104
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         6.772865295410156,
         38.509483337402344,
@@ -2036,7 +2036,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.036,
-      "png_sha256": "daa3c807ac498f99f421e6f50deb568bfaf53aa1aef85d2e54a4c57a733e4f69",
+      "seconds": 2.2,
+      "png_sha256": "3cf0ef9b8fa4510a7bf59866f8966ceb48334e6259a0a1a7324a82a54681d366",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         261,
         106
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         9.065498352050781,
         40.218353271484375,
@@ -2185,7 +2185,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.057,
-      "png_sha256": "318acf8de8d23248667379d19972db94c9819fb487618e3a572e420c561f3c27",
+      "seconds": 2.163,
+      "png_sha256": "6ba6be50df16cb55ab78618779ab7663dad0726fa8c9733396e7e9c2a9f02fcd",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         258,
         117
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         16.15929412841797,
         39.55177307128906,
@@ -2334,7 +2334,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.061,
-      "png_sha256": "ff13114e8e06d1a354f603f35ba687a6e75ddf8721d4b958b31671c2bc7eb40e",
+      "seconds": 2.018,
+      "png_sha256": "15b40656dad2c766688473c81cf034924013310a4c7cc8d6b04618fe11064242",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,14 +2465,14 @@
         250,
         127
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         27.781646728515625,
-        32.31646728515625,
+        32.23078155517578,
         247.494140625,
-        124.32738494873047
+        124.33013153076172
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -2483,7 +2483,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.075,
-      "png_sha256": "c068195a06c1642b8fadf7464bf407ebcffa08eb91e1a472adfa3bf296a0ee5d",
+      "seconds": 2.151,
+      "png_sha256": "2d756b0cbf6d33e68b4d8b372bcf1efad1faf3d248d43a31ba76d3e8018bae68",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,14 +2614,14 @@
         238,
         135
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         43.48590087890625,
         25.735198974609375,
         235.31857299804688,
-        132.40640258789062
+        132.55679321289062
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -2632,7 +2632,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.07,
-      "png_sha256": "bab3083d881d6732eb07ec038fe9c8232968aee1877f57d9cee96dca0474eb81",
+      "seconds": 2.167,
+      "png_sha256": "1a543a4650d505d383d86c9999d78011e9079d96b3fa0ec9e694887b18ee21d8",
       "sockets": [
         {
           "id": "mount0",
@@ -2761,16 +2761,16 @@
         60,
         15,
         222,
-        141
+        142
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         62.66857147216797,
         17.873062133789062,
         219.38990783691406,
-        138.68663024902344
+        138.94085693359375
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -2781,7 +2781,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.087,
-      "png_sha256": "80f269388cfa4e9179bbeb0831e45cd12e35fb3a001b9090a1fb2697221c8b49",
+      "seconds": 2.244,
+      "png_sha256": "4e89e3a6e6129e990f80ea8564523dc3eefd542c0f1b94b34eac4e666012c364",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,16 +2910,16 @@
         77,
         9,
         203,
-        145
+        146
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         79.67282104492188,
         12.04779052734375,
         200.17974853515625,
-        142.8498992919922
+        143.18130493164062
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -2930,7 +2930,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.144,
-      "png_sha256": "b145634dbc99c273419e8207f101a6caa07f5babf8ba0e2bb876734350431773",
+      "seconds": 2.005,
+      "png_sha256": "9a0600dc6dfa8262418b43d95d8188a3c731aefdc573862b9ea3ab1784d5a4d2",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,14 +3061,14 @@
         184,
         148
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         86.9196548461914,
         8.458099365234375,
         181.77224731445312,
-        144.958740234375
+        145.1151580810547
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3079,7 +3079,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.065,
-      "png_sha256": "29f745bf699afe1b543d606c2925c101253a205e9229aaa9e3268a062072be3b",
+      "seconds": 2.402,
+      "png_sha256": "4c737736313450e12c5496dfd560c5e49f34576b120c9520406621f1db139977",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         182,
         149
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         88.49763488769531,
         7.250419616699219,
@@ -3228,7 +3228,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.053,
-      "png_sha256": "532b65041fa4a72cfff732987638ae9714debfe70d321d0be218f766945429c7",
+      "seconds": 2.026,
+      "png_sha256": "304a48ee9a68c13d90b99fd1153de6fa7ed667ae894fd26c952dbd90b7d68256",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,14 +3359,14 @@
         184,
         148
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         86.22775268554688,
         8.458099365234375,
         181.08035278320312,
-        144.958740234375
+        145.1151580810547
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3377,7 +3377,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.051,
-      "png_sha256": "8f74273e8e2dd42ecd0cb55da06a530dfbb1e74a0756becb8e2f2e2c351bb47f",
+      "seconds": 1.943,
+      "png_sha256": "f1a63430453bca93f00667610805346eedebfc2154d468a8e19535f6eb3e452a",
       "sockets": [
         {
           "id": "mount0",
@@ -3506,16 +3506,16 @@
         65,
         9,
         191,
-        145
+        146
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         67.82024383544922,
         12.04779052734375,
         188.32717895507812,
-        142.8498992919922
+        143.18130493164062
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3526,7 +3526,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.08,
-      "png_sha256": "f993adb4f84519b8b06f1ab0ad9b05827932dca58f58e7bba4cc29f4f6ddd4fc",
+      "seconds": 2.042,
+      "png_sha256": "5107220b8f52b05e5a69a5b8719963e8c8998850adea0b1472a16fe88e87c4a2",
       "sockets": [
         {
           "id": "mount0",
@@ -3655,16 +3655,16 @@
         46,
         15,
         208,
-        141
+        142
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         48.61009216308594,
         17.873062133789062,
         205.3314208984375,
-        138.68663024902344
+        138.94085693359375
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3675,7 +3675,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.059,
-      "png_sha256": "4a65c0ee70dea1a82cfbb2982748be4a352577f575c875185735ece047f72b08",
+      "seconds": 1.787,
+      "png_sha256": "ae426c7c842f63424fb0554ed269c52ae58b9e73acb681c328375e175abe5c5e",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,14 +3806,14 @@
         227,
         135
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         32.681427001953125,
         25.735198974609375,
         224.51409912109375,
-        132.40640258789062
+        132.55679321289062
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3824,7 +3824,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.081,
-      "png_sha256": "a1bae44dab95e17864db1f6fcf5e602286f9c2d97d02352feb0a2eba72727757",
+      "seconds": 2.737,
+      "png_sha256": "f49e36e58115224ac4a42e31a90403f9623a3662b4f04177cc0f16f7cc8cb67b",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,14 +3955,14 @@
         243,
         127
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         20.50585174560547,
         32.31646728515625,
         240.21835327148438,
-        124.32738494873047
+        124.33013153076172
       ],
       "physical_bounds_world": [
         -53.040000915527344,
@@ -3973,7 +3973,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.058,
-      "png_sha256": "1dbd08ae1431632ed28bc0e00971d42dfb608399f531d8229cfaa60120c23649",
+      "seconds": 2.351,
+      "png_sha256": "9bdb5c6d40cbb258e9477b79fd133bd495a046f0c364edaf874feb1513854d8f",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         254,
         117
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         12.691802978515625,
         39.55177307128906,
@@ -4122,7 +4122,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.081,
-      "png_sha256": "d85c563cc8cb8ff9aaaba6b48559eaba020359a7308af8b4b83c6695c79ca156",
+      "seconds": 2.33,
+      "png_sha256": "c82f9bb11f4a477f8f925919bd194dfb81269db918b8a93259c466f0534d31d9",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         262,
         106
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         9.492431640625,
         40.218353271484375,
@@ -4271,7 +4271,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "1f2316d6f28dcdc274d91f51c769ef8f8574c50a3bde253c0042c573f7e7d2b8",
+      "seconds": 3.367,
+      "png_sha256": "7d9663d48e13d1b41f2ef075d37157a5e9081efba3d29915524dc8e4d5937868",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         264,
         104
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         10.983787536621094,
         38.509483337402344,
@@ -4420,7 +4420,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.057,
-      "png_sha256": "66ce50ae3cf514bb3045dac90432c95d6188eb7afc86d4d3c0f1ab237058ba3b",
+      "seconds": 2.442,
+      "png_sha256": "8549d56f20fbb3661b867dc01683a036152c302d2570aba7388178c918f23c6b",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         262,
         105
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         9.492431640625,
         35.11443328857422,
@@ -4569,7 +4569,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.058,
-      "png_sha256": "2c1b9b5db1a8072e35704f1b56d696ee37102cb5e9c1b3ddf030248dd932305d",
+      "seconds": 1.711,
+      "png_sha256": "de38695ae9d6a92b8cae7db935e09391b726e91bb605537a26504c5e2c83d439",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         254,
         116
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         12.691802978515625,
         31.85894012451172,
@@ -4718,7 +4718,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.074,
-      "png_sha256": "c56e89de08aed018852c648436699fb744c58a646447fcd803031d791fc9f2ca",
+      "seconds": 2.052,
+      "png_sha256": "49b0159b4945083755b88d678a6a5e70ce8d87fd76d4b47454aca704df7df54f",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         243,
         127
       ],
-      "vertices": 11910,
-      "triangles": 22244,
-      "parts": 179,
+      "vertices": 16060,
+      "triangles": 29288,
+      "parts": 249,
       "projected_vertex_bounds_px": [
         20.50585174560547,
         26.259876251220703,
@@ -4867,7 +4867,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "manta_strike",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.069,
-      "png_sha256": "485767b3cf7adaaa4b54ac53a5c87b518e826b3397fec4e57f9ec9fc57cea0f5",
+      "seconds": 1.903,
+      "png_sha256": "ca7878014367f63cf61b9d263dd21ba3bfaa5e36ba604e0c447bcb2200c9149e",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.05,

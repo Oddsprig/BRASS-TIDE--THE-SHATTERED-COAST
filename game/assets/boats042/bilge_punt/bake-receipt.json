@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "bilge_punt",
   "headings": 32,
-  "atlas_sha256": "22ca3a2b3c9d4bbc8abe6fef3cca9f7dc3a01d3ff6d83c784c111f1d807ca37c",
+  "atlas_sha256": "051aea42c0cfaccdee5caff2c21f282da2c869353fe085eb8007c0a74e658fc2",
   "canvas_config": {
     "cell_px": [
       152,
@@ -43,9 +43,9 @@
     ],
     [
       40,
-      6,
+      5,
       63,
-      89
+      90
     ],
     [
       48,
@@ -97,9 +97,9 @@
     ],
     [
       9,
-      25,
+      24,
       137,
-      47
+      48
     ],
     [
       8,
@@ -211,9 +211,9 @@
     ],
     [
       10,
-      22,
+      21,
       128,
-      56
+      57
     ],
     [
       17,
@@ -230,12 +230,12 @@
         124,
         88
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         26.581153869628906,
-        14.375213623046875,
+        14.297622680664062,
         121.33232116699219,
         85.8124008178711
       ],
@@ -248,7 +248,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.893,
-      "png_sha256": "ac8b1f983c28b02484fd0b6cf63a4455ef9abfd07dda093a41e60c0094f9bc20",
+      "seconds": 1.564,
+      "png_sha256": "33e59b10123b47ba010b6a08a4d5819c6b686d0e0046c383d0d30469e1179f18",
       "sockets": [
         {
           "id": "mount0",
@@ -364,12 +364,12 @@
         114,
         92
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         33.95829391479492,
-        10.749114990234375,
+        10.712249755859375,
         111.61274719238281,
         89.82454681396484
       ],
@@ -382,7 +382,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -422,8 +422,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.975,
-      "png_sha256": "e096c3788f99589e58c5db6f8797ea4ff4e197f980656c09ecf49a06522c7aa5",
+      "seconds": 1.671,
+      "png_sha256": "4aeaaa21d04b1df7a4714568905c2639c217cc7a2f43d4bbc68bcc0d7ca066a9",
       "sockets": [
         {
           "id": "mount0",
@@ -494,13 +494,13 @@
     {
       "bounds_px": [
         40,
-        6,
+        5,
         103,
         95
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         42.36792755126953,
         8.232170104980469,
@@ -516,7 +516,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -556,8 +556,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.914,
-      "png_sha256": "c7c97b7d46d9c5685146ea4882c5b1107bb068656adf82cdb08f64a45c136d02",
+      "seconds": 1.555,
+      "png_sha256": "96853bfdbf1deffe9f432ab05888b83bb24693bccb21d91f8261f801863c23da",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         99,
         95
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         50.33077621459961,
         6.906303405761719,
@@ -650,7 +650,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -690,8 +690,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.89,
-      "png_sha256": "0545dae2723e43bed698dd37a2aa9762614219afb203320359576d6df891ac7d",
+      "seconds": 1.493,
+      "png_sha256": "714500410895b0a8856335b188b50bf4a579fe342dfc75d61ae085677203fbcc",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         97,
         95
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         55.338294982910156,
         6.807552337646484,
@@ -784,7 +784,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -824,8 +824,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.89,
-      "png_sha256": "5f0e6dc87943a69b78be2c17d984093c29f0d86a1b9c63ef1f0a4592d07f65e5",
+      "seconds": 1.645,
+      "png_sha256": "0eede41075420d0f35dc3f00ed14d2f220c5336f0bf1a4396806942f3f957aec",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         102,
         95
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         53.71540832519531,
         7.670989990234375,
@@ -918,7 +918,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -958,8 +958,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.891,
-      "png_sha256": "72fbc7c776c664e34d32757fdc36534463ebe449da1acd81a482d1ff3f5aab31",
+      "seconds": 1.519,
+      "png_sha256": "116085ee122069515c686e620b654456d225eccf43cbf892f874cd15faabf4d3",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         110,
         95
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         49.28660583496094,
         9.732147216796875,
@@ -1052,7 +1052,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1092,8 +1092,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.908,
-      "png_sha256": "6eb5d772712ce955250c1e1c0b8da1006611323e7c2367a3ea1d8610b3c4c26d",
+      "seconds": 1.664,
+      "png_sha256": "a393aeb2e63940489bd04944ac2221109d16418b664b5db8385abc65831a26b3",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,12 +1168,12 @@
         121,
         92
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         38.38725280761719,
-        12.926750183105469,
+        12.889881134033203,
         118.05087280273438,
         89.82454681396484
       ],
@@ -1186,7 +1186,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1226,8 +1226,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.91,
-      "png_sha256": "0a9deb322690114923a2662df223357566bfcdf4a5c6069ee1f6ecb386fb0cc3",
+      "seconds": 1.774,
+      "png_sha256": "c17c3df201ad50778cfa6d7eed9a1ac02056eaf24706e4863ab474b00b14411b",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,12 +1302,12 @@
         130,
         88
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         28.667682647705078,
-        17.14681625366211,
+        17.06922149658203,
         127.5700454711914,
         85.8124008178711
       ],
@@ -1320,7 +1320,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1360,8 +1360,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.929,
-      "png_sha256": "eb6a28e61c9d9c921195a01063b3541109fda8ef8a3c11c89cdf3e0d70cefe2c",
+      "seconds": 2.075,
+      "png_sha256": "63c463b14d80c0e1f9436c47bbb17abe707bc211f335d12ce523c067c00db32d",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,9 +1436,9 @@
         138,
         83
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         20.728641510009766,
         21.421855926513672,
@@ -1454,7 +1454,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1494,8 +1494,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.906,
-      "png_sha256": "b4d36054500463565bab3560f327ff290fcb7fc1d9a63e007b49868185eeb3ec",
+      "seconds": 1.598,
+      "png_sha256": "9a8ed5cbf3a163970fd6d3c7cb446a846e87600e2d135285f89fed637f14d06d",
       "sockets": [
         {
           "id": "mount0",
@@ -1570,12 +1570,12 @@
         143,
         78
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         14.87521743774414,
-        24.431415557861328,
+        24.299331665039062,
         140.30490112304688,
         75.34597778320312
       ],
@@ -1588,7 +1588,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1628,8 +1628,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.913,
-      "png_sha256": "1f033578f68dafe0fd6b24f429907517749f6ffd5363eecfc91b09276d5f9879",
+      "seconds": 1.612,
+      "png_sha256": "1b42349530e8a5d40df11596fc04d9c991328f75c31639a0a78229db9a156c60",
       "sockets": [
         {
           "id": "mount0",
@@ -1700,16 +1700,16 @@
     {
       "bounds_px": [
         9,
-        25,
+        24,
         146,
         72
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         11.332347869873047,
-        28.018539428710938,
+        26.691768646240234,
         143.06436157226562,
         69.2939224243164
       ],
@@ -1722,7 +1722,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1762,8 +1762,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.902,
-      "png_sha256": "1dac6262471e446ba5e80c92b0e8d3b27af7eaf8ab732e9527fcd32960f40fda",
+      "seconds": 1.653,
+      "png_sha256": "e19ae381f677fa081abb9aa2de6ac3bc575c96eea37fcd3728c319c0ae86040c",
       "sockets": [
         {
           "id": "mount0",
@@ -1838,9 +1838,9 @@
         146,
         67
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         10.2362060546875,
         28.60332489013672,
@@ -1856,7 +1856,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1896,8 +1896,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.892,
-      "png_sha256": "b654ceb62fe9ed090a4bdf66561789913e9c0433a8c150d34ace7afd20a02874",
+      "seconds": 2.343,
+      "png_sha256": "e2fe201b1f9b5d3e3980831314cfc9d28861069097a0035c6e9874610951eef6",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,9 +1972,9 @@
         144,
         72
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         11.332347869873047,
         28.76177978515625,
@@ -1990,7 +1990,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2030,8 +2030,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.895,
-      "png_sha256": "9387cde859ac926fe391d9034680778a00c3b29c4e2cbbd660f0b7ef05922bc4",
+      "seconds": 2.035,
+      "png_sha256": "8326e575f97da8abe015187ede49dda0b4765c1a41ff88273bc8299f60919a52",
       "sockets": [
         {
           "id": "mount0",
@@ -2106,9 +2106,9 @@
         140,
         80
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         14.87521743774414,
         27.1826171875,
@@ -2124,7 +2124,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2164,8 +2164,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.914,
-      "png_sha256": "138e2ea830bf6b7f9c8bed98282c4572c4b2d235ce15ac6681ab72445ea77b2b",
+      "seconds": 1.768,
+      "png_sha256": "97b3c61c86eb212444300db40a333890d80d5b510d033d56756fac8ed12fc40e",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,9 +2240,9 @@
         133,
         85
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         20.728641510009766,
         23.182952880859375,
@@ -2258,7 +2258,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2298,8 +2298,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.908,
-      "png_sha256": "47f3753445c2c718162f079948f972d3b3d33a5682d120570c21c82b49e7ec43",
+      "seconds": 1.434,
+      "png_sha256": "7fc0a9edbe6f66a2e56371567e6d10fcc729a92b310cdcb4c9c87e936fb73157",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,9 +2374,9 @@
         126,
         90
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         28.667682647705078,
         19.744476318359375,
@@ -2392,7 +2392,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2432,8 +2432,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.933,
-      "png_sha256": "01020e9f6c0e689d9bdca80d209b01cfd9fe24de8c8250f5beda6bd28cc36d19",
+      "seconds": 1.878,
+      "png_sha256": "89a3232d75c52c31eeb4f20be59fd7fabf8811c31d06199fc4b6e9b3e18a8fbd",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,9 +2508,9 @@
         119,
         94
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         38.38725280761719,
         17.063674926757812,
@@ -2526,7 +2526,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2566,8 +2566,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.919,
-      "png_sha256": "57c2574f3013ba30f935d259499179b8f161a4442be0883633509ae18415a14b",
+      "seconds": 1.612,
+      "png_sha256": "cdcdc6c020c8025aaa0bee7c929a54615f90c918977fcdb3bf75504712994ccd",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,9 +2642,9 @@
         110,
         97
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         49.28660583496094,
         14.894428253173828,
@@ -2660,7 +2660,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2700,8 +2700,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.909,
-      "png_sha256": "e0ed8492fb8c4f354a3236d28af51079ac1816e009cf236e9709e12b13cb8621",
+      "seconds": 1.739,
+      "png_sha256": "d7f295dae0266b9ffa502ff14fe4fc56f51f896efccd724f048b4ca83590d220",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,9 +2776,9 @@
         102,
         99
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         53.71540832519531,
         13.065975189208984,
@@ -2794,7 +2794,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2834,8 +2834,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.908,
-      "png_sha256": "1b61df33bbcc0a20153f72286d65e0e923b9f083911716b6e88cd5c4c8e92249",
+      "seconds": 1.986,
+      "png_sha256": "e7a9bd4fe4ddfe4f2d59675ddd1daf6e7e5ebf0dd76e5ae622be186aa32f5091",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,9 +2910,9 @@
         97,
         99
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         55.338294982910156,
         12.453231811523438,
@@ -2928,7 +2928,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -2968,8 +2968,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.891,
-      "png_sha256": "f024c00726bb68de1e4e06892e0157e1512a29e61eeaa17be5ff5fbf2651e0bf",
+      "seconds": 1.885,
+      "png_sha256": "bb883dcd669dfb96dda12e643025bb2c77ff980d2bb653064d623701afccf3ac",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,9 +3044,9 @@
         99,
         98
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         50.33077621459961,
         13.065975189208984,
@@ -3062,7 +3062,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3102,8 +3102,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.9,
-      "png_sha256": "9c91062a08cd2f98dd01245da5fbfece6f873234114abf173f9bb84aa07e3bb5",
+      "seconds": 2.083,
+      "png_sha256": "41764c71d15eaae908c3110eb1f769245c41060bf53e46d09b933d6e5722f950",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,9 +3178,9 @@
         103,
         96
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         42.36792755126953,
         14.894428253173828,
@@ -3196,7 +3196,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3236,8 +3236,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.903,
-      "png_sha256": "69fc1a06b7156107f108eb1e1b44b9c60a79063470a16d3ae3ee8cb430fd5a1f",
+      "seconds": 2.581,
+      "png_sha256": "3c78757f81ee1af82a3d6770b1191b77edc82f0c2f8123b2bd86141541944990",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,9 +3312,9 @@
         114,
         92
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         31.94913101196289,
         17.063674926757812,
@@ -3330,7 +3330,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3370,8 +3370,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.908,
-      "png_sha256": "a5aa8159d7e1dfab57632914ae93d13a7cd1330d0c106afd8f56a9f446b51dcb",
+      "seconds": 1.42,
+      "png_sha256": "9d6e5056a76664155552c8873bba0a5610237a9292ca4ffbb86e68be106c87bb",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,9 +3446,9 @@
         124,
         88
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         22.429954528808594,
         19.744476318359375,
@@ -3464,7 +3464,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3504,8 +3504,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.933,
-      "png_sha256": "38aa4df283cebc13833081b6eb4dd2efab9e70cb2a7ecf74cfbd8e66be369501",
+      "seconds": 2.361,
+      "png_sha256": "49aa63e6ad77c55dc0aca4f81f742974fe7dac4af45e807cd9a3a820f0dc4765",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,9 +3580,9 @@
         132,
         82
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         14.931022644042969,
         23.182952880859375,
@@ -3598,7 +3598,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3638,8 +3638,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.92,
-      "png_sha256": "3ca63caa586ffc3789ac278f64d2180a772bd13c06da1b0339681e02065c89e1",
+      "seconds": 1.997,
+      "png_sha256": "597aafc1d9e38d3c27a7f9a4441526938606c90dc0494afab5aa4dd173658b0c",
       "sockets": [
         {
           "id": "mount0",
@@ -3714,9 +3714,9 @@
         138,
         77
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         9.695098876953125,
         27.1826171875,
@@ -3732,7 +3732,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3772,8 +3772,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.904,
-      "png_sha256": "458928dda8b1f38799d605458204c3a16d189697b21cefed7d7609f2168b6261",
+      "seconds": 2.094,
+      "png_sha256": "5b635162529fbbb547f3a749ec2a00d86ce97fad2f4d663077a70557ae5e4175",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,9 +3848,9 @@
         141,
         71
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         6.935638427734375,
         28.76177978515625,
@@ -3866,7 +3866,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -3906,8 +3906,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.939,
-      "png_sha256": "053650962bd4da5516cd55ff4834d92f1d59b0910ece561b276099e56eeae9df",
+      "seconds": 1.552,
+      "png_sha256": "ffe788eb5fe366a471a7aeba163df9eb4e62308cb0559e3ac006762cd1bc7f61",
       "sockets": [
         {
           "id": "mount0",
@@ -3982,9 +3982,9 @@
         142,
         66
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         6.557159423828125,
         28.60332489013672,
@@ -4000,7 +4000,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -4040,8 +4040,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.887,
-      "png_sha256": "72b0ac9bc0d79a14fecca5fc0c2469aa10ca8118cbef60e0bf4f9aab71c17048",
+      "seconds": 1.511,
+      "png_sha256": "fb43927e594e731eb195b3e69febde633c56ad3e82dc03fc2641bf732732a55b",
       "sockets": [
         {
           "id": "mount0",
@@ -4116,9 +4116,9 @@
         141,
         72
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         8.465003967285156,
         28.018539428710938,
@@ -4134,7 +4134,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -4174,8 +4174,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.914,
-      "png_sha256": "9395ef067b70541b9f3b5771ee9f15a30c5922b492ebbae4d03c856f608570f6",
+      "seconds": 2.048,
+      "png_sha256": "088f2a3c9465b4e62d306c23ba2c235f169d5cceff4327df11c346dcfdfe9b4d",
       "sockets": [
         {
           "id": "mount0",
@@ -4246,13 +4246,13 @@
     {
       "bounds_px": [
         10,
-        22,
+        21,
         138,
         78
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         12.695060729980469,
         24.101341247558594,
@@ -4268,7 +4268,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -4308,8 +4308,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.932,
-      "png_sha256": "27ebd5b02df894ec958b8c84f621de86a8b7da78356d0798e40562a3d6d5a951",
+      "seconds": 1.636,
+      "png_sha256": "77b7c4f4c33249f0f7f6d359b87e2738014895d899b558a94343be41d957ac68",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,12 +4384,12 @@
         132,
         83
       ],
-      "vertices": 9822,
-      "triangles": 18496,
-      "parts": 140,
+      "vertices": 14344,
+      "triangles": 26288,
+      "parts": 210,
       "projected_vertex_bounds_px": [
         19.28628921508789,
-        18.851882934570312,
+        18.842132568359375,
         129.2713623046875,
         80.923583984375
       ],
@@ -4402,7 +4402,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -4442,8 +4442,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "bilge_punt",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.938,
-      "png_sha256": "1984763aa18e95bd9804920125ceece4da58ca5088f8bd58bf064f647c9232d1",
+      "seconds": 1.825,
+      "png_sha256": "fd9d6e4fa7cf30b1ba5f676e25dc440f3317d8e6f765b7e7b7c1a47adcbd39d9",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.9,

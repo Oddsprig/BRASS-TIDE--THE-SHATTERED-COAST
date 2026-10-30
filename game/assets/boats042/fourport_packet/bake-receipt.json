@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "fourport_packet",
   "headings": 32,
-  "atlas_sha256": "784042ad34b0b56319ee25a2e289aa96a889fb4e72a7dd7e2da594e8aba32fef",
+  "atlas_sha256": "17b46bd886da6475dcd06a056eddeca505bf4615ad36696832a6031735fe2800",
   "canvas_config": {
     "cell_px": [
       320,
@@ -230,9 +230,9 @@
         286,
         167
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         27.201568603515625,
         16.65521240234375,
@@ -248,7 +248,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.011,
-      "png_sha256": "9e1ac1f6aa24bc3d87759b48c455379c603d1de5bf5c57965c37f365e56ba44b",
+      "seconds": 3.599,
+      "png_sha256": "81a58f44ad98a9b76142ed81b0d87ff82285dee77255370abf881441c8e7f547",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         269,
         173
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         44.66304016113281,
         10.706474304199219,
@@ -397,7 +397,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.083,
-      "png_sha256": "561d681489d0c3d16fe06eeb3cc4919e30307b5e5cc99a2371a087738c3adfc3",
+      "seconds": 3.682,
+      "png_sha256": "1c2fc078bbb87fa7a434f784f3cabe9dab62007334a45369b9b477b313f7703d",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         249,
         177
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         62.01905059814453,
         7.3807220458984375,
@@ -546,7 +546,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.018,
-      "png_sha256": "6709d91699d0f9f1dfee76437c56317427e97dc2d4ddd1283fd85d353d32233c",
+      "seconds": 4.389,
+      "png_sha256": "db4e82aa754fe105d849426b7c30b061c94db8390d58ef3dd1a6100b9199ab70",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         230,
         177
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         83.10198211669922,
         6.804756164550781,
@@ -695,7 +695,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.001,
-      "png_sha256": "62fea27d00d45e9a0593d13179aed9f95f89c667fee48fb64f9608061c0823aa",
+      "seconds": 5.635,
+      "png_sha256": "92a5a2c16525696630b2b86eab5c5859ea2caca2c4400aed18c2553af9be217e",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         217,
         173
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         103.7176513671875,
         8.999732971191406,
@@ -844,7 +844,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.948,
-      "png_sha256": "47eafe92c116de589f4f856bd29f59a776deea71bf6c88ea89ff1c2f8d2c5e2d",
+      "seconds": 4.246,
+      "png_sha256": "3ae818500c4f0e77ea091e8ac379ee7c02605962078dde203545ed8a659b2060",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         238,
         177
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         90.30702209472656,
         6.804756164550781,
@@ -993,7 +993,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.987,
-      "png_sha256": "a26c695b7ad6be1c150a6f97568663d0519294897bb88205bce2715b4e9e9624",
+      "seconds": 3.63,
+      "png_sha256": "991610cc90e9d43b3b14c11e7d2d0bf3e233dc6cd35cb72a29449330bf036b60",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         258,
         177
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         71.40984344482422,
         7.3807220458984375,
@@ -1142,7 +1142,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.01,
-      "png_sha256": "db6b1370baa904fcc13fd7cb005a3d85ed89f748905364ee9a58532a468ef852",
+      "seconds": 3.819,
+      "png_sha256": "2dcb24eafeaff1d205c0f24f7964de527e3e9a33b144523f54b73976bc2f6e74",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         276,
         173
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         51.579063415527344,
         10.706474304199219,
@@ -1291,7 +1291,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.039,
-      "png_sha256": "b99fb09ba434a628ef2b4e40f4bde19e6f3b1468a72efca399b3493732cf9d73",
+      "seconds": 4.418,
+      "png_sha256": "ba93a2dd785a0529d2fcab543fe5d1da64b4b91815f9714a3f18dd0237b28846",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         293,
         167
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         34.686134338378906,
         16.65521240234375,
@@ -1440,7 +1440,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.025,
-      "png_sha256": "e204b8f7be3d9ba1c8122e78d93af225dfbb4592df5453d05aa1f89532911ccb",
+      "seconds": 4.112,
+      "png_sha256": "ac547d2dc24d1e9d020e572651d7f49dc8d99fab9e878e6110c8f79b3cefd4f9",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         306,
         159
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         22.570526123046875,
         24.995361328125,
@@ -1589,7 +1589,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.052,
-      "png_sha256": "3dae2198567f6b3c2a4fa4e3ae4153bf954b572ccc45fb56cc54568a6dd285e8",
+      "seconds": 3.313,
+      "png_sha256": "166f086ddcd9edf8252c67b78b185f462778e7fdfdd10069f37cf8d621273cbe",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         313,
         148
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         15.69781494140625,
         35.40937042236328,
@@ -1738,7 +1738,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.104,
-      "png_sha256": "281ec97eb90a706bfce5d27821c8b64a5591e07554ff71aac9772128609c11e3",
+      "seconds": 3.548,
+      "png_sha256": "99c125fba7d1b3416519d3f2f460d1dcf16088344ba0a51d212c580a248c1426",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         314,
         136
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         14.3321533203125,
         38.11833953857422,
@@ -1887,7 +1887,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.246,
-      "png_sha256": "58906dd1c2f507e576ffd63f6d6dd62ec1786544be9d09570a3adfe4b67a8a32",
+      "seconds": 2.806,
+      "png_sha256": "f1b8c325afa1573223ef83b3c230a046d5266b4132a2189793db999dd83e8f15",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         310,
         124
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         18.525985717773438,
         40.43870544433594,
@@ -2036,7 +2036,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.943,
-      "png_sha256": "3b937edf83d688d68257500140bba9c07892a83cb1bdb9f48659b5e653a8e78d",
+      "seconds": 3.783,
+      "png_sha256": "caae4ab7c52d28aebab55b77d61e157f803364ed3723f3fecf6f507a93fd9eaf",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         314,
         137
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         14.3321533203125,
         43.00506591796875,
@@ -2185,7 +2185,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.984,
-      "png_sha256": "800886b61c590fc1568166effd3c35092932e51e15ef8ab759e726da137d90c7",
+      "seconds": 4.138,
+      "png_sha256": "2cfbc0f03a6eda470fd1b01552c844684a078f5da17c8837d69019fe665b64b6",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         313,
         150
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         15.69781494140625,
         38.857765197753906,
@@ -2334,7 +2334,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.997,
-      "png_sha256": "eecbe893b80f71a597db84c1f574ec60af8b4ec364b02deede96dded69579449",
+      "seconds": 4.606,
+      "png_sha256": "a67e8c0de1c8da1ca1025d5e964428d1ab2f863e342ca6210dfc2ef8550ad164",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         306,
         161
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         22.570526123046875,
         31.283187866210938,
@@ -2483,7 +2483,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.022,
-      "png_sha256": "918d028b97c67984a826c3f75942b199fcc0295e621e1416759de33b21952e3d",
+      "seconds": 4.118,
+      "png_sha256": "ee7770ddcd57e9f0ddeeb17bcf7b59c03bd2e65f44501cfb1614a527f2472fab",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         293,
         170
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         34.686134338378906,
         22.827621459960938,
@@ -2632,7 +2632,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.007,
-      "png_sha256": "a6a329058c7a3aef1652273c3985b05a442eb89699beec31af7936cf9fc4fa59",
+      "seconds": 4.225,
+      "png_sha256": "8bb90e874a6974ee9cbcc9f70439e8b7d62bf632443b9e2e10d2f0811a120399",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         276,
         176
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         51.579063415527344,
         16.75653839111328,
@@ -2781,7 +2781,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.042,
-      "png_sha256": "3068dfcab77740a831011949ffe5e726d70520864802d9ea4886bdbde16bfd46",
+      "seconds": 4.571,
+      "png_sha256": "f9b2228ec9aea3a023af90b2a5bd0594527b9555614a4913302a075ebde72ea2",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         258,
         180
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         71.40984344482422,
         13.283729553222656,
@@ -2930,7 +2930,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.013,
-      "png_sha256": "4372848559e1f1d00e894412f74f6a297d3380009bf29535ccd167bdd6e914f2",
+      "seconds": 4.242,
+      "png_sha256": "690e8d48a9729ba81f9c76987b21576d3582793e8e37c3045b01336a65892a4a",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         238,
         181
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         90.30702209472656,
         12.540840148925781,
@@ -3079,7 +3079,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.011,
-      "png_sha256": "8ba150a2b07c4ed3127a5455a0d2de3a84d4b36f594f12277a5abea44dd2ad45",
+      "seconds": 3.583,
+      "png_sha256": "d5b1dc2186401ec14e60d8716237e505eb32fe4f05eea65005ad45c5e7f73d67",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         217,
         179
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         103.7176513671875,
         14.570999145507812,
@@ -3228,7 +3228,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.967,
-      "png_sha256": "e62053d3c9c2d1ea502575b98972083b3a7aece68941efc77a7abd983123a751",
+      "seconds": 3.689,
+      "png_sha256": "4c0e5e606681c1f89e831fb868568712e88e22187d3b88ac37fa59aa53d5b627",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         230,
         181
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         83.10198211669922,
         12.540840148925781,
@@ -3377,7 +3377,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.172,
-      "png_sha256": "e4409c598b1f481e98774b32fc84931be639963413084e88176c271506eb32d4",
+      "seconds": 3.928,
+      "png_sha256": "cc90062ac965b920477ec296e012c141c6d8746489d853cc16fb0b6ed3b7c1c7",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         249,
         180
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         62.01905059814453,
         13.283729553222656,
@@ -3526,7 +3526,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.042,
-      "png_sha256": "aa0c61042ccd7472b1a54a27a602be10908934163f543630e1276b687f685c4c",
+      "seconds": 3.296,
+      "png_sha256": "7e2605f32c3da3758d4e0feff6ff84d5aaf4b5eb14947ee513acb34955d1879f",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         269,
         176
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         44.66304016113281,
         16.75653839111328,
@@ -3675,7 +3675,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.068,
-      "png_sha256": "06b1e23616fc9677c61fcd4cb889ee1a16bdc02ace99ceb6662ddfadde91ec5a",
+      "seconds": 2.824,
+      "png_sha256": "790475ac3928b547bbf22a314ef346c52b0e72a97cfdd254e034075b1c75b3ca",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         286,
         170
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         27.201568603515625,
         22.827621459960938,
@@ -3824,7 +3824,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.047,
-      "png_sha256": "0255117579cab69940f7e2c299f0f017e448042a9b8b7d18045c0ae2b186fd37",
+      "seconds": 3.527,
+      "png_sha256": "07c3d957133a786c494979725ac9aee6445f33496ed0fb7b9ef73e67288fcc09",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         298,
         161
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         14.701248168945312,
         31.283187866210938,
@@ -3973,7 +3973,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.021,
-      "png_sha256": "543f704661e1975c1913f9390893c58d866260808fc789fc3e476c4fcd9fc97d",
+      "seconds": 4.76,
+      "png_sha256": "b8a2a79528f6bc834d9fc058d3adb990958c9e2071b4eb9da39cdb5bd8d0f161",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         305,
         150
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         7.700836181640625,
         38.857765197753906,
@@ -4122,7 +4122,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.013,
-      "png_sha256": "d210eff787db2566417db1e32fa1b0e2c2a2a6308ea9ef54e3b3b989352dac4e",
+      "seconds": 4.72,
+      "png_sha256": "b6ee2b5dbf911ec4ad1f9aa82f73c84f33c9797fe5d2f3be5f5e642357854658",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         306,
         137
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         6.329559326171875,
         43.00506591796875,
@@ -4271,7 +4271,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.009,
-      "png_sha256": "7dfa45076d86622bd40544545458d65680f6e3880d07344baba7f6bd9c31cb94",
+      "seconds": 3.667,
+      "png_sha256": "6577fd81a0be1dbfca93bb32d2f58b03369a07fdbb20c2d780999a72fb4b8b1e",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         302,
         124
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         10.37860107421875,
         40.43870544433594,
@@ -4420,7 +4420,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.963,
-      "png_sha256": "9e19f6425f580d178ef22bb77f6417e99ca166a05c596b162b8163bacc1b7429",
+      "seconds": 3.752,
+      "png_sha256": "b46358c70d437a190f4a4e1eebb5b621c8a0d6cac7cb8073227c89cd9cdf903d",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         306,
         136
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         6.329559326171875,
         38.11833953857422,
@@ -4569,7 +4569,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.015,
-      "png_sha256": "6f96b28878b0934bf32628ec6ab0e79d4f0355383e2a76c905780d56ad9dbefc",
+      "seconds": 3.562,
+      "png_sha256": "4c4e81d161be952a73e69107676252addb362d710fb6526972758f984351923e",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         305,
         148
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         7.700836181640625,
         35.40937042236328,
@@ -4718,7 +4718,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.036,
-      "png_sha256": "902689eaa7bc85405e628ede6dad351e5fe8bf80c158fbc45d8832e5a9a926f0",
+      "seconds": 3.809,
+      "png_sha256": "90be54fc9f84454b0a0e1c1fa30ceb28cabccf241823f6e857cef31f4647a1e5",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         298,
         159
       ],
-      "vertices": 22476,
-      "triangles": 42356,
-      "parts": 321,
+      "vertices": 31104,
+      "triangles": 57056,
+      "parts": 458,
       "projected_vertex_bounds_px": [
         14.701248168945312,
         24.995361328125,
@@ -4867,7 +4867,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fourport_packet",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.033,
-      "png_sha256": "2dae0cd8e2eda49d6ed45983ab9d37ed3e8f3e76c8cd2ab7aef636f1fdb05800",
+      "seconds": 3.74,
+      "png_sha256": "5b059774624eccc7535ed60e6a7095e928c81c73c9618ee90b8c316acdda97f4",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.3,

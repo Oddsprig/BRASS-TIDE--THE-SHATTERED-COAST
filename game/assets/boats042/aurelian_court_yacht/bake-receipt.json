@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "aurelian_court_yacht",
   "headings": 32,
-  "atlas_sha256": "0edbe8718c0824bee50e207c4df46db651bb5f3383a14310d8a343a8ed94c7ca",
+  "atlas_sha256": "9c00eb9e47d75cd7732b1c9462605948a656862fb9999c08479622c29b0081d7",
   "canvas_config": {
     "cell_px": [
       328,
@@ -230,9 +230,9 @@
         273,
         160
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         39.023963928222656,
         22.238609313964844,
@@ -248,7 +248,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.383,
-      "png_sha256": "5e242acab7a91491c9809937ab6f37e0300dab16a516ff2717c41f23aa44c0cc",
+      "seconds": 2.176,
+      "png_sha256": "502bf7adee9be3faf77ca0153e786d0aba2eb75179953789ac0a0480013e194b",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         251,
         169
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         60.12474822998047,
         14.398918151855469,
@@ -397,7 +397,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.42,
-      "png_sha256": "9ac8e01723bab0cc9ec3b64d0422550e53c091b2bee351b289398942057ed86c",
+      "seconds": 3.116,
+      "png_sha256": "51c4cb4879263b1ce8630ffa96a4abbbeb2bcb1b4bb45ea369dc2ee27781a149",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         228,
         176
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         81.3846664428711,
         9.117164611816406,
@@ -546,7 +546,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.43,
-      "png_sha256": "142fed26c4422c7adab5339dc671efd985256679469f024bd4ee6c9de41cd64a",
+      "seconds": 3.53,
+      "png_sha256": "9239ae712bdb4f7c1b4f80547c886ecfe049c0ad097360944d8c11f2b405f2e4",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         216,
         180
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         102.58940124511719,
         6.595329284667969,
@@ -695,7 +695,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.346,
-      "png_sha256": "91a527a78cfbdf5f16157cf6e4bad218433a32729cc4792e745bdafa85987fee",
+      "seconds": 3.903,
+      "png_sha256": "069a4167b16c516c7e7d839f03e9fcb44c1179b32416119876a77e6f3a98103a",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         210,
         181
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         121.13693237304688,
         6.9293365478515625,
@@ -844,7 +844,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.325,
-      "png_sha256": "be0e32a85b73343787e6503a6a26b372881b005d38c551cd72c7029d51456df3",
+      "seconds": 3.035,
+      "png_sha256": "ac84ff136cf88b1a7e119e0c808402badc4aa3386c479b8fb122e989b01b37f2",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         228,
         180
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         114.90478515625,
         6.595329284667969,
@@ -993,7 +993,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.35,
-      "png_sha256": "1e4f0b0a03011d7e8cdf706950b7771e3230b125116a134dd22b1cd93900e3af",
+      "seconds": 3.416,
+      "png_sha256": "b3ede8ae3954dbb7498e698e36a5f11e99041376b0410c3c0b34ccd00606ed12",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         249,
         176
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         102.27989959716797,
         9.117164611816406,
@@ -1142,7 +1142,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.363,
-      "png_sha256": "fd8af1a4e3e387a8b6e6cc80beb58e690bfb0b9d4d098bfd84492063328651e0",
+      "seconds": 2.808,
+      "png_sha256": "d71d9dbd3c9ef58113d39cdbf20b85965adcdc8a394d1db1906d5fe7c2cb586e",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         271,
         169
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         79.88613891601562,
         14.398918151855469,
@@ -1291,7 +1291,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.366,
-      "png_sha256": "ff7314825bbe40e8755c815102b476a92c8b95c7e445f3acae5d53a8c0d235a2",
+      "seconds": 2.933,
+      "png_sha256": "1533eadbe03ce387881db28d23de0c1cc8f10c43aa491f49b83c1d02e1773b56",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         292,
         160
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         57.412635803222656,
         22.238609313964844,
@@ -1440,7 +1440,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.36,
-      "png_sha256": "f9b68a6d78134b450a0e4c990e7b8f47c7f2cfa9225ff2000fcca786f4dd4d24",
+      "seconds": 2.932,
+      "png_sha256": "0614200a43bda3b944cf34d78ff1971cea353d794bf2cf39cef1350f26d4878a",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         308,
         149
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         38.866920471191406,
         31.886642456054688,
@@ -1589,7 +1589,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.386,
-      "png_sha256": "f47d162a193e0d158e1edefd315f2712be04dbfe764855c1d6d645069d8e02c9",
+      "seconds": 2.027,
+      "png_sha256": "ee8fe6b9dafde4396362fedd96618b2dfc5e8b684d2d4d265808143afe9be7de",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         319,
         136
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         25.129974365234375,
         33.576080322265625,
@@ -1738,7 +1738,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.372,
-      "png_sha256": "8b907f95b0f39518fafc11ae65d91b1dd8dd21f8bea59e52bfd63df9141ed0cb",
+      "seconds": 2.11,
+      "png_sha256": "6e44094187bd3124189c6ad59b404ce7968a27f9545d9603cae2b23258d92188",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         324,
         122
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         16.729736328125,
         35.69837951660156,
@@ -1887,7 +1887,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.352,
-      "png_sha256": "a5d6c96272e5c6092caba3488e90aca28b087ac79ddbaaa2852acc6ed85fdb71",
+      "seconds": 2.085,
+      "png_sha256": "5dde19b2fc21b5066aa579e0cbeea6689c06a0c24238769860a6ec7dbadaab5c",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         324,
         118
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         13.989013671875,
         38.17198181152344,
@@ -2036,7 +2036,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.308,
-      "png_sha256": "f7b3f8f9e8576a77118b2f8affdc3a8b6b5f45554279b414978cdb2c7acf5462",
+      "seconds": 3.012,
+      "png_sha256": "56ecf3c91d5d25daa7ba2df18455bb4c457e9eacb263e7a668295acf6607f8bc",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         324,
         131
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         16.729736328125,
         40.90184020996094,
@@ -2185,7 +2185,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.346,
-      "png_sha256": "44190e23e3f7118491c95f85f064706442a520841574abf9c520f1010d8567d1",
+      "seconds": 3.393,
+      "png_sha256": "75db338b71915260bd74b43a875c6c6e7652f2af51853199649989135204192a",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         319,
         145
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         25.129974365234375,
         43.78303527832031,
@@ -2334,7 +2334,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.342,
-      "png_sha256": "c6cfdb6bf6dd2bc2f01ad85fca961ebc550de7d6574be514fee8dac4df5f6d4c",
+      "seconds": 2.718,
+      "png_sha256": "3ea8e748a7d8f0f4eab138718de34edf1dcb7f48ef3754a4766222f5e36b2729",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         308,
         158
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         38.866920471191406,
         42.306419372558594,
@@ -2483,7 +2483,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.362,
-      "png_sha256": "e136af3ed09628573bafe929e7fe78ffcb597898069f4cfbbd32d83d4a1718d6",
+      "seconds": 3.472,
+      "png_sha256": "da352e7e25cbea39148208f714ab861dffce5ad3729fe47f57bd116214e15518",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         292,
         168
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         57.412635803222656,
         33.70311737060547,
@@ -2632,7 +2632,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.353,
-      "png_sha256": "8c7013081f75e7161dcd114682a8d72a8ea6874e4d884645ba2463826a8fa916",
+      "seconds": 3.146,
+      "png_sha256": "20a29b056bae5aecb38d5c51fb16bdc868b6fc8304e4b2cb64ce4b8b779d86de",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         271,
         177
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         79.88613891601562,
         24.423484802246094,
@@ -2781,7 +2781,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.371,
-      "png_sha256": "602c3a572698dc12d057b832ed7d82dec49a09816102977ef344b811ce018be0",
+      "seconds": 3.9,
+      "png_sha256": "b5462f2b1f4d7fe39028ac12e4239acc493bcb645fcfe042494e2695110096bc",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         249,
         182
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         102.27989959716797,
         17.543853759765625,
@@ -2930,7 +2930,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.363,
-      "png_sha256": "1f9f758703d8c26b500ebf4a63878af11d6856738185930bf3287d4e7d346729",
+      "seconds": 3.366,
+      "png_sha256": "8061c596d16f0f690dd7e06c254dcd8141dea08ca6c16c530d49438295bce422",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         228,
         185
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         114.90478515625,
         13.32861328125,
@@ -3079,7 +3079,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.347,
-      "png_sha256": "a42327144d1cb77388e6265882d82797fdd5da6816fdb52c883d4d101914aaae",
+      "seconds": 3.103,
+      "png_sha256": "40936f6fc38a0b9123e32e4091074e6a4bbab2ba810411e224253eed47227205",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         210,
         185
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         121.13693237304688,
         11.906974792480469,
@@ -3228,7 +3228,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.329,
-      "png_sha256": "2ab61cba98e25e16486914d3b0c0b68968e5bec03899d0ee9873730cfc2e0ea6",
+      "seconds": 2.718,
+      "png_sha256": "6a0a88f44aeac5aba3cacad57b0ac896cbb3a070875b0b64229643ddb8a398cb",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         216,
         185
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         102.58940124511719,
         13.32861328125,
@@ -3377,7 +3377,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.349,
-      "png_sha256": "749b2c368342c28cbe74f992e89fd7b3a617dcd1325d72c2ad443a9e3abaa8d7",
+      "seconds": 2.255,
+      "png_sha256": "599db32433b1eb5dd1e8ef8f9d3f18645a9e1ebb645f22f3f0d58e1a1f11497a",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         228,
         182
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         81.3846664428711,
         17.543853759765625,
@@ -3526,7 +3526,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.393,
-      "png_sha256": "05576b95feaf5c19575362aaf12e3aba01730945164804c6e2a5b1edb2b6c575",
+      "seconds": 1.929,
+      "png_sha256": "58c724720699fb0248432256f15fe030d69652781a8eb992f2d439144a7562d2",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         251,
         177
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         60.12474822998047,
         24.423484802246094,
@@ -3675,7 +3675,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.373,
-      "png_sha256": "9dbe34136bc072e3ac6601e944f64e7d1752a24b837b8418338e5b1380ff2a6c",
+      "seconds": 1.821,
+      "png_sha256": "0280839a9dea94da8c9c9e9875eb05016258f2d6192952cc6e46d6f65147ffd6",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         273,
         168
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         39.023963928222656,
         33.70311737060547,
@@ -3824,7 +3824,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.375,
-      "png_sha256": "6856723d48da17b20f64a901f788f432579edb645568a11a90faf38e01e14486",
+      "seconds": 3.531,
+      "png_sha256": "d85e561e0dc96830921977e8c81192f1ea81cc717cc1dc67b965b6232120258d",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         292,
         158
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         22.7259521484375,
         42.306419372558594,
@@ -3973,7 +3973,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.372,
-      "png_sha256": "b1a25c15bd8fa94b486763fb3cd336ebf2adc3810a1aa7c4faa0d704b0d40e1f",
+      "seconds": 3.202,
+      "png_sha256": "bd67e53e430992e7eae0ab2588fbd50579bfab9c77c469ca86afe94e220f1a4c",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         305,
         145
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         11.811599731445312,
         43.78303527832031,
@@ -4122,7 +4122,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.369,
-      "png_sha256": "8fa338c2b9713312c039a924491d3fb8a82bc71501d15ca0c358de8699052ede",
+      "seconds": 2.939,
+      "png_sha256": "474a0af37ecf0797257b8cdc679bbaaae2f35333b553f3a14e9085004e74ca24",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         314,
         131
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         6.5467376708984375,
         40.90184020996094,
@@ -4271,7 +4271,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.357,
-      "png_sha256": "59fb1daf1096a3e4199d4db7e5721d4a6777f0dc6f77bbf23ef959cbd3f213de",
+      "seconds": 3.005,
+      "png_sha256": "4ae3ed1f533e467dcaa14e77f8c70abcb9eecf8f1c9acec978d8068bc3163ab4",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         317,
         118
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         6.8667449951171875,
         38.17198181152344,
@@ -4420,7 +4420,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.326,
-      "png_sha256": "bc5ff37a4fddec602aed7f35033f6b35a5786fdc177b2a98ec230007fc65fc5c",
+      "seconds": 3.014,
+      "png_sha256": "e461cd977d52a1f4a095389b194518aa2a2bba9369d68efc9e3c193fcd3a7a36",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         314,
         122
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         6.5467376708984375,
         35.69837951660156,
@@ -4569,7 +4569,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.358,
-      "png_sha256": "72a88afa845993a0254a905914e1095650856d5b59c3fece47eb3ec0d46ed8f5",
+      "seconds": 2.365,
+      "png_sha256": "7bd73b549676f9eae8c94d55d93f0762eea12a48fbcd3d3cd337dbf825c54236",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         305,
         136
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         11.811599731445312,
         33.576080322265625,
@@ -4718,7 +4718,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.408,
-      "png_sha256": "0da3a9d809246ef036a861de006275d20c51b8c51f43e9c86ca6f721960ca5f6",
+      "seconds": 2.525,
+      "png_sha256": "d4e35bead3e6d270dede37532a54a02dbcf4a13ed2bb057c4eb2c7e55925295d",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         292,
         149
       ],
-      "vertices": 15694,
-      "triangles": 29760,
-      "parts": 216,
+      "vertices": 22220,
+      "triangles": 41472,
+      "parts": 309,
       "projected_vertex_bounds_px": [
         22.7259521484375,
         31.886642456054688,
@@ -4867,7 +4867,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "aurelian_court_yacht",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.406,
-      "png_sha256": "8229e4629515df743a4be11e8becd03b4757be8af2b7eed2f16886af9f74ecf3",
+      "seconds": 2.158,
+      "png_sha256": "8b658e36ecc9e872e3e86a21a871ae2e5c0d23dc545a8a0698aeac851e9ca1c2",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.34,

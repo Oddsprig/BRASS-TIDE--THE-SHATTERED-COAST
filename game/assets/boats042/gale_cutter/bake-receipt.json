@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "gale_cutter",
   "headings": 32,
-  "atlas_sha256": "a6ab3dee504c584447caecde67b4aa552b4307e9d0e095688361a74edf97a518",
+  "atlas_sha256": "ce1693d8232164ea987a21420b81ffe108b3e1d8fb10c969968e241ffe933200",
   "canvas_config": {
     "cell_px": [
       208,
@@ -91,21 +91,21 @@
     ],
     [
       10,
-      25,
+      24,
       182,
-      69
+      70
     ],
     [
       5,
-      30,
+      28,
       190,
-      55
+      57
     ],
     [
       3,
-      33,
+      32,
       191,
-      48
+      49
     ],
     [
       5,
@@ -199,21 +199,21 @@
     ],
     [
       6,
-      33,
+      32,
       191,
-      48
+      49
     ],
     [
       5,
-      30,
+      28,
       190,
-      55
+      57
     ],
     [
       8,
-      25,
+      24,
       182,
-      69
+      70
     ],
     [
       14,
@@ -230,9 +230,9 @@
         169,
         108
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         25.643035888671875,
         15.76983642578125,
@@ -245,10 +245,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.986,
-      "png_sha256": "1566b6c0e0e92d7ff227f6d274365225ca37b20a158ce21e5d5210b6a1d7e208",
+      "seconds": 1.767,
+      "png_sha256": "04492e05bb90aab69ecac4543398e99325907b6c48a1989181ead73cf48252b7",
       "sockets": [
         {
           "id": "mount0",
@@ -364,9 +364,9 @@
         155,
         114
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         37.48301315307617,
         11.214836120605469,
@@ -379,10 +379,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -422,8 +422,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.056,
-      "png_sha256": "adaa566ced4864eff75f3611a217bb794c5eef171ef19e316b3836d666a3cabe",
+      "seconds": 2.301,
+      "png_sha256": "99e93994f7af21726c30543f16f5f43db611fc072db0b57f34728076eb982227",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         142,
         118
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         51.67521667480469,
         8.256072998046875,
@@ -508,15 +508,15 @@
         116.19810485839844
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940474510192871,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -556,8 +556,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.038,
-      "png_sha256": "dc62f743d0a95973bd7d8671e56071c4427448c4ab7cc106445a88d2c1859806",
+      "seconds": 1.877,
+      "png_sha256": "6e682a237265ab9785c493737b480c142b971b3fe30fc8bd1af435c4acf3aba5",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         136,
         121
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         64.16619873046875,
         6.990570068359375,
@@ -642,15 +642,15 @@
         118.8588638305664
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -690,8 +690,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.06,
-      "png_sha256": "b319f75867800b72d409d963f6dca6131ccd354d797a234e1b1c2c77f68e8a2e",
+      "seconds": 2.074,
+      "png_sha256": "48634f91bf4cbc855ad3d2fb0dfb2004d67b3e13fe90ca400aefce7dda3fe4ff",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         135,
         120
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         67.66770935058594,
         7.450401306152344,
@@ -781,10 +781,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -824,8 +824,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.023,
-      "png_sha256": "8952639cf8a2428f8d3187551d9f6a06b672439532ad4195564b46781e140a99",
+      "seconds": 2.04,
+      "png_sha256": "4aeff455dc8493a2a4fcb09ff59cc849cacf5c67c72e1b574e0f5be41becbbac",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         139,
         121
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         66.46017456054688,
         6.990570068359375,
@@ -910,15 +910,15 @@
         118.8588638305664
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -958,8 +958,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.034,
-      "png_sha256": "d45266c0094e0177e01f5e7dca85ef5b7af04d1b1d2e8c4167daaec250d9f6ce",
+      "seconds": 2.028,
+      "png_sha256": "c90a1121f79d27ffb29ae42313f17123ae06173d7f642b37aa54dcf50c0646f8",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         151,
         118
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         60.80220413208008,
         8.256072998046875,
@@ -1044,15 +1044,15 @@
         116.19810485839844
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1092,8 +1092,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.071,
-      "png_sha256": "9d3e4e97822c51730ada45001f63f31421cdf3c2590471b6493d6c6237b5b178",
+      "seconds": 1.687,
+      "png_sha256": "30563a97d7362b8e95d5e798eee74a952136522291d790228f71ca966485dc61",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,9 +1168,9 @@
         165,
         114
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         47.24515151977539,
         11.214836120605469,
@@ -1183,10 +1183,10 @@
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1226,8 +1226,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.026,
-      "png_sha256": "a428530177f3b41556361068f1bfe2c4af9abe643ce031a4f41b658eba62e4c1",
+      "seconds": 2.032,
+      "png_sha256": "5909f7249d4975905bb7e50543b6810f956d23f26bc8e2b4b78ba0b5db1eb664",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,9 +1302,9 @@
         177,
         108
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         33.119422912597656,
         15.76983642578125,
@@ -1317,10 +1317,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1360,8 +1360,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.036,
-      "png_sha256": "5883ed1e14b50801a0a5597ccc9e9ee94010c0b029402dc8f8bcdd29786b288b",
+      "seconds": 1.766,
+      "png_sha256": "b6d23d00cb2209437cc78bc45de491990f616f25601346ef14234cf8fa37e3da",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,9 +1436,9 @@
         186,
         102
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         21.563873291015625,
         21.696334838867188,
@@ -1451,10 +1451,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1494,8 +1494,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.011,
-      "png_sha256": "47971a13f73597187ef5675aa83855adb4bfb8a1013e0f203340cb471c474c02",
+      "seconds": 1.925,
+      "png_sha256": "8899347f0b56eebaed29edc6c1bc941800e2a962dd442be2b8483420cfa48e91",
       "sockets": [
         {
           "id": "mount0",
@@ -1566,29 +1566,29 @@
     {
       "bounds_px": [
         10,
-        25,
+        24,
         192,
         94
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         13.0225830078125,
-        27.761051177978516,
+        26.57683563232422,
         189.39491271972656,
         90.89324188232422
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940474510192871,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1628,8 +1628,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.03,
-      "png_sha256": "f1470f25ddb5f9c2d11198e3a2fa78f48bdecd5be94674d909e850e14f699adb",
+      "seconds": 1.836,
+      "png_sha256": "d611b56e68bd42585ce5aa9a7392b68d404a1bb4ad83e29dce37812f27729400",
       "sockets": [
         {
           "id": "mount0",
@@ -1700,29 +1700,29 @@
     {
       "bounds_px": [
         5,
-        30,
+        28,
         195,
         85
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         7.8237762451171875,
-        33.07558059692383,
+        30.454753875732422,
         191.92156982421875,
         82.12189483642578
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1762,8 +1762,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.006,
-      "png_sha256": "229fb553e298696670f2925e53c477aa544d36fb2afd3f091d4c1d726a21c698",
+      "seconds": 1.833,
+      "png_sha256": "8fbec86e479e5cc42c8b07809bdf7e9d539d5b0cd2a8418455fbee614e1900bd",
       "sockets": [
         {
           "id": "mount0",
@@ -1834,16 +1834,16 @@
     {
       "bounds_px": [
         3,
-        33,
+        32,
         194,
         81
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         6.167259216308594,
-        35.805450439453125,
+        34.68798065185547,
         191.00973510742188,
         78.59117126464844
       ],
@@ -1853,10 +1853,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -1896,8 +1896,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.998,
-      "png_sha256": "577d6f5917e5f059a9b22ed6bf738f6eb5b0e5a6ffa3af34b40219a7640f9246",
+      "seconds": 2.168,
+      "png_sha256": "4ffee2e85194ef18fe751b6f31cec6e86247bb2eb83cdd5fdd8abeec463d4042",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,9 +1972,9 @@
         195,
         85
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         7.8237762451171875,
         34.70050811767578,
@@ -1982,15 +1982,15 @@
         82.26251983642578
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2030,8 +2030,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.003,
-      "png_sha256": "5c3a762e0907cf76ffe53e2cc7c73411bffa6edcc094896a25c0d8eb45c04ca7",
+      "seconds": 2.303,
+      "png_sha256": "fe1c79b3fa2531f6b4c1ee78941fa89a644e1acce2e8c3f93cdf4f8fcdd0c82e",
       "sockets": [
         {
           "id": "mount0",
@@ -2106,9 +2106,9 @@
         192,
         93
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         13.0225830078125,
         30.720130920410156,
@@ -2116,15 +2116,15 @@
         90.31151580810547
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2164,8 +2164,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.033,
-      "png_sha256": "673c32d779cab832100a6c11bd60eb803c07e60738ea26a0fb2a3be43d22dffb",
+      "seconds": 2.063,
+      "png_sha256": "730eb5aef267dca3dbcf3d2a432b2c0a59b9f2ed5950b9c2091173c9c4b1ecc5",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,9 +2240,9 @@
         186,
         100
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         21.563873291015625,
         25.134117126464844,
@@ -2255,10 +2255,10 @@
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2298,8 +2298,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.008,
-      "png_sha256": "77fe8cb068155211bb6f45413ec6a6f3849a8d248937947f6050f7481afa5524",
+      "seconds": 2.075,
+      "png_sha256": "2eb2252e8a600cf381c0be5bfb7ccb3d3207a5884da6bc80246fff78e3636d1e",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,14 +2374,14 @@
         177,
         106
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         33.119422912597656,
         20.28649139404297,
         174.35696411132812,
-        103.46680450439453
+        103.4696044921875
       ],
       "physical_bounds_world": [
         -39.2400016784668,
@@ -2389,10 +2389,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2432,8 +2432,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.03,
-      "png_sha256": "694adef5fe6d1bc978a28a916a7851167e34b49de3300203c9172e65d20a4eaf",
+      "seconds": 2.066,
+      "png_sha256": "0ef709754fcf2e5465044ee1a2ed292c85a49681c12c079420a762e33011f7dd",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,14 +2508,14 @@
         165,
         111
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         47.24515151977539,
         15.76580810546875,
         162.51698303222656,
-        108.162353515625
+        108.2430419921875
       ],
       "physical_bounds_world": [
         -39.2400016784668,
@@ -2523,10 +2523,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2566,8 +2566,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.023,
-      "png_sha256": "bc83be2fcdc3a095e4578b48fa7f2eb551ad6ce534444fce9d371a349f6859d5",
+      "seconds": 2.122,
+      "png_sha256": "ca4a8d60fef3b9843c05b92893b101728d2d11f9488ce58e8d6776b9e9b363fe",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,9 +2642,9 @@
         151,
         115
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         60.80220413208008,
         11.481369018554688,
@@ -2652,15 +2652,15 @@
         111.95543670654297
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940474510192871,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2700,8 +2700,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.024,
-      "png_sha256": "a173ebbb9bd75d617acef0e10f77e0925f9f2e45890b42f76528ec0e1f751d2b",
+      "seconds": 1.631,
+      "png_sha256": "420303189b7b5fe219aa4790ef72281269fec414e75c7dd4eacf0bbefda601ca",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,9 +2776,9 @@
         139,
         117
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         66.46017456054688,
         8.84112548828125,
@@ -2786,15 +2786,15 @@
         114.35487365722656
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2834,8 +2834,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.022,
-      "png_sha256": "58ae09aff96e4d9207b719ee5c5878aa2284637407b976c65102d665901236fc",
+      "seconds": 1.83,
+      "png_sha256": "d9b36fa24f4beddc60f35a42a650bacc7b1017e840fb58aa65b5b931d8016876",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,9 +2910,9 @@
         135,
         118
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         67.66770935058594,
         7.951873779296875,
@@ -2925,10 +2925,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2968,8 +2968,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.015,
-      "png_sha256": "940757b154658f9454fa3649f384815f53c968980dda32e0921babe3e982d5ac",
+      "seconds": 2.104,
+      "png_sha256": "6f4abc3bea8396e78babd80b8f9ba56a8db794c783639ba56f63424038ba1217",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,9 +3044,9 @@
         136,
         117
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         64.16619873046875,
         8.84112548828125,
@@ -3054,15 +3054,15 @@
         114.35487365722656
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3102,8 +3102,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.014,
-      "png_sha256": "04f33d6af4f67df3f0522e984add415e67d350b819df7606dbf2a6049e05ab41",
+      "seconds": 2.445,
+      "png_sha256": "b0855f9e26721f84256912afd3e8419f216ada940adad90a9e0d6568cd64f033",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,9 +3178,9 @@
         142,
         115
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         51.67521667480469,
         11.481369018554688,
@@ -3188,15 +3188,15 @@
         111.95543670654297
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3236,8 +3236,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.04,
-      "png_sha256": "ce6300dff973b05e9031674251d56874da4dc188cc7fbbe0516e7937c049201e",
+      "seconds": 1.716,
+      "png_sha256": "0f6755c02d148c6f0df5a6ef9ad6a22a8cd8f723b849eaf083e3ebd0c526cb64",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,14 +3312,14 @@
         155,
         111
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         37.48301315307617,
         15.76580810546875,
         152.75485229492188,
-        108.162353515625
+        108.2430419921875
       ],
       "physical_bounds_world": [
         -39.2400016784668,
@@ -3327,10 +3327,10 @@
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3370,8 +3370,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.023,
-      "png_sha256": "cc502335bf2678285387b82e016bb128886d7f2a31b10b4e9e48951f3184808d",
+      "seconds": 2.287,
+      "png_sha256": "3322bb447338c77ea14aa3c0c3ae11e26731726b9c66c7c60c8f837c2bbddd23",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,14 +3446,14 @@
         169,
         106
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         25.643035888671875,
         20.28649139404297,
         166.88058471679688,
-        103.46680450439453
+        103.4696044921875
       ],
       "physical_bounds_world": [
         -39.2400016784668,
@@ -3461,10 +3461,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3504,8 +3504,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.037,
-      "png_sha256": "78b432c4a00daa1c25fb34272b31dc0a852c6f78bcff0c68042e670f823c271a",
+      "seconds": 2.595,
+      "png_sha256": "47558b729aef506f1220de5136c97345957ee6d0ac6d3f42ba438ab3209a5cf4",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,9 +3580,9 @@
         181,
         100
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         16.52001953125,
         25.134117126464844,
@@ -3595,10 +3595,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3638,8 +3638,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.022,
-      "png_sha256": "a3f33e2b55cf62bc2f67d9379661b79ca7db6c7b0d1705c0a23c935b5605f9f8",
+      "seconds": 2.132,
+      "png_sha256": "464c87799a651f68ba23623ab705d3267223e6f44090ec89a865627825dc5c86",
       "sockets": [
         {
           "id": "mount0",
@@ -3714,9 +3714,9 @@
         190,
         93
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         10.605087280273438,
         30.720130920410156,
@@ -3724,15 +3724,15 @@
         90.31151580810547
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940474510192871,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3772,8 +3772,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.035,
-      "png_sha256": "9c25501f205351e40e9392b5064d7d62c6f5a05f8d8f9ddbd360efadfa69df5f",
+      "seconds": 2.409,
+      "png_sha256": "62bbf077e5ef449e57a426a5741d67a98c48b59328fad06b8fffb1baf11f2d07",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,9 +3848,9 @@
         195,
         85
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         8.07843017578125,
         34.70050811767578,
@@ -3858,15 +3858,15 @@
         82.26251983642578
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -3906,8 +3906,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.996,
-      "png_sha256": "f78730351defd05400c1ba4f402d30333db083ba8ba3ccc52286c114191d8122",
+      "seconds": 2.343,
+      "png_sha256": "c99f4a2a8d9be63875d3086394a9e0d3dde9b12b67a7d7205c97f1b7c10cb379",
       "sockets": [
         {
           "id": "mount0",
@@ -3978,16 +3978,16 @@
     {
       "bounds_px": [
         6,
-        33,
+        32,
         197,
         81
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         8.990264892578125,
-        35.805450439453125,
+        34.68798065185547,
         193.83273315429688,
         78.59117126464844
       ],
@@ -3997,10 +3997,10 @@
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -4040,8 +4040,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.01,
-      "png_sha256": "ab32a677050db230ec9bef8625e4fd4a7ef15b1f4561b02f04c6007dda2d29f3",
+      "seconds": 2.057,
+      "png_sha256": "9177b36ccfb7f156fbd147790e5ac4ab4d0ed1231ae716f4315177773351b7aa",
       "sockets": [
         {
           "id": "mount0",
@@ -4112,29 +4112,29 @@
     {
       "bounds_px": [
         5,
-        30,
+        28,
         195,
         85
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         8.07843017578125,
-        33.07558059692383,
+        30.454753875732422,
         192.1762237548828,
         82.12189483642578
       ],
       "physical_bounds_world": [
-        -39.2400016784668,
+        -39.24000549316406,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -4174,8 +4174,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.015,
-      "png_sha256": "f8951fa6241c2e9b7cca253b804feca4aab243f57f9f47ce7597b565dfb84ed4",
+      "seconds": 2.017,
+      "png_sha256": "473abade41719e6827cece0abc06fe4258a41078efc2fff495cae7aa4c6b18a2",
       "sockets": [
         {
           "id": "mount0",
@@ -4246,29 +4246,29 @@
     {
       "bounds_px": [
         8,
-        25,
+        24,
         190,
         94
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         10.605087280273438,
-        27.761051177978516,
+        26.57683563232422,
         186.9774169921875,
         90.89324188232422
       ],
       "physical_bounds_world": [
-        -39.23999786376953,
+        -39.2400016784668,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -4308,8 +4308,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.033,
-      "png_sha256": "6c30a96f7f3a688225d0437dac800c7e48e4e230c134ea0db1e2c23782f12612",
+      "seconds": 2.159,
+      "png_sha256": "c11d79f269360af522d099bd186d0073ba16d2d20288d46439fb8d3f85a094b1",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,9 +4384,9 @@
         181,
         102
       ],
-      "vertices": 11278,
-      "triangles": 21220,
-      "parts": 168,
+      "vertices": 15588,
+      "triangles": 28584,
+      "parts": 238,
       "projected_vertex_bounds_px": [
         16.52001953125,
         21.696334838867188,
@@ -4399,10 +4399,10 @@
         0.0,
         40.457176208496094,
         13.940474510192871,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -4442,8 +4442,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "gale_cutter",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.019,
-      "png_sha256": "00aad0863f0c6d47220921e6dc278a9d91132cd1ce8b6c22b1bc3c7ba5c651a5",
+      "seconds": 2.315,
+      "png_sha256": "107c5e2a328c6e3bb229b27fe7bbd93dcfe4b35a4a71e225ecb696cf2e6e9c7d",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.02,

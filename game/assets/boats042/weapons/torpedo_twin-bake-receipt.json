@@ -1,70 +1,70 @@
 {
   "variant": "torpedo_twin",
-  "source_sha256": "8b695978bd1c0c1ffda68a71c5e9784902ced510a81c49b1b98cc5b80a9d4be6",
+  "source_sha256": "621323a93b0a43dba7c590a6ecdd8d4e39f97ba8aa263138cbf4732ef3770bfe",
   "revision": "042-authored-weapons-r2",
   "layers": [
     {
       "layer": "base",
       "atlas": "torpedo_twin-base.png",
-      "sha256": "ddc18924e3eff896f3b124bc160c4b8be8cb49eb31790fd97f10668170e3d655",
+      "sha256": "f812e90426d9d1cd34f798cc896b6558a02a5eda9ba58f02e66b79041cf61398",
       "frame_sha256": [
-        "5ff966434a693f7ad100e4bf16f5eb8692340664e09b000c70296e790fbd91ad",
-        "e4091c2ce467d6b4553919b92701dc60c2058ea104a810ddc3d33bc7304f4224",
-        "b747f0c177574e3e5ae90729b5c65a244980758c3ed612135ce40afdce3e5f4d",
-        "7484826c6983e07ed41fc1c5d151276b19b9129a8cb6763ecadb8e39b3854eca",
-        "1d1271d67eb15ba65f49c9196a8b9214985827664094db0b339baa55a4118603",
-        "0541ab752f1d2d186fad7289fe7376edfa7ca0b1dad5a1dc4ebff46cd513858c",
-        "1edbe3927708258148dc8d65b35b24754e8567e681b39f38685dd3edfa0901de",
-        "08d1553ad4ac22d057e808d5e01bf2174dadc068381051042f369dbbd15afa40",
-        "1558ff77be3b6ee198f750fa64155044df7922e001c1c1fdf756d77da24ed4ae",
-        "3fe7ca6e92f18ba3c2bde91e916d2645fa5f8abffd24ed405e95b9be28581ba6",
-        "f285e64de1d62aa2f8ec1696f9dd9b16c798d90c42793edac063370626977334",
-        "cc6f1717fb38a4ce5e8ecb9d3c64c2b89855e80bf112fec67e13e47bc0f67476",
-        "94c41d3999ce266a333c09702c36e0b043fe2a7cd5f214b7c3aa8c7668afb439",
-        "f3b2f3a157eeba7739613578d49d3d2f37fd9bc4e67cc8a3fe4e929f99924a62",
-        "f351642965b25fb7f7a4bcd137376ae78dfa27cd878c1591303bf7a3ec8c5866",
-        "2ddd3141e65e015bf7822b5d7a8f3b5800d0db472c46bdf0bd21948e4b530d7a",
-        "75c9de5bc75cc334b092f715acca9f7de2a15846a334bfbe99da9dbba27da9f6",
-        "b59e0fb66f546edd60626c5b81fb2f823f016c73feaf386b64288089c65ccd32",
-        "464df5721dd33e6e0e8a17980ecf75444d90d1e0c3a8b3888c0d4a5288230add",
-        "1aa32e24aadbf319bdac5552faa48179b1001b82bc3ccab503f8c06f38f2cf21",
-        "ff92db71cd65a954848b75398a073732412a9e48f58072db644aa910bc7d08b1",
-        "0555a0cfdde53e3f3e3fe456c96a8a9adf3c03bf9f7894bf27dff3a69add9bcb",
-        "1ce8e77c88420d006a097ba0faed77f8fa78f1c1819bb3a98a9118fdaddb5d1d",
-        "d49c5721659aa9ee5b808a89be700aca30d4514476d4a4ac145eff7aaa3ca0b8",
-        "04a5866ee77887df226dcdc6d6cb72bb45c9aa5ef45d4177c001dc9788f17bba",
-        "5fa3ab1e56f1d7a0a6b03f9751a60090cbe5da8676d05f5a768de097c9ba02bb",
-        "43fb00537052085bdf15ce29e8dbb84a8e07bf02538782b4be2bc264189e0eb0",
-        "8d86ffe1fbcbaecbb8a75fd5c8d003f524679fccb907164280fb6eb883275a85",
-        "74a446699fcd07747f995283af19c254e3ac7cb92d8e1449e4069ca17790b9dd",
-        "f6fd5ccd52ba5c16cd0d123f4b76fde293f08a8fa9c7456331092a615e6a1497",
-        "57e618dda17dc6e786d3a447f0c81bcdd0d45f0a7aab8bac020cd0fc4a13f655",
-        "348f1fe698599c882ae3b710188b5a5373a4b4a162e09cd90c6b64154651ae1a"
+        "eeaf34a25f1111a561d1e7a276e9ee512b70f2f6a54500d86c1f1e94081ec67d",
+        "8fb7752cd52a5bdcb7ca6443f670afedb3081c244e83a3f2028d000e06081be9",
+        "03421fe6ba0e4c46a502bf815edbb5197841afbef5d4df6d9be868c78197cab3",
+        "af3eddfa88c93c8b0c11e80ae8efb2151e06e5a1f52e2b22b7a76877cadcb4e3",
+        "3a7bd3ae6f1ef1179dbbf4eb91d2257edef6035ae4cc65d0d854b613ebda520d",
+        "b61e06822d85398a73e8eefa64284e830ca7eba0e497d01d0a4ca4656cb8c736",
+        "a42fa771b72988e17b24012abec65c0cd796566a5db1ea03c43f5ddfab84dc68",
+        "cd20d5996201e54bb3952c396dfa4f078d8b63cd2e2663b2555d8c11e02e242b",
+        "a117d4661c2bfeea2a88ccab657ef7a257d195adaf33641be211bf16c34edbc3",
+        "1afe9fb4f7664da17562b27ef3957d68f07d417360f9bf58007724a78d618f92",
+        "14be3a02b8dcd3ff4705122fe58706fb005b28c54b3c363b797bcd0ff88a00fd",
+        "b227c2fc2b262cd76293af623ad07dcfd49ea31931643e7b0d8431ab3829668b",
+        "a568173c5d541626b6b3e7d04c5a51264452d952d51b04f61242612893ad2504",
+        "d8088b8b98a4a1525c633ef34b31af17712b09c5ad071fa23e8f0204e69831b1",
+        "2cfdc21856be388defcfecab8530e8dbe70d06322da16c95653b4e9307f93077",
+        "45b0dc74fdc56ddab98378cb9df10e77aaa4d9ece3384fda54a7b6035097ee61",
+        "aab995ac7bf02f8fb626baa989c77ac9050c5ed360a85ccd8d25a79d4a483b8f",
+        "84d201b4f4a9ba64eb42e8321c76de54e08560155ae5fc7c09f4c686f0690a67",
+        "a0f6e999a40b575560c092d4431ea00958d51dd7a6768384051487f09a3f41a5",
+        "d4016d1c6363f72926dd546734006cf6f160c036645c95a2bd838115428067da",
+        "5912391becd87a2ebac2b90f55b511556e386ecf0b5718c64b079d3a0f797b4e",
+        "94f8f5616759f2c47c351f71e6305979c8736c78028286df230a8fc1ca43941e",
+        "89637b54371d876bc277e3fcdf5916325eb08965b7587c67d22b30ee5c313ee8",
+        "316019ef1344708cd05c3508820f2df969cd6c173d3f268d0a030dfe87ce393e",
+        "b2f40863abc0513ebe6f5395a19a298e4151265e3fe93edf41b835ac535d9bac",
+        "c60344789c5844eb3d0aef25b1594cc90d87ac204bd1b3ead67ddd3ffd14141b",
+        "3a012c92a16adccd48c35030b0198986528215fcb4f31f9d96dca54ea27daaf0",
+        "74616501c6221c13ed6e6d7001cbf2ce0eea1b6dba0ae0708a553723ce027dc6",
+        "880f677dab6679ed0852445b1b160898e73e404be1077245810ec7330c67d2b6",
+        "0753eea8e0a7f4fdde4f13fa0e3981a9871c9856286a7b1bc7f6c335ab33312c",
+        "058cd54851b1f895e1aee1890f06721ab62c6c61525ac26edce1000de0ca49a2",
+        "0aef50594bdd23082167e12592af2e7e4c49ccd1892903437cec0f3b89f5b7c3"
       ],
       "frame_bounds_px": [
         [
-          76,
+          77,
           79,
-          108,
+          107,
           67
         ],
         [
-          81,
+          82,
           77,
-          97,
+          96,
           71
         ],
         [
-          88,
-          75,
-          82,
-          75
+          89,
+          76,
+          81,
+          74
         ],
         [
           97,
-          75,
+          76,
           64,
-          75
+          74
         ],
         [
           105,
@@ -74,87 +74,87 @@
         ],
         [
           95,
-          75,
-          65,
-          75
+          76,
+          64,
+          74
         ],
         [
           86,
-          75,
-          83,
-          75
+          76,
+          81,
+          74
         ],
         [
           78,
           77,
-          97,
+          96,
           71
         ],
         [
           72,
           79,
-          109,
+          107,
           67
         ],
         [
           69,
           82,
-          115,
+          114,
           63
         ],
         [
           67,
           86,
-          118,
-          58
+          117,
+          57
         ],
         [
           67,
-          89,
-          118,
-          53
+          90,
+          116,
+          52
         ],
         [
           70,
-          90,
-          112,
-          50
+          94,
+          110,
+          46
         ],
         [
           67,
           89,
-          117,
+          116,
           53
         ],
         [
           67,
           84,
-          118,
-          60
+          117,
+          59
         ],
         [
           69,
           80,
-          115,
+          114,
           65
         ],
         [
           72,
           77,
-          108,
+          107,
           69
         ],
         [
           78,
           74,
-          97,
+          96,
           72
         ],
         [
           86,
           73,
-          82,
-          74
+          81,
+          73
         ],
         [
           95,
@@ -166,73 +166,73 @@
           105,
           73,
           46,
-          74
+          73
         ],
         [
-          96,
+          97,
           72,
-          65,
+          64,
           75
         ],
         [
-          87,
+          89,
           73,
-          83,
-          74
+          81,
+          73
         ],
         [
-          81,
+          82,
           74,
-          97,
+          96,
           72
         ],
         [
-          75,
           77,
-          109,
+          77,
+          107,
           69
         ],
         [
-          72,
+          73,
           80,
-          115,
+          114,
           65
         ],
         [
-          71,
-          84,
-          118,
-          60
-        ],
-        [
-          71,
-          89,
-          118,
-          53
-        ],
-        [
-          74,
-          93,
-          112,
-          47
-        ],
-        [
           72,
-          89,
+          84,
           117,
-          53
-        ],
-        [
-          71,
-          85,
-          118,
           59
         ],
         [
+          73,
+          89,
+          116,
+          53
+        ],
+        [
+          76,
+          94,
+          110,
+          46
+        ],
+        [
+          73,
+          90,
+          116,
+          52
+        ],
+        [
           72,
-          81,
-          115,
-          64
+          86,
+          117,
+          57
+        ],
+        [
+          73,
+          82,
+          114,
+          63
         ]
       ],
       "gpu_rgba8_bytes": 6291456

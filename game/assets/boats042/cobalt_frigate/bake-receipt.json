@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "cobalt_frigate",
   "headings": 32,
-  "atlas_sha256": "f2f2153a2b8e2f8fe2bd7271af5cb28459d2a4744b0e523cd2940896705e5a0e",
+  "atlas_sha256": "3065591a2598791ab09dfb4ec8e1145016464f114d4469f1b3b69d4e18eea57b",
   "canvas_config": {
     "cell_px": [
       280,
@@ -230,12 +230,12 @@
         226,
         136
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         32.753562927246094,
-        17.654403686523438,
+        17.61651611328125,
         223.61410522460938,
         133.90240478515625
       ],
@@ -248,7 +248,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.353,
-      "png_sha256": "51cb1fd34b4136086cf97b5a14ec0528a3c2a9e149608fd496350454d41517fc",
+      "seconds": 4.07,
+      "png_sha256": "252f7deb44e07af9a52fbed8b041f8b75c292f1558f0c0e452de4c98644d1f5c",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         209,
         144
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         49.94300079345703,
         12.140983581542969,
@@ -397,7 +397,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.386,
-      "png_sha256": "713db0ecb34fbbb1d4f048aa6dc5f834cbae68c24a55f4d52a75e8fec14aba7e",
+      "seconds": 2.787,
+      "png_sha256": "86a9cae3b2870f50bd34d12e770e0c2671f05cb918a42a0162941fd43a365161",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         195,
         149
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         69.17926788330078,
         7.95745849609375,
@@ -546,7 +546,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.348,
-      "png_sha256": "b2223105b1143299f40d6ac621995e50bb40ddc74dd503786c238d48071d1b59",
+      "seconds": 3.147,
+      "png_sha256": "a8a7d0f48d22bd064b58528c9233737a6e52a594bf65b194113a94dfe36379cd",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         183,
         152
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         85.36665344238281,
         6.0404052734375,
@@ -695,7 +695,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.335,
-      "png_sha256": "cdec31b4d4fcfbd201cee2f229c4bfbbfdde12abbee18fbc00395a63352281a0",
+      "seconds": 3.339,
+      "png_sha256": "8ec1635a7ae412c1d90867eecb12b33482a7f163d8e0c8f6dd76a1e206de29ef",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         178,
         153
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         99.12958526611328,
         6.4625091552734375,
@@ -844,7 +844,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.305,
-      "png_sha256": "28e3086e6e240b9e0a038f2e442395a57409795068d341b5147c591ac50bd0ee",
+      "seconds": 3.148,
+      "png_sha256": "5a2b4dba81cb96f75e94c77f75023bbd6d324622facaef993d12a68bd9cbe55b",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         191,
         152
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         93.77205657958984,
         6.0404052734375,
@@ -993,7 +993,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.345,
-      "png_sha256": "7c0202c2ac0bedae9b7fc214c425713dedb4e4f5dd671e81659b8488ecd3f0e2",
+      "seconds": 3.235,
+      "png_sha256": "b7c733a77ab338994f768249f82942371d388c58b0957496786f655722261ba7",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         208,
         148
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         81.68360900878906,
         7.95745849609375,
@@ -1142,7 +1142,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.345,
-      "png_sha256": "e317588e9bf5742f9d057353c6e1299ed04f73595c211bddccd6fbfb18319e79",
+      "seconds": 2.972,
+      "png_sha256": "4521c36e1a1d642d9aeb7f42585c040612a92c32492604b68fa0b93e352f5bd8",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         227,
         144
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         67.97583770751953,
         12.140983581542969,
@@ -1291,7 +1291,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.347,
-      "png_sha256": "13de73e492abf913bd36ae6f5a2f3896e9a4f75507993ae90d3e7d75c8258378",
+      "seconds": 2.616,
+      "png_sha256": "ee3d322e1ff73da1fc82cde1eb72e34405a3a73b77f8d7e3ebc5b9b4ac940082",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,12 +1422,12 @@
         244,
         136
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         50.385887145996094,
-        17.654403686523438,
+        17.61651611328125,
         241.24642944335938,
         133.90240478515625
       ],
@@ -1440,7 +1440,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.38,
-      "png_sha256": "1bb03ff70ca7bc6b8853bea01d6ea42084c4e8e85ef4931fc9f77d279ecabd98",
+      "seconds": 2.526,
+      "png_sha256": "901626a4bfd937777149d51812b9ed06ee4e30adafadb107bf6d2b32cb7f10c1",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         257,
         127
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         35.34699249267578,
         18.637237548828125,
@@ -1589,7 +1589,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.356,
-      "png_sha256": "113457cf1645e3a3935d6a31fbe4b97fbce529d385db8b10761c57e8187547a7",
+      "seconds": 2.407,
+      "png_sha256": "a14ad49dd785bbf011071c9b46638dff110b7fa8db9fbeb2da7328fcca3f6605",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         266,
         117
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         24.214553833007812,
         20.089019775390625,
@@ -1738,7 +1738,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.337,
-      "png_sha256": "36704f36d56e2a5a0bb73be7e1bd7ebed59f87a816cb23066fa3725192ad70c4",
+      "seconds": 2.363,
+      "png_sha256": "63090503f7cdb83e36231175f9b84db81eb38d0b05c08cb86c40452cde1044d3",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         270,
         106
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         17.416397094726562,
         21.953964233398438,
@@ -1887,7 +1887,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.345,
-      "png_sha256": "78bd91a16b6939b3e4a81a3f2e12721c3ec255f14eff7a3b9901d820b804d705",
+      "seconds": 2.487,
+      "png_sha256": "11cc68122bccf642f8fa800c3817a1ac3b04ac0c0ec5cd55d4d6ba6b7b57b671",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         269,
         102
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         15.213775634765625,
         24.160385131835938,
@@ -2036,7 +2036,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.323,
-      "png_sha256": "ea096048991e251277ea63ae1f88875d4690e5d08d3472c6f25599e10dcb2ba4",
+      "seconds": 2.678,
+      "png_sha256": "e7789423c0599e5ce43351b22ccf8b4379d5753557f96e6693fccad5eb896d63",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         270,
         113
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         17.416397094726562,
         26.623504638671875,
@@ -2185,7 +2185,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.364,
-      "png_sha256": "840d52bc1d8253e6f7620237602db21f6a96a29f7d7a3a09dd6a18f634dbdbf7",
+      "seconds": 3.142,
+      "png_sha256": "8472b3d99a53c74dae85c7ba53baba5be7ecb95ff804a6a639d4c6ec48ab17b8",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         266,
         125
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         24.214553833007812,
         29.248661041259766,
@@ -2334,7 +2334,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.333,
-      "png_sha256": "01a30242eb97fdacec09cff66dc8dec1ad19ddd8dfcf0ff7b17c61ff51881ea9",
+      "seconds": 2.984,
+      "png_sha256": "f29baa28d388571f242182e8aed1be75371f55160c4ab94e1d7e313a2226ec7d",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         257,
         135
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         35.34699249267578,
         31.934967041015625,
@@ -2483,7 +2483,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.399,
-      "png_sha256": "35689f90a88bf333afbfb56bdba9b7bc1aa743a7f7a3ee9dc97eba3e790ecbb7",
+      "seconds": 2.623,
+      "png_sha256": "600a8d7483eb048ad323a0cbe070d46087c1f52f38aedf4b2e6f7db16f4ed7d2",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         244,
         144
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         50.385887145996094,
         27.948699951171875,
@@ -2632,7 +2632,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.35,
-      "png_sha256": "11e428715dfeea7ea46a1118420b0834d45a2ed179ed74f5e68f1e2d0125c827",
+      "seconds": 2.735,
+      "png_sha256": "166cb0520ff1a5b23d657574cab0bc56c20b2f71be6a319fca78904ed5e016f8",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         227,
         151
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         67.97583770751953,
         22.1656494140625,
@@ -2781,7 +2781,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.367,
-      "png_sha256": "b6b3a0b97787c43ce4a539d2c05bfb4c2f8d4052a9e01fd7a8a0e5294242bcf9",
+      "seconds": 3.078,
+      "png_sha256": "51fa55db041f4a5faf1994f772927e5e8b433e0ba9161254d93904996c709162",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         208,
         155
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         81.68360900878906,
         16.589248657226562,
@@ -2930,7 +2930,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.351,
-      "png_sha256": "fb384210215ffca28ba0cac709789bb6cf64b9cf30bf28b816299b897db4ffd9",
+      "seconds": 3.061,
+      "png_sha256": "fad4f61a69a3647d4ca3f6b8a54d3c4adb438eaf05dae46641b7b79830fe2397",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         191,
         157
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         93.77205657958984,
         13.175910949707031,
@@ -3079,7 +3079,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.35,
-      "png_sha256": "9e653379979a6f1cd09c5d4ed9ff586ee0b07449f365ab8f6df1b0230301c3b1",
+      "seconds": 2.483,
+      "png_sha256": "8e8c933097e6750e2cc4470e7a56bdf1e1cb5fda8c91bbf32f8fa055fc3ceb93",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         178,
         157
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         99.12958526611328,
         12.0323486328125,
@@ -3228,7 +3228,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.324,
-      "png_sha256": "71d26bf3b3ae8dfd5acfbe98356e14be6edec834f82c698d9670aa42dbc01ca3",
+      "seconds": 2.302,
+      "png_sha256": "054b2cb3fec626df52136045c0421665616fcfb0001d96ae16092bb770325f74",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         183,
         157
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         85.36665344238281,
         13.175910949707031,
@@ -3377,7 +3377,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.39,
-      "png_sha256": "5fc332f33a94ab111e13323ec27b22239a3c1931f7f2ff8dec6d2143a4df7712",
+      "seconds": 2.741,
+      "png_sha256": "31954724c4afa5d488d3b9b33890665e5e65ac5402ea73b3e8212728067ddc6c",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         195,
         155
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         69.17926788330078,
         16.589248657226562,
@@ -3526,7 +3526,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.337,
-      "png_sha256": "c19ff3f791fde63d10a42e6ca2270e202c76919b59b2acbf44814a8a6e52dd1e",
+      "seconds": 2.707,
+      "png_sha256": "637972f8201a591a1e02c0f78cbbb4d5b1c63cd0b82d0de774c02b9cc09fd99e",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         209,
         151
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         49.94300079345703,
         22.1656494140625,
@@ -3675,7 +3675,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.35,
-      "png_sha256": "368eb205e35bd51d10489aa85410bcde0ded4011f1c1e7a5b9fb2034382ec598",
+      "seconds": 2.481,
+      "png_sha256": "797de0fb27730a2d90f20d3382b5b2222f87d22e6be71a9aa7e2948735a77b5a",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         226,
         144
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         32.753562927246094,
         27.948699951171875,
@@ -3824,7 +3824,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.34,
-      "png_sha256": "4546a77a5cf3cc6ea25d4f72422d19c60e01ed46ad5aa6c96ae08fc01a00092e",
+      "seconds": 2.653,
+      "png_sha256": "e1d3d46291114ab80220d6373d8cfd90e675660bb6115c00a2a2f8b263786781",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         241,
         135
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         19.57025909423828,
         31.934967041015625,
@@ -3973,7 +3973,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.344,
-      "png_sha256": "04c37b05918bfc36d7cd8165bd9556c11f07802600cbdb216e7a963579973946",
+      "seconds": 2.236,
+      "png_sha256": "e3fc55ce999b834173da4e1e2707f42ae31e3caf240abee273e527ad48ebe57d",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         252,
         125
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         10.85430908203125,
         29.248661041259766,
@@ -4122,7 +4122,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.341,
-      "png_sha256": "b07d46919e577bbcb1c86f9f1a02db3d1b01732a6f2c71602cacfc889288e17a",
+      "seconds": 3.008,
+      "png_sha256": "32345315675b06e414f3f18b696313c17a8fafaac7ac20155b325d5cbdcfa694",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         259,
         113
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         6.8008575439453125,
         26.623504638671875,
@@ -4271,7 +4271,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.34,
-      "png_sha256": "4313910bc6c55301dec7e4a333643e659b55f3c52e26fa5799a909317dae8201",
+      "seconds": 2.415,
+      "png_sha256": "497424df21a765b9ef47aa6577b3523b394e92149286586ab30ed5833dbfb702",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         261,
         102
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         7.3041839599609375,
         24.160385131835938,
@@ -4420,7 +4420,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.309,
-      "png_sha256": "e10e8a52da5b471898afe4e5856204fd7b3c121c8eb6a5f840e4e2b40f0a2007",
+      "seconds": 2.637,
+      "png_sha256": "41a37a058d4917d0233219a0b497dbdf6c08fedbb30af30960c647b633470bb0",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         259,
         106
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         6.8008575439453125,
         21.953964233398438,
@@ -4569,7 +4569,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.322,
-      "png_sha256": "bf9fb32c41dd5da0254160e0964429c94f96fe1e295b71929f1206c8c97cc02c",
+      "seconds": 2.885,
+      "png_sha256": "1cbe35ed46961ac957de7a5dc48257815042c26fb1b6c53dc3fad6433f3136ab",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         252,
         117
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         10.85430908203125,
         20.089019775390625,
@@ -4718,7 +4718,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.393,
-      "png_sha256": "46bdd0e72ceb12d736b7e9eee0d47831dcdda2c88ad7c666ee9697f27448683a",
+      "seconds": 2.627,
+      "png_sha256": "9ee1ee56045fcb310413cd1ab16e5f2b317b07195e48dae04db425aaf8d9b049",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         241,
         127
       ],
-      "vertices": 15710,
-      "triangles": 29504,
-      "parts": 218,
+      "vertices": 21740,
+      "triangles": 40184,
+      "parts": 307,
       "projected_vertex_bounds_px": [
         19.57025909423828,
         18.637237548828125,
@@ -4867,7 +4867,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "cobalt_frigate",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.335,
-      "png_sha256": "11aaff5f84b03b293032eb6512a938b940d18193cfdaa08d831794b29c42ebfb",
+      "seconds": 3.573,
+      "png_sha256": "1bba44c36267c39db913dd28f8b5655ef8ae1d0655f925f961f87768ca4c1859",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.96,

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "tideledger_coaster",
   "headings": 32,
-  "atlas_sha256": "0188be4a5e2d8a18d7f828d68a4e8e5436a7ac25a365ccee59101227b075793b",
+  "atlas_sha256": "a04f662910f292d3b93c66d1bf051bac9d517ddc7bfa5e817c3bd33d7659c5df",
   "canvas_config": {
     "cell_px": [
       288,
@@ -205,9 +205,9 @@
     ],
     [
       4,
-      39,
+      38,
       266,
-      86
+      87
     ],
     [
       5,
@@ -230,9 +230,9 @@
         253,
         151
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         25.87915802001953,
         15.9774169921875,
@@ -248,7 +248,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.855,
-      "png_sha256": "6cbdcf72d4806184bb70aba00e6b71e23e70e213d889db4b84c84655870ba82d",
+      "seconds": 4.447,
+      "png_sha256": "0b1740a9ef2f20c2dff1ab2aec5a9efb27c8bf88a51c81dfc62d26ffa5ccaa60",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         239,
         156
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         41.83782958984375,
         10.545494079589844,
@@ -397,7 +397,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.889,
-      "png_sha256": "0ae0fede99e316b02c704db44206db9d6eb45dda4b496b61f3d94ea5bb406fba",
+      "seconds": 4.143,
+      "png_sha256": "eab3e8a7488c0d33dfb630a2d79604ae292345bdb38e5b50521cc9dee84f566b",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         221,
         158
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         58.47454071044922,
         7.4737396240234375,
@@ -546,7 +546,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.808,
-      "png_sha256": "420bd39fe8fd49617878118d4c83e6da6c47b3f62fac8d8b8d4efb7857464f63",
+      "seconds": 3.619,
+      "png_sha256": "5113148d059da2410cecc9d25dc18c9f92ce7bd77c552afd15230618981a4323",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         205,
         159
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         77.69981384277344,
         6.8791961669921875,
@@ -695,7 +695,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.808,
-      "png_sha256": "378be4bcdd59d30c3abbbf87716a614630ff1eadc258fea76950839b12c890dc",
+      "seconds": 3.64,
+      "png_sha256": "a8993dab20f607c26f3c33c4f4d4d1b14c24bfc59b002fe085d05630bfc947a8",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         194,
         157
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         96.29630279541016,
         8.783714294433594,
@@ -844,7 +844,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.786,
-      "png_sha256": "6916278698c05a712c80ce2a47fb2564bdc371168c48cd1d4b3b792d051a16ad",
+      "seconds": 4.191,
+      "png_sha256": "48053c10c5898ce6cf16698c1d6db8d93b34919fdeb1756340aea1aa3641137e",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         213,
         159
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         85.47215270996094,
         6.8791961669921875,
@@ -993,7 +993,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.8,
-      "png_sha256": "ecaef5274ebac9f9bf0900841ece6e2b48e1c5dc01d2129bd6332febc2d3a130",
+      "seconds": 3.21,
+      "png_sha256": "75b66d4eafcc92b347fb72d102a6d1b4817c2e5564234e2baeedc07d5798ccaa",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         232,
         158
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         69.2702407836914,
         7.4737396240234375,
@@ -1142,7 +1142,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.813,
-      "png_sha256": "8661c4c9b3751661399137883cd1fa7395c20eeb649db9b1c1fd28280e86f750",
+      "seconds": 3.99,
+      "png_sha256": "3d731fc6719834fae091f424fe41276e8ab26c1e1fa2b5d00db7c3946aaed796",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         249,
         156
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         51.785247802734375,
         10.545494079589844,
@@ -1291,7 +1291,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.839,
-      "png_sha256": "0fbb5081c17e4efe413725fce7c1b5a154279a0ef45a028057a0af9774803026",
+      "seconds": 3.619,
+      "png_sha256": "200ec3b72c7cc601ade4248f749b9e74063d1831ae15a65f0b54234114364339",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         265,
         151
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         37.50596618652344,
         15.9774169921875,
@@ -1440,7 +1440,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.818,
-      "png_sha256": "611f5dfad144e135cf3c2ba1c0ae5c97af2a27f9d713cc4cd6ef455f3ffe264e",
+      "seconds": 3.852,
+      "png_sha256": "744351c1095fa76b6613f229437a0aa99f618853ee1563b4023224c199750f59",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         276,
         144
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         27.3192138671875,
         23.557785034179688,
@@ -1589,7 +1589,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.86,
-      "png_sha256": "bfc11defc0da7db2ee839360be6c41c12e83d43d22dd5811507d29f454046f7c",
+      "seconds": 3.263,
+      "png_sha256": "6184832889f16ee94137f6e838f105e16d1afb8bb23d5be447cdfeac903aa087",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         283,
         135
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         21.616424560546875,
         25.61681365966797,
@@ -1738,7 +1738,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.811,
-      "png_sha256": "13430fb60c4a62e2044918c35ec08b8678ca0eba2b419f6d8f24f7a36f42dfc7",
+      "seconds": 3.591,
+      "png_sha256": "5ae1c11516f4c298f071645803dd802625ade56c8668d5c1727100534ed8bc3a",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         284,
         125
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         20.61676788330078,
         25.829818725585938,
@@ -1887,7 +1887,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.81,
-      "png_sha256": "08c54e24ca456b87ce18720d75c96481821b73144734e5ea443e82a5e4cf7cab",
+      "seconds": 3.675,
+      "png_sha256": "737e1e6ac2c91c6481400e886a7cd42be74a981a25d7a095c4408cc9127c5f2c",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         281,
         114
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         24.358665466308594,
         26.77190399169922,
@@ -2036,7 +2036,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.793,
-      "png_sha256": "ecec342369d84eb17dabe590299129851b77ff165ea9c0e8a0413359e258a339",
+      "seconds": 3.589,
+      "png_sha256": "1dd2acba015a0e8de2a8e75fde18fe48f162f1f27436a5baa9d159c0dc838302",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         284,
         126
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         20.61676788330078,
         28.410301208496094,
@@ -2185,7 +2185,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.795,
-      "png_sha256": "eeba0115c88a7c4af0774274aad932db3f059aaa6d8ea86a8b3a1210760de465",
+      "seconds": 3.698,
+      "png_sha256": "fce30b916c01e9b48aa1cf9007c92472436000821224d3ddbcb8f6f022aafbd8",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         283,
         138
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         21.616424560546875,
         30.696983337402344,
@@ -2334,7 +2334,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.803,
-      "png_sha256": "b60e558100b89060a8aa75e7dd0f77aa4fe0c89a2e18aa26961e9f97cc367f20",
+      "seconds": 3.745,
+      "png_sha256": "9a31d13f4025ae4b55afa601f5866ad5fb9dfd0d61731a5d81a6a9f655e27654",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         276,
         148
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         27.3192138671875,
         30.775436401367188,
@@ -2483,7 +2483,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.819,
-      "png_sha256": "6c1c80e5fa28fb144cb036445b6fe24628cc844ebbf82da88efcd6ad9ece5494",
+      "seconds": 4.006,
+      "png_sha256": "8e36a30810c9487c3e559d4a9d02ee546ed72f11bdbcfde0a7726bab820e4e00",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         265,
         156
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         37.50596618652344,
         24.745452880859375,
@@ -2632,7 +2632,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.814,
-      "png_sha256": "97e067ffadd4a4543a0b39c111da9c5695170282bcef2e6a1423f124b2fbeb70",
+      "seconds": 4.28,
+      "png_sha256": "2d7d3f8f57220c5b0b9f4d0740d775b0a7222362efc122847fd7befd2cc1b688",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         249,
         162
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         51.785247802734375,
         19.64202880859375,
@@ -2781,7 +2781,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.833,
-      "png_sha256": "0cac72ffca0bfe873d1e5180f00f44599bc0877a4350114edeb616734f6233d1",
+      "seconds": 3.825,
+      "png_sha256": "db3808a01423ce8d235e2cb0aa092e7014869cb740e29b612c84c2bbe20b3307",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         232,
         165
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         69.2702407836914,
         16.77649688720703,
@@ -2930,7 +2930,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.844,
-      "png_sha256": "d23dfe6775626b018a6b94ccc66ebc0608f12003e67ea5c5e447a44cb81ed24d",
+      "seconds": 3.434,
+      "png_sha256": "91e8f98636c7bb641e33768d29f2aae79c646084d9ef50c94c7f01a23afec80e",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         213,
         166
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         85.47215270996094,
         16.233444213867188,
@@ -3079,7 +3079,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.812,
-      "png_sha256": "7248e339f49d433206d6f437759c67cf83172ca1e701177e311762111fdc8977",
+      "seconds": 3.685,
+      "png_sha256": "427f7ff98d4d95292033a69301fcd3f2d07fa00b0309bb8a0070f093163de265",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         194,
         164
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         96.29630279541016,
         18.042930603027344,
@@ -3228,7 +3228,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.761,
-      "png_sha256": "e766c6d0d1420846da33f78af231b444a9c8c31a453a7b559b5c09feae6ae0a5",
+      "seconds": 3.824,
+      "png_sha256": "e5046c7a11f0a8746a1c5be4c25e1c404b933a143fa8fe00aa57780d92752f0b",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         205,
         166
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         77.69981384277344,
         16.233444213867188,
@@ -3377,7 +3377,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.782,
-      "png_sha256": "82d3b49b6a6a2bb2648ed9fa41a6afd7b37d659b01a809e369856b84fa057c2b",
+      "seconds": 3.018,
+      "png_sha256": "cf4789310d1171dd3ba8177c04938e688140b03387c3e20e4933ef0c1c4f8f97",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         221,
         165
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         58.47454071044922,
         16.77649688720703,
@@ -3526,7 +3526,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.797,
-      "png_sha256": "913f873a5a9f11c07a9585db64b73cd24cffe7d960e3d5a920635cfbd2fa6ce3",
+      "seconds": 3.091,
+      "png_sha256": "bd824b123f4173b95c0068ea315c14f882846268ae03c15709df02c9dbdbca81",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         239,
         162
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         41.83782958984375,
         19.64202880859375,
@@ -3675,7 +3675,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.831,
-      "png_sha256": "049b3b6fc385780384ce3daef6c6c735695facbcafe94f3bf46ac0b0224e8dfa",
+      "seconds": 3.521,
+      "png_sha256": "78541295eb5bc25d732319ca5a50e3d0543d7a319d6b886128b377e95199524f",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         253,
         156
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         25.87915802001953,
         24.745452880859375,
@@ -3824,7 +3824,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.851,
-      "png_sha256": "d105b3208ea92ac5ae035848f1c9c919447b8c838cb05bc819b518897a4afdca",
+      "seconds": 4.96,
+      "png_sha256": "cd159c9af499d884b9287eb31299f1d0711d54b61ff334f458daf631f740b8c1",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         263,
         148
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         14.459823608398438,
         30.775436401367188,
@@ -3973,7 +3973,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.832,
-      "png_sha256": "f9f0db20559f0dea05fe5044743d7e81a7f8a3b3b033d82dfcf065355cba88ee",
+      "seconds": 3.58,
+      "png_sha256": "c4ea0af913824ae0ca1e71a178b91699175b7a1a9f9b02f3b5fabe2d0a2c20f8",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         269,
         138
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         7.97320556640625,
         36.836997985839844,
@@ -4122,7 +4122,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.801,
-      "png_sha256": "ac5346dafc1cc241abf63fedfcb1adc3773173ea5e5b6befcafa44dac8fa6b47",
+      "seconds": 4.25,
+      "png_sha256": "8598b09c103d1f8e3519eb9231cce470eeda3625b9042c75f786855b6adbcb28",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         270,
         126
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         6.5702972412109375,
         44.26755142211914,
@@ -4271,7 +4271,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.801,
-      "png_sha256": "f6377f997bf99c829575322089c93f291a62d7040cb8ef84efd2e6741183baba",
+      "seconds": 3.98,
+      "png_sha256": "a82fe7690b5ecd30fe814304b3e566119b7234474aee1c02bf1f350e9aee119e",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         266,
         114
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         10.059844970703125,
         49.52305603027344,
@@ -4420,7 +4420,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.747,
-      "png_sha256": "2c72e7a626b5379c11457ae1f9afdb39cbd1c801a0617f8a5568fef12dcd0a87",
+      "seconds": 3.667,
+      "png_sha256": "6eaa806501f73e75eb2a9ebc26e6d280ae31d156f31e0ec37288d05f3e5c3621",
       "sockets": [
         {
           "id": "mount0",
@@ -4547,16 +4547,16 @@
     {
       "bounds_px": [
         4,
-        39,
+        38,
         270,
         125
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         6.5702972412109375,
-        41.57529830932617,
+        41.0311279296875,
         267.38323974609375,
         122.4485092163086
       ],
@@ -4569,7 +4569,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.809,
-      "png_sha256": "70ef922523e812db50742aeb3865ba5cb512005718a48b3911164c84e138b9a5",
+      "seconds": 3.218,
+      "png_sha256": "6ff9fe7a89f9953a739a40f2c68439a95c52137f91902d617cccc17b599ac4c1",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,12 +4700,12 @@
         269,
         135
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         7.97320556640625,
-        32.785274505615234,
+        32.44906997680664,
         266.3835754394531,
         132.7819061279297
       ],
@@ -4718,7 +4718,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.809,
-      "png_sha256": "8014d6dd19b8645c8319e88f611f96e80aa42b65a1d8a041623cc60e7585161c",
+      "seconds": 3.564,
+      "png_sha256": "0957063745da9e2ae63beafb69413c910862982917a573121d013a2369e99236",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         263,
         144
       ],
-      "vertices": 20004,
-      "triangles": 37788,
-      "parts": 290,
+      "vertices": 27952,
+      "triangles": 51240,
+      "parts": 415,
       "projected_vertex_bounds_px": [
         14.459823608398438,
         23.557785034179688,
@@ -4867,7 +4867,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "tideledger_coaster",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.829,
-      "png_sha256": "9a9d04e1a177e099e6a185bb824f3eb5767ab0c5efd2e8ee16979848e5a2513b",
+      "seconds": 3.451,
+      "png_sha256": "dbb52ab3fdc424ff03dd55ff1149a525b0a2e45694f3b35a35ce6ddbe12e7804",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.38,

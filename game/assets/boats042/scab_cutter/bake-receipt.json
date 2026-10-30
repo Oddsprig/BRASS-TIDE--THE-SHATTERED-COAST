@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "scab_cutter",
   "headings": 32,
-  "atlas_sha256": "842120582f0783df7efc372d1075f8fb8b20ac92b4f57c7d8b458a948983bfa0",
+  "atlas_sha256": "bfe4bd3a7947a4cd425b476fac616687e48023f0aa73afe2c39142b626bb7037",
   "canvas_config": {
     "cell_px": [
       200,
@@ -97,9 +97,9 @@
     ],
     [
       14,
-      24,
+      23,
       176,
-      60
+      61
     ],
     [
       13,
@@ -211,9 +211,9 @@
     ],
     [
       7,
-      26,
+      25,
       168,
-      65
+      66
     ],
     [
       13,
@@ -230,9 +230,9 @@
         161,
         104
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         25.291160583496094,
         15.494613647460938,
@@ -245,10 +245,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -284,12 +284,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.092,
-      "png_sha256": "321ddd9c92108bfb00c5fe7dfa82be40f8841ae988ced251fb527e18be51ba96",
+      "seconds": 2.376,
+      "png_sha256": "e7194b3c6b846e79de935bdea8e06ab3561ba43653eac3199f939dd976654bb6",
       "sockets": [
         {
           "id": "mount0",
@@ -364,9 +364,9 @@
         151,
         109
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         37.42091751098633,
         11.053794860839844,
@@ -379,10 +379,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -418,12 +418,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.184,
-      "png_sha256": "e0f951a3cbd7422c4c39acfe0c505f07748e474b4f58ce32cca31a8bae58879c",
+      "seconds": 2.627,
+      "png_sha256": "70ff8bca44310b22e78efa3b5378403e0514cc7a01985ee936a1584c3f2f46a0",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         140,
         112
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         51.306339263916016,
         8.069740295410156,
@@ -513,10 +513,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -552,12 +552,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.131,
-      "png_sha256": "33c364ecb562fce0eeadf24664f7b53f6b6803f8645b50c58fb625725d822aa3",
+      "seconds": 2.221,
+      "png_sha256": "560315e35409a4c8cc6e28694d6fc04a43e7f50380516b1fd3a4ae3c29d180da",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         131,
         115
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         62.85615921020508,
         6.656105041503906,
@@ -647,10 +647,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -686,12 +686,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.094,
-      "png_sha256": "e73de5b802892aab15c04dacb8697533e9d81812125fb8aed75fc15eb7319ac2",
+      "seconds": 2.094,
+      "png_sha256": "4bfc3df2e9a636d58dfa50dcc4bed54f7302b0b90e12c2ea3fa32aea6328caa7",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         126,
         115
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         71.23577880859375,
         6.866233825683594,
@@ -781,10 +781,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -820,12 +820,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.105,
-      "png_sha256": "302206b007c29fdb4d7205b7ecaf2bfd5a64afbe9632029f9adad56f29ee8a69",
+      "seconds": 2.192,
+      "png_sha256": "32d567b9c3fbc52c15c9732791f30bda9b2099852698e6c37ee67022d6541ecf",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         134,
         115
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         65.87347412109375,
         6.656105041503906,
@@ -915,10 +915,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -954,12 +954,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.089,
-      "png_sha256": "e9c4c535e1a951c09fdb3c85b5d4260bf22fd54955e857e91e00e9e5cdc20638",
+      "seconds": 2.256,
+      "png_sha256": "7754fa0c900ec5faeaa00894f098d0f0ad48e0bbcc82a54c8c4680c0c3f6aee0",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         145,
         112
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         57.194007873535156,
         8.069740295410156,
@@ -1049,10 +1049,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1088,12 +1088,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.126,
-      "png_sha256": "1748c2a4114692268648f5dff3f27b7e5bb7782443d4beeb7c483b1e4a3502a9",
+      "seconds": 2.36,
+      "png_sha256": "784507ff36b6cb4af3eb36423e004a43e1e2652cacfc3d579f2cbe2934ac3dba",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,9 +1168,9 @@
         159,
         109
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         45.453643798828125,
         11.053794860839844,
@@ -1183,10 +1183,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1222,12 +1222,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.106,
-      "png_sha256": "5dc895d847c3cb4a160efefc6e7aca62dafa07bcd3dfb5517fb83311c7f857ac",
+      "seconds": 2.2,
+      "png_sha256": "f73257f4708ad4a612ab940f6edb30725971f859233918b69c897c34e79c873b",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,9 +1302,9 @@
         171,
         104
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         35.69417190551758,
         15.494613647460938,
@@ -1317,10 +1317,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1356,12 +1356,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.148,
-      "png_sha256": "6f8232bc0cfaee7b1c03d88c64da67f60cfa3c081fa915453819df3d46b34a68",
+      "seconds": 1.952,
+      "png_sha256": "abff2e63be2c20dcfbd1630702b8639b6b0009295a12aa0e1fdda1a76d84d72b",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,12 +1436,12 @@
         181,
         98
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         28.2784423828125,
-        20.086257934570312,
+        19.770545959472656,
         178.08287048339844,
         95.56233215332031
       ],
@@ -1451,10 +1451,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1490,12 +1490,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.119,
-      "png_sha256": "fe18d4ac9cb0dedaad1ba5bdf35d9310910d2e82bbd16e1eac428555f1094f74",
+      "seconds": 2.267,
+      "png_sha256": "0c4cb342d35c631c6dd4ab6ad91982d1ee50888f030b9b0696d24f2b657059a4",
       "sockets": [
         {
           "id": "mount0",
@@ -1570,12 +1570,12 @@
         187,
         91
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         21.255577087402344,
-        23.051044464111328,
+        22.729534149169922,
         184.38632202148438,
         88.54119873046875
       ],
@@ -1585,10 +1585,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1624,12 +1624,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.146,
-      "png_sha256": "dfa34b4858d76bb6f68fd45189c9d35aa173fdb6ec4d9f9968905f2c7f4e4093",
+      "seconds": 2.118,
+      "png_sha256": "281e0b7d8bb859e5931ab5633d25b2cf2080c11e3cac04ce6849d3104c35e111",
       "sockets": [
         {
           "id": "mount0",
@@ -1700,16 +1700,16 @@
     {
       "bounds_px": [
         14,
-        24,
+        23,
         190,
         84
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         16.720565795898438,
-        26.461952209472656,
+        26.146236419677734,
         187.42002868652344,
         80.92283630371094
       ],
@@ -1719,10 +1719,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1758,12 +1758,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.114,
-      "png_sha256": "649f591b2c98693b7ed344c84e571e30001eb863281bdd8cae9ca8b2c1970333",
+      "seconds": 2.046,
+      "png_sha256": "9fbe7d5e50be071521a52616d22083d2613783162165b5364b102f02ad1b13cb",
       "sockets": [
         {
           "id": "mount0",
@@ -1838,12 +1838,12 @@
         190,
         80
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         15.270652770996094,
-        30.144302368164062,
+        29.822792053222656,
         187.29074096679688,
         76.8924331665039
       ],
@@ -1853,10 +1853,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -1892,12 +1892,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.116,
-      "png_sha256": "9331074180def8a6561fabd574e8a3cde139d0c3f70c13db6819e03fd16e03fb",
+      "seconds": 2.13,
+      "png_sha256": "0d72635735151ddd7a61108c330d10b9af3f4dd4a168507aafbefe79f91317e3",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,12 +1972,12 @@
         190,
         88
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         16.720565795898438,
-        33.79205322265625,
+        33.68446731567383,
         187.42002868652344,
         85.54180908203125
       ],
@@ -1987,10 +1987,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2026,12 +2026,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.113,
-      "png_sha256": "c0f6b2efe4ef90b2daa3f8a17cb086a019e2478bee5f351095edbc13e15d0958",
+      "seconds": 1.728,
+      "png_sha256": "e0868dc99ebaa99114e62b2648e4a7ab506654f4b77196a0a0bf13cbc5bef9b9",
       "sockets": [
         {
           "id": "mount0",
@@ -2106,9 +2106,9 @@
         187,
         96
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         21.255577087402344,
         30.90343475341797,
@@ -2121,10 +2121,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2160,12 +2160,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.134,
-      "png_sha256": "fc13633f0e3a9cbcab429f4c214a08038a712f2e4973ea3c974689041c9a7ccf",
+      "seconds": 2.254,
+      "png_sha256": "d148d4e338951f88c08e9c015292c9fb285cf5c5f68b9c6a70fc3592dcbe493a",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,9 +2240,9 @@
         181,
         104
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         28.2784423828125,
         26.29812240600586,
@@ -2255,10 +2255,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2294,12 +2294,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.119,
-      "png_sha256": "1c84b133d7207d71bffebc6e29d2bdedfa8be42fa43f3dd784498fcc5a9d142a",
+      "seconds": 2.628,
+      "png_sha256": "01cd974883a98b87e73ebb7180cae3639a3abbab99065f6a78f7ead89184b813",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,9 +2374,9 @@
         171,
         110
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         35.69417190551758,
         22.424087524414062,
@@ -2389,10 +2389,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2428,12 +2428,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.141,
-      "png_sha256": "cb859cabe0ac9802585be7495c196b8963fd233515699696701cffaec20b98e8",
+      "seconds": 2.382,
+      "png_sha256": "eb0bcd9a1ba0c1efb89f4115a301d888ad62f7205adf8a0c418ddada090c634b",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,9 +2508,9 @@
         159,
         115
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         45.453643798828125,
         19.58905792236328,
@@ -2523,10 +2523,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2562,12 +2562,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.138,
-      "png_sha256": "c622293defd4473cac1b14780aeebd402356370076f446c80f8f1a592705a493",
+      "seconds": 2.534,
+      "png_sha256": "210c9963d34eed4d4121f255ec9dafc0598ab31114e478ef3788cc5d1cb4c3fe",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,9 +2642,9 @@
         145,
         118
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         57.194007873535156,
         17.117507934570312,
@@ -2657,10 +2657,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2696,12 +2696,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.144,
-      "png_sha256": "e7d7de63809625fe47d932b5224b349b1e364659fc4e9021cdb88bfc3284dbb7",
+      "seconds": 2.587,
+      "png_sha256": "eb57ee8b9cd012ed0f9ae60700881b4a7f5f087ea24fc2357cc97b7c0a29d5dd",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,9 +2776,9 @@
         134,
         120
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         65.87347412109375,
         14.838287353515625,
@@ -2791,10 +2791,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2830,12 +2830,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.119,
-      "png_sha256": "d6fb06991e1c62dcd1bec582c8c30d81e9f955d3ddd496848f5bd4e76b5cbc1f",
+      "seconds": 2.548,
+      "png_sha256": "695b80f5165ec45d4e7cae48e9a7daa09c6eb773f4c3c3fd7b1a1ac241191d76",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,9 +2910,9 @@
         126,
         120
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         71.23577880859375,
         14.095634460449219,
@@ -2925,10 +2925,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2964,12 +2964,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.128,
-      "png_sha256": "db2b9441d883caaf73863e867f9dfaaf381fd2fce73076ddba7dc5d0d693f769",
+      "seconds": 2.262,
+      "png_sha256": "024974cac5c8f3d912b4476a080ff05b24be06caacc36d956e87f51d6c1e3f0d",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,9 +3044,9 @@
         131,
         120
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         62.85615921020508,
         14.838287353515625,
@@ -3059,10 +3059,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3098,12 +3098,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.111,
-      "png_sha256": "eb8c1421bdd796f7e6910362e1d378b8600a7243a78ec8a0a575ed59a06d026c",
+      "seconds": 2.442,
+      "png_sha256": "64357d03874f372992bb8dbc6d9df78450a32e90b6bb9c7ed4d227b137853cc2",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,9 +3178,9 @@
         140,
         118
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         51.306339263916016,
         17.117507934570312,
@@ -3193,10 +3193,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3232,12 +3232,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.168,
-      "png_sha256": "0b7599ddfc721c0edb7f195b174ddde4fe4ec6e1c1c2000d9dc1d4b9ededd823",
+      "seconds": 2.438,
+      "png_sha256": "c799564b5736cc55c3c26f409f3f1c149a3554416ee6f2905a46a847342cf30e",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,9 +3312,9 @@
         151,
         115
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         37.42091751098633,
         19.58905792236328,
@@ -3327,10 +3327,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3366,12 +3366,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.134,
-      "png_sha256": "874a8614b33f04c120b71957d0f58f7b1fc85652fe2e9020fbf99775e54b7c6d",
+      "seconds": 2.277,
+      "png_sha256": "171df06127f78b41f3e642797aab649a225782cedb13e833cfbc4bb13b9d4834",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,9 +3446,9 @@
         161,
         110
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         25.291160583496094,
         22.424087524414062,
@@ -3461,10 +3461,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3500,12 +3500,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.15,
-      "png_sha256": "1c23675d3ae1641ee851ada14be5c03b265c40076074cb518c34998c7f1e3b95",
+      "seconds": 1.851,
+      "png_sha256": "fcf6b60ee660c12762be33bc2aa5a8ba480ffe7ddba98537cea3eaada1a04275",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,9 +3580,9 @@
         168,
         104
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         15.917129516601562,
         26.29812240600586,
@@ -3595,10 +3595,10 @@
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3634,12 +3634,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.119,
-      "png_sha256": "90a0e0004f67d8398e3c354cb177cfaee0ec68d022d1dd53e13978caa8c77e02",
+      "seconds": 2.499,
+      "png_sha256": "d592cc7d4970479fbab9ccef06a46ab1792f88cdade352d939326c7743e7d11b",
       "sockets": [
         {
           "id": "mount0",
@@ -3714,9 +3714,9 @@
         175,
         96
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         9.613677978515625,
         30.90343475341797,
@@ -3729,10 +3729,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3768,12 +3768,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.131,
-      "png_sha256": "8bc3401181cf575e367857e76d46f4ec82c3d657aed763fc8d17fdc21ea7fcfb",
+      "seconds": 2.472,
+      "png_sha256": "183f1c35131c735e4cf0e64a4979e61e5506bdd74cf7d1637f44cc1d8efa1df5",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,9 +3848,9 @@
         180,
         88
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         6.5799713134765625,
         33.79205322265625,
@@ -3863,10 +3863,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -3902,12 +3902,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.107,
-      "png_sha256": "6da18f245927dd27885366ea95bfc82cf7e8b975426ce9ff3417a942134f1718",
+      "seconds": 2.447,
+      "png_sha256": "8dc1d70271ecfc7d4e9c800a523e54f8cb8ba831edd8d3ad220fe7dc1d971222",
       "sockets": [
         {
           "id": "mount0",
@@ -3982,9 +3982,9 @@
         181,
         80
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         6.709259033203125,
         33.76776123046875,
@@ -3997,10 +3997,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -4036,12 +4036,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.106,
-      "png_sha256": "afb9d95ae92efa2c0c816c1765d64692e3ddf040fd684abc1f1b42906410892b",
+      "seconds": 2.306,
+      "png_sha256": "b89f506471bea3e77214de74e70424731f4f55c93fbec1641921440309ffa78e",
       "sockets": [
         {
           "id": "mount0",
@@ -4116,9 +4116,9 @@
         180,
         84
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         6.5799713134765625,
         31.48442840576172,
@@ -4131,10 +4131,10 @@
         0.0,
         35.23863983154297,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -4170,12 +4170,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.109,
-      "png_sha256": "0d22a37d430fda18bc3f796ae45bf4156ae6a55cd64fe31b95770b4dab58b259",
+      "seconds": 2.374,
+      "png_sha256": "47a89ad253637a51979337c5676728e43a9c73ca5eb237035db89086272b3ce7",
       "sockets": [
         {
           "id": "mount0",
@@ -4246,13 +4246,13 @@
     {
       "bounds_px": [
         7,
-        26,
+        25,
         175,
         91
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         9.613677978515625,
         28.00861358642578,
@@ -4265,10 +4265,10 @@
         0.0,
         35.23863983154297,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -4304,12 +4304,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.119,
-      "png_sha256": "223acdd9181eba620cc6c007593f625dd099d9b625d70e1a56e5e22e3bde8ca8",
+      "seconds": 2.553,
+      "png_sha256": "9b354c6a16ad82404d407682aff9e472d7828bd1547ec7ca543c5890c39894a9",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,9 +4384,9 @@
         168,
         98
       ],
-      "vertices": 12518,
-      "triangles": 23592,
-      "parts": 177,
+      "vertices": 17864,
+      "triangles": 32960,
+      "parts": 259,
       "projected_vertex_bounds_px": [
         15.917129516601562,
         21.218547821044922,
@@ -4399,10 +4399,10 @@
         0.0,
         35.238643646240234,
         11.10856819152832,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -4438,12 +4438,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "scab_cutter",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.121,
-      "png_sha256": "57909ca5efae98ba5d8c5f23b908a14226d868cb0662c79b458d5d4cd94cadc2",
+      "seconds": 2.405,
+      "png_sha256": "72777a030e37b5771fc597f52ef0ac0b6c26c248b73f44f8f5d3f214fbfbb694",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.92,
@@ -4549,7 +4549,7 @@
       ]
     ],
     "physical_size": 17,
-    "minimum_high_structure_clearance_world": 2.754,
+    "minimum_high_structure_clearance_world": 2.0964303057347364,
     "installed_guns_in_hull": false,
     "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
   },

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "fenhopper_lighter",
   "headings": 32,
-  "atlas_sha256": "089c55cbea5ecb82ff8839b496fb59a2d882ef5b117814b2c01f343edfe46244",
+  "atlas_sha256": "f5da3b2216936b6b35e4008493b6788e33fc38ca98a90e73a42419a519bdcbe2",
   "canvas_config": {
     "cell_px": [
       224,
@@ -115,9 +115,9 @@
     ],
     [
       19,
-      24,
+      23,
       198,
-      89
+      90
     ],
     [
       23,
@@ -187,9 +187,9 @@
     ],
     [
       5,
-      24,
+      23,
       198,
-      89
+      90
     ],
     [
       4,
@@ -230,9 +230,9 @@
         193,
         121
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         20.33275604248047,
         13.015419006347656,
@@ -245,10 +245,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.77,
-      "png_sha256": "4cd08e8cb2ab38ce27e63a38f2a67bec634585bdd4b9a26ebbb7be1743549150",
+      "seconds": 4.913,
+      "png_sha256": "b6f7a0dd25001baf0585a694c88efa7bf8fa84e00f2422945f6e838f92a44460",
       "sockets": [
         {
           "id": "mount0",
@@ -364,9 +364,9 @@
         184,
         125
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         31.72962188720703,
         9.083084106445312,
@@ -379,10 +379,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -422,8 +422,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.805,
-      "png_sha256": "50c28e5b4cf1043bf2937e92b54738c4c156e09138a38cc76811e1739ec90249",
+      "seconds": 5.525,
+      "png_sha256": "bee9e8cb6cb44d95f97540f05b0c780361509181ffb628353b595739d2892125",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         173,
         127
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         43.27720642089844,
         6.952247619628906,
@@ -513,10 +513,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -556,8 +556,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.749,
-      "png_sha256": "95ee92a170759a435c02e091831de2c26abeaceddb685600df6a5146634644d9",
+      "seconds": 3.335,
+      "png_sha256": "976222b66dd12f48fa1296c27794418bf07b932e88df3ec11dc2231f4b249b9e",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         161,
         127
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         57.427345275878906,
         6.70379638671875,
@@ -647,10 +647,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -690,8 +690,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.733,
-      "png_sha256": "236b6206f0cc39dcba12f837015d9033ae564000f3e0b219f08cc31de27f4bad",
+      "seconds": 4.334,
+      "png_sha256": "21e7af54d38d4775ced441e2596bb6af9466c93039a6b93ac6f83cdf2d597280",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         152,
         124
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         72.72691345214844,
         8.346282958984375,
@@ -781,10 +781,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -824,8 +824,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.684,
-      "png_sha256": "7c670209c59205d52bf08f288622110e3e3278f2a73e50e2e1ea6a23214fc102",
+      "seconds": 3.699,
+      "png_sha256": "5c2483e58e7eda02076d9362aa62d3e360b679d46e8614ccbd8345e17fa402f7",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         167,
         127
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         63.822975158691406,
         6.70379638671875,
@@ -915,10 +915,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -958,8 +958,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.727,
-      "png_sha256": "cfa377943c0d774e553d578a6e176b6d52880743431e6c38915a023bd7f373aa",
+      "seconds": 3.923,
+      "png_sha256": "c63e7df11eb21194c89557fca6fa7108c8915c78d3ce5dce817d74e2f0dee1e8",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         181,
         127
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         51.911285400390625,
         6.952247619628906,
@@ -1049,10 +1049,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1092,8 +1092,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.722,
-      "png_sha256": "f887a5f83ffe499add230b47212f1c49cdf8a80ba4803319c2a14f2d1dc9e8d8",
+      "seconds": 3.144,
+      "png_sha256": "e172147731c2c2ec6b5ebef74e561e4ece0847842420037c055bd7a2e17c5d45",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,9 +1168,9 @@
         193,
         125
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         40.80250549316406,
         9.083084106445312,
@@ -1183,10 +1183,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1226,8 +1226,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.754,
-      "png_sha256": "3e7c2acd0e68a7145989840cb31b2689a799de6bb7744d1df98d6c19c2263944",
+      "seconds": 2.856,
+      "png_sha256": "f98c56817a7ad554246031ea8380e95ff2c367efdef966822f1be96718dd8027",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,9 +1302,9 @@
         204,
         121
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         32.0477294921875,
         13.015419006347656,
@@ -1317,10 +1317,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1360,8 +1360,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.76,
-      "png_sha256": "3970ac546952be440683a5728b3233b701f4ab8c8876a7306184c1937144ab8f",
+      "seconds": 2.411,
+      "png_sha256": "2c37a25fef2784f319fa81984dc6d8db58771de0a103c5704212c2f443eb18bf",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,12 +1436,12 @@
         213,
         117
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         25.180633544921875,
-        18.504905700683594,
+        18.186256408691406,
         210.0242919921875,
         114.03950500488281
       ],
@@ -1451,10 +1451,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1494,8 +1494,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.748,
-      "png_sha256": "2a4098bd770779083360aaead39154cc6b9474f10c4820a16d40616bb65b323c",
+      "seconds": 2.4,
+      "png_sha256": "4cfeafa76a8675c8715f35442e4d45c95db8e1fab42a22ea6cd8c68e92afc96a",
       "sockets": [
         {
           "id": "mount0",
@@ -1570,12 +1570,12 @@
         217,
         110
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         21.518966674804688,
-        24.096839904785156,
+        23.61239242553711,
         214.6212921142578,
         107.73887634277344
       ],
@@ -1585,10 +1585,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1628,8 +1628,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.745,
-      "png_sha256": "252ffe279fe9c524c1a3fe210c1cf3f0987ee57597f918bedec30fa75c7652ee",
+      "seconds": 2.493,
+      "png_sha256": "030f24e28b980b938a8679c33d545acce959867a1dc57df75259334aa0db7c4d",
       "sockets": [
         {
           "id": "mount0",
@@ -1704,12 +1704,12 @@
         218,
         103
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         21.295997619628906,
-        30.592185974121094,
+        30.19235610961914,
         215.32464599609375,
         100.37226867675781
       ],
@@ -1719,10 +1719,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1762,8 +1762,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.738,
-      "png_sha256": "8df0b4446b8fa2ecb10dc2b4f1a4cff86c54140668aa85dd3198937061dcec22",
+      "seconds": 2.512,
+      "png_sha256": "76b62f759bdaedece62c91cc899e6c3ed2f57a11b81f592141c79d6698548b83",
       "sockets": [
         {
           "id": "mount0",
@@ -1838,12 +1838,12 @@
         215,
         95
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         24.520301818847656,
-        37.68931579589844,
+        37.67265701293945,
         212.33065795898438,
         92.44888305664062
       ],
@@ -1853,10 +1853,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1896,8 +1896,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.696,
-      "png_sha256": "31d28c1fbbcf0c8e08cbbb57f8295d955443df0ceeb0283e39280d34d3001fc6",
+      "seconds": 3.602,
+      "png_sha256": "f4729a090225b7e7e6d6424bed5f59e23598392d6546b71274b55f6549d492ff",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,12 +1972,12 @@
         218,
         104
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         21.295997619628906,
-        31.745994567871094,
+        31.34616470336914,
         215.32464599609375,
         101.35282897949219
       ],
@@ -1987,10 +1987,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2030,8 +2030,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.714,
-      "png_sha256": "f7e2432ea1e4f02fe71c4d206348c316000ea8f00384b25447b2310c033ec1d3",
+      "seconds": 4.416,
+      "png_sha256": "6a43ce11b711c9cce7783b40f755f31d09b91d786db72a59c67da84898fbe62e",
       "sockets": [
         {
           "id": "mount0",
@@ -2102,16 +2102,16 @@
     {
       "bounds_px": [
         19,
-        24,
+        23,
         217,
         113
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         21.518966674804688,
-        26.360122680664062,
+        25.87567138671875,
         214.6212921142578,
         110.06039428710938
       ],
@@ -2121,10 +2121,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2164,8 +2164,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.717,
-      "png_sha256": "7f455bf98a8d7bd4c077ddb7061a5cdc42adc20603dc3c4f1baa70a0811c9c07",
+      "seconds": 3.144,
+      "png_sha256": "e8d24bd8b044b78915a90bdba95e7867b982e9c01dfd9a5c5b54034670c0d94b",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,12 +2240,12 @@
         213,
         120
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         25.180633544921875,
-        21.79068374633789,
+        21.472030639648438,
         210.0242919921875,
         117.56614685058594
       ],
@@ -2255,10 +2255,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2298,8 +2298,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.764,
-      "png_sha256": "af563146f89767d2eff557bab1ddd95c22b442dbc727a87e80ca66e7cf2cc325",
+      "seconds": 2.979,
+      "png_sha256": "c54911e627fcdd2ac36c555431b36b23a8e443fdc033750a75e0abee6896b4b2",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,12 +2374,12 @@
         204,
         126
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         32.0477294921875,
-        18.466903686523438,
+        18.305084228515625,
         201.667236328125,
         123.59761810302734
       ],
@@ -2389,10 +2389,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2432,8 +2432,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.729,
-      "png_sha256": "799a0c16c794f28f8d8987ce50e4e1c83b8ec5a155700b2b60aad2cdaaac2d6f",
+      "seconds": 4.155,
+      "png_sha256": "f01edf9b3c294182496dbda0a78be3cd97231766278479551febdb7f57025128",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,9 +2508,9 @@
         193,
         131
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         40.80250549316406,
         16.48754119873047,
@@ -2523,10 +2523,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2566,8 +2566,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.767,
-      "png_sha256": "e034c1392dd3db090f51bdbdab26fd1f36b9b192cc0c79c0407643d230cfef5f",
+      "seconds": 3.368,
+      "png_sha256": "add19eadd50c304742d1add1a01f1031da936d7ccee4ff53368e3c782a71438b",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,9 +2642,9 @@
         181,
         133
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         51.911285400390625,
         15.9576416015625,
@@ -2657,10 +2657,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2700,8 +2700,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.741,
-      "png_sha256": "4bb8160825b118a618e54f6cce6ad27eaf8684837ef66da8104e3c6a78f413ba",
+      "seconds": 3.171,
+      "png_sha256": "8c230c3900690d73382e397846957120dcd58bfc439af4a2ef591ad1ce453011",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,9 +2776,9 @@
         167,
         134
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         63.822975158691406,
         16.887847900390625,
@@ -2791,10 +2791,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2834,8 +2834,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.762,
-      "png_sha256": "dc0e1089f2714d660abc3695f0d12fe0460257613b6898d265b60062d9a95073",
+      "seconds": 2.86,
+      "png_sha256": "d2a2ae3aa1c5e889984dbfa65bb0658e5b3333c261fb9b17068269415d1735c4",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,9 +2910,9 @@
         152,
         132
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         72.72691345214844,
         18.749439239501953,
@@ -2925,10 +2925,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2968,8 +2968,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.7,
-      "png_sha256": "e936f9e872cb5e5ccce7b87d1d48901836e91e9ef15c3bfdc1271b3fded46b46",
+      "seconds": 2.393,
+      "png_sha256": "53c285034b4d591ccad123e52e6b41ec38ffa416f02207d2c61429942036d7f5",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,9 +3044,9 @@
         161,
         134
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         57.427345275878906,
         16.887847900390625,
@@ -3059,10 +3059,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3102,8 +3102,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.721,
-      "png_sha256": "f43e31b425b3677f4a32021068fb6d09e50b082ec6a7ac0f6dc76f2d9425e30e",
+      "seconds": 2.403,
+      "png_sha256": "de47a94609d0123caf6f67bc994fa3766cc3cfc4c6fc1c20a646c882b4ddb492",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,9 +3178,9 @@
         173,
         133
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         43.27720642089844,
         15.9576416015625,
@@ -3193,10 +3193,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3236,8 +3236,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.729,
-      "png_sha256": "50419cf071f51ee4c1f1492056d5b7d3249d1831f0b2c1d79f703e649ce16631",
+      "seconds": 2.504,
+      "png_sha256": "6725d31c731a42f6d5d898018771c1345c2338b7d68a719ec0aa6ed5244a2617",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,9 +3312,9 @@
         184,
         131
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         31.72962188720703,
         16.48754119873047,
@@ -3327,10 +3327,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3370,8 +3370,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.755,
-      "png_sha256": "43fa9b9b425733642be9c6048b5108ba4543367e652cddb369e9edd0ad137908",
+      "seconds": 2.507,
+      "png_sha256": "5bf6bdbf675cd6111439acd27a02d15084ee22d67b31e33d109885add8c25e4a",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,12 +3446,12 @@
         193,
         126
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         20.33275604248047,
-        18.466903686523438,
+        18.305084228515625,
         189.9522705078125,
         123.59761810302734
       ],
@@ -3461,10 +3461,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3504,8 +3504,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.726,
-      "png_sha256": "5f3f3fff7f61a9a016826ae6ef8ee32d0a48ccf72683c7e1e049d77319b34c5f",
+      "seconds": 3.734,
+      "png_sha256": "18fc035133895fca07e2f09075ba61e0af97a87e7ea261cce10d79197198b73d",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,12 +3580,12 @@
         199,
         120
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         11.975715637207031,
-        21.79068374633789,
+        21.472030639648438,
         196.81936645507812,
         117.56614685058594
       ],
@@ -3595,10 +3595,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3638,8 +3638,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.735,
-      "png_sha256": "29be200fe494428e9b35837b06d36ee30246147679e15b347736855056476c89",
+      "seconds": 3.961,
+      "png_sha256": "a492a67440ca724b82e41317824e6e747a7fdb30f0c815fd98f1b8a1c5034b1a",
       "sockets": [
         {
           "id": "mount0",
@@ -3710,16 +3710,16 @@
     {
       "bounds_px": [
         5,
-        24,
+        23,
         203,
         113
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         7.3787078857421875,
-        26.360122680664062,
+        25.87567138671875,
         200.4810333251953,
         110.06039428710938
       ],
@@ -3729,10 +3729,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3772,8 +3772,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.761,
-      "png_sha256": "17bbbe1ad190a15ed1c7ee4c05e812f774bb2a69198a25b21ed4388b40348dd5",
+      "seconds": 4.191,
+      "png_sha256": "510fc3ebfe358835341000707f4261c9824c2a2e4848adfa6759147c53537f2c",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,12 +3848,12 @@
         203,
         104
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         6.675361633300781,
-        31.745994567871094,
+        31.34616470336914,
         200.70401000976562,
         101.35282897949219
       ],
@@ -3863,10 +3863,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3906,8 +3906,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.733,
-      "png_sha256": "d610f28928c7ff578155bc0dad61056e7df1ca24519bdaf57e447ffe17110835",
+      "seconds": 4.392,
+      "png_sha256": "a27578e6e384e29febf64afd965a0f2ac1293f7c770ab8e6cc1ed9358bf63b19",
       "sockets": [
         {
           "id": "mount0",
@@ -3982,12 +3982,12 @@
         200,
         95
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         9.669342041015625,
-        37.68931579589844,
+        37.67265701293945,
         197.47970581054688,
         92.44888305664062
       ],
@@ -3997,10 +3997,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4040,8 +4040,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.696,
-      "png_sha256": "35c268b338087338c958947fe7859c779bdd6dcc7113549f1bc9806e306030af",
+      "seconds": 2.945,
+      "png_sha256": "6d3b745a87683e50a63e67aa39cfdf7ced0d38415e41dc067fcd6dbcb62bb58a",
       "sockets": [
         {
           "id": "mount0",
@@ -4116,12 +4116,12 @@
         203,
         103
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         6.675361633300781,
-        30.592185974121094,
+        30.19235610961914,
         200.70401000976562,
         100.37226867675781
       ],
@@ -4131,10 +4131,10 @@
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4174,8 +4174,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.729,
-      "png_sha256": "7c746217ea6f941315b6535b13f268c46e58dabb252250382827a92d16ce712f",
+      "seconds": 2.622,
+      "png_sha256": "76bca13bb0031d5f8201e346f87d1b16c453a0a3855d2fafb4c2ac5839416d2d",
       "sockets": [
         {
           "id": "mount0",
@@ -4250,12 +4250,12 @@
         203,
         110
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         7.3787078857421875,
-        24.096839904785156,
+        23.61239242553711,
         200.4810333251953,
         107.73887634277344
       ],
@@ -4265,10 +4265,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4308,8 +4308,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.73,
-      "png_sha256": "a5eacd2f9ab5ba849257dcc74f794fa692db788f7fa5e11c6aa7bae807d96852",
+      "seconds": 2.649,
+      "png_sha256": "2ff42397d3c0599a6193b7c45ab5ef0798ef73d7bd54852a8a3790301122643b",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,12 +4384,12 @@
         199,
         117
       ],
-      "vertices": 19196,
-      "triangles": 36432,
-      "parts": 274,
+      "vertices": 27352,
+      "triangles": 50288,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         11.975715637207031,
-        18.504905700683594,
+        18.186256408691406,
         196.81936645507812,
         114.03950500488281
       ],
@@ -4399,10 +4399,10 @@
         0.0,
         37.28681564331055,
         16.501922607421875,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4442,8 +4442,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "fenhopper_lighter",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.746,
-      "png_sha256": "9e8c4764e6c3e90ebfd33746a0116675108aba5efca99cbb6f896b0b40e750f9",
+      "seconds": 2.555,
+      "png_sha256": "e1f0dd96bb0315164a1de1bff5143764afc40c385af66451b1af108b8b23c7c0",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.2,

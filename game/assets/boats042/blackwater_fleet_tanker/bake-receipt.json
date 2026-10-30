@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "blackwater_fleet_tanker",
   "headings": 32,
-  "atlas_sha256": "a4af9f7b7b646f930449beda94bd5ba3dbb0d3d7aed704f4fc32dfbabdb412d8",
+  "atlas_sha256": "49018762bcb1f399fec3aee9f2b6d4a742b3196f0add32c32f1dff8e0f1d29f9",
   "canvas_config": {
     "cell_px": [
       376,
@@ -230,9 +230,9 @@
         306,
         176
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         41.3111572265625,
         23.72661590576172,
@@ -245,10 +245,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.605,
-      "png_sha256": "ce7cae0cd7b51b05c2c76d4cf43a211d62fd9cbe30d4c623e7a3bd71ab319c93",
+      "seconds": 3.776,
+      "png_sha256": "af26fb5f396852bc6d74cd94b17563dea70332237924ba28d357432262c21912",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         285,
         186
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         64.80638885498047,
         15.084251403808594,
@@ -394,10 +394,10 @@
         0.0,
         70.97940063476562,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.649,
-      "png_sha256": "635e1f68daf78c70d579a99df1b61b07d8f864fe8914a4992260f8c4f6655280",
+      "seconds": 2.72,
+      "png_sha256": "cd039a113e7dedb8f7fb12f5a4b0c5f2afbf43f41364f2ddcf841b9053d3ce1f",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         266,
         194
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         89.42528533935547,
         9.396202087402344,
@@ -543,10 +543,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.596,
-      "png_sha256": "a40e2ee51b0c8a116f4da4569e272cd14e1cea59d734a50c4e315a7c5764db1a",
+      "seconds": 3.273,
+      "png_sha256": "9241df735ee960c47766de9ea639bd50771c9e97e8a0280ebda0254d1fecb4d5",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         251,
         197
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         113.16436767578125,
         6.880088806152344,
@@ -692,10 +692,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.608,
-      "png_sha256": "5c443cdb7db69731bc0ec3437e884d10687baf1e81752f087597c695945833a0",
+      "seconds": 4.031,
+      "png_sha256": "973b2b55e3b9c940f83d68652130896a706ac902aa2f14da42e97f83587bc4d1",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         242,
         199
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         132.70225524902344,
         7.631599426269531,
@@ -841,10 +841,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.532,
-      "png_sha256": "42d814b8c0786c1b807eaae4624373c81c1221c7592744aeaf30c41694f1d32a",
+      "seconds": 3.885,
+      "png_sha256": "8379c8840103cfa157a540491b5f27c76f9169435e31ee0c3b38ae8783fd051a",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         262,
         197
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         123.35514831542969,
         6.880088806152344,
@@ -990,10 +990,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.616,
-      "png_sha256": "f96d1921f3fc82059251672e604b1541bfdaafcd603ade75767526fdb8713a11",
+      "seconds": 3.21,
+      "png_sha256": "53f11367d31198ffac50ef1db238e6530b842c1f0c52ae37f31928dcee91b15a",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         285,
         194
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         109.08805847167969,
         9.396202087402344,
@@ -1139,10 +1139,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.616,
-      "png_sha256": "6c4b6d974e047d85d2f38403bbb37f0937c14a46292d8f76240ed56c9fa077a9",
+      "seconds": 3.308,
+      "png_sha256": "95434000a6e86ec269e222cb174f6fa6c2e84105794782115f4de875ef09f83b",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         310,
         186
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         89.5746078491211,
         15.084251403808594,
@@ -1288,10 +1288,10 @@
         0.0,
         70.97940063476562,
         22.979997634887695,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.591,
-      "png_sha256": "5c2c0e741b3cd5b40f5699276bd369ebd8ec88a053d502c71823a93b897758d8",
+      "seconds": 3.15,
+      "png_sha256": "1761f8e3bdf198dbf6dcaea5ab2ab5af1d45c01a862853a37c00cd576139981a",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         333,
         176
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         68.21674346923828,
         23.72661590576172,
@@ -1437,10 +1437,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.616,
-      "png_sha256": "ca8770fc4065770fe0c1422fe4ad0116cd31fda02770ca646d8f0580bb950ee9",
+      "seconds": 2.52,
+      "png_sha256": "d4beb363214abfcf7cb8ee386eae0a74c3669043ebd34e7682c6f2e6ffbdf303",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         351,
         164
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         48.780364990234375,
         34.98822021484375,
@@ -1586,10 +1586,10 @@
         0.0,
         70.97940063476562,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.588,
-      "png_sha256": "5d584a8d8a7bd3511936f5f97b78d3992d61db410cd7a1f81d18bdfddcf69e26",
+      "seconds": 2.356,
+      "png_sha256": "31702b413ef2c6c19e1a450f84e19a1a41a587ef5fc22e6003c4b622a222e009",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         363,
         150
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         33.6734619140625,
         48.43925476074219,
@@ -1735,10 +1735,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.57,
-      "png_sha256": "fb92ee7fd950337d002f833dc600ff7ccd17d0a8654861a3c1298f832250432f",
+      "seconds": 2.209,
+      "png_sha256": "3ce4fdc2e0f9d3ddd4b09616927b95c5d2bb12b6a9256070a6e111271e72e9fe",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         368,
         139
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         24.420394897460938,
         58.92919158935547,
@@ -1884,10 +1884,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.556,
-      "png_sha256": "8691439eeaa8676087eb0895b6cba26638acda6e5fd2fde89966da23a8ceee69",
+      "seconds": 2.058,
+      "png_sha256": "a863400ca16dc4af2ec57c485b8a3861d0fe0d141d55518c9010b51d65994e48",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         367,
         134
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         21.376724243164062,
         67.49559020996094,
@@ -2033,10 +2033,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.522,
-      "png_sha256": "d1c6be06689973e24696b50bb5ce0680a24e5de78ae7dbf48663d0edfa3d723e",
+      "seconds": 2.696,
+      "png_sha256": "74116524c175132a583bd128b086ce9302e151e487d1f24700fed29c17e1917e",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         368,
         147
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         24.420394897460938,
         63.34233093261719,
@@ -2182,10 +2182,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.535,
-      "png_sha256": "22d68573b277c8b2298dd979cceb758a5ec32fd149a690dae5bd4a9aa3296680",
+      "seconds": 2.578,
+      "png_sha256": "2d71ec01ff971111da0510c2f6981b038b4a608f3f422d93353ce0a371700b0b",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         363,
         163
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         33.6734619140625,
         51.96376037597656,
@@ -2331,10 +2331,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.568,
-      "png_sha256": "2246d35b0ed51c5e91c07d1d3b0e79b4414f9ebb5d6167d8e4026d5809133e87",
+      "seconds": 2.969,
+      "png_sha256": "e11f1fe2fe0f1b55cb9789dd5f6248e8857a7af75d86df0a0110ad0e14217002",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         351,
         177
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         48.780364990234375,
         41.56217956542969,
@@ -2480,10 +2480,10 @@
         0.0,
         70.97940063476562,
         22.979997634887695,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.601,
-      "png_sha256": "f348f3f2558fde74091fa090bddc55d9f80653e64caec9d99a25a1772dde74cd",
+      "seconds": 2.547,
+      "png_sha256": "7c1d20dd558948c9d6183c7051e7dd5208ff0e99a69f07cb0dbc6b8ccaae2893",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         333,
         189
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         68.21674346923828,
         32.913551330566406,
@@ -2629,10 +2629,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.566,
-      "png_sha256": "489cdc855acb75c76c8bc3f4cee5df75bcf46ebc93f253e00c3cb8a4dd710de2",
+      "seconds": 2.995,
+      "png_sha256": "50b8f663864cf0c88a73144638e7b920fee69b10b1f4b02ec7348d33ca1f24a1",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         310,
         198
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         89.5746078491211,
         26.350250244140625,
@@ -2778,10 +2778,10 @@
         0.0,
         70.97940063476562,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.596,
-      "png_sha256": "7b62a7964ddd85679c3a66c76a286a0505051e473b21244066d9906b863081f9",
+      "seconds": 3.155,
+      "png_sha256": "2d163e0f3c5d17b34e30c526e9f0d080dbfc581a437d6293535b4e913e6dc0be",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         285,
         204
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         109.08805847167969,
         21.829078674316406,
@@ -2927,10 +2927,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.561,
-      "png_sha256": "bb3c6b2427351280d4b764f04099a000cb0847f60ae0d5c31ff07bad7d619fce",
+      "seconds": 2.312,
+      "png_sha256": "630b82cb3b3793e724783f48cc43fcea79701326404f3a3f565b0df878e76efe",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         262,
         207
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         123.35514831542969,
         17.19239044189453,
@@ -3076,10 +3076,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.562,
-      "png_sha256": "fa35234728e7eebb3203ad71167880014e38dd4d32e5f4eb7fbfa2206a32c09e",
+      "seconds": 3.881,
+      "png_sha256": "d1d2957722796f21f10e1a9b527403593e9f0b0c0df88065f63d6c316f35c961",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         242,
         207
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         132.70225524902344,
         15.656333923339844,
@@ -3225,10 +3225,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.532,
-      "png_sha256": "c0426b46b68828f2956e5f5225e181ccf2556d1d643d25ffdfdf84f35ffec2e3",
+      "seconds": 2.557,
+      "png_sha256": "1ce7bb0a9e74369545135cb3234ed4fe4262e7411095f20372a5aa85517f0e24",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         251,
         207
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         113.16436767578125,
         17.19239044189453,
@@ -3374,10 +3374,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.582,
-      "png_sha256": "7630370d1274e01746506162ead129ff6586aa3c889f04fc8a51cb233c914d7e",
+      "seconds": 2.378,
+      "png_sha256": "ae9f421e2b8d4b6705ebaeeb8a9f8686cbfda0403249f0420ef6ab16fb7b31ff",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         266,
         204
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         89.42528533935547,
         21.829078674316406,
@@ -3523,10 +3523,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.791,
-      "png_sha256": "09d5fe7d78fab8aaedd9b6c8d0f71d28683b491d0e2eb23df5bddc00a5db4ddb",
+      "seconds": 2.364,
+      "png_sha256": "557ffdcb6efa521eb3fc9d53c11880d8d6333b2a2fb03919d261e30878415187",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         285,
         198
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         64.80638885498047,
         26.350250244140625,
@@ -3672,10 +3672,10 @@
         0.0,
         70.97940063476562,
         22.979997634887695,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.647,
-      "png_sha256": "38b3af89235fe1d18b815b2cdcd1b8fcf594809002d3f4238ad92a813807381f",
+      "seconds": 2.148,
+      "png_sha256": "4d3d0271bf4391ac12f05155754ee5f25a90e25c71ca299887ef30a71ce249db",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         306,
         189
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         41.3111572265625,
         32.913551330566406,
@@ -3821,10 +3821,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.581,
-      "png_sha256": "3d23bf717f8d3e2b11d86c9a602a78d97c65fa889882f75751d94d654c7d188e",
+      "seconds": 2.637,
+      "png_sha256": "b6e61ec51232aea06323db04708041336dc206b221b20415d5aeb2a776388cab",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         326,
         177
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         23.376251220703125,
         41.56217956542969,
@@ -3970,10 +3970,10 @@
         0.0,
         70.97940063476562,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.586,
-      "png_sha256": "2b4d4496cf04c7f2d9a775277ca360ab59ff26db80aebb1a084e08c81b83d6dd",
+      "seconds": 4.419,
+      "png_sha256": "a09f5fdf7cc6cd692e85580fbf8bb6ed83fee9fc43159d4f95dfff6561f5a151",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         341,
         163
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         11.645462036132812,
         51.96376037597656,
@@ -4119,10 +4119,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.609,
-      "png_sha256": "95a1534547da4003d2d668d3683fe347dd226bf7e46062c4cf16f0a2460d3a01",
+      "seconds": 2.807,
+      "png_sha256": "1cdd4d53dfa11730b6368fe03ca98398afb3f7ee1d4475947758dd4a40d0bfbb",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         350,
         147
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         6.3883514404296875,
         63.34233093261719,
@@ -4268,10 +4268,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.582,
-      "png_sha256": "924148e3eeef56d0d0e25feec46af08c981c3eaa1e4719fedce8339aa850481e",
+      "seconds": 3.643,
+      "png_sha256": "9d8a4485b69b3842b294082f35eb663d0aed372f394fbd2cd8024a07c137c313",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         353,
         134
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         7.529083251953125,
         67.49559020996094,
@@ -4417,10 +4417,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.524,
-      "png_sha256": "8afd66b6cb68abf746a8c157aa48db099d82e772fd6dcfe02be924d8fb0a5536",
+      "seconds": 2.799,
+      "png_sha256": "596c22d2615050870923e1ce97a151cc897c31c932b2c04fa62e27421f1e5664",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         350,
         139
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         6.3883514404296875,
         58.92919158935547,
@@ -4566,10 +4566,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.571,
-      "png_sha256": "3e1854716272dc7ea0292ca993b58ce49c1ec47df4a80767ec9ba5c331c02d78",
+      "seconds": 2.934,
+      "png_sha256": "50f8cf1cd0c8323e75be44ceddc545d51608604d37df13df5eeafc341837a9b9",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         341,
         150
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         11.645462036132812,
         48.43925476074219,
@@ -4715,10 +4715,10 @@
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.575,
-      "png_sha256": "13f97df059c215f4b83f02b28c80004f397fd0541a9381109e9b1d1bf194218a",
+      "seconds": 2.482,
+      "png_sha256": "28fc287b3c6a56e66949994da70e87f975b861ed003cc149f768406e0fc6fded",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         326,
         164
       ],
-      "vertices": 17558,
-      "triangles": 33076,
-      "parts": 221,
+      "vertices": 22736,
+      "triangles": 42112,
+      "parts": 304,
       "projected_vertex_bounds_px": [
         23.376251220703125,
         34.98822021484375,
@@ -4864,10 +4864,10 @@
         0.0,
         70.97940063476562,
         22.979997634887695,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "blackwater_fleet_tanker",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.611,
-      "png_sha256": "81a0a95ad4bf6bd90f601572b4d68efb9e056fb8512c086bab578a86b84f91c4",
+      "seconds": 2.155,
+      "png_sha256": "fa40115828180faa53a81c08bef38c3e2cbbb9a36d1937c262d1fa70ba3d5fcf",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.48,

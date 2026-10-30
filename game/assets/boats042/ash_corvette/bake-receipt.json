@@ -1,12 +1,3717 @@
 {
-  "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "ash_corvette",
   "headings": 32,
-  "atlas_sha256": "81f8a52b9d29a11c73188f1056c2b8f30d37ee1bca4089d1ebea70fbcae37f82",
+  "atlas_sha256": "74bac6cb7eba9ed6f3fd0acbd9491307976957b342c79af3bcca95f106e22b0a",
+  "canvas_config": {
+    "cell_px": [
+      384,
+      320
+    ],
+    "pivot_px": [
+      192,
+      200
+    ],
+    "pixels_per_world_unit": 2,
+    "portrait_cell_px": [
+      768,
+      640
+    ],
+    "portrait_pivot_px": [
+      384,
+      400
+    ],
+    "portrait_pixels_per_world_unit": 4
+  },
   "atlas_size_px": [
     3072,
     1280
   ],
   "gpu_rgba8_bytes": 15728640,
+  "frame_bounds_px": [
+    [
+      98,
+      131,
+      170,
+      108
+    ],
+    [
+      113,
+      126,
+      143,
+      119
+    ],
+    [
+      128,
+      122,
+      118,
+      126
+    ],
+    [
+      142,
+      120,
+      93,
+      132
+    ],
+    [
+      155,
+      121,
+      74,
+      131
+    ],
+    [
+      149,
+      120,
+      93,
+      132
+    ],
+    [
+      138,
+      122,
+      118,
+      126
+    ],
+    [
+      128,
+      126,
+      143,
+      119
+    ],
+    [
+      116,
+      131,
+      170,
+      108
+    ],
+    [
+      104,
+      133,
+      193,
+      98
+    ],
+    [
+      94,
+      135,
+      210,
+      87
+    ],
+    [
+      88,
+      136,
+      220,
+      77
+    ],
+    [
+      87,
+      138,
+      220,
+      71
+    ],
+    [
+      88,
+      140,
+      220,
+      80
+    ],
+    [
+      94,
+      142,
+      210,
+      88
+    ],
+    [
+      104,
+      140,
+      193,
+      99
+    ],
+    [
+      116,
+      134,
+      170,
+      112
+    ],
+    [
+      128,
+      129,
+      143,
+      123
+    ],
+    [
+      138,
+      126,
+      118,
+      130
+    ],
+    [
+      149,
+      124,
+      93,
+      134
+    ],
+    [
+      155,
+      123,
+      74,
+      135
+    ],
+    [
+      142,
+      124,
+      93,
+      134
+    ],
+    [
+      128,
+      126,
+      118,
+      130
+    ],
+    [
+      113,
+      129,
+      143,
+      123
+    ],
+    [
+      98,
+      134,
+      170,
+      112
+    ],
+    [
+      87,
+      140,
+      193,
+      99
+    ],
+    [
+      80,
+      142,
+      210,
+      88
+    ],
+    [
+      76,
+      140,
+      220,
+      80
+    ],
+    [
+      77,
+      138,
+      220,
+      71
+    ],
+    [
+      76,
+      136,
+      220,
+      77
+    ],
+    [
+      80,
+      135,
+      210,
+      87
+    ],
+    [
+      87,
+      133,
+      193,
+      98
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        98,
+        131,
+        268,
+        239
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        101.08675384521484,
+        133.58120727539062,
+        265.3947448730469,
+        236.16200256347656
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.058,
+      "png_sha256": "f22e73271187000105f6671aaa4d436af3fd3fcd11e295f19cc89bdcfe35b93c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        113,
+        126,
+        256,
+        245
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        115.9179458618164,
+        128.19024658203125,
+        253.4559326171875,
+        242.52200317382812
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.903,
+      "png_sha256": "65e60c785403be6d8ae563e585cc03db3c15b3af5f42e9141e4239f80fe089e5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        122,
+        246,
+        248
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        130.95437622070312,
+        124.63508605957031,
+        243.3811492919922,
+        247.2479248046875
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.226,
+      "png_sha256": "2ab6ee07158da8f2c0b459836b163d691b5ac79366a3943359a42aa5ac05e5cd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        120,
+        235,
+        252
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        144.4505157470703,
+        123.05135345458984,
+        232.1988067626953,
+        250.15814208984375
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.6,
+      "png_sha256": "bd3f3f725d3dfe95e5c873f968ceb57ff7ade250796c0b1aa7158278fc54ef21",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        155,
+        121,
+        229,
+        252
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        157.93655395507812,
+        123.4989242553711,
+        226.06344604492188,
+        251.14077758789062
+      ],
+      "physical_bounds_world": [
+        -48.50999450683594,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.972,
+      "png_sha256": "0d31608b965c676bb5c3fbfec141564cbe8dbb8f0d71de41a8690d99df28de91",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        149,
+        120,
+        242,
+        252
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        151.8011932373047,
+        123.05135345458984,
+        239.5494842529297,
+        250.15814208984375
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.392,
+      "png_sha256": "cd6e35d3d70d04c25b4ce4f993367fafe61243f24fcc4705453074eb090c75aa",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        138,
+        122,
+        256,
+        248
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        140.6188507080078,
+        124.63508605957031,
+        253.04562377929688,
+        247.2479248046875
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.066,
+      "png_sha256": "25ec84ae27c425b817d2bfe2d52a1b45daf4c5c12227b131d8f66a05320977ea",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        126,
+        271,
+        245
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        130.5440673828125,
+        128.19024658203125,
+        268.0820617675781,
+        242.52200317382812
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.416,
+      "png_sha256": "aed5e4ff649bbed1c56f17771df9d4a93f03e66f0d2b77e610eaa29c89baec61",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        116,
+        131,
+        286,
+        239
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        118.6052474975586,
+        133.58120727539062,
+        282.9132385253906,
+        236.16200256347656
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.204,
+      "png_sha256": "5fd337d8b4e31f44ee9163dd7c168ed8b246b87ce83dcaee8d6c9188baa66b40",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        104,
+        133,
+        297,
+        231
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        106.17533111572266,
+        135.23126220703125,
+        294.25067138671875,
+        228.41229248046875
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.665,
+      "png_sha256": "051654cd1e877683f9df4d94bcc8f9779a49d8c1be54e8f8eedb65a9d09cc291",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        135,
+        304,
+        222
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        96.7811508178711,
+        136.6515350341797,
+        301.7041015625,
+        219.5707244873047
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.269,
+      "png_sha256": "01921f5fd4f3a70b93467d035fca761ffbe81fa866b685fda0a4c82c66e859ec",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        88,
+        136,
+        308,
+        213
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        91.04617309570312,
+        138.36160278320312,
+        305.0853576660156,
+        209.97706604003906
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.275,
+      "png_sha256": "a159e258ec9672ffad98313067b61e9fe53b21e39ea838b53312da61c6622679",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        87,
+        138,
+        307,
+        209
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        89.1907958984375,
+        140.29571533203125,
+        304.5097351074219,
+        206.29226684570312
+      ],
+      "physical_bounds_world": [
+        -48.50999450683594,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.392,
+      "png_sha256": "6c547d722994917bd4439b8c8c5e119dd346f95abcf5943d0fc9456ad04ef055",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        88,
+        140,
+        308,
+        220
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        91.04617309570312,
+        142.3524169921875,
+        305.0853576660156,
+        217.0449981689453
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.818,
+      "png_sha256": "75bf2a61449c23bdda2849f9513ba7eb7583bc46adb63fee5c7e39a1d5947259",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        94,
+        142,
+        304,
+        230
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        96.7811508178711,
+        144.47982788085938,
+        301.7041015625,
+        227.0965118408203
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.0,
+      "png_sha256": "cb7b43aa8e06a655394fca426013ee3ff986b5cddb4ae99a95f6f174e12ded4c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        104,
+        140,
+        297,
+        239
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        106.17533111572266,
+        142.23770141601562,
+        294.25067138671875,
+        236.060546875
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.45,
+      "png_sha256": "6d49c1aac82b125e87ea3d7df39984a7fe48be85c805b9c3a22339754ee7ce9b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        116,
+        134,
+        286,
+        246
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        118.6052474975586,
+        136.24896240234375,
+        282.9132385253906,
+        243.59262084960938
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.3,
+      "png_sha256": "8e5c531feffdf1175c9b0c02266f0d9937704592ef81ebebb138ce474be94bc9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        129,
+        271,
+        252
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        130.5440673828125,
+        131.6292724609375,
+        268.0820617675781,
+        249.42642211914062
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.138,
+      "png_sha256": "ce4d282eb01c85b7ab7d2b10cd13739a7446911d59c863926e237314eb6590ab",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        138,
+        126,
+        256,
+        256
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        140.6188507080078,
+        128.5561981201172,
+        253.04562377929688,
+        253.36911010742188
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.798,
+      "png_sha256": "d41e94129a6a7fc17e10bb716a328e97e2116614cea4395127616857aac3cabc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        149,
+        124,
+        242,
+        258
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        151.8011932373047,
+        126.90286254882812,
+        239.5494842529297,
+        255.2250518798828
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.524,
+      "png_sha256": "06c7d2fd4ed601a8ecc974e2c5d13309d53ca21692c69ae6880de5e673641f7a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        155,
+        123,
+        229,
+        258
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        157.93655395507812,
+        125.9601058959961,
+        226.06344604492188,
+        255.01458740234375
+      ],
+      "physical_bounds_world": [
+        -48.50999450683594,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.863,
+      "png_sha256": "5125ce76cee70eff5a3393f1420be1914315fe74f6461ec211ede642751f9012",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        142,
+        124,
+        235,
+        258
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        144.4505157470703,
+        126.90286254882812,
+        232.1988067626953,
+        255.2250518798828
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.378,
+      "png_sha256": "59ba7fc6a41bd52c50f1a897481b9bfbf63c8fd807b441bb924b671bee25b310",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        128,
+        126,
+        246,
+        256
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        130.95437622070312,
+        128.5561981201172,
+        243.3811492919922,
+        253.36911010742188
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.371,
+      "png_sha256": "94f4480e3b0380cc44cb25578fcf1aa976c0270a427eb355c856ccf7c4c13fac",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        113,
+        129,
+        256,
+        252
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        115.9179458618164,
+        131.6292724609375,
+        253.4559326171875,
+        249.42642211914062
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.403,
+      "png_sha256": "d299932e977848979cbbcda561eb2b0159cca97ea62c26d10152574ff0df51f0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        98,
+        134,
+        268,
+        246
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        101.08675384521484,
+        136.24896240234375,
+        265.3947448730469,
+        243.59262084960938
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 5.004,
+      "png_sha256": "e7479e87461827febf68590cbca57999d514ba50b794913f287f02b7ccb3f18b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        87,
+        140,
+        280,
+        239
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        89.74932861328125,
+        142.23770141601562,
+        277.8246765136719,
+        236.060546875
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.861,
+      "png_sha256": "c989481c512015bd19fc1dbc424e54f94d226b3aa3c5a34b4f10dafabf65bc3a",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        142,
+        290,
+        230
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        82.29591369628906,
+        144.47982788085938,
+        287.2188415527344,
+        227.0965118408203
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.245,
+      "png_sha256": "785b2737254eef2d9638e7201e858d88fbe07225f2fad0cc051da55bf8266627",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        140,
+        296,
+        220
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        78.91463470458984,
+        142.3524169921875,
+        292.9538269042969,
+        217.0449981689453
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.225,
+      "png_sha256": "169ba6af1e9a13b5db8600128a767ccdb07e90614ba052d922f1fbe437339670",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        77,
+        138,
+        297,
+        209
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        79.49027252197266,
+        140.29571533203125,
+        294.8092041015625,
+        206.29226684570312
+      ],
+      "physical_bounds_world": [
+        -48.50999450683594,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.464,
+      "png_sha256": "fcfceb005f5df9ca5ad8c215af19bfdc34971d8a0b0263b1afd20b8944ea002c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        136,
+        296,
+        213
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        78.91463470458984,
+        138.36160278320312,
+        292.9538269042969,
+        209.97706604003906
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.54,
+      "png_sha256": "80bb532ff3f2e3d4d7ddd8b607fe58529c979f423be7b1c1411d02202dd6b379",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        80,
+        135,
+        290,
+        222
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        82.29591369628906,
+        136.6515350341797,
+        287.2188415527344,
+        219.5707244873047
+      ],
+      "physical_bounds_world": [
+        -48.51000213623047,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.236,
+      "png_sha256": "7ab2a3d41db87544ca0861e04c446ce854cd21adcabe0c3e7b535cb7b445029c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        87,
+        133,
+        280,
+        231
+      ],
+      "vertices": 25618,
+      "triangles": 47652,
+      "parts": 280,
+      "projected_vertex_bounds_px": [
+        89.74932861328125,
+        135.23126220703125,
+        277.8246765136719,
+        228.41229248046875
+      ],
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882019042969,
+        0.0,
+        44.327491760253906,
+        14.686882019042969,
+        29.0
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "ash_corvette",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        384,
+        320
+      ],
+      "pivot_px": [
+        192,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          384,
+          320
+        ],
+        "pivot_px": [
+          192,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          768,
+          640
+        ],
+        "portrait_pivot_px": [
+          384,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.284,
+      "png_sha256": "9cd92fcb5ca8a0ff41a3bc599d7655e465a925a33d4bb1623f963644b3424bbc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.004,
+            0
+          ],
+          "world_xy": [
+            21.084,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 2,
+          "radius": 3.78,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.504,
+            0
+          ],
+          "world_xy": [
+            -31.584,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 3.36,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.4864,
+            -0.43
+          ],
+          "world_xy": [
+            10.2144,
+            -9.03
+          ],
+          "elevation": 11.5,
+          "size": 1,
+          "radius": 2.9400000000000004,
+          "angle": -1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": null,
   "status": "baked; visual and native integration review still required"
 }

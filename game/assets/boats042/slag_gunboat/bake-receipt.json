@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "slag_gunboat",
   "headings": 32,
-  "atlas_sha256": "3818b005a01ea1fc83e7d9709cdca0252560eb2260f64e7e1cb045905df9d53d",
+  "atlas_sha256": "80febc83e80a932d2ef1a3141b5285df7aaa0641761cd0858fdf1c9e2ab0d797",
   "canvas_config": {
     "cell_px": [
       248,
@@ -230,9 +230,9 @@
         198,
         123
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         29.02075958251953,
         17.220413208007812,
@@ -245,10 +245,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.233,
-      "png_sha256": "5e65d0d3b3437366f42113758f4330a3d067c2e8f7500f2ddf07ce92c0ba4199",
+      "seconds": 2.218,
+      "png_sha256": "61281fab221b665624d169839c5db7ce2662a5d4cdbf72638bb1a297b4fcb28b",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         187,
         129
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         42.69166564941406,
         11.711601257324219,
@@ -394,10 +394,10 @@
         0.0,
         44.467918395996094,
         16.98912811279297,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.275,
-      "png_sha256": "0952c8a895920f7afe7687574e7c1fceeccb4f9bd1aa4d6dd090acb98c34e18b",
+      "seconds": 1.946,
+      "png_sha256": "ce2be7fbadf561126d1d3878b75cc044527b0473e35938d3cec6109ad2e20e91",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         176,
         134
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         55.64949035644531,
         8.056991577148438,
@@ -543,10 +543,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.269,
-      "png_sha256": "b9faf2d06b7374a313dffcbfb2631581e3c2e43531bf56a19c2be35c0782e488",
+      "seconds": 2.181,
+      "png_sha256": "b0abcd2762d6a9eadc0c54d0d30a86cfa0dd5d5862570c3bd2fc28bfdd46e694",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         168,
         135
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         69.389404296875,
         6.396018981933594,
@@ -692,10 +692,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.269,
-      "png_sha256": "48341b9c03aa1acf66ae6c8a697a8c97d750104ef2ffc220dd1a65ef59eb6c44",
+      "seconds": 2.372,
+      "png_sha256": "f78d8bc39a35eda58350885df3508b7a2dc1f6b91f688f9029df83db4c81883c",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         163,
         137
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         81.59693908691406,
         6.791534423828125,
@@ -841,10 +841,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.228,
-      "png_sha256": "875beeada38a7e9bcaa1c0e9c4207818b1340af29f95eaf4c27461cb30ba234c",
+      "seconds": 2.181,
+      "png_sha256": "bce06cde2747fedcc9e4564c228a2198004a4a503d37f281158c0a96312c462d",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         175,
         136
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         77.14976501464844,
         6.396018981933594,
@@ -990,10 +990,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.228,
-      "png_sha256": "de079f8b5e2fa5bc56441990b07b53380b70f4239c26c9c66eeb7144c33b0783",
+      "seconds": 2.665,
+      "png_sha256": "840fc2c33c6d115c1962b2d85847f2c6795579173ef6f8e7f4bb1f29f61e5c4b",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         189,
         134
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         68.87326049804688,
         8.056991577148438,
@@ -1139,10 +1139,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.278,
-      "png_sha256": "fa175781ab3c206d34e39983f3d0325057a237a88d9ef114e359a8fef7d0ab22",
+      "seconds": 2.188,
+      "png_sha256": "dcdc2b4f65549f28b20a9d372fa25ffddea97bed5043ad68aca8a06fe72fcf67",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         202,
         129
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         58.22148895263672,
         11.711601257324219,
@@ -1288,10 +1288,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.295,
-      "png_sha256": "43c0a4f02bfe8a9eb556f51687c2ae3befba91ee758eeb0b7015a396e50af078",
+      "seconds": 2.237,
+      "png_sha256": "290d1d3d20f5dae50b021c49c42e080a407aa6ec2b7674aa746452fea8f3ab0a",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         216,
         123
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         46.255615234375,
         17.220413208007812,
@@ -1437,10 +1437,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.291,
-      "png_sha256": "bed2aad86249480192fc907ea05f019ed7be63ec9377def2431a017c6419f0fb",
+      "seconds": 2.019,
+      "png_sha256": "11df32b50b6d824ddbe1a27636fbf07b7c9723b70717b41474efdb168625e81e",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,12 +1571,12 @@
         227,
         115
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         34.93133544921875,
-        22.92217254638672,
+        22.547317504882812,
         224.56814575195312,
         112.48960876464844
       ],
@@ -1586,10 +1586,10 @@
         0.0,
         44.467918395996094,
         16.98912811279297,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.267,
-      "png_sha256": "92ddf875e5567512eb2b15a601482597d8017153e2056d266d82db3de7a1fcca",
+      "seconds": 2.175,
+      "png_sha256": "22acb20730dd6b45d961ccea754c2650cd515a70811e52a394cab855708e1a1e",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,12 +1720,12 @@
         235,
         107
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         25.498703002929688,
-        27.00714874267578,
+        26.625335693359375,
         232.222412109375,
         103.94464111328125
       ],
@@ -1735,10 +1735,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.268,
-      "png_sha256": "1fd758b4109fd3d53f1d58f0973fab598405f669ff88fb8b003792ceb456db12",
+      "seconds": 2.598,
+      "png_sha256": "2a64cec29999c5c3c8e140b9f40a35f676c28c180cbef33e4e3eea066d3369f3",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,12 +1869,12 @@
         238,
         103
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         19.73615264892578,
-        31.65522003173828,
+        31.28036117553711,
         235.75999450683594,
         99.80684661865234
       ],
@@ -1884,10 +1884,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.241,
-      "png_sha256": "4f6835c2d5e62ecfa8b15ceeabfebef1e837e8f1fddf0a93e7e0cb423bb95d78",
+      "seconds": 1.916,
+      "png_sha256": "a72a106622feb8c29c34ee8526da2ab471b8ef14afa9f0cacc9e9cf526a12fbc",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,12 +2018,12 @@
         238,
         100
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         17.86510467529297,
-        36.63544464111328,
+        36.253631591796875,
         235.2956085205078,
         97.56598663330078
       ],
@@ -2033,10 +2033,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.229,
-      "png_sha256": "5ea05f19029d72c86ba185625924b4928c0377ac33a83dea2bd477cae02e3ae9",
+      "seconds": 2.636,
+      "png_sha256": "290adfb9c17695c81cbbc3648ccb3f86180286e2ecb97a01958afa12e30fb348",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         238,
         106
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         19.73615264892578,
         39.07912063598633,
@@ -2182,10 +2182,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.239,
-      "png_sha256": "63aac93afcc3f4dc30bb0adc0df82012989cabf1d342d3e6aebcc8a818fcc431",
+      "seconds": 2.389,
+      "png_sha256": "9293dc025ac22d265effb66be702afd46a7e4371e00a63e04bcb5070f645ed66",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         235,
         114
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         25.498703002929688,
         35.91993713378906,
@@ -2331,10 +2331,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.246,
-      "png_sha256": "0e854b20dc9968cdef993ced5e87110af4bc80ade60b210ff16e2c3acc276a6a",
+      "seconds": 2.676,
+      "png_sha256": "9f690b33ad9011e7c2c97f0755e9ad123fdc3c9ec41a4f37903de89b14b70222",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         227,
         123
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         34.93133544921875,
         30.11658477783203,
@@ -2480,10 +2480,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.246,
-      "png_sha256": "b0e7a6928a90cb7fb1cab65fe44c757aebff5af641416910f34454301d027f54",
+      "seconds": 2.586,
+      "png_sha256": "5ce549ba1edc43b724580c181143b4e6c80fd30361ed18293b29f0b2916440e4",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         216,
         131
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         46.255615234375,
         25.392051696777344,
@@ -2629,10 +2629,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.259,
-      "png_sha256": "c8926ff4bddfee67b38242496cdac1faa8bf9dc85282ddbce536bbe0e6415f46",
+      "seconds": 2.499,
+      "png_sha256": "2b2a9798bc1bc394884904877bc2cb5857308cf88193687c95ca6a599771290c",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         202,
         137
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         58.22148895263672,
         22.015182495117188,
@@ -2778,10 +2778,10 @@
         0.0,
         44.467918395996094,
         16.98912811279297,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.265,
-      "png_sha256": "f510bab5add7badac6dd6aafb091ad8313c26e75288b4eb14cfb545a364f16d0",
+      "seconds": 2.3,
+      "png_sha256": "117bd07b73b209b97f2f08ffc0a1dd0671814f4e8ed650898581f2669fbcf135",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         189,
         141
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         68.87326049804688,
         18.24401092529297,
@@ -2927,10 +2927,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.273,
-      "png_sha256": "fb08e40ed112d32df6640aa1773e043172585c5d5dd1a9da2256515b434ee7d8",
+      "seconds": 2.687,
+      "png_sha256": "622602be3a60d213c8d0234555118dccc32020f7a5d3e40c118fee48cd89271c",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         175,
         143
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         77.14976501464844,
         15.35369873046875,
@@ -3076,10 +3076,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.238,
-      "png_sha256": "5db5c3709fbceb42c5acb8d42b0a744b3109f4394e3bace793f85d06af15aac4",
+      "seconds": 2.414,
+      "png_sha256": "1e0e53005db1b6491791da11c9d4b8cf084093ca3ad75ac21710ed5ebae3f4ae",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         163,
         143
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         81.59693908691406,
         14.404930114746094,
@@ -3225,10 +3225,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.232,
-      "png_sha256": "2ba7bbb342269232f57e95d1fac5b89e34098faaf64c90ff02111e24ee2d4959",
+      "seconds": 2.447,
+      "png_sha256": "884582f514699f7d6b1dd5146c0cd788b021406447d033990fb9046b25fe3af9",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         168,
         143
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         69.389404296875,
         15.35369873046875,
@@ -3374,10 +3374,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.239,
-      "png_sha256": "faaf1c22df957f2cef48d2c8ca48e9f1a2e4c15744162dc5fe2d176892eb3348",
+      "seconds": 2.406,
+      "png_sha256": "33343d329da5873e3325113519aaca06be74158517c9f7920b2a780804d6186b",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         176,
         141
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         55.64949035644531,
         18.24401092529297,
@@ -3523,10 +3523,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.245,
-      "png_sha256": "10cddee01d28c9a6373c1490ba2efcaa58f5f8344dc43b56ef5d6d8c9843b462",
+      "seconds": 1.794,
+      "png_sha256": "3f6cde45fc1945a0afe0141a0eb00e58f61aae9c231d6ab1fa65b4eadf3ec18d",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         187,
         137
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         42.69166564941406,
         22.015182495117188,
@@ -3672,10 +3672,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.25,
-      "png_sha256": "143e2e8de0b216c9e7cdb606226b42bd85d758e6e37962ca0173acd063a2d864",
+      "seconds": 1.57,
+      "png_sha256": "66a6e2caaa10bfe9ec940068e301d24801eb2d2463c0396613b59d164b31474e",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         198,
         131
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         29.02075958251953,
         25.392051696777344,
@@ -3821,10 +3821,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.267,
-      "png_sha256": "2913abb8d52c383ce9146e24e11c978c5df0c89c56ae3289feafc5c8d0aad98e",
+      "seconds": 3.015,
+      "png_sha256": "bc20e890c79dea7dfcb7d6d222f5f47c7d45c613fe936e8103be6c721a831f7c",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         210,
         123
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         17.431846618652344,
         30.11658477783203,
@@ -3970,10 +3970,10 @@
         0.0,
         44.467918395996094,
         16.98912811279297,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.276,
-      "png_sha256": "b7c067f11cc3c6ff192819d9a3f9dd5e4a19a9309eb320f9f0e2cd4ad47c4ded",
+      "seconds": 2.418,
+      "png_sha256": "30e356aa002ef0ca8fbd6ca4ef4ad37d5f28f72a992602ac1147a3aee6448701",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         219,
         114
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         9.777587890625,
         35.91993713378906,
@@ -4119,10 +4119,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.255,
-      "png_sha256": "22a9563c951412491d5b0755faaf0d4e61705b578a2f780654741bcfb79c147d",
+      "seconds": 2.904,
+      "png_sha256": "3262bc5647c1b9d50ba333feb8fcc183bd8592149d2491e354860574b455f5b3",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         225,
         106
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         6.2400054931640625,
         39.07912063598633,
@@ -4268,10 +4268,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.221,
-      "png_sha256": "f204a834c8e89ea01d2ca407b0fca2ec6270fdecf0b07b2baa4105a522350a18",
+      "seconds": 3.121,
+      "png_sha256": "f739b2f820ab3a024c92a52828c5aef3918254235624efd65a1aa8b30f9baed7",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,12 +4402,12 @@
         227,
         100
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         6.7043914794921875,
-        36.63544464111328,
+        36.253631591796875,
         224.1348876953125,
         97.56598663330078
       ],
@@ -4417,10 +4417,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.225,
-      "png_sha256": "83e81b54ef78c44fc9560b5cf190e6e443e7f3118a316288d36d4818c6db276a",
+      "seconds": 2.784,
+      "png_sha256": "ecff355c20386f9ce36054564ae9b2ea475391786323db186224338862f20efc",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,12 +4551,12 @@
         225,
         103
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         6.2400054931640625,
-        31.65522003173828,
+        31.28036117553711,
         222.26385498046875,
         99.80684661865234
       ],
@@ -4566,10 +4566,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.229,
-      "png_sha256": "653c43ecdeee25a755eb39bb17d990dc5b06929d3cd3682de699fcc7fafa4050",
+      "seconds": 2.36,
+      "png_sha256": "9c05159c5723e696d586aab9cb22b553ef09f6d911840499a25bb08104658d6c",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,12 +4700,12 @@
         219,
         107
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         9.777587890625,
-        27.00714874267578,
+        26.625335693359375,
         216.5012969970703,
         103.94464111328125
       ],
@@ -4715,10 +4715,10 @@
         0.0,
         44.46792221069336,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.25,
-      "png_sha256": "5a5df9b0a4ec563d4d5204f2c760167151fe942a9be12afb4c4e42616ff33e05",
+      "seconds": 1.862,
+      "png_sha256": "3deff97677bd13f73c3d2cf6221c0fa7d414b47eaa1a21c0010b5d8061a831fe",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,12 +4849,12 @@
         210,
         115
       ],
-      "vertices": 13822,
-      "triangles": 25820,
-      "parts": 195,
+      "vertices": 18952,
+      "triangles": 34740,
+      "parts": 274,
       "projected_vertex_bounds_px": [
         17.431846618652344,
-        22.92217254638672,
+        22.547317504882812,
         207.06866455078125,
         112.48960876464844
       ],
@@ -4864,10 +4864,10 @@
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "slag_gunboat",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.241,
-      "png_sha256": "5619d94494f00a3e31f11ba3b28bc73ac00645a28fca21da091b1000eb1a738d",
+      "seconds": 1.686,
+      "png_sha256": "e36d449154e976d1962b81efda58ee6bd36997f0f612d6943632246f820ee3e0",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.87,

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "mercantile_clipper",
   "headings": 32,
-  "atlas_sha256": "7e43844be05b578aa56dfe07fef935451460952ac925529b0e5bed2987c86833",
+  "atlas_sha256": "373a3ac772f40dc78b1f75a984ab5b8309211c1d2ad3a389800b59980434b1ce",
   "canvas_config": {
     "cell_px": [
       288,
@@ -85,15 +85,15 @@
     ],
     [
       18,
-      18,
+      17,
       252,
-      125
+      126
     ],
     [
       13,
-      27,
+      24,
       263,
-      107
+      110
     ],
     [
       12,
@@ -181,45 +181,45 @@
     ],
     [
       10,
-      24,
+      23,
       252,
-      121
+      122
     ],
     [
       4,
-      30,
+      20,
       263,
-      105
+      115
     ],
     [
       4,
-      35,
+      17,
       264,
-      89
-    ],
-    [
-      8,
-      34,
-      255,
-      79
-    ],
-    [
-      4,
-      32,
-      264,
-      92
-    ],
-    [
-      4,
-      27,
-      263,
       107
     ],
     [
+      8,
+      15,
+      255,
+      98
+    ],
+    [
+      4,
+      14,
+      264,
+      110
+    ],
+    [
+      4,
+      13,
+      263,
+      121
+    ],
+    [
       10,
-      18,
+      14,
       252,
-      125
+      129
     ]
   ],
   "frames": [
@@ -230,9 +230,9 @@
         252,
         150
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         22.731956481933594,
         13.748207092285156,
@@ -245,10 +245,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.947,
-      "png_sha256": "6dcf212f015fcc32f2a48555349e2bba3ab5c61f158224efd5551fb990a7835a",
+      "seconds": 5.167,
+      "png_sha256": "e0e2e6f7a7db5fbf97aab0863758fca5125dc756980156060bf0d28d8918ec5d",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         238,
         155
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         37.62480926513672,
         8.848594665527344,
@@ -394,10 +394,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.997,
-      "png_sha256": "b10f92e71acba18901bce9d3688a2a0a6e256ad3b6a5197d38f3782a34fb1929",
+      "seconds": 3.494,
+      "png_sha256": "d178a4a9fc788ea32247ad7d12494fa8bd7ab2235fcc111d1f02bfe2f6348042",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         220,
         157
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         56.45188903808594,
         6.259056091308594,
@@ -543,10 +543,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.927,
-      "png_sha256": "636766fbf3136ae8335090367c98e7f2cd5f7872acc114170e4f9c8b66bbf760",
+      "seconds": 5.429,
+      "png_sha256": "a008e189dfb0b3807d5118524d56759441298a62d417589493d1aa9db6aa80c7",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         204,
         157
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         75.31571960449219,
         6.078117370605469,
@@ -692,10 +692,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.902,
-      "png_sha256": "6f5ffcb7db6c19938ca4c821f7cc4126de9bcca2cf533850bc531d7329ac1d24",
+      "seconds": 4.854,
+      "png_sha256": "0109812072057915a67f18dd040df2798d748242e95d42b36a0d1bec53f31400",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         191,
         153
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         91.63423919677734,
         8.311752319335938,
@@ -841,10 +841,10 @@
         0.0,
         52.06763458251953,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.9,
-      "png_sha256": "5d8a1fc2177e519142a34c09553b7a9f89766713d03d317830a6dc3005c8a989",
+      "seconds": 4.812,
+      "png_sha256": "78bf915ff088b7187d00d82a7b43afacdd2d3215189712764d12ac700e5e144c",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         207,
         157
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         78.60723876953125,
         6.078117370605469,
@@ -990,10 +990,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.919,
-      "png_sha256": "0a7eeed8a144a19b16d3e0bc40f8a0b51e9844ee49e14395165c7a22fe00657b",
+      "seconds": 4.411,
+      "png_sha256": "d041c3d72d692d846b0614f554c60a4fbc92ef1245bc56a8dea6636c9704f587",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         226,
         157
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         62.363616943359375,
         6.259056091308594,
@@ -1139,10 +1139,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.919,
-      "png_sha256": "d7c2a8154ea455bcd8d10848f196bf1e51d3228507dbf92b9909842816c3c3ba",
+      "seconds": 4.05,
+      "png_sha256": "fe3773de1972f1f6c58ce6ccfe00d283c636a59da58b17934f8202b81a499503",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         245,
         155
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         44.730621337890625,
         8.848594665527344,
@@ -1288,10 +1288,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.951,
-      "png_sha256": "72de69705b84329b8a9ed56c67130030f254cb8976c4fc7b7b6c5f47b9d9b650",
+      "seconds": 3.204,
+      "png_sha256": "91f480a27ae9f2a68763440a913859c69ecfa4b41d3e2cbce51670df778e3941",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         260,
         150
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         30.64551544189453,
         13.748207092285156,
@@ -1437,10 +1437,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.928,
-      "png_sha256": "502c8b95619582ffb93c39243e396274b992812026aeb84c050373bf690731b4",
+      "seconds": 2.842,
+      "png_sha256": "b6097cc2256f550fc8988fcd3ac09708efd956030d77468be276513328eb9024",
       "sockets": [
         {
           "id": "mount0",
@@ -1567,16 +1567,16 @@
     {
       "bounds_px": [
         18,
-        18,
+        17,
         270,
         143
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         20.762847900390625,
-        20.76666259765625,
+        19.80553436279297,
         267.65435791015625,
         140.2388916015625
       ],
@@ -1586,10 +1586,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.939,
-      "png_sha256": "7d5e03dcaf6ed5b8f94176ac0f286bd9f63820bcbdb27f9b53d645d646946f3a",
+      "seconds": 2.737,
+      "png_sha256": "d008d0d293bba43bab53a2e73c60bc2842bed330711be89869498a409c25ec88",
       "sockets": [
         {
           "id": "mount0",
@@ -1716,16 +1716,16 @@
     {
       "bounds_px": [
         13,
-        27,
+        24,
         276,
         134
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         15.46240234375,
-        29.637184143066406,
+        26.762100219726562,
         273.18035888671875,
         131.3456268310547
       ],
@@ -1735,10 +1735,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.923,
-      "png_sha256": "7c3178a2112c303c744a36fa2eb3a77b5b0f4124b85bdc224382435a3edddadf",
+      "seconds": 2.484,
+      "png_sha256": "0875c29d2d90d684e0be4f87177a15c6f594b329c9e5c6a40f063dc641748e8c",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         276,
         124
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         14.947845458984375,
         33.003509521484375,
@@ -1884,10 +1884,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.888,
-      "png_sha256": "606e3f005ed89c7e4e7741e7f7fe2fe31016f5f747c088753b727c96e8441c7c",
+      "seconds": 2.484,
+      "png_sha256": "a6faa397123f3abb4160140af825f65d5d3980b876cf00533a5b044785f356a4",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         272,
         113
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         19.238998413085938,
         34.972145080566406,
@@ -2033,10 +2033,10 @@
         0.0,
         52.06763458251953,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.86,
-      "png_sha256": "fd3d701d913ea5dbdb5ceac8a7937fcbd0ba5a0bf2363ab40f7c808ec00c4d1f",
+      "seconds": 2.91,
+      "png_sha256": "1e3acea501ea652b39c39d478df5aa5b2b4f1cbef5159a506c9f4a18f993e151",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         276,
         124
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         14.947845458984375,
         37.16627883911133,
@@ -2182,10 +2182,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.93,
-      "png_sha256": "d326aa877c6e792f0909151640e32465c9dcf8fef4eaab2f259edc82d223083c",
+      "seconds": 3.822,
+      "png_sha256": "93a5d7ffade003ddea1e38f6fc68ea20e4037595b34ec0168a136dd83970f265",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         276,
         135
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         15.46240234375,
         32.990509033203125,
@@ -2331,10 +2331,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.895,
-      "png_sha256": "50f47bf852c03aedb153b4189a9d666442daa03f436b7cb116c18e4ff1e43e1d",
+      "seconds": 3.808,
+      "png_sha256": "c3eb4d958ec432d8e97b1e69540e45125acc17d4222429988d0a43ae000d92b5",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         270,
         145
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         20.762847900390625,
         26.822998046875,
@@ -2480,10 +2480,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.91,
-      "png_sha256": "49fe3a3e43e32df7cb4b906b8f9af0305a89de76f79fb189ac632ea129387ae7",
+      "seconds": 4.063,
+      "png_sha256": "c3dc713049a227d3577e345b2ed6e1a8619bfeae8162641356c426c696b2992b",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         260,
         152
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         30.64551544189453,
         20.307891845703125,
@@ -2629,10 +2629,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.917,
-      "png_sha256": "cb8437e325776f6f12c3faa5e972b6512d7992466cbfa268d0753a805e67614c",
+      "seconds": 3.814,
+      "png_sha256": "5e76c07d2be2625e181f23374737b1e3c7b6302c0e8fc213ebbc0d1f243e1948",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         245,
         158
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         44.730621337890625,
         15.353416442871094,
@@ -2778,10 +2778,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.96,
-      "png_sha256": "8eca88a2c811db9bd4a7d4916e0bdbc8a9ddef3081b18a9fc33fb80baf67c3b6",
+      "seconds": 3.556,
+      "png_sha256": "bf474837baf7ba7244589a58c74eb8e207c5052c05bb3e16307e2432f586d14d",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         226,
         161
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         62.363616943359375,
         12.667434692382812,
@@ -2927,10 +2927,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.923,
-      "png_sha256": "cfe93f73ae02d13623e5b77d61e07b1ad8e22b1495b633943536fa836fb0453c",
+      "seconds": 3.822,
+      "png_sha256": "d6665d954fce8d9fd56338636a2ee69030f6b68f605b6014d0ad29fc9f436b44",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         207,
         161
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         78.60723876953125,
         12.35028076171875,
@@ -3076,10 +3076,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.932,
-      "png_sha256": "039c264231cc4a4c29a81bdf38449a64176b86c83f65f2a8aaa2ab10fadde8ff",
+      "seconds": 3.471,
+      "png_sha256": "bfd9a9b8f67db0f29d267c9bc6c55faba92051c99e077e9263165ec972ca5b9a",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         191,
         159
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         91.63423919677734,
         14.429206848144531,
@@ -3225,10 +3225,10 @@
         0.0,
         52.06763458251953,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.894,
-      "png_sha256": "fcec9c8dfedad4de6d9e7d02047b19869db2f2e971bb7c783071e5dc45db1aea",
+      "seconds": 2.971,
+      "png_sha256": "c1c5cb92985d32bf2766f1b67d7bf2c06d1948f4adf84f46d99102fbdd787652",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         204,
         161
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         75.31571960449219,
         12.35028076171875,
@@ -3374,10 +3374,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.099,
-      "png_sha256": "ea347bf57c9a3c5df272353cbb898df36bdc4412a0d73a32029848171b2791cb",
+      "seconds": 2.918,
+      "png_sha256": "b74e96cdd09de36d61c2ec1256e8528b543d3ffa0aad5ee131bbe48df826f767",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         220,
         161
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         56.45188903808594,
         12.667434692382812,
@@ -3523,10 +3523,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.93,
-      "png_sha256": "ce9d65c330cb5cd7dd0938fa153095534d245914602673df94cc05e35d69401c",
+      "seconds": 2.588,
+      "png_sha256": "6ba17a3206893d89ed42a809f641615f6b2bdb70f559295087a26bccf15657f1",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         238,
         158
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         37.62480926513672,
         15.353416442871094,
@@ -3672,10 +3672,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.934,
-      "png_sha256": "8f7b84fbf1b99ab30ea2cd74656cba06838581e38e5a9501735ef54689ad4c03",
+      "seconds": 2.575,
+      "png_sha256": "7bd2bf3697bccaa8f035ffb9e9c85788f489490ccab1cec16f33915f6dff73b6",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         252,
         152
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         22.731956481933594,
         20.307891845703125,
@@ -3821,10 +3821,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.948,
-      "png_sha256": "d85e5cff78c877edee5ed5ce7c6d3e4db63ec9eaa6d9a74f55e6790b81d78567",
+      "seconds": 2.927,
+      "png_sha256": "f2ce80c9b39a0bd5dc977579b1a551d560c66c4940bb646b27705481d1b5c340",
       "sockets": [
         {
           "id": "mount0",
@@ -3951,16 +3951,16 @@
     {
       "bounds_px": [
         10,
-        24,
+        23,
         262,
         145
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         12.345649719238281,
-        26.822998046875,
+        25.945526123046875,
         259.2371520996094,
         142.1395263671875
       ],
@@ -3970,10 +3970,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.96,
-      "png_sha256": "8291152cd500650504d1e6f30345baf8d3cc88dfd9d15350604f727c98d4882b",
+      "seconds": 4.579,
+      "png_sha256": "0165bee015d948ac4e5796d71fc91419cc9acf48b586f259f52fc415e8c5c3a9",
       "sockets": [
         {
           "id": "mount0",
@@ -4100,16 +4100,16 @@
     {
       "bounds_px": [
         4,
-        30,
+        20,
         267,
         135
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         6.8196258544921875,
-        32.990509033203125,
+        22.572059631347656,
         264.53759765625,
         132.63148498535156
       ],
@@ -4119,10 +4119,10 @@
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.918,
-      "png_sha256": "d8c09535423c0c240f18d11329cc26fca8b331e185c5b3be0529745e73af9ac5",
+      "seconds": 3.886,
+      "png_sha256": "7692d1b8f9385a9af70c5f7bdd59f72c526410c5b395e4b2db467704e6a81010",
       "sockets": [
         {
           "id": "mount0",
@@ -4249,16 +4249,16 @@
     {
       "bounds_px": [
         4,
-        35,
+        17,
         268,
         124
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         6.2402496337890625,
-        37.16627883911133,
+        19.80223846435547,
         265.0521545410156,
         121.55440521240234
       ],
@@ -4268,10 +4268,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.928,
-      "png_sha256": "efa030d2a4329722833e2c3e1c0096e9eaca0600344be05e09d45b190d4d2c4c",
+      "seconds": 4.442,
+      "png_sha256": "6ffe62d20d47f6a08d15df0ef7937c751a34b3ee68cbbc0b9ecacd205c662b01",
       "sockets": [
         {
           "id": "mount0",
@@ -4398,16 +4398,16 @@
     {
       "bounds_px": [
         8,
-        34,
+        15,
         263,
         113
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         10.373764038085938,
-        34.972145080566406,
+        17.742507934570312,
         260.760986328125,
         109.85836791992188
       ],
@@ -4417,10 +4417,10 @@
         0.0,
         52.06763458251953,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.86,
-      "png_sha256": "685c370b5bcdb95e99a1440bf7cae2563d64b4f881bb582edea48fc880e20bdc",
+      "seconds": 3.774,
+      "png_sha256": "a219f2a035e5e9d33e149dec7c0325906802a4e4529fef2c1f524537b9f9155e",
       "sockets": [
         {
           "id": "mount0",
@@ -4547,16 +4547,16 @@
     {
       "bounds_px": [
         4,
-        32,
+        14,
         268,
         124
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         6.2402496337890625,
-        33.003509521484375,
+        16.457069396972656,
         265.0521545410156,
         120.978759765625
       ],
@@ -4566,10 +4566,10 @@
         0.0,
         52.06764221191406,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.919,
-      "png_sha256": "dc62b3e18c0a272311bf07667b8885fbf320b64ecd120187062411ba153fa058",
+      "seconds": 3.545,
+      "png_sha256": "945366a82e9c6c2e57bf2c02f2b8ee66b778493215ed8b21cb16a0b3297b080a",
       "sockets": [
         {
           "id": "mount0",
@@ -4696,16 +4696,16 @@
     {
       "bounds_px": [
         4,
-        27,
+        13,
         267,
         134
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         6.8196258544921875,
-        29.637184143066406,
+        15.991905212402344,
         264.53759765625,
         131.3456268310547
       ],
@@ -4715,10 +4715,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.958,
-      "png_sha256": "4f10983766a914082710ed9a895b7cf1ea71d7bf077cdacc9bc50260ac7ff08a",
+      "seconds": 3.112,
+      "png_sha256": "eeb5f36b439b34a49bcf298a142b535c6cc27f38a92c3b5a6a8e0477bc91386b",
       "sockets": [
         {
           "id": "mount0",
@@ -4845,16 +4845,16 @@
     {
       "bounds_px": [
         10,
-        18,
+        14,
         262,
         143
       ],
-      "vertices": 21612,
-      "triangles": 40968,
-      "parts": 306,
+      "vertices": 30344,
+      "triangles": 55908,
+      "parts": 442,
       "projected_vertex_bounds_px": [
         12.345649719238281,
-        20.76666259765625,
+        16.391357421875,
         259.2371520996094,
         140.2388916015625
       ],
@@ -4864,10 +4864,10 @@
         0.0,
         52.0676383972168,
         20.8535099029541,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mercantile_clipper",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.95,
-      "png_sha256": "7bebae75d08b3324570002dbc3433c1448d49e60f5ee35fa5ba0fde2338424ef",
+      "seconds": 2.604,
+      "png_sha256": "ee9d9f423f62ed26e3fce8b2deb5f8196477eb0788f4306fda2380be0d6432ff",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.06,

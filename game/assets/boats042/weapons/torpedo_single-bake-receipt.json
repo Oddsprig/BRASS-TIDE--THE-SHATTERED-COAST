@@ -1,57 +1,57 @@
 {
   "variant": "torpedo_single",
-  "source_sha256": "8b695978bd1c0c1ffda68a71c5e9784902ced510a81c49b1b98cc5b80a9d4be6",
+  "source_sha256": "621323a93b0a43dba7c590a6ecdd8d4e39f97ba8aa263138cbf4732ef3770bfe",
   "revision": "042-authored-weapons-r2",
   "layers": [
     {
       "layer": "base",
       "atlas": "torpedo_single-base.png",
-      "sha256": "1be241721c1bb40f405ac9afa2ab30d6f794955c128d7f0c705b826006112440",
+      "sha256": "fe44317e69a694e82d24ac2ae73c351371f0d56c15e93741be03625a0bde5df8",
       "frame_sha256": [
-        "dd6869c698f63d466d8c612a9de86d6ed4ce89c57512406ced427f78da329501",
-        "6de97be43c073e06bbd1a749035d3b73172715d17393e649d7b5774375037d08",
-        "3c83a57a137f62eeb40a8467b725e13cf4a013cdb2573b254162554a01b77aa2",
-        "2bf7d0c505e3a0260fd2871d0883888597ca85e859dcdcde3d2449452f652e0d",
-        "ef304eee3117a38828403ffd566f71154b2566987993175326d8cb555ba14f8c",
-        "06e1fbc3097dd9df05547f2ea9355f721b85c9a7962f55f329b73ae7ab412028",
-        "ade08d60b8a293de9a44461fbc88bc6eda4795b3788d31480067724e3ab98e70",
-        "1ffb805b44e56bd52f35d6da046c5ab61b9330ac222c44d90b02d94d6d5d8094",
-        "763ccfe8d88bfb7cb2ed8ae036ea941a3429a540d97a61cecc9c23b6f337c07e",
-        "8895837e13f4a78db625b8651b79a6cef8e55c732c5bb0a4f1e2d0cc53bf0c9a",
-        "06bce421b5d855c0236f0aa1b85ec4590b15663baf21adfceed4e2aea75fc7b8",
-        "dcfa107c57fff021a6f4c19567e44084477d28aa3a3243dd037941373c98f610",
-        "8f4900f7c4f56c10182f1d7833bf2824cac3ef9bc1eef4daa6a90548266562fd",
-        "f3d1d61fae790e6fa9f166bf375b0de83366157c21074edb28d6feeff12aa4cb",
-        "9d406e1fe37b0a9d19a5fc0051d962acd1ad169b2d34685bcc234cdbf21a9f7b",
-        "08e7c6abe05c0e5af56e6f5737e15c22995cf3b665fcf23df79955f56c60cbf3",
-        "c66a3b91014f30c7fdb411a4f4f169110d62cd5a0c8189658799efc5cf07bfcf",
-        "8ddb5d1d0e8c9c7f5095d59562fdef56ee7d9611ca8f19c219619d4a3170b731",
-        "d27ea0abc43543639f8910e07faef683a556c06c76fe0e287ab3600ddd329c35",
-        "50768b3c6e71cf553d948c245c42125df955f7bfc19d7fbe949f428a0c18c9a1",
-        "6b2eec8ad736985b54aaa3b76a3005800c73cff3fa1a01d4b7028e1e7c991bbb",
-        "2aad42ece103d7e53af437611472312f7ae6302ba38407b9e3bf7aad75ccd725",
-        "5e3b96c00a9a40b7933e720a876d21ef5019423301c0c5eb085bb2eda63116ac",
-        "37d965b997ee0366e4f5d104fc3cb5150bea8f2eab3ca16e2c388d32b670810f",
-        "8d0ea7a315c46e6a7b0f467cb67b31c3b4763506347d4f71f312ada7d8e0ef50",
-        "e53e1a232827df775a2e9057476abd31497d33faf4f2d7f485f4b28ba550fa6c",
-        "4b61f5935b9e36973f4c6853efabebe4f700382ab837f32f6f85d4d8df3c8c3b",
-        "08222c6faefb73f92994a0a81cb210a148bcb6ab5f66ab046ea1c2a400a4a477",
-        "2ee1724f2ded41194ddf9a09d0723bf3177b25f2891a0f8cb3d7a6b67d089282",
-        "3aca8ffa263e9fb90ffce124d71ec60f8842c3eac4b116b013f692913b16494f",
-        "507875f8a639739546e2acb4fca747a41d89f7d97362a3099ac8578f4c13d825",
-        "db17f2f133f542d2a38e777f2233baac29e6ad94dcb3b6d6cf2a5960ac5ae70e"
+        "c735774b27f486f120db75d434ee46aa79f383d7b353b70f327013e2a9493fbd",
+        "ad3e3ee2c54727f97e0e2ad54923620df539fb90e56a0ac7a095c21689b4426b",
+        "724842e63feba34ff07035d8e4ea458289a2028c81393c65475c6c3b3450ad12",
+        "94c72ebfb8923bcd6a1602cf360c6bdc0975aaa09f9d3f66596058b8ecbc331e",
+        "aefb1665a71024560fd59994c17585aefc9257190cfa873fd3ad14b77cc63307",
+        "7f221de49bdaf959aa8ad5783ff5302109ed679c22f13b5d251e2a357bc1f21c",
+        "f64e48e2c390342df4dd694f44a1c7c3b4be40a67580fc214df00c1d153edf53",
+        "3ef0f4795800a3a4192f6d83223926776a929de4920379169df7f32c8c79f8f2",
+        "a7eb153a3e788835f4dcbf9b0ed85876f440449720f6e8478d9f88a92b18c164",
+        "7f8b258d420e198e03db355fbc72e13770d33ef369a99af391ad74b07aeaf4ed",
+        "22590f7444a64ce06075e8ed5d40b9e9f0f80692cb47c119438dc9034d3524e2",
+        "046864ba77a88e83e837a9095a46231d547951495e77b94b17e856b98503ef5f",
+        "802742eba16531f58fd3b5dca91cd1bb0a67644b025ff90aa2e6207528a8b3d4",
+        "25a4b7c7763310c0570103aca5f62fb2156996e18cb670e5c7bc95cf222c7092",
+        "a5dd86169e7ab7d341985145b6937d95d330259fed57a36c136a8a29b22bc4e9",
+        "6a546abcb1b868314d429d3e64ae0e2fb99b8e689f94daab431d6f9307c3b3b4",
+        "c290656ad4c45bdec48c751d1689c34c060e95baf0ea7e674e31b6506c7517c5",
+        "9282de8237a3fd6d0cafda820f45529e95a938aab1c4a3c25dbeeb091c1bed4f",
+        "1f514fc0fc0333f58ed165773177f889a886fb75310837c7fa0430474a7db638",
+        "690958a9f6ba221dbce5fc0fde9ed60f63edcadd924b49c013dd40f090e01857",
+        "3a1f880ab55314afb79fefd39cc6554180bce506b4cba8fb7a55cefd4a4c5f1a",
+        "6ddf14635e3be32a87859b83bbeb3c25b39c93c1537e07d8bb36d7d8fcbc8b0a",
+        "541b0327625a905d9d9a48169d3a5d53bc7ce38c848f02bdf220d8f3a8ee9fcb",
+        "4f1c15eaf109850e7b9e4e1fbd667e77c9722616fd558b3728139558b344875e",
+        "2978e1af7d42428d26781060d0e8be2d9c07d57ff1dab8861dd2ff0fee277e8f",
+        "560c0439dad33816c9b7f84ec5cdcf6526395e676b383272dc046ea97644061c",
+        "3a0d161cf5d8a5f796ea54629f44c0748a777fdd09814f8e307d263178ccee0f",
+        "ea17b6606e8fa7ae60b0c6c27c10f7487a94232c43daa9c195aa88f45fd66f5a",
+        "bc62c84535cea5d21db4b624977ce512553937ba5fce79687563a4aec19d6080",
+        "c0255a11bdf746a424272a647ae4b3eed9c89d6af0ac7ab7257cfc3c84b9411e",
+        "d7bd80e231bd6cd9853d17a1797be689ff2c12a0e5823fd61d954053c55b9621",
+        "a719d562e11a1c20b16312732fa1c2bb8fbde008e69df0843d3a140284a49cee"
       ],
       "frame_bounds_px": [
         [
+          84,
           83,
-          82,
-          93,
-          60
+          92,
+          59
         ],
         [
-          90,
+          91,
           80,
-          79,
+          78,
           65
         ],
         [
@@ -62,9 +62,9 @@
         ],
         [
           107,
-          76,
+          77,
           44,
-          73
+          72
         ],
         [
           110,
@@ -74,74 +74,74 @@
         ],
         [
           105,
-          76,
-          45,
-          73
+          77,
+          44,
+          72
         ],
         [
           96,
           78,
-          63,
+          62,
           70
         ],
         [
           87,
           80,
-          80,
+          78,
           65
         ],
         [
           80,
           83,
-          93,
+          92,
           59
         ],
         [
           74,
           86,
-          104,
+          103,
           55
         ],
         [
           71,
-          90,
-          110,
-          49
-        ],
-        [
-          70,
-          94,
-          113,
-          44
+          91,
+          109,
+          48
         ],
         [
           70,
           95,
-          112,
+          111,
           43
         ],
         [
           70,
+          99,
+          110,
+          39
+        ],
+        [
+          70,
           94,
-          112,
+          111,
           44
         ],
         [
           71,
           89,
-          110,
+          109,
           50
         ],
         [
           74,
           84,
-          104,
+          103,
           57
         ],
         [
           80,
           80,
-          93,
+          92,
           62
         ],
         [
@@ -154,7 +154,7 @@
           96,
           75,
           62,
-          70
+          69
         ],
         [
           105,
@@ -166,72 +166,72 @@
           110,
           73,
           36,
-          74
-        ],
-        [
-          106,
-          73,
-          45,
           73
         ],
         [
-          97,
-          75,
-          63,
-          70
+          107,
+          73,
+          44,
+          73
         ],
         [
-          89,
+          98,
+          75,
+          62,
+          69
+        ],
+        [
+          90,
           77,
-          80,
+          79,
           66
         ],
         [
-          83,
+          84,
           80,
-          93,
+          92,
           62
         ],
         [
-          78,
+          79,
           84,
-          104,
+          103,
           57
         ],
         [
-          75,
+          76,
           89,
-          110,
+          109,
           50
         ],
         [
-          73,
+          75,
           94,
-          113,
+          111,
           44
         ],
         [
-          74,
-          98,
-          112,
-          40
-        ],
-        [
-          74,
-          94,
-          112,
-          44
+          76,
+          99,
+          110,
+          39
         ],
         [
           75,
-          90,
-          110,
-          49
+          95,
+          111,
+          43
         ],
         [
-          78,
+          76,
+          91,
+          109,
+          48
+        ],
+        [
+          79,
           86,
-          104,
+          103,
           55
         ]
       ],

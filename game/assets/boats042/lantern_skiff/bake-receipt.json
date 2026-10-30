@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "lantern_skiff",
   "headings": 32,
-  "atlas_sha256": "826ced2d3b554a0cf32cd1b4b97a5cc3b97c852fab428f4fc3c05e6e010d2454",
+  "atlas_sha256": "0b43de8505436cee8cd50498bda6b97c9b58c6e06875f8d611b85f682b72750a",
   "canvas_config": {
     "cell_px": [
       176,
@@ -91,33 +91,33 @@
     ],
     [
       18,
-      21,
+      19,
       151,
-      64
+      66
     ],
     [
       14,
-      23,
+      20,
       158,
-      56
+      59
     ],
     [
       12,
-      22,
+      21,
       160,
-      53
+      54
     ],
     [
       14,
-      23,
+      21,
       158,
-      60
+      62
     ],
     [
       18,
-      24,
+      22,
       151,
-      66
+      68
     ],
     [
       25,
@@ -187,33 +187,33 @@
     ],
     [
       7,
-      24,
-      151,
-      66
-    ],
-    [
-      4,
-      23,
-      158,
-      60
-    ],
-    [
-      4,
       22,
-      160,
-      53
+      151,
+      68
     ],
     [
       4,
-      23,
+      21,
       158,
-      56
+      62
+    ],
+    [
+      4,
+      21,
+      160,
+      54
+    ],
+    [
+      4,
+      20,
+      158,
+      59
     ],
     [
       7,
-      21,
+      19,
       151,
-      64
+      66
     ],
     [
       12,
@@ -230,9 +230,9 @@
         143,
         97
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         23.45795440673828,
         14.733612060546875,
@@ -245,10 +245,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -284,12 +284,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.027,
-      "png_sha256": "52f00104b51f7d7bcc0f1f9c2180ced94c80347a0ce9951f57c1be7fda342546",
+      "seconds": 2.309,
+      "png_sha256": "8026b37e99b2379cad96e38f30dc2559f884234aa71536ca37dec5af63a06998",
       "sockets": [
         {
           "id": "mount0",
@@ -364,12 +364,12 @@
         133,
         101
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         34.32699203491211,
-        10.769676208496094,
+        10.757244110107422,
         130.03700256347656,
         99.08360290527344
       ],
@@ -379,10 +379,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -418,12 +418,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.109,
-      "png_sha256": "a88afeb72866bb2cad811f68122efa4c0fed621deb7dd59650b203245304021f",
+      "seconds": 1.937,
+      "png_sha256": "1ca52e7b55facb0bf497211b07ca4c1453072458d0310fe9d845a529638cb49c",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         124,
         104
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         45.78202438354492,
         8.094207763671875,
@@ -513,10 +513,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -552,12 +552,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.08,
-      "png_sha256": "a3d780f96d472a5969df91bbb0da072dc94a7c8961b48c149a37f09cce840908",
+      "seconds": 1.886,
+      "png_sha256": "21d9aa5b24ce4f5366475aa0d48fe7d10bc39cebe976cdc38fb0b14874011bbf",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         117,
         106
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         56.151885986328125,
         6.821266174316406,
@@ -647,10 +647,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -686,12 +686,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.044,
-      "png_sha256": "c0b7d579b220fdcadec82a6525eee027c4cee170544836ed295944593f72ca61",
+      "seconds": 1.866,
+      "png_sha256": "75ead629cc7919dead6f152a53e7103da47589076eb87b0a8d76d247bb055713",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         114,
         106
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         64.58806610107422,
         7.00927734375,
@@ -781,10 +781,10 @@
         0.0,
         31.406055450439453,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -820,12 +820,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.055,
-      "png_sha256": "4a25cbbe64b7513851fe0bbd1d848ca08d24d3b6547cce2b49c7cc09de85209b",
+      "seconds": 1.801,
+      "png_sha256": "17e1aad269b610d1598a75709dd0852b1b8f33b768ca42731bc15ea2969b1e83",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         123,
         106
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         61.48371887207031,
         6.821266174316406,
@@ -915,10 +915,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -954,12 +954,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.07,
-      "png_sha256": "f91adc19aae37e58838b238c7fc94debc3b7ffc8de34b34fefb6cc8391192698",
+      "seconds": 1.943,
+      "png_sha256": "8779d9a24f1e4e5b316231b9533fa827cb60bfb59c71d4760805f0e91db2efb3",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         133,
         104
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         54.48755645751953,
         8.094207763671875,
@@ -1049,10 +1049,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1088,12 +1088,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.085,
-      "png_sha256": "eb8a671e402502cd1ad8c6a370a53d53dbba76c1c37c921155c1a1f1df99a632",
+      "seconds": 2.058,
+      "png_sha256": "2926e28c6ccf594098f666cfafaa679de317ece423508ef3ec78962b93158bf6",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,12 +1168,12 @@
         144,
         101
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         45.9630012512207,
-        10.769676208496094,
+        10.757244110107422,
         141.67300415039062,
         99.08360290527344
       ],
@@ -1183,10 +1183,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1222,12 +1222,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.069,
-      "png_sha256": "84073aa0c609b6bab5617bbad52765ac6ab70754ddb1064342cd8fbe77a34e6d",
+      "seconds": 2.141,
+      "png_sha256": "1d02adacb520079ccf752a657d48cc45cecf13193ba257615c4379d9fcd396d4",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,9 +1302,9 @@
         155,
         97
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         36.045318603515625,
         14.733612060546875,
@@ -1317,10 +1317,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1356,12 +1356,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.076,
-      "png_sha256": "aa0e34df7844e05b3979fab0c421e905c630f38b89814abac2eef81ddc23e377",
+      "seconds": 2.223,
+      "png_sha256": "73562c63e5988cd1500f8eec646267ee34e0d9b387d51fc9fc9e0128ecc0c582",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,9 +1436,9 @@
         164,
         92
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         27.082855224609375,
         19.856201171875,
@@ -1451,10 +1451,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1490,12 +1490,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.069,
-      "png_sha256": "d4acda3afd40a52af66da393759ea5878e0bee90c31ffa87f7952a2201f4c83e",
+      "seconds": 1.855,
+      "png_sha256": "8154e506ad88bddbdb15ac90d57b7d2efc9f3f10bf9ce8e4b3a1ef0b57696ebb",
       "sockets": [
         {
           "id": "mount0",
@@ -1566,16 +1566,16 @@
     {
       "bounds_px": [
         18,
-        21,
+        19,
         169,
         85
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         20.461395263671875,
-        23.60845947265625,
+        21.65127182006836,
         166.5621795654297,
         82.84596252441406
       ],
@@ -1585,10 +1585,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1624,12 +1624,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.07,
-      "png_sha256": "0f627bce330bfb91067376310eadb319356567c4720fb522970105608f7a6e1d",
+      "seconds": 1.655,
+      "png_sha256": "61a47f3681d5f17f5902dd4ffcff2597d2573ae264be21dcbad492f1cd9e861e",
       "sockets": [
         {
           "id": "mount0",
@@ -1700,16 +1700,16 @@
     {
       "bounds_px": [
         14,
-        23,
+        20,
         172,
         79
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         16.435409545898438,
-        24.21063995361328,
+        22.55742645263672,
         169.23532104492188,
         76.05860900878906
       ],
@@ -1719,10 +1719,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1758,12 +1758,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.044,
-      "png_sha256": "3175a5185a156b46dba52ea2d2be7cfb98e33fbd90698f985406613bef2575f8",
+      "seconds": 1.485,
+      "png_sha256": "539bffe925ba45f4f58fbbe3ce7adbda8cb0a69c77ff4eaaf2245ad519b1d515",
       "sockets": [
         {
           "id": "mount0",
@@ -1834,16 +1834,16 @@
     {
       "bounds_px": [
         12,
-        22,
+        21,
         172,
         75
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         15.159614562988281,
-        24.886497497558594,
+        23.56985855102539,
         169.05990600585938,
         72.47413635253906
       ],
@@ -1853,10 +1853,10 @@
         0.0,
         31.406055450439453,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1892,12 +1892,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.047,
-      "png_sha256": "f0ddf373216700fe54a7fb6939669a2d14cd035e81027cade84ec5a7fd1cc992",
+      "seconds": 1.756,
+      "png_sha256": "a9b808a107aa3ab82d5a8dc7e8eec124864546bb96d096561cd376df2a315140",
       "sockets": [
         {
           "id": "mount0",
@@ -1968,16 +1968,16 @@
     {
       "bounds_px": [
         14,
-        23,
+        21,
         172,
         83
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         16.435409545898438,
-        25.568065643310547,
+        24.050594329833984,
         169.23532104492188,
         80.2400131225586
       ],
@@ -1987,10 +1987,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2026,12 +2026,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.036,
-      "png_sha256": "7ef177260c03e025350b89b635cf05431893bbeebe2f1d12bb720ac02a03752a",
+      "seconds": 2.515,
+      "png_sha256": "fb41d11b04040077d11f2fc1af48a8b3c53a12ed972267ceefb189307d658063",
       "sockets": [
         {
           "id": "mount0",
@@ -2102,16 +2102,16 @@
     {
       "bounds_px": [
         18,
-        24,
+        22,
         169,
         90
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         20.461395263671875,
-        26.27114486694336,
+        24.58022689819336,
         166.5621795654297,
         87.52703857421875
       ],
@@ -2121,10 +2121,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2160,12 +2160,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.077,
-      "png_sha256": "5d755ae532406ed1c0c6da0d42d5a4148c2256e72d9c6e560f9955fd640d9628",
+      "seconds": 1.9,
+      "png_sha256": "8c7c89517aacf57a22e613061286253ddbb0d79c4faa9852cdb849e6c8f7f335",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,12 +2240,12 @@
         164,
         97
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         27.082855224609375,
-        25.318130493164062,
+        25.140888214111328,
         160.93075561523438,
         94.0612564086914
       ],
@@ -2255,10 +2255,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2294,12 +2294,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "7ee3a981bd472732f3d1b062369c09434e422b5704046396dcb3b3230f17f05f",
+      "seconds": 2.352,
+      "png_sha256": "2b856a0f9b78a949d8aa4d384892d861460db2c063ec82dfb80fbb0a2bc6d864",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,12 +2374,12 @@
         155,
         102
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         36.045318603515625,
-        21.801902770996094,
+        21.690448760986328,
         152.54205322265625,
         99.62104797363281
       ],
@@ -2389,10 +2389,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2428,12 +2428,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.074,
-      "png_sha256": "679c5181cd583e9e2186492101d9ded9c8b6e45a49711365e86ac5e06245aab6",
+      "seconds": 2.339,
+      "png_sha256": "1eca703f455051b649579173e3aee9474307afa25993d6644694a3fa07557c6c",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,12 +2508,12 @@
         144,
         107
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         45.9630012512207,
-        18.584022521972656,
+        18.312721252441406,
         141.67300415039062,
         103.96805572509766
       ],
@@ -2523,10 +2523,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2562,12 +2562,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.064,
-      "png_sha256": "e799c6da93e957c27fd4f71e42c5311f928e6dd776ff233cc9579f32b9d739ab",
+      "seconds": 2.006,
+      "png_sha256": "5853fbf92d15a923ccdb5c7001ab83b526f5102929d62b0839484e4336863b8b",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,12 +2642,12 @@
         133,
         110
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         54.48755645751953,
-        16.112960815429688,
+        15.954933166503906,
         130.2179718017578,
         106.93522644042969
       ],
@@ -2657,10 +2657,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2696,12 +2696,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.068,
-      "png_sha256": "f8a1650eecba6e1e2f8e983b12834505b5a0862477e313414eeb342adf9ac441",
+      "seconds": 2.532,
+      "png_sha256": "db1e52993c42bd927f36adca375dc477c22b3b3a1d0f5c031c06f0dcb8fdb8eb",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,12 +2776,12 @@
         123,
         111
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         61.48371887207031,
-        14.757858276367188,
+        14.625602722167969,
         119.84811401367188,
         108.43559265136719
       ],
@@ -2791,10 +2791,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2830,12 +2830,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.048,
-      "png_sha256": "a11c370961f1894e2ef6466e5b09e46bd7a63493b41563ff5f47976609e31d54",
+      "seconds": 2.904,
+      "png_sha256": "b6edf7e5b41a04f8f11483ea304814d0232651238701d9424a1f2a06a76eea5b",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,12 +2910,12 @@
         114,
         111
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         64.58806610107422,
-        14.527149200439453,
+        14.435440063476562,
         111.41193389892578,
         108.4288330078125
       ],
@@ -2925,10 +2925,10 @@
         0.0,
         31.406055450439453,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2964,12 +2964,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.045,
-      "png_sha256": "5b1be2eb400987b04ef6c7bd8bc1ad39aa19f659469eaa551cdab9a8771379aa",
+      "seconds": 1.863,
+      "png_sha256": "ad188b2d3a4149ce47156e2e5e7b7f401d8cc43f09dade34830089660f21abf4",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,12 +3044,12 @@
         117,
         111
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         56.151885986328125,
-        14.757858276367188,
+        14.625602722167969,
         114.51628112792969,
         108.43559265136719
       ],
@@ -3059,10 +3059,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3098,12 +3098,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.049,
-      "png_sha256": "ea80e63785ba481cd46c2ecf78572579da6d8c38e4b99913093288aab5269f56",
+      "seconds": 1.736,
+      "png_sha256": "f8b922abb02f6146233b0e9d80af16df4e372d62c329d115289d2111d1ce5630",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,12 +3178,12 @@
         124,
         110
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         45.78202438354492,
-        16.112960815429688,
+        15.954933166503906,
         121.51244354248047,
         106.93522644042969
       ],
@@ -3193,10 +3193,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3232,12 +3232,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.068,
-      "png_sha256": "d159e80ea1439325d7d241083a20265455f06232eec9c332e9c0095927224423",
+      "seconds": 1.998,
+      "png_sha256": "d42d133bba1d43c09f5cfd17e8656f8c72c4481a99f3b2ea1981035a71f36922",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,12 +3312,12 @@
         133,
         107
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         34.32699203491211,
-        18.584022521972656,
+        18.312721252441406,
         130.03700256347656,
         103.96805572509766
       ],
@@ -3327,10 +3327,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3366,12 +3366,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.073,
-      "png_sha256": "7af289401f16456f91781c57202ffbd884d07dab8ac70db8c387b6e298d35972",
+      "seconds": 1.438,
+      "png_sha256": "ba771cdc3a40bfe1b5382423e73ae9a12cae9ddf93555b93e21e2000b5bbbcd7",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,12 +3446,12 @@
         143,
         102
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         23.45795440673828,
-        21.801902770996094,
+        21.690448760986328,
         139.95468139648438,
         99.62104797363281
       ],
@@ -3461,10 +3461,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3500,12 +3500,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.079,
-      "png_sha256": "08f73dff6c069aab69fb48f620e1631bc38dd8152c388c4d99145df51ed2cce6",
+      "seconds": 2.558,
+      "png_sha256": "6fc36c6ea803bba3e1b9ea17f60bc3d9b917167280c97f96b6117f64e226fff3",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,12 +3580,12 @@
         151,
         97
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         15.069252014160156,
-        25.318130493164062,
+        25.140888214111328,
         148.91714477539062,
         94.0612564086914
       ],
@@ -3595,10 +3595,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3634,12 +3634,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.056,
-      "png_sha256": "ca120c5ca01ea7a19c609d8ec55bfe798cdd8e6f544367345a664d2ac79450e8",
+      "seconds": 2.571,
+      "png_sha256": "28336b33097b90deb730e203bd232646dbfd9a8ed71c4e4dcae05788dc1015ec",
       "sockets": [
         {
           "id": "mount0",
@@ -3710,16 +3710,16 @@
     {
       "bounds_px": [
         7,
-        24,
+        22,
         158,
         90
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         9.437820434570312,
-        26.27114486694336,
+        24.58022689819336,
         155.53860473632812,
         87.52703857421875
       ],
@@ -3729,10 +3729,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3768,12 +3768,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.08,
-      "png_sha256": "350406ede61af60b27639ed6fb6fe2ea5c14bc4d5788e58d7474ba830ff758a4",
+      "seconds": 2.558,
+      "png_sha256": "a8286cfda45b611e9db432d3ee8f6cd51c1c0a9503598f135b88421a140b7b26",
       "sockets": [
         {
           "id": "mount0",
@@ -3844,16 +3844,16 @@
     {
       "bounds_px": [
         4,
-        23,
+        21,
         162,
         83
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         6.764671325683594,
-        25.568065643310547,
+        24.050594329833984,
         159.56459045410156,
         80.2400131225586
       ],
@@ -3863,10 +3863,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3902,12 +3902,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.042,
-      "png_sha256": "3afd67ed575184201e27b9a21bc60e98bcf2baf0f2889a3c43fb5e9f4e69efcf",
+      "seconds": 2.432,
+      "png_sha256": "6400b0085c8fa80cac97bd909d06cbc1b5fc3d2c1f558352fe972f2b5b6ddb7b",
       "sockets": [
         {
           "id": "mount0",
@@ -3978,16 +3978,16 @@
     {
       "bounds_px": [
         4,
-        22,
+        21,
         164,
         75
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         6.940101623535156,
-        24.886497497558594,
+        23.56985855102539,
         160.84039306640625,
         72.47413635253906
       ],
@@ -3997,10 +3997,10 @@
         0.0,
         31.406055450439453,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4036,12 +4036,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "1a526b04583e66d127cd3ec74687c4757ba00e32d848e86c69d443ba4e86d8c0",
+      "seconds": 2.071,
+      "png_sha256": "cb937d039a78d6e60532356cc2e6bf36787077fa12b61f9f48380a6480d9b2d5",
       "sockets": [
         {
           "id": "mount0",
@@ -4112,16 +4112,16 @@
     {
       "bounds_px": [
         4,
-        23,
+        20,
         162,
         79
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         6.764671325683594,
-        24.21063995361328,
+        22.55742645263672,
         159.56459045410156,
         76.05860900878906
       ],
@@ -4131,10 +4131,10 @@
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4170,12 +4170,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.038,
-      "png_sha256": "d22da2f739ee49843ebbe2d4b82ccdc9a3d4fee1476081dc2d665b3c391953a9",
+      "seconds": 2.017,
+      "png_sha256": "f1f819cca08cfe2cd4db1d367adf555ddcb98763be37eb2e38fd8a67da330846",
       "sockets": [
         {
           "id": "mount0",
@@ -4246,16 +4246,16 @@
     {
       "bounds_px": [
         7,
-        21,
+        19,
         158,
         85
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         9.437820434570312,
-        23.60845947265625,
+        21.65127182006836,
         155.53860473632812,
         82.84596252441406
       ],
@@ -4265,10 +4265,10 @@
         0.0,
         31.406057357788086,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4304,12 +4304,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.083,
-      "png_sha256": "4c4cc5c83588fbae459300758218ced2fbf5c78381ae82d4e9f2dbb5a19c4013",
+      "seconds": 1.759,
+      "png_sha256": "7af8d56eaee5b0f6b45c53982ec5c457050c40b2c2666d5ebfa7e1adeef144c3",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,9 +4384,9 @@
         151,
         92
       ],
-      "vertices": 11726,
-      "triangles": 22160,
-      "parts": 167,
+      "vertices": 17368,
+      "triangles": 32140,
+      "parts": 251,
       "projected_vertex_bounds_px": [
         15.069252014160156,
         19.856201171875,
@@ -4399,10 +4399,10 @@
         0.0,
         31.406055450439453,
         10.09434986114502,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4438,12 +4438,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "lantern_skiff",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.05,
-      "png_sha256": "3714c02e9e8ce6f1d00cb9d43698c8b4be4b10ec028978fd42091febd3a49616",
+      "seconds": 1.417,
+      "png_sha256": "537c81ff64e39f7d35b794f8ce8cd92dbfef5db347cdf09f2b387f9362b8ae91",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.96,
@@ -4549,7 +4549,7 @@
       ]
     ],
     "physical_size": 15,
-    "minimum_high_structure_clearance_world": 2.340000000000002,
+    "minimum_high_structure_clearance_world": 1.3245746065826087,
     "installed_guns_in_hull": false,
     "design": "Customs canopy; raised searchlight; twin transom motors"
   },

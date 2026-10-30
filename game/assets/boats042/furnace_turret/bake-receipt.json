@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "furnace_turret",
   "headings": 32,
-  "atlas_sha256": "71f4bf1571ea4d3ce34bd3a963bf384c285c8ea9452195f03c1cef92735ec63f",
+  "atlas_sha256": "14031615d87240e05c8ed11e97fa417222c0ba1994d3391c26510d6914db09a5",
   "canvas_config": {
     "cell_px": [
       360,
@@ -91,9 +91,9 @@
     ],
     [
       35,
-      36,
+      35,
       310,
-      110
+      111
     ],
     [
       26,
@@ -103,9 +103,9 @@
     ],
     [
       23,
-      49,
+      48,
       326,
-      88
+      89
     ],
     [
       26,
@@ -127,15 +127,15 @@
     ],
     [
       64,
-      31,
+      30,
       253,
-      148
+      149
     ],
     [
       79,
-      26,
+      25,
       219,
-      162
+      163
     ],
     [
       94,
@@ -169,15 +169,15 @@
     ],
     [
       56,
-      26,
+      25,
       219,
-      162
+      163
     ],
     [
       37,
-      31,
+      30,
       253,
-      148
+      149
     ],
     [
       20,
@@ -199,9 +199,9 @@
     ],
     [
       5,
-      49,
+      48,
       326,
-      88
+      89
     ],
     [
       4,
@@ -211,9 +211,9 @@
     ],
     [
       9,
-      36,
+      35,
       310,
-      110
+      111
     ],
     [
       20,
@@ -230,9 +230,9 @@
         290,
         166
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         39.88795471191406,
         22.0316162109375,
@@ -248,7 +248,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.491,
-      "png_sha256": "ba33cbb9662bcffba8c84e63989f385469015a9b8b3befb7a29e43487dea94e7",
+      "seconds": 3.724,
+      "png_sha256": "a911b05783a68a06fa062973ee4e6920c06e72cf5fa062ef774d2b3987c3db35",
       "sockets": [
         {
           "id": "mount0",
@@ -394,9 +394,9 @@
         275,
         175
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         58.495384216308594,
         13.916038513183594,
@@ -412,7 +412,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -452,8 +452,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 1,
       "density": 2,
@@ -486,8 +486,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.541,
-      "png_sha256": "56b69bac0c699afb0db21bbcfca16ccf5cafce7ea8ef18b8f2243d4b093a7d8b",
+      "seconds": 2.652,
+      "png_sha256": "ca30f1a64e8461e3974c7647426ec949fa26b7f4701f0cd92f049c75962b5c43",
       "sockets": [
         {
           "id": "mount0",
@@ -558,9 +558,9 @@
         260,
         181
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         78.02516174316406,
         8.569099426269531,
@@ -576,7 +576,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -616,8 +616,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 2,
       "density": 2,
@@ -650,8 +650,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.497,
-      "png_sha256": "ede4d620c8c7f7fcd93cfbb483ec623a3d5ed670547fd354820fb78de6115a12",
+      "seconds": 3.152,
+      "png_sha256": "a41caa9346a8c4c921a0fd468105194d795947a49355a6bb8a6dc98026ce359c",
       "sockets": [
         {
           "id": "mount0",
@@ -722,9 +722,9 @@
         249,
         186
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         98.53681182861328,
         6.195289611816406,
@@ -740,7 +740,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -780,8 +780,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 3,
       "density": 2,
@@ -814,8 +814,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.475,
-      "png_sha256": "89f9248a2795bd70fea290e219a7dbbbe9cc99095692b5342e3f5a56c4e554f7",
+      "seconds": 2.777,
+      "png_sha256": "6155c8a232bc315f359b86e7a689b0f85ca5a356717c3fd85411f4c7cfd5fe58",
       "sockets": [
         {
           "id": "mount0",
@@ -886,9 +886,9 @@
         240,
         187
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         116.27529907226562,
         6.8848419189453125,
@@ -904,7 +904,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -944,8 +944,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 4,
       "density": 2,
@@ -978,8 +978,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.436,
-      "png_sha256": "4827c6e802c87631e441c4a191cbf7bd8b995808601b8b05f671fa64282fc79f",
+      "seconds": 3.246,
+      "png_sha256": "92b0a218e4aae433dfce8dda48ea4cc2dc94482388f60655697ca3729f8f0456",
       "sockets": [
         {
           "id": "mount0",
@@ -1050,9 +1050,9 @@
         258,
         186
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         108.18861389160156,
         6.195289611816406,
@@ -1068,7 +1068,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1108,8 +1108,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 5,
       "density": 2,
@@ -1142,8 +1142,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.466,
-      "png_sha256": "c807ed4fddb08771fca345ccf9016d0748aa0620b27b7c21885f3cd9f2fc1b13",
+      "seconds": 3.851,
+      "png_sha256": "b9d55685d769922b119348ef070454cbcb11dbda4c44103587336678f256a299",
       "sockets": [
         {
           "id": "mount0",
@@ -1214,9 +1214,9 @@
         279,
         181
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         96.5546646118164,
         8.569099426269531,
@@ -1232,7 +1232,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1272,8 +1272,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 6,
       "density": 2,
@@ -1306,8 +1306,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.482,
-      "png_sha256": "f12c5734ed3c28bc98dbc1b5f176e36b5ebe8b0a6974e49498e448b136fa60b7",
+      "seconds": 3.271,
+      "png_sha256": "5bb4dc2f3b12ebb036a386745d60ad1de33026736ad6f8be43e77ebd4e60f53c",
       "sockets": [
         {
           "id": "mount0",
@@ -1378,9 +1378,9 @@
         298,
         175
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         81.63097381591797,
         13.916038513183594,
@@ -1396,7 +1396,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1436,8 +1436,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 7,
       "density": 2,
@@ -1470,8 +1470,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.493,
-      "png_sha256": "308af8483a6e9650ea73ae815d741ebcc781663e6db6e3e321a40b48c527faa4",
+      "seconds": 3.484,
+      "png_sha256": "34b1bf6e493700277a847c8ca2078cabdb56ec2dfe09fbf679596642ca06d39c",
       "sockets": [
         {
           "id": "mount0",
@@ -1542,9 +1542,9 @@
         317,
         166
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         67.07566833496094,
         22.0316162109375,
@@ -1560,7 +1560,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1600,8 +1600,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 8,
       "density": 2,
@@ -1634,8 +1634,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.502,
-      "png_sha256": "3c4c2b5413083edf3e0ba1dff60e8b11e8ab5f41bc38f43b3c21464d82eba617",
+      "seconds": 3.933,
+      "png_sha256": "79dbda7de6549ade3cce9708a2d124d88310ff57362a72ae84b7761f4e6cf813",
       "sockets": [
         {
           "id": "mount0",
@@ -1706,12 +1706,12 @@
         334,
         154
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         51.22290802001953,
-        32.60099792480469,
+        32.55680847167969,
         331.04071044921875,
         151.74868774414062
       ],
@@ -1724,7 +1724,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1764,8 +1764,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 9,
       "density": 2,
@@ -1798,8 +1798,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.497,
-      "png_sha256": "7c93db7301123574f2eb4314da1200ffce9bf504b6e44210f4a90577ed38bb86",
+      "seconds": 2.328,
+      "png_sha256": "e1af067a2e4cfb34f32badcadebf29491c5fb59f0aa6b392866f1e64c255a465",
       "sockets": [
         {
           "id": "mount0",
@@ -1866,16 +1866,16 @@
     {
       "bounds_px": [
         35,
-        36,
+        35,
         345,
         146
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         37.38227844238281,
-        38.59441375732422,
+        38.01777648925781,
         342.0951232910156,
         143.6253204345703
       ],
@@ -1888,7 +1888,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1928,8 +1928,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 10,
       "density": 2,
@@ -1962,8 +1962,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.496,
-      "png_sha256": "42600d9161e631e3d17b96229aedc62d4c995f0ae10c4fcc452bdd357ac59996",
+      "seconds": 3.045,
+      "png_sha256": "01b2798192bce972fcf0d80c9762eb79833e417df919626a46760a4ef2cd18bf",
       "sockets": [
         {
           "id": "mount0",
@@ -2034,12 +2034,12 @@
         350,
         141
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         28.907089233398438,
-        44.8756103515625,
+        44.30967712402344,
         347.0731506347656,
         138.2444305419922
       ],
@@ -2052,7 +2052,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2092,8 +2092,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 11,
       "density": 2,
@@ -2126,8 +2126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.464,
-      "png_sha256": "414eaaa9acc704cb3cdcbc2dbab0e250df412bccd398df8762ed547406a692a1",
+      "seconds": 1.993,
+      "png_sha256": "8b903746a17e056886ec0c42176fc3eb435edd35308e7204590d9206fc62fef3",
       "sockets": [
         {
           "id": "mount0",
@@ -2194,16 +2194,16 @@
     {
       "bounds_px": [
         23,
-        49,
+        48,
         349,
         137
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         26.123031616210938,
-        51.64446258544922,
+        51.06782913208008,
         346.07769775390625,
         134.19993591308594
       ],
@@ -2216,7 +2216,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2256,8 +2256,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 12,
       "density": 2,
@@ -2290,8 +2290,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.424,
-      "png_sha256": "0b6ef5d0fb29460c718fb24ef89ece1bf3b2a3e62a62372091cd2d71dd8113e7",
+      "seconds": 3.407,
+      "png_sha256": "60306e939a5505a62f2797016e1ee7ab9db272383f9dd6be513b4505e6dc5356",
       "sockets": [
         {
           "id": "mount0",
@@ -2362,9 +2362,9 @@
         350,
         144
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         28.907089233398438,
         55.67897033691406,
@@ -2380,7 +2380,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2420,8 +2420,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 13,
       "density": 2,
@@ -2454,8 +2454,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.47,
-      "png_sha256": "a907ab95e7ba53e3207164c1d894f4e6aa3b7432f18cc082924702abc40cf743",
+      "seconds": 3.021,
+      "png_sha256": "8262bd420d61f96f97bd59dfd008130e06ef64cfca487bb299dc7a57f6574943",
       "sockets": [
         {
           "id": "mount0",
@@ -2526,9 +2526,9 @@
         345,
         154
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         37.38227844238281,
         48.357818603515625,
@@ -2544,7 +2544,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2584,8 +2584,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 14,
       "density": 2,
@@ -2618,8 +2618,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.542,
-      "png_sha256": "2beb80baa800d1558c5096c8bef590ba58a03da0467794e25f3bf947879c8e93",
+      "seconds": 2.751,
+      "png_sha256": "28bf159b5111fbd26609a676eb40c3f6071a7d6df1630ef5ae827aa0e9dc8c2d",
       "sockets": [
         {
           "id": "mount0",
@@ -2690,9 +2690,9 @@
         334,
         168
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         51.22290802001953,
         40.32683563232422,
@@ -2708,7 +2708,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2748,8 +2748,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 15,
       "density": 2,
@@ -2782,8 +2782,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.524,
-      "png_sha256": "a35b090399c7f297181a1ea27243dbdf421474e7db61a5ed5408b31a71c16cb9",
+      "seconds": 3.179,
+      "png_sha256": "4a993fe27d7dabd4e9615319cd4713eb42879fc4d86715aaa08cb9d11633720f",
       "sockets": [
         {
           "id": "mount0",
@@ -2850,16 +2850,16 @@
     {
       "bounds_px": [
         64,
-        31,
+        30,
         317,
         179
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         67.07566833496094,
-        33.70988464355469,
+        32.943321228027344,
         314.112060546875,
         176.4338836669922
       ],
@@ -2872,7 +2872,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2912,8 +2912,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 16,
       "density": 2,
@@ -2946,8 +2946,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.481,
-      "png_sha256": "cc93c53fde896eeac4770501027815677ebeb13e0d7b77f06cc3ee7f5d0d6715",
+      "seconds": 3.349,
+      "png_sha256": "4f32e4993e8781a6f6e730324849191d4a469133f6ef4f4e2e17213c2128ec02",
       "sockets": [
         {
           "id": "mount0",
@@ -3014,16 +3014,16 @@
     {
       "bounds_px": [
         79,
-        26,
+        25,
         298,
         188
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         81.63097381591797,
-        29.11028289794922,
+        27.29241943359375,
         295.5046081542969,
         185.09814453125
       ],
@@ -3036,7 +3036,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3076,8 +3076,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 17,
       "density": 2,
@@ -3110,8 +3110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.496,
-      "png_sha256": "ff8c82d6adc2fb1eb88459703a683f35ce36bccd75b6a5580e83900c0e838135",
+      "seconds": 2.786,
+      "png_sha256": "2607dfdbecd8637517cbb8af2d24d160ea5bf2c45c758f0fe6c866cdd340b807",
       "sockets": [
         {
           "id": "mount0",
@@ -3182,9 +3182,9 @@
         279,
         194
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         96.5546646118164,
         22.185928344726562,
@@ -3200,7 +3200,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3240,8 +3240,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 18,
       "density": 2,
@@ -3274,8 +3274,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.493,
-      "png_sha256": "f47df3565e0c59c908161b75de94d1e98ab7a66ae1e480521f6d9802e506dcc9",
+      "seconds": 3.002,
+      "png_sha256": "4c3c22bd8f835fa3ac9913969b9a9e77870685c0075f170b660c98085b673d28",
       "sockets": [
         {
           "id": "mount0",
@@ -3346,9 +3346,9 @@
         258,
         196
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         108.18861389160156,
         17.939697265625,
@@ -3364,7 +3364,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3404,8 +3404,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 19,
       "density": 2,
@@ -3438,8 +3438,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.483,
-      "png_sha256": "77818ac3e9b27b54e2700359bdb5bff6dc768d68a9bb4d8c07d06e1644223d14",
+      "seconds": 2.652,
+      "png_sha256": "f87147cd8586cdc07170b206742447691d57611cce16e817de108aa760f38a59",
       "sockets": [
         {
           "id": "mount0",
@@ -3510,9 +3510,9 @@
         240,
         196
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         116.27529907226562,
         16.534805297851562,
@@ -3528,7 +3528,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3568,8 +3568,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 20,
       "density": 2,
@@ -3602,8 +3602,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.434,
-      "png_sha256": "e41370bf70f71901e422436d24ec42cd3c466bd4bb53da26310edf7ac9fd1942",
+      "seconds": 2.644,
+      "png_sha256": "cd0a47bbceea743cf2dd07af6b78cc767df5e6d2eae9957896c22273c7c02cc3",
       "sockets": [
         {
           "id": "mount0",
@@ -3674,9 +3674,9 @@
         249,
         196
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         98.53681182861328,
         17.939697265625,
@@ -3692,7 +3692,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3732,8 +3732,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 21,
       "density": 2,
@@ -3766,8 +3766,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.467,
-      "png_sha256": "414801db79a9027aa09ed3ed316e1cf378c8a3af14b78ce592366336732aec4c",
+      "seconds": 3.049,
+      "png_sha256": "34cdc6073d0f7f73088286d0e7918b0aadc5585c51666d6e1f73aa51f91b633e",
       "sockets": [
         {
           "id": "mount0",
@@ -3838,9 +3838,9 @@
         260,
         194
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         78.02516174316406,
         22.185928344726562,
@@ -3856,7 +3856,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3896,8 +3896,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 22,
       "density": 2,
@@ -3930,8 +3930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.484,
-      "png_sha256": "aae736c5027e8cc4d7273f2618591b36502bf9463e08cf5cdf5227ac586802ff",
+      "seconds": 2.265,
+      "png_sha256": "c9f95e706ff31281b54125f7ea1b7971f040588f040878c54a96a9e3588fef46",
       "sockets": [
         {
           "id": "mount0",
@@ -3998,16 +3998,16 @@
     {
       "bounds_px": [
         56,
-        26,
+        25,
         275,
         188
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         58.495384216308594,
-        29.11028289794922,
+        27.29241943359375,
         272.3690185546875,
         185.09814453125
       ],
@@ -4020,7 +4020,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4060,8 +4060,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 23,
       "density": 2,
@@ -4094,8 +4094,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.5,
-      "png_sha256": "28e53e646a4677b9aeb578dd12c22c6f26dfd7e878da53a1fd93128ed455bf69",
+      "seconds": 1.966,
+      "png_sha256": "30b0ea5143ede0987a1aafee2aa31c7175f35d692f985f78ccda573fe036ba7c",
       "sockets": [
         {
           "id": "mount0",
@@ -4162,16 +4162,16 @@
     {
       "bounds_px": [
         37,
-        31,
+        30,
         290,
         179
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         39.88795471191406,
-        33.70988464355469,
+        32.943321228027344,
         286.92431640625,
         176.4338836669922
       ],
@@ -4184,7 +4184,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4224,8 +4224,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 24,
       "density": 2,
@@ -4258,8 +4258,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.497,
-      "png_sha256": "9c3a3a2c14a6ae75694457827038050a3f21f2716962c2d14338fabcd00c9c09",
+      "seconds": 3.29,
+      "png_sha256": "a557a3f6f42758524c1f650b7b0a0be9beae09f4339eb20e01b026232da13250",
       "sockets": [
         {
           "id": "mount0",
@@ -4330,9 +4330,9 @@
         305,
         168
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         22.959274291992188,
         40.32683563232422,
@@ -4348,7 +4348,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4388,8 +4388,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 25,
       "density": 2,
@@ -4422,8 +4422,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.503,
-      "png_sha256": "1a419086b6fdf628556790b5419c173bd1da5a043097da981dbad77233ed6fbc",
+      "seconds": 2.881,
+      "png_sha256": "4bf2e0194f9173d66dc86b35d2c72c57c71cf73a551d37c5434e8e558f9ec500",
       "sockets": [
         {
           "id": "mount0",
@@ -4494,9 +4494,9 @@
         319,
         154
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         11.904876708984375,
         48.357818603515625,
@@ -4512,7 +4512,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4552,8 +4552,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 26,
       "density": 2,
@@ -4586,8 +4586,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.481,
-      "png_sha256": "51b75364e8347b86037a00cddfe0f1a9a8841a8b40f58a79d692cbcba48fe8e2",
+      "seconds": 3.049,
+      "png_sha256": "3b0224a9c1c907dc03f6073a9178a98cc863443ade9b6bdad8778b9dd6f156b2",
       "sockets": [
         {
           "id": "mount0",
@@ -4658,9 +4658,9 @@
         328,
         144
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         6.926849365234375,
         55.67897033691406,
@@ -4676,7 +4676,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4716,8 +4716,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 27,
       "density": 2,
@@ -4750,8 +4750,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.478,
-      "png_sha256": "466c86865c8fcf496ac009e843ca87e2196dae13eca087194d6f94807f202617",
+      "seconds": 2.97,
+      "png_sha256": "91dc6d69a7320265ec819f932769eca57476117c64e308e7a7a137296209c105",
       "sockets": [
         {
           "id": "mount0",
@@ -4818,16 +4818,16 @@
     {
       "bounds_px": [
         5,
-        49,
+        48,
         331,
         137
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         7.9222869873046875,
-        51.64446258544922,
+        51.06782913208008,
         327.876953125,
         134.19993591308594
       ],
@@ -4840,7 +4840,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4880,8 +4880,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 28,
       "density": 2,
@@ -4914,8 +4914,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.445,
-      "png_sha256": "0407035c0ccb6f74801313b5c688f415b4c9437cd1ab94501f4f93e33469d94a",
+      "seconds": 3.349,
+      "png_sha256": "1cb335adb65c704d8c3fa8978829eb806912fefc84b6f4ac9892f67c2589b3ed",
       "sockets": [
         {
           "id": "mount0",
@@ -4986,12 +4986,12 @@
         328,
         141
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         6.926849365234375,
-        44.8756103515625,
+        44.30967712402344,
         325.0928955078125,
         138.2444305419922
       ],
@@ -5004,7 +5004,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -5044,8 +5044,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 29,
       "density": 2,
@@ -5078,8 +5078,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.476,
-      "png_sha256": "77fcbabef9ad578b3c1dd8c20aa217d12f106c8403a15d54a94edc2a811aa4b0",
+      "seconds": 3.48,
+      "png_sha256": "fe435a7ed79d3ee850c20d6bef7518c2b894f97df2d36febdd3c645e50de309c",
       "sockets": [
         {
           "id": "mount0",
@@ -5146,16 +5146,16 @@
     {
       "bounds_px": [
         9,
-        36,
+        35,
         319,
         146
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         11.904876708984375,
-        38.59441375732422,
+        38.01777648925781,
         316.61773681640625,
         143.6253204345703
       ],
@@ -5168,7 +5168,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -5208,8 +5208,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 30,
       "density": 2,
@@ -5242,8 +5242,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.5,
-      "png_sha256": "33d94d188a26659a8b4dd3b857cfdc80cc548cec0fcd9cf5921d761e00106ab6",
+      "seconds": 3.559,
+      "png_sha256": "d9bfe574e5d1ba0d9d75b3fb2aa9636c52bdb772cd4b693b9089b752dc3ac1d1",
       "sockets": [
         {
           "id": "mount0",
@@ -5314,12 +5314,12 @@
         305,
         154
       ],
-      "vertices": 16926,
-      "triangles": 31588,
-      "parts": 235,
+      "vertices": 22512,
+      "triangles": 41384,
+      "parts": 321,
       "projected_vertex_bounds_px": [
         22.959274291992188,
-        32.60099792480469,
+        32.55680847167969,
         302.777099609375,
         151.74868774414062
       ],
@@ -5332,7 +5332,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -5372,8 +5372,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "furnace_turret",
       "heading": 31,
       "density": 2,
@@ -5406,8 +5406,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.484,
-      "png_sha256": "7f6b91f8b6dcf66a5df6cf349bad3902553c248cd814ca8c278bbb511c108af3",
+      "seconds": 2.488,
+      "png_sha256": "ed5ecf0f53ea70d30c95dc390aa457afe4c7200a68eee654297a74204867a913",
       "sockets": [
         {
           "id": "mount0",
@@ -5473,7 +5473,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.06,

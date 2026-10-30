@@ -1,15 +1,16 @@
 {
   "schema": "brass-tide-campaign-boats054-v1",
-  "revision": "054-original-chart-boats-r1",
+  "revision": "073-chart-hull-detail-r1",
   "projection": "original-top-down-bow-positive-x",
   "installed_weapons_baked": false,
   "input_sha256": {
     "game/scripts/hull_profiles.gd": "7c34b7f76b2053fbd12dec723b8ab169603fd70d56373f3cc355add161fd5757",
     "game/scripts/mount_layout.gd": "16ee7ea81b14b83ba8cc8a61d850e6457f3ba49bd74fd9ad4fe3a7c02b4690d8",
     "game/data/world.json": "ab66ce729ca8b8d14a95d5c39da0f1fdc4b8f112f8ced8a02cd9ca76e33a5182",
+    "tools/quality049/catalog.json": "1e02941dffe273ac690d5038c20eb3537aa4960235cc8fddec358677370ae879",
     "game/scripts/boat_deck_detail.gd": "b1ecf73ae4328a21e09de982e67b1dc60468e559c3e50bf2074b579830bacb4a",
     "game/scripts/motor_art.gd": "b0e9c0c37f44f24025f2914e879645ffe9217425618c8643f74663c78686f689",
-    "tools/quality054/build_campaign_boats.py": "ca256a8846cb47b078de394b4a919da178d3a2ec13267b8593ea9db03910c68a"
+    "tools/quality054/build_campaign_boats.py": "5cfc4e414c79006c3e5a2a28fff676766385b8a3166acf7d2f1374309ec14086"
   },
   "hulls": {
     "tin_skiff": {
@@ -124,15 +125,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#aa8d61",
-        "cabin": "#d6c9a4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#8f6e45",
+        "cabin": "#174a4a",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "a113a0b4f353ccd2edd38e280e56fc9ff49853caf36d944f7f41fff33f2763cf"
+      "sha256": "f993128a08e57496e9601d49349c3e9a7702ed1001439355772b2d3fc38d2f36"
     },
     "bilge_punt": {
       "path": "res://assets/campaign054/boats/bilge_punt.svg",
@@ -254,15 +255,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#947758",
-        "cabin": "#c5a58a",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "96e76cacc24765ffe4ac6ebec062b9369ea06799fe0896a2823ec4f8a171f169"
+      "sha256": "ad56753a4da1b0a694e271e7782a0b3b60d1c1441e923cee76f908599e3753d9"
     },
     "lantern_skiff": {
       "path": "res://assets/campaign054/boats/lantern_skiff.svg",
@@ -384,15 +385,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#aa8d61",
-        "cabin": "#d6c9a4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "bc5f5b9e961eb3dd48d1157842ff8f4cec1451c3f92fbe42b4272ff76bf3400a"
+      "sha256": "9a1c7f52523ed0057aacfcfbe4439e4cddf6f8fc6d3e88a573eb92eebd75f9ec"
     },
     "marsh_dart": {
       "path": "res://assets/campaign054/boats/marsh_dart.svg",
@@ -514,15 +515,15 @@
         }
       ],
       "palette": {
-        "hull": "#456b57",
-        "deck": "#b19463",
-        "cabin": "#cfc7a5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "27a6fa2581954c1a245f32baa3ee0c87ef69eae0a58cbd0170acca88be720466"
+      "sha256": "4da413081d2814d2daa3e7ec51b102f30fb34cd330f12009b96a5ebedd454317"
     },
     "scab_cutter": {
       "path": "res://assets/campaign054/boats/scab_cutter.svg",
@@ -644,15 +645,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#947758",
-        "cabin": "#c5a58a",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#5e6b6b",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "8cfac49f3805a90fcc58130723d354adaa95a21c25c9f2f62f87040158aae1f6"
+      "sha256": "821b4147cfeaf4bf58d9d3fb9a78f1dead6e3dc5875d8f62c8f0540a4f4d7332"
     },
     "gale_cutter": {
       "path": "res://assets/campaign054/boats/gale_cutter.svg",
@@ -774,15 +775,15 @@
         }
       ],
       "palette": {
-        "hull": "#456b57",
-        "deck": "#b19463",
-        "cabin": "#cfc7a5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#38736e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "544bc113dd52341383aff5fcb28d22da88999e182da2d5fbf65f6df61f12dff6"
+      "sha256": "b4f2d6eb7246e6832787a8d3cbbf693e8cbd865bf2cfc6da8463c891987ba3e6"
     },
     "silt_lugger": {
       "path": "res://assets/campaign054/boats/silt_lugger.svg",
@@ -904,15 +905,15 @@
         }
       ],
       "palette": {
-        "hull": "#456b57",
-        "deck": "#b19463",
-        "cabin": "#cfc7a5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#6e4521",
+        "deck": "#8f6e45",
+        "cabin": "#6e4521",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "187c5f7d9977bbcf2ca476fce6f395f2c2ed81965863018f48cec0e077db85db"
+      "sha256": "818ab45686056714117cb66394bede1428481b575353427df2c3f1457701d8e8"
     },
     "hook_raider": {
       "path": "res://assets/campaign054/boats/hook_raider.svg",
@@ -1042,15 +1043,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#947758",
-        "cabin": "#c5a58a",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#8f6e45",
+        "cabin": "#852e18",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "47ccd41b09c4253d238f0c334cb1a079ec9ec844d57a8b0757d1d4bff66dfbb3"
+      "sha256": "2d4f0ee91d3b91302d00719838800ca2dc659c2ca1c267f43110136e505feeee"
     },
     "mercantile_clipper": {
       "path": "res://assets/campaign054/boats/mercantile_clipper.svg",
@@ -1180,15 +1181,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#aa8d61",
-        "cabin": "#d6c9a4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "bc93021e7df38432814ccec68e2bf1ff58fa9abcfa8513d3fca40d28675234bb"
+      "sha256": "e6ec4adb2eb4fa9b968c99772d9b2cb51de7356cd65296de828f1b03f284f14e"
     },
     "harbor_sloop": {
       "path": "res://assets/campaign054/boats/harbor_sloop.svg",
@@ -1310,15 +1311,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#aa8d61",
-        "cabin": "#d6c9a4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#859ea1",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "a10ed859b13add4cf79ebbf89e04a6961c688029c7fc896373319608fe5be43d"
+      "sha256": "b2adcf97ba9d59d7e8230a3719b70f97925abed19fb17d419f1c2450255de939"
     },
     "ash_corvette": {
       "path": "res://assets/campaign054/boats/ash_corvette.svg",
@@ -1448,15 +1449,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#777e77",
-        "cabin": "#abb4ad",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#384547",
+        "deck": "#8f6e45",
+        "cabin": "#384547",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "978a6963e921f0c905d6a604003281e1195f7dc9f2e5a507e036313739d4936c"
+      "sha256": "b27b37f1524f517df06564701ce14f6503fb5cf8392ca8b12e59559a6eda5d68"
     },
     "aegis_corvette": {
       "path": "res://assets/campaign054/boats/aegis_corvette.svg",
@@ -1586,15 +1587,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#608085",
-        "cabin": "#9eb1b4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "fa8200dff0fa1ad0475f6b8b67960ef1ba9b9c506e24b2de69482d6b267be96b"
+      "sha256": "19310eb0e3c3b52032ee45ac506f2b7626edba7ee561a5c010d87e5c0d6ffc6b"
     },
     "reed_stinger": {
       "path": "res://assets/campaign054/boats/reed_stinger.svg",
@@ -1716,15 +1717,15 @@
         }
       ],
       "palette": {
-        "hull": "#456b57",
-        "deck": "#b19463",
-        "cabin": "#cfc7a5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "12190cd65dfbdc1f6e20c5b8dc5c0cbe17ca0e541f38483a268882ae9274e964"
+      "sha256": "3367fcc00106dca7138572dc6c132cf142a9ab58aa7cf65c2cffe558f5d8581e"
     },
     "krill_torpedo": {
       "path": "res://assets/campaign054/boats/krill_torpedo.svg",
@@ -1854,15 +1855,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#947758",
-        "cabin": "#c5a58a",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#859ea1",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "98e0a213a8090078356a098cad15967bd2a0554c5c54bc9464db74de34211d1a"
+      "sha256": "e7c14c427936ed49977bbc92716163ea63ae037f47514fc5d31262e2e96220f4"
     },
     "manta_strike": {
       "path": "res://assets/campaign054/boats/manta_strike.svg",
@@ -1992,15 +1993,15 @@
         }
       ],
       "palette": {
-        "hull": "#456b57",
-        "deck": "#708d7e",
-        "cabin": "#a8b9b0",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#38736e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "eb7d9f42e5ff89bbf1ae9ca66065e12366c7561ba91ea7179aee0fd0346edf73"
+      "sha256": "f6c901b7eae5df7c5f98e1008b3f46a6cf7a2d79553c213b429e3d900719b1d2"
     },
     "slag_gunboat": {
       "path": "res://assets/campaign054/boats/slag_gunboat.svg",
@@ -2130,15 +2131,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#8b766c",
-        "cabin": "#b8aba5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#5e6b6b",
+        "deck": "#859ea1",
+        "cabin": "#5e6b6b",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "9c472985e63b8b8c45802930f32dcf4b92eea6467e6d1f1fc46b48efb3a96f96"
+      "sha256": "ea4275c25ecc4fce76149e29a7bce0c039c737edcd516d44db1bc34550249b5d"
     },
     "bellows_gunboat": {
       "path": "res://assets/campaign054/boats/bellows_gunboat.svg",
@@ -2268,15 +2269,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#8b766c",
-        "cabin": "#b8aba5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "88a1d87577ca243414c60342e6ed7060cef5f261e6b07f846de3845cacdc1fbf"
+      "sha256": "e223463cebadc9862e147a379816d469da8c20afa051aea616068fa71c35b79e"
     },
     "furnace_turret": {
       "path": "res://assets/campaign054/boats/furnace_turret.svg",
@@ -2414,15 +2415,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#8b766c",
-        "cabin": "#b8aba5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#5e6b6b",
+        "deck": "#859ea1",
+        "cabin": "#5e6b6b",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "0558a7f53fccc9bbc82475b1f25b8a58eed236719d2cbb2a4dd903bf7e9f2080"
+      "sha256": "83acebbe53a47fb99e3615a04cb965199a63f5a67a3817908e39cb9fc8611bc7"
     },
     "barbed_lance": {
       "path": "res://assets/campaign054/boats/barbed_lance.svg",
@@ -2552,15 +2553,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#947758",
-        "cabin": "#c5a58a",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#8f6e45",
+        "cabin": "#6e4521",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "12c8dfc9e2921130a86379b3b66bcdb7ad9c2607185068b8aec37d34eb997133"
+      "sha256": "3af7d3b0374c219e0326dabbc4f5368639e74e28999d89c3d32fef3af1ab3572"
     },
     "cinder_monitor": {
       "path": "res://assets/campaign054/boats/cinder_monitor.svg",
@@ -2690,15 +2691,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#8b766c",
-        "cabin": "#b8aba5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#5e6b6b",
+        "deck": "#859ea1",
+        "cabin": "#5e6b6b",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "cbb59b7a492c1e30c9c0e498f0e3bd9a10aca9a61b075c1a2af038765af53293"
+      "sha256": "1d7928d77c831b6175fdf4a3ba6d24e04a17be83d3453ffbe99925fcc73a2900"
     },
     "wraith_rocket": {
       "path": "res://assets/campaign054/boats/wraith_rocket.svg",
@@ -2836,15 +2837,15 @@
         }
       ],
       "palette": {
-        "hull": "#704c49",
-        "deck": "#917573",
-        "cabin": "#bcaba9",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "92fa11394f1df45d3314f371b298b777ac667c32baeae03ec47558989546c8f4"
+      "sha256": "be351b35d7a717a8428a49ee2fde2cd9b1810b01abf1f7c1acf0d0eec02a3dbd"
     },
     "cobalt_frigate": {
       "path": "res://assets/campaign054/boats/cobalt_frigate.svg",
@@ -2974,15 +2975,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#608085",
-        "cabin": "#9eb1b4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#859ea1",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "2fbfdf9c884ea5d4a3a43edd6310f8ed5d64861927cac688ef0e98dd97782730"
+      "sha256": "73664070a4894c1e9df9bc32dd089da11e332430750d5a618a1249496325674f"
     },
     "iron_bastion": {
       "path": "res://assets/campaign054/boats/iron_bastion.svg",
@@ -3120,15 +3121,15 @@
         }
       ],
       "palette": {
-        "hull": "#315a60",
-        "deck": "#608085",
-        "cabin": "#9eb1b4",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "00827937be918d539367e8095d3721716a534ba8a9aa15bb15f2e1974f48816b"
+      "sha256": "eaccb4f6f4db808ba34ee7f4abce5fc84149aa39259717c425d2f07751e0f0af"
     },
     "maiden_dreadnought": {
       "path": "res://assets/campaign054/boats/maiden_dreadnought.svg",
@@ -3266,15 +3267,15 @@
         }
       ],
       "palette": {
-        "hull": "#684d40",
-        "deck": "#8b766c",
-        "cabin": "#b8aba5",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#5e6b6b",
+        "deck": "#859ea1",
+        "cabin": "#5e6b6b",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "e46f148a9a64c70d19a87ef3627c980d0443198bb408f838fb41dba0f15e72f5"
+      "sha256": "09f73bbca498648a68c2cc6c1920929bf6b7f2dc04fb7f3b2f91a5a9ee9979ff"
     },
     "kelpnet_dory": {
       "path": "res://assets/campaign054/boats/kelpnet_dory.svg",
@@ -3388,15 +3389,15 @@
         }
       ],
       "palette": {
-        "hull": "#416d62",
-        "deck": "#b29465",
-        "cabin": "#e0d2a9",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#6e4521",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "7fed2f5820b1b6d91ec4bf30fe93783b15b2c947469bfb2d014829566ffc8315"
+      "sha256": "6d27893593347d75e9cc7e6e0f89ae657ec50645602ea95273df98ef75557f85"
     },
     "brinehook_longliner": {
       "path": "res://assets/campaign054/boats/brinehook_longliner.svg",
@@ -3510,15 +3511,15 @@
         }
       ],
       "palette": {
-        "hull": "#416d62",
-        "deck": "#b29465",
-        "cabin": "#e0d2a9",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "5ece987b8659a557c91ad25252bc2903be46994a82d48cdacaf3b9155cb93091"
+      "sha256": "1fa9c82194dc24f13637cf44bc0a5446dc15712cbfbf4ea92c65c3ea6052eeec"
     },
     "mother_gull_trawler": {
       "path": "res://assets/campaign054/boats/mother_gull_trawler.svg",
@@ -3648,15 +3649,15 @@
         }
       ],
       "palette": {
-        "hull": "#416d62",
-        "deck": "#b29465",
-        "cabin": "#e0d2a9",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#6e4521",
+        "deck": "#8f6e45",
+        "cabin": "#6e4521",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "982dc29316dc4ad939ab45260d08bb34e1939bfe42efa7fdcdd50eaa96745818"
+      "sha256": "3680ccd86084147e397c2168467e41de29d024d6155c68d6e2b7a7df5cd047c5"
     },
     "fenhopper_lighter": {
       "path": "res://assets/campaign054/boats/fenhopper_lighter.svg",
@@ -3786,15 +3787,15 @@
         }
       ],
       "palette": {
-        "hull": "#476a70",
-        "deck": "#a38661",
-        "cabin": "#e1d4b3",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#6e4521",
+        "deck": "#8f6e45",
+        "cabin": "#6e4521",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "4cf5a3d4b3597f94d4d5bd51124ab551fe80909153670d3b3915fe33131e1778"
+      "sha256": "64cec2937ac91b9261fafcbc74bc98628900422ed38ba9d31d8633a574f9df86"
     },
     "tideledger_coaster": {
       "path": "res://assets/campaign054/boats/tideledger_coaster.svg",
@@ -3932,15 +3933,15 @@
         }
       ],
       "palette": {
-        "hull": "#476a70",
-        "deck": "#a38661",
-        "cabin": "#e1d4b3",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "7f156c165b1832ca2a4b453a95a44c1084570621435db5b230ae0dbdb9c88c95"
+      "sha256": "62293c6ad1f9b715adcfed99aade2eca8da7297bee900702faac12afc210e194"
     },
     "fourport_packet": {
       "path": "res://assets/campaign054/boats/fourport_packet.svg",
@@ -4078,15 +4079,15 @@
         }
       ],
       "palette": {
-        "hull": "#476a70",
-        "deck": "#a38661",
-        "cabin": "#e1d4b3",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#38736e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "cbf7d0c37f59e2f2ef654d2ed8035858d259a0d68f17544daf57b81aad89c743"
+      "sha256": "42ffb2c3a902dc53d69ec846526967f55a031457f21c8c2ff2b733c6fbaef4e0"
     },
     "brasswind_motor_galleon": {
       "path": "res://assets/campaign054/boats/brasswind_motor_galleon.svg",
@@ -4240,15 +4241,15 @@
         }
       ],
       "palette": {
-        "hull": "#476a70",
-        "deck": "#a38661",
-        "cabin": "#e1d4b3",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#174a4a",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "af648826c3afe09af366621fb624aeee2cc246df6ee6bdc6acbe9f73aed18e7e"
+      "sha256": "c9ca7b701dac8a269fb9258a365546af5e866329fd823b5e8b9d51feb1770eaa"
     },
     "seepoil_tanker": {
       "path": "res://assets/campaign054/boats/seepoil_tanker.svg",
@@ -4386,15 +4387,15 @@
         }
       ],
       "palette": {
-        "hull": "#94614e",
-        "deck": "#8d8373",
-        "cabin": "#e2d7bd",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#859ea1",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "c668f16c855dd3566824331e15a60bc2d7e868a3ccca522d05131b3e99d7a9c5"
+      "sha256": "7e3df46e9cef97f03c7dc8a58763f37a9a6a0b28e55ff4d425083b2a13e542d7"
     },
     "blackwater_fleet_tanker": {
       "path": "res://assets/campaign054/boats/blackwater_fleet_tanker.svg",
@@ -4532,15 +4533,15 @@
         }
       ],
       "palette": {
-        "hull": "#94614e",
-        "deck": "#8d8373",
-        "cabin": "#e2d7bd",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#859ea1",
+        "deck": "#5e6b6b",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "9f015ffbd1aeabb0844c077ccdfe862d2bb623a0469c994d0fb2b4c26f021395"
+      "sha256": "cfc348c3086d168d48444bee35a9d2ea22452d721f4d6fb59debf93807dfb222"
     },
     "gullwing_daysailer": {
       "path": "res://assets/campaign054/boats/gullwing_daysailer.svg",
@@ -4654,15 +4655,15 @@
         }
       ],
       "palette": {
-        "hull": "#dfdfcf",
-        "deck": "#bd9a63",
-        "cabin": "#f3ebd8",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#c7c29e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "f5b138ed23bdeccd5e49caa5f9b27feec3c5cf2dfeebc665aaa33402012cdfc6"
+      "sha256": "6f81a4c123c5ff81e9c8677b100a13b2fe1a241add1c6379b21866c3fa3a68ec"
     },
     "osprey_cabin_cruiser": {
       "path": "res://assets/campaign054/boats/osprey_cabin_cruiser.svg",
@@ -4776,15 +4777,15 @@
         }
       ],
       "palette": {
-        "hull": "#dfdfcf",
-        "deck": "#bd9a63",
-        "cabin": "#f3ebd8",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#c7c29e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "9f118f539b5cebb23336c0e802952b2a4dd92d51f42c42d02fa8ca313fae7861"
+      "sha256": "094735734f81c732aef6fe7d1ad782185e071a5431aa83625718ef67133d4d13"
     },
     "aurelian_court_yacht": {
       "path": "res://assets/campaign054/boats/aurelian_court_yacht.svg",
@@ -4922,15 +4923,15 @@
         }
       ],
       "palette": {
-        "hull": "#dfdfcf",
-        "deck": "#bd9a63",
-        "cabin": "#f3ebd8",
-        "brass": "#c9ae6f",
-        "dark": "#182c30",
-        "steel": "#a5b5af",
-        "glass": "#4c929e"
+        "hull": "#c7c29e",
+        "deck": "#8f6e45",
+        "cabin": "#c7c29e",
+        "brass": "#a36e2b",
+        "dark": "#212926",
+        "steel": "#85918f",
+        "glass": "#1a4c57"
       },
-      "sha256": "3a18190b279c4ba4534df9a4071ead5b48e9f6be08799797d13ad465dd24aaae"
+      "sha256": "edbb366f7006e701febb488f069ee6e2e6562069fceb42786c8c347d27af36ef"
     }
   },
   "weapons": {
@@ -5046,7 +5047,7 @@
         67,
         35
       ],
-      "sha256": "d7f3363e84fd704838a2450a6701e0394f878db5e5bd490fb38a646dc93a0590"
+      "sha256": "99b4280365bbb882cf0eb5a10eb35058c30bfab2c4173d3fbf77578d30b4afab"
     },
     "stern_drive": {
       "path": "res://assets/campaign054/boats/motor_stern_drive.svg",
@@ -5060,7 +5061,7 @@
         67,
         35
       ],
-      "sha256": "e3c34c2fd18538c565eca8c7d11d4c493a1d8b4a56a491eaf8bae9e1dcfea2b3"
+      "sha256": "b3a28f975d4401699e2eda4f34ce4069b6038cb447cff6c0e6f1f142e66f877c"
     },
     "nozzle": {
       "path": "res://assets/campaign054/boats/motor_nozzle.svg",
@@ -5074,7 +5075,7 @@
         67,
         35
       ],
-      "sha256": "16861773ffc793e405ec9d7d1ca35237f02c3a389fa762b12ed5cda48a98eaad"
+      "sha256": "b5b264e8367a8ad50ea604eb1cb3462a4f9b933e04caa5001860806e9615b860"
     }
   }
 }

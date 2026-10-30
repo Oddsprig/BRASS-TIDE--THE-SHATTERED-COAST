@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.072: Complete voyage integration and measured fleet performance. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: battle_driver051.gd, campaign_ui.gd, guidance_ui.gd, voyage_panel070.gd, runtime_profile043.gd.
+v0.073: Original fleet hull, weapon and campaign boat detail. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: models.py, recipes.py, weapon_models.py, build_campaign_boats.py, test_assets073.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

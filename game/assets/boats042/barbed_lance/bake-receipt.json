@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "barbed_lance",
   "headings": 32,
-  "atlas_sha256": "ed64d07a148f3c6cbc5ee4c2baf27f2431c404f9f637498cf4fe8c2d02a1825d",
+  "atlas_sha256": "71c74f631bc69f374a7a576e37169c156af167d683081a436f508ce7a64d03ab",
   "canvas_config": {
     "cell_px": [
       224,
@@ -230,9 +230,9 @@
         186,
         114
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         27.023956298828125,
         15.877616882324219,
@@ -245,10 +245,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.132,
-      "png_sha256": "d73f880642a4a0bc67ea272b2d248b5a729d0875031697b9eda637f313cc9e44",
+      "seconds": 2.523,
+      "png_sha256": "32b65014eca5fea6e93fae50e5e5e3bd7fa2273a7e116329bc8d46612599c7ea",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         177,
         120
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         36.92096710205078,
         10.980018615722656,
@@ -394,10 +394,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.215,
-      "png_sha256": "32177a823be542b1fd1e04cfb049020d0cbedcc7745fcb2ddc6c173b15de8a8b",
+      "seconds": 2.712,
+      "png_sha256": "4377ae4168e1a41bcb8f7208790a69013cf7ddd91df1d46cdb8a6b4bc9dc99a1",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         168,
         124
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         48.358768463134766,
         7.772590637207031,
@@ -543,10 +543,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.158,
-      "png_sha256": "98b1a6cdfd306c08999dc14c05669a1d537f92b949c38c3be9c5466ce15c2e56",
+      "seconds": 2.342,
+      "png_sha256": "c4c9fd2359f356485c9f8d6760bea5e7c27397b572a50afc954b38bcffea40e1",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         158,
         126
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         60.5499382019043,
         6.377586364746094,
@@ -692,10 +692,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.147,
-      "png_sha256": "8159ec54fe2ae517b935752b14f944019cbee829fb729c78c3246fcab8825523",
+      "seconds": 2.485,
+      "png_sha256": "cad5afde58a7312bf1bae68b229765bf4bc1fa1bdabad4cffaf55d3e0025e8d0",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         152,
         127
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         72.98587036132812,
         6.847633361816406,
@@ -841,10 +841,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.129,
-      "png_sha256": "9ad3308b2757856e7fcb2a953e509a79107f77535f5f87b40732c8ff7ea3393e",
+      "seconds": 2.798,
+      "png_sha256": "163fbb3766b66dcf5cf0c288753e190be8d704bfe3f5144375ea09db79ba5c9c",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         164,
         126
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         67.09896850585938,
         6.377586364746094,
@@ -990,10 +990,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.147,
-      "png_sha256": "09ced9d2bca473e09c33891b6534135be0da80fcda39d72fcb093d4e69975265",
+      "seconds": 2.186,
+      "png_sha256": "14657a6aa803e772387f98e907c4f274ebfe7e07fecc7d186d0bedad06ee96cc",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         176,
         124
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         57.140010833740234,
         7.772590637207031,
@@ -1139,10 +1139,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.16,
-      "png_sha256": "e962b885799ad9656b50a1e17d5142b251901b3859136f1076346dfff6ef0591",
+      "seconds": 2.213,
+      "png_sha256": "c63525c798dcdb8bcdf4e0fed333c83ff09ab9f67439740d31fad79d4f331479",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         188,
         120
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         47.26441955566406,
         10.980018615722656,
@@ -1288,10 +1288,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.146,
-      "png_sha256": "dabf210cc0739f7b5ba0ead03d52c6d129b9cadbb14253295ba15c9c9a6c4730",
+      "seconds": 2.716,
+      "png_sha256": "65722eecc603798d0860b41992bb1c4b48a30f2b2a5530af90d6923c6695904a",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         198,
         114
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         38.49224853515625,
         15.877616882324219,
@@ -1437,10 +1437,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.163,
-      "png_sha256": "6f7029178ccd90f9ac98a34cdab8d518488073c37ced29e6c6b6fead93018975",
+      "seconds": 2.491,
+      "png_sha256": "e461ea2f29abb1fbbe6c0856f7324767cb0f8adf9fc9e1a7758026ec3ad1fe28",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         208,
         107
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         30.834716796875,
         22.274192810058594,
@@ -1586,10 +1586,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.153,
-      "png_sha256": "40f64553d94935442e2e7c36f6b091ea1ec2cc0e7decbbd1fd98fcec17764140",
+      "seconds": 2.927,
+      "png_sha256": "85e1f1598635ccd350c7ddeb79504e6da9ae4d3a88d7d07f328bcc9ed9592d42",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         215,
         99
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         24.513519287109375,
         27.347126007080078,
@@ -1735,10 +1735,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.16,
-      "png_sha256": "6a66008acb0fdabb251320d1e99eb0381c752d71fe1ca14183c598538cdcd1b2",
+      "seconds": 1.996,
+      "png_sha256": "ce8a6f59d5aa597c917ca412daccab515c1651bffaf0ba0f22dc04fe08f140da",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         218,
         94
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         19.269393920898438,
         32.45720672607422,
@@ -1884,10 +1884,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.141,
-      "png_sha256": "100bb0a8c25c59f3005560bbabd547aa019392910fba46d838118bd69f665392",
+      "seconds": 2.569,
+      "png_sha256": "eaa21d266aec851e1b352c1c54a396779ff2f4ba816c16d6b1eab9b5c85e3316",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         217,
         93
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         17.5504150390625,
         38.2847785949707,
@@ -2033,10 +2033,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.139,
-      "png_sha256": "e665536ff1463b708180cf66a9c4dc4609c9e5e2d533350e72263793323f36a7",
+      "seconds": 2.218,
+      "png_sha256": "0c20f92b66b78e31386599b384c8713158125a9731978e47e796cf052ef13ed8",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         218,
         97
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         19.269393920898438,
         35.12543487548828,
@@ -2182,10 +2182,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.135,
-      "png_sha256": "869b1c9626770248c074369797d3bfafbf7f40c48a8fda8a3d83b0a2eb5f6831",
+      "seconds": 2.399,
+      "png_sha256": "6ae22dbbac31ffc9ff1c1abcb4973818cdabd641f45f4055f01e64d9bb4a61cb",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         215,
         107
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         24.513519287109375,
         29.87665557861328,
@@ -2331,10 +2331,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.152,
-      "png_sha256": "63125f74a35fdf11f36c8e7a743e96e273159cb02f7277a50d6b39452ea4fe81",
+      "seconds": 2.291,
+      "png_sha256": "2f118522b7aee440d4ae658844e7d40541f1d8656993a39aff9fec6cc4dafdd9",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         208,
         115
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         30.834716796875,
         24.89617156982422,
@@ -2480,10 +2480,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.177,
-      "png_sha256": "e2276fa8108f651e3090ce5c5ae1e195b5e58cfa706f392aa7c6021c25bb62d0",
+      "seconds": 2.712,
+      "png_sha256": "9be80abb0c92c4c6b08fe2efd26015dd2b6028d65dacbefb8cbcd7457fa516ec",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         198,
         122
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         38.49224853515625,
         21.09026336669922,
@@ -2629,10 +2629,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.245,
-      "png_sha256": "801148c9deb7c1fe8444a52f0515d49ba330069742135fdf3f9de121dda8caa6",
+      "seconds": 2.857,
+      "png_sha256": "a7725b0ad7175bd409bc55c9818b1619c6642db116b5f255a835ca6fb7c7f39a",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         188,
         127
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         47.26441955566406,
         18.605186462402344,
@@ -2778,10 +2778,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.165,
-      "png_sha256": "d8a68240fc5fed8b05f42a7aac0bb5553c056985f7d3bf18bbef7f4406698c70",
+      "seconds": 3.115,
+      "png_sha256": "ad6f6c809bb1c67ca80d1acfd4fa49d89dc4cf6e428b11055388225620e29312",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         176,
         131
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         57.140010833740234,
         17.523975372314453,
@@ -2927,10 +2927,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.169,
-      "png_sha256": "881af9a993e853531e3e928d74745be4cccff90bbd11445567a56ef894c4cbf5",
+      "seconds": 2.388,
+      "png_sha256": "690bfaf07b73b3819df106d1c1b6102f04718870ca599a57d7d6e5b2b26603eb",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         164,
         132
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         67.09896850585938,
         15.131881713867188,
@@ -3076,10 +3076,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.147,
-      "png_sha256": "db1dedd6903d02335762d78506ad282f5c0bcb94e05a1ac2841e9fd223a7eb9e",
+      "seconds": 2.312,
+      "png_sha256": "de0cb69644ad1c46a270dfe3d0e1875616e5c0e8a68c9ab5a73317df967b81f8",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         152,
         132
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         72.98587036132812,
         14.264862060546875,
@@ -3225,10 +3225,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.13,
-      "png_sha256": "5c105473f4112757c6e954ac6aecdbe3dd6a783e6bd36899ed3b32dd1e58f910",
+      "seconds": 2.998,
+      "png_sha256": "51ad67be79f99cf41e9a6cfd20e2279de84e3f9a43e2d052a87cf900bfc1c934",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         158,
         132
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         60.5499382019043,
         15.131881713867188,
@@ -3374,10 +3374,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.139,
-      "png_sha256": "ad98201b795c86db37d6df57bdc13b35f09eedd18911774f8a4de40d681fbb55",
+      "seconds": 2.461,
+      "png_sha256": "38369b4bf58eb01638346b3defdebac889dc230975faba9b3e893989bb3327fe",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         168,
         131
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         48.358768463134766,
         17.523975372314453,
@@ -3523,10 +3523,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.162,
-      "png_sha256": "a64f9829466fc5c8adf351bf9d6b91c57c50e185ee8e9342f0066cd048cf4c37",
+      "seconds": 2.882,
+      "png_sha256": "5ee0e3e8c4fe90ad12cae341b2567b52dc590ea9863a84c57303bbc4d7da7979",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         177,
         127
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         36.92096710205078,
         18.605186462402344,
@@ -3672,10 +3672,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.159,
-      "png_sha256": "90ba8ddf7af71c2748ad45b93081b41b3cee395ea30d5b8d91a5c79e3e922d64",
+      "seconds": 2.566,
+      "png_sha256": "6347fc2c01eadf72f8210fb67dae1c28bb532209ae4176db88837515b1704edd",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         186,
         122
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         27.023956298828125,
         21.09026336669922,
@@ -3821,10 +3821,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.168,
-      "png_sha256": "65ef44fb8a3bacf898f1ca4211491e1f8966d0372c9c29ddd134b0e903268b33",
+      "seconds": 2.982,
+      "png_sha256": "9fead83ef68b5b372aa559296152d8dbe4f88b9d3ce468d1cc5594d5aa28a12c",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         194,
         115
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         16.689041137695312,
         24.89617156982422,
@@ -3970,10 +3970,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.165,
-      "png_sha256": "6ee80f9fae33e0350f1153cb237756deea945f4d5ffe84058e9f4d5661344c0c",
+      "seconds": 3.041,
+      "png_sha256": "5e3d42d33273e4a58ca3b6c75ddd1cd7a80d676be1d80e045feab22cadb2f385",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         200,
         107
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         9.933036804199219,
         29.87665557861328,
@@ -4119,10 +4119,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.171,
-      "png_sha256": "9301b11877d94965a873156a914d66a80bb1b9b495bf52c6adc9fefae49b0c97",
+      "seconds": 2.373,
+      "png_sha256": "6ef76485c4d169291f7cfc15b879c289c8836b6644397c95130bb9cdaba7af5e",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         205,
         97
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         6.931060791015625,
         35.12543487548828,
@@ -4268,10 +4268,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.138,
-      "png_sha256": "205d301d1e0d7efa83f292e6bbee1b1bb6493700755e0061faaeb5730fd13cf6",
+      "seconds": 2.515,
+      "png_sha256": "871b08581702a8dbfd4577c54f36d3a5caa9571016fc750277387d253dab12e0",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         207,
         93
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         7.558769226074219,
         38.2847785949707,
@@ -4417,10 +4417,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.124,
-      "png_sha256": "2c367d44b7d56ae25ca916aab474e2792635aa35f38ee8a345f401b09950a30a",
+      "seconds": 2.885,
+      "png_sha256": "ff3ec07d7b3d08453e1ca10f38e57cf528c7ca2b8ea66c4ebad2123de1e282e6",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         205,
         94
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         6.931060791015625,
         32.45720672607422,
@@ -4566,10 +4566,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.134,
-      "png_sha256": "195842582af74816a04bfd19c99aaa8b90ffd3fbf648b17dbe76ddcdc5f7f30a",
+      "seconds": 2.91,
+      "png_sha256": "90754919ee98b70304ea38336a797576a9b9375f2d277a08979f12698e68d0ef",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         200,
         99
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         9.933036804199219,
         27.347126007080078,
@@ -4715,10 +4715,10 @@
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.235,
-      "png_sha256": "f32938cadc7a154b81cffd85c40167a1295e03be543e245320e0f70ba4862a04",
+      "seconds": 3.205,
+      "png_sha256": "e171c2a291acc9de11b96e42b7d275dda09b9a0a0e1368d5d95d831d67c15a38",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         194,
         107
       ],
-      "vertices": 12958,
-      "triangles": 24412,
-      "parts": 185,
+      "vertices": 19504,
+      "triangles": 36172,
+      "parts": 278,
       "projected_vertex_bounds_px": [
         16.689041137695312,
         22.274192810058594,
@@ -4864,10 +4864,10 @@
         0.0,
         40.291969299316406,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "barbed_lance",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.251,
-      "png_sha256": "55e32dc1f0c7cd6b12b2866fb642e96d271cfcde25587b4019bdf1aec2ae82cc",
+      "seconds": 3.07,
+      "png_sha256": "884aef31b27d38e2fb2315c37c61f2db811a74b23d102eaa9fae6ebec272f7f2",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.86,

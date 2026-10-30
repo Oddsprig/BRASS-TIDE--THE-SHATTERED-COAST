@@ -1,7 +1,7 @@
 {
   "schema": "brass-tide-boats042-v1",
   "source_revision": "042-original-three+049-roster-detail-r2",
-  "asset_status": "051_FOUR_FOREFOOT_CORRECTIONS_PENDING_NATIVE_FITTED_REVIEW",
+  "asset_status": "073 all36 source-bound hulls and portraits baked; Root native and visual review pending",
   "coordinates": {
     "hull_local_x": "bow",
     "hull_local_y": "starboard",
@@ -153,21 +153,21 @@
         ],
         [
           142,
-          153,
+          151,
           110,
-          77
+          79
         ],
         [
           151,
-          149,
+          148,
           92,
-          85
+          86
         ],
         [
           159,
-          146,
+          145,
           72,
-          91
+          92
         ],
         [
           166,
@@ -189,21 +189,21 @@
         ],
         [
           153,
-          146,
+          145,
           72,
-          91
+          92
         ],
         [
           141,
-          149,
+          148,
           92,
-          85
+          86
         ],
         [
           132,
-          153,
+          151,
           110,
-          77
+          79
         ],
         [
           124,
@@ -271,8 +271,8 @@
         "rivet rows",
         "empty mounting wells"
       ],
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_sha256": "28032322b8a120ee3d1ff9faa106ec95746210018842527b39a013c7ffbc65b5",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "c726fee342d9c5330767f1ba69dfe0fc835ff1a2185f2a6d45dada8aeeac1e08",
       "sockets": [
         {
           "id": "mount0",
@@ -305,9 +305,9 @@
           "angle": 3.141592653589793
         }
       ],
-      "portrait_sha256": "f5ca3a3eb1d5ac9447c112ab7d3e02d17a5be5fc287d22e91853c9c53408eeb3",
-      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+      "portrait_sha256": "368f3a246cd3b84c6aa824ea8a47a081cd5433d68d6b2950474e15f8a13f6cf8",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
       "physical_bounds_world": [
         -31.219999313354492,
         -8.703167915344238,
@@ -321,7 +321,7 @@
     "ash_corvette": {
       "name": "Ashwake Escort Corvette",
       "size": 21,
-      "asset_status": "baked_pending_native_and_visual_review",
+      "asset_status": "baked_pending_visual_review",
       "atlas": "res://assets/boats042/ash_corvette/hull-atlas.png",
       "headings": 32,
       "columns": 8,
@@ -564,8 +564,8 @@
         "service hatches",
         "empty mounting wells"
       ],
-      "source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
-      "atlas_sha256": "81f8a52b9d29a11c73188f1056c2b8f30d37ee1bca4089d1ebea70fbcae37f82",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "74bac6cb7eba9ed6f3fd0acbd9491307976957b342c79af3bcca95f106e22b0a",
       "sockets": [
         {
           "id": "mount0",
@@ -613,14 +613,23 @@
           "angle": -1.5707963267948966
         }
       ],
-      "portrait_sha256": "a78693cb7ea8715b3f7ce41dba3bf7809c5c47af7982fc249e6995251066057c",
-      "atlas_source_sha256": "33175d6e464a0c05160ff34316a57528cf85f1c198b9b77241c098bd6737e968",
-      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
+      "portrait_sha256": "d2820ff0fad83f868cfb079476844f063503571c0cd018b873019606852de0dc",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "physical_bounds_world": [
+        -48.5099983215332,
+        -14.686882972717285,
+        0.0,
+        44.327491760253906,
+        14.686882972717285,
+        29.0
+      ],
+      "roster049": null
     },
     "brasswind_motor_galleon": {
       "name": "Brasswind Motor-Galleon",
       "size": 28,
-      "asset_status": "baked_pending_native_and_visual_review",
+      "asset_status": "baked_pending_visual_review",
       "atlas": "res://assets/boats042/brasswind_motor_galleon/hull-atlas.png",
       "headings": 32,
       "columns": 8,
@@ -864,9 +873,9 @@
         "cleats and hawsers",
         "four empty mounting wells"
       ],
-      "source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
-      "atlas_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
-      "atlas_sha256": "7997542e4fa502bb644d56c9a7482811ce6de99d18bae540e4d0ba2708ffb121",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "d71ae40fca112215d384c647634fb5b059e1001ef1cef8e9b0881afcf724665f",
       "sockets": [
         {
           "id": "mount0",
@@ -929,8 +938,17 @@
           "angle": 1.5707963267948966
         }
       ],
-      "portrait_sha256": "52aa640eb6e37c6d0e134a9e7419f86b544d916be9f60f6836d2d219ca57d4a3",
-      "portrait_source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6"
+      "portrait_sha256": "e1d58eee25a8ec990c03058b0cb2a15dc72af6efe1493594e1da9a1001e6c7f0",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null
     },
     "bilge_punt": {
       "name": "Bilgewater Punt",
@@ -976,9 +994,9 @@
         ],
         [
           40,
-          6,
+          5,
           63,
-          89
+          90
         ],
         [
           48,
@@ -1030,9 +1048,9 @@
         ],
         [
           9,
-          25,
+          24,
           137,
-          47
+          48
         ],
         [
           8,
@@ -1144,9 +1162,9 @@
         ],
         [
           10,
-          22,
+          21,
           128,
-          56
+          57
         ],
         [
           17,
@@ -1203,9 +1221,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "22ca3a2b3c9d4bbc8abe6fef3cca9f7dc3a01d3ff6d83c784c111f1d807ca37c",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "051aea42c0cfaccdee5caff2c21f282da2c869353fe085eb8007c0a74e658fc2",
       "physical_bounds_world": [
         -29.510000228881836,
         -8.47739315032959,
@@ -1215,7 +1233,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.9,
@@ -1255,8 +1273,8 @@
         "installed_guns_in_hull": false,
         "design": "Open patched scout; offset exposed motor and salvage reel"
       },
-      "portrait_sha256": "918cd39e3de8fa6e2dfdd2bdce67b51cd165051d6285121b91fc076c20c0feff",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "ae32aaf579ed00d80a832db5d7ca47671d275a5c830748b53d64b334e0bcf49a",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "lantern_skiff": {
       "name": "Lantern Ward Skiff",
@@ -1350,33 +1368,33 @@
         ],
         [
           18,
-          21,
+          19,
           151,
-          64
+          66
         ],
         [
           14,
-          23,
+          20,
           158,
-          56
+          59
         ],
         [
           12,
-          22,
+          21,
           160,
-          53
+          54
         ],
         [
           14,
-          23,
+          21,
           158,
-          60
+          62
         ],
         [
           18,
-          24,
+          22,
           151,
-          66
+          68
         ],
         [
           25,
@@ -1446,33 +1464,33 @@
         ],
         [
           7,
-          24,
-          151,
-          66
-        ],
-        [
-          4,
-          23,
-          158,
-          60
-        ],
-        [
-          4,
           22,
-          160,
-          53
+          151,
+          68
         ],
         [
           4,
-          23,
+          21,
           158,
-          56
+          62
+        ],
+        [
+          4,
+          21,
+          160,
+          54
+        ],
+        [
+          4,
+          20,
+          158,
+          59
         ],
         [
           7,
-          21,
+          19,
           151,
-          64
+          66
         ],
         [
           12,
@@ -1529,19 +1547,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "826ced2d3b554a0cf32cd1b4b97a5cc3b97c852fab428f4fc3c05e6e010d2454",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "0b43de8505436cee8cd50498bda6b97c9b58c6e06875f8d611b85f682b72750a",
       "physical_bounds_world": [
         -34.95000076293945,
         -10.094350814819336,
         0.0,
         31.406057357788086,
         10.094350814819336,
-        21.399999618530273
+        21.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1577,12 +1595,12 @@
           ]
         ],
         "physical_size": 15,
-        "minimum_high_structure_clearance_world": 2.340000000000002,
+        "minimum_high_structure_clearance_world": 1.3245746065826087,
         "installed_guns_in_hull": false,
         "design": "Customs canopy; raised searchlight; twin transom motors"
       },
-      "portrait_sha256": "9c2e6b401459019bb6f5a98c48e269cc739121a5737fa04bb7592e55ad796439",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "681ea7a0ea25bf5c7d883cab4c0c99951af57f5960238c1c183880f695f18f5a",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "marsh_dart": {
       "name": "Marsh Dart Hydro",
@@ -1855,19 +1873,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "e3cb6a99fceaffeda8d8c44fe08d256570d7bf4e6a78a4de16a993fd9576b8c7",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "a1068536cbc06cefbd356ac85fec8f04bfdfc7bdd95908faeff7b6910c809fbb",
       "physical_bounds_world": [
         -28.280000686645508,
         -9.749740600585938,
         0.0,
         30.340656280517578,
         9.749740600585938,
-        15.800000190734863
+        16.299999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -1907,8 +1925,8 @@
         "installed_guns_in_hull": false,
         "design": "Stepped open hydroplane; center jet and transverse foil"
       },
-      "portrait_sha256": "fd4db84857a6abefb2a4f0f4889b7855b21548723dbbe5cc99c4713e6fb62988",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "7dfdf9a773eafa68d7444284d9e1a3964417c5a46b039338a4cdccf6c72ce727",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "scab_cutter": {
       "name": "Scabfin Cutter",
@@ -2008,9 +2026,9 @@
         ],
         [
           14,
-          24,
+          23,
           176,
-          60
+          61
         ],
         [
           13,
@@ -2122,9 +2140,9 @@
         ],
         [
           7,
-          26,
+          25,
           168,
-          65
+          66
         ],
         [
           13,
@@ -2181,19 +2199,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "842120582f0783df7efc372d1075f8fb8b20ac92b4f57c7d8b458a948983bfa0",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "bfe4bd3a7947a4cd425b476fac616687e48023f0aa73afe2c39142b626bb7037",
       "physical_bounds_world": [
         -38.93000030517578,
         -11.108569145202637,
         0.0,
         35.238643646240234,
         11.108569145202637,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.92,
@@ -2229,12 +2247,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.754,
+        "minimum_high_structure_clearance_world": 2.0964303057347364,
         "installed_guns_in_hull": false,
         "design": "Sawtooth bow cheeks; low slit house; split exhaust and twin screws"
       },
-      "portrait_sha256": "4accd3d9469c2740922a2339af02ff9053a030cbd1f568ef6c2003bca8f3c3e9",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "34bc3bead803e0c05b062b7ef3b2b069f05c5c09eed547a0f914049d075489d8",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "gale_cutter": {
       "name": "Galeblade Interceptor",
@@ -2328,21 +2346,21 @@
         ],
         [
           10,
-          25,
+          24,
           182,
-          69
+          70
         ],
         [
           5,
-          30,
+          28,
           190,
-          55
+          57
         ],
         [
           3,
-          33,
+          32,
           191,
-          48
+          49
         ],
         [
           5,
@@ -2436,21 +2454,21 @@
         ],
         [
           6,
-          33,
+          32,
           191,
-          48
+          49
         ],
         [
           5,
-          30,
+          28,
           190,
-          55
+          57
         ],
         [
           8,
-          25,
+          24,
           182,
-          69
+          70
         ],
         [
           14,
@@ -2507,19 +2525,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "a6ab3dee504c584447caecde67b4aa552b4307e9d0e095688361a74edf97a518",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "ce1693d8232164ea987a21420b81ffe108b3e1d8fb10c969968e241ffe933200",
       "physical_bounds_world": [
         -39.2400016784668,
         -13.940475463867188,
         0.0,
         40.457176208496094,
         13.940475463867188,
-        16.75
+        16.93000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -2559,8 +2577,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept pursuit foil; narrow canopy; twin supercharged jet machinery"
       },
-      "portrait_sha256": "bcf3d688c569d758d727e9ae57088399ab8d95cfea87ea6de08ab0c485008d84",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "7f03f0fd1dff07d98d0c96a476524e121c0a94e9685013cc49d60ec8a1beb759",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "silt_lugger": {
       "name": "Silt Runner Lugger",
@@ -2654,15 +2672,15 @@
         ],
         [
           12,
-          20,
+          19,
           181,
-          83
+          84
         ],
         [
           12,
-          26,
+          25,
           181,
-          70
+          71
         ],
         [
           15,
@@ -2768,15 +2786,15 @@
         ],
         [
           3,
-          26,
+          25,
           181,
-          70
+          71
         ],
         [
           3,
-          20,
+          19,
           181,
-          83
+          84
         ],
         [
           7,
@@ -2833,19 +2851,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "5722c588e50337c91c5ff2e5a496516a5a83de9c7507cadb7b74831ee6d7dd68",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "f958f59f6b02f8d5c69fbda4e5f607cba8b4e0a93dd24348fd990735a9c52823",
       "physical_bounds_world": [
         -38.25,
         -15.142022132873535,
         0.0,
         34.50133514404297,
         15.142022132873535,
-        16.450000762939453
+        16.6299991607666
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.88,
@@ -2885,8 +2903,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad dry-cargo cat; low canopy; paired holds and side bales"
       },
-      "portrait_sha256": "8fc53a5da8a83ebe7b301a4845c70abd61959185235335330097d043c4e426a4",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "96202d9d072bef90af004001249a8097d17d5d2152d56688a6fb6095f378e5ec",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "hook_raider": {
       "name": "Grapnel Blockade Runner",
@@ -3174,9 +3192,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "ccd1e02f7d03c17a5539cae1b4bd2a66ce06f7604afa9d56148218cf2d4979d1",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "21fcbd4c5831c47cc6d50f39e8263d7b434826335e9095f12e540a296fc427c6",
       "physical_bounds_world": [
         -42.400001525878906,
         -17.542484283447266,
@@ -3186,7 +3204,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3226,8 +3244,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "portrait_sha256": "3da1a5e1631adad023135415979c4e7b29065fb3f076e1f21f6dcaddd02c2585",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "89140ca2e8872ad6efd71d5a6dff9e442396a3322d540d465afc9ebca0dce8bc",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "mercantile_clipper": {
       "name": "Sovereign Armed Packet",
@@ -3315,15 +3333,15 @@
         ],
         [
           18,
-          18,
+          17,
           252,
-          125
+          126
         ],
         [
           13,
-          27,
+          24,
           263,
-          107
+          110
         ],
         [
           12,
@@ -3411,45 +3429,45 @@
         ],
         [
           10,
-          24,
+          23,
           252,
-          121
+          122
         ],
         [
           4,
-          30,
+          20,
           263,
-          105
+          115
         ],
         [
           4,
-          35,
+          17,
           264,
-          89
-        ],
-        [
-          8,
-          34,
-          255,
-          79
-        ],
-        [
-          4,
-          32,
-          264,
-          92
-        ],
-        [
-          4,
-          27,
-          263,
           107
         ],
         [
+          8,
+          15,
+          255,
+          98
+        ],
+        [
+          4,
+          14,
+          264,
+          110
+        ],
+        [
+          4,
+          13,
+          263,
+          121
+        ],
+        [
           10,
-          18,
+          14,
           252,
-          125
+          129
         ]
       ],
       "portrait_bounds_px": [
@@ -3515,19 +3533,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "7e43844be05b578aa56dfe07fef935451460952ac925529b0e5bed2987c86833",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "373a3ac772f40dc78b1f75a984ab5b8309211c1d2ad3a389800b59980434b1ce",
       "physical_bounds_world": [
         -55.88999938964844,
         -20.853511810302734,
         0.0,
         52.0676383972168,
         20.853511810302734,
-        27.0
+        27.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3567,8 +3585,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine treasury cat bows; stepped packet house and bonded safes"
       },
-      "portrait_sha256": "90f5a2aca16d5d06ced6520891400a4541b91908203344a39aae5ec7a6205854",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "0e710ccdea81f6207303082aa7cff2812101f43b868179148c67033cd0df5285",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "harbor_sloop": {
       "name": "Breakwater Patrol Sloop",
@@ -3795,9 +3813,9 @@
       ],
       "portrait_bounds_px": [
         55,
-        29,
+        28,
         251,
-        172
+        173
       ],
       "source_station_bounds_local": [
         -1.86,
@@ -3841,9 +3859,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "8bf4937afa3049dc845c1460e0e2b2617b649ed47ee6d8e89add71e907596012",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "a41cf774aec841965a296602411fc74549b449c8c3ecac8b7795811969ff3c1c",
       "physical_bounds_world": [
         -37.90999984741211,
         -10.94571590423584,
@@ -3853,7 +3871,7 @@
         24.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -3889,12 +3907,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.5546505634040915,
+        "minimum_high_structure_clearance_world": 1.3970000000000007,
         "installed_guns_in_hull": false,
         "design": "Round patrol hull; brass wheelhouse; one stack and tow capstan"
       },
-      "portrait_sha256": "e8452a437c97175bf33e00cd74d4f71278a685de92b6676cb8fa1e7dc8904927",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "896e7ea9adfafb8355d4914f9ffe2d9055826ee0c2a705b4a09c51d446206b03",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "aegis_corvette": {
       "name": "Vanguard Line Corvette",
@@ -4182,9 +4200,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "f1711174b6ff404d3a333004d6f1acd7ce62f9c88bee3f1811e3d7ee4ab60ada",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "95578b16097f70692b05ff194ec62754ea6caea2409b405cea45a4f730ee165b",
       "physical_bounds_world": [
         -57.36000061035156,
         -16.312164306640625,
@@ -4194,7 +4212,7 @@
         28.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.02,
@@ -4230,12 +4248,12 @@
           ]
         ],
         "physical_size": 24,
-        "minimum_high_structure_clearance_world": 4.344000000000001,
+        "minimum_high_structure_clearance_world": 2.965553026756905,
         "installed_guns_in_hull": false,
         "design": "Fine escort prow; full rangefinder wing and damage-control chests"
       },
-      "portrait_sha256": "6fa4aa2e68bfaab48f65d8afb503d9af9cbb2d995c7f0e054be2640942ee8350",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "f72f5119ca9f563375f36b4adffc30b7ec9dc64bf3d85e1c64ac1372ec31a594",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "reed_stinger": {
       "name": "Fen Stinger Torpedo Launch",
@@ -4508,9 +4526,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "e05ea478d15b7bbdbe3d1b27b20bf7005ca02e88f0ec8f4a04c7014af0fdb677",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "4de95a9ef48f9fde1fbc144a06a3e2a22d70163bfbebc7aa62bbedb8e54edd0c",
       "physical_bounds_world": [
         -34.68000030517578,
         -11.645000457763672,
@@ -4520,7 +4538,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.88,
@@ -4560,8 +4578,8 @@
         "installed_guns_in_hull": false,
         "design": "Low open marsh launch; single jet and air-receiver manifold"
       },
-      "portrait_sha256": "50a748ada02c559bde73e13aa07b0b3b7a0cdabf4e3e661a6be572b0c3f4b568",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "5fcfaf80ddf0178cb53c560a39f4456e5268c934325401a058acf40b86e4934a",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "krill_torpedo": {
       "name": "Tallowfin Torpedo Boat",
@@ -4763,9 +4781,9 @@
         ],
         [
           4,
-          35,
+          34,
           215,
-          53
+          54
         ],
         [
           4,
@@ -4849,19 +4867,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "f13f58db3bb4e46ee78b6256794b738673efcc192c03adda826537a3951c503d",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "22fa7fe1b907ee2f1b7bcedef494601a69c8838f22b820aa9188163106be5a70",
       "physical_bounds_world": [
         -46.599998474121094,
         -13.32963752746582,
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4901,8 +4919,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "portrait_sha256": "a729f85828b92ab2932a052663a69b393f0d0f842187fff609d562a3b37d7999",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "8827211f94e09f6006541ac8e5f6f69ace0675bb609265ac93b420b37429fe06",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "manta_strike": {
       "name": "Manta Flotilla Leader",
@@ -5040,13 +5058,13 @@
           60,
           15,
           162,
-          126
+          127
         ],
         [
           77,
           9,
           126,
-          136
+          137
         ],
         [
           84,
@@ -5070,13 +5088,13 @@
           65,
           9,
           126,
-          136
+          137
         ],
         [
           46,
           15,
           162,
-          126
+          127
         ],
         [
           30,
@@ -5190,9 +5208,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "471055afb85bdeac1d51850674b298c6e6ab626ac5656d27ff496f4e87458409",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "ae45e8f8dfff55d4cfe40f6fdab020e6823ca7cd54a148a0dc6cd6a8948b6128",
       "physical_bounds_world": [
         -53.040000915527344,
         -19.618919372558594,
@@ -5202,7 +5220,7 @@
         25.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.05,
@@ -5242,8 +5260,8 @@
         "installed_guns_in_hull": false,
         "design": "Swept wide foil; tall narrow command fin and paired jets"
       },
-      "portrait_sha256": "31c59fa9037e8c6fbdfe42ae08711c37eaa3b9042325dafa9aae5efe38ced2c7",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "786ef3417aeeb5d9b3994ad1f73dfa6ed4a3c8da79565bac726c399e48b2666b",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "slag_gunboat": {
       "name": "Slagclast River Gunboat",
@@ -5531,19 +5549,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "3818b005a01ea1fc83e7d9709cdca0252560eb2260f64e7e1cb045905df9d53d",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "80febc83e80a932d2ef1a3141b5285df7aaa0641761cd0858fdf1c9e2ab0d797",
       "physical_bounds_world": [
         -49.279998779296875,
         -16.9891300201416,
         0.0,
         44.467918395996094,
         16.9891300201416,
-        21.170000076293945
+        21.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.87,
@@ -5583,8 +5601,8 @@
         "installed_guns_in_hull": false,
         "design": "Blunt ironclad; single armor course; low casemate and twin stacks"
       },
-      "portrait_sha256": "425650b7cdc95a687647c3a7bfb18111659ec7094d00fd8b7f39aa5b5c034523",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "079eba3afe293658061f075e6f7a5269abbd2a32cd7f9ebe90c7a38c4f292725",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "bellows_gunboat": {
       "name": "Bellows Siege Gunboat",
@@ -5678,9 +5696,9 @@
         ],
         [
           29,
-          30,
+          29,
           259,
-          96
+          97
         ],
         [
           22,
@@ -5798,9 +5816,9 @@
         ],
         [
           8,
-          30,
+          29,
           259,
-          96
+          97
         ],
         [
           17,
@@ -5872,19 +5890,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "5d9c73efd26b45e3fdcfc09c2949621893af5177049422a864347c56c97fe551",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "78c6af633e693eca097bc24ed0ce74a9a3560c282715ca17f79cc0f4fa2c2103",
       "physical_bounds_world": [
         -60.58000183105469,
         -20.81709098815918,
         0.0,
         54.33617401123047,
         20.81709098815918,
-        23.170000076293945
+        23.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -5924,8 +5942,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad siege hull; double belt; external bilge manifolds and paired engines"
       },
-      "portrait_sha256": "131b34602d9f3cdb4d0d6891783e1814657918ef60d21edd3f246f233a700881",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "4fc832e1cd480bbd53ccef81ed41c3d1d2244aac413825cfd61ff2a1aa300133",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "furnace_turret": {
       "name": "Furnace Sovereign Monitor",
@@ -6019,9 +6037,9 @@
         ],
         [
           35,
-          36,
+          35,
           310,
-          110
+          111
         ],
         [
           26,
@@ -6031,9 +6049,9 @@
         ],
         [
           23,
-          49,
+          48,
           326,
-          88
+          89
         ],
         [
           26,
@@ -6055,15 +6073,15 @@
         ],
         [
           64,
-          31,
+          30,
           253,
-          148
+          149
         ],
         [
           79,
-          26,
+          25,
           219,
-          162
+          163
         ],
         [
           94,
@@ -6097,15 +6115,15 @@
         ],
         [
           56,
-          26,
+          25,
           219,
-          162
+          163
         ],
         [
           37,
-          31,
+          30,
           253,
-          148
+          149
         ],
         [
           20,
@@ -6127,9 +6145,9 @@
         ],
         [
           5,
-          49,
+          48,
           326,
-          88
+          89
         ],
         [
           4,
@@ -6139,9 +6157,9 @@
         ],
         [
           9,
-          36,
+          35,
           310,
-          110
+          111
         ],
         [
           20,
@@ -6228,9 +6246,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "71f4bf1571ea4d3ce34bd3a963bf384c285c8ea9452195f03c1cef92735ec63f",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "14031615d87240e05c8ed11e97fa417222c0ba1994d3391c26510d6914db09a5",
       "physical_bounds_world": [
         -72.9000015258789,
         -26.18222427368164,
@@ -6240,7 +6258,7 @@
         25.5
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -6280,8 +6298,8 @@
         "installed_guns_in_hull": false,
         "design": "Bulged bastion; triple belt; raised conning cupola and three ejectors"
       },
-      "portrait_sha256": "69db63f22f90969edf08353377cd49133403277f4652bca101a019fe859bd08f",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "e06ce45f80a5b093f05bf884629d8c57998054a8d071e3cd0a4eb6c7e95b893e",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "barbed_lance": {
       "name": "Sparkrack Rocket Scow",
@@ -6569,19 +6587,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "ed64d07a148f3c6cbc5ee4c2baf27f2431c404f9f637498cf4fe8c2d02a1825d",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "71c74f631bc69f374a7a576e37169c156af167d683081a436f508ce7a64d03ab",
       "physical_bounds_world": [
         -44.599998474121094,
         -16.39027214050293,
         0.0,
         40.29197311401367,
         16.39027214050293,
-        17.25
+        17.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.86,
@@ -6621,8 +6639,8 @@
         "installed_guns_in_hull": false,
         "design": "Wide ore scow; timber push cheeks; covered hold and igniter boxes"
       },
-      "portrait_sha256": "cf78a5fd0faeded967d894d48e1b84a8ca9bd8907773719f91d2d6f11aa95ea3",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "4d9c1babd707c296975fc8961eb7852de049e4d8856784648d0edcdbc6ce7a74",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "cinder_monitor": {
       "name": "Pyreclast Rocket Monitor",
@@ -6716,21 +6734,21 @@
         ],
         [
           28,
-          31,
+          30,
           248,
-          93
+          94
         ],
         [
           22,
-          36,
+          35,
           258,
-          84
+          85
         ],
         [
           19,
-          42,
+          41,
           260,
-          75
+          76
         ],
         [
           22,
@@ -6824,21 +6842,21 @@
         ],
         [
           5,
-          42,
+          41,
           260,
-          75
+          76
         ],
         [
           4,
-          36,
+          35,
           258,
-          84
+          85
         ],
         [
           8,
-          31,
+          30,
           248,
-          93
+          94
         ],
         [
           17,
@@ -6910,19 +6928,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "389fa7a14c652f032a83dfd11fc357726478e58b9ed7c6b7c5172529156b0a8e",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "c7feed65d830af605d498caea7bf9eec7e87881f06c23efdb56bba862f669afb",
       "physical_bounds_world": [
         -58.0,
         -22.42927360534668,
         0.0,
         51.76511764526367,
         22.42927360534668,
-        24.170000076293945
+        24.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.95,
@@ -6962,8 +6980,8 @@
         "installed_guns_in_hull": false,
         "design": "Full-bodied monitor; low bunker; one broad stack and insulated safes"
       },
-      "portrait_sha256": "d5f819a02730bab1df6f654a507b2e314672c6db9853ba8de214a0537849c99f",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "86a0720049f467da7e76992ad220f523fc873f53c4fdea7819a02593a0a978db",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "wraith_rocket": {
       "name": "Hellbore Salvo Cruiser",
@@ -7101,13 +7119,13 @@
           64,
           14,
           204,
-          150
+          151
         ],
         [
           80,
           10,
           169,
-          159
+          160
         ],
         [
           91,
@@ -7131,13 +7149,13 @@
           63,
           10,
           169,
-          159
+          160
         ],
         [
           44,
           14,
           204,
-          150
+          151
         ],
         [
           28,
@@ -7266,9 +7284,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "21f772c7e7116217d0374ec50bd56bd5244e12ff903c24af75a6bd3811c9973d",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "1b3a304c9c36d335829135766113b705fc5448eae87fb4c13343d61fa3d487ac",
       "physical_bounds_world": [
         -63.79999923706055,
         -24.858726501464844,
@@ -7278,7 +7296,7 @@
         30.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -7318,8 +7336,8 @@
         "installed_guns_in_hull": false,
         "design": "Long salvo hull; narrow fire-control tower and paired jet plants"
       },
-      "portrait_sha256": "78e566b629878d99f2e3be1dc8382b4c1d6569419e42798602593c8f46778e94",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "59681d729de1a341da0d0aa3317f1289fa23d9b13b921b29d490c4e3733daf67",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "cobalt_frigate": {
       "name": "Cobalt Commodore Frigate",
@@ -7607,9 +7625,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "f2f2153a2b8e2f8fe2bd7271af5cb28459d2a4744b0e523cd2940896705e5a0e",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "3065591a2598791ab09dfb4ec8e1145016464f114d4469f1b3b69d4e18eea57b",
       "physical_bounds_world": [
         -55.91999816894531,
         -16.328310012817383,
@@ -7619,7 +7637,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -7659,8 +7677,8 @@
         "installed_guns_in_hull": false,
         "design": "Command frigate; stepped flag bridge and dual turbine exhaust"
       },
-      "portrait_sha256": "d8704aa7116d0a4b29424f71de31e3d3bb0e49a6813d7f90d2441bd3c98e52e2",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "7f597c2aab611b1671321391cfd40f92e935e9bd8f2a5d1dd69b8f3e5f5b028c",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "iron_bastion": {
       "name": "Bastion Armored Cruiser",
@@ -7748,9 +7766,9 @@
         ],
         [
           44,
-          23,
+          22,
           297,
-          136
+          137
         ],
         [
           29,
@@ -7880,16 +7898,16 @@
         ],
         [
           21,
-          23,
+          22,
           297,
-          136
+          137
         ]
       ],
       "portrait_bounds_px": [
         79,
-        39,
+        38,
         515,
-        301
+        302
       ],
       "source_station_bounds_local": [
         -2.04,
@@ -7963,9 +7981,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "ca5a57c17a67dce13c3d5508b23884cd7ef658970c2e6d33042a3ad2b31232ea",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "1feceee2e86ca3e6250c7d3423949530c8d913aa49c307136803c72475a90b1b",
       "physical_bounds_world": [
         -74.70999908447266,
         -23.296890258789062,
@@ -7975,7 +7993,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -8015,8 +8033,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "portrait_sha256": "68fb000725e31e031dec41c777cc9a8c478b51f500545da5be933e130e133da9",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "1d6b0c2745a9b814a93281e0111a8d41b7a8ac68d9e12d9c1df3f7faa3005960",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "maiden_dreadnought": {
       "name": "Shatter Throne Dreadnought",
@@ -8319,9 +8337,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "3827e566c907f6f37c867312d202dcbda69e2e725803de5f2b0bb42658bc7799",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "7f57f3c4b955f57918f5ea1f4bf8ff6eefbc352194102ead8d8be6a5c68eedcf",
       "physical_bounds_world": [
         -88.91999816894531,
         -29.977886199951172,
@@ -8331,7 +8349,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -8371,8 +8389,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "portrait_sha256": "d6755ec972af17d62ee9a2d13beee21e62344e64fb490408330b5cecde92aa24",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "839ac3d1909d753fdcc6c6cfabf42ff8376bcdc8eda967d4cae540608de0fa59",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "kelpnet_dory": {
       "name": "Kelpnet Dory",
@@ -8514,9 +8532,9 @@
         ],
         [
           50,
-          15,
+          14,
           73,
-          86
+          87
         ],
         [
           57,
@@ -8645,9 +8663,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_sha256": "fa33fcdef55558a4c77529dac55c361fc475a88f1687d0fc584feba869ed21c2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "3d231d3d0bef7bf2fbc5c23cb7d4d860d4c73d5d8235212c152fce651f3d224f",
       "physical_bounds_world": [
         -31.59000015258789,
         -8.129188537597656,
@@ -8657,7 +8675,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -8697,8 +8715,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "portrait_sha256": "61fbe2d30b9adbd5c714e37d1f4646fcf08a406ca4d51be2bfa27f202205074a",
-      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
+      "portrait_sha256": "bf810f883aae3f98f879f3e1f156f577b59cc7dc7593a52ad4049d9d658798dc",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "brinehook_longliner": {
       "name": "Brinehook Longliner",
@@ -8971,9 +8989,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "7faab61523503ac5445d98b46732efe27f525a05f5a17825cb66bd31b4e49775",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "8a4c3a4bcb870ea69463878821338e2110268f0af46073918fffa8cbc81c3d93",
       "physical_bounds_world": [
         -40.349998474121094,
         -9.604205131530762,
@@ -8983,7 +9001,7 @@
         21.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.32,
@@ -9023,8 +9041,8 @@
         "installed_guns_in_hull": false,
         "design": "Long working stern; paired line reels and offset davit under canopy"
       },
-      "portrait_sha256": "a1f06a8e727fb71d8838111609d71b1a3d8bbe7c0b22079fada7fea4ef80b2ce",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "892dded12073f0f9c9af8bbb023c9167f94dfb4d1a4cca418ad93bfdc39e37f6",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "mother_gull_trawler": {
       "name": "Mother Gull Trawler",
@@ -9297,9 +9315,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "1d16549dfc72916a8a7a24d52db2e9b3fd5484f923c1f48bb4a7fb9b1ce5dff1",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "2e81c9b5041f1f3ec9c6255b4f9fe11e1eb54ac5fcc4dff53c11df1ce4980f1f",
       "physical_bounds_world": [
         -48.83000183105469,
         -18.25011444091797,
@@ -9309,7 +9327,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -9349,8 +9367,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "portrait_sha256": "2e3d3c2f203d6574497ff7b629b08fa70d85366f8de574c7e91d30e6dbabfe8d",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "f26647f984a8f63095e69122a4aa818e1cfe741307e9d4afb2d7edd03e52f920",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "fenhopper_lighter": {
       "name": "Fenhopper Lighter",
@@ -9468,9 +9486,9 @@
         ],
         [
           19,
-          24,
+          23,
           198,
-          89
+          90
         ],
         [
           23,
@@ -9540,9 +9558,9 @@
         ],
         [
           5,
-          24,
+          23,
           198,
-          89
+          90
         ],
         [
           4,
@@ -9623,19 +9641,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "089c55cbea5ecb82ff8839b496fb59a2d882ef5b117814b2c01f343edfe46244",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "f5da3b2216936b6b35e4008493b6788e33fc38ca98a90e73a42419a519bdcbe2",
       "physical_bounds_world": [
         -43.689998626708984,
         -16.501924514770508,
         0.0,
         37.28681564331055,
         16.501924514770508,
-        15.75
+        15.930000305175781
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -9675,8 +9693,8 @@
         "installed_guns_in_hull": false,
         "design": "Flat twin-hull lighter; compressed bale stacks and loading ramp"
       },
-      "portrait_sha256": "e6b85b10820bf26eb62a734dd87ea1ed937a09f39aae215a6de738f82c6c40b6",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "b60a2014c254c9ef710a7731096171e87e4ebe4566505bc531e1ec7ec3eb8495",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "tideledger_coaster": {
       "name": "Tideledger Coaster",
@@ -9884,9 +9902,9 @@
         ],
         [
           4,
-          39,
+          38,
           266,
-          86
+          87
         ],
         [
           5,
@@ -9964,9 +9982,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "0188be4a5e2d8a18d7f828d68a4e8e5436a7ac25a365ccee59101227b075793b",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "a04f662910f292d3b93c66d1bf051bac9d517ddc7bfa5e817c3bd33d7659c5df",
       "physical_bounds_world": [
         -57.75,
         -20.56805419921875,
@@ -9976,7 +9994,7 @@
         25.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.38,
@@ -10016,8 +10034,8 @@
         "installed_guns_in_hull": false,
         "design": "Long coastal cat; raised cargo davit; covered holds and bonded safes"
       },
-      "portrait_sha256": "b38c62354eafa2789b7c2942f3a0fd69457f265608ba462ce745e659da8dbc73",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "734974f7e8c2d0a067380effc66f053208dbcd7c48c8451bfa6073d5cef6375e",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "fourport_packet": {
       "name": "Fourport Packet",
@@ -10305,9 +10323,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "784042ad34b0b56319ee25a2e289aa96a889fb4e72a7dd7e2da594e8aba32fef",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "17b46bd886da6475dcd06a056eddeca505bf4615ad36696832a6031735fe2800",
       "physical_bounds_world": [
         -64.08000183105469,
         -23.8356876373291,
@@ -10317,7 +10335,7 @@
         29.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.3,
@@ -10357,8 +10375,8 @@
         "installed_guns_in_hull": false,
         "design": "High two-level packet house; long covered hatches and twin exhaust"
       },
-      "portrait_sha256": "a5817153ecfa2e7f396e8e51ee0361eedb8131b75f2f2a5170ffeab5dde5500f",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "ca54d09c3ce8c40e12bc24ff111dac7ed1ea9177dc33fba40edaae40c78c3ccf",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "seepoil_tanker": {
       "name": "Seepoil Tanker Barge",
@@ -10646,19 +10664,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "d7d2845657f1a4892dcd49c0d82a7261c241c3832a5152fb507a7c54e1bdb2ce",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "cdc0f4c2281513914cd62e45c340885d9a55a529d08ed8756ad36aeb6dc89f9a",
       "physical_bounds_world": [
         -50.599998474121094,
         -16.069883346557617,
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -10698,8 +10716,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "portrait_sha256": "92de470a4476829b35f28bd44a4429f4ca7ed0525b9a2c8dc201264467ad9adf",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "4847d0558d8488991912cc72ab1c8e75548333bc0c152b255df16ad53b367b19",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "blackwater_fleet_tanker": {
       "name": "Blackwater Fleet Tanker",
@@ -10987,19 +11005,19 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "a4af9f7b7b646f930449beda94bd5ba3dbb0d3d7aed704f4fc32dfbabdb412d8",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "49018762bcb1f399fec3aee9f2b6d4a742b3196f0add32c32f1dff8e0f1d29f9",
       "physical_bounds_world": [
         -76.94999694824219,
         -22.979999542236328,
         0.0,
         70.97940826416016,
         22.979999542236328,
-        22.170000076293945
+        22.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.48,
@@ -11039,8 +11057,8 @@
         "installed_guns_in_hull": false,
         "design": "Long fleet tanker; four horizontal tanks with solid inspection caps; three transom drives"
       },
-      "portrait_sha256": "d5a902efa38f61df26b01362d5072571cb5d7db0fc879a62c76230b4a3d465cd",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "ad71d7ee072e49314a4f97fdc168f0f2ec13aa5769a1a7bde416d5cd4cb744e9",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "gullwing_daysailer": {
       "name": "Gullwing Daysailer",
@@ -11313,9 +11331,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_sha256": "a3a7436932563775f66493c5ea4b132c48a1627de9b52c62109d783e673e7669",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "afdcbdb6e6e7def2b2b72870bf6baa4a3cd86db41457a7a65af6aaa4de1895cb",
       "physical_bounds_world": [
         -30.239999771118164,
         -10.061624526977539,
@@ -11325,7 +11343,7 @@
         16.229999542236328
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.0,
@@ -11365,8 +11383,8 @@
         "installed_guns_in_hull": false,
         "design": "Fine pleasure hydrofoil; stepped cockpit and cushioned foredeck"
       },
-      "portrait_sha256": "6d40922fc9bb2503927daca071eab9cf5b31c5d3da44bb1996c120c20fe286a9",
-      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
+      "portrait_sha256": "0633dad4b476ac2bb08bdb95c5f487d82926339f735cb8b352031c54382030f8",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "osprey_cabin_cruiser": {
       "name": "Lacquered Osprey Cruiser",
@@ -11639,9 +11657,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "atlas_sha256": "cf4dbc059f293d4204335bfad972ef956a98ffab2d563a01487374b48a292340",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "92c640371b09960ebb089982689fc09c7df90f7b76e82dfde88afd5c0c63f45d",
       "physical_bounds_world": [
         -43.349998474121094,
         -11.745073318481445,
@@ -11651,7 +11669,7 @@
         20.799999237060547
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.18,
@@ -11687,12 +11705,12 @@
           ]
         ],
         "physical_size": 17,
-        "minimum_high_structure_clearance_world": 2.9580000000000006,
+        "minimum_high_structure_clearance_world": 2.5670000000000024,
         "installed_guns_in_hull": false,
         "design": "Long lacquered cabin launch; raised glazed day salon and twin motors"
       },
-      "portrait_sha256": "6c3c40a71417756550bfc84d19d223a40b749638cae2f33368fdd3ac0f193942",
-      "portrait_source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a"
+      "portrait_sha256": "8692d4cf5f0a7c79ed05dcc47fa9945349e6a003e2714876aef8f72bb074e67f",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     },
     "aurelian_court_yacht": {
       "name": "Aurelian Viceroy Yacht",
@@ -11980,9 +11998,9 @@
         }
       ],
       "installed_guns_in_hull": false,
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "atlas_sha256": "0edbe8718c0824bee50e207c4df46db651bb5f3383a14310d8a343a8ed94c7ca",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "atlas_sha256": "9c00eb9e47d75cd7732b1c9462605948a656862fb9999c08479622c29b0081d7",
       "physical_bounds_world": [
         -67.75,
         -18.480955123901367,
@@ -11992,7 +12010,7 @@
         31.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.34,
@@ -12032,8 +12050,8 @@
         "installed_guns_in_hull": false,
         "design": "Long court yacht; two-level household bridge; wide signal wing and settee"
       },
-      "portrait_sha256": "4f22ecedac8eb8187b694f22823d13f521a8ebff345a5b7bc3676039be6e47e0",
-      "portrait_source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506"
+      "portrait_sha256": "85facd5eb3ab127e95fea2c6873f7c0d096e1f272605fcffe1fa65c7dfd20b4f",
+      "portrait_source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4"
     }
   },
   "memory_budget": {

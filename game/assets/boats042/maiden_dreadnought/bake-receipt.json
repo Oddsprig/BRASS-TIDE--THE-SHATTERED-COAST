@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "maiden_dreadnought",
   "headings": 32,
-  "atlas_sha256": "3827e566c907f6f37c867312d202dcbda69e2e725803de5f2b0bb42658bc7799",
+  "atlas_sha256": "7f57f3c4b955f57918f5ea1f4bf8ff6eefbc352194102ead8d8be6a5c68eedcf",
   "canvas_config": {
     "cell_px": [
       432,
@@ -230,9 +230,9 @@
         355,
         198
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         46.58074951171875,
         25.911216735839844,
@@ -248,7 +248,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 2.013,
-      "png_sha256": "311b3a487064d1d6c2eae5556ce987539d982f34d4b561af3bb4a2355d273d82",
+      "seconds": 3.898,
+      "png_sha256": "bc659568466db55bf2f029044e496c5e08a6edb0a4399cb5ed502158f7fb2937",
       "sockets": [
         {
           "id": "mount0",
@@ -394,9 +394,9 @@
         333,
         210
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         72.85127258300781,
         16.003280639648438,
@@ -412,7 +412,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -452,8 +452,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 1,
       "density": 2,
@@ -486,8 +486,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.976,
-      "png_sha256": "22a59070a8a88bd7ce092974a795d998ecddd4d3373a9c4f8e4e2def6512ef74",
+      "seconds": 3.384,
+      "png_sha256": "fac583085e735b9f1a273e390cbf43cdb71fb1cbdf5557511f0c75c2176b6830",
       "sockets": [
         {
           "id": "mount0",
@@ -558,9 +558,9 @@
         313,
         219
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         96.68721008300781,
         9.475517272949219,
@@ -576,7 +576,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -616,8 +616,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 2,
       "density": 2,
@@ -650,8 +650,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.909,
-      "png_sha256": "c2eb696a9aa68a7a399ec6a1249fc2e6d2f290907ee822208a6b3f955f4aa7ff",
+      "seconds": 4.307,
+      "png_sha256": "1de57cf56e0f4d657b96a4df7561902677f8b2f7c6864fd431e89836ff4bcdc5",
       "sockets": [
         {
           "id": "mount0",
@@ -722,9 +722,9 @@
         297,
         223
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         122.39669799804688,
         6.5777740478515625,
@@ -740,7 +740,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -780,8 +780,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 3,
       "density": 2,
@@ -814,8 +814,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.882,
-      "png_sha256": "4e5405f4497857042c4ef24a42fa6680dc7379b169fe7ce0719a8ca491666c9d",
+      "seconds": 4.13,
+      "png_sha256": "8e866534700d8a8582e7bbe36f29e6fd2a9de4d0d9beb79d8912250d68b95974",
       "sockets": [
         {
           "id": "mount0",
@@ -886,9 +886,9 @@
         286,
         225
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         144.47198486328125,
         7.420433044433594,
@@ -904,7 +904,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -944,8 +944,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 4,
       "density": 2,
@@ -978,8 +978,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.857,
-      "png_sha256": "c7ee7e3f45b13248d5a82b260afa82a535202cabb0849221a40f8ea4c62f17dd",
+      "seconds": 4.614,
+      "png_sha256": "ee0f083b798aa3ce9c1a2b6e7c843927c62d77254518c1b1c8242cb29fdf0411",
       "sockets": [
         {
           "id": "mount0",
@@ -1050,9 +1050,9 @@
         308,
         224
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         133.9188690185547,
         6.5777740478515625,
@@ -1068,7 +1068,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1108,8 +1108,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 5,
       "density": 2,
@@ -1142,8 +1142,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.878,
-      "png_sha256": "2c7b5c968316a4377e668edd1dfe6f4a26bc5f767948eff12599d18518c86a1f",
+      "seconds": 3.668,
+      "png_sha256": "bcc5525109354f2ee30b2e6c5dff4b42eb2e820cf95dca577e5fe0e218cfcb59",
       "sockets": [
         {
           "id": "mount0",
@@ -1214,9 +1214,9 @@
         334,
         219
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         117.70520782470703,
         9.475517272949219,
@@ -1232,7 +1232,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1272,8 +1272,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 6,
       "density": 2,
@@ -1306,8 +1306,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.915,
-      "png_sha256": "a582c4df7f6df45872e08c6648bd0347241f94bd0f4aa3837270e3f323616181",
+      "seconds": 3.45,
+      "png_sha256": "0638e153cfa02325200a231ab6db34251d4e95c21c1fbf690138cebe0e052dc5",
       "sockets": [
         {
           "id": "mount0",
@@ -1378,9 +1378,9 @@
         358,
         210
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         97.3152847290039,
         16.003280639648438,
@@ -1396,7 +1396,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1436,8 +1436,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 7,
       "density": 2,
@@ -1470,8 +1470,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.935,
-      "png_sha256": "852d172fa3cb9ee6849364742ca8c3bd603f728fec4455d07913602505fa97ba",
+      "seconds": 3.359,
+      "png_sha256": "8af13dad6dd641e124d7b1f094fa89d222fde1be27eea524bb2de36137d9cde1",
       "sockets": [
         {
           "id": "mount0",
@@ -1542,9 +1542,9 @@
         384,
         198
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         75.74128723144531,
         25.911216735839844,
@@ -1560,7 +1560,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1600,8 +1600,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 8,
       "density": 2,
@@ -1634,8 +1634,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.914,
-      "png_sha256": "4134f2529869405f90e40835ba29855ceee58b559d007e60b4bd3bb3ac14ea2a",
+      "seconds": 3.194,
+      "png_sha256": "b6b9593c331056fc3bd9cb78db8a2d1e70d0deb9f6659ad5750ad0a436478baa",
       "sockets": [
         {
           "id": "mount0",
@@ -1706,9 +1706,9 @@
         405,
         184
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         53.500213623046875,
         32.75733184814453,
@@ -1724,7 +1724,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1764,8 +1764,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 9,
       "density": 2,
@@ -1798,8 +1798,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.935,
-      "png_sha256": "85c53d54c1075909005732ed6a5ddd020fed91bc9c708dc025cca767f3e44eef",
+      "seconds": 2.804,
+      "png_sha256": "eaaeeeb3b8764456ae2d23805c2f15c61a0c4b5c1cda2f4c20640f4a50550e9f",
       "sockets": [
         {
           "id": "mount0",
@@ -1870,9 +1870,9 @@
         418,
         171
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         35.8140869140625,
         34.920066833496094,
@@ -1888,7 +1888,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -1928,8 +1928,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 10,
       "density": 2,
@@ -1962,8 +1962,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.891,
-      "png_sha256": "b005a3141bc60eee246158a524b690e096969a1151c6b7625a608a0efeb785b9",
+      "seconds": 2.481,
+      "png_sha256": "2934879b1c0329ee2dda96098907beb9b25e4ba60fd69e529c12f23427e1585d",
       "sockets": [
         {
           "id": "mount0",
@@ -2034,9 +2034,9 @@
         424,
         165
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         24.975540161132812,
         37.80987548828125,
@@ -2052,7 +2052,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2092,8 +2092,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 11,
       "density": 2,
@@ -2126,8 +2126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.883,
-      "png_sha256": "b236a74ca42edcb30ff4de6b64f53a7ab0516285dfdda3c7d4b79efcd61f6a36",
+      "seconds": 2.424,
+      "png_sha256": "02a46f719d6f6c1074d00410b8424eb345a40978ca7ceaa62f1fd29104a4d490",
       "sockets": [
         {
           "id": "mount0",
@@ -2198,9 +2198,9 @@
         423,
         159
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         21.401107788085938,
         41.31571960449219,
@@ -2216,7 +2216,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2256,8 +2256,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 12,
       "density": 2,
@@ -2290,8 +2290,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.835,
-      "png_sha256": "7fec397da3361eecb55fa9ce2d5512b5c6543f9eedc20a0bb1786798717cbb59",
+      "seconds": 4.559,
+      "png_sha256": "12e1f25536cccfa7028610fcc0633a9dee4d43ea29425974f292943ab35b3a1a",
       "sockets": [
         {
           "id": "mount0",
@@ -2362,9 +2362,9 @@
         424,
         168
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         24.975540161132812,
         45.30286407470703,
@@ -2380,7 +2380,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2420,8 +2420,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 13,
       "density": 2,
@@ -2454,8 +2454,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.873,
-      "png_sha256": "f26fa16a0c63b6f9f7d021085d0cd61e4a3127d0e3700bddd2e99ccf23f2c8a8",
+      "seconds": 3.741,
+      "png_sha256": "6a3fd5f43a84cebe015e108dd972bd9d122ca33436f57809792d48c6a03a5dde",
       "sockets": [
         {
           "id": "mount0",
@@ -2526,9 +2526,9 @@
         418,
         182
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         35.8140869140625,
         49.61808776855469,
@@ -2544,7 +2544,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2584,8 +2584,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 14,
       "density": 2,
@@ -2618,8 +2618,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.893,
-      "png_sha256": "ae404f06dacee4b3d0a448645880f0134e98cc8b49af18f59d83ecda65a571b0",
+      "seconds": 3.765,
+      "png_sha256": "792fb14fc0c6360835993bf79b8fa03603fffa05809bee6a11344e0f88406300",
       "sockets": [
         {
           "id": "mount0",
@@ -2690,9 +2690,9 @@
         405,
         198
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         53.500213623046875,
         43.615196228027344,
@@ -2708,7 +2708,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2748,8 +2748,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 15,
       "density": 2,
@@ -2782,8 +2782,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.925,
-      "png_sha256": "9710352ea07d8b265ca7371730b44da375adafedb61165ecf85eb828615c4690",
+      "seconds": 3.768,
+      "png_sha256": "26c76640bbf6c95a83adf296fb074fe662a0dc823f9e2c610df0ed06b00c963c",
       "sockets": [
         {
           "id": "mount0",
@@ -2854,9 +2854,9 @@
         384,
         212
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         75.74128723144531,
         33.11061096191406,
@@ -2872,7 +2872,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -2912,8 +2912,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 16,
       "density": 2,
@@ -2946,8 +2946,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.915,
-      "png_sha256": "cb512280fdd77bf017a66b6ee7f5ca26728ecbdefc52fc3fe9fc53ea820aca35",
+      "seconds": 3.791,
+      "png_sha256": "b595383c6e7abdfe5e0d0b102a447400cb75335abf52298a2a8c5df613bbc2b2",
       "sockets": [
         {
           "id": "mount0",
@@ -3018,9 +3018,9 @@
         358,
         223
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         97.3152847290039,
         25.186180114746094,
@@ -3036,7 +3036,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3076,8 +3076,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 17,
       "density": 2,
@@ -3110,8 +3110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.92,
-      "png_sha256": "d54cea1690a9c2d4d8a6443d7659ad9ca0d18ee540643beaff2bbd48a2fee850",
+      "seconds": 3.721,
+      "png_sha256": "bbe8685240fdef1ba52836c237e1686cef5f7430ecd0e8222509a10238c4c5f9",
       "sockets": [
         {
           "id": "mount0",
@@ -3182,9 +3182,9 @@
         334,
         230
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         117.70520782470703,
         20.175430297851562,
@@ -3200,7 +3200,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3240,8 +3240,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 18,
       "density": 2,
@@ -3274,8 +3274,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.917,
-      "png_sha256": "55bb787e1c3c4ddfb6eaed84655f104441889282b83cd4ee216383e3db0566fe",
+      "seconds": 3.637,
+      "png_sha256": "41fec5152c6de30b8920b4af30129598d051f5b38af667e734a72a778d88750a",
       "sockets": [
         {
           "id": "mount0",
@@ -3346,9 +3346,9 @@
         308,
         233
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         133.9188690185547,
         15.470207214355469,
@@ -3364,7 +3364,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3404,8 +3404,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 19,
       "density": 2,
@@ -3438,8 +3438,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.896,
-      "png_sha256": "331bca69bba59001defed3979b691f4078cadc60ce7009793ebc464b9f6cd89c",
+      "seconds": 3.253,
+      "png_sha256": "f37450a0ba5bbf7e006d1a5af49e924798e24465a3f34f4f6192cb0a1a29357b",
       "sockets": [
         {
           "id": "mount0",
@@ -3510,9 +3510,9 @@
         286,
         232
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         144.47198486328125,
         13.669044494628906,
@@ -3528,7 +3528,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3568,8 +3568,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 20,
       "density": 2,
@@ -3602,8 +3602,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.852,
-      "png_sha256": "cb4fa5464d525afac488c99471cacc3e54b9bd9952b69a814d0d32b3c053ad32",
+      "seconds": 3.182,
+      "png_sha256": "957cdc6dc52e5173feb748d50442bb38ac5a5a5e92111398fe685b6b9771568a",
       "sockets": [
         {
           "id": "mount0",
@@ -3674,9 +3674,9 @@
         297,
         233
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         122.39669799804688,
         15.470207214355469,
@@ -3692,7 +3692,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3732,8 +3732,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 21,
       "density": 2,
@@ -3766,8 +3766,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.869,
-      "png_sha256": "bc73c5860090ca961da075cfe8d565212a8aa7b4268e51e49cc7bc5728f566b5",
+      "seconds": 2.939,
+      "png_sha256": "2a9343970be3e24312dce572ef03855f8328595fd26376f1fe70ddf7208ff3bc",
       "sockets": [
         {
           "id": "mount0",
@@ -3838,9 +3838,9 @@
         313,
         230
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         96.68721008300781,
         20.175430297851562,
@@ -3856,7 +3856,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -3896,8 +3896,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 22,
       "density": 2,
@@ -3930,8 +3930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.906,
-      "png_sha256": "df90a3dd5407fbb6c459718ac7ee890b9e48a05a6c0110567fb5ff7c0d00117a",
+      "seconds": 2.43,
+      "png_sha256": "9b2f77c673d76bfc380031b2e88d4b0b5005b50a9cd98b964fdaf8122e0c0bb5",
       "sockets": [
         {
           "id": "mount0",
@@ -4002,9 +4002,9 @@
         333,
         223
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         72.85127258300781,
         25.186180114746094,
@@ -4020,7 +4020,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4060,8 +4060,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 23,
       "density": 2,
@@ -4094,8 +4094,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.911,
-      "png_sha256": "faa00e7aeee14df940c19775f84f637642d233c3d0254801f0d04748dc9c49da",
+      "seconds": 2.384,
+      "png_sha256": "1dd7d5e9962acf48f91ad07220eb6b831ed24e2daa0cdb75d518dbc3da358e66",
       "sockets": [
         {
           "id": "mount0",
@@ -4166,9 +4166,9 @@
         355,
         212
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         46.58074951171875,
         33.11061096191406,
@@ -4184,7 +4184,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4224,8 +4224,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 24,
       "density": 2,
@@ -4258,8 +4258,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.916,
-      "png_sha256": "ecbe784430665a64219e1a3923d3b065000c308fdfebc906819cdd42a8d17eec",
+      "seconds": 4.504,
+      "png_sha256": "4bf541a55106dc94524377fb20f71cfa485c448a8ea6e4550de23b84a56bda7d",
       "sockets": [
         {
           "id": "mount0",
@@ -4330,9 +4330,9 @@
         377,
         198
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         25.97271728515625,
         43.615196228027344,
@@ -4348,7 +4348,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4388,8 +4388,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 25,
       "density": 2,
@@ -4422,8 +4422,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.918,
-      "png_sha256": "e3a86aea3200657b696f81d2b3d10a8da0744e6107dd44c98829c97ac7f07468",
+      "seconds": 3.86,
+      "png_sha256": "eb5e5c1e65d90ce0d25998493dc929a6effdc326e8132fda9c16dbeb2efc8920",
       "sockets": [
         {
           "id": "mount0",
@@ -4494,9 +4494,9 @@
         395,
         182
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         12.545028686523438,
         49.61808776855469,
@@ -4512,7 +4512,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4552,8 +4552,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 26,
       "density": 2,
@@ -4586,8 +4586,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.896,
-      "png_sha256": "379b1f0b8f7227e5dd962152e971fe274f2a32f60a0991fad1ee345a2853902a",
+      "seconds": 3.391,
+      "png_sha256": "3e597e4adb59c3dfee1ae796672e7d6046024ac92ce36565d735d10fa881bb25",
       "sockets": [
         {
           "id": "mount0",
@@ -4658,9 +4658,9 @@
         406,
         168
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         6.5081024169921875,
         45.30286407470703,
@@ -4676,7 +4676,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4716,8 +4716,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 27,
       "density": 2,
@@ -4750,8 +4750,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.883,
-      "png_sha256": "040b3b6fad09c9cf31fba46b4549cda087da387c3b0682669b4d38dac1674307",
+      "seconds": 3.117,
+      "png_sha256": "36de2278c8fee5d933d1aac46a55a95977d34a0f9c1f1fcb57582653310b6b5a",
       "sockets": [
         {
           "id": "mount0",
@@ -4822,9 +4822,9 @@
         409,
         159
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         7.7669525146484375,
         41.31571960449219,
@@ -4840,7 +4840,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -4880,8 +4880,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 28,
       "density": 2,
@@ -4914,8 +4914,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.845,
-      "png_sha256": "a6bfd3983537b0e990ac3d2f9be431d0fed61c3704c7ae2070c04de2a4ce8e30",
+      "seconds": 4.229,
+      "png_sha256": "98e032e19dbba07361d5148146067c828accfcbd88e65be46fac582d11156a2a",
       "sockets": [
         {
           "id": "mount0",
@@ -4986,9 +4986,9 @@
         406,
         165
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         6.5081024169921875,
         37.80987548828125,
@@ -5004,7 +5004,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -5044,8 +5044,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 29,
       "density": 2,
@@ -5078,8 +5078,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.87,
-      "png_sha256": "d306306afa0cb874f4e9a000b93f2ce5678585538dc44a5402254f1644728005",
+      "seconds": 3.382,
+      "png_sha256": "52fde17dedf968dd8fb7d113c486124bdb61dfb69a0516b1d16e0fc89e7e93ef",
       "sockets": [
         {
           "id": "mount0",
@@ -5150,9 +5150,9 @@
         395,
         171
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         12.545028686523438,
         34.920066833496094,
@@ -5168,7 +5168,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -5208,8 +5208,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 30,
       "density": 2,
@@ -5242,8 +5242,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.884,
-      "png_sha256": "cfc718c2bd02b910306eec6dd5c735ccf31781501db7722f824180cd00f5c162",
+      "seconds": 2.405,
+      "png_sha256": "61360373ccebf3aa6a2cc9b60c1cd488921a151fa5c3b64dafc5edc99f7d610d",
       "sockets": [
         {
           "id": "mount0",
@@ -5314,9 +5314,9 @@
         377,
         184
       ],
-      "vertices": 21878,
-      "triangles": 41196,
-      "parts": 296,
+      "vertices": 28912,
+      "triangles": 53780,
+      "parts": 402,
       "projected_vertex_bounds_px": [
         25.97271728515625,
         32.75733184814453,
@@ -5332,7 +5332,7 @@
         38.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.1,
@@ -5372,8 +5372,8 @@
         "installed_guns_in_hull": false,
         "design": "Long capital bow; triple belt; triple funnels and three transom drives"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "maiden_dreadnought",
       "heading": 31,
       "density": 2,
@@ -5406,8 +5406,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.905,
-      "png_sha256": "cbaf8799d346de880fd55a61d3b5986f73df303ca8f446b3da2e858d7105c761",
+      "seconds": 2.358,
+      "png_sha256": "255ac0437d6725a3bd0c5ff3c9be67b6991be19d59f1f5d713a6ccbb0e2d8e86",
       "sockets": [
         {
           "id": "mount0",
@@ -5473,7 +5473,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.1,

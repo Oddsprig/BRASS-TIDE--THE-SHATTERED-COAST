@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "hook_raider",
   "headings": 32,
-  "atlas_sha256": "ccd1e02f7d03c17a5539cae1b4bd2a66ce06f7604afa9d56148218cf2d4979d1",
+  "atlas_sha256": "21fcbd4c5831c47cc6d50f39e8263d7b434826335e9095f12e540a296fc427c6",
   "canvas_config": {
     "cell_px": [
       224,
@@ -230,9 +230,9 @@
         204,
         126
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         18.127830505371094,
         12.012237548828125,
@@ -248,7 +248,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.568,
-      "png_sha256": "50e34cfd6920ff804a77c9d22e2bbf81621920ec1112f0f0393a8771319871b5",
+      "seconds": 3.57,
+      "png_sha256": "f6810387b9cecac90b5f8c9202e9b8210283eedd38af0673f0a03f371f59ccf2",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         193,
         130
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         28.76445770263672,
         8.322998046875,
@@ -397,7 +397,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.6,
-      "png_sha256": "0f4b2cbea45360af0409e1d422b497f68c5479382269acd17c66e52a7ed484b9",
+      "seconds": 3.265,
+      "png_sha256": "7a9b0af56f7217ebb5217b6469550fdcf697424cc206e62958f226bb4c721178",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         178,
         131
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         41.098899841308594,
         6.53326416015625,
@@ -546,7 +546,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.546,
-      "png_sha256": "2e6c5035e28b70948855093e465cf0b352db1388b3532a47ccb0ebf6ace795c1",
+      "seconds": 2.614,
+      "png_sha256": "14b93e83b41bd56092e2627a5ac58918df1797ed3ddc71769ebbb7b815e9cf92",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         162,
         132
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         56.0811767578125,
         6.6951751708984375,
@@ -695,7 +695,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.534,
-      "png_sha256": "c700942bef681a443eeabe40d8027a887dc784951ccb841e9869582ad7c40f7c",
+      "seconds": 3.11,
+      "png_sha256": "0cd5540a7a262e0e8fc0d1991732976d61f38426b58576a2cf814dde2a96207a",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         153,
         130
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         69.31353759765625,
         8.785888671875,
@@ -844,7 +844,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.493,
-      "png_sha256": "8586187c082c334bba9b8e2eaa466d850a321ed1b24182beee6522142e3448d7",
+      "seconds": 2.781,
+      "png_sha256": "da107bc02da6fcaae1d1200e2733fd5e3f45cea997afd448e65e1c0345a59ad3",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         167,
         132
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         61.07585525512695,
         6.6951751708984375,
@@ -993,7 +993,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.513,
-      "png_sha256": "52d27a332df3cccb65f39108fd2c307988e5944b5a96f6e7f03b927eda46fd2b",
+      "seconds": 2.717,
+      "png_sha256": "4fd9936f76547b26772acdfc1377d1d9e211c6addd17f202ac3ae83d96818197",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         182,
         131
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         44.451210021972656,
         6.53326416015625,
@@ -1142,7 +1142,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.542,
-      "png_sha256": "09bdd7ed7cb6fa4a5d8fdb8eca1ff642f0afdbe07f39bbd3cc9ae91cf1a17481",
+      "seconds": 2.711,
+      "png_sha256": "275a2b4041e2afb37f9525add8aa3499054d521b3a4fef6552020235b5979301",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         194,
         130
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         29.91400146484375,
         8.322998046875,
@@ -1291,7 +1291,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.577,
-      "png_sha256": "0e8b79b3f21dac1abeffe6b97a80f57f56c44da6dbaa2efec60b7d44bf3d6565",
+      "seconds": 2.572,
+      "png_sha256": "512ed617e080820e87872f5c136f9d63213922c556e28678b74acd5a6d92acda",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         205,
         126
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         18.45446014404297,
         12.012237548828125,
@@ -1440,7 +1440,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.555,
-      "png_sha256": "8bf9a84c7e7abdc77da3a700a42068405ffe479ed6ef47243b65d88425d955ef",
+      "seconds": 2.766,
+      "png_sha256": "3fc67809e12c71879a47e8d4fb746989af1f3baeb3f0ed13088d8f85a0f0a659",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         212,
         120
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         10.512962341308594,
         13.283515930175781,
@@ -1589,7 +1589,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.55,
-      "png_sha256": "7b8dc8b67e42f873da9c5251aaadb4a0bcd4b09ed852916b99b5f08b78be7887",
+      "seconds": 2.517,
+      "png_sha256": "fad0546b17c9a321bbd4acdd3277519a57fc6d286ff55d5be369eaa2a9dc1ff3",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         216,
         113
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         6.394691467285156,
         12.510177612304688,
@@ -1738,7 +1738,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.539,
-      "png_sha256": "5657a5b12ffa453c581858d7c5b7ca2c6c81d382d51d9b7033f9c203a677a580",
+      "seconds": 2.219,
+      "png_sha256": "d7ec4a28139930a566b8a139065acefe009e05b4ebb18562e0fb270e0922a5a3",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         215,
         104
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         6.257911682128906,
         12.540756225585938,
@@ -1887,7 +1887,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.542,
-      "png_sha256": "9d61cd202411e31aac72d91981e242c09339ceff26eda6932a5f334f012bdd96",
+      "seconds": 2.216,
+      "png_sha256": "6b82ee2dafbb51dc4619196c9aefd10b1039b37c664b3bdea8a5937989cc4419",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         211,
         95
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         10.107894897460938,
         13.333930969238281,
@@ -2036,7 +2036,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.518,
-      "png_sha256": "6c504db4762cad7cdffbe765d7e7adc3d7b43bffaa4b00f51b8b3775ae1779a1",
+      "seconds": 3.728,
+      "png_sha256": "e2948b5a33bbb66dc346143eca204c4eef18786fdf94a9d0b5f37d760e82ed30",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         215,
         104
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         6.257911682128906,
         14.893623352050781,
@@ -2185,7 +2185,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.515,
-      "png_sha256": "1d948d667530007d2001439a521e1f428b8d0527863a33dd08809bb50126d51f",
+      "seconds": 3.232,
+      "png_sha256": "68cfd1a4bf51bfce15c2c5ffa9d28926be8fb136c58289f93adb670104b7cad1",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         216,
         111
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         6.394691467285156,
         17.159893035888672,
@@ -2334,7 +2334,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.536,
-      "png_sha256": "63efbb1d398fbc153107bb5243c0af5d0c5280c32cd88c0819c9534ddf218e10",
+      "seconds": 3.692,
+      "png_sha256": "96a474aa343d061e6a7a5901fa96fd07106ba128ab53c911375b022427b79c2f",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         212,
         118
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         10.512962341308594,
         19.036087036132812,
@@ -2483,7 +2483,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.565,
-      "png_sha256": "264d6e303fe4d6e8a758bf897d758ad1fc2bc5d76f186df0ab4eb73dab8f6bea",
+      "seconds": 3.06,
+      "png_sha256": "90e3cb30902e5d807e00760599f7abb0072077392dfa858cc29f9bdf24844157",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         205,
         123
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         18.45446014404297,
         14.210063934326172,
@@ -2632,7 +2632,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.549,
-      "png_sha256": "d15e18b22c768e4b348c432e091d38be9f4373ed86378850c578c389c59792fd",
+      "seconds": 2.676,
+      "png_sha256": "b8584eb9db1d959fe7f0b328f98bf5c1c9d6ccf8dad3682973017304e22453d9",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         194,
         126
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         29.91400146484375,
         10.225265502929688,
@@ -2781,7 +2781,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.547,
-      "png_sha256": "c99b93d74678ba74abbab9ff49f67b45eb43a238e1b134c50a2e2dbd5676010c",
+      "seconds": 3.527,
+      "png_sha256": "2a78c818d1d2f52eebb1ebc92c2421dea59e75200ef4999c43f1b84d1a236f1e",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         182,
         128
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         44.451210021972656,
         8.118453979492188,
@@ -2930,7 +2930,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.535,
-      "png_sha256": "b1d5451b01cb5bcd308d321aa0c8a20ff8c4d004f566af38cde9e0b24b30407e",
+      "seconds": 2.978,
+      "png_sha256": "33090915bff90ca53b19c41dc3084524ffcb56b93b37180c49a1cf57400bbca6",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         167,
         128
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         61.07585525512695,
         7.988067626953125,
@@ -3079,7 +3079,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.536,
-      "png_sha256": "ffbb25ec330a840ea4d6b3b46cd9912d78b4d2d57c8e3022d275492c07e9842b",
+      "seconds": 3.142,
+      "png_sha256": "8e503406bd5e1383ed63763cb3f0faaedb3536219f6f30b88c280c48b58934c5",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         153,
         126
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         69.31353759765625,
         9.844955444335938,
@@ -3228,7 +3228,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.506,
-      "png_sha256": "59bb3f5a231bca6e7c2b670d1c74f5931fcfe9989a4560a1bbd102c68a408c40",
+      "seconds": 2.827,
+      "png_sha256": "d5293d85691ab42232cba3ea6211c39bb9e8a6da95157ac64ca8f941f62caafb",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         162,
         128
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         56.0811767578125,
         7.988067626953125,
@@ -3377,7 +3377,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.511,
-      "png_sha256": "e334b9a921f017e7639b5d83194fbbf29bf2fbf82a6fb1a6a51dbe8f393ea433",
+      "seconds": 2.158,
+      "png_sha256": "67fe58450d2cfafc700aaa30c995994d78731a36c7a02801b8a2918a07c010b4",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         178,
         128
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         41.098899841308594,
         8.118453979492188,
@@ -3526,7 +3526,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.528,
-      "png_sha256": "063e5512f078646aaa7df972087e9933eceeab4618a051d11853ed2575f13bf5",
+      "seconds": 2.282,
+      "png_sha256": "8c7f9c5b195b3d5043aa64264c4ebba74559df036f6c16b7bd11d949c2f35535",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         193,
         126
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         28.76445770263672,
         10.225265502929688,
@@ -3675,7 +3675,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.569,
-      "png_sha256": "36fb5feb746af1499afd97876b58eabd336681e0d4b4dbe8a89bd5a3739f1bd9",
+      "seconds": 2.096,
+      "png_sha256": "befa28c782f4d862beacd0feec955bff2058ab5d7842c5a1d3832be3f63bbd44",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         204,
         123
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         18.127830505371094,
         14.210063934326172,
@@ -3824,7 +3824,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.557,
-      "png_sha256": "295500368830ce005c9c86431bd00b5b32cbc328a78eaa58c8c060df46c23a6d",
+      "seconds": 3.134,
+      "png_sha256": "243c7de7852e9001cbe0ff9f2986991bc20cee6776f3e5650a9bac3e8c3d03e2",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         212,
         118
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         10.736335754394531,
         19.036087036132812,
@@ -3973,7 +3973,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.627,
-      "png_sha256": "da736ca2ce0562665cb8cbe2ef51ea0f210de63821da24541bf8a01102cc62e2",
+      "seconds": 3.145,
+      "png_sha256": "2dd08184999eade533f66a12c23ff76d9d86c6d8169daecf642b1c90ad0a8c85",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         216,
         111
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         7.159492492675781,
         24.12259292602539,
@@ -4122,7 +4122,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.569,
-      "png_sha256": "e744834025a5400e13bf41282407ccf561253f882e5404459dc725e5f950ae0a",
+      "seconds": 3.726,
+      "png_sha256": "945f536e7cc319b2e3f9272372ccbf0a467c958fd20a5c46dea4ad2ff265f3aa",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         216,
         104
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         7.487632751464844,
         30.374980926513672,
@@ -4271,7 +4271,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.548,
-      "png_sha256": "3e90d98b5f8ae68909031739f377f0fdde2a3cac796cfafdff6ab2b8f0c3ed35",
+      "seconds": 3.236,
+      "png_sha256": "fabf9f7404b2402eff325670fd97c701ea46e37e5022aa7a0404286e5c013336",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         213,
         95
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         11.661231994628906,
         34.79060363769531,
@@ -4420,7 +4420,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.511,
-      "png_sha256": "7505ef835cce8eaf691a9f1fe8f239f1eb435a62218e104cf6caed64c3f2ac4b",
+      "seconds": 3.585,
+      "png_sha256": "380ddeb1d3617a8bbc7955b52e96097cb6f6194fa4f6cb33366a7709f0d5e8b9",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         216,
         104
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         7.487632751464844,
         29.04016876220703,
@@ -4569,7 +4569,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.523,
-      "png_sha256": "9fa3db3c81110e1b51c64ffeb54c7c6e2d40968721eebd64d98de0f7e270866e",
+      "seconds": 2.627,
+      "png_sha256": "4ba809e950195e41ad830dfa4e6a07d7362b6b24143f1d38acb309dd250bacf5",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         216,
         113
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         7.159492492675781,
         23.74786376953125,
@@ -4718,7 +4718,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.541,
-      "png_sha256": "429e0df0ea084a69214dfeed11791b06e71052350f3b726797b11a9ecc389296",
+      "seconds": 2.104,
+      "png_sha256": "78bc240eb70b2c2338450eb88c9c6089775787e35bfb7c3a9abc74c6f056005d",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         212,
         120
       ],
-      "vertices": 16716,
-      "triangles": 31156,
-      "parts": 253,
+      "vertices": 22460,
+      "triangles": 40272,
+      "parts": 353,
       "projected_vertex_bounds_px": [
         10.736335754394531,
         17.409526824951172,
@@ -4867,7 +4867,7 @@
         22.360000610351562
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Narrow contraband cat; offset davit; low bridge and paired jets"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "hook_raider",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.553,
-      "png_sha256": "fb0a1719c8eaef2f37b46edd5a3108c0174d43d8618a9b14149e7dcdf7b96f40",
+      "seconds": 2.31,
+      "png_sha256": "7ab2394e02a26d8c478c7632e5f4129f03928046bf4394528b7a100102734af7",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.96,

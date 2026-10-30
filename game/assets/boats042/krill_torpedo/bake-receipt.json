@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "krill_torpedo",
   "headings": 32,
-  "atlas_sha256": "f13f58db3bb4e46ee78b6256794b738673efcc192c03adda826537a3951c503d",
+  "atlas_sha256": "22fa7fe1b907ee2f1b7bcedef494601a69c8838f22b820aa9188163106be5a70",
   "canvas_config": {
     "cell_px": [
       232,
@@ -199,9 +199,9 @@
     ],
     [
       4,
-      35,
+      34,
       215,
-      53
+      54
     ],
     [
       4,
@@ -230,9 +230,9 @@
         190,
         119
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         29.383956909179688,
         17.0576171875,
@@ -245,10 +245,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.159,
-      "png_sha256": "93fddd016a782b8269fb2673cf0207138d353a479458b00d5574c44ec29d1691",
+      "seconds": 2.412,
+      "png_sha256": "b7d046e0c4673b39bc21fd5d3ff145c34ab8036b537c403bb7bdd57727175ade",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         175,
         125
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         43.93738555908203,
         11.695854187011719,
@@ -394,10 +394,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.117,
-      "png_sha256": "20e86cfe61e07e7e0ed090804d7f7f5c265cd7e64a64c7b744f4c5a67449b373",
+      "seconds": 2.678,
+      "png_sha256": "b061d137fc2e172c6c7e27cc72c1058c255b20e6f42b4af7d66c223d65d7b55a",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         162,
         129
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         60.0914192199707,
         8.0736083984375,
@@ -543,10 +543,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.111,
-      "png_sha256": "f892081a6190c984ecad41472e005af017a4f5b120677653920950fa4b5b6e1c",
+      "seconds": 2.219,
+      "png_sha256": "b317ff623627e0369c8bd385d1fe6595ebd6b8f05bd1508ae6c7e97449237f41",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         153,
         132
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         73.6673583984375,
         6.329078674316406,
@@ -692,10 +692,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.098,
-      "png_sha256": "8fcc3fca4199131bf097087d9b11c129b5b8d1e033932e07ae6ec52179e2bd70",
+      "seconds": 1.844,
+      "png_sha256": "c86953480db29310c1d3641f5029a3d8f38280aa72b5624045b133b5679e2562",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         149,
         132
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         84.08443450927734,
         6.5283203125,
@@ -841,10 +841,10 @@
         0.0,
         43.75334167480469,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.071,
-      "png_sha256": "8d5459e970cb776d83086f3d641fffeb9ce12a010c26ecbcd5ed7825a230f93a",
+      "seconds": 2.518,
+      "png_sha256": "2ea932550f99f4e9aeb910b8dcbb196bd8ed2b8f9908249b3c86c600848f865b",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         159,
         132
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         79.3099365234375,
         6.329078674316406,
@@ -990,10 +990,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.083,
-      "png_sha256": "eaf35d928f4d4ae5c7c5b86257c35de6bc67de3cf607b0d99274b5fef5d8bf51",
+      "seconds": 2.554,
+      "png_sha256": "237ce1f1302a249bfe790ca654983c6700d504ccb2c23bb5b98962ca1fa160c4",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         173,
         129
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         70.79243469238281,
         8.0736083984375,
@@ -1139,10 +1139,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.112,
-      "png_sha256": "b1062d304c2260eff588f494d35abf5cdca7653017a57cb9d9e867070b62ad34",
+      "seconds": 2.08,
+      "png_sha256": "e0cdb7758bc4437666426a33075d877b7644964cba14aabdbdbdcc9980a416e8",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         189,
         125
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         58.00639724731445,
         11.695854187011719,
@@ -1288,10 +1288,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.1,
-      "png_sha256": "2bf074c4f9b87157a2f0c0dd032757868a57c9e5ed7aa65a18783e6ae6511c87",
+      "seconds": 2.011,
+      "png_sha256": "44f06a9f75ce654771045fb4f05c26af5e8ee1606cd6abf030dce0ba97b87be0",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         203,
         119
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         42.720924377441406,
         17.0576171875,
@@ -1437,10 +1437,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.107,
-      "png_sha256": "6ff34cd86b3fdd6a6b354a3544cc6aacf7bdbe2ccb92fa8ad3c0e51f997292be",
+      "seconds": 2.183,
+      "png_sha256": "c966d5cb5354d4ad2fdf7dc33695788d9a6885daee697269ba053ba21b607069",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         215,
         112
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         30.213096618652344,
         23.949867248535156,
@@ -1586,10 +1586,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.094,
-      "png_sha256": "c5e62748e01adc5d1e134e1c7a00978a50bc4c39e81790538909f0540ced0158",
+      "seconds": 2.294,
+      "png_sha256": "efecd9a8e16f9fac02f4804c15dc67111392fb96b6c3003848733b95c8303abb",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         222,
         103
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         20.96356964111328,
         32.1107177734375,
@@ -1735,10 +1735,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.103,
-      "png_sha256": "acb3917276bf23f7023141f7ea0ac397b52cfbe156f0ac832b61bf07e2cb1d0f",
+      "seconds": 1.977,
+      "png_sha256": "cc1f21c10d89f7020ddf120d5bd40ec8b921a3e26f60552be20a0591f7e2d2a1",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         226,
         94
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         15.32781982421875,
         38.426856994628906,
@@ -1884,10 +1884,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.092,
-      "png_sha256": "1997de8583d06e2cf5db26d4fe3edeff13dba728cfa4347662129311a0e7f127",
+      "seconds": 1.832,
+      "png_sha256": "2b98b9e16a79510809ae9614886ae309527d692c025225645e233ac158ad9785",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         226,
         88
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         13.522422790527344,
         42.08940124511719,
@@ -2033,10 +2033,10 @@
         0.0,
         43.75334167480469,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.073,
-      "png_sha256": "f0bcbe5f99223c2769320e922a2a69546f8b542fea4670e05cdca51a246628b8",
+      "seconds": 2.003,
+      "png_sha256": "564cc65e8a08cf596b629bcf04e10d8fb5f194331abd4d7f7320f19994ae355d",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         226,
         99
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         15.32781982421875,
         40.9834098815918,
@@ -2182,10 +2182,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.077,
-      "png_sha256": "b97da7f6ee93be15c4e34f110bb3858bd61dfb10b9f2fddeb786aa6a138eb277",
+      "seconds": 2.185,
+      "png_sha256": "4f2e1c7ce5d79fe251431a54f2be6c17ae35b42b7a0220c50196a5cc61f6e6aa",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         222,
         109
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         20.96356964111328,
         36.352230072021484,
@@ -2331,10 +2331,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.098,
-      "png_sha256": "6eaf2b085ec5ca5e50de24ddf152022dca703455457be11724e8bdfd99ca06ea",
+      "seconds": 2.094,
+      "png_sha256": "459ccf9a4eb2a1c40e9ddc29249e5f6afd5c470e13d7ef07ee19a82328a27d13",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         215,
         117
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         30.213096618652344,
         30.57806396484375,
@@ -2480,10 +2480,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.092,
-      "png_sha256": "d227b438f8c7c0f502555949326fa0f93a7eb4783f79646e524ce32c97bdb416",
+      "seconds": 2.018,
+      "png_sha256": "cf906197f00961073f327245ad1e9d3af10df5a0290c1f61a5674530c16d9fa8",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         203,
         125
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         42.720924377441406,
         25.418853759765625,
@@ -2629,10 +2629,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.115,
-      "png_sha256": "415a7ae7080eff6edf29b3a85b2607b97e54c58b1e3086b2fcaecf34529d4722",
+      "seconds": 2.311,
+      "png_sha256": "0a3c57973142415d8d8ab70be38be1ec827a80f569c700adf700bfb2ecc80292",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         189,
         130
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         58.00639724731445,
         20.593109130859375,
@@ -2778,10 +2778,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.139,
-      "png_sha256": "b10d95fc9f9ff7a90831a956bab55a27e2aa5c3acf4893049354f26a711f4d82",
+      "seconds": 2.558,
+      "png_sha256": "390c83896350ca8dcee01adb89436cbb04fa8df9fe9e30a3c96598b7488a4a76",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         173,
         134
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         70.79243469238281,
         15.955574035644531,
@@ -2927,10 +2927,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.128,
-      "png_sha256": "9eda93ebdc6a1e644f2db738de8605adcf23db2a448a05e3d56868659446fc87",
+      "seconds": 2.259,
+      "png_sha256": "c21fc7cad64a278714f88e42232daf844097a629d6e91b3954d1d5b61cf3297b",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         159,
         137
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         79.3099365234375,
         13.108444213867188,
@@ -3076,10 +3076,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.108,
-      "png_sha256": "cc57bf1591ed68c26e237fa24b8387eff51153bcb8811e700303bb94f407e60f",
+      "seconds": 2.147,
+      "png_sha256": "a086a5331bb88472c6eed8ecd70a67353a0407c493ee2818998fab713994f116",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         149,
         137
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         84.08443450927734,
         12.146995544433594,
@@ -3225,10 +3225,10 @@
         0.0,
         43.75334167480469,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.054,
-      "png_sha256": "eac6d134228d2f513d3cb66e3b12065f40a9ab49de43218f80de22c47e473e20",
+      "seconds": 2.137,
+      "png_sha256": "285090601451a7655eeebfe148d26427d604c435e6d3c53502c5610624879616",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         153,
         137
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         73.6673583984375,
         13.108444213867188,
@@ -3374,10 +3374,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.12,
-      "png_sha256": "ff61e0f8dcbe0bf5bcb395a70d5f795e524a817293ed371baf4e719cccf4940a",
+      "seconds": 2.199,
+      "png_sha256": "34b0c94e0800c3c2107693204b8f0c84fc548545f08fb7bb9a63f8ff22fd2acf",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         162,
         134
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         60.0914192199707,
         15.955574035644531,
@@ -3523,10 +3523,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.09,
-      "png_sha256": "b31dc431c3d46c8468fff6b33e63b18d9d4ea089c597d8e1660065c8a5d3d284",
+      "seconds": 2.128,
+      "png_sha256": "0ccd37e74e1a4c653d149aeda2ee22d575aa2df0676efc9789a5ed85bb94bd3d",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         175,
         130
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         43.93738555908203,
         20.593109130859375,
@@ -3672,10 +3672,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.13,
-      "png_sha256": "df1a7955300cfe3b2cb093567099fbc089d39e6bed9cbc9d2a3ad30ab00f8194",
+      "seconds": 1.876,
+      "png_sha256": "c6f48d2b711f146b55ccb0558ee8b2fe96cc997c8ad6f25d5642d059805fc4cb",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         190,
         125
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         29.383956909179688,
         25.418853759765625,
@@ -3821,10 +3821,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.088,
-      "png_sha256": "f63dae3985c79472376505fbfa29c093ea8394d4b9b50e98d6196c3cd1e6fa36",
+      "seconds": 2.743,
+      "png_sha256": "cd1e2388914e36b21de91a60575a38d0c861a6265fc4c8dadbd9b7ac15df7c31",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         202,
         117
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         18.120712280273438,
         30.57806396484375,
@@ -3970,10 +3970,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.121,
-      "png_sha256": "d3917b17c9f7f4c9b24e4cf139def0a6ddf51c54bb512fe339349145c0b77694",
+      "seconds": 2.298,
+      "png_sha256": "2c5ffa315a56c97392ecdd03a5f332bfbde4e4de850dac548f3af6478a052ea0",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         212,
         109
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         10.535064697265625,
         36.352230072021484,
@@ -4119,10 +4119,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.094,
-      "png_sha256": "bf6a39052a30d3bb60e709e12843478964a796efeb85fc81cf71a230b6c832d6",
+      "seconds": 3.104,
+      "png_sha256": "03029eb2f9a575dfc863b4e7c0dcfdaf0ad734009d053bbc1c3e1d2a76f5171a",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         217,
         99
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         6.834037780761719,
         40.9834098815918,
@@ -4268,10 +4268,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.107,
-      "png_sha256": "dfee17e5064a364ad236ca6322d605c7208123b7c79832fe64b02931bac74170",
+      "seconds": 3.031,
+      "png_sha256": "523ca31b0db68747363fe12d3368e122220625a1d6136c1f69f09d4c625bc83f",
       "sockets": [
         {
           "id": "mount0",
@@ -4398,16 +4398,16 @@
     {
       "bounds_px": [
         4,
-        35,
+        34,
         219,
         88
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         6.920143127441406,
-        37.404441833496094,
+        37.05973815917969,
         216.47756958007812,
         85.77925872802734
       ],
@@ -4417,10 +4417,10 @@
         0.0,
         43.75334167480469,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.078,
-      "png_sha256": "51600ca884b9486553735dfdefa80546ac0bd01f7f15b6cb919f5475102c1a01",
+      "seconds": 2.096,
+      "png_sha256": "cd921e2ee2ba314c4408ca2f1a45f350370b3bf501014c89298de9e20539cb01",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,12 +4551,12 @@
         217,
         94
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         6.834037780761719,
-        32.89018249511719,
+        32.55171585083008,
         214.67218017578125,
         90.86395263671875
       ],
@@ -4566,10 +4566,10 @@
         0.0,
         43.75334930419922,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.106,
-      "png_sha256": "7bee980e5b2634cbac22e057f082e5467a2743dcbd6c5c1ff7ec378970a6a08e",
+      "seconds": 1.957,
+      "png_sha256": "e25d3c3b2a8252c624b17cc49b6abf8534073d8faf46cd09cc8509dbf48d3275",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,12 +4700,12 @@
         212,
         103
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         10.535064697265625,
-        28.704410552978516,
+        28.359703063964844,
         209.03643798828125,
         100.34883880615234
       ],
@@ -4715,10 +4715,10 @@
         0.0,
         43.75334548950195,
         13.32963752746582,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.107,
-      "png_sha256": "6c239db6660fe951eb24d8fa502b948fba5e04b20a53140ba4a63588ef6483af",
+      "seconds": 2.016,
+      "png_sha256": "6601670d620cabfa71ad333e47080f5a52e4045137233a81f60be16558a13709",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         202,
         112
       ],
-      "vertices": 12262,
-      "triangles": 22912,
-      "parts": 177,
+      "vertices": 17176,
+      "triangles": 31444,
+      "parts": 252,
       "projected_vertex_bounds_px": [
         18.120712280273438,
         23.949867248535156,
@@ -4864,10 +4864,10 @@
         0.0,
         43.75334548950195,
         13.329636573791504,
-        19.170000076293945
+        19.18000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -1.96,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Low wolfpack hood; empty reload skid; split motor and stack"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "krill_torpedo",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.135,
-      "png_sha256": "5a8241068b8f286c90bc119a0deec4175c32ffd530e8ea0b33755385eb38d6f2",
+      "seconds": 1.997,
+      "png_sha256": "95bc619505adde87c5fb089e5059f69e721a3686423ec424bc211a36f43c772f",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -1.96,

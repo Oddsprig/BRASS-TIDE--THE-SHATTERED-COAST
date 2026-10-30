@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "mother_gull_trawler",
   "headings": 32,
-  "atlas_sha256": "1d16549dfc72916a8a7a24d52db2e9b3fd5484f923c1f48bb4a7fb9b1ce5dff1",
+  "atlas_sha256": "2e81c9b5041f1f3ec9c6255b4f9fe11e1eb54ac5fcc4dff53c11df1ce4980f1f",
   "canvas_config": {
     "cell_px": [
       248,
@@ -230,9 +230,9 @@
         217,
         133
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         21.70555877685547,
         14.046211242675781,
@@ -248,7 +248,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.852,
-      "png_sha256": "b99cda64bdae7e585fac1124d536e47f4b85ca951ddc5503e97bb5a9fdf71843",
+      "seconds": 4.372,
+      "png_sha256": "7e87b4fce046e2192b1fb7ed2185a894a449f6fb2a695febff6ccf812a8e6965",
       "sockets": [
         {
           "id": "mount0",
@@ -364,9 +364,9 @@
         205,
         137
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         34.941307067871094,
         9.63665771484375,
@@ -382,7 +382,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -422,8 +422,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.901,
-      "png_sha256": "d532909f72e530e28b050f6dbe393ffab0aeb8b3be9ca40e606a4e07d389638a",
+      "seconds": 4.89,
+      "png_sha256": "2e8c6b5449dd5304a3e5ecc281a578b5613a6457f71db95dc97e9d5c670f6ada",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         190,
         139
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         49.806495666503906,
         7.2378997802734375,
@@ -516,7 +516,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -556,8 +556,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.838,
-      "png_sha256": "4d6c6229f90bd3bfd04ab9005de5fe40c838b8c50e474713b1df2362b717f7fa",
+      "seconds": 4.211,
+      "png_sha256": "8b3f1bfe3e29a9ee5bf76b8c80b2d380b590dca298f96be64d84d5ed25c81a73",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         176,
         139
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         65.79035949707031,
         6.941131591796875,
@@ -650,7 +650,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -690,8 +690,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.809,
-      "png_sha256": "f6c7150079ff70e57ac92e6f31bb05c577a4a5450607008e41e9bedc26017f63",
+      "seconds": 3.789,
+      "png_sha256": "cc97de3ecbba84e8649d8725963f6ae13c1d3fb17d7b825301d0479981ab3aae",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         168,
         138
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         80.67232513427734,
         8.756744384765625,
@@ -784,7 +784,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -824,8 +824,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.766,
-      "png_sha256": "9832eda6621e989e3471e605dae1d17975eb99900679fc1d5d92acfc52c738f0",
+      "seconds": 3.854,
+      "png_sha256": "9e1ad8f9d20690a0bd78f504ba4a4aa610b13b9539b23565a02a7e88cdedb8de",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         183,
         139
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         72.26512908935547,
         6.941131591796875,
@@ -918,7 +918,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -958,8 +958,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.794,
-      "png_sha256": "c30fe3130b374ed6f3ea3dd0d13e0223f695ab3b4d8920b909896701a6b1c265",
+      "seconds": 4.234,
+      "png_sha256": "4b987bc355e4c7ce292887dfbc6e23eeef134a56a6d0b7486852d53e0e7987ce",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         199,
         139
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         58.48981475830078,
         7.2378997802734375,
@@ -1052,7 +1052,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1092,8 +1092,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.809,
-      "png_sha256": "80076b759bd062b33221aeece56fd369b56beaeef1767dbbd2b6bc61278976a4",
+      "seconds": 4.282,
+      "png_sha256": "660018e936e15d43599b67c7f5e13dd6b41f96157a0facbb61133165eb92aa40",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,9 +1168,9 @@
         214,
         137
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         43.674095153808594,
         9.63665771484375,
@@ -1186,7 +1186,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1226,8 +1226,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.844,
-      "png_sha256": "5114841c540ad3c446e90280056cd6a736e6e7b812f66e5a8c806fbdb5fcd4f0",
+      "seconds": 2.716,
+      "png_sha256": "540f90e769695db3209e140013032d807a096bbfda0a06dfb8aa42bed7c35489",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,9 +1302,9 @@
         227,
         133
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         31.906822204589844,
         14.046211242675781,
@@ -1320,7 +1320,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1360,8 +1360,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.922,
-      "png_sha256": "1386101bab27f7df0ee3700bb934f65a4cf73474dc4d5d33a5c0bd024f78beaa",
+      "seconds": 2.483,
+      "png_sha256": "83a82a36bc38dee61a449d7b4f2fc6f883a8035cf3ab8cafc05dba15ca04fa15",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,9 +1436,9 @@
         236,
         128
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         23.640213012695312,
         20.29412841796875,
@@ -1454,7 +1454,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1494,8 +1494,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.862,
-      "png_sha256": "00774c29b440f98e33099b18f1264664198509a2dd324e0f570119c991aa2721",
+      "seconds": 2.625,
+      "png_sha256": "f8d08e6e7e7cec4334169fb0d9916fcdce80c86734311806ed085bf63e89d352",
       "sockets": [
         {
           "id": "mount0",
@@ -1570,9 +1570,9 @@
         241,
         120
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         19.19194793701172,
         21.422470092773438,
@@ -1588,7 +1588,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1628,8 +1628,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.852,
-      "png_sha256": "deb22eaddf5e4d423a77a73df07c6abe0265b9207e401c58c80f4d99a5417f3d",
+      "seconds": 2.474,
+      "png_sha256": "c009871c7a636902f27a8fa2296bf66db132f768721efa422d24616177a61add",
       "sockets": [
         {
           "id": "mount0",
@@ -1704,9 +1704,9 @@
         242,
         112
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         18.732955932617188,
         22.293670654296875,
@@ -1722,7 +1722,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1762,8 +1762,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.831,
-      "png_sha256": "f13f55669e78860aa8b8404c76d06c2813fad73811aed20b24d50e2fc5f9b3e9",
+      "seconds": 2.409,
+      "png_sha256": "d019c7a9cf16072152ffb7bee0ca89f81a79d28af4fc40a2ad8f245132aef504",
       "sockets": [
         {
           "id": "mount0",
@@ -1838,9 +1838,9 @@
         239,
         103
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         22.28089141845703,
         23.894126892089844,
@@ -1856,7 +1856,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -1896,8 +1896,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.79,
-      "png_sha256": "965fc96f88bb317a16a7ee72a293b50e274669479883b353e432c954f91e294b",
+      "seconds": 4.021,
+      "png_sha256": "14a2aeab819003f7acbc0e8c275284161b32462c8904853f180ee82a3cf36d8a",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,9 +1972,9 @@
         242,
         113
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         18.732955932617188,
         26.162330627441406,
@@ -1990,7 +1990,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2030,8 +2030,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.798,
-      "png_sha256": "89cb55c018115edecc9c021c24ef3fb7e44ef743b49e91ad10402c31b2959985",
+      "seconds": 3.592,
+      "png_sha256": "e7b4d0cdf9c7d5bd7236c8f024f659b2a9b2e800ea608c6508a1b8f8a39b9994",
       "sockets": [
         {
           "id": "mount0",
@@ -2106,9 +2106,9 @@
         242,
         122
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         19.19194793701172,
         29.011119842529297,
@@ -2124,7 +2124,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2164,8 +2164,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.807,
-      "png_sha256": "e695d5625eee31410443a22a2d164f26cd7b2ae89807a90b46c2d5298ece1e4c",
+      "seconds": 3.155,
+      "png_sha256": "8562f37601b8c84b797c3df35c523e44a77236279d14c85f8db34d2f4143347d",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,12 +2240,12 @@
         236,
         131
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         23.640213012695312,
-        24.439373016357422,
+        24.43566131591797,
         233.6374969482422,
         128.1160430908203
       ],
@@ -2258,7 +2258,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2298,8 +2298,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.974,
-      "png_sha256": "5d4286f7fdd3260079f6563b2a893c2b1600be102e9a0929df39918c49fc8113",
+      "seconds": 3.38,
+      "png_sha256": "bf9003c389d65c1740e9a6d8d8d16895e453232cadcef647aca08ed8e079e596",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,9 +2374,9 @@
         227,
         138
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         31.906822204589844,
         20.259002685546875,
@@ -2392,7 +2392,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2432,8 +2432,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.814,
-      "png_sha256": "aff675baf2b26ce32ee47f21f609c53f9688694d28886d6279b7c56804cb8768",
+      "seconds": 3.004,
+      "png_sha256": "5fdbec3306aa60e1dbdc4db1ad14fc5afa89837f62e2731b7f74a70f2b5dc096",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,9 +2508,9 @@
         214,
         142
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         43.674095153808594,
         17.630874633789062,
@@ -2526,7 +2526,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2566,8 +2566,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.824,
-      "png_sha256": "09b13200101c94d09a34544e236d63069882134afab95b2028822265892d5e12",
+      "seconds": 4.092,
+      "png_sha256": "c3d5eeb20085789ee2f18e70ee1468d00dbf1e92842eaf3977dff1cb67910fb2",
       "sockets": [
         {
           "id": "mount0",
@@ -2642,9 +2642,9 @@
         199,
         145
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         58.48981475830078,
         16.050506591796875,
@@ -2660,7 +2660,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2700,8 +2700,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.822,
-      "png_sha256": "88c01f97882734582a07ff2421f4985aad0a33d73a66d6c5d87a40a56072d9b0",
+      "seconds": 3.614,
+      "png_sha256": "bedbdd2edd5854fedf5adce44584d240c33056e7a39fe7187595957f310fbe33",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,9 +2776,9 @@
         183,
         146
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         72.26512908935547,
         15.763839721679688,
@@ -2794,7 +2794,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2834,8 +2834,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.811,
-      "png_sha256": "dba9aef327bc9032b10dc878aedf79e7a8bcdafef77bb7874a4309b92eb4c42b",
+      "seconds": 3.159,
+      "png_sha256": "a69413ec33f55ed8dcc19c352c69b26ab026e2456fc1b4e075362eeea1847f50",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,9 +2910,9 @@
         168,
         144
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         80.67232513427734,
         17.473060607910156,
@@ -2928,7 +2928,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -2968,8 +2968,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.788,
-      "png_sha256": "264269325bf29206e314a996206fe162ed64e2908d9df5eb902e4ddb2ecb7028",
+      "seconds": 2.598,
+      "png_sha256": "4b9b8c212c54f0c123f7e438cefc27b483fed8a21e8cd59e35f36e08e7b21255",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,9 +3044,9 @@
         176,
         146
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         65.79035949707031,
         15.763839721679688,
@@ -3062,7 +3062,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3102,8 +3102,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.798,
-      "png_sha256": "5d59667e5254dfb1c45eba2447d7fbaa7266063e3709c3029a2d33735a7a6c90",
+      "seconds": 2.468,
+      "png_sha256": "4ada67d0212d0d0145215c31078150cb8d6654b82d7a42925b80aa5bd446b236",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,9 +3178,9 @@
         190,
         145
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         49.806495666503906,
         16.050506591796875,
@@ -3196,7 +3196,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3236,8 +3236,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.828,
-      "png_sha256": "adf97f99724b4a9aa8c9ebde4e2a193f8e36aa2269a550a5b794a0bf3dec0e40",
+      "seconds": 2.542,
+      "png_sha256": "5690750a9eb7031ea72426e51649d9bcd22b9531cf69b83e76274180140c057e",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,9 +3312,9 @@
         205,
         142
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         34.941307067871094,
         17.630874633789062,
@@ -3330,7 +3330,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3370,8 +3370,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.834,
-      "png_sha256": "909c61d01534e44eabe5986d3b07382b7a2e21b231fa055eced07fd2a48a8ac1",
+      "seconds": 2.408,
+      "png_sha256": "7baf930e48fefabf0ee5faf3f515a9ac27d1dcbbd593dcb8d0e910094179e086",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,9 +3446,9 @@
         217,
         138
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         21.70555877685547,
         20.259002685546875,
@@ -3464,7 +3464,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3504,8 +3504,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.829,
-      "png_sha256": "cb7daf40dc74c75ad8adb19f83923c0040a5d5f46297958985b35aa484e9b2f3",
+      "seconds": 3.503,
+      "png_sha256": "9385b6fd08893e0fdaf60c89819528eaa0b3cc723b0fdd3c7664ff382dba711c",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,12 +3580,12 @@
         225,
         131
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         12.362503051757812,
-        24.439373016357422,
+        24.43566131591797,
         222.3597869873047,
         128.1160430908203
       ],
@@ -3598,7 +3598,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3638,8 +3638,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.842,
-      "png_sha256": "2ff4598cad7d819a40a9c664c7dc80241bd0e54a0c832919225ee7cb7733cbf8",
+      "seconds": 5.102,
+      "png_sha256": "fbe214d082be6e677865efc8a56b7f13bae0464b5b7ff7902d4ed0ac1b1c6812",
       "sockets": [
         {
           "id": "mount0",
@@ -3714,9 +3714,9 @@
         229,
         122
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         7.225776672363281,
         29.011119842529297,
@@ -3732,7 +3732,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3772,8 +3772,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.828,
-      "png_sha256": "9d36d2469239a290df660058629b207f2e04001b5083df9f42c125a65fd4d8ae",
+      "seconds": 4.105,
+      "png_sha256": "f999b561514b924bb0868eb1a5aad2faa6abe3a78c802d5b61eb5a6eec31cfe0",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,9 +3848,9 @@
         230,
         113
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         6.422088623046875,
         26.162330627441406,
@@ -3866,7 +3866,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -3906,8 +3906,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.803,
-      "png_sha256": "5238762efffe21107b0447acd5131fb09d9610b6cc2cf64abd495d06b3cf5b20",
+      "seconds": 3.905,
+      "png_sha256": "6ae5bc7f5fbd1c157dee845eec618048183d85b78a1c40e6b2cfea0efd5c105a",
       "sockets": [
         {
           "id": "mount0",
@@ -3982,9 +3982,9 @@
         226,
         103
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         9.748077392578125,
         23.894126892089844,
@@ -4000,7 +4000,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4040,8 +4040,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.765,
-      "png_sha256": "441ae91bf558bc203cd661d5a89225909d360c16097a46a655c7cbad635cc8e7",
+      "seconds": 2.674,
+      "png_sha256": "40b9c1890b06d16a031f3640403f3ab695db02e014e706d38c27f151ff13c789",
       "sockets": [
         {
           "id": "mount0",
@@ -4116,9 +4116,9 @@
         230,
         112
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         6.422088623046875,
         22.293670654296875,
@@ -4134,7 +4134,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4174,8 +4174,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.807,
-      "png_sha256": "3b0b0d63a80515940e3c6be8f07f44f673dbd9205d3f5bde2b5ba312bedc9cc8",
+      "seconds": 2.57,
+      "png_sha256": "dc0ab3fa9d958b592d3d12c210c5a559b17d5f315c8a275b0acc2a57e18876d0",
       "sockets": [
         {
           "id": "mount0",
@@ -4250,9 +4250,9 @@
         229,
         120
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         7.225776672363281,
         21.422470092773438,
@@ -4268,7 +4268,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4308,8 +4308,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.82,
-      "png_sha256": "7c5a0183b68d3bd13ed2423270d2fce20da5ce22457a2f005f1abcc5b488ff08",
+      "seconds": 2.684,
+      "png_sha256": "b73091939cff0945e8cabd65d3199ed1e46cec06e88a2734965c397301e6ac72",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,9 +4384,9 @@
         225,
         128
       ],
-      "vertices": 20028,
-      "triangles": 38092,
-      "parts": 281,
+      "vertices": 27840,
+      "triangles": 51264,
+      "parts": 406,
       "projected_vertex_bounds_px": [
         12.362503051757812,
         20.29412841796875,
@@ -4402,7 +4402,7 @@
         22.36494255065918
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.2,
@@ -4442,8 +4442,8 @@
         "installed_guns_in_hull": false,
         "design": "Broad trawling cat; stern net reels and full-width working gantry"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "mother_gull_trawler",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.887,
-      "png_sha256": "620c702631a86bc22871da7ef7557eb52dd8d932c7ebc3b6a71806bd218268ab",
+      "seconds": 2.564,
+      "png_sha256": "6cbe3ee8f4430a033cf522170fa31f790d41547d19c5b086219bf4dd188c7098",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.2,

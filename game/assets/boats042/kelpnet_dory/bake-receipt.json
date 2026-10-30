@@ -1,8 +1,8 @@
 {
-  "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "kelpnet_dory",
   "headings": 32,
-  "atlas_sha256": "fa33fcdef55558a4c77529dac55c361fc475a88f1687d0fc584feba869ed21c2",
+  "atlas_sha256": "3d231d3d0bef7bf2fbc5c23cb7d4d860d4c73d5d8235212c152fce651f3d224f",
   "canvas_config": {
     "cell_px": [
       160,
@@ -139,9 +139,9 @@
     ],
     [
       50,
-      15,
+      14,
       73,
-      86
+      87
     ],
     [
       57,
@@ -230,12 +230,12 @@
         128,
         83
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         23.574275970458984,
-        16.055416107177734,
+        15.977821350097656,
         125.12861633300781,
         80.23292541503906
       ],
@@ -248,7 +248,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.068,
-      "png_sha256": "026da06d0d2a24aa06b018daf4dd077797c59f6d7feb2aab33b53743e562b528",
+      "seconds": 3.291,
+      "png_sha256": "2ee4a5bdeb9a22820c64973c3925c5b3f9efa0664d3825689e8cf8f482436fc6",
       "sockets": [
         {
           "id": "mount0",
@@ -364,12 +364,12 @@
         119,
         86
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         30.818885803222656,
-        11.832359313964844,
+        11.795490264892578,
         116.47528076171875,
         82.96830749511719
       ],
@@ -382,7 +382,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -422,8 +422,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 1,
       "density": 2,
@@ -456,8 +456,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.005,
-      "png_sha256": "297c8054a1546652eb2ba7609ba9b991fa7b22479cb453c93f59406d8a6face7",
+      "seconds": 1.951,
+      "png_sha256": "785d994595936b42d53aff90aa671b20f882fee116c819551afd80ca5e065d30",
       "sockets": [
         {
           "id": "mount0",
@@ -498,9 +498,9 @@
         110,
         88
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         39.9534912109375,
         8.753684997558594,
@@ -516,7 +516,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -556,8 +556,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 2,
       "density": 2,
@@ -590,8 +590,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.042,
-      "png_sha256": "13e19401c24304e083abcb6d16ba3ad912b58165c1a1f84eb966d8f7a86903c3",
+      "seconds": 2.4,
+      "png_sha256": "a65bd710821d015f9059a32d607f7a720480283f5636279bf26312389ccbe42b",
       "sockets": [
         {
           "id": "mount0",
@@ -632,9 +632,9 @@
         103,
         89
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         50.62705993652344,
         6.922908782958984,
@@ -650,7 +650,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -690,8 +690,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 3,
       "density": 2,
@@ -724,8 +724,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.989,
-      "png_sha256": "4b85d1ec06b8b053224169c1b76092c0c95c910b0f7ecfa94259d401a81dc53b",
+      "seconds": 2.45,
+      "png_sha256": "8345359c026359c1c1e082141d373fc7dedfe9a817aa7f54d482ceb94951d138",
       "sockets": [
         {
           "id": "mount0",
@@ -766,9 +766,9 @@
         102,
         89
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         61.14588928222656,
         6.395469665527344,
@@ -784,7 +784,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -824,8 +824,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 4,
       "density": 2,
@@ -858,8 +858,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.018,
-      "png_sha256": "0adf152d0dd4e50c61b562697d41b8f35cee1eb1c55f5de6d9897dd55384ea24",
+      "seconds": 1.954,
+      "png_sha256": "32942c5f1d7ccc9cafc90bcbab74fb9fb0c965950f408832e98909212b152282",
       "sockets": [
         {
           "id": "mount0",
@@ -900,9 +900,9 @@
         112,
         89
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         59.369728088378906,
         6.922908782958984,
@@ -918,7 +918,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -958,8 +958,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 5,
       "density": 2,
@@ -992,8 +992,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.995,
-      "png_sha256": "d610be642feae5166902499410111ac60b15c77edc80e71942e200d27eff5fbb",
+      "seconds": 1.892,
+      "png_sha256": "351dcf21d3395f6532ab8b8b809f04585583fa49f22611fc0bf712e4fdf6a55f",
       "sockets": [
         {
           "id": "mount0",
@@ -1034,9 +1034,9 @@
         123,
         88
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         52.28466796875,
         8.753684997558594,
@@ -1052,7 +1052,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1092,8 +1092,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 6,
       "density": 2,
@@ -1126,8 +1126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.022,
-      "png_sha256": "226338ba4f5c167a8b912a47dff383ff9f1b5e444150d5e330c68c8331604aec",
+      "seconds": 2.537,
+      "png_sha256": "a121fd53fefdf4e66b374e528050db6bdcdde21d8b5986a4ab9c32b61d6b188d",
       "sockets": [
         {
           "id": "mount0",
@@ -1168,12 +1168,12 @@
         132,
         86
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         43.524723052978516,
-        11.832359313964844,
+        11.795490264892578,
         129.18112182617188,
         82.96830749511719
       ],
@@ -1186,7 +1186,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1226,8 +1226,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 7,
       "density": 2,
@@ -1260,8 +1260,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.002,
-      "png_sha256": "25a603ea663fc3678d486f3396a1e8f5cc473cc4fa7f1e540edcccd2031bd82a",
+      "seconds": 1.984,
+      "png_sha256": "b86a23d5710033dd849a8d4565f56257596f3bf6bf6a0508066b2597948c3dd1",
       "sockets": [
         {
           "id": "mount0",
@@ -1302,12 +1302,12 @@
         139,
         83
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         34.87137985229492,
-        16.055416107177734,
+        15.977821350097656,
         136.42572021484375,
         80.23292541503906
       ],
@@ -1320,7 +1320,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1360,8 +1360,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 8,
       "density": 2,
@@ -1394,8 +1394,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.124,
-      "png_sha256": "aa1cc95552de8030b12137a659f89ff5f1a375b925a6e4909d8a86538d0a1932",
+      "seconds": 2.547,
+      "png_sha256": "85adb9b1c182a0840c12d21cdd9c67aa8da5db90d0eb7c5a081e365fa42658c3",
       "sockets": [
         {
           "id": "mount0",
@@ -1436,12 +1436,12 @@
         145,
         80
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         27.097381591796875,
-        21.141334533691406,
+        21.131576538085938,
         141.90249633789062,
         76.89985656738281
       ],
@@ -1454,7 +1454,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1494,8 +1494,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 9,
       "density": 2,
@@ -1528,8 +1528,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.045,
-      "png_sha256": "1073b1182a6dc42a006875429b965abce6f26d1d71c335847a5a4b218f7ce570",
+      "seconds": 2.154,
+      "png_sha256": "cf711bcd770468ad3c2bde7a14b0b7e3438873199f0045c47b028070cc43efb2",
       "sockets": [
         {
           "id": "mount0",
@@ -1570,9 +1570,9 @@
         151,
         76
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         21.35641098022461,
         24.6279296875,
@@ -1588,7 +1588,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1628,8 +1628,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 10,
       "density": 2,
@@ -1662,8 +1662,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.011,
-      "png_sha256": "fcb4a5714ac09e8deb136171fff62f39f4edab585400ae0cacd8697ffb4b3533",
+      "seconds": 2.384,
+      "png_sha256": "000ba6ff2fbb5bb8b72ba3552888ab61034738c994d17de4888ccb5395378b5d",
       "sockets": [
         {
           "id": "mount0",
@@ -1704,9 +1704,9 @@
         155,
         72
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         17.869068145751953,
         28.56680679321289,
@@ -1722,7 +1722,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1762,8 +1762,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 11,
       "density": 2,
@@ -1796,8 +1796,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.008,
-      "png_sha256": "4df84f55881a84cf12c40d982ff57dd0b2161aa9a65a89504ccee63c24d7d81a",
+      "seconds": 2.297,
+      "png_sha256": "9b4814c959e8172a50d68681437586d3f8d5c663b980488fdce1dade742184a8",
       "sockets": [
         {
           "id": "mount0",
@@ -1838,9 +1838,9 @@
         156,
         68
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         16.769393920898438,
         30.81814956665039,
@@ -1856,7 +1856,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -1896,8 +1896,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 12,
       "density": 2,
@@ -1930,8 +1930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.984,
-      "png_sha256": "0c7868436ae0a528ca7e6655b830b9d1564ac95949abf797d0415e2b5bd9b2ae",
+      "seconds": 1.65,
+      "png_sha256": "4066ae858e78ebaf421f1a2dcda4f7618782b913c45302c7c39a6495b1f5c74a",
       "sockets": [
         {
           "id": "mount0",
@@ -1972,9 +1972,9 @@
         155,
         74
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         17.869068145751953,
         30.928653717041016,
@@ -1990,7 +1990,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2030,8 +2030,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 13,
       "density": 2,
@@ -2064,8 +2064,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.002,
-      "png_sha256": "4933307182683f8512303c5fc9efe11c3f44043a2adc4cac4030e3fb8ccfff98",
+      "seconds": 2.08,
+      "png_sha256": "b46974b2a24941cd8f9615346db7f8c887236462d8f0cba669fb3fb71f39f714",
       "sockets": [
         {
           "id": "mount0",
@@ -2106,9 +2106,9 @@
         151,
         81
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         21.35641098022461,
         28.14453887939453,
@@ -2124,7 +2124,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2164,8 +2164,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 14,
       "density": 2,
@@ -2198,8 +2198,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.062,
-      "png_sha256": "ff2bd513d20374529e09b2533f0957a4528da1a8e09185d63f77165b7a1cc1d9",
+      "seconds": 2.597,
+      "png_sha256": "1fcdbd821ad1b29b863aa0c4e42e9c3c54befa7b0ed6f603d34ff0fd06f80e42",
       "sockets": [
         {
           "id": "mount0",
@@ -2240,9 +2240,9 @@
         145,
         87
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         27.097381591796875,
         24.424312591552734,
@@ -2258,7 +2258,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2298,8 +2298,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 15,
       "density": 2,
@@ -2332,8 +2332,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.021,
-      "png_sha256": "b2b22d4fa86ea19a4326ec522223f28c0b2cb158c80e0ce5f5b59ad8f4171ef7",
+      "seconds": 1.659,
+      "png_sha256": "2bbca6a04b9bf00c16475c20874d4524273ffcc0ca816594cb635be032dc9e27",
       "sockets": [
         {
           "id": "mount0",
@@ -2374,9 +2374,9 @@
         139,
         93
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         34.87137985229492,
         21.358779907226562,
@@ -2392,7 +2392,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2432,8 +2432,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 16,
       "density": 2,
@@ -2466,8 +2466,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.022,
-      "png_sha256": "6e9f0b0b6bce93d0eaca621cab4d9641d54b8cf806802e758bc360dd512ffcf8",
+      "seconds": 1.703,
+      "png_sha256": "0c8da6d81f79488cd88afa971bfe351ecae9618b7340ec7a96f107ce77dcbaf9",
       "sockets": [
         {
           "id": "mount0",
@@ -2508,9 +2508,9 @@
         132,
         97
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         43.524723052978516,
         19.065750122070312,
@@ -2526,7 +2526,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2566,8 +2566,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 17,
       "density": 2,
@@ -2600,8 +2600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.036,
-      "png_sha256": "d0629bca9e80e9cdfd3efd8b59c1ac435487baadda500fd9b8135c4437660df2",
+      "seconds": 1.965,
+      "png_sha256": "5d4f34e3fd5301daf99e439a2143d4bed65b97f8b9b3831d0ecf8717a1e2c60f",
       "sockets": [
         {
           "id": "mount0",
@@ -2638,16 +2638,16 @@
     {
       "bounds_px": [
         50,
-        15,
+        14,
         123,
         101
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         52.28466796875,
-        17.170528411865234,
+        17.077899932861328,
         120.0465087890625,
         97.82980346679688
       ],
@@ -2660,7 +2660,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2700,8 +2700,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 18,
       "density": 2,
@@ -2734,8 +2734,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.045,
-      "png_sha256": "713aefc68a279528698431a1c4a56f331c553dfb630610c1d9a80a22e8b7860b",
+      "seconds": 1.612,
+      "png_sha256": "b5570237a1c142494b8f4f3226ef356ad111121c2fdd3cc0274a3b3941f41ea3",
       "sockets": [
         {
           "id": "mount0",
@@ -2776,12 +2776,12 @@
         112,
         103
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         59.369728088378906,
-        15.626140594482422,
+        15.535446166992188,
         109.37294006347656,
         99.87899780273438
       ],
@@ -2794,7 +2794,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2834,8 +2834,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 19,
       "density": 2,
@@ -2868,8 +2868,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.012,
-      "png_sha256": "aea8b31c11a8a19ac0aba2b5f89a247f936cf9ade83d1fd34fc12d1497e6a034",
+      "seconds": 2.196,
+      "png_sha256": "aabcf3e4fe1edee578ecb324ad411c884faa8a2d8f8496bb0d1e7fd264eedc61",
       "sockets": [
         {
           "id": "mount0",
@@ -2910,12 +2910,12 @@
         102,
         103
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         61.14588928222656,
-        15.103336334228516,
+        15.012065887451172,
         98.85411071777344,
         100.57878112792969
       ],
@@ -2928,7 +2928,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -2968,8 +2968,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 20,
       "density": 2,
@@ -3002,8 +3002,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.988,
-      "png_sha256": "f22cf2535ec602e782395a6e5c8daa1567d4bfcdd4f7c1043fc77b235e3b9577",
+      "seconds": 1.906,
+      "png_sha256": "f6bf23294fd17a4b5215b49909e2cd90288e344e52b5492dbbd4befa83d2060d",
       "sockets": [
         {
           "id": "mount0",
@@ -3044,12 +3044,12 @@
         103,
         103
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         50.62705993652344,
-        15.599716186523438,
+        15.512191772460938,
         100.6302719116211,
         99.87899780273438
       ],
@@ -3062,7 +3062,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3102,8 +3102,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 21,
       "density": 2,
@@ -3136,8 +3136,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.015,
-      "png_sha256": "3bec21f28f2ad9f85f45953e270e61e67419fec11e13a563056e66e445597c2c",
+      "seconds": 2.33,
+      "png_sha256": "bb3d8ee6d484babe7bd7b6ee17c7913bdc0fb7b31e10c58280c800232e08c156",
       "sockets": [
         {
           "id": "mount0",
@@ -3178,12 +3178,12 @@
         110,
         101
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         39.9534912109375,
-        17.02147674560547,
+        16.933029174804688,
         107.71533203125,
         97.82980346679688
       ],
@@ -3196,7 +3196,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3236,8 +3236,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 22,
       "density": 2,
@@ -3270,8 +3270,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.015,
-      "png_sha256": "11adc8e05b748b028e97710b03a792e54f5610191861db2b828adf3a8fdbf71d",
+      "seconds": 2.226,
+      "png_sha256": "f381547bddeb02978c6c0b1664fbb63244a2ea0b745d1cd34671b6a5fc8dd9c6",
       "sockets": [
         {
           "id": "mount0",
@@ -3312,9 +3312,9 @@
         119,
         97
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         30.818885803222656,
         19.065750122070312,
@@ -3330,7 +3330,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3370,8 +3370,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 23,
       "density": 2,
@@ -3404,8 +3404,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.016,
-      "png_sha256": "b8ea0b87a0590e77bf1b6426c43ab4cf2510eed43a116a153428c25352353822",
+      "seconds": 2.161,
+      "png_sha256": "61a9f43f61ac54dbb6756b3e8e08655f92514de43cbd2a78886b45c5d34bab0c",
       "sockets": [
         {
           "id": "mount0",
@@ -3446,9 +3446,9 @@
         128,
         93
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         23.574275970458984,
         21.358779907226562,
@@ -3464,7 +3464,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3504,8 +3504,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 24,
       "density": 2,
@@ -3538,8 +3538,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.008,
-      "png_sha256": "77ccb9275fea63eff7d7f5023da0d801283249d591c36bb6580f19f9ba74cbf6",
+      "seconds": 2.458,
+      "png_sha256": "474f487be85c774c4808f6477895d5860e067cd5af5e0df3f78b59e976fffa44",
       "sockets": [
         {
           "id": "mount0",
@@ -3580,9 +3580,9 @@
         136,
         87
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         18.09750747680664,
         24.424312591552734,
@@ -3598,7 +3598,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3638,8 +3638,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 25,
       "density": 2,
@@ -3672,8 +3672,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.017,
-      "png_sha256": "fee42355e48c378be35b5480f92a1f3d21a8cda42cdab66524d472335e0089ae",
+      "seconds": 2.121,
+      "png_sha256": "d9013d1a819b907a887940b8feaf14dfec64ae926f216ce0ccdb792abac4896a",
       "sockets": [
         {
           "id": "mount0",
@@ -3714,9 +3714,9 @@
         141,
         81
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         11.738136291503906,
         28.14453887939453,
@@ -3732,7 +3732,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3772,8 +3772,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 26,
       "density": 2,
@@ -3806,8 +3806,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.016,
-      "png_sha256": "8e305a0acdd95e13c5cce703e70e8627a2a169f015678fcc7684ddbc80bc599c",
+      "seconds": 2.589,
+      "png_sha256": "5c1bde9f6fe559b7a2006decd50eb58ab59ee15e149a592c034b4e3dc5b01f05",
       "sockets": [
         {
           "id": "mount0",
@@ -3848,9 +3848,9 @@
         145,
         74
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         7.968849182128906,
         30.928653717041016,
@@ -3866,7 +3866,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -3906,8 +3906,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 27,
       "density": 2,
@@ -3940,8 +3940,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.021,
-      "png_sha256": "df30bf0a28b26dde821ec9cef23d54234e5ae181292b1921901440b11393f591",
+      "seconds": 2.706,
+      "png_sha256": "08f05cf585bee4e8530f26a00d419cd695a4d7bb97fb1fd3ecd9b837c4d36706",
       "sockets": [
         {
           "id": "mount0",
@@ -3982,9 +3982,9 @@
         146,
         68
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         6.7329864501953125,
         30.81814956665039,
@@ -4000,7 +4000,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4040,8 +4040,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 28,
       "density": 2,
@@ -4074,8 +4074,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.982,
-      "png_sha256": "c4c7c29c13191f296a0c21e7c24f81c89a30381ab5ba30a85502b24265dd2c59",
+      "seconds": 2.539,
+      "png_sha256": "5e016a45afdfb83cbe14da0df802d8d48843aa08ab3edd5cd8f5625353c480a1",
       "sockets": [
         {
           "id": "mount0",
@@ -4116,9 +4116,9 @@
         145,
         72
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         7.968849182128906,
         28.56680679321289,
@@ -4134,7 +4134,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4174,8 +4174,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 29,
       "density": 2,
@@ -4208,8 +4208,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 0.99,
-      "png_sha256": "7353dac857500fbc83084c73dd66da75ca32920a185876950f59693b2f16a593",
+      "seconds": 1.969,
+      "png_sha256": "9a57a2ea411eff5f0299e9896274477148c753dc7ede197349cf7b5785d7e436",
       "sockets": [
         {
           "id": "mount0",
@@ -4250,9 +4250,9 @@
         141,
         76
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         11.738136291503906,
         24.6279296875,
@@ -4268,7 +4268,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4308,8 +4308,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 30,
       "density": 2,
@@ -4342,8 +4342,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.055,
-      "png_sha256": "214eb76a1d7d11ff1d4c3939efea06be8cc267083105b475c6ef5f286822c206",
+      "seconds": 1.789,
+      "png_sha256": "d3a886c647f71724be6aaecf7e26c7e29589a2bb60802dddd172537c63397d1d",
       "sockets": [
         {
           "id": "mount0",
@@ -4384,12 +4384,12 @@
         136,
         80
       ],
-      "vertices": 10948,
-      "triangles": 20708,
-      "parts": 150,
+      "vertices": 15534,
+      "triangles": 28616,
+      "parts": 223,
       "projected_vertex_bounds_px": [
         18.09750747680664,
-        21.141334533691406,
+        21.131576538085938,
         132.90261840820312,
         76.89985656738281
       ],
@@ -4402,7 +4402,7 @@
         15.800000190734863
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.06,
@@ -4442,8 +4442,8 @@
         "installed_guns_in_hull": false,
         "design": "Short open fishing dory; large hand reel; coiled net stack and broad catch well"
       },
-      "source_sha256": "e04730deb04d0749047bdf0f2cd720cd511eced8cab861dcaf31adad5d475a6a",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "kelpnet_dory",
       "heading": 31,
       "density": 2,
@@ -4476,8 +4476,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.075,
-      "png_sha256": "73e7c41cf1855e5e38026609703ab824c2e7236a35edfbc0c26c4fd1fe7862f0",
+      "seconds": 1.841,
+      "png_sha256": "aa61495d93bae03403f76a4bb9d360f30bd63d1d1e8fa76e000bfbc59fa95ace",
       "sockets": [
         {
           "id": "mount0",
@@ -4513,7 +4513,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.06,

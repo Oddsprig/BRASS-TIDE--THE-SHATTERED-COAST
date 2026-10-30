@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "iron_bastion",
   "headings": 32,
-  "atlas_sha256": "ca5a57c17a67dce13c3d5508b23884cd7ef658970c2e6d33042a3ad2b31232ea",
+  "atlas_sha256": "1feceee2e86ca3e6250c7d3423949530c8d913aa49c307136803c72475a90b1b",
   "canvas_config": {
     "cell_px": [
       368,
@@ -85,9 +85,9 @@
     ],
     [
       44,
-      23,
+      22,
       297,
-      136
+      137
     ],
     [
       29,
@@ -217,9 +217,9 @@
     ],
     [
       21,
-      23,
+      22,
       297,
-      136
+      137
     ]
   ],
   "frames": [
@@ -230,12 +230,12 @@
         298,
         171
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         40.85395812988281,
-        20.90532684326172,
+        20.235916137695312,
         295.72125244140625,
         168.9407958984375
       ],
@@ -248,7 +248,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.498,
-      "png_sha256": "b9f931dd5b515b0e06f721cebb25386695b219e073f699da0cc5e4e37a35aba5",
+      "seconds": 3.55,
+      "png_sha256": "2606b0cba44fdc0962d86e96cc6ede26af8e875b59d140cb0146ee3637da2d05",
       "sockets": [
         {
           "id": "mount0",
@@ -394,9 +394,9 @@
         278,
         181
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         63.663604736328125,
         14.331512451171875,
@@ -412,7 +412,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -452,8 +452,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 1,
       "density": 2,
@@ -486,8 +486,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.574,
-      "png_sha256": "7c602bfad899e8ea3e2d11500af5a2b307c150655f66786ec91ee89c317e0f05",
+      "seconds": 2.907,
+      "png_sha256": "b3fc533da26f62cd3bb1dc0e3bb1f6958df01bcbaa4b83aeef5b51b6a9c44ca4",
       "sockets": [
         {
           "id": "mount0",
@@ -558,9 +558,9 @@
         261,
         188
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         86.83909606933594,
         8.805755615234375,
@@ -576,7 +576,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -616,8 +616,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 2,
       "density": 2,
@@ -650,8 +650,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.56,
-      "png_sha256": "f03b3c6771f6dc1fda21da4fdfe8ef827229feddfc290100a20688d622c4c3b0",
+      "seconds": 3.24,
+      "png_sha256": "4cc65a0c5713f03f5c8f9a6c717d4227e2a977660544540679dc9b5ee9764612",
       "sockets": [
         {
           "id": "mount0",
@@ -722,9 +722,9 @@
         247,
         193
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         108.47702026367188,
         6.320884704589844,
@@ -740,7 +740,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -780,8 +780,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 3,
       "density": 2,
@@ -814,8 +814,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.508,
-      "png_sha256": "a824b0dfd1440adb0cb886b1f253c53061ac45ffef3abf44ae34f6711bd896a3",
+      "seconds": 4.265,
+      "png_sha256": "04e06ff22cb29e4eea5ebd24edf67c9ec47a7f7d76a17b6fcd34f27180a420e8",
       "sockets": [
         {
           "id": "mount0",
@@ -886,9 +886,9 @@
         238,
         194
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         126.96728515625,
         6.971412658691406,
@@ -904,7 +904,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -944,8 +944,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 4,
       "density": 2,
@@ -978,8 +978,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.463,
-      "png_sha256": "7b8524097dacd38e586a092a1f465fbe9324b7cccf60743ebdcaa1b8fbf15a63",
+      "seconds": 3.746,
+      "png_sha256": "9fd7cd1b9ea20720962d543fc13b6cae9a024272bf62c5eb0b3103b3ead96ebf",
       "sockets": [
         {
           "id": "mount0",
@@ -1050,9 +1050,9 @@
         256,
         193
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         117.9102783203125,
         6.320884704589844,
@@ -1068,7 +1068,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1108,8 +1108,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 5,
       "density": 2,
@@ -1142,8 +1142,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.473,
-      "png_sha256": "e4c8b81e2376f42b532d67547d04741a193a6a1b8f660c9dd84b73cb10f7d3c0",
+      "seconds": 3.198,
+      "png_sha256": "61993a9ccecdd16e9b7fb48a07c05e16a9aef4d9a1a9070f5ef3807ffd295be9",
       "sockets": [
         {
           "id": "mount0",
@@ -1214,9 +1214,9 @@
         278,
         188
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         104.22911834716797,
         8.805755615234375,
@@ -1232,7 +1232,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1272,8 +1272,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 6,
       "density": 2,
@@ -1306,8 +1306,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.529,
-      "png_sha256": "cfd58104ca9f81bdf8dfde6b61131fab64b03c15e4071f722239973b75eefc32",
+      "seconds": 3.031,
+      "png_sha256": "443af817c97bbd3fa8005c872bf2d718f8d58fa890c499f152fae378303457f1",
       "sockets": [
         {
           "id": "mount0",
@@ -1378,9 +1378,9 @@
         301,
         181
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         86.47394561767578,
         14.331512451171875,
@@ -1396,7 +1396,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1436,8 +1436,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 7,
       "density": 2,
@@ -1470,8 +1470,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.581,
-      "png_sha256": "5e048e5800e3991b026801f6571f586f57cf9fa8d13c1d02591ae41ddf42f063",
+      "seconds": 2.884,
+      "png_sha256": "599d1ffc52887187a6f4e448c93dcff61f2647ea86506f976bf40d6fe74fcb3c",
       "sockets": [
         {
           "id": "mount0",
@@ -1542,12 +1542,12 @@
         324,
         171
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         66.27876281738281,
-        20.90532684326172,
+        20.235916137695312,
         321.14605712890625,
         168.9407958984375
       ],
@@ -1560,7 +1560,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1600,8 +1600,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 8,
       "density": 2,
@@ -1634,8 +1634,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.516,
-      "png_sha256": "363b8fcaae2a1839869cc82dc4903bf05027a7d00b4d42c47e93b27bc6fbcf3b",
+      "seconds": 2.949,
+      "png_sha256": "1f215a7b589bf8fb05d4d2def60966fc79b34ab3e3b4040e50cd7b9a0c2a8ea7",
       "sockets": [
         {
           "id": "mount0",
@@ -1702,16 +1702,16 @@
     {
       "bounds_px": [
         44,
-        23,
+        22,
         341,
         159
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         46.287994384765625,
-        25.502052307128906,
+        24.845130920410156,
         338.5699462890625,
         156.73809814453125
       ],
@@ -1724,7 +1724,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1764,8 +1764,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 9,
       "density": 2,
@@ -1798,8 +1798,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.521,
-      "png_sha256": "7a537e6dbb68d45cb8a551aed6851d193fb85a971ad79dad8874b64ce2a3a389",
+      "seconds": 2.892,
+      "png_sha256": "fc1f428ecae20b9745ca2bc4b4fbb354a1bacdf74f5da69fa2d4e02e0cc076a5",
       "sockets": [
         {
           "id": "mount0",
@@ -1870,9 +1870,9 @@
         353,
         146
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         31.474151611328125,
         28.48723602294922,
@@ -1888,7 +1888,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -1928,8 +1928,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 10,
       "density": 2,
@@ -1962,8 +1962,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.506,
-      "png_sha256": "ec3b61debaf76dc4008e24e2f538bd2f0002e01576d75942c6d3b915eb2d12d9",
+      "seconds": 2.691,
+      "png_sha256": "eafea9320cb6d6015d3c5d9d5abd3e0dbd43dd09b651ba0a913a15b66c66ecd9",
       "sockets": [
         {
           "id": "mount0",
@@ -2034,9 +2034,9 @@
         358,
         140
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         22.406478881835938,
         30.88172149658203,
@@ -2052,7 +2052,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2092,8 +2092,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 11,
       "density": 2,
@@ -2126,8 +2126,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.52,
-      "png_sha256": "1f00fe5aaef3d09c96cec91216a91c43bcebcd47e03e5eecd4ecf847e6c4fd1c",
+      "seconds": 2.199,
+      "png_sha256": "6f71bed1e561f43658fab193f9ac5980c8ee9ead915f683a5aab3ebdb8378b2e",
       "sockets": [
         {
           "id": "mount0",
@@ -2198,9 +2198,9 @@
         357,
         136
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         19.433456420898438,
         33.774192810058594,
@@ -2216,7 +2216,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2256,8 +2256,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 12,
       "density": 2,
@@ -2290,8 +2290,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.468,
-      "png_sha256": "222875bfab93c8ef0acf447ce3e0db14a783c7467b1797587555da07e5e7115a",
+      "seconds": 3.796,
+      "png_sha256": "4834885954410105d4e76ac415eb142474d9b9b12ba3a96bd1b9f203f6727993",
       "sockets": [
         {
           "id": "mount0",
@@ -2362,9 +2362,9 @@
         358,
         143
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         22.406478881835938,
         37.05348205566406,
@@ -2380,7 +2380,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2420,8 +2420,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 13,
       "density": 2,
@@ -2454,8 +2454,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.483,
-      "png_sha256": "0062b2a9aea0dd98ea630683d75093bb5be4c992ad1e2388f25829ee2212c773",
+      "seconds": 2.867,
+      "png_sha256": "17f14b7be84d8b3c85548dff9aa9f0fb79efde31c3a3c4a8b81998da21a33783",
       "sockets": [
         {
           "id": "mount0",
@@ -2526,9 +2526,9 @@
         353,
         157
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         31.474151611328125,
         40.59357452392578,
@@ -2544,7 +2544,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2584,8 +2584,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 14,
       "density": 2,
@@ -2618,8 +2618,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.515,
-      "png_sha256": "524153b8e766f6125be619e36205fc2575296805274b7ec9dd8ff5949206fde5",
+      "seconds": 3.288,
+      "png_sha256": "6b4964b2e679048c024c120e8ef57d020e708d02f46a9de6e466e2a285e285eb",
       "sockets": [
         {
           "id": "mount0",
@@ -2690,9 +2690,9 @@
         341,
         171
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         46.287994384765625,
         42.525489807128906,
@@ -2708,7 +2708,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2748,8 +2748,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 15,
       "density": 2,
@@ -2782,8 +2782,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.521,
-      "png_sha256": "d0e2ef29b13b5e24737960479014b7cf38c44ebdb0311ecc92a773b11a21f2b3",
+      "seconds": 3.282,
+      "png_sha256": "5143cf5283c85a979a4627318df16063477aa996aa7b761ce44c95be731bc634",
       "sockets": [
         {
           "id": "mount0",
@@ -2854,9 +2854,9 @@
         324,
         183
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         66.27876281738281,
         34.81605529785156,
@@ -2872,7 +2872,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -2912,8 +2912,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 16,
       "density": 2,
@@ -2946,8 +2946,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.513,
-      "png_sha256": "21f008fe7b07ee48512a0dc88f8b922fc868fc550094c201206d4add3e4494bd",
+      "seconds": 2.854,
+      "png_sha256": "72580a513483af2dc85881a6741d79e12a4771fe01c7aa0a4766968d9a8c3312",
       "sockets": [
         {
           "id": "mount0",
@@ -3018,9 +3018,9 @@
         301,
         192
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         86.47394561767578,
         26.639915466308594,
@@ -3036,7 +3036,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3076,8 +3076,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 17,
       "density": 2,
@@ -3110,8 +3110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.536,
-      "png_sha256": "e4ab28ee8407bb1c072ec0b6b5f7817c5f2c0db945e97610adf5517fd7d04130",
+      "seconds": 2.461,
+      "png_sha256": "a053460f162b5e624d2af506f27e214a4ab60edd5104ea8aab5f143e8ba04414",
       "sockets": [
         {
           "id": "mount0",
@@ -3182,9 +3182,9 @@
         278,
         198
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         104.22911834716797,
         19.22553253173828,
@@ -3200,7 +3200,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3240,8 +3240,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 18,
       "density": 2,
@@ -3274,8 +3274,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.576,
-      "png_sha256": "038902713e7e13938c68265723779775cf3a213596c0dffd13f36cf8fec6f46b",
+      "seconds": 3.161,
+      "png_sha256": "c5b7ca89bff0434a8523a9131206d9dcfc933c3db83b3616b1db87fc28587aa5",
       "sockets": [
         {
           "id": "mount0",
@@ -3346,9 +3346,9 @@
         256,
         200
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         117.9102783203125,
         14.679924011230469,
@@ -3364,7 +3364,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3404,8 +3404,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 19,
       "density": 2,
@@ -3438,8 +3438,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.493,
-      "png_sha256": "1fae7c325bdba5a2d6c7161976604e36cb2bdb8049f8ffde28960d889c575f05",
+      "seconds": 3.368,
+      "png_sha256": "84fe04cbd43f7cb6fb8b7e0aad5a11d016e464c972058308c9c5feb83aa116a1",
       "sockets": [
         {
           "id": "mount0",
@@ -3510,9 +3510,9 @@
         238,
         200
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         126.96728515625,
         13.176826477050781,
@@ -3528,7 +3528,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3568,8 +3568,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 20,
       "density": 2,
@@ -3602,8 +3602,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.474,
-      "png_sha256": "f5c612fe772e448ba27ed3cd96df5cda467abfe734710318031477231b2c0981",
+      "seconds": 2.978,
+      "png_sha256": "75f169650efd34c478c013dcbf043337013955e6f846ec89b49eacbe4188e736",
       "sockets": [
         {
           "id": "mount0",
@@ -3674,9 +3674,9 @@
         247,
         200
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         108.47702026367188,
         14.679924011230469,
@@ -3692,7 +3692,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3732,8 +3732,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 21,
       "density": 2,
@@ -3766,8 +3766,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.504,
-      "png_sha256": "82732d9ad0775c521edc53427673e825e9d18cee1f9d6eb8655b207c49432827",
+      "seconds": 2.886,
+      "png_sha256": "096259995cf32c5a66997f0349e957b0b67b55f47ebdd1c18ae4e9045e54fb22",
       "sockets": [
         {
           "id": "mount0",
@@ -3838,9 +3838,9 @@
         261,
         198
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         86.83909606933594,
         19.22553253173828,
@@ -3856,7 +3856,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -3896,8 +3896,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 22,
       "density": 2,
@@ -3930,8 +3930,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.522,
-      "png_sha256": "107dffdf9463c2a155f9803ce687271f2f37e7ab2be3f96a253e972933eebba9",
+      "seconds": 2.475,
+      "png_sha256": "7c674f22d42fc75263add4a7889eb83bfd30690c7790989dda7ead6202166367",
       "sockets": [
         {
           "id": "mount0",
@@ -4002,9 +4002,9 @@
         278,
         192
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         63.663604736328125,
         26.639915466308594,
@@ -4020,7 +4020,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4060,8 +4060,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 23,
       "density": 2,
@@ -4094,8 +4094,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.527,
-      "png_sha256": "c30c6edc2e7505360fd4b66527755a1017f86c97cddfb32d3d04c9cfa15201ea",
+      "seconds": 2.37,
+      "png_sha256": "0581ba8ece718c1fad1c305e37b1b3360b7417f6a79e4c5376b6ba50c24cc19a",
       "sockets": [
         {
           "id": "mount0",
@@ -4166,9 +4166,9 @@
         298,
         183
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         40.85395812988281,
         34.81605529785156,
@@ -4184,7 +4184,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4224,8 +4224,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 24,
       "density": 2,
@@ -4258,8 +4258,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.534,
-      "png_sha256": "978086ad10fd1e58d0f93e18a64780ca9f569d8a40ffcf0d064b50964e6f3756",
+      "seconds": 3.208,
+      "png_sha256": "106f7a7e81d18f16d652e50a2921f8efca2e52c5ea0c3d93e57dec768b591154",
       "sockets": [
         {
           "id": "mount0",
@@ -4330,9 +4330,9 @@
         318,
         171
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         23.430068969726562,
         42.525489807128906,
@@ -4348,7 +4348,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4388,8 +4388,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 25,
       "density": 2,
@@ -4422,8 +4422,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.551,
-      "png_sha256": "a9a98282a5b7cfbd5095cf32c417e8cc8d44c82223e77ed04870c9698a92ab9e",
+      "seconds": 3.158,
+      "png_sha256": "617ac9e253f721f17568cc426725ae407e3136daf6385b21f5f979769ea94966",
       "sockets": [
         {
           "id": "mount0",
@@ -4494,9 +4494,9 @@
         333,
         157
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         12.016067504882812,
         40.59357452392578,
@@ -4512,7 +4512,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4552,8 +4552,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 26,
       "density": 2,
@@ -4586,8 +4586,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.564,
-      "png_sha256": "c3112d2f25395793fbd53afa2df7b79260d7116f543ab1fc4dfa2084b8dd007c",
+      "seconds": 3.102,
+      "png_sha256": "2854920afcf580f1e3f139459dc26e49150f8dbf25a8b5b4328c20d15b55f918",
       "sockets": [
         {
           "id": "mount0",
@@ -4658,9 +4658,9 @@
         342,
         143
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         6.8140869140625,
         37.05348205566406,
@@ -4676,7 +4676,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4716,8 +4716,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 27,
       "density": 2,
@@ -4750,8 +4750,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.6,
-      "png_sha256": "a9035f8e5711eb0c095cdef28abba2fca7e98685ee1477fe37e2e9467cfa94da",
+      "seconds": 2.882,
+      "png_sha256": "bd7b89508765c8669046ba7a399b0bd2a5d34be8b86f0df90123310b9071f8dc",
       "sockets": [
         {
           "id": "mount0",
@@ -4822,9 +4822,9 @@
         345,
         136
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         7.724334716796875,
         33.774192810058594,
@@ -4840,7 +4840,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -4880,8 +4880,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 28,
       "density": 2,
@@ -4914,8 +4914,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.463,
-      "png_sha256": "0a501426b460803044c6a60787c6e4766c702b9e3732172b9300d151a67cde9b",
+      "seconds": 2.903,
+      "png_sha256": "79babcae0d8c3bb1864b6ca0731b877bdb5190e3d4e382e95ddbf6287c52c638",
       "sockets": [
         {
           "id": "mount0",
@@ -4986,9 +4986,9 @@
         342,
         140
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         6.8140869140625,
         30.88172149658203,
@@ -5004,7 +5004,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -5044,8 +5044,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 29,
       "density": 2,
@@ -5078,8 +5078,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.522,
-      "png_sha256": "1a91914bd74fc635baaf280cc9d738b27e434e442739a65dc6ae683f4d3ebcc9",
+      "seconds": 2.475,
+      "png_sha256": "009898403b68782505cf77cf13889d0acd02f86964cbfa39f7d86d9808a6ee36",
       "sockets": [
         {
           "id": "mount0",
@@ -5150,9 +5150,9 @@
         333,
         146
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         12.016067504882812,
         28.48723602294922,
@@ -5168,7 +5168,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -5208,8 +5208,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 30,
       "density": 2,
@@ -5242,8 +5242,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.497,
-      "png_sha256": "dbbf1a8c6b7fdd5244f6e044467041d3971834e3259f50596bf68edd2816aac8",
+      "seconds": 2.671,
+      "png_sha256": "43f86f74a6092e1bcd7a8f07013ac1fdfec19bfedd55b0c0b46fd5985a7cddd2",
       "sockets": [
         {
           "id": "mount0",
@@ -5310,16 +5310,16 @@
     {
       "bounds_px": [
         21,
-        23,
+        22,
         318,
         159
       ],
-      "vertices": 17246,
-      "triangles": 32292,
-      "parts": 240,
+      "vertices": 23512,
+      "triangles": 43444,
+      "parts": 331,
       "projected_vertex_bounds_px": [
         23.430068969726562,
-        25.502052307128906,
+        24.845130920410156,
         315.7120056152344,
         156.73809814453125
       ],
@@ -5332,7 +5332,7 @@
         35.0
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.04,
@@ -5372,8 +5372,8 @@
         "installed_guns_in_hull": false,
         "design": "Heavy flagship; double belt; high signal house and pump dome"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "iron_bastion",
       "heading": 31,
       "density": 2,
@@ -5406,8 +5406,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.538,
-      "png_sha256": "679f407e90b54f490da3d7ea462d7639a186aa97d7c4293eb5d0c425e4ec3efc",
+      "seconds": 2.74,
+      "png_sha256": "fe1dcb61cabb56966c44109706f506da507b9f33341a08d5a129dadd1fa9e290",
       "sockets": [
         {
           "id": "mount0",
@@ -5473,7 +5473,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.04,

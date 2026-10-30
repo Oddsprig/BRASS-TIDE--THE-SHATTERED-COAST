@@ -1,10 +1,10 @@
-BRASS TIDE v0.072 - COMPLETE VOYAGE INTEGRATION AND MEASURED FLEET PERFORMANCE
+BRASS TIDE v0.073 - ORIGINAL FLEET HULL, WEAPON AND CAMPAIGN BOAT DETAIL
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Connect the existing preparation, work, encounter, paid repair, return and improvement loop using ordinary accounts and actual fleets.
-- Remove one discarded pre-step pose allocation while retaining detached worker publications and the existing simulation rate.
-- Clarify voyage actions and record current active fleet workloads, command response, loading and memory with honest remaining limits.
+- Rebuild all36 existing hull sprites with stronger materials, rear engineering, framed glass and role-specific working deck equipment.
+- Replace the seven interchangeable weapon models with clearer machine-gun, cannon, rocket and torpedo mechanisms within existing mount geometry.
+- Match campaign boat colors, wheelhouses and machinery to the fleet, using existing baked sprites and inexpensive chart assets.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "ab4336092db8ef921d7bab9b290d4ee19aa2f9215047756346a07824249a99f6",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "brasswind_motor_galleon",
   "headings": 32,
-  "atlas_sha256": "7997542e4fa502bb644d56c9a7482811ce6de99d18bae540e4d0ba2708ffb121",
+  "atlas_sha256": "d71ae40fca112215d384c647634fb5b059e1001ef1cef8e9b0881afcf724665f",
   "canvas_config": {
     "cell_px": [
       400,
@@ -28,5 +28,4170 @@
     1280
   ],
   "gpu_rgba8_bytes": 16384000,
+  "frame_bounds_px": [
+    [
+      34,
+      95,
+      320,
+      182
+    ],
+    [
+      54,
+      88,
+      279,
+      197
+    ],
+    [
+      76,
+      84,
+      231,
+      205
+    ],
+    [
+      103,
+      83,
+      179,
+      207
+    ],
+    [
+      131,
+      85,
+      138,
+      203
+    ],
+    [
+      118,
+      83,
+      179,
+      207
+    ],
+    [
+      93,
+      84,
+      231,
+      205
+    ],
+    [
+      67,
+      88,
+      279,
+      197
+    ],
+    [
+      46,
+      95,
+      320,
+      182
+    ],
+    [
+      31,
+      104,
+      351,
+      163
+    ],
+    [
+      22,
+      109,
+      369,
+      145
+    ],
+    [
+      20,
+      112,
+      374,
+      127
+    ],
+    [
+      25,
+      115,
+      364,
+      109
+    ],
+    [
+      20,
+      116,
+      374,
+      124
+    ],
+    [
+      22,
+      115,
+      369,
+      142
+    ],
+    [
+      31,
+      110,
+      351,
+      161
+    ],
+    [
+      46,
+      100,
+      320,
+      182
+    ],
+    [
+      67,
+      92,
+      279,
+      198
+    ],
+    [
+      93,
+      88,
+      231,
+      207
+    ],
+    [
+      118,
+      87,
+      179,
+      210
+    ],
+    [
+      131,
+      89,
+      138,
+      206
+    ],
+    [
+      103,
+      87,
+      179,
+      210
+    ],
+    [
+      76,
+      88,
+      231,
+      207
+    ],
+    [
+      54,
+      92,
+      279,
+      198
+    ],
+    [
+      34,
+      100,
+      320,
+      182
+    ],
+    [
+      18,
+      110,
+      351,
+      161
+    ],
+    [
+      9,
+      115,
+      369,
+      142
+    ],
+    [
+      6,
+      111,
+      374,
+      129
+    ],
+    [
+      11,
+      107,
+      364,
+      117
+    ],
+    [
+      6,
+      104,
+      374,
+      135
+    ],
+    [
+      9,
+      101,
+      369,
+      153
+    ],
+    [
+      18,
+      100,
+      351,
+      167
+    ]
+  ],
+  "frames": [
+    {
+      "bounds_px": [
+        34,
+        95,
+        354,
+        277
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        37.10716247558594,
+        98.13933563232422,
+        350.9349365234375,
+        275.0791931152344
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 0,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.039,
+      "png_sha256": "f3884e38c9215d5ee2dd9cde617cc6f8c9e5de2a9b42f4937fcc483d7a50bdcd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        88,
+        333,
+        285
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        56.28851318359375,
+        91.0283203125,
+        329.92022705078125,
+        282.7294921875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 1,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 5.697,
+      "png_sha256": "0d4592aaced0e554161edb186296a01ec248edd783eed5292dc10953ec60fa2f",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        84,
+        307,
+        289
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        78.41773223876953,
+        86.52372741699219,
+        304.04156494140625,
+        287.2005615234375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 2,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.168,
+      "png_sha256": "f6f93490a889c7b683c9e15c72eb3cc003d55e2741ccb2a0b088fe8c57a81818",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        103,
+        83,
+        282,
+        290
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        105.21930694580078,
+        85.4551773071289,
+        279.4286804199219,
+        288.3205261230469
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 3,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.519,
+      "png_sha256": "18ed6ce500d194674f78b99833383c23467320aa2c9c9a5ebc0a29620cabbab5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        131,
+        85,
+        269,
+        288
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        134.0686492919922,
+        87.86273193359375,
+        265.93133544921875,
+        286.04638671875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 4,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.766,
+      "png_sha256": "0686ffb91637b15fa7f482639761b509c2156074624a58968dfd731c1111c24b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        118,
+        83,
+        297,
+        290
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        120.57132720947266,
+        85.4551773071289,
+        294.78070068359375,
+        288.3205261230469
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 5,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.923,
+      "png_sha256": "4b4e56f38159d6e9fa539017097fd1458bafc2a9ee76cc702fc5ac4fab587fd7",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        93,
+        84,
+        324,
+        289
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        95.95841979980469,
+        86.52372741699219,
+        321.582275390625,
+        287.2005615234375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 6,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.663,
+      "png_sha256": "4a381b143189d7749bf99d47c29bfef201cc04dd67eb95211652b9acacccf176",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        88,
+        346,
+        285
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        70.07975769042969,
+        91.0283203125,
+        343.71148681640625,
+        282.7294921875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 7,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.316,
+      "png_sha256": "da188b65b2484d62758109f1b4c7f5f7348170c2768f3491ab96b77e152b3949",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        95,
+        366,
+        277
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        49.06507873535156,
+        98.13933563232422,
+        362.892822265625,
+        275.0791931152344
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 8,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.768,
+      "png_sha256": "dde569d32ea6454a94a8aff7095ceb3f7029892a6ab85b144c84250918ebfb28",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        104,
+        382,
+        267
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        33.85072326660156,
+        106.45384216308594,
+        379.0957946777344,
+        264.54364013671875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 9,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.599,
+      "png_sha256": "2db52a302881f4d951c225bd3dce62310b468a781abb767969706d5ea62c01ff",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        109,
+        391,
+        254
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        25.021408081054688,
+        111.68098449707031,
+        388.46160888671875,
+        251.52772521972656
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 10,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.101,
+      "png_sha256": "bd34d5000bd98d437c0055a75e0e8139f593204ce9a6f45c86a16212ce6c5385",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        112,
+        394,
+        239
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        22.916412353515625,
+        113.98149871826172,
+        390.825439453125,
+        236.5316162109375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 11,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.814,
+      "png_sha256": "1aed8359b004e36b08fa2d3a795db5245c521b9a24f5a6ae1e3e556311e92439",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        25,
+        115,
+        389,
+        224
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        27.616622924804688,
+        117.10636138916016,
+        386.3797607421875,
+        221.0397491455078
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 12,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.17,
+      "png_sha256": "e5f68e5b02c4de22ffe1a288e94db5a52618b5c1c6c51dde76980aef0beb0e7c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        20,
+        116,
+        394,
+        240
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        22.916412353515625,
+        118.1010513305664,
+        390.825439453125,
+        237.85809326171875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 13,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.66,
+      "png_sha256": "b5c9c2203026f28073acf07efed0721a9a1f4e6d53f6a3a440f113b8d877f2f5",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        22,
+        115,
+        391,
+        257
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        25.021408081054688,
+        117.91786193847656,
+        388.46160888671875,
+        253.99269104003906
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 14,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.931,
+      "png_sha256": "04a45f1393f4a48d9f85f9b4da80d16338146e40332bbd4b1466a070abf87425",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        31,
+        110,
+        382,
+        271
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        33.85072326660156,
+        112.41961669921875,
+        379.0957946777344,
+        267.9969482421875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 15,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.4,
+      "png_sha256": "f8f6d3e23e69cfe770a7012be3ec09dd9c4f1475e449757b1d19c6a327e6c544",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        46,
+        100,
+        366,
+        282
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        49.06507873535156,
+        102.72258758544922,
+        362.892822265625,
+        279.3819580078125
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 16,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.387,
+      "png_sha256": "e8773bee397c193e0348268403ca23bc4e8a8eb778a5a50c6a57292a19627ebf",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        67,
+        92,
+        346,
+        290
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        70.07975769042969,
+        95.10450744628906,
+        343.71148681640625,
+        287.67059326171875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 17,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.341,
+      "png_sha256": "9d410e1b5a44d709506adef09708951aa03f428b6ebbdf97144599d4da60a8e9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        93,
+        88,
+        324,
+        295
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        95.95841979980469,
+        90.67497253417969,
+        321.582275390625,
+        292.5863952636719
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 18,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.777,
+      "png_sha256": "405b0119a02fc2abdaf7e5c6f3e51825fe265f59b445c86d55bae5cead12bc90",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        118,
+        87,
+        297,
+        297
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        120.57132720947266,
+        89.57144165039062,
+        294.78070068359375,
+        293.96575927734375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 19,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.387,
+      "png_sha256": "eb219ebcb6c4384bd1132da441e5143b0a71f3ddd058f9f4fd76120cd470b424",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        131,
+        89,
+        269,
+        295
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        134.0686492919922,
+        91.85877990722656,
+        265.93133544921875,
+        291.7872314453125
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 20,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.413,
+      "png_sha256": "ffc49f01797719eb301194f296c626ae253ffad26fef526385ef19d6f1cb99e0",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        103,
+        87,
+        282,
+        297
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        105.21930694580078,
+        89.57144165039062,
+        279.4286804199219,
+        293.96575927734375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 21,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.72,
+      "png_sha256": "5563471cda9311b4142db2bc69f3de82d9e7b2bfdbc390bb9f356518b46aa970",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        76,
+        88,
+        307,
+        295
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        78.41773223876953,
+        90.67497253417969,
+        304.04156494140625,
+        292.5863952636719
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 22,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.131,
+      "png_sha256": "3ca520050652a8c588ffa8e69ec078364d6f99c19937bf9ea7006720489b19b9",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        54,
+        92,
+        333,
+        290
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        56.28851318359375,
+        95.10450744628906,
+        329.92022705078125,
+        287.67059326171875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 23,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.922,
+      "png_sha256": "1e2a68a30b3d12960424b6e87799be2c40c3641e5fc60c77a216bbc7e239235d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        34,
+        100,
+        354,
+        282
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        37.10716247558594,
+        102.72258758544922,
+        350.9349365234375,
+        279.3819580078125
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 24,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 5.576,
+      "png_sha256": "7e9ecd1435f2328d8de71ee50a9d46fa074d3c7280695a639ee4feab7c5bfc8c",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        110,
+        369,
+        271
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        20.904205322265625,
+        112.41961669921875,
+        366.1492919921875,
+        267.9969482421875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 25,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.643,
+      "png_sha256": "e86f88da1167fd4875c8d3b7d01c6c7b607e1a39979c2aa19ed3fbde02d33645",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        115,
+        378,
+        257
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        11.53839111328125,
+        117.34943389892578,
+        374.97857666015625,
+        253.99269104003906
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.42713737487793,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 26,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.707,
+      "png_sha256": "9456641f99f5244f0c4648422d28f0027855677b8208335de3493b12013ee9dd",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        111,
+        380,
+        240
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        9.174560546875,
+        112.94961547851562,
+        377.0835876464844,
+        237.85809326171875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 27,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 5.036,
+      "png_sha256": "4ac34e643caac10019f663a59a1d2d6aca4bdb982068b6ffefb476cd8b75b1dc",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        11,
+        107,
+        375,
+        224
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        13.620223999023438,
+        109.10636138916016,
+        372.38336181640625,
+        221.0397491455078
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 28,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 4.527,
+      "png_sha256": "66fc66f2ec1c2aa926467bec63d0dfb74b5578d02d59f0afebad7bb06845225d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        6,
+        104,
+        380,
+        239
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        9.174560546875,
+        105.98149871826172,
+        377.0835876464844,
+        236.5316162109375
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.427139282226562,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 29,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.732,
+      "png_sha256": "b16b58881ac10deb16b6d76ab559d235f5b2a72651681057082dd972abdb2297",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        9,
+        101,
+        378,
+        254
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        11.53839111328125,
+        103.68098449707031,
+        374.97857666015625,
+        251.52772521972656
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 30,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 3.527,
+      "png_sha256": "e1f20ee29e858e2b94302b441303bdb556ce86ad4bb17931717ffc7bdc40db4b",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    },
+    {
+      "bounds_px": [
+        18,
+        100,
+        369,
+        267
+      ],
+      "vertices": 33740,
+      "triangles": 61532,
+      "parts": 355,
+      "projected_vertex_bounds_px": [
+        20.904205322265625,
+        102.3073501586914,
+        366.1492919921875,
+        264.54364013671875
+      ],
+      "physical_bounds_world": [
+        -80.36000061035156,
+        -28.427139282226562,
+        0.0,
+        74.32527160644531,
+        28.42713737487793,
+        36.099998474121094
+      ],
+      "roster049": null,
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-authored-hulls-r1",
+      "hull_id": "brasswind_motor_galleon",
+      "heading": 31,
+      "density": 2,
+      "aa": 2,
+      "cell_px": [
+        400,
+        320
+      ],
+      "pivot_px": [
+        200,
+        200
+      ],
+      "canvas_config": {
+        "cell_px": [
+          400,
+          320
+        ],
+        "pivot_px": [
+          200,
+          200
+        ],
+        "pixels_per_world_unit": 2,
+        "portrait_cell_px": [
+          800,
+          640
+        ],
+        "portrait_pivot_px": [
+          400,
+          400
+        ],
+        "portrait_pixels_per_world_unit": 4
+      },
+      "seconds": 2.815,
+      "png_sha256": "bbf7ee49c6b3ac45d2ade3cf6f7e2d4b636f4a0265bd1def70823568d24b3d2d",
+      "sockets": [
+        {
+          "id": "mount0",
+          "local_xy": [
+            1.014,
+            0
+          ],
+          "world_xy": [
+            28.392,
+            0
+          ],
+          "elevation": 12.0,
+          "size": 3,
+          "radius": 5.6000000000000005,
+          "angle": 0
+        },
+        {
+          "id": "mount1",
+          "local_xy": [
+            -1.4809999999999999,
+            0
+          ],
+          "world_xy": [
+            -41.467999999999996,
+            0
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 5.04,
+          "angle": 3.141592653589793
+        },
+        {
+          "id": "mount2",
+          "local_xy": [
+            0.524,
+            -0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            -15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": -1.5707963267948966
+        },
+        {
+          "id": "mount3",
+          "local_xy": [
+            0.524,
+            0.5640000000000001
+          ],
+          "world_xy": [
+            14.672,
+            15.792000000000002
+          ],
+          "elevation": 11.5,
+          "size": 2,
+          "radius": 4.2,
+          "angle": 1.5707963267948966
+        }
+      ]
+    }
+  ],
+  "roster049": null,
   "status": "baked; visual and native integration review still required"
 }

@@ -1,8 +1,8 @@
 {
-  "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
+  "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
   "hull_id": "seepoil_tanker",
   "headings": 32,
-  "atlas_sha256": "d7d2845657f1a4892dcd49c0d82a7261c241c3832a5152fb507a7c54e1bdb2ce",
+  "atlas_sha256": "cdc0f4c2281513914cd62e45c340885d9a55a529d08ed8756ad36aeb6dc89f9a",
   "canvas_config": {
     "cell_px": [
       256,
@@ -230,9 +230,9 @@
         206,
         126
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         29.85594940185547,
         17.793617248535156,
@@ -245,10 +245,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -288,8 +288,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 0,
       "density": 2,
@@ -322,8 +322,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.304,
-      "png_sha256": "b858ec469b243c7a0b694344863879321d8f695e836da98108fef83275e36093",
+      "seconds": 2.6,
+      "png_sha256": "a1a147672acabdeb81904c5e662f9ba7bd8144a53ed949f1a2305d09be5b65ae",
       "sockets": [
         {
           "id": "mount0",
@@ -379,9 +379,9 @@
         193,
         133
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         43.75506591796875,
         12.06585693359375,
@@ -394,10 +394,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -437,8 +437,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 1,
       "density": 2,
@@ -471,8 +471,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.305,
-      "png_sha256": "0dbd42f52401c51715a0bcb075090613d669c03adbf0d2e521f4a6e64c3b9b12",
+      "seconds": 2.127,
+      "png_sha256": "e8976bc41f5745e20aa29f03f798fc3795d0cbc70a3cc131d1d7eccd7f5f2e2c",
       "sockets": [
         {
           "id": "mount0",
@@ -528,9 +528,9 @@
         180,
         137
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         58.39411163330078,
         8.255546569824219,
@@ -543,10 +543,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -586,8 +586,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 2,
       "density": 2,
@@ -620,8 +620,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.275,
-      "png_sha256": "bf33fbcea108f14ca2f1d7776a38ba7219d55059f671d59267b56b0c9a2c3179",
+      "seconds": 2.608,
+      "png_sha256": "20812b07a3602b598b8fa99f98dd1ec308abd0d4c3c97fd8f438c0bc57018176",
       "sockets": [
         {
           "id": "mount0",
@@ -677,9 +677,9 @@
         170,
         140
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         74.1900634765625,
         6.508110046386719,
@@ -692,10 +692,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -735,8 +735,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 3,
       "density": 2,
@@ -769,8 +769,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.275,
-      "png_sha256": "e07ae42a53cd0feb36b4669b9cdc6636c8441761849fe416d5fcf15c707734f6",
+      "seconds": 2.418,
+      "png_sha256": "a271af1b6b49c0c7caa4cf0fd5650574223e5f0bbdc219c4ee6862105ba77971",
       "sockets": [
         {
           "id": "mount0",
@@ -826,9 +826,9 @@
         164,
         141
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         86.72895812988281,
         6.8896942138671875,
@@ -841,10 +841,10 @@
         0.0,
         46.272491455078125,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -884,8 +884,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 4,
       "density": 2,
@@ -918,8 +918,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.23,
-      "png_sha256": "88c7169c781c0e4582b27fe7cc597746fef782145fe9ba3da8e56250c33448d3",
+      "seconds": 2.487,
+      "png_sha256": "b9180a3f74aa28fbcc1f2ca9567667223747913006df7e73616b2296b29667b7",
       "sockets": [
         {
           "id": "mount0",
@@ -975,9 +975,9 @@
         177,
         139
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         80.32440948486328,
         6.508110046386719,
@@ -990,10 +990,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1033,8 +1033,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 5,
       "density": 2,
@@ -1067,8 +1067,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.244,
-      "png_sha256": "5b7f88fa24a4f1544f0115b49a26c96a64e414293d4e8a3929c716ddb469c984",
+      "seconds": 3.346,
+      "png_sha256": "84b7899f7bcb74444818d1c0fd7988a39ef02224092c907fcd27a959a9dae101",
       "sockets": [
         {
           "id": "mount0",
@@ -1124,9 +1124,9 @@
         192,
         137
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         70.70278930664062,
         8.255546569824219,
@@ -1139,10 +1139,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1182,8 +1182,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 6,
       "density": 2,
@@ -1216,8 +1216,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.267,
-      "png_sha256": "93e1d70e529270ba4af6fa46f2175ca3f6d921fb9b377c98595b079f0249ef4c",
+      "seconds": 2.529,
+      "png_sha256": "d9efd6b273fbbbe65e7367b0b377fba023ac7f1f5e3525ea7af2599a54afb062",
       "sockets": [
         {
           "id": "mount0",
@@ -1273,9 +1273,9 @@
         207,
         133
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         57.56775665283203,
         12.06585693359375,
@@ -1288,10 +1288,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1331,8 +1331,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 7,
       "density": 2,
@@ -1365,8 +1365,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.284,
-      "png_sha256": "048403f35605b45e4692c222cb94ffd17a12a4ea9b8e1519552eb9d91f9afb05",
+      "seconds": 3.065,
+      "png_sha256": "b2f96caf557fae42e7be78caa021f069ed48ec7a12173b60abf4115bb1840572",
       "sockets": [
         {
           "id": "mount0",
@@ -1422,9 +1422,9 @@
         221,
         126
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         44.789337158203125,
         17.793617248535156,
@@ -1437,10 +1437,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1480,8 +1480,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 8,
       "density": 2,
@@ -1514,8 +1514,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.267,
-      "png_sha256": "e7e00cb5959f6adab677c1917131261656128b413bc8cbabc41d89a5419a6e52",
+      "seconds": 3.024,
+      "png_sha256": "8bd14e27ecfd21c44e041ee701cc105d5f462e545f8aeebaac9a9cac988756d2",
       "sockets": [
         {
           "id": "mount0",
@@ -1571,9 +1571,9 @@
         233,
         118
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         33.983917236328125,
         25.215721130371094,
@@ -1586,10 +1586,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1629,8 +1629,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 9,
       "density": 2,
@@ -1663,8 +1663,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.288,
-      "png_sha256": "5b03fdb4334de458f207ed0da56cd8bce30a85416f7769d78a8736132bb9fd29",
+      "seconds": 2.647,
+      "png_sha256": "8291d3516735df37d30b4ae55988888b303dcba503698c05639ed1d78c8ce31f",
       "sockets": [
         {
           "id": "mount0",
@@ -1720,9 +1720,9 @@
         241,
         109
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         24.666015625,
         31.749305725097656,
@@ -1735,10 +1735,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1778,8 +1778,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 10,
       "density": 2,
@@ -1812,8 +1812,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.255,
-      "png_sha256": "ae72deeb4a7507906b6ea1c22c2beb983cc4e5e241da93358d629e7583f57da0",
+      "seconds": 2.565,
+      "png_sha256": "b0fadaaa9eb84d8e4e64f531d10dbe988f012c1e39de015f78279c0c76fa3f9e",
       "sockets": [
         {
           "id": "mount0",
@@ -1869,9 +1869,9 @@
         245,
         100
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         18.64856719970703,
         38.63330078125,
@@ -1884,10 +1884,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -1927,8 +1927,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 11,
       "density": 2,
@@ -1961,8 +1961,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.242,
-      "png_sha256": "3c23350413e8f2da47edf1c8514053affd5bc6b825b3fe8abc1da2af2f116b49",
+      "seconds": 2.339,
+      "png_sha256": "6ef97a7114439ac6bf5e8ffc8456995b9ddd72044ff175ebe84e9c21a56c19bb",
       "sockets": [
         {
           "id": "mount0",
@@ -2018,9 +2018,9 @@
         244,
         96
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         16.679733276367188,
         45.512725830078125,
@@ -2033,10 +2033,10 @@
         0.0,
         46.272491455078125,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2076,8 +2076,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 12,
       "density": 2,
@@ -2110,8 +2110,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.251,
-      "png_sha256": "c16e080b620f427f8919037e157d4c7b9a2ba2efb5fb1b40008306677b6dd57d",
+      "seconds": 2.667,
+      "png_sha256": "0c47b8ca5230626817c2164d38e83ac41dc76848a9dcd57b6be26c1ee8f5747e",
       "sockets": [
         {
           "id": "mount0",
@@ -2167,9 +2167,9 @@
         245,
         106
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         18.64856719970703,
         42.22260284423828,
@@ -2182,10 +2182,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2225,8 +2225,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 13,
       "density": 2,
@@ -2259,8 +2259,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.243,
-      "png_sha256": "19cf4a87f6c040662e5b09e66c0a0fbf3dc56b7d598415cb9e6524a194a9d536",
+      "seconds": 2.767,
+      "png_sha256": "0c66062190f7584ea64eb7c571e3b24f5daeee06e35e796e40855838957681c0",
       "sockets": [
         {
           "id": "mount0",
@@ -2316,9 +2316,9 @@
         241,
         117
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         24.666015625,
         35.93900680541992,
@@ -2331,10 +2331,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2374,8 +2374,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 14,
       "density": 2,
@@ -2408,8 +2408,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.251,
-      "png_sha256": "9362f45bd59c9fd8ac9c56025823b00708fc55ff2c5babe33464030f6f7600ce",
+      "seconds": 2.559,
+      "png_sha256": "d176cc2fbf162ef498980b53d245442642fc5c46b05c0c0035114659d4debbe3",
       "sockets": [
         {
           "id": "mount0",
@@ -2465,9 +2465,9 @@
         233,
         126
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         33.983917236328125,
         28.519569396972656,
@@ -2480,10 +2480,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2523,8 +2523,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 15,
       "density": 2,
@@ -2557,8 +2557,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.377,
-      "png_sha256": "406ef2bece8aa3488711f03b7e5b3da61fcf01c67b09dcf8ecb0658606108909",
+      "seconds": 2.661,
+      "png_sha256": "8f88321d8549d3051b5dcad7ed0ae2eedd13642b3cde06fa677b4e024ecd78c8",
       "sockets": [
         {
           "id": "mount0",
@@ -2614,9 +2614,9 @@
         221,
         134
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         44.789337158203125,
         22.23685073852539,
@@ -2629,10 +2629,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2672,8 +2672,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 16,
       "density": 2,
@@ -2706,8 +2706,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.254,
-      "png_sha256": "89fae33b5383d56f39db8f668d632e170f181423c0d4e5e8b0c938d91cdff2c6",
+      "seconds": 2.438,
+      "png_sha256": "52dfb315139363d799370e1e3fa247368c5e094b68aba6d1bccc6ad0b27cb5b9",
       "sockets": [
         {
           "id": "mount0",
@@ -2763,9 +2763,9 @@
         207,
         140
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         57.56775665283203,
         17.237838745117188,
@@ -2778,10 +2778,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2821,8 +2821,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 17,
       "density": 2,
@@ -2855,8 +2855,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.277,
-      "png_sha256": "087ad784a11714422584929640d60bdc71e003257a331cf0386d9b224e8b87cd",
+      "seconds": 2.747,
+      "png_sha256": "a1e0dab1ec9fd6c4f2b3e5a2940996f087ebd7e77ce2a4ee78f1af3cb5df4fce",
       "sockets": [
         {
           "id": "mount0",
@@ -2912,9 +2912,9 @@
         192,
         144
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         70.70278930664062,
         13.642471313476562,
@@ -2927,10 +2927,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -2970,8 +2970,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 18,
       "density": 2,
@@ -3004,8 +3004,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.272,
-      "png_sha256": "29f6a1cdaab074fad21aa0614d6384d91fd5d94e4348da32453d38d3c7b0f913",
+      "seconds": 3.061,
+      "png_sha256": "6e39bc6fdc1f2418779fedc97cd500821699307011deb7436b6a6fec84057eb2",
       "sockets": [
         {
           "id": "mount0",
@@ -3061,9 +3061,9 @@
         177,
         146
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         80.32440948486328,
         11.478981018066406,
@@ -3076,10 +3076,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3119,8 +3119,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 19,
       "density": 2,
@@ -3153,8 +3153,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.251,
-      "png_sha256": "6e3549f90b61260d66a0fcdd63d5ec624bb97dd3585acae202d5ae17bfd22966",
+      "seconds": 2.462,
+      "png_sha256": "336a380b49359fb4bbd1f4d49d4b40b6c727747f755936c8650896358f861a86",
       "sockets": [
         {
           "id": "mount0",
@@ -3210,9 +3210,9 @@
         164,
         146
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         86.72895812988281,
         10.767578125,
@@ -3225,10 +3225,10 @@
         0.0,
         46.272491455078125,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3268,8 +3268,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 20,
       "density": 2,
@@ -3302,8 +3302,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.229,
-      "png_sha256": "6c24e0959d6d6ec645e3754e85293fe26114972db1b78832355ddb1788354cb2",
+      "seconds": 2.336,
+      "png_sha256": "1b0c4f326cb30b4b815527986a9f6912edc6e684ad14ef480ad71255a0288cd7",
       "sockets": [
         {
           "id": "mount0",
@@ -3359,9 +3359,9 @@
         170,
         146
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         74.1900634765625,
         11.478981018066406,
@@ -3374,10 +3374,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3417,8 +3417,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 21,
       "density": 2,
@@ -3451,8 +3451,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.257,
-      "png_sha256": "86a48de99a605d6e02c19f66a17f90ed982b13c1082b196003c32151527c0c04",
+      "seconds": 2.693,
+      "png_sha256": "d1994e200b3b1c01fdb36a5a86dfa52972c72d77c0346f8da4fea6060f157537",
       "sockets": [
         {
           "id": "mount0",
@@ -3508,9 +3508,9 @@
         180,
         144
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         58.39411163330078,
         13.642471313476562,
@@ -3523,10 +3523,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3566,8 +3566,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 22,
       "density": 2,
@@ -3600,8 +3600,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.259,
-      "png_sha256": "57e7d8fc35f77491b1e8db81103935137396830930ed8f5b74ff9da55fd81ec6",
+      "seconds": 2.672,
+      "png_sha256": "8fa75875b48b6ed58b63297fbb89824f9b3ae5a36ca15c3e3f4d224f85ae11f0",
       "sockets": [
         {
           "id": "mount0",
@@ -3657,9 +3657,9 @@
         193,
         140
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         43.75506591796875,
         17.237838745117188,
@@ -3672,10 +3672,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3715,8 +3715,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 23,
       "density": 2,
@@ -3749,8 +3749,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.269,
-      "png_sha256": "6a9cc3b1eb5c53bd01ed9046d98166c1e75fb38d9c91ac0c6f8b559a6568aea7",
+      "seconds": 2.325,
+      "png_sha256": "71672d03cf0ebdf104898426da49aaba954dd4c16a8108bc372f6ed8c0fb43ab",
       "sockets": [
         {
           "id": "mount0",
@@ -3806,9 +3806,9 @@
         206,
         134
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         29.85594940185547,
         22.23685073852539,
@@ -3821,10 +3821,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -3864,8 +3864,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 24,
       "density": 2,
@@ -3898,8 +3898,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.264,
-      "png_sha256": "452cda9db329ef8bd4ddc89a2171f7d724a12739906123b170160afc510abf54",
+      "seconds": 3.32,
+      "png_sha256": "c5b3da5bdfbfedaab5b6daf12353dc6244820727e599cfbaf7f69e49ee958cca",
       "sockets": [
         {
           "id": "mount0",
@@ -3955,9 +3955,9 @@
         217,
         126
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         17.86072540283203,
         28.519569396972656,
@@ -3970,10 +3970,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4013,8 +4013,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 25,
       "density": 2,
@@ -4047,8 +4047,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.253,
-      "png_sha256": "3bcbb2e00ece6355ab1f9661805ab3a23b9df5284a6d7a78cd0d0968216ac4c5",
+      "seconds": 3.288,
+      "png_sha256": "3a8c04bc9b57d7818cd6e6a873da22708be9363822fd501cb29093d35cd8fb4d",
       "sockets": [
         {
           "id": "mount0",
@@ -4104,9 +4104,9 @@
         226,
         117
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         9.898948669433594,
         35.93900680541992,
@@ -4119,10 +4119,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4162,8 +4162,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 26,
       "density": 2,
@@ -4196,8 +4196,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.268,
-      "png_sha256": "19fbfe0bdf38ab676d72358cd6fdd3daa56151d473058dab1752b3e9455c2886",
+      "seconds": 2.928,
+      "png_sha256": "26fabf26dc982dc84bea077d0854bfb810e644a076c243d3af7aa63751505553",
       "sockets": [
         {
           "id": "mount0",
@@ -4253,9 +4253,9 @@
         232,
         106
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         6.1920928955078125,
         42.22260284423828,
@@ -4268,10 +4268,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4311,8 +4311,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 27,
       "density": 2,
@@ -4345,8 +4345,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.317,
-      "png_sha256": "38eb12e53b694431d534fbcef36e2a73d19f771e76d6b61369bad9a0d6a9b24c",
+      "seconds": 2.04,
+      "png_sha256": "d04c9386dbd0131bb268fc94e1bea043cb652767dbf01aedffdca8bf5dc209c5",
       "sockets": [
         {
           "id": "mount0",
@@ -4402,9 +4402,9 @@
         234,
         96
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         6.642906188964844,
         45.512725830078125,
@@ -4417,10 +4417,10 @@
         0.0,
         46.272491455078125,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4460,8 +4460,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 28,
       "density": 2,
@@ -4494,8 +4494,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.213,
-      "png_sha256": "4b853a0c6d226e74c0c9fef9a52a487b5e600292abe0ac9b58d314530cd911b9",
+      "seconds": 2.129,
+      "png_sha256": "de8a2033f6b3d94ba5c6b690ecd7e3208df455589ec99a33d4441e0710f01f58",
       "sockets": [
         {
           "id": "mount0",
@@ -4551,9 +4551,9 @@
         232,
         100
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         6.1920928955078125,
         38.63330078125,
@@ -4566,10 +4566,10 @@
         0.0,
         46.272491455078125,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4609,8 +4609,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 29,
       "density": 2,
@@ -4643,8 +4643,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.231,
-      "png_sha256": "149b69f29710112b9d2c9ef333901930efad974d20a2b51d863dce2395fb81a4",
+      "seconds": 2.517,
+      "png_sha256": "4262e8f2c27b8a183d13c2db962a2321136f51c91cf1bc57734cf4437ceb951a",
       "sockets": [
         {
           "id": "mount0",
@@ -4700,9 +4700,9 @@
         226,
         109
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         9.898948669433594,
         31.749305725097656,
@@ -4715,10 +4715,10 @@
         0.0,
         46.27248764038086,
         16.069883346557617,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4758,8 +4758,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 30,
       "density": 2,
@@ -4792,8 +4792,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.247,
-      "png_sha256": "2a3faef0849d0afed19793ce9852e3cade8ba5234786567c30398025dcc8d4c3",
+      "seconds": 2.625,
+      "png_sha256": "fe9981e9822a8a7eff0c69c287db2358f8fcc6546d53aa001c45f598919738ab",
       "sockets": [
         {
           "id": "mount0",
@@ -4849,9 +4849,9 @@
         217,
         118
       ],
-      "vertices": 14206,
-      "triangles": 26676,
-      "parts": 197,
+      "vertices": 18544,
+      "triangles": 34112,
+      "parts": 267,
       "projected_vertex_bounds_px": [
         17.86072540283203,
         25.215721130371094,
@@ -4864,10 +4864,10 @@
         0.0,
         46.27248764038086,
         16.069881439208984,
-        16.25
+        16.43000030517578
       ],
       "roster049": {
-        "recipe_revision": "049-roster-detail-r2",
+        "recipe_revision": "073-roster-detail-r1",
         "stations": [
           [
             -2.16,
@@ -4907,8 +4907,8 @@
         "installed_guns_in_hull": false,
         "design": "Round tank barge; broad horizontal tanks with saddles and connected transfer mains"
       },
-      "source_sha256": "230eebfb5a0bbea3a81e61b0c7ece2f4892fd6e43d9140e406555dd9104d3506",
-      "revision": "049-roster-detail-r2",
+      "source_sha256": "86cf0fc0b4406508896a459a236cb7b5e4f12590454f17dc2962742f60879de4",
+      "revision": "073-roster-detail-r1",
       "hull_id": "seepoil_tanker",
       "heading": 31,
       "density": 2,
@@ -4941,8 +4941,8 @@
         ],
         "portrait_pixels_per_world_unit": 4
       },
-      "seconds": 1.258,
-      "png_sha256": "b8a4c4f913fb3966c3084f734819beb22528e2642c0f2b2b8dfea99cf1546a09",
+      "seconds": 2.162,
+      "png_sha256": "ccc0b63b2a0bad22b9896a2d86fd2d40d0907bca99e6b2bfa80f63350db3971b",
       "sockets": [
         {
           "id": "mount0",
@@ -4993,7 +4993,7 @@
     }
   ],
   "roster049": {
-    "recipe_revision": "049-roster-detail-r2",
+    "recipe_revision": "073-roster-detail-r1",
     "stations": [
       [
         -2.16,
