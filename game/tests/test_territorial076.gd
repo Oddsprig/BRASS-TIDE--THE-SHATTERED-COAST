@@ -1,0 +1,482 @@
+extends SceneTree
+## Source-only bounded fixture; Root alone executes through Test Bridge.
+## One ordinary finite opening. Declared staging never claims earned travel.
+## No minted cash, cargo, people, machinery, hulls, item IDs or battle results.
+const Campaign = preload("res://scripts/campaign.gd")
+const Money = preload("res://scripts/money.gd")
+const Custody = preload("res://scripts/equipment_campaign.gd")
+const Territory = preload("res://scripts/territorial076.gd")
+const Home = preload("res://scripts/home_harbor.gd")
+const Tools = preload("res://scripts/tooling_ops.gd")
+const Workers = preload("res://scripts/economy_workers.gd")
+const Battle = preload("res://scripts/battle.gd")
+const Coast = preload("res://scripts/coastal_terrain.gd")
+const BODY_LIMIT_MS: int = 35000
+const EFFICIENCY_GOAL_MS: int = 20000
+const SEED: int = 76076
+var c
+var started: int = 0
+var checks: int = 0
+var failures: int = 0
+var expired: bool = false
+var complete: bool = false
+var failure_labels: Array = []
+var events: Array = []
+var artifacts: Array = []
+var conservation: Dictionary = {}
+var workers = Workers.new()
+var supply: int = 0
+var initial_people: float = 0.0
+var casualties: float = 0.0
+var seen_contacts: Dictionary = {}
+var initial_items: Array = []
+var initial_boats: Array = []
+var geography: String = ""
+var machine_id: String = ""
+var improvement_port: String = "anvil_dock"
+var survey_job: String = ""
+var control_port: String = "rust_anchorage"
+var declared_politics: Dictionary = {}
+
+func _initialize() -> void:
+	started = Time.get_ticks_msec()
+	_run.call_deferred()
+
+func check(value: bool, label: String) -> bool:
+	checks += 1
+	if not value:
+		failures += 1
+		failure_labels.append(label)
+	return value
+
+func bounded() -> bool:
+	if Time.get_ticks_msec() - started < BODY_LIMIT_MS - 1000: return true
+	if not expired:
+		expired = true
+		check(false, "Stop new work at thirty-four seconds with time reserved for body cleanup")
+	return false
+
+func note(kind: String, values: Dictionary = {}) -> void:
+	var row: Dictionary = {"kind":kind, "elapsed_ms":Time.get_ticks_msec() - started}
+	if c != null and not c.state.is_empty(): row["day"] = float(c.state.day)
+	row.merge(values, true)
+	events.append(row)
+
+func normalized(value) -> String:
+	# Main.save_game uses ordinary JSON number precision.
+	return JSON.stringify(JSON.parse_string(JSON.stringify(value, "", true)), "", true)
+
+func people(state: Dictionary) -> float:
+	# Recruits, specialists, boarders, wounds and shoreCrew are subsets, not extras.
+	var total: float = float(state.get("captives", 0))
+	for port in state.get("ports", []):
+		total += float(port.get("workforce", 0)) + float(port.get("defenses", {}).get("crew", 0))
+	for boat in state.get("fleet", []) + state.get("boardingPrizes", []): total += float(boat.get("crew", 0))
+	for owner in state.get("fleetOwners", []):
+		for boat in owner.get("boats", []): total += float(boat.get("crew", 0))
+	for business in state.get("businesses", []): total += business.get("employees", []).size()
+	return total
+
+func fleet_book(state: Dictionary) -> Array:
+	var rows: Array = []
+	for boat in state.get("fleet", []) + state.get("boardingPrizes", []): rows.append(boat)
+	for owner in state.get("fleetOwners", []): rows.append_array(owner.get("boats", []))
+	return rows
+
+func account_contacts() -> void:
+	for contact in c.state.get("navalAi", {}).get("encounters", []):
+		var key: String = "%s:%s:%s" % [contact.get("day"), contact.get("a"), contact.get("b")]
+		if seen_contacts.has(key): continue
+		seen_contacts[key] = true
+		casualties += float(contact.get("crewLostA", 0)) + float(contact.get("crewLostB", 0))
+		note("ordinary_npc_consequence", contact.duplicate(true))
+
+func settle_days() -> bool:
+	while c.pending_days > 0:
+		if not bounded(): return false
+		c.pending_days -= 1
+		workers.start(c.state.ports, 1, c.TradeFlow.blockades(c), int(c.state.seed) + int(c.state.econDay) * 104729)
+		var publication: Dictionary = workers.finish(true)
+		c.apply_economy(publication.ports, publication.events, publication.days)
+		account_contacts()
+	return check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply, "Ordinary payroll and economy publication conserve the original total coins")
+
+func advance(seconds: float = 4.0) -> bool:
+	if not bounded(): return false
+	var before: float = float(c.state.day)
+	c.step(seconds)
+	if not check(float(c.state.day) > before and float(c.state.day) <= before + seconds / c.DAY_SECONDS + 0.000001, "Only the ordinary bounded campaign clock advances work"): return false
+	if not settle_days(): return false
+	account_contacts()
+	for event in c.pop_events():
+		if str(event.get("kind", "")) in ["encounter", "ocean_encounter066", "defeat"]:
+			note("unexpected_interruption", event)
+			return check(false, "An unrelated encounter interrupted this bounded operation; it is not a pass")
+	return true
+
+func trade(good: String, quantity: int, buy: bool) -> bool:
+	var dock: Dictionary = c.current_port()
+	var before: Dictionary = {"coins":int(c.state.coins), "cash":int(dock.cash), "cargo":float(c.state.cargo.get(good, 0)), "stock":float(dock.stocks.get(good, 0))}
+	var bill: Dictionary = c.trade(str(dock.id), good, quantity, "buy" if buy else "sell")
+	if not check(bool(bill.get("ok", false)), "Actual finite harbor transaction: " + str(bill.get("message", ""))): return false
+	dock = c.current_port()
+	var sign: int = 1 if buy else -1
+	check(int(bill.qty) == quantity and int(c.state.coins) == before.coins - sign * int(bill.coins)
+		and int(dock.cash) == before.cash + sign * int(bill.coins)
+		and is_equal_approx(float(c.state.cargo[good]), before.cargo + sign * quantity)
+		and is_equal_approx(float(dock.stocks[good]), before.stock - sign * quantity), "The actual invoice transfers exact existing cash and goods")
+	note("paid_purchase" if buy else "ordinary_opening_sale", {"portId":str(dock.id), "good":good, "invoice":bill})
+	return failures == 0
+
+func sail_to(port_id: String) -> bool:
+	var target: Dictionary = c.port(port_id)
+	var route: Dictionary = c.chart_course({"x":target.x, "y":target.y}, port_id)
+	if not check(bool(route.get("ok", false)), "A normal loaded course is admitted to " + port_id + ": " + str(route.get("message", ""))): return false
+	for _slice in range(24):
+		if c.state.path.is_empty(): break
+		if not advance(): return false
+	return check(str(c.current_port().get("id", "")) == port_id, "The actual loaded course arrives at " + port_id)
+
+func prepare_and_recover() -> bool:
+	var boat_id: String = str(c.state.fleet[0].uid)
+	var before_crew: float = float(c.find_boat(boat_id).crew)
+	var before_purse: int = int(c.state.crewPurse)
+	var before_coins: int = int(c.state.coins)
+	var recruited: Dictionary = c.recruit_crew(boat_id, 2)
+	if not check(bool(recruited.get("ok", false)), "Two survey hands are normally recruited from actual opening residents"): return false
+	check(float(c.find_boat(boat_id).crew) == before_crew + 2 and int(c.state.crewPurse) - before_purse == int(recruited.cost)
+		and before_coins - int(c.state.coins) == int(recruited.cost) and people(c.state) == initial_people, "Recruitment transfers people and their real wage advance without minting either")
+	# Sell only part of the opening thirty food lots; the retained twelve feed this run.
+	if not trade("food", 18, false): return false
+	for good in Home.KINDS.warehouse.materials:
+		if not trade(str(good), int(Home.KINDS.warehouse.materials[good]), true): return false
+	# One lot for berth work and two for the later ordinary civilian support days.
+	if not trade("supplies", 3, true): return false
+	# The required survey itself earns normal finite payment, with no extra jobs.
+	for offer in c.VoyageJobs.available(c):
+		if offer.get("kind") == "survey" and offer.get("siteId") == "cinder_workshop_ruin": survey_job = str(offer.id); break
+	if not check(not survey_job.is_empty(), "One actual opening Cinder survey offer funds the already-required work"): return false
+	var accepted: Dictionary = c.accept_voyage_job(survey_job)
+	if not check(bool(accepted.get("ok", false)), "The actual survey sponsor escrows finite payment through ordinary acceptance"): return false
+	note("ordinary_paid_survey_accepted", {"job":c.VoyageJobs._find(c.state, survey_job).duplicate(true)})
+	var site: Dictionary = c.Exploration.catalog_site(c.state, "cinder_workshop_ruin")
+	var spot: Dictionary = c.Navigation.harbor_approach(c.nav, site, c.Routes.clearance(c), 170.0)
+	if not check(not spot.is_empty() and c.distance(spot, site) <= 180.0, "The declared source opening has a real water-safe landing"): return false
+	var location: Dictionary = c.world_location064()
+	location.position = spot; location.path = []; location.destination = ""
+	var staged: Dictionary = c.OceanWorld064.prepare_player(location, c.ocean_context064, c.Routes.clearance(c))
+	if not check(bool(staged.get("ok", false)), "Only the declared initial location passes the ordinary chart location gate"): return false
+	c._publish_location064(staged.location)
+	note("declared_initial_staging", {"position":spot, "sourceId":site.id, "roster":c.state.fleet.map(func(b): return {"uid":b.uid, "crew":b.crew}), "limit":"Single initial player placement after ordinary paid recruitment/purchases. No earned Brass-to-Cinder voyage; NPCs and every existing asset retain their actual finite opening."})
+	if not advance(0.01): return false
+	for action in ["chart", "survey"]:
+		var begun: Dictionary = c.begin_survey(str(site.id), action)
+		if not check(bool(begun.get("ok", false)), "Actual " + action + " reserves existing sailors and consumes ordinary supplies"): return false
+		var done: bool = false
+		for _slice in range(42):
+			if c.state.exploration.assignment.is_empty(): done = true; break
+			if not advance(): return false
+		if not check(done, "Actual " + action + " completes within its small bounded progression"): return false
+	if not check(int(c.state.exploration.sites[site.id].level) == 3, "The actual source was charted and surveyed; no progress flags were assigned"): return false
+	var recovered: Dictionary = Tools.begin(c, str(site.id), "machine_tools")
+	if not check(bool(recovered.get("ok", false)), "The surveyed finite source admits its real two-sailor paid recovery"): return false
+	var job: Dictionary = c.state.toolingRecovery.duplicate(true)
+	for _slice in range(25):
+		if float(c.state.day) + 0.000001 >= float(job.readyAt) and int(c.state.toolingRecovery.get("paid", 0)) >= int(job.workerDays) * 100: break
+		if not advance(): return false
+	var claimed: Dictionary = Tools.claim(c)
+	if not check(bool(claimed.get("ok", false)), "Actual work days and ordinary once-paid wages permit the finite machinery claim"): return false
+	for item in c.state.tooling.items:
+		if item.kind == "machine_tools" and item.location == "cargo": machine_id = str(item.id)
+	if not check(not machine_id.is_empty() and c.state.tooling.extracted.has("site:cinder_workshop_ruin"), "Recovered machinery keeps its finite source and actual identifier"): return false
+	note("actual_machine_recovery", {"job":job, "items":c.state.tooling.items.duplicate(true), "coin_supply":Money.total(c.state)})
+	if not sail_to("brass_haven"): return false
+	var before_payment: int = int(c.state.coins)
+	var invoice: Dictionary = c.settle_voyage_job(survey_job)
+	if not check(bool(invoice.get("ok", false)), "Actual surveyed source work reports back normally for its escrowed pay"): return false
+	check(int(c.state.coins) - before_payment == int(invoice.get("reward", 0)) and Money.total(c.state) == supply, "The actual completed survey fee is an exact existing escrow transfer")
+	note("ordinary_paid_survey_settled", {"jobId":survey_job, "invoice":invoice, "limit":"Actual chart/survey/recovery and physical return; the explicitly staged initial outbound placement is not earned travel."})
+	return sail_to(improvement_port)
+
+func machinery() -> Dictionary:
+	for item in c.state.tooling.items:
+		if str(item.id) == machine_id: return item
+	return {}
+
+func unreserved_assets() -> PackedByteArray:
+	# Only the actual payer, destination, cargo and physical player hulls can be
+	# touched by recall/resume. Avoid copying the complete 48-group atlas here.
+	var saved: Dictionary = {"coins":c.state.coins, "crewPurse":c.state.crewPurse, "wageArrears":c.state.wageArrears,
+		"cargo":c.state.cargo, "cargoManifest":c.state.cargoManifest, "tooling":c.state.tooling,
+		"businesses":c.state.businesses, "port":c.current_port(), "fleet":c.state.fleet}.duplicate(true)
+	for boat in saved.fleet: boat.erase("shoreCrew")
+	return var_to_bytes(saved)
+
+func wait_for_paid(key: String, field: String, days: int) -> bool:
+	for _slice in range(26):
+		var job: Dictionary = c.state.territorial076[key]
+		if int(job.get(field, 0)) >= days: return true
+		if not check(str(job.get("status", "")) == "active", "Paid local operation stays admitted: " + str(job.get("reason", ""))): return false
+		if not advance(): return false
+	return check(false, "Paid local work did not finish within its two-day bounded progression")
+
+func funded_improvement() -> bool:
+	if not bounded(): return false
+	var untouched: PackedByteArray = var_to_bytes(c.state)
+	var quote: Dictionary = Territory.quote_improve(c, improvement_port)
+	check(var_to_bytes(c.state) == untouched, "The actual funded improvement quote leaves every asset and purse untouched")
+	if not check(bool(quote.get("ok", false)), "Actual carried goods, recovered machinery, spare sailors and remaining payroll admit the berth quote: " + str(quote.get("message", ""))): return false
+	var cargo: Dictionary = c.state.cargo.duplicate(true)
+	var stocks: Dictionary = c.port(improvement_port).stocks.duplicate(true)
+	var condition: float = float(machinery().condition)
+	var begun: Dictionary = Territory.improve(c, improvement_port)
+	if not check(bool(begun.get("ok", false)), "Actual funded berth work starts at its real destination"): return false
+	for good in quote.materials:
+		check(is_equal_approx(float(c.state.cargo[good]), float(cargo[good]) - float(quote.materials[good]))
+			and is_equal_approx(float(c.port(improvement_port).stocks[good]), float(stocks[good]) + float(quote.materials[good])), "Carried " + str(good) + " is donated exactly once to the actual harbor")
+	note("funded_improvement_started", {"quote":quote, "operation":c.state.territorial076.improvement.duplicate(true), "machine":machinery().duplicate(true), "manifest":c.state.cargoManifest.duplicate(true)})
+	if not wait_for_paid("improvement", "paidDays", 1): return false
+	var progress: Dictionary = c.state.territorial076.improvement.duplicate(true)
+	var actual_assets: PackedByteArray = unreserved_assets()
+	var recalled: Dictionary = Territory.withdraw(c)
+	if not check(bool(recalled.get("ok", false)), "The actual partially paid improvement can be interrupted by withdrawal"): return false
+	var withdrawn: Dictionary = c.state.territorial076.improvement
+	check(str(withdrawn.status) == "withdrawn" and withdrawn.crewByBoat.is_empty() and int(withdrawn.paidDays) == 1
+		and unreserved_assets() == actual_assets, "Withdrawal recalls only the original reservation; all cash, people, cargo, hulls and physical equipment remain exact")
+	check(is_equal_approx(float(machinery().condition), condition - 0.01), "The first real paid work day retains its actual machinery wear after interruption")
+	note("actual_withdrawal", {"before":progress, "after":withdrawn.duplicate(true), "assets_unchanged":unreserved_assets() == actual_assets, "machine":machinery().duplicate(true)})
+	var resume_assets: PackedByteArray = unreserved_assets()
+	var resumed: Dictionary = Territory.improve(c, improvement_port)
+	if not check(bool(resumed.get("ok", false)), "The same paid improvement resumes with its retained actual resources"): return false
+	check(int(c.state.territorial076.improvement.paidDays) == 1 and unreserved_assets() == resume_assets, "Resume retains paid progress and repeats no material donation or cash transfer")
+	if not wait_for_paid("improvement", "paidDays", 2): return false
+	var final: Dictionary = c.state.territorial076.improvement
+	var business: Dictionary = Home.business_view(c.state, str(final.businessId))
+	if not check(str(final.status) == "complete" and final.crewByBoat.is_empty() and business.get("kind") == "warehouse"
+		and business.get("homePort") == improvement_port and business.get("employees", []).size() == 2, "Two actual paid days finish one ordinary warehouse with two real resident employees"): return false
+	check(str(final.machineryId) == machine_id and str(machinery().location) == "cargo"
+		and is_equal_approx(float(machinery().condition), condition - 0.02), "The same physically carried machinery remains aboard with exactly two work days of wear")
+	check(int(business.get("capitalIn", 0)) == 14 * 2 * 100 + 500, "The warehouse holds its actual fourteen-day staff wage reserve and finite input capital")
+	note("funded_improvement_complete", {"operation":final.duplicate(true), "business":business, "machine":machinery().duplicate(true), "coin_supply":Money.total(c.state), "people":people(c.state), "casualties":casualties})
+	return failures == 0
+
+func assets(state: Dictionary) -> Dictionary:
+	# Compact custody projection used only at the actual transfer/restore boundary.
+	var ports: Array = []
+	for port in state.ports:
+		var row: Dictionary = {}
+		for key in ["id", "cash", "householdPurse", "expertPurse", "governmentPurse", "stocks", "publicStores", "workforce", "recruits", "specialists", "shipStock", "buildQueue", "training"]: row[key] = port.get(key)
+		var defense: Dictionary = port.get("defenses", {})
+		row["defense_assets"] = {}
+		for key in ["kind", "units", "crew", "ammo", "supplies", "arrears"]: row.defense_assets[key] = defense.get(key)
+		ports.append(row)
+	var boats: Array = []
+	for boat in fleet_book(state):
+		var row: Dictionary = {}
+		for key in ["uid", "type", "crew", "wounded", "hp", "water", "fire", "sunk", "fuel", "ammo", "supplies", "boarders", "shoreCrew", "storedPort", "moduleCondition", "equipmentRetiredTo", "refitLocker", "loadout"]: row[key] = boat.get(key)
+		boats.append(row)
+	var purses: Array = []
+	for owner in state.fleetOwners:
+		purses.append({"id":owner.id, "coins":owner.coins, "crewPurse":owner.crewPurse, "cargo":owner.cargo, "tradeCargo":owner.get("tradeCargo"), "boatUids":owner.boats.map(func(b): return str(b.uid))})
+	return {"coins":state.coins, "crewPurse":state.crewPurse, "wageArrears":state.wageArrears, "coinSupply":state.coinSupply,
+		"cargo":state.cargo, "ports":ports, "boats":boats, "owners":purses,
+		"businesses":state.businesses, "tooling":state.tooling, "captives":state.get("captives", 0),
+		"wrecks":state.get("wrecks", []), "captiveBerths":state.get("captiveBerths", {})}
+
+func control_opening() -> bool:
+	if not bounded(): return false
+	var physical_before: String = normalized(assets(c.state))
+	var before: Dictionary = c.state.relationships.factions.duplicate(true)
+	var old_score: int = int(c.Factions.standing(c.state, "forge").score)
+	c.Factions.adjust(c.state, "forge", 20 - old_score, "DECLARED076 control opening; no earned standing or completed jobs claimed", "declared076-control-opening")
+	var target: Dictionary = c.port(control_port)
+	var dock: Dictionary = c.Navigation.harbor_approach(c.nav, target, c.Routes.clearance(c), 40.0)
+	if not check(not dock.is_empty(), "The separate control opening uses an actual water-safe harbor berth"): return false
+	var moved: Array = []
+	# Existing first blockade detachment has exactly the ordinary one-hull roster.
+	# Only its initial berth changes. No combat value, purse, store or UID changes.
+	var defender: Dictionary = c.fleet_owner("story-0")
+	if not check(not defender.is_empty() and defender.boats.size() == 1 and bool(defender.active), "The declared defender is one actual existing finite blockade boat"): return false
+	for owner in c.state.fleetOwners:
+		if owner.get("faction") != target.faction or str(owner.id) == "story-0" or c.NavalAI.NavalOrders.enrolled066(c.state, str(owner.id)): continue
+		var patrol: Dictionary = c.NavalAI._find_patrol(c.state, str(owner.id))
+		if str(owner.get("atPort", "")) != control_port and (patrol.is_empty() or c.distance(patrol, target) > 350.0): continue
+		var old: Dictionary = {"ownerId":str(owner.id), "atPort":str(owner.get("atPort", "")), "position":{"x":patrol.get("x"), "y":patrol.get("y")}}
+		owner.atPort = "shatter_spire"
+		if not patrol.is_empty():
+			var other: Dictionary = c.Navigation.harbor_approach(c.nav, c.port("shatter_spire"), c.Routes.clearance(c, patrol), 40.0)
+			if not check(not other.is_empty(), "Other declared initial defenders retain valid existing harbor poses"): return false
+			patrol.x = other.x; patrol.y = other.y
+		old["newAtPort"] = "shatter_spire"; moved.append(old)
+	moved.append({"ownerId":"story-0", "atPort":str(defender.atPort), "newAtPort":control_port})
+	defender.atPort = control_port
+	var location: Dictionary = c.world_location064()
+	location.position = dock; location.path = []; location.destination = ""
+	var staged: Dictionary = c.OceanWorld064.prepare_player(location, c.ocean_context064, c.Routes.clearance(c))
+	if not check(bool(staged.get("ok", false)), "Declared control opening passes the ordinary player-location gate"): return false
+	c._publish_location064(staged.location)
+	declared_politics = {"sponsor":"forge", "before":before, "after":c.state.relationships.factions.duplicate(true), "poses":moved, "playerPosition":dock,
+		"limit":"SEPARATE CONTROL CASE: Root-authorized declared Friendly20 and initial berths only. This standing is unearned; no supporting jobs/history are invented. Earlier actual paid survey remains. No earned voyage, victory, damage or resource endowment; no subsequent reputation or pose override."}
+	check(physical_before == normalized(assets(c.state)), "The declared political/pose opening preserves every actual financial and physical asset from funded progression")
+	var saved = JSON.parse_string(JSON.stringify(c.state))
+	var restored_core = Campaign.new(c.data, c.nav, false)
+	restored_core.ocean_anchors064 = c.ocean_anchors064
+	var restored: Dictionary = restored_core.restore(saved)
+	if not check(bool(restored.get("ok", false)), "The finite declared control opening passes ordinary Campaign.restore: " + str(restored.get("message", ""))): return false
+	c = restored_core
+	check(physical_before == normalized(assets(c.state)) and int(c.Factions.standing(c.state, "forge").score) == 20, "Ordinary restore retains exact physical custody and the disclosed valid political opening")
+	note("declared_control_opening", declared_politics)
+	return failures == 0
+
+func actual_contest() -> bool:
+	if not bounded(): return false
+	var job: Dictionary = c.state.territorial076.control
+	var defender: Dictionary = c.fleet_owner(str(job.defenderId))
+	var player: Array = c.FleetSupport.combat(c)
+	var enemy: Array = defender.boats.filter(func(b): return not b.sunk)
+	var original: Array = player + enemy
+	var opening_people: float = 0.0
+	var rounds: float = 0.0
+	for boat in original: opening_people += float(boat.crew); rounds += float(boat.ammo)
+	var options: Dictionary = Coast.arena(c.data, c.state.position)
+	options.merge({"fleet":player, "enemyFleet":enemy, "seed":SEED}, true)
+	var battle: Dictionary = Battle.create(options)
+	battle.world064 = c.world_location064().world064
+	battle.chartPosition = c.state.position.duplicate(true)
+	if not check(str(battle.get("startError", "")).is_empty(), "The actual coast admits the original two physical combat owners"): Battle._close_damage_owned051(battle); return false
+	# Ordinary deployment/commands/update own every combat pose and terminal result.
+	for _tick in range(1800):
+		if battle.result != null: break
+		if not bounded(): Battle._close_damage_owned051(battle); return false
+		Battle.update(battle, 1.0 / 30.0, {})
+	if not check(battle.result != null, "The single original-roster battle reaches a real terminal result within sixty simulation seconds"): Battle._close_damage_owned051(battle); return false
+	var context: Dictionary = {"kind":"patrol", "id":str(defender.id), "ownerId":str(defender.id), "aggression":false}
+	var report: Dictionary = c.battle_settled(str(battle.result), enemy.map(func(b): return b.spec), context, battle)
+	if not check(not report.has("ok") or bool(report.ok), "Actual ordinary Campaign.battle_settled accepts the terminal physical contest"): return false
+	var after_people: float = 0.0
+	var after_rounds: float = 0.0
+	for boat in original: after_people += float(boat.crew); after_rounds += float(boat.ammo)
+	casualties += opening_people - after_people
+	note("actual_selected_defender_contest", {"ownerId":str(defender.id), "result":battle.result, "battle_seconds":float(battle.time),
+		"initial_crew":opening_people, "settled_crew":after_people, "actual_crew_decrease":opening_people - after_people,
+		"actual_rounds_spent":rounds - after_rounds, "report":report, "control":c.state.territorial076.control.duplicate(true), "source":str(battle.get("engagementSource060", ""))})
+	check(rounds > after_rounds, "The real selected-defender contest spends original finite ammunition")
+	return check(str(battle.result) == "won" and bool(c.state.territorial076.control.battleWon), "Only the actual matching physical victory records the selected defender as defeated")
+
+func contested_control() -> bool:
+	if not control_opening(): return false
+	var port: Dictionary = c.port(control_port)
+	var capital: int = int(c.state.coins)
+	var treasury: int = int(port.governmentPurse)
+	var begun: Dictionary = Territory.start(c, control_port, "forge")
+	if not check(bool(begun.get("ok", false)), "The actual hostile-harbor operation selects its real defending fleet: " + str(begun.get("message", ""))): return false
+	check(str(c.state.territorial076.control.defenderId) == "story-0" and int(c.state.coins) == capital - 800
+		and int(port.governmentPurse) == treasury + 800, "The selected existing defender and exact 800-coin contribution are real")
+	var before_refusal: PackedByteArray = var_to_bytes(c.state)
+	var refused: Dictionary = Territory.negotiate(c)
+	check(not bool(refused.get("ok", false)) and var_to_bytes(c.state) == before_refusal, "Presence and funding alone cannot change control or consume further assets")
+	if not wait_for_paid("control", "supportDays", 1): return false
+	var retained: Dictionary = c.state.territorial076.control.duplicate(true)
+	var before_withdraw: PackedByteArray = unreserved_assets()
+	if not check(bool(Territory.withdraw(c).get("ok", false)), "The actual one-day funded support party can withdraw"): return false
+	check(unreserved_assets() == before_withdraw and int(c.state.territorial076.control.supportDays) == 1,
+		"Control withdrawal preserves exact actual assets and the already-spent support contribution")
+	var resumed: Dictionary = Territory.start(c, control_port, "forge")
+	if not check(bool(resumed.get("ok", false)), "The same actual control operation resumes without new endowment"): return false
+	check(unreserved_assets() == before_withdraw and int(c.state.territorial076.control.funded) == 800,
+		"Resuming control repeats neither its 800 coins nor the completed first support day")
+	note("actual_control_withdraw_resume", {"retained":retained, "resumed":c.state.territorial076.control.duplicate(true)})
+	if not wait_for_paid("control", "supportDays", 2): return false
+	if not actual_contest(): return false
+	var before_transfer: String = normalized(assets(c.state))
+	var private_before: String = normalized(c.state.businesses)
+	var transferred: Dictionary = Territory.negotiate(c)
+	if not check(bool(transferred.get("ok", false)), "Explicit actual negotiation transfers this harbor after its real contest and support: " + str(transferred.get("message", ""))): return false
+	check(str(c.port(control_port).faction) == "forge" and str(c.state.territorial076.control.status) == "complete",
+		"Only the named harbor changes from its old sovereign after actual funded resolution")
+	# The deliberate reservation is released; it is a subset of each original crew.
+	var final_assets: Dictionary = assets(c.state)
+	for row in final_assets.boats: row.erase("shoreCrew")
+	var old_assets = JSON.parse_string(before_transfer)
+	for row in old_assets.boats: row.erase("shoreCrew")
+	check(normalized(final_assets) == normalized(old_assets) and normalized(c.state.businesses) == private_before,
+		"Negotiation preserves exact coins, people, goods, defense equipment, existing damage, hull/item IDs and independent private businesses")
+	note("actual_negotiated_control_transfer", {"result":transferred, "operation":c.state.territorial076.control.duplicate(true), "private_businesses_unchanged":normalized(c.state.businesses) == private_before})
+	return failures == 0
+
+func save_witness(port_id: String) -> bool:
+	if not bounded(): return false
+	if not check(c.pending_days == 0 and workers.group_id < 0, "The final witness has no unpublished economy work"): return false
+	# UI selection is ordinary saved presentation state, never a pose/account edit.
+	c.state.campaignFocus.portId = port_id
+	var serialized: String = JSON.stringify(c.state, "\t")
+	var saved = JSON.parse_string(serialized)
+	if not check(saved is Dictionary, "The ordinary Main.save_game whole-state JSON decodes"): return false
+	var expected: String = normalized([assets(saved), saved.territorial076, saved.world064, saved.position, saved.day, saved.econDay, saved.campaignFocus, saved.sector069, saved.islandOwnership069])
+	var restored_core = Campaign.new(c.data, c.nav, false)
+	restored_core.ocean_anchors064 = c.ocean_anchors064
+	var restored: Dictionary = restored_core.restore(saved)
+	if not check(bool(restored.get("ok", false)), "The actual final full save uses ordinary Campaign.restore on shared Navigation: " + str(restored.get("message", ""))): return false
+	c = restored_core
+	check(expected == normalized([assets(c.state), c.state.territorial076, c.state.world064, c.state.position, c.state.day, c.state.econDay, c.state.campaignFocus, c.state.sector069, c.state.islandOwnership069]), "Ordinary JSON save/restore preserves actual title, purses, people, goods, damage, hull/item/machinery IDs, private ownership and clock")
+	var directory: String = OS.get_environment("GAME_TEST_ARTIFACTS")
+	if not check(directory.is_absolute_path(), "Root supplies the private witness directory"): return false
+	var path: String = directory.path_join("territorial076-witness.json")
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if not check(file != null, "One ordinary full witness opens inside Root's private artifact directory"): return false
+	file.store_string(serialized); file.close()
+	var digest: String = FileAccess.get_sha256(path)
+	if not check(digest.length() == 64, "The actual ordinary full witness has a SHA256"): return false
+	artifacts.append({"kind":"witness", "path":path, "sha256":digest})
+	note("ordinary_save_restore", {"portId":port_id, "faction":str(c.port(port_id).faction), "sha256":digest, "source":"Main.save_game whole core.state JSON; ordinary Campaign.restore; shared immutable Navigation"})
+	return failures == 0
+
+func closing_accounts() -> bool:
+	var custody: Dictionary = Custody.check_state(c.state, c.data)
+	var items: Array = custody.get("itemUids", []).duplicate(); items.sort()
+	var boats: Array = []
+	for boat in fleet_book(c.state): boats.append(str(boat.uid))
+	boats.sort()
+	check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply, "All original world coins remain in the exact finite purses after work and control")
+	check(absf(initial_people - people(c.state) - casualties) < 0.000001, "All original numerical people reconcile across residents, crews, private staff and actual casualties")
+	check(bool(custody.get("ok", false)) and bool(custody.get("ready", false)), "The existing physical preflight accepts unique living/wreck equipment custody")
+	check(items == initial_items and boats == initial_boats, "The bounded operation retains the exact original hull and equipment UID sets")
+	check(geography == normalized([c.state.sector069, c.state.islandOwnership069]), "One harbor's sovereignty leaves seeded geography and every island owner unchanged")
+	conservation = {"coin_supply_baseline":supply, "coin_supply":Money.total(c.state), "people_baseline":initial_people,
+		"people":people(c.state), "actual_casualties":casualties, "boat_uid_count":boats.size(), "boat_uids_sha256":JSON.stringify(boats).sha256_text(),
+		"equipment_uid_count":items.size(), "equipment_uids_sha256":JSON.stringify(items).sha256_text(), "holders":custody.get("holders", []),
+		"machine":machinery().duplicate(true), "wage_per_person_day":100, "operation":c.state.territorial076.duplicate(true)}
+	return failures == 0
+
+func finish() -> void:
+	if workers.group_id >= 0: workers.finish(true)
+	workers = null
+	c = null
+	var elapsed: int = Time.get_ticks_msec() - started
+	check(elapsed < BODY_LIMIT_MS, "Body includes new_game, ordinary restores, proof and owned cleanup below thirty-five seconds")
+	print(JSON.stringify({"fixture":"territorial076", "checks":checks, "failures":failures,
+		"elapsed_ms":elapsed, "efficiency_goal_ms":EFFICIENCY_GOAL_MS, "efficiency_goal_met":elapsed <= EFFICIENCY_GOAL_MS,
+		"complete":complete and failures == 0 and not expired,
+		"failure_labels":failure_labels, "events":events, "accountfacts":conservation,
+		"artifacts":artifacts, "limits":"Actual paid survey/recovery/warehouse progression; separate declared Friendly20 control opening and initial berths, without earned-standing/history or outbound-travel claim. Actual subsequent combat/support/control required. No render/listening/full-game/strict-performance acceptance."}))
+	quit(0 if complete and failures == 0 and not expired else 1)
+
+func _run() -> void:
+	if not check(DisplayServer.get_name() == "headless", "Root alone runs this native fixture with the private headless backend"): finish(); return
+	var definitions = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+	if not check(definitions is Dictionary, "Ordinary world definitions decode"): finish(); return
+	c = Campaign.new(definitions)
+	if not check(bool(c.new_game(SEED).get("ok", false)), "One ordinary finite new_game supplies all opening assets"): finish(); return
+	supply = Money.total(c.state); initial_people = people(c.state)
+	geography = normalized([c.state.sector069, c.state.islandOwnership069])
+	var custody: Dictionary = Custody.check_state(c.state, c.data)
+	if not check(bool(custody.get("ok", false)) and bool(custody.get("ready", false)), "Opening hull and physical equipment custody is canonical"): finish(); return
+	initial_items = custody.itemUids.duplicate(); initial_items.sort()
+	for boat in fleet_book(c.state): initial_boats.append(str(boat.uid))
+	initial_boats.sort()
+	if not prepare_and_recover(): finish(); return
+	if not funded_improvement(): finish(); return
+	if not contested_control(): finish(); return
+	if not save_witness(control_port): finish(); return
+	complete = closing_accounts()
+	finish()
