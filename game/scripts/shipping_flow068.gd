@@ -71,7 +71,13 @@ static func install_sector069(c,sector: Dictionary) -> Dictionary:
 		definition.merge({"shipStock":{},"shipIds":[],"buildQueue":[],"industryProgress":0.0,"recruitRemainder":0.0},true)
 		var port: Dictionary=Economy.create_port(definition)
 		for key in allocations[harbor.id]:
-			if port.get(key)!=allocations[harbor.id][key]:return _fail("Generated opening defaults did not reconcile: "+str(harbor.id)+"."+str(key))
+			var expected=allocations[harbor.id][key]
+			if key in ["stocks","publicStores"]:
+				# create_port normalizes goods to floats; compare exact numeric values.
+				if not expected is Dictionary or not _keys(port.get(key),expected.keys()):return _fail("Generated opening goods did not reconcile: "+str(harbor.id)+"."+str(key))
+				for good in expected:
+					if not _number(port[key][good]) or not _number(expected[good]) or port[key][good]!=expected[good]:return _fail("Generated opening goods did not reconcile: "+str(harbor.id)+"."+str(key)+"."+str(good))
+			elif port.get(key)!=expected:return _fail("Generated opening defaults did not reconcile: "+str(harbor.id)+"."+str(key))
 		# No HOME nearest-harbor route quote is meaningful in local coordinates.
 		# Store the existing finite reserve policy once, without constructing nav.
 		Reserves.ensure(port)

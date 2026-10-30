@@ -123,6 +123,17 @@ func generated() -> bool:
 	check(world.get("regions",[]).size()==48 and c.state.sector069.regionOrder.size()==48,"One world view supplies all48 geometry")
 	check(c.state.sector069.harbors.size()==19 and c.state.sector069.sites.size()==46,"Canonical generated services and paid landings exist")
 	check(c.state.sector069.openingLedger.totals.workers==280 and c.state.sector069.openingLedger.totals.coins==980000,"Explicit finite opening workers/coins")
+	var opening_goods_match: bool=c.state.sector069.openingLedger.harbors.size()==19
+	for row in c.state.sector069.openingLedger.harbors:
+		var port: Dictionary=c.port(str(row.portId))
+		for key in ["stocks","publicStores"]:
+			var expected: Dictionary=row.allocation[key]
+			var actual=port.get(key)
+			if not actual is Dictionary or actual.size()!=expected.size():opening_goods_match=false;continue
+			for good in expected:
+				var amount=actual.get(good)
+				if not (amount is int or amount is float) or not is_finite(float(amount)) or amount!=expected[good]:opening_goods_match=false
+	check(opening_goods_match,"All19 initialized harbors retain exactly the ledger goods and key sets")
 	check(int(c.state.coins)==int(c.data.START.coins) and c.state.fleet.size()==1,"World creation adds no player grant or new boat")
 	var first: Dictionary=c.port("settled_01_harbor_01")
 	var second: Dictionary=c.port("settled_01_harbor_02")
