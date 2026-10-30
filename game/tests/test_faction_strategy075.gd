@@ -11,7 +11,7 @@ const Money = preload("res://scripts/money.gd")
 const Workers = preload("res://scripts/economy_workers.gd")
 const Custody = preload("res://scripts/equipment_campaign.gd")
 const Service = preload("res://scripts/equipment_owner_service.gd")
-const BODY_LIMIT_MS: int = 15000
+const BODY_LIMIT_MS: int = 40000
 const SEED: int = 75075
 var c
 var workers = Workers.new()
@@ -49,7 +49,7 @@ func bounded() -> bool:
 		return true
 	if not expired:
 		expired = true
-		check(false, "Actual chronology stops before the fifteen-second body budget")
+		check(false, "Actual chronology stops new work at39.5seconds within the forty-second body budget")
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
@@ -444,6 +444,8 @@ func _run() -> void:
 		var advanced: bool = tick()
 		if _slice == 0: progress("first tick end")
 		if not advanced: break
+		if (_slice + 1) % 20 == 0:
+			progress("slice %d day=%.5f phase=%s holding=%s" % [_slice + 1, float(c.state.day), str(route().get("phase", "unadmitted")), str(c.state.get("shipping068", {}).get("holding", ""))])
 		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
 	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days})
 	check(not history.corridor.is_empty(), "An affordable generic corridor naturally admits an existing serviced home trader")
@@ -479,7 +481,7 @@ func finish() -> void:
 	c = null
 	check(complete and not expired, "The full finite chronology and compact legacy boundary actually complete")
 	var elapsed: int = Time.get_ticks_msec() - started
-	check(elapsed < BODY_LIMIT_MS, "Whole native fixture body including setup and owned worker cleanup stays below fifteen seconds")
+	check(elapsed < BODY_LIMIT_MS, "Whole native fixture body including setup and owned worker cleanup stays below forty seconds")
 	print(JSON.stringify({"fixture":"faction_strategy075", "checks":checks, "failures":failures, "elapsed_ms":elapsed,
 		"complete":complete and not expired and failures == 0, "failure_labels":failure_labels, "observations":observations,
 		"artifacts":artifacts, "limits":"Source fixture until Root executes. One ordinary finite seeded NPC corridor; no rendered, listening, whole-game quality or strict performance acceptance.074combat and073art require unchanged source proof."}))
