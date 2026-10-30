@@ -357,12 +357,19 @@ static func _repair_finite068(owner: Dictionary,port: Dictionary,boat: Dictionar
 
 ## An explicit canonical-berth entry point, never a temporary enrollment bypass.
 static func _berth_error068(owner: Dictionary,port: Dictionary,location: Dictionary,core) -> String:
-	if core==null or not enrolled066(owner,core) or owner.get("id")!="patrol-7":return "Service needs the actual enrolled merchant."
+	if core==null or not enrolled066(owner,core):return "Service needs the actual enrolled merchant."
 	var route: Dictionary=core.state.get("shipping068",{}).get("model",{}).get("route",{})
-	if route.get("phase") not in ["home_service","remote_service"] or route.get("location")!=location:return "Service location is not the merchant's canonical stopped call."
+	var generic: bool=route.has("corridor075")
+	if route.get("ownerId")!=owner.get("id") or (not generic and owner.get("id")!="patrol-7"):return "Service owner is not the actual enrolled merchant."
+	if route.get("phase") not in (["yard_service","yard_arrival"] if generic else ["home_service","remote_service"]) or route.get("location")!=location:return "Service location is not the merchant's canonical stopped call."
 	if not core.state.get("fleetOwners",[]).any(func(o):return is_same(o,owner)) or not core.state.get("ports",[]).any(func(p):return is_same(p,port)):return "Service requires the original physical owner and actual market."
-	var remote: bool=port.get("id")=="westglass_anchorage"
-	if port.get("id") not in ["kelp_reach","westglass_anchorage"] or location.get("world064",{}).get("layer")!=("local" if remote else "home") or location.world064.get("regionId")!=("glasswind_keys" if remote else "shatter_coast"):return "Service port and actual chart disagree."
+	if generic:
+		if port.get("id")!=route.corridor075.get("homeId") or owner.get("homePort")!=port.get("id"):return "Generated recovery requires its existing physical home yard."
+		var region: String=str(port.get("regionId","shatter_coast"))
+		if location.get("world064",{}).get("layer")!=("home" if region=="shatter_coast" else "local") or location.world064.get("regionId")!=region:return "Service port and actual chart disagree."
+	else:
+		var remote: bool=port.get("id")=="westglass_anchorage"
+		if port.get("id") not in ["kelp_reach","westglass_anchorage"] or location.get("world064",{}).get("layer")!=("local" if remote else "home") or location.world064.get("regionId")!=("glasswind_keys" if remote else "shatter_coast"):return "Service port and actual chart disagree."
 	if not location.get("path") is Array or not location.path.is_empty() or not World068._is_point(location.get("position")) or World068._distance(location.position,port)>=40.0:return "Reach and stop at the actual harbor berth before service."
 	if not owner.get("active",false) or owner.get("atPort")!=port.id:return "Service requires the published real harbor visit."
 	if Factions068.relation(core.state,str(owner.get("faction","")),str(port.get("faction","")))<=-20 and owner.get("faction")!=port.get("faction"):return "Hostile harbor refuses service."
@@ -381,8 +388,9 @@ static func dock_at068(owner: Dictionary,port: Dictionary,location: Dictionary,r
 	if not error.is_empty():return {"ok":false,"message":error}
 	if not is_finite(requiredDays) or requiredDays<=0.0:return {"ok":false,"message":"Service needs a finite conservative voyage duration."}
 	var sequence: int=int(core.state.shipping068.model.route.get("sequence",-1))
-	if sequence%6 in [1,4]:return {"ok":true,"spent":0,"total":0,"message":"This harbor service invoice is already committed."}
-	if sequence%6 not in [0,3]:return {"ok":false,"message":"This route is not awaiting a service invoice."}
+	if not core.state.shipping068.model.route.has("corridor075"):
+		if sequence%6 in [1,4]:return {"ok":true,"spent":0,"total":0,"message":"This harbor service invoice is already committed."}
+		if sequence%6 not in [0,3]:return {"ok":false,"message":"This route is not awaiting a service invoice."}
 	var now: float=float(core.state.day)
 	if owner.has("harborServiceUntilDay") and float(owner.harborServiceUntilDay)>now:
 		return {"ok":true,"spent":0,"message":"This paid harbor call is already in progress."}

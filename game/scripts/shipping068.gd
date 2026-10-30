@@ -10,6 +10,7 @@ const ORIGIN: String = "kelp_reach"
 const REMOTE_PORT: String = "westglass_anchorage"
 const BERTH: Dictionary = {"x":756.0,"y":732.0}
 const PHASES: Array = ["home_service","outbound","remote_service","return","lost"]
+const PHASES075: Array = ["yard_service","to_origin","outbound","to_yard","yard_arrival","lost"]
 const DAY_SECONDS: float = 45.0
 const SERVICE_SECONDS: float = 11.25
 const EPS: float = 0.000001
@@ -19,6 +20,280 @@ static func empty_book() -> Dictionary:
 	return {"schema":1,"route":{}}
 
 
+## A quotation, never a purchase or a stock reservation. Requote at the real
+## loading berth: both the buyer's demand and the merchant's purse can change.
+static func cargo_offer075(owner: Dictionary, origin: Dictionary, destination: Dictionary, reserveCoins: int, exportRows: Dictionary = {}) -> Dictionary:
+	if origin.is_empty() or destination.is_empty() or origin.get("id")==destination.get("id") or reserveCoins<0:return _fail("A shipment needs two actual markets and a nonnegative voyage reserve.")
+	if int(owner.get("coins",0))<reserveCoins:return _fail("The actual merchant purse cannot cover voyage and home-yard recovery reserves.")
+	var held: float = maxf(0.0,float(owner.get("tradeCargo",0.0)))
+	var capacity: float = maxf(0.0,Fleets._capacity(owner)-Economy.cargo_weight(owner.get("cargo",{})))
+	var exports: Dictionary = Harbor.report(origin).goods if exportRows.is_empty() else exportRows
+	var best: Dictionary = {}
+	var best_value: float = -INF
+	for key in Goods.ITEMS:
+		var good: String = str(key)
+		if held>EPS and good!=str(owner.get("tradeGood","")):continue
+		if not Fleets.allowed_trade(owner,origin,good) or not Fleets.allowed_trade(owner,destination,good):continue
+		var buy: int = maxi(1,Economy.price(origin,good,"buy"))
+		var sell: int = maxi(1,Economy.price(destination,good,"sell"))
+		var demand: int = maxi(0,floori(Economy.get_equilibrium_stock(destination,good)-float(destination.get("stocks",{}).get(good,0.0))))
+		var qty: int = mini(64,mini(demand,maxi(0,int(destination.get("cash",0)))/sell))
+		if held>EPS:
+			qty=mini(qty,floori(minf(held,float(owner.get("cargo",{}).get(good,0.0)))))
+		else:
+			if sell<=buy:continue
+			qty=mini(qty,mini(maxi(0,int(owner.get("coins",0))-reserveCoins)/buy,mini(floori(float(exports.get(good,{}).get("exportable",0.0))),floori(capacity/float(Goods.ITEMS[good].weight)))))
+		if qty<1:continue
+		var cost: int = 0 if held>EPS else qty*buy
+		var value: float = float(qty*sell-cost)
+		if value<=best_value:continue
+		best_value=value
+		best={"ok":true,"good":good,"qty":qty,"buyCoins":cost,"sellCoins":qty*sell,"margin":qty*sell-cost,"retained":held>EPS,"reason":"Funded %.0f %s from %s to %s: %d coins purchase, at most %d coins sale into actual demand; %d coins retained for voyage and recovery."%[float(qty),good,str(origin.get("name",origin.id)),str(destination.get("name",destination.id)),cost,qty*sell,reserveCoins]}
+	return best if not best.is_empty() else _fail("No affordable exportable lot meets actual destination demand and cash after voyage reserves.")
+
+
+## One bounded candidate, using existing owners/markets only. The caller owns
+## enrollment and scheduled execution; selection creates no account or cargo.
+static func select_corridor075(state: Dictionary, context: Dictionary, owner: Dictionary, reserveCoins: int = 0, campaignScale: float = 4.0) -> Dictionary:
+	if not state.has("sector069") or context.get("harbors",{}).is_empty():return _fail("Legacy two-region career retains its existing shipping route.")
+	if owner.get("kind")!="trader" or owner.get("playerCompany",false) or str(owner.get("id","")).begins_with("story-") or not owner.get("active",false):return _fail("A corridor needs an existing active independent merchant.")
+	var home: Dictionary = {}
+	var ports: Array = []
+	for port in state.get("ports",[]):
+		if port.get("id")==owner.get("homePort"):home=port
+		if not context.harbors.has(port.get("id")):continue
+		if owner.get("faction")!=port.get("faction") and Fleets.Factions068.relation(state,str(owner.get("faction","")),str(port.get("faction","")))<=-20:continue
+		ports.append(port)
+	if home.is_empty() or str(home.get("regionId",World.HOME))!=World.HOME or not _number(campaignScale,EPS):return _fail("The merchant needs its existing paid home yard and finite campaign scale.")
+	var clearance: float = 10.0
+	var speed: float = INF
+	var count: int = 0
+	for boat in owner.get("boats",[]):
+		if boat.get("sunk",false):continue
+		count+=1;clearance=maxf(clearance,float(boat.get("spec",{}).get("size",10.0)))
+		var condition: Dictionary = Fleets.Damage.get_status(boat)
+		speed=minf(speed,float(boat.get("spec",{}).get("speed",0.0))*float(condition.get("speedFactor",0.0)))
+	if count<1 or not _number(speed,EPS):return _fail("The merchant has no actual powered carrier.")
+	speed*=0.38*campaignScale
+	var candidates: Array = []
+	for origin in ports:
+		var exports: Dictionary = Harbor.report(origin).goods
+		for remote in ports:
+			if origin.regionId==remote.regionId:continue
+			var offer: Dictionary = cargo_offer075(owner,origin,remote,reserveCoins,exports)
+			if not offer.get("ok",false):continue
+			var a: Dictionary = World._project(context,context.regions[origin.regionId],origin)
+			var b: Dictionary = World._project(context,context.regions[remote.regionId],remote)
+			var h: Dictionary = World._project(context,context.regions[World.HOME],home)
+			var distance: float = World._distance(h,a)+World._distance(a,b)+World._distance(b,h)
+			candidates.append({"origin":origin,"remote":remote,"score":float(offer.margin)/(1.0+distance)})
+	candidates.sort_custom(func(a,b):return float(a.score)>float(b.score))
+	var upkeep: Dictionary = Fleets.upkeep(owner)
+	# Only three promising pairs receive real path quotations, once at admission.
+	# Navigation views are detached; never evict the player's active local grid.
+	var views: Dictionary = {}
+	for candidate in candidates.slice(0,3):
+		var quote: Dictionary = route_quote075(context,home,candidate.origin,candidate.remote,clearance,speed,views)
+		if not quote.get("ok",false):continue
+		var days: float = float(quote.days)
+		var wages: int = ceili(float(upkeep.wages)*days)+maxi(0,int(owner.get("wageArrears",0)))
+		var food: int = ceili(float(upkeep.food)*days)
+		var fuel: int = ceili(float(upkeep.fuel)*days)
+		var repair: int = count*Economy.ORDINARY_WAGE
+		var held_food: float = maxf(0.0,float(owner.get("cargo",{}).get("food",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="food" else 0.0))
+		var held_fuel: float = maxf(0.0,float(owner.get("cargo",{}).get("fuel",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="fuel" else 0.0))
+		for boat in owner.boats:
+			if not boat.get("sunk",false):held_fuel+=float(boat.get("fuel",0.0))
+		var provisioning: int = maxi(0,ceili(float(food)-held_food))*Economy.price(home,"food","buy")+maxi(0,ceili(float(fuel)-held_fuel))*Economy.price(home,"fuel","buy")
+		var reserve: int = maxi(reserveCoins,wages+repair+provisioning)
+		var offer: Dictionary = cargo_offer075(owner,candidate.origin,candidate.remote,reserve)
+		if not offer.get("ok",false):continue
+		quote.merge(offer,true)
+		quote.merge({"ownerId":str(owner.id),"homeId":str(home.id),"originId":str(candidate.origin.id),"remoteId":str(candidate.remote.id),"wageCoins":wages,"repairCoins":repair,"food":food,"fuel":fuel,"reserveCoins":reserve},true)
+		return quote
+	return _fail("No generated corridor has a navigable funded lot plus actual voyage and home-yard recovery reserves.")
+
+
+static func route_quote075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, clearance: float, speed: float, views: Dictionary = {}) -> Dictionary:
+	if not _number(speed,EPS) or not _number(clearance,0.0):return _fail("A corridor quote needs finite actual speed and clearance.")
+	var homes: Array = _port_gates075(context,home,clearance,views)
+	var origins: Array = _port_gates075(context,origin,clearance,views)
+	var remotes: Array = _port_gates075(context,remote,clearance,views)
+	var best: Dictionary = {}
+	var length: float = INF
+	for h in homes:
+		for a in origins:
+			for b in remotes:
+				var ocean: float = (World._distance(h.ocean,a.ocean)+World._distance(a.ocean,b.ocean)+World._distance(b.ocean,h.ocean))*float(context.ocean.localUnitsPerUnit)/0.25
+				var actual: float = 2.0*(float(h.length)+float(a.length)+float(b.length))+ocean
+				if actual>=length:continue
+				length=actual
+				best={"ok":true,"days":actual/speed/DAY_SECONDS+1.0,"homeGate":{"regionId":str(home.get("regionId",World.HOME)),"approachId":str(h.id)},"originGate":{"regionId":str(origin.regionId),"approachId":str(a.id)},"remoteGate":{"regionId":str(remote.regionId),"approachId":str(b.id)}}
+	return best if not best.is_empty() else _fail("No real safe harbor-to-approach route connects this generated pair and its home yard.")
+
+
+static func _port_gates075(context: Dictionary, port: Dictionary, clearance: float, views: Dictionary) -> Array:
+	var region_id: String = str(port.get("regionId",World.HOME))
+	if not context.get("regions",{}).has(region_id):return []
+	var region: Dictionary = context.regions[region_id]
+	if not views.has(region_id):
+		var view: Dictionary = context.duplicate(false)
+		if region_id not in [World.HOME,World.REMOTE]:
+			view["activeRegionId"]=region_id
+			view["activeNav"]=World.Navigation.create(region.islands,region.width,region.height,World.Navigation.DEFAULT_CELL*World.COAST_SCALE)
+		views[region_id]=view
+	var view: Dictionary = views[region_id]
+	var start: Dictionary = _point(port)
+	if region_id==World.HOME:
+		start=World.Navigation.harbor_approach(context.homeNav,port,clearance)
+		if start.is_empty():return []
+	var location: Dictionary = _location("home" if region_id==World.HOME else "local",region_id,start)
+	var choices: Array = []
+	for gate in region.approaches:
+		var destination: String = "" if region_id==World.HOME else "approach:%s:%s"%[region_id,str(gate.id)]
+		var plotted: Dictionary = World.plot(view,location,gate.position,destination,clearance)
+		if not plotted.get("ok",false):continue
+		var length: float = _length(start,plotted.location.path)
+		choices.append({"id":str(gate.id),"length":length,"ocean":World._project(context,region,gate.position)})
+	return choices
+
+
+static func corridor_record075(quote: Dictionary) -> Dictionary:
+	var record: Dictionary = {}
+	for key in ["ownerId","homeId","originId","remoteId","homeGate","originGate","remoteGate"]:
+		if not quote.has(key):return {}
+		record[key]=quote[key].duplicate(true) if quote[key] is Dictionary else quote[key]
+	return record
+
+
+static func admit075(context: Dictionary, snapshot: Dictionary, now: float, sequence: int = 0) -> Dictionary:
+	var error: String = _snapshot_error(snapshot)
+	if not error.is_empty():return _fail(error)
+	var owner: Dictionary = snapshot.owner
+	var yard: Dictionary = snapshot.yardPort
+	var location: Dictionary = _location("home",World.HOME,_point(snapshot.patrol))
+	if not owner.active or owner.get("atPort")!=yard.id or not snapshot.patrol.get("holding",false) or not _at_berth(location,yard):return _fail("Generated shipping must enroll at its merchant's actual stopped home berth.")
+	if not _number(owner.get("harborServiceUntilDay"),1.0):return _fail("Generated shipping awaits a real paid home service visit.")
+	var physical: Dictionary = World.prepare(location,context,float(snapshot.clearance))
+	if not physical.get("ok",false):return _fail(str(physical.get("message","The actual home berth is unsafe at this fleet's clearance.")))
+	var route: Dictionary = {"ownerId":str(owner.id),"phase":"yard_service","location":location,"nextDueSecond":maxf(now,float(owner.harborServiceUntilDay)*DAY_SECONDS),"sequence":sequence,"corridor075":corridor_record075(snapshot.corridor075)}
+	error=_route_error(context,route,now)
+	return _result({"schema":1,"route":route},{},"Funded generated corridor admitted at the original paid home berth.") if error.is_empty() else _fail(error)
+
+
+static func _requirements075(context: Dictionary, snapshot: Dictionary) -> Dictionary:
+	var speed: float = float(snapshot.performance.get("speed",0.0))*0.38*float(snapshot.campaignScale)
+	var quote: Dictionary = route_quote075(context,snapshot.yardPort,snapshot.originPort,snapshot.remotePort,float(snapshot.clearance),speed)
+	if not quote.get("ok",false):return quote
+	var costs: Dictionary = Fleets.upkeep(snapshot.owner)
+	var days: float = float(quote.days)
+	return {"ok":true,"days":days,"wageCoins":ceili(float(costs.wages)*days)+int(snapshot.owner.get("wageArrears",0)),"food":ceilf(float(costs.food)*days),"fuel":ceilf(float(costs.fuel)*days),"repairCoins":ceili(float(snapshot.reserves.boats)*Economy.ORDINARY_WAGE),"message":"Actual home-to-generated-pair-to-home reserve; no remittance or guaranteed profit."}
+
+
+static func _command075(route: Dictionary, kind: String, port: Dictionary, good: String, qty: int) -> Dictionary:
+	route["sequence"]=int(route.sequence)+1
+	return {"kind":kind,"ownerId":str(route.ownerId),"portId":str(port.id),"good":good,"qty":qty,"sequence":int(route.sequence)}
+
+
+static func _delivery075(owner: Dictionary, port: Dictionary) -> int:
+	var good: String = str(owner.tradeGood)
+	if not Fleets.allowed_trade(owner,port,good):return 0
+	var carried: int = floori(minf(float(owner.tradeCargo),float(owner.cargo.get(good,0.0))))
+	var affordable: int = int(port.get("cash",0))/maxi(1,Economy.price(port,good,"sell"))
+	var demand: int = floori(maxf(0.0,Economy.get_equilibrium_stock(port,good)-float(port.get("stocks",{}).get(good,0.0))))
+	return maxi(0,mini(64,mini(carried,mini(affordable,demand))))
+
+
+static func _plan075(context: Dictionary, book: Dictionary, snapshot: Dictionary, now: float) -> Dictionary:
+	var route: Dictionary = book.route
+	var owner: Dictionary = snapshot.owner
+	var error: String = _route_error(context,route,now)
+	if not error.is_empty():return _fail(error)
+	if route.ownerId!=owner.id or route.corridor075!=snapshot.corridor075:return _fail("Generated shipping owner or saved corridor changed.")
+	if route.phase=="lost":return _result(book,{},"Carrier lost; replacement is funded and born only at the existing home yard.")
+	if owner.boats.all(func(b):return b.sunk):
+		route.phase="lost";route.location.path=[];route.location.destination=""
+		return _result(book,{},"Actual carrier lost; no cargo delivery or at-sea replacement.")
+	if now+EPS<float(route.nextDueSecond):return _result(book,{},"Scheduled generated-corridor watch or paid service is not due.")
+	route.nextDueSecond=now+1.0
+	if route.phase in ["to_origin","outbound"] and (not snapshot.performance.get("seaworthy",false) or int(owner.wageArrears)>0):
+		route.phase="to_yard";route.location.path=[];route.location.destination=""
+	if route.phase=="yard_arrival":
+		if not _at_berth(route.location,snapshot.yardPort):return _fail("Paid recovery requires the actual stopped home yard.")
+		route.phase="yard_service";route.nextDueSecond=now+SERVICE_SECONDS
+		return _result(book,_command075(route,"service",snapshot.yardPort,"",0),"Request paid home-yard repair, provisions and crew recovery from actual accounts.")
+	if route.phase=="yard_service":
+		if not _at_berth(route.location,snapshot.yardPort):return _fail("Service is not at the actual home yard.")
+		if now+EPS<float(owner.get("harborServiceUntilDay",INF))*DAY_SECONDS:return _result(book,{},"Existing paid home service is still in progress.")
+		var required: Dictionary = requirements(context,snapshot)
+		if not required.get("ok",false):route.nextDueSecond=now+3.0;return _result(book,{},str(required.message))
+		if not _ready(snapshot,required,1.0):
+			# A later invoiced visit can repair another finite amount. There is no
+			# repeat subsidy and no free readiness grant while the fleet holds.
+			route.nextDueSecond=now+SERVICE_SECONDS
+			return _result(book,_command075(route,"service",snapshot.yardPort,"",0),"Holding at the real home yard for paid recovery and actual voyage reserves.")
+		route.phase="to_origin"
+	if not route.location.path.is_empty():return _result(book,{},"The same generated-corridor carrier is physically underway.")
+	var destination: Dictionary = snapshot.originPort if route.phase=="to_origin" else (snapshot.remotePort if route.phase=="outbound" else snapshot.yardPort)
+	if not _at_berth(route.location,destination):return _next_leg075(context,book,snapshot,destination)
+	if route.phase=="to_origin":
+		var required: Dictionary = requirements(context,snapshot)
+		if not required.get("ok",false):return _result(book,{},str(required.message))
+		var offer: Dictionary = cargo_offer075(owner,snapshot.originPort,snapshot.remotePort,int(required.wageCoins)+int(required.repairCoins))
+		if not offer.get("ok",false):
+			route.phase="to_yard"
+			return _result(book,{},str(offer.message)+" Returning physically to the paid home yard.")
+		route.phase="outbound"
+		return _result(book,_command075(route,"load",destination,str(offer.good),0 if offer.retained else int(offer.qty)),str(offer.reason))
+	var qty: int = _delivery075(owner,destination)
+	var kind: String = "deliver"
+	route.phase="to_yard" if route.phase=="outbound" else "yard_arrival"
+	return _result(book,_command075(route,kind,destination,str(owner.tradeGood),qty),"Actual berth reached; sell only the surviving affordable wanted manifest. Remaining cargo retains custody.")
+
+
+static func _view075(context: Dictionary, region_id: String) -> Dictionary:
+	if region_id in [World.HOME,World.REMOTE] or context.get("activeRegionId")==region_id:return context
+	var view: Dictionary = context.duplicate(false)
+	var region: Dictionary = context.regions[region_id]
+	view["activeRegionId"]=region_id
+	view["activeNav"]=World.Navigation.create(region.islands,region.width,region.height,World.Navigation.DEFAULT_CELL*World.COAST_SCALE)
+	return view
+
+
+static func _next_leg075(context: Dictionary, book: Dictionary, snapshot: Dictionary, destination: Dictionary) -> Dictionary:
+	var route: Dictionary = book.route
+	var corridor: Dictionary = route.corridor075
+	var target_region: String = str(destination.get("regionId",World.HOME))
+	var gate: Dictionary = corridor.homeGate if destination.id==corridor.homeId else (corridor.originGate if destination.id==corridor.originId else corridor.remoteGate)
+	var location: Dictionary = route.location
+	var identity: Dictionary = location.world064
+	var target: Dictionary
+	var label: String = ""
+	if identity.layer=="ocean":
+		target=World._project(context,context.regions[target_region],World._approach(context.regions[target_region],str(gate.approachId)).position)
+		if World._distance(location.position,target)<=EPS:
+			var entered: Dictionary = World.transition(context,location,target_region,str(gate.approachId),float(snapshot.clearance),"")
+			if not entered.get("ok",false):return _fail(str(entered.message))
+			location=entered.location;target=_point(destination);label=str(destination.id)
+		else:label="approach:%s:%s"%[target_region,str(gate.approachId)]
+	elif identity.regionId!=target_region:
+		var source_gate: Dictionary = corridor.homeGate if identity.regionId==World.HOME else (corridor.originGate if identity.regionId==corridor.originGate.regionId else corridor.remoteGate)
+		target=World._approach(context.regions[identity.regionId],str(source_gate.approachId)).position
+		if World._distance(location.position,target)<=EPS:
+			var exited: Dictionary = World.transition(context,location,str(identity.regionId),str(source_gate.approachId),float(snapshot.clearance),"")
+			if not exited.get("ok",false):return _fail(str(exited.message))
+			location=exited.location
+			target=World._project(context,context.regions[target_region],World._approach(context.regions[target_region],str(gate.approachId)).position)
+			label="approach:%s:%s"%[target_region,str(gate.approachId)]
+		elif identity.layer!="home":label="approach:%s:%s"%[str(identity.regionId),str(source_gate.approachId)]
+	else:target=_point(destination);label=str(destination.id)
+	var view: Dictionary = _view075(context,str(location.world064.regionId)) if location.world064.layer!="ocean" else context
+	var plotted: Dictionary = World.plot(view,location,target,label,float(snapshot.clearance))
+	if not plotted.get("ok",false):return _fail(str(plotted.message))
+	route.location=plotted.location
+	return _result(book,{},"Staged one actual generated-corridor water leg; clock and stores remain with the existing campaign.")
+
+
 static func prepare(saved: Dictionary, context064: Dictionary) -> Dictionary:
 	if not saved.has("shipping068"):return _result(empty_book(),{},"Legacy voyage has no shipping enrollment.")
 	var outer = saved.get("shipping068")
@@ -26,6 +301,7 @@ static func prepare(saved: Dictionary, context064: Dictionary) -> Dictionary:
 	var book = outer.get("model")
 	if not _book_valid(book):return _fail("Invalid shipping068 model schema or fields.")
 	if book.route.is_empty():return _result(book.duplicate(true),{},"No merchant is enrolled.")
+	if book.route.has("corridor075"):return _prepare075(saved,context064,book)
 	if not _number(saved.get("day"),1.0):return _fail("Shipping needs the existing finite campaign clock.")
 	var error: String = _route_error(context064,book.route,float(saved.day)*DAY_SECONDS)
 	if not error.is_empty():return _fail(error)
@@ -77,6 +353,7 @@ static func prepare(saved: Dictionary, context064: Dictionary) -> Dictionary:
 static func requirements(context064: Dictionary, snapshot: Dictionary) -> Dictionary:
 	var error: String = _snapshot_error(snapshot)
 	if not error.is_empty():return _fail(error)
+	if snapshot.has("corridor075"):return _requirements075(context064,snapshot)
 	var speed: float = float(snapshot.performance.get("speed",0.0))*0.38*float(snapshot.campaignScale)
 	if speed<=0.0:return _fail("Merchant has no powered voyage speed.")
 	var home_gate: Dictionary = _gate(context064,World.HOME,false)
@@ -110,6 +387,7 @@ static func plan(context064: Dictionary, modelBook: Dictionary, snapshot: Dictio
 	if not error.is_empty():return _fail(error)
 	var book: Dictionary = modelBook.duplicate(true)
 	var owner: Dictionary = snapshot.owner
+	if not book.route.is_empty() and book.route.has("corridor075"):return _plan075(context064,book,snapshot,nowSecond)
 	if book.route.is_empty():
 		if not owner.active or not snapshot.patrol.get("holding",false) or owner.get("atPort")!=ORIGIN or not _point_valid(snapshot.patrol):return _result(book,{},"Waiting for the same merchant's actual Kelp return and service.")
 		var location: Dictionary = _location("home",World.HOME,_point(snapshot.patrol))
@@ -188,10 +466,11 @@ static func plan(context064: Dictionary, modelBook: Dictionary, snapshot: Dictio
 static func actor(modelBook: Dictionary, snapshot: Dictionary) -> Dictionary:
 	if not _book_valid(modelBook) or modelBook.route.is_empty() or modelBook.route.get("phase")=="lost" or not _snapshot_error(snapshot).is_empty():return {}
 	var route: Dictionary = modelBook.route
-	if not _keys(route,["ownerId","phase","location","nextDueSecond","sequence"]) or route.ownerId!=OWNER or route.phase not in PHASES or not _keys(route.location,["world064","position","heading","path","destination"]):return {}
+	var generic: bool = route.has("corridor075")
+	if not _keys(route,["ownerId","phase","location","nextDueSecond","sequence","corridor075"] if generic else ["ownerId","phase","location","nextDueSecond","sequence"]) or route.ownerId!=snapshot.owner.id or route.phase not in (PHASES075 if generic else PHASES) or not _keys(route.location,["world064","position","heading","path","destination"]):return {}
 	var powered: bool = snapshot.owner.boats.any(func(b):return not b.sunk and not b.get("mothballed",false) and not b.get("towed",false) and not b.get("needsHarborRepair",false) and str(b.get("storedPort","")).is_empty() and float(b.get("fuel",0.0))>0.0 and float(b.get("crew",0.0))-float(b.get("wounded",0.0))>=float(b.get("crewMin",1.0)))
-	return {"ownerId":OWNER,"location":route.location.duplicate(true),"baseSpeed":float(snapshot.performance.get("speed",0.0))*0.38*float(snapshot.campaignScale) if powered else 0.0,
-		"clearance":float(snapshot.clearance),"canMove":powered and route.phase in ["outbound","return"],"canIntercept":false,"detectionRange":900.0,"interceptRange":75.0,"boats":_render_boats(snapshot.owner.boats)}
+	return {"ownerId":str(route.ownerId),"location":route.location.duplicate(true),"baseSpeed":float(snapshot.performance.get("speed",0.0))*0.38*float(snapshot.campaignScale) if powered else 0.0,
+		"clearance":float(snapshot.clearance),"canMove":powered and route.phase in ["outbound","return","to_origin","to_yard"],"canIntercept":false,"detectionRange":900.0,"interceptRange":75.0,"boats":_render_boats(snapshot.owner.boats)}
 
 
 static func _next_leg(context: Dictionary, book: Dictionary, snapshot: Dictionary, outbound: bool) -> Dictionary:
@@ -238,6 +517,7 @@ static func _book_valid(book) -> bool:
 
 
 static func _route_error(context: Dictionary, route: Dictionary, now: float) -> String:
+	if route.has("corridor075"):return _route_error075(context,route,now)
 	if not _keys(route,["ownerId","phase","location","nextDueSecond","sequence"]) or route.ownerId!=OWNER or route.phase not in PHASES:return "Invalid shipping route owner, phase or fields."
 	if not _number(route.sequence,0.0) or float(route.sequence)!=floorf(float(route.sequence)) or float(route.sequence)>1000000000.0:return "Shipping sequence must be a bounded integer."
 	var slot: int = int(route.sequence)%6
@@ -248,14 +528,95 @@ static func _route_error(context: Dictionary, route: Dictionary, now: float) -> 
 	return "" if located.get("ok",false) else str(located.get("message","Invalid shipping location."))
 
 
+static func _route_error075(context: Dictionary, route: Dictionary, now: float) -> String:
+	if not _keys(route,["ownerId","phase","location","nextDueSecond","sequence","corridor075"]) or route.phase not in PHASES075 or not route.ownerId is String or str(route.ownerId).is_empty():return "Invalid generated shipping route fields, owner or phase."
+	var corridor = route.corridor075
+	if not _keys(corridor,["ownerId","homeId","originId","remoteId","homeGate","originGate","remoteGate"]) or corridor.ownerId!=route.ownerId:return "Invalid generated corridor owner or fields."
+	for key in ["ownerId","homeId","originId","remoteId"]:
+		if not corridor[key] is String or str(corridor[key]).is_empty():return "Generated corridor identities must be explicit strings."
+	if not context.get("ports",{}).has(corridor.homeId) or not context.get("harbors",{}).has(corridor.originId) or not context.harbors.has(corridor.remoteId):return "Generated corridor requires its original home yard and actual generated markets."
+	var origin: Dictionary = context.harbors[corridor.originId]
+	var remote: Dictionary = context.harbors[corridor.remoteId]
+	if origin.regionId==remote.regionId:return "Generated corridor must connect two distinct island groups."
+	for pair in [["homeGate",World.HOME],["originGate",str(origin.regionId)],["remoteGate",str(remote.regionId)]]:
+		var gate = corridor[pair[0]]
+		if not _keys(gate,["regionId","approachId"]) or gate.regionId!=pair[1] or not gate.approachId is String or World._approach(context.regions[gate.regionId],str(gate.approachId)).is_empty():return "Generated corridor approach does not belong to its actual port's chart."
+	if not _number(route.sequence,0.0) or float(route.sequence)!=floorf(float(route.sequence)) or float(route.sequence)>1000000000.0:return "Shipping sequence must remain a bounded integer."
+	if not _number(route.nextDueSecond,0.0) or float(route.nextDueSecond)>now+SERVICE_SECONDS+3.0+EPS:return "Invalid generated shipping deadline."
+	if not _keys(route.location,["world064","position","heading","path","destination"]) or not route.location.path is Array or route.location.path.size()>128:return "Generated carrier needs its bounded canonical spatial fields."
+	if str(route.location.get("world064",{}).get("regionId","")) not in [World.OCEAN,World.HOME,str(origin.regionId),str(remote.regionId)]:return "Generated carrier left its one bounded corridor."
+	var located: Dictionary = World.prepare(route.location,context,0.0)
+	return "" if located.get("ok",false) else str(located.get("message","Invalid generated carrier location."))
+
+
+static func _prepare075(saved: Dictionary, context: Dictionary, book: Dictionary) -> Dictionary:
+	if not _number(saved.get("day"),1.0):return _fail("Generated shipping needs the existing finite clock.")
+	if not saved.has("sector069"):return _fail("A legacy two-region career cannot acquire generated shipping during restore.")
+	for collection in ["fleetOwners","patrols","fleet","boardingPrizes","ports"]:
+		if not saved.get(collection,[] if collection=="boardingPrizes" else null) is Array:return _fail("Generated shipping needs its actual physical custody collections.")
+	var route: Dictionary = book.route
+	var error: String = _route_error075(context,route,float(saved.day)*DAY_SECONDS)
+	if not error.is_empty():return _fail(error)
+	var owners: Array = saved.get("fleetOwners",[]).filter(func(o):return o is Dictionary and o.get("id")==route.ownerId)
+	var patrols: Array = saved.get("patrols",[]).filter(func(p):return p is Dictionary and p.get("id")==route.ownerId)
+	if owners.size()!=1 or patrols.size()!=1:return _fail("Generated shipping needs one existing owner and one dormant projection.")
+	var owner: Dictionary = owners[0]
+	var patrol: Dictionary = patrols[0]
+	error=_owner_error(owner,true)
+	if not error.is_empty():return _fail(error)
+	if owner.homePort!=route.corridor075.homeId:return _fail("Generated shipping cannot change its existing home yard.")
+	var ports: Dictionary = {}
+	for port in saved.get("ports",[]):
+		if port.get("id") in [route.corridor075.homeId,route.corridor075.originId,route.corridor075.remoteId]:
+			if ports.has(port.id):return _fail("Ambiguous generated shipping market.")
+			ports[port.id]=port
+	if ports.size()!=3:return _fail("Generated shipping cannot initialize missing markets during restore.")
+	for id in [route.corridor075.originId,route.corridor075.remoteId]:
+		for key in ["regionId","x","y"]:
+			if ports[id].get(key)!=context.harbors[id].get(key):return _fail("Generated shipping's physical berth changed.")
+	var living: int = owner.boats.filter(func(b):return not b.sunk).size()
+	if route.phase=="lost":
+		if living!=0 or owner.active or owner.get("atPort")!="" or owner.has("harborServiceUntilDay") or not route.location.path.is_empty() or route.location.destination!="":return _fail("Lost generated shipping cannot retain living hulls or a moving berth.")
+	elif living==0 or not owner.active:return _fail("Active generated shipping requires its actual living carrier.")
+	if route.phase in ["yard_service","yard_arrival"]:
+		var yard: Dictionary = ports[route.corridor075.homeId]
+		if owner.get("atPort")!=yard.id or not _at_berth(route.location,yard):return _fail("Generated recovery needs its actual stopped home berth.")
+		if owner.has("harborServiceUntilDay") and (not _number(owner.harborServiceUntilDay,1.0) or float(owner.harborServiceUntilDay)>float(saved.day)+0.25+EPS):return _fail("Invalid paid generated-shipping service deadline.")
+	else:
+		if owner.get("atPort")!="" or owner.has("harborServiceUntilDay"):return _fail("Generated passage cannot receive remote at-sea service.")
+	if patrol.get("active")!=false or patrol.get("hidden")!=true or patrol.get("holding")!=true or not patrol.get("course") is Array or not patrol.course.is_empty() or patrol.has("interceptPoint"):return _fail("Generated merchant's old local projection must remain dormant.")
+	var custody: Dictionary = {}
+	var boats: Array = saved.get("fleet",[])+saved.get("boardingPrizes",[])
+	for other in saved.get("fleetOwners",[]):
+		if not other is Dictionary or not other.get("boats") is Array:return _fail("Invalid generated fleet custody.")
+		boats+=other.boats
+	for boat in boats:
+		if not boat is Dictionary:return _fail("Invalid raw hull custody.")
+		var uid: String = str(boat.get("uid",""))
+		if not uid.is_empty():custody[uid]=int(custody.get(uid,0))+1
+	var clearance: float = 10.0
+	for boat in owner.boats:
+		if int(custody.get(str(boat.uid),0))!=1:return _fail("Generated shipping must preserve unique original hull custody.")
+		if not boat.sunk:clearance=maxf(clearance,float(boat.spec.size))
+	var physical: Dictionary = World.prepare(route.location,context,clearance)
+	return _result(book.duplicate(true),{},"Generated corridor validated without restoring any wealth, stock or hull.") if physical.get("ok",false) else _fail(str(physical.message))
+
+
 static func _snapshot_error(snapshot: Dictionary) -> String:
-	if not _keys(snapshot,["owner","patrol","originPort","remotePort","reserves","performance","clearance","campaignScale"]):return "Shipping snapshot requires exactly the agreed physical queries."
+	var generic: bool = snapshot.has("corridor075")
+	if not _keys(snapshot,["owner","patrol","originPort","remotePort","reserves","performance","clearance","campaignScale","yardPort","corridor075"] if generic else ["owner","patrol","originPort","remotePort","reserves","performance","clearance","campaignScale"]):return "Shipping snapshot requires exactly the agreed physical queries."
 	for key in ["owner","patrol","originPort","remotePort","reserves","performance"]:
 		if not snapshot[key] is Dictionary:return "Shipping physical queries must be dictionaries."
-	var error: String = _owner_error(snapshot.owner)
+	var error: String = _owner_error(snapshot.owner,generic)
 	if not error.is_empty():return error
-	if snapshot.patrol.get("id")!=OWNER:return "Shipping snapshot must use the same original patrol."
-	if snapshot.originPort.get("id")!=ORIGIN or snapshot.remotePort.get("id")!=REMOTE_PORT or snapshot.remotePort.get("regionId")!=World.REMOTE or snapshot.remotePort.get("faction")!="reed" or not _point_valid(snapshot.originPort) or not _point_valid(snapshot.remotePort) or _point(snapshot.remotePort)!=BERTH:return "Shipping needs the actual funded Kelp/Westglass endpoints and final berth."
+	if snapshot.patrol.get("id")!=snapshot.owner.id:return "Shipping snapshot must use the same original patrol."
+	if generic:
+		var corridor: Dictionary = snapshot.corridor075
+		if not snapshot.yardPort is Dictionary or not _keys(corridor,["ownerId","homeId","originId","remoteId","homeGate","originGate","remoteGate"]):return "Generated shipping needs its explicit saved owner, markets and gates."
+		if corridor.ownerId!=snapshot.owner.id or corridor.homeId!=snapshot.owner.homePort or snapshot.yardPort.get("id")!=corridor.homeId or snapshot.originPort.get("id")!=corridor.originId or snapshot.remotePort.get("id")!=corridor.remoteId:return "Generated shipping snapshot changed a bound owner or physical market."
+		if not _point_valid(snapshot.yardPort) or not _point_valid(snapshot.originPort) or not _point_valid(snapshot.remotePort) or snapshot.originPort.get("regionId")==snapshot.remotePort.get("regionId"):return "Generated shipping needs two distinct actual island groups."
+	else:
+		if snapshot.originPort.get("id")!=ORIGIN or snapshot.remotePort.get("id")!=REMOTE_PORT or snapshot.remotePort.get("regionId")!=World.REMOTE or snapshot.remotePort.get("faction")!="reed" or not _point_valid(snapshot.originPort) or not _point_valid(snapshot.remotePort) or _point(snapshot.remotePort)!=BERTH:return "Shipping needs the actual funded Kelp/Westglass endpoints and final berth."
 	if not _number(snapshot.clearance,0.0) or not _number(snapshot.campaignScale,EPS):return "Shipping clearance and scale must be finite."
 	if not _number(snapshot.performance.get("speed"),0.0):return "Shipping performance must contain finite actual speed."
 	for key in ["capacity","boats","food","fuel"]:
@@ -263,8 +624,8 @@ static func _snapshot_error(snapshot: Dictionary) -> String:
 	return ""
 
 
-static func _owner_error(owner: Dictionary) -> String:
-	if owner.get("id")!=OWNER or owner.get("kind")!="trader" or owner.get("homePort")!=ORIGIN or owner.get("playerCompany",false) or not owner.get("active") is bool:return "Only the original non-company Kelp trader may use this route."
+static func _owner_error(owner: Dictionary, generic: bool = false) -> String:
+	if (not generic and (owner.get("id")!=OWNER or owner.get("homePort")!=ORIGIN)) or not owner.get("id") is String or str(owner.id).is_empty() or str(owner.id).begins_with("story-") or owner.get("kind")!="trader" or owner.get("playerCompany",false) or not owner.get("active") is bool:return "Shipping requires its original independent physical trader."
 	if not owner.get("boats") is Array or owner.boats.size()>36 or not owner.get("cargo") is Dictionary:return "Shipping needs the actual bounded physical boats and hold."
 	for key in ["coins","crewPurse","wageArrears","tradeCargo"]:
 		if not _number(owner.get(key),0.0):return "Shipping accounts and manifest must be finite and nonnegative."
@@ -285,8 +646,8 @@ static func _owner_error(owner: Dictionary) -> String:
 
 static func _at_berth(location: Dictionary, port: Dictionary) -> bool:
 	if not location.get("world064") is Dictionary or not location.get("path") is Array or not location.path.is_empty() or not _point_valid(location.get("position")) or not _point_valid(port):return false
-	var remote: bool = port.get("id")==REMOTE_PORT
-	return location.world064.get("layer")==("local" if remote else "home") and location.world064.get("regionId")== (World.REMOTE if remote else World.HOME) and World._distance(location.position,port)<40.0
+	var region: String = str(port.get("regionId",World.HOME))
+	return location.world064.get("layer")==("home" if region==World.HOME else "local") and location.world064.get("regionId")==region and World._distance(location.position,port)<40.0
 
 
 static func _gate(context: Dictionary, region_id: String, ocean: bool) -> Dictionary:

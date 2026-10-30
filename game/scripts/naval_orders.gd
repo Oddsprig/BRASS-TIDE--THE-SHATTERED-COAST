@@ -237,6 +237,14 @@ static func observation_reason(purpose: String) -> String:
 	return "Watching the coastal sea lanes."
 
 
+## Sample only while a contact is actually observed. This is an estimate from
+## its visible commercial load, never access to a distant purse or live hold.
+static func observed_manifest075(owner: Dictionary) -> Dictionary:
+	var good: String = str(owner.get("tradeGood", ""))
+	var quantity: float = maxf(0.0, minf(float(owner.get("tradeCargo", 0.0)), float(owner.get("cargo", {}).get(good, 0.0))))
+	return {"cargoGood":good,"cargoQuantity":quantity,"cargoValue":quantity * Goods.cost(good)}
+
+
 static func observe(state: Dictionary, observer_id: String = "player") -> Array:
 	if enrolled066(state,observer_id):return []
 	if observer_id=="player" and not Locality064.home_local064(state):return sightings(state,observer_id)
@@ -271,7 +279,9 @@ static func observe(state: Dictionary, observer_id: String = "player") -> Array:
 		var cargo: Dictionary = other.get("cargo", {})
 		var load: float = minf(float(other.get("tradeCargo", 0.0)), float(cargo.get(str(other.get("tradeGood", "")), 0.0)))
 		var purpose: String = str(other.get("purpose", "patrol"))
-		remembered.push_front({"ownerId": id, "name": str(other.get("name", id)), "faction": str(other.get("faction", "")), "kind": str(other.get("kind", "")), "x": point.x, "y": point.y, "day": now, "expiresDay": now + SIGHTING_MEMORY_DAYS, "destination": destination, "purpose": purpose, "reason": observation_reason(purpose), "loaded": load > 0.0, "threat": float(fleet_performance(other).get("firepower", 0.0)), "current": true})
+		var record: Dictionary = {"ownerId": id, "name": str(other.get("name", id)), "faction": str(other.get("faction", "")), "kind": str(other.get("kind", "")), "x": point.x, "y": point.y, "day": now, "expiresDay": now + SIGHTING_MEMORY_DAYS, "destination": destination, "purpose": purpose, "reason": str(other.get("reason", observation_reason(purpose))), "loaded": load > 0.0, "threat": float(fleet_performance(other).get("firepower", 0.0)), "current": true}
+		record.merge(observed_manifest075(other))
+		remembered.push_front(record)
 	if remembered.size() > MAX_SIGHTINGS:remembered.resize(MAX_SIGHTINGS)
 	state.navalAi.sightingsByObserver[observer_id] = remembered
 	return sightings(state, observer_id)
@@ -473,7 +483,9 @@ static func needs_home_recovery(owner: Dictionary, res: Dictionary, perf: Dictio
 
 
 static func build_order(state: Dictionary, owner: Dictionary, purpose: String = "", destination: String = "", reason: String = "", target_owner_id: String = "", keep_destination: bool = false) -> Dictionary:
-	if enrolled066(state,str(owner.get("id",""))):return owner.get("order",{})
+	var route075: Dictionary=state.get("shipping068",{}).get("model",{}).get("route",{})
+	var generic: bool=route075.get("ownerId")==owner.get("id") and route075.has("corridor075")
+	if enrolled066(state,str(owner.get("id",""))) and not generic:return owner.get("order",{})
 	# Enrolled targets can be followed only through an actual dated HOME
 	# observation below; their dormant patrol coordinates remain excluded.
 	var res: Dictionary = fleet_reserves(owner)
@@ -494,7 +506,9 @@ static func build_order(state: Dictionary, owner: Dictionary, purpose: String = 
 			reason = "%s sea lanes; contact expired or ended locally, pursuit stopped." % ("Raiding merchant" if kind == "raider" else ("Sailing trade" if kind == "trader" else "Patrolling"))
 		else:
 			dest = str(contact.get("destination", dest))
-	if dest.is_empty() or home_port064(state, dest).is_empty():
+	var valid_destination: bool=not home_port064(state,dest).is_empty()
+	if generic:valid_destination=dest in [route075.corridor075.homeId,route075.corridor075.originId,route075.corridor075.remoteId] and not find_port(state,dest).is_empty()
+	if dest.is_empty() or not valid_destination:
 		var route: Array = owner.get("route", []) if owner.get("route") is Array else []
 		if route.size() >= 2 and not home_port064(state, str(route[1])).is_empty():
 			dest = str(route[1])
@@ -531,7 +545,7 @@ static func build_order(state: Dictionary, owner: Dictionary, purpose: String = 
 		"targetOwnerId": target_owner_id,
 		"tradeGood": str(owner.get("tradeGood", "timber")),
 		"reason": why,
-		"day": int(state.get("econDay", 1)),
+		"day": float(state.get("day", state.get("econDay", 1))),
 		"reserves": res,
 		"performance": perf,
 		"coins": int(res.get("coins", 0)),
@@ -667,13 +681,15 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 	var best_raider_score: float = -INF
 	for other in contacts:
 		if bool(other.get("expired", true)) or not sighting_hostile(state, owner, other):continue
-		if str(other.get("kind", "")) != "raider":continue
+		var supply: bool = str(other.get("kind", "")) == "trader" and bool(other.get("loaded", false))
+		if str(other.get("kind", "")) != "raider" and not supply:continue
 		var r_dest: String = str(other.get("destination", ""))
 		if r_dest.is_empty() or home_port064(state, r_dest).is_empty():continue
 		var r_pos: Vector2 = Vector2(float(other.x), float(other.y))
 		var dist: float = my_pos.distance_to(r_pos)
 		if float(other.get("threat", 0.0)) > power * 1.6:continue
 		var score: float = 2200.0 - dist - float(other.get("ageDays", 0.0)) * 1500.0
+		if supply:score += log(1.0 + maxf(0.0, float(other.get("cargoValue", 0.0)))) * 80.0 - 600.0
 		if score > best_raider_score:
 			best_raider_score = score
 			best_raider = other
@@ -700,7 +716,7 @@ static func select_patrol_order(state: Dictionary, owner: Dictionary, current_po
 			"purpose": "intercept",
 			"destination": best_raider_port,
 			"targetOwnerId": str(best_raider.get("ownerId", "")),
-			"reason": "Intercepting %s near %s; local sighting day %.2f%s." % [str(best_raider.get("name", "raiders")), p_name, float(best_raider.day), " (last known; contact lost)" if not best_raider.current else ""]
+			"reason": "Intercepting %s%s near %s; local sighting day %.2f%s." % [str(best_raider.get("name", "hostile fleet")), " carrying hostile supplies" if str(best_raider.get("kind", "")) == "trader" else "", p_name, float(best_raider.day), " (last known; contact lost)" if not best_raider.current else ""]
 		}
 	if not best_trader.is_empty():
 		var p_name: String = str(find_port(state, best_trader_port).get("name", best_trader_port))
@@ -753,7 +769,8 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 		var threat: float = float(other.get("threat", 0.0))
 		if threat > power * 1.3:continue
 		var dist: float = my_pos.distance_to(Vector2(float(other.x), float(other.y)))
-		var score: float = 900.0 - dist * 0.55 - threat * 0.5 - float(other.get("ageDays", 0.0)) * 1500.0
+		var value: float = maxf(0.0, float(other.get("cargoValue", 0.0)))
+		var score: float = 900.0 + log(1.0 + value) * 180.0 - dist * 0.55 - threat * 0.5 - float(other.get("ageDays", 0.0)) * 1500.0
 		if score > best_score:
 			best_score = score
 			best_convoy = other
@@ -765,7 +782,7 @@ static func select_raider_order(state: Dictionary, owner: Dictionary, current_po
 			"purpose": "raid",
 			"destination": best_dest,
 			"targetOwnerId": str(best_convoy.get("ownerId", "")),
-			"reason": "Seeking loaded convoy %s bound for %s; local sighting day %.2f%s." % [str(best_convoy.get("name", "convoy")), p_name, float(best_convoy.day), " (last known; contact lost)" if not best_convoy.current else ""]
+			"reason": "Seeking loaded convoy %s bound for %s (observed %.1f %s, estimated %.0f coins); local sighting day %.2f%s." % [str(best_convoy.get("name", "convoy")), p_name, float(best_convoy.get("cargoQuantity", 0.0)), str(best_convoy.get("cargoGood", "cargo")), float(best_convoy.get("cargoValue", 0.0)), float(best_convoy.day), " (last known; contact lost)" if not best_convoy.current else ""]
 		}
 
 	var raid_port: String = ""

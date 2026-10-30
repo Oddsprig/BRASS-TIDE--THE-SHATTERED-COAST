@@ -63,10 +63,46 @@ static func available_recruits(port: Dictionary) -> int:
 	return available
 
 
+## A lost owner may fund construction at its existing yard, but its new hull
+## is born there. Living survivors must physically stop at that same yard.
+static func enrolled_yard075(state: Dictionary, owner: Dictionary, port: Dictionary) -> bool:
+	if str(port.get("id",""))!=str(owner.get("homePort","")):return false
+	if not state.get("ports",[]).any(func(p):return is_same(p,port)) or not state.get("fleetOwners",[]).any(func(o):return is_same(o,owner)):return false
+	if NavalOrders.living_boats(owner).is_empty():
+		return not owner.get("boats",[]).is_empty() and owner.boats.all(func(b):return b.get("sunk",false) and b.get("wreckRecorded",false))
+	if str(owner.get("atPort",""))!=str(port.id):return false
+	var location: Dictionary = NavalOrders.canonical_location068(state,str(owner.get("id","")))
+	var region: String = str(port.get("regionId","shatter_coast"))
+	return location.get("world064",{}).get("regionId")==region and location.world064.get("layer")== ("home" if region=="shatter_coast" else "local") and location.get("path",[]).is_empty() and Vector2(float(location.get("position",{}).get("x",INF)),float(location.get("position",{}).get("y",INF))).distance_to(Vector2(float(port.get("x",0.0)),float(port.get("y",0.0))))<40.0
+
+
+static func release_yard075(state: Dictionary, owner: Dictionary, port: Dictionary) -> void:
+	var id: String = str(owner.get("id",""))
+	if not NavalOrders.enrolled066(state,id) or not enrolled_yard075(state,owner,port):return
+	var ocean: Dictionary = state.get("ocean066",{})
+	if ocean.get("contact",{}).get("ownerId")==id:ocean["contact"]={}
+	var model: Dictionary = state.get("shipping068",{}).get("model",{})
+	if model.get("route",{}).get("ownerId")==id:model["route"]={}
+	var memory: Dictionary = ocean.get("memory",{})
+	memory.get("intents",{}).erase(id)
+	memory.get("sightings",{}).erase(id)
+	for observations in memory.get("sightings",{}).values():observations.erase(id)
+	for observer in memory.get("pursuits",{}).keys():
+		if str(observer)==id or memory.pursuits[observer].get("targetId")==id:memory.pursuits.erase(observer)
+	var patrol: Dictionary = NavalOrders.find_patrol(state,id)
+	if not patrol.is_empty():
+		patrol["x"]=port.x;patrol["y"]=port.y;patrol["from"]=port.id;patrol["to"]=port.id
+		patrol["holding"]=true;patrol["active"]=not NavalOrders.living_boats(owner).is_empty();patrol["course"]=[];patrol["courseLength"]=0.0;patrol["progress"]=0.0
+		patrol.erase("hidden");patrol.erase("interceptPoint")
+	owner["atPort"]=port.id
+
+
 static func attach_new_boat(state: Dictionary, owner: Dictionary, port: Dictionary, h: Dictionary, crew_count: int, staged: Dictionary = {}, core = null) -> Dictionary:
-	if NavalOrders.enrolled066(state,str(owner.get("id",""))):return {}
 	if staged.is_empty() or not bool(staged.get("ok", false)):
 		return {}
+	if NavalOrders.enrolled066(state,str(owner.get("id",""))):
+		if not enrolled_yard075(state,owner,port):return {}
+		release_yard075(state,owner,port)
 	var was_empty: bool=NavalOrders.living_boats(owner).is_empty()
 	var boats_arr: Array = owner.get("boats", []) if owner.get("boats") is Array else []
 	var default_seq: int = boats_arr.size() + 1
@@ -151,7 +187,6 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 				continue
 			var ord: Dictionary = ord_var
 			var npc_id: String = str(ord.get("npcOwnerId", ""))
-			if NavalOrders.enrolled066(state,npc_id):continue
 			if npc_id.is_empty():
 				continue
 			if not bool(ord.get("ready", false)) or int(ord.get("escrow", 0)) != 0:
@@ -159,6 +194,7 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 			var owner: Dictionary = NavalOrders.find_owner(state, npc_id)
 			if owner.is_empty() or NavalOrders.is_story_owner(owner):
 				continue
+			if NavalOrders.enrolled066(state,npc_id) and not enrolled_yard075(state,owner,p):continue
 			if not NavalOrders.living_boats(owner).is_empty() and str(owner.get("atPort",""))!=str(p.id):continue
 			var hid: String = str(ord.get("hull", ord.get("hullId", "bilge_punt")))
 			var h: Dictionary = NavalOrders.hull_spec(core, state, world, hid)
@@ -219,7 +255,6 @@ static func collect_replacements(core, port: Dictionary = {}) -> Array:
 
 
 static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, hull_id: String = "") -> Dictionary:
-	if NavalOrders.enrolled066(NavalOrders.state_of(core),str(owner.get("id",""))):return {"ok":false,"reason":"ocean_owner_excluded"}
 	if owner.get("playerCompany",false):return {"ok":false,"message":"Company losses need actual owned replacement hulls; no public subsidy or automatic respawn."}
 	var state: Dictionary = NavalOrders.state_of(core)
 	var world: Dictionary = NavalOrders.world_of(core)
@@ -239,6 +274,7 @@ static func request_replacement(core, owner: Dictionary, port: Dictionary = {}, 
 	if p.is_empty():
 		return {"ok": false, "reason": "no_harbor"}
 	if str(p.id)!=str(owner.homePort):return {"ok":false,"reason":"replacement_needs_home_yard"}
+	if NavalOrders.enrolled066(state,owner_id) and not enrolled_yard075(state,owner,p):return {"ok":false,"reason":"enrolled_survivors_must_reach_home_yard"}
 	if not NavalOrders.living_boats(owner).is_empty() and str(owner.get("atPort",""))!=str(p.id):return {"ok":false,"reason":"survivors_must_reach_yard"}
 
 	var candidate_ids: Array = []

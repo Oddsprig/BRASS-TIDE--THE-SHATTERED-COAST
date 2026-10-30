@@ -37,6 +37,63 @@ static func _number(value,low: float=0.0,whole: bool=false) -> bool:
 static func installed(state: Dictionary) -> bool:
 	return str(state.get("shipping068",{}).get("installation",{}).get("status",""))=="installed"
 
+static func corridor075(state: Dictionary) -> Dictionary:
+	return state.get("shipping068",{}).get("model",{}).get("route",{}).get("corridor075",{})
+
+static func owner_id075(state: Dictionary) -> String:
+	return str(state.get("shipping068",{}).get("model",{}).get("route",{}).get("ownerId",OWNER))
+
+static func _running075(state: Dictionary) -> bool:
+	return not corridor075(state).is_empty()
+
+static func _select075(c,now: float) -> Dictionary:
+	var ai: Dictionary=c.state.get("navalAi",{})
+	if now<float(ai.get("corridorRetrySecond075",0.0)):return _fail("Generated corridor awaits its scheduled dock retry.")
+	ai["corridorRetrySecond075"]=now+Shipping.SERVICE_SECONDS
+	c.state["navalAi"]=ai
+	var candidates: Array=[]
+	for owner in c.state.get("fleetOwners",[]):
+		if owner.get("kind")!="trader" or owner.get("playerCompany",false) or Orders.is_story_owner(owner) or Orders.enrolled066(c.state,str(owner.get("id",""))) or not owner.get("active",false):continue
+		if not Orders.RegionalOrders.operation(c.state,owner).is_empty():continue
+		var yard: Dictionary=c.port(str(owner.get("homePort","")))
+		var patrol: Dictionary=Orders.find_patrol(c.state,str(owner.get("id","")))
+		if yard.is_empty() or patrol.is_empty() or owner.get("atPort")!=yard.id or not patrol.get("holding",false) or not owner.has("harborServiceUntilDay") or World._distance(patrol,yard)>=40.0:continue
+		if c.NavalAI.NavalReplacements.owner_has_queued_replacement(c.state,str(owner.id)):continue
+		var reserve: Dictionary=Orders.fleet_reserves(owner.duplicate(true))
+		if not Orders.needs_home_recovery(owner,reserve,Orders.fleet_performance(owner.duplicate(true))).is_empty():continue
+		candidates.append({"owner":owner,"score":float(owner.get("coins",0))/maxf(1.0,float(Fleets.upkeep(owner).wages))})
+	candidates.sort_custom(func(a,b):return float(a.score)>float(b.score))
+	if candidates.is_empty():return _fail("Waiting for an existing merchant's actual paid home-yard return; no actor or stores are created.")
+	# One candidate per scheduled retry. An unfunded fleet is allowed to hold.
+	var index: int=maxi(0,int(ai.get("corridorCandidateIndex075",0)))%candidates.size()
+	ai["corridorCandidateIndex075"]=(index+1)%candidates.size()
+	var owner: Dictionary=candidates[index].owner
+	var yard: Dictionary=c.port(str(owner.homePort))
+	var trial: Dictionary=owner.duplicate(true)
+	var prior_good: String=str(owner.get("tradeGood","food"))
+	var prior_qty: int=floori(float(owner.get("tradeCargo",0.0)))
+	if prior_qty>0:
+		if not Fleets.allowed_trade(owner,yard,prior_good,c):return _fail("Previous paid coastal cargo must remain aboard until its home market can purchase it.")
+		var wallet: Dictionary={"coins":int(trial.coins),"cargo":trial.cargo}
+		var sale: Dictionary=Economy.transact(yard.duplicate(true),wallet,prior_good,prior_qty,"sell",Fleets._capacity(trial))
+		if not sale.get("ok",false):return _fail("Previous paid coastal cargo cannot be erased or replaced; the home market cannot settle it.")
+		trial["coins"]=int(wallet.coins);trial["tradeCargo"]=maxf(0.0,float(trial.tradeCargo)-float(sale.qty))
+		if float(trial.tradeCargo)>0.000001:return _fail("Previous coastal manifest remains aboard; no generated load can overwrite it.")
+	var selected: Dictionary=Shipping.select_corridor075(c.state,c.ocean_context064,trial,0,float(c.data.get("CAMPAIGN_SCALE",1.0)))
+	if not selected.get("ok",false):return selected
+	if prior_qty>0:
+		var sale: Dictionary=_trade(owner,yard,prior_good,prior_qty,"sell",c)
+		if not sale.get("ok",false):return sale
+		owner["tradeCargo"]=maxf(0.0,float(owner.tradeCargo)-float(sale.qty))
+		owner["tradeDelivered"]=float(owner.get("tradeDelivered",0.0))+float(sale.qty)
+		Fleets._log(owner,"Settled the existing paid coastal manifest at its actual home yard before loading a generated shipment.")
+	var physical: Dictionary=snapshot(c,Shipping.corridor_record075(selected))
+	var invoices: Array=c.state.shipping068.invoices
+	var sequence: int=0 if invoices.is_empty() else int(invoices[-1].sequence)
+	var admitted: Dictionary=Shipping.admit075(c.ocean_context064,physical,now,sequence)
+	if admitted.get("ok",false):admitted["message"]=str(selected.reason)+" Intention recorded day %.2f; sail physically from the paid home yard."%float(c.state.day)
+	return admitted
+
 static func harbors069(state: Dictionary) -> Array:
 	var sector=state.get("sector069")
 	return sector.harbors if sector is Dictionary and sector.get("harbors") is Array else []
@@ -276,10 +333,13 @@ static func raw_error(saved: Dictionary) -> String:
 		previous=int(row.sequence)
 	previous=0
 	for row in book.invoices:
-		if not _keys(row,["sequence","day","kind","portId","good","qty","total"]) or not _number(row.sequence,1.0,true) or int(row.sequence)<=previous or not _number(row.day,1.0) or row.kind not in ["load","deliver","service"] or row.portId not in [ORIGIN,PORT] or row.good not in ["","food","logs"] or not _number(row.qty,0.0,true) or not _number(row.total,0.0,true):return "Invalid physical shipment invoice."
+		if not _keys(row,["sequence","day","kind","portId","good","qty","total"]) or not _number(row.sequence,1.0,true) or int(row.sequence)<=previous or not _number(row.day,1.0) or row.kind not in ["load","deliver","service"] or not row.portId is String or not row.good is String or (row.good!="" and not Economy.GOODS.has(row.good)) or not _number(row.qty,0.0,true) or row.qty>64 or not _number(row.total,0.0,true):return "Invalid physical shipment invoice."
+		if row.portId not in [ORIGIN,PORT] and definition069(saved,row.portId).is_empty() and row.portId not in World.HOME_PORTS:return "Physical shipment invoice has no actual market."
+		if not saved.get("ports",[]).any(func(p):return p.get("id")==row.portId):return "Physical shipment invoice cannot create a missing market."
 		previous=int(row.sequence)
 	if book.installation.status=="pending":
-		if not remote.is_empty() or not book.installation.invoice.is_empty() or not book.model.get("route",{}).is_empty() or not book.knownPorts.is_empty() or book.receipts.any(func(r):return r.portId==PORT) or not book.invoices.is_empty() or book.launch.done:return "Pending installation cannot own a Westglass harbor, shipment or money."
+		var route: Dictionary=book.model.get("route",{})
+		if not remote.is_empty() or not book.installation.invoice.is_empty() or (not route.is_empty() and not route.has("corridor075")) or not book.knownPorts.is_empty() or book.receipts.any(func(r):return r.portId==PORT) or book.invoices.any(func(r):return r.portId==PORT) or book.launch.done:return "Pending installation cannot own a Westglass harbor, shipment or money."
 		return ""
 	if saved.get("mapRevision")!=2 or remote.size()!=1:return "Installed shipping needs one migrated remote harbor."
 	var error: String=_invoice_error(book.installation.invoice)
@@ -302,7 +362,7 @@ static func prepare(saved: Dictionary,_world: Dictionary,context064: Dictionary)
 	if not model.get("ok",false):return _fail(str(model.get("message","Invalid shipping model.")))
 	var book: Dictionary=saved.get("shipping068",empty_book()).duplicate(true)
 	book["model"]=model.book
-	if not book.invoices.is_empty() and int(book.invoices[-1].sequence)>int(book.model.get("route",{}).get("sequence",0)):return _fail("Shipment invoices exceed the committed route sequence.")
+	if not book.model.route.is_empty() and not book.invoices.is_empty() and int(book.invoices[-1].sequence)>int(book.model.route.get("sequence",0)):return _fail("Shipment invoices exceed the committed route sequence.")
 	return {"ok":true,"book":book}
 
 static func _pending(c,message: String) -> Dictionary:
@@ -357,12 +417,16 @@ static func install(c) -> Dictionary:
 	c.state=candidate
 	return {"ok":true,"message":"Installed the historical Westglass branch split; no coins, residents or boats were created."}
 
-static func snapshot(c) -> Dictionary:
-	var owner: Dictionary=Orders.find_owner(c.state,OWNER).duplicate(true)
-	var patrol: Dictionary=Orders.find_patrol(c.state,OWNER).duplicate(true)
+static func snapshot(c,selected: Dictionary={}) -> Dictionary:
+	var corridor: Dictionary=corridor075(c.state) if selected.is_empty() else selected
+	var id: String=OWNER if corridor.is_empty() else str(corridor.ownerId)
+	var owner: Dictionary=Orders.find_owner(c.state,id).duplicate(true)
+	var patrol: Dictionary=Orders.find_patrol(c.state,id).duplicate(true)
 	var reserves: Dictionary=Orders.fleet_reserves(owner)
 	var performance: Dictionary=Orders.fleet_performance(owner)
-	return {"owner":owner,"patrol":patrol,"originPort":c.port(ORIGIN).duplicate(true),"remotePort":c.port(PORT).duplicate(true) if installed(c.state) else {},"reserves":reserves,"performance":performance,"clearance":_clearance(owner),"campaignScale":float(c.data.get("CAMPAIGN_SCALE",1.0))}
+	var physical: Dictionary={"owner":owner,"patrol":patrol,"originPort":c.port(ORIGIN if corridor.is_empty() else str(corridor.originId)).duplicate(true),"remotePort":c.port(PORT if corridor.is_empty() else str(corridor.remoteId)).duplicate(true) if installed(c.state) or not corridor.is_empty() else {},"reserves":reserves,"performance":performance,"clearance":_clearance(owner),"campaignScale":float(c.data.get("CAMPAIGN_SCALE",1.0))}
+	if not corridor.is_empty():physical["yardPort"]=c.port(str(corridor.homeId)).duplicate(true);physical["corridor075"]=corridor.duplicate(true)
+	return physical
 
 static func _clearance(owner: Dictionary) -> float:
 	var result: float=10.0
@@ -371,7 +435,7 @@ static func _clearance(owner: Dictionary) -> float:
 	return result
 
 static func actor(c) -> Dictionary:
-	if not installed(c.state):return {}
+	if not installed(c.state) and not _running075(c.state):return {}
 	return Shipping.actor(c.state.shipping068.model,snapshot(c))
 
 static func _admission_block(c) -> String:
@@ -385,13 +449,21 @@ static func _admission_block(c) -> String:
 static func stage(c,_dt: float) -> Dictionary:
 	var current: Dictionary=c.state.get("shipping068",empty_book()).model
 	var staged: Dictionary={"ok":true,"model":current.duplicate(true),"proposal":{},"command":{},"actor":{},"message":""}
-	if not installed(c.state):return staged
+	if not installed(c.state) and not c.state.has("sector069") and not _running075(c.state):return staged
+	var now: float=float(c.state.day)*45.0
+	if current.route.is_empty() and c.state.has("sector069"):
+		if c.pending_days>0 or c.ocean_watch066<1.0:return staged
+		var admission: Dictionary=_select075(c,now)
+		staged.message=str(admission.get("message","Waiting for a funded generated corridor."))
+		if admission.get("ok",false):
+			staged.model=admission.book
+			staged.actor=Shipping.actor(staged.model,snapshot(c,staged.model.route.corridor075))
+		return staged
 	var physical: Dictionary=snapshot(c)
 	if c.pending_days>0:
 		staged.actor=Shipping.actor(current,physical)
 		staged.message="Awaiting the existing daily economy publication before port transactions."
 		return staged
-	var now: float=float(c.state.day)*45.0
 	var route: Dictionary=current.route
 	if route.is_empty():
 		if c.ocean_watch066<1.0:return staged
@@ -424,11 +496,22 @@ static func _publish_model(c,model: Dictionary) -> void:
 	c.state.shipping068["model"]=model
 	var route: Dictionary=model.route
 	if route.is_empty():return
-	var patrol: Dictionary=Orders.find_patrol(c.state,OWNER)
+	var id: String=str(route.ownerId)
+	var patrol: Dictionary=Orders.find_patrol(c.state,id)
 	patrol["active"]=false;patrol["hidden"]=true;patrol["holding"]=true
 	patrol["course"]=[];patrol["courseLength"]=0.0;patrol["progress"]=0.0
 	patrol.erase("interceptPoint")
-	var owner: Dictionary=Orders.find_owner(c.state,OWNER)
+	var owner: Dictionary=Orders.find_owner(c.state,id)
+	if route.has("corridor075"):
+		var corridor: Dictionary=route.corridor075
+		var docked: bool=route.phase in ["yard_service","yard_arrival"]
+		owner["atPort"]=str(corridor.homeId) if docked else ""
+		if not docked:owner.erase("harborServiceUntilDay")
+		var destination: String=str(corridor.originId) if route.phase=="to_origin" else (str(corridor.remoteId) if route.phase=="outbound" else str(corridor.homeId))
+		var purpose: String="trade" if route.phase=="to_origin" else ("deliver" if route.phase=="outbound" else ("replace" if route.phase=="lost" else "repair"))
+		if str(owner.get("order",{}).get("purpose",""))!=purpose or str(owner.get("destination",""))!=destination:
+			Orders.build_order(c.state,owner,purpose,destination,str(c.state.shipping068.get("holding","Funded generated corridor.")),"",true)
+		return
 	if route.phase in ["outbound","return","lost"]:
 		owner["atPort"]="";owner.erase("harborServiceUntilDay")
 	elif route.phase in ["home_service","remote_service"]:
@@ -486,8 +569,8 @@ static func _launch(c,owner: Dictionary,port: Dictionary,location: Dictionary,re
 static func _execute(c,command: Dictionary,proposal: Dictionary) -> Dictionary:
 	var current: Dictionary=c.state.shipping068.model.route
 	var next_route: Dictionary=proposal.get("route",{})
-	if current.is_empty() or next_route.is_empty() or str(command.get("ownerId",""))!=OWNER or int(command.get("sequence",-1))!=int(current.sequence)+1 or int(next_route.sequence)!=int(command.sequence):return _fail("The shipment command is stale or has no physical enrolled owner.")
-	var owner: Dictionary=Orders.find_owner(c.state,OWNER)
+	if current.is_empty() or next_route.is_empty() or str(command.get("ownerId",""))!=str(current.get("ownerId","")) or next_route.get("ownerId")!=current.ownerId or int(command.get("sequence",-1))!=int(current.sequence)+1 or int(next_route.sequence)!=int(command.sequence):return _fail("The shipment command is stale or has no physical enrolled owner.")
+	var owner: Dictionary=Orders.find_owner(c.state,str(current.ownerId))
 	var port: Dictionary=c.port(str(command.get("portId","")))
 	var location: Dictionary=current.location
 	if port.is_empty() or not _at_berth(location,port) or not owner.get("active",false) or Orders.living_boats(owner).is_empty():return _fail("Shipment settlement requires its actual surviving carrier at the stopped berth.")
@@ -495,7 +578,39 @@ static func _execute(c,command: Dictionary,proposal: Dictionary) -> Dictionary:
 	var good: String=str(command.get("good",""))
 	var qty: int=int(command.get("qty",0))
 	var result: Dictionary
-	if kind=="service":
+	var generic: bool=current.has("corridor075")
+	if generic:
+		if next_route.get("corridor075")!=current.corridor075:return _fail("A shipment mutation cannot change its selected owner, ports or gates.")
+		var corridor: Dictionary=current.corridor075
+		if port.id not in [corridor.homeId,corridor.originId,corridor.remoteId]:return _fail("Generated transaction is outside the actual selected corridor.")
+		if owner.get("faction")!=port.get("faction") and c.Factions.relation(c.state,str(owner.get("faction","")),str(port.get("faction","")))<=-20:return _fail("Current faction relations forbid this market call.")
+		if kind=="service":
+			if port.id!=corridor.homeId or current.phase not in ["yard_service","yard_arrival"] or next_route.phase!="yard_service":return _fail("Paid recovery requires its real home-yard service phase.")
+			var required: Dictionary=Shipping.requirements(c.ocean_context064,snapshot(c))
+			if not required.get("ok",false):return required
+			result=Fleets.dock_at068(owner,port,location,float(required.days)+float(_service_payroll_days(c)),c)
+			if result.get("ok",false):
+				# The existing local crew/yard APIs run only after an actual return.
+				# Re-enrollment below keeps any paid yard-born hull at this berth.
+				c.NavalAI.NavalReplacements.release_yard075(c.state,owner,port)
+				c.NavalLifecycle.hire(c,owner,port)
+				var reserves: Dictionary=Orders.fleet_reserves(owner)
+				if int(reserves.boats)<int(reserves.targetBoats):c.NavalAI.request_replacement(c,owner,port)
+		elif kind=="load":
+			if port.id!=corridor.originId or current.phase!="to_origin" or next_route.phase!="outbound" or qty<0 or qty>64:return _fail("Generated loading requires its actual origin berth and next departure.")
+			var required: Dictionary=Shipping.requirements(c.ocean_context064,snapshot(c))
+			if not required.get("ok",false):return required
+			var offer: Dictionary=Shipping.cargo_offer075(owner,port,c.port(str(corridor.remoteId)),int(required.wageCoins)+int(required.repairCoins))
+			if not offer.get("ok",false) or good!=offer.good or (qty>0 and (offer.retained or qty>int(offer.qty))) or (qty==0 and not offer.retained):return _fail("Generated load no longer matches an affordable finite stock/demand quote.")
+			result=_trade(owner,port,good,qty,"buy",c)
+			if result.get("ok",false) and qty>0:owner["tradeGood"]=good;owner["tradeCargo"]=float(result.qty)
+		elif kind=="deliver":
+			var expected: String=str(corridor.remoteId) if current.phase=="outbound" else str(corridor.homeId)
+			if current.phase not in ["outbound","to_yard"] or port.id!=expected or good!=str(owner.tradeGood) or qty<0 or qty>Shipping._delivery075(owner,port):return _fail("Generated delivery exceeds its actual surviving manifest, buyer cash or demand.")
+			result=_trade(owner,port,good,qty,"sell",c)
+			if result.get("ok",false):owner["tradeCargo"]=maxf(0.0,float(owner.tradeCargo)-float(result.qty));owner["tradeDelivered"]=float(owner.get("tradeDelivered",0.0))+float(result.qty)
+		else:return _fail("Unknown generated shipment mutation.")
+	elif kind=="service":
 		var required: Dictionary=Shipping.requirements(c.ocean_context064,snapshot(c))
 		if not required.get("ok",false):return required
 		if port.id==ORIGIN:
@@ -529,7 +644,7 @@ static func _execute(c,command: Dictionary,proposal: Dictionary) -> Dictionary:
 	return result
 
 static func commit(c,staged: Dictionary) -> void:
-	if not installed(c.state):return
+	if not installed(c.state) and not c.state.has("sector069") and not _running075(c.state):return
 	c.state.shipping068["holding"]=str(staged.get("message","")).left(600)
 	_publish_model(c,staged.model)
 	if not staged.get("command",{}).is_empty():
@@ -548,10 +663,11 @@ static func _forget_pursuits(c,id: String) -> void:
 		if str(key)==id or str(memory.pursuits[key].get("targetId",""))==id:memory.pursuits.erase(key)
 
 static func record_losses(c) -> void:
-	if not installed(c.state):return
+	if not installed(c.state) and not _running075(c.state):return
 	var route: Dictionary=c.state.shipping068.model.route
 	if route.is_empty():return
-	var owner: Dictionary=Orders.find_owner(c.state,OWNER)
+	var id: String=str(route.ownerId)
+	var owner: Dictionary=Orders.find_owner(c.state,id)
 	var pending: Array=owner.get("boats",[]).filter(func(b):return b.get("sunk",false) and not b.get("wreckRecorded",false))
 	var remaining: int=pending.size()
 	var living: int=Orders.living_boats(owner).size()
@@ -568,7 +684,16 @@ static func record_losses(c) -> void:
 	if living==0:
 		route["phase"]="lost";route.location["path"]=[];route.location["destination"]=""
 		owner["active"]=false;owner["atPort"]="";owner.erase("harborServiceUntilDay")
-		_forget_pursuits(c,OWNER)
+		_forget_pursuits(c,id)
+		# No surviving hull can return. The already reconciled loss may fund a
+		# new yard hull through the same real stock/material/labor/recruit path.
+		if route.has("corridor075") and _watch_replacement075(c,owner):c.NavalAI.request_replacement(c,owner,c.port(str(owner.homePort)))
+
+static func _watch_replacement075(c,owner: Dictionary) -> bool:
+	var now: float=float(c.state.day)*45.0
+	if now<float(owner.get("nextReplacementSecond075",0.0)):return false
+	owner["nextReplacementSecond075"]=now+Shipping.SERVICE_SECONDS
+	return true
 
 static func after_step(c,_watch_due: bool=false) -> void:
 	record_losses(c)
@@ -585,15 +710,16 @@ static func daily(c) -> void:
 static func resolve_encounter(c,encounter: Dictionary) -> Dictionary:
 	var a: String=str(encounter.get("attackerId",""))
 	var b: String=str(encounter.get("defenderId",""))
-	if a not in ["patrol-0",OWNER] or b not in ["patrol-0",OWNER] or a==b:return _fail("This is not the bounded shared NPC contact.")
 	var raider: Dictionary=c.state.get("ocean066",{}).get("contact",{})
 	var merchant: Dictionary=c.state.get("shipping068",{}).get("model",{}).get("route",{})
 	if raider.is_empty() or merchant.is_empty():return _fail("The existing physical NPC contact is no longer enrolled.")
-	var location_a: Dictionary=raider.location if a=="patrol-0" else merchant.location
-	var location_b: Dictionary=raider.location if b=="patrol-0" else merchant.location
+	var ids: Array=[str(raider.ownerId),str(merchant.ownerId)]
+	if a not in ids or b not in ids or a==b:return _fail("This is not the bounded shared NPC contact.")
+	var location_a: Dictionary=raider.location if a==str(raider.ownerId) else merchant.location
+	var location_b: Dictionary=raider.location if b==str(raider.ownerId) else merchant.location
 	var result: Dictionary=c.NavalAI.resolve_at068(c,a,b,location_a,location_b)
 	if result.get("ok",false):
-		_forget_pursuits(c,OWNER)
+		_forget_pursuits(c,str(merchant.ownerId))
 		c.OceanCampaign066.record_losses(c);record_losses(c)
 		if result.get("event",{}).get("witnessed",false):c.log_entry(str(result.get("summary","The observed fleets exchanged fire.")))
 	return result
@@ -658,7 +784,7 @@ static func view(c) -> Dictionary:
 		output.ownership.append({"regionId":str(port.regionId),"islandId":str(port.islandId),"portId":str(port.id),"faction":str(port.faction)})
 	var book: Dictionary=c.state.get("shipping068",empty_book())
 	output.receipts=book.receipts.duplicate(true)
-	if not installed(c.state):
+	if not installed(c.state) and not _running075(c.state):
 		if c.home_local064():output.summary=str(book.installation.reason)
 		return output
 	if PORT in book.knownPorts:
@@ -669,11 +795,14 @@ static func view(c) -> Dictionary:
 		output.receipts=book.receipts.duplicate(true)
 		output.summary="Known Reedwater harbor on Westglass; other Glasswind island holdings are unknown."
 	var now: float=float(c.state.day)*45.0
-	var seen: Dictionary=c.state.get("ocean066",{}).get("memory",{}).get("sightings",{}).get("player",{}).get(OWNER,{})
+	var id: String=owner_id075(c.state)
+	var seen: Dictionary=c.state.get("ocean066",{}).get("memory",{}).get("sightings",{}).get("player",{}).get(id,{})
 	if seen.is_empty() or float(seen.get("expiresSecond",0))<=now or not Travel.same_world(seen.get("world064"),c.state.get("world064")):return output
 	var age: float=maxf(0.0,now-float(seen.seenSecond))
-	var owner: Dictionary=Orders.find_owner(c.state,OWNER)
-	output.contacts.append({"id":OWNER,"ownerId":OWNER,"name":str(owner.get("name","Kelp merchant")),"faction":str(owner.get("faction","reed")),"role":"trader","hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if age<=1.5 else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if age<=1.5 else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":"Dated merchant sighting; investigate or avoid","provenance":"Existing Kelp merchant patrol-7; same physical fleet","boats":seen.boats.duplicate(true)})
+	var owner: Dictionary=Orders.find_owner(c.state,id)
+	var observed: Dictionary=seen.get("intention075",{})
+	var reason: String=str(observed.get("reason","Dated merchant sighting; investigate or avoid"))
+	output.contacts.append({"id":id,"ownerId":id,"name":str(owner.get("name","Merchant")),"faction":str(owner.get("faction","reed")),"role":"trader","hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if age<=1.5 else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if age<=1.5 else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":reason,"provenance":"Existing merchant %s; same physical boats and accounts"%id,"boats":seen.boats.duplicate(true)})
 	# Dated observations cannot reveal a live unseen phase, purse, manifest or route.
-	output.route={"ownerId":OWNER,"phase":"observed","reason":"Dated merchant contact; accounts and destination are private.","seenSecond":float(seen.seenSecond)}
+	output.route={"ownerId":id,"phase":"observed","reason":reason,"seenSecond":float(seen.seenSecond)}
 	return output
