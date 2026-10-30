@@ -7,6 +7,7 @@ extends SceneTree
 const Campaign=preload("res://scripts/campaign.gd")
 const Workers=preload("res://scripts/economy_workers.gd")
 const BODY_LIMIT_MS: int=55000
+const RESTORE_CHECKPOINT: String="C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/a611797641b44a7ab6c8974a6853db89/attempt-001/sector-voyage/sector069-private-voyage.json"
 var c
 var workers=Workers.new()
 var started: int=0
@@ -46,6 +47,72 @@ func same_values(a,b) -> bool:
 			if not same_values(a[index],b[index]):return false
 		return true
 	return a==b
+
+func difference_value(value,present: bool=true) -> Dictionary:
+	return {"type":type_string(typeof(value)) if present else "MISSING","value":JSON.stringify(value,"",true,true) if present else "<missing>"}
+
+func restore_differences(saved,actual,path: String,rows: Array,saved_present: bool=true,actual_present: bool=true) -> void:
+	# Keep one extra row to disclose truncation; no coercion or approximate equality.
+	if rows.size()>=5:return
+	if not saved_present or not actual_present or typeof(saved)!=typeof(actual):
+		rows.append({"path":path,"saved":difference_value(saved,saved_present),"restored":difference_value(actual,actual_present)});return
+	if saved is Dictionary:
+		var actual_keys: Array=actual.keys()
+		for key in saved:
+			var child: String=path+"["+type_string(typeof(key))+":"+JSON.stringify(key,"",true,true)+"]"
+			if actual.has(key):
+				var index: int=actual_keys.find(key)
+				if index>=0 and typeof(key)!=typeof(actual_keys[index]):
+					rows.append({"path":child+"{key}","saved":difference_value(key),"restored":difference_value(actual_keys[index])})
+				restore_differences(saved[key],actual[key],child,rows)
+			else:restore_differences(saved[key],null,child,rows,true,false)
+			if rows.size()>=5:return
+		for key in actual:
+			if not saved.has(key):restore_differences(null,actual[key],path+"["+type_string(typeof(key))+":"+JSON.stringify(key,"",true,true)+"]",rows,false,true)
+			if rows.size()>=5:return
+	elif saved is Array:
+		for index in range(maxi(saved.size(),actual.size())):
+			restore_differences(saved[index] if index<saved.size() else null,actual[index] if index<actual.size() else null,path+"["+str(index)+"]",rows,index<saved.size(),index<actual.size())
+			if rows.size()>=5:return
+	elif saved!=actual:
+		rows.append({"path":path,"saved":difference_value(saved),"restored":difference_value(actual)})
+
+func restore_scopes(snapshot: Dictionary) -> Dictionary:
+	var owner: Dictionary={}
+	for row in snapshot.get("fleetOwners",[]):
+		if row.get("id")=="patrol-7":owner=row;break
+	# Include the complete physical owner/boat condition and shipping book, not just
+	# the smaller merchant() account projection used by the earned voyage check.
+	return {"sector069":snapshot.get("sector069"),"ports":snapshot.get("ports"),"merchant":{"fleetOwner":owner,"shipping068":snapshot.get("shipping068")}}
+
+func report_restore_differences(saved: Dictionary) -> void:
+	var expected: Dictionary=restore_scopes(saved)
+	var actual: Dictionary=restore_scopes(c.state)
+	receipt.restoreComparison="decoded_saved_snapshot"
+	receipt.restoreDifferences=[];receipt.restoreDifferenceLimitPerScope=4;receipt.restoreDifferencesTruncatedScopes=[]
+	for scope in ["sector069","ports","merchant"]:
+		var rows: Array=[]
+		restore_differences(expected[scope],actual[scope],scope,rows)
+		if rows.size()>4:receipt.restoreDifferencesTruncatedScopes.append(scope)
+		for row in rows.slice(0,4):
+			receipt.restoreDifferences.append(row)
+			print("SECTOR069_RESTORE_DIFF ",JSON.stringify(row))
+
+func checkpoint_diagnostic(options: Dictionary) -> void:
+	receipt.status="CHECKPOINT_DIAGNOSTIC";receipt.diagnosticOnly=true;receipt.earnedVoyage=false
+	var path: String=str(options.get("restore-checkpoint",""))
+	var bound: String=str(options.get("checkpoint-sha256",""))
+	receipt.checkpoint=path;receipt.checkpointSha256=bound
+	if not check(path.is_absolute_path() and path.replace("\\","/").simplify_path()==RESTORE_CHECKPOINT,"Diagnostic accepts only the absolute synthetic checkpoint path"):return
+	if not check(bound.length()==64 and bound.is_valid_hex_number() and FileAccess.get_sha256(path)==bound,"Checkpoint FileAccess SHA256 matches the exact bound hash"):return
+	var saved=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not check(saved is Dictionary,"Bound synthetic checkpoint decodes as a saved snapshot"):return
+	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+	if not check(world is Dictionary,"Diagnostic campaign definitions decode"):return
+	c=Campaign.new(world)
+	var restored: Dictionary=c.restore(saved)
+	if not check(restored.get("ok",false),"Checkpoint restore: "+str(restored.get("message",""))):return
+	report_restore_differences(saved)
 
 func protected_state() -> PackedByteArray:
 	return var_to_bytes([c.state,c.events,c.pending_days,c.ocean_context064,c.ocean_context066,c.route_cache,c.ocean_watch066,c.ocean_conditions066,c.exploration_timer,c.sailing_clearance,c.travel_lock064])
@@ -198,7 +265,8 @@ func generated() -> bool:
 	var physical: Dictionary=merchant()
 	var saved: Dictionary=parsed_save()
 	if not check(not saved.is_empty() and c.restore(saved).get("ok",false),"Actual parsed generated career restores"):return false
-	check(same_values(c.state.sector069,sector) and same_values(c.state.ports,accounts) and same_values(merchant(),physical),"Restore keeps geography and all live harbor/merchant accounts without refill")
+	if not check(same_values(c.state.sector069,sector) and same_values(c.state.ports,accounts) and same_values(merchant(),physical),"Restore keeps geography and all live harbor/merchant accounts without refill"):
+		report_restore_differences(saved)
 	for kind in ["ledger","missing_port","missing_site","null_sector"]:
 		if not bounded():return false
 		var bad: Dictionary=JSON.parse_string(JSON.stringify(saved))
@@ -259,6 +327,11 @@ func legacy() -> bool:
 	return failures==0
 
 func _run() -> void:
+	var options: Dictionary={}
+	for argument in OS.get_cmdline_user_args():
+		for name in ["restore-checkpoint","checkpoint-sha256"]:
+			if argument.begins_with("--"+name):options[name]=argument.trim_prefix("--"+name+"=")
+	if not options.is_empty():checkpoint_diagnostic(options);finish();return
 	if not check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies a private artifact/profile directory"):finish();return
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	c=Campaign.new(world)
@@ -273,7 +346,7 @@ func finish() -> void:
 	c=null
 	var elapsed: int=Time.get_ticks_msec()-started
 	check(elapsed<BODY_LIMIT_MS,"Whole fixture body and owned worker cleanup remain under55seconds")
-	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed;receipt.sourceCandidate=true
+	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed;receipt.sourceCandidate=not receipt.get("diagnosticOnly",false)
 	print("SECTOR069_RESULT ",JSON.stringify(receipt))
 	print("%d checks, %d failures" % [checks,failures])
 	quit(0 if failures==0 else 1)
