@@ -1,3 +1,7 @@
+v0.071 CURRENT:189/0; Windows/title, two private movies and offline sound review.
+work/quality-v071/ACTUAL071 CHECKS.json; final selected 139.264s.
+Whole-game quality and strict performance targets remain open.
+
 v0.070 CURRENT: 232 focused/0;9 reviewed private stills.
 work/quality-v070/ACTUAL070 CHECKS.json; selected suite 129.124s including setup/cleanup.
 Whole-game quality/strict performance OPEN.

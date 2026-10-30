@@ -1,3 +1,10 @@
+v0.071: Route equipment failure by its reported kind before inherited weapon
+family. Keep actual fire state separate from engine damage. Check small-boat
+damage at the real zoom/LOD threshold; don't force a fake LOD. Read a returned
+coalescing key before inferring behavior from its comment. Review Flash math:
+gain sums do not determine loudness for different uncorrelated source recordings.
+Sparse audio samples/PCM integrity are not listening or dense-battle acceptance.
+
 v0.070: Work berths must resolve the actual live account without opening HOME-only
 services remotely. Regional jobs retain the same escrow, sealed cargo and saved
 primitive endpoints. Price client work from efficient capable crew; show actual

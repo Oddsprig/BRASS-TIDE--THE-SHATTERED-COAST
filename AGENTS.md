@@ -1,18 +1,16 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.070: funded regional voyage work. Tested source 5b66f5a8c169fe5ac7ca258a61a4c48b1b5a83dc;
-232 focused/0; Windows export/menu and9 Root-reviewed private PCK stills.
-Receipts work/quality-v070/ACTUAL070 CHECKS.json and DELIVERED v0.070.json.
-Do not rebuild070. Next saved071: combat presentation, wakes and sound.
-Whole-game quality/earlier strict performance remain OPEN. Root owns all queued tests/delivery.
+Current verified release v0.071: combat presentation, stern wakes and recorded sound.
+Tested 7ee3a993e697dabfc8260b057b47b49d93c11dc6;189 focused/0; Windows/menu and two reviewed private movie captures.
+Receipts work/quality-v071/ACTUAL071 CHECKS.json and DELIVERED v0.071.json.
+Do not rebuild071. Next072: complete voyage integration and measured runtime costs.
+Whole-game quality/strict performance OPEN. Root owns tests and delivery.
 
-ACTIVE SOURCE071: combat presentation, short stern wakes and recorded sound.
-work/quality-v071/SCOPE071.txt and isolated ROLE071.txt own the exact scope.
-2SolMAX/2GrokHIGH source roles through Bridge;2SparkHIGH bounded drafts reviewed
-by Root, Gemini3.8Flash pendingGoogle99.9% quota. Root alone owns all engine/GPU
-tests, Windows export, actual motion/audio review and delivery. No071metadata or
-release claim yet; preserve installed070 until accepted. No hull asset production
-or AI/performance/economy changes in071. Deliver before advancing072.
+071 audible quality remains UNVERIFIED. Root reviewed20 temporal frames and
+source/PCM integrity; this was not listening. Sparse sample and exact limits:
+docs/audio/OFFLINE REVIEW v0.071.txt. Spark media route declined; explicit Google
+plan audio call timed out. Two Spark text drafts reviewed; erroneous layer-level
+sum rejected. No paid/model fallback. Gemini media reviews pending availability.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -41,7 +39,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through070 are scoped verified;071-078 remain planned. Earlier quality
+063 through071 are scoped verified;072-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051

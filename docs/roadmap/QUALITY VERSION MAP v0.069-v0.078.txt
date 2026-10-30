@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-29 October 2026 | v0.069-v0.070 VERIFIED SCOPED; v0.071-v0.078 PLANNED | Current delivered game: v0.070
+29 October 2026 | v0.069-v0.071 VERIFIED SCOPED; v0.072-v0.078 PLANNED | Current delivered game: v0.071
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069 and v0.070 are delivered within scope; the remaining eight entries are planned.
+v0.069-v0.071 are delivered within scope; the remaining seven entries are planned.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -46,7 +46,10 @@ Fund clients and NPC trade from real accounts; delivered cargo changes stocks.
 Boundary: improve the existing jobs/refit/economy, not parallel frameworks,
 additional hull rosters or guaranteed profit for every route and risk.
 
-0.071 - COMBAT FEEL, WAKES AND SOUND
+0.071 - COMBAT FEEL, WAKES AND SOUND [VERIFIED SCOPED]
+Delivered implementation and sampled visual proof; audible quality is UNVERIFIED.
+The requested media routes did not supply a listening result. Preserve the
+offline sample and exact limitation in docs/audio/OFFLINE REVIEW v0.071.txt.
 Focus: make the existing battle understandable and forceful in motion.
 Improve firing/recoil, tracers, impacts, engine damage, sparks, fire, flooding,
 explosions and sinking. Attach wakes to the stern and actual speed/turning.

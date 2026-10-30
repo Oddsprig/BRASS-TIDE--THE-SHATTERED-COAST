@@ -1,15 +1,14 @@
-BRASS TIDE v0.071 - COMBAT FEEL, STERN WAKES AND RECORDED WEAPON SOUND
-30 October2026 |36 boat designs
+BRASS TIDE v0.071 - Combat feel, stern wakes and recorded weapon sound
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 7ee3a993e697dabfc8260b057b47b49d93c11dc6 / v0.071
+Test Bridge: 9698bcb5b6ff4b98b142ce4a932a94de
+189 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 59.459s; owned cleanup verified.
 
-THIS VERSION
 - Make short stern wash follow actual speed and turning; keep engine trouble, fire and flooding visible at normal zoom.
 - Separate weapon flashes, impacts, engine failures and sinking using the existing bounded combat effects.
 - Refine the existing recorded weapon mix while preserving finite voices and keeping music separate.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Tested source 7ee3a993e697dabfc8260b057b47b49d93c11dc6;189 focused assertions/0 failures; Windows export/title. Final selected suite 139.264s including setup/import/export/startup/cleanup and recorded offline processing; queue wait separate. 178 native presentation assertions and11 labelled audio-policy examples passed. The existing recorded19-file bank manifest hashes and PCM integrity passed; no new download, generated weapon attack or owner-music replacement. Root inspected both exported battle PNGs and all20 ordered temporal samples from two actual five-second movies. Actual shots, material impacts, short turning stern wash, separate fire/engine/flooding cues and staged sinking were observed. At zoom0.66 the actual small-boat low-detail fallback is exercised; the ordinary weapons case uses zoom1.4. Hold reached the data worker and the mover slowed to5.472 at battle time4.5. The original six sound banks retain32voices and12per-consume admissions. A sparse22-second offline audition is supplied. LISTENING QUALITY IS UNVERIFIED: Spark declined the pinned media task; the explicit Google-plan Gemini attempt timed out without a result. No paid API/model fallback or heard-quality claim was made. Two requested Spark text drafts were reviewed; one unsupported combined-layer dB estimate was rejected. Further Gemini media reviews remain pending provider availability. One bounded Grok source review of the six changed production scripts found no observed blocker. Runtime and motion passed on the first071 candidate. No earlier performance target, full-game art quality or tactical firing behavior is claimed fixed. Audible realism, fatigue and dense-battle mixing remain open for listening/player feedback. Actual evidence: work/quality-v071/ACTUAL071 CHECKS.json, ROOT MOTION REVIEW071.txt and ROOT AUDIO REVIEW071.txt. Movies use declared laboratory initial conditions and fixed60 offline recording; this does not establish realtime FPS, smooth sustained play, paid career progression or overall art parity. No new water simulation, hull roster, AI/economy rules or worker cadence. Existing36boats/48freshgroups,300DP,numericalcrews,defaultauto,WASD,safe render1,30Hz dataworker and100ms role choices retained. Owner files/music/older builds preserved. No live audio, input/focus, autolaunch or remote publication. Earlier strict performance targets and whole-game quality remain open. Next scope072 integrates one voyage and addresses measured runtime costs.

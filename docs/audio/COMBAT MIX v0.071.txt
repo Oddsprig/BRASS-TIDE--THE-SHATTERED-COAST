@@ -55,7 +55,8 @@ attacks and drops the dry body first.
 Routine MG fire, hit and miss each collapse on their own key: source, family
 and kind. One cue per 0.16s on that key. Fire does not take the contact slot.
 A reported breach, engine hit or killing blow is not collapsed.
-Cannon, rocket and torpedo reports and hits are never collapsed.
+Cannon, rocket and torpedo reports and hits are never coalesced; they can still
+be dropped by the shared voice-admission and priority limits.
 Their misses hold 0.40s per source, family and kind so splash spam cannot
 take the 12 slots.
 Voices admitted later in a full consume are trimmed by 0.45 dB per voice already

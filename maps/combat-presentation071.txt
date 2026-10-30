@@ -1,0 +1,52 @@
+BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.071)
+
+Actual stern motion and reported combat/equipment state -> bounded wash, distinct weapon impulses, engine/fire/flooding/sinking cues and recorded audio voices. Main draws/mixes; worker owns battle data.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/chart.gd: 70104 bytes; extends Node2D
+  game/scripts/chart.gd:70 reset_battle_presentation051()
+  game/scripts/chart.gd:74 clear_battle_poses051()
+  game/scripts/chart.gd:101 battle_boats051()
+  game/scripts/chart.gd:105 battle_boat_position051()
+  game/scripts/chart.gd:112 profile_enable()
+  game/scripts/chart.gd:117 profile_reset()
+game/scripts/wake_art045.gd: 14780 bytes; extends RefCounted
+  game/scripts/wake_art045.gd:202 draw()
+  game/scripts/wake_art045.gd:64 _life()
+  game/scripts/wake_art045.gd:70 _path()
+  game/scripts/wake_art045.gd:124 _side()
+  game/scripts/wake_art045.gd:142 _paint_polygon()
+  game/scripts/wake_art045.gd:167 _ribbon_indices()
+game/scripts/boat_art.gd: 37893 bytes; extends RefCounted
+  game/scripts/boat_art.gd:56 archetype()
+  game/scripts/boat_art.gd:111 palette()
+  game/scripts/boat_art.gd:172 mounts_of()
+  game/scripts/boat_art.gd:476 draw_boat()
+  game/scripts/boat_art.gd:665 draw_wake()
+  game/scripts/boat_art.gd:670 draw_trail()
+game/scripts/combat_art.gd: 44081 bytes; extends RefCounted
+  game/scripts/combat_art.gd:32 profile_enable()
+  game/scripts/combat_art.gd:35 profile_reset()
+  game/scripts/combat_art.gd:39 profile_read()
+  game/scripts/combat_art.gd:256 effect()
+  game/scripts/combat_art.gd:661 wreck()
+  game/scripts/combat_art.gd:141 _num()
+game/scripts/combat_events.gd: 38522 bytes; extends RefCounted
+  game/scripts/combat_events.gd:15 number()
+  game/scripts/combat_events.gd:20 weapon_family()
+  game/scripts/combat_events.gd:36 projectile_kind()
+  game/scripts/combat_events.gd:50 weapon_variant()
+  game/scripts/combat_events.gd:72 archetype()
+  game/scripts/combat_events.gd:92 hull_material()
+game/scripts/sound.gd: 12669 bytes; extends Node2D
+  game/scripts/sound.gd:72 reset_battle()
+  game/scripts/sound.gd:85 priority()
+  game/scripts/sound.gd:119 event_layers()
+  game/scripts/sound.gd:182 attenuation_db()
+  game/scripts/sound.gd:210 consume()
+  game/scripts/sound.gd:301 set_engine()
+
+TESTS (game/tests/*.gd)
+test_combat_presentation071 and test_audio_policy071; actual queued Windows/motion/audio receipts in work/quality-v071 after acceptance
+
+Full symbols: rg -n '^func |^static func ' on named files.

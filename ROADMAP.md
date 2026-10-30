@@ -1,11 +1,7 @@
-# Current step: v0.071 - Combat feel, stern wakes and recorded weapon sound
+# Current verified release: v0.071 combat presentation
 
-- Make short stern wash follow actual speed and turning; keep engine trouble, fire and flooding visible at normal zoom.
-- Separate weapon flashes, impacts, engine failures and sinking using the existing bounded combat effects.
-- Refine the existing recorded weapon mix while preserving finite voices and keeping music separate.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+189 focused/0; Windows/menu, two private five-second movies and offline audio review.
+Next072: complete voyage integration and measured runtime costs. Quality targets remain open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
@@ -24,7 +20,7 @@ older saves keep their original world. See [Ocean world design](docs/roadmap/OCE
 | 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
 | 0.069 | Verified scoped:48 seeded groups, finite generated harbors, paid surveys and starting mixed ownership. |
 | 0.070 | Verified scoped: funded regional work, whole-trip cost previews and a paid specialist from normal-start voyage earnings. |
-| 0.071 | Combat feel: readable weapon fire, wakes, impacts, flooding, sinking and distinct sound. |
+| 0.071 | Verified scoped: stern wash, normal-zoom damage cues, distinct weapon impulses, engine routing and recorded mix. |
 | 0.072 | Complete voyage integration and measured campaign/full-fleet performance corrections. |
 | 0.073 | Finished boat and weapon assets across the 36 existing hulls, matching physical mounts and refit previews. |
 | 0.074 | Tactical AI counterplay: flanking/harassment, screening, firing passes, retreat and dependable orders. |
@@ -34,7 +30,7 @@ older saves keep their original world. See [Ocean world design](docs/roadmap/OCE
 | 0.078 | Six-career playability, guidance, interface/balance polish and whole-loop quality review. |
 
 Detailed acceptance and exclusions: [Next ten quality milestones](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
-The prior 063-072 map preserves the accepted history. Versions071-078 remain planned;
+The prior 063-072 map preserves the accepted history. Versions072-078 remain planned;
 quality is judged from complete voyages, battles, actual presentation and player feedback.
 Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
 and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.

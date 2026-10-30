@@ -1,0 +1,28 @@
+30 October2026 | Technical/source review and offline audition artifact.
+LISTENING QUALITY UNVERIFIED. Root has not heard the sample and does not claim
+that a codec, headroom figure or a model reading a text capsule can hear it.
+
+Existing CC0 recorded weapon/contact banks and source credits remain unchanged.
+Root rechecked the three primary weapon pages; the PCM audit verifies each
+existing manifest hash. Native Sound routing/voice limits/headless/mute/sequence
+checks passed. The offline22-second WAV uses actual queued071 event_layers,
+bank cuts, layer gain/pitch/distance and85%volume; it is a sparse illustration,
+not a captured live polyphonic mix with runtime voice stealing or bus limiting.
+Peak-16.514dBFS; no normalization. That number does not establish sound quality.
+AUDIO071 AUDITION RECEIPT.json binds the sample and all source cuts/timings.
+
+Requested Spark media review was NOT SENT because the pinned model could not
+take that task. Its later text/math review completed and was reviewed by Root:
+one unsupported combined-layer level estimate was rejected; do not publish it.
+Pitch-clamp/trim/volume math and conservative claim wording were accepted.
+The explicit Antigravity Google-plan Gemini3.8Flash audio call timed out after
+300seconds, with no result and no matching running helper thread returned.
+Google meter was99.9%; Root did not substitute a model, use paid API fallback
+or claim the timeout proved a particular cause. Second Gemini review remains
+pending provider availability. No live audio, device playback or input was used.
+
+SCOPED RESULT: existing recorded-bank mix policy and its bounded scheduling are
+verified; an offline sample is supplied. Audible weapon realism, fatigue and
+dense-battle mix acceptance remain OPEN for listening/player feedback. This is
+an explicit limitation of071, not a listening pass. No additional engine tests
+or broader quality gate is justified by this unavailable media route.

@@ -1,0 +1,37 @@
+30 October2026 | Root inspected both actual exported battle PNGs and ALL20
+ordered decoded frames, ten from each five-second movie at2samples/second.
+Originals: TestBridge412bb2b0859b4e2b9b4dcabb1d47950e(combat) and
+abc00848452b474394ecdf9591f59731(damage), attempt-001. Both match tested source
+7ee3a993e697dabfc8260b057b47b49d93c11dc6. Decoded actual movies1440x900,
+300frames,60/1fps,5.000seconds. Requested1280x800 window was raised by the game's
+existing minimum size. These are offline MovieMaker frames, not realtime FPS.
+MOTION071 PROCESSING.json binds all originals, previews and decoded frames.
+
+COMBAT: normal battle zoom1.4. The first sample shows all four fitted weapon
+reloads active, orange rocket exhaust and water-plane torpedo foam. Later samples
+show short muzzle strokes, radial material sparks, a tall water plume that then
+collapses, distinct persistent hull fire/smoke, and short stern wash following
+actual turning. There is no displaced boat-shaped reflection/shadow. Sparks and
+plumes clear rather than staying as a constant glow. Existing fire, HP and engine
+conditions continue changing. The native178 checks separately cover event kinds,
+mount origins, bounded geometry, admission and read-only published ship state.
+
+DAMAGE: declared canonical laboratory starting conditions, zoom0.66 deliberately
+exercises the real low-detail boundary. Engine-damaged boat smokes without an
+invented fire; the burning neighbor stays orange; the flooded neighbor has its
+different water tint. Crew repair continues, as the engine readout rises25->41%.
+The shell-sunk hull settles and disappears on the existing2.2-second sequence,
+leaving a fading water-plane ring/debris. The healthy mover turns toward its
+ordered point, then slows after Hold. Actual worker log: Hold queued at battle
+time2.233333; observed order hold/speed5.472 at battle time4.5. Small wake becomes
+very faint after slowing; normal native stop checks prove old samples expire.
+No direct writes to live worker state or owner career were used after setup.
+
+SCOPED ACCEPTANCE: reported combat events and damage conditions read separately,
+stern wash is short and attached, and sinking progresses instead of retaining a
+second hull outline. These are sampled temporal observations, not continuous
+full-frame playback, audible live testing, smoothness measurements or fun approval.
+Far zoom remains small and detailed silhouettes/material artwork still need073.
+Weapon readiness sometimes waits for helm clearance in this scenario;074 owns
+tactical firing-pass behavior. No broader AI, balance, asset-parity or full-game
+acceptance is claimed. Both previews and original movies remain available.
