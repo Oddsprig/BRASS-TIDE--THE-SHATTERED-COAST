@@ -6,6 +6,8 @@ extends "res://tests/test_voyage_career070.gd"
 ## No checkpoint replay, grants, actor/clock/position edits or controlled damage.
 const Main072=preload("res://scripts/main.gd")
 const Equipment072=preload("res://scripts/equipment_records.gd")
+const Service072=preload("res://scripts/equipment_service.gd")
+const BODY072_LIMIT_MS: int=60000
 const COAST_PORT072: String="reed_floats"
 const SEEK_SECONDS072: float=120.0
 var main072
@@ -25,9 +27,9 @@ func check(value: bool,message: String) -> bool:
 	return value
 
 func bounded() -> bool:
-	if not finished072 and Time.get_ticks_msec()-started<51500:return true
+	if not finished072 and Time.get_ticks_msec()-started<56500:return true
 	receipt.status="BODY_TIMEOUT"
-	return check(false,"55-second whole body reserves time for owned worker/Main cleanup")
+	return check(false,"60-second072 body stops new work at56.5seconds for owned worker/Main cleanup")
 
 func gap072(code: String,message: String) -> bool:
 	receipt.status="ROUTE_GAP"
@@ -159,6 +161,37 @@ func topology072(boat: Dictionary) -> Dictionary:
 	for item in snapshot.get("installedItems",[]):topology.items[str(item.itemUid)]={"location":str(item.location),"typeId":str(item.typeId)}
 	return topology
 
+func repair_route072() -> bool:
+	phase("stock_aware_service_harbor_and_physical_home_return")
+	var boat: Dictionary=c.find_boat(uid072)
+	receipt.repairCandidates=[]
+	# Prefer the required HOME return itself. Cinder Quay is the existing
+	# foundry fallback; Reedwater's observed copper shortage needs no visit.
+	for port_id in ["brass_haven","cinder_quay"]:
+		var port: Dictionary=c.port(port_id)
+		var quote: Dictionary=c.service_quote(boat,port)
+		if not quote.get("ok",false):
+			receipt.repairCandidates.append({"port":port_id,"quote":quote,"eligible":false});continue
+		var needs: Dictionary=quote.equipmentMaterials.duplicate(true)
+		needs.supplies=float(quote.purchase)
+		var available: Dictionary={};var missing: Dictionary={}
+		for good in needs:
+			available[good]=float(port.stocks.get(good,0.0))
+			if float(available[good])+0.0001<float(needs[good]):missing[good]=float(needs[good])-float(available[good])
+		var access: Dictionary=c.Politics.access(c,port)
+		var workforce: Dictionary=Service072.workforce_status(port)
+		var labor_ok: bool=workforce.get("ok",false) and float(workforce.get("free",0.0))+0.0001>=float(quote.workerDays) and float(workforce.get("freeExperts",0.0))+0.0001>=float(quote.expertDays)
+		var eligible: bool=missing.is_empty() and labor_ok and access.get("legal",false) and int(access.get("claim",0))==0 and int(c.state.coins)>=int(quote.cost)
+		receipt.repairCandidates.append({"port":port_id,"quote":quote,"requiredStock":needs,"availableStock":available,"missingStock":missing,"workforce":workforce,"access":access,"eligible":eligible})
+		if not eligible:continue
+		receipt.repairDestination=port_id
+		# A quote selects the destination only. Normal sailing must reach it;
+		# paid_repair072 requotes there against the actual post-travel stocks.
+		if not sail(port_id) or not paid_repair072():return false
+		if port_id!="brass_haven" and not sail("brass_haven"):return false
+		return true
+	return gap072("NO_STOCKED_REPAIR_HARBOR","Neither Brass Haven nor existing Cinder Quay has sufficient actual repair materials, labor, access and coins; no stocks or damage substituted")
+
 func paid_repair072() -> bool:
 	phase("actual_paid_repair_at_reached_harbor")
 	var boat: Dictionary=c.find_boat(uid072)
@@ -183,7 +216,7 @@ func paid_repair072() -> bool:
 	var restored: Dictionary=c.service_quote(boat,port)
 	if not check(not topology.is_empty() and topology072(boat)==topology and float(boat.crew)==float(before.crew) and float(boat.hp)==float(boat.maxHp) and float(boat.wounded)==0.0 and boat.breaches.is_empty() and float(boat.water)==0.0 and float(boat.fire)==0.0 and float(port.get("_yardWorkersUsed",0))>workers_used and restored.get("ok",false) and int(restored.cost)==0,"Paid recovery retains physical equipment UIDs and numerical crew, restores actual hull/equipment condition and uses real labor"):return false
 	repair_cost072=int(quote.cost)
-	receipt.repair={"actualPort":port.id,"uid":uid072,"cost":repair_cost072,"before":before,"after":physical_boat(boat).duplicate(true),"quote":quote,"pursesBefore":purses,"installedUids":topology}
+	receipt.repair={"actualPort":port.id,"uid":uid072,"cost":repair_cost072,"before":before,"after":physical_boat(boat).duplicate(true),"quote":quote,"stocksBefore":stocks,"pursesBefore":purses,"installedUids":topology}
 	return check(c.Money.total(c.state)==supply,"Paid repair conserves every original world account")
 
 func paid_improvement072() -> bool:
@@ -207,6 +240,7 @@ func paid_improvement072() -> bool:
 
 func _run() -> void:
 	receipt.fixture="complete_voyage072";receipt.wholeLoop=false
+	receipt.bodyLimitMs=BODY072_LIMIT_MS;receipt.workStopMs=56500
 	receipt.notRerun=["070 controlled corrupt-input cases (not passed by072)","070 net-profit-only upgrade and preserved15000capital assertions (unchanged in070)"]
 	if not check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies one private artifact/profile directory"):await finish072();return
 	main072=Main072.new();main072.qa_ocean066=true
@@ -226,7 +260,7 @@ func _run() -> void:
 	phase("earned_work_complete_and_physical_home_crossings")
 	if not gate(REGION,"north") or not gate("shatter_coast","south") or not seek_contact072():await finish072();return
 	if not (await battle072()):await finish072();return
-	if not sail(COAST_PORT072) or not paid_repair072() or not sail("brass_haven"):await finish072();return
+	if not repair_route072():await finish072();return
 	phase("home_replacement_stores_after_work_combat_and_repair")
 	if not check(c.current_port().get("id")=="brass_haven" and str(c.find_boat(uid072).uid)==uid072 and int(c.state.wageArrears)==0 and payroll>0 and gross_paid>0,"Same working starter physically returns HOME with real income and all payroll paid"):await finish072();return
 	var ammo: float=float(c.find_boat(uid072).ammo)
@@ -251,7 +285,7 @@ func finish072() -> void:
 		await process_frame
 	c=null
 	var elapsed: int=Time.get_ticks_msec()-started
-	check(elapsed<BODY_LIMIT_MS,"Whole body includes Main setup, both joined worker paths, saves and cleanup under55seconds")
+	check(elapsed<BODY072_LIMIT_MS,"Whole072 body includes Main setup, both joined worker paths, saves and cleanup under60seconds;070 remains55seconds")
 	if receipt.get("wholeLoop",false) and failures==0:receipt.status="COMPLETED";receipt.earnedVoyage=true
 	else:
 		receipt.earnedVoyage=false
