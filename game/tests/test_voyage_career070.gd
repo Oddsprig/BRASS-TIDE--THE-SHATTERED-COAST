@@ -1,7 +1,7 @@
 extends SceneTree
 ## SOURCE ONLY: Root runs this once in the shared Test Bridge lane/private profile.
 ## One ordinary career, actual courses/crossings, finite freight/survey escrows,
-## normal payroll and replacement stores, HOME return and a useful paid Cargo Rig.
+## normal payroll and replacement stores, HOME return and a useful paid improvement.
 ## Corrupt-input refusals are labeled separately; none is published as earned play.
 const Campaign=preload("res://scripts/campaign.gd")
 const Workers=preload("res://scripts/economy_workers.gd")
@@ -10,7 +10,7 @@ const REGION: String="settled_01"
 const SPONSOR: String="settled_01_harbor_01"
 const DESTINATION: String="settled_01_harbor_02"
 const SITE: String="settled_01_survey"
-const BOAT_PHYSICAL: Array=["uid","type","crew","wounded","shoreCrew","fuel","ammo","supplies","hp","maxHp","sunk","armor","engine","fire","water","breaches","moduleCondition","boarders","loadout","refitLocker","conversion","storedPort","mothballed","towed","needsHarborRepair"]
+const BOAT_PHYSICAL: Array=["uid","type","crew","wounded","shoreCrew","fuel","ammo","supplies","hp","maxHp","sunk","armor","engine","fire","water","breaches","moduleCondition","boarders","loadout","refitLocker","conversion","specialistActive","storedPort","mothballed","towed","needsHarborRepair"]
 var c
 var workers=Workers.new()
 var started: int=0
@@ -85,7 +85,7 @@ func physical(snapshot: Dictionary) -> Dictionary:
 	for key in ["coins","crewPurse","wageArrears","debt","cargo","day","econDay","world064","position","heading","path","destination","lastPort","flagship","cargoManifest","surveyFoodCredit"]:player[key]=snapshot.get(key)
 	player.fleet=snapshot.fleet.map(func(b):return physical_boat(b))
 	var out: Dictionary={"ports":ports,"owners":owners,"player":player,"coinSupply":snapshot.coinSupply,"totalCoins":c.Money.total(snapshot)}
-	for key in ["voyageJobs","doneVoyageJobs","contacts","marketSnapshots","exploration","shipping068","sector069","sectorApplied069","sectorKnowledge069","islandOwnership069"]:out[key]=snapshot.get(key)
+	for key in ["voyageJobs","doneVoyageJobs","contacts","marketSnapshots","exploration","specialists","specialistSeq","shipping068","sector069","sectorApplied069","sectorKnowledge069","islandOwnership069"]:out[key]=snapshot.get(key)
 	return out.duplicate(true)
 
 func parsed_save(label: String) -> Dictionary:
@@ -292,6 +292,7 @@ func buy_useful_improvement() -> bool:
 	if not check(quote.get("ok",false),"Existing useful Cargo Rig quote: "+str(quote.get("message",""))):return false
 	var net: int=int(c.state.coins)-int(c.data.START.coins)
 	receipt.improvementQuote={"cost":quote.cost,"netAfterAllCosts":net,"purse":c.state.coins,"materials":quote.materials,"materialCost":quote.materialCost,"workerWages":quote.shipwrightWages}
+	if net<int(quote.cost):return buy_surveyor070(uid,net)
 	if not check(net>=int(quote.cost) and int(quote.materialCost)>0 and int(quote.shipwrightWages)>0,"True net voyage earnings after payroll/replacements cover the complete useful conversion"):return false
 	var stocks: Dictionary=port.stocks.duplicate(true)
 	var purses: Dictionary={}
@@ -307,6 +308,23 @@ func buy_useful_improvement() -> bool:
 	if not check(c.capacity()>capacity and c.state.fleet[0].conversion=="cargo_rig" and float(port.get("_yardWorkersUsed",0))>labor and int(c.state.coins)>=int(c.data.START.coins),"Useful35percent hold improvement consumes yard labor while preserving all starting capital"):return false
 	receipt.upgrade={"conversion":"cargo_rig","cost":quote.cost,"netBeforePurchase":net,"netAfterPurchase":int(c.state.coins)-int(c.data.START.coins),"holdBefore":capacity,"holdAfter":c.capacity(),"materials":quote.materials,"workerWages":quote.shipwrightWages,"specialistWages":int(quote.mechanicWages)+int(quote.engineerWages)}
 	return check(c.Money.total(c.state)==supply,"Useful purchase conserves every actual account")
+
+func buy_surveyor070(uid: String,net: int) -> bool:
+	var boat: Dictionary=c.state.fleet[0]
+	var port: Dictionary=c.current_port()
+	var permission: Dictionary=c.Politics.permit(c,"service")
+	var quote: Dictionary=c.FleetIdentity.specialist_quote(c.state,boat,port,"surveyor",permission)
+	receipt.surveyorQuote=quote
+	if not check(quote.get("eligible",false) and int(quote.advance)>0 and net>=int(quote.advance),"Actual net earnings fund a useful existing survey specialist instead of an unaffordable conversion"):return false
+	var purse: int=int(c.state.coins);var crew_purse: int=int(c.state.crewPurse)
+	var people: int=int(port.workforce);var recruits: int=int(port.recruits)
+	var crew: int=int(boat.crew);var speed: float=float(boat.spec.get("surveyFactor",1.0))
+	var result: Dictionary=c.FleetIdentity.hire_specialist(c,uid,"surveyor")
+	if not check(result.get("ok",false),"Paid real surveyor hire: "+str(result.get("message",""))):return false
+	if not check(int(c.state.coins)==purse-int(quote.advance) and int(c.state.crewPurse)==crew_purse+int(quote.advance) and int(port.workforce)==people-1 and int(port.recruits)==recruits-1 and int(boat.crew)==crew+1,"Surveyor is one existing worker in a real berth with the exact paid hiring advance"):return false
+	if not check(float(boat.spec.get("surveyFactor",1.0))>speed and boat.get("specialistActive",{}).get("surveyor",false) and int(c.state.coins)>=int(c.data.START.coins),"Useful survey work rate improves while all starting coins remain intact"):return false
+	receipt.upgrade={"specialist":"surveyor","cost":quote.advance,"netBeforePurchase":net,"netAfterPurchase":int(c.state.coins)-int(c.data.START.coins),"surveyFactorBefore":speed,"surveyFactorAfter":boat.spec.surveyFactor,"baseDailyWage":quote.basePerDay,"premiumDailyWage":quote.premiumPerDay}
+	return check(c.Money.total(c.state)==supply,"Specialist hire conserves every actual coin and workforce transfer")
 
 func earned_voyage() -> bool:
 	phase("normal_starter_and_paid_capable_crew")
