@@ -110,6 +110,7 @@ static func report(core, port_id) -> Dictionary:
 static func opportunities(core) -> Array:
 	var bundle := _bundle(core)
 	var state = bundle.state
+	if str(state.get("world064", {}).get("layer", "home")) != "home":return []
 	var book := ensure(state)
 	var speed: float=float(core.travel_speed()) if not core is Dictionary and core!=null and core.has_method("travel_speed") else _travel_speed(state,bundle.world)
 	if speed <= 0.01:
@@ -126,7 +127,7 @@ static func opportunities(core) -> Array:
 	var rows = []
 	var here_id := str(here.get("id", ""))
 	for port in state.get("ports", []):
-		if not port is Dictionary:
+		if not port is Dictionary or str(port.get("regionId", "shatter_coast")) != "shatter_coast":
 			continue
 		var pid := str(port.get("id", ""))
 		if pid == "" or pid == here_id:
@@ -350,6 +351,8 @@ static func _better(current, offer) -> Dictionary:
 	return current
 
 static func _assess_port(state, port) -> Dictionary:
+	if str(port.get("regionId", "shatter_coast")) != "shatter_coast":
+		return {"active": false, "cause": "clear", "ownerId": "", "hostileForce": 0.0, "oppositionForce": 0.0}
 	var faction := str(port.get("faction", ""))
 	var best_id := ""
 	var best_force := 0.0
@@ -418,6 +421,7 @@ static func _near_owner(state, owner, port) -> bool:
 	return str(owner.get("atPort", "")) == pid
 
 static func _player_force(state, port) -> float:
+	if str(state.get("world064", {}).get("layer", "home")) != "home":return 0.0
 	var pos = state.get("position", {})
 	if not pos is Dictionary or not pos.has("x") or not port.has("x") or _dist(pos, port) > NEAR_PORT:
 		return 0.0

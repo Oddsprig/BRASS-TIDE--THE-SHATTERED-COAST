@@ -2,8 +2,8 @@ extends SceneTree
 ## SOURCE ONLY. Root executes in one shared lane with a private profile.
 ## One normal fresh career: real courses/crossings, finite market, paid surveys,
 ## return and parsed disk restore. No treasury grant, clock edit or NPC suppression.
-## The separate legacy party/cache compatibility cases explicitly stage location
-## and old survey preconditions; they are not an earned old067 expedition.
+## Constructed legacy compatibility staging removes current generated accounts
+## and their receipts, then stages old party/cache preconditions; not an earned voyage.
 const Campaign=preload("res://scripts/campaign.gd")
 const Workers=preload("res://scripts/economy_workers.gd")
 const BODY_LIMIT_MS: int=55000
@@ -198,19 +198,26 @@ func generated() -> bool:
 func legacy() -> bool:
 	phase("controlled_legacy068_retention")
 	var old: Dictionary=c.state.duplicate(true)
+	if not check(int(old.coinSupply)==supply and c.Money.total(old)==supply,"After-trade source supply conserves before constructed legacy staging"):return false
 	var generated_ids: Array=old.sector069.sites.map(func(s):return str(s.id))
-	old.ports=old.ports.filter(func(p):return str(p.get("regionId","shatter_coast"))=="shatter_coast" or p.id=="westglass_anchorage")
-	old.coinSupply-=int(old.sector069.openingLedger.totals.coins)
+	var generated_ports: Array=old.sector069.harbors.map(func(p):return str(p.id))
+	var removed_coins: int=0
+	for port in old.ports:
+		if str(port.id) in generated_ports:removed_coins+=c.Money.port_total(port)
+	old.ports=old.ports.filter(func(p):return str(p.id) not in generated_ports)
+	old.coinSupply=int(old.coinSupply)-removed_coins
+	old.shipping068.receipts=old.shipping068.receipts.filter(func(row):return str(row.portId) not in generated_ports)
 	old.exploration.catalog=old.exploration.catalog.filter(func(s):return str(s.id) not in generated_ids)
 	for id in generated_ids:old.exploration.sites.erase(id)
 	old.exploration.leads=old.exploration.leads.filter(func(row):return row.get("fromSite","") not in generated_ids and row.get("toSite","") not in generated_ids)
 	for key in ["sector069","sectorApplied069","sectorKnowledge069","islandOwnership069"]:old.erase(key)
+	if not check(c.Money.total(old)==int(old.coinSupply),"Constructed legacy subtracts exact current removed purses without rebasing supply"):return false
 	var accounts: Array=old.ports.duplicate(true)
 	var physical: Dictionary=merchant()
 	if not check(c.restore(old).get("ok",false),"Constructed finite068-compatible absent-sector save restores"):return false
 	supply=int(c.state.coinSupply)
 	check(not c.state.has("sector069") and c.world_view064().regions.size()==2 and same_values(c.state.ports,accounts) and same_values(merchant(),physical),"Legacy keeps exactly two regions and unchanged old accounts/merchant")
-	receipt.controlled.append("Legacy fixture removes only independently declared generated accounts/endowment/site rows; no owner save is touched. Old landing/cache setup below is controlled provenance testing, not an earned voyage.")
+	receipt.controlled.append("Constructed compatibility staging removes exact generated ports' CURRENT purses (%d coins), their shipping receipts and generated site rows; actual old accounts/merchant/party/cache remain. No owner save is touched; old landing/cache setup is controlled provenance testing, not an earned voyage." % removed_coins)
 	var site: Dictionary=c.Exploration.catalog_site(c.state,"glasswind_west_marker")
 	var location: Dictionary={"world064":{"schema":1,"layer":"local","regionId":"glasswind_keys"},"position":{"x":site.x,"y":site.y},"heading":0.0,"path":[],"destination":""}
 	var valid: Dictionary=c.OceanWorld064.prepare(location,c.ocean_context064,c.Routes.clearance(c))
@@ -252,4 +259,5 @@ func finish() -> void:
 	check(elapsed<BODY_LIMIT_MS,"Whole fixture body and owned worker cleanup remain under55seconds")
 	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed;receipt.sourceCandidate=true
 	print("SECTOR069_RESULT ",JSON.stringify(receipt))
+	print("%d checks, %d failures" % [checks,failures])
 	quit(0 if failures==0 else 1)

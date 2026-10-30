@@ -30,5 +30,9 @@ sectorKnowledge069={schema:1,groups:{regionId:{source,day}},islands:{"regionId/i
 Actual port examples: settled_01_harbor_01/compact on settled_01_island_01, settled_01_harbor_02/reed on island_02. Saved coordinates are always authoritative.
 The old Westglass installation remains its finite Kelp split. Restore preserves pending/installed accounts as saved; the old daily path may retry a pending branch later.
 Explicit voyage quotation uses an isolated runtime cache slot; it cannot evict or replace the live current generated navigation grid.
+Reviewed model correction: World.prepare is pure; only the final actual-player restore location calls World.prepare_player before atomic publication. Actual chart entry continues through transition.
+Authorized follow-up: voyage_costs065 accepts actual context regions and uses the current/target region for existing legs/names; trade_intel clears non-HOME blockade DTOs, omits player force/opportunities while away, and skips non-HOME opportunity candidates.
+Fixture compatibility staging removes exact generated ports' current Money.port_total purses from the validated original coinSupply, filters their shipping receipts, and asserts conservation before restore; it never rebases supply to Money.total. Actual old accounts/merchant/party/cache are preserved. finish emits the standard final checks/failures line.
 Allowlist: campaign/campaign_state_validation/save_validation/remote_expedition067/shipping_flow068/exploration/trade_law/regional_crises/salvage(provenance only)/main(wrappers only), and test_sector_voyage069.gd.
+Authorized dependencies: voyage_jobs::_work_destinations and naval_lifecycle repair HOME filters; voyage_costs065::_intent_error/_named_intent/_itinerary plus the required quote call; trade_intel::_assess_port/_player_force/opportunities guards only.
 Root alone runs tests, integrates named commits and accepts delivery. No engine, tests or advisories executed by B.

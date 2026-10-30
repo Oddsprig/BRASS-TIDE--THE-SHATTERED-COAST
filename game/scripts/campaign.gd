@@ -1686,7 +1686,7 @@ func restore(saved: Dictionary) -> Dictionary:
 		return fail("Save refused: "+str(validation.message)+" Use your backup.")
 	var incoming: Dictionary = validation.get("state", saved)
 	if incoming.has("world064") or not context.is_empty():
-		var location: Dictionary=OceanWorld064.prepare(incoming,context,Routes.clearance({"state":incoming}))
+		var location: Dictionary=OceanWorld064.prepare_player(incoming,context,Routes.clearance({"state":incoming}))
 		if not location.get("ok",false):return fail("Save refused: "+str(location.get("message","Invalid chart location.")))
 		for key in ["world064","position","heading","path","destination"]:incoming[key]=location.location[key]
 	if incoming.get("format", 0) != 2 or not incoming.get("fleet", null) is Array or incoming.fleet.size() > MAX_FLEET:

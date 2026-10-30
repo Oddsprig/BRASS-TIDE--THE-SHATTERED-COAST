@@ -25,7 +25,7 @@ static func quote(state: Dictionary, world: Dictionary, context064: Dictionary, 
 	var location: Dictionary = prepared.location
 	result.origin = {"world064": location.world064.duplicate(true), "position": location.position.duplicate(true),
 		"day": float(state.day), "econDay": float(state.econDay)}
-	error = _intent_error(intent, location)
+	error = _intent_error(intent, location, context064)
 	if not error.is_empty():return _refuse(result, "intent", error)
 	var port: Dictionary = {}
 	for candidate in state.ports:
@@ -254,16 +254,16 @@ static func _lot_valid(lot: Dictionary) -> bool:
 	return lot.is_empty() or (lot.get("good") is String and _number(lot.get("qty")) and float(lot.qty) >= 0.0)
 
 
-static func _intent_error(intent: Dictionary, location: Dictionary) -> String:
+static func _intent_error(intent: Dictionary, location: Dictionary, context: Dictionary) -> String:
 	if intent.size() != INTENT_KEYS.size():return "Use the seven explicit voyage-intent fields."
 	for key in INTENT_KEYS:
 		if not intent.has(key):return "Missing voyage choice: " + str(key)
 		if key != "idleDays" and not intent[key] is String:return "Voyage choices must be strings."
 	if not _number(intent.idleDays) or float(intent.idleDays) < 0.0:return "Idle days must be finite and nonnegative."
-	if intent.targetRegionId not in [OceanWorld.HOME, OceanWorld.REMOTE]:return "Choose an existing coastal target region."
+	if not context.regions.has(intent.targetRegionId):return "Choose an existing coastal target region."
 	if str(intent.returnPortId).is_empty():return "Choose the actual home harbor for the return."
 	var leaving: bool = location.world064.layer != "ocean" and location.world064.regionId != intent.targetRegionId
-	var remote: bool = intent.targetRegionId == OceanWorld.REMOTE
+	var remote: bool = intent.targetRegionId != OceanWorld.HOME
 	var crossing_in: bool = location.world064.regionId != intent.targetRegionId
 	var needed: Dictionary = {"outExit": leaving, "targetApproachId": remote or crossing_in, "backExit": remote, "homeEntry": remote}
 	for key in needed:
@@ -281,7 +281,7 @@ static func _named_intent(intent: Dictionary, view: Dictionary, location: Dictio
 			for gate in region.approaches:
 				if gate.id == intent.targetApproachId:named["targetApproachName"] = str(gate.name)
 		for field in ["outExit", "backExit", "homeEntry"]:
-			var region_id: String = str(location.world064.regionId) if field == "outExit" else (OceanWorld.REMOTE if field == "backExit" else OceanWorld.HOME)
+			var region_id: String = str(location.world064.regionId) if field == "outExit" else (str(intent.targetRegionId) if field == "backExit" else OceanWorld.HOME)
 			if region.regionId != region_id:continue
 			for gate in region.approaches:
 				if gate.id == intent[field]:named[str(field) + "Name"] = str(gate.name)
@@ -306,12 +306,12 @@ static func _itinerary(context: Dictionary, location: Dictionary, intent: Dictio
 		if location.world064.layer != "ocean":
 			if not _cross(context, journey, "outward", str(location.world064.regionId), str(intent.outExit)):return journey
 		if not _cross(context, journey, "outward", str(intent.targetRegionId), str(intent.targetApproachId)):return journey
-	elif intent.targetRegionId == OceanWorld.REMOTE:
-		if not _sail_gate(context, journey, "outward", OceanWorld.REMOTE, str(intent.targetApproachId), true):return journey
+	elif intent.targetRegionId != OceanWorld.HOME:
+		if not _sail_gate(context, journey, "outward", str(intent.targetRegionId), str(intent.targetApproachId), true):return journey
 	if intent.targetRegionId == OceanWorld.HOME:
 		if not _sail_home(context, journey, "outward", port):return journey
 	else:
-		if not _cross(context, journey, "return", OceanWorld.REMOTE, str(intent.backExit)):return journey
+		if not _cross(context, journey, "return", str(intent.targetRegionId), str(intent.backExit)):return journey
 		if not _cross(context, journey, "return", OceanWorld.HOME, str(intent.homeEntry)):return journey
 	if not _sail_home(context, journey, "return", port):return journey
 	return journey
