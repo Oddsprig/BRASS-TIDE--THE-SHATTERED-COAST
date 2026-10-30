@@ -416,7 +416,7 @@ static func _approach_name(c, destination: String) -> String:
 	if parts.size() != 3:
 		return ""
 	var view: Dictionary = c.world_view064()
-	var approaches: Array = view.get("approaches", []) if view.get("approaches") is Array else []
+	var approaches: Array = view.get("approaches", []).duplicate() if view.get("approaches") is Array else []
 	if view.get("regions") is Array:
 		for region in view.regions:
 			if region is Dictionary and region.get("approaches") is Array:

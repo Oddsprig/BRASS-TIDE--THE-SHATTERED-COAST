@@ -75,7 +75,7 @@ static func _paint_board_context(ui,body,c) -> void:
 	elif not bool(header.docked):
 		ui.paragraph(body,"No physical berth. Funded offers appear at a known harbor you are docked at. This chart is %s. Nothing on this board buys cargo or installs a fitting."%chart,16)
 	else:
-		var kind: String="Home harbor" if str(header.kind)=="home" else "Work berth"
+		var kind: String="Service harbor" if str(header.kind)=="home" else "Work berth"
 		ui.paragraph(body,"%s: %s · %s. Gross fees below are the published offers. Review one job for voyage costs, the return reserve and readiness. This list does not buy cargo or install a fitting."%[kind,str(header.name),chart],16)
 	var details=ui.column(body)
 	details.visible=false
