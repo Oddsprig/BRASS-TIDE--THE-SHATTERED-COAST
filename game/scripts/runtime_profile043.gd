@@ -147,7 +147,7 @@ func _memory() -> Dictionary:
 	return {"engineStaticBytes":int(Performance.get_monitor(Performance.MEMORY_STATIC)) if OS.is_debug_build() else null,"engineStaticPeakBytes":int(Performance.get_monitor(Performance.MEMORY_STATIC_MAX)) if OS.is_debug_build() else null,"engineStaticSupported":OS.is_debug_build(),"renderVideoBytes":int(Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED)) if rendered else null,"renderTextureBytes":int(Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED)) if rendered else null,"renderBufferBytes":int(Performance.get_monitor(Performance.RENDER_BUFFER_MEM_USED)) if rendered else null,"scope":"Godot allocation counters; static allocation monitors unsupported in release are null. Zero VRAM may mean unsupported. Not process working set or adapter capacity. Wrapper must sample process working set/CPU and resource limits separately.","adapterCapacityBytes":null}
 
 func _limits() -> Dictionary:
-	return {"cohort":"owner-authorized worker30Hz / Engine60Hz / independent interpolated rendering","warmupWallUs":WARMUP_US,"activeWallUs":ACTIVE_US,"cooperativeReadyToFinishUs":WALL_LIMIT_US,"wrapperGlobalLimitUs":70000000,"physics":"Actual Main/Lab driver only. Jobs may batch real fixed1/30 steps; completedSteps and stepsInJob must agree. Engine callbacks are separate. No observer simulation updates.","workerStepBudgetUs":WORKER_BUDGET_US,"mainPublicationP95BudgetUs":MAIN_PUBLICATION_BUDGET_US,"simulationLagBudgetUs":LAG_BUDGET_US,"historicalMainSimulationTarget":"median6ms/P9510ms at60Hz is historical and not an acceptance gate for worker30Hz","frames":"Consecutive frame_post_draw intervals; Chart.presentation_us is CPU submission, not GPU/display duration. Headless/dummy rejected.","catchUp":"Engine callbacks/draw and completed worker steps/draw are separate; acceptance uses worker real-time lag and wall-minus-authoritative-time deficit.","observer":"In-memory rows only during active interval. Snapshot/job/publication costs read from joined published data; no concurrent worker-global reads.","safety":"Root owns shared TestBridge FIFO, private desktop, synthetic APPDATA, muted audio, external70s whole bound including setup/captures/retirement/cleanup. Cooperative68s clock cannot interrupt blocked joins/readback/filesystem.","sourceStatus":"Source candidate; no native/rendered pass, speed claim or version acceptance implied.","orderProbe072":"Once per active case, after about 1s, one public Battle.issue_order Hold on one living player boat through the Main mirror. Records monotonic queue time and the joined command sequence, kind and ok. Response latency stays unavailable unless that acknowledgement carries it. Sample durations and strict gates are unchanged."}
+	return {"cohort":"owner-authorized worker30Hz / Engine60Hz / independent interpolated rendering","warmupWallUs":WARMUP_US,"activeWallUs":ACTIVE_US,"cooperativeReadyToFinishUs":WALL_LIMIT_US,"wrapperGlobalLimitUs":70000000,"physics":"Actual Main/Lab driver only. Jobs may batch real fixed1/30 steps; completedSteps and stepsInJob must agree. Engine callbacks are separate. No observer simulation updates.","workerStepBudgetUs":WORKER_BUDGET_US,"mainPublicationP95BudgetUs":MAIN_PUBLICATION_BUDGET_US,"simulationLagBudgetUs":LAG_BUDGET_US,"historicalMainSimulationTarget":"median6ms/P9510ms at60Hz is historical and not an acceptance gate for worker30Hz","frames":"Consecutive frame_post_draw intervals; Chart.presentation_us is CPU submission, not GPU/display duration. Headless/dummy rejected.","catchUp":"Engine callbacks/draw and completed worker steps/draw are separate; acceptance uses worker real-time lag and wall-minus-authoritative-time deficit.","observer":"In-memory rows only during active interval. Snapshot/job/publication costs read from joined published data; no concurrent worker-global reads.","safety":"Root owns shared TestBridge FIFO, private desktop, synthetic APPDATA, muted audio, external70s whole bound including setup/captures/retirement/cleanup. Cooperative68s clock cannot interrupt blocked joins/readback/filesystem.","sourceStatus":"Source candidate; no native/rendered pass, speed claim or version acceptance implied.","orderProbe072":"Once per active case, after about 1s, one public Battle.issue_order Hold on one living player boat through the Main mirror. Records queueMonotonicUs. The exact joined row is sequence priorLastCommandSequence+1 and kind order, and its sequence, kind and ok are kept. observedMonotonicUs is Main's clock at that observation. queueToJoinedObservationUs is the difference and includes scheduling and poll delay. It is not internal execution time or workerJobUs. No exact row leaves it unavailable. Sample durations and strict gates are unchanged."}
 
 func _start_case() -> void:
 	if results.size()>=requested.size():
@@ -552,15 +552,15 @@ func _issue_hold_probe072() -> void:
 	# One ordinary public order through the published mirror. The driver queues it;
 	# this does not write worker state, clocks, weapons, actors or time scale.
 	hold_probe_issued072=true
-	var probe: Dictionary={"once":true,"order":"hold","afterActiveUs":1000000,"shipId":"","queued":false,"queueMonotonicUs":null,"priorLastCommandSequence":null,"acknowledgement":null,"responseLatencyUs":null,"responseLatency":"unavailable","workload":"One real Hold is part of this active case. Not an isolated comparison to historical063."}
+	var probe: Dictionary={"once":true,"order":"hold","afterActiveUs":1000000,"shipId":"","queued":false,"queueMonotonicUs":null,"observedMonotonicUs":null,"priorLastCommandSequence":null,"acknowledgement":null,"queueToJoinedObservationUs":null,"workload":"One real Hold is part of this active case. Not an isolated comparison to historical063."}
 	current.orderProbe072=probe
 	if host.battle_driver051==null or not bool(host.battle.get("_battleMirror051",false)):
-		probe.reason="Main mirror/driver was not attached. No order was issued."
+		probe.reason="Main mirror/driver was not attached. No order was issued. queueToJoinedObservationUs is unavailable."
 		return
 	var ship_id: String=_living_player_id072()
 	probe.shipId=ship_id
 	if ship_id.is_empty():
-		probe.reason="No living player boat was on the published mirror. No order was issued."
+		probe.reason="No living player boat was on the published mirror. No order was issued. queueToJoinedObservationUs is unavailable."
 		return
 	var prior: Dictionary=host.battle_driver051.telemetry()
 	hold_probe_seq_floor072=int(prior.get("lastCommandSequence",0))
@@ -569,16 +569,10 @@ func _issue_hold_probe072() -> void:
 	var queued: bool=Battle.issue_order(host.battle,[ship_id],"hold",{})
 	probe.queued=queued
 	if not queued:
-		probe.reason="Battle.issue_order did not queue Hold."
+		probe.reason="Battle.issue_order did not queue Hold. queueToJoinedObservationUs is unavailable."
 		return
 	probe.queueMonotonicUs=queued_at
-	probe.reason="Queued. Waiting for the joined command acknowledgement."
-
-func _ack_latency072(receipt: Dictionary):
-	# Only a latency field on the joined acknowledgement counts. Job costs are not latency.
-	for key in ["responseLatencyUs","latencyUs","ackLatencyUs"]:
-		if receipt.has(key) and (receipt[key] is int or receipt[key] is float):return receipt[key]
-	return null
+	probe.reason="Queued. Waiting for commandResults sequence priorLastCommandSequence+1 and kind order."
 
 func _observe_hold_ack072() -> void:
 	if current.is_empty() or not bool(current.get("orderProbe072",{}).get("queued",false)):return
@@ -586,27 +580,36 @@ func _observe_hold_ack072() -> void:
 	if probe.acknowledgement!=null:return
 	var results=published.get("commandResults",[])
 	if not results is Array:return
+	# The probe is the only runtime command, so its joined row is the next sequence.
+	var expected: int=hold_probe_seq_floor072+1
 	for receipt in results:
 		if not receipt is Dictionary or not receipt.has("sequence") or not receipt.has("kind"):continue
-		if int(receipt.sequence)<=hold_probe_seq_floor072 or str(receipt.kind)!="order":continue
-		var latency=_ack_latency072(receipt)
+		if int(receipt.sequence)!=expected or str(receipt.kind)!="order":continue
+		var observed_at: int=Time.get_ticks_usec()
+		probe.observedMonotonicUs=observed_at
 		probe.acknowledgement={"sequence":int(receipt.sequence),"kind":str(receipt.kind),"ok":receipt.get("ok") if receipt.has("ok") else null}
 		probe.joinedOutsideActiveInterval=stage!="active"
-		probe.responseLatencyUs=latency
-		probe.responseLatency="reported" if latency!=null else "unavailable"
-		probe.reason="Latency copied from the joined acknowledgement." if latency!=null else "Joined acknowledgement has sequence, kind and ok only. workerJobUs, simulationUs, snapshotUs and mainPollUs are job costs, not queue-to-ack latency."
+		var queued_at=probe.get("queueMonotonicUs")
+		if queued_at==null:
+			probe.queueToJoinedObservationUs=null
+			probe.reason="Exact order acknowledgement was observed, but queueMonotonicUs is missing. queueToJoinedObservationUs is unavailable."
+			return
+		# Main monotonic queue-to-observation span. Scheduling and poll delay are included.
+		# This is not worker execution time and not workerJobUs.
+		probe.queueToJoinedObservationUs=observed_at-int(queued_at)
+		probe.reason="queueToJoinedObservationUs is observedMonotonicUs minus queueMonotonicUs on Main's existing clock. It includes scheduling and poll delay. It is not internal execution time or workerJobUs."
 		return
 
 func _finalize_hold_probe072() -> void:
 	if current.is_empty():return
 	if not current.has("orderProbe072"):
-		current.orderProbe072={"once":true,"order":"hold","queued":false,"queueMonotonicUs":null,"acknowledgement":null,"responseLatencyUs":null,"responseLatency":"unavailable","reason":"Hold probe was not issued."}
+		current.orderProbe072={"once":true,"order":"hold","queued":false,"queueMonotonicUs":null,"observedMonotonicUs":null,"acknowledgement":null,"queueToJoinedObservationUs":null,"reason":"Hold probe was not issued. queueToJoinedObservationUs is unavailable."}
 		return
 	var probe: Dictionary=current.orderProbe072
 	if bool(probe.get("queued",false)) and probe.get("acknowledgement")==null:
-		probe.responseLatencyUs=null
-		probe.responseLatency="unavailable"
-		probe.reason="Driver telemetry did not present a joined order acknowledgement before the case closed."
+		probe.observedMonotonicUs=null
+		probe.queueToJoinedObservationUs=null
+		probe.reason="No joined command acknowledgement with sequence priorLastCommandSequence+1 and kind order. queueToJoinedObservationUs is unavailable."
 
 func _write_json(name: String,value) -> bool:
 	var path: String=output.path_join(name)
