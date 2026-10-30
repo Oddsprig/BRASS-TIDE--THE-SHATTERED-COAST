@@ -30,7 +30,7 @@ var engine_player: AudioStreamPlayer
 
 func _ready():
 	headless=DisplayServer.get_name()=="headless"
-	# Arm a limiter only on a bus this node creates. Never replace a host effect.
+	# Arm a limiter only on an empty named game bus. Never replace a host effect.
 	_arm_limiter("BrassWeapons",-1.5,-6.0)
 	_arm_limiter("BrassAmbience",-1.5,-12.0)
 	for kind in ["gun","cannon","rocket","splash","wood","metal"]:
@@ -189,9 +189,10 @@ static func attenuation_db(distance: float) -> float:
 	return body+edge
 
 func _rapid_key(event: Dictionary) -> String:
-	# Each gun cut is already a burst. One routine gun cue per source per interval.
-	# Cannon, rocket and torpedo reports and hits always play. Their misses do not
-	# stack. A reported breach, engine hit or killing blow is never coalesced.
+	# Each gun cut is already a burst. The key is per source, family and kind,
+	# so routine gun fire, hit and miss do not share one slot. Cannon, rocket and
+	# torpedo reports and hits always play. Their misses do not stack. A reported
+	# breach, engine hit or killing blow is never coalesced.
 	var kind=str(event.kind)
 	var family=str(event.family)
 	var routine_gun=family=="gun" and kind in ["fire","hit","miss"]

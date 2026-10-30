@@ -52,10 +52,12 @@ Unchanged bounds: 32 voices, 12 admissions per consume including accent layers,
 128 rapid-source keys, gun interval 0.16 seconds, cull at 2200 world units.
 Primaries are scheduled before accents, so a crowded torpedo salvo keeps splash
 attacks and drops the dry body first.
-Same-source routine MG fire, hit and miss still collapse to one cue per 0.16s.
+Routine MG fire, hit and miss each collapse on their own key: source, family
+and kind. One cue per 0.16s on that key. Fire does not take the contact slot.
 A reported breach, engine hit or killing blow is not collapsed.
 Cannon, rocket and torpedo reports and hits are never collapsed.
-Their misses hold 0.40s per source so splash spam cannot take the 12 slots.
+Their misses hold 0.40s per source, family and kind so splash spam cannot
+take the 12 slots.
 Voices admitted later in a full consume are trimmed by 0.45 dB per voice already
 playing, capped at 5 dB. Higher-priority events are admitted first, so they keep
 their level and routine overlaps give up the headroom.
@@ -76,8 +78,8 @@ Pan still uses the chart's projected position.
 enabled false still counts the sequence and schedules nothing, including no rapid
 reservation. Headless still refuses play() on weapon voices and the engine bed.
 BrassWeapons and BrassAmbience stay separate. Zero weapon volume still uses the
-existing silent bus floor. The existing limiter class is kept, and only when
-this node creates a bus that has no effect yet. Weapons ceiling -1.5 dB and
+existing silent bus floor. The existing limiter class is kept, and only on an
+empty named game bus. Weapons ceiling -1.5 dB and
 threshold -6 dB. Ambience ceiling -1.5 dB and threshold -12 dB. soft_clip_db is
 3. soft_clip_ratio is assigned 6; current Godot documents that ratio as having
 no effect on this deprecated limiter, so the ceiling, the threshold, the lower
