@@ -602,6 +602,34 @@ func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
 	respond(result)
 	return result
 
+func prepare_voyage_job070(id: String) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before preparing harbor work.")
+	sync_economy()
+	var job: Dictionary=core.VoyageJobs._find(core.state,id)
+	if job.is_empty():
+		for offer in core.VoyageJobs.available(core):
+			if str(offer.get("id",""))==id:job=offer;break
+	if job.is_empty():
+		var missing: Dictionary=core.fail("That work offer is no longer available. Review the current board.")
+		respond(missing)
+		return missing
+	var quote: Dictionary=core.VoyageJobs.offer_view070(core,job)
+	var action: Dictionary=quote.get("nextAction",{})
+	var kind: String=str(action.get("kind","none"))
+	var result: Dictionary
+	if not quote.get("routeOk",false):result=core.fail(str(quote.get("message","No reachable work route is available.")))
+	elif kind=="course":result=core.chart_course(action.get("target",{}),str(action.get("destination","")))
+	elif kind=="transition":result=core.transition064(str(action.get("regionId","")),str(action.get("approachId","")))
+	else:result=core.fail("This leg is reached. Review the job's completion requirements.")
+	if result.get("ok",false):
+		selected_port=str(action.get("destination","")) if kind=="course" and not str(action.get("destination","")).begins_with("approach:") else ""
+		selected_site=""
+		ui.close_modal()
+		if kind=="transition":chart.center_camera();ui.build_hud()
+		save_game(false)
+	respond(result)
+	return result
+
 func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the campaign chart before settling harbor work.")
 	sync_economy()
