@@ -240,7 +240,10 @@ func unreserved_assets() -> PackedByteArray:
 	# touched by recall/resume. Avoid copying the complete 48-group atlas here.
 	var saved: Dictionary = {"coins":c.state.coins, "crewPurse":c.state.crewPurse, "wageArrears":c.state.wageArrears,
 		"cargo":c.state.cargo, "cargoManifest":c.state.cargoManifest, "tooling":c.state.tooling,
-		"businesses":c.state.businesses, "port":c.current_port(), "fleet":c.state.fleet}.duplicate(true)
+		"businesses":c.state.businesses, "port":c.current_port(), "fleet":c.state.fleet,
+		"materials":c.state.territorial076.improvement.get("materials", {}),
+		"reservedMaterials":c.state.territorial076.improvement.get("reservedMaterials", {}),
+		"setupBill":c.state.territorial076.improvement.get("setupBill", {})}.duplicate(true)
 	for boat in saved.fleet: boat.erase("shoreCrew")
 	return var_to_bytes(saved)
 
@@ -261,12 +264,19 @@ func funded_improvement() -> bool:
 	if not check(bool(quote.get("ok", false)), "Actual carried goods, recovered machinery, spare sailors and remaining payroll admit the berth quote: " + str(quote.get("message", ""))): return false
 	var cargo: Dictionary = c.state.cargo.duplicate(true)
 	var stocks: Dictionary = c.port(improvement_port).stocks.duplicate(true)
+	var capital: int = int(c.state.coins)
 	var condition: float = float(machinery().condition)
 	var begun: Dictionary = Territory.improve(c, improvement_port)
 	if not check(bool(begun.get("ok", false)), "Actual funded berth work starts at its real destination: " + str(begun.get("message", ""))): return false
+	var held: Dictionary = c.state.territorial076.improvement.get("reservedMaterials", {})
+	check(held.size() == quote.materials.size() and int(c.state.coins) == capital,
+		"Admission reserves only the actual construction bill and grants no cash or premature material credit")
 	for good in quote.materials:
 		check(is_equal_approx(float(c.state.cargo[good]), float(cargo[good]) - float(quote.materials[good]))
-			and is_equal_approx(float(c.port(improvement_port).stocks[good]), float(stocks[good]) + float(quote.materials[good])), "Carried " + str(good) + " is donated exactly once to the actual harbor")
+			and is_equal_approx(float(held.get(good, -1)), float(quote.materials[good]))
+			and is_equal_approx(float(c.port(improvement_port).stocks[good]), float(stocks[good])), "Carried " + str(good) + " moves exactly once into the project reservation while public harbor stock stays unchanged")
+	var validation: String = Territory.validate(c.state, c.data)
+	if not check(validation.is_empty(), "Ordinary validation accepts the actual unfinished project's held goods: " + validation): return false
 	note("funded_improvement_started", {"quote":quote, "operation":c.state.territorial076.improvement.duplicate(true), "machine":machinery().duplicate(true), "manifest":c.state.cargoManifest.duplicate(true)})
 	if not wait_for_paid("improvement", "paidDays", 1): return false
 	var progress: Dictionary = c.state.territorial076.improvement.duplicate(true)
@@ -276,7 +286,9 @@ func funded_improvement() -> bool:
 	if not check(bool(recalled.get("ok", false)), "The actual partially paid improvement can be interrupted by withdrawal: " + str(recalled.get("message", ""))): return false
 	var withdrawn: Dictionary = c.state.territorial076.improvement
 	check(str(withdrawn.status) == "withdrawn" and withdrawn.crewByBoat.is_empty() and int(withdrawn.paidDays) == 1
-		and unreserved_assets() == actual_assets, "Withdrawal recalls only the original reservation; all cash, people, cargo, hulls and physical equipment remain exact")
+		and unreserved_assets() == actual_assets, "Withdrawal recalls only the original crew reservation; all cash, people, cargo, held construction goods, hulls and physical equipment remain exact")
+	validation = Territory.validate(c.state, c.data)
+	if not check(validation.is_empty(), "Ordinary validation accepts the withdrawn project's retained held goods and paid progress: " + validation): return false
 	check(is_equal_approx(float(machinery().condition), condition - 0.01), "The first real paid work day retains its actual machinery wear after interruption")
 	note("actual_withdrawal", {"before":progress, "after":withdrawn.duplicate(true), "assets_unchanged":unreserved_assets() == actual_assets, "machine":machinery().duplicate(true)})
 	var resume_assets: PackedByteArray = unreserved_assets()
@@ -284,12 +296,45 @@ func funded_improvement() -> bool:
 	var resumed: Dictionary = Territory.improve(c, improvement_port)
 	note("actual_improvement_resume_result", {"quote":resume_quote, "result":resumed, "resources":local_resources()})
 	if not check(bool(resumed.get("ok", false)), "The same paid improvement resumes with its retained actual resources: " + str(resumed.get("message", ""))): return false
-	check(int(c.state.territorial076.improvement.paidDays) == 1 and unreserved_assets() == resume_assets, "Resume retains paid progress and repeats no material donation or cash transfer")
+	check(int(c.state.territorial076.improvement.paidDays) == 1 and unreserved_assets() == resume_assets, "Resume retains paid progress and the exact held bill without another cargo debit or cash transfer")
+	var completion_coins: int = int(c.state.coins)
+	var completion_cash: int = int(c.port(improvement_port).cash)
+	var completion_day: int = int(c.state.econDay)
+	var payroll: int = int(c.Economy.daily_upkeep(c.state.fleet).wages)
 	if not wait_for_paid("improvement", "paidDays", 2): return false
 	var final: Dictionary = c.state.territorial076.improvement
 	var business: Dictionary = Home.business_view(c.state, str(final.businessId))
 	if not check(str(final.status) == "complete" and final.crewByBoat.is_empty() and business.get("kind") == "warehouse"
-		and business.get("homePort") == improvement_port and business.get("employees", []).size() == 2, "Two actual paid days finish one ordinary warehouse with two real resident employees"): return false
+		and business.get("homePort") == improvement_port and business.get("employees", []).size() == 2
+		and final.get("reservedMaterials", {}).is_empty(), "Two actual paid days finish one ordinary warehouse with two real resident employees and no unconsumed held construction goods"): return false
+	validation = Territory.validate(c.state, c.data)
+	if not check(validation.is_empty(), "Ordinary validation accepts the consumed held bill and fresh gross/material-credit/net setup receipt: " + validation): return false
+	var bill: Dictionary = final.setupBill
+	var fresh: Dictionary = bill.homeQuote
+	var priced: int = 0
+	for good in fresh.materials:
+		priced += ceili(float(fresh.materials[good]) * float(fresh.get("materialPrices", {}).get(good, -1)))
+	check(int(bill.grossCost) == int(fresh.cost) and int(bill.materialCredit) == int(fresh.materialCost)
+		and int(bill.materialCredit) == priced and int(bill.netCost) == int(bill.grossCost) - priced,
+		"The completion receipt uses its actual fresh material prices and exactly one gross-minus-supplied-material credit")
+	var credits: Array = c.state.moneyLog.filter(func(row): return str(row.get("reason", "")) == "076 supplied construction materials credit")
+	var material_payments: Array = c.state.moneyLog.filter(func(row): return str(row.get("reason", "")) == "Home-harbor setup materials and margin")
+	check(credits.size() == 1 and int(credits[0].get("cash", -1)) == priced and credits[0].get("from") == "cash" and credits[0].get("to") == "coins"
+		and material_payments.size() == 1 and int(material_payments[0].get("cash", -1)) == priced + int(fresh.margin)
+		and material_payments[0].get("from") == "coins" and material_payments[0].get("to") == "cash",
+		"The actual harbor receives the normal material-and-margin payment and returns the supplied material value to the captain exactly once")
+	var payroll_days: int = int(c.state.econDay) - completion_day
+	check(int(c.state.coins) == completion_coins - payroll * payroll_days - int(bill.netCost),
+		"The actual captain purse pays ordinary payroll and the net setup bill without a second construction-material charge")
+	note("actual_supplied_materials_settlement", {"portId":improvement_port, "setupBill":bill.duplicate(true), "captain_before":completion_coins,
+		"captain_after":int(c.state.coins), "payroll_days":payroll_days, "payroll_per_day":payroll,
+		"harbor_cash_before":completion_cash, "harbor_cash_after":int(c.port(improvement_port).cash),
+		"material_payments":material_payments.duplicate(true), "credits":credits.duplicate(true), "held_after":final.reservedMaterials.duplicate(true)})
+	var completed_assets: PackedByteArray = unreserved_assets()
+	Territory.daily(c)
+	var repeated: Dictionary = Territory.improve(c, improvement_port)
+	check(not bool(repeated.get("ok", false)) and str(final.status) == "complete" and unreserved_assets() == completed_assets,
+		"The consumed project cannot charge, credit or consume its construction goods a second time: " + str(repeated.get("message", "")))
 	check(str(final.machineryId) == machine_id and str(machinery().location) == "cargo"
 		and is_equal_approx(float(machinery().condition), condition - 0.02), "The same physically carried machinery remains aboard with exactly two work days of wear")
 	check(int(business.get("capitalIn", 0)) == 14 * 2 * 100 + 500, "The warehouse holds its actual fourteen-day staff wage reserve and finite input capital")
@@ -317,7 +362,10 @@ func assets(state: Dictionary) -> Dictionary:
 	return {"coins":state.coins, "crewPurse":state.crewPurse, "wageArrears":state.wageArrears, "coinSupply":state.coinSupply,
 		"cargo":state.cargo, "ports":ports, "boats":boats, "owners":purses,
 		"businesses":state.businesses, "tooling":state.tooling, "captives":state.get("captives", 0),
-		"wrecks":state.get("wrecks", []), "captiveBerths":state.get("captiveBerths", {})}
+		"wrecks":state.get("wrecks", []), "captiveBerths":state.get("captiveBerths", {}),
+		"materials":state.get("territorial076", {}).get("improvement", {}).get("materials", {}),
+		"reservedMaterials":state.get("territorial076", {}).get("improvement", {}).get("reservedMaterials", {}),
+		"setupBill":state.get("territorial076", {}).get("improvement", {}).get("setupBill", {})}
 
 func control_opening() -> bool:
 	if not bounded(): return false
