@@ -721,6 +721,7 @@ static func resolve_encounter(c,encounter: Dictionary) -> Dictionary:
 	if result.get("ok",false):
 		_forget_pursuits(c,str(merchant.ownerId))
 		c.OceanCampaign066.record_losses(c);record_losses(c)
+		c.OceanCampaign066.return_after_contact075(c,a,b)
 		if result.get("event",{}).get("witnessed",false):c.log_entry(str(result.get("summary","The observed fleets exchanged fire.")))
 	return result
 

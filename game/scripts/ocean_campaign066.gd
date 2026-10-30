@@ -608,6 +608,21 @@ static func _resolve_memory(memory: Dictionary,owner_id: String) -> void:
 	for id in memory.pursuits.keys():
 		if str(id)==owner_id or str(memory.pursuits[id].get("targetId",""))==owner_id:memory.pursuits.erase(id)
 
+## A funded corridor raid budgets one resolved contact, then physical HOME return.
+static func return_after_contact075(c,aId: String,bId: String) -> void:
+	if _published_corridor(c.state).is_empty():return
+	var book: Dictionary=c.state.get("ocean066",empty_book())
+	var contact: Dictionary=book.contact
+	if contact.is_empty() or contact.phase=="lost" or str(contact.ownerId) not in [aId,bId]:return
+	var id: String=str(contact.ownerId)
+	_resolve_memory(book.memory,id)
+	book.memory.intents.erase(id)
+	contact["phase"]="return"
+	contact.location["path"]=[];contact.location["destination"]=""
+	var owner: Dictionary=_owner(c.state,id)
+	var ocean: bool=contact.location.world064.layer=="ocean"
+	_plan(c,book,_gate(c,contact.gate,true) if ocean else c.port(str(owner.homePort)),"approach:shatter_coast:"+str(contact.gate.approachId) if ocean else str(owner.homePort))
+
 static func after_step(c,watch_due: bool=false) -> void:
 	record_losses(c)
 	var contact: Dictionary=c.state.ocean066.contact
