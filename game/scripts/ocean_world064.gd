@@ -80,7 +80,7 @@ static func prepare_player(saved: Dictionary, context: Dictionary, clearance: fl
 	# Actual player restore only, before publishing this runtime context to workers.
 	var result: Dictionary = prepare(saved, context, clearance)
 	if result.ok:
-		_activate(context, result.location.world064)
+		_activate(context, result.location.world064, true)
 	return result
 
 
@@ -174,6 +174,7 @@ static func advance(context: Dictionary, location: Dictionary, dt: float, speed:
 
 
 static func transition(context: Dictionary, location: Dictionary, region_id: String, approach_id: String, clearance: float, blocked_reason: String) -> Dictionary:
+	# Actor transfers validate/copy location only; they never own the player's grid.
 	if not blocked_reason.is_empty():
 		return _failure("blocked", blocked_reason)
 	var prepared: Dictionary = _read_location(location, context, clearance, false)
@@ -202,12 +203,19 @@ static func transition(context: Dictionary, location: Dictionary, region_id: Str
 	var endpoint: Dictionary = _unproject(context, region, loc.position) if ocean else _project(context, region, loc.position)
 	if not _water(context, identity, endpoint, actual):
 		return _failure("approach", "The exact transfer endpoint is not safe navigable water.")
-	_activate(context, identity, true)
 	loc.world064 = identity
 	loc.position = endpoint
 	loc.path = []
 	loc.destination = ""
 	return _success("location", loc, "Coastal chart changed.")
+
+
+static func transition_player(context: Dictionary, location: Dictionary, region_id: String, approach_id: String, clearance: float, blocked_reason: String) -> Dictionary:
+	# Actual player transfer only, before publishing this runtime context to workers.
+	var result: Dictionary = transition(context, location, region_id, approach_id, clearance, blocked_reason)
+	if result.ok:
+		_activate(context, result.location.world064, true)
+	return result
 
 
 static func view(context: Dictionary, location: Dictionary, active_boats: Array) -> Dictionary:
@@ -544,7 +552,7 @@ static func _geometry(context: Dictionary, identity: Dictionary) -> Dictionary:
 
 
 static func _activate(context: Dictionary, identity: Dictionary, evict: bool = false) -> void:
-	# Call only on restore/transition, before publishing this runtime to workers.
+	# Call only from explicit player restore/transition before worker publication.
 	if identity.layer == "local" and identity.regionId != REMOTE:
 		if context.activeRegionId != identity.regionId:
 			var region: Dictionary = context.regions[identity.regionId]

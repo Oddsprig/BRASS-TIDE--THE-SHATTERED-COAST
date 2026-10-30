@@ -75,18 +75,26 @@ Pass sector.harbors for generated berth membership; pass [] for legacy mode.
 World.prepare/plot/advance/transition signatures and world064 schema 1 stay intact.
 World.prepare(saved,context,clearance) is pure spatial validation/copying; it never
 activates or evicts navigation. Keep actor/intent/sighting/condition reads on it.
+World.transition(context,location,region_id,approach_id,clearance,blocked_reason)
+is also pure: keep NPC/merchant transfers on it without changing player navigation.
 NEW World.prepare_player(saved:Dictionary,context:Dictionary,clearance:float)
 returns the same location result, validates first, then activates player navigation
-only on success. B's final player restore and Root's private player capture stage
-must use prepare_player on the unpublished context, not prepare.
+only on success, evicting the generated grid for HOME/Glasswind/Ocean restores.
+B's final player restore and Root's private player capture stage must use
+prepare_player on the unpublished context, not prepare.
+NEW World.transition_player(context:Dictionary,location:Dictionary,region_id:String,
+approach_id:String,clearance:float,blocked_reason:String) -> Dictionary calls the
+pure transition, then activates/evicts navigation only on success, returning the
+same result shape. B's Core player transitions and private player voyage quote
+must use transition_player; NPC model call sites remain on transition.
 World.view supplies ONE geometry view containing all 48 region outlines/approaches;
 same existing fields, no parallel sector geometry. Regions additionally supply
 bounds:{x,y,width,height} in ocean units for cached culling. Local islands stay exact.
 world064 local pairs admit only actual context.regions membership; HOME/OCEAN pairs
 remain exact. Destination is the canonical harbor id or approach:regionId:north|south.
 Runtime retains shared homeNav + pinned Glasswind remoteNav + <=1 active generated
-grid. World.prepare_player restores the current grid; transition prepares a generated
-destination grid before returning/publishing it. Geometry-only checks and views
+grid. World.prepare_player restores the current grid; transition_player prepares a
+generated destination grid before returning/publishing it. Geometry-only checks and views
 never create grids. No per-actor/home/Glasswind cache thrash or per-hull grids.
 Navigation.geometry(islands,width,height) returns detached prepared polygon bounds,
 without nodes/edges; create/find_path/current clearance predicates keep behavior.
@@ -102,6 +110,8 @@ Fixture: res://tests/test_sector_model069.gd; JSON receipt and standard final
 Follow-up fixture uses prepare_player only for the actual player and adds one stale
 generated-region sighting/read regression: player grid identity stays unchanged
 and plotting to the player's current generated harbor still succeeds.
+Player fixture entry/exit uses transition_player; an ordinary merchant transition
+from Glasswind to Ocean must preserve the player's active grid and subsequent plot.
 No engine, test, advisory, process/queue, GPU, UI, install, tag, export or launch run.
 Six reusable layout families/five polygon profiles use seeded dimensions/mirroring;
 this is the bounded 069 geography scope, not an art or dynamic expansion milestone.

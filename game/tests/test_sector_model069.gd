@@ -109,7 +109,7 @@ func _runtime(home: Dictionary, anchors: Dictionary, sector: Dictionary) -> void
 	var ocean: Dictionary = _location("ocean", World.OCEAN, {"x":float(origin.x) + 210.0,"y":float(origin.y) + 20.0})
 	var chart: Dictionary = World.view(context, ocean, [])
 	_check(chart.ok and chart.view.regions.size() == 48 and context.activeNav.is_empty(), "one geometry view supplies all48 without grid allocation")
-	var entered: Dictionary = World.transition(context, ocean, "settled_01", "north", 10.0, "")
+	var entered: Dictionary = World.transition_player(context, ocean, "settled_01", "north", 10.0, "")
 	_check(entered.ok and context.activeRegionId == "settled_01" and not context.activeNav.is_empty(), "entry prepares active generated grid before publication")
 	if not entered.ok:return
 	var active: Dictionary = context.activeNav
@@ -124,12 +124,16 @@ func _runtime(home: Dictionary, anchors: Dictionary, sector: Dictionary) -> void
 	var course: Dictionary = World.plot(context, player.location, {"x":harbor.x,"y":harbor.y}, harbor.id, 10.0)
 	_check(stale_sighting.ok and context.activeRegionId == "settled_01" and is_same(context.activeNav, active) and course.ok, "stale generated-region sighting read preserves player grid and plotting")
 	_check(course.ok, "canonical generated harbor destination is navigable")
+	var merchant_approach: Dictionary = context.regions[World.REMOTE].approaches[0]
+	var merchant_departed: Dictionary = World.transition(context, _location("local", World.REMOTE, merchant_approach.position), World.REMOTE, merchant_approach.id, 10.0, "")
+	var after_merchant: Dictionary = World.plot(context, player.location, {"x":harbor.x,"y":harbor.y}, harbor.id, 10.0)
+	_check(merchant_departed.ok and context.activeRegionId == "settled_01" and is_same(context.activeNav, active) and is_same(context.remoteNav, pinned) and after_merchant.ok, "ordinary merchant transition preserves player grid and subsequent plotting")
 	var forged: Dictionary = _location("local", "fabricated_group", {"x":2100.0,"y":200.0})
 	_check(not World.prepare(forged, context, 10.0).ok, "fabricated local membership rejected")
 	_check(not World.prepare(_location("home", "settled_01", {"x":2100.0,"y":200.0}), context, 10.0).ok, "home identity cannot be generalized")
 	_check(Travel.create(context, 69029).ok, "Travel accepts the generated context bounds")
 	_check(context.homeNav.nodes.size() < Navigation.MAX_NODES and context.remoteNav.nodes.size() < Navigation.MAX_NODES and context.activeNav.nodes.size() < Navigation.MAX_NODES, "three bounded grids only")
-	var left: Dictionary = World.transition(context, entered.location, "settled_01", "north", 10.0, "")
+	var left: Dictionary = World.transition_player(context, entered.location, "settled_01", "north", 10.0, "")
 	_check(left.ok and context.activeNav.is_empty() and is_same(context.remoteNav, pinned), "exit evicts only generated grid / Glasswind remains pinned")
 	var legacy: Dictionary = World.create(home, anchors, home_nav)
 	_check(legacy.ok and legacy.context.regions.size() == 2 and legacy.context.ocean.width == 4800.0, "unchanged legacy context remains supported")
