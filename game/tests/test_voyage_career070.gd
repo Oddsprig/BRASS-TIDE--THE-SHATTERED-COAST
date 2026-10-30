@@ -335,6 +335,12 @@ func buy_surveyor070(uid: String,net: int) -> bool:
 	return check(c.Money.total(c.state)==supply,"Specialist hire conserves every actual coin and workforce transfer")
 
 func earned_voyage() -> bool:
+	var uid: String=str(c.state.fleet[0].uid)
+	return earned_work070() and earned_home070(uid)
+
+# A separate source fixture may insert a real encounter between work and HOME.
+# Defaults retain the original070 route, corrupt cases and profit assertions.
+func earned_work070(rerun_corrupt: bool=true) -> bool:
 	phase("normal_starter_and_paid_capable_crew")
 	var boat: Dictionary=c.state.fleet[0]
 	if not check(int(c.state.coins)==int(c.data.START.coins) and c.state.fleet.size()==1 and c.Goods.SAILOR_WAGE==100,"Unmodified normal starter purse, hull and sailor wage"):return false
@@ -359,7 +365,8 @@ func earned_voyage() -> bool:
 	var outbound: Array=[freight]
 	if not compatible_freight070(DESTINATION,outbound):return false
 	var active: Dictionary=parsed_save("active")
-	if active.is_empty() or not restore_exact(active,"active") or not controlled_save_cases(active):return false
+	if active.is_empty() or not restore_exact(active,"active"):return false
+	if rerun_corrupt and not controlled_save_cases(active):return false
 	phase("earned_freight_and_paid_shore_work")
 	if not sail(DESTINATION):return false
 	for delivery in outbound:
@@ -373,6 +380,9 @@ func earned_voyage() -> bool:
 	for delivery in return_freight:
 		if not pay(str(delivery.id)):return false
 	if not survey("chart") or not survey("survey") or not pay(str(survey_job.id)):return false
+	return true
+
+func earned_home070(uid: String) -> bool:
 	phase("earned_home_return_and_replacement_costs")
 	if not gate(REGION,"north") or not gate("shatter_coast","south") or not sail("brass_haven"):return false
 	if not check(c.state.fleet.size()==1 and str(c.state.fleet[0].uid)==uid and c.crew_count()==7 and int(c.state.wageArrears)==0 and payroll>0 and gross_paid>0,"Same working fleet returns with real client income and all payroll paid"):return false
