@@ -1,0 +1,49 @@
+BOAT ASSETS v0.073 — CAMPAIGN HULL CHART SOURCE
+Base: Root 9b71436, delivered v0.072. Source only. The generator was not run.
+Root regenerates game/assets/campaign054/boats and inspects the import.
+
+OWNED FILES
+- tools/quality054/build_campaign_boats.py
+- docs/BOAT ASSETS v0.073.txt
+campaign_fleet_art054.gd is unchanged. No new renderer, hull, marker or weapon.
+
+WHAT THE GENERATOR WILL DRAW
+Same 36 ids, names, HullProfiles stations, MountLayout cabin/engine/socket
+footprints and bounds formula. Manifest schema stays
+brass-tide-campaign-boats054-v1. Revision becomes 073-chart-hull-detail-r1
+only after Root runs the generator. Palette keys stay hull, deck, cabin,
+brass, dark, steel, glass.
+
+Paint follows tools/quality042/models.py MATERIALS. The 33 recipes take
+hull/deck/trim from tools/quality049/catalog.json. tin_skiff, ash_corvette
+and brasswind_motor_galleon use the 042 builder materials because they are
+not in that catalog. Plate decks (tin, armor, armor_light, machinery) keep
+cross seams. Timber and deck keep planks. Rails use the trim color.
+
+Wheelhouses follow bridgeStyle inside the existing cabin footprint: open
+cockpit, armored slit or cupola, glazed house with mullions, stepped tower.
+Aegis rangefinder stays inside the cabin so it cannot cover a side well.
+Profile accent and cargo positions are unchanged. Oil casks and cargo drums
+read as horizontal tanks. Foils and armor-belt strokes stay inside the
+current margin. Socket wells stay empty. No guns are baked in.
+
+Stern cowling, outboard leg, stern-drive hub or nozzle ring uses the stock
+count and family already in campaign_fleet_art054 (small hulls are outboards;
+otherwise nozzle for torpedo/rocket and the listed ids; otherwise stern
+drive). The fitted motor sprite still draws on top. heavy_drive only widens
+that sprite. Exhaust count and color follow the current 042/049 designs and
+are skipped if they meet a socket or the cabin. Motor SVG bounds stay
+[-0.23, -0.12, 0.46, 0.24]. No clip, filter, or water shadow.
+
+A / C COORDINATION
+Keep mount ids, local XY, radii, elevations, arcs and the 9.7 weapon base.
+Chart bounds are not battle atlas canvases. Do not resize cells, pivots or
+density to chase this chart pass. Weapon variant ids are unchanged.
+This note does not claim measured frame time, texture memory, or visual
+parity with battle or refit renders. Root views the regenerated SVGs.
+
+A/C GEOMETRY REVIEW
+No Root-supplied A/C commits were in this checkout. HEAD was 9b71436 and
+meeting brass-tide-v073 had no handoff. No mount, canvas or API diff was
+reviewed. A later supplied commit can be checked for definite mount, canvas
+or API breaks only.

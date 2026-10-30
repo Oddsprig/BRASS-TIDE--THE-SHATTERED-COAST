@@ -1,8 +1,9 @@
 """Original Brass Tide chart boats, authored as reproducible top-down SVGs.
 
 CPU-only, Python standard library. No engine/import/render/dependencies. Reads
-the canonical catalogue, HullProfiles and MountLayout without executing them.
-Writes only game/assets/campaign054/boats. Root performs native import/review.
+the canonical catalogue, HullProfiles, MountLayout and the 049 material catalog
+without executing them. Writes only game/assets/campaign054/boats. Root performs
+native import/review. v0.073 detail uses the current 36 designs and 042 paint.
 """
 from __future__ import annotations
 
@@ -17,7 +18,75 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "game/assets/campaign054/boats"
-REVISION = "054-original-chart-boats-r1"
+CATALOG_PATH = ROOT / "tools/quality049/catalog.json"
+REVISION = "073-chart-hull-detail-r1"
+
+# sRGB copies of tools/quality042/models.py MATERIALS. Chart paint only.
+MATERIALS = {
+    "tin": (.52, .62, .63),
+    "teal": (.09, .29, .29),
+    "teal_light": (.22, .45, .43),
+    "ivory": (.78, .76, .62),
+    "armor": (.22, .27, .28),
+    "armor_light": (.37, .42, .42),
+    "oxide": (.52, .18, .095),
+    "brass": (.64, .43, .17),
+    "brass_light": (.83, .64, .31),
+    "timber": (.43, .27, .13),
+    "deck": (.56, .43, .27),
+    "seam": (.13, .16, .15),
+    "rubber": (.045, .058, .055),
+    "machinery": (.16, .21, .20),
+    "steel": (.52, .57, .56),
+    "glass": (.10, .30, .34),
+    "glass_edge": (.42, .66, .68),
+    "canvas": (.42, .47, .31),
+    "rope": (.59, .50, .32),
+    "lamp": (.95, .77, .35),
+    "red": (.58, .12, .08),
+}
+
+# House, plant and top-down cues for the current 36 designs. Hull, deck and
+# trim for the 33 recipes come from catalog.json. The three 042 builders are
+# not in that file, so their materials live here. Funnels are (y, material).
+EXTRAS = {
+    "tin_skiff": dict(hull="tin", deck="deck", trim="teal", house="teal", engine="ivory", funnels=(), courses=0, foil=None, split=False),
+    "bilge_punt": dict(house="ivory", engine="tin", funnels=(), courses=0, foil=None, split=False),
+    "lantern_skiff": dict(house="ivory", engine="machinery", funnels=(), courses=0, foil=None, split=False),
+    "marsh_dart": dict(house="ivory", engine="machinery", funnels=(), courses=0, foil=.18, split=False),
+    "scab_cutter": dict(house="armor_light", engine="machinery", funnels=((.20, "steel"),), courses=0, foil=None, split=False),
+    "gale_cutter": dict(house="teal_light", engine="machinery", funnels=(), courses=0, foil=.14, split=True),
+    "silt_lugger": dict(house="timber", engine="teal_light", funnels=(), courses=0, foil=None, split=True),
+    "hook_raider": dict(house="oxide", engine="machinery", funnels=((0, "steel"),), courses=0, foil=None, split=False),
+    "mercantile_clipper": dict(house="ivory", engine="machinery", funnels=(), courses=0, foil=None, split=True),
+    "harbor_sloop": dict(house="ivory", engine="machinery", funnels=((0, "brass"),), courses=0, foil=None, split=False),
+    "ash_corvette": dict(hull="armor", deck="deck", trim="oxide", house="armor", engine="machinery", funnels=((0, "machinery"),), courses=1, foil=None, split=False),
+    "aegis_corvette": dict(house="tin", engine="machinery", funnels=((0, "steel"),), courses=0, foil=None, split=False),
+    "reed_stinger": dict(house="ivory", engine="teal_light", funnels=(), courses=0, foil=.16, split=False),
+    "krill_torpedo": dict(house="tin", engine="machinery", funnels=((-.20, "steel"),), courses=0, foil=None, split=False),
+    "manta_strike": dict(house="teal_light", engine="machinery", funnels=(), courses=0, foil=.14, split=True),
+    "slag_gunboat": dict(house="armor_light", engine="machinery", funnels=((-.17, "steel"), (.17, "steel")), courses=1, foil=None, split=False),
+    "bellows_gunboat": dict(house="tin", engine="machinery", funnels=((-.20, "steel"), (.20, "steel")), courses=2, foil=None, split=True),
+    "furnace_turret": dict(house="armor_light", engine="machinery", funnels=((-.20, "steel"), (.20, "steel")), courses=3, foil=None, split=False),
+    "barbed_lance": dict(house="timber", engine="machinery", funnels=(), courses=0, foil=None, split=False),
+    "cinder_monitor": dict(house="armor_light", engine="machinery", funnels=((0, "steel"),), courses=2, foil=None, split=False),
+    "wraith_rocket": dict(house="tin", engine="machinery", funnels=(), courses=0, foil=None, split=True),
+    "cobalt_frigate": dict(house="ivory", engine="machinery", funnels=((-.20, "brass"), (.20, "brass")), courses=0, foil=None, split=True),
+    "iron_bastion": dict(house="tin", engine="machinery", funnels=((-.22, "steel"), (.22, "steel")), courses=2, foil=None, split=False),
+    "maiden_dreadnought": dict(house="armor_light", engine="machinery", funnels=((-.23, "steel"), (0, "steel"), (.23, "steel")), courses=3, foil=None, split=False),
+    "kelpnet_dory": dict(house="ivory", engine="tin", funnels=(), courses=0, foil=None, split=False),
+    "brinehook_longliner": dict(house="ivory", engine="machinery", funnels=(), courses=0, foil=None, split=False),
+    "mother_gull_trawler": dict(house="timber", engine="machinery", funnels=(), courses=0, foil=None, split=True),
+    "fenhopper_lighter": dict(house="timber", engine="machinery", funnels=(), courses=0, foil=None, split=True),
+    "tideledger_coaster": dict(house="ivory", engine="machinery", funnels=(), courses=0, foil=None, split=True),
+    "fourport_packet": dict(house="ivory", engine="machinery", funnels=((-.23, "brass"), (.23, "brass")), courses=0, foil=None, split=True),
+    "brasswind_motor_galleon": dict(hull="teal", deck="deck", trim="brass", house="ivory", engine="teal", funnels=((-.20, "brass"), (.20, "brass")), courses=0, foil=None, split=True),
+    "seepoil_tanker": dict(house="tin", engine="machinery", funnels=(), courses=0, foil=None, split=False),
+    "blackwater_fleet_tanker": dict(house="ivory", engine="machinery", funnels=((0, "steel"),), courses=0, foil=None, split=False),
+    "gullwing_daysailer": dict(house="ivory", engine="ivory", funnels=(), courses=0, foil=.12, split=False),
+    "osprey_cabin_cruiser": dict(house="ivory", engine="ivory", funnels=(), courses=0, foil=None, split=False),
+    "aurelian_court_yacht": dict(house="ivory", engine="ivory", funnels=(), courses=0, foil=None, split=True),
+}
 
 
 def literal(path: Path, name: str):
@@ -78,26 +147,29 @@ def shade(color, amount):
     return "#" + "".join(f"{round(v + (255-v)*amount) if amount >= 0 else round(v*(1+amount)):02x}" for v in rgb)
 
 
-def palette(spec):
-    hull, deck, cabin = {
-        "compact": ("#315a60", "#aa8d61", "#d6c9a4"),
-        "forge": ("#684d40", "#777e77", "#abb4ad"),
-        "reed": ("#456b57", "#b19463", "#cfc7a5"),
-        "raiders": ("#704c49", "#947758", "#c5a58a"),
-    }[spec["faction"]]
-    civilian = spec.get("civilianRole", "")
-    if civilian == "fishing":
-        hull, deck, cabin = "#416d62", "#b29465", "#e0d2a9"
-    elif civilian == "transport":
-        hull, deck, cabin = "#476a70", "#a38661", "#e1d4b3"
-    elif civilian == "tanker":
-        hull, deck, cabin = "#94614e", "#8d8373", "#e2d7bd"
-    elif civilian == "yacht":
-        hull, deck, cabin = "#dfdfcf", "#bd9a63", "#f3ebd8"
-    elif spec.get("armor", 0) >= 10:
-        deck = shade(hull, .23)
-        cabin = shade(hull, .53)
-    return dict(hull=hull, deck=deck, cabin=cabin, brass="#c9ae6f", dark="#182c30", steel="#a5b5af", glass="#4c929e")
+def mat_hex(name):
+    red, green, blue = MATERIALS[name]
+    return "#" + "".join(f"{round(channel * 255):02x}" for channel in (red, green, blue))
+
+
+def design_for(spec, catalog):
+    extra = EXTRAS.get(spec["id"])
+    if extra is None:
+        raise ValueError(f"Missing chart design cues for {spec['id']}")
+    entry = catalog.get(spec["id"], {})
+    hull = entry.get("hull_material") or extra.get("hull")
+    deck = entry.get("deck_material") or extra.get("deck")
+    trim = entry.get("trim_material") or extra.get("trim")
+    if not hull or not deck or not trim:
+        raise ValueError(f"Missing hull material for {spec['id']}")
+    return dict(hull=hull, deck=deck, trim=trim, house=extra["house"], engine=extra["engine"],
+                funnels=extra["funnels"], courses=extra["courses"], foil=extra["foil"], split=extra["split"])
+
+
+def palette(design):
+    """Same keys the chart consumer reads. Values follow the battle materials."""
+    return dict(hull=mat_hex(design["hull"]), deck=mat_hex(design["deck"]), cabin=mat_hex(design["house"]),
+                brass=mat_hex("brass"), dark=mat_hex("seam"), steel=mat_hex("steel"), glass=mat_hex("glass"))
 
 
 def n(value):
@@ -199,10 +271,16 @@ def item_art(svg, item, colors):
     x, y, length, width = (item[key] for key in ("x", "y", "len", "wid"))
     kind = item["kind"]
     dark, brass = colors["dark"], colors["brass"]
-    if "mast" in kind or "davit" in kind or "post" in kind:
+    if ("mast" in kind or "davit" in kind or "post" in kind) and "searchlight" not in kind:
         svg.rect(x, y, length, width, colors["hull"], dark)
         svg.line((x-length*.3, y), (x+length*.28, y), brass, .023)
         svg.circle(x, y, min(length, width)*.22, colors["steel"])
+    elif "tank" in kind or kind.startswith("cargo_drum") or ("oil" in kind and "cask" in kind):
+        # Horizontal storage reads as a tank, not a weapon-well ring.
+        svg.rect(x, y, length, width, shade(colors["steel"], .22), dark, min(length, width)*.46)
+        for band in (-.22, .22):
+            svg.line((x+length*band, y-width*.48), (x+length*band, y+width*.48), brass, .012)
+        svg.circle(x, y, min(length, width)*.16, colors["cabin"], dark, .008)
     elif "coil" in kind or "reel" in kind or "drum" in kind or "cask" in kind:
         radius = min(length, width)*.45
         svg.rect(x, y, length, width, shade(colors["deck"], -.3), dark, .025)
@@ -226,6 +304,15 @@ def item_art(svg, item, colors):
         svg.rect(x, y, length, width, brass, dark)
         for offset in (-.28, 0, .28):
             svg.rect(x, y+width*offset, length*.8, width*.23, "#eee5c9", pen=.006)
+    elif any(word in kind for word in ("fender", "cheek", "strake", "belt", "glacis", "breakwater", "sponson")):
+        svg.rect(x, y, length, max(width, .08), shade(colors["hull"], -.18), dark, .02)
+        svg.line((x-length*.42, y), (x+length*.42, y), brass, .011)
+    elif any(word in kind for word in ("step", "vane", "foil", "skeg")):
+        svg.poly([(x-length*.42, y), (x+length*.46, y-width*.42), (x+length*.46, y+width*.42)],
+                 shade(colors["steel"], -.1), dark, .01)
+    elif "searchlight" in kind or kind.endswith("lamp"):
+        svg.circle(x, y, min(length, width)*.40, brass, dark, .01)
+        svg.circle(x+length*.18, y, min(length, width)*.20, colors["glass"])
     else:
         paint = colors["hull"] if any(word in kind for word in ("hatch", "locker", "chest", "box", "safe", "hoppers")) else shade(colors["deck"], -.17)
         svg.rect(x+.022, y+.022, length, width, dark)
@@ -234,8 +321,124 @@ def item_art(svg, item, colors):
         svg.line((x-length*.18, y), (x+length*.18, y), brass, .014)
 
 
-def boat_art(spec, profile, roles):
-    stations, colors = profile["stations"], palette(spec)
+def drive_plan(spec, stations, cat):
+    """Stock stern count from campaign_fleet_art054. The fitted sprite still composites."""
+    size, role, hull_id, tier = spec["size"], spec["role"], spec["id"], spec["tier"]
+    small = size <= 18.5
+    nozzle_ids = {"hook_raider", "aegis_corvette", "krill_torpedo", "manta_strike", "cinder_monitor", "wraith_rocket"}
+    nozzle = role in ("torpedo", "rocket") or hull_id in nozzle_ids
+    family = "outboard" if small else "nozzle" if nozzle else "stern_drive"
+    transom, beam = stations[0][0], max(.14, stations[0][1])
+    if cat:
+        ys = [-.62, .62]
+    elif small and hull_id in ("bilge_punt", "marsh_dart"):
+        ys = [0.0]
+    elif (not small) and (size >= 28.5 or (tier >= 4 and size >= 24.0)):
+        spread = clamp(beam * .55, .24, .35)
+        ys = [-spread, 0.0, spread]
+    else:
+        spread = clamp(beam * .52, .17 if small else .22, .24 if small else .31)
+        ys = [-spread, spread]
+    return family, transom - (.16 if small else .19), ys
+
+
+def stern_mark(svg, family, x, y, colors):
+    # Cowling and a short guard inside the existing aft margin. No cast water shadow.
+    svg.rect(x + .02, y, .20, .11, colors["dark"], radius=.018)
+    body = colors["hull"] if family == "outboard" else colors["steel"]
+    svg.rect(x, y, .18, .10, body, colors["dark"], .02, .008)
+    for step in range(3):
+        sx = x - .04 + step * .028
+        svg.line((sx, y - .03), (sx, y + .03), colors["dark"], .005)
+    svg.rect(x + .05, y, .028, .055, colors["brass"], radius=.006)
+    if family == "nozzle":
+        svg.circle(x - .11, y, .038, "none", colors["steel"], .01)
+    elif family == "stern_drive":
+        svg.line((x - .12, y - .035), (x - .12, y + .035), colors["brass"], .01)
+        svg.circle(x - .145, y, .016, colors["brass"])
+    else:
+        svg.line((x - .115, y - .028), (x - .115, y + .028), colors["steel"], .012)
+        svg.circle(x - .14, y, .014, colors["brass"])
+
+
+def foil_marks(svg, stations, foil_x, cat, halfbeam, colors):
+    beam = width_at(stations, foil_x)
+    for offset in ([-.62, .62] if cat else [0]):
+        for side in (-1, 1):
+            inner = offset + side * beam * .70
+            outer = offset + side * (beam + .05)
+            limit = halfbeam + .07
+            if abs(outer) > limit:
+                outer = math.copysign(limit, outer)
+            svg.poly([(foil_x - .12, inner), (foil_x + .08, inner), (foil_x + .04, outer), (foil_x - .16, outer)],
+                     shade(colors["steel"], -.08), colors["dark"], .01)
+
+
+def wheelhouse(svg, profile, cabin, colors, sockets):
+    x, y, length, width = (cabin[key] for key in ("x", "y", "len", "wid"))
+    style = profile["bridgeStyle"]
+    svg.rect(x + .045, y + .045, length + .04, width + .04, shade(colors["dark"], .08), radius=.035)
+    open_styles = ("open_windscreen", "scout_cowl", "stepped_cockpit", "low_stinger_hood")
+    armor_styles = ("ironclad_casemate", "siege_citadel", "bastion_cupola", "pyre_bunker", "turtleback_conning", "sawtooth_cowl")
+    if style in open_styles:
+        svg.rect(x, y, length, width, colors["dark"], colors["brass"], .03)
+        for side in (-.22, .22):
+            svg.rect(x - length * .08, y + width * side, length * .28, width * .28, shade(colors["cabin"], -.08), colors["dark"], .02)
+        if style == "stepped_cockpit":
+            svg.rect(x - length * .28, y, length * .16, width * .70, shade(colors["cabin"], .1), colors["dark"], .02)
+        front = .18 if style == "low_stinger_hood" else .42
+        svg.poly([(x + length * front, -width * .46), (x + length * .48, -width * .50),
+                  (x + length * .48, width * .50), (x + length * front, width * .46)],
+                 colors["glass"], colors["brass"], .012)
+        svg.circle(x + length * .05, width * .16, .05, "none", colors["brass"], .014)
+        if style == "scout_cowl":
+            svg.rect(x + length * .22, y, length * .16, width * .55, shade(colors["hull"], -.2), colors["brass"], .02)
+        return
+    roof_fill = svg.gradient("roof", shade(colors["cabin"], .18), shade(colors["cabin"], -.16))
+    front = .28 if any(word in style for word in ("canopy", "hood", "interceptor")) else .43
+    roof = [(x - length * .48, -width * .48), (x + length * front, -width * .43), (x + length * .50, -width * .26),
+            (x + length * .50, width * .26), (x + length * front, width * .43), (x - length * .48, width * .48)]
+    svg.poly(roof, roof_fill, colors["dark"], .022)
+    if style in armor_styles:
+        svg.rect(x, y, length * .72, width * .55, shade(colors["cabin"], -.12), colors["dark"], .02)
+        svg.line((x + length * .40, -width * .12), (x + length * .40, width * .12), colors["glass"], .02)
+        if style == "bastion_cupola":
+            svg.circle(x - length * .08, y, min(length, width) * .22, shade(colors["steel"], .1), colors["dark"], .012)
+        if style in ("siege_citadel", "turtleback_conning"):
+            for side in (-1, 1):
+                svg.line((x - length * .2, side * width * .30), (x + length * .15, side * width * .30), colors["dark"], .016)
+    else:
+        for side in (-1, 1):
+            svg.poly([(x - length * .34, side * width * .38), (x + length * .28, side * width * .35),
+                      (x + length * .36, side * width * .24), (x - length * .34, side * width * .27)],
+                     colors["glass"], colors["dark"], .010)
+            for offset in (-.18, 0, .18):
+                svg.line((x + length * offset, side * width * .24), (x + length * offset, side * width * .38), colors["brass"], .008)
+        svg.line((x + length * .44, -width * .23), (x + length * .44, width * .23), shade(colors["glass"], .45), .022)
+        svg.rect(x - length * .08, y, length * .22, width * .28, shade(colors["cabin"], .12), colors["brass"], .01)
+        if style in ("packet_house", "commodore_tower", "flagship_citadel", "throne_pagoda", "hellbore_fire_tower"):
+            svg.rect(x - length * .06, y, length * .48, width * .62, shade(colors["cabin"], .22), colors["dark"], .016)
+            svg.rect(x - length * .02, y, length * .28, width * .36, shade(colors["steel"], .15), colors["brass"], .01)
+        if style == "rangefinder_bridge":
+            # Stay inside the cabin footprint so the bar cannot cover a side well.
+            svg.rect(x, y, length * .62, width * .18, colors["steel"], colors["dark"], .02)
+            svg.circle(x, -width * .08, .028, colors["glass"])
+            svg.circle(x, width * .08, .028, colors["glass"])
+        if style == "manta_command_fin":
+            fin = dict(x=x - length * .15, y=0, len=length * .40, wid=.06)
+            if clear(fin, sockets):
+                svg.rect(fin["x"], 0, fin["len"], fin["wid"], colors["hull"], colors["brass"], .01)
+        if profile.get("bridge", {}).get("visor") == "searchlight_brow":
+            lamp = dict(x=x + length * .36, y=0, len=.12, wid=.12)
+            if clear(lamp, sockets):
+                svg.circle(lamp["x"], 0, .05, colors["brass"], colors["dark"], .01)
+                svg.circle(lamp["x"] + .03, 0, .025, colors["glass"])
+    svg.line((x - length * .38, -width * .38), (x - length * .38, width * .38), shade(colors["cabin"], .36), .014)
+
+
+def boat_art(spec, profile, roles, catalog):
+    stations, design = profile["stations"], design_for(spec, catalog)
+    colors = palette(design)
     ch = chassis(spec, roles)
     halfbeam = max(point[1] for point in stations) + (.62 if ch["cat"] else 0)
     # Includes physical drives and a narrow transparent antialiasing margin.
@@ -243,9 +446,9 @@ def boat_art(spec, profile, roles):
     svg = SVG(bounds, spec["name"] + " — original top-down chart hull; weapons fitted separately")
     hull_fill = svg.gradient("paint", shade(colors["hull"], .30), shade(colors["hull"], -.18))
     deck_fill = svg.gradient("deck", shade(colors["deck"], .15), shade(colors["deck"], -.12))
-    roof_fill = svg.gradient("roof", shade(colors["cabin"], .18), shade(colors["cabin"], -.16))
+    trim = mat_hex(design["trim"])
     offsets = [-.62, .62] if ch["cat"] else [0]
-    steel_deck = not spec.get("civilianRole") and spec.get("armor", 0) >= 10
+    steel_deck = design["deck"] in ("tin", "armor", "armor_light", "machinery")
     for offset in offsets:
         svg.path(hull_path(stations, offset), hull_fill, colors["dark"], .045)
         svg.path(hull_path(stations, offset, .966, .89), deck_fill, colors["brass"], .022)
@@ -271,9 +474,13 @@ def boat_art(spec, profile, roles):
                     svg.line((x, offset+y), (x, offset+y+.085), shade(colors["deck"], -.38), .009)
         for side in (-1, 1):
             rail = [(x*.94, offset+side*w*.92) for x, w in stations]
-            svg.path("M"+" L".join(f"{n(x)},{n(y)}" for x, y in rail), stroke=shade(colors["cabin"], .15), width=.016)
+            svg.path("M"+" L".join(f"{n(x)},{n(y)}" for x, y in rail), stroke=trim, width=.016)
             for x, w in stations[:-1]:
                 svg.circle(x*.94, offset+side*w*.92, .016, colors["brass"], colors["dark"], .006)
+            for course in range(design["courses"]):
+                inset = .84 - course * .035
+                belt = [(x*.94, offset+side*w*inset) for x, w in stations]
+                svg.path("M"+" L".join(f"{n(px)},{n(py)}" for px, py in belt), stroke=shade(colors["hull"], .42 - course * .12), width=.012)
         # Light and dark sheer lines define an actual hull against chart water.
         svg.path("M"+" L".join(f"{n(x)},{n(offset-w)}" for x, w in stations), stroke=shade(colors["hull"], .52), width=.020)
         svg.line((stations[0][0]+.025, offset-stations[0][1]*.85), (stations[0][0]+.025, offset+stations[0][1]*.85), colors["brass"], .024)
@@ -284,6 +491,8 @@ def boat_art(spec, profile, roles):
             svg.line((-1.69, y), (1.31, y), shade(colors["deck"], -.30), .010)
         for x in (-1.70, -.78, .15, 1.31):
             svg.rect(x, 0, .07, 1.34, hull_fill, colors["dark"], .005)
+    if design["foil"] is not None:
+        foil_marks(svg, stations, design["foil"], ch["cat"], halfbeam, colors)
     items = []
     for item in profile["accents"] + profile["cargo"]:
         if item["kind"] == "outboard_pair" or not clear(item, ch["sockets"]):
@@ -298,15 +507,26 @@ def boat_art(spec, profile, roles):
     # Machinery housing stays at the real chassis engine footprint.
     engine = ch["engine"]
     ex, ey, el, ew = (engine[key] for key in ("x", "y", "len", "wid"))
+    engine_paint = mat_hex(design["engine"])
     svg.rect(ex+.03, ey+.03, el+.04, ew+.03, colors["dark"])
-    svg.rect(ex, ey, el, ew, hull_fill, colors["dark"])
+    svg.rect(ex, ey, el, ew, engine_paint, colors["dark"])
+    if design["split"]:
+        svg.line((ex-el*.46, ey), (ex+el*.46, ey), colors["dark"], .012)
     for i in range(5):
         x = ex-el*.34+el*.17*i
-        svg.line((x, -ew*.37), (x, ew*.37), colors["steel"], .015)
-    for i in range(ch["stacks"]):
-        sy = ch["spread"] if ch["stacks"] == 1 and spec["role"] in ("cutter", "torpedo") else 0 if ch["stacks"] == 1 else (-ch["spread"] if i == 0 else ch["spread"])
-        svg.circle(ex-.02, sy, ch["stack_r"], colors["steel"], colors["dark"], .015)
-        svg.circle(ex-.02, sy, ch["stack_r"]*.60, colors["dark"])
+        svg.line((x, ey-ew*.37), (x, ey+ew*.37), colors["steel"], .015)
+    for side in (-1, 1):
+        svg.line((ex-el*.40, ey+side*ew*.42), (ex+el*.32, ey+side*ew*.42), colors["brass"], .01)
+    if spec["id"] == "gale_cutter":
+        svg.line((ex-el*.15, ey-ew*.4), (ex-el*.15, ey+ew*.4), colors["brass"], .016)
+    for sy, mat_name in design["funnels"]:
+        stack = dict(x=ex-.02, y=sy, len=ch["stack_r"]*2.4, wid=ch["stack_r"]*2.4)
+        if clear(stack, ch["sockets"]) and not overlaps(stack, ch["cabin"]):
+            svg.circle(stack["x"], sy, ch["stack_r"], mat_hex(mat_name), colors["dark"], .015)
+            svg.circle(stack["x"], sy, ch["stack_r"]*.60, colors["dark"])
+    family, drive_x, drive_ys = drive_plan(spec, stations, ch["cat"])
+    for drive_y in drive_ys:
+        stern_mark(svg, family, drive_x, drive_y, colors)
     # Socket wells are empty infrastructure; only runtime fittings add weapons.
     for socket in ch["sockets"]:
         x, y, r = socket["x"], socket["y"], socket["radius"]
@@ -315,35 +535,7 @@ def boat_art(spec, profile, roles):
         for i in range(6):
             a = i*math.tau/6
             svg.circle(x+math.cos(a)*r*.87, y+math.sin(a)*r*.87, .009, colors["brass"])
-    cabin = ch["cabin"]
-    x, y, length, width = (cabin[key] for key in ("x", "y", "len", "wid"))
-    style = profile["bridgeStyle"]
-    svg.rect(x+.045, y+.045, length+.04, width+.04, shade(colors["dark"], .08), radius=.035)
-    if spec["role"] == "skiff" and not profile["bridge"].get("glass", False):
-        svg.rect(x, y, length, width, colors["cabin"], colors["dark"], .035)
-        svg.rect(x, y, length*.80, width*.74, colors["dark"], colors["brass"], .02)
-        svg.rect(x-length*.18, y, length*.18, width*.64, "#8b5e44", "#d1ad73", .016)
-        svg.poly([(x+length*.30,-width*.42),(x+length*.47,-width*.48),(x+length*.47,width*.48),(x+length*.30,width*.42)], colors["glass"], "#afcec0", .012)
-        svg.circle(x+length*.18, width*.18, .055, "none", colors["brass"], .016)
-        svg.line((x+length*.14, width*.18), (x+length*.22, width*.18), colors["brass"], .009)
-    else:
-        front = .30 if any(word in style for word in ("canopy", "hood", "interceptor")) else .43
-        roof = [(x-length*.48,-width*.48),(x+length*front,-width*.43),(x+length*.50,-width*.26),(x+length*.50,width*.26),(x+length*front,width*.43),(x-length*.48,width*.48)]
-        svg.poly(roof, roof_fill, colors["dark"], .022)
-        for side in (-1, 1):
-            svg.poly([(x-length*.34,side*width*.38),(x+length*.28,side*width*.35),(x+length*.36,side*width*.24),(x-length*.34,side*width*.27)], colors["glass"], colors["dark"], .010)
-        svg.line((x+length*.44,-width*.23), (x+length*.44,width*.23), "#b9e0da", .027)
-        svg.rect(x-length*.10, 0, length*.46, width*.40, shade(colors["cabin"], .12), colors["brass"], .014)
-        if any(word in style for word in ("citadel", "cupola", "bunker", "pagoda", "conning")):
-            svg.rect(x-length*.10, 0, length*.25, width*.26, hull_fill, colors["dark"], .01)
-            for side in (-1, 1):
-                svg.line((x-length*.20,side*width*.28), (x+length*.12,side*width*.28), colors["dark"], .017)
-        elif "yacht" in spec.get("civilianRole", ""):
-            for i in range(4):
-                svg.line((x-length*.22+i*length*.07,-width*.13), (x-length*.22+i*length*.07,width*.13), colors["brass"], .009)
-        else:
-            svg.circle(x-length*.13, 0, .055, colors["hull"], colors["brass"], .009)
-        svg.line((x-length*.38,-width*.38), (x-length*.38,width*.38), shade(colors["cabin"], .36), .014)
+    wheelhouse(svg, profile, ch["cabin"], colors, ch["sockets"])
     # Foredeck capstan and inset mooring cleats: no flags/people/extra guns.
     for side in (-1, 1):
         cleat = dict(x=stations[0][0]*.94+.14, y=side*(.62 if ch["cat"] else stations[0][1]*.58), len=.13, wid=.10)
@@ -395,18 +587,26 @@ def equipment_art():
     for kind in ("outboard", "stern_drive", "nozzle"):
         bounds = [-.23, -.12, .46, .24]
         svg = SVG(bounds, "Original top-down " + kind.replace("_", " "))
-        metal = svg.gradient("metal", "#a2b1a9", "#3f595c")
-        svg.rect(0, 0, .41, .18, "#1c3034", "#13282e", .025, .012)
-        svg.rect(.012, 0, .32, .16, metal, "#142b30", .035, .012)
-        for x in (-.095, -.055, -.015, .025):
-            svg.line((x,-.052), (x,.052), "#263f43", .012)
-        svg.rect(.10, 0, .05, .11, "#bb995f", radius=.008)
-        if kind == "nozzle":
-            svg.rect(-.172, 0, .055, .12, "#13282f", "#a4b8ad", .014, .012)
-        elif kind == "stern_drive":
-            svg.line((-.21,-.08), (-.21,.08), "#bfbc98", .019)
+        svg.rect(0, 0, .34, .16, "#1c3034", "#13282e", .02, .008)
+        if kind == "outboard":
+            svg.rect(.01, 0, .28, .14, mat_hex("teal_light"), "#142b30", .03, .01)
+            for x in (-.05, -.01, .03):
+                svg.line((x, -.04), (x, .04), "#1c3034", .007)
+            svg.rect(.07, 0, .045, .07, mat_hex("brass"), radius=.006)
+            svg.line((-.15, -.03), (-.15, .03), mat_hex("steel"), .012)
+            svg.circle(-.185, 0, .016, mat_hex("brass"))
+        elif kind == "nozzle":
+            svg.rect(.02, 0, .26, .13, mat_hex("armor_light"), "#142b30", .02, .01)
+            svg.circle(-.12, 0, .05, "none", mat_hex("steel"), .012)
+            svg.circle(-.12, 0, .026, mat_hex("seam"))
+            svg.rect(.08, 0, .04, .06, mat_hex("brass"), radius=.006)
         else:
-            svg.line((-.21,-.055), (-.21,.055), "#bbad7a", .016)
+            metal = svg.gradient("metal", "#c5d0c8", "#3a5558")
+            svg.rect(0, 0, .28, .14, metal, "#142b30", .025, .01)
+            svg.rect(-.02, 0, .14, .09, mat_hex("machinery"), "#142b30", .015, .008)
+            svg.line((-.15, -.045), (-.15, .045), mat_hex("brass"), .014)
+            svg.circle(-.175, 0, .018, mat_hex("brass"), mat_hex("seam"), .006)
+            svg.rect(.08, 0, .04, .07, mat_hex("steel"), radius=.006)
         pixels, digest = svg.save(OUT/("motor_"+kind+".svg"))
         motors[kind] = dict(path="res://assets/campaign054/boats/motor_"+kind+".svg", local_bounds=bounds, source_size=pixels, sha256=digest)
     return weapons, motors
@@ -417,17 +617,18 @@ def main():
     layout_path = ROOT/"game/scripts/mount_layout.gd"
     world_path = ROOT/"game/data/world.json"
     profiles, roles = literal(profiles_path, "_PROFILES"), literal(layout_path, "_ROLE_TABLE")
+    catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8-sig"))
     specs = json.loads(world_path.read_text(encoding="utf-8-sig"))["HULLS"]
-    if len(specs) != 36 or {spec["id"] for spec in specs} != set(profiles):
+    if len(specs) != 36 or {spec["id"] for spec in specs} != set(profiles) or set(EXTRAS) != set(profiles):
         raise ValueError("Catalogue/profile identities must match all 36 canonical hulls")
     target = OUT.resolve()
     expected = (ROOT/"game/assets/campaign054/boats").resolve()
     if target != expected or ROOT.resolve() not in target.parents:
         raise ValueError("Output must remain in this checkout's campaign boats allowlist")
     OUT.mkdir(parents=True, exist_ok=True)
-    hulls = {spec["id"]: boat_art(spec, profiles[spec["id"]], roles) for spec in specs}
+    hulls = {spec["id"]: boat_art(spec, profiles[spec["id"]], roles, catalog) for spec in specs}
     weapons, motors = equipment_art()
-    inputs = [profiles_path, layout_path, world_path, ROOT/"game/scripts/boat_deck_detail.gd", ROOT/"game/scripts/motor_art.gd", Path(__file__)]
+    inputs = [profiles_path, layout_path, world_path, CATALOG_PATH, ROOT/"game/scripts/boat_deck_detail.gd", ROOT/"game/scripts/motor_art.gd", Path(__file__)]
     manifest = dict(schema="brass-tide-campaign-boats054-v1", revision=REVISION,
                     projection="original-top-down-bow-positive-x", installed_weapons_baked=False,
                     input_sha256={str(path.relative_to(ROOT)).replace("\\", "/"): hashlib.sha256(path.read_bytes()).hexdigest() for path in inputs},
