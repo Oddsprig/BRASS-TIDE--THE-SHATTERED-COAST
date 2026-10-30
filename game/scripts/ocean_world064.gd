@@ -72,10 +72,14 @@ static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary, ha
 static func prepare(saved: Dictionary, context: Dictionary, clearance: float) -> Dictionary:
 	# Copy only spatial fields before validation; no account is copied or published.
 	# Caller must finish legacy CoastMigration first. A revision-1 save is refused.
-	var result: Dictionary = _read_location(saved, context, clearance, true)
+	# Actor, intent and sighting reads must never replace the player's active grid.
+	return _read_location(saved, context, clearance, true)
+
+
+static func prepare_player(saved: Dictionary, context: Dictionary, clearance: float) -> Dictionary:
+	# Actual player restore only, before publishing this runtime context to workers.
+	var result: Dictionary = prepare(saved, context, clearance)
 	if result.ok:
-		# Restore/entry prepares navigation in the unpublished runtime context.
-		# Preparing another actor at HOME/Glasswind never evicts the player's grid.
 		_activate(context, result.location.world064)
 	return result
 

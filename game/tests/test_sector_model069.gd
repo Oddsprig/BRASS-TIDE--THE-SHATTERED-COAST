@@ -103,11 +103,16 @@ func _runtime(home: Dictionary, anchors: Dictionary, sector: Dictionary) -> void
 	_check(entered.ok and context.activeRegionId == "settled_01" and not context.activeNav.is_empty(), "entry prepares active generated grid before publication")
 	if not entered.ok:return
 	var active: Dictionary = context.activeNav
+	var player: Dictionary = World.prepare_player(entered.location, context, 10.0)
+	_check(player.ok and is_same(context.activeNav, active), "actual player preparation reuses its generated grid")
+	if not player.ok:return
 	for iteration in range(3):
 		var merchant: Dictionary = World.prepare(_location("local", World.REMOTE, {"x":756.0,"y":732.0}), context, 10.0)
 		_check(merchant.ok and is_same(context.remoteNav, pinned) and is_same(context.activeNav, active), "Glasswind merchant does not thrash player grid " + str(iteration))
 	var harbor: Dictionary = sector.harbors[0]
-	var course: Dictionary = World.plot(context, entered.location, {"x":harbor.x,"y":harbor.y}, harbor.id, 10.0)
+	var stale_sighting: Dictionary = World.prepare(_location("local", "settled_02", {"x":2100.0,"y":200.0}), context, 10.0)
+	var course: Dictionary = World.plot(context, player.location, {"x":harbor.x,"y":harbor.y}, harbor.id, 10.0)
+	_check(stale_sighting.ok and context.activeRegionId == "settled_01" and is_same(context.activeNav, active) and course.ok, "stale generated-region sighting read preserves player grid and plotting")
 	_check(course.ok, "canonical generated harbor destination is navigable")
 	var forged: Dictionary = _location("local", "fabricated_group", {"x":2100.0,"y":200.0})
 	_check(not World.prepare(forged, context, 10.0).ok, "fabricated local membership rejected")
