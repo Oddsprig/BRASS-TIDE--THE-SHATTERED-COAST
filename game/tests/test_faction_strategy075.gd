@@ -36,6 +36,29 @@ func _initialize() -> void:
 func progress(stage: String) -> void:
 	print("FactionStrategy075 progress ", stage, " elapsed_ms=", Time.get_ticks_msec() - started)
 
+func opening_quotes() -> void:
+	var quoted: int = 0
+	for owner in c.state.fleetOwners:
+		if owner.get("kind") != "trader" or owner.get("playerCompany", false) or Orders.is_story_owner(owner) or not owner.get("active", false): continue
+		if quoted >= 3 or not bounded(): return
+		var yard: Dictionary = c.port(str(owner.homePort))
+		var patrol: Dictionary = Orders.find_patrol(c.state, str(owner.id))
+		var trial: Dictionary = owner.duplicate(true)
+		var recovery: String = Orders.needs_home_recovery(trial, Orders.fleet_reserves(trial), Orders.fleet_performance(trial))
+		var berth: bool = not yard.is_empty() and not patrol.is_empty() and owner.get("atPort") == yard.id and patrol.get("holding", false) and c.distance(patrol, yard) < 40.0
+		var enrolled: bool = Orders.enrolled066(c.state, str(owner.id))
+		var operation: Dictionary = Orders.RegionalOrders.operation(c.state, owner)
+		var queued: bool = c.NavalAI.NavalReplacements.owner_has_queued_replacement(c.state, str(owner.id))
+		var eligible: bool = berth and owner.has("harborServiceUntilDay") and recovery.is_empty() and not enrolled and operation.is_empty() and not queued
+		var began: int = Time.get_ticks_msec()
+		var quote: Dictionary = Shipping.select_corridor075(c.state, c.ocean_context064, owner, 0, float(c.data.get("CAMPAIGN_SCALE", 1.0)))
+		note("opening_merchant_quote", {"ownerId":str(owner.id), "coins":int(owner.coins), "crew_purse":int(owner.crewPurse), "upkeep":Shipping.Fleets.upkeep(owner),
+			"homeId":str(owner.homePort), "atPort":str(owner.get("atPort", "")), "home_berth":berth, "holding":patrol.get("holding", false), "paid_service_until":owner.get("harborServiceUntilDay"), "eligible_now":eligible,
+			"enrolled":enrolled, "operation_assigned":not operation.is_empty(), "queued_replacement":queued, "quote_basis":"Actual opening manifest; no hypothetical previous-lot sale or admission is applied.",
+			"recovery_reason":recovery, "trade_good":str(owner.tradeGood), "trade_cargo":float(owner.tradeCargo), "quote_ms":Time.get_ticks_msec() - began, "quote":quote})
+		print("FactionStrategy075 opening ", JSON.stringify(observations[-1]))
+		quoted += 1
+
 func check(ok: bool, label: String) -> bool:
 	checks += 1
 	if not ok:
@@ -438,7 +461,16 @@ func _run() -> void:
 	var geography: PackedByteArray = var_to_bytes([c.state.sector069, c.state.islandOwnership069])
 	check(c.ocean_context064.regions.size() == 48 and definitions.HULLS.size() == 36 and c.Goods.SAILOR_WAGE == 100, "Existing48 groups,36 hull designs and100coin sailor-day remain")
 	check(Money.total(c.state) == supply, "Opening accounts are exactly the ordinary finite world supply")
-	note("normal_opening", {"seed":SEED, "coin_supply":supply, "people":people, "staging":"None: normal home admission and all later movement, accounts, cargo and combat are ordinary APIs."})
+	note("normal_opening", {"seed":SEED, "coin_supply":supply, "people":people, "staging":"Only the player is placed at the existing Glasswind north approach through prepare_player/_publish_location064 before chronology, avoiding unrelated HOME interception. No earned player voyage; NPCs, accounts, cargo, crew and intel retain their ordinary opening."})
+	opening_quotes()
+	if not check(var_to_bytes(c.state) == var_to_bytes(opening), "Pure opening merchant quotations leave the entire ordinary career unchanged") or not bounded():
+		finish(); return
+	var vantage: Dictionary = {"world064":{"schema":1, "layer":"local", "regionId":c.OceanWorld064.REMOTE}, "position":c.ocean_context064.regions[c.OceanWorld064.REMOTE].approaches[0].position, "heading":0.0, "path":[], "destination":""}
+	var prepared: Dictionary = c.OceanWorld064.prepare_player(vantage, c.ocean_context064, c.Routes.clearance(c))
+	if not check(prepared.get("ok", false), "Declared opening-only player placement passes normal safe-water preparation: " + str(prepared.get("message", ""))):
+		finish(); return
+	c._publish_location064(prepared.location)
+	note("declared_opening_player_placement", {"location":c.world_location064(), "earned_travel":false})
 	for _slice in range(450):
 		if _slice == 0: progress("first tick begin")
 		var advanced: bool = tick()
