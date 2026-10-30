@@ -30,7 +30,11 @@ var crew_losses: float = 0.0
 
 func _initialize() -> void:
 	started = Time.get_ticks_msec()
+	progress("initialize")
 	_run.call_deferred()
+
+func progress(stage: String) -> void:
+	print("FactionStrategy075 progress ", stage, " elapsed_ms=", Time.get_ticks_msec() - started)
 
 func check(ok: bool, label: String) -> bool:
 	checks += 1
@@ -414,13 +418,18 @@ func legacy_boundary(opening: Dictionary) -> bool:
 	return check(retained, "Older two-region fallback preserves every existing purse, stock, workforce, boat and item without migration births")
 
 func _run() -> void:
+	progress("run")
 	if not check(DisplayServer.get_name() == "headless", "Root's private native fixture uses the headless backend"):
 		finish(); return
 	var definitions = JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	if not check(definitions is Dictionary, "Actual game definitions decode"):
 		finish(); return
+	progress("Campaign.new begin")
 	c = Campaign.new(definitions)
+	progress("Campaign.new end")
+	progress("new_game begin")
 	var made: Dictionary = c.new_game(SEED)
+	progress("new_game end")
 	if not check(made.get("ok", false), "One ordinary fresh seeded career initializes: " + str(made.get("message", ""))):
 		finish(); return
 	supply = int(c.state.coinSupply)
@@ -431,7 +440,10 @@ func _run() -> void:
 	check(Money.total(c.state) == supply, "Opening accounts are exactly the ordinary finite world supply")
 	note("normal_opening", {"seed":SEED, "coin_supply":supply, "people":people, "staging":"None: normal home admission and all later movement, accounts, cargo and combat are ordinary APIs."})
 	for _slice in range(450):
-		if not tick(): break
+		if _slice == 0: progress("first tick begin")
+		var advanced: bool = tick()
+		if _slice == 0: progress("first tick end")
+		if not advanced: break
 		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
 	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days})
 	check(not history.corridor.is_empty(), "An affordable generic corridor naturally admits an existing serviced home trader")
