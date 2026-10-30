@@ -540,6 +540,34 @@ func save_witness(port_id: String) -> bool:
 	if not check(bool(restored.get("ok", false)), "The actual final full save uses ordinary Campaign.restore on shared Navigation: " + str(restored.get("message", ""))): return false
 	c = restored_core
 	check(expected == normalized([assets(c.state), c.state.territorial076, c.state.world064, c.state.position, c.state.day, c.state.econDay, c.state.campaignFocus, c.state.sector069, c.state.islandOwnership069]), "Ordinary JSON save/restore preserves actual title, purses, people, goods, damage, hull/item/machinery IDs, private ownership and clock")
+	var law_error: String = c.LawOps.validate(saved, c.data)
+	if not check(law_error.is_empty(), "Standalone trade-law validation accepts the actual completed transfer: " + law_error): return false
+	var protected_state: PackedByteArray = var_to_bytes([c.state, c.events, c.pending_days])
+	for corruption in ["missing_book", "inactive_control", "unrelated_home_title"]:
+		if not bounded(): return false
+		var malformed: Dictionary = saved.duplicate(true)
+		if corruption == "missing_book":
+			malformed.erase("territorial076")
+		elif corruption == "inactive_control":
+			# Withdrawn is otherwise valid with the actual released crew and paid history.
+			malformed.territorial076.control.status = "withdrawn"
+		else:
+			var swapped: bool = false
+			for port in malformed.ports:
+				if port.id == "brass_haven" and port.id != control_port and port.faction != "forge":
+					port.faction = "forge"; swapped = true; break
+			if not check(swapped, "The forged unrelated title changes only actual HOME Brass Haven outside the completed operation"): return false
+		var input_before: PackedByteArray = var_to_bytes(malformed)
+		law_error = c.LawOps.validate(malformed, c.data)
+		var refused: Dictionary = c.restore(malformed)
+		var input_unchanged: bool = var_to_bytes(malformed) == input_before
+		var live_unchanged: bool = var_to_bytes([c.state, c.events, c.pending_days]) == protected_state
+		note("malformed_transfer_restore", {"case":corruption, "trade_law_error":law_error, "restore_result":refused,
+			"input_unchanged":input_unchanged, "live_unchanged":live_unchanged})
+		if not check(not law_error.is_empty(), "Standalone trade-law validation refuses " + corruption + ": " + law_error): return false
+		if not check(not bool(refused.get("ok", true)) and str(refused.get("message", "")).contains("Harbor sovereign change has no completed territorial operation."),
+			"Ordinary restore refuses " + corruption + " at the sovereign-history guard: " + str(refused.get("message", ""))): return false
+		if not check(input_unchanged and live_unchanged, "Refusing " + corruption + " preserves exact input, live assets, territorial history, clock, events and pending work"): return false
 	var directory: String = OS.get_environment("GAME_TEST_ARTIFACTS")
 	if not check(directory.is_absolute_path(), "Root supplies the private witness directory"): return false
 	var path: String = directory.path_join("territorial076-witness.json")
