@@ -1,19 +1,11 @@
 # Brass Tide - current working instructions
 
-Current delivered release v0.075: funded faction strategy.
-61 focused/0, Windows/menu and2 actual private stills reviewed.
-Tested7879a9c1479069c2255053e002062f20bfd59fed; tag28d08621bb4057fcbcb5318f5560ffca29d9f7a1.
-Selected final QA182.980746s exceeds180s: timing gate FAILED, not waived.
-075 history also retains failed metadata verification attempts; no more075 engines.
-Desktop plain Brass Tide launches075;2 owner voyages/18MP3+manifest/readme preserved.
-ACTUAL075 CHECKS.json and DELIVERED v0.075.json are authoritative.
-Do not rebuild075. ACTIVE076: one funded existing-harbor improvement and
-one contested control change; no land RTS/new economy/new generator.
-Root alone owns all engines/private captures/delivery. Bridge2SolMAX/2GrokHIGH,
-small reviewed SparkHIGH extractions; Gemini quota unavailable, no retry/fallback.
-075 exact source proof was duplicated;076 must use one compact changed-scope
-proof and targeted fixtures, wholebatch<120s/selected QA<180s inclsetup/cleanup.
-No075 fullperformance/listening/quality acceptance; older strict targets remain.
+Current delivered076: Funded harbor improvement and contested control.
+Testedea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91;396 focused/0;Windows/menu and reviewed private UI.
+Receipts work/quality-v076/ACTUAL076 CHECKS.json and DELIVERED v0.076.json.
+Root alone tests/delivery. Next077:two original bounded exploration chains.
+Earlier strict performance/071 listening/whole-game quality remain open.
+075 final QA timing gate failed183s;076 time recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -42,7 +34,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through075 are scoped verified;076-078 remain planned. Earlier quality
+063 through076 are scoped verified;077-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051
@@ -128,6 +120,10 @@ Declared staged openings are not earned career progress; neither test may fake
 its measured result. Still images do not establish motion, sound or enjoyment.
 Do not add mandatory tests for every trivial reversible edit or re-run unchanged
 passes. See docs/DEVELOPER LESSONS.txt for what was taken and what was rejected.
+Before a heavy job, check the fixture's terminal/report schema against the
+runner's expected binding and required report path using a small sample.
+Peer additions: one rules/art authority across views; verify actual exported
+dependencies/UI bounds. Mock/compile/still evidence never becomes end-to-end proof.
 
 Read relevant maps and actual API/schema before editing. Use rg and bounded file
 reads; docs/DEVELOPER LESSONS.txt and docs/VERIFICATION INDEX.txt hold reusable

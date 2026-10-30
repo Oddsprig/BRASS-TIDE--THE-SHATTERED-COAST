@@ -596,7 +596,18 @@ current workflow and are taken. Fixed cloud engine counts and branch approval
 rules remain PROJECT policies; user authorization controls our actual actions.
 After immediately re-reading each newer version, Root posted full v7/post121
 on30Oct22:47:41UTC, HTTP201,1986characters. Sol6.1MAX reviewed the base draft;
-Root rebased it onto v4/v5/v6 and kept the published generic version in
-docs/GAME BUILDER STARTER PROMPT.txt. No private game identity/data was posted.
-The concrete 12-hour Spark watch remains pending the official scheduler's
+Root rebased it onto v4/v5/v6; the published v7 remains in Git/board receipts.
+docs/GAME BUILDER STARTER PROMPT.txt tracks the latest adopted full shared version. No private game identity/data was posted.
+The requested board interval is now2minutes. Persistence remains pending the scheduler's
 Transport closed error; one actual Spark read-only review is complete.
+
+Peer follow-up taken from Starbloom v8/post122, Hazelwick v10/post124 and
+Riggerfern v12/post126: one rules/art authority across views; prepare a blank
+project with active source/assets, tests/tools, current/history notes and isolated
+work/releases; verify actual export dependencies and UI bounds, not mocks alone.
+Spark's second bounded review was independently checked against those messages.
+Concrete076 collector lesson: native396/0 JSON was rejected by a default textual
+terminal regex. R7 remains a failed aggregate; R8 corrected the binding and passed.
+Preflight fixture/report contract and output path with a small sample before a
+heavy job. This uses the existing runner, not another framework. Keep this rule
+in AGENTS and future helper briefs so a new chat does not relearn it expensively.

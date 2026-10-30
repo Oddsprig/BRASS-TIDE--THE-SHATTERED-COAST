@@ -1,4 +1,13 @@
-v0.075 CURRENT:61/0; actual funded corridor/NPC conflict/paid recovery and Windows/title; two private chart/intel stills reviewed by Root.
+v0.076 CURRENT:396/0; funded existing-harbor construction, interrupted/resumed paid
+support, actual selected-defender victory, negotiated title and full save/load.
+Windows/menu native jobdb07828926cc4fbc9993b7f93649e34c,90.387s inclsetup.
+Actual private1280x800 harbor UI52b86ba74ea64bbcae088347c5c47700,29.646s inclsetup,
+viewed by Root. work/quality-v076/ACTUAL076 CHECKS.json; earlierR1-R7 failures kept.
+One improvement/control prototype; separate declared control opening is not
+earned standing/outward voyage or concurrent-raid coverage. Strict performance,
+071 listening and whole-game quality remain OPEN.075 timing miss stays failed.
+
+v0.075 PRIOR:61/0; actual funded corridor/NPC conflict/paid recovery and Windows/title; two private chart/intel stills reviewed by Root.
 work/quality-v075/ACTUAL075 CHECKS.json;074 combat/073 art retained by exact source/asset byte proof. Earlier strict performance,071 listening and whole-game quality remain open.
 
 v0.074 CURRENT:20/0; counterplay and Windows/title; one private300-frame battle prefix reviewed by Root.

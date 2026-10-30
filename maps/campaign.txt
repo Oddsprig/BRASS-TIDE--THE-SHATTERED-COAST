@@ -1,4 +1,4 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.075)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.076)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
@@ -10,7 +10,7 @@ game/scripts/main.gd: 94249 bytes; extends Node2D
   game/scripts/main.gd:448 toggle_pause()
   game/scripts/main.gd:453 toggle_fullscreen()
   game/scripts/main.gd:457 save_preferences()
-game/scripts/campaign.gd: 98722 bytes; extends RefCounted
+game/scripts/campaign.gd: 99228 bytes; extends RefCounted
   game/scripts/campaign.gd:107 home_local064()
   game/scripts/campaign.gd:110 world_location064()
   game/scripts/campaign.gd:122 world_view064()

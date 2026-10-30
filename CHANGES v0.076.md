@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
 
 See docs/TEST RESULTS v0.076.md for actual focused checks and remaining limits.
+
+Verification: 396 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 90.387s. Preserved earlier failures; no broad acceptance claim.

@@ -1,0 +1,62 @@
+BRASS TIDE — TERRITORIAL076 MAP (generated; v0.076)
+
+One funded HOME warehouse/berth and one supplied negotiated harbor control; private business, port sovereignty and island jurisdiction stay distinct. Reserved inputs, real paid work and actual selected-defender combat precede transfer.
+
+FILES AND VERIFIED SYMBOLS
+game/scripts/territorial076.gd: 34464 bytes; extends RefCounted
+  game/scripts/territorial076.gd:40 ensure()
+  game/scripts/territorial076.gd:140 view()
+  game/scripts/territorial076.gd:154 quote_improve()
+  game/scripts/territorial076.gd:191 improve()
+  game/scripts/territorial076.gd:239 start()
+  game/scripts/territorial076.gd:281 withdraw()
+  game/scripts/territorial076.gd:291 paid_day()
+  game/scripts/territorial076.gd:333 daily()
+  game/scripts/territorial076.gd:380 after_battle()
+  game/scripts/territorial076.gd:406 negotiate()
+  game/scripts/territorial076.gd:428 validate()
+  game/scripts/territorial076.gd:45 _book()
+game/scripts/regional_ops.gd: 8889 bytes; extends RefCounted
+  game/scripts/regional_ops.gd:10 ensure()
+  game/scripts/regional_ops.gd:26 start()
+  game/scripts/regional_ops.gd:40 contribute()
+  game/scripts/regional_ops.gd:49 selected_status()
+  game/scripts/regional_ops.gd:52 continue_watch()
+  game/scripts/regional_ops.gd:64 withdraw_watch()
+  game/scripts/regional_ops.gd:72 refresh()
+  game/scripts/regional_ops.gd:109 delivered()
+  game/scripts/regional_ops.gd:120 battle()
+  game/scripts/regional_ops.gd:131 begin_day()
+  game/scripts/regional_ops.gd:136 daily()
+  game/scripts/regional_ops.gd:142 paid_day()
+game/scripts/regional_ui.gd: 32176 bytes; extends RefCounted
+  game/scripts/regional_ui.gd:21 review()
+  game/scripts/regional_ui.gd:88 consequences()
+  game/scripts/regional_ui.gd:136 focus_controls()
+  game/scripts/regional_ui.gd:145 port_picker()
+  game/scripts/regional_ui.gd:154 faction_picker()
+  game/scripts/regional_ui.gd:162 open()
+  game/scripts/regional_ui.gd:256 corridor_status()
+  game/scripts/regional_ui.gd:277 event_text()
+  game/scripts/regional_ui.gd:325 territory_panel()
+  game/scripts/regional_ui.gd:381 act()
+  game/scripts/regional_ui.gd:127 _details()
+  game/scripts/regional_ui.gd:291 _home_port()
+game/scripts/trade_law.gd: 22597 bytes; class_name TradeLaw
+  game/scripts/trade_law.gd:21 configure()
+  game/scripts/trade_law.gd:65 validate()
+  game/scripts/trade_law.gd:193 publish()
+  game/scripts/trade_law.gd:216 ensure()
+  game/scripts/trade_law.gd:219 reconcile()
+  game/scripts/trade_law.gd:220 daily()
+  game/scripts/trade_law.gd:221 set_mode()
+  game/scripts/trade_law.gd:242 license_quote()
+  game/scripts/trade_law.gd:251 buy_license()
+  game/scripts/trade_law.gd:265 licensed()
+  game/scripts/trade_law.gd:280 consume_license()
+  game/scripts/trade_law.gd:291 illicit_quote()
+
+TESTS (game/tests/*.gd)
+396 focused/0, Windows/menu and one Root-reviewed actual harbor UI: work/quality-v076/ACTUAL076 CHECKS.json. One-operation prototype and declared control opening; no whole-game/performance/listening acceptance.
+
+Full symbols: rg -n '^func |^static func ' on named files.

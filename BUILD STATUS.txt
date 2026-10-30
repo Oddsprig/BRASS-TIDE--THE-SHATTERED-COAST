@@ -1,15 +1,14 @@
-BRASS TIDE v0.076 - FUNDED HARBOR IMPROVEMENT AND CONTESTED CONTROL
-30 October2026 |36 boat designs
+BRASS TIDE v0.076 - Funded harbor improvement and contested control
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: ea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91 / v0.076
+Test Bridge: db07828926cc4fbc9993b7f93649e34c
+396 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 90.387s; owned cleanup verified.
 
-THIS VERSION
 - Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
 - Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
 - Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Testedea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91;396 focused assertions/0. One existing HOME warehouse/berth and one paid contested negotiated HOME harbor transfer, with actual interruption/resume, work and battle. Reserved inputs and once-only fresh material credit preserve finite goods,173560000coins,21850people and original hull/equipment identities. Private business ownership, harbor sovereignty and island/group jurisdiction remain separate. Windows/menu and one actual private restored harbor UI reviewed; two owner voyages and20music files preserved. One improvement and one control per career in this prototype. Separate control opening declares Friendly20, initial berths and other hostile non-ocean actors dormant; no concurrent-raids or earned-standing/outward-voyage claim. No new boats/world/generator or unrestricted empire simulation. One UI still: no motion/listening/FPS/fun or whole-game parity acceptance. Body37.857seconds exceeds the advisory20-second efficiency goal while all hard batch/selected-QA budgets are retained. 075 timing gate failed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged075 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks.

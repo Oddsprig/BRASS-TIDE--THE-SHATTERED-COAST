@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-29 October 2026 | v0.069-v0.075 VERIFIED SCOPED; v0.076-v0.078 PLANNED | Current delivered game: v0.075
+30 October 2026 | v0.069-v0.076 VERIFIED SCOPED; v0.077-v0.078 PLANNED | Current scoped release: v0.076
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069-v0.075 are delivered within scope; the remaining three entries are planned.
+v0.069-v0.076 are verified within scope; the remaining two entries are planned.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -119,7 +119,7 @@ scheduled data jobs and existing resolution, not full tactical battles everywher
 Boundary: strategy and military presence; harbor closure/access changes and
 sovereign transfer follow in v0.076, using the same ownership records.
 
-0.076 - FUNDED EXPANSION AND CHANGING CONTROL
+0.076 - FUNDED EXPANSION AND CHANGING CONTROL [VERIFIED SCOPED]
 Focus: an end-to-end territorial operation using existing economy and combat.
 Transport workers, machinery, materials and operating capital to establish or
 improve a coastal outpost. Supply and defend it. Existing defenses, blockade,

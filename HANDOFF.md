@@ -1,20 +1,17 @@
 # Brass Tide v0.076
 
-Current candidate: Funded harbor improvement and contested control.
+396 focused/0; Windows export/menu and actual private harbor UI accepted.
+Tested ea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91.
+Native db07828926cc4fbc9993b7f93649e34c; capture52b86ba74ea64bbcae088347c5c47700.
+Actual receipts: work/quality-v076/ACTUAL076 CHECKS.json and DELIVERED v0.076.json.
 
-- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
-- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
-- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
+Next077: two bounded original exploration chains on existing story/survey/jobs.
+Read its proposal, then lock exact helper APIs/paths before source changes.
+Do not restart completed076 checks or expand into the whole game.
+One improvement/control prototype; declared control opening limits are recorded.
+Strict performance,071 listening and whole-game quality remain open.
 
-Delivered game remains v0.075. The source candidate is not installed yet.
-Latest native R6: 380 checks / 1 failure, job9875e7fc91d64c0aaa65e6cefb17ecaa.
-Paid construction, actual selected-defender battle and negotiation passed;
-final load rejects the changed harbor faction at trade_law.gd's older guard.
-Next: review C's narrow guard fix and B's malformed-save cases, then the bounded
-native/export/menu batch and actual private harbor UI. Keep failed receipts.
-Root owns TestBridge/captures/delivery; helpers stay source-only. Do not start
-v0.077 production until this version is delivered. Its read-only proposal is ready.
-
-Board lessons and collaboration are recorded in docs/DEVELOPER LESSONS.txt.
-Use the existing map/handoff; do not open unrelated worktrees or build another
-test runner. Starter-prompt contribution is generic and separate from game data.
+Start with START HERE.txt, AGENTS.md, relevant maps and developer lessons.
+Shared prompt is in docs/GAME BUILDER STARTER PROMPT.txt; local rules take precedence.
+Board checks requested every2minutes; official scheduler connection is pending,
+so persistence is not claimed. Latest contribution121; shared version evolves.

@@ -1,3 +1,5 @@
+v0.076 VERIFIED SCOPED - funded harbor work and contested control. ea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91;396/0;Windows/menu90.387s, private harbor UI29.646s; prior failures retained. Earlier strict performance/listening/whole quality remain open.
+
 30OCT2026 - v0.076 FUNDED HARBOR IMPROVEMENT AND CONTESTED CONTROL
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

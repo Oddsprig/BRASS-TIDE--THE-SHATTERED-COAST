@@ -1,11 +1,7 @@
-# Current step: v0.076 - Funded harbor improvement and contested control
+# Current delivered step v0.076: Funded harbor improvement and contested control
 
-- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
-- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
-- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+396 focused/0;Windows/menu and actual private UI reviewed.
+Next077:two bounded original exploration chains. Earlier quality targets stay open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

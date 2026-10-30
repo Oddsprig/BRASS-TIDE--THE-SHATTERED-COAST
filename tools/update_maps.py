@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BUILD = int(re.search(r"BUILD: int\s*=\s*(\d+)", (ROOT / "game/scripts/version.gd").read_text()).group(1))
 VERSION = f"{BUILD // 1000}.{BUILD % 1000:03d}"
 GROUPS = {
+    "territorial076": (["territorial076", "regional_ops", "regional_ui", "trade_law"],
+                      "One funded HOME warehouse/berth and one supplied negotiated harbor control; private business, port sovereignty and island jurisdiction stay distinct. Reserved inputs, real paid work and actual selected-defender combat precede transfer.",
+                      "396 focused/0, Windows/menu and one Root-reviewed actual harbor UI: work/quality-v076/ACTUAL076 CHECKS.json. One-operation prototype and declared control opening; no whole-game/performance/listening acceptance."),
     "voyage-integration072": (["battle_driver051","campaign_ui","guidance_ui","voyage_panel070","voyage_ui","runtime_profile043"],
                              "Existing earned work, physical encounter/withdrawal, paid repair and return -> useful improvement. Live course and ordinary harbor services stay distinct; detached driver poses and actual joined order observations support current measurement.",
                              "test_complete_voyage072 and test_publication072; actual native/Windows/rendered evidence in work/quality-v072 after verification"),

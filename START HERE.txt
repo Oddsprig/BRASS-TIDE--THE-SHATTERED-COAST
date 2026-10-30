@@ -1,8 +1,10 @@
 BRASS TIDE - START HERE
 Play the current delivered game using the single plain Brass Tide desktop icon.
-Delivered: v0.075. Source candidate: v0.076; not installed or accepted yet.
+Current scoped release: v0.076. The plain desktop icon selects the latest installed build.
 Read HANDOFF.md for the current task, AGENTS.md for working rules, CODE MAP.md
 for source locations and docs/DEVELOPER LESSONS.txt for reusable lessons.
+docs/GAME BUILDER STARTER PROMPT.txt is the generic shared builder prompt;
+AGENTS.md holds the owner's actual game/platform/budget rules.
 36 boats. Earlier performance and audible-quality goals remain open.
 Owner voyages, settings, music and older releases are preserved. Tests stay
 background and queued; do not launch the owner's game for a test.
