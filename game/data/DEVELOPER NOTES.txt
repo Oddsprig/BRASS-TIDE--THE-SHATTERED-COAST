@@ -29,3 +29,13 @@ Safe render mode requested; never enable crashed Separate mode.
 Earlier strict performance,071 listening and full-game quality remain open.
 075 combined QA missed180s;076 requires its own compact bounded verification.
 No native076 or whole-game-quality acceptance from these source notes alone.
+
+076 MATERIAL RESERVATION CORRECTION
+Real Anvil production consumed the unreserved building iron during work.
+Construction materials now belong to the operation until one funded completion;
+withdrawal retains them. Normal HomeHarbor setup still pays actual staff/fees/
+capital. Its fresh material-value receipt supplies one existing-port-cash credit
+to the captain, avoiding a second charge for the already-carried materials.
+Quotes show gross cash required, material credit and net bill. No minted coins
+or material migration from the spent diagnostic. Completion/withdrawal/restore
+checks track held goods, original machinery and real people/purses.

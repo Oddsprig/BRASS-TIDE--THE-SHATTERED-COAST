@@ -6,9 +6,9 @@ services in this version.
 
 Bring recovered machine tools, the warehouse materials and two healthy sailors
 above minimum crew. The quote shows the warehouse bill, working capital and
-fleet payroll. Starting donates the carried materials to harbor stocks. After
-two fully paid local work days, the ordinary warehouse setup charges its bill,
-hires local workers and receives its working capital. Tools stay aboard and
+fleet payroll. Starting reserves the carried materials for this project, away from market production. After
+two fully paid local work days, the ordinary warehouse setup consumes them once, charges its bill,
+hires local workers and receives its working capital. Supplied materials receive a credit from that actual payment, so you pay their purchase once. The quote shows the temporary gross reserve and final net bill. Tools stay aboard and
 retain wear. Ordinary sailor pay is 100 coins per person-day.
 
 For a contest, earn Friendly standing with a sponsoring faction at war with the
@@ -19,7 +19,7 @@ contest, then choose Negotiate surrender.
 
 Missing pay, supplies, healthy sailors or the hostile mandate interrupts work.
 Withdraw recalls the original party. Spent goods, wages, support and wear remain
-spent; resuming the same operation keeps its progress.
+spent. Reserved materials stay with the project; resuming keeps its progress.
 
 One harbor changes authority. Private businesses, workers, boats, stores and
 purses retain their records. Islands and entire groups are not annexed.

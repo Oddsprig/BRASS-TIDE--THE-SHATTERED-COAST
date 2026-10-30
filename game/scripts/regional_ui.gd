@@ -309,7 +309,7 @@ static func _island_faction(c,port: Dictionary) -> String:
 static func _quote_text(quote: Dictionary) -> String:
 	if not quote.get("ok",false):return str(quote.get("message","Dock at a home harbor for a quote."))
 	var home: Dictionary=quote.get("homeQuote",{})
-	return "Captain's warehouse bill: %d coins (%d setup, %d working capital). %d paid work days remain; fleet payroll %d coins per day, plus %.1f work repair kits."%[int(quote.get("cost",0)),int(home.get("setupCost",0)),int(home.get("workingCapitalDeposit",0)),int(quote.get("remainingDays",0)),int(quote.get("payrollPerDay",0)),float(quote.get("workSupplies",0))]
+	return "Current net warehouse bill: %d coins after a %d-coin credit for your supplied materials. Have %d coins temporarily for the setup transaction. %d paid work days remain; fleet payroll %d coins per day and %.1f work repair kits."%[int(quote.get("netCost",quote.get("cost",0))),int(quote.get("materialCredit",0)),int(quote.get("cashRequired",quote.get("cost",0))),int(quote.get("remainingDays",0)),int(quote.get("payrollPerDay",0)),float(quote.get("workSupplies",0))]
 
 static func _status_text(view: Dictionary) -> String:
 	var lines: PackedStringArray=[]
@@ -318,6 +318,8 @@ static func _status_text(view: Dictionary) -> String:
 		if job.is_empty():continue
 		var days: int=int(job.get("paidDays",0)) if key=="improvement" else int(job.get("supportDays",0))
 		lines.append("%s: %s, %d of %d paid days. %s"%["Berth work" if key=="improvement" else "Control operation",str(job.get("status","awaiting work")),days,int(view.get("workDays",2)),str(job.get("reason",""))])
+	var bill: Dictionary=view.get("improvement",{}).get("setupBill",{})
+	if not bill.is_empty():lines.append("Paid warehouse bill: %d gross, %d material credit, %d net coins."%[int(bill.get("grossCost",0)),int(bill.get("materialCredit",0)),int(bill.get("netCost",0))])
 	return "\n".join(lines) if not lines.is_empty() else "No harbor operation started. Review the requirements before committing goods or coins."
 
 static func territory_panel(ui,body: Node,account: Dictionary) -> void:
@@ -364,8 +366,8 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 	var terms=_details(ui,box,"Work requirements and cost breakdown")
 	var bill: Dictionary=quote.get("homeQuote",{})
 	if not bill.is_empty():
-		ui.paragraph(terms,"Warehouse setup: materials %d, ordinary workers %d, foremen %d, builder margin %d, duty %d coins. Working capital %d coins enters the business purse; later wages remain payable."%[int(bill.get("materialCost",0)),int(bill.get("setupOrdinaryWages",0)),int(bill.get("setupExpertWages",0)),int(bill.get("margin",0)),int(bill.get("duty",0)),int(bill.get("workingCapitalDeposit",0))],15)
-	ui.paragraph(terms,"Bring recovered machine tools, the quoted warehouse materials and two healthy sailors above minimum crew. Materials are donated to harbor stocks on starting; the normal warehouse bill is paid on completion. Tools stay aboard and wear by one percent per paid work day. Sailors receive 100 coins each per day through ordinary fleet payroll. Work takes two fully paid local days and half a repair-kit lot each day.",15)
+		ui.paragraph(terms,"Warehouse setup before the supplied-material credit: material value %d, ordinary workers %d, foremen %d, builder margin %d, duty %d coins. Working capital %d coins enters the business purse; later wages remain payable."%[int(bill.get("materialCost",0)),int(bill.get("setupOrdinaryWages",0)),int(bill.get("setupExpertWages",0)),int(bill.get("margin",0)),int(bill.get("duty",0)),int(bill.get("workingCapitalDeposit",0))],15)
+	ui.paragraph(terms,"Bring recovered machine tools, the quoted warehouse materials and two healthy sailors above minimum crew. Materials are reserved for this project when starting, so town production cannot use them. Completion consumes them once and credits their value from the actual setup payment; labor, duty, margin and working capital remain payable. Tools stay aboard and wear by one percent per paid work day. Sailors receive 100 coins each per day through ordinary fleet payroll. Work takes two fully paid local days and half a repair-kit lot each day.",15)
 	ui.paragraph(terms,"A contest requires Friendly standing with the sponsor, war between both factions, your hostility to the current governor and an actual defending fleet. The 800 coins enter this harbor's existing treasury. Each of two paid support days also delivers two food and one repair-kit lot from your hold. Win the selected actual contest, then negotiate explicitly. Presence alone takes nothing.",15)
 	ui.paragraph(terms,"Leaving, lost crew, unpaid wages, missing supplies or peace interrupts work. Withdraw recalls original sailors; spent goods, wages, support and tool wear remain spent. Resume the same operation to keep its progress.",15)
 	var books=_details(ui,box,"Jurisdiction, access and private businesses")
