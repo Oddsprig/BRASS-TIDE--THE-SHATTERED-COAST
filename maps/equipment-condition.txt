@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.062)
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.069)
 
 Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 
@@ -10,13 +10,13 @@ game/scripts/equipment_condition.gd: 53830 bytes; extends RefCounted
   game/scripts/equipment_condition.gd:614 inspect_installed()
   game/scripts/equipment_condition.gd:634 list_locker()
   game/scripts/equipment_condition.gd:661 project()
-game/scripts/equipment_records.gd: 31216 bytes; extends RefCounted
+game/scripts/equipment_records.gd: 31916 bytes; extends RefCounted
   game/scripts/equipment_records.gd:19 set_runtime_profile043()
   game/scripts/equipment_records.gd:22 reset_runtime_profile043()
   game/scripts/equipment_records.gd:25 runtime_profile043()
   game/scripts/equipment_records.gd:293 initialize()
-  game/scripts/equipment_records.gd:486 absorb_legacy_damage()
-  game/scripts/equipment_records.gd:500 publish()
+  game/scripts/equipment_records.gd:496 absorb_legacy_damage()
+  game/scripts/equipment_records.gd:510 publish()
 game/scripts/equipment_ui.gd: 10067 bytes; extends RefCounted
   game/scripts/equipment_ui.gd:15 open()
   game/scripts/equipment_ui.gd:74 _surface()
@@ -38,7 +38,7 @@ game/scripts/equipment_damage.gd: 59127 bytes; extends RefCounted
   game/scripts/equipment_damage.gd:97 is_canonical_owner()
   game/scripts/equipment_damage.gd:100 is_corrupt_owner()
   game/scripts/equipment_damage.gd:103 set_repair_priority()
-game/scripts/damage.gd: 54734 bytes; extends RefCounted
+game/scripts/damage.gd: 54772 bytes; extends RefCounted
   game/scripts/damage.gd:36 set_runtime_profile043()
   game/scripts/damage.gd:40 reset_runtime_profile043()
   game/scripts/damage.gd:44 runtime_profile043()

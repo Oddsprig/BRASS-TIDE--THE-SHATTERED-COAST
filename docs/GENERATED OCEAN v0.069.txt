@@ -1,0 +1,32 @@
+BRASS TIDE v0.069 - A GENERATED OCEAN SECTOR
+
+A fresh campaign creates 48 island groups: 8 settled, 12 frontier and 28 remote.
+The existing Shatter Coast and Glasswind Keys are included. Open seas connect
+local charts; there are no major continents. Different factions can hold
+separate islands and harbors inside the same group.
+
+WASD moves the camera. Scroll to zoom, M for an overview, Home to your fleet.
+Click a group or its approach to set a course. Sail to the marked approach,
+stop there and choose Enter. Local approach controls also take you back out
+to the open ocean. The same boats, crew, cargo, fuel and clock continue.
+
+Settled charts include public harbor information. Frontier and distant
+holdings must be observed locally. Unknown ownership is separate from a
+known unclaimed shore. Sightings and paid surveys reveal useful information.
+
+The new groups have 19 finite harbor markets and 46 survey landings. Stop
+at a known water berth to trade, subject to faction access and cargo space.
+Buy supplies into the hold and load reserves into boat tanks and repair racks.
+Full shipyards, crew recruitment, refitting and storage remain at Shatter Coast.
+
+Chart a sighted landing with two spare sailors and a kit; a fuller survey
+uses four spare sailors and two kits. Food, time and wages still matter.
+Resource findings describe what is there; they do not add free cargo to a boat.
+
+Each new harbor begins with a declared finite workforce, stores and purses.
+Workers earn wages and businesses trade from those same accounts. Loading a
+region or revisiting a harbor does not recreate its opening reserves.
+
+Existing voyages retain their original two-region world, depleted discoveries,
+shore parties, ships and accounts. Start a fresh campaign for the seeded ocean.
+Save and return visits retain resolved geography rather than rerolling it.

@@ -1,43 +1,43 @@
-BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.062)
+BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.069)
 
 Existing companies, spatial positions, stores and shipyards -> actual trade, escorts/intercepts, paid combat, recovery and replacements.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/naval_ai.gd: 19160 bytes; extends RefCounted
-  game/scripts/naval_ai.gd:20 observe()
-  game/scripts/naval_ai.gd:24 sightings()
-  game/scripts/naval_ai.gd:37 order_slice()
-  game/scripts/naval_ai.gd:57 is_story_owner()
-  game/scripts/naval_ai.gd:89 fleet_reserves()
-  game/scripts/naval_ai.gd:93 fleet_performance()
-game/scripts/naval_orders.gd: 43783 bytes; extends RefCounted
-  game/scripts/naval_orders.gd:22 is_story_owner()
-  game/scripts/naval_orders.gd:26 state_of()
-  game/scripts/naval_orders.gd:39 world_of()
-  game/scripts/naval_orders.gd:55 find_port()
-  game/scripts/naval_orders.gd:67 find_owner()
-  game/scripts/naval_orders.gd:79 find_patrol()
-game/scripts/naval_combat.gd: 24349 bytes; extends RefCounted
+game/scripts/naval_ai.gd: 27475 bytes; extends RefCounted
+  game/scripts/naval_ai.gd:22 observe()
+  game/scripts/naval_ai.gd:26 sightings()
+  game/scripts/naval_ai.gd:39 order_slice()
+  game/scripts/naval_ai.gd:60 is_story_owner()
+  game/scripts/naval_ai.gd:92 fleet_reserves()
+  game/scripts/naval_ai.gd:96 fleet_performance()
+game/scripts/naval_orders.gd: 46569 bytes; extends RefCounted
+  game/scripts/naval_orders.gd:24 enrolled066()
+  game/scripts/naval_orders.gd:29 home_ports064()
+  game/scripts/naval_orders.gd:33 home_port064()
+  game/scripts/naval_orders.gd:38 canonical_location068()
+  game/scripts/naval_orders.gd:48 is_story_owner()
+  game/scripts/naval_orders.gd:52 state_of()
+game/scripts/naval_combat.gd: 25670 bytes; extends RefCounted
   game/scripts/naval_combat.gd:21 spatial_index()
-  game/scripts/naval_combat.gd:64 are_hostile()
-  game/scripts/naval_combat.gd:82 nearby_hostile_pairs()
-  game/scripts/naval_combat.gd:171 boat_weapon_power()
-  game/scripts/naval_combat.gd:175 fleet_firepower()
-  game/scripts/naval_combat.gd:286 resolve_encounter()
-game/scripts/naval_replacements.gd: 18818 bytes; extends RefCounted
+  game/scripts/naval_combat.gd:65 are_hostile()
+  game/scripts/naval_combat.gd:70 faction_hostile068()
+  game/scripts/naval_combat.gd:88 nearby_hostile_pairs()
+  game/scripts/naval_combat.gd:178 boat_weapon_power()
+  game/scripts/naval_combat.gd:182 fleet_firepower()
+game/scripts/naval_replacements.gd: 19075 bytes; extends RefCounted
   game/scripts/naval_replacements.gd:17 quote_at_port()
   game/scripts/naval_replacements.gd:26 can_materials()
   game/scripts/naval_replacements.gd:35 consume_materials()
   game/scripts/naval_replacements.gd:42 owner_has_queued_replacement()
   game/scripts/naval_replacements.gd:59 available_recruits()
   game/scripts/naval_replacements.gd:66 attach_new_boat()
-game/scripts/naval_lifecycle.gd: 15308 bytes; extends RefCounted
+game/scripts/naval_lifecycle.gd: 16046 bytes; extends RefCounted
   game/scripts/naval_lifecycle.gd:19 harbor_service()
-  game/scripts/naval_lifecycle.gd:31 hire()
-  game/scripts/naval_lifecycle.gd:42 refuse_route()
-  game/scripts/naval_lifecycle.gd:55 route()
-  game/scripts/naval_lifecycle.gd:85 holding()
-  game/scripts/naval_lifecycle.gd:97 reconcile_losses()
+  game/scripts/naval_lifecycle.gd:32 hire()
+  game/scripts/naval_lifecycle.gd:44 refuse_route()
+  game/scripts/naval_lifecycle.gd:58 route()
+  game/scripts/naval_lifecycle.gd:89 holding()
+  game/scripts/naval_lifecycle.gd:102 reconcile_losses()
 game/scripts/naval_ui.gd: 6042 bytes; extends RefCounted
   game/scripts/naval_ui.gd:8 can_hail()
   game/scripts/naval_ui.gd:25 purpose_text()

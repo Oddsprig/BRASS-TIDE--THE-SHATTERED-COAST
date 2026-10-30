@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.068: Working interregional shipping. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: shipping068.gd, shipping_flow068.gd, ocean_campaign066.gd, campaign.gd, shipping_ui068.gd.
+v0.069: A generated ocean sector. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: sector_world069.gd, ocean_world064.gd, campaign.gd, exploration.gd, ocean_chart064.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

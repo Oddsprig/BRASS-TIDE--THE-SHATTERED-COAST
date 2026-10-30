@@ -1,4 +1,4 @@
-BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.062)
+BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.069)
 
 Actual surveyed sources, crews, owned workshops and paid teams -> finite transported machinery, recipe labor bottlenecks and chartered drydock bays.
 
@@ -16,19 +16,19 @@ game/scripts/industrial_tooling.gd: 36314 bytes; extends RefCounted
   game/scripts/industrial_tooling.gd:365 production_factor()
   game/scripts/industrial_tooling.gd:382 validate()
   game/scripts/industrial_tooling.gd:515 _source_error()
-game/scripts/tooling_ops.gd: 13568 bytes; extends RefCounted
-  game/scripts/tooling_ops.gd:15 ensure()
-  game/scripts/tooling_ops.gd:19 offer()
-  game/scripts/tooling_ops.gd:32 begin()
-  game/scripts/tooling_ops.gd:68 paid_day()
-  game/scripts/tooling_ops.gd:74 cancel()
-  game/scripts/tooling_ops.gd:83 settle()
-  game/scripts/tooling_ops.gd:96 claim()
-  game/scripts/tooling_ops.gd:104 binding()
-  game/scripts/tooling_ops.gd:113 recipe()
-  game/scripts/tooling_ops.gd:127 cancel_batch()
-  game/scripts/tooling_ops.gd:137 staff()
-  game/scripts/tooling_ops.gd:171 validate()
+game/scripts/tooling_ops.gd: 14056 bytes; extends RefCounted
+  game/scripts/tooling_ops.gd:16 ensure()
+  game/scripts/tooling_ops.gd:20 offer()
+  game/scripts/tooling_ops.gd:34 begin()
+  game/scripts/tooling_ops.gd:71 paid_day()
+  game/scripts/tooling_ops.gd:77 cancel()
+  game/scripts/tooling_ops.gd:86 settle()
+  game/scripts/tooling_ops.gd:99 claim()
+  game/scripts/tooling_ops.gd:107 binding()
+  game/scripts/tooling_ops.gd:116 recipe()
+  game/scripts/tooling_ops.gd:130 cancel_batch()
+  game/scripts/tooling_ops.gd:140 staff()
+  game/scripts/tooling_ops.gd:174 validate()
 game/scripts/yard_development.gd: 8849 bytes; extends RefCounted
   game/scripts/yard_development.gd:12 ensure()
   game/scripts/yard_development.gd:16 bays()

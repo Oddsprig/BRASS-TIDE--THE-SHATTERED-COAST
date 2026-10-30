@@ -1,15 +1,15 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.062)
+BRASS TIDE — PRESENTATION MAP (generated; v0.069)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 65279 bytes; extends Node2D
-  game/scripts/chart.gd:66 reset_battle_presentation051()
-  game/scripts/chart.gd:70 clear_battle_poses051()
-  game/scripts/chart.gd:97 battle_boats051()
-  game/scripts/chart.gd:101 battle_boat_position051()
-  game/scripts/chart.gd:108 profile_enable()
-  game/scripts/chart.gd:113 profile_reset()
+game/scripts/chart.gd: 69837 bytes; extends Node2D
+  game/scripts/chart.gd:70 reset_battle_presentation051()
+  game/scripts/chart.gd:74 clear_battle_poses051()
+  game/scripts/chart.gd:101 battle_boats051()
+  game/scripts/chart.gd:105 battle_boat_position051()
+  game/scripts/chart.gd:112 profile_enable()
+  game/scripts/chart.gd:117 profile_reset()
 game/scripts/boat_art.gd: 36399 bytes; extends RefCounted
   game/scripts/boat_art.gd:56 archetype()
   game/scripts/boat_art.gd:111 palette()
@@ -24,13 +24,13 @@ game/scripts/boat_portrait.gd: 7540 bytes; class_name BoatPortrait
   game/scripts/boat_portrait.gd:45 _init()
   game/scripts/boat_portrait.gd:53 _gui_input()
   game/scripts/boat_portrait.gd:59 _draw()
-game/scripts/interface.gd: 57405 bytes; extends CanvasLayer
-  game/scripts/interface.gd:82 setup()
-  game/scripts/interface.gd:107 create_theme()
-  game/scripts/interface.gd:127 box()
-  game/scripts/interface.gd:139 clear()
-  game/scripts/interface.gd:144 label()
-  game/scripts/interface.gd:154 paragraph()
+game/scripts/interface.gd: 67715 bytes; extends CanvasLayer
+  game/scripts/interface.gd:87 setup()
+  game/scripts/interface.gd:112 create_theme()
+  game/scripts/interface.gd:132 box()
+  game/scripts/interface.gd:144 clear()
+  game/scripts/interface.gd:149 label()
+  game/scripts/interface.gd:159 paragraph()
 game/scripts/tactics_ui.gd: 26673 bytes; extends RefCounted
   game/scripts/tactics_ui.gd:5 build()
   game/scripts/tactics_ui.gd:72 compact_panel()

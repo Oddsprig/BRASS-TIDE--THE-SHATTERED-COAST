@@ -1,21 +1,21 @@
-BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.062)
+BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.069)
 
 Dated actual harbor observations and supplied fleets -> cargo-limited route estimates, physical shortages and blockades.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/trade_intel.gd: 30756 bytes; extends RefCounted
+game/scripts/trade_intel.gd: 31150 bytes; extends RefCounted
   game/scripts/trade_intel.gd:24 ensure()
   game/scripts/trade_intel.gd:49 observe()
   game/scripts/trade_intel.gd:84 report()
   game/scripts/trade_intel.gd:110 opportunities()
-  game/scripts/trade_intel.gd:204 blockades()
-  game/scripts/trade_intel.gd:213 update()
-  game/scripts/trade_intel.gd:260 _offer()
-  game/scripts/trade_intel.gd:299 _preparation()
-  game/scripts/trade_intel.gd:347 _better()
-  game/scripts/trade_intel.gd:352 _assess_port()
-  game/scripts/trade_intel.gd:380 _lift_cause()
-  game/scripts/trade_intel.gd:391 _supplied()
+  game/scripts/trade_intel.gd:205 blockades()
+  game/scripts/trade_intel.gd:214 update()
+  game/scripts/trade_intel.gd:261 _offer()
+  game/scripts/trade_intel.gd:300 _preparation()
+  game/scripts/trade_intel.gd:348 _better()
+  game/scripts/trade_intel.gd:353 _assess_port()
+  game/scripts/trade_intel.gd:383 _lift_cause()
+  game/scripts/trade_intel.gd:394 _supplied()
 game/scripts/trade_flow.gd: 966 bytes; extends RefCounted
   game/scripts/trade_flow.gd:4 blockades()
   game/scripts/trade_flow.gd:13 daily()

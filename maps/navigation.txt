@@ -1,24 +1,24 @@
-BRASS TIDE — NAVIGATION MAP (generated; v0.062)
+BRASS TIDE — NAVIGATION MAP (generated; v0.069)
 
 Original island polygons/endpoints -> bounded precomputed water grid and safe water paths.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/navigation.gd: 13996 bytes; extends RefCounted
+game/scripts/navigation.gd: 14275 bytes; extends RefCounted
   game/scripts/navigation.gd:62 is_water()
   game/scripts/navigation.gd:97 isWater()
   game/scripts/navigation.gd:101 hull_clearance()
-  game/scripts/navigation.gd:140 create()
-  game/scripts/navigation.gd:268 harbor_approach()
-  game/scripts/navigation.gd:294 path_clear()
-  game/scripts/navigation.gd:337 find_path()
-  game/scripts/navigation.gd:438 findPath()
+  game/scripts/navigation.gd:140 geometry()
+  game/scripts/navigation.gd:178 create()
+  game/scripts/navigation.gd:266 harbor_approach()
+  game/scripts/navigation.gd:292 path_clear()
+  game/scripts/navigation.gd:335 find_path()
+  game/scripts/navigation.gd:436 findPath()
   game/scripts/navigation.gd:11 _is_finite_num()
   game/scripts/navigation.gd:17 _point_pair()
   game/scripts/navigation.gd:27 _inside()
-  game/scripts/navigation.gd:46 _edge_distance()
-game/scripts/coast_migration.gd: 24456 bytes; extends RefCounted
+game/scripts/coast_migration.gd: 24663 bytes; extends RefCounted
   game/scripts/coast_migration.gd:192 place_on_water()
-  game/scripts/coast_migration.gd:289 prepare()
+  game/scripts/coast_migration.gd:290 prepare()
   game/scripts/coast_migration.gd:44 _fail()
   game/scripts/coast_migration.gd:48 _ok()
   game/scripts/coast_migration.gd:52 _is_finite_number()
