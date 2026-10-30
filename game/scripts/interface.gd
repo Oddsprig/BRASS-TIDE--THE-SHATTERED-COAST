@@ -27,6 +27,7 @@ const FactionUI=preload("res://scripts/faction_ui.gd")
 const Politics=preload("res://scripts/politics.gd")
 const VoyageUI=preload("res://scripts/voyage_ui.gd")
 const VoyagePreparation065=preload("res://scripts/voyage_preparation_ui065.gd")
+const SectorUI069=preload("res://scripts/sector_ui069.gd")
 const OceanContact066=preload("res://scripts/ocean_contact_ui066.gd")
 const ShippingUI068=preload("res://scripts/shipping_ui068.gd")
 const EquipmentController=preload("res://scripts/equipment_ui_controller.gd")
@@ -318,7 +319,10 @@ func build_campaign_hud(size: Vector2):
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
 		button(left_body,"Coastal approaches",open_ocean064,true,false)
 		if str(view064.get("layer",""))=="local":
-			button(left_body,"Westglass anchorage & shipping",func():open_shipping068(),false,false)
+			if str(view064.get("regionId",""))=="glasswind_keys":
+				button(left_body,"Westglass anchorage & shipping",func():open_shipping068(),false,false)
+			else:
+				button(left_body,"Harbor & shipping",_open_local_shipping,false,false)
 			button(left_body,"Island surveys (I)",func():CampaignUI.islands(self),false,false)
 			button(left_body,"Salvage & cache",func():RecoveryUI.open(self),false,false)
 		else:
@@ -327,13 +331,21 @@ func build_campaign_hud(size: Vector2):
 		button(left_body,"Hold & reserves",open_cargo,false,false)
 		button(left_body,"More charts & business",open_campaign_tools)
 		eyebrow(right_body,"VOYAGE")
-		paragraph(right_body,"Glasswind Keys and Shatter Coast share one ocean chart. Approach a marked side, stop, then enter its coastal waters.",16)
-		paragraph(right_body,"Known remote branch quays trade finite goods and provisions at berth; boatyards, crew hiring, refit, and contracts remain at Shatter Coast.",15,GOLD)
+		var generated_chart: bool=view064.get("regions") is Array and view064.get("regions",[]).size()==48
+		if generated_chart:
+			paragraph(right_body,"Prepared island groups share this ocean chart. Click a coast to route to an approach or enter it. Known holdings show their factions.",16)
+			paragraph(right_body,"Unknown owners stay off the chart. Boatyards, crew hiring, refit, and contracts remain at Shatter Coast.",15,GOLD)
+		else:
+			paragraph(right_body,"Glasswind Keys and Shatter Coast share one ocean chart. Approach a marked side, stop, then enter its coastal waters.",16)
+			paragraph(right_body,"Known remote branch quays trade finite goods and provisions at berth; boatyards, crew hiring, refit, and contracts remain at Shatter Coast.",15,GOLD)
 		var footer064=panel(chrome,Vector2(0,size.y-85),Vector2(size.x,85))
 		var actions064=row(footer064)
 		button(actions064,"Fleet",open_fleet,false,false);button(actions064,"Hold",open_cargo,false,false);button(actions064,"Contracts",open_contracts)
 		if str(view064.get("layer",""))=="local":
-			button(actions064,"Anchorage",func():open_shipping068(),false,false)
+			if str(view064.get("regionId",""))=="glasswind_keys":
+				button(actions064,"Anchorage",func():open_shipping068(),false,false)
+			else:
+				button(actions064,"Harbor",_open_local_shipping,false,false)
 			button(actions064,"Surveys",func():CampaignUI.islands(self),false,false)
 			button(actions064,"Salvage",func():RecoveryUI.open(self),false,false)
 		voyage_label=label(actions064,"",12,MUTED)
@@ -407,17 +419,63 @@ func open_campaign_tools():
 func open_ocean064(region_id: String="",approach_id: String=""):
 	if host.mode!="campaign":return
 	var view064: Dictionary=host.core.world_view064()
-	if str(view064.get("layer","")) in ["home","local"] and region_id==str(view064.get("regionId","")) and approach_id in ["north","south"]:
-		# A local gate selects departure; C's region argument selects the target.
-		voyage_intent065["outExit"]=approach_id
-		voyage_intent065["targetRegionId"]="glasswind_keys" if region_id=="shatter_coast" else "shatter_coast"
-		open_voyage_preparation065()
-		return
+	var current_region: String=str(view064.get("regionId",""))
+	if str(view064.get("layer","")) in ["home","local"] and region_id==current_region and approach_id in ["north","south"]:
+		# Authored coasts keep the paired voyage. A generated gate does not retarget to Shatter Coast.
+		if region_id=="shatter_coast":
+			voyage_intent065["outExit"]=approach_id
+			voyage_intent065["targetRegionId"]="glasswind_keys"
+			open_voyage_preparation065()
+			return
+		if region_id=="glasswind_keys":
+			voyage_intent065["outExit"]=approach_id
+			voyage_intent065["targetRegionId"]="shatter_coast"
+			open_voyage_preparation065()
+			return
 	open_voyage_preparation065(region_id,approach_id)
 
 func open_voyage_preparation065(region_id: String="",approach_id: String="") -> void:
 	if host.mode!="campaign":return
-	VoyagePreparation065.open(self,region_id,approach_id)
+	if region_id.is_empty() or region_id=="shatter_coast" or region_id=="glasswind_keys":
+		VoyagePreparation065.open(self,region_id,approach_id)
+		return
+	if SectorUI069.open(self,region_id,approach_id):
+		return
+	toast("That coast is not on this chart.",true)
+
+func _open_local_shipping() -> void:
+	if host.core==null:return
+	var view064: Dictionary=host.core.world_view064()
+	if str(view064.get("regionId",""))=="glasswind_keys":
+		open_shipping068()
+		return
+	var port_id: String=_known_local_port_id(view064)
+	if port_id.is_empty():
+		toast("No known harbor on this coast.",true)
+		return
+	open_shipping068(port_id)
+
+func _known_local_port_id(view064: Dictionary) -> String:
+	if str(view064.get("regionId",""))=="glasswind_keys":
+		return "westglass_anchorage"
+	if host.core!=null and host.core.has_method("sector_view069"):
+		var sector=host.core.sector_view069()
+		if sector is Dictionary:
+			var schema=sector.get("schema",null)
+			if schema is bool or not (schema is int or schema is float) or int(schema)!=1:
+				return ""
+			var ports=sector.get("ports",[])
+			if ports is Array:
+				for port in ports:
+					if port is Dictionary and str(port.get("regionId",""))==str(view064.get("regionId","")):
+						if port.has("known") and not bool(port.get("known",false)):
+							continue
+						if port.has("installed") and not bool(port.get("installed",false)):
+							continue
+						var port_id: String=str(port.get("id","")).strip_edges()
+						if not port_id.is_empty():
+							return port_id
+	return ""
 
 func open_ocean_contact066(id: String="") -> void:
 	if host.mode!="campaign":return
@@ -433,7 +491,9 @@ func open_remote_port068(port_id: String="") -> void:
 func _on_remote_dock_button068() -> void:
 	if host.mode!="campaign" or host.core==null:return
 	if host.core is Object and host.core.has_method("remote_port068") and not host.core.remote_port068().is_empty():
-		open_shipping068("westglass_anchorage")
+		var remote_port: Dictionary=host.core.remote_port068()
+		var remote_id: String=str(remote_port.get("id","")).strip_edges()
+		open_shipping068(remote_id if not remote_id.is_empty() else "westglass_anchorage")
 		return
 	open_ocean064()
 
@@ -529,7 +589,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068","sector069"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -566,9 +626,20 @@ func close_modal():
 func open_port(tab: String = ""):
 	if not host.core.home_local064():
 		if host.core is Object and host.core.has_method("remote_port068") and not host.core.remote_port068().is_empty():
-			open_shipping068("westglass_anchorage");return
-		if str(host.core.world_view064().get("layer",""))=="local" and host.core is Object and host.core.has_method("shipping_view068") and not host.core.shipping_view068().get("ports",[]).is_empty():
-			open_shipping068("westglass_anchorage");return
+			var remote_port: Dictionary=host.core.remote_port068()
+			var remote_id: String=str(remote_port.get("id","")).strip_edges()
+			open_shipping068(remote_id if not remote_id.is_empty() else "westglass_anchorage");return
+		var away_view: Dictionary=host.core.world_view064()
+		if str(away_view.get("layer",""))=="local" and host.core is Object and host.core.has_method("shipping_view068") and not host.core.shipping_view068().get("ports",[]).is_empty():
+			if str(away_view.get("regionId",""))=="glasswind_keys":
+				open_shipping068("westglass_anchorage")
+			else:
+				var known_port: String=_known_local_port_id(away_view)
+				if known_port.is_empty():
+					toast("No known harbor on this coast.",true)
+				else:
+					open_shipping068(known_port)
+			return
 		open_ocean064();return
 	host.sync_economy()
 	var p = host.core.current_port()

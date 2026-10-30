@@ -297,6 +297,12 @@ func _shipping_view068() -> Dictionary:
 		if v is Dictionary:return v
 	return {}
 
+func _sector_view069() -> Dictionary:
+	if host!=null and host.core!=null and host.core is Object and host.core.has_method("sector_view069"):
+		var v=host.core.sector_view069()
+		if v is Dictionary:return v
+	return {}
+
 func pick_port068(screen: Vector2) -> Dictionary:
 	if host==null or host.core==null:return {}
 	return _ocean_painter064.pick_port068(self,host.core.world_view064(),_shipping_view068(),screen)
@@ -1006,7 +1012,7 @@ func draw_campaign():
 		if view064.is_empty():
 			text_at("Chart unavailable",get_viewport_rect().size*0.5,22,GOLD,serif,true)
 			return
-		_ocean_painter064.draw(self,view064,_ocean_view066(),_exploration_view067(),_shipping_view068())
+		_ocean_painter064.draw(self,view064,_ocean_view066(),_exploration_view067(),_shipping_view068(),_sector_view069())
 		return
 	if host.core == null or host.core.state.is_empty():
 		return
