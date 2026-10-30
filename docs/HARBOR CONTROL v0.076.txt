@@ -1,0 +1,25 @@
+BRASS TIDE v0.076 — HARBOR CONTROL
+
+Press L, choose Support a harbor industry, then use Harbor control at the top.
+Choose an existing Shatter Coast harbor. Generated harbors keep their limited
+services in this version.
+
+Bring recovered machine tools, the warehouse materials and two healthy sailors
+above minimum crew. The quote shows the warehouse bill, working capital and
+fleet payroll. Starting donates the carried materials to harbor stocks. After
+two fully paid local work days, the ordinary warehouse setup charges its bill,
+hires local workers and receives its working capital. Tools stay aboard and
+retain wear. Ordinary sailor pay is 100 coins per person-day.
+
+For a contest, earn Friendly standing with a sponsoring faction at war with the
+current hostile governor. An actual defending fleet must be present. Funding
+moves 800 coins into the existing harbor treasury. Each of two paid support
+days also delivers two food and one repair-kit lot. Win the selected physical
+contest, then choose Negotiate surrender.
+
+Missing pay, supplies, healthy sailors or the hostile mandate interrupts work.
+Withdraw recalls the original party. Spent goods, wages, support and wear remain
+spent; resuming the same operation keeps its progress.
+
+One harbor changes authority. Private businesses, workers, boats, stores and
+purses retain their records. Islands and entire groups are not annexed.
