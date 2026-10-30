@@ -21,16 +21,41 @@ static func _is_finite_num(value) -> bool:
 
 
 static func _shipping_view068(c) -> Dictionary:
+	var base: Dictionary = {}
 	if c != null and c is Object and c.has_method("shipping_view068"):
 		var v = c.shipping_view068()
-		if v is Dictionary:
-			return v
-	return {}
+		base = v.duplicate(true) if v is Dictionary else base
+		var sv = c.sector_view069() if (c != null and c is Object and c.has_method("sector_view069")) else {}
+		if sv is Dictionary:
+			var seen: Dictionary = {}
+			for raw_p in base.get("ports", []):
+				if raw_p is Dictionary:
+					seen[str(raw_p.get("id", "")).strip_edges()] = true
+			for raw_p in sv.get("ports", []):
+				if raw_p is Dictionary:
+					var _pid: String = str(raw_p.get("id", "")).strip_edges()
+					if _pid.is_empty() or seen.has(_pid):
+						continue
+					seen[_pid] = true
+					base["ports"] = (base.get("ports", []) if base.get("ports") is Array else []) + [raw_p]
+			var seen_o: Dictionary = {}
+			for e in base.get("ownership", []):
+				if e is Dictionary:
+					seen_o[str(e.get("regionId", "")) + "|" + str(e.get("islandId", "")) + "|" + str(e.get("portId", ""))] = true
+			for e in sv.get("ownership", []):
+				if e is Dictionary:
+					var _k: String = str(e.get("regionId", "")) + "|" + str(e.get("islandId", "")) + "|" + str(e.get("portId", ""))
+					if _k == "||" or seen_o.has(_k):
+						continue
+					seen_o[_k] = true
+					base["ownership"] = (base.get("ownership", []) if base.get("ownership") is Array else []) + [e]
+	return base
 
 
-static func _remote_port068(c) -> Dictionary:
+static func _remote_port068(c, port_id: String = "") -> Dictionary:
 	if c != null and c is Object and c.has_method("remote_port068"):
-		var p = c.remote_port068()
+		var pid: String = port_id.strip_edges()
+		var p = c.remote_port068(pid) if not pid.is_empty() else c.remote_port068()
 		if p is Dictionary:
 			return p
 	return {}
@@ -47,11 +72,12 @@ static func _find_known_port068(shipping_view: Dictionary, port_id: String = "")
 		var pid: String = str(raw_p.get("id", "")).strip_edges()
 		if pid.is_empty():
 			continue
-		if target.is_empty() or pid == target:
+		if pid == target:
 			return raw_p
-	for raw_p in ports:
-		if raw_p is Dictionary and not str(raw_p.get("id", "")).strip_edges().is_empty():
-			return raw_p
+	if target.is_empty():
+		for raw_p in ports:
+			if raw_p is Dictionary and not str(raw_p.get("id", "")).strip_edges().is_empty():
+				return raw_p
 	return {}
 
 
@@ -142,13 +168,14 @@ static func open(ui, port_id: String = "") -> void:
 	var view064: Dictionary = c.world_view064() if c.has_method("world_view064") else {}
 	var view066: Dictionary = c.ocean_view066() if c.has_method("ocean_view066") else {}
 	var view068: Dictionary = _shipping_view068(c)
-	var remote_port: Dictionary = _remote_port068(c)
+	var remote_port: Dictionary = _remote_port068(c, port_id)
 	var known_port: Dictionary = _find_known_port068(view068, port_id)
 	if known_port.is_empty() and not remote_port.is_empty():
 		known_port = remote_port
 
 	var title_name: String = str(known_port.get("name", "Interregional Shipping & Remote Anchorage")) if not known_port.is_empty() else "Interregional Shipping & Remote Anchorage"
-	var subtitle: String = "WESTGLASS ANCHORAGE · REEDWATER TIMBER BRANCH & SHIPPING" if not known_port.is_empty() else "INTERREGIONAL SHIPPING · KNOWN ARCHIPELAGO HOLDINGS"
+	var _west069: bool = not known_port.is_empty() and str(known_port.get("id", "")).strip_edges() == REMOTE_PORT_ID
+	var subtitle: String = ("WESTGLASS ANCHORAGE · REEDWATER TIMBER BRANCH & SHIPPING" if _west069 else (str(known_port.get("name", "Remote harbor")).to_upper() + " · KNOWN HARBOR & SHIPPING" if not known_port.is_empty() else "INTERREGIONAL SHIPPING · KNOWN ARCHIPELAGO HOLDINGS"))
 	var body: VBoxContainer = ui.modal(title_name, subtitle, 1080, 720)
 	body.add_theme_constant_override("separation", 8)
 
@@ -174,23 +201,26 @@ static func _render_ownership_and_shipping_card(ui, body: VBoxContainer, c, view
 		var status_tag: String = "DOCKED AT WATER BERTH" if is_docked else "SIGHTED / KNOWN BRANCH ANCHORAGE"
 		var status_col: Color = ui.TEAL if is_docked else ui.GOLD
 		_wrapped_label(ui, col, "%s  ·  %s  ·  %s" % [p_name, p_faction, status_tag], 18, status_col, true)
-		ui.paragraph(col, "A Reedwater timber quay on Westglass Isle, supplied from Kelp Reach. Other islands in Glasswind Keys have no recorded faction holding.", 13, ui.TEXT)
+		if str(known_port.get("id", "")).strip_edges() == REMOTE_PORT_ID:
+			ui.paragraph(col, "A Reedwater timber quay on Westglass Isle, supplied from Kelp Reach. Other islands in Glasswind Keys have no recorded faction holding.", 13, ui.TEXT)
+		else:
+			ui.paragraph(col, "Known harbor holding: " + str(known_port.get("name", "this harbor")) + " (" + str(known_port.get("faction", "")) + " · " + str(known_port.get("regionId", "")) + "). A single harbor is not ownership of its whole group.", 13, ui.TEXT)
 	else:
 		var home_summary: String = str(view068.get("summary", "")).strip_edges()
 		if c.home_local064() and not home_summary.is_empty():
 			ui.paragraph(col, "Branch status at Shatter Coast: " + home_summary, 13, ui.GOLD)
-		ui.paragraph(col, "No remote anchorage in Glasswind Keys has been sighted or visited yet. Unspotted remote ports remain omitted from the chart until observed within local coastal range, and Glasswind islands carry no known faction claim until sighted.", 13, ui.MUTED)
+		ui.paragraph(col, "No remote anchorage has been sighted or visited yet. Unspotted remote ports remain omitted from the chart until observed within local coastal range, and distant islands carry no known faction claim until sighted.", 13, ui.MUTED)
 
 	var ownership: Array = view068.get("ownership", []) if view068.get("ownership") is Array else []
 	if not ownership.is_empty():
 		var own_parts: Array = []
 		for entry in ownership:
-			if not (entry is Dictionary):
+			if not (entry is Dictionary) or (not str(known_port.get("regionId", "")).is_empty() and not str(entry.get("regionId", "")).is_empty() and str(entry.get("regionId", "")) != str(known_port.get("regionId", ""))) or (str(entry.get("portId", "")).strip_edges().is_empty() and str(entry.get("islandId", "")).strip_edges().is_empty()):
 				continue
-			var isl_id: String = str(entry.get("islandId", "glasswind_west"))
-			var pid: String = str(entry.get("portId", REMOTE_PORT_ID))
-			var fac_name: String = _faction_display_name(c, str(entry.get("faction", "reed")))
-			own_parts.append("%s / %s: %s (known branch holding; other Glasswind islands unassigned)" % [isl_id, pid, fac_name])
+			var isl_id: String = str(entry.get("islandId", ""))
+			var pid: String = str(entry.get("portId", ""))
+			var fac_name: String = _faction_display_name(c, str(entry.get("faction", "")))
+			own_parts.append("%s / %s: %s (known holding; a harbor is not its whole group)" % [isl_id, pid, fac_name])
 		if not own_parts.is_empty():
 			ui.paragraph(col, "Recorded holdings: " + "  ·  ".join(own_parts), 12, ui.TEAL)
 
@@ -238,21 +268,28 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 	var col: VBoxContainer = ui.column(card)
 	col.add_theme_constant_override("separation", 6)
 
-	_wrapped_eyebrow(ui, col, "WESTGLASS ANCHORAGE · FINITE MARKET, TIMBER & VOYAGE PROVISIONS")
+	if str(known_port.get("id", "")).strip_edges() == REMOTE_PORT_ID:
+		_wrapped_eyebrow(ui, col, "WESTGLASS ANCHORAGE · FINITE MARKET, TIMBER & VOYAGE PROVISIONS")
+	else:
+		_wrapped_eyebrow(ui, col, str(known_port.get("name", "Remote harbor")).to_upper() + " · FINITE MARKET & VOYAGE PROVISIONS")
 
 	if remote_port.is_empty():
 		var layer: String = str(view064.get("layer", ""))
-		var in_glasswind: bool = (layer == "local" and str(view064.get("regionId", "")) == REMOTE_REGION_ID)
+		var _want069: String = str(known_port.get("regionId", REMOTE_REGION_ID))
+		var in_glasswind: bool = (layer == "local" and str(view064.get("regionId", "")) == _want069)
 		if known_port.is_empty():
-			ui.paragraph(col, "Remote market and provisions are unavailable until Westglass Anchorage is installed and sighted in local Glasswind Keys waters.", 14, ui.MUTED)
+			ui.paragraph(col, "Remote market and provisions are unavailable until a remote harbor is installed and sighted in local waters.", 14, ui.MUTED)
 		elif not in_glasswind:
-			ui.paragraph(col, "Westglass Anchorage is known on Westglass Isle (756, 732). Sail to Glasswind Keys local waters and dock at its water berth to trade timber, logs, and provisions.", 14, ui.GOLD)
+			if str(known_port.get("id", "")).strip_edges() == REMOTE_PORT_ID:
+				ui.paragraph(col, "Westglass Anchorage is known on Westglass Isle (756, 732). Sail to Glasswind Keys local waters and dock at its water berth to trade timber, logs, and provisions.", 14, ui.GOLD)
+			else:
+				ui.paragraph(col, str(known_port.get("name", "The known harbor")) + " is known in " + str(known_port.get("regionId", "distant waters")) + ". Sail to its local waters and dock at its water berth to trade.", 14, ui.GOLD)
 		else:
 			var pos: Dictionary = view064.get("position", c.state.get("position", {"x": 0.0, "y": 0.0}))
 			var target_pt := Vector2(float(known_port.get("x", REMOTE_BERTH.x)), float(known_port.get("y", REMOTE_BERTH.y)))
 			var dist: float = Vector2(float(pos.get("x", 0.0)), float(pos.get("y", 0.0))).distance_to(target_pt)
 			var moving: bool = not view064.get("path", []).is_empty()
-			var gate_msg: String = "Current distance to Westglass water berth (%.0f, %.0f): %.0f units (must be ≤ 40 units and stopped with legal Reedwater access)." % [target_pt.x, target_pt.y, dist]
+			var gate_msg: String = "Current distance to harbor berth (%.0f, %.0f): %.0f units (must be ≤ 40 units and stopped with legal access)." % [target_pt.x, target_pt.y, dist]
 			if moving:
 				gate_msg += " Your flotilla is currently underway—wait to arrive at the berth or stop within 40 units."
 			ui.paragraph(col, gate_msg, 14, ui.GOLD)
@@ -260,7 +297,7 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 			sail_flow.add_theme_constant_override("h_separation", 8)
 			sail_flow.add_theme_constant_override("v_separation", 6)
 			col.add_child(sail_flow)
-			var btn_sail: Button = ui.button(sail_flow, "Sail to Westglass Anchorage berth (756, 732)  ↗", func():
+			var btn_sail: Button = ui.button(sail_flow, "Sail to harbor berth  ↗", func():
 				_sail_to_remote_port(ui, known_port)
 			, true, false)
 			btn_sail.custom_minimum_size.y = 34
@@ -283,7 +320,7 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 	var stocks: Dictionary = remote_port.get("stocks", {}) if remote_port.get("stocks") is Dictionary else {}
 	var player_cargo: Dictionary = c.state.get("cargo", {}) if c.state.get("cargo") is Dictionary else {}
 
-	ui.paragraph(col, "Docked at Westglass Anchorage  ·  Harbor purse: %s coins  ·  Your purse: %s coins  ·  Hold: %.1f / %.1f used (%.1f free)" % [
+	ui.paragraph(col, "Docked at " + str(remote_port.get("name", "Westglass Anchorage")) + "  ·  Harbor purse: %s coins  ·  Your purse: %s coins  ·  Hold: %.1f / %.1f used (%.1f free)" % [
 		ui.money(port_cash), ui.money(player_coins), used_cap, total_cap, free_cap
 	], 14, ui.TEAL)
 	ui.paragraph(col, "Trade uses actual port stocks and coins on both ends. Buy provisions into your hold, then load hold reserves into boat fuel tanks, magazines, and repair racks before sailing home.", 13, ui.TEXT)
@@ -378,7 +415,10 @@ static func _render_remote_market_card(ui, body: VBoxContainer, c, view064: Dict
 		btn_sell.disabled = (hold_qty < 1.0 or sell_price <= 0 or port_cash < sell_price)
 
 	ui.rule(col)
-	ui.paragraph(col, "Closed at Westglass Anchorage: Boatyard hull purchases/commissions, drydock hull repairs, equipment workshops/refits, boat storage berths, and home-port contracts are unavailable at this small timber branch. Sail back to Shatter Coast for full harbor yards.", 12, ui.MUTED)
+	if str(remote_port.get("id", "")).strip_edges() == REMOTE_PORT_ID:
+		ui.paragraph(col, "Closed at Westglass Anchorage: Boatyard hull purchases/commissions, drydock hull repairs, equipment workshops/refits, boat storage berths, and home-port contracts are unavailable at this small timber branch. Sail back to Shatter Coast for full harbor yards.", 12, ui.MUTED)
+	else:
+		ui.paragraph(col, "Closed at this harbor: Boatyard hull purchases/commissions, drydock hull repairs, equipment workshops/refits, boat storage berths, and home-port contracts are unavailable here. Sail back to Shatter Coast for full harbor yards.", 12, ui.MUTED)
 
 
 static func _render_receipts_card(ui, body: VBoxContainer, c, view068: Dictionary) -> void:
@@ -391,7 +431,7 @@ static func _render_receipts_card(ui, body: VBoxContainer, c, view068: Dictionar
 
 	var receipts: Array = view068.get("receipts", []) if view068.get("receipts") is Array else []
 	if receipts.is_empty():
-		ui.paragraph(col, "No player remote trades recorded at Westglass Anchorage yet.", 13, ui.MUTED)
+		ui.paragraph(col, "No player remote trades recorded at this harbor yet.", 13, ui.MUTED)
 		return
 	for idx in range(receipts.size() - 1, -1, -1):
 		var rec = receipts[idx]
@@ -423,8 +463,8 @@ static func _render_footer(ui, body: VBoxContainer, c, view064: Dictionary, view
 	var is_docked: bool = not remote_port.is_empty() or bool(known_port.get("atBerth", false))
 	var port_id: String = str(known_port.get("id", REMOTE_PORT_ID))
 
-	if is_local and not known_port.is_empty() and not is_docked:
-		var btn_sail: Button = ui.button(actions, "Sail to Westglass berth", func():
+	if is_local and not known_port.is_empty() and not is_docked and (str(known_port.get("regionId", "")).is_empty() or not c.has_method("sector_view069") or str(c.sector_view069().get("regionId", "")) == str(known_port.get("regionId", ""))):
+		var btn_sail: Button = ui.button(actions, "Sail to harbor berth", func():
 			_sail_to_remote_port(ui, known_port)
 		, true, false)
 		btn_sail.custom_minimum_size.y = 34
@@ -475,6 +515,10 @@ static func _sail_to_remote_port(ui, known_port: Dictionary) -> void:
 		"x": float(known_port.get("x", REMOTE_BERTH.x)),
 		"y": float(known_port.get("y", REMOTE_BERTH.y))
 	}
+	var _cur069: String = str(c.sector_view069().get("regionId", "")) if (c != null and c is Object and c.has_method("sector_view069")) else ""
+	if not str(known_port.get("regionId", "")).is_empty() and not _cur069.is_empty() and str(known_port.get("regionId", "")) != _cur069:
+		ui.host.respond(c.fail("That harbor lies in another region. Sail within its local waters first."))
+		return
 	var res: Dictionary = c.chart_course(target, pid)
 	if res.get("ok", false):
 		ui.host.selected_port = pid
@@ -505,10 +549,10 @@ static func _invoke_remote_trade(ui, good: String, qty: int, side: String, port_
 		return
 	var gen_before: int = _open_generation
 	if ui.host.has_method("remote_trade068"):
-		ui.host.remote_trade068(good, qty, side)
+		ui.host.remote_trade068(good, qty, side, port_id)
 	elif ui.host.core != null and ui.host.core.has_method("remote_trade068"):
 		ui.host.sync_economy()
-		var res: Dictionary = ui.host.core.remote_trade068(good, qty, side)
+		var res: Dictionary = ui.host.core.remote_trade068(good, qty, side, port_id)
 		ui.host.respond(res)
 		if res.get("ok", false):
 			ui.host.save_game(false)
@@ -536,8 +580,8 @@ static func render_preparation_summary068(ui, body: VBoxContainer, c, view064: D
 	if not known_port.is_empty():
 		var p_name: String = str(known_port.get("name", "Westglass Anchorage"))
 		var p_fac: String = _faction_display_name(c, str(known_port.get("faction", "reed")))
-		ui.paragraph(col, "Known remote holding: %s (%s · timber & logs branch on Westglass Isle at 756, 732 · %s). Other Glasswind islands remain unclaimed; Reedwater holds this one branch, not the whole archipelago." % [
-			p_name, p_fac, "Docked at berth" if is_docked else "Known anchorage"
+		ui.paragraph(col, "Known remote holding: %s (%s · %s, berth %.0f, %.0f · %s). A single harbor is not ownership of its whole group." % [
+			p_name, p_fac, str(known_port.get("regionId", "")), float(known_port.get("x", 0.0)), float(known_port.get("y", 0.0)), "Docked at berth" if is_docked else "Known anchorage"
 		], 12, ui.TEAL if is_docked else ui.TEXT)
 	elif c.home_local064() and not home_summary.is_empty():
 		ui.paragraph(col, "Branch status: " + home_summary, 12, ui.GOLD)
@@ -554,12 +598,12 @@ static func render_preparation_summary068(ui, body: VBoxContainer, c, view064: D
 	btn_row.add_theme_constant_override("h_separation", 8)
 	btn_row.add_theme_constant_override("v_separation", 6)
 	col.add_child(btn_row)
-	var btn_open: Button = ui.button(btn_row, "Westglass Anchorage & shipping" if not known_port.is_empty() else "Interregional shipping status", func():
+	var btn_open: Button = ui.button(btn_row, (str(known_port.get("name", "Remote harbor")) + " & shipping") if not known_port.is_empty() else "Interregional shipping status", func():
 		open(ui, str(known_port.get("id", REMOTE_PORT_ID)))
 	, is_docked, false)
 	btn_open.custom_minimum_size.y = 32
-	if str(view064.get("layer", "")) == "local" and not known_port.is_empty() and not is_docked:
-		var btn_sail: Button = ui.button(btn_row, "Sail to Westglass berth (756, 732)", func():
+	if str(view064.get("layer", "")) == "local" and not known_port.is_empty() and not is_docked and (str(known_port.get("regionId", "")).is_empty() or not c.has_method("sector_view069") or str(c.sector_view069().get("regionId", "")) == str(known_port.get("regionId", ""))):
+		var btn_sail: Button = ui.button(btn_row, "Sail to harbor berth", func():
 			_sail_to_remote_port(ui, known_port)
 		, false, false)
 		btn_sail.custom_minimum_size.y = 32
