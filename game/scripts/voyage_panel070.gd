@@ -35,7 +35,7 @@ static func service_berth(c) -> Dictionary:
 static func board_header(c) -> Dictionary:
 	var work := work_berth(c)
 	var named := not str(work.get("id", "")).is_empty() and not str(work.get("name", "")).is_empty()
-	var home := named and c != null and c.has_method("home_local064") and c.home_local064()
+	var home: bool = named and c != null and c.has_method("home_local064") and c.home_local064()
 	return {
 		"name": str(work.get("name", "")),
 		"id": str(work.get("id", "")),
@@ -143,9 +143,9 @@ static func prepare_known_point(ui, point: Dictionary, destination: String = "")
 		return
 	var point_region := str(point.get("regionId", ""))
 	var here := _view_region(c)
-	var home_here := c.has_method("home_local064") and c.home_local064()
+	var home_here: bool = c.has_method("home_local064") and c.home_local064()
 	var home_point := point_region.is_empty() or point_region == HOME_REGION
-	var same := point_region.is_empty() or point_region == here or (home_here and home_point and (here.is_empty() or here == HOME_REGION))
+	var same: bool = point_region.is_empty() or point_region == here or (home_here and home_point and (here.is_empty() or here == HOME_REGION))
 	if not same:
 		if not point_region.is_empty():
 			ui.open_voyage_preparation065(point_region)
