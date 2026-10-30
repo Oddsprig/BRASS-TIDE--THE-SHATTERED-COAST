@@ -25,24 +25,40 @@ static func empty_book() -> Dictionary:
 static func cargo_offer075(owner: Dictionary, origin: Dictionary, destination: Dictionary, reserveCoins: int, exportRows: Dictionary = {}) -> Dictionary:
 	if origin.is_empty() or destination.is_empty() or origin.get("id")==destination.get("id") or reserveCoins<0:return _fail("A shipment needs two actual markets and a nonnegative voyage reserve.")
 	if int(owner.get("coins",0))<reserveCoins:return _fail("The actual merchant purse cannot cover voyage and home-yard recovery reserves.")
+	return _cargo_offer075(owner,origin,destination,reserveCoins,_market_quote075(owner,origin,exportRows),_market_quote075(owner,destination))
+
+
+## Detached, short-lived prices/demand for one admission attempt, never a stock
+## reservation. The physical loading berth still obtains a fresh quotation.
+static func _market_quote075(owner: Dictionary, port: Dictionary, exportRows: Dictionary = {}) -> Dictionary:
+	var exports: Dictionary = Harbor.report(port).goods if exportRows.is_empty() else exportRows
+	var rows: Dictionary = {}
+	for key in Goods.ITEMS:
+		var good: String = str(key)
+		rows[good]={"allowed":Fleets.allowed_trade(owner,port,good),"buy":maxi(1,Economy.price(port,good,"buy")),"sell":maxi(1,Economy.price(port,good,"sell")),"demand":maxi(0,floori(Economy.get_equilibrium_stock(port,good)-float(port.get("stocks",{}).get(good,0.0)))),"exportable":floori(float(exports.get(good,{}).get("exportable",0.0)))}
+	return rows
+
+
+static func _cargo_offer075(owner: Dictionary, origin: Dictionary, destination: Dictionary, reserveCoins: int, originRows: Dictionary, destinationRows: Dictionary) -> Dictionary:
+	if origin.is_empty() or destination.is_empty() or origin.get("id")==destination.get("id") or reserveCoins<0:return _fail("A shipment needs two actual markets and a nonnegative voyage reserve.")
+	if int(owner.get("coins",0))<reserveCoins:return _fail("The actual merchant purse cannot cover voyage and home-yard recovery reserves.")
 	var held: float = maxf(0.0,float(owner.get("tradeCargo",0.0)))
 	var capacity: float = maxf(0.0,Fleets._capacity(owner)-Economy.cargo_weight(owner.get("cargo",{})))
-	var exports: Dictionary = Harbor.report(origin).goods if exportRows.is_empty() else exportRows
 	var best: Dictionary = {}
 	var best_value: float = -INF
 	for key in Goods.ITEMS:
 		var good: String = str(key)
 		if held>EPS and good!=str(owner.get("tradeGood","")):continue
-		if not Fleets.allowed_trade(owner,origin,good) or not Fleets.allowed_trade(owner,destination,good):continue
-		var buy: int = maxi(1,Economy.price(origin,good,"buy"))
-		var sell: int = maxi(1,Economy.price(destination,good,"sell"))
-		var demand: int = maxi(0,floori(Economy.get_equilibrium_stock(destination,good)-float(destination.get("stocks",{}).get(good,0.0))))
+		if not originRows[good].allowed or not destinationRows[good].allowed:continue
+		var buy: int = int(originRows[good].buy)
+		var sell: int = int(destinationRows[good].sell)
+		var demand: int = int(destinationRows[good].demand)
 		var qty: int = mini(64,mini(demand,maxi(0,int(destination.get("cash",0)))/sell))
 		if held>EPS:
 			qty=mini(qty,floori(minf(held,float(owner.get("cargo",{}).get(good,0.0)))))
 		else:
 			if sell<=buy:continue
-			qty=mini(qty,mini(maxi(0,int(owner.get("coins",0))-reserveCoins)/buy,mini(floori(float(exports.get(good,{}).get("exportable",0.0))),floori(capacity/float(Goods.ITEMS[good].weight)))))
+			qty=mini(qty,mini(maxi(0,int(owner.get("coins",0))-reserveCoins)/buy,mini(int(originRows[good].exportable),floori(capacity/float(Goods.ITEMS[good].weight)))))
 		if qty<1:continue
 		var cost: int = 0 if held>EPS else qty*buy
 		var value: float = float(qty*sell-cost)
@@ -75,43 +91,55 @@ static func select_corridor075(state: Dictionary, context: Dictionary, owner: Di
 		speed=minf(speed,float(boat.get("spec",{}).get("speed",0.0))*float(condition.get("speedFactor",0.0)))
 	if count<1 or not _number(speed,EPS):return _fail("The merchant has no actual powered carrier.")
 	speed*=0.38*campaignScale
+	var upkeep: Dictionary = Fleets.upkeep(owner)
+	var home_prices: Dictionary = {"food":Economy.price(home,"food","buy"),"fuel":Economy.price(home,"fuel","buy")}
+	var views: Dictionary = {}
+	var homes: Array = _port_gates075(context,home,clearance,views,true)
+	var markets: Dictionary = {}
+	var bounds: Dictionary = {}
+	for port in ports:
+		markets[port.id]=_market_quote075(owner,port)
+		bounds[port.id]=_port_gates075(context,port,clearance,views,true)
 	var candidates: Array = []
 	for origin in ports:
-		var exports: Dictionary = Harbor.report(origin).goods
 		for remote in ports:
 			if origin.regionId==remote.regionId:continue
-			var offer: Dictionary = cargo_offer075(owner,origin,remote,reserveCoins,exports)
+			# Straight local distances are optimistic; the same conservative ocean
+			# speed, wages and home recovery still apply. Never spend a path slot
+			# on a pair that cannot fund even this lower bound and one real lot.
+			var lower: Dictionary = _route_quote_gates075(context,home,origin,remote,speed,homes,bounds[origin.id],bounds[remote.id])
+			if not lower.get("ok",false):continue
+			var reserve: Dictionary = _voyage_reserve075(owner,home_prices,float(lower.days),upkeep,count,reserveCoins)
+			var offer: Dictionary = _cargo_offer075(owner,origin,remote,int(reserve.reserveCoins),markets[origin.id],markets[remote.id])
 			if not offer.get("ok",false):continue
-			var a: Dictionary = World._project(context,context.regions[origin.regionId],origin)
-			var b: Dictionary = World._project(context,context.regions[remote.regionId],remote)
-			var h: Dictionary = World._project(context,context.regions[World.HOME],home)
-			var distance: float = World._distance(h,a)+World._distance(a,b)+World._distance(b,h)
-			candidates.append({"origin":origin,"remote":remote,"score":float(offer.margin)/(1.0+distance)})
+			candidates.append({"origin":origin,"remote":remote,"score":float(offer.margin)/(1.0+float(lower.days))})
 	candidates.sort_custom(func(a,b):return float(a.score)>float(b.score))
-	var upkeep: Dictionary = Fleets.upkeep(owner)
 	# Only three promising pairs receive real path quotations, once at admission.
 	# Navigation views are detached; never evict the player's active local grid.
-	var views: Dictionary = {}
 	for candidate in candidates.slice(0,3):
 		var quote: Dictionary = route_quote075(context,home,candidate.origin,candidate.remote,clearance,speed,views)
 		if not quote.get("ok",false):continue
-		var days: float = float(quote.days)
-		var wages: int = ceili(float(upkeep.wages)*days)+maxi(0,int(owner.get("wageArrears",0)))
-		var food: int = ceili(float(upkeep.food)*days)
-		var fuel: int = ceili(float(upkeep.fuel)*days)
-		var repair: int = count*Economy.ORDINARY_WAGE
-		var held_food: float = maxf(0.0,float(owner.get("cargo",{}).get("food",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="food" else 0.0))
-		var held_fuel: float = maxf(0.0,float(owner.get("cargo",{}).get("fuel",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="fuel" else 0.0))
-		for boat in owner.boats:
-			if not boat.get("sunk",false):held_fuel+=float(boat.get("fuel",0.0))
-		var provisioning: int = maxi(0,ceili(float(food)-held_food))*Economy.price(home,"food","buy")+maxi(0,ceili(float(fuel)-held_fuel))*Economy.price(home,"fuel","buy")
-		var reserve: int = maxi(reserveCoins,wages+repair+provisioning)
-		var offer: Dictionary = cargo_offer075(owner,candidate.origin,candidate.remote,reserve)
+		var reserve: Dictionary = _voyage_reserve075(owner,home_prices,float(quote.days),upkeep,count,reserveCoins)
+		var offer: Dictionary = _cargo_offer075(owner,candidate.origin,candidate.remote,int(reserve.reserveCoins),markets[candidate.origin.id],markets[candidate.remote.id])
 		if not offer.get("ok",false):continue
 		quote.merge(offer,true)
-		quote.merge({"ownerId":str(owner.id),"homeId":str(home.id),"originId":str(candidate.origin.id),"remoteId":str(candidate.remote.id),"wageCoins":wages,"repairCoins":repair,"food":food,"fuel":fuel,"reserveCoins":reserve},true)
+		quote.merge(reserve,true)
+		quote.merge({"ownerId":str(owner.id),"homeId":str(home.id),"originId":str(candidate.origin.id),"remoteId":str(candidate.remote.id)},true)
 		return quote
 	return _fail("No generated corridor has a navigable funded lot plus actual voyage and home-yard recovery reserves.")
+
+
+static func _voyage_reserve075(owner: Dictionary, homePrices: Dictionary, days: float, upkeep: Dictionary, count: int, reserveCoins: int) -> Dictionary:
+	var wages: int = ceili(float(upkeep.wages)*days)+maxi(0,int(owner.get("wageArrears",0)))
+	var food: int = ceili(float(upkeep.food)*days)
+	var fuel: int = ceili(float(upkeep.fuel)*days)
+	var repair: int = count*Economy.ORDINARY_WAGE
+	var held_food: float = maxf(0.0,float(owner.get("cargo",{}).get("food",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="food" else 0.0))
+	var held_fuel: float = maxf(0.0,float(owner.get("cargo",{}).get("fuel",0.0))-(float(owner.get("tradeCargo",0.0)) if owner.get("tradeGood")=="fuel" else 0.0))
+	for boat in owner.boats:
+		if not boat.get("sunk",false):held_fuel+=float(boat.get("fuel",0.0))
+	var provisioning: int = maxi(0,ceili(float(food)-held_food))*int(homePrices.food)+maxi(0,ceili(float(fuel)-held_fuel))*int(homePrices.fuel)
+	return {"wageCoins":wages,"repairCoins":repair,"food":food,"fuel":fuel,"reserveCoins":maxi(reserveCoins,wages+repair+provisioning)}
 
 
 static func route_quote075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, clearance: float, speed: float, views: Dictionary = {}) -> Dictionary:
@@ -119,6 +147,10 @@ static func route_quote075(context: Dictionary, home: Dictionary, origin: Dictio
 	var homes: Array = _port_gates075(context,home,clearance,views)
 	var origins: Array = _port_gates075(context,origin,clearance,views)
 	var remotes: Array = _port_gates075(context,remote,clearance,views)
+	return _route_quote_gates075(context,home,origin,remote,speed,homes,origins,remotes)
+
+
+static func _route_quote_gates075(context: Dictionary, home: Dictionary, origin: Dictionary, remote: Dictionary, speed: float, homes: Array, origins: Array, remotes: Array) -> Dictionary:
 	var best: Dictionary = {}
 	var length: float = INF
 	for h in homes:
@@ -132,17 +164,13 @@ static func route_quote075(context: Dictionary, home: Dictionary, origin: Dictio
 	return best if not best.is_empty() else _fail("No real safe harbor-to-approach route connects this generated pair and its home yard.")
 
 
-static func _port_gates075(context: Dictionary, port: Dictionary, clearance: float, views: Dictionary) -> Array:
+static func _port_gates075(context: Dictionary, port: Dictionary, clearance: float, views: Dictionary, lowerBound: bool = false) -> Array:
 	var region_id: String = str(port.get("regionId",World.HOME))
 	if not context.get("regions",{}).has(region_id):return []
 	var region: Dictionary = context.regions[region_id]
-	if not views.has(region_id):
-		var view: Dictionary = context.duplicate(false)
-		if region_id not in [World.HOME,World.REMOTE]:
-			view["activeRegionId"]=region_id
-			view["activeNav"]=World.Navigation.create(region.islands,region.width,region.height,World.Navigation.DEFAULT_CELL*World.COAST_SCALE)
-		views[region_id]=view
-	var view: Dictionary = views[region_id]
+	var cache_key: String = "gates075:%s:%.6f"%[str(port.id),clearance]
+	if not lowerBound and views.has(cache_key):return views[cache_key]
+	var geometry: Dictionary = context.regionGeometry[region_id]
 	var start: Dictionary = _point(port)
 	if region_id==World.HOME:
 		start=World.Navigation.harbor_approach(context.homeNav,port,clearance)
@@ -150,11 +178,17 @@ static func _port_gates075(context: Dictionary, port: Dictionary, clearance: flo
 	var location: Dictionary = _location("home" if region_id==World.HOME else "local",region_id,start)
 	var choices: Array = []
 	for gate in region.approaches:
-		var destination: String = "" if region_id==World.HOME else "approach:%s:%s"%[region_id,str(gate.id)]
-		var plotted: Dictionary = World.plot(view,location,gate.position,destination,clearance)
-		if not plotted.get("ok",false):continue
-		var length: float = _length(start,plotted.location.path)
+		if not World._approach_safe(context,region,gate,clearance) or not World.Navigation.is_water(geometry,start.x,start.y,clearance):continue
+		var length: float = World._distance(start,gate.position)
+		if not lowerBound and not World.Navigation.path_clear(geometry,start,[gate.position],clearance):
+			# Only an obstructed real quote needs a detached navigation grid.
+			if not views.has(region_id):views[region_id]=_view075(context,region_id)
+			var destination: String = "" if region_id==World.HOME else "approach:%s:%s"%[region_id,str(gate.id)]
+			var plotted: Dictionary = World.plot(views[region_id],location,gate.position,destination,clearance)
+			if not plotted.get("ok",false):continue
+			length=_length(start,plotted.location.path)
 		choices.append({"id":str(gate.id),"length":length,"ocean":World._project(context,region,gate.position)})
+	if not lowerBound:views[cache_key]=choices
 	return choices
 
 
