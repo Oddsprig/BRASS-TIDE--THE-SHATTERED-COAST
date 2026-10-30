@@ -1,6 +1,7 @@
 extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
 const Stories=preload("res://scripts/coastal_stories.gd")
+const Panel=preload("res://scripts/voyage_panel070.gd")
 ## Focused campaign windows; main-thread UI only.
 
 static func _is_local_or_home067(c) -> bool:
@@ -17,7 +18,8 @@ static func _exploration_view067(c) -> Dictionary:
 static func _local_name069(c) -> String:
 	if c.home_local064():return "Shatter Coast"
 	var view: Dictionary=c.world_view064() if c is Object and c.has_method("world_view064") else {}
-	return str(view.get("name","Local island group"))
+	var named: String=str(view.get("name","")).strip_edges()
+	return named if not named.is_empty() else "These waters"
 
 static func _visible_sites067(c) -> Array:
 	if c.home_local064():
@@ -87,6 +89,10 @@ static func expedition(ui,use_site: bool=true) -> void:
 	var body=ui.modal("Prepare an expedition","VOYAGE LIMITS · RETURN ALLOWANCE · FLEET GROWTH",980,780)
 	body.add_theme_constant_override("separation",9)
 	var c=ui.host.core
+	var prep_header: Dictionary=Panel.board_header(c)
+	var prep_chart: String=str(prep_header.region) if not str(prep_header.region).is_empty() else "this chart"
+	var prep_place: String=str(prep_header.name) if bool(prep_header.docked) else "under way"
+	ui.paragraph(body,"Preparing in %s · %s. The route uses the landing or harbor you selected."%[prep_place,prep_chart],15)
 	var destination: Dictionary=c.port(ui.host.selected_port)
 	var site_id: String=str(ui.host.selected_site) if use_site else ""
 	var island: Dictionary=c.Expedition._known_site(c.state,site_id)
@@ -159,9 +165,9 @@ static func expedition(ui,use_site: bool=true) -> void:
 		ui.paragraph(body,"Cargo accounts: settle owed wages and review the %s-coin rescue/harbor loan."%ui.money(c.state.get("debt",0)),14,ui.GOLD)
 	if not island.is_empty():
 		ui.button(body,"Review landing: "+str(island.name),func():site(ui,site_id))
-		ui.button(body,"Chart landing course",func():ui.host.respond(c.chart_course(island));ui.close_modal(),true).disabled=not r.routeOk or r.overload>0 or not c.state.exploration.assignment.is_empty()
+		ui.button(body,"Prepare route to "+str(island.name),func():ui.host.respond(c.chart_course(island));ui.close_modal(),true).disabled=not r.routeOk or r.overload>0 or not c.state.exploration.assignment.is_empty()
 	elif not destination.is_empty():
-		ui.button(body,"Chart course to "+str(destination.name),func():ui.host.sail_to(destination.id);ui.close_modal(),true).disabled=route.is_empty() or r.overload>0
+		ui.button(body,"Prepare route to "+str(destination.name),func():ui.host.sail_to(destination.id);ui.close_modal(),true).disabled=route.is_empty() or r.overload>0
 	ui.rule(body)
 	ui.eyebrow(body,"A PARTNER FOR THE NEXT VOYAGE")
 	ui.paragraph(body,"%d owned hulls / %d points · %d traveling · %d inactive (%d stored)\nBattle line: %d / %d points · %d traveling boats held in reserve"%[r.ownedCount,r.ownedDP,r.travelingCount,r.inactiveCount,r.storedCount,r.battleDP,r.battleLimit,r.battleReserveCount],15,ui.TEXT)
@@ -203,7 +209,9 @@ static func expedition_yard_support(ui,body: Node) -> void:
 	var c=ui.host.core
 	var port: Dictionary=c.current_port()
 	if port.is_empty():
-		ui.paragraph(body,"No inactive owned partner to compare. Visit a harbor to see its actual boatyard prices and available support designs.",15,ui.GOLD)
+		var berth: Dictionary=Panel.work_berth(c)
+		if not berth.is_empty():ui.paragraph(body,"Docked at %s. Boatyard prices are quoted on the home service harbor, and this list does not buy a hull here."%str(berth.get("name","this berth")),15,ui.GOLD)
+		else:ui.paragraph(body,"No inactive owned partner to compare. Visit a harbor to see its actual boatyard prices and available support designs.",15,ui.GOLD)
 		return
 	var candidates: Array=[]
 	var catalogue: Array=c.Harbor.catalogue(c,port)
@@ -315,7 +323,7 @@ static func site(ui,site_id: String) -> void:
 		ui.button(body,"Advance one survey day",func():survey_day(ui,site_id),true)
 		ui.button(body,"Recall party",func():ui.host.respond(c.recall_survey());site(ui,site_id))
 	else:
-		ui.button(body,"Sail to landing",func():ui.host.respond(c.chart_course(s));ui.close_modal(),true)
+		ui.button(body,"Prepare route to "+str(s.get("name","this landing")),func():ui.host.respond(c.chart_course(s));ui.close_modal(),true)
 	if is_home:
 		ui.button(body,"Prepare this island work & named return",func():expedition(ui))
 	else:

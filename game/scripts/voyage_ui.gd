@@ -1,5 +1,6 @@
 extends RefCounted
 const Choices=preload("res://scripts/civilian_choices059.gd")
+const Panel=preload("res://scripts/voyage_panel070.gd")
 ## Several funded commitments, original contacts and honest dated reports.
 static func open(ui,tab: String="Work board") -> void:
 	if tab=="Fishing":review_fishing(ui);return
@@ -20,6 +21,7 @@ static func open(ui,tab: String="Work board") -> void:
 	if tab=="Contacts":contacts(ui,body);return
 	if tab=="Market notes":intel(ui,body);return
 	ui.paragraph(body,"Carry up to six compatible side jobs alongside your story contract. Freight uses real hold space; rewards are reserved in escrow. Relief cargo is purchased by its sponsoring treasury, then entrusted to your fleet.",16)
+	_paint_board_context(ui,body,c)
 	ui.label(body,"%d / 6 commitments · Hold %.1f / %.1f"%[c.state.voyageJobs.size(),c.cargo_weight(),c.capacity()],22,ui.GOLD,true)
 	for raw in c.state.voyageJobs:
 		var job: Dictionary=raw.duplicate(true)
@@ -34,33 +36,77 @@ static func open(ui,tab: String="Work board") -> void:
 		if job.kind=="passenger_charter":ui.paragraph(body,"%d passengers aboard · %.2f ration bales reserved"%[int(job.get("passengers",{}).get("n",0)),float(job.get("charterFood",{}).get("food",0))],15)
 		if str(job.kind) in Choices.CIVILIAN_KINDS:ui.button(body,"Review remaining voyage & client",func():review_job(ui,job),false,false)
 		if job.get("failed",false):ui.paragraph(body,"Freight lost: this job needs to be closed at a harbor.",15,ui.RED)
-		var target: Dictionary=c.port(job.targetPort)
-		if job.kind=="survey":
-			var s: Dictionary=c.Exploration.catalog_site(c.state,job.siteId)
-			var progress: int=int(c.state.exploration.sites.get(job.siteId,{}).get("level",0))
-			if progress<3:target=s
-			ui.paragraph(body,survey_terms(c,job),15,ui.TEAL)
-		ui.button(body,"Chart next destination",func():ui.host.respond(c.chart_course(target,str(target.get("id","")) if c.port(str(target.get("id",""))).size()>0 else ""));ui.close_modal())
+		if job.kind=="survey":ui.paragraph(body,survey_terms(c,job),15,ui.TEAL)
+		_paint_quote(ui,body,c,job)
+		_route_button(ui,body,job)
 		ui.button(body,"Complete & release escrow",func():settle(ui,job.id,false),true)
 		ui.button(body,"Abandon / unload remaining freight",func():settle(ui,job.id,true))
 	ui.rule(body)
 	ui.label(body,"Available at this harbor",25,ui.GOLD,true)
-	var offers: Array=c.VoyageJobs.available(c)
-	if offers.is_empty():ui.paragraph(body,"Enter a harbor for funded work. Offers need an actual sponsor purse and physical cargo; completed jobs do not reroll.",16)
+	var offers: Array=Panel.listed_offers(c)
+	if offers.is_empty():ui.paragraph(body,_empty_board(c),16)
 	for item in offers:
 		var offer: Dictionary=item.duplicate(true)
 		ui.label(body,offer.title,23,ui.TEXT,true)
 		ui.paragraph(body,offer.description,15)
 		if offer.kind=="survey":ui.paragraph(body,survey_terms(c,offer),15,ui.TEAL)
 		if not str(offer.get("sponsorContactId","")).is_empty():ui.paragraph(body,sponsor_reason(c,offer),15,ui.TEAL)
-		ui.paragraph(body,"%s coins · deadline day%.0f"%[ui.money(offer.reward),offer.deadlineDay],15,ui.GOLD)
 		if not str(offer.get("loadTier","")).is_empty():ui.paragraph(body,"%s load · %s"%[str(offer.loadTier).capitalize(),str(offer.get("demandPurpose",offer.description))],15,ui.TEAL)
+		_paint_quote(ui,body,c,offer)
+		_route_button(ui,body,offer)
 		if str(offer.kind) in Choices.CIVILIAN_KINDS:
 			ui.button(body,"Review load, carrier & operating budget",func():review_job(ui,offer),true,false)
 		else:
 			ui.button(body,"Accept funded job",func():ui.host.respond(c.accept_voyage_job(offer.id));ui.host.save_game(false);open(ui),true).disabled=c.state.voyageJobs.size()>=6
 		ui.rule(body)
 	ui.button(body,"Story contracts & captain's log",ui.open_contracts)
+
+static func _empty_board(c) -> String:
+	var header: Dictionary=Panel.board_header(c)
+	if not bool(header.docked):return "Dock at a known harbor for funded work. Offers need an actual sponsor purse and physical cargo; completed jobs do not reroll."
+	return "No funded offer is published at %s today. Offers need an actual sponsor purse and physical cargo; completed jobs do not reroll."%str(header.name)
+
+static func _paint_board_context(ui,body,c) -> void:
+	var header: Dictionary=Panel.board_header(c)
+	var chart: String=str(header.region) if not str(header.region).is_empty() else "this chart"
+	if not bool(header.docked):
+		ui.paragraph(body,"No physical berth. Funded offers appear at a known harbor you are docked at. This chart is %s. Nothing on this board buys cargo or installs a fitting."%chart,16)
+	else:
+		var kind: String="Home harbor" if str(header.kind)=="home" else "Work berth"
+		ui.paragraph(body,"%s: %s · %s. Fees and costs below are estimates for the current fleet. This list does not buy cargo or install a fitting."%[kind,str(header.name),chart],16)
+	var details=ui.column(body)
+	details.visible=false
+	for line in Panel.fleet_notes(c):ui.paragraph(details,str(line),14,ui.TEAL)
+	var toggle=ui.button(body,"Current fleet roles and fitting quotes",func():details.visible=not details.visible,false,false)
+	body.move_child(toggle,details.get_index())
+
+static func _paint_quote(ui,body,c,offer: Dictionary) -> void:
+	var view: Dictionary=Panel.quote_view(c,offer)
+	ui.paragraph(body,str(view.place),15,ui.TEAL)
+	ui.paragraph(body,"Gross fee %s coins · deadline day %.0f"%[ui.money(int(view.gross)),float(offer.get("deadlineDay",0))],16,ui.GOLD)
+	if bool(view.runningSet) and bool(view.reservesSet) and bool(view.surplusSet):
+		ui.paragraph(body,"Estimated running cost %s coins · return reserve %s coins · likely surplus %s coins. Estimate for the current fleet; it reserves nothing."%[ui.money(int(view.running)),ui.money(int(view.reserves)),ui.money(int(view.surplus))],15)
+	elif bool(view.runningSet):
+		ui.paragraph(body,"Estimated running cost %s coins. Return reserve and surplus are not both attached. Estimate for the current fleet; it reserves nothing."%ui.money(int(view.running)),15)
+	else:
+		ui.paragraph(body,"Running cost, return reserve and surplus are not attached to this offer. The gross fee is the contracted amount. Estimate for the current fleet; it reserves nothing.",15)
+	if not str(view.hold).is_empty():ui.paragraph(body,str(view.hold),15)
+	if not str(view.berths).is_empty():ui.paragraph(body,str(view.berths),15)
+	if not str(view.affordNote).is_empty():ui.paragraph(body,str(view.affordNote),15,ui.GOLD)
+	elif int(view.affordShort)>0:ui.paragraph(body,"About %s coins short of the estimated departure reserve."%ui.money(int(view.affordShort)),15,ui.GOLD)
+	elif int(view.affordShort)==0:ui.paragraph(body,"Estimated departure reserve is covered by coins on hand.",15,ui.TEAL)
+
+static func _route_button(ui,body,job: Dictionary) -> void:
+	var route: Dictionary=Panel.route_target(ui.host.core,job)
+	var point: Dictionary=(route.point as Dictionary).duplicate(true) if route.get("point") is Dictionary else {}
+	var dest: String=str(route.get("destination",""))
+	var ready: bool=bool(route.get("ok",false))
+	var label: String="Prepare route to %s"%str(route.get("label","destination")) if ready else "No recorded destination on this job"
+	ui.button(body,label,func():_chart(ui,point,dest),false).disabled=not ready
+
+static func _chart(ui,point: Dictionary,dest: String) -> void:
+	ui.host.respond(ui.host.core.chart_course(point,dest))
+	ui.close_modal()
 
 static func survey_terms(c,job: Dictionary) -> String:
 	var harbor: Dictionary=c.port(str(job.get("port","")))
@@ -75,7 +121,7 @@ static func settle(ui,id: String,abandon: bool) -> void:
 
 static func contacts(ui,body) -> void:
 	var c=ui.host.core
-	var offers: Array=c.VoyageJobs.available(c)
+	var offers: Array=Panel.listed_offers(c)
 	ui.paragraph(body,"Personal trust belongs to the person you helped. Visits, fulfilled promises and failures are remembered. Faction standing is a separate relationship.",16)
 	for person in c.Contacts.list_contacts(c.state):
 		var contact: Dictionary=person
@@ -154,9 +200,8 @@ static func review_job(ui,offer: Dictionary,carrier_uid: String="") -> void:
 		ui.paragraph(body,"The fleet can leave or use other fuel before arrival. Tanks are not reserved; an interrupted delivery earns no fee and payroll continues.",14)
 	_warnings(ui,body,model.warnings)
 	ui.rule(body)
-	if model.active:
-		ui.button(body,"Chart this delivery harbor",func():ui.host.respond(c.chart_course(c.port(str(job.targetPort)),str(job.targetPort)));ui.close_modal()).disabled=not bool(model.routeOk)
-	else:
+	_route_button(ui,body,job)
+	if not model.active:
 		ui.button(body,"Accept reviewed funded job",func():_accept_reviewed(ui,job,str(model.carrierUid)),true).disabled=not bool(model.carrierFits) or not bool(model.allowanceFits) or c.state.get("voyageJobs",[]).size()>=6
 	ui.button(body,"Leave review · return to chart" if model.active else "Decline · return to chart",ui.close_modal,false,false)
 
@@ -178,7 +223,7 @@ static func _budget(ui,body,r: Dictionary,net: int,route_ok: bool,remaining: boo
 	ui.paragraph(details,"Replace %.2f food (%s coins) and %.2f working fuel (%s). Price basis: %s, day %.2f. Return %.2f days; work horizon %.2f days. Repairs, combat losses and delays are unpriced."%[r.food,ui.money(r.foodCost),r.fuel,ui.money(r.fuelCost),r.pricePort,r.priceDay,r.returnDays,r.workDays],14)
 	ui.paragraph(details,"Existing dues %s · pending prior payroll %s · missing-store purchase estimate %s coins. Loaded food short %.2f; individual tank fuel short %.2f. %.2f loose fuel is cargo; load each real tank through Cargo."%[ui.money(r.arrears),ui.money(r.pendingPayroll),ui.money(r.preparationCost),r.foodShortfall,r.fuelShortfall,r.looseFuel],14)
 	for boat in r.boats:ui.paragraph(details,"%s · %.2f fuel loaded / %.2f allowance, including contingency · %.2f beyond its tank"%[boat.name,boat.loaded,boat.required,boat.tankShortfall],14)
-	ui.paragraph(details,"An estimate reserves nothing and proves no sale or career progression. An accepted job keeps its original terms. Prior travel/capital costs are excluded from a remaining-work view.",14)
+	ui.paragraph(details,"An estimate for the current fleet reserves nothing and proves no sale or career progression. An accepted job keeps its original terms. Prior travel/capital costs are excluded from a remaining-work view.",14)
 	var toggle=ui.button(body,"Cost assumptions & individual tanks",func():details.visible=not details.visible,false,false)
 	body.move_child(toggle,details.get_index())
 
