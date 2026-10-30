@@ -1,4 +1,4 @@
-BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.074)
+BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.075)
 
 Fresh seed -> saved 48-group geography/finite opening accounts; earned holdings, markets and surveys. Legacy voyages keep two regions. Pure spatial reads; player restore/transition prepares one generated grid alongside home and Glasswind.
 
@@ -17,20 +17,20 @@ game/scripts/ocean_world064.gd: 38226 bytes; extends RefCounted
   game/scripts/ocean_world064.gd:79 prepare_player()
   game/scripts/ocean_world064.gd:87 plot()
   game/scripts/ocean_world064.gd:136 advance()
-game/scripts/ocean_travel066.gd: 50288 bytes; extends RefCounted
+game/scripts/ocean_travel066.gd: 52746 bytes; extends RefCounted
   game/scripts/ocean_travel066.gd:17 default_data()
   game/scripts/ocean_travel066.gd:22 empty_memory()
   game/scripts/ocean_travel066.gd:26 same_world()
   game/scripts/ocean_travel066.gd:31 create()
   game/scripts/ocean_travel066.gd:38 prepare()
   game/scripts/ocean_travel066.gd:53 validate_memory()
-game/scripts/shipping_flow068.gd: 49976 bytes; extends RefCounted
+game/scripts/shipping_flow068.gd: 60701 bytes; extends RefCounted
   game/scripts/shipping_flow068.gd:20 empty_book()
   game/scripts/shipping_flow068.gd:37 installed()
-  game/scripts/shipping_flow068.gd:40 harbors069()
-  game/scripts/shipping_flow068.gd:44 definition069()
-  game/scripts/shipping_flow068.gd:49 known069()
-  game/scripts/shipping_flow068.gd:59 install_sector069()
+  game/scripts/shipping_flow068.gd:40 corridor075()
+  game/scripts/shipping_flow068.gd:43 owner_id075()
+  game/scripts/shipping_flow068.gd:97 harbors069()
+  game/scripts/shipping_flow068.gd:101 definition069()
 game/scripts/sector_ui069.gd: 3843 bytes; extends RefCounted
   game/scripts/sector_ui069.gd:8 open()
   game/scripts/sector_ui069.gd:55 _schema1()

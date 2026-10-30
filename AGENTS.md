@@ -1,18 +1,10 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.074: tactical AI with counterplay.
-Tested 4ef9b73a54c913445e3aeba678a18c6c81c608b4; 20 focused/0; Windows/menu and one reviewed private capture.
-Receipts work/quality-v074/ACTUAL074 CHECKS.json and DELIVERED v0.074.json.
-Do not rebuild074. Next075: faction strategy.
+Current verified release v0.075: funded faction strategy.
+Tested 7879a9c1479069c2255053e002062f20bfd59fed; 61 focused/0; Windows/menu and two reviewed private stills.
+Receipts work/quality-v075/ACTUAL075 CHECKS.json and DELIVERED v0.075.json.
+Do not rebuild075. Next076: funded territorial change.
 Whole-game quality/strict performance and071 listening remain OPEN. Root owns tests/delivery.
-
-ACTIVE SOURCE075: one bounded generic funded corridor across generated groups,
-independent observed NPC conflicts and physical paid recovery. Exact Bridge
-projects/allowlists: work/quality-v075/TEAM075 PROJECTS.json and ROLE075.txt.
-Two Sol6.1MAX/two Grok4.7HIGH, source-only; Root alone owns native/Windows/private
-chart witness and delivery. Retain074 combat/073 assets without broad reruns.
-No sovereignty/access076, free resources or new simulation framework. Deliver075
-before076 source; installed074 remains current.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -41,7 +33,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through074 are scoped verified;075-078 remain planned. Earlier quality
+063 through075 are scoped verified;076-078 remain planned. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051

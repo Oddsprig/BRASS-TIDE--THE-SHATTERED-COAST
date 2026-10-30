@@ -1,4 +1,4 @@
-BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.074)
+BRASS TIDE — REGIONAL-GOALS MAP (generated; v0.075)
 
 Existing corridor fleets and paid supplies -> shared convoy/intercept/patrol plans, route-and-return readiness, observed stalls/resume and physical progress; other regional goals retained.
 
@@ -29,7 +29,7 @@ game/scripts/regional_rules.gd: 10717 bytes; extends RefCounted
   game/scripts/regional_rules.gd:135 relief_ready()
   game/scripts/regional_rules.gd:138 peace_conditions()
   game/scripts/regional_rules.gd:157 expire()
-game/scripts/regional_orders.gd: 15098 bytes; extends RefCounted
+game/scripts/regional_orders.gd: 17149 bytes; extends RefCounted
   game/scripts/regional_orders.gd:11 watch_state()
   game/scripts/regional_orders.gd:19 assigned()
   game/scripts/regional_orders.gd:22 operation()

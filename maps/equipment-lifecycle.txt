@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.074)
+BRASS TIDE — EQUIPMENT-LIFECYCLE MAP (generated; v0.075)
 
 Constructors and saved careers -> immutable physical births, global custody checks and preserved equipment on capture. Multiple prizes stage without duplicate custody; source payload cannot forge condition or increase an actual donor hull's HP. Harbor merges paid service, commission journal compatibility and lifecycle purchases.
 
@@ -24,13 +24,13 @@ game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:260 is_active()
   game/scripts/equipment_recovery.gd:271 is_store_good()
   game/scripts/equipment_recovery.gd:276 retain()
-game/scripts/campaign.gd: 97842 bytes; extends RefCounted
-  game/scripts/campaign.gd:104 home_local064()
-  game/scripts/campaign.gd:107 world_location064()
-  game/scripts/campaign.gd:119 world_view064()
-  game/scripts/campaign.gd:163 transition_blocker064()
-  game/scripts/campaign.gd:187 approach_course064()
-  game/scripts/campaign.gd:199 transition064()
+game/scripts/campaign.gd: 98722 bytes; extends RefCounted
+  game/scripts/campaign.gd:107 home_local064()
+  game/scripts/campaign.gd:110 world_location064()
+  game/scripts/campaign.gd:122 world_view064()
+  game/scripts/campaign.gd:166 transition_blocker064()
+  game/scripts/campaign.gd:190 approach_course064()
+  game/scripts/campaign.gd:202 transition064()
 game/scripts/save_validation.gd: 29632 bytes; extends RefCounted
   game/scripts/save_validation.gd:212 job_error070()
   game/scripts/save_validation.gd:217 validate()
@@ -45,13 +45,13 @@ game/scripts/harbor.gd: 13773 bytes; extends RefCounted
   game/scripts/harbor.gd:60 commission()
   game/scripts/harbor.gd:91 collect()
   game/scripts/harbor.gd:114 tick_yards()
-game/scripts/naval_replacements.gd: 19075 bytes; extends RefCounted
+game/scripts/naval_replacements.gd: 21741 bytes; extends RefCounted
   game/scripts/naval_replacements.gd:17 quote_at_port()
   game/scripts/naval_replacements.gd:26 can_materials()
   game/scripts/naval_replacements.gd:35 consume_materials()
   game/scripts/naval_replacements.gd:42 owner_has_queued_replacement()
   game/scripts/naval_replacements.gd:59 available_recruits()
-  game/scripts/naval_replacements.gd:66 attach_new_boat()
+  game/scripts/naval_replacements.gd:68 enrolled_yard075()
 game/scripts/boarding_ops.gd: 9947 bytes; extends RefCounted
   game/scripts/boarding_ops.gd:9 rules()
   game/scripts/boarding_ops.gd:11 price()

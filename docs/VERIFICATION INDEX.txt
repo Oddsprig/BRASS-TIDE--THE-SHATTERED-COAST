@@ -1,3 +1,6 @@
+v0.075 CURRENT:61/0; actual funded corridor/NPC conflict/paid recovery and Windows/title; two private chart/intel stills reviewed by Root.
+work/quality-v075/ACTUAL075 CHECKS.json;074 combat/073 art retained by exact source/asset byte proof. Earlier strict performance,071 listening and whole-game quality remain open.
+
 v0.074 CURRENT:20/0; counterplay and Windows/title; one private300-frame battle prefix reviewed by Root.
 work/quality-v074/ACTUAL074 CHECKS.json;073 art retained by exact source/asset byte proof. Earlier strict performance,071 listening and whole-game quality remain open.
 

@@ -552,3 +552,5 @@ canonical owner/location and the existing daily payroll; geographic ownership
 must not claim an entire archipelago from one harbor. Factory defaults must
 be zeroed before funding a historical branch split. Pending installation may
 retry on a published day, but installed accounts never refill on load.
+
+075: Do not require one natural trading voyage also to be attacked. Separate natural funded progression from a declared ordinary-asset encounter opening, keeping every financial/physical assertion. Avoid duplicate subprocess Git proofs;075 final QA timing gate missed180s and remains failed. Record honest final time, not a faster selected subset. Do not repeat engines solely to chase wall-clock time.
