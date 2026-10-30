@@ -329,6 +329,19 @@ static func protection_threat(enemy: Dictionary, ally: Dictionary, now: float, l
 		return present
 	var delta: Vector2 = pos(enemy) - pos(ally)
 	var relative: Vector2 = velocity(enemy) - velocity(ally)
+	# A light gun pass or fixed-tube threat can circle a beam without closing.
+	# Read the observed fit/motion, never the opponent's order or chosen role.
+	var flank_reach: float = 0.0
+	var light: bool = radius(enemy) <= 24.0 and number(dictionary(enemy.get("spec")).get("speed")) >= 95.0
+	for mount: Dictionary in working_mounts(enemy):
+		if light or fixed_tube(mount):
+			flank_reach = maxf(flank_reach, number(mount.get("range")))
+	var distance: float = delta.length()
+	var radial_speed: float = delta.dot(relative) / maxf(1.0, distance)
+	var off_bow: float = absf(angle_difference(number(ally.get("angle")), delta.angle()))
+	if flank_reach > 0.0 and distance <= flank_reach and (leash <= 0.0 or distance <= leash) and off_bow > 0.6 and off_bow < PI - 0.6 and radial_speed <= maxf(2.0, relative.length() * 0.25):
+		# Turning away still escapes this preference; no chase beyond gun reach.
+		present = maxf(present, 0.6 * (1.0 - distance / (flank_reach * 2.0)))
 	if delta.dot(relative) >= 0.0:
 		return present
 	var reach: float = 0.0
@@ -409,7 +422,11 @@ static func choose_target(view: Dictionary, ship: Dictionary, previous: Dictiona
 		if owner.is_empty() or str(owner_id) == str(ship.id) or owner.get("team") != ship.get("team") or number(held.get("until")) <= now or int(number(held.get("sector"), -1.0)) < 0:
 			continue
 		var held_target: String = str(held.get("targetId", ""))
-		pressure[held_target] = mini(3, int(pressure.get(held_target, 0)) + 1)
+		if not pressure.has(held_target):
+			pressure[held_target] = []
+		var partners: Array = pressure[held_target]
+		if partners.size() < 3:
+			partners.append({"owner": owner, "held": held})
 	var detailed_ids: Array = []
 	var named: String = str(dictionary(ship.get("orderTarget")).get("shipId", "")) if str(ship.get("order", "")) in ["attack", "board"] else ""
 	for entry: Dictionary in shortlist(view, ship, context, protected):
@@ -428,11 +445,41 @@ static func choose_target(view: Dictionary, ship: Dictionary, previous: Dictiona
 		var access: float = 1.0 if distance <= reach else 0.0
 		var cost: float = distance / maxf(80.0, reach)
 		var protection: float = protection_threat(other, protected, now, minf(600.0, maxf(0.0, number(options(view, ship).get("leash"), 600.0)))) if role == "screen" else threat(other, protected, now)
+		if role == "heavy" and distance <= reach:
+			# Cover local flank passes as well as attacks on a protected ally.
+			# The existing pressure station/helm still owns all movement and arcs.
+			protection = maxf(protection, protection_threat(other, ship, now))
 		var score: float = (6.0 if role == "screen" else 3.0) * protection + 2.0 * fit + 2.0 * access + vulnerability - cost
 		if role == "skirmisher" and radius(other) > radius(ship) and threat(other, ship, now) < protection:
 			score += 0.75 # Observed guns face the ally: exploit the distracted hull.
 		if str(ship.get("order", "engage")) == "engage" and role != "screen":
-			score -= float(pressure.get(str(entry.id), 0)) * 0.9
+			var partners: Array = array(pressure.get(str(entry.id)))
+			var complementary: bool = false
+			# Reward one useful partner, not a growing pile-on or a promised ring.
+			# Distant/faster targets retain the ordinary spread/pursuit policy.
+			if role in ["skirmisher", "striker"] and partners.size() in [1, 2] and distance > radius(ship) + radius(other) + 24.0 and distance <= reach * 1.25 and (distance <= reach or speed(ship) > velocity(other).length() * 1.05):
+				var radial: Vector2 = (pos(ship) - pos(other)).normalized()
+				for partner: Dictionary in partners:
+					var owner: Dictionary = partner.owner
+					if useful_mounts(view, owner).is_empty():
+						continue
+					var partner_reach: float = useful_range(view, owner)
+					var partner_point: Vector2 = pos(owner)
+					var held_anchor: Variant = dictionary(partner.held).get("anchor")
+					if held_anchor is Vector2 and held_anchor.is_finite() and partner_point.distance_to(held_anchor) <= maxf(40.0, speed(owner) * 2.0) and held_anchor.distance_to(pos(other)) <= partner_reach:
+						partner_point = held_anchor
+					var partner_delta: Vector2 = partner_point - pos(other)
+					if partner_delta.length() <= radius(owner) + radius(other) + 24.0 or partner_delta.length() > partner_reach * 1.25:
+						continue
+					if partner_delta.length() > partner_reach and speed(owner) <= velocity(other).length() * 1.05:
+						continue
+					if radial.dot(partner_delta.normalized()) <= 0.0:
+						complementary = true
+						break
+			# A second partner still costs pressure; three or more get no bonus.
+			if complementary:
+				score += 0.75
+			score -= float(maxi(0, partners.size() - (1 if complementary else 0))) * 0.9
 		if str(previous.get("targetId", "")) == entry.id:
 			score += 0.6
 		scored.append({"id": entry.id, "score": score})
