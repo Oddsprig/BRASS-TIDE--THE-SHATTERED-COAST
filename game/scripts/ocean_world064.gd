@@ -21,7 +21,7 @@ static func remote_port068() -> Dictionary:
 		"x":756.0,"y":732.0}
 
 
-static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary) -> Dictionary:
+static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary, harbors: Array = []) -> Dictionary:
 	var error: String = _definitions_error(home, atlas, home_nav)
 	if not error.is_empty():
 		return _failure("definitions", error, "context")
@@ -35,12 +35,32 @@ static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary) ->
 	var ports: Dictionary = {}
 	for port in home.PORTS:
 		ports[port.id] = _point(port)
+	var geometry: Dictionary = {HOME: home_nav}
+	for region_id in regions:
+		if region_id != HOME:
+			var local_region: Dictionary = regions[region_id]
+			geometry[region_id] = Navigation.geometry(local_region.islands, local_region.width, local_region.height)
 	var remote: Dictionary = regions[REMOTE]
-	# One coarse remote grid, never a second home grid or a per-hull grid.
+	# Keep Glasswind pinned: its existing merchant stays physical while the player
+	# visits generated charts. Only ONE additional generated grid may be active.
 	var remote_nav: Dictionary = Navigation.create(remote.islands, remote.width, remote.height, Navigation.DEFAULT_CELL * COAST_SCALE)
 	var context: Dictionary = {"schema": 1, "ocean": atlas.ocean.duplicate(true), "regions": regions,
-		"ports": ports, "homeNav": home_nav, "remoteNav": remote_nav, "regionViews": []}
-	for region_id in REGION_ORDER:
+		"atlasSchema": int(atlas.schema), "ports": ports, "homeNav": home_nav, "remoteNav": remote_nav,
+		"regionGeometry": geometry, "activeRegionId": "", "activeNav": {}, "harbors": {}, "regionViews": []}
+	for harbor in harbors:
+		if not harbor is Dictionary or not _plain(harbor) or not _text(harbor.get("id")) or not _text(harbor.get("regionId")):
+			return _failure("definitions", "Harbor berths require canonical string identities.", "context")
+		if context.harbors.has(harbor.id) or ports.has(harbor.id) or harbor.id == REMOTE_PORT068 or not regions.has(harbor.regionId) or harbor.regionId in REGION_ORDER:
+			return _failure("definitions", "Repeated harbor or unknown generated harbor region.", "context")
+		if not _number(harbor.get("x")) or not _number(harbor.get("y")) or not _text(harbor.get("islandId")):
+			return _failure("definitions", "Harbor berths require finite coordinates and an island.", "context")
+		var harbor_region: Dictionary = regions[harbor.regionId]
+		if not harbor_region.islands.any(func(island): return island.id == harbor.islandId) or not Navigation.is_water(geometry[harbor.regionId], harbor.x, harbor.y):
+			return _failure("definitions", "Harbor berth is not clear water beside a canonical island.", "context")
+		# No faction, service, stock, purse or knowledge enters the spatial context.
+		context.harbors[harbor.id] = {"id": harbor.id, "regionId": harbor.regionId, "islandId": harbor.islandId, "x": float(harbor.x), "y": float(harbor.y)}
+	for definition in atlas.regions:
+		var region_id: String = definition.id
 		var region: Dictionary = regions[region_id]
 		for approach in region.approaches:
 			if not _approach_safe(context, region, approach, Navigation.DEFAULT_CLEARANCE):
@@ -52,7 +72,12 @@ static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary) ->
 static func prepare(saved: Dictionary, context: Dictionary, clearance: float) -> Dictionary:
 	# Copy only spatial fields before validation; no account is copied or published.
 	# Caller must finish legacy CoastMigration first. A revision-1 save is refused.
-	return _read_location(saved, context, clearance, true)
+	var result: Dictionary = _read_location(saved, context, clearance, true)
+	if result.ok:
+		# Restore/entry prepares navigation in the unpublished runtime context.
+		# Preparing another actor at HOME/Glasswind never evicts the player's grid.
+		_activate(context, result.location.world064)
+	return result
 
 
 static func plot(context: Dictionary, location: Dictionary, target: Dictionary, destination: String, clearance: float) -> Dictionary:
@@ -92,7 +117,10 @@ static func plot(context: Dictionary, location: Dictionary, target: Dictionary, 
 		if ocean:
 			path.append(endpoint)
 		else:
-			path = Navigation.find_path(_nav(context, loc.world064), loc.position, endpoint, actual)
+			var navigation: Dictionary = _nav(context, loc.world064)
+			if navigation.is_empty():
+				return _failure("definitions", "Prepare this local chart before publishing its runtime context.")
+			path = Navigation.find_path(navigation, loc.position, endpoint, actual)
 			if path.size() < 2:
 				return _failure("route", "No safe water route for this fleet clearance.")
 			path.pop_front()
@@ -170,6 +198,7 @@ static func transition(context: Dictionary, location: Dictionary, region_id: Str
 	var endpoint: Dictionary = _unproject(context, region, loc.position) if ocean else _project(context, region, loc.position)
 	if not _water(context, identity, endpoint, actual):
 		return _failure("approach", "The exact transfer endpoint is not safe navigable water.")
+	_activate(context, identity, true)
 	loc.world064 = identity
 	loc.position = endpoint
 	loc.path = []
@@ -321,20 +350,49 @@ static func _definitions_error(home: Dictionary, atlas: Dictionary, home_nav: Di
 		if not _number(port.get("x")) or not _number(port.get("y")) or not Navigation.is_water(home_nav, port.x, port.y):
 			return "A home port has invalid navigable coordinates."
 		seen_ports[port.id] = true
-	if not _keys(atlas, ["schema", "ocean", "regions"]) or not _number(atlas.schema) or atlas.schema != 1:
+	return atlas_error(home, atlas)
+
+
+static func region_order069() -> Array:
+	var order: Array = REGION_ORDER.duplicate()
+	for band in [{"id": "settled", "count": 7}, {"id": "frontier", "count": 11}, {"id": "remote", "count": 28}]:
+		for index in range(1, int(band.count) + 1):
+			order.append("%s_%02d" % [band.id, index])
+	return order
+
+
+static func local_id_valid(value) -> bool:
+	if not _text(value) or value.length() > 64 or value in [HOME, OCEAN]:
+		return false
+	for character in value:
+		if not character in "abcdefghijklmnopqrstuvwxyz0123456789_":
+			return false
+	return true
+
+
+static func atlas_error(home: Dictionary, atlas: Dictionary) -> String:
+	# Geometry-only validation is also used before publishing canonical saved sectors.
+	# This function never allocates a grid or reads campaign ownership/accounts.
+	if not _keys(atlas, ["schema", "ocean", "regions"]) or not _number(atlas.schema) or atlas.schema not in [1, 2] or not _plain(atlas):
 		return "Unsupported world catalog schema."
+	var generated: bool = atlas.schema == 2
 	var ocean = atlas.ocean
 	if not _keys(ocean, ["id", "name", "width", "height", "localUnitsPerUnit"]):
 		return "Missing ocean definitions."
 	if ocean.id != OCEAN or ocean.name != "Open Ocean" or not _number(ocean.width) or not _number(ocean.height) or not _number(ocean.localUnitsPerUnit):
 		return "Invalid ocean identity or numeric definitions."
-	if ocean.width != 4800.0 or ocean.height != 2800.0 or ocean.localUnitsPerUnit != 10.0:
+	if ocean.width != (12800.0 if generated else 4800.0) or ocean.height != (8400.0 if generated else 2800.0) or ocean.localUnitsPerUnit != 10.0:
 		return "Unexpected ocean dimensions or distance scale."
-	if not atlas.regions is Array or atlas.regions.size() != 2:
-		return "Exactly Shatter Coast and Glasswind Keys are required."
+	var order: Array = region_order069() if generated else REGION_ORDER
+	if not atlas.regions is Array or atlas.regions.size() != order.size():
+		return "The catalog requires exactly two legacy regions or 48 canonical sector regions."
+	if not _islands_valid(home.get("ISLANDS"), HOME_WIDTH, HOME_HEIGHT, 8):
+		return "The unchanged home island geometry is required."
 	var seen_regions: Dictionary = {}
-	for region in atlas.regions:
-		if not region is Dictionary or not _text(region.get("id")) or region.id not in REGION_ORDER or seen_regions.has(region.id):
+	var projected_bounds: Array = []
+	for region_index in range(atlas.regions.size()):
+		var region = atlas.regions[region_index]
+		if not region is Dictionary or not _text(region.get("id")) or region.id != order[region_index] or seen_regions.has(region.id):
 			return "Unknown or repeated region."
 		seen_regions[region.id] = true
 		var home_region: bool = region.id == HOME
@@ -345,10 +403,26 @@ static func _definitions_error(home: Dictionary, atlas: Dictionary, home_nav: Di
 			if region.layer != "home" or region.name != "Shatter Coast" or region.source != "home" or region.oceanOrigin != {"x": 700.0, "y": 1100.0}:
 				return "Invalid Shatter Coast regional identity."
 		else:
-			if region.layer != "local" or region.name != "Glasswind Keys" or region.oceanOrigin != {"x": 3300.0, "y": 600.0}:
+			if region.layer != "local" or not local_id_valid(region.id) or not _text(region.name):
+				return "Invalid local regional identity."
+			if region.id == REMOTE and (region.name != "Glasswind Keys" or region.oceanOrigin != {"x": 3300.0, "y": 600.0}):
 				return "Invalid Glasswind Keys regional identity."
-			if not _number(region.width) or not _number(region.height) or region.width != 4200.0 or region.height != 3000.0 or not _islands_valid(region.islands, 4200.0, 3000.0, 3):
-				return "Glasswind Keys requires its finite bounds and three islands."
+			if not _number(region.width) or not _number(region.height) or region.width != 4200.0 or region.height != 3000.0:
+				return "Local charts require their finite canonical bounds."
+			if not region.islands is Array or region.islands.size() < 2 or region.islands.size() > 4 or (region.id == REMOTE and region.islands.size() != 3):
+				return "A local chart needs its bounded island set."
+			if not _islands_valid(region.islands, 4200.0, 3000.0, region.islands.size()):
+				return "Invalid local island geometry."
+		var width: float = HOME_WIDTH if home_region else float(region.width)
+		var height: float = HOME_HEIGHT if home_region else float(region.height)
+		var rectangle: Dictionary = {"x": float(region.oceanOrigin.x), "y": float(region.oceanOrigin.y), "width": width / 10.0, "height": height / 10.0}
+		if rectangle.x < 0.0 or rectangle.y < 0.0 or rectangle.x + rectangle.width > ocean.width or rectangle.y + rectangle.height > ocean.height:
+			return "A projected local chart lies outside the ocean."
+		for other in projected_bounds:
+			if maxf(rectangle.x, other.x) < minf(rectangle.x + rectangle.width, other.x + other.width) and maxf(rectangle.y, other.y) < minf(rectangle.y + rectangle.height, other.y + other.height):
+				return "Projected local charts must not overlap."
+		projected_bounds.append(rectangle)
+		var physical: Dictionary = Navigation.geometry(home.ISLANDS if home_region else region.islands, width, height)
 		if not region.approaches is Array or region.approaches.size() != 2:
 			return "Each region needs north and south approaches."
 		var seen_approaches: Dictionary = {}
@@ -360,6 +434,9 @@ static func _definitions_error(home: Dictionary, atlas: Dictionary, home_nav: Di
 			var expected: Dictionary = {"x": 5200.0, "y": 300.0 if approach.id == "north" else 6900.0} if home_region else {"x": 2100.0, "y": 200.0 if approach.id == "north" else 2800.0}
 			if approach.position != expected:
 				return "Unexpected coastal approach position."
+			var disk: float = float(approach.radius) + Navigation.DEFAULT_CLEARANCE
+			if not Navigation.is_water(physical, approach.position.x, approach.position.y, disk):
+				return "A coastal approach disk is not safe water."
 			seen_approaches[approach.id] = true
 	return ""
 
@@ -370,9 +447,12 @@ static func _context_valid(context: Dictionary) -> bool:
 	for key in ["width", "height", "localUnitsPerUnit"]:
 		if not _number(context.ocean.get(key)) or float(context.ocean[key]) <= 0.0:
 			return false
-	if not context.get("ports") is Dictionary or not context.get("regionViews") is Array or context.regionViews.size() != 2:
+	if context.get("atlasSchema") not in [1, 2] or not context.get("ports") is Dictionary or not context.get("regionViews") is Array:
 		return false
-	for region_id in REGION_ORDER:
+	var count: int = 48 if context.atlasSchema == 2 else 2
+	if context.regions.size() != count or context.regionViews.size() != count or not context.get("regionGeometry") is Dictionary or context.regionGeometry.size() != count:
+		return false
+	for region_id in context.regions:
 		if not context.regions.get(region_id) is Dictionary:
 			return false
 		var region: Dictionary = context.regions[region_id]
@@ -380,7 +460,15 @@ static func _context_valid(context: Dictionary) -> bool:
 			return false
 		if not region.get("islands") is Array or not region.get("approaches") is Array or not _is_point(region.get("oceanOrigin")):
 			return false
+		if not context.regionGeometry.get(region_id) is Dictionary:
+			return false
 	if not context.get("homeNav") is Dictionary or not context.get("remoteNav") is Dictionary:
+		return false
+	if not context.regions.has(HOME) or not context.regions.has(REMOTE) or not context.get("harbors") is Dictionary or not context.get("activeNav") is Dictionary or not context.get("activeRegionId") is String:
+		return false
+	if context.activeRegionId.is_empty():
+		if not context.activeNav.is_empty():return false
+	elif context.activeRegionId in REGION_ORDER or not context.regions.has(context.activeRegionId) or not _nav_valid(context.activeNav, 4200.0, 3000.0):
 		return false
 	return _nav_valid(context.homeNav, HOME_WIDTH, HOME_HEIGHT) and _nav_valid(context.remoteNav, 4200.0, 3000.0)
 
@@ -403,7 +491,7 @@ static func _read_location(saved: Dictionary, context: Dictionary, clearance: fl
 		return _failure("location", "Invalid world064 spatial identity.")
 	if not identity.layer is String or not identity.regionId is String:
 		return _failure("location", "World layer and region must be strings.")
-	if not ((identity.layer == "home" and identity.regionId == HOME) or (identity.layer == "local" and identity.regionId == REMOTE) or (identity.layer == "ocean" and identity.regionId == OCEAN)):
+	if not ((identity.layer == "home" and identity.regionId == HOME) or (identity.layer == "local" and local_id_valid(identity.regionId) and context.regions.has(identity.regionId)) or (identity.layer == "ocean" and identity.regionId == OCEAN)):
 		return _failure("location", "World layer and region do not form a supported pair.")
 	if not _is_point(raw.position) or not _number(raw.heading) or not raw.path is Array or not raw.destination is String:
 		return _failure("location", "Missing or invalid position, heading, path or destination.")
@@ -436,13 +524,32 @@ static func _read_location(saved: Dictionary, context: Dictionary, clearance: fl
 		if identity.layer == "ocean":
 			if not _water(context, identity, loc.position, actual):
 				return _failure("route", "The ocean route start is outside fleet bounds.")
-		elif not Navigation.path_clear(_nav(context, identity), loc.position, loc.path, actual):
+		elif not Navigation.path_clear(_geometry(context, identity), loc.position, loc.path, actual):
 			return _failure("route", "The saved route is unsafe for this fleet clearance.")
 	return _success("location", loc, "Location prepared.")
 
 
 static func _nav(context: Dictionary, identity: Dictionary) -> Dictionary:
-	return context.homeNav if identity.layer == "home" else context.remoteNav
+	if identity.layer == "home":return context.homeNav
+	if identity.regionId == REMOTE:return context.remoteNav
+	return context.activeNav if context.activeRegionId == identity.regionId else {}
+
+
+static func _geometry(context: Dictionary, identity: Dictionary) -> Dictionary:
+	return context.regionGeometry[identity.regionId]
+
+
+static func _activate(context: Dictionary, identity: Dictionary, evict: bool = false) -> void:
+	# Call only on restore/transition, before publishing this runtime to workers.
+	if identity.layer == "local" and identity.regionId != REMOTE:
+		if context.activeRegionId != identity.regionId:
+			var region: Dictionary = context.regions[identity.regionId]
+			var navigation: Dictionary = Navigation.create(region.islands, region.width, region.height, Navigation.DEFAULT_CELL * COAST_SCALE)
+			context.activeNav = navigation
+			context.activeRegionId = identity.regionId
+	elif evict:
+		context.activeNav = {}
+		context.activeRegionId = ""
 
 
 static func _bounded(context: Dictionary, identity: Dictionary, point: Dictionary, clearance: float) -> bool:
@@ -454,13 +561,13 @@ static func _bounded(context: Dictionary, identity: Dictionary, point: Dictionar
 static func _water(context: Dictionary, identity: Dictionary, point: Dictionary, clearance: float) -> bool:
 	if not _bounded(context, identity, point, clearance):
 		return false
-	return identity.layer == "ocean" or Navigation.is_water(_nav(context, identity), point.x, point.y, clearance)
+	return identity.layer == "ocean" or Navigation.is_water(_geometry(context, identity), point.x, point.y, clearance)
 
 
 static func _segment_safe(context: Dictionary, identity: Dictionary, from: Dictionary, to: Dictionary, clearance: float) -> bool:
 	if identity.layer == "ocean":
 		return _water(context, identity, from, clearance) and _water(context, identity, to, clearance)
-	return Navigation.path_clear(_nav(context, identity), from, [to], clearance)
+	return Navigation.path_clear(_geometry(context, identity), from, [to], clearance)
 
 
 static func _approach(region: Dictionary, approach_id: String) -> Dictionary:
@@ -498,6 +605,11 @@ static func _destination(context: Dictionary, identity: Dictionary, destination:
 		return {"ok": false, "message": "Home destinations must be original home port IDs or empty."}
 	if identity.layer == "local" and identity.regionId == REMOTE and destination == REMOTE_PORT068:
 		return {"ok":true,"port":_point(remote_port068())}
+	if identity.layer == "local" and context.harbors.has(destination):
+		var harbor: Dictionary = context.harbors[destination]
+		if harbor.regionId != identity.regionId:
+			return {"ok": false, "message": "A local course cannot target another region's harbor."}
+		return {"ok": true, "port": _point(harbor)}
 	var parts: PackedStringArray = destination.split(":", true)
 	if parts.size() != 3 or parts[0] != "approach" or not context.regions.has(parts[1]):
 		return {"ok": false, "message": "Unknown regional approach destination."}
@@ -527,7 +639,8 @@ static func _region_view(context: Dictionary, region: Dictionary) -> Dictionary:
 	var approaches: Array = []
 	for approach in region.approaches:
 		approaches.append(_approach_view(region.id, approach, _project(context, region, approach.position), float(approach.radius) / float(context.ocean.localUnitsPerUnit)))
-	return {"regionId": region.id, "name": region.name, "layer": region.layer, "silhouettes": silhouettes, "approaches": approaches}
+	return {"regionId": region.id, "name": region.name, "layer": region.layer, "silhouettes": silhouettes, "approaches": approaches,
+		"bounds": {"x": float(region.oceanOrigin.x), "y": float(region.oceanOrigin.y), "width": float(region.width) / float(context.ocean.localUnitsPerUnit), "height": float(region.height) / float(context.ocean.localUnitsPerUnit)}}
 
 
 static func _plain(value, depth: int = 0) -> bool:

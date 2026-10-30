@@ -1,0 +1,98 @@
+v0.069 A MODEL API - locked handoff, 29 October 2026
+Source implementation ready for Root review; Root owns execution/acceptance.
+
+PUBLIC ENTRY POINTS
+const Sector = preload("res://scripts/sector_world069.gd")
+Sector.generate(seed:int, home:Dictionary, anchors:Dictionary) -> Dictionary
+Sector.prepare(saved:Dictionary, home:Dictionary, anchors:Dictionary) -> Dictionary
+anchors is the unchanged parsed res://data/ocean_regions064.json (schema 1).
+Both return {ok:bool, code:String, message:String, sector:Dictionary, atlas:Dictionary}.
+Failure has empty sector/atlas. Absent saved.sector069 succeeds with sector={} and
+an unchanged detached legacy atlas. Present sector069 is validated/copied, NEVER
+regenerated or economically applied. seed is int (integral JSON numbers accepted
+and normalized to int); seed provenance survives normalization of the private RNG.
+If saved.seed is present, it must equal sector069.seed. Float JSON seeds must be
+integral within the exact JSON integer range; native int input keeps its 64 bits.
+
+CANONICAL SECTOR (save exactly once on explicit NEW GAME)
+{schema:1,generatorRevision:"069.1",seed:123,atlas:{schema:2,ocean:{id:"open_ocean",
+ name:"Open Ocean",width:12800.0,height:8400.0,localUnitsPerUnit:10.0},regions:[...]},
+ regionOrder:["shatter_coast","glasswind_keys","settled_01",...,"settled_07",
+ "frontier_01",...,"frontier_11","remote_01",...,"remote_28"],
+ bands:{"shatter_coast":"settled","glasswind_keys":"frontier","settled_01":"settled",...},
+ islandFacts:{"settled_01/settled_01_island_01":{regionId:"settled_01",
+ islandId:"settled_01_island_01",resource:"food",hazard:"...",siteIds:["settled_01_survey"]},...},
+ sites:[...],harbors:[...],initialOwnership:[...],openingLedger:{...}}
+Exactly 48 TOTAL: 8 settled / 12 frontier / 28 remote, including both old regions.
+regionOrder is canonical. All dictionary keys are Strings. No live economy here.
+Atlas islands have EXACT {id,name,color,points}; all resources/owners are sidecars.
+Original two region definitions, origins, polygons and approach coordinates remain
+unchanged. Generated local charts are 4200x3000, north (2100,200), south (2100,2800),
+radius 80; generously separated ocean slots, seeded reusable authored variations.
+
+GENERATED SITE DTO (46 entries; add to existing authored catalog, do not replace it)
+{id:"settled_01_survey",name:"... Survey Landing",regionId:"settled_01",
+ islandId:"settled_01_island_01",x:1500.0,y:800.0,kind:"sector_survey",region:"...",
+ clue:"...",discovery:"...",hazard:"...",resource:"food",leadId:""}
+Illustrative coordinates; ALWAYS consume saved values. Resource/discovery are paid
+survey findings, never a recoverable cargo grant/cache or an opening player gift.
+Existing home sites and exact three Glasswind sites/cache remain B's existing path.
+
+GENERATED HARBOR DTO (19 entries: 8 settled harbors + 11 frontier harbors)
+{id:"settled_01_harbor_01",name:"... Roads",regionId:"settled_01",
+ islandId:"settled_01_island_01",x:1500.0,y:800.0,faction:"compact",
+ industry:"agriculture",specialty:"food",services:["trade","supplies","fuel"]}
+settled_01_harbor_02 is reed, separate island_02, timber industry/logs specialty.
+Every other added settled/frontier group has harbor_01; remote groups have none.
+harbors contains ONLY NEW generated definitions; old home ports and Westglass keep
+their existing installation paths. Definitions contain no purse/stock/boat copies.
+initialOwnership rows {regionId,islandId,faction} and {regionId,islandId,portId,faction}.
+Rows include old authored assets as starting provenance; faction "" means actual
+neutral/unclaimed, never unknown knowledge. B's live island records/port.faction
+own current control; never reapply this provenance on load/visit.
+
+OPENING LEDGER (immutable opening provenance, not a live wallet)
+{schema:1,kind:"finite_new_world_endowment",provenance:"new_game_only:069.1",
+ harbors:[{portId:"settled_01_harbor_01",regionId:"settled_01",
+ provenance:"new_game_only:069.1:settled_01_harbor_01",allocation:{
+ population:24,workforce:24,workers:0,employedWorkers:0,availableWorkers:24,
+ publicWorkers:0,specialists:0,specialistWorkers:0,availableSpecialists:0,recruits:0,
+ cash:48000,householdPurse:12000,governmentPurse:24000,expertPurse:0,escrow:0,
+ stocks:{food:72,logs:0,...,fuel:16,supplies:8,...},publicStores:{food:0,...}}},...],
+ totals:{workers:280,coins:980000,stocks:{...all goods...},publicStores:{...all zero...}}}
+All 20 IndustryData.GOOD_KEYS are explicit in stocks/publicStores. Baseline stock
+food=2*N,fuel=16,supplies=8, PLUS specialty=24 (add when same good); all others 0.
+N=24 settled, 8 frontier. All purse multipliers use ordinary 100 coin wage-days:
+household5, business20, government10. Specialists/recruits/public/employed=0.
+B applies allocation through Economy.create_port ONCE on fresh new_game ONLY,
+and explicitly supplies shipStock={},shipIds=[],buildQueue=[] to suppress defaults.
+No ledger allocations to old ports/player, no ships/hulls, no restore-time grants.
+The world endowment is declared new-world wealth, not a transfer from old accounts.
+
+WORLD / CHART / RUNTIME
+World.create(home,atlas,home_nav,harbors:Array=[]) keeps its context result shape.
+Pass sector.harbors for generated berth membership; pass [] for legacy mode.
+World.prepare/plot/advance/transition signatures and world064 schema 1 stay intact.
+World.view supplies ONE geometry view containing all 48 region outlines/approaches;
+same existing fields, no parallel sector geometry. Regions additionally supply
+bounds:{x,y,width,height} in ocean units for cached culling. Local islands stay exact.
+world064 local pairs admit only actual context.regions membership; HOME/OCEAN pairs
+remain exact. Destination is the canonical harbor id or approach:regionId:north|south.
+Runtime retains shared homeNav + pinned Glasswind remoteNav + <=1 active generated
+grid. World.prepare restores the current grid; transition prepares a generated
+destination grid before returning/publishing it. Geometry-only checks and views
+never create grids. No per-actor/home/Glasswind cache thrash or per-hull grids.
+Navigation.geometry(islands,width,height) returns detached prepared polygon bounds,
+without nodes/edges; create/find_path/current clearance predicates keep behavior.
+No nav cache belongs in sector/save/view. B must prepare contexts before worker use.
+
+A SOURCE REVIEW / HANDOFF
+Only A's seven locked files changed; original ocean_regions064.json unchanged.
+Read/diff review covered unchanged clearance predicates and home/Glasswind data,
+bounded seeded slots, canonical String-key sidecars, once-only declared allocations,
+legacy absence retention, present corruption refusal, and pinned/active cache paths.
+Fixture: res://tests/test_sector_model069.gd; JSON receipt and standard final
+"<total> checks, <failures> failures" line. Fixture is SOURCE ONLY and UNEXECUTED.
+No engine, test, advisory, process/queue, GPU, UI, install, tag, export or launch run.
+Six reusable layout families/five polygon profiles use seeded dimensions/mirroring;
+this is the bounded 069 geography scope, not an art or dynamic expansion milestone.

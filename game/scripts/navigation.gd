@@ -137,12 +137,10 @@ static func _clear(nav: Dictionary, a: Dictionary, b: Dictionary, clearance = DE
 	return true
 
 
-static func create(islands = [], width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, cell = DEFAULT_CELL) -> Dictionary:
+static func geometry(islands = [], width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT) -> Dictionary:
+	# The exact same physical predicates can inspect detached polygons without a grid.
 	var w := float(width) if (_is_finite_num(width) and float(width) > 20.0) else DEFAULT_WIDTH
 	var h := float(height) if (_is_finite_num(height) and float(height) > 20.0) else DEFAULT_HEIGHT
-	var c := maxf(10.0, float(cell)) if (_is_finite_num(cell) and float(cell) > 0.0) else DEFAULT_CELL
-	while ceil(w / c) * ceil(h / c) >= float(MAX_NODES):
-		c *= 1.05
 	var clean_islands: Array = []
 	if islands is Array:
 		for raw_island in islands:
@@ -174,19 +172,19 @@ static func create(islands = [], width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT,
 					"maxX": max_x,
 					"maxY": max_y
 				})
+	return {"width": w, "height": h, "clearance": DEFAULT_CLEARANCE, "islands": clean_islands}
+
+
+static func create(islands = [], width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, cell = DEFAULT_CELL) -> Dictionary:
+	var nav: Dictionary = geometry(islands, width, height)
+	var w: float = nav.width
+	var h: float = nav.height
+	var c := maxf(10.0, float(cell)) if (_is_finite_num(cell) and float(cell) > 0.0) else DEFAULT_CELL
+	while ceil(w / c) * ceil(h / c) >= float(MAX_NODES):
+		c *= 1.05
 	var cols := int(ceil(w / c))
 	var rows := int(ceil(h / c))
-	var nav := {
-		"width": w,
-		"height": h,
-		"cell": c,
-		"clearance": DEFAULT_CLEARANCE,
-		"cols": cols,
-		"rows": rows,
-		"islands": clean_islands,
-		"nodes": [],
-		"edges": []
-	}
+	nav.merge({"cell": c, "cols": cols, "rows": rows, "nodes": [], "edges": []})
 	var nodes: Array = nav["nodes"]
 	var edges: Array = nav["edges"]
 	for y in range(rows):

@@ -223,7 +223,8 @@ static func _context_error(context: Dictionary) -> String:
 	var probe: Dictionary = World.prepare(_location({"x": 2400.0, "y": 1400.0}), context.world064Context, 0.0)
 	if not probe.ok:return str(probe.message)
 	var ocean: Dictionary = context.world064Context.ocean
-	if ocean.width != 4800.0 or ocean.height != 2800.0 or ocean.localUnitsPerUnit != SCALE:return "The ocean model requires the existing064 bounds and ten-to-one physical scale."
+	var generated: bool = context.world064Context.get("atlasSchema", 1) == 2
+	if ocean.width != (12800.0 if generated else 4800.0) or ocean.height != (8400.0 if generated else 2800.0) or ocean.localUnitsPerUnit != SCALE:return "The ocean model requires canonical legacy/sector bounds and ten-to-one physical scale."
 	if not _number(context.seed) or float(context.seed) != floorf(float(context.seed)):
 		return "Ocean weather needs an integer campaign seed."
 	if not context.ownerIds is Array or context.ownerIds.is_empty() or context.ownerIds.size() > 3:
@@ -245,7 +246,7 @@ static func _context_error(context: Dictionary) -> String:
 		if not _keys(zone.rect, ["x", "y", "width", "height"]):return "A zone needs one bounded ocean rectangle."
 		for key in ["x", "y", "width", "height"]:
 			if not _number(zone.rect[key]):return "Zone rectangles must be finite."
-		if zone.rect.x < 0.0 or zone.rect.y < 0.0 or zone.rect.width <= 0.0 or zone.rect.height <= 0.0 or zone.rect.x + zone.rect.width > 4800.0 or zone.rect.y + zone.rect.height > 2800.0:
+		if zone.rect.x < 0.0 or zone.rect.y < 0.0 or zone.rect.width <= 0.0 or zone.rect.height <= 0.0 or zone.rect.x + zone.rect.width > ocean.width or zone.rect.y + zone.rect.height > ocean.height:
 			return "Zone rectangles must stay inside the existing ocean."
 		if not _point_valid(zone.current) or _length(zone.current) > 20.0 + EPS:return "Directed currents must be finite and at most twenty local units per second."
 		if not _number(zone.phaseOffset) or float(zone.phaseOffset) != floorf(float(zone.phaseOffset)) or absf(float(zone.phaseOffset)) > 1000.0:
@@ -378,7 +379,9 @@ static func _goal_valid(context: Dictionary, goal) -> bool:
 
 
 static func _identity_valid(identity) -> bool:
-	return _keys(identity, ["schema", "layer", "regionId"]) and _number(identity.schema) and identity.schema == 1 and identity.layer is String and identity.regionId is String and ((identity.layer == "ocean" and identity.regionId == World.OCEAN) or (identity.layer == "home" and identity.regionId == World.HOME) or (identity.layer == "local" and identity.regionId == World.REMOTE))
+	# This is syntax only. Actual actors, goals and sightings still pass World.prepare
+	# against the admitted context, which rejects fabricated region membership.
+	return _keys(identity, ["schema", "layer", "regionId"]) and _number(identity.schema) and identity.schema == 1 and identity.layer is String and identity.regionId is String and ((identity.layer == "ocean" and identity.regionId == World.OCEAN) or (identity.layer == "home" and identity.regionId == World.HOME) or (identity.layer == "local" and World.local_id_valid(identity.regionId)))
 
 
 static func _condition(context: Dictionary, location: Dictionary, now: float, direction: Dictionary = {}) -> Dictionary:

@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "generatorRevision": "069.1",
+  "profiles": {
+    "ridge": [[-1,0],[-0.72,-0.65],[-0.22,-1],[0.3,-0.72],[0.82,-0.48],[1,0.12],[0.44,0.58],[-0.36,1],[-0.74,0.44]],
+    "shelf": [[-1,-0.2],[-0.64,-0.94],[0.12,-0.72],[0.68,-1],[1,-0.12],[0.76,0.6],[0.2,1],[-0.68,0.74]],
+    "hook": [[-1,0],[-0.7,-0.8],[0,-1],[0.8,-0.6],[1,0.12],[0.55,0.04],[0.28,0.58],[-0.15,1],[-0.65,0.6]],
+    "crown": [[-1,-0.18],[-0.66,-0.62],[-0.36,-0.5],[0,-1],[0.34,-0.48],[0.8,-0.66],[1,0.12],[0.42,0.62],[-0.12,1],[-0.66,0.48]],
+    "key": [[-1,-0.12],[-0.64,-0.7],[0.18,-1],[0.9,-0.55],[1,0.2],[0.34,0.68],[-0.34,1],[-0.8,0.5]]
+  },
+  "layouts": [
+    {"id":"fork","label":"Fork Keys","islands":[
+      {"x":930,"y":820,"rx":440,"ry":290,"profile":"ridge"},
+      {"x":3210,"y":1000,"rx":470,"ry":330,"profile":"crown"},
+      {"x":1080,"y":2210,"rx":480,"ry":270,"profile":"hook"}]},
+    {"id":"shelves","label":"Shelf Isles","islands":[
+      {"x":940,"y":710,"rx":460,"ry":230,"profile":"shelf"},
+      {"x":3220,"y":780,"rx":420,"ry":270,"profile":"key"},
+      {"x":990,"y":2160,"rx":510,"ry":250,"profile":"shelf"},
+      {"x":3260,"y":2200,"rx":390,"ry":280,"profile":"ridge"}]},
+    {"id":"crook","label":"Crook Group","islands":[
+      {"x":1000,"y":870,"rx":490,"ry":350,"profile":"hook"},
+      {"x":3230,"y":1680,"rx":450,"ry":320,"profile":"ridge"},
+      {"x":970,"y":2240,"rx":360,"ry":230,"profile":"key"}]},
+    {"id":"crown","label":"Crown Reaches","islands":[
+      {"x":1030,"y":1050,"rx":510,"ry":390,"profile":"crown"},
+      {"x":3240,"y":710,"rx":430,"ry":240,"profile":"ridge"},
+      {"x":3190,"y":2240,"rx":480,"ry":260,"profile":"shelf"}]},
+    {"id":"stair","label":"Stair Keys","islands":[
+      {"x":900,"y":650,"rx":350,"ry":210,"profile":"key"},
+      {"x":3250,"y":1040,"rx":400,"ry":290,"profile":"hook"},
+      {"x":1030,"y":1600,"rx":450,"ry":260,"profile":"shelf"},
+      {"x":3190,"y":2250,"rx":470,"ry":240,"profile":"key"}]},
+    {"id":"split","label":"Split Isles","islands":[
+      {"x":1020,"y":1020,"rx":480,"ry":340,"profile":"ridge"},
+      {"x":3210,"y":1070,"rx":490,"ry":350,"profile":"hook"},
+      {"x":980,"y":2270,"rx":420,"ry":220,"profile":"key"},
+      {"x":3270,"y":2250,"rx":400,"ry":250,"profile":"crown"}]}
+  ],
+  "names": ["Tarnbell","Ochreloom","Morrowfen","Rivetfall","Palespar","Coppersong","Fallowwake",
+    "Brinehook","Wickmarsh","Caskreef","Lowember","Willowflint","Mossbrace","Tallowfin",
+    "Hushwater","Redspindle","Nettlewake","Cairncoil","Amberward","Saltmorrow","Sablehinge",
+    "Pearlgrit","Hearthshoal","Wrenstone","Flintmantle","Duskneedle","Ashpetal","Bellweir",
+    "Hollowtine","Creelwatch","Dunribbon","Kestrelwash","Saffronbar","Sedgeharp","Tinbloom",
+    "Thornwake","Gullstave","Pitchmoss","Rookshallows","Wickerhorn","Marlhaven","Opaldrift",
+    "Stillcairn","Umbercoil","Frostreed","Siltrelay"],
+  "opportunities": [
+    {"industry":"agriculture","specialty":"food","resource":"food","clue":"Terraces rise behind the landing.","discovery":"Sheltered plots and rain channels could support a food-growing settlement.","hazard":"Loose terrace walls make shore work slow."},
+    {"industry":"timber","specialty":"logs","resource":"logs","clue":"Dark stands cover the ridge above the landing.","discovery":"Mature straight trunks offer useful timber; there is no ready cargo here.","hazard":"Fallen branches and steep root shelves obstruct the survey."},
+    {"industry":"foundry","specialty":"ore","resource":"ore","clue":"Rust-colored bands cross exposed rock.","discovery":"A shallow ore seam is mapped above the tide line; extraction needs later funded work.","hazard":"Unstable rock faces require careful footing."},
+    {"industry":"refinery","specialty":"fuel","resource":"crude","clue":"A dark sheen gathers in cracks above high water.","discovery":"A small oil seep is mapped; fuel would need extraction, processing and paid labor.","hazard":"Slick stone and trapped vapors complicate shore work."},
+    {"industry":"trade","specialty":"supplies","resource":"medicinal_plants","clue":"A sheltered saddle carries dense pale-leaved growth.","discovery":"Useful medicinal plants and a sheltered work landing are identified; no stores are granted.","hazard":"Swell curls around the outer rocks at high tide."},
+    {"industry":"refinery","specialty":"saltpeter","resource":"saltpeter","clue":"White mineral crusts mark dry ledges.","discovery":"Nitrate-bearing ledges are charted for possible later extraction.","hazard":"Fragile crusts conceal deep fissures."}
+  ]
+}
