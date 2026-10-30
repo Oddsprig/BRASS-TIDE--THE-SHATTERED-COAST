@@ -1,10 +1,19 @@
 # Brass Tide - current working instructions
 
-Current verified release v0.075: funded faction strategy.
-Tested 7879a9c1479069c2255053e002062f20bfd59fed; 61 focused/0; Windows/menu and two reviewed private stills.
-Receipts work/quality-v075/ACTUAL075 CHECKS.json and DELIVERED v0.075.json.
-Do not rebuild075. Next076: funded territorial change.
-Whole-game quality/strict performance and071 listening remain OPEN. Root owns tests/delivery.
+Current delivered release v0.075: funded faction strategy.
+61 focused/0, Windows/menu and2 actual private stills reviewed.
+Tested7879a9c1479069c2255053e002062f20bfd59fed; tag28d08621bb4057fcbcb5318f5560ffca29d9f7a1.
+Selected final QA182.980746s exceeds180s: timing gate FAILED, not waived.
+075 history also retains failed metadata verification attempts; no more075 engines.
+Desktop plain Brass Tide launches075;2 owner voyages/18MP3+manifest/readme preserved.
+ACTUAL075 CHECKS.json and DELIVERED v0.075.json are authoritative.
+Do not rebuild075. ACTIVE076: one funded existing-harbor improvement and
+one contested control change; no land RTS/new economy/new generator.
+Root alone owns all engines/private captures/delivery. Bridge2SolMAX/2GrokHIGH,
+small reviewed SparkHIGH extractions; Gemini quota unavailable, no retry/fallback.
+075 exact source proof was duplicated;076 must use one compact changed-scope
+proof and targeted fixtures, wholebatch<120s/selected QA<180s inclsetup/cleanup.
+No075 fullperformance/listening/quality acceptance; older strict targets remain.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
