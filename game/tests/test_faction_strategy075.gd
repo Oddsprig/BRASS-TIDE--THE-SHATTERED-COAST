@@ -10,7 +10,6 @@ const Orders = preload("res://scripts/naval_orders.gd")
 const Money = preload("res://scripts/money.gd")
 const Workers = preload("res://scripts/economy_workers.gd")
 const Custody = preload("res://scripts/equipment_campaign.gd")
-const Service = preload("res://scripts/equipment_owner_service.gd")
 const BODY_LIMIT_MS: int = 40000
 const SEED: int = 75075
 var c
@@ -36,6 +35,9 @@ var people: float = 0.0
 var geography: String = ""
 var slices: int = 0
 var step_tracing: bool = false
+var case_name: String = "natural_trade"
+var cases: Dictionary = {}
+var tick_seconds: float = 4.0
 
 func _initialize() -> void:
 	started = Time.get_ticks_msec()
@@ -97,7 +99,7 @@ func check(ok: bool, label: String) -> bool:
 	checks += 1
 	if not ok:
 		failures += 1
-		failure_labels.append(label)
+		failure_labels.append(case_name + ": " + label)
 		print("FAIL faction_strategy075: ", label)
 	return ok
 
@@ -111,7 +113,7 @@ func bounded() -> bool:
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
-	var row: Dictionary = {"kind":kind, "day":float(c.state.day), "elapsed_ms":Time.get_ticks_msec() - started, "batch":mode}
+	var row: Dictionary = {"kind":kind, "case":case_name, "day":float(c.state.day), "elapsed_ms":Time.get_ticks_msec() - started, "batch":mode}
 	row.merge(values, true)
 	observations.append(row)
 
@@ -168,6 +170,7 @@ func read_choice() -> void:
 		if target.is_empty() or target == "player" or str(intent.get("kind", "")) != "pursue": continue
 		var sight: Dictionary = memory.get("sightings", {}).get(id, {}).get(target, {})
 		if sight.is_empty(): continue
+		if not Travel.same_world(sight.get("world064"), Orders.canonical_location068(c.state, str(id)).get("world064")): continue
 		if float(sight.get("manifest075", {}).get("cargoQuantity", 0)) <= 0: continue
 		var owner: Dictionary = Orders.find_owner(c.state, str(id))
 		if owner.get("kind", "") not in ["raider", "patrol"]: continue
@@ -190,9 +193,9 @@ func npc_proposal() -> Dictionary:
 	Ocean._attach_observations(c, npcs)
 	var contact: Dictionary = c.state.ocean066.contact
 	var watch: bool = c.ocean_watch066 >= 1.0
-	var decisions: Array = [Ocean.OWNER] if watch and not contact.is_empty() and contact.phase == "patrol" and npcs.any(func(a): return str(a.ownerId) == Ocean.OWNER) else []
+	var decisions: Array = [str(contact.ownerId)] if watch and not contact.is_empty() and contact.phase in ["outbound", "patrol"] else []
 	var proposed: Dictionary = Travel.step(c.ocean_context066, npcs, Ocean.relations(c, npcs), c.state.ocean066.memory,
-		{"startSecond":float(c.state.day) * 45.0, "dt":4.0, "watchDue":watch, "decisionOwnerIds":decisions})
+		{"startSecond":float(c.state.day) * 45.0, "dt":tick_seconds, "watchDue":watch, "decisionOwnerIds":decisions})
 	if not proposed.get("ok", false):
 		check(false, "The same actual two NPC actor DTOs step without a player in the participant list: " + str(proposed.get("message", "")))
 		return {}
@@ -214,6 +217,18 @@ func collect_encounters(proposal: Dictionary, before_crews: Dictionary, manifest
 		var loss_b: float = float(before_crews.get(b, 0)) - living_crew(Orders.find_owner(c.state, b))
 		check(not ids.has("player") and a != b and loss_a == float(event.crewLostA) and loss_b == float(event.crewLostB), "Actual independent NPC salvo event reconciles both original crews exactly")
 		history.npc_contact = {"participants":ids, "proposal":proposal.encounter, "actual_event":event.duplicate(true), "crewLostA":loss_a, "crewLostB":loss_b, "day":float(c.state.day)}
+		if case_name == "controlled_risk":
+			var ammo_debit: float = 0.0
+			var hp_debit: float = 0.0
+			for id in ids:
+				var boats: Array = Orders.find_owner(c.state, str(id)).boats
+				check(boats.map(func(b): return str(b.uid)) == manifest.fleets[id].map(func(b): return str(b.uid)), "Controlled settlement retains every original participant hull UID")
+				for boat in boats: ammo_debit -= float(boat.ammo); hp_debit -= float(boat.hp)
+				for boat in manifest.fleets[id]: ammo_debit += float(boat.ammo); hp_debit += float(boat.hp)
+			check(ammo_debit == float(event.ammoUsedA) + float(event.ammoUsedB) and ammo_debit > 0 \
+				and hp_debit > 0 and float(event.damageToA) + float(event.damageToB) > 0, "Controlled contact spends the original ammunition exactly and causes actual physical damage")
+			history.npc_contact["before_fleets"] = manifest.fleets
+			history.npc_contact["after_fleets"] = ids.map(func(id): return Orders.find_owner(c.state, str(id)).boats.duplicate(true))
 		note("actual_npc_contact", history.npc_contact)
 		var merchant: Dictionary = Orders.find_owner(c.state, str(history.corridor.ownerId))
 		var lost: float = float(manifest.get("manifest", 0)) - float(merchant.tradeCargo)
@@ -278,10 +293,10 @@ func replacement_after(before: Dictionary) -> void:
 			return
 
 func actual_outcome() -> Dictionary:
+	if case_name == "natural_trade": return history.delivery
 	if history.npc_contact.is_empty(): return {}
 	if not history.loss.is_empty(): return history.loss
-	if not history.delivery.is_empty() and float(history.delivery.day) >= float(history.npc_contact.day): return history.delivery
-	return {}
+	return history.npc_contact # Actual damage/ammunition loss; never claim an absent cargo prize.
 
 func goods_pair(owner: Dictionary, port: Dictionary) -> Dictionary:
 	var total: Dictionary = {}
@@ -294,27 +309,27 @@ func goods_pair(owner: Dictionary, port: Dictionary) -> Dictionary:
 	return total
 
 func repair_before(owner_id: String, port_id: String) -> Dictionary:
-	if history.npc_contact.is_empty() or not history.recovery.is_empty(): return {}
+	if (history.delivery.is_empty() if case_name == "natural_trade" else history.npc_contact.is_empty()) or history.recovery.get("kind", "funded_yard_queue") != "funded_yard_queue": return {}
 	var owner: Dictionary = Orders.find_owner(c.state, owner_id)
 	var port: Dictionary = c.port(port_id)
 	if owner.is_empty() or port.is_empty() or str(port.id) != str(owner.homePort): return {}
 	var actual: Dictionary = Orders.canonical_location068(c.state, str(owner.id))
-	if actual.is_empty() or not actual.path.is_empty() or c.distance(actual.position, port) >= 40.0: return {}
+	if actual.is_empty(): return {}
+	if case_name == "natural_trade" and (not actual.path.is_empty() or c.distance(actual.position, port) >= 40.0): return {}
 	var quotes: Array = []
 	for boat in owner.boats:
 		if boat.get("sunk", false): continue
-		var quoted: Dictionary = Service.owner_service_quote(owner, port, boat, c)
-		if quoted.get("ok", false) and int(quoted.get("cost", 0)) > 0:
-			quotes.append({"uid":str(boat.uid), "cost":int(quoted.cost), "before":boat.duplicate(true)})
-	if quotes.is_empty(): return {}
+		quotes.append({"uid":str(boat.uid), "before":boat.duplicate(true)})
 	return {"ownerId":str(owner.id), "portId":str(port.id), "location":actual,
 		"purses":int(owner.coins) + int(owner.crewPurse), "household":int(port.householdPurse),
-		"labor":float(port.get("_yardWorkersUsed", 0)), "goods":goods_pair(owner, port), "quotes":quotes}
+		"labor":float(port.get("_yardWorkersUsed", 0)), "goods":goods_pair(owner, port), "stocks":port.stocks.duplicate(true), "quotes":quotes}
 
 func repair_after(before: Dictionary, invoice: Dictionary) -> void:
-	if before.is_empty() or int(invoice.get("total", 0)) <= 0: return
+	if before.is_empty(): return
 	var owner: Dictionary = Orders.find_owner(c.state, str(before.ownerId))
 	var port: Dictionary = c.port(str(before.portId))
+	var actual: Dictionary = Orders.canonical_location068(c.state, str(owner.id))
+	if actual.is_empty() or actual.world064.layer != "home" or not actual.path.is_empty() or c.distance(actual.position, port) >= 40.0 or owner.get("atPort") != port.id: return
 	var restored: Array = []
 	for entry in before.quotes:
 		for boat in owner.boats:
@@ -327,11 +342,17 @@ func repair_after(before: Dictionary, invoice: Dictionary) -> void:
 	for good in before.goods:
 		if float(before.goods[good]) > float(after_goods[good]): consumed[good] = float(before.goods[good]) - float(after_goods[good])
 	var spent: int = int(before.purses) - int(owner.coins) - int(owner.crewPurse)
+	if case_name == "natural_trade":
+		if int(invoice.get("total", 0)) <= 0: return
+		check(spent == int(invoice.total), "Natural returned carrier pays the exact ordinary service/provisions invoice from its original purses")
+		history.recovery = {"kind":"paid_home_service", "day":float(c.state.day), "actual_stopped_berth":actual, "invoice":invoice.duplicate(true), "purse_debit":spent, "before_stocks":before.stocks, "after_stocks":port.stocks.duplicate(true), "before_goods":before.goods, "after_goods":after_goods}
+		note("paid_physical_home_return", history.recovery)
+		return
 	var paid: bool = not restored.is_empty() and spent > 0 and int(port.householdPurse) > int(before.household) \
 		and float(port.get("_yardWorkersUsed", 0)) > float(before.labor) and not consumed.is_empty()
 	if not paid: return
 	history.recovery = {"kind":"paid_survivor_repair", "day":float(c.state.day), "ownerId":str(owner.id), "portId":str(port.id),
-		"actual_stopped_berth":before.location, "survivor_uids":restored, "purse_debit":spent,
+		"actual_stopped_berth":actual, "survivor_uids":restored, "purse_debit":spent,
 		"resident_wages":int(port.householdPurse) - int(before.household),
 		"worker_days":float(port.get("_yardWorkersUsed", 0)) - float(before.labor), "consumed":consumed, "invoice":invoice.duplicate(true)}
 	note("paid_physical_yard_recovery", history.recovery)
@@ -362,11 +383,17 @@ func tick() -> bool:
 		var merchant: Dictionary = Orders.find_owner(c.state, str(history.corridor.ownerId))
 		manifest = {"good":str(merchant.tradeGood), "manifest":float(merchant.tradeCargo), "hold":float(merchant.cargo.get(str(merchant.tradeGood), 0))}
 	var yards: Dictionary = yard_book()
+	var repairs: Array = []
+	if case_name == "controlled_risk":
+		for id in history.npc_contact.get("participants", []): repairs.append(repair_before(str(id), str(Orders.find_owner(c.state, str(id)).homePort)))
+		manifest["fleets"] = {}
+		for id in [history.corridor.ownerId, c.state.ocean066.contact.get("ownerId", "")]: manifest.fleets[id] = Orders.find_owner(c.state, str(id)).get("boats", []).duplicate(true)
 	var day: float = float(c.state.day)
-	c.step(4.0)
-	if float(c.state.day) < day or float(c.state.day) > day + 4.0 / 45.0 + 0.000001:
+	c.step(tick_seconds)
+	if float(c.state.day) < day or float(c.state.day) > day + tick_seconds / 45.0 + 0.000001:
 		return check(false, "Only the actual accepted sailing interval advances the campaign clock")
 	collect_encounters(proposed, before_crews, manifest)
+	for before in repairs: repair_after(before, {}) # Read the real ordinary dock; no invented invoice.
 	replacement_after(yards)
 	read_choice()
 	var current: Dictionary = route()
@@ -401,7 +428,7 @@ func tick() -> bool:
 		if current.location.world064.layer == "ocean" or c.distance(current.location.position, origin) > 40.0:
 			history.dispatch = {"ownerId":str(current.ownerId), "location":current.location.duplicate(true), "phase":str(current.phase), "day":float(c.state.day)}
 			note("physical_generated_dispatch", history.dispatch)
-			if not save_actual("dispatch"): return false
+			if case_name == "natural_trade" and not save_actual("dispatch"): return false
 	return failures == 0
 
 func save_actual(label: String) -> bool:
@@ -595,13 +622,75 @@ func _run() -> void:
 		if mode == "prepare" and not history.corridor.is_empty(): break
 		if (_slice + 1) % 20 == 0:
 			progress("slice %d day=%.5f phase=%s holding=%s" % [_slice + 1, float(c.state.day), str(route().get("phase", "unadmitted")), str(c.state.get("shipping068", {}).get("holding", ""))])
-		if not actual_outcome().is_empty() and not history.recovery.is_empty(): break
+		if not history.delivery.is_empty() and history.recovery.get("kind") == "paid_home_service": break
 	note("final_route_status", {"route":route().duplicate(true), "holding":str(c.state.get("shipping068", {}).get("holding", "")), "pending_days":c.pending_days, "raider_admission":Ocean.admission_reason075(c)})
 	if mode == "prepare":
 		if failures == 0 and bounded(): prepared_prefix = save_preparation()
 		finish(); return
 	assert_chronology()
+	if failures == 0 and bounded() and save_actual("outcome") and controlled_opening():
+		for _slice in range(450):
+			tick_seconds = 0.25 if history.choice.is_empty() else 4.0
+			if not tick() or history.recovery.get("kind") == "paid_survivor_repair": break
+		assert_chronology()
+		if failures == 0 and bounded() and legacy_boundary(opening): complete = true
 	finish()
+
+func controlled_opening() -> bool:
+	# Separate career from the hash-bound ACTUAL opening. Only initial poses and
+	# coherent existing spatial enrollment change; no earned departure or intel.
+	case_name = "controlled_risk"
+	var saved: Dictionary = opening.duplicate(true)
+	var accounts: String = normalized(finite_accounts(saved))
+	var merchant: Dictionary = Orders.find_owner(saved, "patrol-1")
+	var raider: Dictionary = Orders.find_owner(saved, "patrol-6")
+	if not check(merchant.get("tradeCargo", 0) > 0 and c.Factions.relation(saved, str(merchant.faction), str(raider.faction)) <= -20 \
+		and [merchant, raider].all(func(o): return o.active and not Orders.is_story_owner(o) and o.boats.all(func(b): return not b.sunk and float(b.wounded) == 0.0)), "Declared risk pair uses existing paid commercial cargo and healthy hostile original hulls"): return false
+	var corridor: Dictionary = history.corridor.duplicate(true)
+	corridor.ownerId = str(merchant.id); corridor.homeId = str(merchant.homePort)
+	var gate: Dictionary = {"regionId":"shatter_coast", "approachId":"north"}
+	corridor.homeGate = gate.duplicate(true)
+	var point: Dictionary = Ocean._ocean_gate(c.ocean_context064, gate)
+	var locations: Array = []
+	for offset in [20.0, 8.0]:
+		var location: Dictionary = {"world064":{"schema":1, "layer":"ocean", "regionId":"open_ocean"}, "position":{"x":float(point.x) + offset, "y":float(point.y)}, "heading":PI, "path":[point.duplicate(true)], "destination":"approach:shatter_coast:north"}
+		var valid: Dictionary = Ocean.World.prepare(location, c.ocean_context064, Ocean.clearance(merchant if locations.is_empty() else raider))
+		if not check(valid.get("ok", false), "Declared initial NPC pose/path passes ordinary safe-water validation: " + str(valid.get("message", ""))): return false
+		locations.append(valid.location)
+	saved.shipping068.model.route = {"ownerId":str(merchant.id), "phase":"to_yard", "location":locations[0], "sequence":0, "nextDueSecond":float(saved.day) * 45.0, "corridor075":corridor}
+	var points: Dictionary = Ocean._corridor_points(saved, c.ocean_context064)
+	saved.ocean066.contact = {"ownerId":str(raider.id), "phase":"patrol", "location":locations[1], "gate":gate, "waypoint":points.originOcean}
+	for owner in [merchant, raider]:
+		var projection: Dictionary = Orders.find_patrol(saved, str(owner.id))
+		projection.merge({"active":false, "hidden":true, "holding":true, "course":[], "courseLength":0.0, "progress":0.0}, true)
+		projection.erase("interceptPoint")
+	var vantage: Dictionary = {"world064":{"schema":1, "layer":"local", "regionId":c.OceanWorld064.REMOTE}, "position":c.ocean_context064.regions[c.OceanWorld064.REMOTE].approaches[0].position, "heading":0.0, "path":[], "destination":""}
+	var player: Dictionary = Ocean.World.prepare_player(vantage, c.ocean_context064, c.Routes.clearance(c))
+	if not check(player.get("ok", false), "Risk opening uses the same validated unrelated-player vantage"): return false
+	for key in player.location: saved[key] = player.location[key]
+	var unchanged: Dictionary = saved.duplicate(true)
+	unchanged.shipping068.model = opening.shipping068.model
+	unchanged.ocean066.contact = opening.ocean066.contact
+	unchanged.patrols = opening.patrols
+	for key in player.location: unchanged[key] = opening[key]
+	if not check(normalized(unchanged) == normalized(opening), "Only the declared opening poses/projections/enrollment differ; the entire remaining actual career is unchanged"): return false
+	if not check(accounts == normalized(finite_accounts(saved)) and normalized(saved.ocean066.memory) == normalized(Travel.empty_memory()) \
+		and c.distance(locations[0].position, locations[1].position) * Travel.SCALE > 75.0 \
+		and c.distance(locations[0].position, locations[1].position) * Travel.SCALE < 900.0, "Opening enrollment preserves every original purse/stock/crew/UID/store/condition and seeds no intel/intent/contact outcome; gap is outside interception but inside detection"): return false
+	var risk = Campaign.new(c.data, c.nav, false)
+	risk.ocean_anchors064 = c.ocean_anchors064
+	var restored: Dictionary = risk.restore(saved)
+	if not check(restored.get("ok", false), "Separate controlled opening passes ordinary Campaign.restore on shared immutable Navigation: " + str(restored.get("message", ""))): return false
+	c = risk
+	if not check(accounts == normalized(finite_accounts(c.state)), "Ordinary controlled-opening restore preserves the unchanged original financial and physical accounts"): return false
+	for key in history: history[key] = {}
+	history.corridor = corridor
+	history.dispatch = {"ownerId":str(merchant.id), "location":locations[0], "day":float(c.state.day), "earned":false}
+	supply = int(opening.coinSupply); people = crew_total(opening); crew_losses = 0.0; seen_events = {}; slices = 0
+	enable_step_trace()
+	note("declared_opening_npc_pair", {"merchantId":str(merchant.id), "raiderId":str(raider.id), "locations":locations, "contact":c.state.ocean066.contact.duplicate(true), "accounts_sha256":accounts.sha256_text(), "limit":"Controlled spatial opening only. No earned departure, natural rendezvous frequency or universal strategy coverage; no post-opening pose/account/condition writes."})
+	cases[case_name] = {"opening_note":observations[-1].duplicate(true)}
+	return bounded()
 
 func fresh_opening(definitions: Dictionary) -> bool:
 	progress("Campaign.new begin")
@@ -631,22 +720,23 @@ func fresh_opening(definitions: Dictionary) -> bool:
 	return failures == 0
 
 func assert_chronology() -> void:
-	check(not history.corridor.is_empty(), "An affordable generic corridor naturally admits an existing serviced home trader")
+	check(not history.corridor.is_empty(), "The named case retains its explicit existing-owner corridor")
 	if not history.corridor.is_empty():
 		var a: Dictionary = c.port(str(history.corridor.originId))
 		var b: Dictionary = c.port(str(history.corridor.remoteId))
 		check(not a.is_empty() and not b.is_empty() and str(a.regionId) != str(b.regionId) and str(a.regionId) not in ["shatter_coast", "glasswind_keys"] and str(b.regionId) not in ["shatter_coast", "glasswind_keys"], "Algorithm-selected endpoints belong to distinct actual generated groups")
-	check(not history.load.is_empty() and not history.dispatch.is_empty(), "Real generated purchase and cash debit precede physical loaded dispatch")
-	check(not history.choice.is_empty(), "Actual unexpired dated observation drives a pirate or patrol choice")
-	check(not history.npc_contact.is_empty(), "The actual independent NPC engagement matches a two-NPC participant proposal without the player")
 	var outcome: Dictionary = actual_outcome()
-	check(not outcome.is_empty(), "Actual funded delivery or recorded purchased-cargo loss changes physical availability")
-	check(not history.recovery.is_empty(), "Actual paid survivor repair or a fully funded material/labor yard replacement occurs")
-	if not outcome.is_empty(): note("actual_outcome_branch", {"branch":"cargo_loss" if not history.loss.is_empty() else "delivery", "outcome":outcome})
-	if not history.recovery.is_empty():
-		check(float(history.load.day) <= float(history.dispatch.day) and float(history.dispatch.day) <= float(history.choice.get("day", -1)) \
-			and float(history.choice.get("day", INF)) <= float(history.npc_contact.day) and float(history.npc_contact.day) <= float(outcome.get("day", -1)) \
-			and float(outcome.get("day", INF)) <= float(history.recovery.day), "One actual dated load, dispatch, observed choice, contact, delivery/loss and funded recovery stays in order")
+	if case_name == "natural_trade":
+		check(not history.load.is_empty() and not history.dispatch.is_empty() and not history.delivery.is_empty() and history.recovery.get("kind") == "paid_home_service", "Natural funded admission, actual purchase/dispatch, delivery, physical HOME return and paid service all occur; NPC attack is not required")
+		if not history.load.is_empty() and not history.dispatch.is_empty() and not history.delivery.is_empty() and not history.recovery.is_empty():
+			check(float(history.load.day) <= float(history.dispatch.day) and float(history.dispatch.day) <= float(history.delivery.day) and float(history.delivery.day) <= float(history.recovery.day), "Natural purchase, departure, delivery and real paid return stay in dated order")
+	else:
+		check(history.load.is_empty() and not history.dispatch.get("earned", true), "Controlled risk case claims no naturally earned admission, purchase or departure")
+		check(not history.choice.is_empty() and not history.npc_contact.is_empty() and not outcome.is_empty(), "Real unexpired same-chart observation drives pursue, independent two-NPC settlement and actual damage/cargo loss")
+		check(history.recovery.get("kind") == "paid_survivor_repair", "An original damaged survivor physically returns HOME for paid repair, resident labor and consumed finite materials")
+		if not history.choice.is_empty() and not history.npc_contact.is_empty() and not history.recovery.is_empty():
+			check(float(history.dispatch.day) <= float(history.choice.day) and float(history.choice.day) <= float(history.npc_contact.day) and float(history.npc_contact.day) <= float(outcome.day) and float(outcome.day) <= float(history.recovery.day), "Controlled opening, observed choice, actual engagement/loss and physical paid recovery stay in dated order")
+	if not outcome.is_empty(): note("actual_outcome_branch", {"branch":"delivery" if case_name == "natural_trade" else ("cargo_loss" if not history.loss.is_empty() else "combat_damage"), "outcome":outcome})
 	check(Money.total(c.state) == supply and int(c.state.coinSupply) == supply, "Every purchase, wage, prize, service and normal yard keeps the original coin supply")
 	check(absf(people - crew_total(c.state) - crew_losses) < 0.000001, "All original workers and crews reconcile with actual encounter casualties")
 	check(geography == normalized([c.state.sector069, c.state.islandOwnership069]), "Actual chronology preserves seeded geography and mixed island ownership without076 transfers")
@@ -655,8 +745,8 @@ func assert_chronology() -> void:
 	var item_uids: Array = physical.get("itemUids", []).duplicate()
 	item_uids.sort()
 	note("closing_accounts", {"coin_supply":Money.total(c.state), "people":crew_total(c.state), "crew_losses":crew_losses, "holders":physical.get("holders", []), "item_uid_count":item_uids.size(), "item_uids_sha256":JSON.stringify(item_uids).sha256_text()})
-	if failures == 0 and bounded():
-		if save_actual("outcome") and legacy_boundary(opening): complete = true
+	if not cases.has(case_name): cases[case_name] = {}
+	cases[case_name].merge({"complete":failures == 0 and not expired, "history":history.duplicate(true), "coin_supply_baseline":supply, "coin_supply":Money.total(c.state), "people_baseline":people, "closing_people":crew_total(c.state), "crew_losses":crew_losses}, true)
 
 func finish() -> void:
 	if workers.group_id >= 0: workers.finish(true)
@@ -665,12 +755,12 @@ func finish() -> void:
 	if mode == "prepare":
 		check(prepared_prefix and not expired, "The real funded admission prefix and separate trace actually prepare; full voyage remains uncompleted")
 	else:
-		check(complete and not expired, "The full finite chronology and compact legacy boundary actually complete")
+		check(complete and not expired and cases.get("natural_trade", {}).get("complete", false) and cases.get("controlled_risk", {}).get("complete", false), "Both separate finite cases and the compact legacy boundary actually complete")
 	var elapsed: int = Time.get_ticks_msec() - started
 	check(elapsed < BODY_LIMIT_MS, "Whole native fixture body including setup and owned worker cleanup stays below forty seconds")
 	print(JSON.stringify({"fixture":"faction_preparation075" if mode == "prepare" else "faction_strategy075", "batch":mode, "checks":checks, "failures":failures, "elapsed_ms":elapsed,
 		"prepared":prepared_prefix and not expired and failures == 0, "complete":mode != "prepare" and complete and not expired and failures == 0,
-		"prepared_from":prepared_from, "failure_labels":failure_labels, "observations":observations,
-		"artifacts":artifacts, "limits":"Source fixture until Root executes. One ordinary finite seeded NPC corridor; no rendered, listening, whole-game quality or strict performance acceptance.074combat and073art require unchanged source proof."}))
+		"prepared_from":prepared_from, "failure_labels":failure_labels, "observations":observations, "cases":cases,
+		"artifacts":artifacts, "limits":"Source fixture until Root executes BOTH cases. Natural funded generated trade/delivery/paid return; separate controlled opening NPC observation/interception/damage/paid physical repair proves no earned departure or natural rendezvous frequency. No rendered/listening/whole-game/strict-performance acceptance;074combat/073art need unchanged source proof."}))
 	print(("FactionPreparation075" if mode == "prepare" else "FactionStrategy075") + ": %d checks, %d failures" % [checks, failures])
 	quit(0 if failures == 0 else 1)
