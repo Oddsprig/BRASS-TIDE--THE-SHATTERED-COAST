@@ -31,6 +31,22 @@ func check(ok: bool,message: String) -> bool:
 		push_error("ASSETS073: "+message)
 	return ok
 
+func same_values(a,b) -> bool:
+	# JSON numbers may be floats; require finite, exact values recursively.
+	if a is int or a is float:
+		return (b is int or b is float) and is_finite(float(a)) and is_finite(float(b)) and a==b
+	if a is Dictionary and b is Dictionary:
+		if a.size()!=b.size():return false
+		for key in a:
+			if not b.has(key) or not same_values(a[key],b[key]):return false
+		return true
+	if a is Array and b is Array:
+		if a.size()!=b.size():return false
+		for index in range(a.size()):
+			if not same_values(a[index],b[index]):return false
+		return true
+	return typeof(a)==typeof(b) and a==b
+
 func within_deadline() -> bool:
 	if expired:return false
 	if Time.get_ticks_msec()-started<13000:return true
@@ -150,8 +166,8 @@ func inspect_hull(hull: Dictionary,entry: Dictionary,catalog: Dictionary,source:
 			check([bbox[0],bbox[1],bbox[2]-bbox[0],bbox[3]-bbox[1]]==entry.frame_bounds_px[heading],id+" source frame bounds bind packed pixels%d"%heading)
 	var cell=entry.get("cell_px",[]);var pivot=entry.get("pivot_px",[])
 	if not check(Sprite._finite_hull_array(cell,2) and Sprite._finite_hull_array(pivot,2),id+" base canvas metadata"):return false
-	check(entry.get("portrait_cell_px")==[int(cell[0])*2,int(cell[1])*2] and entry.get("portrait_pivot_px")==[int(pivot[0])*2,int(pivot[1])*2] and int(entry.get("portrait_heading",-1))==0,id+" normal refit portrait has doubled waterline pivot at heading0")
-	check(receipt.get("atlas_size_px")==[int(cell[0])*8,int(cell[1])*4] and int(receipt.get("gpu_rgba8_bytes",0))==int(cell[0])*int(cell[1])*32*4,id+" receipt allocation matches actual canvas")
+	check(same_values(entry.get("portrait_cell_px"),[int(cell[0])*2,int(cell[1])*2]) and same_values(entry.get("portrait_pivot_px"),[int(pivot[0])*2,int(pivot[1])*2]) and int(entry.get("portrait_heading",-1))==0,id+" normal refit portrait has doubled waterline pivot at heading0")
+	check(same_values(receipt.get("atlas_size_px"),[int(cell[0])*8,int(cell[1])*4]) and int(receipt.get("gpu_rgba8_bytes",0))==int(cell[0])*int(cell[1])*32*4,id+" receipt allocation matches actual canvas")
 	var stations: Array=Profiles.stations(hull)
 	var physical=entry.get("physical_bounds_world",[])
 	if check(Sprite._finite_hull_array(physical,6),id+" finite measured model envelope"):
@@ -175,7 +191,7 @@ func inspect_weapon(id: String,entry: Dictionary,source: String) -> bool:
 	var expected: Array=VARIANTS[id]
 	check(str(entry.get("kind",""))==str(expected[0]) and Sprite.weapon_variant({"kind":expected[0],"size":expected[1]})==id,id+" actual installed weapon variant lookup")
 	var muzzle: Array={"gun":[8.8,0,4.8],"cannon":[14.2,0,5.8],"rocket":[5.9,0,6.0],"torpedo":[7.9,0,2.8]}[expected[0]]
-	check(entry.get("muzzle")==muzzle,id+" unchanged physical muzzle")
+	check(same_values(entry.get("muzzle"),muzzle),id+" unchanged physical muzzle")
 	var receipt: Dictionary=read_json("res://assets/boats042/weapons/"+id+"-bake-receipt.json")
 	check(source.length()==64 and str(entry.get("source_sha256",""))==source and str(receipt.get("source_sha256",""))==source and receipt.get("variant")==id and int(receipt.get("headings",0))==32,id+" source-bound actual weapon receipt")
 	var layers: Array=receipt.get("layers",[])
@@ -188,7 +204,7 @@ func inspect_weapon(id: String,entry: Dictionary,source: String) -> bool:
 		seen[name]=true
 		var layer: Dictionary=entry.get(name,{})
 		check(layer.get("atlas")=="res://assets/boats042/weapons/"+id+"-"+name+".png" and report.get("atlas")==id+"-"+name+".png" and report.get("sha256")==layer.get("atlas_sha256") and report.get("frame_bounds_px")==layer.get("frame_bounds_px"),id+" "+name+" actual published layer binding")
-		check(layer.get("cell_px")==[256,192] and layer.get("pivot_px")==[128,128] and float(layer.get("pixels_per_world_unit",0))==6.0 and int(report.get("gpu_rgba8_bytes",0))==2048*768*4,id+" "+name+" unchanged canvas/pivot/density/allocation")
+		check(same_values(layer.get("cell_px"),[256,192]) and same_values(layer.get("pivot_px"),[128,128]) and float(layer.get("pixels_per_world_unit",0))==6.0 and int(report.get("gpu_rgba8_bytes",0))==2048*768*4,id+" "+name+" unchanged canvas/pivot/density/allocation")
 		var hashes: Array=report.get("frame_sha256",[])
 		if check(hashes.size()==32,id+" "+name+" all32 packed frame receipts"):
 			for hash_value in hashes:check(str(hash_value).length()==64,id+" "+name+" frame SHA256 recorded")
@@ -244,7 +260,7 @@ func run() -> void:
 	check(manifest.get("schema")=="brass-tide-boats042-v1" and hulls.size()==36 and entries.size()==36 and catalog.size()==33,"actual36 original hulls and frozen33 recipe catalog")
 	var coordinates: Dictionary=manifest.get("coordinates",{})
 	check(coordinates.get("installed_guns_in_hull",true)==false and coordinates.get("projection")==[.82,.41,-1.0] and float(coordinates.get("weapon_geometry_base_elevation",0))==9.7,"unchanged gun-free hull/projection/physical deck contract")
-	check(weapons.get("schema")=="brass-tide-weapons042-v1" and variants.size()==7 and float(weapons.get("deck_height",0))==9.7 and weapons.get("projection")=={"x":.82,"y":.41,"height":1},"actual seven variants and unchanged shared projection/deck")
+	check(weapons.get("schema")=="brass-tide-weapons042-v1" and variants.size()==7 and float(weapons.get("deck_height",0))==9.7 and same_values(weapons.get("projection"),{"x":.82,"y":.41,"height":1}),"actual seven variants and unchanged shared projection/deck")
 	var hull_source: String=source_hash(HULL_SOURCES)
 	var weapon_source: String=source_hash(WEAPON_SOURCES,true)
 	var chart_count: int=inspect_chart_hulls(hulls)
