@@ -1,3 +1,6 @@
+v0.074 CURRENT:20/0; counterplay and Windows/title; one private300-frame battle prefix reviewed by Root.
+work/quality-v074/ACTUAL074 CHECKS.json;073 art retained by exact source/asset byte proof. Earlier strict performance,071 listening and whole-game quality remain open.
+
 v0.073 CURRENT:13892/0; fleet assets and Windows/title; one private battle movie/still and actual starter workshop still reviewed by Root.
 work/quality-v073/ACTUAL073 CHECKS.json. Earlier strict performance,071 listening and whole-game quality remain open.
 

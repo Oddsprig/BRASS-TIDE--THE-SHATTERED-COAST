@@ -1,10 +1,18 @@
-# Brass Tide v0.074
+# Brass Tide v0.074 delivered
 
-Current candidate: Tactical AI with counterplay.
+BRASS TIDE v0.074 - Tactical AI with counterplay
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 4ef9b73a54c913445e3aeba678a18c6c81c608b4 / v0.074
+Test Bridge: fdf28e0f9393419788ff2cdd50eb8b19
+20 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 44.126s; owned cleanup verified.
 
 - Coordinate separated, finite harassment approaches using existing observed targets and friendly reservations.
 - Let escorts interpose against flank pressure within their leash, while heavy boats prefer stations that support their working arcs.
 - Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+
+Tested source 4ef9b73a54c913445e3aeba678a18c6c81c608b4; 20 focused assertions/0 failures; counterplay and Windows/menu. Same20 checks pass:8 scoped counterplay and12 inherited physical/order/recovery checks;329 actual30Hz updates,747ms fixture body. Complementary90degree approach example, independent paid fire/exits, real recovery and escort interception, and fitted bow-vs-beam heavy response verified. Root reviewed an actual canonical three-boat worker-battle PNG and10 temporal frames. Initial ally-lane withholding, later fire/reload/regroup and heavy turning are visible. NativeR1 job50f11e5e865c4d339ca55b7d1eddf955 failed20/3 in32s including setup; retained separately. Two station policies and two source-review contracts were fixed; fixture assertions unchanged. Native cases are small declared test fleets, not every roster or terrain. Canonical movie is a short prefix, not completed encirclement or entire encounter. No new engine scheduling, roster, rendering, economy, broad benchmark or listening acceptance. Earlier strict performance,071 listening and whole-game quality remain open. Fixed60 five-second offline capture is a prefix, not realtime FPS or complete public-Lab pass proof. 073 art acceptance is retained by source/raw asset byte equality and hashed receipts; no fresh all36 inspection or additional check count. Evidence: work/quality-v074/ACTUAL074 CHECKS.json; hashed Root native/motion reviews. Each batch below120s, total below180s including setup/import/export/startup/cleanup and measured offline processing; queue wait separate. Owner files/music/older builds preserved; Root alone installs the plain launcher; no input/focus, live audio, autolaunch or remote publication.
+
+Continue with the next saved version scope after v0.074; preserve the shared lane and120-second limit.

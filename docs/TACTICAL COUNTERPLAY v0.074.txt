@@ -1,214 +1,42 @@
 BRASS TIDE v0.074 - TACTICAL COUNTERPLAY
 
-Source reading of delivered v0.073, commit 21fe05b, on 30 October 2026.
-This note is not a battle result. Nothing here was run in the engine.
+Light boats can share a target while approaching from different bearings.
+They seek a useful firing pass, turn away after their burst, recover room,
+and try again. They do not wait for a complete ring. Crowded approaches,
+long travel, enemy gun arcs, reefs and friendly boats can spoil a pass.
 
-WHAT YOU SHOULD SEE
-Give a boat attack, escort, hold, move, withdraw or board, and it should
-answer that order without spinning its target or stalling the group. Light
-gun boats already try to reach an open side, fire a short pass and peel.
-A torpedo or rocket boat already lines up one fixed shot and turns away.
-An escort already stays on a leash around the boat you named. A heavy gun
-boat already tries to sit in a useful firing band. Support stays behind an
-armed friend.
+Escorts respond to observed flank pressure near the protected boat and stay
+within their leash. Use an escort to screen a transport or damaged ally;
+chasing a raider across the map leaves the cargo exposed.
 
-v0.074 makes those existing habits meet. Two light boats may share one
-target when each can actually reach a different side. An escort steps onto
-the beam, inside its leash, when a flanker is working there even if that
-flanker has not yet pushed into the leash. A heavy boat turns its station
-so the arcs it already has face that flanker, then holds. The flanker is
-punished if it stays in those arcs, and it leaves after its burst or its
-one shot. A faster boat still gets away. The same rules apply to both sides.
+Heavies seek a firing station and bring their fitted working arcs to bear.
+A heavy may turn with fire withheld before requesting a shot. Different
+mount angles change that response. Flankers still exploit slow turns,
+reloads and gaps in coverage; a speed advantage can make a pass fail.
 
-WHAT THE SOURCE ALREADY DOES
-Roles come from tactical_role_plans.gd:infer_role. An escort order, or a
-named protected ally, is a screen before hull size is considered. A mission
-ally, a boat with no working mount, or a support, civilian, cargo, tanker,
-yacht or fishing spec is support. Otherwise the first working mount decides.
-A first working mount that is not a fixed tube, on a hull larger than
-radius 24 or on a gunboat or cruiser, is heavy.
-A fixed tube (rocket or torpedo whose arc is under 135 degrees) is a striker.
-Anything else with radius at or under 24 and speed of at least 95 is a
-skirmisher. The remainder is heavy.
+Attack follows the named target. Escort protects the named ally. Hold
+allows defensive fire; move, boarding and withdrawal retain their existing
+fire restrictions. Default flagship autopilot and WASD camera remain.
+A fresh AI decision does not reset a spent burst, salvo or recovery clock.
+Ammunition, fuel, damage, crew and equipment keep their actual constraints.
 
-On the current roster that means a Tinwake Skiff (size 14, speed 118, gun)
-and a Galeblade Interceptor (size 18, speed 148, gun) infer skirmisher. A
-Silt Runner Lugger (size 17, speed 104, gun) does too. A Fen Stinger (size
-17, speed 136, torpedo) infers striker. A Bastion Armored Cruiser (size 31,
-speed 84, cruiser, cannon) infers heavy. An Ashwake Escort Corvette (size
-21, speed 102, cannon) infers skirmisher unless it has an escort order or a
-named ally, in which case it is a screen. The order makes the escort. The
-hull class does not.
+TRY THE EXISTING PRACTICE BATTLES
+In the fleet laboratory choose 'Practice: flank a heavy' for two light
+boats against a Furnace heavy. 'Practice: escort against raiders' places
+a loaded carrier and escort against raiders. 'Practice: fitted strike pass'
+uses a torpedo fit. Watch the paths, firing arcs and ammunition, then compare
+an attack, hold or withdrawal order. Laboratory practice gives no career
+reward. Space pauses; Tab opens the tactical view; WASD moves the camera.
 
-choose_target scores at most sixteen enemies. The shortlist is distance and
-closing position only. Arcs, fittings and shots are not read until a hull
-is inside those sixteen. An explicit attack or board target uses one of the
-sixteen slots and does not erase a nearer threat. Screen weights protection
-six times. Everyone else weights it three times. A same-target penalty of
-0.9 per friendly reservation applies on engage, including when the second
-boat could use the opposite side. The only fit bonus is hull radius: a
-striker prefers a larger hull and a heavy prefers a smaller one. It is not
-a role match. The previous target is kept unless a new score wins by more
-than 0.5, or by a fifth of the old score, and a skirmisher's 1.2 second
-commit is only extended by a real shot during a fire pass.
+VERIFICATION AND LIMITS
+The native witness uses small declared test fleets through the actual
+battle, movement and firing systems. It checks complementary approaches,
+finite paid passes and recovery, escort interception, commands and two
+working gun arcs. A separate exported-game movie uses the canonical
+three-boat practice setup and the normal worker. Root records its actual
+result and sampled visual review in tests/ and ACTUAL074 CHECKS.json.
+A short movie prefix does not prove every fitting, terrain or full battle.
+Earlier light-fleet performance, sound listening and overall quality limits
+remain open. v0.073 artwork is retained unchanged with its prior evidence.
 
-Stations offer at most eight approaches. Sectors start from formation index.
-An occupied friendly sector on the same target is pushed down. Nothing adds
-a score for a complementary bearing. A skirmisher pass sits near 0.78 of
-range, fires inside 0.9 once it is near its anchor, and peels when the
-burst record is met or when its speed is no longer ahead of the target's
-actual velocity and the target is still outside range. A striker stages,
-aligns, and leaves after one observed fixed shot. Spending that shot is
-tied to the pass identity. A new route request does not refund it. A new
-attack order does clear it.
-
-A screen anchor goes to the threat only when formation is already "screen"
-or the contact is incoming. Incoming means protection_threat is above zero:
-the enemy's working arc already covers the ally, or the enemy is closing
-into the leash. On the default line formation, a flanker that sits outside
-those arcs and is not closing leaves the escort on its formation offset.
-The escort's exit runs around the protected hull to the rally. It does not
-hold the leader's chair.
-
-A heavy anchor holds when the boat is already inside 0.55 to 0.88 of reach
-and otherwise steps along the bow line, shifted one sector sideways. The
-exit is that same point, a hold, not a chase to a rally. The role planner
-does not read combat_balance044.gd. That file clamps a cannon on mount0,
-when the socket size is 3 or more, to a 135 degree bow arc, and its base
-reload note is 1.8 seconds. The planner only sees the arc and reload
-already stored on the mount. It does not yaw the heavy station so that
-stored arc faces a beam flanker.
-
-Survival already breaks engage, or an order marked for conditional
-withdrawal, at hull 0.60 / 0.45 / 0.30 and the matching flood for cautious,
-steady and aggressive doctrine, and also for fire, imminent sinking, dry
-guns, no fuel, or weapon crew at or below 0.01. Move, withdraw and board
-hold fire. Hold may shoot only as a defend request. A lost escort or a lost
-protected ally holds. Manual helm drops the retained plan. Attack with no
-remaining target holds.
-
-Shots are not granted by a role, a reservation or a predicted path.
-tactical_routes.gd still has to certify the geometry. tactical_fire_control.gd
-still has to pass gate, solution and actual_lane: ammunition, crew, a live
-mount, reload, a held-fire choice, land, allies, and for a tube the same
-unspent pass. Those files stay authoritative.
-
-The battle clock stays. The data worker steps at 1/30 second. Helm and fire
-are still every tick. A hull without a worker intent is eligible at 0.1
-second; once it has an intent the gap is 0.15 second. With the worker, the
-observation gap is 0.15 second. Each side gets one 0.15 second batch and
-one 2900-test, 128-proof, four-route allowance. Completing the batch does
-not open another. Safety rechecks at 0.1 second unless hull, crew, engine
-or equipment actually jumps. The lease renewed before 0.2 second is the
-existing certification lease. None of that moves onto the main thread.
-
-Clocks that already survive an ordinary resample, and must keep surviving:
-pass shots and their timestamps, tube salvo spending, pursuit age (the 18
-second abandon), the 6 second window after a real range opportunity with no
-useful shot, the 3 second stall, the 4 second failed-target exclusion, and
-recovery travel. A real order change, a real target change, a new role, a
-danger break or a stall may reset the clocks the source already resets. A
-fresh sample by itself must not.
-
-WHAT v0.074 CHANGES
-Only tactical_role_plans.gd and tactical_stations.gd. No new role, no new
-order, no new boat, no new weapon, and no new clock.
-
-choose_target and _decide may allow a second attacker to keep the same
-target when a separated approach is actually open. They favor a closing
-flanker that the screen or the heavy can already see inside the sixteen.
-The general same-target penalty remains for a second boat that cannot reach
-a different side.
-
-candidates ranks those separated bearings from the friendly reservations,
-travel, the target's motion and the working arcs already on the shortlist.
-Each offer is still one finite pass with an exit. If the complementary
-station cannot be certified, the boat takes another legal approach or
-regroups. It does not wait for a partner and it does not have to complete
-a ring.
-
-For the escort gap specifically: when the chosen contact is a skirmisher or
-striker on the beam, the screen station moves to that beam bearing and stays
-inside the leash, including on the default line formation when the flanker
-is outside the protected arcs and is not yet closing. The heavy station yaws
-toward that same flank and still ends in a hold. Turning the arcs the boat
-already has, an escort intercept, or a real speed advantage must still beat
-the squeeze. Both sides use the same observation, movement and weapon limits.
-
-THREE WITNESSES
-Root runs these later. A source reading is not a pass. Each witness uses
-boats already in game/data/world.json, the existing orders, and the existing
-route and fire certificates. No new scenario harness.
-
-1. Screening a beam harasser.
-   Bastion Armored Cruiser, escorted by one Ashwake Escort Corvette on the
-   escort order and the default line formation. One Galeblade Interceptor
-   starts abeam, outside the Bastion's working arcs, not closing into the
-   leash, then begins a gun pass.
-   Today the corvette is a screen because of the order, and the source
-   leaves it on the formation offset until the Galeblade enters an arc or
-   closes into the leash. After the change the corvette should take the
-   beam station inside the leash and meet that pass. The Galeblade peels
-   when its burst record is met. The corvette does not orbit and does not
-   cross the Bastion. If the Bastion is removed, the corvette holds.
-   Fail if the escort chases past the leash, switches target on every
-   sample, or a shot appears without gate, solution and actual_lane.
-
-2. A fitting changes the flank, and the heavy answers it.
-   One Bastion against a Galeblade that reaches the flank inside nine
-   tenths of its gun range. Repeat with a Fen Stinger instead of the
-   Galeblade.
-   Today both attackers are smaller than the Bastion, so the heavy fit
-   bonus treats them alike, and the Bastion re-anchors on its bow line
-   instead of yawing the mount arc onto the beam. The Galeblade is a
-   skirmisher and peels after the burst. The Stinger is a striker and
-   turns away after one observed fixed shot. After the change the Bastion
-   still holds rather than chases, and its station yaws so the arcs already
-   on its mounts face the flanker. A Galeblade that stays in those arcs is
-   in the gun station. A Stinger still gets one certified shot and leaves.
-   The two fittings must not share a phase. The planner must still not
-   import combat_balance044.gd. Sampling the decision again must not refund
-   the Stinger's salvo or zero the Galeblade's burst record.
-   Fail if the Bastion's exit becomes a pursuit, either attacker fires
-   without the existing certificates, or the Stinger launches a second
-   tube shot on the same pass.
-
-3. Shared pressure, a faster boat, and the orders.
-   Two Tinwake Skiffs on engage against one Bastion. They are faster than
-   the Bastion, so the existing "target pulling away" regroup does not
-   apply while they can still reach. Today the second skiff is penalized
-   for the first skiff's reservation even when the far side is open, and
-   sectors only avoid a duplicate. After the change the second skiff may
-   keep the Bastion when its opposite bearing is reachable, for one finite
-   pass with its own exit. If that station is blocked it takes another
-   legal approach or regroups. It does not wait, and the pair does not have
-   to surround the Bastion.
-   Repeat the chase with two Silt Runner Luggers against one Galeblade
-   while the Galeblade's actual velocity stays ahead of the luggers and
-   the range is still open. That chase already ends in regroup. The change
-   must leave that ending in place.
-   On these same boats, attack stays on the named hull, withdraw and move
-   hold fire, hold shoots only as defend, board does not shoot, a lost
-   escort holds, and manual helm suspends the plan. A new attack order may
-   clear a spent tube pass. A resample alone must not clear pass shots,
-   pursuit age, recovery travel or salvo spending, and neither side may
-   score a hull that never entered the sixteen.
-
-NOT IN THIS PASS
-v0.073 art stays a separate delivery. This note does not recertify hulls,
-weapons, charts or motion, and it does not call those assets newly accepted
-or newly unchanged. The v0.073 limit still stands: pixel and physical asset
-coverage, not every angle, damage state, fitting, sinking, realtime frame
-rate, sound or play. Light-fleet frame time and the v0.071 listening review
-remain open and are outside this scope.
-
-No officer track, roster, economy, render mode, weapon framework or
-performance harness is added. tactical_fire_control.gd, tactical_runtime.gd,
-tactical_routes.gd and combat_balance044.gd are not part of the edit.
-
-NAMED COMMIT REVIEW
-sol-roles, sol-proof, grok-stations and this tree were all still at 21fe05b
-when this note was written. No later A or C commit was present, so there
-was no diff to review for a broken physical certificate, a reordered fire
-or path authority, a clock reset on a plain resample, unbounded work, or
-an arc and fit scan before the sixteen-hull shortlist. Findings: none.
+Next0.075 concerns funded faction strategy and independent campaign fleets.

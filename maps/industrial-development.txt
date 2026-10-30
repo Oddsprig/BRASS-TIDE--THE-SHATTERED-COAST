@@ -1,4 +1,4 @@
-BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.073)
+BRASS TIDE — INDUSTRIAL-DEVELOPMENT MAP (generated; v0.074)
 
 Actual surveyed sources, crews, owned workshops and paid teams -> finite transported machinery, recipe labor bottlenecks and chartered drydock bays.
 

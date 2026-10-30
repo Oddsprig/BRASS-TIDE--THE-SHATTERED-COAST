@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-29 October 2026 | v0.069-v0.073 VERIFIED SCOPED; v0.074-v0.078 PLANNED | Current delivered game: v0.073
+29 October 2026 | v0.069-v0.074 VERIFIED SCOPED; v0.075-v0.078 PLANNED | Current delivered game: v0.074
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069-v0.073 are delivered within scope; the remaining five entries are planned.
+v0.069-v0.074 are delivered within scope; the remaining four entries are planned.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -93,7 +93,7 @@ and firing, not only a large gallery close-up. Preserve original asset rights.
 Boundary: asset production and its display integration; no new hull roster,
 weapon framework, economic rebalance or expensive water simulation.
 
-0.074 - TACTICAL AI WITH COUNTERPLAY
+0.074 - TACTICAL AI WITH COUNTERPLAY [VERIFIED SCOPED]
 Focus: make existing roles, loadouts and fleet orders work together.
 Light boats flank, encircle, harass and disengage. Escorts screen carriers and
 damaged allies; heavy boats cover approaches and punish reckless flankers.

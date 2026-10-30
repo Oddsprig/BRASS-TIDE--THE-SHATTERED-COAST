@@ -1,11 +1,7 @@
-# Current step: v0.074 - Tactical AI with counterplay
+# Current verified release: v0.074 tactical AI with counterplay
 
-- Coordinate separated, finite harassment approaches using existing observed targets and friendly reservations.
-- Let escorts interpose against flank pressure within their leash, while heavy boats prefer stations that support their working arcs.
-- Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+20 focused/0; Windows/menu and one reviewed private prefix. 073 assets retained by exact byte proof.
+Next075: faction strategy. Earlier quality limits remain open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

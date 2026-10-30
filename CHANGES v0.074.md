@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Preserve default autopilot, physical firing and movement constraints, finite pass recovery, player orders and existing worker scheduling.
 
 See docs/TEST RESULTS v0.074.md for actual focused checks and remaining limits.
+
+Verification: 20 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 44.126s. Preserved earlier failures; no broad acceptance claim.
