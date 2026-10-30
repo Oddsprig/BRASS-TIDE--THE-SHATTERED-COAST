@@ -336,6 +336,17 @@ static func _plan(c,book: Dictionary,target: Dictionary,destination: String="") 
 	book.memory.intents[OWNER]={"kind":"route","targetId":"","goal":{"world064":result.location.world064.duplicate(true),"target":target.duplicate(true),"destination":destination},"returnGoal":{},"lastPlanSecond":float(c.state.day)*45.0}
 	return true
 
+static func _ocean_seconds075(c,start: Dictionary,points: Array,speed: float) -> float:
+	if speed<=0.0:return INF
+	var legs: Array=[]
+	var previous: Dictionary=start
+	for point in points:
+		var distance: float=c.distance(previous,point)*Travel.SCALE
+		legs.append({"kind":"sail","layer":"ocean","from":previous,"to":point,"path":[point],"physicalDistance":distance,"seconds":distance/speed})
+		previous=point
+	var forecast: Dictionary=Travel.forecast(c.ocean_context066,legs,speed,float(c.state.day)*45.0)
+	return float(forecast.conservativeSeconds) if forecast.get("ok",false) else INF
+
 static func _return_days(c,contact: Dictionary,speed: float) -> float:
 	var gate: Dictionary=_gate(c,contact.gate,false)
 	var home: Dictionary=c.port(str(_owner(c.state).homePort))
@@ -343,10 +354,13 @@ static func _return_days(c,contact: Dictionary,speed: float) -> float:
 	if local_path.is_empty():return INF
 	var length: float=0.0
 	for i in range(1,local_path.size()):length+=c.distance(local_path[i-1],local_path[i])
-	# A clamps directed weather/current speed to at least0.25 of base speed.
-	if contact.location.world064.layer=="ocean":length+=c.distance(contact.location.position,_gate(c,contact.gate,true))*10.0/0.25
+	var ocean_seconds: float=0.0
+	if contact.location.world064.layer=="ocean":
+		var ocean_gate: Dictionary=_gate(c,contact.gate,true)
+		if not _published_corridor(c.state).is_empty():ocean_seconds=_ocean_seconds075(c,contact.location.position,[ocean_gate],speed)
+		else:ocean_seconds=c.distance(contact.location.position,ocean_gate)*10.0/0.25/maxf(0.001,speed)
 	else:length=maxf(length,c.distance(contact.location.position,home))
-	return length/maxf(0.001,speed)/45.0+0.5
+	return (length/maxf(0.001,speed)+ocean_seconds)/45.0+0.5
 
 static func _control(c,book: Dictionary) -> void:
 	var contact: Dictionary=book.contact
@@ -466,12 +480,12 @@ static func _admit(c) -> void:
 		var length: float=0.0
 		var previous: Dictionary=location.position
 		for point in route.location.path:length+=c.distance(previous,point);previous=point
-		var ocean_local: float=1600.0
+		var ocean_seconds: float=1600.0/0.25/speed
 		var points: Dictionary=_corridor_points(c.state,c.ocean_context064)
 		if not points.is_empty():
 			var entered: Dictionary=_gate(c,gate,true)
-			ocean_local=2.0*(c.distance(entered,points.originOcean)+c.distance(points.originOcean,points.remoteOcean))*10.0
-		var days: float=(2.0*length+ocean_local/0.25)/speed/45.0+1.0
+			ocean_seconds=_ocean_seconds075(c,entered,[points.originOcean,points.remoteOcean,points.originOcean,entered],speed)
+		var days: float=(2.0*length/speed+ocean_seconds)/45.0+1.0
 		if days<best_days:best_days=days;best={"gate":gate,"location":location}
 	if best.is_empty():return
 	var costs: Dictionary=Fleets.upkeep(owner)
