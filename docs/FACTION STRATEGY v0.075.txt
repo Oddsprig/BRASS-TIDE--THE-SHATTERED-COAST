@@ -1,0 +1,47 @@
+BRASS TIDE v0.075 - FACTION STRATEGY
+
+What you can watch for on one funded run between two generated island
+groups. Source note only. Pending in play. No chart has been exported
+or witnessed.
+
+Forty-eight groups and thirty-six hulls stay. Islands inside a group
+can belong to different factions. The open sea is the long passage.
+A meeting counts on the local chart you are using. Harbor access and
+who rules an island stay as they are. Changing control is v0.076.
+This version is presence, trade, and a paid return home.
+
+INTENTION
+A trader in port, with coins and room aboard, chooses goods that
+harbor can spare and a destination it can afford to reach. A pirate
+prefers cargo it has already seen and judged worth the risk. A patrol
+answers a threat it knows, escorts a friend, or moves to cut a hostile
+supply run. Short fuel, food, crew, hulls, or wages send the boats to
+their own yard instead. Sightings are dated. A hold you have not seen
+stays unknown.
+
+DELIVERY
+Cargo that reaches the other harbor sells for cash that harbor has,
+and only up to the stock it still wants. Shelves and purses change by
+that sale. Goods left unpaid stay aboard. Cargo, coins, crew, and
+boats remain the ones already paid for.
+
+LOSS
+A taken or sunk carrier does not land its goods. The lost hull is a
+wreck, and a share of the hold goes with it. Survivors sail home.
+You see the fight on that chart when the sighting is fresh. Far away,
+the same event arrives as a scheduled report. Unseen cargo stays
+unseen.
+
+PAID RECOVERY
+Home is an existing yard. Repair, rations, and sailors are invoiced.
+A replacement hull comes from harbor stock or a slip only after a
+survivor is physically back at that home yard, only one hull at a
+time, and only when the purse covers the hull, the duty, and the crew.
+Wages stay one hundred coins per sailor-day. A new hull appears at
+the yard, after it is paid for.
+
+LIMITS
+Source note only. The corridor is pending in code. Root later queues
+one private chart witness on the chart you are already using, after
+the native pass. Distant fleets stay on that schedule. Whole-game
+quality and listening stay open.
