@@ -1,20 +1,13 @@
-BRASS TIDE v0.075 - FUNDED FACTION STRATEGY ACROSS GENERATED ISLAND GROUPS
+BRASS TIDE v0.076 - FUNDED HARBOR IMPROVEMENT AND CONTESTED CONTROL
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Connect a funded generated-group shipping corridor to existing merchant, pirate and patrol objectives.
-- Resolve independent hostile NPC encounters through actual cargo, stores, damage and relations.
-- Keep recovery, repairs and replacement vessels tied to physical yards and real accounts, labor, materials and crews.
+- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
+- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
+- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
-
-DEVELOPER TOOLS
-Campaign.trace_steps075 is off by default. When enabled by a private developer
-scenario, step_costs075 records the last real campaign substep in microseconds:
-ocean staging, continuous work, naval/patrol decisions and both after-step calls.
-It never changes simulation order or enters a saved career. Preparation and
-continuation fixtures preserve real state and trace files with SHA256 bindings.

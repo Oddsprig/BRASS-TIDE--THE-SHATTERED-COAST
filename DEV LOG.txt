@@ -1,3 +1,7 @@
+30OCT2026 - v0.076 FUNDED HARBOR IMPROVEMENT AND CONTESTED CONTROL
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.075 DELIVERY TIMING QUALIFICATION: native61/0 and two stills passed; final QA budget180s NOT met after complete installed/archive checks. Exact combined value in DELIVERED receipt.
 
 30OCT2026 - v0.075 FUNDED FACTION STRATEGY ACROSS GENERATED ISLAND GROUPS

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.075: Funded faction strategy across generated island groups. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: naval_orders.gd, shipping068.gd, naval_replacements.gd, shipping_flow068.gd, fleet_economy.gd, naval_ai.gd, ocean_campaign066.gd, ocean_travel066.gd, regional_orders.gd, campaign.gd.
+v0.076: Funded harbor improvement and contested control. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: territorial076.gd, campaign.gd, regional_ops.gd, regional_ui.gd, shipping_flow068.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

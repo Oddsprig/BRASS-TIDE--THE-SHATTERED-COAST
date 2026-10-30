@@ -1,24 +1,10 @@
-v0.075 DELIVERY QUALIFICATION
-61 focused game assertions/0; native/export/title and actual two-still capture passed.
-Game tests and setup174.168746s; source-proof recording brought selected QA to179.558746s before installed-file and archive validation. Final combined QA exceeds180s: THIS TIMING GATE IS NOT PASSED. Exact final value is recorded in work/quality-v075/DELIVERED v0.075.json. Historical failed runs remain separate, not passed.
-The feature build is usable; broader quality and performance goals remain open. Source/provenance verification was duplicated and will be consolidated before the next release QA. No repeated engine run was added merely to chase a faster time.
-Known078 UI issue: actual boat preview extends into contact provenance text.
+# Brass Tide v0.076
 
-# Brass Tide v0.075 delivered
+Current candidate: Funded harbor improvement and contested control.
 
-BRASS TIDE v0.075 - Funded faction strategy across generated island groups
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 7879a9c1479069c2255053e002062f20bfd59fed / v0.075
-Test Bridge: 94b916828b474739aad9ad4103b42739
-61 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 80.832s; owned cleanup verified.
+- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
+- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
+- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
 
-- Connect a funded generated-group shipping corridor to existing merchant, pirate and patrol objectives.
-- Resolve independent hostile NPC encounters through actual cargo, stores, damage and relations.
-- Keep recovery, repairs and replacement vessels tied to physical yards and real accounts, labor, materials and crews.
-
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
-
-Tested source 7879a9c1479069c2255053e002062f20bfd59fed; 61 focused assertions/0 failures; preparation checks excluded; actual funded075 chronology and Windows/menu. One generic funded selected shipping corridor; not a world population cap. Natural trade paid465coins purchase,677sale and1274physical HOME service. Separate declared original-asset encounter opening acquired actual sighting/pursuit,20/40ammo combat and4454coins physical survivor repair including290resident wages. Both cases separately conserve173560000coins/21850people and equipment custody. Only one selected corridor/raider is admitted at a time; ordinary coastal schedules remain. Controlled initial positioning proves execution, not natural encounter frequency or earned departure. The real trade receipt does not establish complete-voyage profitability. Sovereignty/control remains076; no full tactical battles for every NPC contact. Contact preview drawing overlaps some provenance text; bounded UI correction078. Archive creation/copy are packaging; archive CRC validation and final verification are included in selected test seconds. Earlier strict performance,071 listening and whole-game quality remain open. Two private stills use declared player/camera composition and up to1second ordinary observation; no earned player travel, motion, FPS, listening or fun acceptance. 074 combat and073 art acceptance retained by exact source/raw asset byte equality and hashed receipts, with ten strategy files/four metadata files excepted; no fresh count. 8 failed historical attempts remain separate from selected final QA. Passed R5 preparation is diagnostic only: its whole seconds count toward the 180s total, its checks do not increase the focused count. Final QA restores its actual hash-bound career and trace; it does not claim the advanced checkout equals the earlier source. Exactly ocean_campaign066.gd, shipping_flow068.gd and test_faction_strategy075.gd changed after preparation, with named Root commits and old/new hashes. Natural trade and declared controlled risk are separate cases with separate conserved accounts; no natural-rendezvous frequency claim. Initial fixture target15s was corrected to40s after actual timing; owner whole-batch120s/suite180s limits remain. Evidence: work/quality-v075/ACTUAL075 CHECKS.json; hashed Root native/chart reviews. Each batch below120s, selected final QA below180s including setup/import/export/startup/cleanup and measured offline processing; queue wait separate. Owner files/music/older builds preserved; Root alone installs the plain launcher; no input/focus, live audio, autolaunch or remote publication.
-
-Continue with the next saved version scope after v0.075; preserve the shared lane and120-second limit.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

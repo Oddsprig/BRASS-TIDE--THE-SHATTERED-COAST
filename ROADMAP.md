@@ -1,7 +1,11 @@
-# Current verified release: v0.075 funded faction strategy
+# Current step: v0.076 - Funded harbor improvement and contested control
 
-61 focused/0; Windows/menu and two reviewed private stills. 074 combat/073 art retained by exact byte proof.
-Next076: funded territorial change. Earlier quality limits remain open.
+- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
+- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
+- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
+
+Finish this scope, run focused checks under120seconds, package, then advance
+to the next saved scope. No speculative fine-tuning or full-game gate.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
