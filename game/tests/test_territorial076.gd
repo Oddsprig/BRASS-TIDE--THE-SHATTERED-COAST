@@ -86,7 +86,8 @@ func fleet_book(state: Dictionary) -> Array:
 
 func account_contacts() -> void:
 	for contact in c.state.get("navalAi", {}).get("encounters", []):
-		var key: String = "%s:%s:%s" % [contact.get("day"), contact.get("a"), contact.get("b")]
+		# NavalCombat records whole econDay; JSON may restore its int as a float.
+		var key: String = "%d:%s:%s" % [int(contact.get("day", 0)), contact.get("a"), contact.get("b")]
 		if seen_contacts.has(key): continue
 		seen_contacts[key] = true
 		casualties += float(contact.get("crewLostA", 0)) + float(contact.get("crewLostB", 0))
@@ -358,7 +359,7 @@ func assets(state: Dictionary) -> Dictionary:
 		boats.append(row)
 	var purses: Array = []
 	for owner in state.fleetOwners:
-		purses.append({"id":owner.id, "coins":owner.coins, "crewPurse":owner.crewPurse, "cargo":owner.cargo, "tradeCargo":owner.get("tradeCargo"), "boatUids":owner.boats.map(func(b): return str(b.uid))})
+		purses.append({"id":owner.id, "homePort":owner.homePort, "coins":owner.coins, "crewPurse":owner.crewPurse, "wageArrears":owner.wageArrears, "cargo":owner.cargo, "tradeCargo":owner.get("tradeCargo"), "boatUids":owner.boats.map(func(b): return str(b.uid))})
 	return {"coins":state.coins, "crewPurse":state.crewPurse, "wageArrears":state.wageArrears, "coinSupply":state.coinSupply,
 		"cargo":state.cargo, "ports":ports, "boats":boats, "owners":purses,
 		"businesses":state.businesses, "tooling":state.tooling, "captives":state.get("captives", 0),
@@ -394,13 +395,33 @@ func control_opening() -> bool:
 		old["newAtPort"] = "shatter_spire"; moved.append(old)
 	moved.append({"ownerId":"story-0", "atPort":str(defender.atPort), "newAtPort":control_port})
 	defender.atPort = control_port
+	# Separate synthetic one-blockade case, after all live funded progression.
+	# Existing inactive-owner semantics retain the complete finite fleet in reserve.
+	# Only these two activity flags change; offshore owners are never touched.
+	var activity: Array = []
+	var active_hostiles: int = 0
+	for owner in c.state.fleetOwners:
+		var owner_id: String = str(owner.id)
+		var enrolled: bool = c.NavalAI.NavalOrders.enrolled066(c.state, owner_id)
+		var hostile: bool = c.Politics.hostile(c, owner)
+		var patrol: Dictionary = c.NavalAI._find_patrol(c.state, owner_id)
+		var prior: Dictionary = {"ownerActive":bool(owner.active), "patrolActive":patrol.get("active")}
+		var dormant: bool = hostile and not enrolled and owner_id != str(defender.id)
+		if dormant:
+			owner.active = false
+			if not patrol.is_empty(): patrol.active = false
+		if hostile and not enrolled and bool(owner.active): active_hostiles += 1
+		activity.append({"ownerId":owner_id, "currentlyHostile":hostile, "oceanEnrolled":enrolled, "declaredDormant":dormant,
+			"before":prior, "after":{"ownerActive":bool(owner.active), "patrolActive":patrol.get("active")}})
+	note("declared_control_activity", {"selectedDefenderId":str(defender.id), "owners":activity, "limit":"Opening activity flags only; NO concurrent-raid coverage in this separate one-blockade case."})
+	if not check(bool(defender.active) and active_hostiles == 1, "The declared control case retains exactly its one selected active coastal hostile defender"): return false
 	var location: Dictionary = c.world_location064()
 	location.position = dock; location.path = []; location.destination = ""
 	var staged: Dictionary = c.OceanWorld064.prepare_player(location, c.ocean_context064, c.Routes.clearance(c))
 	if not check(bool(staged.get("ok", false)), "Declared control opening passes the ordinary player-location gate: " + str(staged.get("message", ""))): return false
 	c._publish_location064(staged.location)
-	declared_politics = {"sponsor":"forge", "before":before, "after":c.state.relationships.factions.duplicate(true), "poses":moved, "playerPosition":dock,
-		"limit":"SEPARATE CONTROL CASE: Root-authorized declared Friendly20 and initial berths only. This standing is unearned; no supporting jobs/history are invented. Earlier actual paid survey remains. No earned voyage, victory, damage or resource endowment; no subsequent reputation or pose override."}
+	declared_politics = {"sponsor":"forge", "before":before, "after":c.state.relationships.factions.duplicate(true), "poses":moved, "playerPosition":dock, "activity":activity,
+		"limit":"SEPARATE CONTROL CASE: Root-authorized declared Friendly20, initial berths and one active selected coastal defender. Other currently hostile non-ocean-enrolled owners and matching patrols start inactive in existing reserve semantics; all their actual assets and homeports remain. Ocean-enrolled and nonhostile activity is unchanged. NO concurrent-raid coverage. Standing is unearned; no supporting jobs/history are invented. Earlier actual paid survey/warehouse progression retains all live NPC activity and events. No earned voyage, victory, damage or resource endowment; no subsequent reputation, pose or activity override."}
 	check(physical_before == normalized(assets(c.state)), "The declared political/pose opening preserves every actual financial and physical asset from funded progression")
 	var saved = JSON.parse_string(JSON.stringify(c.state))
 	var restored_core = Campaign.new(c.data, c.nav, false)
@@ -416,6 +437,11 @@ func control_opening() -> bool:
 			differences[key] = {"before":before_assets[key], "after":after_assets.get(key)}
 	if not differences.is_empty():note("control_restore_asset_differences", differences)
 	check(physical_before == normalized(assets(c.state)) and int(c.Factions.standing(c.state, "forge").score) == 20, "Ordinary restore retains exact physical custody and the disclosed valid political opening")
+	for row in activity:
+		var restored_owner: Dictionary = c.fleet_owner(str(row.ownerId))
+		var restored_patrol: Dictionary = c.NavalAI._find_patrol(c.state, str(row.ownerId))
+		check(restored_owner.get("active") == row.after.ownerActive and restored_patrol.get("active") == row.after.patrolActive,
+			"Ordinary restore retains the disclosed activity for " + str(row.ownerId) + "; ocean-enrolled and nonhostile flags were not overridden")
 	note("declared_control_opening", declared_politics)
 	return failures == 0
 
@@ -570,7 +596,7 @@ func finish() -> void:
 		"elapsed_ms":elapsed, "efficiency_goal_ms":EFFICIENCY_GOAL_MS, "efficiency_goal_met":elapsed <= EFFICIENCY_GOAL_MS,
 		"complete":complete and failures == 0 and not expired,
 		"failure_labels":failure_labels, "events":events, "accountfacts":conservation,
-		"artifacts":artifacts, "limits":"Actual paid survey/recovery/warehouse progression; separate declared Friendly20 control opening and initial berths, without earned-standing/history or outbound-travel claim. Actual subsequent combat/support/control required. No render/listening/full-game/strict-performance acceptance."}))
+		"artifacts":artifacts, "limits":"Actual paid survey/recovery/warehouse progression with all live NPC activity; separate declared Friendly20 control opening, initial berths and one active coastal defender. Other currently hostile non-ocean-enrolled owners/patrols start inactive with all actual assets retained; no concurrent-raid coverage, earned-standing/history or outbound-travel claim. Actual subsequent combat/support/control required. No postopening activity override or render/listening/full-game/strict-performance acceptance."}))
 	quit(0 if complete and failures == 0 and not expired else 1)
 
 func _run() -> void:
