@@ -24,7 +24,7 @@ game/scripts/ocean_travel066.gd: 50288 bytes; extends RefCounted
   game/scripts/ocean_travel066.gd:31 create()
   game/scripts/ocean_travel066.gd:38 prepare()
   game/scripts/ocean_travel066.gd:53 validate_memory()
-game/scripts/shipping_flow068.gd: 49950 bytes; extends RefCounted
+game/scripts/shipping_flow068.gd: 49976 bytes; extends RefCounted
   game/scripts/shipping_flow068.gd:20 empty_book()
   game/scripts/shipping_flow068.gd:37 installed()
   game/scripts/shipping_flow068.gd:40 harbors069()

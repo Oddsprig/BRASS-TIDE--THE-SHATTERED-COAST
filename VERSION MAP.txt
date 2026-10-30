@@ -1,3 +1,6 @@
+CURRENT v0.070 VERIFIED SCOPED: 232 focused/0; next071.
+Actual070 CHECKS.json holds scoped proof. Historical records remain dated context.
+
 CURRENT v0.069 VERIFIED SCOPED: 585 focused/0, Windows/menu and9 reviewed private stills.
 Next saved scope070. Historical plans/receipts below remain dated context.
 
@@ -8,7 +11,7 @@ World structure: docs/roadmap/OCEAN WORLD DESIGN.txt
 Accepted 063-068 history: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
 
 0.069 - A GENERATED OCEAN SECTOR [DONE]
-0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING
+0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING [DONE]
 0.071 - COMBAT FEEL, WAKES AND SOUND
 0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR
 0.073 - FINISHED BOAT AND WEAPON ASSETS

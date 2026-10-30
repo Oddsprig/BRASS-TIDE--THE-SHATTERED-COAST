@@ -34,7 +34,7 @@ game/scripts/contacts.gd: 14121 bytes; extends RefCounted
   game/scripts/contacts.gd:193 record()
   game/scripts/contacts.gd:220 completed_work()
   game/scripts/contacts.gd:237 client_memory()
-game/scripts/voyage_ui.gd: 29558 bytes; extends RefCounted
+game/scripts/voyage_ui.gd: 29672 bytes; extends RefCounted
   game/scripts/voyage_ui.gd:5 open()
   game/scripts/voyage_ui.gd:86 review_estimate()
   game/scripts/voyage_ui.gd:148 survey_terms()

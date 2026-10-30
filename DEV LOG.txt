@@ -1,3 +1,5 @@
+v0.070 VERIFIED AND PACKAGED: 232/0 focused checks, selected batch 95.956s, TestBridge c540409916cf4e3d8f92f39f842d6666. Source 5b66f5a8c169fe5ac7ca258a61a4c48b1b5a83dc.
+
 30OCT2026 - v0.070 VOYAGES THAT PAY AND FLEETS WORTH BUILDING
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

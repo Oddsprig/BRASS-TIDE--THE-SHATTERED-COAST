@@ -1,3 +1,7 @@
+v0.070 CURRENT: 232 focused/0;9 reviewed private stills.
+work/quality-v070/ACTUAL070 CHECKS.json; selected suite 129.124s including setup/cleanup.
+Whole-game quality/strict performance OPEN.
+
 v0.069 CURRENT: 585 focused/0,9 reviewed private stills.
 work/quality-v069/ACTUAL069 CHECKS.json; Windows export/title startup.
 Final selected suite 126.519s including setup/cleanup. Whole-game quality OPEN.

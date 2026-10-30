@@ -1,11 +1,9 @@
-# Current step: v0.070 - Voyages that pay and fleets worth building
+# Current verified release: v0.070 funded regional voyage work
 
-- Take funded work from known regional harbors using actual stock, crew, cargo and client escrow.
-- Review the selected voyage fee, current-fleet costs, return reserve, cargo and spare hands before committing.
-- Combine useful work, return with real earnings and buy existing paid fleet improvements.
-
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+Known harbors sponsor actual cargo/survey work from finite accounts. The selected
+quote shows current-fleet costs and overlapping return reserves.
+232 focused/0; Windows/menu and9 reviewed private stills.
+Next071: combat presentation, wakes and sound. Whole-game quality remains open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands
@@ -23,7 +21,7 @@ older saves keep their original world. See [Ocean world design](docs/roadmap/OCE
 | 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
 | 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
 | 0.069 | Verified scoped:48 seeded groups, finite generated harbors, paid surveys and starting mixed ownership. |
-| 0.070 | Profitable voyages and purposeful fleets: interregional jobs, support roles and normal-start progression. |
+| 0.070 | Verified scoped: funded regional work, whole-trip cost previews and a paid specialist from normal-start voyage earnings. |
 | 0.071 | Combat feel: readable weapon fire, wakes, impacts, flooding, sinking and distinct sound. |
 | 0.072 | Complete voyage integration and measured campaign/full-fleet performance corrections. |
 | 0.073 | Finished boat and weapon assets across the 36 existing hulls, matching physical mounts and refit previews. |
@@ -34,7 +32,7 @@ older saves keep their original world. See [Ocean world design](docs/roadmap/OCE
 | 0.078 | Six-career playability, guidance, interface/balance polish and whole-loop quality review. |
 
 Detailed acceptance and exclusions: [Next ten quality milestones](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
-The prior 063-072 map preserves the accepted history. All 069-078 entries are planned;
+The prior 063-072 map preserves the accepted history. Versions071-078 remain planned;
 quality is judged from complete voyages, battles, actual presentation and player feedback.
 Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
 and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.

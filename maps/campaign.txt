@@ -40,7 +40,7 @@ game/scripts/career_costs.gd: 27940 bytes; extends RefCounted
   game/scripts/career_costs.gd:62 _length()
   game/scripts/career_costs.gd:70 _budget()
   game/scripts/career_costs.gd:151 _second_hull()
-game/scripts/guidance_ui.gd: 12466 bytes; extends RefCounted
+game/scripts/guidance_ui.gd: 12478 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
   game/scripts/guidance_ui.gd:65 action_label()
   game/scripts/guidance_ui.gd:68 action()

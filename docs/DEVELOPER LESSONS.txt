@@ -1,3 +1,10 @@
+v0.070: Work berths must resolve the actual live account without opening HOME-only
+services remotely. Regional jobs retain the same escrow, sealed cargo and saved
+primitive endpoints. Price client work from efficient capable crew; show actual
+owned-fleet costs separately. Return reserve overlaps whole-trip costs. Quote
+only the selected offer through the frozen API; do not guess raw-offer fields.
+Flash wording needs semantic review even when JSON formatting passes.
+
 v0.069: JSON numeric schema/ledger checks need exact numeric structural equality,
 not strict Array membership or Dictionary type equality. Keep physical accounts
 exact. Read-only world queries and NPC transitions cannot evict player navigation;

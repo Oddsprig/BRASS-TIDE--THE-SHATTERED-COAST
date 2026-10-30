@@ -28,6 +28,9 @@ while reducing hold space. Workshops improve crew repairs and still consume
 kits. Tug Rigs improve towing and pumping. Auxiliary Tanks improve endurance
 and fuel use while taking hold space. Read the actual quote for materials,
 worker wages, expert time, price and the fitted boat's resulting statistics.
+Paid specialists offer another step in fleet growth. A surveyor improves shore
+work and occupies a real crew berth. Hiring moves an existing harbor worker
+aboard and pays an advance; their base wage and professional premium continue.
 
 Transports carry larger loads; tankers support fuel work; yachts offer passenger
 accommodation. Work requires the actual suitable boat, supplies and real client
