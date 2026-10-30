@@ -71,7 +71,7 @@ func physical(snapshot: Dictionary,rebuild_forecasts: bool=false) -> Dictionary:
 		var forecast: Dictionary={"ports":snapshot.ports.duplicate(true),"fleetOwners":snapshot.fleetOwners}
 		c.ReserveOps.refresh({"state":forecast})
 		for index in range(ports.size()):
-			if not ports[index].has("reserves"):c.Reserves.ensure(ports[index])
+			if not ports[index].has("reserves"):c.ReserveOps.Reserves.ensure(ports[index])
 			for key in ["observedDemand","incoming","contractedLots","availableRecipes"]:ports[index].reserves[key]=forecast.ports[index].reserves[key]
 	var owners: Array=[]
 	for owner in snapshot.fleetOwners:
