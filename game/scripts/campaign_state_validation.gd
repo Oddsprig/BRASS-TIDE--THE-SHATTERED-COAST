@@ -279,7 +279,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 				if key=="deliveries" and not id in delivery_ports:return "Unknown regional delivery harbor."
 				if key=="passages":
 					var ends: PackedStringArray=str(id).split("|")
-					if ends.size()!=2 or not ends[0] in port_ids or not ends[1] in port_ids or ends[0]==ends[1]:return "Invalid physical corridor."
+					if ends.size()!=2 or not ends[0] in delivery_ports or not ends[1] in delivery_ports or ends[0]==ends[1]:return "Invalid physical corridor."
 	if s.has("regionalCampaigns"):
 		if not s.regionalCampaigns is Dictionary:return "Invalid regional campaign book."
 		var book: Dictionary=s.regionalCampaigns

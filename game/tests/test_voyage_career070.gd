@@ -131,8 +131,11 @@ func restore_diff070(expected,actual,path: String,rows: Array,has_expected: bool
 
 func checkpoint070(path: String,bound: String) -> void:
 	receipt.status="CHECKPOINT_DIAGNOSTIC";receipt.diagnosticOnly=true;receipt.earnedVoyage=false
-	var allowed: String="C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/c6d7e124ba124a838ac05ef701879a11/attempt-001/voyage-career/career070-active.json"
-	if not check(path.replace("\\","/").simplify_path()==allowed and bound=="2d64250f608faefbaf6e828fa49092669b586acef98bd2e55a18df1ac61a3c1b" and FileAccess.get_sha256(path)==bound,"Hash-bound synthetic checkpoint only"):return
+	var allowed: Dictionary={
+		"C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/c6d7e124ba124a838ac05ef701879a11/attempt-001/voyage-career/career070-active.json":"2d64250f608faefbaf6e828fa49092669b586acef98bd2e55a18df1ac61a3c1b",
+		"C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/68bd74575a42433485183724966456af/attempt-001/voyage-career/career070-completed.json":"bd10bbbd277f876dae81d02e5be803e7f7cd409146bcef39079f811f0d51b06c"}
+	var checkpoint_path: String=path.replace("\\","/").simplify_path()
+	if not check(allowed.has(checkpoint_path) and allowed[checkpoint_path]==bound and FileAccess.get_sha256(path)==bound,"Hash-bound synthetic checkpoint only"):return
 	var saved=JSON.parse_string(FileAccess.get_file_as_string(path))
 	if not check(saved is Dictionary,"Synthetic active-job checkpoint decodes"):return
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
