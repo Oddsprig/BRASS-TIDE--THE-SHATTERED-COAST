@@ -594,6 +594,22 @@ func voyage_action065(intent: Dictionary) -> Dictionary:
 	respond(result)
 	return result
 
+func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before accepting harbor work.")
+	sync_economy()
+	var result: Dictionary=core.accept_voyage_job(id,carrier_uid)
+	if result.get("ok",false):save_game(false)
+	respond(result)
+	return result
+
+func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the campaign chart before settling harbor work.")
+	sync_economy()
+	var result: Dictionary=core.settle_voyage_job(id,abandon)
+	if result.get("ok",false):save_game(false)
+	respond(result)
+	return result
+
 func transfer_fuel065(source_uid: String,target_uid: String,quantity: float) -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the campaign chart before transferring fuel.")
 	sync_economy()

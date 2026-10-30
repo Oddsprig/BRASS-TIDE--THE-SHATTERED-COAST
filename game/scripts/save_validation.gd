@@ -209,6 +209,11 @@ static func _context_matches069(context: Dictionary,atlas: Dictionary,harbors: A
 			if context.harbors[row.id].get(key)!=row[key]:return false
 	return true
 
+static func job_error070(saved: Dictionary,world: Dictionary) -> String:
+	var shipping: String=Shipping068.raw_error(saved)
+	if not shipping.is_empty():return shipping
+	return CampaignState.validate_jobs070(saved,world)
+
 static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary={}) -> Dictionary:
 	saved=saved.duplicate(true)
 	# Canonical present-sector validation precedes every legacy normalizer.
@@ -227,6 +232,8 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 	if not account_error.is_empty():return {"ok":false,"message":account_error,"state":saved}
 	var raw068: String=Shipping068.raw_error(saved)
 	if not raw068.is_empty():return {"ok":false,"message":raw068,"state":saved}
+	var jobs070: String=job_error070(saved,world)
+	if not jobs070.is_empty():return {"ok":false,"message":jobs070,"state":saved}
 	var regional_error: String=Exploration067.validate_remote067(saved)
 	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
 	if not regional_error.is_empty():return {"ok":false,"message":regional_error,"state":saved}

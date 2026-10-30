@@ -7,6 +7,7 @@ extends RefCounted
 ## harbor (visit()), so their day stamp is honest report age for root UI.
 
 const Goods = preload("res://scripts/goods.gd")
+const Shipping068 = preload("res://scripts/shipping_flow068.gd")
 
 const TRUST_MIN := -100
 const TRUST_MAX := 100
@@ -42,8 +43,13 @@ static func _known_ports(state: Dictionary, world: Dictionary) -> Dictionary:
 		if p is Dictionary:
 			known[str(p.get("id", ""))] = true
 	for p in state.get("ports", []) if state.get("ports") is Array else []:
-		if p is Dictionary:
-			known[str(p.get("id", ""))] = true
+		if not p is Dictionary:continue
+		var id: String=str(p.get("id",""))
+		if str(p.get("regionId","shatter_coast"))=="shatter_coast":known[id]=true
+		elif id==Shipping068.PORT and Shipping068.installed(state) and id in state.get("shipping068",{}).get("knownPorts",[]):known[id]=true
+		elif Shipping068.known069(state,id):
+			var canonical: Dictionary=Shipping068.definition069(state,id)
+			if p.get("regionId")==canonical.get("regionId"):known[id]=true
 	return known
 
 
@@ -93,6 +99,14 @@ static func ensure(state: Dictionary, world: Dictionary = {}) -> Array:
 			stored[str(raw.get("id", ""))] = raw
 	var contacts: Array = []
 	var definitions: Array=DEFINITIONS.duplicate(true)
+	# These desks introduce existing work against the harbor's one live account.
+	# Knowledge creates no visit, trust, crew, goods, purse or separate job book.
+	for port in state.get("ports",[]) if state.get("ports") is Array else []:
+		if not port is Dictionary or str(port.get("regionId","shatter_coast"))=="shatter_coast":continue
+		var port_id: String=str(port.get("id",""))
+		if not known.has(port_id):continue
+		var name: String=str(port.get("name",port_id))
+		definitions.append({"id":"harbor:"+port_id,"name":name+" work desk","role":"broker","port":port_id,"title":"Freight and survey clients at "+name})
 	for i in range(CAPTAINS.size()):
 		var owner_id: String="patrol-%d"%i
 		for owner in state.get("fleetOwners",[]):
@@ -204,9 +218,9 @@ static func record(state: Dictionary, contact_id: String, event_id: String, amou
 # Detached evidence of a fulfilled promise, never inferred from visits, favors
 # or another fleet's witnessed fight. Legacy memories may lack a location.
 static func completed_work(state: Dictionary, contact_id: String) -> Dictionary:
-	if not DEFINITIONS.any(func(d):return str(d.id)==contact_id):return {}
 	var contact: Dictionary=_find(state,contact_id)
 	if contact.is_empty() or int(contact.get("trust",0))<=0:return {}
+	if not DEFINITIONS.any(func(d):return str(d.id)==contact_id) and not (contact_id=="harbor:"+str(contact.get("port","")) and _known_ports(state,{}).has(str(contact.get("port","")))):return {}
 	var log: Array=contact.get("log",[])
 	for i in range(log.size()-1,-1,-1):
 		var entry: Dictionary=log[i]

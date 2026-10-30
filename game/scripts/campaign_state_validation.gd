@@ -9,6 +9,67 @@ const Shipping068=preload("res://scripts/shipping_flow068.gd")
 static func number(value,low: float=0.0,high: float=1000000000.0) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value)>=low and float(value)<=high
 
+## Raw job preflight, also called before restore runs any legacy normalizers.
+## Membership comes from this career's canonical geography; each referenced
+## account must already exist once, in the correct region. Never create a book.
+static func validate_jobs070(s: Dictionary,world: Dictionary) -> String:
+	if not s.has("voyageJobs"):return ""
+	if not s.voyageJobs is Array or s.voyageJobs.size()>6:return "Invalid voyage commitment collection."
+	var ports: Dictionary={}
+	for p in world.get("PORTS",[]):ports[str(p.id)]="shatter_coast"
+	if Shipping068.installed(s):ports[Shipping068.PORT]=Shipping068.World.REMOTE
+	for p in Shipping068.harbors069(s):
+		if not p is Dictionary or not p.get("id") is String or not p.get("regionId") is String:return "Invalid canonical voyage harbor."
+		ports[p.id]=p.regionId
+	if not s.get("ports") is Array:return "Missing voyage harbor accounts."
+	var accounts: Dictionary={}
+	for p in s.ports:
+		if not p is Dictionary or not p.get("id") is String:continue
+		if accounts.has(p.id):return "Duplicate voyage harbor account."
+		accounts[p.id]=p
+	var jobs: Dictionary={}
+	for job in s.voyageJobs:
+		if not job is Dictionary or not job.get("id") is String or jobs.has(job.id):return "Invalid or duplicate voyage job."
+		jobs[job.id]=true
+		if job.get("kind","") not in ["freight","survey","bounty","fuel_delivery","passenger_charter"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
+		for key in ["port","targetPort"]:
+			var id=job.get(key)
+			if not id is String or not ports.has(id) or not accounts.has(id):return "Unknown voyage sponsor/destination account."
+			if str(accounts[id].get("regionId","shatter_coast"))!=str(ports[id]):return "Voyage harbor account belongs to the wrong region."
+		if job.get("payerKey","") not in ["cash","governmentPurse"]:return "Unknown voyage sponsor purse."
+		for key in ["reward","escrow","deadlineDay","acceptedDay"]:
+			if not number(job.get(key)):return "Invalid voyage job accounting."
+		var savings: float=0.0
+		if job.kind=="passenger_charter":
+			for key in ["savingsHousehold","savingsExpert"]:
+				if not number(job.get(key,0)):return "Invalid charter savings."
+				savings+=float(job.get(key,0))
+		if floorf(float(job.escrow))!=float(job.escrow) or float(job.escrow)>float(job.reward)+savings:return "Invalid voyage escrow."
+		if not job.get("freight") is Dictionary:return "Invalid sealed voyage freight."
+		var freight: Dictionary=job.freight
+		if not freight.is_empty():
+			if not freight.get("good") is String or not number(freight.get("qty")) or not Goods.ITEMS.has(freight.good):return "Invalid sealed voyage goods."
+		for key in ["title","description","siteId","ownerId"]:
+			if not job.get(key) is String:return "Invalid voyage text."
+		var target_region: String=str(ports[job.targetPort])
+		if job.kind=="survey":
+			var exploration=s.get("exploration")
+			if not exploration is Dictionary or not exploration.get("catalog") is Array or not exploration.get("sites") is Dictionary:return "Survey job has no existing exploration book."
+			var site: Dictionary={}
+			for row in exploration.catalog:
+				if row is Dictionary and row.get("id")==job.siteId:
+					if not site.is_empty():return "Survey job has duplicate site ownership."
+					site=row
+			if site.is_empty() or not exploration.sites.has(job.siteId):return "Survey job has no existing canonical site/progress."
+			target_region=str(site.get("regionId","shatter_coast"))
+			if Exploration067.region_record069(s,target_region).is_empty():return "Survey job region is absent from this career."
+		for key in ["regionId","targetRegionId"]:
+			if not job.has(key):continue
+			var value=job[key]
+			if not value is String or value.length()>80:return "Invalid voyage endpoint region."
+			if not value.is_empty() and value!=(str(ports[job.port]) if key=="regionId" else target_region):return "Voyage endpoint disagrees with its canonical harbor/site."
+	return ""
+
 static func validate(s: Dictionary,world: Dictionary) -> String:
 	var sector_error: String=Shipping068.sector_error069(s)
 	if not sector_error.is_empty():return sector_error
@@ -79,37 +140,15 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not s.blueprints[key] is bool or not world.HULLS.any(func(h):return h.id==key):return "Unknown recovered hull design."
 	for key in ["wreckSeededSources","wreckHazards"]:
 		if s.has(key) and (not s[key] is Dictionary or s[key].size()>512):return "Invalid wreck provenance ledger."
-	if s.has("voyageJobs"):
-		if not s.voyageJobs is Array or s.voyageJobs.size()>6:return "Invalid voyage commitment collection."
-		var jobs: Dictionary={}
-		var ports: Array=[]
-		for p in world.PORTS:ports.append(p.id)
-		for job in s.voyageJobs:
-			if not job is Dictionary or not job.get("id") is String or jobs.has(job.id):return "Invalid or duplicate voyage job."
-			jobs[job.id]=true
-			if job.get("kind","") not in ["freight","survey","bounty","fuel_delivery","passenger_charter"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
-			if not job.get("port","") in ports or not job.get("targetPort","") in ports or job.get("payerKey","") not in ["cash","governmentPurse"]:return "Unknown voyage sponsor/destination."
-			for key in ["reward","escrow","deadlineDay","acceptedDay"]:
-				if not number(job.get(key)):return "Invalid voyage job accounting."
-			var savings: float=0.0
-			if job.kind=="passenger_charter":
-				for key in ["savingsHousehold","savingsExpert"]:
-					if not number(job.get(key,0)):return "Invalid charter savings."
-					savings+=float(job.get(key,0))
-			if floorf(float(job.escrow))!=float(job.escrow) or float(job.escrow)>float(job.reward)+savings:return "Invalid voyage escrow."
-			if not job.get("freight") is Dictionary:return "Invalid sealed voyage freight."
-			var freight: Dictionary=job.freight
-			if not freight.is_empty():
-				if not freight.get("good") is String or not number(freight.get("qty")) or not freight.good in ["food","logs","timber","ore","charcoal","iron","copper","saltpeter","sulfur","gunpowder","ammo","crude","fuel","supplies","engines","guns","preserved_fish","fine_timber","lacquer","medicinal_plants"]:return "Invalid sealed voyage goods."
-			for key in ["title","description","siteId","ownerId"]:
-				if not job.get(key) is String:return "Invalid voyage text."
+	var jobs_error: String=validate_jobs070(s,world)
+	if not jobs_error.is_empty():return jobs_error
 	if s.has("doneVoyageJobs") and (not s.doneVoyageJobs is Array or s.doneVoyageJobs.size()>128):return "Invalid completed voyage records."
 	if s.has("contacts"):
-		if not s.contacts is Array or s.contacts.size()>32:return "Invalid contact list."
+		if not s.contacts is Array or s.contacts.size()>32+Shipping068.harbors069(s).size():return "Invalid contact list."
 		for person in s.contacts:
 			if not person is Dictionary or not person.get("id") is String or not number(person.get("trust"),-100,100) or not person.get("met") is bool:return "Invalid contact identity/trust."
 	if s.has("marketSnapshots"):
-		if not s.marketSnapshots is Dictionary or s.marketSnapshots.size()>32:return "Invalid market reports."
+		if not s.marketSnapshots is Dictionary or s.marketSnapshots.size()>32+Shipping068.harbors069(s).size():return "Invalid market reports."
 		for id in s.marketSnapshots:
 			var snap=s.marketSnapshots[id]
 			if not snap is Dictionary or not number(snap.get("day")) or not number(snap.get("cash")) or not snap.get("stocks") is Dictionary:return "Invalid dated market observation."

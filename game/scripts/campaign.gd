@@ -503,6 +503,24 @@ func current_port() -> Dictionary:
 			return p
 	return {}
 
+## Work alone may use a known non-HOME harbor. Return its authoritative live
+## account, never the detached market DTO; current_port keeps gating HOME services.
+func work_port070() -> Dictionary:
+	if state.is_empty() or not state.get("path",[]).is_empty():return {}
+	if home_local064():return current_port()
+	var gate: Dictionary=ShippingFlow068.remote_gate(self)
+	return gate.port if gate.get("ok",false) else {}
+
+func _work_permission070() -> Dictionary:
+	var dock: Dictionary=work_port070()
+	if dock.is_empty():return fail("Stop at a known harbor's actual work berth first.")
+	# Permission previews must not normalize the live faction book on refusal.
+	var policy: Dictionary={"day":state.day,"relationships":state.get("relationships",{}).duplicate(true)}
+	var access: Dictionary=Politics.access({"state":policy,"data":data},dock)
+	if not access.get("legal",false):return fail(str(access.get("reason","Harbor entry is refused.")))
+	if not access.get("contracts",false):return fail("This harbor has suspended your contracts.")
+	return ok(str(access.get("reason","Harbor work is permitted.")))
+
 func shipping_view068() -> Dictionary:
 	return ShippingFlow068.view(self)
 
@@ -1334,18 +1352,19 @@ func cancel_fishing(uid: String) -> Dictionary:
 	return CivilianWork.cancel_fishing(self,uid)
 
 func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
-	var permission: Dictionary=Politics.permit(self,"contract")
+	var permission: Dictionary=_work_permission070()
 	if not permission.ok:return permission
 	var result: Dictionary=VoyageJobs.accept(self,id,carrier_uid)
 	if result.ok:
-		Contacts.visit(state,current_port(),state.day)
+		Contacts.visit(state,work_port070(),state.day)
 		if id.begins_with("chainfreight-"):state.storyRights.usedOffers[id]=true
 	Manifest.allocate(state)
 	return result
 
 func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
-	var permission: Dictionary=Politics.permit(self,"contract")
+	var permission: Dictionary=_work_permission070()
 	if not permission.ok:return permission
+	var completed_berth: Dictionary=work_port070()
 	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
 	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
 	if result.ok:
@@ -1355,10 +1374,11 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 			var used: Array=[str(before.carrierUid)] if not str(before.get("carrierUid","")).is_empty() else active_fleet().map(func(b):return b.uid)
 			if before.get("kind","")!="bounty":FleetIdentity.record_service(self,used,"survey" if before.get("kind","")=="survey" else "trade")
 			var captain: String=str(before.get("ownerId",""))
-			if before.get("kind","")=="fuel_delivery" and not captain.is_empty():Contacts.record_captain(state,captain,"job:"+id+":paid",str(before.get("title","Voyage delivery"))+" completed at "+str(current_port().get("name","harbor")),5)
+			if before.get("kind","")=="fuel_delivery" and not captain.is_empty():Contacts.record_captain(state,captain,"job:"+id+":paid",str(before.get("title","Voyage delivery"))+" completed at "+str(completed_berth.get("name","harbor")),5)
+		Contacts.visit(state,completed_berth,state.day)
 		var sponsor_id: String=str(before.get("sponsorContactId",""))
 		var event_id: String="job:"+id+(":abandoned" if abandon else ":paid")
-		var completed_at: String=str(current_port().get("id",""))
+		var completed_at: String=str(completed_berth.get("id",""))
 		for contact in Contacts.list_contacts(state):
 			if contact.has("ownerId"):continue
 			var remembers: bool=contact.port==completed_at and (not abandon or contact.port==before.get("port",""))
@@ -1673,6 +1693,8 @@ func restore(saved: Dictionary) -> Dictionary:
 	if not (revision is int or revision is float) or not is_finite(float(revision)) or floorf(float(revision))!=float(revision) or int(revision) not in [1,2]:return fail("Save refused: invalid or unsupported coast revision.")
 	var accounts: String=ShippingFlow068.sector_error069(saved)
 	if not accounts.is_empty():return fail("Save refused: "+accounts)
+	var jobs070: String=SaveValidation.job_error070(saved,data)
+	if not jobs070.is_empty():return fail("Save refused: "+jobs070)
 	if saved.has("sector069"):saved.sector069=sector.sector
 	var world: Dictionary=OceanWorld064.create(data,sector.atlas,nav,sector.sector.get("harbors",[]))
 	if not world.get("ok",false):return fail("Save refused: "+str(world.get("message","Invalid saved ocean charts.")))
