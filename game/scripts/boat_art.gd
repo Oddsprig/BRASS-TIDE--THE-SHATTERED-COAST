@@ -621,15 +621,39 @@ static func _static(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Diction
 			_line(ctx,[at+Vector2(-0.1,-0.1),at+Vector2(0.1,-0.1),at+Vector2(0.1,0.1)],10.4,c.brass,0.8)
 
 static func _damage(ctx: Dictionary, boat: Dictionary, stations: Array, arch: String, c: Dictionary) -> void:
-	HullFeedback.draw(ctx,boat,stations)
 	var water := float(boat.get("water", 0.0))
 	if water > 0.0:
 		var flood := clampf(water / maxf(1.0, float(boat.get("capacity", 100.0))), 0.0, 1.0)
+		# The actual bilge fraction controls the tint. Keep it below scars,
+		# engine smoke and flame cores so mixed damage stays distinguishable.
+		var flood_color := Color(0.19, 0.57, 0.66, sqrt(flood) * 0.55)
 		if arch == "catamaran":
-			_poly(ctx, _outline(stations, -CAT_OFFSET, 0.7, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
-			_poly(ctx, _outline(stations, CAT_OFFSET, 0.7, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
+			_poly(ctx, _outline(stations, -CAT_OFFSET, 0.7, 0.9), 9.7, flood_color)
+			_poly(ctx, _outline(stations, CAT_OFFSET, 0.7, 0.9), 9.7, flood_color)
 		else:
-			_poly(ctx, _outline(stations, 0.0, 0.72, 0.9), 9.7, Color(0.19, 0.57, 0.66, flood * 0.55))
+			_poly(ctx, _outline(stations, 0.0, 0.72, 0.9), 9.7, flood_color)
+	HullFeedback.draw(ctx,boat,stations)
+	if int(ctx.lod) < 2 or bool(boat.get("sunk", false)):
+		return
+	# Normal zoom puts small boats in LOD2. Reuse the existing bounded damage
+	# primitives there instead of losing all engine/fire cues with deck detail.
+	var scale: float = maxf(0.45, float(ctx.px) / maxf(4.0, float(ctx.size)))
+	var fire: float = clampf(float(boat.get("fire", 0.0)), 0.0, 100.0)
+	if fire <= 0.0:
+		var engine: float = HullFeedback._engine_hp(boat)
+		if engine < 0.72:
+			HullFeedback._smoke(ctx, Vector2(-1.04, 0.03), engine < 0.3, float(ctx.clock), scale, 2)
+		return
+	var at := Vector2(-0.1, 0.0)
+	var scars = boat.get("visualHits", [])
+	if scars is Array and not scars.is_empty():
+		at = Vector2(scars[-1].x, scars[-1].y)
+	var p: Vector2 = _pt(ctx, at, 12.0)
+	var height: float = maxf(6.0, (11.0 + fire * 0.08 + sin(float(ctx.clock) * 9.0)) * scale)
+	var width: float = maxf(1.7, (3.0 + fire * 0.02) * scale)
+	HullFeedback._poly(ctx, PackedVector2Array([p + Vector2(-width, 1.0), p + Vector2(-width * 0.7, -height * 0.35), p + Vector2(width * 0.15, -height), p + Vector2(width, 1.0)]), Color(0.94, 0.25, 0.045, 0.88))
+	HullFeedback._poly(ctx, PackedVector2Array([p + Vector2(-width * 0.45, 0.0), p + Vector2(0.0, -height * 0.65), p + Vector2(width * 0.45, 0.0)]), Color(1.0, 0.82, 0.32, 0.95))
+	HullFeedback._smoke(ctx, at, true, float(ctx.clock), scale, 2)
 
 # --- wakes, trails, projectiles (world-space, same canvas/projector) ---------
 

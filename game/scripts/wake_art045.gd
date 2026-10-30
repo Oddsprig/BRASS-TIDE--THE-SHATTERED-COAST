@@ -217,14 +217,21 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 	var length: float = distances.back()
 	if length < 0.1:
 		return 0
-	var fade: float = pow(1.0 - float(path.back().age) / life, 1.6)
+	# Recorded travel, rather than throttle or heading, controls foam strength.
+	# Equal-age samples use a bounded time floor; resting paths still age out.
+	var span: float = maxf(0.01, float(path.front().age) - float(path.back().age))
+	var vigor: float = lerpf(0.55, 1.0, smoothstep(0.5, 24.0, length / span))
+	var fade: float = pow(1.0 - float(path.back().age) / life, 1.6) * vigor
 	var side: Vector2 = _side(path)
 	var widths: Array[float] = []
 	for index in range(path.size()):
 		var along: float = distances[index] / length
 		var age_fade: float = sqrt(maxf(0.0, 1.0 - float(path[index].age) / life))
 		var width: float = minf(float(path[index].w) * 0.62, length * 0.24)
-		widths.append(width * smoothstep(0.0, 0.65, along) * age_fade)
+		# A small neck at the transom opens into the wash just aft, then tapers
+		# to the recorded tail. Parallel sections keep the existing strip proof.
+		var neck: float = lerpf(1.0, 0.80, smoothstep(0.65, 1.0, along))
+		widths.append(width * smoothstep(0.0, 0.65, along) * neck * age_fade)
 	var colors: Array[Color] = [Color(0.58, 0.81, 0.78, 0.13 * fade), Color(0.75, 0.91, 0.86, 0.17 * fade), Color(0.92, 0.98, 0.93, 0.18 * fade)]
 	var scales: Array[float] = [1.0, 0.57, 0.20]
 	# The water projector is affine. Project each center once, then share its

@@ -429,7 +429,11 @@ func _update_wakes(boats: Array):
 				samples.clear() # Do not connect a relocation to the old path.
 			if not samples.is_empty() and travel < 0.05:
 				continue
-			samples.append({"p": stern, "c": center, "d": direction, "t": clock, "w": minf(WakeArt.MAX_WIDTH, bsize * 0.42)})
+			# Gentle motion leaves a thin wash; fast travel opens the same bounded
+			# strip behind the drive. No heading extension or stationary emission.
+			var speed_mix: float = smoothstep(0.5, 60.0, velocity.length())
+			var width: float = minf(WakeArt.MAX_WIDTH, bsize * lerpf(0.20, 0.48, speed_mix))
+			samples.append({"p": stern, "c": center, "d": direction, "t": clock, "w": width})
 			while samples.size() > mini(WAKE_MAX_PER_BOAT, WakeArt.MAX_SAMPLES):
 				samples.pop_front()
 			_wakes[key] = samples
