@@ -342,7 +342,7 @@ static func _effect_profile(type: String, fam: String, variant: String, mat: Str
 				life = 0.11 if not heavy else 0.14
 				mag = 0.45 if not heavy else 0.62
 				radius = 6.0 if not heavy else 8.0
-				length = 11.0 if not heavy else 15.0
+				length = 12.0 if not heavy else 16.0
 				width = 3.5 if not heavy else 5.0
 				recoil = 0.08 if not heavy else 0.12
 				smoke = 0.12
@@ -353,7 +353,7 @@ static func _effect_profile(type: String, fam: String, variant: String, mat: Str
 				mag = 0.88 if not heavy else 1.15
 				radius = 11.0 if not heavy else 14.5
 				length = 18.0 if not heavy else 24.0
-				width = 7.5 if not heavy else 10.0
+				width = 8.5 if not heavy else 11.0
 				recoil = 0.26 if not heavy else 0.36
 				smoke = 0.65
 				fragments = 3
@@ -362,8 +362,8 @@ static func _effect_profile(type: String, fam: String, variant: String, mat: Str
 				life = 0.26 if not heavy else 0.32
 				mag = 0.90 if not heavy else 1.15
 				radius = 9.5 if not heavy else 12.5
-				length = 16.0 if not heavy else 21.0
-				width = 6.5 if not heavy else 8.5
+				length = 18.0 if not heavy else 24.0
+				width = 5.5 if not heavy else 7.0
 				recoil = 0.0
 				smoke = 0.75
 				fragments = 3
@@ -372,8 +372,8 @@ static func _effect_profile(type: String, fam: String, variant: String, mat: Str
 				life = 0.30 if not heavy else 0.36
 				mag = 0.72 if not heavy else 0.92
 				radius = 8.5 if not heavy else 11.0
-				length = 14.0 if not heavy else 18.0
-				width = 5.5 if not heavy else 7.0
+				length = 18.0 if not heavy else 22.0
+				width = 6.5 if not heavy else 8.0
 				height = 0.0
 				recoil = 0.0
 				smoke = 0.10
@@ -442,7 +442,7 @@ static func _effect_profile(type: String, fam: String, variant: String, mat: Str
 	else:
 		match fam:
 			"gun":
-				life = 0.25 if not heavy else 0.32
+				life = 0.20 if not heavy else 0.26
 				mag = 0.52 if not heavy else 0.68
 				radius = 8.5 if not heavy else 10.5
 				length = 12.0
@@ -807,6 +807,7 @@ static func emit_engine_failure(st: Dictionary, ship: Dictionary, reason: String
 	var ship_spec: Dictionary = ship.get("spec", {}) if ship.get("spec") is Dictionary else {}
 	var angle: float = number(ship.get("angle"), 0.0)
 	var mag: float = clampf(1.0 - eng + 0.25, 0.30, 1.25)
+	var on_fire: bool = number(ship.get("fire"), 0.0) > 0.0
 	var ev: Dictionary = push_event(st, {
 		"kind": "engine",
 		"type": "engine",
@@ -836,6 +837,7 @@ static func emit_engine_failure(st: Dictionary, ship: Dictionary, reason: String
 		"damage": 0.0,
 		"engine": eng,
 		"engineDamaged": true,
+		"incendiary": on_fire,
 		"sunk": bool(ship.get("sunk", false))
 	})
 	add_effect(st, point, "hit", {
@@ -855,6 +857,7 @@ static func emit_engine_failure(st: Dictionary, ship: Dictionary, reason: String
 		"team": str(ship.get("team", "player")),
 		"section": "engine",
 		"engineDamaged": true,
+		"incendiary": on_fire,
 		"sunk": bool(ship.get("sunk", false)),
 		"seq": int(ev.get("seq", 0))
 	})

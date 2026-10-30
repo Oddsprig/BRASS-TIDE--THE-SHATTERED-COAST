@@ -222,6 +222,18 @@ static func _fx_arc(fx: Dictionary, c: Vector2, r: float, a0: float, a1: float, 
 		canvas.draw_polyline(pts, col, maxf(0.8, width), true)
 		fx.n = int(fx.n) + 1
 
+static func _fx_water_ring(fx: Dictionary, c: Vector2, r: float, col: Color, width: float = 1.0) -> void:
+	if int(fx.n) >= int(fx.max_n) or col.a <= 0.01 or r <= 0.25:
+		return
+	# A surface footprint in the existing isometric water plane, one primitive.
+	var pts := PackedVector2Array()
+	var n: int = 16 if int(fx.lod) < 2 else 10
+	for i in range(n + 1):
+		var a: float = TAU * float(i) / float(n)
+		pts.append(c + Vector2(cos(a), sin(a) * 0.50) * r)
+	fx.canvas.draw_polyline(pts, col, maxf(0.8, width), true)
+	fx.n = int(fx.n) + 1
+
 static func _star_poly(center: Vector2, r_outer: float, r_inner: float, points_count: int, seq: int, rot: float = 0.0) -> PackedVector2Array:
 	var pts := PackedVector2Array()
 	var total: int = maxi(4, points_count) * 2
@@ -286,6 +298,10 @@ static func effect(chart, e: Dictionary) -> int:
 		var flood_only: bool = (reason == "flooding") and not bool(e.get("incendiary", false))
 		_draw_sink_effect(fx, p, ground, t, alpha, radius, mag, hull_mat, flood_only, bool(e.get("incendiary", false)), seq)
 		return int(fx.n)
+	# Equipment failures keep their identity even when the last hit was explosive.
+	if kind == "engine" or mat == "engine" or subtype == "engine_failure":
+		_draw_hull_impact(fx, e, p, screen_dir, side, family, kind, mat, hull_mat, subtype, t, alpha, radius, length_val, mag, seq)
+		return int(fx.n)
 	var is_land: bool = bool(e.get("land", false)) or mat == "land"
 	var is_splash: bool = bool(e.get("splash", false)) or etype == "splash" or mat == "water"
 	if kind == "miss":
@@ -306,8 +322,40 @@ static func effect(chart, e: Dictionary) -> int:
 static func _draw_muzzle_effect(fx: Dictionary, p: Vector2, ground: Vector2, dir: Vector2, side: Vector2, family: String, t: float, alpha: float, radius: float, length_val: float, width_val: float, seq: int) -> void:
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
-	var flash_env: float = clampf(1.0 - t * 1.18, 0.14, 1.0)
+	# One impulse per reported shot. Smoke may linger after the light goes out.
+	var flash_env: float = clampf(1.0 - t * 3.6, 0.0, 1.0)
 	var flash_a: float = alpha * flash_env
+	if family == "gun":
+		var gun_a: float = alpha * clampf(1.0 - t * 1.65, 0.0, 1.0)
+		var gun_len: float = maxf(5.0, length_val * (0.88 + 0.24 * _det_unit(seq, 0, 11)) * (1.0 - 0.28 * t))
+		var gun_w: float = maxf(1.4, width_val * 0.46)
+		_fx_poly(fx, PackedVector2Array([p - side * gun_w, p + dir * gun_len, p + side * gun_w]), Color(1.0, 0.70, 0.22, gun_a * 0.94))
+		_fx_line(fx, p, p + dir * gun_len * 0.78, Color(1.0, 0.99, 0.86, gun_a), maxf(1.1, 1.8 * s))
+		if lod < 2:
+			for side_sign in [-1.0, 1.0]:
+				_fx_line(fx, p, p + dir * gun_len * 0.28 + side * side_sign * gun_w * 1.55, Color(1.0, 0.85, 0.42, gun_a * 0.82), 1.0)
+		if lod == 0:
+			_fx_circle(fx, p + dir * 3.0 * s + Vector2(0.0, -t * 6.0 * s), radius * (0.18 + 0.24 * t), Color(0.58, 0.60, 0.56, alpha * t * 0.30))
+		return
+	if family == "rocket":
+		# Rearward exhaust, rather than a second cannon-shaped forward flash.
+		var back_len: float = length_val * (1.10 + 0.45 * t)
+		var back_w: float = maxf(2.2, width_val * (0.58 + 0.35 * t))
+		var smoke_n: int = 4 if lod == 0 else (2 if lod == 1 else 1)
+		for i in range(smoke_n):
+			var drift: Vector2 = -dir * (back_len * 0.42 + float(i) * radius * (0.32 + 0.50 * t)) + side * _det_signed(seq, i, 21) * radius * 0.24
+			_fx_circle(fx, p + drift + Vector2(0.0, -t * 12.0 * s), radius * (0.18 + 0.12 * float(i) + 0.30 * t), Color(0.56, 0.54, 0.50, alpha * 0.48))
+		var exhaust_a: float = alpha * clampf(1.0 - t * 1.45, 0.0, 1.0)
+		_fx_poly(fx, PackedVector2Array([
+			p - side * back_w * 0.28,
+			p - dir * back_len * 0.72 - side * back_w,
+			p - dir * back_len,
+			p - dir * back_len * 0.72 + side * back_w,
+			p + side * back_w * 0.28
+		]), Color(1.0, 0.42, 0.10, exhaust_a * 0.90))
+		_fx_line(fx, p - dir * back_len * 0.78, p, Color(1.0, 0.93, 0.64, exhaust_a), maxf(1.2, 2.6 * s))
+		_fx_line(fx, p, p + dir * length_val * 0.34, Color(1.0, 0.98, 0.82, flash_a), maxf(1.1, 2.0 * s))
+		return
 	if family == "torpedo":
 		var mist_len: float = length_val * (0.75 + 0.55 * t)
 		var mist_w: float = maxf(2.5, width_val * (0.45 + 0.45 * t))
@@ -319,7 +367,7 @@ static func _draw_muzzle_effect(fx: Dictionary, p: Vector2, ground: Vector2, dir
 			ground + side * mist_w * 0.35
 		]), Color(0.80, 0.96, 0.92, alpha * 0.68))
 		_fx_line(fx, ground, ground + dir * mist_len * 1.15, Color(0.95, 1.0, 0.98, alpha * 0.92), 2.4 * s)
-		_fx_arc(fx, ground + dir * mist_len * 0.35, radius * (0.35 + 0.65 * t), 0.0, TAU, 12, Color(FOAM_MID, alpha * 0.72), 1.4 * s)
+		_fx_water_ring(fx, ground, radius * (0.35 + 0.65 * t), Color(FOAM_MID, alpha * 0.72), 1.4 * s)
 		var spray_n: int = 4 if lod == 0 else (2 if lod == 1 else 1)
 		for i in range(spray_n):
 			var side_sign: float = -1.0 if i % 2 == 0 else 1.0
@@ -341,7 +389,7 @@ static func _draw_muzzle_effect(fx: Dictionary, p: Vector2, ground: Vector2, dir
 		p + dir * cone_len * 1.48,
 		p + dir * cone_len * 0.68 + side * cone_w * 0.26,
 		p + side * cone_w * 0.42
-	]), Color(1.0, 0.58 if family != "gun" else 0.68, 0.16, flash_a * 0.92))
+	]), Color(1.0, 0.58, 0.16, flash_a * 0.92))
 	if lod < 2:
 		_fx_poly(fx, PackedVector2Array([
 			p - side * cone_w * 0.22,
@@ -351,63 +399,45 @@ static func _draw_muzzle_effect(fx: Dictionary, p: Vector2, ground: Vector2, dir
 	_fx_line(fx, p, p + dir * cone_len * 1.22, Color(1.0, 0.98, 0.86, flash_a), maxf(1.2, 2.8 * s))
 	_fx_circle(fx, p + dir * cone_len * 0.20, maxf(1.4, cone_w * 0.38), Color(1.0, 0.86, 0.46, flash_a * 0.85))
 
-	if family == "rocket":
-		var back_len: float = cone_len * (0.85 + 0.35 * t)
-		var back_w: float = cone_w * (0.75 + 0.45 * t)
-		_fx_poly(fx, PackedVector2Array([
-			p - side * back_w * 0.30,
-			p - dir * back_len * 0.95 - side * back_w * 0.75,
-			p - dir * back_len * 1.25,
-			p - dir * back_len * 0.95 + side * back_w * 0.75,
-			p + side * back_w * 0.30
-		]), Color(1.0, 0.46, 0.12, alpha * 0.82))
-		var smoke_n: int = 4 if lod == 0 else (2 if lod == 1 else 1)
-		for i in range(smoke_n):
-			var drift: Vector2 = -dir * (4.0 * s + (float(i) + 1.0) * radius * (0.28 + 0.55 * t)) + side * _det_signed(seq, i, 21) * radius * 0.32
-			_fx_circle(fx, p + drift + Vector2(0.0, -t * 14.0 * s), radius * (0.22 + 0.14 * float(i) + 0.28 * t), Color(0.56, 0.54, 0.50, alpha * 0.44))
-	elif family == "cannon":
+	if family == "cannon":
 		for side_sign in [-1.0, 1.0]:
 			var jet_dir: Vector2 = (dir * 0.45 + side * side_sign * 0.89).normalized()
 			_fx_line(fx, p + dir * 2.0 * s, p + jet_dir * cone_w * 1.35, Color(1.0, 0.76, 0.30, flash_a * 0.85), maxf(1.0, 1.9 * s))
 		if lod < 2:
-			_fx_arc(fx, p + dir * cone_len * 0.32, radius * (0.32 + 0.65 * t), dir.angle() - 1.25, dir.angle() + 1.25, 10, Color(1.0, 0.84, 0.46, alpha * 0.58), 1.3 * s)
+			_fx_arc(fx, p, radius * (0.32 + 0.90 * t), dir.angle() - 1.25, dir.angle() + 1.25, 10, Color(1.0, 0.84, 0.46, alpha * flash_env * 0.72), 1.3 * s)
 		var c_smoke: int = 4 if lod == 0 else (2 if lod == 1 else 1)
 		for i in range(c_smoke):
 			var puff_pos: Vector2 = p + dir * (cone_len * 0.35 + float(i) * radius * 0.32 * (0.5 + t)) + side * float(i - 1) * radius * 0.26
-			_fx_circle(fx, puff_pos + Vector2(0.0, -t * (12.0 + 4.0 * float(i)) * s), radius * (0.22 + 0.34 * t), Color(0.28, 0.30, 0.29, alpha * 0.38))
-	else:
-		if lod < 2:
-			for side_sign in [-1.0, 1.0]:
-				var prong: Vector2 = (dir * 0.72 + side * side_sign * 0.68).normalized()
-				_fx_line(fx, p + dir * 1.5 * s, p + prong * cone_w * 0.95, Color(1.0, 0.82, 0.38, flash_a * 0.82), maxf(0.9, 1.5 * s))
-			_fx_circle(fx, p + dir * (4.0 + 10.0 * t) * s + Vector2(0.0, -t * 8.0 * s), radius * (0.24 + 0.28 * t), Color(0.58, 0.60, 0.56, alpha * 0.26))
+			_fx_circle(fx, puff_pos + Vector2(0.0, -t * (12.0 + 4.0 * float(i)) * s), radius * (0.18 + 0.46 * t), Color(0.28, 0.30, 0.29, alpha * (0.16 + 0.30 * t)))
 
 	var spark_n: int = 4 if lod == 0 else (2 if lod == 1 else 1)
 	for i in range(spark_n):
-		var sang: float = dir.angle() + _det_signed(seq, i, 31) * (0.65 if family != "rocket" else 1.45)
+		var sang: float = dir.angle() + _det_signed(seq, i, 31) * 0.65
 		var sdir: Vector2 = Vector2.from_angle(sang)
 		var dist: float = (cone_len * 0.45 + radius * (0.35 + 1.15 * t)) * (0.7 + 0.5 * _det_unit(seq, i, 37))
 		var tip: Vector2 = p + sdir * dist
 		var tail: Vector2 = tip - sdir * maxf(2.5, (4.5 + 2.0 * float(i % 2)) * s)
-		_fx_line(fx, tail, tip, Color(1.0, 0.86, 0.40, alpha * 0.92), maxf(1.0, 1.6 * s))
+		_fx_line(fx, tail, tip, Color(1.0, 0.86, 0.40, alpha * clampf(1.0 - t * 1.8, 0.0, 1.0)), maxf(1.0, 1.6 * s))
 		if lod == 0 and i < 2:
-			_fx_circle(fx, tip, maxf(0.9, 1.3 * s), Color(1.0, 0.98, 0.84, alpha * 0.95))
+			_fx_circle(fx, tip, maxf(0.9, 1.3 * s), Color(1.0, 0.98, 0.84, flash_a * 0.95))
 
 static func _draw_water_plume(fx: Dictionary, ground: Vector2, family: String, t: float, alpha: float, radius: float, mag: float, s: float, seq: int, is_direct_hit: bool) -> void:
 	var lod: int = int(fx.lod)
 	var base_h: float = 14.0 if family == "gun" else (42.0 if family == "cannon" else (50.0 if family == "rocket" else 64.0))
 	if is_direct_hit and family == "torpedo":
 		base_h = 74.0
-	var env: float = sin(clampf(t * 1.12, 0.06, 1.0) * PI * 0.88)
+	var rise: float = clampf(t / 0.22, 0.0, 1.0)
+	var fall: float = clampf((t - 0.25) / 0.75, 0.0, 1.0)
+	var env: float = (0.20 + 0.80 * (1.0 - (1.0 - rise) * (1.0 - rise))) * (1.0 - fall * 0.88)
 	var col_h: float = base_h * (0.82 + 0.22 * mag) * s * env
-	var spread: float = radius * (0.22 + 0.78 * t)
-	_fx_arc(fx, ground, spread, 0.08, PI - 0.08, 14, Color(FOAM_LIGHT, alpha * 0.82), maxf(1.1, 2.0 * s))
+	var spread: float = radius * ((0.42 if family == "torpedo" else 0.22) + 0.78 * t)
+	_fx_water_ring(fx, ground, spread, Color(FOAM_LIGHT, alpha * 0.82), maxf(1.1, 2.0 * s))
 	if lod < 2:
-		_fx_arc(fx, ground, spread * 1.32, 0.0, TAU, 16, Color(FOAM_MID, alpha * 0.48), maxf(0.9, 1.3 * s))
+		_fx_water_ring(fx, ground, spread * 1.32, Color(FOAM_MID, alpha * 0.48), maxf(0.9, 1.3 * s))
 	if family == "rocket":
 		var flash_r: float = radius * (0.28 + 0.25 * (1.0 - t))
-		_fx_circle(fx, ground + Vector2(0.0, -flash_r * 0.35), flash_r, Color(1.0, 0.62, 0.20, alpha * (1.0 - t * 0.45) * 0.85))
-	var col_w: float = maxf(2.2 * s, spread * 0.46)
+		_fx_circle(fx, ground + Vector2(0.0, -flash_r * 0.35), flash_r, Color(1.0, 0.62, 0.20, alpha * clampf(1.0 - t * 3.2, 0.0, 1.0)))
+	var col_w: float = maxf(2.2 * s, spread * (0.58 if family == "torpedo" else 0.30))
 	if col_h > 2.5:
 		_fx_poly(fx, PackedVector2Array([
 			ground + Vector2(-col_w, 0.0),
@@ -446,7 +476,9 @@ static func _draw_land_impact(fx: Dictionary, p: Vector2, dir: Vector2, family: 
 		var off: Vector2 = Vector2.from_angle(_det_angle(seq, i, dust_n)) * radius * 0.35 * t + Vector2(0.0, -t * 10.0 * s)
 		_fx_circle(fx, p + off, radius * (0.26 + 0.24 * t), Color(0.62, 0.54, 0.38, alpha * 0.52))
 	if family in ["cannon", "rocket"]:
-		_fx_poly(fx, _star_poly(p, radius * (0.48 - 0.15 * t), radius * 0.22, 5, seq, t * 1.4), Color(1.0, 0.58, 0.18, alpha * 0.85))
+		var impact_a: float = alpha * clampf(1.0 - t * 3.4, 0.0, 1.0)
+		var blast_k: float = 0.72 if family == "rocket" else 0.42
+		_fx_poly(fx, _star_poly(p, radius * blast_k * (1.0 + 0.30 * t), radius * 0.22, 7 if family == "rocket" else 4, seq), Color(1.0, 0.58, 0.18, impact_a))
 	var frag_n: int = 6 if lod == 0 else (4 if lod == 1 else 2)
 	for i in range(frag_n):
 		var ang: float = (-dir).angle() + _det_signed(seq, i, 97) * 1.35
@@ -459,9 +491,9 @@ static func _draw_land_impact(fx: Dictionary, p: Vector2, dir: Vector2, family: 
 static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: float, alpha: float, radius: float, mag: float, hull_mat: String, flood_only: bool, on_fire: bool, seq: int) -> void:
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
-	_fx_arc(fx, ground, radius * (0.45 + 0.88 * t), 0.0, TAU, 18, Color(FOAM_LIGHT, alpha * 0.82), maxf(1.2, 2.1 * s))
+	_fx_water_ring(fx, ground, radius * (0.45 + 0.88 * t), Color(FOAM_LIGHT, alpha * 0.82), maxf(1.2, 2.1 * s))
 	if lod < 2:
-		_fx_arc(fx, ground, radius * (0.72 + 1.18 * t), 0.0, TAU, 20, Color(FOAM_MID, alpha * 0.52), maxf(1.0, 1.4 * s))
+		_fx_water_ring(fx, ground, radius * (0.72 + 1.18 * t), Color(FOAM_MID, alpha * 0.52), maxf(1.0, 1.4 * s))
 	if flood_only:
 		var swell_w: float = radius * (0.52 + 0.30 * t)
 		var swell_h: float = radius * 0.58 * sin(clampf(t * 1.2, 0.08, 1.0) * PI * 0.85)
@@ -482,11 +514,12 @@ static func _draw_sink_effect(fx: Dictionary, p: Vector2, ground: Vector2, t: fl
 			var boff: Vector2 = Vector2.from_angle(_det_angle(seq, i, bub_n)) * radius * (0.18 + 0.58 * t * _det_unit(seq, i, 103))
 			_fx_circle(fx, ground + boff + Vector2(0.0, -t * 10.0 * s), maxf(1.1, (1.6 + float(i % 3) * 0.7) * s), Color(FOAM_LIGHT, alpha * 0.86))
 		var plank_n: int = 4 if lod == 0 else (2 if lod == 1 else 1)
+		var plank_col: Color = Color(0.76, 0.56, 0.32, alpha * 0.85) if hull_mat == "wood" else Color(0.64, 0.78, 0.76, alpha * 0.85)
 		for i in range(plank_n):
 			var pang: float = _det_angle(seq, i, plank_n, 0.4)
 			var pdir: Vector2 = Vector2.from_angle(pang)
 			var ppos: Vector2 = ground + pdir * radius * (0.25 + 0.55 * t)
-			_fx_line(fx, ppos - pdir.orthogonal() * 3.5 * s, ppos + pdir.orthogonal() * 3.5 * s, Color(0.76, 0.56, 0.32, alpha * 0.85), maxf(1.1, 1.8 * s))
+			_fx_line(fx, ppos - pdir.orthogonal() * 3.5 * s, ppos + pdir.orthogonal() * 3.5 * s, plank_col, maxf(1.1, 1.8 * s))
 		return
 
 	var smoke_n: int = (5 if lod == 0 else (3 if lod == 1 else 2)) if on_fire else 0
@@ -514,16 +547,16 @@ static func _draw_rocket_blast(fx: Dictionary, p: Vector2, ground: Vector2, dir:
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
 	if is_splash or mat == "water":
-		_fx_arc(fx, ground, radius * (0.42 + 0.85 * t), 0.0, TAU, 16, Color(FOAM_LIGHT, alpha * 0.76), maxf(1.1, 1.8 * s))
+		_fx_water_ring(fx, ground, radius * (0.42 + 0.85 * t), Color(FOAM_LIGHT, alpha * 0.76), maxf(1.1, 1.8 * s))
 	var smoke_n: int = 5 if lod == 0 else (3 if lod == 1 else 1)
 	for i in range(smoke_n):
 		var soff: Vector2 = Vector2.from_angle(_det_angle(seq, i, smoke_n)) * radius * (0.22 + 0.52 * t)
 		_fx_circle(fx, p + soff + Vector2(0.0, -t * radius * 0.85), radius * (0.30 + 0.20 * t), Color(0.24, 0.22, 0.20, alpha * 0.54))
-	var fire_a: float = alpha * clampf(1.0 - t * 0.85, 0.18, 1.0)
-	_fx_poly(fx, _star_poly(p, radius * (0.55 + 0.30 * (1.0 - t)), radius * 0.25, 7, seq, t * 1.8), Color(1.0, 0.48, 0.12, fire_a * 0.92))
+	var fire_a: float = alpha * clampf(1.0 - t * 3.4, 0.0, 1.0)
+	_fx_poly(fx, _star_poly(p, radius * (0.64 + 0.70 * minf(t, 0.30)), radius * 0.25, 7, seq), Color(1.0, 0.48, 0.12, fire_a * 0.92))
 	if lod < 2:
-		_fx_poly(fx, _star_poly(p, radius * 0.34, radius * 0.16, 5, seq + 7, -t * 1.5), Color(1.0, 0.93, 0.66, fire_a * 0.96))
-	_fx_arc(fx, p, radius * (0.38 + 0.92 * t), 0.0, TAU, 14, Color(1.0, 0.74, 0.26, alpha * 0.68), maxf(1.0, 1.5 * s))
+		_fx_poly(fx, _star_poly(p, radius * 0.34, radius * 0.16, 5, seq + 7), Color(1.0, 0.93, 0.66, fire_a * 0.96))
+	_fx_arc(fx, p, radius * (0.38 + 1.35 * t), 0.0, TAU, 14, Color(1.0, 0.74, 0.26, alpha * clampf(1.0 - t * 2.2, 0.0, 1.0) * 0.68), maxf(1.0, 1.5 * s))
 	var spark_n: int = 6 if lod == 0 else (4 if lod == 1 else 2)
 	var metallic: bool = mat in ["armor", "metal", "engine"] or hull_mat in ["armor", "metal"]
 	for i in range(spark_n):
@@ -539,9 +572,11 @@ static func _draw_rocket_blast(fx: Dictionary, p: Vector2, ground: Vector2, dir:
 static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Vector2, side: Vector2, family: String, kind: String, mat: String, hull_mat: String, subtype: String, t: float, alpha: float, radius: float, length_val: float, mag: float, seq: int) -> void:
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
+	var impact_a: float = alpha * clampf(1.0 - t * 3.2, 0.0, 1.0)
+	var travel: float = 1.0 - (1.0 - t) * (1.0 - t)
 	var is_engine: bool = kind == "engine" or mat == "engine" or bool(e.get("engineDamaged", false)) or "engine" in subtype
 	var is_metal_or_armor: bool = is_engine or mat in ["armor", "metal"] or hull_mat in ["armor", "metal"] or "armor" in subtype or "metal" in subtype
-	var is_cannon: bool = family == "cannon" or bool(e.get("breach", false))
+	var is_cannon: bool = family == "cannon" and kind != "engine"
 	# Only the damage system's reported breach selects an opening. Other armor
 	# contacts retain short reflected fragments, never a new gameplay projectile.
 	var penetrated: bool = bool(e.get("breach", false))
@@ -552,11 +587,12 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 		for i in range(eng_smoke):
 			var eoff: Vector2 = Vector2(_det_signed(seq, i, 131) * radius * 0.32, -t * (14.0 + 6.0 * float(i)) * s)
 			_fx_circle(fx, p + eoff, radius * (0.26 + 0.24 * t), Color(0.18, 0.19, 0.20, alpha * 0.62))
-		_fx_circle(fx, p, radius * (0.30 * (1.0 - 0.4 * t)), Color(1.0, 0.54, 0.14, alpha * 0.88))
+		if bool(e.get("incendiary", false)):
+			_fx_circle(fx, p, radius * (0.30 * (1.0 - 0.4 * t)), Color(1.0, 0.54, 0.14, alpha * 0.88))
 
 	if is_cannon:
 		var burst_r: float = radius * (0.48 + 0.22 * (1.0 - t))
-		_fx_poly(fx, _star_poly(p, burst_r, burst_r * 0.44, 6, seq, t * 1.5), Color(1.0, 0.54, 0.14, alpha * 0.88))
+		_fx_poly(fx, _star_poly(p, burst_r, burst_r * 0.44, 6, seq), Color(1.0, 0.54, 0.14, impact_a * 0.88))
 		if lod < 2:
 			for i in range(2):
 				var c_off: Vector2 = reflect_dir * (4.0 + float(i) * 7.0) * s * t + Vector2(0.0, -t * (10.0 + float(i) * 5.0) * s)
@@ -564,9 +600,9 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 
 	if is_metal_or_armor:
 		var glint_r: float = maxf(3.2 * s, radius * (0.42 - 0.14 * t))
-		var glint_col: Color = Color(1.0, 0.90, 0.52, alpha * 0.96) if (mat == "armor" or hull_mat == "armor") else Color(1.0, 0.96, 0.80, alpha * 0.96)
+		var glint_col: Color = Color(1.0, 0.90, 0.52, impact_a * 0.96) if (mat == "armor" or hull_mat == "armor") else Color(1.0, 0.96, 0.80, impact_a * 0.96)
 		_fx_poly(fx, _star_poly(p, glint_r, glint_r * 0.32, 4, seq, dir.angle() + 0.4), glint_col)
-		_fx_circle(fx, p, maxf(1.5 * s, glint_r * 0.42), Color(1.0, 0.98, 0.90, alpha * 0.95))
+		_fx_circle(fx, p, maxf(1.5 * s, glint_r * 0.42), Color(1.0, 0.98, 0.90, impact_a * 0.95))
 		if lod < 2:
 			if penetrated:
 				# A short dark opening replaces the reflected streak, never adds a
@@ -582,7 +618,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 			var sang: float = _det_angle(seq, i, spark_n, reflect_dir.angle(), PI * 1.35)
 			var sdir: Vector2 = Vector2.from_angle(sang)
 			var speed_k: float = 0.68 + 0.58 * _det_unit(seq, i, 149)
-			var dist: float = radius * (0.26 + 1.55 * t) * speed_k
+			var dist: float = radius * (0.26 + 1.55 * travel) * speed_k
 			var tip: Vector2 = p + sdir * dist + Vector2(0.0, t * t * 14.0 * s - t * 9.0 * s)
 			var streak_len: float = maxf(3.2, (6.2 + 2.8 * mag) * s * (1.0 - 0.28 * t))
 			var tail: Vector2 = tip - sdir * streak_len
@@ -600,7 +636,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 
 	# Wood impact: high-contrast timber burst, polygonal plank shards, and flying wood splinters.
 	var burst_w: float = maxf(3.0 * s, radius * (0.38 - 0.10 * t))
-	_fx_poly(fx, _star_poly(p, burst_w, burst_w * 0.42, 5, seq, dir.angle()), Color(0.96, 0.80, 0.48, alpha * 0.90))
+	_fx_poly(fx, _star_poly(p, burst_w, burst_w * 0.42, 5, seq, dir.angle()), Color(0.96, 0.80, 0.48, impact_a * 0.90))
 	if lod < 2:
 		_fx_circle(fx, p + reflect_dir * 3.0 * s * t + Vector2(0.0, -t * 7.0 * s), radius * (0.24 + 0.22 * t), Color(0.66, 0.50, 0.32, alpha * 0.44))
 	var shard_n: int = 3 if lod == 0 else (2 if lod == 1 else 1)
@@ -615,10 +651,10 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 	for i in range(splinter_n):
 		var wang: float = _det_angle(seq, i, splinter_n, reflect_dir.angle(), PI * 1.45)
 		var wdir: Vector2 = Vector2.from_angle(wang)
-		var wdist: float = radius * (0.24 + 1.42 * t) * (0.68 + 0.52 * _det_unit(seq, i, 181))
+		var wdist: float = radius * (0.24 + 1.42 * travel) * (0.68 + 0.52 * _det_unit(seq, i, 181))
 		var wend: Vector2 = p + wdir * wdist + Vector2(0.0, t * t * 14.0 * s - t * 9.5 * s)
 		var wlen: float = maxf(3.5, (6.5 + 2.4 * mag) * s * (1.0 - 0.22 * t))
-		var is_ember: bool = is_cannon and (i == 0 or (lod == 0 and i == 3))
+		var is_ember: bool = bool(e.get("incendiary", false)) and (i == 0 or (lod == 0 and i == 3))
 		var wcol: Color = Color(1.0, 0.76, 0.28, alpha * 0.92) if is_ember else (Color(0.95, 0.80, 0.50, alpha * 0.94) if i % 2 == 0 else Color(0.68, 0.45, 0.22, alpha * 0.92))
 		_fx_line(fx, wend - wdir * wlen, wend, wcol, maxf(1.1, 2.0 * s))
 
@@ -646,9 +682,9 @@ static func wreck(chart, w: Dictionary) -> int:
 	var ring_fade: float = clampf(1.0 - maxf(0.0, age - 1.4) / 4.2, 0.0, 1.0)
 	if ring_fade > 0.02:
 		var inner_r: float = bsize * scale_value * (0.62 + 0.58 * t + minf(0.45, maxf(0.0, age - 2.0) * 0.12))
-		_fx_arc(fx, center, inner_r, 0.0, TAU, 18 if lod < 2 else 12, Color(FOAM_LIGHT, ring_fade * (0.62 if t < 1.0 else 0.36)), maxf(1.1, 1.8 * scale_value))
+		_fx_water_ring(fx, center, inner_r, Color(FOAM_LIGHT, ring_fade * (0.62 if t < 1.0 else 0.36)), maxf(1.1, 1.8 * scale_value))
 		if lod < 2:
-			_fx_arc(fx, center, inner_r * (1.28 + 0.18 * t), 0.0, TAU, 20, Color(FOAM_MID, ring_fade * 0.38), maxf(0.9, 1.2 * scale_value))
+			_fx_water_ring(fx, center, inner_r * (1.28 + 0.18 * t), Color(FOAM_MID, ring_fade * 0.38), maxf(0.9, 1.2 * scale_value))
 
 	# 2. Listing, settling, fading hull (never projects negative height or a second reflected outline).
 	var boat_prims: int = 0
@@ -704,7 +740,7 @@ static func wreck(chart, w: Dictionary) -> int:
 		var stage_a: float = clampf(1.0 - t * 0.82, 0.15, 1.0)
 		var foam_n: int = 4 if lod == 0 else (3 if lod == 1 else 2)
 		for i in range(foam_n):
-			var fang: float = base_angle + (float(i) - float(foam_n - 1) * 0.5) * 0.65
+			var fang: float = (float(i) - float(foam_n - 1) * 0.5) * 0.65
 			var fworld: Vector2 = w_pos + Vector2(cos(fang) * bsize * 0.55, sin(fang) * bsize * 0.32).rotated(base_angle)
 			var fp: Vector2 = _project(chart, fworld, 0.0)
 			_fx_circle(fx, fp, maxf(1.5, bsize * scale_value * (0.14 + 0.12 * sin(t * PI))), Color(FOAM_LIGHT, (1.0 - t * 0.45) * 0.58))
@@ -746,11 +782,12 @@ static func wreck(chart, w: Dictionary) -> int:
 	var bubble_fade: float = clampf(1.0 - maxf(0.0, age - 1.8) / 4.5, 0.0, 1.0)
 	var bub_count: int = 6 if lod == 0 else (4 if lod == 1 else 2)
 	for i in range(bub_count):
+		var bubble_phase: float = fposmod(age * 0.85 + float(i) * 0.19, 1.0)
 		var b_ang: float = _det_angle(seed_val, i, bub_count, 0.3)
 		var b_dist: float = bsize * (0.14 + (0.42 + 0.28 * t) * _det_unit(seed_val, i, 211))
 		var b_pos: Vector2 = _project(chart, w_pos + Vector2.from_angle(b_ang) * b_dist, (1.0 - t) * 3.0)
-		var b_rad: float = maxf(0.9, (1.2 + float(i % 3) * 0.55) * scale_value * (1.0 - 0.3 * t))
-		_fx_circle(fx, b_pos, b_rad, Color(FOAM_LIGHT, bubble_fade * 0.76))
+		var b_rad: float = maxf(0.9, (1.2 + float(i % 3) * 0.55) * scale_value * (0.55 + 0.65 * bubble_phase))
+		_fx_circle(fx, b_pos, b_rad, Color(FOAM_LIGHT, bubble_fade * sin(bubble_phase * PI) * (0.30 + 0.46 * t)))
 
 	var deb_count: int = 6 if lod == 0 else (4 if lod == 1 else 3)
 	for i in range(deb_count):
@@ -763,6 +800,6 @@ static func wreck(chart, w: Dictionary) -> int:
 		var dcol: Color = Color(0.74, 0.54, 0.31, tail_fade * 0.72) if str(w.get("material","wood"))=="wood" else Color(0.56, 0.70, 0.66, tail_fade * 0.58)
 		_fx_line(fx, dp - plank_dir * plen * 0.5, dp + plank_dir * plen * 0.5, dcol, maxf(1.0, 1.5 * scale_value))
 		if lod == 0 and i == 0 and t > 0.25:
-			_fx_poly(fx, _shard_poly(dp, plank_dir, 3.2 * scale_value, 1.8 * scale_value), Color(0.80, 0.58, 0.34, tail_fade * 0.75))
+			_fx_poly(fx, _shard_poly(dp, plank_dir, 3.2 * scale_value, 1.8 * scale_value), dcol)
 
 	return boat_prims + int(fx.n)
