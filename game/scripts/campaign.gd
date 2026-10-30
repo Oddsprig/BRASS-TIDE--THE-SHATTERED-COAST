@@ -98,7 +98,7 @@ func _init(world_data: Dictionary,shared_navigation: Dictionary={},initialize_oc
 		if not created.get("ok",false):ocean_error064=str(created.get("message","Ocean charts are unavailable."))
 	else:ocean_error064="Ocean chart definitions are unavailable."
 	if not ocean_context064.is_empty():
-		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,1,null,["player","patrol-0","patrol-7"])
+		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,1,null,OceanCampaign066.admitted_owner_ids(state))
 		if made066.get("ok",false):ocean_context066=made066.context
 
 func home_local064() -> bool:
@@ -292,7 +292,7 @@ func _new_game069(seed_value: int) -> Dictionary:
 	state["ocean066"]=OceanCampaign066.empty_book()
 	ocean_watch066=1.0;ocean_conditions066=[]
 	if not ocean_context064.is_empty():
-		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,seed_value,null,["player","patrol-0","patrol-7"])
+		var made066: Dictionary=OceanCampaign066.Travel.create(ocean_context064,seed_value,null,OceanCampaign066.admitted_owner_ids(state))
 		if not made066.get("ok",false):return fail(str(made066.get("message","The seeded ocean actor context was refused.")))
 		ocean_context066=made066.context
 	var home: Dictionary = port(start.port)
@@ -1724,7 +1724,7 @@ func restore(saved: Dictionary) -> Dictionary:
 	if Money.total(incoming) != int(incoming.get("coinSupply",-1)):
 		return fail("The saved coin ledger is inconsistent; use your backup.")
 	var memory: Dictionary=incoming.get("ocean066",OceanCampaign066.empty_book()).memory
-	var made066: Dictionary=OceanCampaign066.Travel.create(context,int(incoming.seed),memory,["player","patrol-0","patrol-7"],float(incoming.day)*DAY_SECONDS)
+	var made066: Dictionary=OceanCampaign066.Travel.create(context,int(incoming.seed),memory,OceanCampaign066.admitted_owner_ids(incoming),float(incoming.day)*DAY_SECONDS)
 	if not made066.get("ok",false):return fail("Save refused: "+str(made066.get("message","Invalid saved ocean actors.")))
 	# Even post-validation legacy ensures run on a detached Core. There is one
 	# publication after equipment, accounts, parties, wrecks and runtime succeed.
