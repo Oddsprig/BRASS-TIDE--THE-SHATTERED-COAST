@@ -26,7 +26,15 @@ func _run(home: Dictionary, anchors: Dictionary) -> void:
 	var originals: String = JSON.stringify([home, anchors])
 	var generated: Dictionary = Sector.generate(69029, home, anchors)
 	_check(generated.ok, "generate: " + str(generated.message))
-	if not generated.ok:return
+	if not generated.ok:
+		var anchor_schema = anchors.get("schema")
+		print("SECTOR_MODEL069_ANCHOR_DIAGNOSTICS " + JSON.stringify({
+			"message":generated.message, "schemaType":typeof(anchor_schema), "schemaValue":anchor_schema,
+			"keys":World._keys(anchors, ["schema", "ocean", "regions"]), "number":World._number(anchor_schema),
+			"plain":World._plain(anchors), "schemaMembership":anchor_schema in [1, 2],
+			"schemaNumericEquality":anchor_schema == 1 or anchor_schema == 2,
+			"atlasError":World.atlas_error(home, anchors)}))
+		return
 	var sector: Dictionary = generated.sector
 	var repeat: Dictionary = Sector.generate(69029, home, anchors)
 	var varied: Dictionary = Sector.generate(69030, home, anchors)

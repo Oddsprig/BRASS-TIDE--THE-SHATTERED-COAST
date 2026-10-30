@@ -377,7 +377,7 @@ static func local_id_valid(value) -> bool:
 static func atlas_error(home: Dictionary, atlas: Dictionary) -> String:
 	# Geometry-only validation is also used before publishing canonical saved sectors.
 	# This function never allocates a grid or reads campaign ownership/accounts.
-	if not _keys(atlas, ["schema", "ocean", "regions"]) or not _number(atlas.schema) or atlas.schema not in [1, 2] or not _plain(atlas):
+	if not _keys(atlas, ["schema", "ocean", "regions"]) or not _number(atlas.schema) or (atlas.schema != 1 and atlas.schema != 2) or not _plain(atlas):
 		return "Unsupported world catalog schema."
 	var generated: bool = atlas.schema == 2
 	var ocean = atlas.ocean
@@ -451,7 +451,7 @@ static func _context_valid(context: Dictionary) -> bool:
 	for key in ["width", "height", "localUnitsPerUnit"]:
 		if not _number(context.ocean.get(key)) or float(context.ocean[key]) <= 0.0:
 			return false
-	if context.get("atlasSchema") not in [1, 2] or not context.get("ports") is Dictionary or not context.get("regionViews") is Array:
+	if not _number(context.get("atlasSchema")) or (context.atlasSchema != 1 and context.atlasSchema != 2) or not context.get("ports") is Dictionary or not context.get("regionViews") is Array:
 		return false
 	var count: int = 48 if context.atlasSchema == 2 else 2
 	if context.regions.size() != count or context.regionViews.size() != count or not context.get("regionGeometry") is Dictionary or context.regionGeometry.size() != count:
