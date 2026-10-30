@@ -28,10 +28,12 @@ static func _finite(value,minimum: float=-INF) -> bool:
 static func _point(value) -> bool:
 	return _keys(value,["x","y"]) and _finite(value.x) and _finite(value.y)
 
-static func _owner(state: Dictionary,id: String=OWNER) -> Dictionary:
+static func _owner(state: Dictionary,id: String="") -> Dictionary:
+	if id.is_empty():id=str(state.get("ocean066",{}).get("contact",{}).get("ownerId",OWNER))
 	return Orders.find_owner(state,id)
 
-static func _patrol(state: Dictionary,id: String=OWNER) -> Dictionary:
+static func _patrol(state: Dictionary,id: String="") -> Dictionary:
+	if id.is_empty():id=str(state.get("ocean066",{}).get("contact",{}).get("ownerId",OWNER))
 	return Orders.find_patrol(state,id)
 
 static func clearance(owner: Dictionary) -> float:
@@ -50,9 +52,12 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 	if not made.get("ok",false):return _fail(str(made.get("message","Invalid ocean066 memory.")))
 	var contact: Dictionary=book.contact
 	if not contact.is_empty():
-		if not _keys(contact,["ownerId","phase","location","gate","waypoint"]) or contact.ownerId!=OWNER or contact.phase not in PHASES:return _fail("Invalid ocean066 admission or phase.")
-		var owners: Array=saved.get("fleetOwners",[]).filter(func(o):return o is Dictionary and str(o.get("id",""))==OWNER)
-		var patrols: Array=saved.get("patrols",[]).filter(func(p):return p is Dictionary and str(p.get("id",""))==OWNER)
+		if not _keys(contact,["ownerId","phase","location","gate","waypoint"]) or not contact.ownerId is String or str(contact.ownerId).is_empty() or contact.phase not in PHASES:return _fail("Invalid ocean066 admission or phase.")
+		var id: String=str(contact.ownerId)
+		var corridor: Dictionary=_published_corridor(saved)
+		if (corridor.is_empty() and id!=OWNER) or id==str(corridor.get("ownerId","")):return _fail("Invalid ocean066 raider enrollment.")
+		var owners: Array=saved.get("fleetOwners",[]).filter(func(o):return o is Dictionary and str(o.get("id",""))==id)
+		var patrols: Array=saved.get("patrols",[]).filter(func(p):return p is Dictionary and str(p.get("id",""))==id)
 		if owners.size()!=1 or patrols.size()!=1:return _fail("Ocean contact needs one existing owner and home projection.")
 		var owner: Dictionary=owners[0]
 		var patrol: Dictionary=patrols[0]
@@ -60,7 +65,7 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 		for boat in owner.boats:
 			if not boat is Dictionary or not boat.get("spec") is Dictionary:return _fail("Invalid ocean boat or specification.")
 			if not _finite(boat.spec.get("size",10.0),0.0):return _fail("Invalid ocean boat clearance.")
-		if owner.get("kind","")!="raider" or owner.get("playerCompany",false) or not Orders.RegionalOrders.operation(saved,owner).is_empty():return _fail("Only the unassigned existing raider may enroll.")
+		if owner.get("kind","")!="raider" or Orders.is_story_owner(owner) or owner.get("playerCompany",false) or not Orders.RegionalOrders.operation(saved,owner).is_empty():return _fail("Only an unassigned existing nonstory raider may enroll.")
 		if patrol.get("active",true) or not patrol.get("hidden",false) or not patrol.get("holding",false) or not patrol.get("course",[]).is_empty():return _fail("Enrolled home projection must be dormant.")
 		if not _keys(contact.gate,["regionId","approachId"]) or contact.gate.regionId!="shatter_coast" or contact.gate.approachId not in ["north","south"] or not _point(contact.waypoint):return _fail("Invalid ocean066 gate or waypoint.")
 		if not contact.location is Dictionary:return _fail("Invalid canonical ocean066 location.")
@@ -326,14 +331,15 @@ static func _gate(c,gate: Dictionary,ocean: bool) -> Dictionary:
 
 static func _plan(c,book: Dictionary,target: Dictionary,destination: String="") -> bool:
 	var contact: Dictionary=book.contact
-	var result: Dictionary=World.plot(c.ocean_context064,contact.location,target,destination,clearance(_owner(c.state)))
+	var owner: Dictionary=_owner(c.state,str(contact.ownerId))
+	var result: Dictionary=World.plot(c.ocean_context064,contact.location,target,destination,clearance(owner))
 	if not result.get("ok",false):return false
-	if result.location.world064.layer=="home" and destination==str(_owner(c.state).get("homePort","")):
-		var path: Array=Routes.path(c,{"id":OWNER,"x":float(contact.location.position.x),"y":float(contact.location.position.y)},target,clearance(_owner(c.state)))
+	if result.location.world064.layer=="home" and destination==str(owner.get("homePort","")):
+		var path: Array=Routes.path(c,{"id":str(contact.ownerId),"x":float(contact.location.position.x),"y":float(contact.location.position.y)},target,clearance(owner))
 		if path.is_empty():return false
 		path=path.duplicate(true);path.pop_front();result.location["path"]=path
 	contact["location"]=result.location
-	book.memory.intents[OWNER]={"kind":"route","targetId":"","goal":{"world064":result.location.world064.duplicate(true),"target":target.duplicate(true),"destination":destination},"returnGoal":{},"lastPlanSecond":float(c.state.day)*45.0}
+	book.memory.intents[str(contact.ownerId)]={"kind":"route","targetId":"","goal":{"world064":result.location.world064.duplicate(true),"target":target.duplicate(true),"destination":destination},"returnGoal":{},"lastPlanSecond":float(c.state.day)*45.0}
 	return true
 
 static func _ocean_seconds075(c,start: Dictionary,points: Array,speed: float) -> float:
@@ -349,8 +355,9 @@ static func _ocean_seconds075(c,start: Dictionary,points: Array,speed: float) ->
 
 static func _return_days(c,contact: Dictionary,speed: float) -> float:
 	var gate: Dictionary=_gate(c,contact.gate,false)
-	var home: Dictionary=c.port(str(_owner(c.state).homePort))
-	var local_path: Array=Routes.path(c,{"id":OWNER,"x":gate.x,"y":gate.y},home,clearance(_owner(c.state)))
+	var owner: Dictionary=_owner(c.state,str(contact.ownerId))
+	var home: Dictionary=c.port(str(owner.homePort))
+	var local_path: Array=Routes.path(c,{"id":str(contact.ownerId),"x":gate.x,"y":gate.y},home,clearance(owner))
 	if local_path.is_empty():return INF
 	var length: float=0.0
 	for i in range(1,local_path.size()):length+=c.distance(local_path[i-1],local_path[i])
@@ -365,7 +372,7 @@ static func _return_days(c,contact: Dictionary,speed: float) -> float:
 static func _control(c,book: Dictionary) -> void:
 	var contact: Dictionary=book.contact
 	if contact.is_empty() or contact.phase=="lost":return
-	var owner: Dictionary=_owner(c.state)
+	var owner: Dictionary=_owner(c.state,str(contact.ownerId))
 	var copy: Dictionary=owner.duplicate(true)
 	var reserves: Dictionary=Orders.fleet_reserves(copy)
 	var performance: Dictionary=Orders.fleet_performance(copy)
@@ -378,7 +385,7 @@ static func _control(c,book: Dictionary) -> void:
 	var return_days: float=_return_days(c,contact,speed)
 	if contact.phase in ["outbound","patrol"] and (not Orders.needs_home_recovery(copy,reserves,performance).is_empty() or float(reserves.get("foodDays",0))<=return_days or float(reserves.get("wageDays",0))<=return_days):
 		contact["phase"]="return"
-		book.memory.pursuits.erase(OWNER)
+		book.memory.pursuits.erase(str(contact.ownerId))
 		contact.location["path"]=[];contact.location["destination"]=""
 		_plan(c,book,_gate(c,contact.gate,true) if contact.location.world064.layer=="ocean" else c.port(str(owner.homePort)),"approach:shatter_coast:"+str(contact.gate.approachId) if contact.location.world064.layer=="ocean" else str(owner.homePort))
 	if not contact.location.path.is_empty():return
@@ -431,7 +438,8 @@ static func stage(c,dt: float) -> Dictionary:
 		if ids.has(merchant_id) and not participants.any(func(a):return str(a.ownerId)==merchant_id):participants.append(shipping.actor)
 	_attach_observations(c,participants)
 	var watch: bool=c.ocean_watch066>=1.0
-	var decisions: Array=[OWNER] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" and participants.any(func(a):return str(a.ownerId)==OWNER) else []
+	var raider: String=str(book.contact.get("ownerId",""))
+	var decisions: Array=[raider] if watch and not book.contact.is_empty() and book.contact.phase=="patrol" and participants.any(func(a):return str(a.ownerId)==raider) else []
 	var stepped: Dictionary=Travel.step(c.ocean_context066,participants,relations(c,participants),book.memory,{"startSecond":float(c.state.day)*45.0,"dt":dt,"watchDue":watch,"decisionOwnerIds":decisions})
 	if not stepped.get("ok",false):return stepped
 	var accepted=stepped.get("acceptedSeconds")
@@ -458,21 +466,38 @@ static func commit(c,staged: Dictionary) -> void:
 	c.ocean_conditions066=staged.conditions.duplicate(true)
 
 static func _admit(c) -> void:
-	var owner: Dictionary=_owner(c.state)
-	var patrol: Dictionary=_patrol(c.state)
-	if owner.is_empty() or patrol.is_empty() or not owner.get("active",false) or owner.get("kind","")!="raider" or owner.get("playerCompany",false) or not Orders.RegionalOrders.operation(c.state,owner).is_empty():return
+	if _published_corridor(c.state).is_empty():
+		_try_admit(c,_owner(c.state,OWNER))
+		return
+	var candidates: Array=c.state.get("fleetOwners",[]).filter(func(o):return o is Dictionary and str(o.get("kind",""))=="raider" and not Orders.is_story_owner(o))
+	candidates.sort_custom(func(a,b):
+		var left: int=maxi(0,int(a.get("coins",0))-int(a.get("wageArrears",0)))
+		var right: int=maxi(0,int(b.get("coins",0))-int(b.get("wageArrears",0)))
+		return left>right if left!=right else str(a.get("id",""))<str(b.get("id","")))
+	for owner in candidates:
+		if _try_admit(c,owner):return
+
+static func _try_admit(c,owner: Dictionary) -> bool:
+	if not c.state.get("ocean066",{}).get("contact",{}).is_empty():return false
+	var id: String=str(owner.get("id",""))
+	var patrol: Dictionary=_patrol(c.state,id)
+	if owner.is_empty() or id.is_empty() or patrol.is_empty() or not owner.get("active",false) or owner.get("kind","")!="raider" or Orders.is_story_owner(owner) or owner.get("playerCompany",false) or Orders.enrolled066(c.state,id) or not Orders.RegionalOrders.operation(c.state,owner).is_empty():return false
 	var home: Dictionary=c.port(str(owner.get("homePort","")))
-	if home.is_empty() or str(owner.get("atPort",""))!=str(home.id) or not patrol.get("holding",false) or c.distance(patrol,home)>=40.0:return
+	if home.is_empty() or str(home.get("regionId","shatter_coast"))!="shatter_coast" or str(owner.get("atPort",""))!=str(home.id) or not patrol.get("active",false) or patrol.get("hidden",false) or not patrol.get("holding",false) or patrol.has("interceptPoint") or c.distance(patrol,home)>=40.0:return false
+	# Reject damaged or undercrewed fleets before provisioning can spend anything.
+	var snapshot: Dictionary=owner.duplicate(true)
+	var performance: Dictionary=Orders.fleet_performance(snapshot)
+	if not performance.get("seaworthy",false) or not Orders.needs_home_recovery(snapshot,Orders.fleet_reserves(snapshot),performance).is_empty():return false
 	# Do not detach hulls from a funded yard collection that is already underway.
 	for port in c.state.ports:
 		for order in port.get("buildQueue",[]):
-			if str(order.get("npcOwnerId",""))==OWNER:return
-	var speed: float=float(Orders.fleet_performance(owner.duplicate(true)).speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
-	if speed<=0.0:return
+			if str(order.get("npcOwnerId",""))==id:return false
+	var speed: float=float(performance.speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
+	if speed<=0.0:return false
 	var best: Dictionary={}
 	var best_days: float=INF
-	for id in ["north","south"]:
-		var gate: Dictionary={"regionId":"shatter_coast","approachId":id}
+	for approach_id in ["north","south"]:
+		var gate: Dictionary={"regionId":"shatter_coast","approachId":approach_id}
 		var location: Dictionary={"world064":{"schema":1,"layer":"home","regionId":"shatter_coast"},"position":{"x":float(patrol.x),"y":float(patrol.y)},"heading":0.0,"path":[],"destination":""}
 		# Validate HOME context/water; its immutable nav is shared with Campaign.
 		var prepared: Dictionary=World.prepare(location,c.ocean_context064,clearance(owner))
@@ -490,28 +515,29 @@ static func _admit(c) -> void:
 			ocean_seconds=_ocean_seconds075(c,entered,[points.originOcean,points.remoteOcean,points.originOcean,entered],speed)
 		var days: float=(2.0*length/speed+ocean_seconds)/45.0+1.0
 		if days<best_days:best_days=days;best={"gate":gate,"location":location}
-	if best.is_empty():return
+	if best.is_empty():return false
 	var costs: Dictionary=Fleets.upkeep(owner)
 	var food: int=maxi(0,ceili(float(costs.food)*best_days-float(owner.cargo.get("food",0))))
 	var bill: int=food*c.Economy.price(home,"food","buy")
 	var advance: int=maxi(0,bill-int(owner.get("crewPurse",0)))
-	if float(owner.get("coins",0))<ceilf(float(costs.wages)*best_days)+advance:return
-	if float(owner.get("cargo",{}).get("food",0))+food>Fleets._capacity(owner):return
-	if advance>0 and not Money.move(owner,"coins",owner,"crewPurse",advance,"Ocean patrol ration advance",c.state.moneyLog):return
+	if float(owner.get("coins",0))<ceilf(float(costs.wages)*best_days)+advance:return false
+	if float(owner.get("cargo",{}).get("food",0))+food>Fleets._capacity(owner):return false
+	if advance>0 and not Money.move(owner,"coins",owner,"crewPurse",advance,"Ocean patrol ration advance",c.state.moneyLog):return false
 	if food>0:Fleets._purchase(owner,home,"food",food,true,false,c)
 	var reserve: Dictionary=Orders.fleet_reserves(owner.duplicate(true))
-	if float(reserve.get("foodDays",0))<best_days or float(reserve.get("wageDays",0))<best_days:return
-	if float(reserve.get("fuel",0))<float(costs.fuel)*best_days:return
-	if not Orders.fleet_performance(owner.duplicate(true)).get("seaworthy",false):return
+	if float(reserve.get("foodDays",0))<best_days or float(reserve.get("wageDays",0))<best_days:return false
+	if float(reserve.get("fuel",0))<float(costs.fuel)*best_days:return false
+	if not Orders.fleet_performance(owner.duplicate(true)).get("seaworthy",false):return false
 	var gate_point: Dictionary=_gate(c,best.gate,true)
 	var corridor_now: Dictionary=_corridor_points(c.state,c.ocean_context064)
 	var waypoint: Dictionary=corridor_now.remoteOcean.duplicate(true) if not corridor_now.is_empty() else {"x":gate_point.x+80.0,"y":gate_point.y}
 	owner["harborServiceUntilDay"]=maxf(float(c.state.day)+0.25,float(owner.get("harborServiceUntilDay",0)))
-	c.state.ocean066["contact"]={"ownerId":OWNER,"phase":"supply","location":best.location,"gate":best.gate,"waypoint":waypoint}
+	c.state.ocean066["contact"]={"ownerId":id,"phase":"supply","location":best.location,"gate":best.gate,"waypoint":waypoint}
 	patrol["active"]=false;patrol["hidden"]=true;patrol["holding"]=true;patrol["course"]=[];patrol["courseLength"]=0.0;patrol["progress"]=0.0
 	patrol.erase("interceptPoint")
 	if corridor_now.is_empty():c.log_entry("Reef raiders are provisioning a short ocean patrol from %s using their existing boats, purse and purchased rations."%str(home.name))
 	else:c.log_entry("Reef raiders are provisioning a funded run from %s toward %s and %s on their existing boats, purse and purchased rations."%[str(home.name),_port_label(c.state,str(corridor_now.corridor.originId)),_port_label(c.state,str(corridor_now.corridor.remoteId))])
+	return true
 
 static func record_losses(c) -> void:
 	var contact: Dictionary=c.state.get("ocean066",{}).get("contact",{})
@@ -533,11 +559,11 @@ static func record_losses(c) -> void:
 	if Orders.living_boats(owner).is_empty():
 		contact["phase"]="lost";contact.location["path"]=[];contact.location["destination"]=""
 		owner["active"]=false;owner["atPort"]="";owner.erase("harborServiceUntilDay")
-		_resolve_memory(c.state.ocean066.memory)
+		_resolve_memory(c.state.ocean066.memory,str(contact.ownerId))
 
-static func _resolve_memory(memory: Dictionary) -> void:
+static func _resolve_memory(memory: Dictionary,owner_id: String) -> void:
 	for id in memory.pursuits.keys():
-		if str(id)==OWNER or str(memory.pursuits[id].get("targetId",""))==OWNER:memory.pursuits.erase(id)
+		if str(id)==owner_id or str(memory.pursuits[id].get("targetId",""))==owner_id:memory.pursuits.erase(id)
 
 static func after_step(c,watch_due: bool=false) -> void:
 	record_losses(c)
@@ -553,8 +579,8 @@ static func after_step(c,watch_due: bool=false) -> void:
 	patrol["x"]=float(contact.location.position.x);patrol["y"]=float(contact.location.position.y)
 	patrol["from"]=str(home.id);patrol["to"]=str(home.id);patrol["active"]=bool(owner.active);patrol["holding"]=true;patrol["progress"]=0.0;patrol["course"]=[];patrol["courseLength"]=0.0
 	patrol.erase("hidden");patrol.erase("interceptPoint")
-	_resolve_memory(c.state.ocean066.memory)
-	c.state.ocean066.memory.intents.erase(OWNER)
+	_resolve_memory(c.state.ocean066.memory,str(contact.ownerId))
+	c.state.ocean066.memory.intents.erase(str(contact.ownerId))
 	c.state.ocean066["contact"]={}
 	owner["atPort"]=str(home.id);owner["progress"]=0.0
 	Fleets.dock(owner,home,c);c.NavalLifecycle.hire(c,owner,home)
@@ -643,8 +669,8 @@ static func settled(c,battle: Dictionary,context: Dictionary,wrecks: Array) -> v
 			if not prize.get("convoyCargo") is Dictionary:prize["convoyCargo"]={}
 			prize.convoyCargo[good]=float(prize.convoyCargo.get(good,0))+per_hull
 	battle["oceanCargoSettled066"]=true
-	if id==OWNER:
-		_resolve_memory(c.state.ocean066.memory)
+	if id==str(c.state.ocean066.contact.get("ownerId","")):
+		_resolve_memory(c.state.ocean066.memory,id)
 		if not c.state.ocean066.contact.is_empty():c.state.ocean066.contact["phase"]="return"
 		record_losses(c)
 	else:
@@ -669,7 +695,8 @@ static func view(c) -> Dictionary:
 		if Travel.same_world(original.get("world064"),c.state.get("world064")):output.travel066["resumePath"]=[original.target.duplicate(true)]
 	var contact: Dictionary=c.state.get("ocean066",empty_book()).contact
 	if contact.is_empty() or contact.phase=="lost":return output
-	var seen: Dictionary=memory.sightings.get("player",{}).get(OWNER,{})
+	var id: String=str(contact.ownerId)
+	var seen: Dictionary=memory.sightings.get("player",{}).get(id,{})
 	if seen.is_empty() or float(seen.expiresSecond)<=now or not Travel.same_world(seen.world064,c.state.get("world064")):return output
 	var owner: Dictionary=_owner(c.state)
 	var age: float=maxf(0.0,now-float(seen.seenSecond))
@@ -677,5 +704,5 @@ static func view(c) -> Dictionary:
 	var observed=seen.get("intention075",{})
 	var label: String="Dated sighting; investigate or avoid"
 	if observed is Dictionary and not str(observed.get("reason","")).is_empty():label=str(observed.reason)
-	output.contacts.append({"id":OWNER,"ownerId":OWNER,"name":str(owner.get("name","Reef raiders")),"faction":str(owner.get("faction","raiders")),"role":str(owner.get("kind","raider")),"hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if current else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if current else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":label,"provenance":"Existing fleet %s; paid departure from %s"%[OWNER,str(owner.get("homePort",""))],"boats":seen.boats.duplicate(true)})
+	output.contacts.append({"id":id,"ownerId":id,"name":str(owner.get("name","Reef raiders")),"faction":str(owner.get("faction","raiders")),"role":str(owner.get("kind","raider")),"hostile":bool(c.Politics.hostile(c,owner)),"visibility":"visible" if current else "last_known","world064":seen.world064.duplicate(true),"position":seen.position.duplicate(true),"heading":float(seen.heading),"uncertaintyRadius":0.0 if current else minf(1800.0,age*120.0),"ageSeconds":age,"sightedDay":float(seen.seenSecond)/45.0,"intentLabel":label,"provenance":"Existing fleet %s; paid departure from %s"%[id,str(owner.get("homePort",""))],"boats":seen.boats.duplicate(true)})
 	return output
