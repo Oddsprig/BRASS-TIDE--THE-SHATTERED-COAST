@@ -129,6 +129,8 @@ func advance(seconds: float = 4.0) -> bool:
 func point(label: String) -> Dictionary:
 	if not check(c.pending_days == 0 and workers.group_id < 0, label + ": no unpublished economy work"): return {}
 	c.HomeOps.ensure(c)
+	# Load also refreshes the current-day encounter cache; this spends no time/resources.
+	c.NavalAI.ensure(c.state,c.data)
 	# Ordinary load refreshes readiness hints; settle that bookkeeping before saving.
 	StoryOps.refresh(c)
 	var saved = JSON.parse_string(JSON.stringify(c.state))
