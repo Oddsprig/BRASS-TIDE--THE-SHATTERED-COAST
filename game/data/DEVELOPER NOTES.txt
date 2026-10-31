@@ -12,5 +12,5 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Actual077 acceptance/export/UI review pending. Earlier strict performance and071 audible review remain open.
+Read the packaged verification receipts for actual077 checks and Windows/UI evidence. Earlier strict performance and071 audible review remain open.
 Shared workflow updated from promptv28: source-complete briefs, targeted checks, exact evidence and durable handoffs.
