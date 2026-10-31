@@ -38,8 +38,10 @@ static func open(ui) -> void:
 		payoff(ui,body,entry)
 		if entry.done:continue
 		var location: Dictionary=entry.location
-		var chart_port: String=str(location.get("id","")) if str(location.get("kind",""))=="port" else ""
-		ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port):_chart.call_deferred(ui,x,y,port)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port))
+		var chart_kind: String=str(location.get("kind",""))
+		var chart_id: String=str(location.get("id",""))
+		var chart_port: String=chart_id if chart_kind=="port" else ""
+		ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port,kind,target_id):_chart.call_deferred(ui,x,y,port,kind,target_id)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port,chart_kind,chart_id))
 		var gate: Dictionary=Stories._gate(c,c.state,stage.get("gate",{}))
 		if not gate.ok:ui.paragraph(body,gate.message,14,ui.RED)
 		for option in entry.choices:
@@ -124,7 +126,7 @@ static func recovery_ready(c,wreck_id: String) -> Dictionary:
 	return {"ok":false,"message":str(strip.message)+" "+str(tow.message)}
 
 static func _alive(ui) -> bool:
-	return ui!=null and is_instance_valid(ui) and ui.host!=null and ui.host.mode=="campaign"
+	return ui!=null and is_instance_valid(ui) and ui.host!=null and is_instance_valid(ui.host) and ui.host.mode=="campaign"
 
 static func _same_chart(c, region_id: String, layer: String) -> bool:
 	if region_id.is_empty() and layer.is_empty():return true
@@ -162,9 +164,30 @@ static func _open_recovery(ui, wreck_id: String) -> void:
 	if not _alive(ui):return
 	ui.RecoveryUI.open(ui,wreck_id)
 
-static func _chart(ui, x: float, y: float, port_id: String) -> void:
+static func _chart_region(c, kind: String, target_id: String) -> String:
+	if kind=="site":
+		var site: Dictionary=c.Exploration.catalog_site(c.state,target_id)
+		if site.is_empty():return ""
+		var region_id: String=str(c.Exploration._site_region(site)).strip_edges()
+		if region_id.is_empty():region_id=str(site.get("regionId","")).strip_edges()
+		return region_id
+	if kind=="port" and not target_id.is_empty():
+		var harbor: Dictionary=c.port(target_id)
+		if harbor.is_empty():return ""
+		return str(harbor.get("regionId","shatter_coast")).strip_edges()
+	return ""
+
+static func _chart(ui, x: float, y: float, port_id: String, kind: String="", target_id: String="") -> void:
 	if not _alive(ui):return
-	ui.host.respond(ui.host.core.chart_course({"x":x,"y":y},port_id))
+	var c=ui.host.core
+	var region_id: String=_chart_region(c,kind,target_id if kind=="site" else port_id)
+	if kind=="site" and region_id.is_empty():return
+	if not region_id.is_empty() and not _same_chart(c,region_id,""):
+		if not c.Exploration.region_record069(c.state,region_id).is_empty() and _alive(ui):
+			ui.open_voyage_preparation065(region_id)
+		return
+	if not _alive(ui):return
+	ui.host.respond(c.chart_course({"x":x,"y":y},port_id if kind=="port" else ""))
 	if _alive(ui):ui.close_modal()
 
 static func _commit(ui, chain_id: String, choice_id: String) -> void:
