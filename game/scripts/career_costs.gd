@@ -13,7 +13,6 @@ const Escort=preload("res://scripts/escort_ops.gd")
 const Deployment=preload("res://scripts/deployment.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Routes=preload("res://scripts/route_cache.gd")
-const Navigation=preload("res://scripts/navigation.gd")
 const Contracts=preload("res://scripts/contracts.gd")
 const CAREERS=["explorer","merchant","escort","privateer","fisher","passenger"]
 
@@ -172,8 +171,8 @@ static func _job(plan: Dictionary,v,kind: String) -> Dictionary:
 		plan.blockers.append("No funded %s offer here today; inspect the work board at a permitted harbor."%kind.replace("_"," "))
 		return {}
 	plan["quote"]={"id":j.id,"kind":kind,"title":j.title,"rewardCoins":j.reward,"sponsorPort":j.port,"payerKey":j.payerKey,"materialInvoice":j.get("materialInvoice",0),"deadlineDay":j.deadlineDay,"targetPort":j.targetPort}
-	plan["firstGoal"]=str(j.title)+"; complete the physical work, then release the funded escrow."
-	plan.rewardSource+=" Current offer: %d coins from %s; %d coins of separately funded materials, payable only on completion."%[int(j.reward),str(v.port(str(j.port)).get("name",j.port)),int(j.get("materialInvoice",0))]
+	plan["firstGoal"]=str(j.title)+": "+str(plan.firstGoal)
+	plan.rewardSource+=" Current offer: %d coins from %s, payable only on completion; %d coins of materials are funded separately on acceptance."%[int(j.reward),str(v.port(str(j.port)).get("name",j.port)),int(j.get("materialInvoice",0))]
 	if v.state.get("voyageJobs",[]).size()>=Jobs.MAX_ACTIVE:plan.blockers.append("All six side-job places are occupied; finish or safely abandon an existing commitment.")
 	return j
 
@@ -212,9 +211,9 @@ static func plan(c,career: String) -> Dictionary:
 	if v.active_fleet().is_empty():p.blockers.append("Crew and prepare a seaworthy traveling boat.")
 	if float(e.freeCapacity)<=0:p.blockers.append("Free hold space is needed before taking more cargo or provisions.")
 	if int(v.state.get("wageArrears",0))>0:p.blockers.append("Settle existing crew wage arrears before committing more payroll.")
-	if float(e.affordableDays)<float(p.operatingCosts.days):p.blockers.append("Current purse does not cover this fleet's quoted payroll allowance.")
-	if float(e.foodDays)<float(p.operatingCosts.days):p.blockers.append("Buy enough crew food for the quoted allowance.")
-	if float(e.fuelDays)<float(p.operatingCosts.days):p.blockers.append("Load working fuel into each boat for the quoted allowance; loose drums are separate.")
+	if float(e.affordableDays)<float(p.operatingCosts.days):p.blockers.append("Current purse covers %.2f of the quoted %.2f payroll days after existing arrears; fund the difference before committing."%[float(e.affordableDays),float(p.operatingCosts.days)])
+	if float(e.foodDays)<float(p.operatingCosts.days):p.blockers.append("Crew food covers %.2f of the quoted %.2f days; buy the shortfall before sailing."%[float(e.foodDays),float(p.operatingCosts.days)])
+	if float(e.fuelDays)<float(p.operatingCosts.days):p.blockers.append("The least-covered boat has %.2f working-fuel days against %.2f quoted; load each boat through Hold. Loose drums are separate."%[float(e.fuelDays),float(p.operatingCosts.days)])
 	if int(p.operatingCosts.repairQuoteCoins)>0:p.blockers.append("Review the quoted paid hull and installed-module repairs before committing this fleet.")
 	p.ready=p.blockers.is_empty()
 	return _display(p)
@@ -223,7 +222,7 @@ static func _explorer(p: Dictionary,v) -> void:
 	p.firstGoal="Accept one funded survey, sight its island, chart it, survey it and report to its sponsor."
 	p.requirements=["Chart: two spare sailors above boat minimums; full survey: four. Paid crew keep their minimum aboard.","Carry the quoted food and 1 chart kit plus 2 survey kits. Sight the site and stop nearby before landing; work takes campaign time."]
 	p.rewardSource="The named harbor treasury escrows the survey fee on acceptance. Site knowledge alone creates no coins, free resources or repeat survey reward."
-	p.nextStep="Recruit enough qualified spare crew or prepare a survey launch, then check the island chart's actual stage quote."
+	p.nextStep="Review the island chart's stage quote; carry the quoted kits and keep four spare sailors above boat minimums for the full survey."
 	p.nextActionId="exploration"
 	var j: Dictionary=_job(p,v,Jobs.KIND_SURVEY)
 	if j.is_empty():return
@@ -244,7 +243,7 @@ static func _merchant(p: Dictionary,v) -> void:
 	p.firstGoal="Carry a funded sealed freight lot between harbors before risking your own trading capital."
 	p.requirements=["The lot must fit actual free hold space; the sponsor must own the goods and fund its invoice and escrow.","Buy and sell only with legal harbor access and a real buyer purse; record destination prices before planning a speculative trade."]
 	p.rewardSource="Freight fees come from the sponsoring treasury's escrow; ordinary trading receipts come from the buying business's cash. A local buy/sell spread includes a loss."
-	p.nextStep="Record another harbor's prices in Trade, compare the return costs, then consider a paid cargo lighter."
+	p.nextStep="Compare the freight lot with free hold and the full return allowance before accepting; use Trade's dated destination prices before risking your own capital."
 	p.nextActionId="trade"
 	var harbor: Dictionary=v.current_port()
 	p["marketQuote"]={"good":"preserved_fish","buyCoins":Economy.price(harbor,"preserved_fish"),"sellCoins":Economy.price(harbor,"preserved_fish","sell"),"buyerCash":harbor.get("cash",0),"stock":harbor.get("stocks",{}).get("preserved_fish",0)}
@@ -262,7 +261,7 @@ static func _escort(p: Dictionary,v) -> void:
 	p.firstGoal="Hail a nearby loaded friendly convoy with an observed armed threat, then protect every carrier through the actual exit."
 	p.requirements=["At least one crewed combat boat, working ammunition and stores; all convoy boats plus your escorts must fit the 300-point deployment.","The convoy must be peaceful to you, physically loaded, near enough to hail and threatened by a nearby hostile fleet."]
 	p.rewardSource="Successful passage grants one service credit and +5 standing with the convoy's faction. This escort promises 0 coins and no enemy purse."
-	p.nextStep="Use the service credit and standing for access; choose a separately funded freight or bounty if your next voyage needs cash."
+	p.nextStep="Check coastal traffic for an eligible threatened convoy and protect payroll and stores first. Use the work board for a separately funded job if you need coin income."
 	p["quote"]={"rewardCoins":0,"standing":5,"serviceCredit":1}
 	for owner in v.state.get("fleetOwners",[]):
 		if not owner.get("active",false) or owner.get("kind","")!="trader" or Factions.is_hostile(v.state,str(owner.faction)):continue
@@ -285,7 +284,7 @@ static func _privateer(p: Dictionary,v) -> void:
 	p.firstGoal="Choose one funded bounty against its named actual raider; review Law, then defeat that fleet and report for escrow."
 	p.requirements=["A crewed combat boat with working weapons, fuel, ammunition and repair stock. A bounty does not legalize attacks on peaceful shipping.","Optional boarding: qualified healthy boarders above minimum crew, physical prize capacity and a vulnerable nearby enemy. Two fresh boarders need a 2000-coin advance, real recruits and berths."]
 	p.rewardSource="The named harbor's government purse funds bounty escrow. Boarding transfers an existing hull and its actual cargo; a damaged prize requires paid repair, sailors and stores."
-	p.nextStep="Inspect Law before combat and Boarding before capture; repair a secured prize before using it in the battle line."
+	p.nextStep="Review Law before accepting the bounty; budget ammunition, paid repairs and return wages. Inspect Boarding before capture and repair a secured prize before deploying it."
 	p.nextActionId="law"
 	var j: Dictionary=_job(p,v,Jobs.KIND_BOUNTY)
 	if j.is_empty():return
@@ -302,17 +301,17 @@ static func _fisher(p: Dictionary,v) -> void:
 	p.firstGoal="Prepare a fishing hull, stop in safe open water, work for one elapsed day, then return to sell the actual catch."
 	p.requirements=["An active civilian fishing hull, living assigned sailors, working fuel, crew food and its own free hold; recall other shore work and stop the route.","No dockside or instantaneous catch. Each 500-unit water cell provides at most 40 lots per calendar day, shared by all fishing boats."]
 	p.rewardSource="Wild fish are explicit finite daily resource production. Sale coins come only from a harbor business with enough cash; unsold catch remains cargo."
-	p.nextStep="Compare the local fishing design and paid crew advance in the yard; once equipped, use Fishing and sell through the actual Market."
+	p.nextStep="Compare the yard's local hull price and crew advance with your purse; allow for stores and payroll. A catch earns coins only when a harbor business buys it."
 	var b: Dictionary=_entry(p,v,["fishing"])
 	p["fishingBasis"]={"catchPerCrewDay":Fishing.catch_rate(),"siteDayQuota":Fishing.SITE_QUOTA,"minimumWorkDays":0,"maximumWorkDays":7}
 	if b.is_empty():
 		p.operatingCosts.summary+=" Fishing labor allows at most %.2f lots per sailor-day before the shared %.0f-lot water-cell quota, fuel, food and physical hold limits; choose a real boat to quote its catch."%[Fishing.catch_rate(),Fishing.SITE_QUOTA]
 		return
 	p.nextActionId="market"
-	var room: float=minf(Transport.available_hold(v,b),v.capacity()-v.cargo_weight())
-	var cell: String=Fishing.site_id(v.state.position)
-	var book: Dictionary=v.state.get("civilianWork",{})
-	var quota: float=Fishing.SITE_QUOTA-float(book.get("sites",{}).get(cell,0)) if int(book.get("resourceDay",-1))==floori(float(v.state.day)) else Fishing.SITE_QUOTA
+	p.nextStep="Review this boat's current-ground quote in Fishing and clear its blockers before setting gear; return to Market with the earned catch and check the buyer's cash."
+	var work: Dictionary=Fishing.fishing_quote(v,str(b.uid),1.0)
+	var room: float=minf(float(work.holdFree),float(work.fleetHoldFree))
+	var quota: float=float(work.quotaRemaining)
 	var lots: float=maxf(0,minf(quota,minf(room,float(b.crew)*Fishing.catch_rate())))
 	var harbor: Dictionary=v.current_port();var price: int=Economy.price(harbor,"preserved_fish","sell")
 	p.operatingCosts=_budget(v,0,1)
@@ -320,24 +319,21 @@ static func _fisher(p: Dictionary,v) -> void:
 	p.operatingCosts.summary+=" One working day can produce at most %.2f lots before fuel/food and calendar limits. Sailing to a chosen fishing ground is additional."%lots
 	if harbor.is_empty():p.operatingCosts.summary+=" No local buyer quote at sea; unsold catch is cargo."
 	else:p.operatingCosts.summary+=" Current local whole-lot sale ceiling %d coins, limited by the buyer's purse."%int(p.quote.saleCeilingCoins)
-	if not harbor.is_empty():p.blockers.append("Leave the harbor and stop in safe open water before setting gear.")
-	if not Navigation.is_water(v.nav,v.state.position.x,v.state.position.y,maxf(10,float(b.spec.size))):p.blockers.append("This hull needs safe open water before fishing.")
-	if not v.state.get("path",[]).is_empty():p.blockers.append("Stop the sailing route before setting gear.")
-	if not v.state.get("exploration",{}).get("assignment",{}).is_empty() or not v.state.get("toolingRecovery",{}).is_empty():p.blockers.append("Recall the existing work party before fishing.")
-	if lots<=0:p.blockers.append("The fishing boat has no free hold or this cell's daily quota is exhausted.")
+	if not work.ok:p.blockers.append(str(work.message))
 	p.limits+=" Catch is an upper bound, not an earned sale. Offshore travel and the eventual buyer price are not selected yet."
 
 static func _passenger(p: Dictionary,v) -> void:
 	p.firstGoal="Prepare a transport or yacht, accept a funded charter and carry its real people and bought food to the named destination."
 	p.requirements=["One actual transport or yacht must have enough spare berths after crew, captives and existing passengers, plus hold space for the cohort's food.","The origin needs real civilians, provisions and sponsor coins; the destination needs reception room. Sailing distance, food and actual arrival gate settlement."]
 	p.rewardSource="The harbor treasury escrows the charter fee and buys provisions. Passenger household/expert savings remain their property and are not captain revenue."
-	p.nextStep="Compare a paid transport design in the yard; when crewed, inspect one charter's actual berth and provision quote on the work board."
+	p.nextStep="Compare the yard's hull price and minimum crew advance with your purse; stores and continuing payroll are extra. Check funded charters after crewing."
 	p.nextActionId="yard"
 	var b: Dictionary=_entry(p,v,["transport","yacht"])
 	if b.is_empty():return
+	p.nextActionId="jobs"
+	p.nextStep="Review a funded charter on the work board for this carrier's spare berths, food space and return allowance; refresh if no eligible cohort is available."
 	var j: Dictionary=_job(p,v,Jobs.KIND_CHARTER)
 	if j.is_empty():return
-	p.nextActionId="jobs"
 	p.operatingCosts=_budget(v,float(j.routeDistance))
 	for carrier in v.active_fleet():
 		if str(carrier.uid)==str(j.carrierUid):b=carrier;break
