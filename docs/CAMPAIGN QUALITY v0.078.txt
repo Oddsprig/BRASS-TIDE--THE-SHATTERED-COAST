@@ -1,0 +1,20 @@
+BRASS TIDE v0.078 - CAMPAIGN CLARITY AND QUALITY REVIEW
+
+Existing career guidance shows actual full-fleet payroll, return reserves,
+fuel and physical cargo limits. A quoted opportunity is not an earned voyage.
+Fishing readiness uses the selected boat's current work quotation, including
+its own hold and already-assigned gear; another carrier's empty hold cannot
+make the fishing boat's full hold available.
+
+The primary contract action appears near the top of voyage review. Held jobs
+offer Review delivery & payment; the existing live settlement checks decide
+whether cargo, passengers, surveys and other terms actually permit payment.
+
+Completed journal entries keep their outcome and next step visible, with
+Details for the full record. Each earned cache location appears once.
+A paid recovery record points to the existing contact choice without asking
+for the paid load again. Existing contact permissions and costs still apply.
+
+Actual verification, timings, screenshots and remaining quality limits are
+recorded in this portable build's tests/ directory. Prior performance misses,
+unreviewed listening quality and overall game polish remain separate work.
