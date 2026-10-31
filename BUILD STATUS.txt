@@ -1,15 +1,14 @@
-BRASS TIDE v0.078 - CAMPAIGN CLARITY AND QUALITY REVIEW
-30 October2026 |36 boat designs
+BRASS TIDE v0.078 - Campaign clarity and quality review
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: bc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620 / v0.078
+Test Bridge: d2828f4e6350428fa66ceed9bea85b17
+306 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 79.409s; owned cleanup verified.
 
-THIS VERSION
 - Read actual payroll, supplies, fuel and physical cargo constraints in each of the six existing career plans.
 - Reach the current voyage action earlier; review held-job delivery and payment through existing live checks.
 - Keep completed stories compact, show each earned place once, and direct paid recovery records to their actual contact choice.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Testedbc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused assertions/0. Six existing career quotes and one full normal paid voyage; two fishing refusal branches explicitly synthetic. Actual retail-template300DP runtime measurements completed separately from two matching-console exported-PCK UI stills. Three seconds conservatively charged for offline checks beyond fixed job setup allowances. Strict runtime quality flagFALSE: light workerP9540.352ms and maxlag167.488ms exceed33.333ms/100ms; both planner targets and exact60FPS targets unmet. Recorded viewport1600x1000/window2560x1570 despite2560x1600 request; render-thread model unavailable/null; GPU frame time unavailable. No sustained campaign, audible listening, motion/fun or Starsector parity acceptance. Runtime external script override produced no UI evidence; actual UI proof is the separate matching-console PCK job. 075 timing gate failed;076 and077 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged077 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.

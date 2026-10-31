@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-30 October 2026 | v0.069-v0.077 VERIFIED SCOPED; v0.078 PLANNED | Current scoped release: v0.077
+30 October 2026 | v0.069-v0.078 VERIFIED SCOPED | Current scoped release: v0.078
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069-v0.077 are verified within scope; v0.078 remains planned.
+v0.069-v0.078 are verified within their bounded scopes. Strict performance, listening and full-game quality remain open.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -144,7 +144,7 @@ space, crew/endurance and faction access make taking everything impractical.
 Boundary: reuse existing jobs, surveying, salvage, dialogue and state; no new
 quest engine, copied stories or requirement to author every remote island.
 
-0.078 - CAMPAIGN POLISH AND QUALITY REVIEW
+0.078 - CAMPAIGN POLISH AND QUALITY REVIEW [VERIFIED SCOPED]
 Focus: finish the loop built in v0.069-v0.077 through a bounded balance/clarity pass.
 Review explorer, merchant, escort, privateer, fisher and passenger careers with
 short saved scenarios and actual normal-start progression. Refine early goals,

@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Keep completed stories compact, show each earned place once, and direct paid recovery records to their actual contact choice.
 
 See docs/TEST RESULTS v0.078.md for actual focused checks and remaining limits.
+
+Verification: 306 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 79.409s. Preserved earlier failures; no broad acceptance claim.

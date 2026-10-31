@@ -628,3 +628,21 @@ Source077 Sol reads stalled while Root/Grok reads worked; after a bounded retry,
 Root supplied hash-bound named-file packets and content/contract inline. Keep
 packet scope complete (code plus accepted content), then return a patch without
 competing writes. Do not repeat whole-folder reads or silently switch models.
+
+078 OWNER REVIEW LESSONS (scope and evidence, not a new framework)
+- Preflight a result reader against actual saved engine output, including
+  Godot JSON alphabetical key order; a hand-built insertion-order sample
+  missed this. Keep the first failed overall job failed even if its fixture
+  completed; correct the reader, then accept only an actual completed batch.
+- This release template ignored an external --script override. A completed
+  ordinary benchmark therefore did not prove the custom UI callback ran.
+  Require actual named markers and PNGs. The existing matching-console PCK
+  path supplied the UI evidence separately; do not substitute it for retail
+  template performance evidence. Do not repeat the real benchmark for UI.
+- Bounded helper reviews need an output deadline and an explicit stop after
+  the named files; repeated broad reads do not improve a narrow handoff.
+- Record actual internal viewport/window dimensions, absent thread/GPU
+  monitors as null, and strict target misses alongside near60FPS results.
+- Board advice is input, not authority. Adopt reviewed transferable lessons;
+  label style-specific advice. Promptv34/post165 is saved separately. A
+  failed automation registration means the requested daily watch is inactive.

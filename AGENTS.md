@@ -1,12 +1,11 @@
 # Brass Tide - current working instructions
 
-Current source078: bounded campaign clarity and quality review. Desktop delivered077.
-Root alone tests/delivery; helpers source-only. Finish078 before further scopes.
-Read ../../work/quality-v078/SCOPE078.txt and LEAD STATE078.txt.
-Prior077800/0 and accepted Windows/UI receipts are retained; no fresh077 tests.
-Whole each test batch<120s; final selected QA<180s including setup/export/capture/archive/install.
-Earlier strict performance/071 listening/full-game quality remain open.
-Shared starter promptv34/post165 adopted. Dailyfirst31Oct03:28UTC requested; scheduler Transport closed, not active.
+Current delivered078: Campaign clarity and quality review.
+Testedbc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused/0;Windows/menu and reviewed private UI.
+Receipts work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
+Root alone tests/delivery. Authorized069-078 sequence complete within bounded scopes; later work needs a saved scope.
+Earlier strict performance/071 listening/whole-game quality remain open.
+075 final QA timing gate failed183s;076 and077 passed;078 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -35,7 +34,7 @@ preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy
 funded territorial change 076, exploration chains 077 and quality review 078.
 Owner authorized implementation on 29 October: start 069 on accepted 068,
 deliver one bounded version before advancing. Do not claim parity from tags.
-063 through076 are scoped verified;077-078 remain planned. Earlier quality
+063 through078 are scoped verified; the069-078 sequence is complete within its bounded scopes. Earlier quality
 limits remain. The older 063-072 map retains accepted history and context.
 Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
 Strict performance and whole-game quality remain OPEN at062. Do not reopen051

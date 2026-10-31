@@ -18,3 +18,30 @@ for the paid load again. Existing contact permissions and costs still apply.
 Actual verification, timings, screenshots and remaining quality limits are
 recorded in this portable build's tests/ directory. Prior performance misses,
 unreviewed listening quality and overall game polish remain separate work.
+
+ACTUAL SCOPED REVIEW
+306 focused native checks passed. One ordinary15000-coin career completed
+paid freight/survey work, HOME return, replacement stores and a1000-coin
+specialist improvement, ending with15146coins. The other career readings
+were quotes; two fishing refusal cases were explicitly synthetic.
+
+The Windows export/menu and two actual journal/voyage UI stills were reviewed.
+Battle measurement used the retail release template, stock300-point sides,
+42 light boats and16 mixed boats, three seconds warmup and12active seconds
+per case. Requested window2560x1600; recorded window2560x1570, internal
+viewport1600x1000. Hardware: Ultra9 275HX, RTX5090Laptop,24logical CPUs.
+Rendering requested safe1; actual render-thread monitor unavailable/null.
+
+Light:59.996870FPS; frameP9519.961ms; worker-capacityP9540.352ms;
+maximum simulation lag167.488ms; main publicationP950.400ms.
+Mixed:59.998625FPS; frameP9517.125ms; worker-capacityP9522.806ms;
+maximum simulation lag66.666ms; main publicationP950.259ms.
+Neither case recorded a frame over50ms during its short active sample.
+Workers ran outside the main thread; ordinary Hold acknowledgements were
+observed after100.115ms light and50.540ms mixed, including polling delay.
+
+Measurement completed; strict quality did NOT pass. Light worker capacity,
+lag and catch-up targets remain unmet. Both cases mark the planner target
+unmet and miss the exact60FPS threshold. This is a bounded measurement,
+not proof of sustained campaign performance or a diagnosis of GPU cost.
+GPU frame timing is unavailable. Earlier listening review remains open.

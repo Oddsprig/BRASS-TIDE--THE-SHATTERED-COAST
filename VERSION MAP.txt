@@ -20,7 +20,7 @@ Accepted 063-068 history: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
 0.075 - FACTIONS THAT PURSUE AND PAY FOR A STRATEGY [DONE]
 0.076 - FUNDED EXPANSION AND CHANGING CONTROL [DONE]
 0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS [DONE]
-0.078 - CAMPAIGN POLISH AND QUALITY REVIEW
+0.078 - CAMPAIGN POLISH AND QUALITY REVIEW [DONE]
 
 Ocean planet, no major continents. Open seas fill the hyperspace role;
 archipelagos the system role; islands the planet role. Different factions can

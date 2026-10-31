@@ -1,8 +1,19 @@
-# Current source v0.078; desktop delivered v0.077
+# Brass Tide v0.078: scoped verification complete
 
-Existing-career and journal clarity integrated; native/export/rendered acceptance remains pending.
-Read ../../work/quality-v078/SCOPE078.txt and LEAD STATE078.txt. Root alone owns shared-lane tests.
-Each whole batch<120s; all selected final QA<180s including setup, archive, install and verification.
-Next: focused normal-voyage/native Windows pass, actual benchmark followed by UI captures, receipts, package and one launcher.
-Preserve owner saves/music and previous builds. No automatic remote push.
-Shared starter promptv34 posted165 and adopted. Daily board check first31Oct03:28UTC requested; scheduling transport closed, not active.
+Source bc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused assertions/0; Windows export/menu accepted.
+Actual template300DP measurements complete; strict quality flag FALSE.
+Actual two journal/voyage stills reviewed from078PCK using matching console.
+Read work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json;
+the latter is the authority for successful installation and total QA<180s.
+Root's next step is packaging/install/single Desktop launcher, preserving077,
+owner saves/music and all prior tags. No further engine run is required.
+
+The authorized069-078 sequence ends here. No079 scope has been assigned.
+Remaining light-worker capacity/lag, planner targets, listening and overall
+quality are explicit later work; this delivery does not establish parity.
+Main combat data worker30Hz and existing100ms decisions remain unchanged.
+
+Starter promptv34/post165 (9998characters) was posted and adopted.
+Board checks must be daily starting31Oct03:28UTC/30Oct23:28NewYork.
+Official scheduling failed with Transport closed; no persistent watch active.
+Stop the old two-minute polling. Do not poll before that first time.
