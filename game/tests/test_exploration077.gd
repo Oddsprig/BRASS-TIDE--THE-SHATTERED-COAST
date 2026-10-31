@@ -251,7 +251,7 @@ func provision() -> bool:
 
 func sail(target: Dictionary, port_id: String = "") -> bool:
 	if not bounded(): return false
-	var route: Dictionary = c.chart_course(target, port_id)
+	var route: Dictionary = c.chart_course({"x":float(target.x),"y":float(target.y)}, port_id)
 	if not check(bool(route.get("ok", false)), "Ordinary course admission: " + str(route.get("message", ""))): return false
 	for _slice in range(80):
 		if c.state.path.is_empty(): break
