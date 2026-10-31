@@ -15,29 +15,26 @@ static func open(ui) -> void:
 		ui.rule(body)
 		ui.label(body,entry.title+" · "+("Complete" if entry.done else entry.approach.capitalize()),26,ui.GOLD,true)
 		var stage: Dictionary=Stories._stage_def(Stories._chain_def(c.state,entry.chainId),entry.stage)
-		ui.paragraph(body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
-		ui.paragraph(body,entry.nextAction,16,ui.TEAL)
-		for item in entry.get("earnedLeads",[]):
-			var lead: Dictionary=item
-			var lead_id: String=str(lead.get("id",""))
-			var lead_region: String=str(lead.get("regionId",""))
-			var lead_layer: String=str(lead.get("layer",""))
-			var on_chart: bool=ui.CampaignUI._is_local_or_home067(c) and _same_chart(c,lead_region,lead_layer)
-			var visible: Dictionary=ui.CampaignUI._find_visible_site067(c,lead_id) if on_chart else {}
-			var line: String="Earned lead: "+str(lead.get("name",lead_id))+" · "+str(lead.get("nextAction",""))
-			if not visible.is_empty():
-				var here: String=str(visible.get("region","")).strip_edges()
-				if here.is_empty():here=_region_label(c,lead_region)
-				line+=" · "+here+" · %.0f water units away"%c.distance(c.state.position,visible)
-			else:
-				var away: String=_region_label(c,lead_region)
-				if not away.is_empty():line+=" · "+away
-			ui.paragraph(body,line,15,ui.TEAL)
-			var lead_label: String="Inspect & prepare "+str(lead.get("name",lead_id))
-			if visible.is_empty() and not lead_region.is_empty() and not c.Exploration.region_record069(c.state,lead_region).is_empty():lead_label="Open regional navigation"
-			ui.button(body,lead_label,(func(id,region,layer):_open_known.call_deferred(ui,id,region,layer)).bind(lead_id,lead_region,lead_layer))
-		payoff(ui,body,entry)
-		if entry.done:continue
+		var row_body=body
+		if entry.done:
+			var outcome: Dictionary=entry.get("outcome",{})
+			var outcome_line: String=str(outcome.get("title","")).strip_edges()
+			if outcome_line.is_empty():outcome_line="Complete"
+			ui.paragraph(body,outcome_line,16,ui.GOLD)
+			ui.paragraph(body,_shown_next_action(entry),16,ui.TEAL)
+			row_body=ui.column(body)
+			row_body.visible=false
+		else:
+			ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
+			ui.paragraph(row_body,_shown_next_action(entry),16,ui.TEAL)
+		if entry.done:ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
+		_paint_leads(ui,row_body,entry)
+		payoff(ui,row_body,entry)
+		if entry.done:
+			var details=row_body
+			var toggle=ui.button(body,"Details",(func(panel):panel.visible=not panel.visible).bind(details),false,false)
+			body.move_child(toggle,details.get_index())
+			continue
 		var location: Dictionary=entry.location
 		var chart_kind: String=str(location.get("kind",""))
 		var chart_id: String=str(location.get("id",""))
@@ -59,6 +56,46 @@ static func open(ui) -> void:
 		ui.button(body,"Hear this contact's lead",(func(id):_start.call_deferred(ui,id)).bind(str(offer.get("id",""))))
 	if offers.is_empty():ui.paragraph(body,"Visit Tobin at Brass Haven, Wren at Reedwater Floats, Cass at Rust Anchorage, or Mara at Anvil Dock. Their leads stay in this journal once accepted.",16)
 	ui.button(body,"Funded voyage jobs & contacts",func():ui.VoyageUI.open(ui))
+
+# Display only. The cache alias and the canonical south wreck are one earned place.
+static func _canonical_lead_id(lead_id: String) -> String:
+	if lead_id==Stories.LONGGLASS_SITE077:return "glasswind_south_wreck"
+	return lead_id
+
+static func _shown_next_action(entry: Dictionary) -> String:
+	var text: String=str(entry.get("nextAction",""))
+	if str(entry.get("chainId",""))!="last_soundings077" or bool(entry.get("done",false)):return text
+	var flags=entry.get("flags",[])
+	if not (flags is Array) or not flags.has("paid_longglass077"):return text
+	if str(entry.get("stage",""))!="marked_recovery" and text.find("Complete a paid recovery")<0:return text
+	return "Choose the actual turn-in: take the paid recovery record to Wren at Reedwater Floats, or to Cass at Rust Anchorage. Do not repeat the paid load."
+
+static func _paint_leads(ui,parent,entry: Dictionary) -> void:
+	var c=ui.host.core
+	var seen: Dictionary={}
+	for item in entry.get("earnedLeads",[]):
+		if not (item is Dictionary):continue
+		var lead: Dictionary=item
+		var lead_id: String=_canonical_lead_id(str(lead.get("id","")))
+		if not lead_id.is_empty():
+			if seen.has(lead_id):continue
+			seen[lead_id]=true
+		var lead_region: String=str(lead.get("regionId",""))
+		var lead_layer: String=str(lead.get("layer",""))
+		var on_chart: bool=ui.CampaignUI._is_local_or_home067(c) and _same_chart(c,lead_region,lead_layer)
+		var visible: Dictionary=ui.CampaignUI._find_visible_site067(c,lead_id) if on_chart else {}
+		var line: String="Earned lead: "+str(lead.get("name",lead_id))+" · "+str(lead.get("nextAction",""))
+		if not visible.is_empty():
+			var here: String=str(visible.get("region","")).strip_edges()
+			if here.is_empty():here=_region_label(c,lead_region)
+			line+=" · "+here+" · %.0f water units away"%c.distance(c.state.position,visible)
+		else:
+			var away: String=_region_label(c,lead_region)
+			if not away.is_empty():line+=" · "+away
+		ui.paragraph(parent,line,15,ui.TEAL)
+		var lead_label: String="Inspect & prepare "+str(lead.get("name",lead_id))
+		if visible.is_empty() and not lead_region.is_empty() and not c.Exploration.region_record069(c.state,lead_region).is_empty():lead_label="Open regional navigation"
+		ui.button(parent,lead_label,(func(id,region,layer):_open_known.call_deferred(ui,id,region,layer)).bind(lead_id,lead_region,lead_layer))
 
 static func payoff(ui,body: Node,entry: Dictionary) -> void:
 	var c=ui.host.core

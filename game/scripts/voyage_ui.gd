@@ -38,7 +38,7 @@ static func open(ui,tab: String="Work board") -> void:
 		if job.kind=="survey":ui.paragraph(body,survey_terms(c,job),15,ui.TEAL)
 		if str(job.kind) in Choices.CIVILIAN_KINDS:ui.button(body,"Review remaining costs, load and carrier",func():review_job(ui,job),false,false)
 		else:ui.button(body,"Review remaining costs and readiness",func():review_estimate(ui,job),false,false)
-		ui.button(body,"Complete & release escrow",func():settle(ui,job.id,false),true)
+		ui.button(body,_held_action_label(c,job),func():settle(ui,job.id,false),true)
 		ui.button(body,"Abandon / unload remaining freight",func():settle(ui,job.id,true))
 	ui.rule(body)
 	ui.label(body,"Available at this harbor",25,ui.GOLD,true)
@@ -150,6 +150,33 @@ static func survey_terms(c,job: Dictionary) -> String:
 	var terms: String="Paid work: fully surveyed (level 3), then report at %s. The voyage estimate counts spare sailors beyond the crew that operates your boats. Wages and provisions continue ashore."%str(harbor.get("name","the sponsoring harbor"))
 	if str(job.get("siteId",""))=="middle_chart_rock":terms+=" Wren's rock clue needs only charted level 2; that clue alone does not release escrow. The extra survey normally takes 2.5 days and 2 kits, adjusted by your actual survey equipment."
 	return terms
+
+static func _held_action_label(c,job: Dictionary) -> String:
+	return "Release escrow" if _held_release_ready(c,job) else "Review delivery & payment"
+
+# Read-only label. Settlement still goes through the existing finish checks.
+static func _held_release_ready(c,job: Dictionary) -> bool:
+	if str(job.get("state",""))=="expired" or bool(job.get("failed",false)):return false
+	var freight: Dictionary=job.get("freight",{}) if job.get("freight") is Dictionary else {}
+	if bool(freight.get("lost",false)):return false
+	var paid: int=int(job.get("escrow",0))-int(job.get("savingsHousehold",0))-int(job.get("savingsExpert",0))
+	if paid!=int(job.get("reward",0)) or paid<=0:return false
+	var kind: String=str(job.get("kind",""))
+	var jobs=c.VoyageJobs
+	if kind=="freight":return jobs._at_port(c,c.state,str(job.get("targetPort","")))
+	if kind=="fuel_delivery":
+		var recipient: Dictionary=jobs.recipient_status(c,job)
+		return jobs._at_port(c,c.state,str(job.get("targetPort",""))) and bool(recipient.get("present",false)) and bool(recipient.get("eligible",false)) and float(freight.get("qty",0))>0.0 and float(recipient.get("demand",0))+0.000001>=float(freight.get("qty",0))
+	if kind=="passenger_charter":
+		var people: Dictionary=job.get("passengers",{}) if job.get("passengers") is Dictionary else {}
+		if people.is_empty() or not jobs._at_port(c,c.state,str(job.get("targetPort",""))):return false
+		if float(job.get("voyageDistance",0))+65.0<float(job.get("routeDistance",0)) or float(job.get("elapsedDays",0))<=0.0:return false
+		return int(jobs.Transport.charter_room(c,c.work_port070(),str(job.get("id",""))))>=int(people.get("n",0))
+	if kind=="survey":
+		var level: int=int(c.state.get("exploration",{}).get("sites",{}).get(str(job.get("siteId","")),{}).get("level",-1))
+		return jobs._at_port(c,c.state,str(job.get("port",""))) and level>=int(c.Exploration.LEVEL_SURVEYED)
+	if kind=="bounty":return jobs._at_port(c,c.state,str(job.get("port",""))) and jobs._bounty_cleared(c.state,str(job.get("ownerId","")),int(job.get("baselineDefeats",0)))
+	return false
 
 static func settle(ui,id: String,abandon: bool) -> void:
 	ui.host.settle_voyage_job(id,abandon)

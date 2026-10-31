@@ -26,6 +26,7 @@ static func open_voyage(ui,offer_id: String="") -> void:
 	offer=q.offer
 	var budget: Dictionary=q.operatingCosts;var e: Dictionary=q.endurance
 	ui.label(body,str(offer.title),25,ui.GOLD,true)
+	_primary_contract_action(ui,body,c,offer,q)
 	ui.paragraph(body,"%s → %s · %d hostile boats"%[str(c.port(str(offer.port)).get("name",offer.port)),str(c.port(str(offer.targetPort)).get("name",offer.targetPort)),offer.get("enemyHulls",[]).size()],17,ui.TEXT)
 	ui.paragraph(body,"Gross reward: %d coins · %s"%[int(q.grossRewardCoins),("held in contract escrow" if q.active else "sponsor can fund escrow on acceptance") if q.funded else "FUNDING UNAVAILABLE"],16,ui.TEAL)
 	var route_note: String="Safe route: %.0f chart units. %.2f days including return and %.0f contingency days."%[float(q.routeDistance),float(budget.days),float(budget.reserveDays)] if q.routeAvailable else "No safe sailing route. Sailing quote unavailable; %.0f reserve days only, excluding travel."%float(budget.reserveDays)
@@ -37,19 +38,6 @@ static func open_voyage(ui,offer_id: String="") -> void:
 	ui.paragraph(body,"Future damage, ammunition, paid fitting and time spent fighting are extra. Quotes refresh when this review opens; final actions recheck the live contract.",13)
 	for blocker in q.blockers:ui.paragraph(body,str(blocker),14,ui.RED)
 	VoyagePanel.connect_views(ui,body,true,false)
-	if q.active:
-		if c.contract_ready():
-			ui.button(body,"Deliver & collect reward" if offer.get("cleared",false) else "Engage hostile flotilla",ui.host.resolve_contract,true).disabled=not q.funded
-		elif c.home_local064():
-			ui.button(body,"Chart destination",func():ui.host.sail_to(str(offer.targetPort));ui.close_modal(),true).disabled=not q.routeAvailable
-		else:
-			ui.paragraph(body,"The contract harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
-	elif q.atSponsor:
-		ui.button(body,"Accept contract",func():ui.host.accept_contract(str(offer.id));open_voyage(ui),true).disabled=not q.canAccept
-	elif c.home_local064():
-		ui.button(body,"Go to sponsor",func():ui.host.sail_to(str(offer.port));ui.close_modal(),true)
-	else:
-		ui.paragraph(body,"The sponsor harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
 	if not q.active:
 		for candidate in offers:
 			if candidate.get("kind","")=="delivery" and str(candidate.id)!=str(offer.id):
@@ -68,6 +56,21 @@ static func open_voyage(ui,offer_id: String="") -> void:
 		ui.button(services,"Local boatyard quotes",func():ui.open_port("Boatyard"))
 	ui.button(body,"Refresh voyage quote",func():open_voyage(ui,str(offer.id)),false,false)
 	ui.button(body,"Close",ui.close_modal,false,false)
+
+static func _primary_contract_action(ui,body,c,offer: Dictionary,q: Dictionary) -> void:
+	if q.active:
+		if c.contract_ready():
+			ui.button(body,"Deliver & collect reward" if offer.get("cleared",false) else "Engage hostile flotilla",ui.host.resolve_contract,true).disabled=not q.funded
+		elif c.home_local064():
+			ui.button(body,"Chart destination",func():ui.host.sail_to(str(offer.targetPort));ui.close_modal(),true).disabled=not q.routeAvailable
+		else:
+			ui.paragraph(body,"The contract harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
+	elif q.atSponsor:
+		ui.button(body,"Accept contract",func():ui.host.accept_contract(str(offer.id));open_voyage(ui),true).disabled=not q.canAccept
+	elif c.home_local064():
+		ui.button(body,"Go to sponsor",func():ui.host.sail_to(str(offer.port));ui.close_modal(),true)
+	else:
+		ui.paragraph(body,"The sponsor harbor is on Shatter Coast. This chart cannot set that harbor course.",15,ui.GOLD)
 
 static func action_label(id: String) -> String:
 	return "Open "+str({"fleet":"fleet","hold":"hold","training":"academy","supply":"expedition preparation","tooling":"machinery","workers":"workplace accounts","trade":"trade intelligence","companies":"shipping companies","law":"customs","boarding":"boarding and defenses","crises":"regional crises","exploration":"island charts","jobs":"funded work board","regional":"regional goals","fishing":"fishing crews · K board","traffic":"coastal traffic & convoy contacts","contracts":"contracts & logbook","market":"harbor market","yard":"harbor boatyard","catalog":"boat designs"}.get(id,id))
