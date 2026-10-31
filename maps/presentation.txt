@@ -1,4 +1,4 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.076)
+BRASS TIDE — PRESENTATION MAP (generated; v0.077)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 

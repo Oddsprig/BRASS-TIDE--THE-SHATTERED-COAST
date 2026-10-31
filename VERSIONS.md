@@ -48,7 +48,7 @@ Earlier records follow unchanged.
 
 # Delivered version ledger
 
-Current delivered game is **v0.076**. Each playable version advances by 0.001.
+Current delivered game is **v0.077**. Each playable version advances by 0.001.
 All original annotated tags and portable/source archives are preserved. This
 context-only cleanup creates no new playable version. Detailed historical changes
 remain in Git/tag snapshots and cold archives; current CHANGES v0.028.md stays active.
@@ -179,3 +179,5 @@ Next ten .029–.038 scopes remain planned in VERSION MAP.txt and ROADMAP.md.
 | v0.075 | `7879a9c1479069c2255053e002062f20bfd59fed` | 30 October2026; Funded faction strategy across generated island groups; 61 focused checks/0 failures; outputs/Brass Tide v0.075 |
 
 | v0.076 | `ea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91` | 30 October2026; Funded harbor improvement and contested control; 396 focused checks/0 failures; outputs/Brass Tide v0.076 |
+
+| v0.077 | `0e9d9f78586350b9d889df3b774c3d935a553438` | 30 October2026; Coastal mysteries and disputed recovery; 800 focused checks/0 failures; outputs/Brass Tide v0.077 |

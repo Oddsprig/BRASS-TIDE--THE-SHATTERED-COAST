@@ -1,15 +1,14 @@
-BRASS TIDE v0.077 - COASTAL MYSTERIES AND DISPUTED RECOVERY
-30 October2026 |36 boat designs
+BRASS TIDE v0.077 - Coastal mysteries and disputed recovery
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 0e9d9f78586350b9d889df3b774c3d935a553438 / v0.077
+Test Bridge: 0d7f76ab194341c3af349cb37f853e22
+800 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 83.544s; owned cleanup verified.
 
-THIS VERSION
 - Follow two original exploration chains through existing contacts, surveys and earned clues.
 - Make public or private claims through actual harbor access; recover finite cargo with real paid crew time and supplies.
 - Retain previous story progress and depleted sources; show current bearings, outcomes and once-funded work opportunities.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Tested0e9d9f78586350b9d889df3b774c3d935a553438;800 focused assertions/0. Two original chains use actual surveys, finite paid recovery, separate legal Wren/Cass turn-ins and once-funded freight. New long faction effect IDs stay distinct below the existing80character limit; readable journal IDs persist. Real wages/materials/purses and original38hulls/152equipmentUIDs/21850people/173560000coins reconcile across branches. Declared45256coin finite treasury preparation transfer,70dayreserve, Raiders20/dormant NPC profile and initial HOME/Longglass berths; not earned outbound-voyage/starter-profit/concurrentraid proof. Primary paid source copper8to7; one real day/700coins/1kit/.56food. Separate externally depleted legacy input claims no player work. Completed journal rows/duplicatecachebearing/genericpost-payment instructions are bounded078 clarity follow-ons. Two UI stills only; motion, listening, realtimeFPS and human enjoyment not reviewed by077. 075 timing gate failed;076 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged076 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks.

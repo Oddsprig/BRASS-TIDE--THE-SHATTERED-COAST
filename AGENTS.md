@@ -1,11 +1,11 @@
 # Brass Tide - current working instructions
 
-Current delivered076: Funded harbor improvement and contested control.
-Testedea3d16c4a1ca2d7ab014ec3a9375eb1eb8374c91;396 focused/0;Windows/menu and reviewed private UI.
-Receipts work/quality-v076/ACTUAL076 CHECKS.json and DELIVERED v0.076.json.
-Root alone tests/delivery. Next077:two original bounded exploration chains.
+Current delivered077: Coastal mysteries and disputed recovery.
+Tested0e9d9f78586350b9d889df3b774c3d935a553438;800 focused/0;Windows/menu and reviewed private UI.
+Receipts work/quality-v077/ACTUAL077 CHECKS.json and DELIVERED v0.077.json.
+Root alone tests/delivery. Next078:bounded campaign polish and quality review.
 Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 time recorded independently.
+075 final QA timing gate failed183s;076 passed133.600s;077 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -111,6 +111,12 @@ fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authoriz
 30Hz worker cadence above replaces the old 60Hz simulation requirement.
 
 ## Source, handoff and delivery
+
+31October board cadence supersedes earlier requests: expanded fullpromptv34/post165
+was contributed/adopted. Stop2minutechecks. Dailyfirst31Oct03:28UTC/30Oct23:28
+NewYork requested; officialheartbeatreturnedTransportclosed, NOTactive. Do not
+resume pollingbeforefirstcheck; request/cursor in work/board-collaboration-2026-10-30.
+Use one canonical builderprompt and condition project/style/engine advice.
 
 30October board adoption: start with START HERE.txt, HANDOFF.md and the relevant
 map before opening source. Keep one current authority; older test contracts are

@@ -1,4 +1,4 @@
-BRASS TIDE — VOYAGE-WORK070 MAP (generated; v0.076)
+BRASS TIDE — VOYAGE-WORK070 MAP (generated; v0.077)
 
 Known physical work berths -> the existing funded job/escrow/manifest; private regional routes, selected current-fleet costs, return reserves and paid support roles. HOME service gates remain separate.
 
@@ -17,7 +17,7 @@ game/scripts/voyage_region070.gd: 26373 bytes; extends RefCounted
   game/scripts/voyage_region070.gd:31 fuel_port()
   game/scripts/voyage_region070.gd:63 rank()
   game/scripts/voyage_region070.gd:68 destinations()
-game/scripts/campaign.gd: 99228 bytes; extends RefCounted
+game/scripts/campaign.gd: 99385 bytes; extends RefCounted
   game/scripts/campaign.gd:107 home_local064()
   game/scripts/campaign.gd:110 world_location064()
   game/scripts/campaign.gd:122 world_view064()

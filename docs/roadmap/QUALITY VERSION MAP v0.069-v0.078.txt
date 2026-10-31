@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT TEN QUALITY MILESTONES
-30 October 2026 | v0.069-v0.076 VERIFIED SCOPED; v0.077-v0.078 PLANNED | Current scoped release: v0.076
+30 October 2026 | v0.069-v0.077 VERIFIED SCOPED; v0.078 PLANNED | Current scoped release: v0.077
 
 PURPOSE AND PLAYER LOOP
 Reach the standard the owner expects in fleet combat, exploration, fleet
@@ -14,7 +14,7 @@ Find an opportunity -> prepare an affordable fleet -> choose a route and risk
 
 This extends the existing plan: preserve the 0.069-0.072 sequence, then add
 0.073-0.078. Do not skip those four unfinished versions or rebuild accepted v0.068.
-v0.069-v0.076 are verified within scope; the remaining two entries are planned.
+v0.069-v0.077 are verified within scope; v0.078 remains planned.
 
 0.069 - A GENERATED OCEAN SECTOR [VERIFIED SCOPED]
 Focus: persistent seeded geography and starting political ownership.
@@ -132,7 +132,7 @@ asset and why; a fleet's mere presence does not capture an entire group.
 Boundary: one complete operation and ownership path, not land RTS combat,
 an unrestricted empire simulator or a second settlement economy.
 
-0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS
+0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS [VERIFIED SCOPED]
 Focus: authored content on the existing exploration/contact systems.
 Build two bounded original chains: one discovery mystery and one lost-expedition
 or disputed-recovery story. Connect clues, recognizable island sites, recurring

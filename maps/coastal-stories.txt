@@ -1,35 +1,45 @@
-BRASS TIDE — COASTAL-STORIES MAP (generated; v0.076)
+BRASS TIDE — COASTAL-STORIES MAP (generated; v0.077)
 
 Four original chains and actual survey/delivery/contact choices -> persistent branches, rights and finite funded opportunities.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/coastal_stories.gd: 24020 bytes; extends RefCounted
-  game/scripts/coastal_stories.gd:47 catalog()
-  game/scripts/coastal_stories.gd:76 ensure()
-  game/scripts/coastal_stories.gd:118 reconcile_knowledge()
-  game/scripts/coastal_stories.gd:146 earned_leads()
-  game/scripts/coastal_stories.gd:277 available()
-  game/scripts/coastal_stories.gd:333 choose()
-  game/scripts/coastal_stories.gd:425 journal()
-  game/scripts/coastal_stories.gd:457 tick()
-  game/scripts/coastal_stories.gd:23 _is_num()
-  game/scripts/coastal_stories.gd:27 _num()
-  game/scripts/coastal_stories.gd:31 _load()
-  game/scripts/coastal_stories.gd:53 _chain_def()
-game/scripts/story_ops.gd: 4391 bytes; extends RefCounted
+game/scripts/coastal_stories.gd: 31965 bytes; extends RefCounted
+  game/scripts/coastal_stories.gd:50 catalog()
+  game/scripts/coastal_stories.gd:79 ensure()
+  game/scripts/coastal_stories.gd:121 reconcile_knowledge()
+  game/scripts/coastal_stories.gd:165 earned_leads()
+  game/scripts/coastal_stories.gd:306 available()
+  game/scripts/coastal_stories.gd:362 choose()
+  game/scripts/coastal_stories.gd:454 journal()
+  game/scripts/coastal_stories.gd:486 tick()
+  game/scripts/coastal_stories.gd:591 site_reflection()
+  game/scripts/coastal_stories.gd:26 _is_num()
+  game/scripts/coastal_stories.gd:30 _num()
+  game/scripts/coastal_stories.gd:34 _load()
+game/scripts/story_ops.gd: 7603 bytes; extends RefCounted
   game/scripts/story_ops.gd:5 ensure()
-  game/scripts/story_ops.gd:16 start()
-  game/scripts/story_ops.gd:29 apply_pending()
-  game/scripts/story_ops.gd:36 choose()
-  game/scripts/story_ops.gd:61 refresh()
-  game/scripts/story_ops.gd:66 daily()
-game/scripts/story_offers.gd: 2642 bytes; extends RefCounted
-  game/scripts/story_offers.gd:5 available()
-game/scripts/story_ui.gd: 7007 bytes; extends RefCounted
+  game/scripts/story_ops.gd:18 start()
+  game/scripts/story_ops.gd:31 apply_pending()
+  game/scripts/story_ops.gd:43 choose()
+  game/scripts/story_ops.gd:72 refresh()
+  game/scripts/story_ops.gd:77 daily()
+  game/scripts/story_ops.gd:106 after_recovery077()
+  game/scripts/story_ops.gd:120 _exhausted_longglass077()
+game/scripts/story_offers.gd: 3290 bytes; extends RefCounted
+  game/scripts/story_offers.gd:6 available()
+game/scripts/story_ui.gd: 12865 bytes; extends RefCounted
   game/scripts/story_ui.gd:3 open()
-  game/scripts/story_ui.gd:44 payoff()
-  game/scripts/story_ui.gd:78 recovery_stock()
-  game/scripts/story_ui.gd:85 recovery_ready()
+  game/scripts/story_ui.gd:63 payoff()
+  game/scripts/story_ui.gd:99 recovery_stock()
+  game/scripts/story_ui.gd:106 recovery_ready()
+  game/scripts/story_ui.gd:129 _alive()
+  game/scripts/story_ui.gd:132 _same_chart()
+  game/scripts/story_ui.gd:144 _region_label()
+  game/scripts/story_ui.gd:153 _open_known()
+  game/scripts/story_ui.gd:164 _open_recovery()
+  game/scripts/story_ui.gd:168 _chart_region()
+  game/scripts/story_ui.gd:181 _chart()
+  game/scripts/story_ui.gd:194 _commit()
 
 TESTS (game/tests/*.gd)
 test_coastal_stories, test_story_voyage

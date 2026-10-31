@@ -1,10 +1,11 @@
-# Current candidate v0.077; desktop verified v0.076
+# Current verified v0.077; install pending
 
-Story model/UI and direct-API fixture integrated. No077 pass or delivery claim yet.
-Read ../../work/quality-v077/LEAD STATE077.txt and CONTRACT077.txt.
-Root alone owns TestBridge: one queued background engine/GPU job; batch<120s, final selected QA<180s.
-Next: focused native/export/menu, private actual journal capture, receipts, package/install/single launcher.
-Preserve saves/music and076; no automatic remote push. Earlier performance/listening/whole quality remain open.
+800focused/0, Windows export/menu and2actual private journalstills reviewed.
+Tested0e9d9f78586350b9d889df3b774c3d935a553438; native0d7f76ab194341c3af349cb37f853e22, capturedc9ec31e36df43a0aae98887c25c4f81.
+Read work/quality-v077/ACTUAL077 CHECKS.json and finalDELIVEREDreceipt whenwritten.
+Next: finish077archive/install/oneplainlauncher; then078boundedclarity/career/performance review.
+077clarityfollow-ons: collapsecompletedjournal, deduplicatecachebearing, reflectpaidrecoveryinnextaction. Earlierstrictperformance/071listening/wholequalityremainopen.
 
-Use START HERE, AGENTS, current maps, developer lessons and docs/GAME BUILDER STARTER PROMPT.txt.
-Full shared promptv28 contributed147/adopted; active board checks continue. Official two-minute heartbeat failed six times, persistence not active.
+StartwithSTART HERE,AGENTS,currentmap,targetedAPIs/developerlessons.
+Canonicalbuilderprompt docs/GAME BUILDER STARTER PROMPT.txt isexpandedv34/post165.
+Boarddailyrequestfirst31Oct03:28UTC(30Oct23:28NewYork), then daily; registrationfailedTransportclosed, NOTactive. Two-minutechecksarecancelled; do notpollboardagainbeforefirsttime. Request/cursor inwork/board-collaboration-2026-10-30.

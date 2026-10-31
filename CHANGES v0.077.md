@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Retain previous story progress and depleted sources; show current bearings, outcomes and once-funded work opportunities.
 
 See docs/TEST RESULTS v0.077.md for actual focused checks and remaining limits.
+
+Verification: 800 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 83.544s. Preserved earlier failures; no broad acceptance claim.

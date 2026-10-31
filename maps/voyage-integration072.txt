@@ -1,4 +1,4 @@
-BRASS TIDE — VOYAGE-INTEGRATION072 MAP (generated; v0.076)
+BRASS TIDE — VOYAGE-INTEGRATION072 MAP (generated; v0.077)
 
 Existing earned work, physical encounter/withdrawal, paid repair and return -> useful improvement. Live course and ordinary harbor services stay distinct; detached driver poses and actual joined order observations support current measurement.
 
@@ -10,13 +10,13 @@ game/scripts/battle_driver051.gd: 23870 bytes; extends RefCounted
   game/scripts/battle_driver051.gd:118 telemetry()
   game/scripts/battle_driver051.gd:125 presentation_fraction()
   game/scripts/battle_driver051.gd:128 presentation_poses()
-game/scripts/campaign_ui.gd: 25321 bytes; extends RefCounted
-  game/scripts/campaign_ui.gd:85 expedition()
-  game/scripts/campaign_ui.gd:195 expedition_comparison()
-  game/scripts/campaign_ui.gd:198 expedition_owned_support()
-  game/scripts/campaign_ui.gd:208 expedition_support_text()
-  game/scripts/campaign_ui.gd:214 expedition_yard_support()
-  game/scripts/campaign_ui.gd:258 expedition_yard_text()
+game/scripts/campaign_ui.gd: 26633 bytes; extends RefCounted
+  game/scripts/campaign_ui.gd:104 expedition()
+  game/scripts/campaign_ui.gd:214 expedition_comparison()
+  game/scripts/campaign_ui.gd:217 expedition_owned_support()
+  game/scripts/campaign_ui.gd:227 expedition_support_text()
+  game/scripts/campaign_ui.gd:233 expedition_yard_support()
+  game/scripts/campaign_ui.gd:277 expedition_yard_text()
 game/scripts/guidance_ui.gd: 12968 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
   game/scripts/guidance_ui.gd:72 action_label()
