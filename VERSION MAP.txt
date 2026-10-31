@@ -1,3 +1,22 @@
+BRASS TIDE - NEXT PLANNED VERSIONS079-088
+30 October2026 | Installed v0.078 |079-088 PLANNED, no game build started
+Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt
+
+0.079 - LIGHT-FLEET RESPONSIVENESS [PLANNED]
+0.080 - RELIABLE TACTICAL COUNTERPLAY [PLANNED]
+0.081 - COMBAT ART AT NORMAL PLAY ZOOM [PLANNED]
+0.082 - WEAPON SOUND AND MUSIC MIX [PLANNED]
+0.083 - EARNED FLEET GROWTH [PLANNED]
+0.084 - GENERATED HARBORS THAT CAN DEVELOP [PLANNED]
+0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [PLANNED]
+0.086 - CIVILIAN CAREERS WORTH REPEATING [PLANNED]
+0.087 - DISTINCT REMOTE DESTINATIONS [PLANNED]
+0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [PLANNED]
+
+One0.001 release at a time on its accepted predecessor. Quality remains open;088 is not an automatic finished-game claim.
+Root owns background shared-lane tests: each batch<120s, selected total<180s incl setup/export/capture/archive/install/verification; queuewaitseparate.
+
+HISTORICAL MAP TEXT THROUGH v0.078 (dated claims below are history)
 CURRENT v0.071 VERIFIED SCOPED:189 focused/0; next072.
 Actual071 CHECKS.json holds scoped proof. Audible quality remains unverified.
 Historical records below are dated context; current scope is in the069-078 map.

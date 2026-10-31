@@ -3,7 +3,10 @@
 Current delivered078: Campaign clarity and quality review.
 Testedbc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused/0;Windows/menu and reviewed private UI.
 Receipts work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
-Root alone tests/delivery. Authorized069-078 sequence complete within bounded scopes; later work needs a saved scope.
+Root alone tests/delivery. Authorized069-078 sequence is complete within bounded scopes.
+Next saved plan079-088: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt.
+This30October planning update changes no game code/build/version.079 has not started.
+Read the current plan before a later build; start with079 worker cost/lag, no unrelated systems.
 Earlier strict performance/071 listening/whole-game quality remain open.
 075 final QA timing gate failed183s;076 and077 passed;078 recorded independently.
 
@@ -28,7 +31,7 @@ ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlis
 source-only helpers; integrate named commits. Completed helpers stay idle until
 given another bounded task. Finish the current delivery before advancing the next saved release.
 
-Next ten scopes 069-078 are authoritative in docs/roadmap/QUALITY VERSION MAP
+Completed069-078 scopes are recorded in docs/roadmap/QUALITY VERSION MAP
 v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are
 preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy 075,
 funded territorial change 076, exploration chains 077 and quality review 078.
@@ -59,7 +62,8 @@ an unfinished milestone complete. A failed quality gate gets a bounded fix to
 its demonstrated failing part. Do not preserve expensive internal policy solely
 to satisfy old implementation-shaped checks; explain an intentional policy
 change and keep meaningful gameplay/accounting/physical regressions intact.
-Read docs/roadmap/STARSECTOR QUALITY ROADMAP.txt for scopes and quality criteria.
+Read docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt for forward scope;
+STARSECTOR QUALITY ROADMAP.txt preserves earlier overall quality criteria.
 
 Godot Windows PC, strategic coastal chart plus isometric battles, cheap beautiful
 water, numerical crews and fixed asset helmsmen/gunners. Default autopilot and

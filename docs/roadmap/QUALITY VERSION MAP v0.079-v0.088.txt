@@ -1,0 +1,205 @@
+BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
+30 October 2026 | PLANNED v0.079-v0.088 | Installed game remains v0.078
+
+PURPOSE
+Address the concrete gaps left after069-078: fleet responsiveness, dependable
+tactical behavior, normal-play art and sound, earned fleet progression, useful
+generated harbors, sustained regional consequences and exploration variety.
+Reuse the existing game. A version number or a numerical pass is not proof of
+a finished game or Starsector-level quality. Completion of088 triggers an
+honest review of the remaining gaps, not an automatic parity declaration.
+
+CURRENT BASE AND EVIDENCE
+- Delivered078:36 boat designs;48 seeded island groups in fresh careers;
+  six existing careers; six catalogued coastal story chains;18 MP3 files.
+  Existing old careers retain their saved geography. Title/settings, fittings,
+  damage, salvage, crew, trade and faction systems already exist.
+- Latest normal15000-coin voyage earned paid work, replacement stores and a
+  useful1000-coin specialist improvement; ended15146coins. This is one voyage,
+  not complete progression or six completed careers.
+- Current battle measurement:300DP per side,42 light/16 mixed actors,3s
+  warmup and12s active each. Light worker-capacityP9540.352ms and maximum
+  lag167.488ms miss33.333ms/100ms. Mixed22.806ms/66.666ms meets those two.
+  Main publicationP950.400ms/0.259ms; both planner targets remain unmet.
+  Raw FPS59.996870/59.998625; strict quality flagFALSE. Do not spend a version
+  chasing frame-cap rounding while the demonstrated worker/behavior gaps remain.
+- Requested2560x1600 window, recorded2560x1570/window and1600x1000 internal
+  viewport; RTX5090Laptop/Ultra9 275HX/24logical CPUs. GPU frame time and actual
+  render-thread monitor unavailable. Safe1 requested; Separate2 previously failed.
+- Generated harbor services remain limited;076 development/control targets
+  existing Shatter Coast harbors. One funded operation is not a whole-world war.
+- Actual receipts: work/quality-v078/ACTUAL078 CHECKS.json and
+  DELIVERED v0.078.json. Actual sourcebc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620.
+  Earlier tests, asset reviews and story proofs remain qualified as recorded.
+
+0.079 - LIGHT-FLEET RESPONSIVENESS [PLANNED]
+Player result: busy light-boat battles respond without the simulation falling
+behind the displayed boats.
+Scope: use the existing observer to identify the largest demonstrated worker
+job/snapshot/planner cost, then remove that cost through bounded reuse,
+allocation reduction or scheduled work. Keep30Hz combat data workers and
+existing stepped role/target decisions; publish detached results safely.
+Acceptance: measure the same stock300DP light and mixed workloads and actual
+Hold response. Light worker-capacityP95<=33.333ms, maximum simulation lag<=100ms
+and no recurring catch-up remain the targets; publicationP95<=6ms, frame and
+planner misses remain separately visible. Preserve real actors, loadouts,
+damage and orders. Record the actual before/after change and any target still
+unmet; one named correction, no endless tuning or new benchmark framework.
+Boundary: no new AI doctrines, rendering system, hulls or economic changes.
+
+0.080 - RELIABLE TACTICAL COUNTERPLAY [PLANNED]
+Player result: light boats complete useful flanking/harassing passes and
+disengage; escorts protect a vulnerable boat; heavies answer flankers.
+Scope: diagnose the current unmet planner criterion, then correct the observed
+behavior or demonstrated measurement defect. Finish existing station, target,
+fire-window and retreat decisions; keep player orders authoritative.
+Acceptance: a complete small encounter, not a short prefix, shows a flanker
+threatening and breaking away, an escort intercepting and an order changing
+the outcome. Include distinct existing fittings and a clear retreat path.
+No persistent planning stalls, oscillating targets or formation jitter in the
+reviewed cases. The heavy must visibly turn, cover or punish the flanking
+threat in the same encounter; retain079 worker/lag evidence where unchanged.
+Boundary: existing roles and orders, no officer tree or tactical rewrite.
+
+0.081 - COMBAT ART AT NORMAL PLAY ZOOM [PLANNED]
+Player result: identify boats, fitted weapons, shots, impacts and disabling
+damage while following a real fight; wakes visibly follow stern and motion.
+Scope: correct the largest visible defects in existing hull/weapon assets,
+waterline contact, wakes and damage effects. Establish the reference with one
+light, one heavy and one civilian boat, then apply the same correction to the
+affected existing families. Preserve mount IDs/arcs and projectile origins.
+Acceptance: actual normal-zoom movement, firing, turning and one sinking are
+reviewed; affected boats remain consistent in battle, chart and refit views.
+Shore art used by the encounter agrees with navigation. Keep a bounded list
+of remaining visual defects instead of claiming all-angle coverage from stills.
+Boundary: no new36-boat production pass, water physics or asset-tool project.
+
+0.082 - WEAPON SOUND AND MUSIC MIX [PLANNED]
+Player result: machine guns, cannons, rockets, torpedoes, engines, impacts and
+sinking sound distinct and substantial; music supports the changing scene.
+Scope: finish the existing sound system and supplied18-track music selection,
+levels and crossfades. Correct thin/repetitive weapon sound where heard; use
+appropriate existing/licensed recordings with retained provenance when needed.
+Acceptance: short exported offline clips cover sustained gunfire, heavy shot,
+rocket/torpedo events, impacts and title/travel/combat transitions. An actual
+listening review checks repetition, masking, clipping and abrupt transitions.
+If no listening route is available, supply the clips and record audio quality
+as unreviewed; generating a file never substitutes for listening acceptance.
+Boundary: no new soundtrack requirement, voice acting or live test audio.
+
+0.083 - EARNED FLEET GROWTH [PLANNED]
+Player result: a cheap starter can make an informed fitting/specialist choice,
+then grow into a useful small fleet with a support role and return reserves.
+Scope: finish existing early/mid fleet prices, job rewards, whole-voyage costs
+and refit comparisons. Prices remain material/labor based; alter diagnosed
+recipes, productive work or rewards coherently rather than inventing discounts.
+Acceptance: ordinary funded work, travel, wages, repairs and replacement stores
+leave a meaningful surplus for an actual purchase; a carrier/tanker/repair boat
+demonstrably extends an expedition. Show an affordable recovery after one
+bounded loss. Keep total ownership distinct from300DP battle deployment.
+Boundary: no new hulls, upgrade framework, free purses or full six-career sweep.
+
+0.084 - GENERATED HARBORS THAT CAN DEVELOP [PLANNED]
+Player result: a suitable harbor outside Shatter Coast can receive real
+materials, machinery, workers and capital and provide a useful paid service.
+Scope: extend existing service eligibility and076 paid development paths
+to generated harbor identities, actual local owners, yards and inventories.
+Choose a bounded eligible frontier example; keep unavailable services honest.
+Acceptance: one paid remote development survives departure/save/load/return
+and provides its quoted service. Private firms, workers, boats, stores, tools,
+debts and coins remain physically accounted for. Service access uses the actual
+local owner. Remote contested governor/access transfer is the085 operation,
+not a second major084 scope.
+Boundary: no instant services at every port, whole-island annexation, new
+settlement economy, unrestricted empire builder or rerolling old geography.
+
+0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [PLANNED]
+Player result: a supplied faction operation can change one generated harbor's
+governor/access; delivering or intercepting its supplies changes the outcome.
+Scope: extend the existing076 contested-control path to one eligible generated
+harbor after084. Use the existing075 merchant/pirate/patrol and paid-recovery
+systems on one two-group supply corridor; add no new strategic actors or wars.
+Acceptance: one existing funded operation consumes actual delivered stores,
+crew work and wages, resolves its physical battle/surrender, and persists the
+remote governor/access change. Interrupted support retains its actual costs.
+Existing traffic/survivors continue their paid objectives while the player is
+elsewhere; dated intelligence explains the change. Preserve assets and purses;
+the harbor transfer never annexes an island group or mints replacement boats.
+Boundary: one supplied remote control operation, not a second strategy system,
+all-faction campaign expansion or full tactical simulation of distant battles.
+
+0.086 - CIVILIAN CAREERS WORTH REPEATING [PLANNED]
+Player result: fishing, freight, fuel delivery and passenger/yacht work offer
+different route, capacity, risk and reinvestment choices on existing boats.
+Scope: improve existing funded work variety, recurring clients, sensible
+operating margins and the next useful paid boat/fitting for these four roles.
+Use real catches, cargo, fuel transfers and passenger cohorts; preserve finite
+resource quotas, buyer purses, supplied food and actual distance/arrival rules.
+Acceptance: each role has a short playable start/return/reinvestment example
+and a meaningful alternative to the same repeated timer or delivery choice.
+Witnessed civilian value creates an existing piracy/escort opportunity.
+Staged career saves are labeled; do not claim all four earned from the default
+starter or force a new framework/all-career matrix into the automated suite.
+Boundary: existing civilian roster and jobs; no new careers or free support fleets.
+
+0.087 - DISTINCT REMOTE DESTINATIONS [PLANNED]
+Player result: a distant voyage finds recognizable places with different
+hazards, clues, optional risks and useful returns instead of interchangeable stops.
+Scope: author three bounded destination packages in existing remote groups:
+one connected expedition and two optional discoveries/encounters. Vary local
+geography/landmarks, work costs and reward choices using existing survey,
+story, salvage and faction systems. Reusable placement must respect each seed,
+knowledge and saved depletion; older visited places must not be silently reset.
+Acceptance: a player can combine funded work with one discovery, choose whether
+to push farther, and bring home useful finite equipment, cargo, intelligence
+or access. A faction/contact choice has a later visible consequence. Return
+visits reflect what was actually taken or decided; navigation matches the art.
+Boundary: three original content packages, not48 handcrafted regions, a new
+quest engine, copied locations/stories or generic unbacked coin rewards.
+
+0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [PLANNED]
+Player result: understand a first voyage, refit, loss/recovery and next objective
+with the existing menus; progress and consequences survive saving and returning.
+Scope: one bounded integration of079-087: fix the worst demonstrated confusing
+flow, overlapping/misleading information, save continuity or progression blocker.
+Review representative early/mid/late saves across the six existing careers;
+use actual play feedback to identify the next material missing part.
+Acceptance: current controls/title/settings remain clear, a normal paid voyage
+and loss/recovery loop works, changed-state saves reopen correctly, and current
+representative battle/campaign measurements and audio/presentation observations
+are reported honestly. Publish what is proven, staged, not played or still bad.
+Boundary: no new feature pile, whole-game test matrix, open-ended soak or claim
+that088 automatically finishes the game. Remaining gaps receive explicit later
+scopes after this review, rather than being hidden under DONE labels.
+
+EXECUTION AND CONSTANTS
+- Each version advances0.001 on its accepted predecessor, through a usable
+  Windows package and one plain Desktop Brass Tide launcher. Preserve owner
+  saves/music/settings, old releases, source history and version tags.
+- Plans are not implemented features. This planning update changes no game
+  code, version, executable, installed package or present quality verdict.
+- One scope with a concrete player result at a time. Begin with the named
+  demonstrated defect; stop broad speculative audits and duplicate frameworks.
+  A failed core result stays open and gets an explicit bounded follow-on.
+- Use the authorized Bridge specialists with small written file allowlists,
+  isolated commits and reviewed handoffs. Root coordinates/integrates and alone
+  owns engine/GPU tests; helpers never spawn extra helpers or launch engines.
+- Each whole batch<120seconds; ENTIRE selected final verification<180seconds,
+  including setup/import/export/startup/capture/offline checks/archive/install
+  and final verification. Budget before queuing; queue wait is separate.
+  Reuse unchanged accepted evidence with source proof, not repeated broad tests.
+  Keep failed/interrupted/queued jobs separate from passed results.
+- Read-only process detector and the shared TestBridge FIFO before engines/GPU.
+  Queue behind other Godot/Unity players/editors/exports and leases. One owned
+  bounded job at a time, background/private/muted, no input/focus/control or
+  stopping another app. Offline review clips are distinct from live playback.
+- Actual screenshots, motion, listening, short benchmarks and player decisions
+  answer different questions. Use the existing tools; no tool-building detour.
+  Retail-template performance stays separate from matching-console PCK stills.
+- Keep cheap water, numerical crew/fixed asset gunners, default flagship
+  autopilot, WASD camera, original art/world/factions and36 existing hulls.
+  Keep conserved coins,100coins per ordinary sailor-day, finite workers,
+  materials, stores, ownership/UIDs and paid repair/construction/replacements.
+- Open seas connect archipelagos on one ocean planet without major continents.
+  Islands fill the planet role. Groups may contain differently owned islands
+  and harbors; one harbor transfer never grants an entire geographic group.

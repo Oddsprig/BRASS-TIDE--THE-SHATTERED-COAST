@@ -1,62 +1,46 @@
-# Current delivered step v0.078: Campaign clarity and quality review
+# Brass Tide: next planned versions v0.079-v0.088
 
-306 focused/0;Windows/menu and actual private UI reviewed.
-Authorized069-078 sequence complete within bounded scopes; later work needs a saved scope. Earlier quality targets stay open.
+Installed and delivered: **v0.078**. The069-078 sequence is complete within its
+recorded scopes; battle performance, listening and overall quality remain open.
+This is a planning update. No079 game build has started.
+
+| Version | Focus | Concrete player result |
+| --- | --- | --- |
+| 0.079 | Light-fleet responsiveness | Reduce demonstrated worker cost and battle lag with the existing simulation. |
+| 0.080 | Reliable tactical counterplay | Complete harassment, screening, retreat and responsive orders in actual encounters. |
+| 0.081 | Combat art at normal play zoom | Correct visible boat/weapon, wake, impact and sinking defects in existing assets. |
+| 0.082 | Weapon sound and music mix | Review and improve existing weapon recordings, levels and supplied music transitions. |
+| 0.083 | Earned fleet growth | Make paid starter work lead to useful fittings, a small fleet and affordable recovery. |
+| 0.084 | Generated harbors that can develop | Extend paid development and useful services to an eligible generated harbor. |
+| 0.085 | Supplied regional conflict and harbor control | Resolve one supplied remote-harbor control operation with persistent costs and access. |
+| 0.086 | Civilian careers worth repeating | Improve fishing, freight, fuel and passenger choices and reinvestment. |
+| 0.087 | Distinct remote destinations | Three bounded original destination packages with clues, risk and useful returns. |
+| 0.088 | Whole-loop clarity and campaign review | Fix demonstrated usability/progression/save issues and assess remaining quality gaps. |
+
+Detailed scope, acceptance and exclusions: [Remaining quality roadmap](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.079-v0.088.txt).
+Build one0.001 version on its accepted predecessor. Each scope ends in a usable
+Windows package and one current Desktop launcher. Existing owner saves, music,
+settings, older releases and tags are preserved. The end of088 is a review,
+not a guarantee that the game is finished or at Starsector quality.
+
+Current evidence: work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
+Light workerP9540.352ms/maxlag167.488ms miss33.333ms/100ms; planner targets
+remain unmet. Mixed22.806ms/66.666ms meets those two timing targets. Retain
+all raw measurements and distinctions between stills, motion, listening and play.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
-the hyperspace role, archipelagos the star-system role, and individual islands
-the planet role. Different factions may own islands and harbors inside the same
-group. Generated geography, mixed ownership, shipping, diplomacy and funded
-territorial expansion are required campaign systems. The generated sector retains the original two regions as anchor charts;
-older saves keep their original world. See [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
+the hyperspace role, island groups the system role, and individual islands the
+planet role. Groups can have differently owned islands/harbors. Keep48 seeded
+groups and36 existing hulls; old saves retain their geography. Wider services,
+paid development and sustained regional consequences belong to084-085.
 
-| Version | Bounded scope |
-| --- | --- |
-| 0.063 | Verified: bounded copy/allocation correction; remaining targets recorded. |
-| 0.064 | Verified prototype: ocean/local charts, Glasswind Keys, persistent round trip. |
-| 0.065 | Verified: forecasts, return reserves, actual paid voyage and finite tank transfers. |
-| 0.066 | Verified: ocean conditions, sightings, physical pursuit/interception and battle custody. |
-| 0.067 | Verified: Glasswind surveys, paid shore parties, finite cargo recovery and physical return. |
-| 0.068 | Verified: one funded Westglass branch, physical merchant shipping and scheduled distant activity. |
-| 0.069 | Verified scoped:48 seeded groups, finite generated harbors, paid surveys and starting mixed ownership. |
-| 0.070 | Verified scoped: funded regional work, whole-trip cost previews and a paid specialist from normal-start voyage earnings. |
-| 0.071 | Verified scoped: stern wash, normal-zoom damage cues, distinct weapon impulses, engine routing and recorded mix. |
-| 0.072 | Complete voyage integration and measured campaign/full-fleet performance corrections. |
-| 0.073 | Finished boat and weapon assets across the 36 existing hulls, matching physical mounts and refit previews. |
-| 0.074 | Tactical AI counterplay: flanking/harassment, screening, firing passes, retreat and dependable orders. |
-| 0.075 | Funded faction strategy: actual convoys, piracy, patrol response, supply interdiction and paid replacements. |
-| 0.076 | Funded outposts, blockade/access changes and capture/surrender/peace with persistent physical assets. |
-| 0.077 | Two original exploration/contact chains with choices, risky recovery and lasting consequences. |
-| 0.078 | Six-career playability, guidance, interface/balance polish and whole-loop quality review. |
+Use existing worker/queue/asset/job/economy tools. Whole each test batch<120s;
+all selected final verification<180s, including setup/export/capture/archive/
+install/final checks; external queue wait separate. Background/private/muted,
+shared FIFO, no mouse/focus or interference with other apps. No engine work
+is needed for this planning update.
 
-Detailed acceptance and exclusions: [Next ten quality milestones](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
-The prior 063-072 map preserves the accepted history. Versions072-078 remain planned;
-quality is judged from complete voyages, battles, actual presentation and player feedback.
-Sector design target48groups:8settled/12frontier/28remote. First prove one crossing
-and a worthwhile destination. Current settled home geography has8main islands,10ports and14survey sites.
-v0.064 added ocean/local crossings and the three-island Glasswind Keys prototype;
-v0.067 proved the first useful remote expedition. The full seeded world,
-sector-wide political ownership and ongoing faction expansion remain open.
-Funded cross-region strategy is scheduled for 075; expansion, capture and changing
-political control for 076. These remain unbuilt; ownership colors alone do not complete them.
-
-Remaining demonstrated gaps:
-- Light workerP9537.816ms exceeds33.333ms;lag150ms exceeds100ms;catch-up/planner
-  criteria remain unmet. Mixed worker/lag meet. Preserve actual actor counts,
-  current simulation rates and thresholds. The rejected062phase trial stays out.
-- Strict observedFPS59.996585/59.986463 remains below60; no threshold waiver or
-  claim of fully solved performance. A short historical/current comparison is
-  not a controlled causal estimate or long-play guarantee.
-- Combat motion, boat separation, wakes, sound/listening and general artwork;
-  four actual battle stills are only a bounded visual sanity review. Startup HUD
-  briefly lacks worker status before the first publication. Settings/help renderer
-  wording should reflect actual safeMode1, not imply Separate2 is active.
-- Full six-career progression and profitable naturally seeded traffic/economies;
-  prior composition proofs do not certify complete campaigns.
-
-Use existing source/queue tools. Every selected whole batch<120seconds including
-setup/import/export/startup/cleanup;queue wait separate. Background/private/muted,
-shared FIFO, no mouse/focus or interference with other apps. Preserve voyages,
-music, settings, physical owners/UIDs, finite goods and conserved coin purses.
-Evidence: docs/PERFORMANCE v0.063.txt, docs/TEST RESULTS v0.063.md,
-docs/VERIFICATION INDEX.txt and work/quality-v063/CURRENT STATE.txt.
+History and principles:
+- [Completed069-078 scopes](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
+- [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
+- [Earlier quality criteria](docs/roadmap/STARSECTOR%20QUALITY%20ROADMAP.txt).

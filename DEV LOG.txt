@@ -1,3 +1,7 @@
+30OCT2026 - PLAN ONLY: v0.079-v0.088 remaining quality/campaign roadmap saved.
+Installed078/code/version/assets untouched. Ten bounded player outcomes and acceptance/exclusions; current indexes updated.
+Bridge Sol6.1MAX review complete: include heavy counterplay in080; separate084 development from085 remote control. No helper edits/engines. No tests or new game build.
+
 30OCT2026 - v0.078 CAMPAIGN CLARITY AND QUALITY REVIEW
 Clearer existing career costs and actions; compact completed stories and live paid-recovery guidance.
 Root integrated named Bridge source. See this build tests/ receipts for actual native, Windows and rendered measurements.
