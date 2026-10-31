@@ -129,6 +129,7 @@ func advance(seconds: float = 4.0) -> bool:
 func point(label: String) -> Dictionary:
 	if not check(c.pending_days == 0 and workers.group_id < 0, label + ": no unpublished economy work"): return {}
 	c.HomeOps.ensure(c)
+	c.Salvage.ensure(c.state)
 	# Load also refreshes the current-day encounter cache; this spends no time/resources.
 	c.NavalAI.ensure(c.state,c.data)
 	# Ordinary load refreshes readiness hints; settle that bookkeeping before saving.
@@ -534,7 +535,7 @@ func legacy_cases(cache_ready: Dictionary) -> bool:
 		if str(wreck.get("sourceId", "")) != SOURCE: continue
 		removed = source_totals(wreck)
 		for key in ["components", "stores"]:
-			for good in wreck.get(key, {}): wreck[key][good] = 0
+			wreck[key] = {}
 		wreck.status="stripped"
 	if not check(not removed.is_empty() and not record(SOUNDINGS).flags.has("paid_longglass077"),
 		"The separate depleted legacy input begins before any player-paid claim"): return false
