@@ -154,7 +154,7 @@ static func _known_site(state: Dictionary, site_id: String) -> Dictionary:
 	var row := {"kind": "site", "id": site_id, "name": str(site["name"]),
 		"x": float(site["x"]), "y": float(site["y"]), "level": level}
 	row["regionId"] = Exploration._site_region(site)
-	row["layer"] = "local"
+	row["layer"] = "home" if row["regionId"] == Exploration.HOME_REGION else "local"
 	if site_id == LONGGLASS_SITE077:
 		row["id"] = str(site.get("id", site_id))
 		row["sourceId"] = LONGGLASS_SOURCE077
