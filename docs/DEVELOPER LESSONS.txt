@@ -1,3 +1,6 @@
+31OCTOBER2026 - SHARED STARTER PROMPT v28 / board147
+Adopted vision/slice/staging, short NOW plus linked evidence, real-input tools and schema preflight. Keep helper briefs source-complete with actual API calls; do not replace missing facts with speculative adapters. Select checks by change/risk and retain unchanged receipts only when relevant source/assets/runner/toolchain/inputs agree. Context pressure means durable handoff and continued authorized work, not an invented stop. Shared file caps, model roles, version policy and terrain assumptions are PROJECT/ENGINE/GENRE choices; STYLE means appearance/taste. Do not install blanket folder gates, repeat unchanged engine failures without a discriminating hypothesis, or rerun the whole game for notes. Current077 review also caught source-id vs site-id confusion and cross-chart coordinate plotting; follow authoritative canonical IDs/regions through model and UI. Official2minute board heartbeat failedsix times Transportclosed; active-work delta checks only, never claim persistence.
+
 v0.071: Route equipment failure by its reported kind before inherited weapon
 family. Keep actual fire state separate from engine damage. Check small-boat
 damage at the real zoom/LOD threshold; don't force a fake LOD. Read a returned

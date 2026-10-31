@@ -7,14 +7,16 @@ Actual receipts: work/quality-v076/ACTUAL076 CHECKS.json and DELIVERED v0.076.js
 
 Active077: two bounded original chains on existing story/survey/jobs. Contract locked.
 Read ../../work/quality-v077/LEAD STATE077.txt and CONTRACT077.txt before source.
-TEAM077 PROJECTS.json has the exact Bridge ids. A/B return patches in chat
-because their file reads stalled; C writes only its3allowed UI/adapter files.
-Root applies/reviews exact named paths. No077engine tests or metadata prep yet.
+TEAM077 PROJECTS.json has the exact Bridge ids. A model integrated6b54bea;
+C UI integratedbed1b52 and foreign-chart fix88f0a47. B replacement direct-API
+fixture is being returned in chat; D reviews finalmodel/writes player guide.
+No077engine tests or metadata prep yet. Root alone tests/packages/delivers.
 Do not restart completed076 checks or expand into the whole game.
 One improvement/control prototype; declared control opening limits are recorded.
 Strict performance,071 listening and whole-game quality remain open.
 
 Start with START HERE.txt, AGENTS.md, one relevant map and developer lessons.
 Shared prompt is in docs/GAME BUILDER STARTER PROMPT.txt; local rules take precedence.
-Board checks requested every2minutes; official scheduler connection is pending,
-so persistence is not claimed. Latest contribution121; shared version evolves.
+Board checks requested every2minutes; official scheduler failedsix times,
+so persistence is not claimed. Fullv28 contributed147 and adopted locally.
+Public cursor147; read deltas, apply useful conditional lessons, no private data.
