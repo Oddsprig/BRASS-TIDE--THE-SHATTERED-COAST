@@ -9,6 +9,7 @@ static func open(ui) -> void:
 	ui.modal_kind="coastal_stories"
 	var body=ui.modal("Coastal stories & expedition leads","DECISIONS THAT OPEN DIFFERENT WORK",1070,800)
 	ui.paragraph(body,"Keep several leads alongside your paid voyage jobs. Surveys, deliveries and actual fleet defeats advance them. Knowledge and relationships are the rewards; any later freight or business still needs a real sponsor, materials and workers.",16)
+	ui.paragraph(body,"Listed standing changes are base changes. Helping a faction can also anger its rivals; your faction log records the full result.",14,ui.TEAL)
 	for row in Stories.journal(c.state):
 		var entry: Dictionary=row
 		ui.rule(body)

@@ -195,7 +195,7 @@ func refuse(chain_id: String, choice: String, label: String) -> bool:
 	return check(not bool(result.get("ok", true)) and var_to_bytes([c.state, c.events, c.pending_days]) == before,
 		label + ": refusal changes no progress, consequences, assets, events or clock")
 
-func decision(chain_id: String, choice: String, flags: Array, expected: Dictionary = {}) -> bool:
+func decision(chain_id: String, choice: String, flags: Array, expected: Dictionary = {}, net_standings: Dictionary = {}) -> bool:
 	if not bounded(): return false
 	var physical: String = assets()
 	var scores: Dictionary = {}
@@ -219,8 +219,9 @@ func decision(chain_id: String, choice: String, flags: Array, expected: Dictiona
 		applied[key] = int(row.amount)
 	check(count == expected.size() and applied == expected, "The actual consequence ledger has the exact named targets and amounts")
 	for faction in scores:
-		check(int(c.Factions.standing(c.state, faction).score) == int(scores[faction]) + int(expected["faction:" + faction]),
-			"The actual " + faction + " standing changes by the catalog amount")
+		var net: int=int(net_standings.get(faction,expected["faction:"+faction]))
+		check(int(c.Factions.standing(c.state, faction).score) == int(scores[faction]) + net,
+			"The actual " + faction + " standing includes its catalog amount and ordinary rival reaction")
 	check(assets() == physical, "The story decision grants no cash, goods, people, hulls or equipment")
 	var replay_before: PackedByteArray = var_to_bytes([c.state, c.events, c.pending_days])
 	StoryOps.apply_pending(c)
@@ -513,7 +514,9 @@ func turn_in(paid: Dictionary, cass: bool) -> Dictionary:
 	if not check(bool(permission.get("ok", false)), "Ordinary service permission exists before the actual turn-in reward"): return {}
 	var expected: Dictionary = {"faction:raiders":4, "faction:reed":-3, "contact:contact_cass_rye":6} if cass else {"faction:reed":4, "faction:raiders":-3, "contact:contact_sister_wren":6}
 	var final_flag: String = "soundings_cass077" if cass else "soundings_public077"
-	if not decision(SOUNDINGS, registration, [final_flag, route_flag, "paid_longglass077"], expected): return {}
+	# Reed +4 also costs one Raider standing under the existing positive-help rule.
+	var net_standings: Dictionary={} if cass else {"reed":4,"raiders":-4}
+	if not decision(SOUNDINGS, registration, [final_flag, route_flag, "paid_longglass077"], expected, net_standings): return {}
 	if not check(bool(record(SOUNDINGS).done) and not record(SOUNDINGS).flags.has("empty_longglass077")
 		and not record(SOUNDINGS).flags.has("soundings_public077" if cass else "soundings_cass077"),
 		"The actual permitted paid turn-in finishes only its selected register"): return {}

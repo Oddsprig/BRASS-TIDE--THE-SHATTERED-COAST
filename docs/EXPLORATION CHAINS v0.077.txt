@@ -3,6 +3,7 @@ BRASS TIDE v0.077 - EXPLORATION CHAINS
 Two new journal leads sit beside Middle Sea Chart, Ironwood for the Mill,
 The Toll Camp, and The Cold Workshop. Those four are unchanged. Neither
 new lead pays you coins, a boat, crew, or goods by itself.
+Listed reputation changes are base amounts; ordinary rival reactions also apply.
 
 THE INVERTED TIDE BOOK
 Meet Sister Wren at Reedwater Floats and hear the lead while stopped
