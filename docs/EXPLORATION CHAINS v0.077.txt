@@ -81,13 +81,11 @@ shatter_coast. Glasswind sites keep glasswind_keys. The cache lead is the
 south-wreck row, with the cache source attached, once that wreck is seeded.
 Reflections read only a saved survey level and flags already on the chain.
 
-Every earned lead is stamped layer local. The home chart compares layer
-home, so a Shatter Coast lead fails that check. Its button opens voyage
-preparation for the Shatter Coast even while you are already there, and
-it does not open the site panel. The separate Chart control looks the site
-up again and can plot a home coordinate on the home chart. A Glasswind
-lead opens regional navigation from home, and the site panel on the
-Glasswind local chart.
+Home bearings carry the home layer; distant-group bearings carry local.
+An earned bearing on the current chart opens its site panel. A bearing on
+another chart opens the existing voyage preparation window. Chart controls
+resolve the actual region before plotting; foreign coordinates are not
+plotted on the current chart.
 SAVE
 Each chain keeps stage, done, flags, and leads in stories.chains. New flag
 strings and one chainfreight id fit the current check: up to 16 chain
