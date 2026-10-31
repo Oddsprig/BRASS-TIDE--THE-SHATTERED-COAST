@@ -31,7 +31,12 @@ static func start(c,id: String) -> Dictionary:
 static func apply_pending(c) -> void:
 	for entry in c.state.stories.consequences:
 		if entry.get("applied",false):continue
-		if entry.kind=="faction":c.Factions.adjust(c.state,entry.target,int(entry.amount),entry.reason,entry.id)
+		var effect_id: String=str(entry.id)
+		# Factions retains only80characters. New long story prefixes must not
+		# collapse different targets into one execution id; journal ids stay readable.
+		if effect_id.begins_with("story:inverted_tide077:") or effect_id.begins_with("story:last_soundings077:"):
+			effect_id="story077:"+effect_id.sha256_text()
+		if entry.kind=="faction":c.Factions.adjust(c.state,entry.target,int(entry.amount),entry.reason,effect_id)
 		elif entry.kind=="contact":c.Contacts.record(c.state,entry.target,entry.id,int(entry.amount))
 		entry.applied=true
 
