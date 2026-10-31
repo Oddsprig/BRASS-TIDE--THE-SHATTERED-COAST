@@ -501,6 +501,122 @@
           "body": "The ore bearing completes the picture. Backing Mara grants the right to open your own paid workshop business later, with hired staff and operating capital. Keeping the seam private opens a finite ore passage instead; Mara receives no charter."
         }
       ]
+    },
+    {
+      "id": "inverted_tide077",
+      "title": "The Inverted Tide Book",
+      "approach": "explorer",
+      "startPort": "reed_floats",
+      "startContact": "contact_sister_wren",
+      "startLead": "verdigris_salt_pans",
+      "summary": "Wren has a tide book whose salt-staff marks run backwards. Compare the real pans and marsh before choosing a public or bonded register.",
+      "stages": [
+        {
+          "id": "read_salt_staff",
+          "title": "Read the Salt Staff",
+          "nextAction": "Chart the Verdigris Salt Pans and read the reversed staff marks.",
+          "gate": {"type": "site", "site": "verdigris_salt_pans", "level": 2},
+          "body": "Wren lays a salt-stained book beside a newer harbor register. Its staff marks appear inverted, but correcting them at a desk would only replace one guess with another. Chart the actual pans before taking the comparison into the marsh.",
+          "choices": [
+            {"id": "copy_salt_staff077", "text": "Copy the charted salt-staff marks", "next": "match_marsh_scales", "setFlags": ["read_salt_staff077"], "leads": ["reed_marsh_landing"], "tradeoff": "Earn the marsh comparison bearing. This records your chart; it grants no further survey or cargo.", "consequences": []}
+          ]
+        },
+        {
+          "id": "match_marsh_scales",
+          "title": "Match the Marsh Scales",
+          "nextAction": "Fully survey Reed Marsh Landing and compare its scales with the salt staff.",
+          "gate": {"type": "site", "site": "reed_marsh_landing", "level": 3},
+          "body": "The marsh scales preserve the other half of the tide book's notation. A full survey can distinguish a reversed reference from a changed tide. The resulting correction belongs in a register only after you decide who receives it.",
+          "choices": [
+            {"id": "match_marsh_scales077", "text": "Record the matched marsh scales", "next": "choose_register", "setFlags": ["matched_marsh_scales077"], "tradeoff": "The comparison is recorded. Return to Wren to choose the register; no freight has been issued.", "consequences": []}
+          ]
+        },
+        {
+          "id": "choose_register",
+          "title": "Choose the Tide Register",
+          "nextAction": "Return to Wren at Reedwater Floats and choose the public or bonded register.",
+          "gate": {"type": "at_port", "port": "reed_floats"},
+          "body": "The two measured scales explain the inversion. Wren can publish the correction, or lodge a bonded copy through Tobin's Compact factors. Either decision settles the book here and unlocks one finite freight opportunity; carrying that freight is separate work.",
+          "choices": [
+            {"id": "publish_tide_book077", "text": "Enter the correction in Wren's public register", "next": "done", "setFlags": ["tide_public077"], "tradeoff": "Reed +4, Compact -2, Wren +6. Unlocks one funded Reedwater-to-Silt Hollow passage for four real repair kits, subject to stocks, treasury and a route.", "consequences": [{"kind": "faction", "target": "reed", "amount": 4, "reason": "Published the inverted tide correction"}, {"kind": "faction", "target": "compact", "amount": -2, "reason": "Tide correction entered in the public register"}, {"kind": "contact", "target": "contact_sister_wren", "amount": 6, "reason": "Returned the measured public tide correction"}]},
+            {"id": "bond_tide_book077", "text": "Lodge the correction in Tobin's bonded register", "next": "done", "setFlags": ["tide_bonded077"], "tradeoff": "Compact +4, Reed -2, Tobin +6, Wren -3. Unlocks one funded Brass-to-Silt Hollow passage for four real repair kits, subject to stocks, treasury and a route.", "consequences": [{"kind": "faction", "target": "compact", "amount": 4, "reason": "Lodged the bonded tide correction"}, {"kind": "faction", "target": "reed", "amount": -2, "reason": "Tide correction withheld from the public register"}, {"kind": "contact", "target": "contact_tobin_hale", "amount": 6, "reason": "Entrusted the measured tide correction to his factors"}, {"kind": "contact", "target": "contact_sister_wren", "amount": -3, "reason": "Chose the bonded tide register"}]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "last_soundings077",
+      "title": "The Last Soundings",
+      "approach": "explorer",
+      "startPort": "brass_haven",
+      "startContact": "contact_tobin_hale",
+      "startLead": "glasswind_west_marker",
+      "summary": "Tobin has three unfinished Longglass soundings. Survey their actual sites, check the finite cache honestly, then register the record with Wren or Cass.",
+      "stages": [
+        {
+          "id": "survey_west_marker",
+          "title": "Survey the West Marker",
+          "nextAction": "Fully survey the Longglass west marker.",
+          "gate": {"type": "site", "site": "glasswind_west_marker", "level": 3},
+          "body": "Tobin's last sounding sheet begins at the west marker. Its figures were never reconciled with the other two records. A full survey earns the next bearing; accepting the sheet proves no recovery.",
+          "choices": [
+            {"id": "record_west_marker077", "text": "Record the surveyed west marker", "next": "survey_crown_log", "setFlags": ["west_soundings077"], "leads": ["glasswind_crown_log"], "tradeoff": "The west sounding is recorded and the crown-log bearing is earned.", "consequences": []}
+          ]
+        },
+        {
+          "id": "survey_crown_log",
+          "title": "Survey the Crown Log",
+          "nextAction": "Fully survey the Longglass crown log.",
+          "gate": {"type": "site", "site": "glasswind_crown_log", "level": 3},
+          "body": "The crown log supplies the missing reference for the west marker. Its last entry points toward the south wreck, but the entry alone cannot replace a survey there.",
+          "choices": [
+            {"id": "record_crown_log077", "text": "Record the surveyed crown log", "next": "survey_south_wreck", "setFlags": ["crown_soundings077"], "leads": ["glasswind_south_wreck"], "tradeoff": "The crown sounding is recorded and the south-wreck bearing is earned.", "consequences": []}
+          ]
+        },
+        {
+          "id": "survey_south_wreck",
+          "title": "Survey the South Wreck",
+          "nextAction": "Fully survey the Longglass south wreck.",
+          "gate": {"type": "site", "site": "glasswind_south_wreck", "level": 3},
+          "body": "The third survey completes the sounding record and identifies the existing Longglass abandoned cache. Before depletion that source held one engine assembly, eight copper, twelve repair kits and sixteen timber. These are finite existing stocks; this lead supplies no replacements.",
+          "choices": [
+            {"id": "record_south_wreck077", "text": "Record the surveyed south wreck", "next": "marked_recovery", "setFlags": ["south_soundings077"], "leads": ["glasswind_keys:abandoned_cache067"], "tradeoff": "Earn the actual cache bearing. Survey and paid recovery still use their normal requirements.", "consequences": []}
+          ]
+        },
+        {
+          "id": "marked_recovery",
+          "title": "Check the Actual Cache",
+          "nextAction": "Fully survey the actual Longglass cache. Complete a paid recovery load there, or explicitly record a verified exhausted source, then choose a harbor register.",
+          "gate": {"type": "site", "site": "glasswind_south_wreck", "level": 3},
+          "body": "A completed paid load from this source while this stage is active can support your recovery record. Depletion by other salvors proves no player work. An already exhausted, surveyed and seeded source can instead receive an honest empty-cache record. Missing stock records are not evidence of exhaustion.",
+          "choices": [
+            {"id": "take_paid_to_wren077", "text": "Take the paid recovery record to Wren", "next": "register_with_wren", "requiresFlag": "paid_longglass077", "setFlags": ["soundings_to_wren077"], "tradeoff": "Choose Reedwater Floats for the actual turn-in. No standing or trust changes until you register there with service access.", "consequences": []},
+            {"id": "take_paid_to_cass077", "text": "Take the paid recovery record to Cass", "next": "register_with_cass", "requiresFlag": "paid_longglass077", "setFlags": ["soundings_to_cass077"], "tradeoff": "Choose Rust Anchorage for the actual turn-in. Normal standing or paid safe conduct is still required.", "consequences": []},
+            {"id": "record_empty_to_wren077", "text": "Verify exhaustion and take the empty-cache record to Wren", "next": "register_with_wren", "setFlags": ["empty_longglass077", "soundings_to_wren077"], "tradeoff": "Requires all three soundings and an actually surveyed, seeded, empty cache. Claims no paid recovery; turn in at Reedwater with service access.", "consequences": []},
+            {"id": "record_empty_to_cass077", "text": "Verify exhaustion and take the empty-cache record to Cass", "next": "register_with_cass", "setFlags": ["empty_longglass077", "soundings_to_cass077"], "tradeoff": "Requires all three soundings and an actually surveyed, seeded, empty cache. Claims no paid recovery; normal Rust access remains required.", "consequences": []}
+          ]
+        },
+        {
+          "id": "register_with_wren",
+          "title": "Register with Wren",
+          "nextAction": "Turn in the sounding record to Wren at Reedwater Floats with normal service access.",
+          "gate": {"type": "at_port", "port": "reed_floats"},
+          "body": "Wren will enter what your record actually supports: a completed paid recovery load or a verified exhausted cache. Registering the soundings creates no machinery, stores or payment.",
+          "choices": [
+            {"id": "register_public_soundings077", "text": "Enter the last soundings in Wren's public register", "next": "done", "requiresFlag": "soundings_to_wren077", "setFlags": ["soundings_public077"], "tradeoff": "Reed +4, Raiders -3, Wren +6. The record preserves whether you completed paid recovery or verified exhaustion.", "consequences": [{"kind": "faction", "target": "reed", "amount": 4, "reason": "Registered the last soundings publicly"}, {"kind": "faction", "target": "raiders", "amount": -3, "reason": "Longglass soundings entered in Wren's register"}, {"kind": "contact", "target": "contact_sister_wren", "amount": 6, "reason": "Returned an honest Longglass sounding record"}]}
+          ]
+        },
+        {
+          "id": "register_with_cass",
+          "title": "Register with Cass",
+          "nextAction": "Turn in the sounding record to Cass at Rust Anchorage using normal standing or paid safe conduct.",
+          "gate": {"type": "at_port", "port": "rust_anchorage"},
+          "body": "Cass accepts the same honest distinction between completed paid work and an exhausted source. Her register remains inside Rust's normal harbor permissions. The standing earned here cannot pay for or precede your access.",
+          "choices": [
+            {"id": "register_cass_soundings077", "text": "Enter the last soundings in Cass's register", "next": "done", "requiresFlag": "soundings_to_cass077", "setFlags": ["soundings_cass077"], "tradeoff": "Raiders +4, Reed -3, Cass +6, applied only after this permitted Rust turn-in. No harbor access or recovered goods are granted.", "consequences": [{"kind": "faction", "target": "raiders", "amount": 4, "reason": "Registered the last soundings with Cass"}, {"kind": "faction", "target": "reed", "amount": -3, "reason": "Longglass soundings withheld from the public register"}, {"kind": "contact", "target": "contact_cass_rye", "amount": 6, "reason": "Returned an honest Longglass sounding record"}]}
+          ]
+        }
+      ]
     }
   ]
 }

@@ -15,6 +15,9 @@ const Contacts = preload("res://scripts/contacts.gd")
 const CATALOG_PATH := "res://data/coastal_stories.json"
 const MAX_EVENTS := 128
 const MAX_CONSEQUENCES := 64
+const CHAINS077 := ["inverted_tide077", "last_soundings077"]
+const LONGGLASS_SITE077 := "glasswind_keys:abandoned_cache067"
+const LONGGLASS_SOURCE077 := "site:glasswind_keys:abandoned_cache067"
 
 static var _cache: Array = []
 static var _loaded := false
@@ -107,7 +110,7 @@ static func _site_level(state: Dictionary, site_id: String) -> int:
 
 # Only knowledge changes: no survey levels, findings, cargo or story events.
 static func _sight_lead(state: Dictionary, site_id: String) -> void:
-	var site := Exploration.catalog_site(state, site_id)
+	var site := _cache_site077(state) if site_id == LONGGLASS_SITE077 else Exploration.catalog_site(state, site_id)
 	if not site.is_empty():
 		Exploration.discover_near(state, site, 0.0)
 
@@ -116,6 +119,16 @@ static func _sight_lead(state: Dictionary, site_id: String) -> void:
 # Journal reads never call this. Existing flags/stages identify earned bearings;
 # Campaign may already have sighted Shatter while charting the rock.
 static func reconcile_knowledge(state: Dictionary, chain_id: String) -> void:
+	if chain_id in CHAINS077:
+		var accepted := _record(state, chain_id)
+		if accepted.is_empty():
+			return
+		var first := str(_chain_def(state, chain_id).get("startLead", ""))
+		if not first.is_empty() and not (accepted.get("leads", []) as Array).has(first):
+			accepted["leads"].append(first)
+		for id in accepted.get("leads", []):
+			_sight_lead(state, str(id))
+		return
 	if chain_id != "middle_sea_chart":
 		return
 	var rec := _record(state, chain_id)
@@ -134,12 +147,18 @@ static func reconcile_knowledge(state: Dictionary, chain_id: String) -> void:
 
 
 static func _known_site(state: Dictionary, site_id: String) -> Dictionary:
-	var site := Exploration.catalog_site(state, site_id)
-	var level := int(state.get("exploration", {}).get("sites", {}).get(site_id, {}).get("level", 0))
+	var site := _cache_site077(state) if site_id == LONGGLASS_SITE077 else Exploration.catalog_site(state, site_id)
+	var level := int(site.get("level", 0)) if site_id == LONGGLASS_SITE077 else int(state.get("exploration", {}).get("sites", {}).get(site_id, {}).get("level", 0))
 	if site.is_empty() or level < Exploration.LEVEL_SIGHTED:
 		return {}
-	return {"kind": "site", "id": site_id, "name": str(site["name"]),
+	var row := {"kind": "site", "id": site_id, "name": str(site["name"]),
 		"x": float(site["x"]), "y": float(site["y"]), "level": level}
+	row["regionId"] = Exploration._site_region(site)
+	row["layer"] = "local"
+	if site_id == LONGGLASS_SITE077:
+		row["id"] = str(site.get("id", site_id))
+		row["sourceId"] = LONGGLASS_SOURCE077
+	return row
 
 
 # Detached, already earned AND known locations. Never reveals catalog futures.
@@ -158,6 +177,8 @@ static func earned_leads(state: Dictionary, chain_id: String) -> Array:
 # Campaign.recover_wreck still checks proximity, hostiles, party and resources.
 static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
 	var out: Array = []
+	if chain_id == "last_soundings077":
+		return _recovery_sites077(state)
 	if chain_id != "middle_sea_chart":
 		return out
 	for lead in earned_leads(state, chain_id):
@@ -179,6 +200,8 @@ static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
 
 
 static func _outcome(state: Dictionary, chain_id: String) -> Dictionary:
+	if chain_id in CHAINS077:
+		return _outcome077(state, chain_id)
 	if chain_id != "middle_sea_chart" or not bool(_record(state, chain_id).get("done", false)):
 		return {}
 	var rights: Dictionary = state.get("storyRights", {})
@@ -262,9 +285,15 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 static func _location(core, state: Dictionary, chain: Dictionary, stage: Dictionary) -> Dictionary:
 	var gate: Dictionary = stage.get("gate", {}) if stage.get("gate") is Dictionary else {}
 	if str(gate.get("type", "")) == "site":
-		var site := Exploration.catalog_site(state, str(gate.get("site", "")))
-		if not site.is_empty():
-			return {"kind": "site", "id": str(site["id"]), "name": str(site["name"]), "x": float(site["x"]), "y": float(site["y"])}
+		if str(chain.get("id", "")) in CHAINS077:
+			var site_id := str(gate.get("site", ""))
+			var known := _known_site(state, site_id)
+			if not known.is_empty() and (_record(state, str(chain["id"])).get("leads", []) as Array).has(site_id):
+				return known
+		else:
+			var site := Exploration.catalog_site(state, str(gate.get("site", "")))
+			if not site.is_empty():
+				return {"kind": "site", "id": str(site["id"]), "name": str(site["name"]), "x": float(site["x"]), "y": float(site["y"])}
 	var port_id := str(gate.get("port", chain.get("startPort", "")))
 	for p in state.get("ports", []) if state.get("ports") is Array else []:
 		if p is Dictionary and str(p.get("id", "")) == port_id:
@@ -391,7 +420,7 @@ static func choose(core, chain_id: String, choice_id: String) -> Dictionary:
 	for lead in choice.get("leads", []) if choice.get("leads") is Array else []:
 		if not (rec["leads"] as Array).has(str(lead)):
 			rec["leads"].append(str(lead))
-		if chain_id == "middle_sea_chart":
+		if chain_id in ["middle_sea_chart", "inverted_tide077", "last_soundings077"]:
 			_sight_lead(state, str(lead))
 	var reveal := str(choice.get("reveal", ""))
 	if not reveal.is_empty():
@@ -441,7 +470,7 @@ static func journal(state: Dictionary) -> Array:
 		out.append({"chainId": str(chain["id"]), "title": str(chain["title"]),
 			"approach": str(chain.get("approach", "")), "stage": str(rec["stage"]),
 			"stageTitle": str(stage.get("title", "")), "done": bool(rec["done"]),
-			"nextAction": "Check remaining recovery or a paid salvage-yard charter; budget the Rust detour before sailing." if not outcome.is_empty() else "Finished." if bool(rec["done"]) else str(stage.get("nextAction", "")),
+			"nextAction": str(outcome.get("nextAction", "Check remaining recovery or a paid salvage-yard charter; budget the Rust detour before sailing.")) if not outcome.is_empty() else "Finished." if bool(rec["done"]) else str(stage.get("nextAction", "")),
 			"body": str(stage.get("body", "")), "objective": objective,
 			"earnedLeads": earned_leads(state, str(chain["id"])), "outcome": outcome,
 			"recoverySites": _recovery_sites(state, str(chain["id"])),
@@ -477,3 +506,116 @@ static func tick(core) -> Array:
 	while (stories["notified"] as Array).size() > MAX_EVENTS:
 		stories["notified"].pop_front()
 	return events
+
+
+# The cache is a finite wreck at the surveyed south sounding, not another site.
+static func _cache_site077(state: Dictionary) -> Dictionary:
+	if state.get("wreckSeededSources", {}).get(LONGGLASS_SOURCE077, false) != true:
+		return {}
+	for site_id in ["glasswind_west_marker", "glasswind_crown_log", "glasswind_south_wreck"]:
+		if _site_level(state, site_id) < 3:
+			return {}
+	var site := Exploration.catalog_site(state, "glasswind_south_wreck")
+	if site.is_empty():
+		return {}
+	for wreck in state.get("wrecks", []):
+		if wreck is Dictionary and str(wreck.get("sourceId", "")) == LONGGLASS_SOURCE077:
+			var bearing: Dictionary = site.duplicate(true)
+			bearing["level"] = 3
+			bearing["layer"] = "local"
+			return bearing
+	return {}
+
+
+static func _recovery_sites077(state: Dictionary) -> Array:
+	var out: Array = []
+	for lead in earned_leads(state, "last_soundings077"):
+		if str(lead.get("sourceId", "")) != LONGGLASS_SOURCE077 or int(lead["level"]) < 3:
+			continue
+		var row: Dictionary = lead.duplicate(true)
+		row["sourceExists"] = false
+		row["wreckIds"] = []
+		row["remainingComponents"] = {}
+		row["remainingStores"] = {}
+		for wreck in state.get("wrecks", []):
+			if not (wreck is Dictionary) or str(wreck.get("sourceId", "")) != LONGGLASS_SOURCE077:
+				continue
+			row["sourceExists"] = true
+			if str(wreck.get("status", "")) != "unclaimed":
+				continue
+			row["wreckIds"].append(str(wreck.get("id", "")))
+			for pair in [["components", "remainingComponents"], ["stores", "remainingStores"]]:
+				for good in wreck.get(pair[0], {}):
+					row[pair[1]][good] = _num(row[pair[1]].get(good, 0.0)) + maxf(0.0, _num(wreck[pair[0]][good]))
+		out.append(row)
+	return out
+
+
+static func _outcome077(state: Dictionary, chain_id: String) -> Dictionary:
+	var rec := _record(state, chain_id)
+	if not bool(rec.get("done", false)):
+		return {}
+	var flags: Array = rec.get("flags", [])
+	var title := ""
+	var body := ""
+	var next_action := "The register is settled; its consequences remain in your journal."
+	if chain_id == "inverted_tide077":
+		if flags.has("tide_public077") and not flags.has("tide_bonded077"):
+			title = "The inverted tide book is public"
+			body = "Wren has registered your measured correction publicly: Reed +4, Compact -2, Wren +6. One finite four-kit freight opportunity is unlocked at Reedwater Floats for Silt Hollow, subject to actual stocks, treasury funds and a route."
+		elif flags.has("tide_bonded077") and not flags.has("tide_public077"):
+			title = "The inverted tide book is bonded"
+			body = "Your measured correction is in the bonded register: Compact +4, Reed -2, Tobin +6, Wren -3. One finite four-kit freight opportunity is unlocked at Brass Haven for Silt Hollow, subject to actual stocks, treasury funds and a route."
+		next_action = "Check the chosen origin harbor for the once-only funded passage. The tide-book decision is already complete."
+	elif chain_id == "last_soundings077":
+		if flags.has("soundings_public077"):
+			title = "The last soundings are in Wren's register"
+			body = "You registered the soundings with Wren at Reedwater Floats: Reed +4, Raiders -3, Wren +6."
+		elif flags.has("soundings_cass077"):
+			title = "The last soundings are in Cass's register"
+			body = "You registered the soundings with Cass at Rust Anchorage after obtaining normal service access: Raiders +4, Reed -3, Cass +6. This decision grants no harbor permission."
+		if flags.has("paid_longglass077"):
+			body += " Your completed paid load from the actual Longglass cache is recorded. Remaining stock stays finite; the register grants no goods, machinery or payment."
+		elif flags.has("empty_longglass077"):
+			body += " The surveyed, seeded cache was verified exhausted. This branch records exhaustion and claims no paid recovery for this lead; nothing was refilled or granted."
+	if title.is_empty():
+		return {}
+	var effects: Array = []
+	for effect in state.get("stories", {}).get("consequences", []):
+		if effect is Dictionary and str(effect.get("id", "")).begins_with("story:" + chain_id + ":"):
+			effects.append(effect.duplicate(true))
+	return {"title": title, "body": body, "nextAction": next_action, "consequences": effects}
+
+
+# Read saved knowledge and earned records only; no ensure, discovery or restore.
+static func site_reflection(state: Dictionary, site_id: String) -> String:
+	var exploration: Dictionary = state.get("exploration", {}) if state.get("exploration") is Dictionary else {}
+	var sites: Dictionary = exploration.get("sites", {}) if exploration.get("sites") is Dictionary else {}
+	var known = sites.get(site_id, null)
+	if not (known is Dictionary) or _num(known.get("level", 0)) < 1.0:
+		return ""
+	for chain_id in CHAINS077:
+		var rec := _record(state, str(chain_id))
+		if rec.is_empty() or not (rec.get("leads", []) as Array).has(site_id):
+			continue
+		var flags: Array = rec.get("flags", [])
+		if bool(rec.get("done", false)):
+			return str(_outcome077(state, str(chain_id)).get("body", ""))
+		if chain_id == "inverted_tide077":
+			if flags.has("matched_marsh_scales077"):
+				return "The salt staff and marsh scales agree. Wren still awaits your register choice at Reedwater Floats."
+			if flags.has("read_salt_staff077"):
+				return "Your chart has the salt staff's reversed marks; the marsh comparison is still unfinished."
+			return "Wren's salt-staff lead is entered; no tide register has been settled."
+		if flags.has("empty_longglass077"):
+			return "You verified the surveyed cache was exhausted. This records no paid recovery for this lead; the selected harbor register still awaits your permitted turn-in."
+		if flags.has("paid_longglass077"):
+			return "A completed paid load from the actual Longglass cache is recorded for this lead. A harbor register still needs your choice and permitted turn-in."
+		if flags.has("south_soundings077"):
+			return "Your three soundings are recorded. Check the real cache through paid recovery; depletion alone proves no work by your party."
+		if flags.has("crown_soundings077"):
+			return "The west marker and crown log have been surveyed and recorded; the south wreck sounding remains."
+		if flags.has("west_soundings077"):
+			return "The west marker's sounding is recorded; the crown and south records remain unfinished."
+		return "Tobin's west-marker lead is entered; no recovery is claimed."
+	return ""

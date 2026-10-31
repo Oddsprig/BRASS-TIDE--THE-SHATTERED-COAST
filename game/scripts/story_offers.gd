@@ -2,6 +2,7 @@ extends RefCounted
 const Routes=preload("res://scripts/route_cache.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Economy=preload("res://scripts/economy.gd")
+const Stories=preload("res://scripts/coastal_stories.gd")
 static func available(c) -> Array:
 	if not c.state.get("storyRights") is Dictionary:return []
 	var r: Dictionary=c.state.storyRights
@@ -10,6 +11,13 @@ static func available(c) -> Array:
 	if r.get("publicCharts",false):definitions.append(["public-charts","reed_floats","anvil_dock","supplies",4,"Public chart packets & survey tools"])
 	if r.get("privateCharts",false):definitions.append(["private-charts","brass_haven","rust_anchorage","supplies",4,"Cass's private chart courier"])
 	if r.get("privateOre",false):definitions.append(["private-ore","cinder_quay","brass_haven","ore",4,"Private ore bearing passage"])
+	var tide: Dictionary=Stories._record(c.state,"inverted_tide077")
+	if bool(tide.get("done",false)):
+		var flags: Array=tide.get("flags",[]) if tide.get("flags") is Array else []
+		if flags.has("tide_public077") and not flags.has("tide_bonded077"):
+			definitions.append(["tide-public077","reed_floats","silt_hollow","supplies",4,"Public tide register: Silt Hollow repair kits"])
+		elif flags.has("tide_bonded077") and not flags.has("tide_public077"):
+			definitions.append(["tide-bonded077","brass_haven","silt_hollow","supplies",4,"Bonded tide register: Silt Hollow repair kits"])
 	var p: Dictionary=c.current_port()
 	if p.is_empty():return []
 	var out: Array=[]
