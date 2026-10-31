@@ -1,12 +1,14 @@
-# Brass Tide v0.078: scoped verification complete
+# Brass Tide v0.078: installed and verified
 
 Source bc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused assertions/0; Windows export/menu accepted.
 Actual template300DP measurements complete; strict quality flag FALSE.
 Actual two journal/voyage stills reviewed from078PCK using matching console.
 Read work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json;
 the latter is the authority for successful installation and total QA<180s.
-Root's next step is packaging/install/single Desktop launcher, preserving077,
-owner saves/music and all prior tags. No further engine run is required.
+Desktop Brass Tide.lnk targets v0.078/Brass Tide.exe. Package/install and final
+verification completed; selected QA176.989s<180s. Two owner files and20music
+files preserved, previous077 and all tags retained. No launch or remote push.
+No further engine run is required.
 
 The authorized069-078 sequence ends here. No079 scope has been assigned.
 Remaining light-worker capacity/lag, planner targets, listening and overall
