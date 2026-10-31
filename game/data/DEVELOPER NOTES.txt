@@ -1,10 +1,10 @@
-BRASS TIDE v0.076 - FUNDED HARBOR IMPROVEMENT AND CONTESTED CONTROL
+BRASS TIDE v0.077 - COASTAL MYSTERIES AND DISPUTED RECOVERY
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Transport and pay for one existing harbor improvement using finite workers, machinery, materials and operating capital.
-- Contest one harbor through supplied physical operations, interruption and negotiated control; retain workers, boats, equipment, stores and purses.
-- Keep sovereign ownership separate from private businesses; preserve older voyages without grants.
+- Follow two original exploration chains through existing contacts, surveys and earned clues.
+- Make public or private claims through actual harbor access; recover finite cargo with real paid crew time and supplies.
+- Retain previous story progress and depleted sources; show current bearings, outcomes and once-funded work opportunities.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -12,30 +12,5 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-076 IMPLEMENTATION BOUNDARY
-Existing Shatter Coast harbors only. Generated markets retain their limited
-services and workforce. Work uses a real carried machine_tools item, persistent
-tool wear, two existing spare sailors and two fully paid local work days.
-Warehouse materials, worker/foreman wages, margin, duty and working capital
-come from the existing HomeHarbor quote. Sailors are paid once by fleet payroll.
-Interruption retains spent contributions and progress; withdrawal recalls
-original sailors. A hostile selected-defender physical contest, paid support
-and explicit negotiation change one harbor sovereign. Private business assets,
-individual boats/equipment, public stores, purses and island/group records persist.
-Only one improvement and one control operation are in this scope.
-
-Retain cheap water and numerical crews; battle30Hz data worker/100ms decisions.
-Safe render mode requested; never enable crashed Separate mode.
-Earlier strict performance,071 listening and full-game quality remain open.
-075 combined QA missed180s;076 requires its own compact bounded verification.
-No native076 or whole-game-quality acceptance from these source notes alone.
-
-076 MATERIAL RESERVATION CORRECTION
-Real Anvil production consumed the unreserved building iron during work.
-Construction materials now belong to the operation until one funded completion;
-withdrawal retains them. Normal HomeHarbor setup still pays actual staff/fees/
-capital. Its fresh material-value receipt supplies one existing-port-cash credit
-to the captain, avoiding a second charge for the already-carried materials.
-Quotes show gross cash required, material credit and net bill. No minted coins
-or material migration from the spent diagnostic. Completion/withdrawal/restore
-checks track held goods, original machinery and real people/purses.
+Actual077 acceptance/export/UI review pending. Earlier strict performance and071 audible review remain open.
+Shared workflow updated from promptv28: source-complete briefs, targeted checks, exact evidence and durable handoffs.

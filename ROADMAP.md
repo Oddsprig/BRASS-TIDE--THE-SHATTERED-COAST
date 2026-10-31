@@ -1,7 +1,7 @@
-# Current delivered step v0.076: Funded harbor improvement and contested control
+# Current candidate v0.077: Coastal mysteries and disputed recovery
 
-396 focused/0;Windows/menu and actual private UI reviewed.
-Next077:two bounded original exploration chains. Earlier quality targets stay open.
+Two bounded original chains; native checks, export and actual UI review pending.
+Finish and deliver077 before078 campaign polish. Earlier strict performance,071 listening and full quality stay open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

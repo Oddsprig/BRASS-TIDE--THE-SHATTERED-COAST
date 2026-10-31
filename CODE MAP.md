@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.076: Funded harbor improvement and contested control. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: territorial076.gd, campaign.gd, regional_ops.gd, regional_ui.gd, shipping_flow068.gd.
+v0.077: Coastal mysteries and disputed recovery. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: coastal_stories.gd, story_ops.gd, story_offers.gd, story_ui.gd, campaign_ui.gd, campaign.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
