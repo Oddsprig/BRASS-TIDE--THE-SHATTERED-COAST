@@ -322,6 +322,8 @@ func longglass_passage(outbound: bool) -> bool:
 		var prepared: Dictionary=c.OceanWorld064.prepare_player(location,c.ocean_context064,c.Routes.clearance(c))
 		if not check(prepared.get("ok",false),"Declared initial Longglass berth passes the existing location validator"):return false
 		c._publish_location064(prepared.location)
+		c.Exploration.discover_near(c.state,c.state.position,1.0)
+		StoryOps.ensure(c)
 		note("declared_initial_longglass_berth",{"position":c.state.position.duplicate(),"outwardVoyageProven":false})
 		return check(assets()==physical and c.Remote067.local(c.state),"Initial Longglass placement changes no actual assets or story work")
 	for region in ["glasswind_keys","shatter_coast"]:
@@ -371,7 +373,8 @@ func inverted_tide() -> bool:
 		and int(dock.cash) == int(before.cash) + int(offer.materialInvoice)
 		and int(dock.governmentPurse) == int(before.government) - int(offer.reward) - int(offer.materialInvoice)
 		and is_equal_approx(float(dock.stocks.supplies), float(before.stock) - 4)
-		and is_equal_approx(float(c.state.cargo.supplies), float(before.cargo) + 4),
+		and is_equal_approx(float(c.state.cargo.supplies), float(before.cargo))
+		and job.freight.good=="supplies" and is_equal_approx(float(job.freight.qty),4.0),
 		"Existing treasury buys four existing kits and escrows the exact actual reward")
 	if not sail_port("silt_hollow"): return false
 	dock = c.current_port()
@@ -380,7 +383,7 @@ func inverted_tide() -> bool:
 	var coins: int = int(c.state.coins)
 	var invoice: Dictionary = c.settle_voyage_job(str(offer.id))
 	if not check(bool(invoice.get("ok", false)), "Ordinary VoyageJob settlement delivers the actual four supplies"): return false
-	check(is_equal_approx(float(c.state.cargo.supplies), cargo - 4)
+	check(is_equal_approx(float(c.state.cargo.supplies), cargo)
 		and is_equal_approx(float(dock.stocks.supplies), stock + 4)
 		and int(c.state.coins) == coins + int(invoice.get("reward", 0))
 		and int(invoice.get("reward", -1)) == int(offer.reward) and Money.total(c.state) == supply,
