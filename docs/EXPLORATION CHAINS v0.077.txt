@@ -1,0 +1,111 @@
+BRASS TIDE v0.077 - EXPLORATION CHAINS
+
+Two new journal leads sit beside the four already there: Middle Sea Chart,
+Ironwood for the Mill, The Toll Camp, and The Cold Workshop. Those four
+are unchanged. Neither new lead pays you coins, a boat, crew, or goods
+by itself.
+
+THE INVERTED TIDE BOOK
+Meet Sister Wren at Reedwater Floats and hear the lead while stopped
+there. Wren's harbor is the Reedwater Commune. A new standing book starts
+Reed at 0, neutral, so ordinary service is legal.
+
+Chart the Verdigris Salt Pans (3700, 5400) to charted. Copying the
+salt-staff marks records that chart and earns Middle Marsh Landing
+(reed_marsh_landing, 5050, 5250). Fully survey the marsh and record the
+matched scales. No freight exists yet.
+
+Return to Reedwater Floats and choose one register. Public gives Reed +4,
+Compact -2, and Wren +6, and may unlock one passage at Reedwater Floats.
+Bonded gives Compact +4, Reed -2, Tobin +6, and Wren -3, and may unlock
+one passage at Brass Haven. The other register stays closed. The chain
+ends on this choice.
+
+ONCE-FUNDED FREIGHT
+Public id chainfreight-tide-public077 moves four repair kits from
+Reedwater Floats to Silt Hollow. Bonded id chainfreight-tide-bonded077
+moves four repair kits from Brass Haven to Silt Hollow. It is listed only
+at that origin, only while the origin still has four supplies, a route
+exists, and the harbor treasury can pay the kit invoice plus the passage
+escrow. It is absent when the other tide flag is also set, when that id
+is already in usedOffers, or when the job is already on your voyage list.
+
+Accepting it is a normal voyage job. Four supplies leave the origin
+stocks, the treasury pays their invoice into harbor cash, and the passage
+fee is escrowed. Your working holds must fit the sealed weight. Delivery
+at Silt Hollow puts those four kits into Silt Hollow stocks and releases
+the escrow. Accepting stores the id in usedOffers, so delivery, abandon,
+or a later restore does not offer it again. Abandon unloads the sealed
+kits at the harbor where you abandon. This is not a gift and not a
+guaranteed fee. The older public and private chart couriers stay separate.
+
+THE LAST SOUNDINGS
+Meet Tobin Hale at Brass Haven. The Compact also starts at 0, neutral.
+Fully survey, in order, Westglass Bearing Stones (1360, 1380), the
+Windglass Keeper's Log (2780, 1540), and the Longglass Supply Wreck
+(1820, 1640). Each record earns the next bearing. All three are in the
+Glasswind Keys.
+
+The cache is not its own exploration site. After those three surveys are
+rewarded at level 3, and only on the Glasswind local chart, the existing
+seeder can place one abandoned cache on the south wreck: one engine
+assembly, eight copper, twelve repair kits, and sixteen timber.
+Components stay empty. Reaching level 3 does not pay you and does not
+load that cargo.
+
+While the cache stage is active, one completed explicit cargo lot from
+that wreck sets paid_longglass077. The receipt must have ok and completed
+as real bools, a positive quantity, and source
+site:glasswind_keys:abandoned_cache067. The receipt you see is unchanged.
+A failed or interrupted load does not count. Other fleets working the
+Shatter wreck field do not count. The flag is written once.
+
+You then take that paid record to Wren or to Cass. Those are two separate
+harbor stages.
+
+With no paid flag, you may instead record exhaustion. That needs the three
+surveys at level 3, the cache tombstone set, the wreck row present, and
+every store and component at or below zero. A missing wreck, a negative
+figure, or stock still aboard is refused. Exhaustion sets
+empty_longglass077 and grants nothing. It does not refill the pile.
+
+TURN-IN
+Wren's turn-in is at Reedwater Floats and uses the same service permit as
+other harbor work. Reed +4, Raiders -3, and Wren +6 apply only after that
+permit has already succeeded.
+
+Cass Rye is at Rust Anchorage. Raiders start at -70, which is hostile, and
+hostile standing refuses entry. Service there needs ordinary legal access:
+paid safe conduct, or standing that is no longer hostile. Cass's register
+is Raiders +4, Reed -3, and Cass +6, and it is applied only after that
+permit succeeds. From the starting -70, +4 is still hostile. Neither
+register grants harbor entry, recovered goods, machinery, or pay.
+
+KNOWN BEARINGS
+Journal leads carry regionId. A home site with no authored region resolves
+to shatter_coast. Glasswind sites keep glasswind_keys. The cache lead is
+the south-wreck row, with the cache source id attached, once the seeded
+wreck exists. Site reflections read only a saved survey level and the
+flags already on the chain.
+
+Every earned lead is also stamped layer local. On the home chart the
+comparison layer is home, so a Shatter Coast lead fails that check. Its
+button opens voyage preparation for the Shatter Coast even while you are
+already there, and it does not open the site panel. The separate Chart
+control looks the site up again and can plot a home coordinate on the
+home chart. A Glasswind lead opens regional navigation from home, and the
+site panel when you are on the Glasswind local chart.
+
+SAVE
+Each chain keeps stage, done, flags, and leads in stories.chains. New
+flag strings and one chainfreight id fit the current save check: up to 16
+chain records, unread flag members, and at most 8 usedOffers. No separate
+ledger is added. A depleted cache stays depleted. A used freight id stays
+used.
+
+EVIDENCE
+Written from the story catalog, coastal story scripts, story operations,
+story offers, the Root story window, and the existing recovery, faction,
+and voyage-job paths. No v0.077 engine run, fixture, capture, or selected
+QA was executed for this note. It is not a release pass. Earlier
+performance, listening, and play-quality limits stay open.
