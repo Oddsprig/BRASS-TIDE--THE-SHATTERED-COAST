@@ -1,7 +1,7 @@
-# Current delivered step v0.077: Coastal mysteries and disputed recovery
+# Current step v0.078: Campaign clarity and quality review
 
-800 focused/0;Windows/menu and actual private UI reviewed.
-Next078:bounded campaign polish and quality review. Earlier quality targets stay open.
+Finish this bounded pass: six career quotes, one normal paid voyage, representative battle measurements and actual UI.
+No new economy, AI, boats or full-game parity gate. Earlier strict performance/listening and whole-game quality remain open.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, archipelagos the star-system role, and individual islands

@@ -1,10 +1,10 @@
-BRASS TIDE v0.077 - COASTAL MYSTERIES AND DISPUTED RECOVERY
+BRASS TIDE v0.078 - CAMPAIGN CLARITY AND QUALITY REVIEW
 30 October2026 |36 boat designs
 
 THIS VERSION
-- Follow two original exploration chains through existing contacts, surveys and earned clues.
-- Make public or private claims through actual harbor access; recover finite cargo with real paid crew time and supplies.
-- Retain previous story progress and depleted sources; show current bearings, outcomes and once-funded work opportunities.
+- Read actual payroll, supplies, fuel and physical cargo constraints in each of the six existing career plans.
+- Reach the current voyage action earlier; review held-job delivery and payment through existing live checks.
+- Keep completed stories compact, show each earned place once, and direct paid recovery records to their actual contact choice.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -12,5 +12,7 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Read the packaged verification receipts for actual077 checks and Windows/UI evidence. Earlier strict performance and071 audible review remain open.
-Shared workflow updated from promptv28: source-complete briefs, targeted checks, exact evidence and durable handoffs.
+Validation: read this package tests/ for actual measured results and limits. Six career quotes are not six completed careers.
+Normal paid progression remains separate from explicitly synthetic fishing refusals.
+Existing 300-point deployment, 30Hz combat data workers and cheap water remain; UI callbacks run after runtime measurements.
+Shared build guidance adopted promptv34/post165.

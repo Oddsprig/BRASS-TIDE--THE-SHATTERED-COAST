@@ -1,11 +1,12 @@
 # Brass Tide - current working instructions
 
-Current delivered077: Coastal mysteries and disputed recovery.
-Tested0e9d9f78586350b9d889df3b774c3d935a553438;800 focused/0;Windows/menu and reviewed private UI.
-Receipts work/quality-v077/ACTUAL077 CHECKS.json and DELIVERED v0.077.json.
-Root alone tests/delivery. Next078:bounded campaign polish and quality review.
-Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 passed133.600s;077 recorded independently.
+Current source078: bounded campaign clarity and quality review. Desktop delivered077.
+Root alone tests/delivery; helpers source-only. Finish078 before further scopes.
+Read ../../work/quality-v078/SCOPE078.txt and LEAD STATE078.txt.
+Prior077800/0 and accepted Windows/UI receipts are retained; no fresh077 tests.
+Whole each test batch<120s; final selected QA<180s including setup/export/capture/archive/install.
+Earlier strict performance/071 listening/full-game quality remain open.
+Shared starter promptv34/post165 adopted. Dailyfirst31Oct03:28UTC requested; scheduler Transport closed, not active.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
