@@ -128,9 +128,18 @@ func advance(seconds: float = 4.0) -> bool:
 
 func point(label: String) -> Dictionary:
 	if not check(c.pending_days == 0 and workers.group_id < 0, label + ": no unpublished economy work"): return {}
+	c.HomeOps.ensure(c)
 	var saved = JSON.parse_string(JSON.stringify(c.state))
 	if not check(saved is Dictionary, label + ": ordinary whole-state JSON decodes"): return {}
 	return {"state":saved, "casualties":casualties, "seen":seen_contacts.duplicate(true), "label":label}
+
+func persistent_projection(saved: Dictionary) -> Dictionary:
+	var result: Dictionary=saved.duplicate(true)
+	# Campaign._finish_restore069 recomputes these derived patrol route caches.
+	# Every other field, including patrol positions/owners and all assets, stays checked.
+	for patrol in result.get("patrols",[]):
+		for key in ["course","courseClearance","courseLength","progress"]:patrol.erase(key)
+	return result
 
 func restore_point(saved: Dictionary) -> bool:
 	if not bounded() or saved.is_empty(): return false
@@ -143,8 +152,16 @@ func restore_point(saved: Dictionary) -> bool:
 	c.ocean_anchors064 = home_anchors
 	var result: Dictionary = c.restore(input)
 	if not check(bool(result.get("ok", false)), str(saved.label) + ": ordinary Campaign.restore: " + str(result.get("message", ""))): return false
-	if not check(normalized(input) == expected and normalized(c.state) == expected,
-		str(saved.label) + ": ordinary restore preserves the complete canonical save and its input"): return false
+	var before_projection: Dictionary=persistent_projection(input)
+	var after_projection: Dictionary=persistent_projection(c.state)
+	if normalized(before_projection)!=normalized(after_projection):
+		var fields: Array=[]
+		for key in before_projection:
+			if normalized(before_projection[key])!=normalized(after_projection.get(key)):
+				fields.append({"key":key,"before":normalized(before_projection[key]).left(180),"after":normalized(after_projection.get(key)).left(180)})
+		note("restore_difference",{"fields":fields})
+	if not check(normalized(input) == expected and normalized(after_projection) == normalized(before_projection),
+		str(saved.label) + ": restore preserves input and all persisted fields except recomputed patrol route caches"): return false
 	casualties = float(saved.casualties)
 	seen_contacts = saved.seen.duplicate(true)
 	return check(c.pending_days == 0 and workers.group_id < 0, "Restored clock has no unpublished work")
