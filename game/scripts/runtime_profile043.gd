@@ -643,4 +643,9 @@ func _finish() -> void:
 	var saved: bool=_write_json("runtime043-report.json",{"schema":2,"complete":complete,"errors":errors,"readyToFinishWallUs":Time.get_ticks_usec()-started_us,"hardware":_hardware(),"counterMode":_counter_metadata(),"limits":_limits(),"requested":requested,"cases":results})
 	complete=complete and saved
 	print("RUNTIME043_ARTIFACTS ",output," complete=",complete," rendered=",render_verified)
-	host.get_tree().quit(0 if complete else 3)
+	# A private Root-owned review script may capture UI after measurement/retirement.
+	# Ordinary exported profiling keeps the same final quit and all workload gates.
+	if host.has_method("qa_runtime_profile_complete078"):
+		host.call_deferred("qa_runtime_profile_complete078",complete,output)
+	else:
+		host.get_tree().quit(0 if complete else 3)
