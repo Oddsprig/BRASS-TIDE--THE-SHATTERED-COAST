@@ -341,11 +341,11 @@ func has_offer(id: String) -> bool:
 func inverted_tide() -> bool:
 	var begun: Dictionary = StoryOps.start(c, TIDE)
 	if not check(bool(begun.get("ok", false)), "Wren actually starts the Inverted Tide lead at Reedwater"): return false
-	if not refuse(TIDE, "record_salt_staff077", "An uncharted salt staff is not earned progress"): return false
+	if not refuse(TIDE, "copy_salt_staff077", "An uncharted salt staff is not earned progress"): return false
 	if not survey("verdigris_salt_pans", 2): return false
-	if not decision(TIDE, "record_salt_staff077", ["read_salt_staff077"]): return false
+	if not decision(TIDE, "copy_salt_staff077", ["read_salt_staff077"]): return false
 	if not survey("reed_marsh_landing"): return false
-	if not decision(TIDE, "record_marsh_scales077", ["matched_marsh_scales077"]): return false
+	if not decision(TIDE, "match_marsh_scales077", ["matched_marsh_scales077"]): return false
 	if not refuse(TIDE, "publish_tide_book077", "The register requires the actual named harbor"): return false
 	if not sail_port("reed_floats"): return false
 	var predecision: Dictionary = point("tide-predecision")
