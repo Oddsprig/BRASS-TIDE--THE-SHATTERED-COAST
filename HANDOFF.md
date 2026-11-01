@@ -12,7 +12,11 @@ No further engine run is required.
 
 The authorized069-078 build sequence is complete. The next079-088 roadmap
 is now saved at docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt.
-This request updated planning only; no079 source/game build has started.
+Owner31October authorized079-088 implementation. ACTIVE079: light-fleet responsiveness.
+Installed078 stays until accepted079 delivery. Contract ../../work/quality-v079/SCOPE079.txt.
+Bridge buildproject brass-tide079-088-sol-build-1bb595; independentQC
+brass-tide079-088-sol-independent-qc-5b4f14. Both Sol6.1MAX, source-only;
+Buildlead delegates bounded Argon/GrokHIGH tasks within up4each.
 Next concrete scope079: demonstrated light-fleet worker cost and latency.
 One scope/build at a time; retain existing short shared-lane tools.
 Remaining light-worker capacity/lag, planner targets, listening and overall
@@ -21,5 +25,6 @@ Main combat data worker30Hz and existing100ms decisions remain unchanged.
 
 Starter promptv34/post165 (9998characters) was posted and adopted.
 Board checks must be daily starting31Oct03:28UTC/30Oct23:28NewYork.
-Official scheduling failed with Transport closed; no persistent watch active.
-Stop the old two-minute polling. Do not poll before that first time.
+Official dailyheartbeat brass-tide-board-learning-daily is now ACTIVE,23:28
+America/New_York; registered31October after eight historical connection failures.
+Original first check was missed; no retroactive run claimed. Oldtwo-minute polling stopped.

@@ -5,7 +5,8 @@ Testedbc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused/0;Windows/menu and re
 Receipts work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
 Root alone tests/delivery. Authorized069-078 sequence is complete within bounded scopes.
 Next saved plan079-088: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt.
-This30October planning update changes no game code/build/version.079 has not started.
+Owner31October authorized implementation079 through088. ACTIVE079 only now;
+finish its package/launcher before080. Contract: ../../work/quality-v079/SCOPE079.txt.
 Read the current plan before a later build; start with079 worker cost/lag, no unrelated systems.
 Earlier strict performance/071 listening/whole-game quality remain open.
 075 final QA timing gate failed183s;076 and077 passed;078 recorded independently.
@@ -21,15 +22,15 @@ required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
 this model. Current069 fresh careers contain48 seeded groups; older careers retain their two authored regions.
 069 delivers seeded geography and starting asset ownership; retain068 physical shipping. Dynamic expansion/capture need explicit later bounded milestones.
 
-Latest owner team authorization (29 October 2026): 2 Sol 6.1 MAX, 2 Grok 4.7
-HIGH, 2 Gemini 3.8 Flash and 2 Muse Spark HIGH. Flash tasks must be small,
-explicitly bounded and reviewed by Root/the specialists before integration.
-Majority source implementation through Bridge. Phase tasks within Bridge limits;
-Root coordinates/reviews/integrates and alone owns all engine/GPU jobs.
-No native/nested helpers, new chats,
-ask_project/AI brain, model substitution or paid-API fallback. Isolated allowlists,
-source-only helpers; integrate named commits. Completed helpers stay idle until
-given another bounded task. Finish the current delivery before advancing the next saved release.
+Latest owner team authorization31October2026: up to4Argon and4Grok through
+Bridge; one Sol6.1MAX buildlead delegates and takes harder source work, a
+separate Sol6.1MAX owns independent quality/red-team gates. Argon/GrokHIGH
+remain the standing preference. These are ceilings, not a quota. Namedplan
+routes/manual routing, no paidfallback or silent model substitution. Root
+coordinates/reviews/integrates and alone owns queued engine/GPU jobs/delivery.
+One-level buildlead delegation is now explicitly authorized; helpers do not
+start helpers. Isolated file allowlists, source-only commits, no new sidebar
+chats. Finished helpers stay idle until the next bounded task.
 
 Completed069-078 scopes are recorded in docs/roadmap/QUALITY VERSION MAP
 v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are

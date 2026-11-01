@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-30 October 2026 | PLANNED v0.079-v0.088 | Installed game remains v0.078
+31 October2026 |079 ACTIVE;080-088 PLANNED | Installed game remains v0.078
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -32,7 +32,7 @@ CURRENT BASE AND EVIDENCE
   DELIVERED v0.078.json. Actual sourcebc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620.
   Earlier tests, asset reviews and story proofs remain qualified as recorded.
 
-0.079 - LIGHT-FLEET RESPONSIVENESS [PLANNED]
+0.079 - LIGHT-FLEET RESPONSIVENESS [IN PROGRESS]
 Player result: busy light-boat battles respond without the simulation falling
 behind the displayed boats.
 Scope: use the existing observer to identify the largest demonstrated worker
@@ -176,8 +176,8 @@ EXECUTION AND CONSTANTS
 - Each version advances0.001 on its accepted predecessor, through a usable
   Windows package and one plain Desktop Brass Tide launcher. Preserve owner
   saves/music/settings, old releases, source history and version tags.
-- Plans are not implemented features. This planning update changes no game
-  code, version, executable, installed package or present quality verdict.
+- Plans are not implemented features. Owner31October authorized sequential implementation. Source work starts079;
+  installed078 and prior quality verdict stay until an accepted new release.
 - One scope with a concrete player result at a time. Begin with the named
   demonstrated defect; stop broad speculative audits and duplicate frameworks.
   A failed core result stays open and gets an explicit bounded follow-on.
