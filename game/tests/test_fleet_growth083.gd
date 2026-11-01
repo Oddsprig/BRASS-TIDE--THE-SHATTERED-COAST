@@ -242,10 +242,19 @@ func _run() -> void:
 	receipt.arrivalHomePlan=choice.duplicate(true)
 	if not check(c.current_port().get("id","")==choice.port and int(choice.shortfallCoins)==0,"Actual home arrival refreshes the stocked hull, stores and reserve quote before purchase"):finish083();return
 	if not buy_partner083(choice) or not funded_leg083(true) or not declared_loss083():finish083();return
-	var loss_wrecks: Array=c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083).duplicate(true)
+	var native_loss_wrecks: Array=c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083).duplicate(true)
 	var saved: Dictionary=parsed_save("growth083-completed")
-	if saved.is_empty() or not restore_exact(saved,"growth083-completed"):finish083();return
-	if not check(loss_wrecks.size()==1 and same_values(loss_wrecks,c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083)) and c.find_boat(starter083).is_empty() and str(c.state.fleet[0].uid)==partner083,"Disk save/restore keeps the one loss wreck and its exact equipment, with only the original surviving UID afloat"):finish083();return
+	if saved.is_empty():finish083();return
+	# The save contract is decoded JSON, not pre-serialization float bits. Keep
+	# every wreck field and independently retain the exact native equipment.
+	var loss_wrecks: Array=saved.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083).duplicate(true)
+	if not check(native_loss_wrecks.size()==1 and loss_wrecks.size()==1 and same_values(JSON.parse_string(JSON.stringify(native_loss_wrecks)),loss_wrecks) and same_values(native_loss_wrecks[0].sourceModuleCondition,loss_wrecks[0].sourceModuleCondition) and str(loss_wrecks[0].equipmentCustody)=="wreck" and str(loss_wrecks[0].retiredSourceUid)==starter083,"Written save keeps every encoded wreck field and the exact original equipment UIDs, conditions and custody"):finish083();return
+	if not restore_exact(saved,"growth083-completed"):finish083();return
+	var restored_wrecks: Array=c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083)
+	var differences: Array=[];restore_diff070(loss_wrecks,restored_wrecks,"lossWrecks",differences)
+	receipt.lossPersistence083={"expected":loss_wrecks,"actual":restored_wrecks.duplicate(true),"differences":differences,"survivorUids":c.state.fleet.map(func(b):return str(b.uid))}
+	print("FLEET083_LOSS_PERSISTENCE ",JSON.stringify(receipt.lossPersistence083))
+	if not check(loss_wrecks.size()==1 and same_values(loss_wrecks,restored_wrecks) and c.find_boat(starter083).is_empty() and c.state.fleet.size()==1 and str(c.state.fleet[0].uid)==partner083 and not bool(c.state.fleet[0].sunk),"Disk save/restore keeps the one loss wreck and its exact equipment, with only the original surviving UID afloat"):finish083();return
 	if not check(receipt.payments.any(func(p):return not p.get("contactLogs",[]).is_empty()),"The completed ordinary voyage retains an actual contact's exact paid-job and work-berth log"):finish083();return
 	var expected: int=15000+gross_paid-payroll-stores083-purchase083-repairs083
 	if not check(int(c.state.coins)==expected and int(c.state.wageArrears)==0 and int(c.state.debt)==0 and c.Money.total(c.state)==supply,"All ordinary income, actual wages, purchased stores, hull/crew advance and recovery reconcile exactly"):finish083();return
