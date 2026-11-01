@@ -30,12 +30,18 @@ func provision083() -> bool:
 func next_boat083() -> Dictionary:
 	var port: Dictionary=c.current_port()
 	var best: Dictionary={}
+	var scan: Dictionary={"port":port.get("id",""),"day":c.state.day,"coins":c.state.coins,"quotes":[],"services":[]}
+	for boat in c.Expedition.traveling(c.state):
+		scan.services.append({"uid":boat.uid,"quote":c.service_quote(boat,port)})
+	for key in ["stocks","recruits","workforce","training","shipStock"]:scan[key]=port.get(key,{}).duplicate(true) if port.get(key) is Dictionary else port.get(key)
 	for id in c.Harbor.catalogue(c,port):
 		var h: Dictionary=c.hull(str(id))
 		if int(port.shipStock.get(id,0))<=0:continue
 		var q: Dictionary=c.Harbor.purchase_plan(c,h,port)
+		scan.quotes.append({"id":id,"plan":q})
 		if not q.crewAvailable or not q.stockAvailable or not q.repairQuoteAvailable:continue
 		if best.is_empty() or int(q.purchaseCoins)<int(best.plan.purchaseCoins):best={"id":id,"plan":q}
+	receipt.lastChoiceScan=scan
 	return best
 
 func pay(id: String) -> bool:
@@ -180,6 +186,14 @@ func _run() -> void:
 	if not check(c.new_game(69069).get("ok",false) and int(c.state.coins)==15000 and c.state.fleet.size()==1,"Ordinary START15000 career, no staged capital or second hull"):finish083();return
 	supply=int(c.state.coinSupply);starter083=str(c.state.fleet[0].uid);solo_capacity083=c.capacity()
 	receipt.start={"coins":c.state.coins,"boat":physical_boat(c.state.fleet[0]).duplicate(true),"cargo":c.state.cargo.duplicate(true)}
+	# Root may run this declared diagnostic alone. It performs no work, purchase
+	# or grant, never sets earnedGrowth, and retains the unsuccessful exit status.
+	if OS.get_environment("FLEET083_QUOTE_PROBE")=="1":
+		receipt.status="DECLARED_FRESH_QUOTE_PROBE"
+		var frozen: PackedByteArray=protected_state()
+		next_boat083()
+		check(protected_state()==frozen,"Declared fresh quote probe leaves the ordinary career untouched")
+		finish083();return
 	var choice: Dictionary={}
 	for leg in range(24):
 		phase("ordinary_funded_leg_"+str(leg+1))
