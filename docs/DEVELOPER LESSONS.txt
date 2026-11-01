@@ -663,3 +663,8 @@ Audit each shot against its actual prior cooldown, assigned reload and recorded 
 01 November2026 - Actual output bindings
 Before engine execution, dry-match each fixture terminal expression against its actual print schema (JSON-only markers need an explicit complete/checks/failures binding). For UI captures, obtain exact labels/reasons from the actual saved state and production formatter; never invent expected prose. Preserve failed wrapper/capture receipts separately from passed gameplay assertions.
 Owner-authorized old-release pruning must keep a verified unique save/settings/music archive, source tags and the current installed game. Keep a dated manifest and space-reclaimed receipt; supersede contradictory blanket-retention text.
+
+
+088 exported UI verification lessons
+For canvas_items stretch, compare Control rectangles with the logical viewport canvas, then verify actual PNG/window dimensions separately. Mixing1600x1000 logical coordinates with1280x800 physical pixels creates false clipping failures. Capture exact production labels from canonical faction/contact formatters. A requested source/CLI setting is distinct from an exported runtime monitor: retain rawnull/unavailable values; do not substitute0 and assert a measured mode.
+Private preparation should verify all input paths before copying outputs, explicitly allow its existing hash-pinned engine outside the game workspace, and reuse only exact-hash partial private copies after an offline failure. A stale helper fixture hash must be updated to the reviewed and actually passed merged source; never remove the provenance guard or rerun unchanged game assertions for private-capture fixes.

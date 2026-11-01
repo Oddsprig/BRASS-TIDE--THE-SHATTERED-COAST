@@ -1,7 +1,7 @@
 # Brass Tide current step: v0.088 - Whole-loop clarity and campaign review
 
-Installed and delivered: **v0.087**
-Current source candidate088; desktop remains087 pending verification.
+Installed and delivered: **v0.088**
+088 verified scoped; installation is confirmed by its delivery receipt.
 Owner079-088 sequence active. Root alone queues native/export/UI and delivery;
 helpers work on source. Each batch<120s and selected finalQA<180s including
 setup, offline checks, archive, install and verification; queue wait separate.

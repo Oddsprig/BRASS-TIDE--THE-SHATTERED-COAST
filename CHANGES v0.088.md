@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Remove an internal developer phrase from the existing auxiliary-tank tradeoff text; all numerical effects and prices remain unchanged.
 
 See docs/TEST RESULTS v0.088.md for actual focused checks and remaining limits.
+
+Verification: 17908 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 64.561s. Preserved earlier failures; no broad acceptance claim.

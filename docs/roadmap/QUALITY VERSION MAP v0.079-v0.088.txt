@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-086 DELIVERED;087 VERIFIED;088 PLANNED
+01 November2026 |079-087 DELIVERED;088 VERIFIED SCOPED; EARLIER QUALITY GAPS OPEN
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -157,7 +157,7 @@ visits reflect what was actually taken or decided; navigation matches the art.
 Boundary: three original content packages, not48 handcrafted regions, a new
 quest engine, copied locations/stories or generic unbacked coin rewards.
 
-0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [PLANNED]
+0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [VERIFIED SCOPED; GAPS OPEN]
 Player result: understand a first voyage, refit, loss/recovery and next objective
 with the existing menus; progress and consequences survive saving and returning.
 Scope: one bounded integration of079-087: fix the worst demonstrated confusing

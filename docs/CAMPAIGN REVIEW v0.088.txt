@@ -1,3 +1,9 @@
+BRASS TIDE v0.088 - VERIFIED SCOPED CAMPAIGN REVIEW
+17908 protected-value/guidance checks/0; eight actual saved states,23 guidance readings,2 full-precision current reopenings and3 exported menu screens reviewed. Current short300DP light42/mixed16 runtime samples meet all measured strict targets; longer-term/art/audio/play-quality gaps remain open.
+Actual receipts: work/quality-v088/ACTUAL088 CHECKS.json and DELIVERED v0.088.json.
+
+The source-handoff notes below are retained preparation history; their pending statements describe that earlier stage.
+
 BRASS TIDE v0.088 - CAMPAIGN REVIEW / SOURCE CANDIDATE
 01 November 2026. Native execution, retail measurement and delivery PENDING ROOT.
 

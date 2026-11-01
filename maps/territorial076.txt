@@ -1,4 +1,4 @@
-BRASS TIDE — TERRITORIAL076 MAP (generated; v0.087)
+BRASS TIDE — TERRITORIAL076 MAP (generated; v0.088)
 
 One funded HOME warehouse/berth and one supplied negotiated harbor control; private business, port sovereignty and island jurisdiction stay distinct. Reserved inputs, real paid work and actual selected-defender combat precede transfer.
 
@@ -29,7 +29,7 @@ game/scripts/regional_ops.gd: 8889 bytes; extends RefCounted
   game/scripts/regional_ops.gd:131 begin_day()
   game/scripts/regional_ops.gd:136 daily()
   game/scripts/regional_ops.gd:142 paid_day()
-game/scripts/regional_ui.gd: 36394 bytes; extends RefCounted
+game/scripts/regional_ui.gd: 36767 bytes; extends RefCounted
   game/scripts/regional_ui.gd:34 review()
   game/scripts/regional_ui.gd:115 consequences()
   game/scripts/regional_ui.gd:163 focus_controls()
@@ -39,7 +39,7 @@ game/scripts/regional_ui.gd: 36394 bytes; extends RefCounted
   game/scripts/regional_ui.gd:283 corridor_status()
   game/scripts/regional_ui.gd:304 event_text()
   game/scripts/regional_ui.gd:361 territory_panel()
-  game/scripts/regional_ui.gd:421 act()
+  game/scripts/regional_ui.gd:425 act()
   game/scripts/regional_ui.gd:154 _details()
   game/scripts/regional_ui.gd:318 _home_port()
 game/scripts/trade_law.gd: 22597 bytes; class_name TradeLaw

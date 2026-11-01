@@ -1,4 +1,4 @@
-BRASS TIDE — POLITICS MAP (generated; v0.087)
+BRASS TIDE — POLITICS MAP (generated; v0.088)
 
 Witnessed player actions, public standing, claims and faction pairs -> explained access, paid conduct and explicit commissions.
 
