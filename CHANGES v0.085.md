@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Persist the supplied battle/surrender receipt, dated governor change and local access while retaining private assets and island ownership.
 
 See docs/TEST RESULTS v0.085.md for actual focused checks and remaining limits.
+
+Verification: 97 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 95.363s. Preserved earlier failures; no broad acceptance claim.

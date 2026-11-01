@@ -1,8 +1,8 @@
 # Brass Tide: quality sequence v0.079-v0.088
 
-Installed and delivered: **v0.084**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
+Installed and delivered: **v0.085**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
-Owner31October authorized sequential079-088 implementation. 079-082 delivered;083 verified scoped; next085 supplies one remote harbor-control operation.
+Owner31October authorized sequential079-088 implementation. 079-084 delivered;085 verified scoped; next086 improves civilian career choices.
 
 | Version | Focus | Concrete player result |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Current082 music transitions verified; exact native/exportedaudio evidence in wo
 
 084 verified scoped; installation is confirmed by its delivery receipt.
 
-Current source candidate085; desktop remains084 pending verification.
+085 verified scoped; installation is confirmed by its delivery receipt.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the

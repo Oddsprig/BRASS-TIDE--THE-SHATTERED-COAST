@@ -1,4 +1,4 @@
-BRASS TIDE — WORKSHOP MAP (generated; v0.084)
+BRASS TIDE — WORKSHOP MAP (generated; v0.085)
 
 Owned living hull and knowledge-only draft -> physical-socket preview, finite stock/workforce/coin bill, stale-quote refusal and atomic main-thread publication preserving live hull/harbor references. Templates survive career restore; UI drafts never become equipment.
 

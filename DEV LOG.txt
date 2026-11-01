@@ -1,3 +1,6 @@
+v0.085 VERIFIED SCOPED - 97 native checks/0; supplied remote harbor control and restored governor/access.
+Declared player expedition preparation; exact paid stores/fittings/support and actual defender. Fixed85086 advanced expedition: finite declared50000 home treasury advance, paid fitting/stores, player-only Glasswind waiting pose and later source berth, plus faction standings; all NPCs retain actual objectives, purses, fittings and movement.
+
 01NOV2026 - v0.085 SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

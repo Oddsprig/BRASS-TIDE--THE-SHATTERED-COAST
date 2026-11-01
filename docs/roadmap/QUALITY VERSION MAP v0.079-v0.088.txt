@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-083 DELIVERED;084 VERIFIED;085-088 PLANNED
+01 November2026 |079-084 DELIVERED;085 VERIFIED;086-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -113,7 +113,7 @@ not a second major084 scope.
 Boundary: no instant services at every port, whole-island annexation, new
 settlement economy, unrestricted empire builder or rerolling old geography.
 
-0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [PLANNED]
+0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [VERIFIED SCOPED]
 Player result: a supplied faction operation can change one generated harbor's
 governor/access; delivering or intercepting its supplies changes the outcome.
 Scope: extend the existing076 contested-control path to one eligible generated
