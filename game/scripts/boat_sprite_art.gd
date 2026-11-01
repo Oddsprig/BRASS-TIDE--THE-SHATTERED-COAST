@@ -292,7 +292,7 @@ static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, 
 		# At play zoom the receiver/barrel can merge into the hull's deck value.
 		# Lift that existing layer only; keep atlas bounds, alpha, pivot, physical
 		# size and recoil exactly shared with the fitted weapon and muzzle.
-		var tint: Color = Color(1.18, 1.18, 1.18, 1.0) if kind == "gun" and int(ctx.lod) == 1 else Color.WHITE
+		var tint: Color = Color(1.18, 1.18, 1.18, 1.0) if kind == "gun" and int(ctx.get("lod", 0)) == 1 else Color.WHITE
 		_draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit, tint)
 	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 	return drew
