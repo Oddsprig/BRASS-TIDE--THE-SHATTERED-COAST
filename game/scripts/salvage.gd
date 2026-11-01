@@ -539,18 +539,14 @@ static func _is_expedition067(state: Dictionary,id: String) -> bool:
 
 static func _sector_landing087(state: Dictionary,site_id: String,expected_band: String="") -> Dictionary:
 	var sector=state.get("sector069",{})
-	if not sector is Dictionary or not sector.get("groups") is Array:return {}
-	for group in sector.groups:
-		if not group is Dictionary:continue
-		if not expected_band.is_empty() and str(group.get("band",""))!=expected_band:continue
-		var landings=group.get("landings",[])
-		if not landings is Array:continue
-		for landing in landings:
-			if landing is Dictionary and str(landing.get("id",""))==site_id:
-				var out: Dictionary=landing.duplicate(true)
-				out["regionId"]=str(landing.get("regionId",group.get("id","")))
-				out["band"]=str(group.get("band",""))
-				return out
+	if not sector is Dictionary or not sector.get("sites") is Array or not sector.get("bands") is Dictionary:return {}
+	for landing in sector.sites:
+		if not landing is Dictionary or str(landing.get("id",""))!=site_id:continue
+		var band: String=str(sector.bands.get(str(landing.get("regionId","")),""))
+		if not expected_band.is_empty() and band!=expected_band:return {}
+		var out: Dictionary=landing.duplicate(true)
+		out["band"]=band
+		return out
 	return {}
 
 static func _bound_keel_site087(state: Dictionary) -> String:
@@ -564,14 +560,25 @@ static func _bound_keel_site087(state: Dictionary) -> String:
 
 static func validate_keel087(state: Dictionary) -> String:
 	var stories=state.get("stories",{})
+	if stories is Dictionary and stories.get("chains") is Dictionary:
+		for cid in ["broken_meridian087","unfinished_keel087","two_lantern_anchorage087"]:
+			var rec=stories.chains.get(cid,{})
+			if rec is Dictionary and not rec.is_empty() and not stories.get("destinations087") is Dictionary:
+				return "An accepted remote story requires its saved destination binding."
 	if stories is Dictionary and stories.has("destinations087"):
 		var dest=stories.get("destinations087")
 		if not dest is Dictionary:return "Invalid v0.087 remote destination bindings."
+		if not _is_num(dest.get("schema")) or dest.schema!=1 or not dest.get("bound") is bool or not dest.get("available") is bool:return "Invalid v0.087 binding schema."
 		if not state.has("sector069"):
 			if bool(dest.get("bound",false)) or bool(dest.get("available",false)):return "Legacy two-region save cannot bind v0.087 sector destinations."
-		elif bool(dest.get("bound",false)):
+		else:
+			if not dest.bound or not _is_num(dest.get("seed")) or dest.seed!=state.get("seed"):return "Remote destination seed does not match the saved sector."
 			var pkgs=dest.get("packages")
 			if not pkgs is Dictionary:return "Invalid v0.087 destination packages."
+			for cid in ["broken_meridian087","unfinished_keel087","two_lantern_anchorage087"]:
+				if not pkgs.get(cid) is Dictionary or not pkgs[cid].get("available") is bool:return "Invalid v0.087 package availability."
+				var rec=stories.get("chains",{}).get(cid,{}) if stories.get("chains") is Dictionary else {}
+				if rec is Dictionary and not rec.is_empty() and not pkgs[cid].available:return "An accepted remote story must retain its bound destination."
 			var seen_regions: Dictionary={}
 			var mer=pkgs.get("broken_meridian087",{})
 			if mer is Dictionary and bool(mer.get("available",false)):
@@ -596,8 +603,8 @@ static func validate_keel087(state: Dictionary) -> String:
 				var ls: Dictionary=_sector_landing087(state,str(lan.get("siteId","")),"frontier")
 				var port_id: String=str(lan.get("portId",""))
 				var port_ok: bool=false
-				for p in state.get("ports",[]) if state.get("ports") is Array else []:
-					if p is Dictionary and str(p.get("id",""))==port_id and str(p.get("regionId",""))==str(lan.get("regionId","")):port_ok=true;break
+				for p in state.get("sector069",{}).get("harbors",[]):
+					if p is Dictionary and str(p.get("id",""))==port_id and str(p.get("regionId",""))==str(lan.get("regionId","")) and str(p.get("islandId",""))==str(ls.get("islandId","")):port_ok=true;break
 				if ls.is_empty() or str(ls.regionId)!=str(lan.get("regionId","")) or not port_ok:
 					return "Invalid Two-Lantern Anchorage destination binding."
 	if not state.has("sector069") and stories is Dictionary and stories.get("chains") is Dictionary:
@@ -615,12 +622,14 @@ static func validate_keel087(state: Dictionary) -> String:
 		tombstone_sites.append(site_id)
 		if tombstone_sites.size()>1 or not state.has("sector069"):return "Slipway cache tombstone is duplicated or unsupported on a legacy save."
 		var bound_site: String=_bound_keel_site087(state)
-		if not bound_site.is_empty() and site_id!=bound_site:return "Slipway cache tombstone does not match the bound destination."
+		if bound_site.is_empty() or site_id!=bound_site:return "Slipway cache tombstone does not match the bound destination."
+		var rec=stories.get("chains",{}).get("unfinished_keel087",{}) if stories is Dictionary and stories.get("chains") is Dictionary else {}
+		if not rec is Dictionary or rec.is_empty() or not rec.get("leads") is Array or not rec.leads.has(site_id):return "Slipway cache needs its accepted, bound expedition lead."
 		var landing: Dictionary=_sector_landing087(state,site_id,"remote")
 		if landing.is_empty():return "Slipway cache tombstone names an unknown remote landing."
 		var ex=state.get("exploration",{})
 		var progress=ex.get("sites",{}).get(site_id,{}) if ex is Dictionary and ex.get("sites") is Dictionary else {}
-		if not progress is Dictionary or not _is_num(progress.get("level")) or int(progress.level)!=3 or progress.get("rewarded")!=true:
+		if not progress is Dictionary or not _is_num(progress.get("level")) or progress.level!=3 or progress.get("rewarded")!=true:
 			return "Slipway cache tombstone requires a completed level-3 landing survey."
 	var keel_count: int=0
 	for wreck in state.get("wrecks",[]):
@@ -659,6 +668,8 @@ static func seed_keel087(core,site_id: String) -> Dictionary:
 	if not state.has("sector069") or not validate_expedition067(state).is_empty():return {}
 	var bound_site: String=_bound_keel_site087(state)
 	if bound_site.is_empty() or bound_site!=site_id:return {}
+	var rec=state.get("stories",{}).get("chains",{}).get("unfinished_keel087",{})
+	if not rec is Dictionary or rec.is_empty() or bool(rec.get("done",false)) or not rec.get("leads",[]).has(site_id):return {}
 	var landing: Dictionary=_sector_landing087(state,site_id,"remote")
 	if landing.is_empty():return {}
 	var region_id: String=str(landing.get("regionId",""))

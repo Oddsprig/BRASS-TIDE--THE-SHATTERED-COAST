@@ -21,18 +21,18 @@ Hearing the lead enters the first bound remote landing (`firstSiteId` in
 Shatter Coast; it is sighted only when the expedition reaches that remote local
 chart (`Exploration.discover_near` checks `_site_region(site) == current_region`).
 
-Chart the first meridian post to level 2 (`chart_first_meridian_post`). You
+Chart the first meridian post to level 2 (`chart_first_meridian`). You
 then choose how to commit your remaining reserves:
 - `push_farther_meridian087`: Commit provisions and crew time to the outer
   counter-post (`secondSiteId` in `secondRegionId`). Only this choice appends
   the second remote landing to `leads`. Fully survey that second remote landing
-  to level 3 (`survey_outer_meridian_post`) and record the paired sight
+  to level 3 (`survey_far_meridian`) and record the paired sight
   (`record_paired_meridian087`, setting `meridian_full_survey087`).
 - `turn_home_dated087`: Turn home within safe return reserves after the first
   station (`meridian_turned_home087`). The second remote landing is never added
   to `leads` and never sighted by the story.
 
-Return to Reedwater Floats (`file_meridian_return`):
+Return to Reedwater Floats (`register_meridian_return`):
 - `publish_full_meridian087` (requires `meridian_full_survey087`): Reed +4,
   Compact -2, Wren +7; sets `meridian_public087` and may unlock one once-only
   four-kit sight passage at Reedwater Floats (`chainfreight-meridian-public087`
@@ -63,7 +63,7 @@ Record the slipway manifest (`inspect_keel_manifest087`, setting
 `keel_surveyed087`), then weigh recovery (`decide_keel_recovery`):
 - Paid recovery: Use normal `Campaign.recover_wreck(id, "strip", good, qty)`
   through `Remote067`. That recovery requires spare able sailors above minimum
-  crew, 0.25 repair kit (`supplies`), hold capacity, elapsed working days, and
+  crew, one repair kit (`supplies`) per quoted working day, hold capacity, elapsed working days, and
   funded daily wages (`100` coins/sailor-day) and food. Completing at least one
   positive lot sets `paid_keel_source087` once via `StoryOps.after_recovery077`
   and enables `log_paid_keel_strip087` (`keel_recovered_paid087`).
@@ -78,7 +78,7 @@ Record the slipway manifest (`inspect_keel_manifest087`, setting
 Return to Anvil Dock (`settle_keel_ledger`):
 - `close_forge_keel_ledger087`: Forge +4, Raiders -2, Mara +6
   (`keel_ledger_forge087`).
-- `keep_private_keel_notes087`: Mara -3, Cass +5 (`keel_ledger_private087`).
+- `keep_company_keel_notes087`: Mara -3, Cass +5 (`keel_ledger_private087`).
 Remaining slipway stores stay finite and depleted across save/restore; the
 tombstone prevents refilling or re-seeding.
 
@@ -91,13 +91,13 @@ Sail to that frontier local chart, chart the headland spit alignment to level 2
 (`chart_lantern_headland`), and record the shifted range
 (`record_lantern_alignment087`, setting `lantern_headland_charted087`).
 
-Dock at the bound frontier harbor (`supply_lantern_anchorage` / ` settle_lantern_channel`;
+Dock at the bound frontier harbor (`supply_lantern_anchorage` / `settle_lantern_arrangement`;
 `Stories._at_port` and `StoryOps.choose` honor `work_port070()` on remote/frontier
 local charts with normal faction service permission):
 - `deliver_lantern_kits087`: Transfers 4 `supplies` (repair kits) out of
   `state.cargo.supplies` and adds 4 `supplies` into the frontier harbor's
   `stocks.supplies`, recording Tobin +4 (`supplied_lantern_berth087`).
-- `post_open_lantern_notice087`: Reed +4, Compact -2, Wren +5
+- `publish_lantern_channel087`: Reed +4, Compact -2, Wren +5
   (`lantern_channel_public087`).
 - `bind_local_lantern_desk087`: Compact +4, Reed -2, Tobin +6
   (`lantern_channel_bonded087`), and may unlock one once-only four-kit
@@ -128,3 +128,38 @@ VISITED LANDINGS, LEGACY TWO-REGION SAVES & SAVE VALIDATION
   `Salvage.validate_keel087`) refuses forged or duplicate slipway wrecks,
   missing tombstones, over-cap slipway stores, legacy saves claiming bound 087
   destinations, or turned-home meridian saves that also claim the second lead.
+
+SOURCE REVIEW AND SELECTED VERIFICATION CONTRACT
+- Placement reads the saved canonical sector069.sites, bands, atlas.regions
+  and harbors. Resource/clue/hazard families belong to those saved landings;
+  no invented groups/landings/opportunity schema or new geography is used.
+  Negative campaign seeds remain distinct. Destination names in next actions
+  use the resolved IDs rather than the draft placeholder IDs.
+- Raw restore checks the saved binding schema and seed before Stories.ensure.
+  Accepted chains require their bindings; a slipway tombstone requires its
+  exact bound, accepted lead and completed survey. A blank/unbound destination
+  cannot authorize a historical cargo source. The original Glasswind source,
+  its fixed stores and validation rules remain distinct and unchanged.
+- The default focused_voyage fixture selects one real funded preparation job,
+  the connected Meridian survey and public filing, one optional paid Keel lot,
+  its return/ledger, a later actual funded Meridian freight delivery, and disk
+  save/restore with the depleted source and all original hull/equipment UIDs.
+  Fleet payroll, kits, food, holds and the finite world coin supply stay checked.
+  The fixture uses declared finite treasury funding, staged regional berths
+  and dormant unrelated NPCs. It does not prove earned ocean crossings or a
+  profitable default-starter expedition.
+- Full-choice alternatives, Two-Lantern native completion and the synthetic
+  seed/legacy/corruption sweep are optional diagnostics (--qa-all-choices087),
+  not mandatory default acceptance or claims of tested play. Source review of
+  those paths does not establish native or UI acceptance.
+- Stop new fixture work at 42 seconds; require body/cleanup below 44 seconds
+  toward Root's <45-second body goal. Actual timing is unmeasured here. Root
+  alone runs Test Bridge; whole batches must remain <120 seconds and selected
+  QA <180 seconds including setup/export/cleanup/delivery, excluding queue wait.
+- GAME_TEST_ARTIFACTS receives remote-destinations087-completed.json directly
+  from the actual completed state after worker join, then it is read back and
+  restored. No staging is reconstructed for that UI artifact. Its SHA256/day/
+  bytes and explicit stagedOpening marker are in the result report. The report
+  is remote-destinations087-result.json; terminal marker DESTINATIONS087_RESULT.
+  Native parsing, focused completion, actual timing and current UI review remain
+  PENDING ROOT. No engine, GPU, rendering or helper execution occurred in QC.

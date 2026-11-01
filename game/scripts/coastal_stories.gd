@@ -677,7 +677,7 @@ static func _raw_site_level087(state: Dictionary, site_id: String) -> int:
 
 static func _ensure_destinations087(state: Dictionary, stories: Dictionary) -> void:
 	var sector = state.get("sector069", null)
-	if not (sector is Dictionary) or not (sector.get("groups") is Array) or (sector["groups"] as Array).is_empty():
+	if not (sector is Dictionary) or not (sector.get("sites") is Array) or (sector["sites"] as Array).is_empty():
 		stories["destinations087"] = {
 			"schema": 1, "bound": false, "available": false,
 			"status": "unavailable_legacy_two_region",
@@ -719,40 +719,39 @@ static func _ensure_destinations087(state: Dictionary, stories: Dictionary) -> v
 	var remote_candidates: Array = []
 	var frontier_candidates: Array = []
 	var tombstones: Dictionary = state.get("wreckSeededSources", {}) if state.get("wreckSeededSources") is Dictionary else {}
-	for raw_group in sector["groups"]:
-		if not (raw_group is Dictionary):
+	var bands: Dictionary = sector.get("bands", {})
+	for raw_landing in sector["sites"]:
+		if not (raw_landing is Dictionary):
 			continue
-		var group: Dictionary = raw_group
-		var band: String = str(group.get("band", ""))
-		var gid: String = str(group.get("id", ""))
-		var landings: Array = group.get("landings", []) if group.get("landings") is Array else []
-		if landings.is_empty() or not (landings[0] is Dictionary):
-			continue
-		var landing: Dictionary = landings[0]
+		var landing: Dictionary = raw_landing
+		var gid: String = str(landing.get("regionId", ""))
+		var band: String = str(bands.get(gid, ""))
 		var site_id: String = str(landing.get("id", ""))
 		if site_id.is_empty() or _raw_site_level087(state, site_id) > 0:
 			continue
-		var origin: Dictionary = group.get("oceanOrigin", {}) if group.get("oceanOrigin") is Dictionary else {}
+		var region: Dictionary = Exploration.region_record069(state, gid)
+		var origin: Dictionary = region.get("oceanOrigin", {})
 		var dist: float = Vector2(_num(origin.get("x", 1600.0)) - 1600.0, _num(origin.get("y", 2100.0)) - 2100.0).length()
-		var opp: Dictionary = landing.get("opportunity", {}) if landing.get("opportunity") is Dictionary else {}
-		var opp_kind: String = str(opp.get("kind", "discovery"))
+		# Canonical landings carry resource/clue/hazard text, not an opportunity.kind.
+		var opp_kind: String = str(landing.get("resource", ""))
 		if band == "remote" and not used_remote.has(gid) and not tombstones.has(KEEL087_SOURCE_PREFIX + site_id):
 			remote_candidates.append({"regionId": gid, "siteId": site_id, "dist": dist, "opportunity": opp_kind})
 		elif band == "frontier":
-			var harbors: Array = group.get("harbors", []) if group.get("harbors") is Array else []
-			if not harbors.is_empty() and harbors[0] is Dictionary and not str(harbors[0].get("id", "")).is_empty():
-				frontier_candidates.append({"regionId": gid, "siteId": site_id, "portId": str(harbors[0]["id"]),
-					"faction": str(harbors[0].get("faction", "compact")), "dist": dist, "opportunity": opp_kind})
+			for harbor in sector.get("harbors", []):
+				if harbor is Dictionary and str(harbor.get("regionId", "")) == gid and str(harbor.get("islandId", "")) == str(landing.get("islandId", "")):
+					frontier_candidates.append({"regionId": gid, "siteId": site_id, "portId": str(harbor["id"]),
+						"faction": str(harbor.get("faction", "compact")), "dist": dist, "opportunity": opp_kind})
+					break
 	remote_candidates.sort_custom(func(a, b): return float(a["dist"]) < float(b["dist"]) if not is_equal_approx(float(a["dist"]), float(b["dist"])) else str(a["regionId"]) < str(b["regionId"]))
 	frontier_candidates.sort_custom(func(a, b): return str(a["regionId"]) < str(b["regionId"]))
-	var seed_val: int = maxi(0, int(_num(state.get("seed", 0))))
+	var seed_val: int = int(state.get("seed", 0))
 	if mer_pkg.is_empty():
 		if remote_candidates.size() >= 2:
 			var half: int = maxi(1, remote_candidates.size() / 2)
 			var first_idx: int = posmod(seed_val, half)
 			for idx in range(half):
 				var probe: int = posmod(seed_val + idx, half)
-				if str(remote_candidates[probe]["opportunity"]) in ["clue", "discovery"]:
+				if str(remote_candidates[probe]["opportunity"]) in ["food", "medicinal_plants"]:
 					first_idx = probe
 					break
 			var first_pick: Dictionary = remote_candidates[first_idx]
@@ -779,7 +778,7 @@ static func _ensure_destinations087(state: Dictionary, stories: Dictionary) -> v
 		if not keel_pool.is_empty():
 			var preferred: Array = []
 			for cand in keel_pool:
-				if str(cand["opportunity"]) in ["resource", "hazard"]:
+				if str(cand["opportunity"]) in ["ore", "crude", "saltpeter"]:
 					preferred.append(cand)
 			var pick_from: Array = preferred if not preferred.is_empty() else keel_pool
 			var k_pick: Dictionary = pick_from[posmod(seed_val + 3, pick_from.size())]
@@ -853,6 +852,7 @@ static func _apply_destinations087(stories: Dictionary, base_catalog: Array) -> 
 			for stage in chain.get("stages", []):
 				if not (stage is Dictionary):
 					continue
+				stage["nextAction"] = str(stage.get("nextAction", "")).replace("remote_01_survey", s1).replace("remote_02_survey", s2)
 				if stage.get("gate") is Dictionary and str(stage["gate"].get("type", "")) == "site":
 					if str(stage["gate"].get("site", "")) == "remote_01_survey":
 						stage["gate"]["site"] = s1
@@ -868,6 +868,8 @@ static func _apply_destinations087(stories: Dictionary, base_catalog: Array) -> 
 			var ks: String = str(pkgs[cid].get("siteId", "remote_03_survey"))
 			chain["startLead"] = ks
 			for stage in chain.get("stages", []):
+				if stage is Dictionary:
+					stage["nextAction"] = str(stage.get("nextAction", "")).replace("remote_03_survey", ks)
 				if stage is Dictionary and stage.get("gate") is Dictionary and str(stage["gate"].get("site", "")) == "remote_03_survey":
 					stage["gate"]["site"] = ks
 		elif cid == "two_lantern_anchorage087" and pkgs.get(cid) is Dictionary and bool(pkgs[cid].get("available", false)):
@@ -877,6 +879,7 @@ static func _apply_destinations087(stories: Dictionary, base_catalog: Array) -> 
 			for stage in chain.get("stages", []):
 				if not (stage is Dictionary):
 					continue
+				stage["nextAction"] = str(stage.get("nextAction", "")).replace("frontier_01_survey", ls).replace("frontier_01_harbor_01", lp)
 				if stage.get("gate") is Dictionary:
 					if str(stage["gate"].get("site", "")) == "frontier_01_survey":
 						stage["gate"]["site"] = ls

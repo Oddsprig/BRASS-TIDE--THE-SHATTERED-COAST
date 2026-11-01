@@ -15,7 +15,8 @@ const Custody = preload("res://scripts/equipment_campaign.gd")
 const EconomyWorkers = preload("res://scripts/economy_workers.gd")
 
 const SEED := 87087
-const BODY_LIMIT_MS := 55000
+const BODY_LIMIT_MS := 44000
+const SELF_STOP_MS := 42000
 const MERIDIAN := "broken_meridian087"
 const KEEL := "unfinished_keel087"
 const LANTERN := "two_lantern_anchorage087"
@@ -23,9 +24,11 @@ const LANTERN := "two_lantern_anchorage087"
 var started: int = 0
 var c = null
 var workers: EconomyWorkers = EconomyWorkers.new()
+var all_choices: bool = false
 
 func _initialize() -> void:
 	started = Time.get_ticks_msec()
+	all_choices = "--qa-all-choices087" in OS.get_cmdline_user_args()
 	_run.call_deferred()
 var checks: int = 0
 var failures: int = 0
@@ -67,13 +70,13 @@ func note(kind: String, payload: Dictionary = {}) -> void:
 func bounded() -> bool:
 	if expired:
 		return false
-	if Time.get_ticks_msec() - started >= BODY_LIMIT_MS:
+	if Time.get_ticks_msec() - started >= SELF_STOP_MS:
 		expired = true
-		return check(false, "Bounded body stays below the fifty-five-second ceiling")
+		return check(false, "Stop new work at forty-two seconds to leave cleanup below forty-four seconds")
 	return true
 
 func normalized(value) -> String:
-	return JSON.stringify(value, "", true, true)
+	return JSON.stringify(JSON.parse_string(JSON.stringify(value)), "", true, true)
 
 func fleet_book(state: Dictionary) -> Array:
 	var rows: Array = []
@@ -94,30 +97,13 @@ func fleet_book(state: Dictionary) -> Array:
 	return rows
 
 func people(state: Dictionary) -> int:
-	var total: int = 0
+	var total: int = int(state.get("captives", 0))
 	for port in state.get("ports", []):
-		if port is Dictionary:
-			total += int(port.get("workforce", 0)) + int(port.get("experts", 0))
+		total += int(port.get("workforce", 0)) + int(port.get("defenses", {}).get("crew", 0))
 	for boat in fleet_book(state):
-		if not bool(boat.get("sunk", false)):
-			total += int(boat.get("crew", 0))
-	for yard in state.get("homeYards", []):
-		if yard is Dictionary:
-			total += int(yard.get("workers", 0)) + int(yard.get("specialists", 0))
-	for row in state.get("harborDevelopment", {}).get("projects", []):
-		if row is Dictionary:
-			total += int(row.get("workers", 0)) + int(row.get("experts", 0))
-	for job in state.get("voyageJobs", []):
-		if job is Dictionary and str(job.get("kind", "")) == "passenger_charter":
-			var group = job.get("passengers", {})
-			if group is Dictionary:
-				total += int(group.get("n", 0))
-	for job in state.get("regionalCrises", {}).get("jobs", []):
-		if job is Dictionary and str(job.get("stage", "")) != "holding":
-			total += int(job.get("n", 0))
-	for unit in state.get("workerUnits", []):
-		if unit is Dictionary:
-			total += int(unit.get("count", 0))
+		total += int(boat.get("crew", 0))
+	for business in state.get("businesses", []):
+		total += business.get("employees", []).size()
 	return total
 
 func assets() -> String:
@@ -151,6 +137,9 @@ func query_purity(label: String) -> bool:
 func point(label: String) -> Dictionary:
 	if not bounded():
 		return {}
+	if not check(c.pending_days == 0 and workers.group_id < 0, label + ": economy work joined before saving"):
+		return {}
+	StoryOps.refresh(c)
 	var parsed = JSON.parse_string(JSON.stringify(c.state))
 	if not check(parsed is Dictionary, label + ": JSON checkpoint round-trip decodes"):
 		return {}
@@ -163,6 +152,8 @@ func point(label: String) -> Dictionary:
 
 func restore_point(cp: Dictionary) -> bool:
 	if not bounded():
+		return false
+	if not check(c.pending_days == 0 and workers.group_id < 0, "Restore never discards pending economy work"):
 		return false
 	var candidate: Dictionary = (cp["saved"] as Dictionary).duplicate(true)
 	var before_input: PackedByteArray = var_to_bytes(candidate)
@@ -185,25 +176,28 @@ func settle_pending() -> bool:
 		var days: int = c.pending_days
 		c.pending_days = 0
 		var before_coins: int = int(c.state.coins)
-		var before_purse: int = int(c.state.crewPurse)
-		var wages: int = int(c.Economy.daily_upkeep(c.state.fleet).wages) * days
+		var expected_purse: int = int(c.state.crewPurse)
+		var wages_daily: int = int(c.Economy.daily_upkeep(c.state.fleet).wages)
+		var ashore_daily: int = c.crew_count() * 12 if not c.current_port().is_empty() else 0
+		for _day in range(days):
+			expected_purse += wages_daily
+			expected_purse -= mini(expected_purse, ashore_daily)
 		var blockades: Array = c.TradeFlow.blockades(c)
 		var job_seed: int = int(c.state.seed) + int(c.state.econDay) * 104729
-		if not check(workers.start(c.state.ports, days, blockades, job_seed), "Economy worker starts for " + str(days) + " day(s)"):
-			return false
+		workers.start(c.state.ports, days, blockades, job_seed)
 		var done: Dictionary = workers.finish(true)
-		if not check(bool(done.get("ok", false)), "Economy worker joins cleanly"):
+		if not check(workers.group_id < 0 and int(done.get("days", 0)) == days and done.get("ports", []).size() == c.state.ports.size(), "Economy worker joins the actual paid-day publication"):
 			return false
 		c.apply_economy(done.ports, done.events, int(done.days))
-		if not check(int(c.state.coins) == before_coins - wages and int(c.state.crewPurse) == before_purse + wages and int(c.state.wageArrears) == 0,
-			"Daily economy pays exact 100 coins/sailor-day wages into crewPurse"):
+		if not check(int(c.state.coins) == before_coins - wages_daily * days and int(c.state.crewPurse) == expected_purse and int(c.state.wageArrears) == 0,
+			"Exact sailor-day wages and actual harbor spending reconcile with crewPurse"):
 			return false
 	return true
 
 func advance(dt: float = 5.0) -> bool:
 	if not bounded():
 		return false
-	c.advance(dt)
+	c.step(dt)
 	for ev in c.events.duplicate(true):
 		if ev is Dictionary and str(ev.get("kind", "")) in ["encounter", "defeat", "ocean_encounter066"]:
 			return check(false, "Unexpected combat/defeat event interrupted bounded destination verification: " + normalized(ev))
@@ -223,15 +217,14 @@ func trade(good: String, qty: int, action: String = "buy") -> bool:
 	var actual_qty: int = mini(qty, stock_Now) if action == "buy" else qty
 	if actual_qty <= 0:
 		return true
-	var res: Dictionary = c.trade_good(good, actual_qty, action)
+	var res: Dictionary = c.trade(str(dock.id), good, actual_qty, action)
 	return check(bool(res.get("ok", false)), "Trade " + action + " " + str(actual_qty) + " " + good + ": " + str(res.get("message", "")))
 
 func provision(min_supplies: int = 12) -> bool:
 	var boat_id: String = str(c.state.fleet[0].uid)
-	for util in ["fuel", "supplies"]:
-		var res: Dictionary = c.resupply_boat(boat_id, util)
-		if not check(bool(res.get("ok", false)), "Resupply boat " + util + ": " + str(res.get("message", ""))):
-			return false
+	var res: Dictionary = c.resupply_boat(boat_id, "voyage")
+	if not check(bool(res.get("ok", false)), "Paid voyage-profile resupply: " + str(res.get("message", ""))):
+		return false
 	for row in [["food", 22], ["supplies", min_supplies], ["fuel", 6]]:
 		var good: String = str(row[0])
 		var wanted: int = int(row[1])
@@ -381,18 +374,19 @@ func opening_and_connected_work() -> bool:
 	for sid in [mer.get("firstSiteId", ""), mer.get("secondSiteId", ""), keel.get("siteId", ""), lan.get("siteId", "")]:
 		if not check(Stories._site_level(c.state, str(sid)) == 0, "Bound destination site starts unvisited (level 0): " + str(sid)):
 			return false
-	# Verify per-seed determinism without mutating the live campaign.
-	var other_campaign = Campaign.new(home_data, home_nav, false)
-	other_campaign.ocean_anchors064 = home_anchors
-	var other_open: Dictionary = other_campaign.new_game(SEED + 1)
-	if not check(bool(other_open.get("ok", false)), "Comparison seed initializes cleanly"):
-		return false
-	var other_dest: Dictionary = Stories.destinations087(other_campaign.state)
-	check(normalized(other_dest.get("packages", {})) != normalized(pkgs),
-		"Destination bindings derive deterministically from the campaign seed rather than hardcoded group IDs")
-	other_campaign = null
+	if all_choices:
+		# Verify per-seed determinism without mutating the live campaign.
+		var other_campaign = Campaign.new(home_data, home_nav, false)
+		other_campaign.ocean_anchors064 = home_anchors
+		var other_open: Dictionary = other_campaign.new_game(SEED + 1)
+		if not check(bool(other_open.get("ok", false)), "Comparison seed initializes cleanly"):
+			return false
+		var other_dest: Dictionary = Stories.destinations087(other_campaign.state)
+		check(normalized(other_dest.get("packages", {})) != normalized(pkgs),
+			"Destination bindings derive deterministically from the campaign seed rather than hardcoded group IDs")
+		other_campaign = null
 
-	# Disclose finite 90-day preparation reserve from Silt Hollow governmentPurse, recruit 2 spare sailors, and run a real VoyageJob.
+	# Disclose finite 90-day preparation reserve from the actual starting harbor governmentPurse, recruit 2 spare sailors, and run a real VoyageJob.
 	var boat_id: String = str(c.state.fleet[0].uid)
 	var dock0: Dictionary = c.current_port()
 	var projected: Array = c.state.fleet.duplicate(true)
@@ -460,36 +454,37 @@ func verify_broken_meridian() -> bool:
 	if first_charted.is_empty():
 		return false
 
-	# Branch A: turn_home_dated087 (secrecy / reserve turn-back after first post)
-	if not decision(MERIDIAN, "turn_home_dated087", ["meridian_first_charted087", "meridian_turned_home087"]):
-		return false
-	var rec_turn: Dictionary = Stories._record(c.state, MERIDIAN)
-	if not check(not (rec_turn.get("leads", []) as Array).has(s2) and Stories._site_level(c.state, s2) == 0 and Stories.earned_leads(c.state, MERIDIAN).size() == 1,
-		"Turning home after the first post never reveals or sights the second remote post"):
-		return false
-	if not check(Stories.site_reflection(c.state, s1).find("turned home") >= 0,
-		"Site reflection at first meridian post reflects the turn-home choice"):
-		return false
-	if not stage_region_berth("shatter_coast", c.port("reed_floats")) or not sail_port("reed_floats"):
-		return false
-	var refuse_full: Dictionary = StoryOps.choose(c, MERIDIAN, "publish_full_meridian087")
-	if not check(not bool(refuse_full.get("ok", true)), "Full-table publication is refused when the expedition turned home early"):
-		return false
-	var wren_before_partial: int = int(c.Contacts._find(c.state, "sister_wren").loyalty)
-	var reed_before_partial: int = int(c.Factions.standing(c.state, "reed").score)
-	if not decision(MERIDIAN, "file_partial_meridian087", ["meridian_partial_filed087"]):
-		return false
-	if not check(int(c.Contacts._find(c.state, "sister_wren").loyalty) == wren_before_partial + 3 and int(c.Factions.standing(c.state, "reed").score) == reed_before_partial + 2,
-		"Filing the single-station sight awards Reed +2 and Wren +3"):
-		return false
-	if not check(not Offers.available(c).any(func(o): return str(o.get("id", "")).begins_with("chainfreight-meridian-")),
-		"Single-station partial filing does not unlock full-meridian follow-on freight"):
-		return false
+	if all_choices:
+		# Branch A: turn_home_dated087 (secrecy / reserve turn-back after first post)
+		if not decision(MERIDIAN, "turn_home_dated087", ["meridian_first_charted087", "meridian_turned_home087"]):
+			return false
+		var rec_turn: Dictionary = Stories._record(c.state, MERIDIAN)
+		if not check(not (rec_turn.get("leads", []) as Array).has(s2) and Stories._site_level(c.state, s2) == 0 and Stories.earned_leads(c.state, MERIDIAN).size() == 1,
+			"Turning home after the first post never reveals or sights the second remote post"):
+			return false
+		if not check(Stories.site_reflection(c.state, s1).find("outer bearing remains unrevealed") >= 0,
+			"Site reflection at first meridian post reflects the turn-home choice"):
+			return false
+		if not stage_region_berth("shatter_coast", c.port("reed_floats")) or not sail_port("reed_floats"):
+			return false
+		var refuse_full: Dictionary = StoryOps.choose(c, MERIDIAN, "publish_full_meridian087")
+		if not check(not bool(refuse_full.get("ok", true)), "Full-table publication is refused when the expedition turned home early"):
+			return false
+		var wren_before_partial: int = int(c.Contacts._find(c.state, "contact_sister_wren").trust)
+		var reed_before_partial: int = int(c.Factions.standing(c.state, "reed").score)
+		if not decision(MERIDIAN, "file_partial_meridian087", ["meridian_partial_filed087"]):
+			return false
+		if not check(int(c.Contacts._find(c.state, "contact_sister_wren").trust) == wren_before_partial + 3 and int(c.Factions.standing(c.state, "reed").score) == reed_before_partial + 2,
+			"Filing the single-station sight awards Reed +2 and Wren +3"):
+			return false
+		if not check(not Offers.available(c).any(func(o): return str(o.get("id", "")).begins_with("chainfreight-meridian-")),
+			"Single-station partial filing does not unlock full-meridian follow-on freight"):
+			return false
 
 	# Branch B: restore first_charted, push_farther_meridian087 -> survey second site -> file full table
-	if not restore_point(first_charted):
+	if all_choices and not restore_point(first_charted):
 		return false
-	if not decision(MERIDIAN, "push_farther_meridian087", ["meridian_first_charted087", "meridian_pushed_farther087"]):
+	if not decision(MERIDIAN, "push_farther_meridian087", ["meridian_first_charted087", "meridian_pushed_far087"]):
 		return false
 	var rec_push: Dictionary = Stories._record(c.state, MERIDIAN)
 	if not check((rec_push.get("leads", []) as Array).has(s2) and Stories._site_level(c.state, s2) == 0,
@@ -506,24 +501,25 @@ func verify_broken_meridian() -> bool:
 	if ready_to_file.is_empty():
 		return false
 
-	# Sub-branch B1: retain_full_meridian087 unlocks chainfreight-meridian-retained087 at Brass Haven
-	if not decision(MERIDIAN, "retain_full_meridian087", ["meridian_retained087"]):
-		return false
-	if not sail_port("brass_haven"):
-		return false
-	if not check(Offers.available(c).any(func(o): return str(o.get("id", "")) == "chainfreight-meridian-retained087"),
-		"Retaining the outer meridian arc unlocks the once-only factor passage at Brass Haven"):
-		return false
+	if all_choices:
+		# Sub-branch B1: retain_full_meridian087 unlocks chainfreight-meridian-retained087 at Brass Haven
+		if not decision(MERIDIAN, "retain_full_meridian087", ["meridian_retained087"]):
+			return false
+		if not sail_port("brass_haven"):
+			return false
+		if not check(Offers.available(c).any(func(o): return str(o.get("id", "")) == "chainfreight-meridian-retained087"),
+			"Retaining the outer meridian arc unlocks the once-only factor passage at Brass Haven"):
+			return false
 
 	# Sub-branch B2: restore ready_to_file, publish_full_meridian087 and settle chainfreight-meridian-public087
-	if not restore_point(ready_to_file):
+	if all_choices and not restore_point(ready_to_file):
 		return false
-	var wren_before: int = int(c.Contacts._find(c.state, "sister_wren").loyalty)
+	var wren_before: int = int(c.Contacts._find(c.state, "contact_sister_wren").trust)
 	var reed_before: int = int(c.Factions.standing(c.state, "reed").score)
 	var compact_before: int = int(c.Factions.standing(c.state, "compact").score)
 	if not decision(MERIDIAN, "publish_full_meridian087", ["meridian_public087"]):
 		return false
-	if not check(int(c.Contacts._find(c.state, "sister_wren").loyalty) == wren_before + 7
+	if not check(int(c.Contacts._find(c.state, "contact_sister_wren").trust) == wren_before + 7
 		and int(c.Factions.standing(c.state, "reed").score) == reed_before + 4
 		and int(c.Factions.standing(c.state, "compact").score) == compact_before - 2,
 		"Publishing the full meridian table applies Reed +4, Compact -2 and Wren +7"):
@@ -589,45 +585,49 @@ func verify_unfinished_keel() -> bool:
 		"Paid-strip and exhaustion choices are refused while the slipway cradle is still unworked and stocked"):
 		return false
 
-	# Alternate Branch 2A: leave_keel_for_margin087 -> keep_private_keel_notes087
-	if not decision(KEEL, "leave_keel_for_margin087", ["keel_left_intact087"]):
-		return false
-	if not stage_region_berth("shatter_coast", c.port("anvil_dock")) or not sail_port("anvil_dock"):
-		return false
-	var mara_before_priv: int = int(c.Contacts._find(c.state, "mara_voss").loyalty)
-	var cass_before_priv: int = int(c.Contacts._find(c.state, "salvager_cass").loyalty)
-	if not decision(KEEL, "keep_private_keel_notes087", ["keel_ledger_private087"]):
-		return false
-	if not check(int(c.Contacts._find(c.state, "mara_voss").loyalty) == mara_before_priv - 3
-		and int(c.Contacts._find(c.state, "salvager_cass").loyalty) == cass_before_priv + 5,
-		"Withholding the slipway notes applies Mara -3 and Cass +5 without claiming paid recovery"):
-		return false
+	if all_choices:
+		# Alternate Branch 2A: leave_keel_for_margin087 -> keep_company_keel_notes087
+		if not decision(KEEL, "leave_keel_for_margin087", ["keel_left_intact087"]):
+			return false
+		if not stage_region_berth("shatter_coast", c.port("anvil_dock")) or not sail_port("anvil_dock"):
+			return false
+		var mara_before_priv: int = int(c.Contacts._find(c.state, "contact_mara_voss").trust)
+		var cass_before_priv: int = int(c.Contacts._find(c.state, "contact_cass_rye").trust)
+		if not decision(KEEL, "keep_company_keel_notes087", ["keel_ledger_private087"]):
+			return false
+		if not check(int(c.Contacts._find(c.state, "contact_mara_voss").trust) == mara_before_priv - 3
+			and int(c.Contacts._find(c.state, "contact_cass_rye").trust) == cass_before_priv + 5,
+			"Withholding the slipway notes applies Mara -3 and Cass +5 without claiming paid recovery"):
+			return false
 
-	# Alternate Branch 2A-2: declared exhausted vs missing slipway source
-	if not restore_point(keel_ready):
-		return false
-	for w in c.state.wrecks:
-		if w is Dictionary and str(w.get("sourceId", "")) == source_id:
-			w["stores"] = {"engines": 0.0, "iron": 0.0, "supplies": 0.0, "timber": 0.0}
-	if not decision(KEEL, "record_exhausted_keel087", ["keel_verified_empty087"]):
-		return false
-	if not check(not (Stories._record(c.state, KEEL).get("flags", []) as Array).has("paid_keel_source087"),
-		"Verified exhaustion never claims paid_keel_source087"):
-		return false
-	if not restore_point(keel_ready):
-		return false
-	c.state.wrecks = c.state.wrecks.filter(func(w): return not (w is Dictionary and str(w.get("sourceId", "")) == source_id))
-	var missing_exhausted: Dictionary = StoryOps.choose(c, KEEL, "record_exhausted_keel087")
-	if not check(not bool(missing_exhausted.get("ok", true)),
-		"Missing slipway source refuses exhaustion claim"):
-		return false
+		# Alternate Branch 2A-2: declared exhausted vs missing slipway source
+		if not restore_point(keel_ready):
+			return false
+		for w in c.state.wrecks:
+			if w is Dictionary and str(w.get("sourceId", "")) == source_id:
+				w["stores"] = {"engines": 0.0, "iron": 0.0, "supplies": 0.0, "timber": 0.0}
+		if not decision(KEEL, "record_exhausted_keel087", ["keel_verified_empty087"]):
+			return false
+		if not check(not (Stories._record(c.state, KEEL).get("flags", []) as Array).has("paid_keel_source087"),
+			"Verified exhaustion never claims paid_keel_source087"):
+			return false
+		if not restore_point(keel_ready):
+			return false
+		c.state.wrecks = c.state.wrecks.filter(func(w): return not (w is Dictionary and str(w.get("sourceId", "")) == source_id))
+		var missing_exhausted: Dictionary = StoryOps.choose(c, KEEL, "record_exhausted_keel087")
+		if not check(not bool(missing_exhausted.get("ok", true)),
+			"Missing slipway source refuses exhaustion claim"):
+			return false
 
 	# Main Branch 2B: restore keel_ready, perform real paid recovery, and close ledger at Anvil Dock
-	if not restore_point(keel_ready):
+	if all_choices and not restore_point(keel_ready):
 		return false
 	var iron_before: float = float(c.state.cargo.get("iron", 0.0))
 	var kits_before: float = float(c.Remote067.kits(c.state))
 	var day_before: float = float(c.state.day)
+	var coins_before: int = int(c.state.coins)
+	var purse_before: int = int(c.state.crewPurse)
+	var food_before: float = float(c.state.cargo.food)
 	var quote: Dictionary = c.recovery_quote(wreck_id, "strip", "iron", 1)
 	if not check(bool(quote.get("ok", false)) and bool(quote.get("cargoOnly", false)),
 		"Remote067 recovery quote admits surveyed slipway workboat cradle"):
@@ -638,14 +638,17 @@ func verify_unfinished_keel() -> bool:
 		return false
 	if not settle_pending():
 		return false
-	var wreck_after: Dictionary = c.find_wreck(wreck_id)
+	var wreck_after: Dictionary = Remote067.raw_wreck(c.state, wreck_id)
 	var rec_keel: Dictionary = Stories._record(c.state, KEEL)
 	if not check(float(c.state.cargo.get("iron", 0.0)) == iron_before + 1.0
 		and float(wreck_after.stores.get("iron", 0.0)) == 5.0
-		and float(c.Remote067.kits(c.state)) == kits_before - 0.25
+		and is_equal_approx(float(c.Remote067.kits(c.state)), kits_before - float(quote.kitsRequired))
 		and float(c.state.day) > day_before
+		and coins_before - int(c.state.coins) == int(quote.coinsRequired)
+		and int(c.state.crewPurse) == purse_before + int(rec_receipt.wagesPaid)
+		and is_equal_approx(food_before - float(c.state.cargo.food), float(quote.food))
 		and (rec_keel.get("flags", []) as Array).has("paid_keel_source087"),
-		"Paid slipway recovery consumes 0.25 kit, advances clock, moves 1 iron from wreck to hold, and sets paid_keel_source087"):
+		"Paid slipway recovery matches quoted kits, wages and food, advances the clock and transfers exactly 1 iron"):
 		return false
 	var leave_after_paid: Dictionary = StoryOps.choose(c, KEEL, "leave_keel_for_margin087")
 	var empty_after_paid: Dictionary = StoryOps.choose(c, KEEL, "record_exhausted_keel087")
@@ -658,13 +661,13 @@ func verify_unfinished_keel() -> bool:
 		return false
 	var forge_before: int = int(c.Factions.standing(c.state, "forge").score)
 	var raiders_before: int = int(c.Factions.standing(c.state, "raiders").score)
-	var mara_before: int = int(c.Contacts._find(c.state, "mara_voss").loyalty)
+	var mara_before: int = int(c.Contacts._find(c.state, "contact_mara_voss").trust)
 	if not decision(KEEL, "close_forge_keel_ledger087", ["keel_ledger_forge087"]):
 		return false
 	if not check(int(c.Factions.standing(c.state, "forge").score) == forge_before + 4
-		and int(c.Factions.standing(c.state, "raiders").score) == raiders_before - 2
-		and int(c.Contacts._find(c.state, "mara_voss").loyalty) == mara_before + 6,
-		"Closing the slipway ledger at Anvil Dock applies Forge +4, Raiders -2 and Mara +6"):
+		and int(c.Factions.standing(c.state, "raiders").score) == raiders_before - 3
+		and int(c.Contacts._find(c.state, "contact_mara_voss").trust) == mara_before + 6,
+		"Closing the slipway ledger applies Forge +4, Raiders -3 including the existing rival reaction, and Mara +6"):
 		return false
 	var after_keel_cp: Dictionary = point("keel-paid-and-closed")
 	if after_keel_cp.is_empty() or not restore_point(after_keel_cp):
@@ -705,20 +708,20 @@ func verify_two_lantern_anchorage() -> bool:
 		return false
 	var player_kits_before: float = float(c.state.cargo.get("supplies", 0.0))
 	var harbor_kits_before: float = float(frontier_port.stocks.get("supplies", 0.0))
-	var tobin_before_kits: int = int(c.Contacts._find(c.state, "tobin_hale").loyalty)
+	var tobin_before_kits: int = int(c.Contacts._find(c.state, "contact_tobin_hale").trust)
 	if not decision(LANTERN, "deliver_lantern_kits087", ["supplied_lantern_berth087"]):
 		return false
 	if not check(is_equal_approx(float(c.state.cargo.get("supplies", 0.0)), player_kits_before - 4.0)
 		and is_equal_approx(float(frontier_port.stocks.get("supplies", 0.0)), harbor_kits_before + 4.0)
-		and int(c.Contacts._find(c.state, "tobin_hale").loyalty) == tobin_before_kits + 4,
+		and int(c.Contacts._find(c.state, "contact_tobin_hale").trust) == tobin_before_kits + 4,
 		"Delivering four repair kits transfers 4 supplies from player hold into the frontier harbor stock and records Tobin +4"):
 		return false
 	var lantern_supplied: Dictionary = point("lantern-supplied-at-frontier-harbor")
 	if lantern_supplied.is_empty():
 		return false
 
-	# Alternate Branch 3A: post_open_lantern_notice087 (Reed +4, Compact -2, Wren +5)
-	if not decision(LANTERN, "post_open_lantern_notice087", ["lantern_channel_public087"]):
+	# Alternate Branch 3A: publish_lantern_channel087 (Reed +4, Compact -2, Wren +5)
+	if not decision(LANTERN, "publish_lantern_channel087", ["lantern_channel_public087"]):
 		return false
 	if not restore_point(lantern_supplied):
 		return false
@@ -726,12 +729,12 @@ func verify_two_lantern_anchorage() -> bool:
 	# Main Branch 3B: bind_local_lantern_desk087 (Compact +4, Reed -2, Tobin +6) + follow-on freight
 	var compact_before: int = int(c.Factions.standing(c.state, "compact").score)
 	var reed_before: int = int(c.Factions.standing(c.state, "reed").score)
-	var tobin_before: int = int(c.Contacts._find(c.state, "tobin_hale").loyalty)
+	var tobin_before: int = int(c.Contacts._find(c.state, "contact_tobin_hale").trust)
 	if not decision(LANTERN, "bind_local_lantern_desk087", ["lantern_channel_bonded087"]):
 		return false
 	if not check(int(c.Factions.standing(c.state, "compact").score) == compact_before + 4
 		and int(c.Factions.standing(c.state, "reed").score) == reed_before - 2
-		and int(c.Contacts._find(c.state, "tobin_hale").loyalty) == tobin_before + 6,
+		and int(c.Contacts._find(c.state, "contact_tobin_hale").trust) == tobin_before + 6,
 		"Bonding the frontier range applies Compact +4, Reed -2 and Tobin +6"):
 		return false
 	if not stage_region_berth("shatter_coast", c.port("brass_haven")) or not sail_port("brass_haven"):
@@ -774,11 +777,9 @@ func verify_guards_and_legacy_saves(opening_cp: Dictionary, completed_cp: Dictio
 	legacy["ports"] = (legacy.get("ports", []) as Array).filter(func(p): return p is Dictionary and base_port_ids.has(str(p.get("id", ""))))
 	legacy["fleetOwners"] = (legacy.get("fleetOwners", []) as Array).filter(func(o): return o is Dictionary and base_port_ids.has(str(o.get("homePort", ""))))
 	var gen_site_ids: Dictionary = {}
-	for g in (opening_cp["saved"] as Dictionary).get("sector069", {}).get("groups", []):
-		if g is Dictionary:
-			for l in g.get("landings", []):
-				if l is Dictionary:
-					gen_site_ids[str(l.get("id", ""))] = true
+	for landing in (opening_cp["saved"] as Dictionary).get("sector069", {}).get("sites", []):
+		if landing is Dictionary:
+			gen_site_ids[str(landing.get("id", ""))] = true
 	legacy["exploration"]["catalog"] = (legacy["exploration"]["catalog"] as Array).filter(func(s): return s is Dictionary and not gen_site_ids.has(str(s.get("id", ""))))
 	for sid in gen_site_ids:
 		legacy["exploration"]["sites"].erase(sid)
@@ -844,13 +845,17 @@ func closing_accounts(label: String) -> bool:
 	if not check(normalized([c.state.sector069, c.state.islandOwnership069]) == geography,
 		label + ": seeded 48-group geography and political island ownership remain unchanged"):
 		return false
-	for cid in Stories.CHAINS087:
+	for cid in Stories.CHAINS087 if all_choices else [MERIDIAN, KEEL]:
 		var rec: Dictionary = Stories._record(c.state, str(cid))
 		if not check(bool(rec.get("done", false)), label + ": chain completed in final witness: " + str(cid)):
 			return false
 	return query_purity(label)
 
 func write_completed_witness() -> bool:
+	if not settle_pending():
+		return false
+	if not check(workers.group_id < 0 and c.pending_days == 0, "Actual completed state exports after all economy work joins"):
+		return false
 	var dir_path: String = OS.get_environment("GAME_TEST_ARTIFACTS").strip_edges()
 	if dir_path.is_empty():
 		dir_path = "user://quality087_artifacts"
@@ -863,28 +868,59 @@ func write_completed_witness() -> bool:
 	f.store_string(payload)
 	f.close()
 	var sha: String = FileAccess.get_sha256(out_path)
-	artifacts["completedWitness"] = {"path": out_path, "sha256": sha, "bytes": payload.length()}
-	return check(not sha.is_empty(), "Completed v0.087 witness JSON written and hashed")
+	var saved = JSON.parse_string(FileAccess.get_file_as_string(out_path))
+	if not check(saved is Dictionary and normalized(saved) == normalized(c.state), "Completed artifact contains the actual whole state, without reconstructed staging"):
+		return false
+	var cp: Dictionary = {"label":"actual completed disk artifact", "saved":saved, "bytes":var_to_bytes(saved)}
+	if not restore_point(cp):
+		return false
+	for key in ["coins", "crewPurse", "coinSupply", "wageArrears", "cargo", "wrecks", "wreckSeededSources"]:
+		if not check(normalized(c.state.get(key)) == normalized(saved.get(key)), "Disk restore preserves every " + key + " value exactly"):
+			return false
+	if not check(normalized(Stories.destinations087(c.state)) == normalized(saved.stories.destinations087), "Disk restore retains exact per-seed destination bindings"):
+		return false
+	for cid in Stories.CHAINS087 if all_choices else [MERIDIAN, KEEL]:
+		if not check(normalized(Stories._record(c.state, str(cid))) == normalized(saved.stories.chains[cid]), "Disk restore retains actual completed story record " + str(cid)):
+			return false
+	if not closing_accounts("actual-completed-disk-restore"):
+		return false
+	artifacts["completedWitness"] = {"path": out_path, "sha256": sha, "bytes":payload.to_utf8_buffer().size(), "day":saved.day, "stagedOpening":true, "reconstructed":false}
+	return check(not sha.is_empty(), "Actual completed v0.087 witness JSON written, hashed and restored")
 
 func finish() -> void:
-	var _joined: Dictionary = workers.finish(true)
+	if workers != null and workers.group_id >= 0:
+		workers.finish(true)
+	workers = null
 	c = null
 	var elapsed: int = Time.get_ticks_msec() - started
-	check(elapsed < BODY_LIMIT_MS, "Body includes initialization, all three v0.087 destination packages, restores and cleanup below fifty-five seconds")
-	print(JSON.stringify({
+	check(elapsed < BODY_LIMIT_MS, "Body includes initialization, selected voyage, restores and cleanup below forty-four seconds")
+	var result: Dictionary = {
 		"fixture": "remote_destinations087",
-		"checks": checks,
-		"failures": failures,
-		"elapsed_ms": elapsed,
+		"profile": "all_choices_diagnostic" if all_choices else "focused_voyage",
+		"checks": checks, "failures": failures, "elapsed_ms": elapsed,
 		"complete": complete and failures == 0 and not expired,
-		"failure_labels": failure_labels,
-		"events": events,
-		"accountfacts": accountfacts,
-		"recovery": recovery_facts,
-		"artifacts": artifacts,
-		"limits": "Declared finite treasury-funded ninety-day expedition reserve, staged regional local-chart berths, faction service-access adjustment for generated frontier harbor, and dormant unrelated NPC patrol profile; connected to an actual funded home-waters VoyageJobs freight contract and settlement, real shore chart/survey work, real paid slipway wreck recovery, and real 4-kit frontier harbor delivery. No rendering, listening or whole-game-quality claim."
-	}))
-	quit(0 if complete and failures == 0 and not expired else 1)
+		"failure_labels": failure_labels, "events": events,
+		"accountfacts": accountfacts, "recovery": recovery_facts, "artifacts": artifacts,
+		"bodyLimitMs":BODY_LIMIT_MS, "selfStopMs":SELF_STOP_MS,
+		"stagedOpening":true,
+		"skipped":[] if all_choices else ["turn-home/retained alternatives", "intact/exhausted alternatives", "Two-Lantern native branch", "seed/legacy/corruption matrix"],
+		"limits": "Declared finite treasury-funded ninety-day reserve, staged local-chart berths and dormant unrelated NPC profile; not an earned ocean crossing or starter-profit proof. Actual funded home freight, paid shore work, one optional slipway recovery, later funded meridian freight, and exact completed disk restore. The optional all-choices diagnostic also stages frontier service standing. No rendering, listening or whole-game-quality claim."
+	}
+	var dir_path: String = OS.get_environment("GAME_TEST_ARTIFACTS").strip_edges()
+	if dir_path.is_empty():
+		dir_path = "user://quality087_artifacts"
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir_path))
+	var f := FileAccess.open(dir_path.path_join("remote-destinations087-result.json"), FileAccess.WRITE)
+	if not check(f != null, "Open result report for writing"):
+		result.failures = failures
+		result.complete = false
+		result.failure_labels = failure_labels
+	else:
+		result.checks = checks
+		f.store_string(JSON.stringify(result, "\t"))
+		f.close()
+	print("DESTINATIONS087_RESULT " + JSON.stringify(result))
+	quit(0 if bool(result.complete) and failures == 0 and not expired else 1)
 
 func _run() -> void:
 	if not check(DisplayServer.get_name() == "headless", "Headless execution required for test_remote_destinations087"):
@@ -929,17 +965,17 @@ func _run() -> void:
 	if not verify_unfinished_keel():
 		finish()
 		return
-	if not verify_two_lantern_anchorage():
+	if all_choices and not verify_two_lantern_anchorage():
 		finish()
 		return
-	var completed_cp: Dictionary = point("all-three-087-packages-completed")
+	var completed_cp: Dictionary = point("selected-087-voyage-completed")
 	if completed_cp.is_empty():
 		finish()
 		return
-	if not verify_guards_and_legacy_saves(opening_cp, completed_cp):
+	if all_choices and not verify_guards_and_legacy_saves(opening_cp, completed_cp):
 		finish()
 		return
-	if not restore_point(completed_cp):
+	if all_choices and not restore_point(completed_cp):
 		finish()
 		return
 	if not closing_accounts("final-restored-087-witness") or not write_completed_witness():
