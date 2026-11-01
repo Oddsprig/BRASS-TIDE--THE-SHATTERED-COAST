@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-31 October2026 |079 DELIVERED SCOPED;080 VERIFIED;081 STAGED;082-088 PLANNED
+01 November2026 |079-080 DELIVERED;081 VERIFIED;082-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -61,7 +61,7 @@ reviewed cases. The heavy must visibly turn, cover or punish the flanking
 threat in the same encounter; retain079 worker/lag evidence where unchanged.
 Boundary: existing roles and orders, no officer tree or tactical rewrite.
 
-0.081 - COMBAT ART AT NORMAL PLAY ZOOM [PLANNED]
+0.081 - COMBAT ART AT NORMAL PLAY ZOOM [VERIFIED SCOPED; DELIVERY RECEIPT CONFIRMS INSTALLATION]
 Player result: identify boats, fitted weapons, shots, impacts and disabling
 damage while following a real fight; wakes visibly follow stern and motion.
 Scope: correct the largest visible defects in existing hull/weapon assets,

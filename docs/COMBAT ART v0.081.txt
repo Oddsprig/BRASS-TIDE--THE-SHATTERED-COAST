@@ -1,13 +1,12 @@
 BRASS TIDE v0.081 - COMBAT ART AT NORMAL PLAY ZOOM
-SOURCE CANDIDATE; actual verification pending.
-
-The existing12-point wake keeps older anchors instead of spending its history
-on twelve render frames. The live tip follows the physical stern; water stays
-cheap. Existing normal-zoom machine guns gain contrast, preserving the fitted
-mount, aiming, recoil and projectile origin. Reached Hold destination markers
-no longer cover the deck; selection and orders remain available.
-
-One light, one heavy and one civilian reference will be reviewed in normal
-movement, firing, turning and an actual sinking. This is a bounded correction,
-not a new36-boat production pass. Existing hull-overlap, terrain, performance,
-listening and whole-game quality limits remain explicit in tests/ and notes.
+927 current focused assertions/0; Windows/title and actual battle renders.
+Wake anchors now span the existing0.7second lifetime, including curved turns,
+with the live stern tip retained. Existing normal-zoom guns have brighter steel
+and receiver edges without changing fitted mount positions or projectile origins.
+Three light/heavy/civilian references moved/turned;20shots19hits1sinking in
+declared12second practice capture. Enemy began4percent hull; not earned combat.
+Fixed60 movie is not realtimeFPS. Root reviewed12temporal samples, not continuous
+playback or audio. Actual300DP light/mixed battles had no persistent planner
+stalls; light34.3675ms/183.333ms still fails capacity/lag targets. Mixed meets.
+Physical/art hull overlap, simple shore art and broader quality remain open.
+No all-angle/all36boat acceptance or Starsector parity claim.

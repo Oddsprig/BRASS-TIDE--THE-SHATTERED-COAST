@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.080)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.081)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -51,19 +51,19 @@ game/scripts/combat_events.gd: 38522 bytes; extends RefCounted
   game/scripts/combat_events.gd:159 record_mount_shot()
   game/scripts/combat_events.gd:177 mount_shot_time()
   game/scripts/combat_events.gd:195 mount_shot_age()
-game/scripts/weapon_art.gd: 9752 bytes; extends RefCounted
+game/scripts/weapon_art.gd: 9772 bytes; extends RefCounted
   game/scripts/weapon_art.gd:11 recoil_offset()
   game/scripts/weapon_art.gd:19 draw()
   game/scripts/weapon_art.gd:39 _machine_gun()
-  game/scripts/weapon_art.gd:66 _cannon()
-  game/scripts/weapon_art.gd:90 _rocket()
-  game/scripts/weapon_art.gd:110 _torpedo()
-  game/scripts/weapon_art.gd:127 _p()
-  game/scripts/weapon_art.gd:133 _face()
-  game/scripts/weapon_art.gd:141 _line()
-  game/scripts/weapon_art.gd:145 _box()
-  game/scripts/weapon_art.gd:156 _pad()
-  game/scripts/weapon_art.gd:165 _tube()
+  game/scripts/weapon_art.gd:67 _cannon()
+  game/scripts/weapon_art.gd:91 _rocket()
+  game/scripts/weapon_art.gd:111 _torpedo()
+  game/scripts/weapon_art.gd:128 _p()
+  game/scripts/weapon_art.gd:134 _face()
+  game/scripts/weapon_art.gd:142 _line()
+  game/scripts/weapon_art.gd:146 _box()
+  game/scripts/weapon_art.gd:157 _pad()
+  game/scripts/weapon_art.gd:166 _tube()
 
 TESTS (game/tests/*.gd)
 test_audio, test_combat_events; tools/audit_boat_geometry.gd and tools/boat_gallery.gd

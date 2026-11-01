@@ -1,22 +1,22 @@
-BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.080)
+BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.081)
 
 Actual stern motion and reported combat/equipment state -> bounded wash, distinct weapon impulses, engine/fire/flooding/sinking cues and recorded audio voices. Main draws/mixes; worker owns battle data.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 70104 bytes; extends Node2D
+game/scripts/chart.gd: 70901 bytes; extends Node2D
   game/scripts/chart.gd:70 reset_battle_presentation051()
   game/scripts/chart.gd:74 clear_battle_poses051()
   game/scripts/chart.gd:101 battle_boats051()
   game/scripts/chart.gd:105 battle_boat_position051()
   game/scripts/chart.gd:112 profile_enable()
   game/scripts/chart.gd:117 profile_reset()
-game/scripts/wake_art045.gd: 14780 bytes; extends RefCounted
-  game/scripts/wake_art045.gd:202 draw()
-  game/scripts/wake_art045.gd:64 _life()
-  game/scripts/wake_art045.gd:70 _path()
-  game/scripts/wake_art045.gd:124 _side()
-  game/scripts/wake_art045.gd:142 _paint_polygon()
-  game/scripts/wake_art045.gd:167 _ribbon_indices()
+game/scripts/wake_art045.gd: 14927 bytes; extends RefCounted
+  game/scripts/wake_art045.gd:204 draw()
+  game/scripts/wake_art045.gd:66 _life()
+  game/scripts/wake_art045.gd:72 _path()
+  game/scripts/wake_art045.gd:126 _side()
+  game/scripts/wake_art045.gd:144 _paint_polygon()
+  game/scripts/wake_art045.gd:169 _ribbon_indices()
 game/scripts/boat_art.gd: 37893 bytes; extends RefCounted
   game/scripts/boat_art.gd:56 archetype()
   game/scripts/boat_art.gd:111 palette()

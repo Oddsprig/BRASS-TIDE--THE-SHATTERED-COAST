@@ -1,9 +1,9 @@
-BRASS TIDE — PRESENTATION MAP (generated; v0.080)
+BRASS TIDE — PRESENTATION MAP (generated; v0.081)
 
 Campaign/battle telemetry -> main-thread canvas/UI. No fluid or animated crew.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 70104 bytes; extends Node2D
+game/scripts/chart.gd: 70901 bytes; extends Node2D
   game/scripts/chart.gd:70 reset_battle_presentation051()
   game/scripts/chart.gd:74 clear_battle_poses051()
   game/scripts/chart.gd:101 battle_boats051()

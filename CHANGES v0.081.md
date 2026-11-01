@@ -8,3 +8,5 @@ Owner: "stick to the scope of each one".
 - Review light, heavy and civilian references in actual movement, fire, turning and sinking.
 
 See docs/TEST RESULTS v0.081.md for actual focused checks and remaining limits.
+
+Verification: 927 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 52.190s. Preserved earlier failures; no broad acceptance claim.

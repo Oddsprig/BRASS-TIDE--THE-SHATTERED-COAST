@@ -1,11 +1,11 @@
 # Brass Tide - current working instructions
 
-Current delivered080 (active source081): Reliable tactical counterplay.
-Tested3cd5046f3f97d3a6cc5ee4c2061754c0fd2e1766;56 focused/0;Windows/menu and reviewed actual battle render.
-Receipts work/quality-v080/ACTUAL080 CHECKS.json and DELIVERED v0.080.json.
-Root alone tests/delivery. Next081: combat art at normal play zoom. Owner079-088 sequence active; finish080 installation before081 integration.
+Current verified081: Combat art at normal play zoom.
+Testedde681a8106a19a054136d6a8e3ac7191fb87a077;927 focused/0;Windows/menu and reviewed actual battle render.
+Receipts work/quality-v081/ACTUAL081 CHECKS.json and DELIVERED v0.081.json.
+Root alone tests/delivery. Next082: weapon sound and music mix. Owner079-088 sequence active.
 Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 and079 passed;080 recorded independently.
+075 final QA timing gate failed183s;076 and080 passed;081 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
