@@ -1074,7 +1074,6 @@ func open_settings():
 	paragraph(body,"Add MP3, OGG or WAV files to music beside the game, or your Desktop's Brass Tide Music folder. New tracks are detected automatically.",14)
 	button(body, "Frame cap: %d" % Engine.max_fps, func(): Engine.max_fps = 60 if Engine.max_fps == 120 else 120; host.save_preferences(); open_settings())
 	button(body,"Development tools: "+("ON · F9 overlay" if host.dev_enabled else "OFF"),func():host.dev_enabled=not host.dev_enabled;host.save_preferences();open_settings())
-	paragraph(body,"If changing text flickers or disappears, close the game and use Stable Rendering.vbs in the portable folder. The normal launcher keeps separate rendering enabled.",14)
 	paragraph(body, "Options are saved beside the game. Music is optional and can be added while the game is running. A lower frame cap reduces power use.", 16)
 	paragraph(body, "CPU: %s\nThreads: %d · Adapter: %s\nCurrent frame rate: %d FPS" % [OS.get_processor_name(), OS.get_processor_count(), RenderingServer.get_video_adapter_name(), Engine.get_frames_per_second()], 15, TEAL)
 	button(body, "Back", close_modal if host.mode=="menu" else open_menu)
