@@ -224,6 +224,10 @@ func prepare_and_home_warehouse() -> bool:
 	var site: Dictionary = c.Exploration.catalog_site(c.state, "cinder_workshop_ruin")
 	var spot: Dictionary = c.Navigation.harbor_approach(c.nav, site, c.Routes.clearance(c), 170.0)
 	if not check(not spot.is_empty() and stage_location("home", "shatter_coast", spot), "Staged water-safe landing at cinder_workshop_ruin"): return false
+	# Location publication does not observe; allow the ordinary 0.5-second discovery tick.
+	if not advance(0.5): return false
+	if not check(int(c.state.exploration.sites[site.id].level) == c.Exploration.LEVEL_SIGHTED,
+		"Ordinary campaign observation sights the landing before charting"): return false
 	for action in ["chart", "survey"]:
 		var begun: Dictionary = c.begin_survey(str(site.id), action)
 		if not check(bool(begun.get("ok", false)), "Actual " + action + " starts: " + str(begun.get("message", ""))): return false
