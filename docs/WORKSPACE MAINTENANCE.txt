@@ -41,3 +41,5 @@ watcher or schedule. Owner authorized routine stale-working-folder cleanup; donâ
 interrupt for the same scope again. Requests to remove actual releases or owner
 files are a different scope. Useful source tests remain even when their old run
 output goes away; consult VERIFICATION INDEX before deciding to rerun them.
+
+01 November2026 OWNER OVERRIDE: explicitly delete older Brass Tide playable copies and Windows ZIPs to reclaim space. Keep the latest verified installed release and active next candidate. Preserve source Git/tags, useful test receipts/tools, source archives and verified unique owner saves/settings/music in the content-indexed archive. Earlier all-playable-releases retention is superseded for this game. Cleanup255targets reclaimed32.82GiB; receipt work/release-cleanup-2026-11-01/CLEANUP RESULT.json. This logistics cleanup does not require an engine test or change a build number.

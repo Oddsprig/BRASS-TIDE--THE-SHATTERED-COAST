@@ -658,3 +658,8 @@ Audit each shot against its actual prior cooldown, assigned reload and recorded 
 - Finite economy games: raw market stocks can be reserved for operating or contracted work. Plan procurement from actual saleable quantities and prices at lawful berths; don't force stock transfers, disable reserves or inject goods to make a test pass.
 - Check a reused wrapper's real argument format before queueing it. A command-format failure before engine launch remains a failed invocation, not an engine/game failure or a passed test.
 - Suspected visual defects need an actual native view. The title-layout clipping hypothesis was rejected by the accepted0831280x800 capture; avoid redesigning a working screen from source arithmetic alone.
+
+
+01 November2026 - Actual output bindings
+Before engine execution, dry-match each fixture terminal expression against its actual print schema (JSON-only markers need an explicit complete/checks/failures binding). For UI captures, obtain exact labels/reasons from the actual saved state and production formatter; never invent expected prose. Preserve failed wrapper/capture receipts separately from passed gameplay assertions.
+Owner-authorized old-release pruning must keep a verified unique save/settings/music archive, source tags and the current installed game. Keep a dated manifest and space-reclaimed receipt; supersede contradictory blanket-retention text.

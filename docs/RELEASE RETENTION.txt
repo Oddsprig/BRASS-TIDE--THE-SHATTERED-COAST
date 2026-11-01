@@ -1,0 +1,8 @@
+BRASS TIDE - CURRENT RELEASE RETENTION
+Owner01November2026 explicitly authorized deleting old compiled versions/Windows ZIPs to reclaim disk space.
+Keep latest verified installed game plus active candidate, source history/tags/source archives and useful QA/tools.
+Before retiring an old release preserve/verify unique saves, backups, settings and music; never remove an in-use game.
+Latest cleanup reclaimed32.82GiB. At that cleanup: installedv0.086 and activev0.087 were retained. See RELEASE.json and BUILD STATUS for the current version.
+Owner recovery archive: C:\Users\bligh\Documents\Codex\2026-10-20\how\archives\Brass Tide preserved owner files 2026-11-01
+Full cleanup receipt: C:\Users\bligh\Documents\Codex\2026-10-20\how\work\release-cleanup-2026-11-01\CLEANUP RESULT.json
+Earlier documents that require every old playable folder are superseded by this dated owner instruction.

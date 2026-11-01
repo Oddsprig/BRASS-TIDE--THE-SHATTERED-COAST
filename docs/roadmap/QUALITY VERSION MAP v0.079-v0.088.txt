@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-085 DELIVERED;086 VERIFIED;087-088 PLANNED
+01 November2026 |079-086 DELIVERED;087 VERIFIED;088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -142,7 +142,7 @@ Staged career saves are labeled; do not claim all four earned from the default
 starter or force a new framework/all-career matrix into the automated suite.
 Boundary: existing civilian roster and jobs; no new careers or free support fleets.
 
-0.087 - DISTINCT REMOTE DESTINATIONS [PLANNED]
+0.087 - DISTINCT REMOTE DESTINATIONS [VERIFIED SCOPED]
 Player result: a distant voyage finds recognizable places with different
 hazards, clues, optional risks and useful returns instead of interchangeable stops.
 Scope: author three bounded destination packages in existing remote groups:
@@ -175,7 +175,7 @@ scopes after this review, rather than being hidden under DONE labels.
 EXECUTION AND CONSTANTS
 - Each version advances0.001 on its accepted predecessor, through a usable
   Windows package and one plain Desktop Brass Tide launcher. Preserve owner
-  saves/music/settings, old releases, source history and version tags.
+  saves/music/settings, source history and version tags. Latest01Nov owner instruction keeps only the latest installed compiled release plus the active candidate; see RELEASE RETENTION.txt.
 - Plans are not implemented features. Owner31October authorized sequential implementation. Source work starts079;
   installed release changes only after an accepted package; current080 receipts and later scoped limits are authoritative.
 - One scope with a concrete player result at a time. Begin with the named

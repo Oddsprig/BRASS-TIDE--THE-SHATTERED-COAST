@@ -1,8 +1,11 @@
 # Brass Tide - current working instructions
 
-Active source candidate087: Distinct remote destinations.
-Installed accepted v0.086; later native/export/UI/delivery remain pending.
-Root alone owns queued background tests and sequential delivery through088.
+Current verified087: Distinct remote destinations.
+Tested5a24c98a493b17b38f7675a1b2bcfe8969bbc871;299 focused/0;Windows/menu and focused_voyage destination verification (Broken Meridian connected expedition, Unfinished Keel paid slipway recovery, later funded consequence, joined-worker disk restore) and reviewed exported UI.
+Receipts work/quality-v087/ACTUAL087 CHECKS.json and DELIVERED v0.087.json.
+Root alone tests/delivery. Next088: whole-loop clarity and campaign review. Owner079-088 sequence active.
+Earlier strict performance/071 listening/whole-game quality remain open.
+075 final QA timing gate failed183s;076 and086 passed;087 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -98,7 +101,7 @@ to pass. Source/static checks are advisory, not native execution.
 
 Background/hidden/silent only, synthetic APPDATA/saves and Dummy/muted audio.
 No mouse/keyboard/focus/computer control, no Desktop game autolaunch. Keep owner
-voyages/settings/18MP3s plus music manifest/readme/older builds and one plain Brass Tide shortcut intact.
+voyages/settings/18MP3s plus music manifest/readme and one plain Brass Tide shortcut intact. Apply the dated release-retention override below to old build copies.
 Cleanup must match PID AND creation time/retained handle; no broad process kills.
 Use existing Godot4.7.2/Python, no global installs or system setting changes.
 UI/Scene/resources remain on main; workers own copied data and publish only after
@@ -109,6 +112,9 @@ fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authoriz
 30Hz worker cadence above replaces the old 60Hz simulation requirement.
 
 ## Source, handoff and delivery
+
+01 November2026 OWNER OVERRIDE: explicitly delete older Brass Tide playable copies and Windows ZIPs to reclaim space. Keep the latest verified installed release and active next candidate. Preserve source Git/tags, useful test receipts/tools, source archives and verified unique owner saves/settings/music in the content-indexed archive. Earlier all-playable-releases retention is superseded for this game. Cleanup255targets reclaimed32.82GiB; receipt work/release-cleanup-2026-11-01/CLEANUP RESULT.json. This logistics cleanup does not require an engine test or change a build number.
+
 
 31October board cadence supersedes earlier requests: expanded fullpromptv34/post165
 was contributed/adopted. Stop2minutechecks. Dailyfirst31Oct03:28UTC/30Oct23:28
@@ -146,15 +152,15 @@ Refits use weapons:Array; effective_spec returns the spec directly. Preserve UID
 
 Prepare each version once, build on the accepted predecessor and preserve exact
 source/hash/tag provenance. Export from the isolated reviewed release checkout.
-Tag/package/install only after that scope's acceptance. Preserve older releases,
-two voyages,18music tracks plus manifest/readme and the single unambiguous latest verified launcher.
+Tag/package/install only after that scope's acceptance. Preserve source tags,
+two voyages,18music tracks plus manifest/readme and the single unambiguous latest verified launcher. Keep compiled releases under the dated retention override above.
 No retagging rejected candidates. Retain failed receipts and distinguish source,
 native checks, rendered measurement, art review, listening and actual play quality.
 
 Owner permits routine pruning of obsolete scratch after preserving unique work,
 useful evidence and lessons; follow docs/WORKSPACE MAINTENANCE.txt. Resolve and
-verify absolute workspace containment, refuse reparse targets, preserve releases,
-source archives/saves/music/launcher. No broad cleanup during an active test gate.
+verify absolute workspace containment, refuse reparse targets, preserve current releases,
+source archives/saves/music/launcher under the dated retention override above. No broad cleanup during an active test gate.
 Historical instructions and measured results remain recoverable in Git and the
 current task's evidence files; older contradictory scope/team/status paragraphs
 were consolidated here on27October2026.

@@ -1,5 +1,5 @@
 BRASS TIDE - NEXT PLANNED VERSIONS079-088
-01 November2026 |079-086 verified scoped;087-088 planned. Earlier quality limits remain open.
+01 November2026 |079-087 verified scoped;088 planned. Earlier quality limits remain open.
 Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt
 
 0.079 - LIGHT-FLEET RESPONSIVENESS [VERIFIED SCOPED; LATENCY OPEN]
@@ -10,7 +10,7 @@ Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.t
 0.084 - GENERATED HARBORS THAT CAN DEVELOP [VERIFIED SCOPED]
 0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [VERIFIED SCOPED]
 0.086 - CIVILIAN CAREERS WORTH REPEATING [VERIFIED SCOPED]
-0.087 - DISTINCT REMOTE DESTINATIONS [PLANNED]
+0.087 - DISTINCT REMOTE DESTINATIONS [VERIFIED SCOPED]
 0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [PLANNED]
 
 One0.001 release at a time on its accepted predecessor. Quality remains open;088 is not an automatic finished-game claim.

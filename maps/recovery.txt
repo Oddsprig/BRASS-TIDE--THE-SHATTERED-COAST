@@ -1,21 +1,21 @@
-BRASS TIDE — RECOVERY MAP (generated; v0.086)
+BRASS TIDE — RECOVERY MAP (generated; v0.087)
 
 Actual destroyed hulls/site provenance -> persistent finite wrecks, selectable lots, paid tow and recovered blueprints.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/salvage.gd: 55503 bytes; extends RefCounted
-  game/scripts/salvage.gd:180 ensure()
-  game/scripts/salvage.gd:208 find_wreck()
-  game/scripts/salvage.gd:338 record_battle()
-  game/scripts/salvage.gd:420 seed_site_wreck()
-  game/scripts/salvage.gd:455 validate_expedition067()
-  game/scripts/salvage.gd:486 seed_expedition067()
-  game/scripts/salvage.gd:540 nearby()
-  game/scripts/salvage.gd:616 quote()
-  game/scripts/salvage.gd:681 recover()
-  game/scripts/salvage.gd:927 strip_good()
-  game/scripts/salvage.gd:73 _is_num()
-  game/scripts/salvage.gd:77 _num()
+game/scripts/salvage.gd: 68411 bytes; extends RefCounted
+  game/scripts/salvage.gd:182 ensure()
+  game/scripts/salvage.gd:210 find_wreck()
+  game/scripts/salvage.gd:340 record_battle()
+  game/scripts/salvage.gd:422 seed_site_wreck()
+  game/scripts/salvage.gd:457 validate_expedition067()
+  game/scripts/salvage.gd:490 seed_expedition067()
+  game/scripts/salvage.gd:561 validate_keel087()
+  game/scripts/salvage.gd:665 seed_keel087()
+  game/scripts/salvage.gd:703 keel087_source()
+  game/scripts/salvage.gd:712 nearby()
+  game/scripts/salvage.gd:788 quote()
+  game/scripts/salvage.gd:853 recover()
 game/scripts/recovery_ui.gd: 29491 bytes; extends RefCounted
   game/scripts/recovery_ui.gd:32 open()
   game/scripts/recovery_ui.gd:193 store_choice()
