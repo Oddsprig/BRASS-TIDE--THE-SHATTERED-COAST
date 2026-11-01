@@ -1,8 +1,8 @@
-# Brass Tide: next planned versions v0.079-v0.088
+# Brass Tide: quality sequence v0.079-v0.088
 
-Installed and delivered: **v0.079**; active source candidate **v0.080**. The069-078 sequence is complete within its
+Verified scoped build: **v0.080**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
-Owner31October authorized sequential079-088 implementation. 079 verified scoped; next080 after delivery.
+Owner31October authorized sequential079-088 implementation. 079 delivered;080 verified;081 art source is staged for review after080 delivery.
 
 | Version | Focus | Concrete player result |
 | --- | --- | --- |
@@ -27,6 +27,8 @@ Historical078 baseline evidence: work/quality-v078/ACTUAL078 CHECKS.json and DEL
 Light workerP9540.352ms/maxlag167.488ms miss33.333ms/100ms; planner targets
 remain unmet. Mixed22.806ms/66.666ms meets those two timing targets. Retain
 all raw measurements and distinctions between stills, motion, listening and play.
+
+The campaign-design paragraph and older references below are retained history; current scopes and testing authority are above and in AGENTS.md.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the

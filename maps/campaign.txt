@@ -1,9 +1,9 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.077)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.080)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 94249 bytes; extends Node2D
+game/scripts/main.gd: 94273 bytes; extends Node2D
   game/scripts/main.gd:258 handle_campaign_events067()
   game/scripts/main.gd:285 poll_battle051()
   game/scripts/main.gd:348 queue_battle_command051()
@@ -33,19 +33,20 @@ game/scripts/campaign_guidance.gd: 16428 bytes; extends RefCounted
   game/scripts/campaign_guidance.gd:13 _n()
   game/scripts/campaign_guidance.gd:16 _positive()
   game/scripts/campaign_guidance.gd:19 _shown()
-game/scripts/career_costs.gd: 27940 bytes; extends RefCounted
-  game/scripts/career_costs.gd:101 contract_offers()
-  game/scripts/career_costs.gd:104 contract_quote()
-  game/scripts/career_costs.gd:196 plan()
-  game/scripts/career_costs.gd:62 _length()
-  game/scripts/career_costs.gd:70 _budget()
-  game/scripts/career_costs.gd:151 _second_hull()
-game/scripts/guidance_ui.gd: 12968 bytes; extends RefCounted
+game/scripts/career_costs.gd: 27883 bytes; extends RefCounted
+  game/scripts/career_costs.gd:100 contract_offers()
+  game/scripts/career_costs.gd:103 contract_quote()
+  game/scripts/career_costs.gd:195 plan()
+  game/scripts/career_costs.gd:61 _length()
+  game/scripts/career_costs.gd:69 _budget()
+  game/scripts/career_costs.gd:150 _second_hull()
+game/scripts/guidance_ui.gd: 13106 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
-  game/scripts/guidance_ui.gd:72 action_label()
-  game/scripts/guidance_ui.gd:75 action()
-  game/scripts/guidance_ui.gd:98 career_plan()
-  game/scripts/guidance_ui.gd:121 open()
+  game/scripts/guidance_ui.gd:75 action_label()
+  game/scripts/guidance_ui.gd:78 action()
+  game/scripts/guidance_ui.gd:101 career_plan()
+  game/scripts/guidance_ui.gd:124 open()
+  game/scripts/guidance_ui.gd:60 _primary_contract_action()
 
 TESTS (game/tests/*.gd)
 test_career_balance038, test_career_flow038; earlier test_campaign_cash, test_runtime, test_voyage

@@ -1,4 +1,4 @@
-BRASS TIDE — COASTAL-STORIES MAP (generated; v0.077)
+BRASS TIDE — COASTAL-STORIES MAP (generated; v0.080)
 
 Four original chains and actual survey/delivery/contact choices -> persistent branches, rights and finite funded opportunities.
 
@@ -27,19 +27,19 @@ game/scripts/story_ops.gd: 7603 bytes; extends RefCounted
   game/scripts/story_ops.gd:120 _exhausted_longglass077()
 game/scripts/story_offers.gd: 3290 bytes; extends RefCounted
   game/scripts/story_offers.gd:6 available()
-game/scripts/story_ui.gd: 12865 bytes; extends RefCounted
+game/scripts/story_ui.gd: 14667 bytes; extends RefCounted
   game/scripts/story_ui.gd:3 open()
-  game/scripts/story_ui.gd:63 payoff()
-  game/scripts/story_ui.gd:99 recovery_stock()
-  game/scripts/story_ui.gd:106 recovery_ready()
-  game/scripts/story_ui.gd:129 _alive()
-  game/scripts/story_ui.gd:132 _same_chart()
-  game/scripts/story_ui.gd:144 _region_label()
-  game/scripts/story_ui.gd:153 _open_known()
-  game/scripts/story_ui.gd:164 _open_recovery()
-  game/scripts/story_ui.gd:168 _chart_region()
-  game/scripts/story_ui.gd:181 _chart()
-  game/scripts/story_ui.gd:194 _commit()
+  game/scripts/story_ui.gd:100 payoff()
+  game/scripts/story_ui.gd:136 recovery_stock()
+  game/scripts/story_ui.gd:143 recovery_ready()
+  game/scripts/story_ui.gd:61 _canonical_lead_id()
+  game/scripts/story_ui.gd:65 _shown_next_action()
+  game/scripts/story_ui.gd:73 _paint_leads()
+  game/scripts/story_ui.gd:166 _alive()
+  game/scripts/story_ui.gd:169 _same_chart()
+  game/scripts/story_ui.gd:181 _region_label()
+  game/scripts/story_ui.gd:190 _open_known()
+  game/scripts/story_ui.gd:201 _open_recovery()
 
 TESTS (game/tests/*.gd)
 test_coastal_stories, test_story_voyage

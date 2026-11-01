@@ -1,0 +1,17 @@
+# v0.080 focused verification
+
+Source: `3cd5046f3f97d3a6cc5ee4c2061754c0fd2e1766`. Job: `01d6ea5c23a142e9ba1d9d25eac770f7`.
+
+| Phase | Checks | Result |
+| --- | --- | --- |
+| import | build/startup | passed |
+| floor | 40 | passed |
+| counterplay | 16 | passed |
+| export | build/startup | passed |
+| portable-menu | build/startup | passed |
+
+Whole selected batch including setup: **60.224seconds**. Owned process cleanup verified. Background/headless/Dummy; shared machine-wide queue.
+
+This covers the selected version scope and portable startup only. It does not establish full-game, rendered motion, listening or FPS acceptance. Earlier failed attempts remain in TestBridge.
+
+Tested3cd5046f3f97d3a6cc5ee4c2061754c0fd2e1766;56 focused assertions/0. Existing sampled-route retries and zero-throttle physical clearance corrected; explicit navigation orders survive missing screen targets. 56 current assertions/0, full stock worker encounter and actual terminal withdrawal, Windows/menu, unchanged actual42-light/16-mixed300DP workloads. Both actual persistent-planner-stall targets now met. Complete autonomous cycles and order changes reviewed in selected12second motion; full withdrawal terminal is native evidence. Decoded12temporal samples and a review MP4 on one CPU thread; actual processing charged plus3seconds for remaining offline checks. LightworkerP9534.928ms/maxlag150.405ms still miss33.333/100; rawFPS59.997850/59.998385 narrowly miss strict60. OverallqualityFALSE. Mixedworker15.851ms/50ms and both95percent20ms frame targets met. One canonical small encounter and two short300DP workloads; no universal AI, whole-campaign, listening, continuous-playback or fun acceptance. Visible hull overlap, generic shore, short wakes and small gun detail remain;081 bounded art scope next. R1native cancelled before execution; R2native FAILED audit and preserved. Corrected audit uses actual assigned reload; no runtime firing policy changed. Earlier30second capture succeeded but combined182.518s selection FAILED timing before delivery; excluded and retained. Selected12second clip completes autonomous cycles and order changes; its terminal withdrawal is not rendered. Unchanged079 source/raw assets retained by source-hash equality; no new art/listening acceptance. 075 timing gate failed;076 and079 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged079 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.

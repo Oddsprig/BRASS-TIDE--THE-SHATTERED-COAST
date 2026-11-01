@@ -1,15 +1,24 @@
 BRASS TIDE v0.080 - RELIABLE TACTICAL COUNTERPLAY
-SOURCE CANDIDATE; verification and delivery are pending.
+56 focused assertions/0 failures, Windows export and title/menu verified.
 
-Boats blocked by traffic can try another existing route offer. A blocked boat
-can turn at zero throttle only when the integrated movement remains clear of
-terrain and the physical swept hull floor. Existing firing checks remain.
-Losing an automatic screen assignment no longer replaces explicit navigation
-orders with an idle hold. Hold, Move and Withdraw stay player commands.
+Blocked boats can retry another existing route. A zero-throttle turn keeps
+terrain and swept hull checks; losing a screen assignment preserves explicit
+navigation orders. A stock worker encounter completes attack, breakaway,
+renewed pass, escort interception, heavy retaliation, Hold, Move and withdrawal.
+Finite ammunition, actual assigned reloads and owner cleanup are checked.
 
-The scoped review uses existing stock boats and finite ammunition through the
-actual combat worker. A declared laboratory opening is not an earned voyage.
-Current native, rendered and complete-cycle observations belong in tests/;
-source inspection alone proves no completed encounter or performance gain.
-Earlier light-fleet latency, sound listening and whole-game quality are open.
-This version does not claim all fleet sizes, terrain or ship matchups reviewed.
+Actual300-point light42/mixed16 battles both met the planner-stall criterion.
+Light workerP9534.928ms/maxlag150.405ms still miss33.333/100ms targets.
+Mixed15.851ms/50ms meets them. RawFPS59.997850/59.998385 narrowly miss strict60;
+overall strictquality remains false. Same-cohort observations are not a
+controlled causal speedup measurement.
+
+Root reviewed12temporal samples from a12second actual exported-PCK recording.
+It includes complete autonomous cycles and order changes; full terminal
+withdrawal19.2667 is native evidence, not claimed rendered in the short clip.
+Fixed60 recording is not realtimeFPS. R2 audit failure and earlier over-budget
+30second recording are preserved; selected current receipts are in tests/.
+
+This is one declared practice encounter, not an earned voyage or all matchups.
+Hull overlap, generic shore, short wakes, small weapon detail, listening and
+overall game quality remain open.081 addresses its bounded art/wake scope.

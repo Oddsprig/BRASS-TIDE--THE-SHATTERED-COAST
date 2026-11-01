@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
 v0.080: Reliable tactical counterplay. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: tactical_goals051.gd, tactical_runtime.gd, tactical_routes.gd.
+Current changed entry points: tactical_goals051.gd, tactical_runtime.gd, tactical_routes.gd, tactical_role_plans.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

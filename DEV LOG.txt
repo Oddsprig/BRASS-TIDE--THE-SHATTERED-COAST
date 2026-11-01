@@ -1,3 +1,6 @@
+01NOV2026 - v0.080 VERIFIED SCOPED
+56/0 native assertions, Windows/menu, two actual300DP retail cases and completed counterplay cycles reviewed. Both planner stall targets met; strict light timing/quality remains open. Exact receipts in work/quality-v080; installation authority DELIVERED v0.080.json.
+
 31OCT2026 - v0.080 RELIABLE TACTICAL COUNTERPLAY CANDIDATE
 Existing sampled-route and helm behavior corrected. Native/export/worker/motion acceptance and remaining limits are recorded separately.
 

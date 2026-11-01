@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.077)
+BRASS TIDE — EQUIPMENT-INTERFACES MAP (generated; v0.080)
 
 Physical part condition and exact spare/new selection -> real refit/repair UI and96-hull drafts. NPC/company owners pay conserved coins, finite materials and workers; installed condition affects offscreen power. Canonical careers and saves are integrated; live battle is now a working integration candidate; remaining gates stay open.
 

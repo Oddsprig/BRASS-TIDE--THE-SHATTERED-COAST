@@ -1,9 +1,9 @@
-BRASS TIDE — VOYAGE-INTEGRATION072 MAP (generated; v0.077)
+BRASS TIDE — VOYAGE-INTEGRATION072 MAP (generated; v0.080)
 
 Existing earned work, physical encounter/withdrawal, paid repair and return -> useful improvement. Live course and ordinary harbor services stay distinct; detached driver poses and actual joined order observations support current measurement.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/battle_driver051.gd: 23870 bytes; extends RefCounted
+game/scripts/battle_driver051.gd: 24226 bytes; extends RefCounted
   game/scripts/battle_driver051.gd:89 advance()
   game/scripts/battle_driver051.gd:105 queue_command()
   game/scripts/battle_driver051.gd:113 take_events()
@@ -17,12 +17,13 @@ game/scripts/campaign_ui.gd: 26633 bytes; extends RefCounted
   game/scripts/campaign_ui.gd:227 expedition_support_text()
   game/scripts/campaign_ui.gd:233 expedition_yard_support()
   game/scripts/campaign_ui.gd:277 expedition_yard_text()
-game/scripts/guidance_ui.gd: 12968 bytes; extends RefCounted
+game/scripts/guidance_ui.gd: 13106 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
-  game/scripts/guidance_ui.gd:72 action_label()
-  game/scripts/guidance_ui.gd:75 action()
-  game/scripts/guidance_ui.gd:98 career_plan()
-  game/scripts/guidance_ui.gd:121 open()
+  game/scripts/guidance_ui.gd:75 action_label()
+  game/scripts/guidance_ui.gd:78 action()
+  game/scripts/guidance_ui.gd:101 career_plan()
+  game/scripts/guidance_ui.gd:124 open()
+  game/scripts/guidance_ui.gd:60 _primary_contract_action()
 game/scripts/voyage_panel070.gd: 19816 bytes; extends RefCounted
   game/scripts/voyage_panel070.gd:12 region_name()
   game/scripts/voyage_panel070.gd:19 work_berth()
@@ -37,7 +38,7 @@ game/scripts/voyage_ui.gd: 29675 bytes; extends RefCounted
   game/scripts/voyage_ui.gd:154 settle()
   game/scripts/voyage_ui.gd:158 contacts()
   game/scripts/voyage_ui.gd:179 sponsor_reason()
-game/scripts/runtime_profile043.gd: 47766 bytes; extends RefCounted
+game/scripts/runtime_profile043.gd: 48069 bytes; extends RefCounted
   game/scripts/runtime_profile043.gd:58 prepare()
   game/scripts/runtime_profile043.gd:95 options()
   game/scripts/runtime_profile043.gd:121 start()

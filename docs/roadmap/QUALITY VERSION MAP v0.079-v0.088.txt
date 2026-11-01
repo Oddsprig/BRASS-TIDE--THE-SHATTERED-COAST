@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-31 October2026 |079 DELIVERED SCOPED;080 ACTIVE;081-088 PLANNED
+31 October2026 |079 DELIVERED SCOPED;080 VERIFIED;081 STAGED;082-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -47,7 +47,7 @@ damage and orders. Record the actual before/after change and any target still
 unmet; one named correction, no endless tuning or new benchmark framework.
 Boundary: no new AI doctrines, rendering system, hulls or economic changes.
 
-0.080 - RELIABLE TACTICAL COUNTERPLAY [ACTIVE SOURCE WORK]
+0.080 - RELIABLE TACTICAL COUNTERPLAY [VERIFIED SCOPED; DELIVERY RECEIPT CONFIRMS INSTALLATION]
 Player result: light boats complete useful flanking/harassing passes and
 disengage; escorts protect a vulnerable boat; heavies answer flankers.
 Scope: diagnose the current unmet planner criterion, then correct the observed
@@ -177,7 +177,7 @@ EXECUTION AND CONSTANTS
   Windows package and one plain Desktop Brass Tide launcher. Preserve owner
   saves/music/settings, old releases, source history and version tags.
 - Plans are not implemented features. Owner31October authorized sequential implementation. Source work starts079;
-  installed078 and prior quality verdict stay until an accepted new release.
+  installed release changes only after an accepted package; current080 receipts and later scoped limits are authoritative.
 - One scope with a concrete player result at a time. Begin with the named
   demonstrated defect; stop broad speculative audits and duplicate frameworks.
   A failed core result stays open and gets an explicit bounded follow-on.

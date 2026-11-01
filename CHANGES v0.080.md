@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Verify the actual worker path, finite ammunition and a complete bounded encounter; record remaining behavior and performance limits.
 
 See docs/TEST RESULTS v0.080.md for actual focused checks and remaining limits.
+
+Verification: 56 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 60.224s. Preserved earlier failures; no broad acceptance claim.
