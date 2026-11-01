@@ -1,3 +1,6 @@
+01NOV2026 - v0.081 COMBAT ART CANDIDATE
+Spaced wake history, normal-zoom weapon contrast and reached-Hold marker corrected. Physical mounts and simulation unchanged. Current receipts pending.
+
 01NOV2026 - v0.080 VERIFIED SCOPED
 56/0 native assertions, Windows/menu, two actual300DP retail cases and completed counterplay cycles reviewed. Both planner stall targets met; strict light timing/quality remains open. Exact receipts in work/quality-v080; installation authority DELIVERED v0.080.json.
 

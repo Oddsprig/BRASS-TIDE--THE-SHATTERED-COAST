@@ -1,10 +1,11 @@
-BRASS TIDE v0.080 - RELIABLE TACTICAL COUNTERPLAY
-31 October2026 |36 boat designs
+BRASS TIDE v0.081 - COMBAT ART AT NORMAL PLAY ZOOM
+01 November2026 |36 boat designs
 
 THIS VERSION
-- Finish existing sampled route retries and safe helm responses for boats blocked by nearby traffic.
-- Retain light attack passes, breakaways, escort protection, heavy responses and authoritative player orders.
-- Verify the actual worker path, finite ammunition and a complete bounded encounter; record remaining behavior and performance limits.
+- Keep spaced wake-history anchors and an updated physical stern tip within the existing sample and primitive limits.
+- Improve existing normal-zoom machine-gun contrast while preserving fitted dimensions, aiming, recoil and muzzle origins.
+- Hide the reached Hold destination marker that obscures the deck; retain selection, status and actual orders.
+- Review light, heavy and civilian references in actual movement, fire, turning and sinking.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -12,4 +13,4 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Existing30Hz combat workers,100ms stepped decisions,36hulls,physical mounts and finite resources remain. Actual current receipts and remaining strict performance/behavior limits are in tests/. Staged Lab geometry is not an earned career.
+Existing36hulls, physical mounts, finite stores,30Hz combat workers and100ms decisions remain. Read tests/ for current actual evidence and open quality limits.

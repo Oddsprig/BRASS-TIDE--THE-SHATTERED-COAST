@@ -1,0 +1,13 @@
+BRASS TIDE v0.081 - COMBAT ART AT NORMAL PLAY ZOOM
+SOURCE CANDIDATE; actual verification pending.
+
+The existing12-point wake keeps older anchors instead of spending its history
+on twelve render frames. The live tip follows the physical stern; water stays
+cheap. Existing normal-zoom machine guns gain contrast, preserving the fitted
+mount, aiming, recoil and projectile origin. Reached Hold destination markers
+no longer cover the deck; selection and orders remain available.
+
+One light, one heavy and one civilian reference will be reviewed in normal
+movement, firing, turning and an actual sinking. This is a bounded correction,
+not a new36-boat production pass. Existing hull-overlap, terrain, performance,
+listening and whole-game quality limits remain explicit in tests/ and notes.

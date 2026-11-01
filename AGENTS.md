@@ -1,6 +1,6 @@
 # Brass Tide - current working instructions
 
-Current verified080: Reliable tactical counterplay.
+Current delivered080 (active source081): Reliable tactical counterplay.
 Tested3cd5046f3f97d3a6cc5ee4c2061754c0fd2e1766;56 focused/0;Windows/menu and reviewed actual battle render.
 Receipts work/quality-v080/ACTUAL080 CHECKS.json and DELIVERED v0.080.json.
 Root alone tests/delivery. Next081: combat art at normal play zoom. Owner079-088 sequence active; finish080 installation before081 integration.
