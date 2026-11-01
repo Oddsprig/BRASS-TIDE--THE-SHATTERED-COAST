@@ -188,7 +188,7 @@ func _run() -> void:
 	receipt.start={"coins":c.state.coins,"boat":physical_boat(c.state.fleet[0]).duplicate(true),"cargo":c.state.cargo.duplicate(true)}
 	# Root may run this declared diagnostic alone. It performs no work, purchase
 	# or grant, never sets earnedGrowth, and retains the unsuccessful exit status.
-	if OS.get_environment("FLEET083_QUOTE_PROBE")=="1":
+	if OS.get_environment("FLEET083_QUOTE_PROBE")=="1" or "--qa-quote-probe083" in OS.get_cmdline_user_args():
 		receipt.status="DECLARED_FRESH_QUOTE_PROBE"
 		var frozen: PackedByteArray=protected_state()
 		next_boat083()
