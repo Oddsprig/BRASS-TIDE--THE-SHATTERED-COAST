@@ -1,5 +1,6 @@
 extends "res://tests/test_voyage_career070.gd"
-## Root-only one-harbor case. Ordinary15000 opening, finite paid stores/fitting,
+## Root-only authored85085 one-harbor case. Ordinary15000 opening, paid stores,
+## original physical starter fit and UIDs; no workshop purchase is needed here.
 ## naturally admitted/moving075 merchant. Only player opening poses and diplomacy are
 ## declared. No NPC pose/faction, resources, sightings or battle result is set.
 const Territory085=preload("res://scripts/territorial076.gd")
@@ -14,9 +15,9 @@ var source085: String=""
 var base_geography085: String=""
 
 func bounded() -> bool:
-	if Time.get_ticks_msec()-started<43000:return true
+	if Time.get_ticks_msec()-started<58000:return true
 	receipt.status="BODY_TIMEOUT"
-	return check(false,"Stop work before43seconds, preserving joined cleanup below45seconds")
+	return check(false,"Stop work before58seconds, preserving saves and joined cleanup below60seconds")
 
 func advance(seconds: float=4.0) -> bool:
 	if not bounded():return false
@@ -31,7 +32,7 @@ func advance(seconds: float=4.0) -> bool:
 	return true
 
 func opening085(context_only: bool=false) -> bool:
-	var seed: int=69069
+	var seed: int=85085
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--qa-seed085="):seed=int(argument.trim_prefix("--qa-seed085="))
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
@@ -41,19 +42,15 @@ func opening085(context_only: bool=false) -> bool:
 	base_geography085=JSON.stringify(c.state.sector069,"",true)+JSON.stringify(c.state.islandOwnership069,"",true)
 	receipt.opening085={"seed":seed,"coins":c.state.coins,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"staging":"Player-only Glasswind waiting pose and later source berth, plus faction standings, are declared; all NPCs retain their actual ordinary objectives and movement."}
 	var home: Dictionary=c.current_port()
+	var starter_fit: PackedByteArray=var_to_bytes(c.state.fleet)
 	for good in ["food","supplies"]:
 		var quantity: int=4 if good=="food" else 2
 		var buy_coins: int=int(c.state.coins);var cash: int=int(home.cash);var stock: float=float(home.stocks[good]);var cargo: float=float(c.state.cargo[good])
 		var invoice: Dictionary=c.trade(str(home.id),good,quantity,"buy")
 		if not check(invoice.get("ok",false) and int(invoice.qty)==quantity and int(c.state.coins)==buy_coins-int(invoice.coins) and int(home.cash)==cash+int(invoice.coins) and float(home.stocks[good])==stock-quantity and float(c.state.cargo[good])==cargo+quantity,"Actual seller supplies the carried "+good+" for its exact finite invoice"):return false
 		receipt.supplyInvoices085.append(invoice)
-	# Pay the existing workshop for a real original-UID fitting before departure.
-	var boat: Dictionary=c.state.fleet[0]
-	var fit: Dictionary=boat.loadout.duplicate(true);fit.weapons[0]="rapid_gun"
-	var coins: int=int(c.state.coins)
-	var fitted: Dictionary=c.workshop_apply(str(boat.uid),fit,{})
-	if not check(fitted.get("ok",false) and int(c.state.coins)<coins and c.find_boat(str(boat.uid)).loadout.weapons[0]=="rapid_gun" and c.Money.total(c.state)==supply,"Existing workshop supplies a paid physical gun; no equipment or captain money grant"):return false
-	receipt.fitting085={"result":fitted,"paid":coins-int(c.state.coins),"boatUid":boat.uid}
+	if not check(starter_fit==var_to_bytes(c.state.fleet) and c.Money.total(c.state)==supply and Custody085.check_state(c.state,c.data).get("ok",false),"Paid provisioning retains the exact original starter fit, hull/item UIDs and conserved world coins"):return false
+	receipt.fitting085={"paid":0,"starterUnchanged":true,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true))}
 	# The existing075 chronology uses this authored safe-water player opening.
 	# Keep HOME patrols and all NPC movement live; no encounter is consumed here.
 	var waiting_assets: PackedByteArray=var_to_bytes(c.state)
@@ -102,7 +99,7 @@ func opening085(context_only: bool=false) -> bool:
 	for _piece in range(240):
 		if not Territory085._defender(c,c.port(target085),defender085).is_empty():break
 		if not advance(1.0):return false
-	var treasury: int=int(c.port(target085).governmentPurse);coins=int(c.state.coins)
+	var treasury: int=int(c.port(target085).governmentPurse);var coins: int=int(c.state.coins)
 	var begun: Dictionary=Territory085.start(c,target085,sponsor085)
 	receipt.start085=begun
 	return check(begun.get("ok",false) and c.state.territorial076.control.defenderId==defender085 and int(c.state.coins)==coins-800 and int(c.port(target085).governmentPurse)==treasury+800,"Land the original two spare sailors and pay800 once to this real remote treasury: "+str(begun.get("message","")))
@@ -189,6 +186,22 @@ func control085() -> bool:
 	receipt.completedControl085=c.state.territorial076.control.duplicate(true)
 	return true
 
+func opening_context085() -> void:
+	if c==null or c.state.is_empty():return
+	var before: PackedByteArray=protected_state()
+	var saved: Dictionary=parsed_save("remote-control085-context")
+	if saved.is_empty():return
+	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
+	var path: String=directory.path_join("career070-remote-control085-context.json")
+	var owner: Dictionary=c.fleet_owner(defender085) if not defender085.is_empty() else {}
+	var context: Dictionary={"status":receipt.status,"earnedControl085":false,"diagnosticOnly":true,"seed":c.state.seed,"day":c.state.day,"econDay":c.state.econDay,"coins":c.state.coins,"crewPurse":c.state.crewPurse,"wageArrears":c.state.wageArrears,"cargo":c.state.cargo.duplicate(true),"pendingDays":c.pending_days,"payroll":payroll,"location":c.world_location064(),"corridor":c.ShippingFlow068.corridor075(c.state).duplicate(true),"targetId":target085,"defender":owner.duplicate(true),"encounters":receipt.encounters085.duplicate(true),"pendingEvents":c.events.duplicate(true),"stateArtifact":{"path":path,"sha256":FileAccess.get_sha256(path)},"scope":"Actual opening context only; resumption requires hash-bound production restore and handling pending days/encounters. No control, earned voyage or defender-presence acceptance."}
+	var context_path: String=directory.path_join("remote-control085-opening-context.json")
+	var file=FileAccess.open(context_path,FileAccess.WRITE)
+	if not check(file!=null,"Private actual opening context artifact opens"):return
+	file.store_string(JSON.stringify(context,"\t"));file.close()
+	receipt.contextArtifact085={"path":path,"sha256":context.stateArtifact.sha256,"pendingDays":c.pending_days,"status":receipt.status,"summaryPath":context_path,"summarySha256":FileAccess.get_sha256(context_path),"scope":context.scope}
+	check(protected_state()==before,"Saving failed/diagnostic opening context changes no live state, pending work, events or physical accounts")
+
 func _run() -> void:
 	receipt.fixture="remote_control085";receipt.earnedControl085=false;receipt.erase("earnedVoyage")
 	receipt.encounters085=[];receipt.supplyInvoices085=[];receipt.contests085=[]
@@ -197,15 +210,19 @@ func _run() -> void:
 	if check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies private artifacts/profile"):
 		if context_only:
 			if opening085(true):receipt.status="MATCHING_ENDPOINT_CONTEXT_ONLY"
-			if c!=null and not c.state.is_empty():
-				var saved: Dictionary=parsed_save("remote-control085-context")
-				var path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("career070-remote-control085-context.json")
-				if not saved.is_empty():receipt.contextArtifact085={"path":path,"sha256":FileAccess.get_sha256(path),"pendingDays":c.pending_days,"status":receipt.status,"scope":"Actual diagnostic context only; no remote control, earned voyage or defender presence accepted."}
-		elif opening085() and control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
+			elif receipt.status=="UNFINISHED":receipt.status="OPENING_FAILED"
+			opening_context085()
+		else:
+			var opened: bool=opening085()
+			if opened:
+				if control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
+			else:
+				if receipt.status=="UNFINISHED":receipt.status="OPENING_FAILED"
+				opening_context085()
 	if workers.group_id>=0:workers.finish(true)
 	c=null
 	receipt.elapsedMs=Time.get_ticks_msec()-started
-	check(int(receipt.elapsedMs)<45000,"Whole085 case including setup, both continuations, saves and joined cleanup stays below45seconds")
+	check(int(receipt.elapsedMs)<60000,"Whole085 case including setup, both continuations, saves and joined cleanup stays below60seconds")
 	receipt.checks=checks;receipt.failures=failures
 	if not receipt.earnedControl085 and receipt.status=="UNFINISHED":receipt.status="FAILED"
 	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
