@@ -446,10 +446,11 @@ func remote_improvement_and_service() -> bool:
 	var begun: Dictionary = Territory.improve(c, REMOTE_PORT)
 	if not check(bool(begun.get("ok", false)), "Remote warehouse development starts: " + str(begun.get("message", ""))): return false
 	var imp: Dictionary = c.state.territorial076.improvement
+	# Compare the complete receipt in the same JSON form before and after restore.
 	check(str(imp.get("portId", "")) == REMOTE_PORT and str(imp.get("status", "")) == "active"
 		and imp.get("reservedMaterials", {}) == quote.materials
-		and imp.get("priorCompleted", {}) == home_completed_receipt
-		and Territory.view(c, HOME_PORT).get("improvement", {}) == home_completed_receipt
+		and normalized(imp.get("priorCompleted", {})) == normalized(home_completed_receipt)
+		and normalized(Territory.view(c, HOME_PORT).get("improvement", {})) == normalized(home_completed_receipt)
 		and not Home.business_view(c.state, home_business_id).is_empty(),
 		"Starting remote development reserves carried materials once and preserves the completed 076 home receipt and business")
 	for good in quote.materials:
@@ -500,9 +501,11 @@ func remote_improvement_and_service() -> bool:
 	var restored_mid: Dictionary = c.restore(saved_mid)
 	if not check(bool(restored_mid.get("ok", false)), "Campaign.restore succeeds while remote improvement is withdrawn away from berth: " + str(restored_mid.get("message", ""))): return false
 	if not check(storage_accounts(c.state) == mid_accounts, "Withdrawn save/restore retains exact port purses, people, project, stores, machinery and prior home accounts"): return false
+	note("withdrawn_restore_receipt", {"improvement":c.state.territorial076.improvement.duplicate(true),
+		"expectedPaidDays":1, "expectedReservedMaterials":quote.materials.duplicate(true)})
 	check(int(c.state.territorial076.improvement.get("paidDays", 0)) == 1
 		and c.state.territorial076.improvement.get("reservedMaterials", {}) == quote.materials
-		and c.state.territorial076.improvement.get("priorCompleted", {}) == home_completed_receipt,
+		and normalized(c.state.territorial076.improvement.get("priorCompleted", {})) == normalized(home_completed_receipt),
 		"Restored state retains exact paidDays, reservedMaterials, and priorCompleted home receipt")
 	# Return to REMOTE_PORT and resume without double-charging materials.
 	remote = c.port(REMOTE_PORT)
@@ -518,11 +521,13 @@ func remote_improvement_and_service() -> bool:
 	var final_imp: Dictionary = c.state.territorial076.improvement
 	remote_business_id = str(final_imp.get("businessId", ""))
 	var remote_biz: Dictionary = Home.business_view(c.state, remote_business_id)
+	note("remote_completion_receipt", {"improvement":final_imp.duplicate(true),
+		"remoteBusiness":remote_biz.duplicate(true), "homeBusiness":Home.business_view(c.state, home_business_id).duplicate(true)})
 	if not check(str(final_imp.get("status", "")) == "complete" and final_imp.get("crewByBoat", {}).is_empty()
 		and final_imp.get("reservedMaterials", {}).is_empty() and not remote_business_id.is_empty()
 		and remote_business_id != home_business_id and remote_biz.get("kind") == "warehouse"
 		and remote_biz.get("homePort") == REMOTE_PORT and remote_biz.get("employees", []).size() == 2
-		and final_imp.get("priorCompleted", {}) == home_completed_receipt
+		and normalized(final_imp.get("priorCompleted", {})) == normalized(home_completed_receipt)
 		and not Home.business_view(c.state, home_business_id).is_empty(),
 		"Day 2 completes the remote warehouse at " + REMOTE_PORT + " with 2 local employees while preserving the home 076 warehouse"): return false
 	var bill: Dictionary = final_imp.get("setupBill", {})
