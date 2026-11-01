@@ -210,7 +210,7 @@ func witness_shape(id: String, saved: Dictionary) -> bool:
 		var used: bool = saved.get("storyRights", {}).get("usedOffers", {}).get("chainfreight-meridian-public087", false)
 		var wrecks: Array = saved.get("wrecks", []).filter(func(w): return str(w.get("sourceId", "")).begins_with("site:unfinished_keel087:"))
 		return check(bool(chains.get("broken_meridian087", {}).get("done", false)) and bool(chains.get("unfinished_keel087", {}).get("done", false)) and used and wrecks.size() == 1 and float(wrecks[0].get("stores", {}).get("iron", -1)) == 5.0 and saved.get("wreckSeededSources", {}).has(str(wrecks[0].sourceId)), "087 selection is connected completion, later paid offer and depleted original slipway source")
-	var hulls: Dictionary = {"fishing086":"kelpnet_dory", "freight086":"fenhopper_lighter", "fuel086":"seepoil_tanker", "passenger086":"gullwing_daysailer"}
+	var hulls: Dictionary = {"fishing086":"kelpnet_dory", "freight086":"fenhopper_lighter", "fuel086":"seepoil_tanker", "passenger086":"osprey_cabin_cruiser"}
 	var fitting: String = "auxiliary_tanks" if id == "fuel086" else "cargo_rig"
 	var matched: Array = fleet.filter(func(b): return str(b.get("type", "")) == hulls[id] and str(b.get("conversion", "")) == fitting and int(b.get("crew", 0)) > 0)
 	var work_done: bool = not saved.get("civilianWork", {}).get("sites", {}).is_empty() if id == "fishing086" else not saved.get("doneVoyageJobs", []).is_empty()

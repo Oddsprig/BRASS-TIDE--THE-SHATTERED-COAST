@@ -39,6 +39,12 @@ is actual paid work/discovery/depletion, not an earned open-ocean voyage.
 No saved player-completed Escort or Privateer bounty outcome is supplied here.
 Their current guidance is covered; their earned playthroughs remain unreviewed.
 
+Integration dependency: passenger086 requires corrected086's paid Osprey hull
+osprey_cabin_cruiser with cargo_rig, completed work and retained crew. The real
+Daysailer has four spare berths; the Osprey has seven for the larger charter.
+Root must match the actual completed086 manifest/hull before088 native review.
+No completed passenger artifact or086 acceptance is claimed by this source fix.
+
 Observed075 limitation: actual085 R8's naturally funded merchant reached its
 corridor origin, then entered to_yard after a later reserve recheck reported
 "actual merchant purse cannot cover voyage and home-yard recovery reserves".
