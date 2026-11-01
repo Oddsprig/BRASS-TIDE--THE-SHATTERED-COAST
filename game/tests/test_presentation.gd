@@ -81,9 +81,11 @@ func run():
 	for track in game.music.tracks:roles[track.role]=true
 	for role in ["title","travel","harbor","contact","combat","finale","victory","loss"]:check(roles.has(role),"owner music available for "+role)
 	game.music.set_context("harbor")
+	game.music._process(2.0)
 	var variations: Dictionary={}
 	var harbor_pool: Array=game.music.tracks.filter(func(track):return track.role=="harbor")
 	for i in range(harbor_pool.size()):
+		game.music._process(2.0)
 		game.music.next_track();variations[game.music.current]=true
 	check(variations.size()==harbor_pool.size(),"music cycles every supplied harbor variation before repeating")
 	game.ui.open_menu();await process_frame;game.ui.close_modal()
