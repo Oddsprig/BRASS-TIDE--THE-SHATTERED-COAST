@@ -1,8 +1,8 @@
 extends "res://tests/test_voyage_career070.gd"
-## Root-only authored85085 one-harbor case. Ordinary15000 opening, paid stores,
-## original physical starter fit and UIDs; no workshop purchase is needed here.
-## naturally admitted/moving075 merchant. Only player opening poses and diplomacy are
-## declared. No NPC pose/faction, resources, sightings or battle result is set.
+## Root-only authored85086 advanced expedition: finite declared treasury advance,
+## real paid fittings/stores and original hull/item custody; not starter progression.
+## Merchant admission, funding, movement, encounters and battle results remain real.
+## Only player opening poses, expedition finance and diplomacy are declared.
 const Territory085=preload("res://scripts/territorial076.gd")
 const Battle085=preload("res://scripts/battle.gd")
 const Coast085=preload("res://scripts/coastal_terrain.gd")
@@ -12,7 +12,58 @@ var defender085: String=""
 var sponsor085: String=""
 var corridor085: Dictionary={}
 var source085: String=""
-var base_geography085: String=""
+var base_geography085: Dictionary={}
+
+func geography085() -> Dictionary:
+	# Decode BOTH complete books before exact same_values comparison, as083/084.
+	# Retain every field; compare exact decoded numbers without an epsilon.
+	return JSON.parse_string(JSON.stringify({"sector069":c.state.sector069,"islandOwnership069":c.state.islandOwnership069},"",true))
+
+func expedition085(home: Dictionary) -> bool:
+	var npcs: PackedByteArray=var_to_bytes(c.state.fleetOwners)
+	var original_fleet: PackedByteArray=var_to_bytes(c.state.fleet)
+	var treasury: int=int(home.governmentPurse);var coins: int=int(c.state.coins)
+	var advanced: bool=c.Money.move(home,"governmentPurse",c.state,"coins",50000,"Declared085 finite captain expedition advance; not earned starter income",c.state.moneyLog)
+	receipt.advance085={"declaredSetup":true,"earnedIncome":false,"sourcePort":home.id,"sourceAccount":"governmentPurse","amount":50000,"treasuryBefore":treasury,"treasuryAfter":home.governmentPurse,"captainBefore":coins,"captainAfter":c.state.coins,"worldCoins":c.Money.total(c.state)}
+	if not check(advanced and int(home.governmentPurse)==treasury-50000 and int(c.state.coins)==coins+50000 and c.Money.total(c.state)==supply and int(c.state.coinSupply)==supply,"Declared50000 advance transfers existing home treasury coins exactly; no minted or earned income"):return false
+	for good in ["food","supplies"]:
+		var quantity: int=4 if good=="food" else 2
+		var buy_coins: int=int(c.state.coins);var cash: int=int(home.cash);var stock: float=float(home.stocks[good]);var cargo: float=float(c.state.cargo[good])
+		var invoice: Dictionary=c.trade(str(home.id),good,quantity,"buy")
+		receipt.supplyInvoices085.append(invoice)
+		if not check(invoice.get("ok",false) and int(invoice.qty)==quantity and int(c.state.coins)==buy_coins-int(invoice.coins) and int(home.cash)==cash+int(invoice.coins) and float(home.stocks[good])==stock-quantity and float(c.state.cargo[good])==cargo+quantity,"Actual seller supplies the carried "+good+" for its exact finite invoice"):return false
+	if not check(original_fleet==var_to_bytes(c.state.fleet),"Treasury advance and carried provisions change no original hull, item or working store"):return false
+	var boat: Dictionary=c.state.fleet[0]
+	var original: Dictionary=boat.duplicate(true)
+	var fit: Dictionary=boat.loadout.duplicate(true)
+	fit.weapons=["rapid_gun","rapid_gun"];fit.armor="scout_plating"
+	var quote: Dictionary=c.workshop_preview(str(boat.uid),fit)
+	receipt.fitting085={"declaredSetup":true,"boatUid":boat.uid,"before":physical_boat(original).duplicate(true),"originalItems":original.moduleCondition.items.duplicate(true),"requested":fit,"quote":quote.duplicate(true)}
+	if not check(quote.get("ok",false) and quote.usedPoints==8 and quote.usedPoints<=quote.maxPoints and int(quote.cost)>0,"Existing workshop quotes both compatible rapid guns and light plating within the original hull's fitting budget: "+str(quote.get("message",""))):return false
+	var before_yard: Dictionary=home.duplicate(true);coins=int(c.state.coins)
+	var fitted: Dictionary=c.workshop_apply(str(boat.uid),fit,quote)
+	receipt.fitting085.merge({"result":fitted,"paid":coins-int(c.state.coins),"after":physical_boat(boat).duplicate(true),"itemsAfter":boat.moduleCondition.items.duplicate(true)})
+	if not check(fitted.get("ok",false) and fitted.get("changed",false) and same_values(boat.loadout,fit) and int(c.state.coins)==coins-int(quote.cost),"Reviewed production fitting buys its exact bill and publishes the requested physical equipment"):return false
+	for payment in [["cash","businessIncome"],["householdPurse","workerWages"],["expertPurse","expertWages"],["governmentPurse","tax"]]:
+		if not check(int(home[payment[0]])==int(before_yard[payment[0]])+int(quote[payment[1]]),"Exact fitting payment reaches the existing "+str(payment[0])):return false
+	for good in quote.materials:
+		if not check(float(home.stocks[good])==float(before_yard.stocks[good])-float(quote.materials[good]),"Paid fitting consumes its quoted physical "+str(good)):return false
+	for uid in original.moduleCondition.items:
+		var item: Dictionary=boat.moduleCondition.items.get(uid,{}).duplicate(true)
+		var expected: Dictionary=original.moduleCondition.items[uid].duplicate(true)
+		for key in ["location","lockerOrder"]:item.erase(key);expected.erase(key)
+		if not check(same_values(item,expected),"Original item UID and exact condition remain aboard or in its locker: "+str(uid)):return false
+	for key in ["uid","type","crew","wounded","hp","maxHp","fuel","ammo","supplies","engine"]:
+		if not check(same_values(boat.get(key),original.get(key)),"Paid fitting does not grant or reset the original "+key):return false
+	# Two real guns increase the magazine to160. Buy the missing80 rounds normally.
+	var ammo: float=float(boat.ammo);var target: float=float(boat.spec.ammoCapacity)
+	var cases: float=(target-ammo)/c.Goods.ROUNDS_PER_CASE
+	var ammo_cost: int=ceili(cases*c.Economy.price(home,"ammo")-0.000001)
+	var ammo_stock: float=float(home.stocks.ammo);var ammo_cash: int=int(home.cash);coins=int(c.state.coins)
+	var supplied: Dictionary=c.resupply_boat(str(boat.uid),"full")
+	receipt.workingStores085={"result":supplied,"profile":"full","ammoBefore":ammo,"ammoAfter":boat.ammo,"cases":cases,"stockBefore":ammo_stock,"stockAfter":home.stocks.ammo,"paid":coins-int(c.state.coins),"cashBefore":ammo_cash,"cashAfter":home.cash,"fuel":boat.fuel,"supplies":boat.supplies}
+	if not check(supplied.get("ok",false) and float(boat.ammo)==target and int(c.state.coins)==coins-ammo_cost and int(home.cash)==ammo_cash+ammo_cost and float(home.stocks.ammo)==ammo_stock-cases and boat.fuel==original.fuel and boat.supplies==original.supplies,"Normal full resupply buys the exact missing ammunition from real harbor stock without granting fuel or kits"):return false
+	return check(npcs==var_to_bytes(c.state.fleetOwners) and c.Money.total(c.state)==supply and int(c.state.coinSupply)==supply and Custody085.check_state(c.state,c.data).get("ok",false),"Declared expedition purchases retain every NPC, original hull/item custody and conserved world coins")
 
 func bounded() -> bool:
 	if Time.get_ticks_msec()-started<58000:return true
@@ -32,25 +83,17 @@ func advance(seconds: float=4.0) -> bool:
 	return true
 
 func opening085(context_only: bool=false) -> bool:
-	var seed: int=85085
+	var seed: int=85086
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--qa-seed085="):seed=int(argument.trim_prefix("--qa-seed085="))
 	var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	c=Campaign.new(world)
 	if not check(c.new_game(seed).get("ok",false),"One ordinary seeded career opens"):return false
 	supply=int(c.state.coinSupply)
-	base_geography085=JSON.stringify(c.state.sector069,"",true)+JSON.stringify(c.state.islandOwnership069,"",true)
-	receipt.opening085={"seed":seed,"coins":c.state.coins,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"staging":"Player-only Glasswind waiting pose and later source berth, plus faction standings, are declared; all NPCs retain their actual ordinary objectives and movement."}
+	base_geography085=geography085()
+	receipt.opening085={"seed":seed,"coins":c.state.coins,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"earnedStarterProgression":false,"staging":"Fixed85086 advanced expedition: finite declared50000 home treasury advance, paid fitting/stores, player-only Glasswind waiting pose and later source berth, plus faction standings; all NPCs retain actual objectives, purses, fittings and movement."}
 	var home: Dictionary=c.current_port()
-	var starter_fit: PackedByteArray=var_to_bytes(c.state.fleet)
-	for good in ["food","supplies"]:
-		var quantity: int=4 if good=="food" else 2
-		var buy_coins: int=int(c.state.coins);var cash: int=int(home.cash);var stock: float=float(home.stocks[good]);var cargo: float=float(c.state.cargo[good])
-		var invoice: Dictionary=c.trade(str(home.id),good,quantity,"buy")
-		if not check(invoice.get("ok",false) and int(invoice.qty)==quantity and int(c.state.coins)==buy_coins-int(invoice.coins) and int(home.cash)==cash+int(invoice.coins) and float(home.stocks[good])==stock-quantity and float(c.state.cargo[good])==cargo+quantity,"Actual seller supplies the carried "+good+" for its exact finite invoice"):return false
-		receipt.supplyInvoices085.append(invoice)
-	if not check(starter_fit==var_to_bytes(c.state.fleet) and c.Money.total(c.state)==supply and Custody085.check_state(c.state,c.data).get("ok",false),"Paid provisioning retains the exact original starter fit, hull/item UIDs and conserved world coins"):return false
-	receipt.fitting085={"paid":0,"starterUnchanged":true,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true))}
+	if not expedition085(home):return false
 	# The existing075 chronology uses this authored safe-water player opening.
 	# Keep HOME patrols and all NPC movement live; no encounter is consumed here.
 	var waiting_assets: PackedByteArray=var_to_bytes(c.state)
@@ -117,7 +160,7 @@ func contest085(retreat: bool) -> bool:
 	context.ownerUids066=enemy.map(func(b):return str(b.uid))
 	var geography: Dictionary={"ISLANDS":c.world_view064().get("islands",[])}
 	var options: Dictionary=Coast085.arena(geography,c.state.position)
-	options.merge({"fleet":c.FleetSupport.combat(c),"enemyFleet":enemy,"seed":85085},true)
+	options.merge({"fleet":c.FleetSupport.combat(c),"enemyFleet":enemy,"seed":int(c.state.seed)},true)
 	var battle: Dictionary=Battle085.create(options)
 	battle.world064=c.state.world064.duplicate(true);battle.chartPosition=c.state.position.duplicate(true)
 	if not check(str(battle.get("startError","")).is_empty(),"Actual remote island arena admits original physical combatants"):Battle085._close_damage_owned051(battle);return false
@@ -135,7 +178,10 @@ func contest085(retreat: bool) -> bool:
 
 func control085() -> bool:
 	var active: Dictionary=parsed_save("remote-control085-active")
-	if active.is_empty() or not restore_exact(active,"remote-control085-active"):return false
+	if active.is_empty():return false
+	var active_path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("career070-remote-control085-active.json")
+	receipt.activeArtifact085={"path":active_path,"sha256":FileAccess.get_sha256(active_path),"pendingDays":c.pending_days,"scope":"Actual paid active prefix; no reconstructed preparation or outcome."}
+	if not restore_exact(active,"remote-control085-active"):return false
 	# One invalid copy of the actual paid prefix: swapping corridor ends must
 	# not manufacture another admitted route or alter either physical account.
 	var false_route: Dictionary=active.duplicate(true)
@@ -182,11 +228,11 @@ func control085() -> bool:
 		if faction!=neighbor.faction:neighbor.faction=faction;break
 	var bad_input: PackedByteArray=var_to_bytes(bad);unchanged=protected_state()
 	if not check(not c.restore(bad).get("ok",false) and protected_state()==unchanged and var_to_bytes(bad)==bad_input,"One unexplained neighboring governor refuses before live or input publication"):return false
-	if not check(base_geography085==JSON.stringify(c.state.sector069,"",true)+JSON.stringify(c.state.islandOwnership069,"",true) and c.Money.total(c.state)==supply and Custody085.check_state(c.state,c.data).get("ok",false),"Seeded groups/island ownership, finite coins and unique original hull/item/wreck custody remain intact"):return false
+	if not check(same_values(base_geography085,geography085()) and c.Money.total(c.state)==supply and Custody085.check_state(c.state,c.data).get("ok",false),"Complete decoded seeded groups/island ownership, finite coins and unique original hull/item/wreck custody remain exact"):return false
 	receipt.completedControl085=c.state.territorial076.control.duplicate(true)
 	return true
 
-func opening_context085() -> void:
+func opening_context085(stage: String="opening") -> void:
 	if c==null or c.state.is_empty():return
 	var before: PackedByteArray=protected_state()
 	var saved: Dictionary=parsed_save("remote-control085-context")
@@ -194,13 +240,13 @@ func opening_context085() -> void:
 	var directory: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	var path: String=directory.path_join("career070-remote-control085-context.json")
 	var owner: Dictionary=c.fleet_owner(defender085) if not defender085.is_empty() else {}
-	var context: Dictionary={"status":receipt.status,"earnedControl085":false,"diagnosticOnly":true,"seed":c.state.seed,"day":c.state.day,"econDay":c.state.econDay,"coins":c.state.coins,"crewPurse":c.state.crewPurse,"wageArrears":c.state.wageArrears,"cargo":c.state.cargo.duplicate(true),"pendingDays":c.pending_days,"payroll":payroll,"location":c.world_location064(),"corridor":c.ShippingFlow068.corridor075(c.state).duplicate(true),"targetId":target085,"defender":owner.duplicate(true),"encounters":receipt.encounters085.duplicate(true),"pendingEvents":c.events.duplicate(true),"stateArtifact":{"path":path,"sha256":FileAccess.get_sha256(path)},"scope":"Actual opening context only; resumption requires hash-bound production restore and handling pending days/encounters. No control, earned voyage or defender-presence acceptance."}
+	var context: Dictionary={"status":receipt.status,"stage":stage,"earnedControl085":false,"diagnosticOnly":true,"seed":c.state.seed,"day":c.state.day,"econDay":c.state.econDay,"coins":c.state.coins,"crewPurse":c.state.crewPurse,"wageArrears":c.state.wageArrears,"cargo":c.state.cargo.duplicate(true),"pendingDays":c.pending_days,"payroll":payroll,"location":c.world_location064(),"corridor":c.ShippingFlow068.corridor075(c.state).duplicate(true),"targetId":target085,"sourceId":source085,"sponsor":sponsor085,"control":c.state.get("territorial076",{}).get("control",{}).duplicate(true),"defender":owner.duplicate(true),"encounters":receipt.encounters085.duplicate(true),"pendingEvents":c.events.duplicate(true),"stateArtifact":{"path":path,"sha256":FileAccess.get_sha256(path)},"scope":"Actual current opening/control failure context, not reconstructed progress; resumption requires hash-bound production restore and handling pending days/encounters. Operation state is recorded without acceptance."}
 	var context_path: String=directory.path_join("remote-control085-opening-context.json")
 	var file=FileAccess.open(context_path,FileAccess.WRITE)
-	if not check(file!=null,"Private actual opening context artifact opens"):return
+	if not check(file!=null,"Private actual "+stage+" context artifact opens"):return
 	file.store_string(JSON.stringify(context,"\t"));file.close()
-	receipt.contextArtifact085={"path":path,"sha256":context.stateArtifact.sha256,"pendingDays":c.pending_days,"status":receipt.status,"summaryPath":context_path,"summarySha256":FileAccess.get_sha256(context_path),"scope":context.scope}
-	check(protected_state()==before,"Saving failed/diagnostic opening context changes no live state, pending work, events or physical accounts")
+	receipt.contextArtifact085={"path":path,"sha256":context.stateArtifact.sha256,"pendingDays":c.pending_days,"status":receipt.status,"stage":stage,"summaryPath":context_path,"summarySha256":FileAccess.get_sha256(context_path),"scope":context.scope}
+	check(protected_state()==before,"Saving actual failed/diagnostic context changes no live state, pending work, events or physical accounts")
 
 func _run() -> void:
 	receipt.fixture="remote_control085";receipt.earnedControl085=false;receipt.erase("earnedVoyage")
@@ -216,6 +262,9 @@ func _run() -> void:
 			var opened: bool=opening085()
 			if opened:
 				if control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
+				else:
+					if receipt.status=="UNFINISHED":receipt.status="CONTROL_FAILED"
+					opening_context085("control")
 			else:
 				if receipt.status=="UNFINISHED":receipt.status="OPENING_FAILED"
 				opening_context085()
