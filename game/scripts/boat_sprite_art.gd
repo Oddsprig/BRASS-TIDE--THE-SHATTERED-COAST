@@ -183,10 +183,10 @@ static func _draw_cell(ctx: Dictionary, info: Dictionary, origin: Vector2, scale
 	if not _cell_ready(info): return false
 	return _draw_ready_cell(ctx, info, _texture(str(info.path)), origin, scale)
 
-static func _draw_ready_cell(ctx: Dictionary, info: Dictionary, texture: Texture2D, origin: Vector2, scale: float) -> bool:
+static func _draw_ready_cell(ctx: Dictionary, info: Dictionary, texture: Texture2D, origin: Vector2, scale: float, tint: Color = Color.WHITE) -> bool:
 	var source: Rect2 = info.source
 	var factor: float = scale / float(info.density)
-	ctx.canvas.draw_texture_rect_region(texture, Rect2(origin - Vector2(info.pivot) * factor, source.size * factor), source, Color.WHITE, false, true)
+	ctx.canvas.draw_texture_rect_region(texture, Rect2(origin - Vector2(info.pivot) * factor, source.size * factor), source, tint, false, true)
 	ctx.n += 1
 	ctx.nsprite = int(ctx.get("nsprite", 0)) + 1
 	return true
@@ -289,7 +289,11 @@ static func _draw_weapon051(ctx: Dictionary, mount: Dictionary, bearing: float, 
 		# Offset is expressed in the baked frame before the residual transform.
 		var xy: Vector2 = Vector2.from_angle(float(base_info.angle)) * recoil * unit
 		var shift: Vector2 = Vector2((xy.x - xy.y) * 0.82, (xy.x + xy.y) * 0.41) * scale
-		_draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit)
+		# At play zoom the receiver/barrel can merge into the hull's deck value.
+		# Lift that existing layer only; keep atlas bounds, alpha, pivot, physical
+		# size and recoil exactly shared with the fitted weapon and muzzle.
+		var tint: Color = Color(1.18, 1.18, 1.18, 1.0) if kind == "gun" and int(ctx.lod) == 1 else Color.WHITE
+		_draw_ready_cell(ctx, moving_info, moving_info.texture, shift, scale * unit, tint)
 	ctx.canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 	return drew
 

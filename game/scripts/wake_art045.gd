@@ -5,6 +5,8 @@ extends RefCounted
 ## Legacy d (bow heading) is deliberately ignored: the actual path owns the bend.
 const LIFE_SEC: float = 0.7
 const MAX_SAMPLES: int = 12
+# Ten history intervals plus a live stern tip use the existing lifetime/budget.
+const SAMPLE_INTERVAL: float = LIFE_SEC / float(MAX_SAMPLES - 2)
 const MAX_INPUT_SAMPLES: int = 26
 const MAX_PRIMITIVES: int = 3
 const MAX_LENGTH: float = 96.0

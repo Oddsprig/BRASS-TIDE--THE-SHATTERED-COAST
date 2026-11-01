@@ -37,9 +37,9 @@ static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palet
 		"torpedo":_torpedo(model,tier,palette)
 
 static func _machine_gun(m: Dictionary, mount: Dictionary, tier: int, recoil: float, c: Dictionary) -> void:
-	var steel := Color("52656b")
+	var steel := Color("647a82")
 	var dark := Color("1e2c31")
-	var edge := Color("a3b4ae")
+	var edge := Color("cad8d2")
 	var twin: bool = "twin" in str(mount.get("moduleId","")) or tier>1
 	_box(m,Vector3(-1.3,-1.05,2.2),Vector3(0.7,1.05,4.0),c.top)
 	# Separate receiver channels and jacketed barrels on the same real mount.
@@ -49,6 +49,7 @@ static func _machine_gun(m: Dictionary, mount: Dictionary, tier: int, recoil: fl
 		if int(m.lod)==0:
 			for x in [3.2,4.6,6.0]:
 				_line(m,Vector3(x,y-0.30,5.08),Vector3(x+0.45,y-0.30,5.08),dark,0.85)
+		if int(m.lod)<2:
 			_line(m,Vector3(-2.1,y,5.4),Vector3(1.2,y,5.4),edge,0.8)
 	_box(m,Vector3(-2.8,-1.8,3.2),Vector3(-0.2,-0.95,5.0),Color("7c7852"))
 	_box(m,Vector3(-2.1,0.95,3.5),Vector3(-0.6,1.6,4.5),dark)

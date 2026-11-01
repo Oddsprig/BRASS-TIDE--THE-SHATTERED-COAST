@@ -433,7 +433,14 @@ func _update_wakes(boats: Array):
 			# strip behind the drive. No heading extension or stationary emission.
 			var speed_mix: float = smoothstep(0.5, 60.0, velocity.length())
 			var width: float = minf(WakeArt.MAX_WIDTH, bsize * lerpf(0.20, 0.48, speed_mix))
-			samples.append({"p": stern, "c": center, "d": direction, "t": clock, "w": width})
+			# Preserve the live transom, but do not spend all twelve samples on
+			# twelve render frames. A tip keeps its original interval start while
+			# moving; older anchors then cover the actual foam lifetime at any FPS.
+			var tip_started: float = float(samples[-1].get("started", samples[-1].t)) if not samples.is_empty() else clock
+			var replace_tip: bool = samples.size() > 1 and clock - tip_started < WakeArt.SAMPLE_INTERVAL
+			var sample: Dictionary = {"p": stern, "c": center, "d": direction, "t": clock, "w": width, "started": tip_started if replace_tip else clock}
+			if replace_tip:samples[-1] = sample
+			else:samples.append(sample)
 			while samples.size() > mini(WAKE_MAX_PER_BOAT, WakeArt.MAX_SAMPLES):
 				samples.pop_front()
 			_wakes[key] = samples
@@ -548,6 +555,10 @@ func _draw_order_indicator(battle: Dictionary, boat: Dictionary, show_route: boo
 				target = Vector2(other.x, other.y)
 				break
 	if target == Vector2.INF:
+		return
+	# A reached Hold is already shown by selection and the order/status panel.
+	# Its destination cross otherwise lies over the gun and deck on light hulls.
+	if order == "hold" and Vector2(boat.x, boat.y).distance_to(target) < 14.0:
 		return
 	var color = ENEMY if order == "attack" else FRIEND if order == "escort" else GOLD
 	# Destination marks are orders, never an invented straight navigable path.

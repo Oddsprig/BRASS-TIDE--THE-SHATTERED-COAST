@@ -410,7 +410,8 @@ func chart_cases(spec: Dictionary) -> void:
 		boat.x += 4.0
 		update_read_only(chart, [boat])
 	var emitted: Array = chart._wakes[boat.uid]
-	check(emitted.size() == Wake.MAX_SAMPLES, "a continuously moving producer discards excess observations at the hard sample cap")
+	check(emitted.size() >= 3 and emitted.size() <= Wake.MAX_SAMPLES, "a continuously moving producer keeps a bounded history and live tip")
+	check(float(emitted.back().t) - float(emitted.front().t) >= Wake.LIFE_SEC * 0.6, "fast rendered movement retains the foam lifetime instead of only the last twelve frames")
 	check(emitted.back().p == Art.stern_of(boat), "live producer uses the physical transom and drive anchor")
 	check(Vector2(emitted.back().d).dot(Vector2.RIGHT) > 0.999, "live direction follows actual travel")
 	var last_stamp: float = emitted.back().t
