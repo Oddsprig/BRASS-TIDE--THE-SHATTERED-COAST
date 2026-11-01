@@ -67,7 +67,7 @@ static func spare_crew(state: Dictionary) -> int:
 
 ## Saved remote hands must still be able members of their original working boat.
 ## This never ensures/migrates and therefore cannot repair a refused save.
-static func party_error(state: Dictionary) -> String:
+static func party_error(state: Dictionary,world: Dictionary={}) -> String:
 	var ex=state.get("exploration",{})
 	if not ex is Dictionary or not ex.get("assignment",{}) is Dictionary:return "Invalid regional shore assignment."
 	var assignment: Dictionary=ex.get("assignment",{})
@@ -88,6 +88,7 @@ static func party_error(state: Dictionary) -> String:
 	if assignment.is_empty():
 		# Legacy066 may carry unused HOME ration credit after a completed party.
 		# It remains the same finite food account, even on a later remote voyage.
+		if reserved>0 and territorial_party084(state,world):return ""
 		return "Regional shore sailors have no assignment." if reserved>0 else ""
 	if not local(state) or not assignment.has("world064") or not same_world(state,assignment):return "Regional shore party does not match the current local chart."
 	if canonical_site(state,str(assignment.get("siteId",""))).is_empty():return "Regional shore party needs a canonical landing."
@@ -111,8 +112,49 @@ static func party_error(state: Dictionary) -> String:
 	if absf(float(assignment.foodSpent)-prepaid)>0.0000001:return "Regional survey ration commitment does not reconcile."
 	return ""
 
-static func validate_saved(state: Dictionary) -> String:
-	var party: String=party_error(state)
+## Full save preflight validates canonical Sector069 geometry/accounts first.
+## Only an unfinished, validated warehouse party at its exact berth can explain
+## these sailors. The original survey/health gates above remain authoritative.
+static func territorial_party084(state: Dictionary,world: Dictionary) -> bool:
+	if world.is_empty() or not state.get("territorial076") is Dictionary:return false
+	var book: Dictionary=state.territorial076
+	if not book.get("improvement") is Dictionary:return false
+	var job: Dictionary=book.improvement
+	if job.get("status") not in ["active","interrupted"]:return false
+	if not state.get("exploration") is Dictionary or not state.exploration.get("assignment",{}) is Dictionary:return false
+	if not state.get("toolingRecovery",{}) is Dictionary:return false
+	if not state.get("exploration",{}).get("assignment",{}).is_empty() or not state.get("toolingRecovery",{}).is_empty():return false
+	if not state.get("fleet") is Array or not state.get("tooling") is Dictionary or not state.tooling.get("items") is Array or not state.tooling.get("extracted") is Dictionary:return false
+	for boat in state.fleet:
+		if not boat is Dictionary:return false
+	for item in state.tooling.items:
+		if not item is Dictionary:return false
+	# Load the existing book authority here without introducing a preload cycle.
+	var territory: Script=load("res://scripts/territorial076.gd")
+	if not territory.validate(state,world).is_empty():return false
+	var id: String=str(job.get("portId",""))
+	if not territory._generated_improve_port(state,id):return false
+	var port: Dictionary=territory._port(state,id)
+	var location: Dictionary=identity(state)
+	if location.get("layer")!="local" or location.get("regionId")!=port.get("regionId"):return false
+	if not state.get("path") is Array or not state.path.is_empty() or not state.get("position") is Dictionary:return false
+	if not number(state.position.get("x")) or not number(state.position.get("y")):return false
+	if Vector2(float(state.position.x)-float(port.x),float(state.position.y)-float(port.y)).length()>=40.0:return false
+	if not book.control.get("crewByBoat",{}).is_empty():return false
+	var assigned: int=0
+	var seen: Dictionary={}
+	for boat in state.fleet:
+		var uid: String=str(boat.get("uid",""))
+		if seen.has(uid) or not number(boat.get("shoreCrew",0)):return false
+		seen[uid]=true
+		if boat.get("shoreCrew",0)!=job.crewByBoat.get(uid,0):return false
+		assigned+=int(boat.get("shoreCrew",0))
+	if assigned!=territory.WORKERS or not territory._crew_ok(state,job):return false
+	var machine: Dictionary=territory._machine({"state":state,"data":world},str(job.machineryId))
+	return not machine.is_empty() and float(machine.condition)+0.000001>=maxi(0,territory.WORK_DAYS-int(job.paidDays))*0.01
+
+static func validate_saved(state: Dictionary,world: Dictionary={}) -> String:
+	var party: String=party_error(state,world)
 	if not party.is_empty():return party
 	return Salvage.validate_expedition067(state)
 

@@ -12,6 +12,7 @@ const RegionalUI = preload("res://scripts/regional_ui.gd")
 const Tools = preload("res://scripts/tooling_ops.gd")
 const Workers = preload("res://scripts/economy_workers.gd")
 const Politics = preload("res://scripts/politics.gd")
+const Remote = preload("res://scripts/remote_expedition067.gd")
 const BODY_LIMIT_MS: int = 15000
 const SELF_STOP_MS: int = 14000
 const EFFICIENCY_GOAL_MS: int = 10000
@@ -399,6 +400,30 @@ func remote_improvement_and_service() -> bool:
 	# Complete paid day 1, then withdraw, depart, save/restore, return, and resume.
 	if not wait_for_paid("improvement", "paidDays", 1): return false
 	check(is_equal_approx(float(machinery().condition), cond_before - 0.01), "Paid day 1 wears carried machine_tools by 0.01")
+	var active_saved: Dictionary = JSON.parse_string(JSON.stringify(c.state))
+	if not check(Remote.party_error(active_saved, c.data).is_empty(), "Actual active 084 book explains the exact healthy reserved sailors at its canonical remote berth"): return false
+	for corruption in ["uid", "extra_sailor", "berth", "machine", "date", "survey"]:
+		var bad: Dictionary = active_saved.duplicate(true)
+		match corruption:
+			"uid": bad.territorial076.improvement.crewByBoat = {"forged084":2}
+			"extra_sailor": bad.fleet[0].shoreCrew = int(bad.fleet[0].shoreCrew) + 1
+			"berth": bad.position = {"x":float(sibling.x), "y":float(sibling.y)}
+			"machine": bad.territorial076.improvement.machineryId = "missing084"
+			"date": bad.territorial076.improvement.lastPaidDay = int(bad.econDay) + 1
+			"survey": bad.exploration.assignment = {"siteId":"forged084", "world064":bad.world064.duplicate(true)}
+		if not check(not Remote.party_error(bad, c.data).is_empty(), "084 exception rejects corrupt " + str(corruption) + " without waiving survey/book/berth constraints"): return false
+		if corruption == "berth":
+			var protected: PackedByteArray = var_to_bytes([c.state, c.events, c.pending_days])
+			var refused: Dictionary = c.restore(bad)
+			if not check(not bool(refused.get("ok", true)) and var_to_bytes([c.state, c.events, c.pending_days]) == protected,
+				"Full restore refuses forged " + str(corruption) + " atomically"): return false
+	var active_accounts: String = storage_accounts(active_saved)
+	var restored_active: Dictionary = c.restore(active_saved)
+	if not check(bool(restored_active.get("ok", false)) and storage_accounts(c.state) == active_accounts,
+		"Full active-work restore retains exact project/assigned UIDs, paid day, machinery, cargo, purses and prior home completion: " + str(restored_active.get("message", ""))): return false
+	var interrupted: Dictionary = active_saved.duplicate(true)
+	interrupted.territorial076.improvement.status = "interrupted"
+	if not check(Remote.party_error(interrupted, c.data).is_empty(), "An interrupted original healthy warehouse party remains accounted at the same berth"): return false
 	var withdrawn_res: Dictionary = Territory.withdraw(c)
 	if not check(bool(withdrawn_res.get("ok", false)) and str(c.state.territorial076.improvement.get("status", "")) == "withdrawn"
 		and c.state.territorial076.improvement.get("crewByBoat", {}).is_empty()

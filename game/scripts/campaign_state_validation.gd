@@ -76,7 +76,7 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 	var shipping_error: String=Shipping068.raw_error(s)
 	if not shipping_error.is_empty():return shipping_error
 	var regional_error: String=Exploration067.validate_remote067(s)
-	if regional_error.is_empty():regional_error=Remote067.validate_saved(s)
+	if regional_error.is_empty():regional_error=Remote067.validate_saved(s,world)
 	if not regional_error.is_empty():return regional_error
 	# B's raw optional paid-work-day gate must precede any legacy normalization.
 	var home_error: String=Home.validate(s)

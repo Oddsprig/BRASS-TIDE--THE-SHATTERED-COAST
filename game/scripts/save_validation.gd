@@ -235,7 +235,7 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 	var jobs070: String=job_error070(saved,world)
 	if not jobs070.is_empty():return {"ok":false,"message":jobs070,"state":saved}
 	var regional_error: String=Exploration067.validate_remote067(saved)
-	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved)
+	if regional_error.is_empty():regional_error=Remote067.validate_saved(saved,world)
 	if not regional_error.is_empty():return {"ok":false,"message":regional_error,"state":saved}
 	if saved.has("sector069") or saved.has("ocean066") or saved.has("shipping068") or saved.has("world064"):
 		if atlas069.is_empty():
@@ -293,8 +293,9 @@ static func validate(saved: Dictionary,world: Dictionary,context064: Dictionary=
 			if not saved.get("toolingRecovery",{}).is_empty() or not saved.get("civilianWork",{}).get("fishing",[]).is_empty():return {"ok":false,"message":"A non-home save cannot retain deployed home machinery parties or fishing gear.","state":saved}
 			var regional_party: Dictionary=saved.get("exploration",{}).get("assignment",{})
 			if not regional_party.is_empty() and (not Remote067.local(saved) or not Remote067.party_error(saved).is_empty()):return {"ok":false,"message":"A non-home shore party must match its canonical stopped landing and actual reserved sailors.","state":saved}
+			var warehouse_party: bool=regional_party.is_empty() and Remote067.territorial_party084(saved,world)
 			for boat in saved.get("fleet",[]):
-				if int(boat.get("shoreCrew",0))>0 and regional_party.is_empty():return {"ok":false,"message":"A non-home save cannot retain unassigned shore sailors.","state":saved}
+				if int(boat.get("shoreCrew",0))>0 and regional_party.is_empty() and not warehouse_party:return {"ok":false,"message":"A non-home save cannot retain unassigned shore sailors.","state":saved}
 			for job in saved.get("voyageJobs",[]):
 				if job.get("kind","")=="passenger_charter" and int(job.get("passengers",{}).get("n",0))>0:return {"ok":false,"message":"Charter passengers must remain in home coastal waters.","state":saved}
 			for job in saved.get("regionalCrises",{}).get("jobs",[]):

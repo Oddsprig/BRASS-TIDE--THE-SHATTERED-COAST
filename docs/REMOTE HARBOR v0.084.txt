@@ -11,14 +11,14 @@ material credit.
 
 Authoritative Docking and Local Permission
 ------------------------------------------
-1. Presence Gate (`Territorial076._dev_eligible` and `Territorial076._dev_present`):
+1. Presence Gate (`Territorial076._improve_supported` and `Territorial076._improve_near`):
    - An eligible remote harbor must be a registered `sector069.harbors` port with a live
      `state.ports` account, an explicit non-home `regionId` (`!= "shatter_coast"`), and a
      valid faction owner (`compact`, `forge`, `reed`, or `raiders`).
    - Remote development presence requires an empty fleet path, `world064.layer == "local"`,
      `world064.regionId == port.regionId`, `Campaign.work_port070()` (via
      `ShippingFlow068.remote_gate`) resolving that exact harbor ID, and physical berth
-     distance below `REACH` (`65.0`).
+     distance below the existing remote service limit (`40.0` water units).
    - Calling from the `open_ocean` layer, from another region (`shatter_coast`), while
      moving on a plotted local course, or while moored at a sibling harbor in the same
      island group (`settled_01_harbor_02` in `settled_01`) is refused.
@@ -39,8 +39,10 @@ Finite Setup Bills, Coexistence, and Usable Service
      carried `machine_tools` (`0.01` wear per paid day), carried construction materials
      (`4` timber, `3` logs, `1` iron), `0.5` repair kits per paid day, and fully paid
      ordinary fleet payroll and rations across two distinct economic days.
-   - Departing or withdrawing releases the shore crew and retains accrued `paidDays` and
-     `reservedMaterials` without recreating or double-charging materials upon return.
+   - Withdraw the shore party before sailing. Withdrawal releases the original sailors and
+     retains accrued `paidDays` and `reservedMaterials` without recreating or double-charging
+     materials upon return. An active or interrupted reserved party can reload only at its
+     exact generated work berth, with its validated book, original healthy crew and machinery.
    - On Day 2 completion, `Territorial076.daily` supplies the reserved materials to
      `Home.quote` / `Home.establish`, records `grossCost`, `materialCredit`, and `netCost`,
      and credits `materialCost` once from the harbor's `cash` purse. Direct calls to
@@ -58,7 +60,8 @@ Finite Setup Bills, Coexistence, and Usable Service
      laborers daily through `Home.tick` even while the player is away.
    - When docked back at that specific generated harbor with legal service access, the
      player can deposit and withdraw cargo (`Home.transfer_goods`), manage working capital
-     (`Home.capital`), and adjust labor policy (`Home.set_labor_policy`).
+     (`Home.capital`). Existing labor-policy and negotiation controls remain home-only;
+     ordinary remote warehouse payroll continues while the player is away.
 
 Explicit Boundaries (Deferred to v0.085+)
 -----------------------------------------
@@ -66,4 +69,5 @@ Explicit Boundaries (Deferred to v0.085+)
   Shatter Coast home-only (`_home` and `_near`) until v0.085. Completing a warehouse
   development never alters any harbor's or island group's faction ownership.
 - Salvage yard and workshop charters remain Shatter Coast home-only.
+- Boat storage berths, refit and salvage services are not unlocked at generated harbors.
 - No generated sector reroll or visited asset endowments are introduced.
