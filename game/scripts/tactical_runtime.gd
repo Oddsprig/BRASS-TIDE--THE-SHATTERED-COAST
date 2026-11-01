@@ -1518,6 +1518,24 @@ static func _observe_retained051(st: Dictionary,id: String,frame_cache=null,curr
 	t.lastDecision[id]=float(st.time);t.counters.decisions+=1
 	return true
 
+static func _stationary_helm080(st: Dictionary,ship: Dictionary,control: Dictionary,safe: Dictionary,frame_cache=null) -> Dictionary:
+	# The caller already admitted the CURRENT goal/intent. Only retry an actual
+	# live veto, never invent a route or move a held destination. Zero throttle
+	# keeps real inertia; terrain and every hull's swept physical floor remain
+	# checked before this turn (or defensive station) can authorize fire.
+	if not bool(safe.get("blocked",false)):return safe
+	var turning: bool=absf(angle_difference(float(ship.angle),float(control.angle)))>0.000001
+	if float(control.throttle)>0.0 and not turning:return safe
+	var alignment: Dictionary=control.duplicate()
+	alignment.throttle=0.0
+	var next: Dictionary=Certification.motion(ship,float(st.tactical.dt),float(alignment.angle),0.0,false,frame_cache)
+	var r: float=maxf(10.0,float(ship.spec.get("size",16)))+4.0
+	var clear: String=Routes.sweep(st.tactical.geometry,Routes.point(ship),Routes.point(next),r,st.tactical.budget)
+	if clear=="valid":clear=Routes._checked_alignment051(st.tactical.cells,ship,Routes.point(ship),Routes.point(next),r,float(st.tactical.dt),st.tactical.budget)
+	if clear!="valid":return safe
+	alignment.reason="Turning within clear water" if turning else "Holding a clear station"
+	return alignment
+
 static func _helm_goal051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
 	var started: int=Time.get_ticks_usec()
 	var t: Dictionary=st.tactical
@@ -1542,14 +1560,18 @@ static func _helm_goal051(st: Dictionary,ship: Dictionary,frame_cache=null) -> D
 		var control: Dictionary=Certification.steering(ship,held.points,held.index,target,held.primary)
 		held.index=int(control.index)
 		safe=Certification._crowd_step051(st,ship,goal.candidate,control,t.budget,frame_cache) if Routes._is_crowd_escape051(goal.candidate) else Certification.safe_step(st,ship,control,t.budget,frame_cache)
+		var translation_blocked: bool=bool(safe.get("blocked",false)) and float(control.throttle)>0.0
+		safe=_stationary_helm080(st,ship,control,safe,frame_cache)
 		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
-		if not held.step_ok:
+		if translation_blocked or not held.step_ok:
 			# Favor an escape after a blocked ordinary lane, but do not promote
 			# an escape that the REAL current helm itself just vetoed.
 			var memory: Dictionary=t.memory[str(ship.team)].byId.get(id,{})
 			memory.blockedStation=true;memory.commitUntil=0.0
 			memory.blockedCrowdEscape051=Routes._is_crowd_escape051(goal.candidate)
+			memory.routeOfferCursor051=int(memory.get("nextRouteOffer080",0))
 			if float(memory.get("waitSince",-1.0))<0.0:memory.waitSince=float(st.time)
+		if not held.step_ok:
 			t.reasons[id]=str(safe.reason);_drop_goal051(t,id)
 			if not t.pending.has(id):t.pending[id]=float(st.time)
 	detail.helmSafety+=Time.get_ticks_usec()-safety_started
@@ -1600,6 +1622,7 @@ static func helm(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary
 	record.index=int(control.index)
 	var safety_started: int=Time.get_ticks_usec()
 	var safe: Dictionary=Certification._crowd_step051(st,ship,record.candidate,control,t.budget,frame_cache) if Routes._is_crowd_escape051(record.candidate) else Certification.safe_step(st,ship,control,t.budget,frame_cache)
+	safe=_stationary_helm080(st,ship,control,safe,frame_cache)
 	if held is Certification._Retained051:
 		held.step_at=float(st.time);held.step_ok=not bool(safe.get("blocked",false))
 	if not detail.is_empty():detail.helmSafety+=Time.get_ticks_usec()-safety_started

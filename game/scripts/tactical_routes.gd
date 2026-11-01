@@ -435,9 +435,15 @@ static func _occupied051(cells: Dictionary,ship: Dictionary,a: Vector2,b: Vector
 			# continuously separating motion; no approach or crossing through it.
 			if separating_egress051:
 				if _can_escape_padding051(ship,relative,delta,r,radius051,a==b and from==0.0 and until==0.0):continue
-				# Equality is exclusive to the actual checked alignment step. Same
-				# floor and derivative; ordinary departure stays strictly separating.
-				if checked_alignment051 and _can_escape_padding051(ship,relative,delta,r,radius051,true) and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>=relative.length_squared():continue
+				# A ZERO-throttle current step may yaw inside navigation padding.
+				# Tiny approaching drift in that padding must not lock the helm's
+				# heading forever. Check the entire relative sweep against the SAME
+				# physical floor used by separating egress, including curved padding.
+				# Ordinary positive-throttle departures still must separate above.
+				if checked_alignment051:
+					var own_radius: float=maxf(10.0,float(ship.spec.get("size",16)))
+					var physical_floor: float=own_radius+radius051+maxf(0.0,r-own_radius-4.0)
+					if (relative+delta*fraction).length()+0.0001>=physical_floor:continue
 			elif hostile and relative.length()<clearance and relative.dot(delta)>=0.0 and (relative+delta).length_squared()>relative.length_squared()+0.0001:continue
 			return _veto_traffic051(budget,ship,other,a,b,r,from,until,clearance,relative,delta,c,d,fraction,checked_alignment051)
 	return "valid"

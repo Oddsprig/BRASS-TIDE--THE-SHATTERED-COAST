@@ -28,19 +28,20 @@ static func plan051(data: Dictionary) -> Dictionary:
 		# Keep the ordinary <=8 offers, including the existing local crowd escape.
 		var requests: Array=Stations._candidates_crowd051(view,ship,decision,context,reservations)
 		var blocked_escape051: bool=bool(previous.get("blockedCrowdEscape051",false)) and int(previous.get("orderRevision",-1))==int(ship.orderRevision)
+		var preferred_escape051: bool=false
 		if bool(previous.get("blockedStation",false)) and not blocked_escape051:
 			# A sampled preference only: the ordinary existing escape still needs
 			# static routing here and current crowd-floor/terrain checks at helm.
 			# A live-vetoed escape keeps its ordinary final fallback position.
 			for request: Dictionary in requests:
 				if Routes._is_crowd_escape051(request):
-					requests.erase(request);requests.push_front(request);break
+					requests.erase(request);requests.push_front(request);preferred_escape051=true;break
 		var candidate: Dictionary={}
 		var reservation: Dictionary={}
 		var risk: float=clampf(float(ship.water)/maxf(1.0,float(ship.capacity)),0.0,1.0)
 		var offer_count051: int=mini(Stations.MAX_OFFERS,requests.size())
 		var first_offer051: int=0
-		if bool(previous.get("blockedStation",false)) and int(previous.get("orderRevision",-1))==int(ship.orderRevision):
+		if bool(previous.get("blockedStation",false)) and not preferred_escape051 and int(previous.get("orderRevision",-1))==int(ship.orderRevision):
 			first_offer051=clampi(int(previous.get("routeOfferCursor051",0)),0,maxi(0,offer_count051-1))
 		var next_offer051: int=first_offer051
 		var pending_offer051: bool=false
@@ -74,12 +75,18 @@ static func plan051(data: Dictionary) -> Dictionary:
 				if Stations._conflict(shape,other,budget,int(budget.clearanceLimit),true):
 					conflict=true;break
 			if conflict:continue
-			candidate=choice;reservation=shape;break
+			candidate=choice;reservation=shape
+			# Remember the NEXT ordinary offer even after static success. Only a
+			# subsequent real helm veto consumes it; a working station keeps its
+			# commitment. A repeated live refusal cannot retry offer zero forever.
+			next_offer051=(index+1)%offer_count051
+			break
 		if not candidate.is_empty():
 			if state.get("targetId")!=candidate.targetId or state.get("sector")!=candidate.sector or float(state.get("commitUntil",0.0))<=float(view.time):
 				state.commitUntil=float(view.time)+Roles.COMMIT_SECONDS
 			state.targetId=str(candidate.targetId);state.sector=int(candidate.sector)
 			state.anchor=Stations.anchor(candidate);state.waitSince=-1.0;state.blockedStation=false
+			state.nextRouteOffer080=next_offer051
 			reservations[id]=reservation
 		else:
 			# An actual sampled observation may publish while no route is ready.

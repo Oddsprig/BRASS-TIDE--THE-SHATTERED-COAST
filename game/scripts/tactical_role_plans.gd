@@ -845,7 +845,7 @@ static func _decide(view: Dictionary, ship: Dictionary, previous: Dictionary, co
 	if order == "escort" and protected.is_empty():
 		phase = "hold"
 		reason = "Protected leader is lost; hold for a new escort order."
-	elif role == "screen" and protected.is_empty():
+	elif role == "screen" and protected.is_empty() and order == "engage":
 		phase = "hold"
 		reason = "No protected ally available; hold for a new screen assignment."
 	if order == "move" and not (survival_trigger and explicit_survival):
