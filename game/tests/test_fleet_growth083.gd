@@ -70,8 +70,18 @@ func funded_leg083(require_support: bool=false) -> bool:
 	c.Manifest.allocate(c.state)
 	if require_support:
 		var carried: Dictionary=c.state.cargoManifest.get(partner083,{})
-		if not check(c.cargo_weight()>solo_capacity083 and not carried.is_empty(),"Bought support carrier carries actual funded cargo that exceeds the original boat's entire hold"):return false
-		receipt.supportCargo={"weight":c.cargo_weight(),"soloCapacity":solo_capacity083,"fleetCapacity":c.capacity(),"partnerManifest":carried.duplicate(true),"jobs":accepted.duplicate(true)}
+		var funded_weight: float=0.0;var partner_funded_weight: float=0.0
+		for job in accepted:
+			var lot: Dictionary=c.VoyageJobs._find(c.state,str(job.id)).freight
+			var unit: float=float(c.Goods.ITEMS[str(lot.good)].weight)
+			funded_weight+=float(lot.qty)*unit
+			partner_funded_weight+=float(carried.get("@job:"+str(job.id),0))*unit
+		if not dispatch.is_empty():
+			var unit: float=float(c.Goods.ITEMS[str(c.state.freight.good)].weight)
+			funded_weight+=float(c.state.freight.qty)*unit
+			partner_funded_weight+=float(carried.get("@freight",0))*unit
+		if not check(c.cargo_weight()>solo_capacity083 and partner_funded_weight>0.0 and c.state.cargoManifest.get("unassigned",{}).is_empty(),"Actual load exceeds the solo hold and the purchased UID carries funded freight, with no unassigned cargo"):return false
+		receipt.supportCargo={"weight":c.cargo_weight(),"fundedFreightWeight":funded_weight,"partnerFundedFreightWeight":partner_funded_weight,"partnerUid":partner083,"soloCapacity":solo_capacity083,"fleetCapacity":c.capacity(),"partnerManifest":carried.duplicate(true),"jobs":accepted.duplicate(true)}
 	if not sail(target):return false
 	for job in accepted:
 		if not pay(str(job.id)):return false
@@ -115,7 +125,7 @@ func declared_loss083() -> bool:
 	var report: Dictionary=c.battle_settled("retreated",[],{"kind":"fixture083","objectiveOnly":true},battle)
 	if not check(bool(report.get("ok",true)) and c.find_boat(starter083).is_empty() and c.state.fleet.size()==1 and int(c.state.coins)==purses and report.get("wrecks",[]).size()==1,"Declared hull loss publishes one physical wreck, keeps the real survivor and grants no victory/loot coins"):return false
 	var wreck: Dictionary=c.Salvage.find_wreck(c.state,str(report.wrecks[0].id))
-	if not check(str(wreck.uid)==starter083 and wreck.get("sourceModuleCondition") is Dictionary and str(lost.get("equipmentRetiredTo",""))==str(wreck.id),"Original hull and physical equipment retain exactly one wreck custodian"):return false
+	if not check(str(wreck.uid)==starter083 and wreck.get("sourceModuleCondition") is Dictionary and str(wreck.get("equipmentCustody",""))=="wreck" and not lost.has("moduleCondition") and same_values(wreck.sourceModuleCondition,original.moduleCondition) and str(lost.get("equipmentRetiredTo",""))==str(wreck.id),"Original hull and exact physical equipment transfer to the wreck; the retired source holds no duplicate condition"):return false
 	var quote: Dictionary=c.service_quote(survivor,c.current_port())
 	var coins: int=int(c.state.coins);var kits: float=float(survivor.supplies)
 	var result: Dictionary=c.repair_boat(partner083)
@@ -145,8 +155,10 @@ func _run() -> void:
 		if not choice.is_empty() and int(choice.plan.shortfallCoins)==0:break
 	if not check(not choice.is_empty() and int(choice.plan.shortfallCoins)==0 and int(c.state.coins)>15000 and gross_paid>0 and payroll>0,"Bounded actual work leaves a surplus after all charged wages/replacement stores and funds a useful second hull plus reserves"):finish083();return
 	if not buy_partner083(choice) or not funded_leg083(true) or not declared_loss083():finish083();return
+	var loss_wrecks: Array=c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083).duplicate(true)
 	var saved: Dictionary=parsed_save("growth083-completed")
 	if saved.is_empty() or not restore_exact(saved,"growth083-completed"):finish083();return
+	if not check(loss_wrecks.size()==1 and same_values(loss_wrecks,c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083)) and c.find_boat(starter083).is_empty() and str(c.state.fleet[0].uid)==partner083,"Disk save/restore keeps the one loss wreck and its exact equipment, with only the original surviving UID afloat"):finish083();return
 	var expected: int=15000+gross_paid-payroll-stores083-purchase083-repairs083
 	if not check(int(c.state.coins)==expected and int(c.state.wageArrears)==0 and int(c.state.debt)==0 and c.Money.total(c.state)==supply,"All ordinary income, actual wages, purchased stores, hull/crew advance and recovery reconcile exactly"):finish083();return
 	receipt.accounting={"start":15000,"fundedEscrowPaid":gross_paid,"actualWages":payroll,"storesBought":stores083,"hullAndCrewAdvance":purchase083,"survivorRepair":repairs083,"endingCoins":c.state.coins,"worldTotal":c.Money.total(c.state),"coinSupply":supply}
