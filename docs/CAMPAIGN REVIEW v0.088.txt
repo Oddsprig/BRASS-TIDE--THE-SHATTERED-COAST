@@ -26,6 +26,18 @@ The two absent specialist lifecycle flags normalize to false as in070. Derived
 routes/render specs and newly added empty administrative defaults are outside the
 physical comparison. This is not whole-state byte equality across migrations.
 
+088 R1 wreck comparison correction (source only; native acceptance pending)
+The original075 wreck-1 stores contain16 known-goods rows at exact numeric zero.
+Salvage._clean_amounts already omitted these rows in075 and still does on restore.
+Compare whole detached wreck copies after omitting only finite, numeric, exactly
+zero Goods.ITEMS rows in stores/components on both sides. Negative, unknown,
+nonfinite and nonnumeric entries are left intact for the exact comparison.
+All positive quantities, zero-valued equipment HP, sourceModuleCondition, UIDs,
+custody, loadout, service, provenance, tombstones and every other saved field stay
+exact. Never call the production sanitizer to excuse unrelated differences.
+Original075 positives remain ammo0.96, food0.4, fuel2.68481203007519, supplies2;
+all six positive component quantities remain exact. No production code changes.
+
 Historical facts and remaining gaps
 078's ordinary paid voyage and1000-coin Surveyor improvement were earned from
 15000coins.083's ordinary paid hull purchase/support/recovery were verified;

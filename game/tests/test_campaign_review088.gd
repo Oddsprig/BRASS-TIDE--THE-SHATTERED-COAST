@@ -4,6 +4,7 @@ extends SceneTree
 const Campaign = preload("res://scripts/campaign.gd")
 const Guidance = preload("res://scripts/campaign_guidance.gd")
 const Money = preload("res://scripts/money.gd")
+const Goods = preload("res://scripts/goods.gd")
 const Equipment = preload("res://scripts/equipment_campaign.gd")
 const Stories = preload("res://scripts/coastal_stories.gd")
 const BODY_MS: int = 30000
@@ -72,9 +73,31 @@ func same_values(a, b) -> bool:
 		return true
 	return a == b
 
+func wreck_values(raw):
+	# Salvage._clean_amounts already omitted known exact-zero goods in075.
+	# Normalize only detached inventory rows; retain every other wreck value.
+	if not raw is Array: return raw
+	var wrecks: Array = raw.duplicate(true)
+	for wreck in wrecks:
+		if not wreck is Dictionary: continue
+		for field in ["stores", "components"]:
+			if not wreck.get(field) is Dictionary: continue
+			var amounts: Dictionary = wreck[field]
+			for good in amounts.keys():
+				var amount = amounts[good]
+				if Goods.ITEMS.has(good) and (amount is int or amount is float) and is_finite(float(amount)) and amount == 0:
+					amounts.erase(good)
+	return wrecks
+
 func fields_equal(before: Dictionary, after: Dictionary, fields: Array, label: String) -> bool:
 	for key in fields:
-		if before.has(key) and not check(after.has(key) and same_values(before[key], after[key]), label + "." + str(key) + " exact saved values"):
+		if not before.has(key): continue
+		var old_value = before[key]
+		var now_value = after.get(key)
+		if key == "wrecks":
+			old_value = wreck_values(old_value)
+			now_value = wreck_values(now_value)
+		if not check(after.has(key) and same_values(old_value, now_value), label + "." + str(key) + " exact saved values"):
 			return false
 	return true
 
