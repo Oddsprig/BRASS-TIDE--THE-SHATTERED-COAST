@@ -113,13 +113,14 @@ static func party_error(state: Dictionary,world: Dictionary={}) -> String:
 	return ""
 
 ## Full save preflight validates canonical Sector069 geometry/accounts first.
-## Only an unfinished, validated warehouse party at its exact berth can explain
+## Only unfinished, validated territorial work at its exact berth can explain
 ## these sailors. The original survey/health gates above remain authoritative.
 static func territorial_party084(state: Dictionary,world: Dictionary) -> bool:
 	if world.is_empty() or not state.get("territorial076") is Dictionary:return false
 	var book: Dictionary=state.territorial076
-	if not book.get("improvement") is Dictionary:return false
-	var job: Dictionary=book.improvement
+	if not book.get("improvement") is Dictionary or not book.get("control") is Dictionary:return false
+	var control: bool=not book.control.get("crewByBoat",{}).is_empty()
+	var job: Dictionary=book.control if control else book.improvement
 	if job.get("status") not in ["active","interrupted"]:return false
 	if not state.get("exploration") is Dictionary or not state.exploration.get("assignment",{}) is Dictionary:return false
 	if not state.get("toolingRecovery",{}) is Dictionary:return false
@@ -140,7 +141,7 @@ static func territorial_party084(state: Dictionary,world: Dictionary) -> bool:
 	if not state.get("path") is Array or not state.path.is_empty() or not state.get("position") is Dictionary:return false
 	if not number(state.position.get("x")) or not number(state.position.get("y")):return false
 	if Vector2(float(state.position.x)-float(port.x),float(state.position.y)-float(port.y)).length()>=40.0:return false
-	if not book.control.get("crewByBoat",{}).is_empty():return false
+	if not (book.improvement if control else book.control).get("crewByBoat",{}).is_empty():return false
 	var assigned: int=0
 	var seen: Dictionary={}
 	for boat in state.fleet:
@@ -150,6 +151,7 @@ static func territorial_party084(state: Dictionary,world: Dictionary) -> bool:
 		if boat.get("shoreCrew",0)!=job.crewByBoat.get(uid,0):return false
 		assigned+=int(boat.get("shoreCrew",0))
 	if assigned!=territory.WORKERS or not territory._crew_ok(state,job):return false
+	if control:return territory._control_supported(state,id)
 	var machine: Dictionary=territory._machine({"state":state,"data":world},str(job.machineryId))
 	return not machine.is_empty() and float(machine.condition)+0.000001>=maxi(0,territory.WORK_DAYS-int(job.paidDays))*0.01
 

@@ -40,13 +40,15 @@ static func review(c,selected_goal: String="corridor",territory_override: String
 	elif not v.work_port070().is_empty():
 		territory_port_id=str(v.work_port070().get("id",""))
 	elif str(v.state.get("world064",{}).get("layer","home"))!="home":
-		var imp_port: String=str(v.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
+		var imp_port: String=str(v.state.get("territorial076",{}).get("control",{}).get("portId",""))
+		if not Home._generated_harbor084(v.state,imp_port):imp_port=str(v.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
 		if Home._generated_harbor084(v.state,imp_port):territory_port_id=imp_port
 		else:
 			var cur_reg: String=str(v.state.get("world064",{}).get("regionId",""))
 			for row in v.state.get("ports",[]):
 				if row is Dictionary and str(row.get("regionId",""))==cur_reg and Home._generated_harbor084(v.state,str(row.get("id",""))):
-					territory_port_id=str(row.id);break
+					territory_port_id=str(row.id)
+					if preload("res://scripts/territorial076.gd")._control_near(v,str(row.id)):break
 	var territory_port: Dictionary=v.port(territory_port_id)
 	var territory_view: Dictionary=Ops.territory_view(v,territory_port_id)
 	var territory_quote: Dictionary=Ops.territory_quote(v,territory_port_id)
@@ -343,6 +345,8 @@ static func _status_text(view: Dictionary,c) -> String:
 		var days: int=int(job.get("paidDays",0)) if key=="improvement" else int(job.get("supportDays",0))
 		var place: String=str(c.port(str(job.get("portId",""))).get("name","the harbor"))
 		lines.append("%s at %s: %s, %d of %d paid days. %s"%["Berth work" if key=="improvement" else "Control operation",place,str(job.get("status","awaiting work")),days,int(view.get("workDays",2)),str(job.get("reason",""))])
+		if key=="control" and job.has("completedDay085"):
+			lines.append("Witnessed day %.2f: %s replaced %s as this harbor's governor after the supplied contest."%[float(job.completedDay085),str(Factions.CANON_NAMES.get(job.get("newFaction",""),job.get("newFaction",""))),str(Factions.CANON_NAMES.get(job.get("fromFaction",""),job.get("fromFaction","")))])
 	var bill: Dictionary=view.get("improvement",{}).get("setupBill",{})
 	if not bill.is_empty():lines.append("Paid warehouse bill: %d gross, %d material credit, %d net coins."%[int(bill.get("grossCost",0)),int(bill.get("materialCredit",0)),int(bill.get("netCost",0))])
 	var prior: Dictionary=view.get("improvement",{}).get("priorCompleted",{}) if view.get("improvement",{}).get("priorCompleted") is Dictionary else {}
@@ -351,7 +355,7 @@ static func _status_text(view: Dictionary,c) -> String:
 		var prior_bill: Dictionary=prior.get("setupBill",{}) if prior.get("setupBill") is Dictionary else {}
 		lines.append("Retained completed warehouse at %s (%s): %d net coins paid."%[prior_place,str(prior.get("businessId","")),int(prior_bill.get("netCost",0))])
 	if not bool(view.get("controlSupported",true)):
-		lines.append("Remote harbor scope (084): paid warehouse development and storage only; harbor sovereignty contest remains Shatter Coast only until 085.")
+		lines.append("Remote control requires a known harbor on the existing two-group trade corridor and its actual defending fleet. Other remote harbors still offer their existing paid services.")
 	return "\n".join(lines) if not lines.is_empty() else "No harbor operation started. Review the requirements before committing goods or coins."
 
 static func territory_panel(ui,body: Node,account: Dictionary) -> void:
@@ -379,7 +383,7 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 	harbors.item_selected.connect(func(index):act(ui,"focus","portId",str(harbors.get_item_metadata(index)),0,str(account.goal),str(harbors.get_item_metadata(index))))
 	var faction: String=str(port.get("faction",""))
 	var faction_name: String=str(Factions.CANON_NAMES.get(faction,"Unidentified"))
-	ui.paragraph(box,"%s governs %s. A surrender changes a Shatter Coast harbor alone; private companies and island jurisdictions remain separate."%[faction_name,str(port.get("name","this harbor"))],16,ui.GOLD)
+	ui.paragraph(box,"%s governs %s. A surrender changes this harbor alone; private companies and island jurisdictions remain separate."%[faction_name,str(port.get("name","this harbor"))],16,ui.GOLD)
 	ui.paragraph(box,_status_text(view,c),15,ui.TEAL)
 	ui.paragraph(box,_quote_text(quote),15)
 	var actions=ui.row(box)

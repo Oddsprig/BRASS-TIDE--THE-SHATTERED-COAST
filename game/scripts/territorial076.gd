@@ -1,5 +1,5 @@
 extends RefCounted
-## One existing-harbor improvement and one contested negotiated surrender.
+## Paid harbor development and one supplied negotiated corridor-harbor surrender.
 ## Main-thread transactions only. Coins and people stay in existing accounts.
 const Home = preload("res://scripts/home_harbor.gd")
 const ToolingOps = preload("res://scripts/tooling_ops.gd")
@@ -78,6 +78,62 @@ static func _generated_improve_port(s: Dictionary, id: String) -> bool:
 
 static func _improve_supported(s: Dictionary, id: String) -> bool:
 	return _home(s, id) or _generated_improve_port(s, id)
+
+static func _corridor085(s: Dictionary, id: String) -> Dictionary:
+	var job: Dictionary = _book(s).get("control", {})
+	var route: Dictionary = s.get("shipping068", {}).get("model", {}).get("route", {})
+	var corridor: Dictionary = job.get("corridor085", {}) if job.get("portId") == id else route.get("corridor075", {})
+	if corridor.is_empty() and job.get("portId") == id: corridor = route.get("corridor075", {})
+	if not _corridor_valid085(s, corridor, id):return {}
+	return {"ownerId": str(corridor.ownerId), "originId": str(corridor.originId), "remoteId": str(corridor.remoteId)}
+
+static func _corridor_valid085(s: Dictionary, corridor: Dictionary, id: String) -> bool:
+	if not _generated_improve_port(s, id):return false
+	if id not in [str(corridor.get("originId", "")), str(corridor.get("remoteId", ""))]:return false
+	var origin: Dictionary = _port(s, str(corridor.get("originId", "")))
+	var remote: Dictionary = _port(s, str(corridor.get("remoteId", "")))
+	if origin.is_empty() or remote.is_empty() or origin.get("regionId") == remote.get("regionId"):return false
+	if not _generated_improve_port(s, str(origin.id)) or not _generated_improve_port(s, str(remote.id)):return false
+	for owner in s.get("fleetOwners", []):
+		if owner.get("id") == corridor.get("ownerId") and owner.get("kind") == "trader" and not owner.get("playerCompany", false):return true
+	return false
+
+static func _control_supported(s: Dictionary, id: String) -> bool:
+	return _home(s, id) or not _corridor085(s, id).is_empty()
+
+## Physical hostile-berth presence is distinct from permission for civilian
+## services. Only this operation's original sailors may already be ashore.
+static func _control_near(c, id: String, reach: float = -1.0) -> bool:
+	if _home(c.state, id):return _near(c, id, 65.0 if reach < 0 else reach)
+	if not _control_supported(c.state, id):return false
+	var p: Dictionary = _port(c.state, id)
+	var location: Dictionary = c.state.get("world064", {})
+	if location.get("layer") != "local" or location.get("regionId") != p.get("regionId"):return false
+	if not c.state.get("path", []).is_empty() or not c.state.get("exploration", {}).get("assignment", {}).is_empty() or not c.state.get("toolingRecovery", {}).is_empty():return false
+	# Campaign validates a battle before this range-only settlement callback;
+	# its own battle lock is cleared after publishing the control receipt.
+	if reach < 0 and c is Object:
+		if "travel_lock064" in c and not str(c.travel_lock064).is_empty():return false
+		if "events" in c and c.events.any(func(e):return str(e.get("kind", "")) in ["encounter", "ocean_encounter066", "defeat"]):return false
+	var position: Dictionary = c.state.get("position", {})
+	if not BoardingRules._n(position.get("x")) or not BoardingRules._n(position.get("y")):return false
+	var job: Dictionary = _book(c.state).get("control", {})
+	var party: Dictionary = job.get("crewByBoat", {}) if job.get("portId") == id else {}
+	for b in c.state.get("fleet", []):
+		if int(b.get("shoreCrew", 0)) != int(party.get(str(b.get("uid", "")), 0)):return false
+	return c.distance(position, p) < (40.0 if reach < 0 else reach)
+
+static func _can_chain_control085(s: Dictionary, old: Dictionary, id: String) -> bool:
+	return old.get("status") == "complete" and not old.has("priorCompleted") and _home(s, str(old.get("portId", ""))) and not _corridor085(s, id).is_empty()
+
+static func _defender_uid085(s: Dictionary, job: Dictionary, uid: String) -> bool:
+	for owner in s.get("fleetOwners", []):
+		if owner.get("id") == job.defenderId and owner.get("boats", []).any(func(b):return str(b.get("uid", "")) == uid):return true
+	for wreck in s.get("wrecks", []):
+		if str(wreck.get("uid", "")) == uid and not str(job.battleSource).is_empty() and wreck.get("sourceId") == job.battleSource:return true
+	for boat in s.get("fleet", []) + s.get("boardingPrizes", []):
+		if boat.get("captureSecured", false) and str(boat.get("uid", "")) == uid:return true
+	return false
 
 static func _remote_work_port(c, id: String) -> Dictionary:
 	if c == null or not c.has_method("work_port070"):return {}
@@ -185,14 +241,14 @@ static func view(c, port_id: String) -> Dictionary:
 		if b.get("homePort") == port_id:businesses.append(Home.business_view(c.state, str(b.id)))
 	return {"portId": port_id, "faction": str(p.get("faction", "")),
 		"supported": _improve_supported(c.state, port_id),
-		"controlSupported": _home(c.state, port_id),
+		"controlSupported": _control_supported(c.state, port_id),
 		"isRemote084": _generated_improve_port(c.state, port_id),
 		"improvement": imp_view,
 		"control": book.get("control", {}).duplicate(true), "businesses": businesses,
 		"supportCapital": SUPPORT_CAPITAL, "workDays": WORK_DAYS,
 		"workers": WORKERS, "wagePerPersonDay": Goods.SAILOR_WAGE,
 		"supportGoodsPerDay": SUPPORT_GOODS.duplicate(true),
-		"scope": "One Shatter Coast harbor and one charted remote harbor warehouse development. Sovereignty contest remains Shatter Coast only until 085."}
+		"scope": "Paid warehouse development and one supplied harbor contest on the existing two-group trade corridor; island jurisdictions and private businesses remain separate."}
 
 static func quote_improve(c, port_id: String) -> Dictionary:
 	if not _improve_supported(c.state, port_id) or not _improve_near(c, port_id):
@@ -261,7 +317,13 @@ static func improve(c, port_id: String) -> Dictionary:
 	return _result(true, "Berth work underway. Materials stay reserved for this project at this harbor; funded setup credits their value once on completion.", {"improvement": job.duplicate(true)})
 
 static func _owner_near(c, owner: Dictionary, p: Dictionary) -> bool:
-	if Orders.enrolled066(c.state, str(owner.get("id", ""))):return false
+	if Orders.enrolled066(c.state, str(owner.get("id", ""))):
+		if _home(c.state, str(p.id)):return false
+		var location: Dictionary = Orders.canonical_location068(c.state, str(owner.id))
+		var world: Dictionary = location.get("world064", {})
+		var layer: String = "home" if _home(c.state, str(p.id)) else "local"
+		return world.get("layer") == layer and world.get("regionId") == p.get("regionId", "shatter_coast") and location.get("position") is Dictionary and c.distance(location.position, p) <= RANGE
+	if not _home(c.state, str(p.id)):return false
 	if str(owner.get("atPort", "")) == str(p.id):return true
 	var patrol: Dictionary = Orders.find_patrol(c.state, str(owner.get("id", "")))
 	return not patrol.is_empty() and patrol.get("active", false) \
@@ -289,9 +351,11 @@ static func _mandate(s: Dictionary, old: String, sponsor: String) -> String:
 	return ""
 
 static func start(c, port_id: String, new_faction: String) -> Dictionary:
-	if not _near(c, port_id):return _result(false, "Stop at this existing Shatter Coast harbor's actual berth to land the support party.")
+	if not _control_near(c, port_id):return _result(false, "Stop at this harbor's actual berth on its chart; remote contests require a known endpoint of the existing supplied trade corridor.")
 	if _busy(c.state, "control"):return _result(false, "Withdraw the berth construction party before opening contested talks.")
 	var old: Dictionary = _book(c.state).get("control", {})
+	var prior: Dictionary = old.duplicate(true) if _can_chain_control085(c.state, old, port_id) else {}
+	if not prior.is_empty():old = {}
 	if not old.is_empty() and (old.get("portId") != port_id or old.get("newFaction") != new_faction):return _result(false, "076 retains this one harbor and sponsor; resume its existing operation.")
 	if old.get("status") == "complete":return _result(true, "The negotiated sovereign transfer is already recorded.", {"changed": false})
 	var p: Dictionary = _port(c.state, port_id)
@@ -306,6 +370,7 @@ static func start(c, port_id: String, new_faction: String) -> Dictionary:
 	if not old.get("battleWon", false):
 		defender = _defender(c, p, str(old.get("defenderId", "")))
 		if defender.is_empty():return _result(false, "An actual hostile defending fleet must be present; fleet presence alone gives no surrender claim.")
+		if not _home(c.state, port_id) and str(defender.id) != str(_corridor085(c.state, port_id).get("ownerId", "")):return _result(false, "The existing corridor's actual defending owner must be physically present here.")
 	var remaining: int = WORK_DAYS - int(old.get("supportDays", 0))
 	var payroll: Dictionary = Economy.daily_upkeep(c.state.fleet)
 	for good in SUPPORT_GOODS:
@@ -316,16 +381,19 @@ static func start(c, port_id: String, new_faction: String) -> Dictionary:
 	if not BoardingRules._w(p.get("governmentPurse"), BoardingRules.CASH) or int(p.governmentPurse) + capital > BoardingRules.CASH:return _result(false, "The existing harbor treasury cannot accept the support contribution.")
 	ensure(c)
 	var job: Dictionary = _book(c.state).control
-	if job.is_empty():
+	if job.is_empty() or not prior.is_empty():
 		if not Money.move(c.state, "coins", p, "governmentPurse", capital, "076 civilian harbor operating support", c.state.moneyLog):return _result(false, "The actual operating contribution could not be paid.")
 		var uids: Array = []
 		for b in defender.boats:uids.append(str(b.uid))
+		job.clear()
 		job.merge({"portId": port_id, "fromFaction": str(p.faction), "newFaction": new_faction,
 			"status": "active", "defenderId": str(defender.id), "defenderUids": uids,
 			"crewByBoat": {}, "startedDay": int(c.state.econDay), "lastPaidDay": int(c.state.econDay),
 			"supportDays": 0, "battleSeq": 0, "startBattleSeq": int(c.state.get("battleSeq", 0)),
 			"battleWon": false, "battleSource": "", "objective": false,
 			"funded": capital, "supportGoods": {"food": 0.0, "supplies": 0.0}, "reason": ""})
+		if not prior.is_empty():job.priorCompleted = prior
+		if not _home(c.state, port_id):job.corridor085 = _corridor085(c.state, port_id)
 	if job.crewByBoat.is_empty():_reserve(c, job, party)
 	job.status = "active";job.reason = "Funded talks need an actual victory against the selected defender and two supplied paid support days."
 	return _result(true, str(job.reason), {"control": job.duplicate(true), "changed": true})
@@ -353,7 +421,7 @@ static func paid_day(c, paid: int, due: int) -> void:
 		if due <= 0 or due != int(costs.wages) or paid != due or int(c.state.get("wageArrears", 0)) > 0:
 			job.status = "interrupted";job.reason = "Ordinary sailor payroll was not fully paid; unpaid work does not count."
 			continue
-		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _near(c, str(job.portId))
+		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _control_near(c, str(job.portId))
 		if not at_berth or not _crew_ok(c.state, job):
 			job.status = "interrupted";job.reason = "The original healthy party must be present at this harbor's berth."
 			continue
@@ -392,7 +460,7 @@ static func daily(c) -> void:
 			job.status = "interrupted";job.reason = "The original party was wounded, lost or recalled; healthy replacement sailors must be assigned explicitly."
 			continue
 		if job.status != "active":continue
-		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _near(c, str(job.portId))
+		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _control_near(c, str(job.portId))
 		if not at_berth:
 			job.status = "interrupted";job.reason = "Work interrupted away from the actual harbor; return and resume or withdraw."
 			continue
@@ -442,7 +510,10 @@ static func after_battle(c, owner: Dictionary, result: String, objective_only: b
 			party.status = "interrupted";party.reason = "The actual contest interrupted the original shore party; lost sailors are not replaced."
 	var job: Dictionary = _book(c.state).get("control", {})
 	if job.get("status") not in ["active", "interrupted"] or owner.get("id") != job.get("defenderId"):return
-	if not _near(c, str(job.portId), RANGE) or physical.get("result") != result or physical.has("startError"):return
+	if not _control_near(c, str(job.portId), RANGE) or physical.get("result") != result or physical.has("startError"):return
+	if not _home(c.state, str(job.portId)):
+		var world: Dictionary = physical.get("world064", {})
+		if world.get("layer") != "local" or world.get("regionId") != _port(c.state, str(job.portId)).get("regionId"):return
 	if float(physical.get("time", 0)) <= 0 or str(physical.get("engagementSource060", "")).is_empty():return
 	if int(c.state.get("battleSeq", 0)) <= int(job.startBattleSeq):return
 	var enemy: bool = false
@@ -454,6 +525,9 @@ static func after_battle(c, owner: Dictionary, result: String, objective_only: b
 	if result == "won" and objective_only and physical.get("objectiveSuccess", false) != true:return
 	job.battleSeq = int(c.state.battleSeq);job.battleSource = str(physical.engagementSource060)
 	job.objective = objective_only;job.battleWon = result == "won"
+	if not _home(c.state, str(job.portId)):
+		job.battleWorld085 = physical.world064.duplicate(true)
+		job.battleSeconds085 = float(physical.time)
 	if not job.battleWon:
 		_release(c, job)
 		job.status = "interrupted";job.reason = "The actual coastal contest was lost or abandoned. Support remains spent; resume only with real surviving sailors."
@@ -464,7 +538,7 @@ static func negotiate(c) -> Dictionary:
 	var job: Dictionary = _book(c.state).get("control", {})
 	if job.get("status") == "complete":return _result(true, "The existing negotiated transfer is already recorded.", {"changed": false})
 	if job.get("status") != "active":return _result(false, "Resume the funded harbor operation before negotiating surrender.")
-	if not _near(c, str(job.portId)) or not _crew_ok(c.state, job):return _result(false, "The actual support party must be present at the harbor berth.")
+	if not _control_near(c, str(job.portId)) or not _crew_ok(c.state, job):return _result(false, "The actual support party must be present at the harbor berth.")
 	if not job.battleWon or int(job.supportDays) < WORK_DAYS:return _result(false, "An actual selected-defender victory and two supplied, fully paid support days are required.")
 	var p: Dictionary = _port(c.state, str(job.portId))
 	var reason: String = _mandate(c.state, str(job.fromFaction), str(job.newFaction))
@@ -478,6 +552,7 @@ static func negotiate(c) -> Dictionary:
 		# Surrender changes orders/readiness, never guns, crew, ammunition or arrears.
 		BoardingRules._disable(p.defenses, "Negotiated harbor surrender; existing crew and stores retained")
 	job.status = "complete";job.reason = "Negotiated harbor sovereignty after the selected actual contest and paid support; private assets retained."
+	if not _home(c.state, str(job.portId)):job.completedDay085 = float(c.state.day)
 	_release(c, job)
 	c.log_entry(str(job.reason))
 	return _result(true, str(job.reason), {"changed": true, "portId": str(job.portId), "fromFaction": str(job.fromFaction), "newFaction": str(job.newFaction)})
@@ -526,6 +601,55 @@ static func _validate_improvement_record(saved: Dictionary, j: Dictionary, impro
 		if not prior_err.is_empty():return prior_err
 	return ""
 
+static func _validate_control_record(saved: Dictionary, j: Dictionary, ports: Dictionary, allow_prior: bool) -> String:
+	if j.get("status") not in STATUSES or not ports.has(j.get("portId")):return "Invalid territorial harbor or status."
+	if not j.get("reason") is String or j.reason.length() > 1000:return "Invalid territorial explanation."
+	for field in ["startedDay", "lastPaidDay"]:
+		if not BoardingRules._w(j.get(field), BoardingRules.CASH) or j[field] > saved.econDay:return "Invalid territorial work date."
+	if j.startedDay > j.lastPaidDay:return "Territorial paid work predates its start."
+	if not j.get("crewByBoat") is Dictionary or j.crewByBoat.size() > WORKERS:return "Invalid territorial crew allocation."
+	var count: int = 0
+	for uid in j.crewByBoat:
+		if not uid is String or not BoardingRules._w(j.crewByBoat[uid], WORKERS) or int(j.crewByBoat[uid]) < 1:return "Invalid assigned territorial sailors."
+		count += int(j.crewByBoat[uid])
+	if count not in [0, WORKERS] or (j.status == "active" and count != WORKERS):return "Territorial party size does not reconcile."
+	if count > 0 and not _crew_ok(saved, j):return "Territorial sailors are not reserved on their actual healthy hulls."
+	if j.status in ["complete", "withdrawn"] and count != 0:return "Finished territorial work retains a shore party."
+	if not BoardingRules._w(j.get("supportDays"), WORK_DAYS) or int(j.supportDays) > int(j.lastPaidDay) - int(j.startedDay):return "Invalid paid territorial work days."
+
+	if j.get("fromFaction") != ports[j.portId].faction or j.get("newFaction") not in Factions.CANON or j.fromFaction == j.newFaction:return "Invalid territorial sovereign parties."
+	if not j.get("defenderId") is String or j.defenderId.is_empty() or not j.get("defenderUids") is Array or j.defenderUids.is_empty() or j.defenderUids.size() > 64:return "Invalid original territorial defender."
+	var seen: Dictionary = {}
+	for uid in j.defenderUids:
+		if not uid is String or uid.is_empty() or seen.has(uid):return "Invalid territorial defender hull identity."
+		seen[uid] = true
+	for field in ["battleSeq", "startBattleSeq"]:
+		if not BoardingRules._w(j.get(field), BoardingRules.CASH) or int(j[field]) > int(saved.get("battleSeq", 0)):return "Invalid territorial contest sequence."
+	if not j.get("battleWon") is bool or not j.get("objective") is bool or not j.get("battleSource") is String:return "Invalid territorial contest receipt."
+	if j.battleWon and (j.battleSeq <= j.startBattleSeq or j.battleSource.is_empty()):return "Territorial victory has no later actual contest."
+	if j.get("funded") != SUPPORT_CAPITAL:return "Invalid funded territorial operating contribution."
+	if not j.get("supportGoods") is Dictionary or j.supportGoods.size() != SUPPORT_GOODS.size():return "Invalid territorial support inventory."
+	for good in SUPPORT_GOODS:
+		if not BoardingRules._n(j.supportGoods.get(good)) or float(j.supportGoods[good]) != float(j.supportDays) * float(SUPPORT_GOODS[good]):return "Territorial support goods and paid days disagree."
+	if j.status == "complete" and (not j.battleWon or j.supportDays != WORK_DAYS):return "Sovereignty changed without actual contest and funded support."
+	if not _home(saved, str(j.portId)):
+		if not j.get("corridor085") is Dictionary or not _corridor_valid085(saved, j.corridor085, str(j.portId)):return "Remote control lacks its original two-group merchant corridor."
+		if j.get("defenderId") != j.corridor085.get("ownerId"):return "Remote control defender is not the actual corridor owner."
+		for uid in j.defenderUids:
+			if not _defender_uid085(saved, j, str(uid)):return "Remote defender UID has no original owner, matching physical wreck or held prize."
+		if int(j.battleSeq) > 0:
+			if not j.get("battleWorld085") is Dictionary or j.battleWorld085.get("schema") != 1 or j.battleWorld085.get("layer") != "local" or j.battleWorld085.get("regionId") != ports[j.portId].regionId:return "Remote contest belongs to another chart."
+			if not BoardingRules._n(j.get("battleSeconds085")) or float(j.battleSeconds085) <= 0:return "Remote contest lacks actual elapsed battle time."
+		if j.status == "complete":
+			if not BoardingRules._n(j.get("completedDay085")) or float(j.completedDay085) < float(j.lastPaidDay) or float(j.completedDay085) > float(saved.day):return "Invalid dated remote surrender receipt."
+	if j.has("priorCompleted"):
+		if not allow_prior or _home(saved, str(j.portId)) or not j.priorCompleted is Dictionary:return "Invalid retained prior control receipt."
+		var prior: Dictionary = j.priorCompleted
+		if prior.get("status") != "complete" or not _home(saved, str(prior.get("portId", ""))):return "Only one completed HOME control receipt may precede the remote operation."
+		var error: String = _validate_control_record(saved, prior, ports, false)
+		if not error.is_empty():return error
+	return ""
+
 static func validate(saved: Dictionary, world: Dictionary) -> String:
 	if not saved.has("territorial076"):return _ownership_error(saved, world, {})
 	var book: Variant = saved.territorial076
@@ -546,36 +670,8 @@ static func validate(saved: Dictionary, world: Dictionary) -> String:
 			var imp_err: String = _validate_improvement_record(saved, j, improve_ports, true)
 			if not imp_err.is_empty():return imp_err
 		else:
-			if j.get("status") not in STATUSES or not ports.has(j.get("portId")):return "Invalid territorial harbor or status."
-			if not j.get("reason") is String or j.reason.length() > 1000:return "Invalid territorial explanation."
-			for field in ["startedDay", "lastPaidDay"]:
-				if not BoardingRules._w(j.get(field), BoardingRules.CASH) or j[field] > saved.econDay:return "Invalid territorial work date."
-			if j.startedDay > j.lastPaidDay:return "Territorial paid work predates its start."
-			if not j.get("crewByBoat") is Dictionary or j.crewByBoat.size() > WORKERS:return "Invalid territorial crew allocation."
-			var count: int = 0
-			for uid in j.crewByBoat:
-				if not uid is String or not BoardingRules._w(j.crewByBoat[uid], WORKERS) or int(j.crewByBoat[uid]) < 1:return "Invalid assigned territorial sailors."
-				count += int(j.crewByBoat[uid])
-			if count not in [0, WORKERS] or (j.status == "active" and count != WORKERS):return "Territorial party size does not reconcile."
-			if count > 0 and not _crew_ok(saved, j):return "Territorial sailors are not reserved on their actual healthy hulls."
-			if j.status in ["complete", "withdrawn"] and count != 0:return "Finished territorial work retains a shore party."
-			if not BoardingRules._w(j.get("supportDays"), WORK_DAYS) or int(j.supportDays) > int(j.lastPaidDay) - int(j.startedDay):return "Invalid paid territorial work days."
-
-			if j.get("fromFaction") != ports[j.portId].faction or j.get("newFaction") not in Factions.CANON or j.fromFaction == j.newFaction:return "Invalid territorial sovereign parties."
-			if not j.get("defenderId") is String or j.defenderId.is_empty() or not j.get("defenderUids") is Array or j.defenderUids.is_empty() or j.defenderUids.size() > 64:return "Invalid original territorial defender."
-			var seen: Dictionary = {}
-			for uid in j.defenderUids:
-				if not uid is String or uid.is_empty() or seen.has(uid):return "Invalid territorial defender hull identity."
-				seen[uid] = true
-			for field in ["battleSeq", "startBattleSeq"]:
-				if not BoardingRules._w(j.get(field), BoardingRules.CASH) or int(j[field]) > int(saved.get("battleSeq", 0)):return "Invalid territorial contest sequence."
-			if not j.get("battleWon") is bool or not j.get("objective") is bool or not j.get("battleSource") is String:return "Invalid territorial contest receipt."
-			if j.battleWon and (j.battleSeq <= j.startBattleSeq or j.battleSource.is_empty()):return "Territorial victory has no later actual contest."
-			if j.get("funded") != SUPPORT_CAPITAL:return "Invalid funded territorial operating contribution."
-			if not j.get("supportGoods") is Dictionary or j.supportGoods.size() != SUPPORT_GOODS.size():return "Invalid territorial support inventory."
-			for good in SUPPORT_GOODS:
-				if not BoardingRules._n(j.supportGoods.get(good)) or float(j.supportGoods[good]) != float(j.supportDays) * float(SUPPORT_GOODS[good]):return "Territorial support goods and paid days disagree."
-			if j.status == "complete" and (not j.battleWon or j.supportDays != WORK_DAYS):return "Sovereignty changed without actual contest and funded support."
+			var control_err: String = _validate_control_record(saved, j, improve_ports, true)
+			if not control_err.is_empty():return control_err
 	return _ownership_error(saved, world, book.control)
 
 static func _ownership_error(saved: Dictionary, world: Dictionary, control: Dictionary) -> String:
@@ -584,11 +680,14 @@ static func _ownership_error(saved: Dictionary, world: Dictionary, control: Dict
 		var actual: Dictionary = _port(saved, str(definition.id))
 		if actual.is_empty():continue # Existing campaign validation owns missing ports.
 		var expected: String = str(definition.faction)
-		if control.get("portId") == definition.id and control.get("status") == "complete":expected = str(control.newFaction)
+		for receipt in [control, control.get("priorCompleted", {})]:
+			if receipt.get("portId") == definition.id and receipt.get("status") == "complete":expected = str(receipt.newFaction)
 		if actual.get("faction") != expected:return "Harbor sovereign change has no completed territorial operation."
 	for h in saved.get("sector069", {}).get("harbors", []) if saved.get("sector069") is Dictionary and saved.get("sector069", {}).get("harbors") is Array else []:
 		if not h is Dictionary:continue
 		var actual_gen: Dictionary = _port(saved, str(h.get("id", "")))
 		if actual_gen.is_empty():continue
-		if str(actual_gen.get("faction", "")) != str(h.get("faction", "")):return "Remote harbor sovereignty cannot change before 085."
+		var expected: String = str(h.get("faction", ""))
+		if control.get("portId") == h.get("id") and control.get("status") == "complete":expected = str(control.newFaction)
+		if str(actual_gen.get("faction", "")) != expected:return "Remote harbor sovereign change has no completed supplied control operation."
 	return ""
