@@ -27,7 +27,7 @@ func expedition085(home: Dictionary) -> bool:
 	receipt.advance085={"declaredSetup":true,"earnedIncome":false,"sourcePort":home.id,"sourceAccount":"governmentPurse","amount":50000,"treasuryBefore":treasury,"treasuryAfter":home.governmentPurse,"captainBefore":coins,"captainAfter":c.state.coins,"worldCoins":c.Money.total(c.state)}
 	if not check(advanced and int(home.governmentPurse)==treasury-50000 and int(c.state.coins)==coins+50000 and c.Money.total(c.state)==supply and int(c.state.coinSupply)==supply,"Declared50000 advance transfers existing home treasury coins exactly; no minted or earned income"):return false
 	for good in ["food","supplies"]:
-		var quantity: int=4 if good=="food" else 2
+		var quantity: int=4 if good=="food" else 3 # Two support kits plus one campaign repair reserve.
 		var buy_coins: int=int(c.state.coins);var cash: int=int(home.cash);var stock: float=float(home.stocks[good]);var cargo: float=float(c.state.cargo[good])
 		var invoice: Dictionary=c.trade(str(home.id),good,quantity,"buy")
 		receipt.supplyInvoices085.append(invoice)
