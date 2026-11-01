@@ -39,7 +39,7 @@ const CONVERSIONS := {
 	"auxiliary_tanks": {"name": "Auxiliary Tanks", "materials": {"iron": 1.5, "copper": 1.0, "supplies": 1.0},
 		"shipwrightDays": 1.0, "mechanicDays": 1.0, "engineerDays": 0.5,
 		"cargoMult": 0.88, "speedMult": 0.97, "turnMult": 1.0, "enduranceFactor": 1.5, "fuelUseMult": 0.9,
-		"trade": "50% more fuel endurance and 10% lower fuel burn (root applies both); -12% hold, -3% speed."},
+		"trade": "50% more fuel endurance and 10% lower fuel burn; -12% hold, -3% speed."},
 }
 
 # Premium = the matching trade wage in goods.gd minus the 100-coin sailor
