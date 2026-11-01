@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.081)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.082)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -16,15 +16,15 @@ game/scripts/sound.gd: 12669 bytes; extends Node2D
   game/scripts/sound.gd:77 _process()
   game/scripts/sound.gd:191 _rapid_key()
   game/scripts/sound.gd:206 _rapid_hold()
-game/scripts/music.gd: 4480 bytes; extends Node
-  game/scripts/music.gd:51 rescan()
-  game/scripts/music.gd:66 load_track()
-  game/scripts/music.gd:73 set_context()
-  game/scripts/music.gd:79 next_track()
-  game/scripts/music.gd:111 title()
-  game/scripts/music.gd:18 _ready()
-  game/scripts/music.gd:29 _scan()
-  game/scripts/music.gd:98 _process()
+game/scripts/music.gd: 5236 bytes; extends Node
+  game/scripts/music.gd:53 rescan()
+  game/scripts/music.gd:68 load_track()
+  game/scripts/music.gd:75 set_context()
+  game/scripts/music.gd:81 next_track()
+  game/scripts/music.gd:126 title()
+  game/scripts/music.gd:20 _ready()
+  game/scripts/music.gd:31 _scan()
+  game/scripts/music.gd:105 _process()
 game/scripts/combat_art.gd: 44081 bytes; extends RefCounted
   game/scripts/combat_art.gd:32 profile_enable()
   game/scripts/combat_art.gd:35 profile_reset()

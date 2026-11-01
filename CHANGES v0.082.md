@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Supply bounded offline gunfire, heavy-shot, rocket/torpedo, impact and music transition clips; hearing remains a separate quality gate.
 
 See docs/TEST RESULTS v0.082.md for actual focused checks and remaining limits.
+
+Verification: 35 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 63.769s. Preserved earlier failures; no broad acceptance claim.

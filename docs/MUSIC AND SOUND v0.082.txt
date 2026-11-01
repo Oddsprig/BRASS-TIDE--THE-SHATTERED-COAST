@@ -1,6 +1,11 @@
 BRASS TIDE v0.082 - MUSIC AND SOUND
-Candidate: scene/Next requests wait until the existing music fade completes,
-then use the latest requested context. Natural rollover begins before cue end.
-All18suppliedMP3s and existing licensed weapon banks remain. Current native/
-export/offlineaudio evidence pending. Audible quality is not accepted from file
-existence or source math; no live playback is used during background tests.
+35 current native checks/0; Windows export/title and exported-PCK audio.
+Music finishes an active two-second fade before starting queued Next/scene
+requests, selecting the latest context at that boundary. Natural rollover
+starts before a finite cue ends. All18ownerMP3s and recordedweaponbanks retained.
+Short offline Master/music/weapons bus examples are in docs/audio/v0.082/.
+They use actual Sound.consume, voices, limiter, engine and supplied music through
+Dummy audio, with declared events and contexts. No live speakers/input were used.
+LISTENING QUALITY UNREVIEWED: PCM, finite voice/gain checks and file existence
+do not prove realism, masking, fatigue or enjoyment. No Starsector parity claim.
+Earlier battle latency/art limits remain; next083 improves earnedfleetgrowth.

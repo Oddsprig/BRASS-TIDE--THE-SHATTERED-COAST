@@ -1,3 +1,6 @@
+v0.082 VERIFIED SCOPED - 35 native checks/0; exported Dummy audio artifacts supplied.
+Queued crossfades and pre-end rollover; recordings unchanged. Listening quality remains open.
+
 01NOV2026 - v0.082 MUSIC TRANSITION CANDIDATE
 Queued crossfades and pre-end rollover; sound recordings unchanged. Native/export/offline/listening checks pending.
 

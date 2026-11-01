@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-080 DELIVERED;081 VERIFIED;082-088 PLANNED
+01 November2026 |079-081 DELIVERED;082 VERIFIED;083-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -74,7 +74,7 @@ Shore art used by the encounter agrees with navigation. Keep a bounded list
 of remaining visual defects instead of claiming all-angle coverage from stills.
 Boundary: no new36-boat production pass, water physics or asset-tool project.
 
-0.082 - WEAPON SOUND AND MUSIC MIX [PLANNED]
+0.082 - WEAPON SOUND AND MUSIC MIX [VERIFIED SCOPED; LISTENING OPEN]
 Player result: machine guns, cannons, rockets, torpedoes, engines, impacts and
 sinking sound distinct and substantial; music supports the changing scene.
 Scope: finish the existing sound system and supplied18-track music selection,

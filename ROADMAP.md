@@ -1,6 +1,6 @@
 # Brass Tide: quality sequence v0.079-v0.088
 
-Verified scoped build: **v0.081**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
+Verified scoped build: **v0.082**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
 Owner31October authorized sequential079-088 implementation. 079 and080 delivered;081 verified; next082 finishes existing music transitions after081 installation.
 
@@ -31,6 +31,8 @@ all raw measurements and distinctions between stills, motion, listening and play
 The campaign-design paragraph and older references below are retained history; current scopes and testing authority are above and in AGENTS.md.
 
 Current081:927/0; actual normal-zoom movement/fire/turning/sinking reviewed. Wakes retain their .7s history. Light34.3675ms/183.333ms latency still exceeds targets; mixed17.001ms/66.600ms meets. Raw quality FALSE; visible hull overlap and broad art quality remain open.
+
+Current082 music transitions verified; exact native/exportedaudio evidence in work/quality-v082/. Listening, earlier battle latency and broad quality remain open. Next083 earnedfleetgrowth.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the
