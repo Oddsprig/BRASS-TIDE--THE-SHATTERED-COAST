@@ -230,6 +230,13 @@ static func review_job(ui,offer: Dictionary,_carrier_uid: String="") -> void:
 		if contact_id.is_empty() and str(job.get("kind",""))=="fuel_delivery":contact_id="captain:"+str(job.get("ownerId",""))
 		if not contact_id.is_empty():memory=c.Contacts.client_memory(c.state,contact_id)
 	_client(ui,body,{"clientMemory":memory,"originName":VoyagePanel.origin_name(c,job),"job":job})
+	var choice_model: Dictionary=Choices.job_review(c,job,str(picked[0]))
+	var reinv: Dictionary=choice_model.get("reinvestment",{}) if choice_model.get("reinvestment") is Dictionary else {}
+	if not str(reinv.get("summary","")).is_empty():ui.paragraph(body,str(reinv.get("summary","")),14,ui.TEAL)
+	var convoys: Array=choice_model.get("convoyOpportunities",[]) if choice_model.get("convoyOpportunities") is Array else []
+	if not convoys.is_empty():
+		var conv: Dictionary=convoys[0]
+		ui.paragraph(body,"Witnessed convoy traffic: %s carries %.0f %s (~%s coins) toward %s. Hail in Coastal traffic for escort (+5 standing, 1 service credit) or intercept."%[str(conv.get("name","Convoy")),float(conv.get("tradeCargo",0)),str(conv.get("tradeGood","cargo")),ui.money(int(conv.get("cargoValueCoins",0))),str(conv.get("destinationName","harbor"))],14,ui.TEAL)
 	if str(job.get("kind",""))=="fuel_delivery" and c.VoyageJobs!=null and c.VoyageJobs.has_method("recipient_status"):
 		var recipient: Dictionary=c.VoyageJobs.recipient_status(c,job)
 		var place: String=str(c.port(str(recipient.get("currentPort",""))).get("name","At sea / not present"))
@@ -319,12 +326,21 @@ static func review_fishing(ui,boat_uid: String="",days: float=1.0,crew: int=0,bu
 	var fill: String="will not fill the current free hold in this horizon" if float(quote.timeToFillDays)<0 else "could fill the current free hold in %.2f days"%float(quote.timeToFillDays)
 	ui.paragraph(body,"%d sailors · %.2f lots per working day · %s. Limit: %s. Physical boat hold %.2f; whole fleet %.2f."%[int(quote.crew),quote.catchRate,fill,str(quote.limitingCause).capitalize(),quote.holdFree,quote.fleetHoldFree],15)
 	ui.paragraph(body,"Loaded engine fuel %.2f; forecast work uses %.2f. Loaded crew food %.2f; work uses %.2f. More sailors can fill sooner; they share the same ground quota. Return and calendar payroll are budgeted below."%[quote.fuelLoaded,quote.fuelNeeded,quote.foodLoaded,quote.foodNeeded],15)
+	if not str(model.get("groundAlternativeNote","")).is_empty():ui.paragraph(body,str(model.get("groundAlternativeNote","")),14,ui.TEAL)
 	if not quote.ok:ui.paragraph(body,str(quote.message),16,ui.GOLD)
 	var buyer: Dictionary=model.buyer
 	if buyer.seen:
 		ui.paragraph(body,"%s · %s day %.2f (%.1f days old) · %d coins/whole lot · buyer purse %s coins"%[buyer.name,"current harbor quote" if buyer.live else "visit quote",buyer.day,buyer.age,int(buyer.sellQuote),ui.money(buyer.businessFunds)],16,ui.TEAL)
 		ui.paragraph(body,"At most %d forecast whole lots fit that purse: %s gross coins. Prices and buyer funds can change; this is no guaranteed sale. %.2f existing fish lots aboard are separate."%[int(buyer.saleLots),ui.money(buyer.estimatedGross),model.carriedFish],15)
 	else:ui.paragraph(body,"Visit a harbor Market to record a dated fish buyer and replacement prices. No sale estimate is available yet.",16,ui.GOLD)
+	var buyer_alts: Array=model.get("buyerAlternatives",[]) if model.get("buyerAlternatives") is Array else []
+	if buyer_alts.size()>1:
+		var summary_parts: Array=[]
+		for alt in buyer_alts.slice(0,3):
+			summary_parts.append("%s (%d lots @ %d = %s net%s)"%[str(alt.get("name","")),int(alt.get("saleLots",0)),int(alt.get("sellQuote",0)),ui.money(int(alt.get("estimatedNet",0))),"" if bool(alt.get("qualifies",false)) else ", blocked/unfunded"])
+		ui.paragraph(body,"Recorded Shatter Coast buyers ranked by net after return: "+", ".join(summary_parts)+".",14,ui.TEAL)
+	var reinv_fish: Dictionary=model.get("reinvestment",{}) if model.get("reinvestment") is Dictionary else {}
+	if not str(reinv_fish.get("summary","")).is_empty():ui.paragraph(body,str(reinv_fish.get("summary","")),14,ui.TEAL)
 	_budget(ui,body,model.budget,int(model.estimatedNet),bool(model.routeOk) and bool(buyer.seen) and bool(quote.ok))
 	_warnings(ui,body,model.warnings)
 	ui.paragraph(body,"The forecast horizon includes quota pauses. Setting gear requests that many earned working days; recall at your chosen elapsed horizon to keep this estimate's time budget.",14)

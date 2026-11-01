@@ -8,7 +8,15 @@ const Economy=preload("res://scripts/economy.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Support=preload("res://scripts/fleet_support.gd")
+const Harbor=preload("res://scripts/harbor.gd")
+const Escort=preload("res://scripts/escort_ops.gd")
+const Deployment=preload("res://scripts/deployment.gd")
+const FleetIdentity=preload("res://scripts/fleet_identity.gd")
+const CivilianWork=preload("res://scripts/civilian_work.gd")
+const Contacts=preload("res://scripts/contacts.gd")
 const CIVILIAN_KINDS=["freight","fuel_delivery","passenger_charter"]
+const NEXT_ROLE_HULLS={"fishing":"brinehook_longliner","freight":"tideledger_coaster","fuel_delivery":"blackwater_fleet_tanker","passenger_charter":"osprey_cabin_cruiser"}
+const ROLE_FITTINGS={"fishing":"cargo_rig","freight":"cargo_rig","fuel_delivery":"auxiliary_tanks","passenger_charter":"cargo_rig"}
 
 static func physical_hold(c,b: Dictionary) -> float:
 	if b.is_empty():return 0.0
@@ -16,8 +24,11 @@ static func physical_hold(c,b: Dictionary) -> float:
 	var captive_overflow: float=maxf(0,float(c.state.get("captiveBerths",{}).get(str(b.uid),0))-maxf(0,float(b.crewMax)-float(b.crew)))
 	return maxf(0,Transport.available_hold(c,b)-Expedition.locker_weight(b)-captive_overflow)
 
+static func _home_point086(p: Dictionary) -> bool:
+	return not p.is_empty() and str(p.get("regionId","shatter_coast"))=="shatter_coast"
+
 static func _leg(c,a: Dictionary,b: Dictionary) -> Dictionary:
-	if not Expedition.home_local064(c.state) or a.is_empty() or b.is_empty():return {"ok":false,"distance":0.0}
+	if not Expedition.home_local064(c.state) or not _home_point086(a) or not _home_point086(b):return {"ok":false,"distance":0.0}
 	var path: Array=Routes.path(c,a,b)
 	var distance: float=0.0
 	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
@@ -92,6 +103,134 @@ static func _budget(c,outward: float,returning: float,work: float,price_port: Di
 		"foodRequired":food_required,"foodShortfall":food_short,"fuelShortfall":fuel_short,"looseFuel":float(c.state.get("cargo",{}).get("fuel",0)),
 		"boats":boat_fuel,"preparation":prep,"warnings":risks}
 
+static func _conversion_quote086(c,boat: Dictionary,port: Dictionary,conv_id: String) -> Dictionary:
+	var conv: Dictionary=FleetIdentity.CONVERSIONS.get(conv_id,{})
+	if conv.is_empty():return {}
+	var installed: Array=boat.get("conversions",[]) if boat.get("conversions") is Array else []
+	var already: bool=conv_id in installed
+	var slots_open: bool=installed.size()<FleetIdentity.MAX_CONVERSIONS
+	var materials_cost: int=0
+	var materials_ok: bool=not port.is_empty()
+	for good in conv.get("materials",{}):
+		var qty: int=int(conv.materials[good])
+		if not port.is_empty() and float(port.get("stocks",{}).get(good,0))<qty:materials_ok=false
+		materials_cost+=qty*(Economy.price(port,str(good)) if not port.is_empty() else int(Goods.ITEMS.get(str(good),{}).get("base",60)))
+	var labor_days: int=int(conv.get("laborDays",1))
+	var labor_cost: int=labor_days*int(Goods.WAGES.shipwright)
+	var labor_ok: bool=not port.is_empty() and int(port.get("availableWorkers",0))>=1 and int(port.get("training",{}).get("qualified",{}).get("shipwright",0))>=1
+	var direct_cost: int=materials_cost+labor_cost
+	var yard_margin: int=maxi(40,roundi(direct_cost*0.14))
+	var yard_tax: int=maxi(20,roundi((direct_cost+yard_margin)*0.06))
+	var total_cost: int=direct_cost+yard_margin+yard_tax
+	var access: Dictionary=_access(c,port) if not port.is_empty() else {"legal":false}
+	var ready: bool=not boat.is_empty() and not already and slots_open and bool(access.legal) and materials_ok and labor_ok
+	return {"id":conv_id,"name":str(conv.get("name",conv_id)),"trade":str(conv.get("trade","")),"installed":already,"slotsOpen":slots_open,
+		"costCoins":total_cost,"materialsCoins":materials_cost,"laborCoins":labor_cost,"yardMarginCoins":yard_margin,"taxCoins":yard_tax,
+		"materialsOk":materials_ok,"laborOk":labor_ok,"ready":ready,"portId":str(port.get("id","")),"portName":str(port.get("name","Reference yard"))}
+
+static func reinvestment086(c,role_or_kind: String,boat_uid: String="",estimated_net: int=0) -> Dictionary:
+	var hull_id: String=str(NEXT_ROLE_HULLS.get(role_or_kind,"tideledger_coaster"))
+	var conv_id: String=str(ROLE_FITTINGS.get(role_or_kind,"cargo_rig"))
+	var dock: Dictionary=c.current_port()
+	var at_harbor: bool=not dock.is_empty()
+	if dock.is_empty():dock=c.port(str(c.state.get("lastPort","")))
+	if dock.is_empty():
+		for p in c.state.get("ports",[]):
+			if _home_point086(p):dock=p;break
+	var boat: Dictionary=c.find_boat(boat_uid) if not boat_uid.is_empty() else {}
+	if boat.is_empty() and not c.active_fleet().is_empty():boat=c.active_fleet()[0]
+	var h: Dictionary=c.hull(hull_id)
+	var hq: Dictionary=Harbor.quote(c,h,dock)
+	var crew_min: int=int(h.get("crewMin",1))
+	var crew_advance: int=Economy.recruit_cost(dock,crew_min) if not dock.is_empty() else crew_min*Goods.SAILOR_WAGE*10
+	var entry_coins: int=int(hq.get("readyPrice",0))+crew_advance
+	var net_pos: int=maxi(0,estimated_net)
+	var fitting: Dictionary=_conversion_quote086(c,boat,dock,conv_id)
+	if bool(fitting.get("installed",false)):
+		var alt_id: String="auxiliary_tanks" if conv_id=="cargo_rig" else "cargo_rig"
+		fitting=_conversion_quote086(c,boat,dock,alt_id)
+	var fit_cost: int=int(fitting.get("costCoins",0))
+	fitting["netContributionCoins"]=mini(net_pos,fit_cost)
+	fitting["remainingGapCoins"]=maxi(0,fit_cost-int(c.state.get("coins",0))-net_pos)
+	var next_hull: Dictionary={"id":hull_id,"name":str(h.get("name",hull_id)),"readyCoins":int(hq.get("readyPrice",0)),
+		"commissionCoins":int(hq.get("commissionPrice",0)),"minimumCrew":crew_min,"crewAdvanceCoins":crew_advance,"entryCoins":entry_coins,
+		"stock":int(dock.get("shipStock",{}).get(hull_id,0)),"cargo":float(h.get("cargo",0)),"berths":int(h.get("crewMax",0)),
+		"netContributionCoins":mini(net_pos,entry_coins),"remainingGapCoins":maxi(0,entry_coins-int(c.state.get("coins",0))-net_pos)}
+	var summary: String="Reinvestment at %s: %s (%d coins, %s) or %s (%d ready + %d crew advance = %d coins; %d commission)."%[
+		str(dock.get("name","yard")),str(fitting.get("name","Fitting")),fit_cost,str(fitting.get("trade","interior conversion")),
+		str(next_hull.name),int(next_hull.readyCoins),crew_advance,entry_coins,int(next_hull.commissionCoins)]
+	return {"role":role_or_kind,"portId":str(dock.get("id","")),"portName":str(dock.get("name","Reference harbor")),"atHarbor":at_harbor,
+		"nextHull":next_hull,"nextFitting":fitting,"summary":summary}
+
+static func witnessed_convoy_opportunities086(c) -> Array:
+	var rows: Array=[]
+	if not Expedition.home_local064(c.state) or not c.has_method("fleet_owner"):return rows
+	var combat: Array=c.active_fleet().filter(func(b):return not b.get("supportOnly",false))
+	for owner in c.state.get("fleetOwners",[]):
+		if not owner is Dictionary or not bool(owner.get("active",false)) or str(owner.get("kind",""))!="trader":continue
+		var patrol: Dictionary={}
+		for p in c.state.get("patrols",[]):
+			if str(p.get("id",""))==str(owner.get("id","")) and bool(p.get("active",false)):patrol=p;break
+		if patrol.is_empty():continue
+		var dist: float=c.distance(c.state.position,patrol)
+		if dist>1800.0:continue
+		var load: Dictionary=Escort._load_plan(c,owner)
+		if not bool(load.get("ok",false)):continue
+		var threat: Dictionary=Escort.threat(c,owner)
+		var good: String=str(load.get("good",owner.get("tradeGood","food")))
+		var qty: float=float(load.get("qty",owner.get("tradeCargo",0)))
+		var dest_id: String=str(patrol.get("to",owner.get("destination","")))
+		var dest_port: Dictionary=c.port(dest_id)
+		var unit_val: int=Economy.price(dest_port,good,"sell") if not dest_port.is_empty() else int(Goods.ITEMS.get(good,{}).get("base",60))
+		var cargo_val: int=maxi(0,roundi(qty*unit_val))
+		var convoy_boats: Array=owner.get("boats",[]).filter(func(b):return not b.get("sunk",false) and int(b.get("crew",0))>=int(b.get("crewMin",1)))
+		var dp: int=Deployment.total(convoy_boats+combat)
+		var hostile_to_player: bool=Factions.is_hostile(c.state,str(owner.get("faction","")))
+		var escort_ok: bool=not hostile_to_player and not threat.is_empty() and dp<=Deployment.LIMIT and not combat.is_empty()
+		var piracy_ok: bool=not convoy_boats.is_empty() and not combat.is_empty()
+		rows.append({"ownerId":str(owner.get("id","")),"name":str(owner.get("name","Trader convoy")),"faction":str(owner.get("faction","")),
+			"destination":dest_id,"destinationName":str(dest_port.get("name",dest_id)),"distance":dist,"hailReady":dist<=260.0,
+			"tradeGood":good,"tradeCargo":qty,"cargoValueCoins":cargo_val,"carrierUids":load.get("carrierUids",[]).duplicate(),
+			"threatOwnerId":str(threat.get("id","")),"threatName":str(threat.get("name","")),"deploymentPoints":dp,
+			"escortEligible":escort_ok,"escortStandingReward":5,"escortServiceCredit":1,"piracyInterceptEligible":piracy_ok})
+	rows.sort_custom(func(a,b):
+		if not is_equal_approx(float(a.distance),float(b.distance)):return float(a.distance)<float(b.distance)
+		return str(a.ownerId)<str(b.ownerId)
+	)
+	return rows
+
+static func _carrier_alternatives086(c,kind: String,required: float,people: int) -> Array:
+	var rows: Array=[]
+	var fleet_free: float=maxf(0,c.capacity()-c.cargo_weight())
+	for candidate in c.active_fleet():
+		var role: String=str(candidate.get("spec",{}).get("civilianRole",""))
+		var role_ok: bool=true
+		if kind=="fuel_delivery":role_ok=role in ["transport","tanker"]
+		elif kind=="passenger_charter":role_ok=role in ["transport","yacht"]
+		var hold: float=physical_hold(c,candidate)
+		var berths: int=Transport.spare(c,candidate)
+		var fits: bool=role_ok and fleet_free+0.000001>=required and hold+0.000001>=required and (people==0 or berths>=people)
+		rows.append({"uid":str(candidate.uid),"name":str(candidate.name),"role":role,"holdFree":hold,"spareBerths":berths,"fits":fits})
+	return rows
+
+static func role_alternatives086(c,kind: String,offers: Array=[],carrier_uid: String="") -> Array:
+	var list: Array=offers
+	if list.is_empty() and c.get("VoyageJobs")!=null:list=c.VoyageJobs.available(c)
+	var rows: Array=[]
+	for item in list:
+		if not item is Dictionary or str(item.get("kind",""))!=kind:continue
+		var rev: Dictionary=job_review(c,item,carrier_uid)
+		if not bool(rev.get("ok",false)):continue
+		rows.append({"id":str(item.get("id","")),"title":str(item.get("title","")),"kind":kind,"loadTier":str(item.get("loadTier","small")),
+			"port":str(item.get("port","")),"targetPort":str(rev.get("targetPort","")),"targetName":str(rev.get("targetName","")),
+			"ownerId":str(item.get("ownerId","")),"loadWeight":float(rev.get("loadWeight",0)),"passengers":int(rev.get("passengers",0)),
+			"passengerFood":float(rev.get("passengerFood",0)),"carrierUid":str(rev.get("carrierUid","")),"carrierName":str(rev.get("carrierName","")),
+			"carrierFits":bool(rev.get("carrierFits",false)),"allowanceFits":bool(rev.get("allowanceFits",false)),"routeOk":bool(rev.get("routeOk",false)),
+			"outwardDays":float(rev.get("budget",{}).get("outwardDays",0)),"returnDays":float(rev.get("budget",{}).get("returnDays",0)),
+			"grossFee":int(rev.get("grossFee",0)),"operatingCost":int(rev.get("budget",{}).get("operatingCost",0)),"estimatedNet":int(rev.get("estimatedNet",0)),
+			"recipientPresent":bool(rev.get("recipient",{}).get("present",kind!="fuel_delivery")),"repeatClientCount":int(rev.get("clientMemory",{}).get("completedCount",0))})
+	return rows
+
 static func job_review(c,offer: Dictionary,carrier_uid: String="") -> Dictionary:
 	var job: Dictionary=offer.duplicate(true)
 	var active: bool=false
@@ -162,54 +301,116 @@ static func job_review(c,offer: Dictionary,carrier_uid: String="") -> Dictionary
 	var memory: Dictionary={}
 	var contact_id: String=str(job.get("sponsorContactId",""))
 	if contact_id.is_empty() and kind=="fuel_delivery":contact_id="captain:"+str(job.get("ownerId",""))
-	if not contact_id.is_empty():memory=c.Contacts.client_memory(c.state,contact_id).duplicate(true)
+	if not contact_id.is_empty():memory=Contacts.client_memory(c.state,contact_id).duplicate(true)
 	if memory.is_empty():memory=job.get("clientMemory",{}).duplicate(true)
+	var net: int=payable-int(budget.operatingCost)
 	return {"ok":true,"job":job,"active":active,"carrierUid":uid,"carrierName":str(b.get("name","No eligible carrier")),"carrierFits":fits,"allowanceFits":allowance_fits,
 		"holdFree":hold,"fleetHoldFree":fleet_free,"lockerWeight":Expedition.locker_weight(b),"spareBerths":berths,"loadWeight":load,"passengers":people,"passengerFood":rations,
-		"grossFee":gross,"payableFee":payable,"savingsCustody":custody,"feeReserved":maxi(0,int(job.get("escrow",0))-custody),"estimatedNet":payable-int(budget.operatingCost),
+		"grossFee":gross,"payableFee":payable,"savingsCustody":custody,"feeReserved":maxi(0,int(job.get("escrow",0))-custody),"estimatedNet":net,
 		"budget":budget,"originName":str(origin.get("name","Unknown harbor")),"targetName":str(target.get("name","Unknown harbor")),"targetPort":str(target.get("id","")),
 		"routeOk":bool(outward.ok) and bool(returning.ok) and speed>0,"access":access,"recipient":recipient,"clientMemory":memory,"warnings":risks,
-		"estimate":true,"guaranteed":false,"remainingOnly":active}
+		"carrierAlternatives":_carrier_alternatives086(c,kind,required,people),"reinvestment":reinvestment086(c,kind,uid,net),
+		"convoyOpportunities":witnessed_convoy_opportunities086(c),"estimate":true,"guaranteed":false,"remainingOnly":active}
 
 static func buyer_ports(c) -> Array:
 	var rows: Array=[]
+	if not Expedition.home_local064(c.state):return rows
 	var observations: Dictionary=c.state.get("tradeIntel",{}).get("observations",{})
 	var here: String=str(c.current_port().get("id",""))
 	for p in c.state.get("ports",[]):
+		if not _home_point086(p):continue
 		if str(p.id)==here or observations.has(str(p.id)):rows.append({"id":str(p.id),"name":str(p.name)})
 	return rows
 
-static func fishing_review(c,boat_uid: String,days: float=1.0,crew: int=0,buyer_port_id: String="") -> Dictionary:
-	var quote: Dictionary=c.CivilianWork.fishing_quote(c,boat_uid,days,crew).duplicate(true)
-	var buyer: Dictionary=c.port(buyer_port_id)
-	if buyer.is_empty():
-		var closest: float=INF
-		for row in buyer_ports(c):
-			var p: Dictionary=c.port(str(row.id))
-			var distance: float=c.distance(c.state.position,p)
-			if distance<closest:buyer=p;closest=distance
-	var report: Dictionary=_report(c,buyer)
-	var here: Dictionary=c.current_port()
-	var live: bool=not buyer.is_empty() and str(buyer.id)==str(here.get("id",""))
+static func _eval_buyer086(c,buyer: Dictionary,quote: Dictionary,days: float,boat_uid: String,here: Dictionary) -> Dictionary:
+	var in_home: bool=_home_point086(buyer)
+	var report: Dictionary=_report(c,buyer) if in_home else {}
+	var live: bool=in_home and not buyer.is_empty() and str(buyer.get("id",""))==str(here.get("id",""))
+	var seen: bool=live or bool(report.get("seen",false))
 	var sell: int=Economy.price(buyer,"preserved_fish","sell") if live else int(report.get("sell",{}).get("preserved_fish",0))
 	var funds: int=int(buyer.get("cash",0)) if live else int(report.get("businessFunds",0))
-	var lots: int=mini(int(quote.sellableLots),floori(float(funds)/sell)) if sell>0 else 0
+	var liq_lots: int=floori(float(funds)/sell) if sell>0 else 0
+	var lots: int=mini(int(quote.sellableLots),liq_lots) if sell>0 else 0
 	var route: Dictionary=_leg(c,c.state.position,buyer)
-	var travel: float=float(route.distance)/maxf(0.01,c.travel_speed())/45.0
+	var speed: float=c.travel_speed()
+	var route_ok: bool=bool(route.ok) and speed>0
+	var travel: float=float(route.distance)/maxf(0.01,speed)/45.0
 	var prices: Dictionary={}
 	if here.is_empty() and bool(report.get("seen",false)):
 		prices={"food":int(report.get("buy",{}).get("food",0)),"fuel":int(report.get("buy",{}).get("fuel",0)),"name":str(buyer.get("name","Buyer")),"day":float(report.get("observedDay",0))}
 	var budget: Dictionary=_budget(c,0,travel,days,here,float(quote.fuelNeeded),float(quote.foodNeeded),boat_uid,prices)
+	var access: Dictionary=_access(c,buyer) if not buyer.is_empty() else {"legal":false,"reason":"No recorded buyer harbor selected."}
+	var blockaded: bool=bool(buyer.get("blockaded",false))
+	var qualifies: bool=in_home and route_ok and bool(access.legal) and not blockaded and seen and sell>0 and liq_lots>=1
+	var net: int=lots*sell-int(budget.operatingCost)
+	var direct_dist: float=c.distance(c.state.position,buyer) if in_home else INF
+	return {"buyer":buyer,"report":report,"live":live,"seen":seen,"sell":sell,"funds":funds,"liquidityLots":liq_lots,"lots":lots,
+		"route":route,"routeOk":route_ok,"travelDays":travel,"budget":budget,"access":access,"blockaded":blockaded,"qualifies":qualifies,"estimatedNet":net,"directDistance":direct_dist}
+
+static func fishing_review(c,boat_uid: String,days: float=1.0,crew: int=0,buyer_port_id: String="") -> Dictionary:
+	var quote: Dictionary=CivilianWork.fishing_quote(c,boat_uid,days,crew).duplicate(true)
+	var here: Dictionary=c.current_port()
+	var evals: Array=[]
+	for row in buyer_ports(c):
+		var p: Dictionary=c.port(str(row.id))
+		if not p.is_empty():evals.append(_eval_buyer086(c,p,quote,days,boat_uid,here))
+	evals.sort_custom(func(a,b):
+		if bool(a.qualifies)!=bool(b.qualifies):return bool(a.qualifies)
+		if bool(a.qualifies):
+			if int(a.estimatedNet)!=int(b.estimatedNet):return int(a.estimatedNet)>int(b.estimatedNet)
+			if int(a.lots)!=int(b.lots):return int(a.lots)>int(b.lots)
+			if int(a.sell)!=int(b.sell):return int(a.sell)>int(b.sell)
+			if not is_equal_approx(float(a.route.distance),float(b.route.distance)):return float(a.route.distance)<float(b.route.distance)
+		else:
+			if bool(a.routeOk)!=bool(b.routeOk):return bool(a.routeOk)
+			if not is_equal_approx(float(a.directDistance),float(b.directDistance)):return float(a.directDistance)<float(b.directDistance)
+		return str(a.buyer.get("id",""))<str(b.buyer.get("id",""))
+	)
+	var chosen: Dictionary={}
+	if not buyer_port_id.is_empty():
+		for ev in evals:
+			if str(ev.buyer.get("id",""))==buyer_port_id:chosen=ev;break
+		if chosen.is_empty():chosen=_eval_buyer086(c,c.port(buyer_port_id),quote,days,boat_uid,here)
+	elif not evals.is_empty():
+		chosen=evals[0]
+	else:
+		chosen=_eval_buyer086(c,{},quote,days,boat_uid,here)
+	var buyer_alternatives: Array=[]
+	for ev in evals:
+		buyer_alternatives.append({"portId":str(ev.buyer.get("id","")),"name":str(ev.buyer.get("name","")),"qualifies":bool(ev.qualifies),
+			"routeOk":bool(ev.routeOk),"routeDistance":float(ev.route.distance),"returnDays":float(ev.travelDays),"legal":bool(ev.access.legal),
+			"blockaded":bool(ev.blockaded),"seen":bool(ev.seen),"sellQuote":int(ev.sell),"businessFunds":int(ev.funds),
+			"liquidityLots":int(ev.liquidityLots),"saleLots":int(ev.lots),"estimatedGross":int(ev.lots)*int(ev.sell),
+			"operatingCost":int(ev.budget.operatingCost),"estimatedNet":int(ev.estimatedNet)})
+	var horizon_alternatives: Array=[]
+	for h_days in [0.5,1.0,2.0]:
+		var hq: Dictionary=CivilianWork.fishing_quote(c,boat_uid,h_days,crew)
+		horizon_alternatives.append({"requestedDays":h_days,"ok":bool(hq.get("ok",false)),"catchMax":float(hq.get("catchMax",0)),
+			"sellableLots":int(hq.get("sellableLots",0)),"fuelNeeded":float(hq.get("fuelNeeded",0)),"foodNeeded":float(hq.get("foodNeeded",0)),
+			"limitingCause":str(hq.get("limitingCause","none"))})
+	var ground_note: String="Current 500-unit cell %s has %.1f / %.0f daily lots left (limit: %s)."%[str(quote.get("siteId","")),float(quote.get("quotaRemaining",0)),float(quote.get("quotaDaily",40)),str(quote.get("limitingCause","none"))]
+	if float(quote.get("quotaRemaining",0))+0.0001<float(quote.get("holdFree",0)):
+		ground_note+=" Shifting 500+ units to an adjacent open-water cell accesses a separate 40-lot daily quota at extra sailing fuel/time."
+	var buyer: Dictionary=chosen.buyer
+	var report: Dictionary=chosen.report
+	var live: bool=bool(chosen.live)
+	var sell: int=int(chosen.sell)
+	var funds: int=int(chosen.funds)
+	var lots: int=int(chosen.lots)
+	var budget: Dictionary=chosen.budget
+	var access: Dictionary=chosen.access
 	var risks: Array=budget.warnings.duplicate()
-	if not route.ok:risks.append("No navigable return to this buyer for the actual fleet.")
-	if not live and not report.get("seen",false):risks.append("No dated fish sale quote or buyer purse is recorded; visit a real Market.")
+	if not bool(chosen.routeOk):risks.append("No navigable return to this buyer for the actual fleet.")
+	if not live and not bool(report.get("seen",false)):risks.append("No dated fish sale quote or buyer purse is recorded; visit a real Market.")
 	if sell>0 and lots<int(quote.sellableLots):risks.append("The recorded buyer purse covers only %d of the %d forecast whole lots."%[lots,int(quote.sellableLots)])
-	var access: Dictionary=_access(c,buyer)
-	if not access.legal:risks.append(str(access.reason))
+	if not bool(access.legal):risks.append(str(access.reason))
 	if buyer.get("blockaded",false):risks.append("Buyer harbor is blockaded; arrival and market access can change.")
 	return {"ok":bool(quote.ok),"quote":quote,"boatUid":boat_uid,"boatName":str(c.find_boat(boat_uid).get("name","No fishing boat")),"budget":budget,
 		"buyer":{"portId":str(buyer.get("id","")),"name":str(buyer.get("name","Choose a recorded buyer")),"seen":live or bool(report.get("seen",false)),
 			"day":float(c.state.day) if live else float(report.get("observedDay",0)),"age":maxf(0,float(c.state.day)-float(report.get("observedDay",c.state.day))) if report.get("seen",false) and not live else 0.0,"live":live,"sellQuote":sell,
-			"businessFunds":funds,"liquidityLots":floori(float(funds)/sell) if sell>0 else 0,"saleLots":lots,"estimatedGross":lots*sell},
-		"estimatedNet":lots*sell-int(budget.operatingCost),"carriedFish":maxf(0,float(c.state.get("cargo",{}).get("preserved_fish",0))),
-		"access":access,"routeOk":bool(route.ok),"warnings":risks,"estimate":true,"guaranteed":false}
+			"businessFunds":funds,"liquidityLots":int(chosen.liquidityLots),"saleLots":lots,"estimatedGross":lots*sell},
+		"estimatedNet":int(chosen.estimatedNet),"carriedFish":maxf(0,float(c.state.get("cargo",{}).get("preserved_fish",0))),
+		"access":access,"routeOk":bool(chosen.routeOk),"warnings":risks,"buyerAlternatives":buyer_alternatives,
+		"horizonAlternatives":horizon_alternatives,"groundAlternativeNote":ground_note,
+		"reinvestment":reinvestment086(c,"fishing",boat_uid,int(chosen.estimatedNet)),
+		"convoyOpportunities":witnessed_convoy_opportunities086(c),"estimate":true,"guaranteed":false}

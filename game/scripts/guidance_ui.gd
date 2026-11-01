@@ -117,6 +117,9 @@ static func career_plan(ui,body,plan: Dictionary) -> void:
 	ui.paragraph(body,str(plan.get("nextStep","")),15)
 	var next_action: String=str(plan.get("nextActionId",""))
 	if not next_action.is_empty() and next_action!=first_action:ui.button(body,action_label(next_action),func():action(ui,next_action))
+	for extra_key in ["alternativesSummary","reinvestmentSummary"]:
+		var extra_note: String=str(plan.get(extra_key,""))
+		if not extra_note.is_empty():ui.paragraph(body,extra_note,14,ui.TEAL)
 	for key in ["basis","limits"]:
 		var note: String=str(plan.get(key,""))
 		if not note.is_empty():ui.paragraph(body,note,13,ui.MUTED)

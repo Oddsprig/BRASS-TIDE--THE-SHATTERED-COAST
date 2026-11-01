@@ -1,0 +1,88 @@
+CIVILIAN CAREERS v0.086 — PLAYER & VERIFICATION NOTES
+
+Overview
+========
+v0.086 ("Civilian Careers Worth Repeating") improves existing fishing, sealed
+freight, tanker fuel delivery, and passenger charter work and player guidance
+so each role presents concrete route, capacity, risk, and paid reinvestment
+alternatives using existing finite catches, cargo stocks, fuel tanks, passenger
+cohorts, business/treasury purses, 40-lot daily water-cell quotas, supplied
+rations, and arrival gates. No new careers, boats, or goods are invented.
+
+What Changed
+============
+1. Fishing Return Buyer Ranking & Home-Region Authority (`civilian_choices059.gd`)
+   - When reviewing fishing without an explicit buyer override (`buyer_port_id`
+     empty), `Choices.fishing_review` evaluates recorded home-region
+     (`shatter_coast`) harbors and prefers reachable (`route.ok`), legally
+     accessible (`access.legal`), non-blockaded buyers with a dated positive
+     fish quote (`sell > 0`) and liquidity for at least 1 whole lot
+     (`floori(businessFunds / sell) >= 1`), ranked by:
+       1) highest estimated net after return fuel, provisions, and rounded-up
+          calendar payroll (`saleLots * sellQuote - operatingCost`),
+       2) highest whole lots covered by the buyer's purse (`saleLots`),
+       3) highest unit sell quote,
+       4) shortest navigable return distance,
+       5) deterministic `portId` tie-break.
+   - If no recorded buyer qualifies, `fishing_review` falls back deterministically
+     to the closest reachable home-region harbor while preserving all explicit
+     route, quote-age, liquidity, legal-access, and blockade warnings.
+   - Explicitly selecting a buyer harbor (`buyer_port_id != ""`) always preserves
+     that explicit choice and its warnings.
+   - `buyer_ports` and `_leg` enforce `shatter_coast` home-region authority so
+     ports in other regions with similar local XY coordinates are never treated
+     as home-local return routes.
+   - `fishing_review` now exposes `buyerAlternatives`, `horizonAlternatives`
+     (`0.5`, `1.0`, and `2.0` elapsed days), `groundAlternativeNote` (explaining
+     when shifting 500+ units to an adjacent water cell accesses a fresh 40-lot
+     daily quota), `reinvestment`, and `convoyOpportunities`.
+
+2. Freight, Fuel Delivery & Passenger Charter Alternatives (`voyage_jobs.gd`, `civilian_choices059.gd`)
+   - `_freight_offers` and `_civilian_offers` (`fuel_delivery`) now generate the
+     `"larger"` load tier whenever exportable/demanded lots exceed the `"small"`
+     tier (`qty > small`, i.e. 9..16 lots instead of requiring `>= 16`), matching
+     `passenger_charter` (`count > small`). Mid-stock harbors and mid-demand
+     tanker recipients now present genuine small-vs-larger capacity and risk
+     choices on the work board.
+   - `Choices.job_review` remains a single-offer pure read (`snapshot() == before`,
+     never opening board offers or settling pending calendar days) while exposing
+     `carrierAlternatives` across active hulls, `reinvestment` quotes, and
+     `convoyOpportunities`.
+   - `Choices.role_alternatives086` summarizes available board offers of the
+     same role (`small` vs `larger` load tiers, destinations, outward/return
+     days, gross fee, operating cost, and estimated net).
+
+3. Reinvestment Quotes & Paid Conversions (`civilian_choices059.gd`, `career_costs.gd`)
+   - `Choices.reinvestment086` quotes both:
+     - the role's next hull (`brinehook_longliner` for fishing,
+       `tideledger_coaster` for freight, `blackwater_fleet_tanker` for fuel
+       delivery, `osprey_cabin_cruiser` for passenger charter) with local ready
+       price, commission price, minimum crew advance, and current yard stock, and
+     - the role's interior hull conversion (`cargo_rig` +25% hold or
+       `auxiliary_tanks` +35% engine fuel tank capacity) with exact material,
+       shipwright labor, yard margin, and tax costs without mutating live
+       campaign relationships.
+
+4. Witnessed Civilian Value -> Escort & Piracy Opportunities (`civilian_choices059.gd`, `campaign_guidance.gd`, `career_costs.gd`, `voyage_ui.gd`, `guidance_ui.gd`)
+   - `Choices.witnessed_convoy_opportunities086` scans active loaded `trader`
+     fleets within the 1800-unit watch radius in `shatter_coast`, reporting
+     physical cargo (`tradeGood`, `tradeCargo`, `cargoValueCoins`), observed
+     hostile threats (`Escort.threat`), deployment-point fit (`<= 300` DP),
+     `escortEligible` (`Escort.start` for +5 standing and 1 service credit), and
+     `piracyInterceptEligible` (`Escort.prepare_intercept`).
+   - `CareerCosts.plan`, `Guidance.report`, `GuidanceUI.career_plan`, and
+     `VoyageUI` surface these route/capacity alternatives, reinvestment quotes,
+     and witnessed convoy opportunities while remaining 100% pure on read/close.
+
+Focused Native Fixture (`game/tests/test_civilian_careers086.gd`)
+=================================================================
+- Explicitly labels all four role witnesses (`fishing`, `freight`,
+  `passenger_charter`, `fuel_delivery`) as staged (`staged: true`,
+  `earnedFromDefaultStarter: false`), forked from one validated seeded baseline
+  (`seed = 59059`) with finite treasury capital transferred from `shatter_spire`.
+- Verifies pure buyer ranking, home-region route authority, small-vs-larger load
+  alternatives, outward/work/return physical execution, full 100-coin/day sailor
+  payroll settlement, paid post-voyage interior conversion reinvestment
+  (`c.install_conversion`), witnessed civilian convoy escort (`Escort.start`)
+  and piracy intercept (`Escort.prepare_intercept`), global coin/people
+  conservation, and parsed save/restore fidelity.

@@ -14,6 +14,7 @@ const Deployment=preload("res://scripts/deployment.gd")
 const Factions=preload("res://scripts/factions.gd")
 const Routes=preload("res://scripts/route_cache.gd")
 const Contracts=preload("res://scripts/contracts.gd")
+const Choices=preload("res://scripts/civilian_choices059.gd")
 const CAREERS=["explorer","merchant","escort","privateer","fisher","passenger"]
 
 class QuoteView extends RefCounted:
@@ -22,16 +23,24 @@ class QuoteView extends RefCounted:
 	const NavalAI=preload("res://scripts/naval_ai.gd")
 	const Factions=preload("res://scripts/factions.gd")
 	const ToolingOps=preload("res://scripts/tooling_ops.gd")
+	const CivilianWork=preload("res://scripts/civilian_work.gd")
+	const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
+	const Contacts=preload("res://scripts/contacts.gd")
 	var state: Dictionary
 	var data: Dictionary
 	var nav: Dictionary
 	var speed: float
+	var pending_days: int=0
 	func _init(c):
-		state=c.state.duplicate(true);data=c.data;nav=c.nav;speed=c.travel_speed()
+		state=c.state.duplicate(true);data=c.data;nav=c.nav;speed=c.travel_speed();pending_days=int(c.pending_days)
 	func active_fleet() -> Array:
 		var boats: Array=Expedition.traveling(state)
 		boats.sort_custom(func(a,b):return a.uid==state.flagship and b.uid!=state.flagship)
 		return boats
+	func find_boat(uid: String) -> Dictionary:
+		for b in state.get("fleet",[]):
+			if str(b.get("uid",""))==uid:return b
+		return {}
 	func capacity() -> float:return Expedition.capacity(state)
 	func cargo_weight() -> float:return Expedition.cargo_weight(state)
 	func travel_speed() -> float:return speed
@@ -160,13 +169,14 @@ static func _second_hull(v,budget: Dictionary,reward: int) -> Dictionary:
 		best["gapCoins"]=maxi(0,int(best.entryCoins)-after)
 	return best
 
-static func _offer(v,kind: String) -> Dictionary:
-	for j in Jobs.available(v):
+static func _offer(v,kind: String,offers: Array=[]) -> Dictionary:
+	var list: Array=offers if not offers.is_empty() else Jobs.available(v)
+	for j in list:
 		if str(j.kind)==kind:return j
 	return {}
 
-static func _job(plan: Dictionary,v,kind: String) -> Dictionary:
-	var j: Dictionary=_offer(v,kind)
+static func _job(plan: Dictionary,v,kind: String,offers: Array=[]) -> Dictionary:
+	var j: Dictionary=_offer(v,kind,offers)
 	if j.is_empty():
 		plan.blockers.append("No funded %s offer here today; inspect the work board at a permitted harbor."%kind.replace("_"," "))
 		return {}
@@ -200,6 +210,7 @@ static func plan(c,career: String) -> Dictionary:
 	if not Expedition.home_local064(v.state):
 		p.blockers=["Return to Shatter Coast for this coastal career quote."];p.nextStep="Return through a Shatter Coast approach."
 		return _display(p)
+	p["convoyOpportunities"]=Choices.witnessed_convoy_opportunities086(v)
 	match career:
 		"explorer":_explorer(p,v)
 		"merchant":_merchant(p,v)
@@ -247,14 +258,26 @@ static func _merchant(p: Dictionary,v) -> void:
 	p.nextActionId="trade"
 	var harbor: Dictionary=v.current_port()
 	p["marketQuote"]={"good":"preserved_fish","buyCoins":Economy.price(harbor,"preserved_fish"),"sellCoins":Economy.price(harbor,"preserved_fish","sell"),"buyerCash":harbor.get("cash",0),"stock":harbor.get("stocks",{}).get("preserved_fish",0)}
-	var j: Dictionary=_job(p,v,Jobs.KIND_FREIGHT)
-	if j.is_empty():return
-	var distance: float=_length(v,v.state.position,v.port(str(j.targetPort)))
-	if distance<0:p.blockers.append("No safe route for this fleet to the freight destination.")
-	p.operatingCosts=_budget(v,maxf(0,distance))
-	p.quote["freight"]=j.freight.duplicate(true)
-	if float(j.freight.qty)*float(Goods.ITEMS[str(j.freight.good)].weight)>v.capacity()-v.cargo_weight():p.blockers.append("The sealed lot exceeds the current free hold.")
-	p.operatingCosts["rewardLessAllowanceCoins"]=int(j.reward)-int(p.operatingCosts.allowanceCoins)
+	var offers: Array=Jobs.available(v)
+	var j: Dictionary=_job(p,v,Jobs.KIND_FREIGHT,offers)
+	var freight_alts: Array=Choices.role_alternatives086(v,Jobs.KIND_FREIGHT,offers)
+	var fuel_alts: Array=Choices.role_alternatives086(v,Jobs.KIND_FUEL,offers)
+	p["alternatives"]=freight_alts
+	p["fuelAlternatives"]=fuel_alts
+	var surplus: int=0
+	if not j.is_empty():
+		var distance: float=_length(v,v.state.position,v.port(str(j.targetPort)))
+		if distance<0:p.blockers.append("No safe route for this fleet to the freight destination.")
+		p.operatingCosts=_budget(v,maxf(0,distance))
+		p.quote["freight"]=j.freight.duplicate(true)
+		if float(j.freight.qty)*float(Goods.ITEMS[str(j.freight.good)].weight)>v.capacity()-v.cargo_weight():p.blockers.append("The sealed lot exceeds the current free hold.")
+		surplus=int(j.reward)-int(p.operatingCosts.allowanceCoins)
+		p.operatingCosts["rewardLessAllowanceCoins"]=surplus
+	var reinv: Dictionary=Choices.reinvestment086(v,"freight","",surplus)
+	p["reinvestment"]=reinv
+	p["reinvestmentSummary"]=str(reinv.get("summary",""))
+	if not freight_alts.is_empty() or not fuel_alts.is_empty():
+		p["alternativesSummary"]="Board options: %d freight load/route choices and %d tanker fuel-restock choices. Compare small (<=8 lot) vs larger (9..16 lot) holds and return fuel/payroll before accepting."%[freight_alts.size(),fuel_alts.size()]
 
 static func _escort(p: Dictionary,v) -> void:
 	p.actionId="traffic";p.nextActionId="jobs"
@@ -263,6 +286,10 @@ static func _escort(p: Dictionary,v) -> void:
 	p.rewardSource="Successful passage grants one service credit and +5 standing with the convoy's faction. This escort promises 0 coins and no enemy purse."
 	p.nextStep="Check coastal traffic for an eligible threatened convoy and protect payroll and stores first. Use the work board for a separately funded job if you need coin income."
 	p["quote"]={"rewardCoins":0,"standing":5,"serviceCredit":1}
+	var witnessed: Array=p.get("convoyOpportunities",[])
+	if not witnessed.is_empty():
+		var first_c: Dictionary=witnessed[0]
+		p["alternativesSummary"]="Witnessed convoy %s carrying %.0f %s (~%d coins value) toward %s: escort for +5 standing and 1 service credit when threatened, or intercept as piracy."%[str(first_c.get("name","Convoy")),float(first_c.get("tradeCargo",0)),str(first_c.get("tradeGood","cargo")),int(first_c.get("cargoValueCoins",0)),str(first_c.get("destinationName","harbor"))]
 	for owner in v.state.get("fleetOwners",[]):
 		if not owner.get("active",false) or owner.get("kind","")!="trader" or Factions.is_hostile(v.state,str(owner.faction)):continue
 		var load: Dictionary=Escort._load_plan(v,owner)
@@ -286,6 +313,10 @@ static func _privateer(p: Dictionary,v) -> void:
 	p.rewardSource="The named harbor's government purse funds bounty escrow. Boarding transfers an existing hull and its actual cargo; a damaged prize requires paid repair, sailors and stores."
 	p.nextStep="Review Law before accepting the bounty; budget ammunition, paid repairs and return wages. Inspect Boarding before capture and repair a secured prize before deploying it."
 	p.nextActionId="law"
+	var witnessed: Array=p.get("convoyOpportunities",[])
+	if not witnessed.is_empty():
+		var first_c: Dictionary=witnessed[0]
+		p["alternativesSummary"]="Witnessed trader %s carries %.0f %s (~%d coins value) at %.0f chart units: lawful bounty targets raiders, while intercepting a peaceful convoy triggers piracy law/standing penalties."%[str(first_c.get("name","Convoy")),float(first_c.get("tradeCargo",0)),str(first_c.get("tradeGood","cargo")),int(first_c.get("cargoValueCoins",0)),float(first_c.get("distance",0))]
 	var j: Dictionary=_job(p,v,Jobs.KIND_BOUNTY)
 	if j.is_empty():return
 	var target: Dictionary=v.NavalAI._find_patrol(v.state,str(j.ownerId))
@@ -306,6 +337,9 @@ static func _fisher(p: Dictionary,v) -> void:
 	p["fishingBasis"]={"catchPerCrewDay":Fishing.catch_rate(),"siteDayQuota":Fishing.SITE_QUOTA,"minimumWorkDays":0,"maximumWorkDays":7}
 	if b.is_empty():
 		p.operatingCosts.summary+=" Fishing labor allows at most %.2f lots per sailor-day before the shared %.0f-lot water-cell quota, fuel, food and physical hold limits; choose a real boat to quote its catch."%[Fishing.catch_rate(),Fishing.SITE_QUOTA]
+		var reinv_empty: Dictionary=Choices.reinvestment086(v,"fishing","",0)
+		p["reinvestment"]=reinv_empty
+		p["reinvestmentSummary"]=str(reinv_empty.get("summary",""))
 		return
 	p.nextActionId="market"
 	p.nextStep="Review this boat's current-ground quote in Fishing and clear its blockers before setting gear; return to Market with the earned catch and check the buyer's cash."
@@ -321,6 +355,12 @@ static func _fisher(p: Dictionary,v) -> void:
 	else:p.operatingCosts.summary+=" Current local whole-lot sale ceiling %d coins, limited by the buyer's purse."%int(p.quote.saleCeilingCoins)
 	if not work.ok:p.blockers.append(str(work.message))
 	p.limits+=" Catch is an upper bound, not an earned sale. Offshore travel and the eventual buyer price are not selected yet."
+	var rev: Dictionary=Choices.fishing_review(v,str(b.uid),1.0)
+	p["buyerAlternatives"]=rev.get("buyerAlternatives",[])
+	p["horizonAlternatives"]=rev.get("horizonAlternatives",[])
+	p["reinvestment"]=rev.get("reinvestment",Choices.reinvestment086(v,"fishing",str(b.uid),int(rev.get("estimatedNet",0))))
+	p["reinvestmentSummary"]=str(p.reinvestment.get("summary",""))
+	p["alternativesSummary"]="Buyers ranked by net after return fuel/payroll (%d recorded home harbors); compare 0.5d / 1.0d / 2.0d horizons or shift 500+ units to a fresh 40-lot cell."%p.buyerAlternatives.size()
 
 static func _passenger(p: Dictionary,v) -> void:
 	p.firstGoal="Prepare a transport or yacht, accept a funded charter and carry its real people and bought food to the named destination."
@@ -329,16 +369,30 @@ static func _passenger(p: Dictionary,v) -> void:
 	p.nextStep="Compare the yard's hull price and minimum crew advance with your purse; stores and continuing payroll are extra. Check funded charters after crewing."
 	p.nextActionId="yard"
 	var b: Dictionary=_entry(p,v,["transport","yacht"])
-	if b.is_empty():return
+	if b.is_empty():
+		var reinv_empty: Dictionary=Choices.reinvestment086(v,"passenger_charter","",0)
+		p["reinvestment"]=reinv_empty
+		p["reinvestmentSummary"]=str(reinv_empty.get("summary",""))
+		return
 	p.nextActionId="jobs"
 	p.nextStep="Review a funded charter on the work board for this carrier's spare berths, food space and return allowance; refresh if no eligible cohort is available."
-	var j: Dictionary=_job(p,v,Jobs.KIND_CHARTER)
-	if j.is_empty():return
-	p.operatingCosts=_budget(v,float(j.routeDistance))
-	for carrier in v.active_fleet():
-		if str(carrier.uid)==str(j.carrierUid):b=carrier;break
-	p.quote.merge({"carrierUid":j.carrierUid,"passengers":int(j.passengers.n),"berths":Transport.spare(v,b),"passengerFood":j.charterFood.food,"routeDays":j.routeDays,"passengerSavingsCoins":int(j.savingsHousehold)+int(j.savingsExpert)})
-	p.operatingCosts["rewardLessAllowanceCoins"]=int(j.reward)-int(p.operatingCosts.allowanceCoins)
+	var offers: Array=Jobs.available(v)
+	var j: Dictionary=_job(p,v,Jobs.KIND_CHARTER,offers)
+	var charter_alts: Array=Choices.role_alternatives086(v,Jobs.KIND_CHARTER,offers,str(b.uid))
+	p["alternatives"]=charter_alts
+	var surplus: int=0
+	if not j.is_empty():
+		p.operatingCosts=_budget(v,float(j.routeDistance))
+		for carrier in v.active_fleet():
+			if str(carrier.uid)==str(j.carrierUid):b=carrier;break
+		p.quote.merge({"carrierUid":j.carrierUid,"passengers":int(j.passengers.n),"berths":Transport.spare(v,b),"passengerFood":j.charterFood.food,"routeDays":j.routeDays,"passengerSavingsCoins":int(j.savingsHousehold)+int(j.savingsExpert)})
+		surplus=int(j.reward)-int(p.operatingCosts.allowanceCoins)
+		p.operatingCosts["rewardLessAllowanceCoins"]=surplus
+	var reinv: Dictionary=Choices.reinvestment086(v,"passenger_charter",str(b.uid),surplus)
+	p["reinvestment"]=reinv
+	p["reinvestmentSummary"]=str(reinv.get("summary",""))
+	if not charter_alts.is_empty():
+		p["alternativesSummary"]="Charter board offers %d cohort/route choices (small <=4 passengers vs larger cohort up to spare berths and destination housing)."%charter_alts.size()
 
 static func _display(value):
 	if value is float or value is int:

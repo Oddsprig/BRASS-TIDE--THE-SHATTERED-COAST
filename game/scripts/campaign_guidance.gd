@@ -371,6 +371,15 @@ static func report(c, route_distance: float = 0.0,
 	for suggestion in choice.suggestions:
 		if cards.size() < MAX_CARDS:
 			cards.append(suggestion.duplicate(true))
+	var career_plan: Dictionary = CareerCosts.plan(c, str(choice.id))
+	var convoy_ops: Array = _rows(career_plan.get("convoyOpportunities"))
+	if not convoy_ops.is_empty() and cards.size() < MAX_CARDS:
+		var conv: Dictionary = _dict(convoy_ops[0])
+		_add(cards, "convoy_opportunity", "Inspect witnessed civilian convoy",
+			"%s carries %.0f %s (~%s coins) toward %s: hail for escort (+5 standing, 1 service credit) when threatened, or intercept as piracy." % [
+				str(conv.get("name", "Trader convoy")), _n(conv.get("tradeCargo")),
+				str(conv.get("tradeGood", "cargo")), _amount(conv.get("cargoValueCoins")),
+				str(conv.get("destinationName", "harbor"))], "traffic")
 
 	var warnings: Array = []
 	for card in cards:
@@ -381,7 +390,7 @@ static func report(c, route_distance: float = 0.0,
 			warnings.append(warning)
 	return {"ok":true, "day":_shown(maxf(0.0, _n(s.get("day")))),
 		"career":choice.id, "routeDistance":route, "routeValid":route_valid,
-		"careerPlan":CareerCosts.plan(c,str(choice.id)),
+		"careerPlan":career_plan, "convoyOpportunities":convoy_ops,
 		"notes":notes, "fleet":fleet, "route_trip_returnbudget":budget,
 		"cards":cards, "warnings":warnings.slice(0, MAX_CARDS),
 		"warningCount":warnings.size()}

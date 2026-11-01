@@ -397,7 +397,7 @@ static func _freight_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Array
 			var fee: Dictionary=_funded_load(c,p,days,KIND_FREIGHT,small if tier=="small" else limit,selected)
 			if fee.is_empty():continue
 			var qty: int=int(fee.qty)
-			if tier=="larger" and qty<small*2:continue
+			if tier=="larger" and qty<=small:continue
 			var invoice: int=int(fee.invoice)
 			var offer: Dictionary={"title":"%s freight: %d %s to %s"%[str(tier).capitalize(),qty,str(Goods.ITEMS[selected].name),str(target.name)],"description":"Treasury purchases existing exportable cargo for a current household/production stock gap and escrows the fee; this is finite relief, not guaranteed future demand.","port":str(p.id),"targetPort":str(target.id),"kind":KIND_FREIGHT,"reward":int(fee.reward),"escrow":0,"payerKey":"governmentPurse","materialInvoice":invoice,"failed":false,"deadlineDay":float(day)+ceilf(maxf(days,float(fee.days))*2+6),"acceptedDay":0.0,"freight":{"good":selected,"qty":float(qty)},"state":STATE_OFFERED,"siteId":"","ownerId":"","demandNeed":need,"demandPurpose":str(needs[selected].needPurpose),"loadTier":tier,"quotedDay":float(c.state.day),"feeBasis":str(fee.feeBasis)}
 			offer.regionId=WorkRegion070.region(p);offer.targetRegionId=WorkRegion070.region(target)
@@ -880,7 +880,7 @@ static func _civilian_offers(c,p: Dictionary,day: int,taken: Dictionary) -> Arra
 			var load: Dictionary=_funded_load(c,p,days,KIND_FUEL,small if tier=="small" else limit,"fuel")
 			if load.is_empty():continue
 			var qty: int=int(load.qty)
-			if tier=="larger" and qty<small*2:continue
+			if tier=="larger" and qty<=small:continue
 			var q: Dictionary={"title":"%s fuel restock: %d drums for %s at %s"%[str(tier).capitalize(),qty,str(owner.name),str(target.name)],"description":"Treasury buys real fuel for unfilled operating tanks, after the recipient's existing cargo fuel and promises. The independent fleet may sail or restock; payment only on actual receipt.","kind":KIND_FUEL,"port":str(p.id),"targetPort":str(target.id),"ownerId":str(owner.id),"payerKey":"governmentPurse","reward":int(load.reward),"materialInvoice":int(load.invoice),"freight":{"good":"fuel","qty":float(qty)},"deadlineDay":float(day)+ceilf(maxf(days,float(load.days))*2+6),"state":STATE_OFFERED,"fuelPolicy":"operating_tanks","loadTier":tier,"quotedDay":float(c.state.day),"demandNeed":demand,"demandPurpose":"Existing living, crewed boats' unfilled real tanks; all already-carried recipient fuel deducted. No tank reservation; recipient can depart or buy fuel.","feeBasis":str(load.feeBasis)}
 			q.regionId=WorkRegion070.region(p);q.targetRegionId=WorkRegion070.region(target)
 			q.id=_work_id(p,day,KIND_FUEL,str(target.id),str(owner.id),qty,q)
