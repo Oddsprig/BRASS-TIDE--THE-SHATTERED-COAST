@@ -221,15 +221,46 @@ func trade(good: String, qty: int, action: String = "buy") -> bool:
 	return check(bool(res.get("ok", false)), "Trade " + action + " " + str(actual_qty) + " " + good + ": " + str(res.get("message", "")))
 
 func provision(min_supplies: int = 12) -> bool:
-	var boat_id: String = str(c.state.fleet[0].uid)
+	var boat: Dictionary = c.state.fleet[0]
+	var boat_id: String = str(boat.uid)
+	# Harbor.resupply's voyage targets; inherited stores can already cover them.
+	var magazine: float = maxf(80.0, float(boat.spec.get("ammoCapacity", 80 * maxi(1, boat.spec.get("weaponMounts", []).size()))))
+	var targets: Dictionary = {"fuel":3.0, "ammo":magazine, "supplies":6.0}
+	var stores_before: Dictionary = {}
+	var covered: bool = true
+	for good in targets:
+		var aboard: float = float(boat.get(good, -1.0))
+		if not check(is_finite(aboard) and aboard >= 0.0, "Voyage store is finite and nonnegative: " + good):
+			return false
+		stores_before[good] = aboard
+		covered = covered and aboard >= float(targets[good])
+	var before: PackedByteArray = var_to_bytes([c.state, c.events, c.pending_days])
+	var coins_before: int = int(c.state.coins)
 	var res: Dictionary = c.resupply_boat(boat_id, "voyage")
-	if not check(bool(res.get("ok", false)), "Paid voyage-profile resupply: " + str(res.get("message", ""))):
-		return false
+	var spent: int = coins_before - int(c.state.coins)
+	if covered:
+		if not check(not bool(res.get("ok", true)) and str(res.get("message", "")) == "Stores full, stock low, or your purse is empty." and spent == 0 and var_to_bytes([c.state, c.events, c.pending_days]) == before,
+			"Already-covered voyage targets refuse a no-op with exact capacities, stores, stocks, purses and cargo unchanged"):
+			return false
+	else:
+		if not check(bool(res.get("ok", false)) and spent > 0, "Paid voyage-profile resupply: " + str(res.get("message", ""))):
+			return false
+	var stores_after: Dictionary = {}
+	for good in targets:
+		stores_after[good] = float(boat[good])
+		if not check(is_finite(float(boat[good])) and float(boat[good]) >= float(targets[good]), "Actual boat stores cover the voyage target: " + good):
+			return false
+	note("voyage_profile_resupply087", {"boatUid":boat_id, "alreadyCovered":covered, "purchased":not covered, "spent":spent, "targets":targets,
+		"before":stores_before, "after":stores_after, "fuelCapacity":boat.spec.get("fuelCapacity", 60), "holdCapacity":c.capacity(), "message":res.get("message", "")})
 	for row in [["food", 22], ["supplies", min_supplies], ["fuel", 6]]:
 		var good: String = str(row[0])
 		var wanted: int = int(row[1])
 		var need: int = ceili(maxf(0.0, wanted - float(c.state.cargo.get(good, 0.0))))
+		var cargo_coins_before: int = int(c.state.coins)
 		if not trade(good, need, "buy"):
+			return false
+		if not check(float(c.state.cargo.get(good, 0.0)) >= wanted and (need == 0 or int(c.state.coins) < cargo_coins_before),
+			"Expedition cargo target is covered and every needed purchase is paid: " + good):
 			return false
 	return true
 

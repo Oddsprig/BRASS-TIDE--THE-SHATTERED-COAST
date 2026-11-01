@@ -148,6 +148,13 @@ SOURCE REVIEW AND SELECTED VERIFICATION CONTRACT
   The fixture uses declared finite treasury funding, staged regional berths
   and dormant unrelated NPCs. It does not prove earned ocean crossings or a
   profitable default-starter expedition.
+- R1 native preparation correction: inherited boat stores may already cover
+  the voyage profile (3 fuel, the fitted magazine target, 6 repair kits).
+  A refused no-op counts as no purchase only when those targets are covered
+  and the whole state, including capacities, stocks, purses and cargo, stays
+  exactly unchanged. Any actual boat-store shortfall requires paid resupply
+  and covered targets. Needed loose food, repair kits and fuel still require
+  real paid purchases and their full cargo targets; no stores are granted.
 - Full-choice alternatives, Two-Lantern native completion and the synthetic
   seed/legacy/corruption sweep are optional diagnostics (--qa-all-choices087),
   not mandatory default acceptance or claims of tested play. Source review of
