@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.082: Weapon sound and music transitions. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: music.gd, sound.gd.
+v0.083: Earned fleet growth. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: harbor.gd, campaign_ui.gd, finance_ui.gd, interface.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

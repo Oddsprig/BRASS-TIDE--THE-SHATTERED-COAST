@@ -1,10 +1,10 @@
-BRASS TIDE v0.082 - WEAPON SOUND AND MUSIC TRANSITIONS
+BRASS TIDE v0.083 - EARNED FLEET GROWTH
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Finish the existing two-player music fade before accepting a queued scene or Next change.
-- Overlap natural cue endings by two seconds and preserve mute/headless behavior.
-- Supply bounded offline gunfire, heavy-shot, rocket/torpedo, impact and music transition clips; hearing remains a separate quality gate.
+- Show the full ready-boat purchase including minimum crew advance.
+- Compare added hold, sailing speed, daily wages, stores and a paid return allowance before buying.
+- Keep cheap local partners visible alongside specialist support boats, with actual funded work, finite stores and loss recovery.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -1,3 +1,6 @@
+01NOV2026 - v0.083 FLEET GROWTH CANDIDATE
+Full hull/crew and return allowance comparison; prices/rewards retained. Native earned growth and actual UI pending.
+
 v0.082 VERIFIED SCOPED - 35 native checks/0; exported Dummy audio artifacts supplied.
 Queued crossfades and pre-end rollover; recordings unchanged. Listening quality remains open.
 

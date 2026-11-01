@@ -1,0 +1,6 @@
+BRASS TIDE v0.083 - EARNED FLEET GROWTH
+Candidate: boatyard and expedition views show hull+minimumcrew advance, working
+stores and return payroll/repair allowance, added hold/speed/wages. Prices and
+funded rewards remain existing material/labor calculations. Support boats keep
+traveling/earning wages outside300DP battle deployment. Currentnative/UI proof
+pending; no free second hull, stores, rescue grant or fullcareerbalance claim.
