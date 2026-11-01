@@ -38,6 +38,39 @@ func next_boat083() -> Dictionary:
 		if best.is_empty() or int(q.purchaseCoins)<int(best.plan.purchaseCoins):best={"id":id,"plan":q}
 	return best
 
+func pay(id: String) -> bool:
+	# 070's generated-harbor desk is not an authored HOME contact. Native
+	# offers carry any earned sponsor/recurring UID; otherwise the real berth
+	# contacts remember payment. A first delivery may have no contact at all.
+	var job: Dictionary=c.VoyageJobs._find(c.state,id).duplicate(true)
+	var port: Dictionary=c.work_port070()
+	var expected: Array=[]
+	for contact_id in [str(job.get("sponsorContactId","")),str(job.get("clientMemory",{}).get("contactId",""))]:
+		if not contact_id.is_empty() and not expected.has(contact_id):expected.append(contact_id)
+	if str(job.get("sponsorContactId","")).is_empty():
+		for person in c.state.contacts:
+			if person.has("ownerId"):continue
+			if str(person.port)==str(port.id) or str(person.id)=="harbor:"+str(job.port):
+				if not expected.has(str(person.id)):expected.append(str(person.id))
+	var coins: int=int(c.state.coins)
+	var stock: float=float(port.stocks.get(str(job.freight.get("good","")),0))
+	var result: Dictionary=c.settle_voyage_job(id)
+	if not check(result.get("ok",false),"Actual settlement: "+str(result.get("message",""))):return false
+	if not check(int(c.state.coins)==coins+int(job.escrow) and c.VoyageJobs._find(c.state,id).is_empty(),"Captain receives exactly the held client escrow once"):return false
+	if job.kind=="freight" and not check(float(port.stocks[str(job.freight.good)])==stock+float(job.freight.qty),"Real destination receives the complete sealed lot"):return false
+	var logged: Array=[];var contact_logs: Array=[];var exact: bool=true
+	for person in c.state.contacts:
+		for entry in person.get("log",[]):
+			if entry.get("event")!="job:"+id+":paid":continue
+			logged.append(str(person.id))
+			exact=exact and entry.get("port")==str(port.id) and int(entry.get("amount",0))==5 and float(entry.get("day",-1))==float(c.state.day) and str(entry.get("detail",""))==str(job.title).left(240)
+			contact_logs.append({"contactId":person.id,"entry":entry.duplicate(true)})
+	expected.sort();logged.sort()
+	if not check(exact and logged==expected,"Actual sponsor/client and berth contact UIDs record this exact paid job, day and work berth"):return false
+	gross_paid+=int(job.escrow)
+	receipt.payments.append({"id":id,"coins":job.escrow,"actualPort":port.id,"day":float(c.state.day),"expectedContactIds":expected,"contactLogs":contact_logs})
+	return check(c.Money.total(c.state)==supply,"Payment only transfers the original finite escrow")
+
 func funded_leg083(require_support: bool=false) -> bool:
 	if not bounded():return false
 	var offers: Array=c.VoyageJobs.available(c)
@@ -159,6 +192,7 @@ func _run() -> void:
 	var saved: Dictionary=parsed_save("growth083-completed")
 	if saved.is_empty() or not restore_exact(saved,"growth083-completed"):finish083();return
 	if not check(loss_wrecks.size()==1 and same_values(loss_wrecks,c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083)) and c.find_boat(starter083).is_empty() and str(c.state.fleet[0].uid)==partner083,"Disk save/restore keeps the one loss wreck and its exact equipment, with only the original surviving UID afloat"):finish083();return
+	if not check(receipt.payments.any(func(p):return not p.get("contactLogs",[]).is_empty()),"The completed ordinary voyage retains an actual contact's exact paid-job and work-berth log"):finish083();return
 	var expected: int=15000+gross_paid-payroll-stores083-purchase083-repairs083
 	if not check(int(c.state.coins)==expected and int(c.state.wageArrears)==0 and int(c.state.debt)==0 and c.Money.total(c.state)==supply,"All ordinary income, actual wages, purchased stores, hull/crew advance and recovery reconcile exactly"):finish083();return
 	receipt.accounting={"start":15000,"fundedEscrowPaid":gross_paid,"actualWages":payroll,"storesBought":stores083,"hullAndCrewAdvance":purchase083,"survivorRepair":repairs083,"endingCoins":c.state.coins,"worldTotal":c.Money.total(c.state),"coinSupply":supply}
