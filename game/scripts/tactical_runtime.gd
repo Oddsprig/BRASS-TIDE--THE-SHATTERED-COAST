@@ -1743,10 +1743,12 @@ static func fire_gates(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dict
 		if result.ok:result.target=target;out[str(mount.id)]=result
 	return out
 
-static func status(st: Dictionary,id: String) -> Dictionary:
+static func status(st: Dictionary,id: String,frame_cache=null) -> Dictionary:
 	# HUD never admits/drops authoritative goals or touches phase/owner handles.
 	if bool(st.get("_battleMirror051",false)):
 		return st.get("tactical",{}).get("statusById051",{}).get(id,{}).duplicate(true)
+	# The exclusive worker may supply its current UNSEALED post-step phase.
+	# Omitted contexts retain fresh public inspection; no status read seals it.
 	var t: Dictionary=ensure(st)
 	var ship: Dictionary=_live(st,id)
 	if ship.is_empty() or ship.team!="player":return {}
@@ -1757,21 +1759,21 @@ static func status(st: Dictionary,id: String) -> Dictionary:
 	var reason: String=str(t.reasons.get(id,"Choosing a safe maneuver"))
 	if not manual and not intent.is_empty():
 		if _fleet_goals051(t):
-			var goal: Dictionary=_goal_current051(st,ship)
+			var goal: Dictionary=_goal_current051(st,ship,frame_cache)
 			if not goal.is_empty():paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
 			else:reason=str(t.reasons.get(id,"Waiting for a fleet maneuver"))
 		else:
-			var checked: Dictionary=_current051(st,ship,intent,float(t.dt))
+			var checked: Dictionary=_current051(st,ship,intent,float(t.dt),frame_cache)
 			if checked.ok:paths=intent.get("waypoints",[]).duplicate();exits=intent.get("exit",[]).duplicate()
 			else:reason=str(checked.reason)
 	var target: Dictionary=_live(st,str(intent.get("targetId","")))
 	var weapons: Dictionary=t.fireReasons.get(id,{}).duplicate(true)
-	var mounts: Array=refresh_mounts(st,ship)
+	var mounts: Array=refresh_mounts(st,ship,frame_cache)
 	for index in range(mounts.size()):
 		var mount: Dictionary=mounts[index]
 		var mount_id: String=str(mount.id)
 		if manual:
-			if EquipmentCombat.mount_factor(ship,mount,index)<=0.01 or float(mount.get("damage",1.0))<=0.0:
+			if EquipmentCombat.mount_factor(ship,mount,index,{},frame_cache)<=0.01 or float(mount.get("damage",1.0))<=0.0:
 				weapons[mount_id]="Weapon disabled"
 			else:
 				weapons[mount_id]="Out of ammunition" if float(ship.ammo)<float(mount.ammoCost) else ("Reloading" if index<ship.weaponCooldowns.size() and float(ship.weaponCooldowns[index])>0.0 else "Manual aim and trigger")

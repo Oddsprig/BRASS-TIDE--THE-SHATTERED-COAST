@@ -336,7 +336,9 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 			# status constructs a fresh row and deep-copies weapons/options/mounts.
 			# Its path/exit arrays are shallow copies: detach their nested values,
 			# then publish that row without cloning the already detached branches.
-			var tactical_status: Dictionary=Tactical.status(st,id)
+			# Reuse the post-step phase for its equipment reads too; null would
+			# rebuild canonical inspection for mounts and each goal/status check.
+			var tactical_status: Dictionary=Tactical.status(st,id,status_phase)
 			for key in ["path","exit"]:
 				if tactical_status.has(key):tactical_status[key]=_copy_plain_owned051(tactical_status[key])
 			public_t.statusById051[id]=tactical_status
