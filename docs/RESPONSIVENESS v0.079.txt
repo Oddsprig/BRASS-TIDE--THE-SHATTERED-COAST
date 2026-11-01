@@ -14,3 +14,5 @@ measurements are recorded in tests/. Source inspection alone establishes no
 speed gain. Overall combat quality and the later079-088 scopes remain open.
 
 Fleet laboratory setup also reuses existing immutable navigation instead of rebuilding unused campaign/ocean contexts for its HUD-only temporary campaign. Career startup is unchanged; leaving the Lab restores the original career.
+
+Unsuccessful child-task joins retain their handles and data. Main completes the remaining joins during explicit battle teardown before ownership and campaign records are released. No sleep, simulation-rate or actor-count change.

@@ -16,3 +16,5 @@ Existing30Hz combat worker and100ms role decisions remain. Equipment/owner valid
 Read tests/ for actual current measurements and remaining quality targets. No source-only speed/whole-game acceptance claim.
 
 The HUD-only fleet laboratory reuses existing immutable navigation and skips unused ocean-context construction; leaving the Lab restores the original career object. No career initialization or resources are changed.
+
+Unsuccessful child-task joins retain their handles and data. Main completes the remaining joins during explicit battle teardown before ownership and campaign records are released. No sleep, simulation-rate or actor-count change.

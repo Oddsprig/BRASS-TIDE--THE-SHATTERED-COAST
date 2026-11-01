@@ -59,12 +59,15 @@ static func _work051(job: _Detached051) -> void:
 	job.input = {} # All remaining output stays exclusively owned until joined.
 
 static func _poll_tasks051(drain: bool = false) -> void:
-	# Called on main; never waits for an unfinished task during physics.
+	# Main or the exclusive battle worker owns this list. A worker cannot join
+	# every older task: retain a refused join for Main's explicit teardown drain.
 	for index: int in range(_tasks051.size() - 1, -1, -1):
 		var slot: Dictionary = _tasks051[index]
 		if not drain and not WorkerThreadPool.is_task_completed(int(slot.taskId)):
 			continue
-		WorkerThreadPool.wait_for_task_completion(int(slot.taskId))
+		var join_error: int = WorkerThreadPool.wait_for_task_completion(int(slot.taskId))
+		if join_error != OK:
+			continue
 		slot.taskId = -1
 		slot.joined = true
 		if bool(slot.retired):

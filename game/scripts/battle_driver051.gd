@@ -137,6 +137,9 @@ func retire() -> Dictionary:
 	_submit(0,{},true)
 	WorkerThreadPool.wait_for_task_completion(_task)
 	_adopt()
+	# The authoritative worker may have been refused an older child-task join.
+	# Main joins retained handles before releasing ownership or campaign records.
+	Tactical.Planner._poll_tasks051(true)
 	_retired=true
 	if _claimed:Tactical.release_battle_worker051();_claimed=false
 	Damage.set_runtime_profile043(bool(_profile_flags.get("damage",false)))
