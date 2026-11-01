@@ -1,14 +1,15 @@
-BRASS TIDE v0.085 - Supplied regional conflict and harbor control
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 6bf240b1f469d208f20436a9450622906bd1a5cf / v0.085
-Test Bridge: 5118325858a24c21bcf10c08a580523b
-97 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 95.363s; owned cleanup verified.
+BRASS TIDE v0.086 - CIVILIAN CAREERS WORTH REPEATING
+01 November2026 |36 boat designs
 
-- Extend the existing funded harbor-control operation to one known harbor on an admitted two-group trade corridor.
-- Keep actual original defender, physical chart/berth, crew payroll and delivered support authoritative.
-- Persist the supplied battle/surrender receipt, dated governor change and local access while retaining private assets and island ownership.
+THIS VERSION
+- Rank Shatter Coast fishing return buyers by net after round-trip fuel, provisions and calendar payroll while enforcing home-region route authority and exposing horizon and ground alternatives.
+- Offer small and larger civilian load tiers for mid-stock freight and fuel delivery alongside passenger charter, with pure carrier, route and reinvestment quotes.
+- Quote real single-slot interior conversions (cargo_rig, auxiliary_tanks) and next role hulls with the 083 working-store/payroll/repair reserve, and surface witnessed civilian convoy escort and piracy intercept opportunities.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Tested6bf240b1f469d208f20436a9450622906bd1a5cf;97 focused assertions/0. One actual supplied generated harbor-control operation changes Reed to Compact after physical victory, two supplied paid days and explicit surrender. Actual separate saved-prefix retreat and victory, exact800 treasury contribution,4food/2support kits, ordinary repairs/wages and original hull/item custody pass. Active/completed real disk restores, unexplained neighboring/corridor refusal, ordinary departure/return and new local access pass; exported governor/access screens reviewed. Advanced expedition test declares finite50000 home-treasury advance, paid fittings/stores and player-only opening poses/diplomacy; not earned default-starter progression. Source-retained084 development/prior-HOME receipts and075 recovery are not new full runtime playthroughs here. Actual R8 observed the merchant turn home after its full voyage-reserve recheck at origin. Whole-voyage sustainability/that075policy gap remains outside085. Pure authoring diagnostics R4/R6/R7 remain separate from this accepted operation; earlier failed attempts stay failed. Current stills show state/access only. Completed-control sponsor/fund actions remain offered; a bounded088 clarity follow-up is recorded. No motion/listening/FPS/full-game/parity claim. 075 timing gate failed;076 and084 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged084 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.
+STATUS: current source candidate; focused checks/export pending.

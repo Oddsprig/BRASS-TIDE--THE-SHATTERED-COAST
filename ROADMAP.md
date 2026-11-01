@@ -1,42 +1,11 @@
-# Brass Tide: quality sequence v0.079-v0.088
+# Brass Tide current step: v0.086 - Civilian careers worth repeating
 
-Installed and delivered: **v0.085**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
-recorded scopes; battle performance, listening and overall quality remain open.
-Owner31October authorized sequential079-088 implementation. 079-084 delivered;085 verified scoped; next086 improves civilian career choices.
-
-| Version | Focus | Concrete player result |
-| --- | --- | --- |
-| 0.079 | Light-fleet responsiveness | Reduce demonstrated worker cost and battle lag with the existing simulation. |
-| 0.080 | Reliable tactical counterplay | Complete harassment, screening, retreat and responsive orders in actual encounters. |
-| 0.081 | Combat art at normal play zoom | Correct visible boat/weapon, wake, impact and sinking defects in existing assets. |
-| 0.082 | Weapon sound and music mix | Review and improve existing weapon recordings, levels and supplied music transitions. |
-| 0.083 | Earned fleet growth | Make paid starter work lead to useful fittings, a small fleet and affordable recovery. |
-| 0.084 | Generated harbors that can develop | Extend paid development and useful services to an eligible generated harbor. |
-| 0.085 | Supplied regional conflict and harbor control | Resolve one supplied remote-harbor control operation with persistent costs and access. |
-| 0.086 | Civilian careers worth repeating | Improve fishing, freight, fuel and passenger choices and reinvestment. |
-| 0.087 | Distinct remote destinations | Three bounded original destination packages with clues, risk and useful returns. |
-| 0.088 | Whole-loop clarity and campaign review | Fix demonstrated usability/progression/save issues and assess remaining quality gaps. |
-
-Detailed scope, acceptance and exclusions: [Remaining quality roadmap](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.079-v0.088.txt).
-Build one0.001 version on its accepted predecessor. Each scope ends in a usable
-Windows package and one current Desktop launcher. Existing owner saves, music,
-settings, older releases and tags are preserved. The end of088 is a review,
-not a guarantee that the game is finished or at Starsector quality.
-
-Historical078 baseline evidence: work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
-Light workerP9540.352ms/maxlag167.488ms miss33.333ms/100ms; planner targets
-remain unmet. Mixed22.806ms/66.666ms meets those two timing targets. Retain
-all raw measurements and distinctions between stills, motion, listening and play.
-
-The campaign-design paragraph and older references below are retained history; current scopes and testing authority are above and in AGENTS.md.
-
-Current081:927/0; actual normal-zoom movement/fire/turning/sinking reviewed. Wakes retain their .7s history. Light34.3675ms/183.333ms latency still exceeds targets; mixed17.001ms/66.600ms meets. Raw quality FALSE; visible hull overlap and broad art quality remain open.
-
-Current082 music transitions verified; exact native/exportedaudio evidence in work/quality-v082/. Listening, earlier battle latency and broad quality remain open. Next083 earnedfleetgrowth.
-
-084 verified scoped; installation is confirmed by its delivery receipt.
-
-085 verified scoped; installation is confirmed by its delivery receipt.
+Installed and delivered: **v0.085**
+Current source candidate086; desktop remains085 pending verification.
+Owner079-088 sequence active. Root alone queues native/export/UI and delivery;
+helpers work on source. Each batch<120s and selected finalQA<180s including
+setup, offline checks, archive, install and verification; queue wait separate.
+No foreground/input/focus/audio, automatic game launch or remote push.
 
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the

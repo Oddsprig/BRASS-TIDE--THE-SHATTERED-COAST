@@ -1,10 +1,10 @@
-BRASS TIDE v0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL
+BRASS TIDE v0.086 - CIVILIAN CAREERS WORTH REPEATING
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Extend the existing funded harbor-control operation to one known harbor on an admitted two-group trade corridor.
-- Keep actual original defender, physical chart/berth, crew payroll and delivered support authoritative.
-- Persist the supplied battle/surrender receipt, dated governor change and local access while retaining private assets and island ownership.
+- Rank Shatter Coast fishing return buyers by net after round-trip fuel, provisions and calendar payroll while enforcing home-region route authority and exposing horizon and ground alternatives.
+- Offer small and larger civilian load tiers for mid-stock freight and fuel delivery alongside passenger charter, with pure carrier, route and reinvestment quotes.
+- Quote real single-slot interior conversions (cargo_rig, auxiliary_tanks) and next role hulls with the 083 working-store/payroll/repair reserve, and surface witnessed civilian convoy escort and piracy intercept opportunities.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

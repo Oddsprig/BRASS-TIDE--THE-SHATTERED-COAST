@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.085: Supplied regional conflict and harbor control. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: territorial076.gd, remote_expedition067.gd, regional_ui.gd.
+v0.086: Civilian careers worth repeating. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: civilian_choices059.gd, voyage_jobs.gd, career_costs.gd, campaign_guidance.gd, voyage_ui.gd, guidance_ui.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
