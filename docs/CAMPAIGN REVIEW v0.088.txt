@@ -20,8 +20,8 @@ physical player/prize/NPC-owner hull UIDs and equipment condition/custody, worki
 stores, cargo/manifests, finite port stocks and completed hull stock, workforce,
 contracts/jobs/quotas, dated contact/market records, existing specialist terms,
 whole saved wreck records and source tombstones, geography/ownership, recorded
-stories/decisions and previously
-surveyed sites. Current equipment preflight checks duplicate identities/custody.
+stories/decisions, complete dated tradeIntel books and previously surveyed sites.
+Current equipment preflight checks duplicate identities/custody.
 The two absent specialist lifecycle flags normalize to false as in070. Derived
 routes/render specs and newly added empty administrative defaults are outside the
 physical comparison. This is not whole-state byte equality across migrations.
@@ -38,6 +38,14 @@ reserve and unrelated dormant traffic are declared staging; its completed file
 is actual paid work/discovery/depletion, not an earned open-ocean voyage.
 No saved player-completed Escort or Privateer bounty outcome is supplied here.
 Their current guidance is covered; their earned playthroughs remain unreviewed.
+
+Observed075 limitation: actual085 R8's naturally funded merchant reached its
+corridor origin, then entered to_yard after a later reserve recheck reported
+"actual merchant purse cannot cover voyage and home-yard recovery reserves".
+This demonstrated whole-voyage reserve-recheck gap remains OPEN beyond088.
+Root's085 R10 advanced harbor operation passed97/0 with actual retreat/win and
+two support days; it does not close that075 gap. No NPC routing, funding or
+reserve policy changes are part of this review.
 
 Owner baseline and clarity
 The observed owner save already contains48 groups. Root's actual1280x800 title
