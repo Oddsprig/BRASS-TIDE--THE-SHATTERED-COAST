@@ -1,0 +1,10 @@
+# Brass Tide v0.088 - Whole-loop clarity and campaign review
+
+Owner: "stick to the scope of each one".
+
+- Remove the obsolete Settings paragraph claiming that the normal launcher keeps separate rendering enabled while retaining requested Safe thread mode 1 and the 1280x800 title/settings layout, and replace the completed current-harbor Sponsor/Fund/Negotiate action row in regional_ui.gd with a secured-control explanation while preserving all other harbor controls.
+- Restore eight hash-pinned completed campaign states across early/mid earned progression (078, 083), later world/NPC traffic (075), staged civilian roles (086) and staged remote destinations (087), verifying exact purse, coinSupply, cargo, hull/equipment UID, wreck/tombstone, contact/market and geography continuity.
+- Review 23 read-only career guidance plans without mutating campaign state, verify full-precision private current-format save reopenings on 083 and 087, and record explicit staging, unplayed career completions and remaining performance/listening/presentation limits.
+- Remove an internal developer phrase from the existing auxiliary-tank tradeoff text; all numerical effects and prices remain unchanged.
+
+See docs/TEST RESULTS v0.088.md for actual focused checks and remaining limits.

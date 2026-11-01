@@ -1,11 +1,8 @@
 # Brass Tide - current working instructions
 
-Current verified087: Distinct remote destinations.
-Tested5a24c98a493b17b38f7675a1b2bcfe8969bbc871;299 focused/0;Windows/menu and focused_voyage destination verification (Broken Meridian connected expedition, Unfinished Keel paid slipway recovery, later funded consequence, joined-worker disk restore) and reviewed exported UI.
-Receipts work/quality-v087/ACTUAL087 CHECKS.json and DELIVERED v0.087.json.
-Root alone tests/delivery. Next088: whole-loop clarity and campaign review. Owner079-088 sequence active.
-Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 and086 passed;087 recorded independently.
+Active source candidate088: Whole-loop clarity and campaign review.
+Installed accepted v0.087; later native/export/UI/delivery remain pending.
+Root alone owns queued background tests and sequential delivery through088.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the

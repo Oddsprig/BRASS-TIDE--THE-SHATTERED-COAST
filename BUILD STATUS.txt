@@ -1,14 +1,16 @@
-BRASS TIDE v0.087 - Distinct remote destinations
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 5a24c98a493b17b38f7675a1b2bcfe8969bbc871 / v0.087
-Test Bridge: 72ef0e87297343b48701584e73fbb1a9
-299 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 72.902s; owned cleanup verified.
+BRASS TIDE v0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW
+01 November2026 |36 boat designs
 
-- Place three original destination packages against actual seeded sites, harbors and knowledge while retaining visited geography and saved depletion.
-- Combine paid work with a connected Meridian expedition, an optional finite Keel recovery and a later funded contact consequence.
-- Persist exact destination bindings, physical recovered cargo and equipment provenance; unavailable legacy opportunities remain explicit.
+THIS VERSION
+- Remove the obsolete Settings paragraph claiming that the normal launcher keeps separate rendering enabled while retaining requested Safe thread mode 1 and the 1280x800 title/settings layout, and replace the completed current-harbor Sponsor/Fund/Negotiate action row in regional_ui.gd with a secured-control explanation while preserving all other harbor controls.
+- Restore eight hash-pinned completed campaign states across early/mid earned progression (078, 083), later world/NPC traffic (075), staged civilian roles (086) and staged remote destinations (087), verifying exact purse, coinSupply, cargo, hull/equipment UID, wreck/tombstone, contact/market and geography continuity.
+- Review 23 read-only career guidance plans without mutating campaign state, verify full-precision private current-format save reopenings on 083 and 087, and record explicit staging, unplayed career completions and remaining performance/listening/presentation limits.
+- Remove an internal developer phrase from the existing auxiliary-tank tradeoff text; all numerical effects and prices remain unchanged.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Tested5a24c98a493b17b38f7675a1b2bcfe8969bbc871;299 focused assertions/0. Three original seeded destination packages with saved bindings and no reroll of visited places. Actual funded home freight, connected Broken Meridian expedition/public relationship choice, paid finite Unfinished Keel iron recovery and actual later once-only funded freight completed. Actual completed joined-worker state restored; reviewed current exported Meridian/Keel journal screens. Finite90-day treasury capital, spare crew, regional berths and dormant unrelated NPCs are declared staging; not earned ocean crossing or default-starter profitability. Two-Lantern completion, alternative choice/seed/legacy/corruption matrix explicitly skipped. No new motion, listening, player Escort/Privateer completion, whole-economy balance or Starsector parity claim. Earlier strict light-battle latency, overlapping hulls/basic shores and presentation gaps remain open. Older compiled copies/WindowsZIPs deleted under owner01Nov authorization; current installed/active candidate, all source tags and verified unique owner files retained. 075 timing gate failed;076 and086 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged086 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.
+STATUS: current source candidate; focused checks/export pending.

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.087: Distinct remote destinations. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: coastal_stories.gd, story_ops.gd, story_offers.gd, salvage.gd, remote_expedition067.gd, coastal_stories.json.
+v0.088: Whole-loop clarity and campaign review. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: interface.gd, regional_ui.gd, campaign.gd, campaign_guidance.gd, equipment_campaign.gd, coastal_stories.gd, test_campaign_review088.gd, fleet_identity.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
