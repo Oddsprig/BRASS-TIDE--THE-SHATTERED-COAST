@@ -26,6 +26,58 @@ static func quote(core, h: Dictionary, at: Dictionary = {}) -> Dictionary:
 			prices[good] = Economy.price(p, good)
 	return Construction.quote(h, prices)
 
+## Read-only sailing budget beside the hull invoice. Project the same default
+## fit, minimum crew and paid voyage load that buy()/resupply() actually use.
+## No birth, UID reservation, recruitment, route search or payment is published.
+static func purchase_plan(core, h: Dictionary, at: Dictionary = {}, route_distance: float = 0.0) -> Dictionary:
+	var p: Dictionary = core.current_port() if at.is_empty() else at
+	if p.is_empty() or h.is_empty() or core.state.is_empty():return {}
+	var invoice: Dictionary = quote(core,h,p)
+	var advance: int = Economy.recruit_cost(p,int(h.crewMin))
+	var entry: int = int(invoice.readyPrice)+advance
+	var snapshot: Dictionary = core.state.duplicate()
+	snapshot.fleet = core.state.fleet.duplicate(true)
+	snapshot.coins = maxi(0,int(core.state.coins)-entry)
+	var boat: Dictionary = core.Damage.create_ship(h,{"uid":"yard-preview","crew":int(h.crewMin),"fuel":0.0,"ammo":0.0,"supplies":0.0,"supportOnly":true})
+	core.fit_boat(boat,true)
+	core._initialize_published_boat(boat)
+	# These stores are valued below, never granted to a live hull. Fuel is
+	# present for the projected sailing speed rather than the empty-tank penalty.
+	boat.fuel = 3.0;boat.supplies = 6.0
+	boat.ammo = maxf(80.0,float(boat.spec.get("ammoCapacity",80*maxi(1,boat.spec.get("weaponMounts",[]).size()))))
+	snapshot.fleet.append(boat)
+	var distance: float = maxf(0,route_distance) if is_finite(route_distance) else 0.0
+	var before_speed: float = core.travel_speed()
+	var after_speed: float = core.Expedition._route_speed(snapshot,core.data,core.Expedition.traveling(snapshot))
+	var before_days: float = distance/maxf(0.01,before_speed)/core.DAY_SECONDS
+	var after_days: float = distance/maxf(0.01,after_speed)/core.DAY_SECONDS
+	# Explicit plans use the existing whole-day payroll rule, including today's
+	# partial day, even for a reserve-only preview at the yard.
+	var before: Dictionary = core.Expedition.report(core.state,core.data,distance,before_speed,{"outwardDays":before_days,"returnDays":before_days})
+	var after: Dictionary = core.Expedition.report(snapshot,core.data,distance,after_speed,{"outwardDays":after_days,"returnDays":after_days})
+	var needs: Dictionary = {"food":ceili(float(after.foodShortfall)),"fuel":3.0+maxf(0,float(after.fuelShortfall)-float(after.looseFuel)),"supplies":6.0,"ammo":float(boat.ammo)/Goods.ROUNDS_PER_CASE}
+	var stores: int = 0
+	var stock_ok: bool = true
+	for good in needs:
+		stores += ceili(float(needs[good])*Economy.price(p,good)-0.000001)
+		if float(p.stocks.get(good,0))+0.000001<float(needs[good]):stock_ok=false
+	var repairs: int = 0
+	var repair_available: bool = true
+	for owned in core.Expedition.traveling(core.state):
+		var service: Dictionary = service_quote(core,owned,p)
+		if not service.get("ok",false):repair_available=false
+		else:repairs += int(service.cost)
+	var payroll: int = int(after.returnWages)+ceili(float(after.wageArrears))
+	var reserve: int = payroll+stores+repairs
+	var balance: int = int(core.state.coins)-entry
+	var recruit_probe: Dictionary = Economy.recruit(p.duplicate(true),{"coins":advance,"crewPurse":0,"cargo":{}},int(h.crewMin),int(h.crewMax))
+	return {"hullQuote":invoice,"minimumCrew":int(h.crewMin),"crewAdvance":advance,"purchaseCoins":entry,
+		"cashAfterPurchase":balance,"payrollCoins":payroll,"storeCoins":stores,"repairCoins":repairs,"returnReserveCoins":reserve,
+		"cashAfterReserve":balance-reserve,"shortfallCoins":maxi(0,reserve-balance),"storeNeeds":needs,
+		"stockAvailable":stock_ok,"crewAvailable":bool(recruit_probe.ok),"repairQuoteAvailable":repair_available,
+		"completedStock":int(p.get("shipStock",{}).get(h.id,0)),"routeIncluded":distance>0,"routeDistance":distance,
+		"before":before,"after":after}
+
 static func buy(core, id: String) -> Dictionary:
 	var requested: Dictionary=core.hull(id)
 	var permission: Dictionary=Politics.permit(core,"military" if int(requested.get("tier",1))>=5 else "service")

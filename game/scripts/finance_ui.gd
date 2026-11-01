@@ -9,6 +9,7 @@ static func boat_quote(ui, id: String):
 	var body = ui.modal(h.name,"THE YARD'S BILL OF MATERIALS & PAID WORK")
 	ui.paragraph(body,"%.2f m long × %.2f m beam. Every material includes its upstream labor. This yard adds hull assembly, fitting, paid supervision, upkeep, margin and registry duty."%[q.lengthM,q.beamM],16)
 	ui.label(body,"Commission %s coins · Ready hull %s coins"%[ui.money(q.commissionPrice),ui.money(q.readyPrice)],25,ui.GOLD,true)
+	ui.paragraph(body,ui.CampaignUI.purchase_plan_text(ui,ui.host.core.Harbor.purchase_plan(ui.host.core,h)),14,ui.TEXT)
 	ui.paragraph(body,"%.1f worker-days in this yard, approximately %.1f calendar days with the quoted team. Material shortages, employment elsewhere or missing supervisors delay the work."%[q.workerDays,q.estimatedDays],15)
 	for line in q.lineItems:
 		var row = ui.row(body)

@@ -753,8 +753,10 @@ func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 	paragraph(content,"Materials %s · Assembly %s · Supervising experts %s · %.1f worker-days"%[money(q.materialCost),money(q.laborCost),money(q.supervisionCost),q.workerDays],13)
 	button(content,"Show materials, wages & full price",func():Finance.boat_quote(self,h.id))
 	if in_yard:
+		var budget: Dictionary=host.core.Harbor.purchase_plan(host.core,h)
+		paragraph(content,CampaignUI.purchase_plan_text(self,budget),13)
 		var actions = row(content)
-		var buy = button(actions, "Buy hull + minimum crew" if stock > 0 else "Out of stock", func(): host.buy_boat(h.id), true)
+		var buy = button(actions, "Buy hull + crew · %s coins"%money(budget.purchaseCoins) if stock > 0 else "Out of stock", func(): host.buy_boat(h.id), true)
 		buy.disabled = stock <= 0
 		button(actions, "Commission · %s coins" % money(q.commissionPrice), func(): host.commission(h.id))
 		paragraph(content,"%.1f calendar days with a full team. Paid supervisors and physical materials are required."%q.estimatedDays,12)
@@ -762,6 +764,7 @@ func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 func yard_view(body: Node, p: Dictionary):
 	paragraph(body, "Buy a completed boat or commission one for less. Building consumes this town's physical stocks and paid working days. A new hull needs sailors and working stores. You can own more than 300 points; each battle deploys up to 300. Traveling support and stored reserves stay outside that battle line.", 15)
 	button(body,"Compare voyage needs before buying",func():CampaignUI.expedition(self))
+	button(body,"Compare a fitting or specialist on an owned boat",open_fleet,false,false)
 	for i in range(p.buildQueue.size()):
 		var index = i
 		var order = p.buildQueue[i]

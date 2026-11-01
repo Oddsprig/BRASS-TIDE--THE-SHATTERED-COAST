@@ -200,7 +200,7 @@ static func expedition(ui,use_site: bool=true) -> void:
 	if not r.supportOptions.is_empty():
 		expedition_owned_support(ui,body,r.supportOptions)
 	else:
-		expedition_yard_support(ui,body)
+		expedition_yard_support(ui,body,length if island.is_empty() and not route.is_empty() else 0.0)
 	ui.paragraph(body,"A partner carries more provisions or freight, but adds crew, food and fuel demand and may slow the flotilla. A tanker carries purchased reserves; each boat still needs its own fuel loaded. A paid workshop fitting helps crew repairs; kits remain finite and the fitting costs hold space and speed.",14)
 	ui.rule(body)
 	var details=ui.column(body)
@@ -230,7 +230,7 @@ static func expedition_support_text(ui,option: Dictionary) -> String:
 	for blocker in option.blockers:blockers.append(str(blocker))
 	return "%s · Up to +%.1f hold when ready\nHire %d to minimum · +%s coins/day and +%.2f food/day for new crew\nOwn fuel %.1f loaded / %.1f allowance · %.1f short · %.1f beyond tank\n%s"%[location,option.addedCapacity,option.crewToMinimum,ui.money(option.additionalDailyWages),option.additionalFoodPerDay,option.loadedFuel,option.fuelRequired,option.fuelShortfall,option.tankShortfall,"; ".join(blockers) if not blockers.is_empty() else "Ready to review activation in Fleet."]
 
-static func expedition_yard_support(ui,body: Node) -> void:
+static func expedition_yard_support(ui,body: Node,route_distance: float=0.0) -> void:
 	var c=ui.host.core
 	var port: Dictionary=c.current_port()
 	if port.is_empty():
@@ -240,10 +240,16 @@ static func expedition_yard_support(ui,body: Node) -> void:
 		return
 	var candidates: Array=[]
 	var catalogue: Array=c.Harbor.catalogue(c,port)
+	var cheapest: Dictionary={}
+	var entry: int=0
 	for id in catalogue:
 		var hull: Dictionary=c.hull(str(id))
-		if str(hull.get("civilianRole","")) in ["transport","tanker"]:candidates.append(hull)
-		if candidates.size()>=3:break
+		var stocked: bool=int(port.get("shipStock",{}).get(id,0))>0
+		var cost: int=int(c.Harbor.quote(c,hull,port).readyPrice)+c.Economy.recruit_cost(port,int(hull.crewMin))
+		var previous_stock: bool=int(port.get("shipStock",{}).get(cheapest.get("id",""),0))>0
+		if cheapest.is_empty() or (stocked and not previous_stock) or (stocked==previous_stock and cost<entry):cheapest=hull;entry=cost
+		if str(hull.get("civilianRole","")) in ["transport","tanker"] and candidates.size()<2:candidates.append(hull)
+	if not cheapest.is_empty() and not cheapest in candidates:candidates.push_front(cheapest)
 	if candidates.is_empty() and not catalogue.is_empty():candidates.append(c.hull(str(catalogue[0])))
 	if candidates.is_empty():
 		ui.paragraph(body,"This harbor has no quoted designs. Compare an owned partner in Fleet or visit another yard.",14)
@@ -253,8 +259,8 @@ static func expedition_yard_support(ui,body: Node) -> void:
 	choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	for hull: Dictionary in candidates:choice.add_item(str(hull.name))
 	body.add_child(choice)
-	var details=ui.paragraph(body,expedition_yard_text(ui,port,candidates[0]),14,ui.TEXT)
-	choice.item_selected.connect(func(index: int):details.text=expedition_yard_text(ui,port,candidates[index]))
+	var details=ui.paragraph(body,expedition_yard_text(ui,port,candidates[0],route_distance),14,ui.TEXT)
+	choice.item_selected.connect(func(index: int):details.text=expedition_yard_text(ui,port,candidates[index],route_distance))
 	ui.button(body,"Review local boatyard",func():ui.open_port("Boatyard"))
 
 static func _away_expedition(ui) -> void:
@@ -274,12 +280,27 @@ static func _away_expedition(ui) -> void:
 	if _is_local_or_home067(c):ui.button(body,"Island charts & surveys",func():islands(ui),false,false)
 	if not VoyagePanel.work_berth(c).is_empty():ui.button(body,"Open harbor trade",func():ui.open_port(),false,false)
 
-static func expedition_yard_text(ui,port: Dictionary,hull: Dictionary) -> String:
+static func expedition_yard_text(ui,port: Dictionary,hull: Dictionary,route_distance: float=0.0) -> String:
 	var c=ui.host.core
-	var quote: Dictionary=c.Harbor.quote(c,hull,port)
-	var advance: int=c.Economy.recruit_cost(port,int(hull.crewMin))
-	var upkeep: Dictionary=c.Economy.daily_upkeep([{"crew":int(hull.crewMin),"spec":hull}])
-	return "%s hull + %s minimum-crew advance = %s coins before stores\n%d completed hulls in stock · Commission %s coins, about %.1f days with a full team\n%d hold · %d minimum crew · +%s wages and +%.2f food/day before specialists · %d hull speed\nCompare here, then confirm in Boatyard, where crew availability, materials and access are checked."%[ui.money(quote.readyPrice),ui.money(advance),ui.money(int(quote.readyPrice)+advance),int(port.get("shipStock",{}).get(hull.id,0)),ui.money(quote.commissionPrice),quote.estimatedDays,hull.cargo,hull.crewMin,ui.money(upkeep.wages),upkeep.food,hull.speed]
+	var budget: Dictionary=c.Harbor.purchase_plan(c,hull,port,route_distance)
+	return purchase_plan_text(ui,budget)+"\n%d completed hulls in stock · Commission %s coins, about %.1f days with a full team; crew and stores follow launch. Confirm workforce, materials and access in Boatyard."%[budget.completedStock,ui.money(budget.hullQuote.commissionPrice),budget.hullQuote.estimatedDays]
+
+static func purchase_plan_text(ui,budget: Dictionary) -> String:
+	if budget.is_empty():return "Visit a service harbor for a local hull, crew and sailing-budget quote."
+	var after: Dictionary=budget.after
+	var before: Dictionary=budget.before
+	var funding: String="%s coins left after this allowance"%ui.money(budget.cashAfterReserve) if int(budget.shortfallCoins)==0 else "%s coins still needed for purchase and allowance"%ui.money(budget.shortfallCoins)
+	var basis: String="Current charted harbor distance there and back; replot after adding a larger hull" if budget.routeIncluded else "Reserve only: no travel or shore work included"
+	var text: String="%s hull + %s minimum-crew advance (%d sailors) = %s coins to buy\n%s coins remain before stores. %s: %.2f days, %.0f whole payroll charges.\nKeep %s coins: %s payroll/arrears + %s stores + %s current repairs; %s.\nFleet hold %.0f → %.0f · Sailing speed %.0f → %.0f after loading · Payroll %s → %s coins/day."%[ui.money(budget.hullQuote.readyPrice),ui.money(budget.crewAdvance),budget.minimumCrew,ui.money(budget.purchaseCoins),ui.money(budget.cashAfterPurchase),basis,after.tripDays,after.payrollDays,ui.money(budget.returnReserveCoins),ui.money(budget.payrollCoins),ui.money(budget.storeCoins),ui.money(budget.repairCoins),funding,before.usableCapacity,after.usableCapacity,before.routeSpeed,after.routeSpeed,ui.money(before.dailyWages),ui.money(after.dailyWages)]
+	text+="\nStores price a new boat's voyage load (3 fuel, 6 kits, fitted magazine), missing fleet food/fuel and a two-day contingency. Support keeps its hold outside the battle line; all sailors still eat and earn wages. Future damage, firing and work are extra."
+	var cautions: Array[String]=[]
+	if not budget.crewAvailable:cautions.append("minimum crew unavailable")
+	if not budget.stockAvailable:cautions.append("quoted stores exceed local stock")
+	if not budget.repairQuoteAvailable:cautions.append("current repair quote unavailable")
+	if after.allowanceOverload>0:cautions.append("provisions exceed hold space")
+	if after.boats.any(func(b):return float(b.tankShortfall)>0):cautions.append("allowance exceeds a tank; plan fuel loading or stops")
+	if not cautions.is_empty():text+="\nCheck before buying: "+"; ".join(cautions)+"."
+	return text
 
 static func notes(ui) -> void:
 	ui.modal_kind="developer_notes"
