@@ -1,6 +1,7 @@
 extends "res://tests/test_publication072.gd"
-## Focused status equivalence only; PUBLICATION072 retains joined isolation/poses
-## and worker051 retains FIFO/retirement. Root alone runs the native fixtures.
+## Reuse worker051's data/command/retirement cases, then check status equivalence.
+## Required retail runtime covers actual Main/Lab startup, Hold and retirement;
+## PUBLICATION072 retains joined isolation/poses. Root alone runs the fixtures.
 ## This controlled duel supplies no performance or earned-career evidence.
 
 func status_equivalent079(st: Dictionary,label: String) -> Dictionary:
@@ -14,6 +15,9 @@ func status_equivalent079(st: Dictionary,label: String) -> Dictionary:
 
 func run() -> void:
 	began_us=Time.get_ticks_usec()
+	await manual_reference_and_resources()
+	await commands_pause_and_child_cleanup()
+	await terminal_result()
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var st: Dictionary=publication_arena(world)
 	if st.is_empty():quit(1);return
