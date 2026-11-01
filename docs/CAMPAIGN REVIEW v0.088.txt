@@ -1,0 +1,141 @@
+BRASS TIDE v0.088 - CAMPAIGN REVIEW / SOURCE CANDIDATE
+01 November 2026. Native execution, retail measurement and delivery PENDING ROOT.
+
+What this review can establish
+One current restore of eight original, hash-bound completed states, then current
+six-career guidance on the early/mid earned078 voyage, mid083 recovery and later
+075 world. Each086 role and087 receives one relevant career reading. These are
+23 read-only plans, not23 playthroughs. Every query protects typed campaign data,
+world/navigation, event queues, runtime contexts and route-cache counters.
+Remote coastal guidance may correctly require a HOME return without a job quote.
+
+The083/087 states also write fresh private current-format copies, read the actual
+whole files back and reopen them. Comparisons use exact decoded numerical values,
+never epsilon, rounded purses or a blanket wreck-equipment exemption. Original
+input dictionaries and original file hashes are checked again. No original save,
+owner settings, profile, music or launcher is opened for writing.
+
+Protected continuity covers individual purses/escrows and total world coins,
+physical player/prize/NPC-owner hull UIDs and equipment condition/custody, working
+stores, cargo/manifests, finite port stocks and completed hull stock, workforce,
+contracts/jobs/quotas, dated contact/market records, existing specialist terms,
+whole saved wreck records and source tombstones, geography/ownership, recorded
+stories/decisions and previously
+surveyed sites. Current equipment preflight checks duplicate identities/custody.
+The two absent specialist lifecycle flags normalize to false as in070. Derived
+routes/render specs and newly added empty administrative defaults are outside the
+physical comparison. This is not whole-state byte equality across migrations.
+
+Historical facts and remaining gaps
+078's ordinary paid voyage and1000-coin Surveyor improvement were earned from
+15000coins.083's ordinary paid hull purchase/support/recovery were verified;
+the hull loss/damage setup was explicitly declared, not a player-won battle.
+075 day14 is a later WORLD/NPC traffic and damaged-wreck state. Its player remains
+in one starter skiff. It is not a late, earned player fleet or player escort win.
+086's four openings use staged specialist working hulls/paid profiles, followed
+by their actual work/return/reinvestment.087's regional berths, finite funded
+reserve and unrelated dormant traffic are declared staging; its completed file
+is actual paid work/discovery/depletion, not an earned open-ocean voyage.
+No saved player-completed Escort or Privateer bounty outcome is supplied here.
+Their current guidance is covered; their earned playthroughs remain unreviewed.
+
+Owner baseline and clarity
+The observed owner save already contains48 groups. Root's actual1280x800 title
+capture showed Continue, Quit, footer and Settings fitting. Do not regenerate its
+world or invent a clipping defect. Root's separate one-paragraph settings-copy
+fix33dea84 removes the false Separate-rendering claim. Keep requested Safe1;
+actual rendering-mode monitor remains unavailable. This fixture changes no UI or
+production file. Root applies only named088 commits after accepted087.
+
+Native contract (Root only, through TestBridge shared FIFO)
+Script: res://tests/test_campaign_review088.gd
+Arguments after --:
+  --qa-review088-manifest=ABSOLUTE_PATH
+  --qa-review088-manifest-sha256=LOWERCASE_64_HEX_SHA256
+Use existing Godot4.7.2, --headless --audio-driver Dummy, synthetic APPDATA and
+LOCALAPPDATA, fresh existing absolute GAME_TEST_ARTIFACTS. No input/focus/audio.
+No worker or Main scene is started. The fixture never calls new_game, step,
+accept/begin/settle/repair/trade or an old history fixture.
+Body goal strictly<30s; stop new work at28s; Root external native cap35s including
+startup/cleanup. Cooperative checks cannot interrupt a blocked restore/file read;
+the existing Root supervisor owns the hard bound and exact-process cleanup.
+Terminal JSON marker: CAMPAIGN088_RESULT
+Summary regex: Campaign088: ([0-9]+) checks, ([0-9]+) failures
+Required report: GAME_TEST_ARTIFACTS/campaign-review088-result.json
+Private round-trip artifacts: campaign088-loss083-reopened.json and
+campaign088-destinations087-reopened.json (whole actual current state, SHA-bound).
+Exit0 requires all eight cases complete, no failure, unchanged inputs and elapsed
+including report I/O<30s. A bad manifest/output preflight may produce terminal
+failure only, without a report: it must never open an unverified write target.
+Root checks exit, terminal.ok, report.ok, complete rows for all8 IDs, hashes,
+elapsed and cleanup together. The disk report records the clock before its own
+write; terminal.elapsedMs also charges that write. A late terminal/failed exit
+invalidates an earlier report. An artifact/queued/interrupted case alone is no pass.
+
+Root CLI manifest (schema1, cases exactly8; no placeholder paths accepted)
+Each record contains id, absolute path, lowercase64hex sha256, source (actual
+accepted job/receipt provenance), stage (plain historical tier), limits (plain
+description), stagedOpening (bool), earnedFromDefaultStarter (bool).
+Example record, inside {"schema":1,"cases":[...all8 records...]}:
+{"id":"earned078","path":"C:/Users/bligh/Documents/Codex/2026-10-20/how/work/quality-v078/witness-state078.json","sha256":"979da9a8511fcb7c6647c221b4d5c695ab7b139748659043d17db24f8c61f73a","source":"accepted078 job d2828f4e6350428fa66ceed9bea85b17","stage":"early-to-mid","stagedOpening":false,"earnedFromDefaultStarter":true,"limits":"One earned survey/freight voyage; no Escort/Privateer completion."}
+The fixture verifies input hashes and observable continuity, not historical play
+from filenames/labels. Root must bind those labels to the accepted receipts.
+
+Required IDs and actual artifact selection:
+earned078       actual witness-state078.json; staged false / earned true.
+loss083         accepted083 career070-growth083-completed.json; false / true.
+world075        actual faction075-outcome.json day14 damaged wreck; false / false.
+fishing086      civilian086-fishing-completed.json; true / false.
+freight086      civilian086-freight-completed.json; true / false.
+fuel086         civilian086-fuel_delivery-completed.json; true / false.
+passenger086    civilian086-passenger_charter-completed.json; true / false.
+destinations087 remote-destinations087-completed.json; true / false.
+Root supplies the future086/087 paths/hashes ONLY after actual native completion;
+missing or blocked role artifacts fail coverage, never reconstruct staging.
+No owner save is needed for this selection. A separate legacy2-region restore is
+outside this eight-state body; retained exact source-bound prior evidence applies.
+
+One small current measurement selection (PROPOSAL, NOT EXECUTED)
+Reuse work/quality-v042-v061/run_runtime_profile.py with runtime-v081-r1.json
+as the shape, rebound to CURRENT accepted088 source/plan/export/report and hashes.
+Reuse tools/quality043/private_runtime_owned.py unchanged. No capture/movie/script
+override; counter_mode on, render_thread safe,2560x1600, ordinary frame cap,
+2048MiB,100%CPU/up to24 logical CPUs, existing two-process ownership envelope.
+Root submits through TestBridge; do not acquire a second/nested lease.
+
+Retail hook --qa-runtime043 already runs both unchanged stock rosters: LIGHT
+300DP per side/42 actors and MIXED300DP per side/16 actors, each3s renderer warmup
+plus12s actual action. Keep30Hz detached combat and100ms role decisions and the
+ordinary Hold acknowledgement. Read complete runtime043-report.json with actual
+mode/size/hardware and separate strict targets. WorkerP95<=33.333ms, lag<=100ms,
+main publicationP95<=6ms, planner/order/frame/FPS targets retain existing rules.
+Report missing monitors as unavailable, not zero. No fake idle/fixed-FPS evidence.
+081 measured light workerP9534.3675ms/lag183.333ms still missed its targets;
+mixed17.001ms/66.600ms met. Those historical numbers are not current088 results.
+
+This fixture provides CURRENT CPU restoreUs/queryUs/elapsedUs for the selected
+early/mid/later campaigns with exact continuity. It measures Continue/Guidance
+work, not active campaign frame cost or a whole economy day. Active campaign FPS,
+merchant whole-voyage profitability and long-term faction balance stay unmeasured
+by this selection. Do not add the old60Hz synchronous microbenchmark as a substitute
+for current worker30Hz retail or a complete active campaign measurement.
+
+Suggested selected budget, all setup/import/export/startup/cleanup charged:
+BatchA<=75s: focused088 body<30s, current Windows export/menu/current UI review,
+setup and cleanup. Reuse accepted unchanged079-087 evidence by exact source proof;
+do not replay their voyages, full role suite or all087 choices.
+BatchB<=85s: existing retail runtime wrapper (70s native limit; its10s setup debit
+and owned cleanup included). No new engine can overlap BatchA or another game.
+Reserve<=15s for archive/install/final hashes/CPU overhead. Total selected<=175s,
+strictly<180; each batch strictly<120. These are planning ceilings, not measured
+passes. If Root cannot fit its current runner setup/export receipts, narrow the
+selection before starting and disclose omissions. Never relabel old results as
+current or accept an over-budget/interrupted suite.
+
+Listening, presentation and fun
+No image proves motion, no offline audio file proves listening, and no numerical
+receipt proves enjoyment.082 listening, current full-loop actual play feedback,
+current normal-zoom motion/presentation, earlier strict performance and whole-game
+quality remain explicitly unreviewed/open unless Root supplies separate actual
+evidence.088 is an honest integration review, not automatic finished-game or
+Starsector-parity acceptance. Future material gaps need separately bounded scopes.
