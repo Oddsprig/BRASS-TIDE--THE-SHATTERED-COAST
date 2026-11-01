@@ -126,6 +126,16 @@ func contest085(retreat: bool) -> bool:
 func control085() -> bool:
 	var active: Dictionary=parsed_save("remote-control085-active")
 	if active.is_empty() or not restore_exact(active,"remote-control085-active"):return false
+	# One invalid copy of the actual paid prefix: swapping corridor ends must
+	# not manufacture another admitted route or alter either physical account.
+	var false_route: Dictionary=active.duplicate(true)
+	false_route.territorial076.control.corridor085.originId=corridor085.remoteId
+	false_route.territorial076.control.corridor085.remoteId=corridor085.originId
+	var route_input: PackedByteArray=var_to_bytes(false_route)
+	var before_route: PackedByteArray=protected_state()
+	var refused_route: Dictionary=c.restore(false_route)
+	if not check(not refused_route.get("ok",false) and protected_state()==before_route and var_to_bytes(false_route)==route_input,"Control receipt cannot substitute reversed endpoints for its actual admitted075 corridor"):return false
+	receipt.corridorRefusal085={"message":refused_route.get("message",""),"actual":active.territorial076.control.corridor085,"substituted":false_route.territorial076.control.corridor085}
 	if not contest085(true):return false
 	var interrupted: Dictionary=c.state.territorial076.control
 	var frozen: PackedByteArray=protected_state()

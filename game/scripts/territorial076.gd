@@ -89,6 +89,11 @@ static func _corridor085(s: Dictionary, id: String) -> Dictionary:
 
 static func _corridor_valid085(s: Dictionary, corridor: Dictionary, id: String) -> bool:
 	if not _generated_improve_port(s, id):return false
+	# This receipt describes the already admitted075 route, never another pair
+	# of known markets chosen during restore or resumed work.
+	var admitted: Dictionary = s.get("shipping068", {}).get("model", {}).get("route", {}).get("corridor075", {})
+	for key in ["ownerId", "originId", "remoteId"]:
+		if not corridor.get(key) is String or corridor.get(key) != admitted.get(key):return false
 	if id not in [str(corridor.get("originId", "")), str(corridor.get("remoteId", ""))]:return false
 	var origin: Dictionary = _port(s, str(corridor.get("originId", "")))
 	var remote: Dictionary = _port(s, str(corridor.get("remoteId", "")))
@@ -635,6 +640,7 @@ static func _validate_control_record(saved: Dictionary, j: Dictionary, ports: Di
 	if not _home(saved, str(j.portId)):
 		if not j.get("corridor085") is Dictionary or not _corridor_valid085(saved, j.corridor085, str(j.portId)):return "Remote control lacks its original two-group merchant corridor."
 		if j.get("defenderId") != j.corridor085.get("ownerId"):return "Remote control defender is not the actual corridor owner."
+		if Orders.find_owner(saved, str(j.defenderId)).get("faction") != j.fromFaction:return "Remote control defender does not belong to the original harbor governor."
 		for uid in j.defenderUids:
 			if not _defender_uid085(saved, j, str(uid)):return "Remote defender UID has no original owner, matching physical wreck or held prize."
 		if int(j.battleSeq) > 0:
