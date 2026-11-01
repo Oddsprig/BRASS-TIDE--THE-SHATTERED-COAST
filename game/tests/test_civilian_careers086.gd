@@ -20,6 +20,7 @@ const Navigation=preload("res://scripts/navigation.gd")
 const Support=preload("res://scripts/fleet_support.gd")
 const Escort=preload("res://scripts/escort_ops.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
+const WorkRegion=preload("res://scripts/voyage_region070.gd")
 const BUDGET_SECONDS=38.0
 const FIXTURE_HULLS=["kelpnet_dory","fenhopper_lighter","gullwing_daysailer","seepoil_tanker","brinehook_longliner","tideledger_coaster","osprey_cabin_cruiser","blackwater_fleet_tanker"]
 const ROLE_FITTINGS={"fishing":"cargo_rig","freight":"cargo_rig","passenger_charter":"cargo_rig","fuel_delivery":"auxiliary_tanks"}
@@ -38,6 +39,7 @@ var baseline_cache: Dictionary={}
 var baseline_encounters: Dictionary={}
 var phases: Array=[]
 var receipts: Array=[]
+var current_receipt: Dictionary={}
 var convoy_witness: Dictionary={}
 
 func elapsed() -> float:
@@ -127,15 +129,18 @@ func encounter_coverage(r: Dictionary) -> bool:
 			return false
 	return true
 
-func join_calendar(r: Dictionary,_context: String) -> void:
-	while c.pending_days>0 or scene.economy_task>=0:
-		var before_day: int=int(c.state.econDay)
-		scene.sync_economy()
-		if int(c.state.econDay)>before_day:
-			payroll_days+=int(c.state.econDay)-before_day
-		elif c.pending_days>0 and scene.economy_task<0:
-			scene.start_economy()
-		record_encounter_events(r)
+func join_calendar(r: Dictionary,context: String) -> bool:
+	var before_day: int=int(c.state.econDay)
+	var queued: int=int(c.pending_days)+(int(scene.economy_workers.days) if scene.economy_task>=0 else 0)
+	scene.sync_economy()
+	var published: int=int(c.state.econDay)-before_day
+	payroll_days+=published
+	var joined: bool=c.pending_days==0 and scene.economy_task<0 and scene.economy_workers.group_id<0 and published==queued
+	r.get_or_add("calendarPublications",[]).append({"context":context,"queuedDays":queued,"publishedDays":published,"econDay":int(c.state.econDay),"pendingDays":int(c.pending_days),"economyTask":int(scene.economy_task),"workerGroupId":int(scene.economy_workers.group_id)})
+	check(joined,str(r.kind)+": copied economy worker publishes exactly the queued calendar days after join")
+	if not joined:r.blocker="Calendar publication contract failed: "+context
+	record_encounter_events(r)
+	return joined
 
 func button_in(node: Node,caption: String,prefix: bool=false) -> Button:
 	if node is Button and ((not prefix and node.text==caption) or (prefix and node.text.begins_with(caption))):return node
@@ -182,18 +187,23 @@ func _initialize() -> void:
 	phase("validated staged baseline")
 	if within_budget("fishing"):fishing_cycle()
 	phase("fishing buyer ranking, horizon/ground choices and paid conversion reinvestment")
+	if failures>0 or receipts.size()!=1:finish();return
 	if within_budget("freight"):job_cycle(Jobs.KIND_FREIGHT,"fenhopper_lighter")
 	phase("freight load/route alternatives, delivery and paid conversion reinvestment")
-	if within_budget("charter"):job_cycle(Jobs.KIND_CHARTER,"gullwing_daysailer")
+	if failures>0 or receipts.size()!=2:finish();return
+	if within_budget("charter"):job_cycle(Jobs.KIND_CHARTER,"osprey_cabin_cruiser")
 	phase("passenger charter cohort/custody alternatives, delivery and paid conversion reinvestment")
+	if failures>0 or receipts.size()!=3:finish();return
 	if within_budget("fuel"):job_cycle(Jobs.KIND_FUEL,"seepoil_tanker")
 	phase("fuel delivery tier/recipient arrival, delivery and paid tank conversion reinvestment")
+	if failures>0 or receipts.size()!=4:finish();return
 	if within_budget("convoy"):witnessed_convoy_checks()
 	phase("witnessed civilian convoy piracy intercept and escort opportunity")
 	finish()
 
 func begin_branch(kind: String,hull_id: String) -> Dictionary:
 	scene.sync_economy()
+	current_receipt={"kind":kind,"hull":hull_id,"staged":true,"earnedFromDefaultStarter":false,"status":"STARTED","operatingNet":0,"reinvestment":{"ok":false}}
 	c.state=baseline.duplicate(true);c.route_cache=baseline_cache.duplicate(true)
 	c.pending_days=0;c.events=[];c.exploration_timer=0.0;c.sailing_clearance=0.0
 	var dock: Dictionary=c.current_port()
@@ -218,24 +228,32 @@ func begin_branch(kind: String,hull_id: String) -> Dictionary:
 	check(Money.total(c.state)==supply and people(c.state)==census,kind+": staged branch start conserves global coins and people")
 	var prices: Dictionary={}
 	for good in ["food","fuel","supplies","ammo"]:prices[good]=Economy.price(dock,good,"buy")
-	return {"kind":kind,"staged":true,"earnedFromDefaultStarter":false,
+	current_receipt={"kind":kind,"staged":true,"earnedFromDefaultStarter":false,
 		"stagingBasis":"Declared finite treasury transfer (220000 coins from shatter_spire) and ready yard shell on forked baseline; full ready price, crew advance, working stores and post-voyage conversion paid through ordinary APIs.",
 		"boatUid":born_uid,"hull":hull_id,"origin":str(dock.id),"status":"STARTED",
 		"hullCapitalPaid":int(ready.readyPrice),"crewAdvancePaid":advance_quote,"inheritedHullCapitalRecovered":capital_recovered,"openingStoresPaid":stores_paid,
 		"openingCoins":int(c.state.coins),"openingArrears":int(c.state.wageArrears),"openingDay":float(c.state.day),"openingEconDay":int(c.state.econDay),
 		"physicalItemUids":boat.moduleCondition.items.keys(),"crew":int(boat.crew),"dailyWages":int(Economy.daily_upkeep(c.state.fleet).wages),"specialistPremiumPerDay":Support.premium(c.state),
 		"openingFuel":float(boat.fuel),"openingFood":float(c.state.cargo.food),"openingKits":float(boat.supplies),"openingAmmo":float(boat.ammo),
-		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0,"encounterRecords":{}}
+		"prices":prices,"grossIncome":0,"passengerSavingsCustody":0,"sailingDistance":0.0,"sailingDays":0.0,"returnDays":0.0,"steps":0,"encounterRecords":{},"operatingNet":0,"reinvestment":{"ok":false},"calendarPublications":[]}
+	return current_receipt
 
 func advance(seconds: float,r: Dictionary) -> bool:
 	if seconds<=0:return true
 	if not within_budget(str(r.kind)+" clock"):return false
 	var before: Dictionary=c.state.position.duplicate()
+	var before_day: float=float(c.state.day)
+	check(seconds<=c.DAY_SECONDS,str(r.kind)+": public clock interval never exceeds one day")
+	if seconds>c.DAY_SECONDS:return false
 	c.step(seconds);steps+=1;r.steps=int(r.steps)+1
 	r.sailingDistance=float(r.sailingDistance)+c.distance(before,c.state.position)
-	if c.pending_days>0:join_calendar(r,"ordinary calendar publication")
-	if c.events.any(func(event):return str(event.get("kind",""))=="encounter"):
+	if c.pending_days>0 and not join_calendar(r,"ordinary calendar publication"):return false
+	if c.events.any(func(event):return str(event.get("kind","")) in ["encounter","ocean_encounter066","defeat"]):
 		r.status="BLOCKED_ENCOUNTER";r.blocker="Hostile encounter interrupted route."
+		return false
+	if float(c.state.day)<=before_day:
+		check(false,str(r.kind)+": public clock must publish positive elapsed time")
+		r.blocker="Clock refused progression";r.clockContext={"requestedSeconds":seconds,"day":before_day,"events":c.events.duplicate(true),"recentLog":c.state.get("log",[]).slice(-6)}
 		return false
 	return true
 
@@ -254,13 +272,20 @@ func sail(r: Dictionary,target: Dictionary,destination: String="",returning: boo
 	check(arrived,str(r.kind)+": bounded physical sailing reaches destination")
 	return arrived
 
-func settle_calendar(r: Dictionary) -> void:
+func settle_calendar(r: Dictionary) -> bool:
 	if int(c.state.econDay)==int(r.openingEconDay):
-		advance(maxf(0.01,(float(floori(float(c.state.day))+1)-float(c.state.day))*c.DAY_SECONDS+0.001),r)
-	join_calendar(r,"final calendar publication")
-	check(c.pending_days==0 and scene.economy_task<0 and int(c.state.econDay)>int(r.openingEconDay),str(r.kind)+": ordinary economy/payroll joined")
+		# From an exact day boundary the epsilon must be a SECOND bounded step;
+		# Campaign.step explicitly refuses a single interval over DAY_SECONDS.
+		var target_day: float=float(floori(float(c.state.day))+1)+0.001/c.DAY_SECONDS
+		while float(c.state.day)<target_day:
+			if not advance(minf(c.DAY_SECONDS,maxf(0.001,(target_day-float(c.state.day))*c.DAY_SECONDS)),r):return false
+	if not join_calendar(r,"final calendar publication"):return false
+	var joined: bool=c.pending_days==0 and scene.economy_task<0 and scene.economy_workers.group_id<0 and int(c.state.econDay)>int(r.openingEconDay)
+	check(joined,str(r.kind)+": ordinary economy/payroll joined")
+	return joined
 
-func execute_paid_reinvestment(r: Dictionary) -> void:
+func execute_paid_reinvestment(r: Dictionary) -> bool:
+	r.reinvestment={"ok":false,"requestedConversion":str(ROLE_FITTINGS.get(str(r.kind),"cargo_rig"))}
 	var uid: String=str(r.boatUid)
 	var conv_id: String=str(ROLE_FITTINGS.get(str(r.kind),"cargo_rig"))
 	var boat: Dictionary=c.find_boat(uid)
@@ -271,9 +296,13 @@ func execute_paid_reinvestment(r: Dictionary) -> void:
 	var fit_quote: Dictionary=reinv_quote.get("nextFitting",{})
 	var hull_quote: Dictionary=reinv_quote.get("nextHull",{})
 	check(not fit_quote.is_empty() and int(fit_quote.get("costCoins",0))>0 and not hull_quote.is_empty() and int(hull_quote.get("readyCoins",0))>0,str(r.kind)+": Choices.reinvestment086 quotes both paid interior fitting and next role hull")
+	if not bool(fit_quote.get("ready",false)) or int(fit_quote.get("costCoins",0))<=0:
+		r.blocker="Conversion quote refused";r.reinvestment.quote=reinv_quote;check(false,str(r.kind)+": paid conversion requires an available real yard quote");return false
 	var coins_before: int=int(c.state.coins)
-	var res: Dictionary=c.install_conversion(uid,conv_id)
+	var res: Dictionary=FleetIdentity.install_conversion(c,uid,conv_id)
 	check(res.ok,str(r.kind)+": paid post-voyage conversion reinvestment succeeds: "+str(res.get("message","")))
+	if not bool(res.get("ok",false)):
+		r.blocker=str(res.get("message","Conversion installer refused"));r.reinvestment.result=res;return false
 	var spent: int=coins_before-int(c.state.coins)
 	check(spent==int(fit_quote.get("costCoins",0)) and spent>0,str(r.kind)+": paid conversion debits exact quoted materials + shipwright labor + yard margin/tax")
 	boat=c.find_boat(uid)
@@ -283,11 +312,18 @@ func execute_paid_reinvestment(r: Dictionary) -> void:
 		check(float(boat.spec.get("fuelCapacity",60))>tank_before,str(r.kind)+": auxiliary_tanks reinvestment increases physical engine tank capacity")
 	r.reinvestment={"conversionInstalled":str(boat.get("conversion","")),"requestedConversion":conv_id,"ok":bool(res.ok) and spent==int(fit_quote.get("costCoins",0)) and spent>0 and str(boat.get("conversion",""))==conv_id,"conversionCostPaid":spent,"holdBefore":hold_before,"holdAfter":float(boat.spec.get("cargo",0)),
 		"tankBefore":tank_before,"tankAfter":float(boat.spec.get("fuelCapacity",60)),"nextHullQuote":hull_quote,"dock":str(dock.get("id",""))}
+	return bool(r.reinvestment.ok)
 
 func finish_receipt(r: Dictionary,paid: bool) -> void:
-	settle_calendar(r)
+	if paid:
+		if not settle_calendar(r):paid=false
+	else:
+		join_calendar(r,"blocked branch joins only already queued work")
 	var boat: Dictionary=c.find_boat(str(r.boatUid))
-	if boat.is_empty():check(false,str(r.kind)+": working boat survives receipt");receipts.append(r);return
+	if boat.is_empty():
+		check(false,str(r.kind)+": working boat survives receipt")
+		r.status="BLOCKED_WORKING_BOAT";r.blocker="Original working UID is no longer afloat"
+		export_role_state(r);receipts.append(r.duplicate(true));current_receipt={};return
 	var fuel_used: float=maxf(0,float(r.openingFuel)-float(boat.fuel))
 	var food_used: float=maxf(0,float(r.openingFood)-float(c.state.cargo.food))
 	var kits_used: float=maxf(0,float(r.openingKits)-float(boat.supplies))
@@ -306,8 +342,9 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	r.operatingNet=int(r.grossIncome)-operating_cash-store_value
 	r.returnIncluded=float(r.returnDays)>0
 	if paid:
-		execute_paid_reinvestment(r)
-		r.status="STAGED_PAID_REINVESTED" if int(r.operatingNet)>0 and bool(r.reinvestment.ok) else "BLOCKED_REINVESTMENT"
+		var invested: bool=execute_paid_reinvestment(r)
+		check(invested and bool(r.get("reinvestment",{}).get("ok",false)),str(r.kind)+": installer returns a complete successful native reinvestment receipt")
+		r.status="STAGED_PAID_REINVESTED" if int(r.operatingNet)>0 and invested and bool(r.get("reinvestment",{}).get("ok",false)) else "BLOCKED_REINVESTMENT"
 		check(float(r.sailingDistance)>0 and r.returnIncluded and int(r.operatingNet)>0,str(r.kind)+": staged witness completes outward+return work with positive net before paid reinvestment")
 	else:
 		r.status="BLOCKED"
@@ -316,22 +353,9 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	r.conservation={"coinsTotal":Money.total(c.state),"supply":supply,"people":people(c.state),"census":census,"recordedNpcDeaths":recorded_npc_losses(r)}
 	check(Money.total(c.state)==supply and int(c.state.coinSupply)==supply and encounter_coverage(r) and people(c.state)+recorded_npc_losses(r)==census,str(r.kind)+": exact coin and people conservation after paid reinvestment")
 	check(int(c.state.wageArrears)==int(r.openingArrears) and c.cargo_weight()<=c.capacity()+0.0001 and boat.moduleCondition.items.keys()==r.physicalItemUids,str(r.kind)+": no wage arrears, overload or lost module UIDs")
-	scene.sync_economy()
-	var parsed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	var parsed: Dictionary=export_role_state(r)
 	var coin_now: int=int(c.state.coins)
 	var conv_now: String=str(boat.get("conversion",""))
-	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
-	var save_name: String="civilian086-%s-%s.json"%[str(r.kind),"completed" if str(r.status)=="STAGED_PAID_REINVESTED" else "blocked"]
-	check(not folder.is_empty(),str(r.kind)+": Root supplies the required GAME_TEST_ARTIFACTS directory")
-	if not folder.is_empty():
-		var saved=FileAccess.open(folder.path_join(save_name),FileAccess.WRITE)
-		check(saved!=null,str(r.kind)+": completed actual career state opens for export")
-		if saved!=null:saved.store_string(JSON.stringify(c.state,"\t"));saved.close()
-		var disk=JSON.parse_string(FileAccess.get_file_as_string(folder.path_join(save_name)))
-		check(disk is Dictionary and disk==parsed,str(r.kind)+": exported career save is the entire actual completed state")
-		if disk is Dictionary:
-			parsed=disk
-			r.completedSave={"file":save_name,"sha256":FileAccess.get_sha256(folder.path_join(save_name)),"staged":true,"earnedFromDefaultStarter":false,"day":float(c.state.day),"coins":coin_now,"boatUid":str(r.boatUid),"conversion":conv_now,"status":str(r.status)}
 	var restored: Dictionary=c.restore(parsed)
 	var after: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	var saved_boat: Dictionary={}
@@ -347,6 +371,26 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 		kept=kept and actual_boat.get(key)==saved_boat.get(key)
 	check(restored.ok and int(c.state.coins)==coin_now and str(c.find_boat(str(r.boatUid)).get("conversion",""))==conv_now and kept,str(r.kind)+": disk restore preserves exact money, catch/quota/jobs, conversion, item custody/condition and original working UID")
 	receipts.append(r.duplicate(true))
+	current_receipt={}
+
+func export_role_state(r: Dictionary) -> Dictionary:
+	scene.sync_economy()
+	check(c.pending_days==0 and scene.economy_task<0 and scene.economy_workers.group_id<0,str(r.kind)+": actual role state exports only after copied economy workers join")
+	var parsed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	var boat: Dictionary=c.find_boat(str(r.get("boatUid","")))
+	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
+	var save_name: String="civilian086-%s-%s.json"%[str(r.kind),"completed" if str(r.status)=="STAGED_PAID_REINVESTED" else "blocked"]
+	check(not folder.is_empty(),str(r.kind)+": Root supplies the required GAME_TEST_ARTIFACTS directory")
+	if not folder.is_empty():
+		var saved=FileAccess.open(folder.path_join(save_name),FileAccess.WRITE)
+		check(saved!=null,str(r.kind)+": actual career state opens for export")
+		if saved!=null:saved.store_string(JSON.stringify(c.state,"\t"));saved.close()
+		var disk=JSON.parse_string(FileAccess.get_file_as_string(folder.path_join(save_name)))
+		check(disk is Dictionary and disk==parsed,str(r.kind)+": exported career save is the entire actual completed or explicitly blocked state")
+		if disk is Dictionary:
+			parsed=disk
+			r.completedSave={"file":save_name,"sha256":FileAccess.get_sha256(folder.path_join(save_name)),"staged":true,"earnedFromDefaultStarter":false,"day":float(c.state.day),"coins":int(c.state.coins),"boatUid":str(r.get("boatUid","")),"conversion":str(boat.get("conversion","")),"status":str(r.status)}
+	return parsed
 
 func fishing_buyer_ranking_checks(uid: String) -> void:
 	var saved_state: Dictionary=c.state.duplicate(true)
@@ -444,7 +488,7 @@ func observe_fuel(r: Dictionary,uid: String) -> Dictionary:
 			if service.is_empty() or str(owner.get("purpose","")) in ["withdraw","repair","replace"]:continue
 			var review: Dictionary=Choices.job_review(c,job,uid)
 			var leg: float=ceilf(float(review.budget.outwardDays)*c.DAY_SECONDS)/c.DAY_SECONDS
-			if bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and float(review.budget.outwardDays)>0 and bool(review.recipient.present) and bool(review.recipient.eligible) and leg<float(service.remainingDays):
+			if bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and float(review.budget.outwardDays)>0 and bool(review.recipient.present) and bool(review.recipient.eligible) and leg<float(service.remainingDays) and Jobs.fuel_demand(owner,true)-Jobs._fuel_promised(c,str(owner.id))>=9.0 and minf(float(review.holdFree),float(review.fleetHoldFree))>=9.0:
 				r.fuelServiceAtQuote=service.duplicate(true)
 				return job.duplicate(true)
 		if index==24:break
@@ -452,17 +496,33 @@ func observe_fuel(r: Dictionary,uid: String) -> Dictionary:
 		if not advance(c.DAY_SECONDS*0.05,r):break
 	return {}
 
-func verify_fuel_tier_alternatives(uid: String,owner_id: String) -> void:
-	var v=CareerCosts.QuoteView.new(c)
-	var b: Dictionary=v.find_boat(uid)
-	b.spec.cargo=15.0
-	var owner: Dictionary=v.fleet_owner(owner_id)
-	if not owner.is_empty() and not owner.get("boats",[]).is_empty():
-		owner.cargo["fuel"]=0.0
-		owner.boats[0].fuel=maxf(0.0,float(owner.boats[0].spec.get("fuelCapacity",60))-11.0)
-		var tier_offers: Array=Jobs.available(v)
-		var fuel_alts: Array=Choices.role_alternatives086(v,Jobs.KIND_FUEL,tier_offers,uid)
-		check(fuel_alts.any(func(a):return str(a.loadTier)=="small") and fuel_alts.any(func(a):return str(a.loadTier)=="larger" and float(a.loadWeight)>8.0),"fuel_delivery generates both small (<=8) and larger (9..15) drum tiers when recipient demand and hold exceed 8")
+func verify_fuel_tier_alternatives(r: Dictionary,uid: String,observed: Dictionary) -> Dictionary:
+	var dock: Dictionary=c.current_port()
+	var owner_id: String=str(observed.ownerId)
+	var owner: Dictionary=c.fleet_owner(owner_id)
+	var route: Dictionary=WorkRegion.route(c,c.port(str(observed.targetPort)),dock)
+	if not bool(route.get("ok",false)):r.blocker="No actual recipient route for fuel tier quote";check(false,str(r.blocker));return {}
+	# Stage only a FINITE sponsor budget, through a counted purse transfer. Keep
+	# the actual paid hull/lockers, owner tanks, cargo and independent arrival.
+	var quote: Dictionary=Jobs._funded_load(c,dock,float(route.referenceDays),Jobs.KIND_FUEL,12,"fuel")
+	if quote.is_empty() or int(quote.get("qty",0))<9:r.blocker="Actual sponsor cannot fund 9..12 drums";check(false,str(r.blocker));return {}
+	var budget: int=int(quote.reward)+int(quote.invoice)
+	var opening_treasury: int=int(dock.governmentPurse)
+	var opening_households: int=int(dock.householdPurse)
+	var intact: PackedByteArray=var_to_bytes([owner,c.state.fleet,c.state.cargo,dock.stocks])
+	var moved: bool=Money.move(dock,"governmentPurse",dock,"householdPurse",opening_treasury-budget,"Declared staged 086 fuel sponsor budget; existing household purse retains surplus",c.state.moneyLog)
+	r.fuelTierFunding={"staged":true,"basis":"Actual source treasury retains the native 12-drum invoice plus catalog fee; its surplus transfers to the same harbor's existing household purse. No tank, cargo, hold, boat or price edits.","portId":str(dock.id),"ownerId":owner_id,"governmentBefore":opening_treasury,"governmentAfter":int(dock.governmentPurse),"householdsBefore":opening_households,"householdsAfter":int(dock.householdPurse),"transferredCoins":opening_treasury-budget,"nativeQuote":quote.duplicate(true),"realDemand":Jobs.fuel_demand(owner,true)-Jobs._fuel_promised(c,owner_id),"realCarrierFree":Jobs._carrier_free(c,c.find_boat(uid))}
+	check(moved and Money.total(c.state)==supply and intact==var_to_bytes([owner,c.state.fleet,c.state.cargo,dock.stocks]),"fuel tier staging transfers only existing coins and preserves actual recipient tanks, cargo, paid hull and source stock")
+	if not moved:return {}
+	var tier_offers: Array=Jobs.available(c)
+	var fuel_alts: Array=Choices.role_alternatives086(c,Jobs.KIND_FUEL,tier_offers,uid).filter(func(a):return str(a.ownerId)==owner_id)
+	r.fuelTierAlternatives=fuel_alts.duplicate(true)
+	var both: bool=fuel_alts.any(func(a):return str(a.loadTier)=="small" and float(a.loadWeight)<=8.0) and fuel_alts.any(func(a):return str(a.loadTier)=="larger" and float(a.loadWeight)>=9.0 and float(a.loadWeight)<=15.0)
+	check(both,"fuel_delivery generates both small (<=8) and larger (9..15) drum tiers when recipient demand and hold exceed 8")
+	if not both:r.blocker="Actual finitely funded board lacks paired fuel tiers";return {}
+	for job in tier_offers:
+		if str(job.kind)==Jobs.KIND_FUEL and str(job.ownerId)==owner_id and str(job.loadTier)=="small":return job.duplicate(true)
+	return {}
 
 func job_cycle(kind: String,hull_id: String) -> void:
 	var r: Dictionary=begin_branch(kind,hull_id)
@@ -470,20 +530,30 @@ func job_cycle(kind: String,hull_id: String) -> void:
 	var uid: String=str(r.boatUid)
 	var offers: Array=Jobs.available(c)
 	var alts: Array=Choices.role_alternatives086(c,kind,offers,uid)
+	r.boardContext={"portId":str(c.current_port().id),"governmentPurse":int(c.current_port().governmentPurse),"stocks":c.current_port().stocks.duplicate(true),"availableWorkers":int(c.current_port().get("availableWorkers",0)),"boatUid":uid,"realHoldFree":Jobs._carrier_free(c,c.find_boat(uid)),"realSpareBerths":Transport.spare(c,c.find_boat(uid)),"alternatives":alts.duplicate(true)}
 	var chosen: Dictionary={}
 	if kind==Jobs.KIND_FREIGHT:
-		check(alts.size()>=2 and alts.any(func(a):return str(a.loadTier)=="small") and alts.any(func(a):return str(a.loadTier)=="larger"),"freight board exposes both small and larger load/route alternatives")
+		var both: bool=alts.size()>=2 and alts.any(func(a):return str(a.loadTier)=="small") and alts.any(func(a):return str(a.loadTier)=="larger")
+		check(both,"freight board exposes both small and larger load/route alternatives")
+		if not both:r.blocker="Actual freight board lacks paired load tiers";return
+		# Fresh day-one harbors have no regional finished goods yet. Select a real
+		# funded, fitting bulk OR regional offer instead of requiring absent stock.
 		for job in offers:
-			if str(job.kind)==kind and str(job.get("freight",{}).get("good","")) in ["preserved_fish","fine_timber","lacquer","medicinal_plants"]:chosen=job.duplicate(true);break
+			if str(job.kind)!=kind or str(job.get("loadTier",""))!="small":continue
+			var review: Dictionary=Choices.job_review(c,job,uid)
+			if bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and int(review.estimatedNet)>0:chosen=job.duplicate(true);break
 	elif kind==Jobs.KIND_CHARTER:
-		check(alts.size()>=2 and alts.any(func(a):return str(a.loadTier)=="small") and alts.any(func(a):return str(a.loadTier)=="larger"),"charter board exposes both small (<=4) and larger cohort alternatives")
+		var both: bool=alts.size()>=2 and alts.any(func(a):return str(a.loadTier)=="small" and int(a.passengers)<=4) and alts.any(func(a):return str(a.loadTier)=="larger" and int(a.passengers)>4)
+		check(both,"charter board exposes both small (<=4) and larger cohort alternatives")
+		if not both:r.blocker="Actual charter board lacks paired cohorts on the paid yacht";return
 		for job in offers:
 			if str(job.kind)==kind and int(job.passengers.n)<=Transport.spare(c,c.find_boat(uid)):chosen=job.duplicate(true);break
 	elif kind==Jobs.KIND_FUEL:
 		chosen=observe_fuel(r,uid);offers=Jobs.available(c)
 		alts=Choices.role_alternatives086(c,kind,offers,uid)
 		check(not alts.is_empty(),"fuel board exposes live recipient restock alternatives")
-		if not chosen.is_empty():verify_fuel_tier_alternatives(uid,str(chosen.ownerId))
+		if not chosen.is_empty():chosen=verify_fuel_tier_alternatives(r,uid,chosen)
+		if failures>0:return
 	if chosen.is_empty():
 		r.blocker="No eligible funded "+kind+" offer found";finish_receipt(r,false);return
 	var before_ui: String=snapshot()
@@ -571,6 +641,15 @@ func witnessed_convoy_checks() -> void:
 
 func finish() -> void:
 	if scene!=null:
+		# A native source/API error may abort a nested function without reaching
+		# its receipt. Preserve that exact blocked state and fail before any role
+		# continues; no uninitialized reinvestment/operating fields are read.
+		if not current_receipt.is_empty() and not receipts.any(func(r):return str(r.kind)==str(current_receipt.kind)):
+			current_receipt.status="BLOCKED_SOURCE_CONTRACT"
+			current_receipt.blocker=str(current_receipt.get("blocker","Role returned without its required completed receipt; inspect native stack"))
+			current_receipt.blockedContext={"events":c.events.duplicate(true),"recentLog":c.state.get("log",[]).slice(-6),"pendingDays":int(c.pending_days),"economyTask":int(scene.economy_task),"workerGroupId":int(scene.economy_workers.group_id)}
+			check(false,str(current_receipt.kind)+": stop at the failed native source/precondition contract")
+			export_role_state(current_receipt);receipts.append(current_receipt.duplicate(true))
 		scene.sync_economy();scene.free()
 	var whole: float=elapsed()
 	check(whole<BUDGET_SECONDS,"entire 086 fixture stays below 38 seconds; actual="+str(whole))

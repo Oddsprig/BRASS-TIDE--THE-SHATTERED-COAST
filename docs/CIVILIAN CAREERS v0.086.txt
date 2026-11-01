@@ -93,7 +93,7 @@ Focused Native Fixture (`game/tests/test_civilian_careers086.gd`)
 - Verifies pure buyer ranking, home-region route authority, small-vs-larger load
   alternatives, outward/work/return physical execution, full 100-coin/day sailor
   payroll settlement, paid post-voyage interior conversion reinvestment
-  (`c.install_conversion`), witnessed civilian convoy escort (`Escort.start`)
+  (`FleetIdentity.install_conversion(c, uid, id)`), witnessed civilian convoy escort (`Escort.start`)
   and piracy intercept (`Escort.prepare_intercept`), global coin/people
   conservation, and parsed save/restore fidelity.
 - Exports each actual post-return, paid-conversion state into
@@ -113,3 +113,47 @@ Focused Native Fixture (`game/tests/test_civilian_careers086.gd`)
   Root separately measures setup/import/startup/export/cleanup and delivery:
   each selected batch <120s; the selected suite <180s. Neither timing is proven
   by this source review.
+
+Actual R1 correction (source candidate; Root native verification pending)
+======================================================================
+Root job 454fbdc1c51a41ae87b7e1cc6b3943db on c2495363 failed: 96 checks,
+5 failed assertions, 25.29084s body, plus the nonexistent Campaign installer
+and consequent missing receipt errors. This failed run remains failed.
+
+- The fixture calls the public static FleetIdentity installer with Campaign,
+  working UID and conversion ID. It checks the real preview's `ready` field,
+  initializes a failed reinvestment receipt before calling, and requires an
+  explicit successful result before recording completion.
+- Freight selects an actual funded small bulk or regional offer that fits the
+  paid carrier and return allowance. The actual R1 day-one ports had zero lots
+  of all four regional finished goods; the earlier regional-only selector
+  discarded available bulk work. No goods or offers are added.
+- Passenger work buys the existing Osprey yacht and minimum crew at full cost.
+  Its seven spare berths support both <=4 and >4 real cohorts; the Daysailer's
+  four spare berths could never offer a larger cohort. The next-hull reference
+  quote can name this already-owned yacht; the exercised reinvestment is the
+  paid cargo conversion, not a second yacht purchase.
+- The fuel witness requires an independently arrived recipient with actual
+  demand and actual free carrier hold >=9. It stages a finite sponsor budget
+  using the native up-to-12-drum invoice and fee: source `governmentPurse`
+  retains that budget and Money.move transfers its surplus to the same port's
+  counted `householdPurse`. The board is regenerated and both tiers are checked
+  for that same recipient before a real listed small offer is accepted. This
+  declared treasury redistribution is staged, not earned civilian policy.
+  No recipient fuel, loose cargo, hull specification, price or outcome is set.
+- Calendar waits split the boundary epsilon into intervals <=DAY_SECONDS.
+  Main.sync_economy must publish exactly the queued plus in-flight worker days;
+  pending_days=0, economy_task<0 and economy_workers.group_id<0 are required.
+  The existing exact sailor payroll, coin/people, quota, cargo, passenger
+  custody, arrival, item UID and disk-restore assertions remain.
+- Any failed role stops subsequent roles and convoy work. If a nested native
+  source/API error returns without a receipt, the actual joined state is
+  exported as `civilian086-<role>-blocked.json`, with BLOCKED_SOURCE_CONTRACT,
+  initialized operating/reinvestment fields, board/worker context and recent
+  events/log. Blocked files cannot count as completed role saves.
+
+Report additions: each receipt has calendarPublications; job receipts retain
+boardContext, and fuel retains fuelTierFunding and fuelTierAlternatives.
+Existing terminal marker, result filename, four completed-state filenames,
+staged/earned labels and 38s body cap are unchanged. Native completion, timing,
+UI/export and delivery of this correction remain Root's work.
