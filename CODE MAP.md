@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.081: Combat art at normal play zoom. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: chart.gd, wake_art045.gd, boat_sprite_art.gd, weapon_art.gd.
+v0.082: Weapon sound and music transitions. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: music.gd, sound.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

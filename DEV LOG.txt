@@ -1,3 +1,6 @@
+01NOV2026 - v0.082 MUSIC TRANSITION CANDIDATE
+Queued crossfades and pre-end rollover; sound recordings unchanged. Native/export/offline/listening checks pending.
+
 v0.081 VERIFIED SCOPED - 927 checks/0; actual normal-zoom motion reviewed.
 081 native/export/menu52.19s; retail51.84s;12s movie41.23s; delivery timing in receipt. Light latency, hull overlap, broader art/listening quality remain open.
 

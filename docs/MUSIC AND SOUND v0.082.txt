@@ -1,0 +1,6 @@
+BRASS TIDE v0.082 - MUSIC AND SOUND
+Candidate: scene/Next requests wait until the existing music fade completes,
+then use the latest requested context. Natural rollover begins before cue end.
+All18suppliedMP3s and existing licensed weapon banks remain. Current native/
+export/offlineaudio evidence pending. Audible quality is not accepted from file
+existence or source math; no live playback is used during background tests.

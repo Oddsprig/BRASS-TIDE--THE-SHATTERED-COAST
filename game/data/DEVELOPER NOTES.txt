@@ -1,16 +1,13 @@
-BRASS TIDE v0.081 - COMBAT ART AT NORMAL PLAY ZOOM
+BRASS TIDE v0.082 - WEAPON SOUND AND MUSIC TRANSITIONS
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Keep spaced wake-history anchors and an updated physical stern tip within the existing sample and primitive limits.
-- Improve existing normal-zoom machine-gun contrast while preserving fitted dimensions, aiming, recoil and muzzle origins.
-- Hide the reached Hold destination marker that obscures the deck; retain selection, status and actual orders.
-- Review light, heavy and civilian references in actual movement, fire, turning and sinking.
+- Finish the existing two-player music fade before accepting a queued scene or Next change.
+- Overlap natural cue endings by two seconds and preserve mute/headless behavior.
+- Supply bounded offline gunfire, heavy-shot, rocket/torpedo, impact and music transition clips; hearing remains a separate quality gate.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
 Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
-
-Existing36hulls, physical mounts, finite stores,30Hz combat workers and100ms decisions remain. Read tests/ for current actual evidence and open quality limits.

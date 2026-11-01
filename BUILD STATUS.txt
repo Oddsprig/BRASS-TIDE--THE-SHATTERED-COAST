@@ -1,15 +1,15 @@
-BRASS TIDE v0.081 - Combat art at normal play zoom
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: de681a8106a19a054136d6a8e3ac7191fb87a077 / v0.081
-Test Bridge: 1586eaf75fd246de8595b5cd534b818e
-927 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 52.190s; owned cleanup verified.
+BRASS TIDE v0.082 - WEAPON SOUND AND MUSIC TRANSITIONS
+01 November2026 |36 boat designs
 
-- Keep spaced wake-history anchors and an updated physical stern tip within the existing sample and primitive limits.
-- Improve existing normal-zoom machine-gun contrast while preserving fitted dimensions, aiming, recoil and muzzle origins.
-- Hide the reached Hold destination marker that obscures the deck; retain selection, status and actual orders.
-- Review light, heavy and civilian references in actual movement, fire, turning and sinking.
+THIS VERSION
+- Finish the existing two-player music fade before accepting a queued scene or Next change.
+- Overlap natural cue endings by two seconds and preserve mute/headless behavior.
+- Supply bounded offline gunfire, heavy-shot, rocket/torpedo, impact and music transition clips; hearing remains a separate quality gate.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Testedde681a8106a19a054136d6a8e3ac7191fb87a077;927 focused assertions/0. Wakes now retain spaced anchors across their existing0.7second lifetime instead of exhausting12slots each rendered frame. Existing normal-zoom gun contrast increased without moving mounts or muzzle geometry. 927 current native assertions/0; three light/heavy/civilian references, refit/chart/battle weapon preparation, wake shape/expiry/caps, public missing-lod caller and recoil checked. Actual ordinary worker movement/turning,20fire/19hits/one sinking reviewed across12 temporal samples. Staged target began at declared4percent hull; no subsequent outcome edits. Actual42light/16mixed300DP retail workloads measured separately. Both planner targets met; selected fixed60 movie is not realtimeFPS. LightworkerP9534.3675ms/maxlag183.333ms miss33.333/100targets. Mixed17.001ms/66.600ms meets. RawFPS60.006635/59.999799; strict overallqualityFALSE. No controlled causal speedup claim. Physical/art hull overlaps, generic flat shore and broader art quality remain. No all-angle/all36rebake, held-station visual fade, continuous playback, listening or whole-game parity acceptance. Initial081 native R1 FAILED4 inherited expectations. Accepted080 diagnostic d6cea45a8b954df9a1c97bd1f2f7c650 reproduced exactsame4. Root test-only correction preserves native validity/0.002pixel boundary equivalence and real visible paint checks; both failures retained and not selected passes. Sol source gate applies only named productionfiles and wrappers. Additional direct Sol review was NOTSENT because plan100percent. Argon f5d10ce513d4 eventually finished without readable answer; unused/unrated. Original18 owner MP3s and recorded SFX unchanged;082 music transition scope follows. 075 timing gate failed;076 and080 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged080 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.
+STATUS: current source candidate; focused checks/export pending.
