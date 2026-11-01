@@ -6,12 +6,24 @@ const Politics=preload("res://scripts/politics.gd")
 const Goods=preload("res://scripts/goods.gd")
 
 class ReviewView extends Costs.QuoteView:
+	var remote_port_id: String=""
+	func _init(c):
+		super._init(c)
+		if c!=null and c.has_method("work_port070"):
+			var wp: Dictionary=c.work_port070()
+			if wp.is_empty():
+				var imp_port: String=str(c.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
+				if not imp_port.is_empty():wp=preload("res://scripts/territorial076.gd")._remote_work_port(c,imp_port)
+			remote_port_id=str(wp.get("id",""))
+	func work_port070() -> Dictionary:return port(remote_port_id)
 	func fail(message: String) -> Dictionary:return {"ok":false,"message":message}
 
 static func review(c) -> Dictionary:
 	var v=ReviewView.new(c)
 	HomeOps.ensure(v)
-	var p: Dictionary=v.current_port()
+	var home_p: Dictionary=v.current_port()
+	var p: Dictionary=Home._service_port(v,true)
+	var is_remote: bool=home_p.is_empty() and not p.is_empty()
 	var quotes: Array=[]
 	if not p.is_empty():
 		for kind in ["warehouse","salvage_yard","workshop"]:
@@ -19,7 +31,7 @@ static func review(c) -> Dictionary:
 			q.kind=kind;quotes.append(q)
 	var businesses: Array=[]
 	for b in v.state.get("businesses",[]):businesses.append(Home.business_view(v.state,str(b.id)))
-	return {"view":v,"port":p,"room":HomeOps.room(v,str(p.id)) if not p.is_empty() else {},"quotes":quotes,"businesses":businesses,"pendingDays":int(c.pending_days),"publishedDay":int(c.state.get("econDay",1))}
+	return {"view":v,"port":p,"isRemotePort084":is_remote,"room":HomeOps.room(v,str(home_p.id)) if not home_p.is_empty() else {},"quotes":quotes,"businesses":businesses,"pendingDays":int(c.pending_days),"publishedDay":int(c.state.get("econDay",1))}
 
 ## The same pure book summary is used beside the selected regional goal.
 static func book(ui,body: Node,b: Dictionary) -> void:
@@ -79,9 +91,13 @@ static func open(ui) -> void:
 	ui.button(heading,"Decline / return to chart",ui.close_modal,false,false)
 	ui.paragraph(body,"Published day %d · %d calendar days pending · review/close pays nothing; actions refresh and recheck the books."%[int(account.publishedDay),int(account.pendingDays)],14)
 	var p: Dictionary=account.port
+	var is_remote: bool=bool(account.get("isRemotePort084",false))
 	if not p.is_empty():
-		var space: Dictionary=account.room
-		ui.paragraph(body,"%s: private berths %d / %d · public berths %d / %d"%[p.name,space.privateUsed,space.privateCapacity,space.publicUsed,space.publicCapacity],16,ui.GOLD)
+		if is_remote:
+			ui.paragraph(body,"%s: charted remote harbor berth · warehouse development and owned warehouse storage operate here; boat storage berths, salvage yards and workshops remain Shatter Coast home-only."%str(p.get("name",p.get("id",""))),16,ui.GOLD)
+		else:
+			var space: Dictionary=account.room
+			ui.paragraph(body,"%s: private berths %d / %d · public berths %d / %d"%[p.name,space.privateUsed,space.privateCapacity,space.publicUsed,space.publicCapacity],16,ui.GOLD)
 	for boat in c.state.fleet:
 		if int(boat.get("berthArrears",0))<=0:continue
 		var uid: String=boat.uid
@@ -129,7 +145,11 @@ static func open(ui) -> void:
 				ui.paragraph(charters,"Setup %s + opening float %s coins · %d staff · %d coins/day · hold %.0f"%[ui.money(q.setupCost),ui.money(q.workingCapitalDeposit),q.staffTotal,q.dailyWages,q.capacity],17,ui.TEXT)
 				ui.paragraph(charters,"Parts %d · ordinary wages %d · expert wages %d · margin %d · duty %d"%[q.materialCost,q.setupOrdinaryWages,q.setupExpertWages,q.margin,q.duty],15)
 			else:ui.paragraph(charters,str(q.message),15)
-			ui.button(charters,"Establish paid business",func():act(ui,"establish",kind,str(p.id)),true,false).disabled=not q.ok or not q.get("affordable",false)
+			if is_remote and kind=="warehouse":
+				ui.paragraph(charters,"Remote harbor warehouses require two paid berth-development days with carried machinery and materials before setup.",15,ui.TEAL)
+				ui.button(charters,"Open Harbor Development",func():load("res://scripts/regional_ui.gd").open(ui,"harbor",str(p.id)),true,false)
+			else:
+				ui.button(charters,"Establish paid business",func():act(ui,"establish",kind,str(p.id)),true,false).disabled=is_remote or not q.ok or not q.get("affordable",false)
 
 static func act(ui,action: String,id: String="",value: String="",amount: float=0.0) -> void:
 	ui.host.sync_economy()
@@ -147,9 +167,10 @@ static func act(ui,action: String,id: String="",value: String="",amount: float=0
 			elif action=="chart":
 				ui.host.sail_to(str(b.homePort));ui.close_modal();return
 			else:
-				var permission: Dictionary=Politics.permit(c,"service")
+				var docked: Dictionary=Home._service_port(c,true)
+				var permission: Dictionary=Politics.permit(c,"service","",docked)
 				if not permission.ok:result=permission
-				elif str(c.current_port().get("id",""))!=str(b.homePort):result=c.fail("Visit this business's actual home harbor to change sales policy.")
+				elif str(docked.get("id",""))!=str(b.homePort):result=c.fail("Visit this business's actual home harbor to change sales policy.")
 				else:b.autoSell=not bool(b.get("autoSell",true));result=c.ok("Local sales policy updated; no goods sold yet.")
 		_:return
 	ui.host.respond(result)

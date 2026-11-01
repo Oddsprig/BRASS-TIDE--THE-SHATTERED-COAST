@@ -29,7 +29,9 @@ class QuoteView extends RefCounted:
 		for i in range(state.ports.size()):
 			if state.ports[i].id == p.id:state.ports[i] = selected
 		for good in materials:selected.stocks[good] = float(selected.stocks.get(good, 0)) + float(materials[good])
-	func current_port() -> Dictionary:return selected
+	func current_port() -> Dictionary:
+		return selected if str(selected.get("regionId", "shatter_coast")) == "shatter_coast" else {}
+	func work_port070() -> Dictionary:return selected
 	func port(id: String) -> Dictionary:
 		for p in state.ports:
 			if p.id == id:return p
@@ -70,6 +72,40 @@ static func _near(c, id: String, reach: float = 65.0) -> bool:
 	if location.get("layer", "home") != "home":return false
 	if location.get("regionId", "shatter_coast") != "shatter_coast":return false
 	return c.distance(c.state.position, _port(c.state, id)) < reach
+
+static func _generated_improve_port(s: Dictionary, id: String) -> bool:
+	return Home._generated_harbor084(s, id)
+
+static func _improve_supported(s: Dictionary, id: String) -> bool:
+	return _home(s, id) or _generated_improve_port(s, id)
+
+static func _remote_work_port(c, id: String) -> Dictionary:
+	if c == null or not c.has_method("work_port070"):return {}
+	var job: Dictionary = _book(c.state).get("improvement", {})
+	var unreserve: bool = job.get("status") == "active" and str(job.get("portId", "")) == id and not job.get("crewByBoat", {}).is_empty()
+	if unreserve:
+		for uid in job.crewByBoat:
+			var b: Dictionary = _boat(c.state, str(uid))
+			if not b.is_empty():b.shoreCrew = maxi(0, int(b.get("shoreCrew", 0)) - int(job.crewByBoat[uid]))
+	var wp: Dictionary = c.work_port070()
+	if unreserve:
+		for uid in job.crewByBoat:
+			var b: Dictionary = _boat(c.state, str(uid))
+			if not b.is_empty():b.shoreCrew = int(b.get("shoreCrew", 0)) + int(job.crewByBoat[uid])
+	return wp
+
+static func _improve_near(c, id: String, reach: float = 65.0) -> bool:
+	if _home(c.state, id):return _near(c, id, reach)
+	if not _generated_improve_port(c.state, id) or not c.state.get("path", []).is_empty():return false
+	var wp: Dictionary = _remote_work_port(c, id)
+	return not wp.is_empty() and str(wp.get("id", "")) == id
+
+static func _can_chain_improvement084(s: Dictionary, raw_imp: Dictionary, port_id: String) -> bool:
+	if raw_imp.is_empty() or str(raw_imp.get("status", "")) != "complete":return false
+	if raw_imp.has("priorCompleted"):return false
+	var old_port: String = str(raw_imp.get("portId", ""))
+	if old_port.is_empty() or old_port == port_id:return false
+	return _home(s, old_port) != _home(s, port_id) and _improve_supported(s, port_id)
 
 static func _machine(c, id: String = "") -> Dictionary:
 	var book: Dictionary = c.state.get("tooling", {})
@@ -140,21 +176,34 @@ static func _busy(s: Dictionary, except: String) -> bool:
 static func view(c, port_id: String) -> Dictionary:
 	var p: Dictionary = _port(c.state, port_id)
 	var book: Dictionary = _book(c.state)
+	var raw_imp: Dictionary = book.get("improvement", {})
+	var imp_view: Dictionary = raw_imp.duplicate(true)
+	if raw_imp.get("priorCompleted") is Dictionary and str(raw_imp.priorCompleted.get("portId", "")) == port_id:
+		imp_view = raw_imp.priorCompleted.duplicate(true)
 	var businesses: Array = []
 	for b in c.state.get("businesses", []):
 		if b.get("homePort") == port_id:businesses.append(Home.business_view(c.state, str(b.id)))
 	return {"portId": port_id, "faction": str(p.get("faction", "")),
-		"supported": _home(c.state, port_id), "improvement": book.get("improvement", {}).duplicate(true),
+		"supported": _improve_supported(c.state, port_id),
+		"controlSupported": _home(c.state, port_id),
+		"isRemote084": _generated_improve_port(c.state, port_id),
+		"improvement": imp_view,
 		"control": book.get("control", {}).duplicate(true), "businesses": businesses,
 		"supportCapital": SUPPORT_CAPITAL, "workDays": WORK_DAYS,
 		"workers": WORKERS, "wagePerPersonDay": Goods.SAILOR_WAGE,
 		"supportGoodsPerDay": SUPPORT_GOODS.duplicate(true),
-		"scope": "One existing Shatter Coast harbor at a time. Businesses retain their own assets and purses."}
+		"scope": "One Shatter Coast harbor and one charted remote harbor warehouse development. Sovereignty contest remains Shatter Coast only until 085."}
 
 static func quote_improve(c, port_id: String) -> Dictionary:
-	if not _home(c.state, port_id) or not _near(c, port_id):return _result(false, "Dock at the existing Shatter Coast harbor to improve its berth.")
+	if not _improve_supported(c.state, port_id) or not _improve_near(c, port_id):
+		return _result(false, "Dock at the existing Shatter Coast harbor to improve its berth." if _home(c.state, port_id) else "Dock at the charted local harbor berth to improve its warehouse.")
 	if _busy(c.state, "improvement"):return _result(false, "Withdraw the other shore party first.")
-	var old: Dictionary = _book(c.state).get("improvement", {})
+	var raw_imp: Dictionary = _book(c.state).get("improvement", {})
+	var old: Dictionary = {}
+	if raw_imp.get("priorCompleted") is Dictionary and str(raw_imp.priorCompleted.get("portId", "")) == port_id:
+		old = raw_imp.priorCompleted
+	elif not _can_chain_improvement084(c.state, raw_imp, port_id):
+		old = raw_imp
 	if not old.is_empty() and old.get("portId") != port_id:return _result(false, "076 retains one improvement at its original harbor.")
 	if old.get("status") == "complete":return _result(false, "This funded warehouse and rented berth are already complete.")
 	var item: Dictionary = _machine(c, str(old.get("machineryId", "")))
@@ -193,16 +242,19 @@ static func improve(c, port_id: String) -> Dictionary:
 	if not quote.get("ok", false):return quote
 	ensure(c)
 	var job: Dictionary = _book(c.state).improvement
-	if job.is_empty():
+	var prior: Dictionary = job.duplicate(true) if _can_chain_improvement084(c.state, job, port_id) else {}
+	if job.is_empty() or not prior.is_empty():
 		# Actual carried goods become this harbor project's inventory, once. They
 		# are unavailable to market production and remain here during withdrawal.
 		for good in quote.materials:
 			c.state.cargo[good] = float(c.state.cargo.get(good, 0)) - float(quote.materials[good])
+		job.clear()
 		job.merge({"portId": port_id, "status": "active", "businessId": "",
 			"machineryId": str(quote.machineryId), "crewByBoat": {},
 			"startedDay": int(c.state.econDay), "lastPaidDay": int(c.state.econDay),
 			"paidDays": 0, "materials": quote.materials.duplicate(true),
 			"reservedMaterials": quote.materials.duplicate(true), "setupBill": {}, "reason": ""})
+		if not prior.is_empty():job["priorCompleted"] = prior
 	if job.crewByBoat.is_empty():_reserve(c, job, quote.crewByBoat)
 	job.status = "active";job.reason = "Keep the moored party supplied and ordinary fleet payroll fully paid."
 	Manifest.allocate(c.state)
@@ -301,7 +353,8 @@ static func paid_day(c, paid: int, due: int) -> void:
 		if due <= 0 or due != int(costs.wages) or paid != due or int(c.state.get("wageArrears", 0)) > 0:
 			job.status = "interrupted";job.reason = "Ordinary sailor payroll was not fully paid; unpaid work does not count."
 			continue
-		if not _near(c, str(job.portId)) or not _crew_ok(c.state, job):
+		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _near(c, str(job.portId))
+		if not at_berth or not _crew_ok(c.state, job):
 			job.status = "interrupted";job.reason = "The original healthy party must be present at this harbor's berth."
 			continue
 		if float(c.state.cargo.get("food", 0)) < float(costs.food):
@@ -339,7 +392,8 @@ static func daily(c) -> void:
 			job.status = "interrupted";job.reason = "The original party was wounded, lost or recalled; healthy replacement sailors must be assigned explicitly."
 			continue
 		if job.status != "active":continue
-		if not _near(c, str(job.portId)):
+		var at_berth: bool = _improve_near(c, str(job.portId)) if key == "improvement" else _near(c, str(job.portId))
+		if not at_berth:
 			job.status = "interrupted";job.reason = "Work interrupted away from the actual harbor; return and resume or withdraw."
 			continue
 		if key == "control":
@@ -352,6 +406,8 @@ static func daily(c) -> void:
 			continue
 		var p: Dictionary = _port(c.state, str(job.portId))
 		var stocks: Dictionary = p.stocks.duplicate(true)
+		var held_party: Dictionary = job.get("crewByBoat", {}).duplicate(true)
+		_release(c, job)
 		# A synchronous handoff to existing paid setup. On refusal, restore the
 		# exact prior stocks (including absent keys), leaving our held bill intact.
 		for good in job.reservedMaterials:
@@ -360,6 +416,7 @@ static func daily(c) -> void:
 		var built: Dictionary = Home.establish(c, "warehouse", str(job.portId)) if quote.get("ok", false) else quote
 		if not built.get("ok", false):
 			p.stocks = stocks
+			_reserve(c, job, held_party)
 			job.status = "interrupted";job.reason = str(built.get("message", "Actual warehouse setup is currently unavailable."))
 			continue
 		# Publish the same canonical new-business defaults used by ordinary restore.
@@ -425,6 +482,50 @@ static func negotiate(c) -> Dictionary:
 	c.log_entry(str(job.reason))
 	return _result(true, str(job.reason), {"changed": true, "portId": str(job.portId), "fromFaction": str(job.fromFaction), "newFaction": str(job.newFaction)})
 
+static func _validate_improvement_record(saved: Dictionary, j: Dictionary, improve_ports: Dictionary, allow_prior: bool) -> String:
+	if j.get("status") not in STATUSES or not improve_ports.has(j.get("portId")):return "Invalid territorial harbor or status."
+	if not j.get("reason") is String or j.reason.length() > 1000:return "Invalid territorial explanation."
+	for field in ["startedDay", "lastPaidDay"]:
+		if not BoardingRules._w(j.get(field), BoardingRules.CASH) or j[field] > saved.econDay:return "Invalid territorial work date."
+	if j.startedDay > j.lastPaidDay:return "Territorial paid work predates its start."
+	if not j.get("crewByBoat") is Dictionary or j.crewByBoat.size() > WORKERS:return "Invalid territorial crew allocation."
+	var count: int = 0
+	for uid in j.crewByBoat:
+		if not uid is String or not BoardingRules._w(j.crewByBoat[uid], WORKERS) or int(j.crewByBoat[uid]) < 1:return "Invalid assigned territorial sailors."
+		count += int(j.crewByBoat[uid])
+	if count not in [0, WORKERS] or (j.status == "active" and count != WORKERS):return "Territorial party size does not reconcile."
+	if count > 0 and not _crew_ok(saved, j):return "Territorial sailors are not reserved on their actual healthy hulls."
+	if j.status in ["complete", "withdrawn"] and count != 0:return "Finished territorial work retains a shore party."
+	if not BoardingRules._w(j.get("paidDays"), WORK_DAYS) or int(j.paidDays) > int(j.lastPaidDay) - int(j.startedDay):return "Invalid paid territorial work days."
+	if not j.get("businessId") is String or not j.get("machineryId") is String:return "Invalid territorial asset identity."
+	if j.get("materials") != Home.KINDS.warehouse.materials:return "Invalid territorial material contribution."
+	if not j.get("reservedMaterials") is Dictionary or not j.get("setupBill") is Dictionary:return "Missing territorial project inventory or setup receipt; spent old goods cannot be recreated."
+	if j.status != "complete" and (j.reservedMaterials != j.materials or not j.setupBill.is_empty()):return "Unfinished territorial work must retain its exact reserved bill and no completion credit."
+	var found: bool = false
+	for item in saved.get("tooling", {}).get("items", []):
+		if item.get("id") == j.machineryId and item.get("kind") == "machine_tools":found = true
+	if not found:return "Missing original territorial machinery record."
+	if j.status == "complete":
+		var bill: Dictionary = j.setupBill
+		if not j.reservedMaterials.is_empty() or bill.size() != 4 or not bill.get("homeQuote") is Dictionary:return "Completed territorial work retains materials or lacks its actual setup receipt."
+		for field in ["grossCost", "materialCredit", "netCost"]:
+			if not BoardingRules._w(bill.get(field), BoardingRules.CASH):return "Invalid territorial supplied-material credit."
+		var quote: Dictionary = bill.homeQuote
+		if quote.get("ok") != true or quote.get("kind") != "warehouse" or quote.get("portId") != j.portId or quote.get("materials") != j.materials:return "Territorial setup receipt does not match its project."
+		if quote.get("cost") != bill.grossCost or quote.get("materialCost") != bill.materialCredit or bill.materialCredit > bill.grossCost or bill.netCost != bill.grossCost - bill.materialCredit:return "Territorial gross bill and supplied-material credit do not reconcile."
+		var b: Dictionary = Home.business_view(saved, str(j.businessId))
+		if int(j.paidDays) != WORK_DAYS or b.get("kind") != "warehouse" or b.get("homePort") != j.portId:return "Completed territorial berth lacks its actual paid warehouse."
+	elif j.businessId != "":return "Unfinished territorial berth claims a business."
+	if j.has("priorCompleted"):
+		if not allow_prior or not j.get("priorCompleted") is Dictionary or j.priorCompleted.is_empty():return "Invalid prior territorial improvement record."
+		var prior: Dictionary = j.priorCompleted
+		if prior.get("status") != "complete":return "Archived prior territorial improvement must be complete."
+		if _home(saved, str(prior.get("portId", ""))) == _home(saved, str(j.get("portId", ""))):return "Prior territorial improvement must be in a distinct harbor tier."
+		if not str(j.get("businessId", "")).is_empty() and str(prior.get("businessId", "")) == str(j.get("businessId", "")):return "Duplicate territorial warehouse business identity."
+		var prior_err: String = _validate_improvement_record(saved, prior, improve_ports, false)
+		if not prior_err.is_empty():return prior_err
+	return ""
+
 static func validate(saved: Dictionary, world: Dictionary) -> String:
 	if not saved.has("territorial076"):return _ownership_error(saved, world, {})
 	var book: Variant = saved.territorial076
@@ -432,47 +533,34 @@ static func validate(saved: Dictionary, world: Dictionary) -> String:
 	if not BoardingRules._w(saved.get("econDay"), BoardingRules.CASH):return "Territorial work requires published economic days."
 	var ports: Dictionary = {}
 	for p in world.get("PORTS", []):ports[str(p.id)] = p
+	var improve_ports: Dictionary = ports.duplicate()
+	for h in saved.get("sector069", {}).get("harbors", []) if saved.get("sector069") is Dictionary and saved.get("sector069", {}).get("harbors") is Array else []:
+		if h is Dictionary and _generated_improve_port(saved, str(h.get("id", ""))):
+			improve_ports[str(h.id)] = h
 	for key in ["improvement", "control"]:
 		var raw: Variant = book.get(key)
 		if not raw is Dictionary:return "Invalid territorial operation."
 		if raw.is_empty():continue
 		var j: Dictionary = raw
-		if j.get("status") not in STATUSES or not ports.has(j.get("portId")):return "Invalid territorial harbor or status."
-		if not j.get("reason") is String or j.reason.length() > 1000:return "Invalid territorial explanation."
-		for field in ["startedDay", "lastPaidDay"]:
-			if not BoardingRules._w(j.get(field), BoardingRules.CASH) or j[field] > saved.econDay:return "Invalid territorial work date."
-		if j.startedDay > j.lastPaidDay:return "Territorial paid work predates its start."
-		if not j.get("crewByBoat") is Dictionary or j.crewByBoat.size() > WORKERS:return "Invalid territorial crew allocation."
-		var count: int = 0
-		for uid in j.crewByBoat:
-			if not uid is String or not BoardingRules._w(j.crewByBoat[uid], WORKERS) or int(j.crewByBoat[uid]) < 1:return "Invalid assigned territorial sailors."
-			count += int(j.crewByBoat[uid])
-		if count not in [0, WORKERS] or (j.status == "active" and count != WORKERS):return "Territorial party size does not reconcile."
-		if count > 0 and not _crew_ok(saved, j):return "Territorial sailors are not reserved on their actual healthy hulls."
-		if j.status in ["complete", "withdrawn"] and count != 0:return "Finished territorial work retains a shore party."
-		var progress: String = "paidDays" if key == "improvement" else "supportDays"
-		if not BoardingRules._w(j.get(progress), WORK_DAYS) or int(j[progress]) > int(j.lastPaidDay) - int(j.startedDay):return "Invalid paid territorial work days."
 		if key == "improvement":
-			if not j.get("businessId") is String or not j.get("machineryId") is String:return "Invalid territorial asset identity."
-			if j.get("materials") != Home.KINDS.warehouse.materials:return "Invalid territorial material contribution."
-			if not j.get("reservedMaterials") is Dictionary or not j.get("setupBill") is Dictionary:return "Missing territorial project inventory or setup receipt; spent old goods cannot be recreated."
-			if j.status != "complete" and (j.reservedMaterials != j.materials or not j.setupBill.is_empty()):return "Unfinished territorial work must retain its exact reserved bill and no completion credit."
-			var found: bool = false
-			for item in saved.get("tooling", {}).get("items", []):
-				if item.get("id") == j.machineryId and item.get("kind") == "machine_tools":found = true
-			if not found:return "Missing original territorial machinery record."
-			if j.status == "complete":
-				var bill: Dictionary = j.setupBill
-				if not j.reservedMaterials.is_empty() or bill.size() != 4 or not bill.get("homeQuote") is Dictionary:return "Completed territorial work retains materials or lacks its actual setup receipt."
-				for field in ["grossCost", "materialCredit", "netCost"]:
-					if not BoardingRules._w(bill.get(field), BoardingRules.CASH):return "Invalid territorial supplied-material credit."
-				var quote: Dictionary = bill.homeQuote
-				if quote.get("ok") != true or quote.get("kind") != "warehouse" or quote.get("portId") != j.portId or quote.get("materials") != j.materials:return "Territorial setup receipt does not match its project."
-				if quote.get("cost") != bill.grossCost or quote.get("materialCost") != bill.materialCredit or bill.materialCredit > bill.grossCost or bill.netCost != bill.grossCost - bill.materialCredit:return "Territorial gross bill and supplied-material credit do not reconcile."
-				var b: Dictionary = Home.business_view(saved, str(j.businessId))
-				if int(j.paidDays) != WORK_DAYS or b.get("kind") != "warehouse" or b.get("homePort") != j.portId:return "Completed territorial berth lacks its actual paid warehouse."
-			elif j.businessId != "":return "Unfinished territorial berth claims a business."
+			var imp_err: String = _validate_improvement_record(saved, j, improve_ports, true)
+			if not imp_err.is_empty():return imp_err
 		else:
+			if j.get("status") not in STATUSES or not ports.has(j.get("portId")):return "Invalid territorial harbor or status."
+			if not j.get("reason") is String or j.reason.length() > 1000:return "Invalid territorial explanation."
+			for field in ["startedDay", "lastPaidDay"]:
+				if not BoardingRules._w(j.get(field), BoardingRules.CASH) or j[field] > saved.econDay:return "Invalid territorial work date."
+			if j.startedDay > j.lastPaidDay:return "Territorial paid work predates its start."
+			if not j.get("crewByBoat") is Dictionary or j.crewByBoat.size() > WORKERS:return "Invalid territorial crew allocation."
+			var count: int = 0
+			for uid in j.crewByBoat:
+				if not uid is String or not BoardingRules._w(j.crewByBoat[uid], WORKERS) or int(j.crewByBoat[uid]) < 1:return "Invalid assigned territorial sailors."
+				count += int(j.crewByBoat[uid])
+			if count not in [0, WORKERS] or (j.status == "active" and count != WORKERS):return "Territorial party size does not reconcile."
+			if count > 0 and not _crew_ok(saved, j):return "Territorial sailors are not reserved on their actual healthy hulls."
+			if j.status in ["complete", "withdrawn"] and count != 0:return "Finished territorial work retains a shore party."
+			if not BoardingRules._w(j.get("supportDays"), WORK_DAYS) or int(j.supportDays) > int(j.lastPaidDay) - int(j.startedDay):return "Invalid paid territorial work days."
+
 			if j.get("fromFaction") != ports[j.portId].faction or j.get("newFaction") not in Factions.CANON or j.fromFaction == j.newFaction:return "Invalid territorial sovereign parties."
 			if not j.get("defenderId") is String or j.defenderId.is_empty() or not j.get("defenderUids") is Array or j.defenderUids.is_empty() or j.defenderUids.size() > 64:return "Invalid original territorial defender."
 			var seen: Dictionary = {}
@@ -498,4 +586,9 @@ static func _ownership_error(saved: Dictionary, world: Dictionary, control: Dict
 		var expected: String = str(definition.faction)
 		if control.get("portId") == definition.id and control.get("status") == "complete":expected = str(control.newFaction)
 		if actual.get("faction") != expected:return "Harbor sovereign change has no completed territorial operation."
+	for h in saved.get("sector069", {}).get("harbors", []) if saved.get("sector069") is Dictionary and saved.get("sector069", {}).get("harbors") is Array else []:
+		if not h is Dictionary:continue
+		var actual_gen: Dictionary = _port(saved, str(h.get("id", "")))
+		if actual_gen.is_empty():continue
+		if str(actual_gen.get("faction", "")) != str(h.get("faction", "")):return "Remote harbor sovereignty cannot change before 085."
 	return ""

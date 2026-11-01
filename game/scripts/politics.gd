@@ -50,8 +50,8 @@ static func encounter(state: Dictionary,owner: Dictionary) -> Dictionary:
 	var standing: Dictionary=Factions.standing(state,faction_id)
 	return {"kind":kind,"role":role,"factionId":faction_id,"factionName":str(standing.name) if standing.known else "Unidentified colors","hostile":not owner.is_empty() and bool(standing.hostile),"reason":_standing_reason(standing)}
 
-static func permit(c,action: String,item: String="") -> Dictionary:
-	var p: Dictionary=c.current_port()
+static func permit(c,action: String,item: String="",port_override: Dictionary={}) -> Dictionary:
+	var p: Dictionary=port_override if not port_override.is_empty() else c.current_port()
 	if p.is_empty() or not c.state.path.is_empty():return c.fail("Stop at a harbor for this service.")
 	var a: Dictionary=access(c,p)
 	if not a.legal:return c.fail(a.reason+" Open Factions to negotiate safe conduct.")

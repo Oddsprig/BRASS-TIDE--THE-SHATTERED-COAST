@@ -13,15 +13,37 @@ const HomeUI=preload("res://scripts/home_ui.gd")
 const Goods=preload("res://scripts/goods.gd")
 
 class ReviewView extends Costs.QuoteView:
+	var remote_port_id: String=""
+	func _init(c):
+		super._init(c)
+		if c!=null and c.has_method("work_port070"):
+			var wp: Dictionary=c.work_port070()
+			if wp.is_empty():
+				var imp_port: String=str(c.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
+				if not imp_port.is_empty():wp=preload("res://scripts/territorial076.gd")._remote_work_port(c,imp_port)
+			remote_port_id=str(wp.get("id",""))
+	func work_port070() -> Dictionary:return port(remote_port_id)
 	func fail(message: String) -> Dictionary:return {"ok":false,"message":message}
 	func ok(message: String) -> Dictionary:return {"ok":true,"message":message}
 	func log_entry(_message: String) -> void:pass
 
 ## One copied account and shared immutable nav; no live ensure or publication.
-static func review(c,selected_goal: String="corridor") -> Dictionary:
+static func review(c,selected_goal: String="corridor",territory_override: String="") -> Dictionary:
 	var v=ReviewView.new(c)
 	Ops.ensure(v)
 	var territory_port_id: String=str(v.state.get("campaignFocus",{}).get("portId",""))
+	if not territory_override.is_empty() and (_home_port(v,territory_override) or Home._generated_harbor084(v.state,territory_override)):
+		territory_port_id=territory_override
+	elif not v.work_port070().is_empty():
+		territory_port_id=str(v.work_port070().get("id",""))
+	elif str(v.state.get("world064",{}).get("layer","home"))!="home":
+		var imp_port: String=str(v.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
+		if Home._generated_harbor084(v.state,imp_port):territory_port_id=imp_port
+		else:
+			var cur_reg: String=str(v.state.get("world064",{}).get("regionId",""))
+			for row in v.state.get("ports",[]):
+				if row is Dictionary and str(row.get("regionId",""))==cur_reg and Home._generated_harbor084(v.state,str(row.get("id",""))):
+					territory_port_id=str(row.id);break
 	var territory_port: Dictionary=v.port(territory_port_id)
 	var territory_view: Dictionary=Ops.territory_view(v,territory_port_id)
 	var territory_quote: Dictionary=Ops.territory_quote(v,territory_port_id)
@@ -159,8 +181,8 @@ static func faction_picker(ui,parent,c,key: String,selected_goal: String) -> voi
 	parent.add_child(select)
 	select.item_selected.connect(func(index):act(ui,"focus",key,str(select.get_item_metadata(index)),0,selected_goal))
 
-static func open(ui,selected_goal: String="corridor") -> void:
-	var account: Dictionary=review(ui.host.core,selected_goal)
+static func open(ui,selected_goal: String="corridor",territory_override: String="") -> void:
+	var account: Dictionary=review(ui.host.core,selected_goal,territory_override)
 	var c=account.view
 	selected_goal=str(account.goal)
 	ui.modal_kind="regional"
@@ -320,6 +342,13 @@ static func _status_text(view: Dictionary,c) -> String:
 		lines.append("%s at %s: %s, %d of %d paid days. %s"%["Berth work" if key=="improvement" else "Control operation",place,str(job.get("status","awaiting work")),days,int(view.get("workDays",2)),str(job.get("reason",""))])
 	var bill: Dictionary=view.get("improvement",{}).get("setupBill",{})
 	if not bill.is_empty():lines.append("Paid warehouse bill: %d gross, %d material credit, %d net coins."%[int(bill.get("grossCost",0)),int(bill.get("materialCredit",0)),int(bill.get("netCost",0))])
+	var prior: Dictionary=view.get("improvement",{}).get("priorCompleted",{}) if view.get("improvement",{}).get("priorCompleted") is Dictionary else {}
+	if not prior.is_empty():
+		var prior_place: String=str(c.port(str(prior.get("portId",""))).get("name",prior.get("portId","home harbor")))
+		var prior_bill: Dictionary=prior.get("setupBill",{}) if prior.get("setupBill") is Dictionary else {}
+		lines.append("Retained completed warehouse at %s (%s): %d net coins paid."%[prior_place,str(prior.get("businessId","")),int(prior_bill.get("netCost",0))])
+	if not bool(view.get("controlSupported",true)):
+		lines.append("Remote harbor scope (084): paid warehouse development and storage only; harbor sovereignty contest remains Shatter Coast only until 085.")
 	return "\n".join(lines) if not lines.is_empty() else "No harbor operation started. Review the requirements before committing goods or coins."
 
 static func territory_panel(ui,body: Node,account: Dictionary) -> void:
@@ -329,30 +358,34 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 	var quote: Dictionary=account.get("territoryQuote",{})
 	var box=ui.column(body)
 	box.name="Territory076";box.add_theme_constant_override("separation",6)
-	ui.label(box,"Harbor control",22,ui.GOLD,true)
+	ui.label(box,"Harbor control & development",22,ui.GOLD,true)
 	var picker=ui.row(box)
 	ui.label(picker,"Harbor",15,ui.GOLD)
 	var harbors=OptionButton.new()
 	var selected: int=0
 	for row in c.state.get("ports",[]):
-		if not row is Dictionary or not _home_port(c,str(row.get("id",""))):continue
-		harbors.add_item(str(row.get("name",row.id)))
-		harbors.set_item_metadata(harbors.item_count-1,str(row.id))
-		if str(row.id)==str(port.get("id","")):selected=harbors.item_count-1
+		if not row is Dictionary:continue
+		var row_id: String=str(row.get("id",""))
+		if not _home_port(c,row_id) and not Home._generated_harbor084(c.state,row_id):continue
+		harbors.add_item(str(row.get("name",row_id)))
+		harbors.set_item_metadata(harbors.item_count-1,row_id)
+		if row_id==str(port.get("id","")):selected=harbors.item_count-1
 	if harbors.item_count==0:
-		ui.paragraph(box,"No home harbor is available.",15);return
+		ui.paragraph(box,"No eligible harbor is available.",15);return
 	harbors.select(selected);picker.add_child(harbors)
-	harbors.item_selected.connect(func(index):act(ui,"focus","portId",str(harbors.get_item_metadata(index)),0,str(account.goal)))
+	harbors.item_selected.connect(func(index):act(ui,"focus","portId",str(harbors.get_item_metadata(index)),0,str(account.goal),str(harbors.get_item_metadata(index))))
 	var faction: String=str(port.get("faction",""))
 	var faction_name: String=str(Factions.CANON_NAMES.get(faction,"Unidentified"))
-	ui.paragraph(box,"%s governs %s. A surrender changes this harbor alone; private companies and island jurisdictions remain separate."%[faction_name,str(port.get("name","this harbor"))],16,ui.GOLD)
+	ui.paragraph(box,"%s governs %s. A surrender changes a Shatter Coast harbor alone; private companies and island jurisdictions remain separate."%[faction_name,str(port.get("name","this harbor"))],16,ui.GOLD)
 	ui.paragraph(box,_status_text(view,c),15,ui.TEAL)
 	ui.paragraph(box,_quote_text(quote),15)
 	var actions=ui.row(box)
 	var im: Dictionary=view.get("improvement",{})
-	var home: bool=not port.is_empty() and _home_port(c,str(port.get("id","")))
-	ui.button(actions,"Resume berth work" if not im.is_empty() and im.get("status")!="complete" else "Improve harbor",func():act(ui,"territory_improve",str(port.get("id","")),"",0,str(account.goal)),true,false).disabled=not home or not bool(quote.get("ok",false))
-	ui.button(actions,"Withdraw shore party",func():act(ui,"territory_withdraw","","",0,str(account.goal)),false,false)
+	var can_improve: bool=bool(view.get("supported",false))
+	var can_control: bool=bool(view.get("controlSupported",not port.is_empty() and _home_port(c,str(port.get("id","")))))
+	ui.button(actions,"Resume berth work" if not im.is_empty() and im.get("status")!="complete" and str(im.get("portId",""))==str(port.get("id","")) else "Improve harbor",func():act(ui,"territory_improve",str(port.get("id","")),"",0,str(account.goal),str(port.get("id",""))),true,false).disabled=not can_improve or not bool(quote.get("ok",false))
+	ui.button(actions,"Withdraw shore party",func():act(ui,"territory_withdraw","","",0,str(account.goal),str(port.get("id",""))),false,false)
+	ui.button(actions,"Open warehouse & storage",func():HomeUI.open(ui),false,false)
 	var claim=ui.row(box)
 	ui.label(claim,"Sponsor",15,ui.GOLD)
 	var factions=OptionButton.new()
@@ -361,8 +394,8 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 		factions.add_item(str(Factions.CANON_NAMES[id]));factions.set_item_metadata(factions.item_count-1,id)
 	if factions.item_count>0:factions.select(0)
 	claim.add_child(factions)
-	ui.button(claim,"Fund contest: %d coins"%int(view.get("supportCapital",800)),func():act(ui,"territory_start",str(port.get("id","")),str(factions.get_item_metadata(factions.selected)),0,str(account.goal)),false,false).disabled=not home or factions.item_count==0
-	ui.button(claim,"Negotiate surrender",func():act(ui,"territory_negotiate","","",0,str(account.goal)),true,false)
+	ui.button(claim,"Fund contest: %d coins"%int(view.get("supportCapital",800)),func():act(ui,"territory_start",str(port.get("id","")),str(factions.get_item_metadata(factions.selected)),0,str(account.goal),str(port.get("id",""))),false,false).disabled=not can_control or factions.item_count==0
+	ui.button(claim,"Negotiate surrender",func():act(ui,"territory_negotiate","","",0,str(account.goal),str(port.get("id",""))),true,false).disabled=not can_control
 	var terms=_details(ui,box,"Work requirements and cost breakdown")
 	var bill: Dictionary=quote.get("homeQuote",{})
 	if not bill.is_empty():
@@ -378,7 +411,7 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 		ui.paragraph(books,"%s: %s. Its workers, inventory and purse remain with the company."%[str(b.get("name","Owned business")),ui.money(int(b.get("coins",0)))],15)
 	ui.rule(box)
 
-static func act(ui,action: String,id: String="",value: String="",qty: int=0,selected_goal: String="corridor") -> void:
+static func act(ui,action: String,id: String="",value: String="",qty: int=0,selected_goal: String="corridor",territory_override: String="") -> void:
 	ui.host.sync_economy()
 	var c=ui.host.core
 	var result: Dictionary={}
@@ -397,11 +430,19 @@ static func act(ui,action: String,id: String="",value: String="",qty: int=0,sele
 		"territory_negotiate":result=Ops.territory_negotiate(c)
 		"focus":
 			if id in ["fromPort","toPort","portId"] and not c.port(value).is_empty():
-				Ops.ensure(c);c.state.campaignFocus[id]=value;result=c.ok("Regional destination saved; existing operations retain their own endpoints.")
+				Ops.ensure(c)
+				if _home_port(c,value):
+					c.state.campaignFocus[id]=value
+					result=c.ok("Regional destination saved; existing operations retain their own endpoints.")
+				elif id=="portId" and Home._generated_harbor084(c.state,value):
+					territory_override=value
+					result=c.ok("Selected charted remote harbor for warehouse development review.")
+				else:
+					result=c.fail("Regional goals use Shatter Coast harbors; charted remote harbors support warehouse development only.")
 			elif id in ["peaceA","peaceB"] and value in Factions.CANON:
 				Ops.ensure(c);c.state.campaignFocus[id]=value;result=c.ok("Proposed parties saved; existing talks retain their terms.")
 			else:result=c.fail("That regional selection is no longer available.")
 		_:return
 	ui.host.respond(result)
 	if result.get("ok",false):ui.host.save_game(false)
-	open(ui,selected_goal)
+	open(ui,selected_goal,territory_override)

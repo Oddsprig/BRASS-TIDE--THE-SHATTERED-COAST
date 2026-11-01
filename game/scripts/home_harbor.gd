@@ -84,6 +84,30 @@ static func _docked_port(core) -> Dictionary:
 	return core.current_port() if core != null and core.has_method("current_port") else {}
 
 
+static func _generated_harbor084(state: Dictionary, port_id: String) -> bool:
+	if port_id.is_empty():
+		return false
+	var sector: Dictionary = state.get("sector069", {}) if state.get("sector069") is Dictionary else {}
+	var known: Dictionary = state.get("sectorKnowledge069", {}).get("ports", {}) if state.get("sectorKnowledge069") is Dictionary and state.get("sectorKnowledge069", {}).get("ports") is Dictionary else {}
+	if not known.has(port_id):
+		return false
+	for h in sector.get("harbors", []) if sector.get("harbors") is Array else []:
+		if h is Dictionary and str(h.get("id", "")) == port_id and str(h.get("regionId", "")) != "shatter_coast":
+			return not _port(null, state, port_id).is_empty()
+	return false
+
+
+static func _service_port(core, allow_remote: bool = false) -> Dictionary:
+	var p: Dictionary = _docked_port(core)
+	if not p.is_empty():
+		return p
+	if allow_remote and core != null and core.has_method("work_port070"):
+		var rp: Dictionary = core.work_port070()
+		if not rp.is_empty() and _generated_harbor084(_state(core), str(rp.get("id", ""))):
+			return rp
+	return {}
+
+
 static func _business(state: Dictionary, business_id: String) -> Dictionary:
 	for b in state.get("businesses", []) if state.get("businesses") is Array else []:
 		if b is Dictionary and str(b.get("id", "")) == business_id:
@@ -311,15 +335,19 @@ static func quote(core, kind: String, port_id: String) -> Dictionary:
 	var state := _state(core)
 	if state.is_empty():
 		return _fail(core, "No campaign state.")
-	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service")
-	if not permission.ok:return permission
 	var k := _kind(kind)
+	var is_remote084 := _generated_harbor084(state, port_id)
+	var docked := _service_port(core, is_remote084 and k == "warehouse")
+	var permit_port: Dictionary = docked if is_remote084 and k == "warehouse" and str(docked.get("id", "")) == port_id else {}
+	if is_remote084 and k == "warehouse" and not docked.is_empty() and str(docked.get("id", "")) != port_id:
+		return _fail(core, "Establish a home-harbor business while docked at that harbor.")
+	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service","",permit_port)
+	if not permission.ok:return permission
 	if not KINDS.has(k):
 		return _fail(core, "Unknown home-harbor business kind.")
 	var port := _port(core, state, port_id)
 	if port.is_empty() or not (port.get("stocks") is Dictionary):
 		return _fail(core, "That is not an existing harbor with physical stocks.")
-	var docked := _docked_port(core)
 	if docked.is_empty() or str(docked.get("id", "")) != port_id:
 		return _fail(core, "Establish a home-harbor business while docked at that harbor.")
 	var spec: Dictionary = KINDS[k]
@@ -404,6 +432,10 @@ static func establish(core, kind: String, port_id: String) -> Dictionary:
 	if not bool(q.get("ok", false)):
 		return q
 	var state := _state(core)
+	if _generated_harbor084(state, port_id):
+		var imp: Dictionary = state.get("territorial076", {}).get("improvement", {}) if state.get("territorial076") is Dictionary and state.get("territorial076", {}).get("improvement") is Dictionary else {}
+		if str(imp.get("portId", "")) != port_id or str(imp.get("status", "")) != "active" or int(_num(imp.get("paidDays", 0))) < 2:
+			return _fail(core, "Complete the two-day harbor development at this remote berth before establishing its warehouse.")
 	ensure(state)
 	if int(_num(state.get("coins", 0))) < int(q["cost"]):
 		return _fail(core, "Establishing needs %d coins including working capital." % int(q["cost"]))
@@ -466,10 +498,12 @@ static func transfer_goods(core, business_id: String, good: String, qty: float, 
 		return _fail(core, "Direction must be in or out.")
 	if not is_finite(qty) or qty <= 0.0:
 		return _fail(core, "Quantity must be positive.")
-	var docked := _docked_port(core)
-	if docked.is_empty() or str(docked.get("id", "")) != str(business["homePort"]):
+	var home_port_id := str(business.get("homePort", ""))
+	var allow_remote := str(business.get("kind", "")) == "warehouse" and _generated_harbor084(state, home_port_id)
+	var docked := _service_port(core, allow_remote)
+	if docked.is_empty() or str(docked.get("id", "")) != home_port_id:
 		return _fail(core, "Move shore goods while docked at the business's home harbor.")
-	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service")
+	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service","",docked if allow_remote else {})
 	if not permission.ok:return permission
 	var amount := _round2(qty)
 	if amount<=0:return _fail(core,"Smallest storage lot is 0.01.")
@@ -510,9 +544,11 @@ static func capital(core, business_id: String, amount: int) -> Dictionary:
 	var business := _business(state, business_id)
 	if business.is_empty():
 		return _fail(core, "No such home-harbor business.")
-	var docked: Dictionary=_docked_port(core)
-	if docked.is_empty() or str(docked.id)!=str(business.homePort):return _fail(core,"Handle company coins at its home harbor.")
-	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service")
+	var home_port_id: String=str(business.get("homePort",""))
+	var allow_remote: bool=str(business.get("kind",""))=="warehouse" and _generated_harbor084(state,home_port_id)
+	var docked: Dictionary=_service_port(core,allow_remote)
+	if docked.is_empty() or str(docked.id)!=home_port_id:return _fail(core,"Handle company coins at its home harbor.")
+	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service","",docked if allow_remote else {})
 	if not permission.ok:return permission
 	if amount <= 0:
 		return _fail(core, "Capital must be a positive coin amount.")
@@ -534,9 +570,11 @@ static func dividend(core, business_id: String, amount: int) -> Dictionary:
 	var business := _business(state, business_id)
 	if business.is_empty():
 		return _fail(core, "No such home-harbor business.")
-	var docked: Dictionary=_docked_port(core)
-	if docked.is_empty() or str(docked.id)!=str(business.homePort):return _fail(core,"Handle company coins at its home harbor.")
-	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service")
+	var home_port_id: String=str(business.get("homePort",""))
+	var allow_remote: bool=str(business.get("kind",""))=="warehouse" and _generated_harbor084(state,home_port_id)
+	var docked: Dictionary=_service_port(core,allow_remote)
+	if docked.is_empty() or str(docked.id)!=home_port_id:return _fail(core,"Handle company coins at its home harbor.")
+	var permission: Dictionary=preload("res://scripts/politics.gd").permit(core,"service","",docked if allow_remote else {})
 	if not permission.ok:return permission
 	if amount <= 0:
 		return _fail(core, "A dividend must be a positive coin amount.")

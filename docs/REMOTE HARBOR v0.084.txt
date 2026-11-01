@@ -1,0 +1,69 @@
+REMOTE HARBOR DEVELOPMENT AND SERVICES (v0.084)
+================================================
+
+Scope
+-----
+v0.084 extends the v0.076 paid harbor warehouse development (`Territorial076.improve`) and
+the resulting finite warehouse/berth storage service (`Home` warehouse operations) to an
+eligible generated harbor (`sector069`, such as `settled_01_harbor_01`), while preserving
+every finite setup bill, workforce/specialist requirement, wage transfer, and supplied
+material credit.
+
+Authoritative Docking and Local Permission
+------------------------------------------
+1. Presence Gate (`Territorial076._dev_eligible` and `Territorial076._dev_present`):
+   - An eligible remote harbor must be a registered `sector069.harbors` port with a live
+     `state.ports` account, an explicit non-home `regionId` (`!= "shatter_coast"`), and a
+     valid faction owner (`compact`, `forge`, `reed`, or `raiders`).
+   - Remote development presence requires an empty fleet path, `world064.layer == "local"`,
+     `world064.regionId == port.regionId`, `Campaign.work_port070()` (via
+     `ShippingFlow068.remote_gate`) resolving that exact harbor ID, and physical berth
+     distance below `REACH` (`65.0`).
+   - Calling from the `open_ocean` layer, from another region (`shatter_coast`), while
+     moving on a plotted local course, or while moored at a sibling harbor in the same
+     island group (`settled_01_harbor_02` in `settled_01`) is refused.
+
+2. Local Harbor Access (`Politics.permit` and `Home._service_port`):
+   - `Campaign.current_port()` retains its existing Shatter Coast service boundary.
+   - `Home._service_port(core, true)` and `Politics.permit(core, "service", "", port)`
+     evaluate `Politics.access(core, port)` against the specific target harbor's owning
+     faction and port-keyed `safeConduct[port.id]`.
+   - Mixed-faction island groups (`settled_01`) do not share service permits: a sibling
+     harbor's governor or `safeConduct` never authorizes warehouse development or storage
+     at another harbor in the group.
+
+Finite Setup Bills, Coexistence, and Usable Service
+---------------------------------------------------
+1. Two-Day Berth Work and Single Material Credit:
+   - Remote warehouse development requires two healthy spare sailors (`crewByBoat`),
+     carried `machine_tools` (`0.01` wear per paid day), carried construction materials
+     (`4` timber, `3` logs, `1` iron), `0.5` repair kits per paid day, and fully paid
+     ordinary fleet payroll and rations across two distinct economic days.
+   - Departing or withdrawing releases the shore crew and retains accrued `paidDays` and
+     `reservedMaterials` without recreating or double-charging materials upon return.
+   - On Day 2 completion, `Territorial076.daily` supplies the reserved materials to
+     `Home.quote` / `Home.establish`, records `grossCost`, `materialCredit`, and `netCost`,
+     and credits `materialCost` once from the harbor's `cash` purse. Direct calls to
+     `Home.establish` at a generated harbor without completing the two-day berth work
+     are refused.
+
+2. Coexistence with Completed v0.076 Home Warehouse (`priorCompleted`):
+   - Starting a second warehouse development at a different eligible harbor after completing
+     the first preserves the completed operation receipt in `improvement.priorCompleted`
+     (validated by `Territorial076.validate` and surfaced by `Territorial076.view` for
+     that prior harbor) and keeps the existing `state.businesses` warehouse intact.
+
+3. Usable Remote Storage and Ongoing Payroll:
+   - Once established at the generated harbor, the remote warehouse pays its two local
+     laborers daily through `Home.tick` even while the player is away.
+   - When docked back at that specific generated harbor with legal service access, the
+     player can deposit and withdraw cargo (`Home.transfer_goods`), manage working capital
+     (`Home.capital`), and adjust labor policy (`Home.set_labor_policy`).
+
+Explicit Boundaries (Deferred to v0.085+)
+-----------------------------------------
+- Harbor/island sovereignty contests (`Territorial076.start` / `control`) remain strictly
+  Shatter Coast home-only (`_home` and `_near`) until v0.085. Completing a warehouse
+  development never alters any harbor's or island group's faction ownership.
+- Salvage yard and workshop charters remain Shatter Coast home-only.
+- No generated sector reroll or visited asset endowments are introduced.
