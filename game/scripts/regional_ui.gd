@@ -393,16 +393,20 @@ static func territory_panel(ui,body: Node,account: Dictionary) -> void:
 	ui.button(actions,"Resume berth work" if not im.is_empty() and im.get("status")!="complete" and str(im.get("portId",""))==str(port.get("id","")) else "Improve harbor",func():act(ui,"territory_improve",str(port.get("id","")),"",0,str(account.goal),str(port.get("id",""))),true,false).disabled=not can_improve or not bool(quote.get("ok",false))
 	ui.button(actions,"Withdraw shore party",func():act(ui,"territory_withdraw","","",0,str(account.goal),str(port.get("id",""))),false,false)
 	ui.button(actions,"Open warehouse & storage",func():HomeUI.open(ui),false,false)
-	var claim=ui.row(box)
-	ui.label(claim,"Sponsor",15,ui.GOLD)
-	var factions=OptionButton.new()
-	for id in Factions.CANON:
-		if id==faction:continue
-		factions.add_item(str(Factions.CANON_NAMES[id]));factions.set_item_metadata(factions.item_count-1,id)
-	if factions.item_count>0:factions.select(0)
-	claim.add_child(factions)
-	ui.button(claim,"Fund contest: %d coins"%int(view.get("supportCapital",800)),func():act(ui,"territory_start",str(port.get("id","")),str(factions.get_item_metadata(factions.selected)),0,str(account.goal),str(port.get("id",""))),false,false).disabled=not can_control or factions.item_count==0
-	ui.button(claim,"Negotiate surrender",func():act(ui,"territory_negotiate","","",0,str(account.goal),str(port.get("id",""))),true,false).disabled=not can_control
+	var control: Dictionary=view.get("control",{})
+	if not port.is_empty() and control.get("status")=="complete" and str(control.get("portId",""))==str(port.get("id","")):
+		ui.paragraph(box,"Control secured: %s governs this harbor. The supplied operation is complete; harbor services follow the current governor's access rules."%faction_name,15,ui.TEAL)
+	else:
+		var claim=ui.row(box)
+		ui.label(claim,"Sponsor",15,ui.GOLD)
+		var factions=OptionButton.new()
+		for id in Factions.CANON:
+			if id==faction:continue
+			factions.add_item(str(Factions.CANON_NAMES[id]));factions.set_item_metadata(factions.item_count-1,id)
+		if factions.item_count>0:factions.select(0)
+		claim.add_child(factions)
+		ui.button(claim,"Fund contest: %d coins"%int(view.get("supportCapital",800)),func():act(ui,"territory_start",str(port.get("id","")),str(factions.get_item_metadata(factions.selected)),0,str(account.goal),str(port.get("id",""))),false,false).disabled=not can_control or factions.item_count==0
+		ui.button(claim,"Negotiate surrender",func():act(ui,"territory_negotiate","","",0,str(account.goal),str(port.get("id",""))),true,false).disabled=not can_control
 	var terms=_details(ui,box,"Work requirements and cost breakdown")
 	var bill: Dictionary=quote.get("homeQuote",{})
 	if not bill.is_empty():
