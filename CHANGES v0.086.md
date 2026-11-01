@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Quote real single-slot interior conversions (cargo_rig, auxiliary_tanks) and next role hulls with the 083 working-store/payroll/repair reserve, and surface witnessed civilian convoy escort and piracy intercept opportunities.
 
 See docs/TEST RESULTS v0.086.md for actual focused checks and remaining limits.
+
+Verification: 205 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 74.333s. Preserved earlier failures; no broad acceptance claim.

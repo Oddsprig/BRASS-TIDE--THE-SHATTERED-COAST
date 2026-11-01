@@ -1,4 +1,4 @@
-BRASS TIDE — CAMPAIGN MAP (generated; v0.085)
+BRASS TIDE — CAMPAIGN MAP (generated; v0.086)
 
 World/player orders and finished worker snapshots -> voyages, contracts, saves and purses; detached six-career cost/reward/entry guidance.
 
@@ -26,26 +26,26 @@ game/scripts/money.gd: 2150 bytes; extends RefCounted
   game/scripts/money.gd:4 move()
   game/scripts/money.gd:17 port_total()
   game/scripts/money.gd:27 total()
-game/scripts/campaign_guidance.gd: 16428 bytes; extends RefCounted
+game/scripts/campaign_guidance.gd: 17116 bytes; extends RefCounted
   game/scripts/campaign_guidance.gd:52 careers()
   game/scripts/campaign_guidance.gd:221 report()
   game/scripts/campaign_guidance.gd:10 _finite()
   game/scripts/campaign_guidance.gd:13 _n()
   game/scripts/campaign_guidance.gd:16 _positive()
   game/scripts/campaign_guidance.gd:19 _shown()
-game/scripts/career_costs.gd: 27883 bytes; extends RefCounted
-  game/scripts/career_costs.gd:100 contract_offers()
-  game/scripts/career_costs.gd:103 contract_quote()
-  game/scripts/career_costs.gd:195 plan()
-  game/scripts/career_costs.gd:61 _length()
-  game/scripts/career_costs.gd:69 _budget()
-  game/scripts/career_costs.gd:150 _second_hull()
-game/scripts/guidance_ui.gd: 13106 bytes; extends RefCounted
+game/scripts/career_costs.gd: 32278 bytes; extends RefCounted
+  game/scripts/career_costs.gd:116 contract_offers()
+  game/scripts/career_costs.gd:119 contract_quote()
+  game/scripts/career_costs.gd:212 plan()
+  game/scripts/career_costs.gd:77 _length()
+  game/scripts/career_costs.gd:85 _budget()
+  game/scripts/career_costs.gd:166 _second_hull()
+game/scripts/guidance_ui.gd: 13299 bytes; extends RefCounted
   game/scripts/guidance_ui.gd:7 open_voyage()
   game/scripts/guidance_ui.gd:75 action_label()
   game/scripts/guidance_ui.gd:78 action()
   game/scripts/guidance_ui.gd:101 career_plan()
-  game/scripts/guidance_ui.gd:124 open()
+  game/scripts/guidance_ui.gd:127 open()
   game/scripts/guidance_ui.gd:60 _primary_contract_action()
 
 TESTS (game/tests/*.gd)

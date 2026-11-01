@@ -1,8 +1,11 @@
 # Brass Tide - current working instructions
 
-Active source candidate086: Civilian careers worth repeating.
-Installed accepted v0.085; later native/export/UI/delivery remain pending.
-Root alone owns queued background tests and sequential delivery through088.
+Current verified086: Civilian careers worth repeating.
+Testedcb42c2a05a3cd41d0cdd3a27e3e057c93703c660;205 focused/0;Windows/menu and four staged civilian role loops (fishing, freight, passenger charter, fuel delivery) with paid reinvestment, witnessed convoy escort/intercept opportunities and reviewed exported UI.
+Receipts work/quality-v086/ACTUAL086 CHECKS.json and DELIVERED v0.086.json.
+Root alone tests/delivery. Next087: distinct remote destinations. Owner079-088 sequence active.
+Earlier strict performance/071 listening/whole-game quality remain open.
+075 final QA timing gate failed183s;076 and085 passed;086 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the

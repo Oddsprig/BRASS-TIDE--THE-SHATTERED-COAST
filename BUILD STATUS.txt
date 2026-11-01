@@ -1,15 +1,14 @@
-BRASS TIDE v0.086 - CIVILIAN CAREERS WORTH REPEATING
-01 November2026 |36 boat designs
+BRASS TIDE v0.086 - Civilian careers worth repeating
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: cb42c2a05a3cd41d0cdd3a27e3e057c93703c660 / v0.086
+Test Bridge: 8f6719d80edd4daea4d088238fbfabec
+205 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 74.333s; owned cleanup verified.
 
-THIS VERSION
 - Rank Shatter Coast fishing return buyers by net after round-trip fuel, provisions and calendar payroll while enforcing home-region route authority and exposing horizon and ground alternatives.
 - Offer small and larger civilian load tiers for mid-stock freight and fuel delivery alongside passenger charter, with pure carrier, route and reinvestment quotes.
 - Quote real single-slot interior conversions (cargo_rig, auxiliary_tanks) and next role hulls with the 083 working-store/payroll/repair reserve, and surface witnessed civilian convoy escort and piracy intercept opportunities.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+Testedcb42c2a05a3cd41d0cdd3a27e3e057c93703c660;205 focused assertions/0. Four actual staged paid work/return loops complete fishing, freight, Osprey passenger charter and fuel delivery, each with full calendar payroll, consumed-store valuation and paid interior conversion. Actual nets6014/316/683/359 coins before reinvestment; four original completed states reopen with money, hold, working UIDs, conversions, cargo/quotas and equipment custody intact. Witnessed loaded civilian convoy permits an actual escort start and piracy intercept preparation; exported current fishing/freight route and reinvestment screens reviewed. Declared finite220000coin expedition capital/ready-shell staging and finite fuel-sponsor government-to-household purse transfer; all four openings are staged, not earned default-starter careers. Convoy checks prove start/prepared opportunity, not a player-completed escort or piracy battle. One positive voyage per role does not establish long-term career balance, whole NPC voyage profitability, active campaign FPS, listening, motion or enjoyment. Earlier failed fixture API/event-schema attempts remain failed. Unchanged085 source/asset evidence retained by exact hashes; no old broad reruns. Current low-level boat/shores art and earlier strict light-battle latency gaps remain open; no finished-game or Starsector-parity claim. 075 timing gate failed;076 and085 passed; this release records its own actual time. Earlier strict battle performance,071 listening and full-game quality remain open. Unchanged085 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.

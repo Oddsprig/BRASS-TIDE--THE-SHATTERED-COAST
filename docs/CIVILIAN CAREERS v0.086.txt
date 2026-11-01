@@ -1,3 +1,14 @@
+VERIFIED SCOPED v0.086 - 205 focused native assertions/0.
+Four actual paid civilian work/return/reinvestment loops and four completed
+saves passed; current Windows/menu and exported fishing/freight UI reviewed.
+These are declared staged working profiles, not four careers earned from the
+default starter. Nets before upgrades: fishing6014, freight316, passenger683,
+fuel359 coins. Convoy start/intercept preparation is not a completed battle.
+Earlier strict performance, full balance, motion/listening and actual play
+quality remain open. Actual release evidence: tests/ and TEST RESULTS v0.086.md.
+
+Implementation and historical source-preparation notes follow.
+
 CIVILIAN CAREERS v0.086 — PLAYER & VERIFICATION NOTES
 
 PRIVATE SOURCE CANDIDATE. Native parsing, timing, UI bounds and completed role

@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-084 DELIVERED;085 VERIFIED;086-088 PLANNED
+01 November2026 |079-085 DELIVERED;086 VERIFIED;087-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -128,7 +128,7 @@ the harbor transfer never annexes an island group or mints replacement boats.
 Boundary: one supplied remote control operation, not a second strategy system,
 all-faction campaign expansion or full tactical simulation of distant battles.
 
-0.086 - CIVILIAN CAREERS WORTH REPEATING [PLANNED]
+0.086 - CIVILIAN CAREERS WORTH REPEATING [VERIFIED SCOPED]
 Player result: fishing, freight, fuel delivery and passenger/yacht work offer
 different route, capacity, risk and reinvestment choices on existing boats.
 Scope: improve existing funded work variety, recurring clients, sensible

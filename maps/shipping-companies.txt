@@ -1,4 +1,4 @@
-BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.085)
+BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.086)
 
 Actual player hulls, crews, purses and fixed physical routes -> shared-stock trade, material/hull basis, paid operation, real losses and physical recall.
 
