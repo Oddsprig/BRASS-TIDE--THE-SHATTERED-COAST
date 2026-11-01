@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.083: Earned fleet growth. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: harbor.gd, campaign_ui.gd, finance_ui.gd, interface.gd.
+v0.084: Generated harbors that can develop. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: territorial076.gd, home_harbor.gd, politics.gd, home_ui.gd, regional_ui.gd, campaign_state_validation.gd, remote_expedition067.gd, save_validation.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

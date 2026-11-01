@@ -1,6 +1,6 @@
 # Brass Tide: quality sequence v0.079-v0.088
 
-Verified scoped build: **v0.083**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
+Installed and delivered: **v0.083**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
 Owner31October authorized sequential079-088 implementation. 079-082 delivered;083 verified scoped; next084 develops one generated harbor.
 
@@ -50,3 +50,5 @@ History and principles:
 - [Completed069-078 scopes](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
 - [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
 - [Earlier quality criteria](docs/roadmap/STARSECTOR%20QUALITY%20ROADMAP.txt).
+
+Source candidate084; installed083 remains until verified delivery.

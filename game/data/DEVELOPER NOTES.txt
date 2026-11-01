@@ -1,10 +1,10 @@
-BRASS TIDE v0.083 - EARNED FLEET GROWTH
+BRASS TIDE v0.084 - GENERATED HARBORS THAT CAN DEVELOP
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Show the full ready-boat purchase including minimum crew advance.
-- Compare added hold, sailing speed, daily wages, stores and a paid return allowance before buying.
-- Keep cheap local partners visible alongside specialist support boats, with actual funded work, finite stores and loss recovery.
+- Develop one charted generated harbor into a paid warehouse using actual crew, wages, machinery, materials and capital.
+- Use the actual remote owner and stopped berth for warehouse service and storage.
+- Keep work, original equipment, inventory and business receipts through departure, save/load and return.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
