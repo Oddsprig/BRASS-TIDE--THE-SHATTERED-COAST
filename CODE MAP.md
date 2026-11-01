@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.086: Civilian careers worth repeating. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: civilian_choices059.gd, voyage_jobs.gd, career_costs.gd, campaign_guidance.gd, voyage_ui.gd, guidance_ui.gd.
+v0.087: Distinct remote destinations. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: coastal_stories.gd, story_ops.gd, story_offers.gd, salvage.gd, remote_expedition067.gd, coastal_stories.json.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

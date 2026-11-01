@@ -1,7 +1,7 @@
-# Brass Tide current step: v0.086 - Civilian careers worth repeating
+# Brass Tide current step: v0.087 - Distinct remote destinations
 
 Installed and delivered: **v0.086**
-086 verified scoped; installation is confirmed by its delivery receipt.
+Current source candidate087; desktop remains086 pending verification.
 Owner079-088 sequence active. Root alone queues native/export/UI and delivery;
 helpers work on source. Each batch<120s and selected finalQA<180s including
 setup, offline checks, archive, install and verification; queue wait separate.

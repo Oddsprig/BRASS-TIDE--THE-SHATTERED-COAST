@@ -1,3 +1,7 @@
+01NOV2026 - v0.087 DISTINCT REMOTE DESTINATIONS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.086 VERIFIED SCOPED - 205 native checks/0; civilian career route/capacity/reinvestment choices and witnessed convoy opportunities.
 Staged four-role witnesses (staged=true, earnedFromDefaultStarter=false); exact paid hulls, crew advances, working stores, payroll, conversions and disk restore.
 

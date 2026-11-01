@@ -1,10 +1,10 @@
-BRASS TIDE v0.086 - CIVILIAN CAREERS WORTH REPEATING
+BRASS TIDE v0.087 - DISTINCT REMOTE DESTINATIONS
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Rank Shatter Coast fishing return buyers by net after round-trip fuel, provisions and calendar payroll while enforcing home-region route authority and exposing horizon and ground alternatives.
-- Offer small and larger civilian load tiers for mid-stock freight and fuel delivery alongside passenger charter, with pure carrier, route and reinvestment quotes.
-- Quote real single-slot interior conversions (cargo_rig, auxiliary_tanks) and next role hulls with the 083 working-store/payroll/repair reserve, and surface witnessed civilian convoy escort and piracy intercept opportunities.
+- Place three original destination packages against actual seeded sites, harbors and knowledge while retaining visited geography and saved depletion.
+- Combine paid work with a connected Meridian expedition, an optional finite Keel recovery and a later funded contact consequence.
+- Persist exact destination bindings, physical recovered cargo and equipment provenance; unavailable legacy opportunities remain explicit.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
