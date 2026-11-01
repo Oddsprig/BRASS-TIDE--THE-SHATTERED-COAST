@@ -365,12 +365,28 @@ func remote_gate_and_rejections() -> bool:
 	c.state.path = []; c.state.destination = ""
 	# 5. Reject when local harbor access is hostile, even if the sibling harbor has safe conduct.
 	var target_faction: String = str(remote.get("faction", "compact"))
-	var old_score: int = int(c.Factions.standing(c.state, target_faction).score)
-	c.Factions.adjust(c.state, target_faction, -35 - old_score, "DECLARED084 temporary hostile standing check", "declared084-hostile-check")
+	var opening_standing: Dictionary = c.Factions.standing(c.state, target_faction)
+	var old_score: int = int(opening_standing.score)
+	var standing_accounts: String = storage_accounts(c.state)
+	# Normal adjustments are capped; eight cover the complete -100..100 standing range.
+	var standing_steps: int = ceili(float(c.Factions.REP_MAX - c.Factions.REP_MIN) / float(c.Factions.DELTA_CAP))
+	for step in range(standing_steps):
+		var current_score: int = int(c.Factions.standing(c.state, target_faction).score)
+		if current_score == c.Factions.HOSTILE_ENTER: break
+		c.Factions.adjust(c.state, target_faction, c.Factions.HOSTILE_ENTER - current_score,
+			"DECLARED084 temporary hostile standing check", "declared084-hostile-check-%d" % step)
+	var hostile_standing: Dictionary = c.Factions.standing(c.state, target_faction)
 	c.state.relationships.safeConduct[SIBLING_PORT] = float(c.state.day) + 3.0
 	var hostile_access: Dictionary = Politics.access(c, remote)
 	var hostile_q: Dictionary = Territory.quote_improve(c, REMOTE_PORT)
 	var hostile_hq: Dictionary = Home.quote(c, "warehouse", REMOTE_PORT)
+	note("declared_hostile_gate", {"portId":REMOTE_PORT, "factionId":target_faction,
+		"openingStanding":opening_standing, "standing":hostile_standing,
+		"hostileEnter":c.Factions.HOSTILE_ENTER, "hostileExit":c.Factions.HOSTILE_EXIT, "deltaCap":c.Factions.DELTA_CAP,
+		"safeConduct":c.state.relationships.safeConduct.duplicate(true), "access":hostile_access,
+		"improvementQuote":hostile_q, "warehouseQuote":hostile_hq})
+	if not check(int(hostile_standing.score) == c.Factions.HOSTILE_ENTER and bool(hostile_standing.hostile),
+		"Declared negative-test staging reaches actual HOSTILE_ENTER and hostile standing before refusal checks"): return false
 	if not check(not bool(hostile_access.get("legal", true)) and not bool(hostile_q.get("ok", true)) and not bool(hostile_hq.get("ok", true)),
 		"Hostile local faction standing blocks " + REMOTE_PORT + " even when sibling " + SIBLING_PORT + " holds safe conduct"): return false
 	# Grant port-specific safeConduct at REMOTE_PORT and verify access is admitted, then restore standing.
@@ -378,7 +394,15 @@ func remote_gate_and_rejections() -> bool:
 	if not check(bool(Politics.access(c, remote).get("legal", false)), "Port-specific safeConduct admits legal service access at " + REMOTE_PORT): return false
 	c.state.relationships.safeConduct.erase(SIBLING_PORT)
 	c.state.relationships.safeConduct.erase(REMOTE_PORT)
-	c.Factions.adjust(c.state, target_faction, old_score - int(c.Factions.standing(c.state, target_faction).score), "DECLARED084 restore opening standing", "declared084-restore-standing")
+	for step in range(standing_steps):
+		var restoring_score: int = int(c.Factions.standing(c.state, target_faction).score)
+		if restoring_score == old_score: break
+		c.Factions.adjust(c.state, target_faction, old_score - restoring_score,
+			"DECLARED084 restore opening standing", "declared084-restore-standing-%d" % step)
+	var restored_standing: Dictionary = c.Factions.standing(c.state, target_faction)
+	note("declared_standing_restored", {"factionId":target_faction, "openingStanding":opening_standing, "standing":restored_standing})
+	if not check(int(restored_standing.score) == old_score and storage_accounts(c.state) == standing_accounts,
+		"Bounded normal adjustments restore opening standing without changing physical or financial accounts"): return false
 	# 6. Verify control contest remains home-only until 085, and non-warehouse charters or direct establish bypass fail.
 	var t_view: Dictionary = Territory.view(c, REMOTE_PORT)
 	var before_ctrl: PackedByteArray = var_to_bytes(c.state)
