@@ -26,3 +26,35 @@ verified; an offline sample is supplied. Audible weapon realism, fatigue and
 dense-battle mix acceptance remain OPEN for listening/player feedback. This is
 an explicit limitation of071, not a listening pass. No additional engine tests
 or broader quality gate is justified by this unavailable media route.
+
+PRIVATE v0.082 SOURCE FOLLOW-ON (not a listening result)
+Base: accepted v0.080, 4f4af29d64be6d425c9f10821c42cea7234ddabe.
+Only music.gd changes behavior. Existing CC0 recording cuts, their manifest and
+credits, weapon layer gains/pitches, voice limits, engine bed and all 18 supplied
+MP3s remain the existing inputs. No recording was heard or generated here.
+
+The two-player crossfade previously restarted its envelope on every Next/context
+request. During a fade that discarded one live stream and raised the surviving
+incoming cue from its partial gain to full outgoing gain. A request at 0.5s of
+the 2s fade could lift that cue by a factor of four (about 12dB). Requests now
+wait for the current fade to complete and use the latest scene context. Multiple
+requests during that fade coalesce into one next cue; Next is no longer an
+immediate repeated skip while both players are fading. The new cue starts at
+the same -87dB floor as the gain envelope, rather than the old -60dB assignment.
+
+Natural playlist rollover now begins within the final two seconds of a playing
+cue longer than two seconds. Its outgoing recording remains available for the
+fade instead of starting a fade-in only after finished. Short optional cues
+retain the existing finished callback. Runtime loading, role inference, sorted
+role cycling, folder rescan/deduplication, volume and headless guards remain.
+
+ROOT GATES STILL REQUIRED: a tiny native music case must cover a rapid
+title/travel/combat request, queued Next, every harbor variation after advancing
+the two-second envelope, mute/headless behavior and a real end-of-track handoff.
+The old presentation fixture's immediate repeated-Next loop must advance that
+envelope between selections; its all-variations assertion remains meaningful.
+Reuse the existing event policy/recorded-bank cases for sustained MG, heavy shot,
+rocket/torpedo, contact and sinking clips. Root owns engines and offline export.
+Listen to the actual exported clips before judging fatigue, masking, clipping,
+recording weight or transitions. Until then those quality claims remain OPEN.
+This private builder pass is source review/advisory only, not native acceptance.

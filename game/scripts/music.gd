@@ -1,5 +1,6 @@
 extends Node
 ## Optional user music, loaded at runtime. No online requests or imported assets needed.
+const CROSSFADE_SECONDS=2.0
 var folder=""
 var tracks: Array=[]
 var players: Array=[]
@@ -14,6 +15,7 @@ var last_by_context: Dictionary={}
 var scan_clock=0.0
 var headless=false
 var include_desktop=true
+var pending_next=false
 
 func _ready():
 	headless=DisplayServer.get_name()=="headless"
@@ -78,6 +80,11 @@ func set_context(value: String):
 
 func next_track():
 	if players.is_empty() or tracks.is_empty():return
+	# Reusing either player midway through a fade would cut a live cue and lift
+	# the other back to full gain. Finish this fade, then use the latest context.
+	if not current.is_empty() and elapsed<CROSSFADE_SECONDS:
+		pending_next=true
+		return
 	var pool=tracks.filter(func(t):return t.role==context)
 	if pool.is_empty():pool=tracks.filter(func(t):return t.role not in ["victory","loss"])
 	if pool.is_empty():return
@@ -91,9 +98,9 @@ func next_track():
 	if stream==null or stream.get_length()<=0:return
 	active=1-active
 	players[active].stream=stream
-	players[active].volume_db=-60
+	players[active].volume_db=-87
 	if enabled and not headless:players[active].play()
-	current=track.path;last_by_context[context]=current;elapsed=0.0
+	current=track.path;last_by_context[context]=current;elapsed=0.0;pending_next=false
 
 func _process(dt: float):
 	scan_clock+=dt
@@ -103,10 +110,18 @@ func _process(dt: float):
 	elapsed+=dt
 	current_gain=move_toward(current_gain,volume if enabled else 0.0,dt*0.6)
 	for i in range(players.size()):
-		var gain=current_gain*clampf(elapsed/2.0,0,1) if i==active else current_gain*(1.0-clampf(elapsed/2.0,0,1))
+		var gain=current_gain*clampf(elapsed/CROSSFADE_SECONDS,0,1) if i==active else current_gain*(1.0-clampf(elapsed/CROSSFADE_SECONDS,0,1))
 		players[i].volume_db=linear_to_db(maxf(0.0001,gain))*1.0-7.0
-		if i!=active and elapsed>=2.0:players[i].stop()
-	if enabled and not headless and not current.is_empty() and not players[active].playing:players[active].play()
+		if i!=active and elapsed>=CROSSFADE_SECONDS:players[i].stop()
+	if pending_next and elapsed>=CROSSFADE_SECONDS:
+		pending_next=false
+		next_track()
+	elif enabled and not headless and not current.is_empty():
+		var player: AudioStreamPlayer=players[active]
+		# Roll before the end, while the outgoing recording can still fade out.
+		if player.playing and player.stream!=null and player.stream.get_length()>CROSSFADE_SECONDS and player.stream.get_length()-player.get_playback_position()<=CROSSFADE_SECONDS:
+			next_track()
+		elif not player.playing:player.play()
 
 func title() -> String:
 	return current.get_file().get_basename() if not current.is_empty() else "Drop MP3, OGG or WAV tracks into music/"
