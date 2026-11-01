@@ -44,6 +44,31 @@ func next_boat083() -> Dictionary:
 	receipt.lastChoiceScan=scan
 	return best
 
+func home_funding083() -> Dictionary:
+	var yard: Dictionary=c.port(str(c.data.START.port))
+	var h: Dictionary=c.hull(str(c.find_boat(starter083).type))
+	var q: Dictionary=c.Harbor.purchase_plan(c,h,yard)
+	if not check(int(q.completedStock)>0 and q.crewAvailable and q.stockAvailable and q.repairQuoteAvailable,"Known home yard still has the actual starter carrier, workforce and quoted stores/service"):return {}
+	var at_yard: bool=c.current_port().get("id","")==yard.id
+	var route: Dictionary={"ok":true,"distance":0.0,"path":[]} if at_yard else c.Expedition._leg(c,c.state.position,yard)
+	if not check(route.ok,"The actual current fleet has a water route back to the known stocked yard"):return {}
+	# Include finish_course()'s final4-second movement step and0.5-second berth
+	# check. Whole-day payroll is conservative; no forecast money is published.
+	var days: float=0.0 if at_yard else float(route.distance)/maxf(0.01,c.travel_speed())/c.DAY_SECONDS+4.5/c.DAY_SECONDS
+	var upkeep: Dictionary=c.Economy.daily_upkeep(c.state.fleet)
+	var pay_days: int=0 if at_yard else ceili(days+fposmod(float(c.state.day),1.0))
+	var return_wages: int=pay_days*int(upkeep.wages)
+	var return_food: int=ceili(pay_days*float(upkeep.food))*c.Economy.price(yard,"food")
+	var allowance: Dictionary=c.Expedition.report(c.state,c.data,float(route.distance),c.travel_speed(),{"outwardDays":days,"returnDays":0.0})
+	if not check(allowance.readyForAllowance,"Real loaded fuel, food, hold and wages cover the home course with the existing contingency"):return {}
+	# Re-evaluate the new fleet's whole-day reserve at the projected arrival.
+	var arrival_payroll: int=ceili(float(q.after.reserveDays)+fposmod(float(c.state.day)+days,1.0))*int(q.after.dailyWages)+ceili(float(q.after.wageArrears))
+	var arrival_extra: int=maxi(0,arrival_payroll-int(q.payrollCoins))
+	var target: int=int(q.purchaseCoins)+int(q.returnReserveCoins)+return_wages+return_food+arrival_extra
+	var result: Dictionary={"id":h.id,"port":yard.id,"plan":q,"returnRoute":route,"returnAllowance":allowance,"returnDays":days,"returnWages":return_wages,"returnFoodCoins":return_food,"arrivalPayrollExtra":arrival_extra,"fundingTarget":target,"shortfallCoins":maxi(0,target-int(c.state.coins)),"coins":int(c.state.coins)}
+	receipt.lastHomeFunding=result
+	return result
+
 func pay(id: String) -> bool:
 	# 070's generated-harbor desk is not an authored HOME contact. Native
 	# offers carry any earned sponsor/recurring UID; otherwise the real berth
@@ -195,12 +220,22 @@ func _run() -> void:
 		check(protected_state()==frozen,"Declared fresh quote probe leaves the ordinary career untouched")
 		finish083();return
 	var choice: Dictionary={}
-	for leg in range(24):
+	# Later freight can cycle through expensive yards without revisiting home.
+	# Fund the known cheap carrier AND its real home course, under the same55s.
+	for leg in range(40):
 		phase("ordinary_funded_leg_"+str(leg+1))
 		if not funded_leg083():finish083();return
-		choice=next_boat083()
-		if not choice.is_empty() and int(choice.plan.shortfallCoins)==0:break
-	if not check(not choice.is_empty() and int(choice.plan.shortfallCoins)==0 and int(c.state.coins)>15000 and gross_paid>0 and payroll>0,"Bounded actual work leaves a surplus after all charged wages/replacement stores and funds a useful second hull plus reserves"):finish083();return
+		choice=home_funding083()
+		if choice.is_empty():finish083();return
+		if int(choice.shortfallCoins)==0:break
+	if not check(not choice.is_empty() and int(choice.shortfallCoins)==0 and int(c.state.coins)>15000 and gross_paid>0 and payroll>0,"Bounded actual work leaves a surplus after all charged wages/replacement stores and funds a useful second hull plus reserves"):finish083();return
+	receipt.fundedHomePlan=choice.duplicate(true)
+	phase("actual_return_to_stocked_home_yard083")
+	if not sail(str(choice.port)) or not provision083():finish083();return
+	choice=home_funding083()
+	if choice.is_empty():finish083();return
+	receipt.arrivalHomePlan=choice.duplicate(true)
+	if not check(c.current_port().get("id","")==choice.port and int(choice.shortfallCoins)==0,"Actual home arrival refreshes the stocked hull, stores and reserve quote before purchase"):finish083();return
 	if not buy_partner083(choice) or not funded_leg083(true) or not declared_loss083():finish083();return
 	var loss_wrecks: Array=c.state.get("wrecks",[]).filter(func(w):return str(w.get("uid",""))==starter083).duplicate(true)
 	var saved: Dictionary=parsed_save("growth083-completed")
