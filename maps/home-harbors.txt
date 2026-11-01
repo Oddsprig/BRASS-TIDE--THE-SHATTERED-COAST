@@ -1,19 +1,19 @@
-BRASS TIDE — HOME-HARBORS MAP (generated; v0.083)
+BRASS TIDE — HOME-HARBORS MAP (generated; v0.084)
 
 Physical local materials/staff/coins -> paid shore stock, business payroll and earned-only dividends, private/public berths and arrears.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/home_harbor.gd: 38984 bytes; extends RefCounted
-  game/scripts/home_harbor.gd:140 ensure()
-  game/scripts/home_harbor.gd:188 list_businesses()
-  game/scripts/home_harbor.gd:201 validate()
-  game/scripts/home_harbor.gd:240 business_view()
-  game/scripts/home_harbor.gd:310 quote()
-  game/scripts/home_harbor.gd:402 establish()
-  game/scripts/home_harbor.gd:454 transfer_goods()
-  game/scripts/home_harbor.gd:505 capital()
-  game/scripts/home_harbor.gd:529 dividend()
-  game/scripts/home_harbor.gd:620 tick()
+game/scripts/home_harbor.gd: 41650 bytes; extends RefCounted
+  game/scripts/home_harbor.gd:164 ensure()
+  game/scripts/home_harbor.gd:212 list_businesses()
+  game/scripts/home_harbor.gd:225 validate()
+  game/scripts/home_harbor.gd:264 business_view()
+  game/scripts/home_harbor.gd:334 quote()
+  game/scripts/home_harbor.gd:430 establish()
+  game/scripts/home_harbor.gd:486 transfer_goods()
+  game/scripts/home_harbor.gd:539 capital()
+  game/scripts/home_harbor.gd:565 dividend()
+  game/scripts/home_harbor.gd:658 tick()
   game/scripts/home_harbor.gd:41 _is_num()
   game/scripts/home_harbor.gd:45 _num()
 game/scripts/home_ops.gd: 3512 bytes; extends RefCounted
@@ -25,13 +25,13 @@ game/scripts/home_ops.gd: 3512 bytes; extends RefCounted
   game/scripts/home_ops.gd:32 can_store()
   game/scripts/home_ops.gd:39 pay_arrears()
   game/scripts/home_ops.gd:51 daily()
-game/scripts/home_ui.gd: 9703 bytes; extends RefCounted
-  game/scripts/home_ui.gd:11 review()
-  game/scripts/home_ui.gd:25 book()
-  game/scripts/home_ui.gd:60 book_details()
-  game/scripts/home_ui.gd:70 open()
-  game/scripts/home_ui.gd:134 act()
-  game/scripts/home_ui.gd:50 _details()
+game/scripts/home_ui.gd: 11242 bytes; extends RefCounted
+  game/scripts/home_ui.gd:24 review()
+  game/scripts/home_ui.gd:40 book()
+  game/scripts/home_ui.gd:75 book_details()
+  game/scripts/home_ui.gd:85 open()
+  game/scripts/home_ui.gd:157 act()
+  game/scripts/home_ui.gd:65 _details()
 
 TESTS (game/tests/*.gd)
 test_home_harbor, test_home_voyage

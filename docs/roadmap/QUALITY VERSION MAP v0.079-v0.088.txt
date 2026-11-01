@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-082 DELIVERED;083 VERIFIED;084-088 PLANNED
+01 November2026 |079-083 DELIVERED;084 VERIFIED;085-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -99,7 +99,7 @@ demonstrably extends an expedition. Show an affordable recovery after one
 bounded loss. Keep total ownership distinct from300DP battle deployment.
 Boundary: no new hulls, upgrade framework, free purses or full six-career sweep.
 
-0.084 - GENERATED HARBORS THAT CAN DEVELOP [PLANNED]
+0.084 - GENERATED HARBORS THAT CAN DEVELOP [VERIFIED SCOPED]
 Player result: a suitable harbor outside Shatter Coast can receive real
 materials, machinery, workers and capital and provide a useful paid service.
 Scope: extend existing service eligibility and076 paid development paths

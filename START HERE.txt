@@ -1,6 +1,7 @@
 BRASS TIDE - START HERE
 Play the current delivered game using the single plain Brass Tide desktop icon.
-Current scoped release: v0.077. The plain desktop icon selects the latest installed build.
+Read BUILD STATUS.txt for the current verified version and remaining limits.
+The plain desktop icon selects the latest installed build.
 Read HANDOFF.md for the current task, AGENTS.md for working rules, CODE MAP.md
 for source locations and docs/DEVELOPER LESSONS.txt for reusable lessons.
 docs/GAME BUILDER STARTER PROMPT.txt is the generic shared builder prompt;

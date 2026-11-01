@@ -1,8 +1,8 @@
 # Brass Tide: quality sequence v0.079-v0.088
 
-Installed and delivered: **v0.083**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
+Installed and delivered: **v0.084**; its DELIVERED receipt confirms installation. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
-Owner31October authorized sequential079-088 implementation. 079-082 delivered;083 verified scoped; next084 develops one generated harbor.
+Owner31October authorized sequential079-088 implementation. 079-082 delivered;083 verified scoped; next085 supplies one remote harbor-control operation.
 
 | Version | Focus | Concrete player result |
 | --- | --- | --- |
@@ -34,6 +34,8 @@ Current081:927/0; actual normal-zoom movement/fire/turning/sinking reviewed. Wak
 
 Current082 music transitions verified; exact native/exportedaudio evidence in work/quality-v082/. Listening, earlier battle latency and broad quality remain open. Next083 earnedfleetgrowth.
 
+084 verified scoped; installation is confirmed by its delivery receipt.
+
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the
 planet role. Groups can have differently owned islands/harbors. Keep48 seeded
@@ -50,5 +52,3 @@ History and principles:
 - [Completed069-078 scopes](docs/roadmap/QUALITY%20VERSION%20MAP%20v0.069-v0.078.txt).
 - [Ocean world design](docs/roadmap/OCEAN%20WORLD%20DESIGN.txt).
 - [Earlier quality criteria](docs/roadmap/STARSECTOR%20QUALITY%20ROADMAP.txt).
-
-Source candidate084; installed083 remains until verified delivery.

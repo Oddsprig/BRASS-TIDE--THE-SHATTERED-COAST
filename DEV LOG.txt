@@ -1,3 +1,6 @@
+v0.084 VERIFIED SCOPED - 442 native checks/0; paid remote development and restored warehouse service.
+Finite declared setup; actual workers, machinery, materials, capital and usable stored goods. No remote sovereignty claim.
+
 01NOV2026 - v0.084 GENERATED HARBORS THAT CAN DEVELOP
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
