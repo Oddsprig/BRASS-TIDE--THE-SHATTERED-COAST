@@ -281,7 +281,7 @@ func execute_paid_reinvestment(r: Dictionary) -> void:
 		check(float(boat.spec.get("cargo",0))>hold_before,str(r.kind)+": cargo_rig reinvestment increases physical hull hold capacity")
 	elif conv_id=="auxiliary_tanks":
 		check(float(boat.spec.get("fuelCapacity",60))>tank_before,str(r.kind)+": auxiliary_tanks reinvestment increases physical engine tank capacity")
-	r.reinvestment={"conversionInstalled":conv_id,"conversionCostPaid":spent,"holdBefore":hold_before,"holdAfter":float(boat.spec.get("cargo",0)),
+	r.reinvestment={"conversionInstalled":str(boat.get("conversion","")),"requestedConversion":conv_id,"ok":bool(res.ok) and spent==int(fit_quote.get("costCoins",0)) and spent>0 and str(boat.get("conversion",""))==conv_id,"conversionCostPaid":spent,"holdBefore":hold_before,"holdAfter":float(boat.spec.get("cargo",0)),
 		"tankBefore":tank_before,"tankAfter":float(boat.spec.get("fuelCapacity",60)),"nextHullQuote":hull_quote,"dock":str(dock.get("id",""))}
 
 func finish_receipt(r: Dictionary,paid: bool) -> void:
@@ -300,14 +300,14 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	var operating_cash: int=int(r.openingCoins)+int(r.grossIncome)-int(c.state.coins)
 	var days: int=int(c.state.econDay)-int(r.openingEconDay)
 	var wages: int=days*(int(r.dailyWages)+int(r.specialistPremiumPerDay))
-	check(operating_cash>=wages and int(r.dailyWages)==int(r.crew)*Goods.SAILOR_WAGE,str(r.kind)+": full 100-coin sailor payroll paid")
+	check(operating_cash==wages and int(r.dailyWages)==int(r.crew)*Goods.SAILOR_WAGE,str(r.kind)+": exact calendar payroll equals captain's operating cash debit at 100 coins per sailor-day")
 	r.payrollDays=days;r.wagesAndPremiums=wages;r.actualOperatingCashPaid=operating_cash
 	r.consumedStoresReplacementCoins=store_value
 	r.operatingNet=int(r.grossIncome)-operating_cash-store_value
 	r.returnIncluded=float(r.returnDays)>0
 	if paid:
 		execute_paid_reinvestment(r)
-		r.status="STAGED_PAID_REINVESTED" if int(r.operatingNet)>0 else "STAGED_PAID_UNDER_COST"
+		r.status="STAGED_PAID_REINVESTED" if int(r.operatingNet)>0 and bool(r.reinvestment.ok) else "BLOCKED_REINVESTMENT"
 		check(float(r.sailingDistance)>0 and r.returnIncluded and int(r.operatingNet)>0,str(r.kind)+": staged witness completes outward+return work with positive net before paid reinvestment")
 	else:
 		r.status="BLOCKED"
@@ -319,9 +319,33 @@ func finish_receipt(r: Dictionary,paid: bool) -> void:
 	scene.sync_economy()
 	var parsed: Dictionary=JSON.parse_string(JSON.stringify(c.state))
 	var coin_now: int=int(c.state.coins)
-	var conv_now: Array=boat.get("conversions",[]).duplicate()
+	var conv_now: String=str(boat.get("conversion",""))
+	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
+	var save_name: String="civilian086-%s-%s.json"%[str(r.kind),"completed" if str(r.status)=="STAGED_PAID_REINVESTED" else "blocked"]
+	check(not folder.is_empty(),str(r.kind)+": Root supplies the required GAME_TEST_ARTIFACTS directory")
+	if not folder.is_empty():
+		var saved=FileAccess.open(folder.path_join(save_name),FileAccess.WRITE)
+		check(saved!=null,str(r.kind)+": completed actual career state opens for export")
+		if saved!=null:saved.store_string(JSON.stringify(c.state,"\t"));saved.close()
+		var disk=JSON.parse_string(FileAccess.get_file_as_string(folder.path_join(save_name)))
+		check(disk is Dictionary and disk==parsed,str(r.kind)+": exported career save is the entire actual completed state")
+		if disk is Dictionary:
+			parsed=disk
+			r.completedSave={"file":save_name,"sha256":FileAccess.get_sha256(folder.path_join(save_name)),"staged":true,"earnedFromDefaultStarter":false,"day":float(c.state.day),"coins":coin_now,"boatUid":str(r.boatUid),"conversion":conv_now,"status":str(r.status)}
 	var restored: Dictionary=c.restore(parsed)
-	check(restored.ok and int(c.state.coins)==coin_now and c.find_boat(str(r.boatUid)).get("conversions",[])==conv_now,str(r.kind)+": save/restore preserves coins, catch/jobs and installed conversion reinvestment")
+	var after: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	var saved_boat: Dictionary={}
+	for b in parsed.fleet:
+		if str(b.uid)==str(r.boatUid):saved_boat=b;break
+	var actual_boat: Dictionary={}
+	for b in after.fleet:
+		if str(b.uid)==str(r.boatUid):actual_boat=b;break
+	var kept: bool=not saved_boat.is_empty() and not actual_boat.is_empty() and conv_now==str(r.get("reinvestment",{}).get("conversionInstalled",""))
+	for key in ["coins","coinSupply","crewPurse","wageArrears","cargo","voyageJobs","civilianWork","nextUid"]:
+		kept=kept and after.get(key)==parsed.get(key)
+	for key in ["uid","conversion","moduleCondition","loadout","crew","fuel","supplies","ammo"]:
+		kept=kept and actual_boat.get(key)==saved_boat.get(key)
+	check(restored.ok and int(c.state.coins)==coin_now and str(c.find_boat(str(r.boatUid)).get("conversion",""))==conv_now and kept,str(r.kind)+": disk restore preserves exact money, catch/quota/jobs, conversion, item custody/condition and original working UID")
 	receipts.append(r.duplicate(true))
 
 func fishing_buyer_ranking_checks(uid: String) -> void:
@@ -387,9 +411,11 @@ func fishing_cycle() -> void:
 	if not sail(r,c.port_position(chosen_buyer_id),chosen_buyer_id,true):r.blocker="Fishing return failed";finish_receipt(r,false);return
 	var buyer: Dictionary=c.current_port()
 	var wallet: int=int(c.state.coins);var lots: int=floori(catch_amount)
+	var buyer_cash: int=int(buyer.cash)
+	var sale_due: int=lots*Economy.price(buyer,"preserved_fish","sell")
 	var sold: Dictionary=c.trade(str(buyer.id),"preserved_fish",lots,"sell")
 	r.grossIncome=int(c.state.coins)-wallet;r.catchLots=catch_amount;r.soldLots=lots;r.selectedBuyer=str(buyer.id)
-	check(sold.ok and int(r.grossIncome)>0,"fishing catch sold for positive coins at ranked buyer market")
+	check(sold.ok and int(r.grossIncome)==sale_due and sale_due>0 and buyer_cash-int(buyer.cash)==sale_due,"fishing catch transfers the exact quoted whole-lot sale from the finite buyer purse")
 	finish_receipt(r,bool(sold.ok))
 
 func observe_fuel(r: Dictionary,uid: String) -> Dictionary:
@@ -418,7 +444,7 @@ func observe_fuel(r: Dictionary,uid: String) -> Dictionary:
 			if service.is_empty() or str(owner.get("purpose","")) in ["withdraw","repair","replace"]:continue
 			var review: Dictionary=Choices.job_review(c,job,uid)
 			var leg: float=ceilf(float(review.budget.outwardDays)*c.DAY_SECONDS)/c.DAY_SECONDS
-			if bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and bool(review.recipient.present) and bool(review.recipient.eligible) and leg<float(service.remainingDays):
+			if bool(review.carrierFits) and bool(review.allowanceFits) and bool(review.routeOk) and float(review.budget.outwardDays)>0 and bool(review.recipient.present) and bool(review.recipient.eligible) and leg<float(service.remainingDays):
 				r.fuelServiceAtQuote=service.duplicate(true)
 				return job.duplicate(true)
 		if index==24:break
@@ -491,19 +517,25 @@ func witnessed_convoy_checks() -> void:
 	c.pending_days=0;c.events=[]
 	var trader: Dictionary={};var raider: Dictionary={}
 	for owner in c.state.fleetOwners:
-		if trader.is_empty() and bool(owner.get("active",false)) and str(owner.get("kind",""))=="trader" and not owner.get("boats",[]).is_empty():trader=owner
-		elif raider.is_empty() and bool(owner.get("active",false)) and str(owner.get("kind",""))=="raider" and not owner.get("boats",[]).is_empty():raider=owner
+		var location: Dictionary=c.NavalAI.NavalOrders.canonical_location068(c.state,str(owner.id))
+		if location.is_empty() or not Expedition.home_local064(location):continue
+		if bool(owner.get("active",false)) and str(owner.get("kind",""))=="trader" and float(owner.get("tradeCargo",0))>0 and not c.Politics.hostile(c,owner) and bool(Escort._load_plan(c,owner).ok):trader=owner;break
+	if not trader.is_empty():
+		for owner in c.state.fleetOwners:
+			var location: Dictionary=c.NavalAI.NavalOrders.canonical_location068(c.state,str(owner.id))
+			if location.is_empty() or not Expedition.home_local064(location):continue
+			if bool(owner.get("active",false)) and str(owner.get("kind",""))=="raider" and c.Factions.relation(c.state,str(trader.faction),str(owner.faction))<=-20 and owner.get("boats",[]).any(func(b):return not b.get("sunk",false) and float(b.get("ammo",0))>0 and int(b.get("crew",0))>=int(b.get("crewMin",1))):raider=owner;break
 	check(not trader.is_empty() and not raider.is_empty(),"witnessed convoy test locates existing active trader and raider owners")
 	if trader.is_empty() or raider.is_empty():return
-	# Ensure the trader carries physical trade cargo on its existing hull and is in open water near a hostile raider.
+	# Declared positions only. The loaded trader, its cargo, armed raider, purses
+	# and existing hostile relationship are reused without adding any goods/boats.
 	var home: Dictionary=c.current_port()
 	var open_pt: Dictionary={"x":float(home.x)+180.0,"y":float(home.y)}
 	for delta in [Vector2(180,0),Vector2(-180,0),Vector2(0,180),Vector2(0,-180)]:
 		var cand: Dictionary={"x":float(home.x)+delta.x,"y":float(home.y)+delta.y}
 		if Navigation.is_water(c.nav,cand.x,cand.y,16.0):open_pt=cand;break
 	c.state.position=open_pt.duplicate()
-	trader.atPort="";trader.tradeGood="preserved_fish";trader.tradeCargo=6.0
-	trader.cargo["preserved_fish"]=maxf(6.0,float(trader.cargo.get("preserved_fish",0)))
+	trader.atPort="";raider.atPort=""
 	for p in c.state.patrols:
 		if str(p.id)==str(trader.id):
 			p.active=true;p.holding=false;p.x=open_pt.x+80.0;p.y=open_pt.y;p.to="brass_haven"
@@ -522,15 +554,19 @@ func witnessed_convoy_checks() -> void:
 	check(escort_rep.get("convoyOpportunities",[]).size()>=1 and priv_rep.get("convoyOpportunities",[]).size()>=1,"Guidance.report surfaces witnessed convoy opportunities for both Escort and Privateer")
 	# 1. Verify existing Escort.start opportunity on a forked state.
 	var escort_fork: Dictionary=c.state.duplicate(true)
-	var started_escort: Dictionary=Escort.start(c,str(trader.id))
-	check(started_escort.ok and str(c.state.get("escortMission",{}).get("ownerId",""))==str(trader.id) and str(c.state.get("escortMission",{}).get("targetOwnerId",""))==str(raider.id),"witnessed civilian convoy starts an actual Escort.start mission against the observed threat")
+	Escort.start(scene,str(trader.id))
+	var started_escort: bool=scene.mode=="battle" and str(scene.battle_context.get("kind",""))=="escort" and str(scene.battle_context.get("allyOwnerId",""))==str(trader.id) and str(scene.battle_context.get("ownerId",""))==str(raider.id) and str(scene.battle.get("mission",{}).get("kind",""))=="escort"
+	check(started_escort,"witnessed convoy enters actual Main.begin_battle through Escort.start(Main,id) against the observed threat")
 	check(Money.total(c.state)==supply and people(c.state)==census,"Escort.start conserves global coins and people")
+	scene._retire_battle_driver051();scene.Tactical.retire_planning051(scene.battle)
+	scene.battle={};scene.battle_context={};scene.mode="campaign";scene.paused=true;c.travel_lock064=""
 	# 2. Verify existing piracy Escort.prepare_intercept opportunity on a forked state.
 	c.state=escort_fork.duplicate(true)
-	var intercept: Dictionary=Escort.prepare_intercept(c,str(trader.id))
-	check(intercept.ok and str(c.state.get("interceptTargetId",""))==str(trader.id) and not intercept.get("enemies",[]).is_empty(),"witnessed civilian convoy connects to existing Escort.prepare_intercept piracy encounter")
+	var intercept: Dictionary=Escort.prepare_intercept(c,{"kind":"patrol","id":str(trader.id),"ownerId":str(trader.id),"name":"Declared witnessed civilian interception"})
+	var prepared: bool=str(intercept.get("startError","")).is_empty() and str(intercept.get("mission",{}).get("kind",""))=="intercept" and str(intercept.get("mission",{}).get("carrierOwnerId",""))==str(trader.id) and not intercept.get("mission",{}).get("carrierUids",[]).is_empty()
+	check(prepared,"witnessed convoy connects to the actual context-dictionary interception API and physical cargo mission")
 	check(Money.total(c.state)==supply and people(c.state)==census,"Escort.prepare_intercept conserves global coins and people")
-	convoy_witness={"staged":true,"traderOwnerId":str(trader.id),"threatOwnerId":str(raider.id),"tradeGood":entry.get("tradeGood",""),"tradeCargo":entry.get("tradeCargo",0),"cargoValueCoins":entry.get("cargoValueCoins",0),"escortStarted":bool(started_escort.ok),"piracyInterceptPrepared":bool(intercept.ok)}
+	convoy_witness={"staged":true,"stagingBasis":"Declared nearby chart positions only; actual pre-existing cargo, boats, purses and hostile relationship retained.","traderOwnerId":str(trader.id),"threatOwnerId":str(raider.id),"observedDay":float(entry.get("observedDay",0)),"tradeGood":entry.get("tradeGood",""),"tradeCargo":entry.get("tradeCargo",0),"cargo":entry.get("cargo",{}),"cargoValueCoins":entry.get("cargoValueCoins",0),"escortStarted":started_escort,"piracyInterceptPrepared":prepared,"battleOutcome":"UNRESOLVED_START_OPPORTUNITY_ONLY"}
 	c.state=baseline.duplicate(true);c.route_cache=baseline_cache.duplicate(true)
 
 func finish() -> void:
@@ -541,6 +577,7 @@ func finish() -> void:
 	check(receipts.size()==4 and receipts.all(func(r):return bool(r.get("staged",false)) and not bool(r.get("earnedFromDefaultStarter",true)) and str(r.get("status",""))=="STAGED_PAID_REINVESTED"),"all four staged civilian role witnesses complete paid work and paid reinvestment")
 	check(bool(convoy_witness.get("escortStarted",false)) and bool(convoy_witness.get("piracyInterceptPrepared",false)),"witnessed civilian convoy connects to both existing escort and piracy intercept opportunities")
 	var artifact: Dictionary={
+		"ok":failures==0,
 		"version":"v0.086",
 		"sourceOnlyAuthor":"Argon-1 (quality086-argon-careers); Root executes queued native verification",
 		"seed":59059,
@@ -549,15 +586,19 @@ func finish() -> void:
 		"checks":checks,
 		"failures":failures,
 		"wholeSeconds":whole,
+		"bodyCapSeconds":BUDGET_SECONDS,
 		"steps":steps,
 		"payrollDays":payroll_days,
 		"phases":phases,
 		"receipts":receipts,
-		"convoyWitness":convoy_witness
+		"convoyWitness":convoy_witness,
+		"completedSaves":receipts.map(func(r):return r.get("completedSave",{}))
 	}
 	var folder: String=OS.get_environment("GAME_TEST_ARTIFACTS")
 	if not folder.is_empty():
 		var file=FileAccess.open(folder.path_join("civilian-careers086-result.json"),FileAccess.WRITE)
+		check(file!=null,"required civilian-careers086-result.json opens for writing")
+		artifact.ok=failures==0;artifact.checks=checks;artifact.failures=failures
 		if file!=null:file.store_string(JSON.stringify(artifact,"\t"));file.close()
 	print("CIVILIAN086_RESULT ",JSON.stringify({"ok":failures==0,"checks":checks,"failures":failures,"wholeSeconds":whole,"staged":true,"earnedFromDefaultStarter":false,"roles":receipts.map(func(r):return {"kind":r.kind,"status":r.status,"operatingNet":r.operatingNet,"conversionInstalled":r.get("reinvestment",{}).get("conversionInstalled","")}),"convoyWitness":convoy_witness}))
 	quit(0 if failures==0 else 1)

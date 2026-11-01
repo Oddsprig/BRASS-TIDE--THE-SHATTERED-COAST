@@ -26,13 +26,20 @@ class QuoteView extends RefCounted:
 	const CivilianWork=preload("res://scripts/civilian_work.gd")
 	const VoyageJobs=preload("res://scripts/voyage_jobs.gd")
 	const Contacts=preload("res://scripts/contacts.gd")
+	const Damage=preload("res://scripts/damage.gd")
+	const FleetSupport=preload("res://scripts/fleet_support.gd")
 	var state: Dictionary
 	var data: Dictionary
 	var nav: Dictionary
 	var speed: float
 	var pending_days: int=0
+	var source
 	func _init(c):
-		state=c.state.duplicate(true);data=c.data;nav=c.nav;speed=c.travel_speed();pending_days=int(c.pending_days)
+		source=c;state=c.state.duplicate(true);data=c.data;nav=c.nav;speed=c.travel_speed();pending_days=int(c.pending_days)
+	# These Campaign methods only write the detached preview boat passed in.
+	func fitted_spec(b: Dictionary) -> Dictionary:return source.fitted_spec(b)
+	func fit_boat(b: Dictionary,fresh: bool=false) -> void:source.fit_boat(b,fresh)
+	func _initialize_published_boat(b: Dictionary) -> void:source._initialize_published_boat(b)
 	func active_fleet() -> Array:
 		var boats: Array=Expedition.traveling(state)
 		boats.sort_custom(func(a,b):return a.uid==state.flagship and b.uid!=state.flagship)

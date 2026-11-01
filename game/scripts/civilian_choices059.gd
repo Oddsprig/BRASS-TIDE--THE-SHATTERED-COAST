@@ -14,9 +14,28 @@ const Deployment=preload("res://scripts/deployment.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
 const CivilianWork=preload("res://scripts/civilian_work.gd")
 const Contacts=preload("res://scripts/contacts.gd")
+const Objectives=preload("res://scripts/battle_objectives.gd")
 const CIVILIAN_KINDS=["freight","fuel_delivery","passenger_charter"]
 const NEXT_ROLE_HULLS={"fishing":"brinehook_longliner","freight":"tideledger_coaster","fuel_delivery":"blackwater_fleet_tanker","passenger_charter":"osprey_cabin_cruiser"}
 const ROLE_FITTINGS={"fishing":"cargo_rig","freight":"cargo_rig","fuel_delivery":"auxiliary_tanks","passenger_charter":"cargo_rig"}
+
+# The real conversion quote normalizes relationships. Keep that normalization
+# on detached state, including when quoting the last visited yard from sea.
+class ConversionView086 extends RefCounted:
+	var state: Dictionary
+	var data: Dictionary
+	var dock: Dictionary
+	var source
+	func _init(c,p: Dictionary):
+		state=c.state.duplicate(true);data=c.data;dock=p.duplicate(true);source=c
+		state.path=[]
+	func current_port() -> Dictionary:return dock
+	func find_boat(uid: String) -> Dictionary:
+		for b in state.get("fleet",[]):
+			if str(b.get("uid",""))==uid:return b
+		return {}
+	func fitted_spec(b: Dictionary) -> Dictionary:return source.fitted_spec(b)
+	func fail(message: String) -> Dictionary:return {"ok":false,"message":message}
 
 static func physical_hold(c,b: Dictionary) -> float:
 	if b.is_empty():return 0.0
@@ -29,7 +48,8 @@ static func _home_point086(p: Dictionary) -> bool:
 
 static func _leg(c,a: Dictionary,b: Dictionary) -> Dictionary:
 	if not Expedition.home_local064(c.state) or not _home_point086(a) or not _home_point086(b):return {"ok":false,"distance":0.0}
-	var path: Array=Routes.path(c,a,b)
+	# A preview must not fill Campaign.cached_path or change its hit counters.
+	var path: Array=Routes.path({"state":c.state,"nav":c.nav},a,b)
 	var distance: float=0.0
 	for i in range(1,path.size()):distance+=c.distance(path[i-1],path[i])
 	return {"ok":not path.is_empty(),"distance":distance}
@@ -106,27 +126,15 @@ static func _budget(c,outward: float,returning: float,work: float,price_port: Di
 static func _conversion_quote086(c,boat: Dictionary,port: Dictionary,conv_id: String) -> Dictionary:
 	var conv: Dictionary=FleetIdentity.CONVERSIONS.get(conv_id,{})
 	if conv.is_empty():return {}
-	var installed: Array=boat.get("conversions",[]) if boat.get("conversions") is Array else []
-	var already: bool=conv_id in installed
-	var slots_open: bool=installed.size()<FleetIdentity.MAX_CONVERSIONS
-	var materials_cost: int=0
-	var materials_ok: bool=not port.is_empty()
-	for good in conv.get("materials",{}):
-		var qty: int=int(conv.materials[good])
-		if not port.is_empty() and float(port.get("stocks",{}).get(good,0))<qty:materials_ok=false
-		materials_cost+=qty*(Economy.price(port,str(good)) if not port.is_empty() else int(Goods.ITEMS.get(str(good),{}).get("base",60)))
-	var labor_days: int=int(conv.get("laborDays",1))
-	var labor_cost: int=labor_days*int(Goods.WAGES.shipwright)
-	var labor_ok: bool=not port.is_empty() and int(port.get("availableWorkers",0))>=1 and int(port.get("training",{}).get("qualified",{}).get("shipwright",0))>=1
-	var direct_cost: int=materials_cost+labor_cost
-	var yard_margin: int=maxi(40,roundi(direct_cost*0.14))
-	var yard_tax: int=maxi(20,roundi((direct_cost+yard_margin)*0.06))
-	var total_cost: int=direct_cost+yard_margin+yard_tax
-	var access: Dictionary=_access(c,port) if not port.is_empty() else {"legal":false}
-	var ready: bool=not boat.is_empty() and not already and slots_open and bool(access.legal) and materials_ok and labor_ok
-	return {"id":conv_id,"name":str(conv.get("name",conv_id)),"trade":str(conv.get("trade","")),"installed":already,"slotsOpen":slots_open,
-		"costCoins":total_cost,"materialsCoins":materials_cost,"laborCoins":labor_cost,"yardMarginCoins":yard_margin,"taxCoins":yard_tax,
-		"materialsOk":materials_ok,"laborOk":labor_ok,"ready":ready,"portId":str(port.get("id","")),"portName":str(port.get("name","Reference yard"))}
+	var view=ConversionView086.new(c,port)
+	var q: Dictionary=FleetIdentity.quote_conversion(view,str(boat.get("uid","")),conv_id)
+	var here: bool=not port.is_empty() and str(c.current_port().get("id",""))==str(port.id) and c.state.path.is_empty()
+	return {"id":conv_id,"name":str(conv.get("name",conv_id)),"trade":str(conv.get("trade","")),"installed":str(boat.get("conversion",""))==conv_id,
+		"costCoins":int(q.get("cost",0)),"materialsCoins":int(q.get("materialCost",0)),
+		"laborCoins":int(q.get("shipwrightWages",0))+int(q.get("mechanicWages",0))+int(q.get("engineerWages",0)),
+		"yardMarginCoins":int(q.get("margin",0)),"taxCoins":int(q.get("tax",0)),"quoteAvailable":q.has("cost"),
+		"ready":here and bool(q.get("ok",false)),"referenceOnly":not here,"message":str(q.get("message","")),
+		"portId":str(port.get("id","")),"portName":str(port.get("name","Reference yard"))}
 
 static func reinvestment086(c,role_or_kind: String,boat_uid: String="",estimated_net: int=0) -> Dictionary:
 	var hull_id: String=str(NEXT_ROLE_HULLS.get(role_or_kind,"tideledger_coaster"))
@@ -144,6 +152,8 @@ static func reinvestment086(c,role_or_kind: String,boat_uid: String="",estimated
 	var crew_min: int=int(h.get("crewMin",1))
 	var crew_advance: int=Economy.recruit_cost(dock,crew_min) if not dock.is_empty() else crew_min*Goods.SAILOR_WAGE*10
 	var entry_coins: int=int(hq.get("readyPrice",0))+crew_advance
+	var purchase: Dictionary=Harbor.purchase_plan(c,h,dock)
+	var reserve: int=int(purchase.get("returnReserveCoins",0))
 	var net_pos: int=maxi(0,estimated_net)
 	var fitting: Dictionary=_conversion_quote086(c,boat,dock,conv_id)
 	if bool(fitting.get("installed",false)):
@@ -155,10 +165,13 @@ static func reinvestment086(c,role_or_kind: String,boat_uid: String="",estimated
 	var next_hull: Dictionary={"id":hull_id,"name":str(h.get("name",hull_id)),"readyCoins":int(hq.get("readyPrice",0)),
 		"commissionCoins":int(hq.get("commissionPrice",0)),"minimumCrew":crew_min,"crewAdvanceCoins":crew_advance,"entryCoins":entry_coins,
 		"stock":int(dock.get("shipStock",{}).get(hull_id,0)),"cargo":float(h.get("cargo",0)),"berths":int(h.get("crewMax",0)),
-		"netContributionCoins":mini(net_pos,entry_coins),"remainingGapCoins":maxi(0,entry_coins-int(c.state.get("coins",0))-net_pos)}
-	var summary: String="Reinvestment at %s: %s (%d coins, %s) or %s (%d ready + %d crew advance = %d coins; %d commission)."%[
-		str(dock.get("name","yard")),str(fitting.get("name","Fitting")),fit_cost,str(fitting.get("trade","interior conversion")),
-		str(next_hull.name),int(next_hull.readyCoins),crew_advance,entry_coins,int(next_hull.commissionCoins)]
+		"returnReserveCoins":reserve,"purchaseAndReserveCoins":entry_coins+reserve,"purchasePlan":purchase,
+		"netContributionCoins":mini(net_pos,entry_coins+reserve),"remainingGapCoins":maxi(0,entry_coins+reserve-int(c.state.get("coins",0))-net_pos)}
+	var fit_price: String="%d coins"%fit_cost if bool(fitting.get("quoteAvailable",false)) else "quote unavailable"
+	var summary: String="Reinvestment at %s: %s (%s, %s) or %s (%d ready + %d crew advance = %d coins; %d commission), plus %d coins working stores/payroll/repair reserve. %s"%[
+		str(dock.get("name","yard")),str(fitting.get("name","Fitting")),fit_price,str(fitting.get("trade","interior conversion")),
+		str(next_hull.name),int(next_hull.readyCoins),crew_advance,entry_coins,int(next_hull.commissionCoins),reserve,
+		"Yard reference; return for a fresh quote." if not at_harbor else "Check actual yard stock, crew and stores before buying."]
 	return {"role":role_or_kind,"portId":str(dock.get("id","")),"portName":str(dock.get("name","Reference harbor")),"atHarbor":at_harbor,
 		"nextHull":next_hull,"nextFitting":fitting,"summary":summary}
 
@@ -172,25 +185,34 @@ static func witnessed_convoy_opportunities086(c) -> Array:
 		for p in c.state.get("patrols",[]):
 			if str(p.get("id",""))==str(owner.get("id","")) and bool(p.get("active",false)):patrol=p;break
 		if patrol.is_empty():continue
-		var dist: float=c.distance(c.state.position,patrol)
+		var location: Dictionary=c.NavalAI.NavalOrders.canonical_location068(c.state,str(owner.id))
+		if location.is_empty() or not Expedition.home_local064(location):continue
+		var dist: float=c.distance(c.state.position,location.position)
 		if dist>1800.0:continue
 		var load: Dictionary=Escort._load_plan(c,owner)
 		if not bool(load.get("ok",false)):continue
 		var threat: Dictionary=Escort.threat(c,owner)
-		var good: String=str(load.get("good",owner.get("tradeGood","food")))
-		var qty: float=float(load.get("qty",owner.get("tradeCargo",0)))
+		var good: String=str(owner.get("tradeGood","food"))
+		var qty: float=float(owner.get("cargo",{}).get(good,0))
 		var dest_id: String=str(patrol.get("to",owner.get("destination","")))
 		var dest_port: Dictionary=c.port(dest_id)
-		var unit_val: int=Economy.price(dest_port,good,"sell") if not dest_port.is_empty() else int(Goods.ITEMS.get(good,{}).get("base",60))
-		var cargo_val: int=maxi(0,roundi(qty*unit_val))
+		var cargo_val: int=0
+		for actual_good in owner.get("cargo",{}):
+			var unit_val: int=int(Goods.ITEMS.get(actual_good,{}).get("base",60))
+			cargo_val+=maxi(0,roundi(float(owner.cargo[actual_good])*unit_val))
 		var convoy_boats: Array=owner.get("boats",[]).filter(func(b):return not b.get("sunk",false) and int(b.get("crew",0))>=int(b.get("crewMin",1)))
 		var dp: int=Deployment.total(convoy_boats+combat)
 		var hostile_to_player: bool=Factions.is_hostile(c.state,str(owner.get("faction","")))
-		var escort_ok: bool=not hostile_to_player and not threat.is_empty() and dp<=Deployment.LIMIT and not combat.is_empty()
-		var piracy_ok: bool=not convoy_boats.is_empty() and not combat.is_empty()
+		var mission: Dictionary=Escort._mission(c,owner,"escort")
+		mission["allyUids"]=convoy_boats.map(func(b):return str(b.uid))
+		var event: String="escort:%s:%d"%[str(owner.id),int(patrol.get("voyageSeq",0))]
+		var escort_ok: bool=not hostile_to_player and not threat.is_empty() and dp<=Deployment.LIMIT and not combat.is_empty() and not convoy_boats.is_empty() and not c.state.get("escortEvents",{}).has(event)
+		if escort_ok:escort_ok=not mission.has("startError") and Objectives.deployment_error(convoy_boats+combat,threat.get("boats",[]).filter(func(b):return not b.get("sunk",false)),mission).is_empty()
+		var intercept: Dictionary=Escort.prepare_intercept(c,{"kind":"patrol","ownerId":str(owner.id),"id":str(owner.id)})
+		var piracy_ok: bool=intercept.has("mission") and str(intercept.get("startError","")).is_empty()
 		rows.append({"ownerId":str(owner.get("id","")),"name":str(owner.get("name","Trader convoy")),"faction":str(owner.get("faction","")),
 			"destination":dest_id,"destinationName":str(dest_port.get("name",dest_id)),"distance":dist,"hailReady":dist<=260.0,
-			"tradeGood":good,"tradeCargo":qty,"cargoValueCoins":cargo_val,"carrierUids":load.get("carrierUids",[]).duplicate(),
+			"tradeGood":good,"tradeCargo":qty,"cargo":owner.get("cargo",{}).duplicate(true),"cargoValueCoins":cargo_val,"valueBasis":"Reference catalog prices; no live remote market quote.","observedDay":float(c.state.day),"carrierUids":load.get("carrierUids",[]).duplicate(),
 			"threatOwnerId":str(threat.get("id","")),"threatName":str(threat.get("name","")),"deploymentPoints":dp,
 			"escortEligible":escort_ok,"escortStandingReward":5,"escortServiceCredit":1,"piracyInterceptEligible":piracy_ok})
 	rows.sort_custom(func(a,b):
@@ -359,7 +381,6 @@ static func fishing_review(c,boat_uid: String,days: float=1.0,crew: int=0,buyer_
 		if bool(a.qualifies):
 			if int(a.estimatedNet)!=int(b.estimatedNet):return int(a.estimatedNet)>int(b.estimatedNet)
 			if int(a.lots)!=int(b.lots):return int(a.lots)>int(b.lots)
-			if int(a.sell)!=int(b.sell):return int(a.sell)>int(b.sell)
 			if not is_equal_approx(float(a.route.distance),float(b.route.distance)):return float(a.route.distance)<float(b.route.distance)
 		else:
 			if bool(a.routeOk)!=bool(b.routeOk):return bool(a.routeOk)

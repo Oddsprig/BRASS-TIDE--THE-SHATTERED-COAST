@@ -1,5 +1,8 @@
 CIVILIAN CAREERS v0.086 — PLAYER & VERIFICATION NOTES
 
+PRIVATE SOURCE CANDIDATE. Native parsing, timing, UI bounds and completed role
+witnesses remain pending Root's queued verification; no native pass is claimed.
+
 Overview
 ========
 v0.086 ("Civilian Careers Worth Repeating") improves existing fishing, sealed
@@ -21,9 +24,8 @@ What Changed
        1) highest estimated net after return fuel, provisions, and rounded-up
           calendar payroll (`saleLots * sellQuote - operatingCost`),
        2) highest whole lots covered by the buyer's purse (`saleLots`),
-       3) highest unit sell quote,
-       4) shortest navigable return distance,
-       5) deterministic `portId` tie-break.
+       3) shortest navigable return distance,
+       4) deterministic `portId` tie-break.
    - If no recorded buyer qualifies, `fishing_review` falls back deterministically
      to the closest reachable home-region harbor while preserving all explicit
      route, quote-age, liquidity, legal-access, and blockade warnings.
@@ -57,16 +59,24 @@ What Changed
      - the role's next hull (`brinehook_longliner` for fishing,
        `tideledger_coaster` for freight, `blackwater_fleet_tanker` for fuel
        delivery, `osprey_cabin_cruiser` for passenger charter) with local ready
-       price, commission price, minimum crew advance, and current yard stock, and
-     - the role's interior hull conversion (`cargo_rig` +25% hold or
-       `auxiliary_tanks` +35% engine fuel tank capacity) with exact material,
+       price, commission price, minimum crew advance, current yard stock and
+       the existing 083 working-store/payroll/repair reserve (before an actual
+       route is chosen, rather than a hull-only affordability claim), and
+     - the role's interior hull conversion (`cargo_rig` +35% hold or
+       `auxiliary_tanks` +50% engine fuel capacity and 10% lower fuel burn,
+       each with its existing handling/hold tradeoff) with exact material,
        shipwright labor, yard margin, and tax costs without mutating live
-       campaign relationships.
+       campaign relationships. This calls FleetIdentity.quote_conversion on
+       copied state, using the existing single `conversion` field and the
+       installer's real fractional materials, all three trade wages, 8% yard
+       margin, 5% tax and shared labor/hold/access gates. At-sea yard references
+       require a fresh quote on return and never report ready service there.
 
 4. Witnessed Civilian Value -> Escort & Piracy Opportunities (`civilian_choices059.gd`, `campaign_guidance.gd`, `career_costs.gd`, `voyage_ui.gd`, `guidance_ui.gd`)
    - `Choices.witnessed_convoy_opportunities086` scans active loaded `trader`
      fleets within the 1800-unit watch radius in `shatter_coast`, reporting
-     physical cargo (`tradeGood`, `tradeCargo`, `cargoValueCoins`), observed
+     physical cargo (`tradeGood`, `tradeCargo`, full `cargo`, `cargoValueCoins`
+     at stated reference catalog prices, and `observedDay`), observed
      hostile threats (`Escort.threat`), deployment-point fit (`<= 300` DP),
      `escortEligible` (`Escort.start` for +5 standing and 1 service credit), and
      `piracyInterceptEligible` (`Escort.prepare_intercept`).
@@ -86,3 +96,20 @@ Focused Native Fixture (`game/tests/test_civilian_careers086.gd`)
   (`c.install_conversion`), witnessed civilian convoy escort (`Escort.start`)
   and piracy intercept (`Escort.prepare_intercept`), global coin/people
   conservation, and parsed save/restore fidelity.
+- Exports each actual post-return, paid-conversion state into
+  GAME_TEST_ARTIFACTS as civilian086-<role>-completed.json, with its hash/day/
+  coins/working UID/conversion in civilian-careers086-result.json. Failed
+  branches use a `-blocked.json` filename and retain their unsuccessful status.
+  Root can open these saved states for current UI review without rebuilding
+  their staged openings. These remain staged examples, not four careers earned
+  from the default 15000-coin starter.
+- Convoy staging moves existing chart positions only; it adds no cargo or
+  physical boat. Escort.start(Main,id) must enter a real escort battle; the
+  branch then retires its own workers before its saved fork is restored.
+  prepare_intercept receives its real context dictionary and must publish the
+  physical carrier/cargo mission. This is an unresolved start/opportunity
+  witness, not an earned escort victory or piracy outcome.
+- Existing 38-second fixture body cap is retained (Root's goal remains <45s).
+  Root separately measures setup/import/startup/export/cleanup and delivery:
+  each selected batch <120s; the selected suite <180s. Neither timing is proven
+  by this source review.
