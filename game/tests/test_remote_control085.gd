@@ -1,6 +1,6 @@
 extends "res://tests/test_voyage_career070.gd"
 ## Root-only one-harbor case. Ordinary15000 opening, finite paid stores/fitting,
-## naturally admitted/moving075 merchant. Only player pose and diplomacy are
+## naturally admitted/moving075 merchant. Only player opening poses and diplomacy are
 ## declared. No NPC pose/faction, resources, sightings or battle result is set.
 const Territory085=preload("res://scripts/territorial076.gd")
 const Battle085=preload("res://scripts/battle.gd")
@@ -30,7 +30,7 @@ func advance(seconds: float=4.0) -> bool:
 		return check(false,"Unrelated actual encounter interrupts this bounded case; it is not skipped or passed")
 	return true
 
-func opening085() -> bool:
+func opening085(context_only: bool=false) -> bool:
 	var seed: int=69069
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--qa-seed085="):seed=int(argument.trim_prefix("--qa-seed085="))
@@ -39,7 +39,7 @@ func opening085() -> bool:
 	if not check(c.new_game(seed).get("ok",false),"One ordinary seeded career opens"):return false
 	supply=int(c.state.coinSupply)
 	base_geography085=JSON.stringify(c.state.sector069,"",true)+JSON.stringify(c.state.islandOwnership069,"",true)
-	receipt.opening085={"seed":seed,"coins":c.state.coins,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"staging":"Only the later player opening pose and faction standings are declared; all NPCs retain their actual ordinary objectives and movement."}
+	receipt.opening085={"seed":seed,"coins":c.state.coins,"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"staging":"Player-only Glasswind waiting pose and later source berth, plus faction standings, are declared; all NPCs retain their actual ordinary objectives and movement."}
 	var home: Dictionary=c.current_port()
 	for good in ["food","supplies"]:
 		var quantity: int=4 if good=="food" else 2
@@ -54,6 +54,17 @@ func opening085() -> bool:
 	var fitted: Dictionary=c.workshop_apply(str(boat.uid),fit,{})
 	if not check(fitted.get("ok",false) and int(c.state.coins)<coins and c.find_boat(str(boat.uid)).loadout.weapons[0]=="rapid_gun" and c.Money.total(c.state)==supply,"Existing workshop supplies a paid physical gun; no equipment or captain money grant"):return false
 	receipt.fitting085={"result":fitted,"paid":coins-int(c.state.coins),"boatUid":boat.uid}
+	# The existing075 chronology uses this authored safe-water player opening.
+	# Keep HOME patrols and all NPC movement live; no encounter is consumed here.
+	var waiting_assets: PackedByteArray=var_to_bytes(c.state)
+	var wait_pose: Dictionary={"world064":{"schema":1,"layer":"local","regionId":c.OceanWorld064.REMOTE},"position":c.ocean_context064.regions[c.OceanWorld064.REMOTE].approaches[0].position,"heading":0.0,"path":[],"destination":""}
+	var waiting: Dictionary=c.OceanWorld064.prepare_player(wait_pose,c.ocean_context064,c.Routes.clearance(c))
+	if not check(waiting.get("ok",false),"Declared player-only Glasswind waiting pose passes ordinary safe-water preparation"):return false
+	var before_wait: Dictionary=c.state.duplicate(true)
+	c._publish_location064(waiting.location)
+	for key in ["world064","position","heading","path","destination"]:before_wait[key]=c.state[key].duplicate(true) if c.state[key] is Dictionary or c.state[key] is Array else c.state[key]
+	if not check(waiting_assets!=var_to_bytes(c.state) and var_to_bytes(before_wait)==var_to_bytes(c.state),"Declared waiting pose changes only player spatial fields; no NPC, resource, knowledge or clock writes"):return false
+	receipt.declaredWait085={"location":c.world_location064(),"earnedVoyage":false,"npcPosesChanged":false}
 	for _piece in range(400):
 		corridor085=c.ShippingFlow068.corridor075(c.state).duplicate(true)
 		if not corridor085.is_empty():break
@@ -63,8 +74,10 @@ func opening085() -> bool:
 	var owner: Dictionary=c.fleet_owner(defender085)
 	for id in [str(corridor085.remoteId),str(corridor085.originId)]:
 		if c.port(id).get("faction")==owner.get("faction"):target085=id;break
-	receipt.actualCorridor085={"corridor":corridor085,"ownerId":defender085,"faction":owner.get("faction"),"targetId":target085,"order":owner.get("order",{}).duplicate(true)}
+	receipt.actualCorridor085={"corridor":corridor085,"ownerId":defender085,"faction":owner.get("faction"),"targetId":target085,"order":owner.get("order",{}).duplicate(true),"day":c.state.day,"route":c.state.shipping068.model.route.duplicate(true),"endpoints":[str(corridor085.originId),str(corridor085.remoteId)].map(func(id):return {"id":id,"faction":c.port(id).get("faction"),"regionId":c.port(id).get("regionId")}),"owner":owner.duplicate(true),"playerCoins":c.state.coins,"cargo":c.state.cargo.duplicate(true),"payrollPerDay":c.Economy.daily_upkeep(c.state.fleet).wages,"minimumLocalControlCoins":800+2*int(c.Economy.daily_upkeep(c.state.fleet).wages)}
+	if target085.is_empty():receipt.status="INELIGIBLE_CORRIDOR_CONTEXT"
 	if not check(not target085.is_empty(),"The actual corridor has a harbor governed by this actual merchant's faction; no reflagged or invented defender"):return false
+	if context_only:return true # Endpoint match only; no presence/battle/control claim.
 	source085=str(corridor085.originId) if target085==str(corridor085.remoteId) else str(corridor085.remoteId)
 	var source: Dictionary=c.port(source085)
 	var assets: PackedByteArray=var_to_bytes([c.state.fleet,c.state.fleetOwners,c.state.businesses,c.state.ports,c.state.cargo,c.state.coins])
@@ -179,7 +192,16 @@ func control085() -> bool:
 func _run() -> void:
 	receipt.fixture="remote_control085";receipt.earnedControl085=false;receipt.erase("earnedVoyage")
 	receipt.encounters085=[];receipt.supplyInvoices085=[];receipt.contests085=[]
-	if check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies private artifacts/profile") and opening085() and control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
+	var context_only: bool=OS.get_cmdline_user_args().has("--qa-eligibility085")
+	receipt.diagnosticOnly=context_only
+	if check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies private artifacts/profile"):
+		if context_only:
+			if opening085(true):receipt.status="MATCHING_ENDPOINT_CONTEXT_ONLY"
+			if c!=null and not c.state.is_empty():
+				var saved: Dictionary=parsed_save("remote-control085-context")
+				var path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("career070-remote-control085-context.json")
+				if not saved.is_empty():receipt.contextArtifact085={"path":path,"sha256":FileAccess.get_sha256(path),"pendingDays":c.pending_days,"status":receipt.status,"scope":"Actual diagnostic context only; no remote control, earned voyage or defender presence accepted."}
+		elif opening085() and control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
 	if workers.group_id>=0:workers.finish(true)
 	c=null
 	receipt.elapsedMs=Time.get_ticks_msec()-started
@@ -192,4 +214,4 @@ func _run() -> void:
 		if file:file.store_string(JSON.stringify(receipt,"\t"));file.close()
 	print("REMOTE085_RESULT ",JSON.stringify(receipt))
 	print("%d checks, %d failures"%[checks,failures])
-	quit(0 if failures==0 and receipt.earnedControl085 else 1)
+	quit(0 if failures==0 and (receipt.earnedControl085 or (context_only and receipt.status=="MATCHING_ENDPOINT_CONTEXT_ONLY")) else 1)
