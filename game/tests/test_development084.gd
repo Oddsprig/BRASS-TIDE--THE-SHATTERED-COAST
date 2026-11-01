@@ -560,6 +560,18 @@ func closing_accounts() -> bool:
 
 func finish() -> void:
 	if workers.group_id >= 0: workers.finish(true)
+	if c != null and complete and failures == 0 and not expired:
+		var directory: String = OS.get_environment("GAME_TEST_ARTIFACTS")
+		if check(directory.is_absolute_path(), "Root supplies the private completed-state directory"):
+			var path: String = directory.path_join("development084-completed.json")
+			var file = FileAccess.open(path, FileAccess.WRITE)
+			if check(file != null, "Actual completed development state opens in Root's artifact directory"):
+				# Main.save_game writes this whole-state JSON; Campaign has no save_game method.
+				file.store_string(JSON.stringify(c.state, "\t"))
+				var write_error: int = file.get_error()
+				file.close()
+				if check(write_error == OK, "Actual completed development state is written: " + str(write_error)):
+					artifacts.append({"kind":"completed_state", "path":path, "sha256":FileAccess.get_sha256(path)})
 	workers = null
 	c = null
 	var elapsed: int = Time.get_ticks_msec() - started
