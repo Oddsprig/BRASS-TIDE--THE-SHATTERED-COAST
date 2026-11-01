@@ -1,0 +1,14 @@
+BRASS TIDE v0.079 - LIGHT-FLEET RESPONSIVENESS
+
+This scoped change reuses an equipment-status check that already happened
+while preparing current tactical display information. It reduces repeated
+inspection work without changing the30Hz combat worker,100ms role decisions,
+actual boats, weapons, damage, orders or ownership.
+
+Public inspections still refresh their own information. Published boat,
+condition, mount, HUD and pose data remain detached from live worker state.
+Retirement still joins the owned work and restores physical campaign records.
+
+Actual native checks, Windows startup and rendered300-point light/mixed battle
+measurements are recorded in tests/. Source inspection alone establishes no
+speed gain. Overall combat quality and the later079-088 scopes remain open.

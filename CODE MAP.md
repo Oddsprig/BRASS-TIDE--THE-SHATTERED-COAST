@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.078: Campaign clarity and quality review. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: career_costs.gd, guidance_ui.gd, story_ui.gd, voyage_ui.gd, runtime_profile043.gd.
+v0.079: Light-fleet responsiveness. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: battle_driver051.gd, tactical_runtime.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
