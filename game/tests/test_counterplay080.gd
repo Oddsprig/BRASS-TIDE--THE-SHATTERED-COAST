@@ -124,18 +124,29 @@ func audit080(before: Dictionary,after: Dictionary,events: Array) -> void:
 		event_seq=int(event.seq)
 		if str(event.kind)!="fire":continue
 		var ship: Dictionary=F.find(after,str(event.sourceId));var target: Dictionary=F.find(after,str(event.targetId))
+		var prior: Dictionary=F.find(before,str(event.sourceId))
 		var mounts: Array=after.tactical.mountsById051.get(str(event.sourceId),[])
 		var index: int=int(event.mountIndex)
-		if ship.is_empty() or target.is_empty() or index<0 or index>=mounts.size():issue080("unresolved emitting mount or hostile");continue
+		if ship.is_empty() or target.is_empty() or prior.is_empty() or index<0 or index>=mounts.size() or index>=prior.weaponCooldowns.size() or index>=ship.weaponCooldowns.size():issue080("unresolved emitting mount or hostile");continue
 		var mount: Dictionary=mounts[index];var key: String=str(ship.id)+"/"+str(mount.id)
 		if target.team==ship.team or str(event.mountId)!=str(mount.id) or emitted.has(key):issue080("invalid hostile/mount identity or duplicate shot")
-		if shot_times.has(key) and float(event.time)-float(shot_times[key])+0.000001<1.0/float(mount.fireRate):issue080("shot repeated before nominal reload")
-		if not is_equal_approx(B.mount_shot_time(ship,str(mount.id)),float(event.time)) or float(ship.weaponCooldowns[index])+0.000001<1.0/float(mount.fireRate):issue080("shot has no matching actual timestamp/reload")
-		shot_times[key]=float(event.time);emitted[key]=true
+		# One joined step ticks existing timers BEFORE fire. Post-contact mount/status
+		# may differ from fire-time inputs; retain the actual assigned reload instead.
+		var ready_in: float=float(prior.weaponCooldowns[index])
+		if index==0:ready_in=maxf(ready_in,float(prior.cooldown))
+		if not is_finite(ready_in) or ready_in>DT+0.000001:issue080("shot emitted before actual cooldown reached zero")
+		var fired_at: float=float(event.time);var assigned: float=float(ship.weaponCooldowns[index])
+		if shot_times.has(key):
+			var last: Dictionary=shot_times[key]
+			var earliest: float=ceilf(maxf(0.0,float(last.reload)-0.000001)/DT)*DT
+			if fired_at-float(last.time)+0.000001<earliest:issue080("shot repeated before prior assigned reload")
+		if not is_finite(assigned) or assigned<=0.0:issue080("shot lacks positive finite assigned reload")
+		if not is_finite(fired_at) or not is_equal_approx(fired_at,float(after.time)) or not is_equal_approx(B.mount_shot_time(ship,str(mount.id)),fired_at) or not is_equal_approx(B.mount_shot_time(ship,index),fired_at):issue080("shot has no matching public event/mount timestamp")
+		shot_times[key]={"time":fired_at,"reload":assigned};emitted[key]=true
 		costs[str(ship.id)]=float(costs.get(str(ship.id),0.0))+float(mount.ammoCost)
 	for ship: Dictionary in after.ships:
 		var prior: Dictionary=F.find(before,str(ship.id))
-		if float(ship.ammo)<0.0 or not is_equal_approx(float(prior.ammo)-float(ship.ammo),float(costs.get(str(ship.id),0.0))):issue080("whole ammunition debit differs from actual emitted mount costs")
+		if not is_finite(float(prior.ammo)) or not is_finite(float(ship.ammo)) or float(ship.ammo)<0.0 or not is_equal_approx(float(prior.ammo)-float(ship.ammo),float(costs.get(str(ship.id),0.0))):issue080("whole ammunition debit differs from actual emitted mount costs")
 
 func joined_step080(driver,before: Dictionary) -> Dictionary:
 	var wanted: int=int(driver.telemetry().completedSteps)+1
