@@ -1,6 +1,6 @@
 # Brass Tide: next planned versions v0.079-v0.088
 
-Installed and delivered: **v0.079**. The069-078 sequence is complete within its
+Installed and delivered: **v0.079**; active source candidate **v0.080**. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
 Owner31October authorized sequential079-088 implementation. 079 verified scoped; next080 after delivery.
 

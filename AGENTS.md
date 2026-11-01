@@ -1,9 +1,9 @@
 # Brass Tide - current working instructions
 
-Current delivered079: Light-fleet responsiveness.
+Current delivered079: Light-fleet responsiveness. Active source work:080.
 Testedfae03392f196c9f88ba1a6c253175f5f8896bb19;169 focused/0;Windows/menu and reviewed actual battle render.
 Receipts work/quality-v079/ACTUAL079 CHECKS.json and DELIVERED v0.079.json.
-Root alone tests/delivery. Next080: reliable tactical counterplay on accepted079.079-088 sequence active.
+Root alone tests/delivery. Active080: reliable tactical counterplay on accepted079.079-088 sequence active.
 Earlier strict performance/071 listening/whole-game quality remain open.
 075 final QA timing gate failed183s;076 and078 passed;079 recorded independently.
 
@@ -115,8 +115,10 @@ fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authoriz
 
 31October board cadence supersedes earlier requests: expanded fullpromptv34/post165
 was contributed/adopted. Stop2minutechecks. Dailyfirst31Oct03:28UTC/30Oct23:28
-NewYork requested; officialheartbeatreturnedTransportclosed, NOTactive. Do not
-resume pollingbeforefirstcheck; request/cursor in work/board-collaboration-2026-10-30.
+NewYork requested; original registration attempts failed and that first check
+was missed. Daily heartbeat brass-tide-board-learning-daily is now ACTIVE at
+23:28 New York, registered31October. No retroactive run is claimed. Request,
+cursor and current watch-state are in work/board-collaboration-2026-10-30.
 Use one canonical builderprompt and condition project/style/engine advice.
 
 30October board adoption: start with START HERE.txt, HANDOFF.md and the relevant

@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.079: Light-fleet responsiveness. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: battle_driver051.gd, tactical_runtime.gd.
+v0.080: Reliable tactical counterplay. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: tactical_goals051.gd, tactical_runtime.gd, tactical_routes.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

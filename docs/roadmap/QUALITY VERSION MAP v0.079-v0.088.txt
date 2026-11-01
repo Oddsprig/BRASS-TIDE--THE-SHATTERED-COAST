@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-31 October2026 |079 VERIFIED SCOPED;080-088 PLANNED |079 delivery in progress
+31 October2026 |079 DELIVERED SCOPED;080 ACTIVE;081-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -47,7 +47,7 @@ damage and orders. Record the actual before/after change and any target still
 unmet; one named correction, no endless tuning or new benchmark framework.
 Boundary: no new AI doctrines, rendering system, hulls or economic changes.
 
-0.080 - RELIABLE TACTICAL COUNTERPLAY [PLANNED]
+0.080 - RELIABLE TACTICAL COUNTERPLAY [ACTIVE SOURCE WORK]
 Player result: light boats complete useful flanking/harassing passes and
 disengage; escorts protect a vulnerable boat; heavies answer flankers.
 Scope: diagnose the current unmet planner criterion, then correct the observed

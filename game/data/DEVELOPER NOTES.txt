@@ -1,10 +1,10 @@
-BRASS TIDE v0.079 - LIGHT-FLEET RESPONSIVENESS
+BRASS TIDE v0.080 - RELIABLE TACTICAL COUNTERPLAY
 31 October2026 |36 boat designs
 
 THIS VERSION
-- Reuse the validated current equipment-status phase when preparing tactical display information.
-- Avoid repeated inspection work while preserving fresh public reads, mutable-data isolation and existing combat behavior.
-- Measure actual stock300-point fleet response and retain every remaining performance limitation.
+- Finish existing sampled route retries and safe helm responses for boats blocked by nearby traffic.
+- Retain light attack passes, breakaways, escort protection, heavy responses and authoritative player orders.
+- Verify the actual worker path, finite ammunition and a complete bounded encounter; record remaining behavior and performance limits.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.
@@ -12,9 +12,4 @@ Crew remain numerical/fixed asset details; water remains inexpensive.
 The portable tests/ directory contains this build's actual focused verification
 and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Existing30Hz combat worker and100ms role decisions remain. Equipment/owner validation and detached publication remain; this version reuses the current post-step inspection context.
-Read tests/ for actual current measurements and remaining quality targets. No source-only speed/whole-game acceptance claim.
-
-The HUD-only fleet laboratory reuses existing immutable navigation and skips unused ocean-context construction; leaving the Lab restores the original career object. No career initialization or resources are changed.
-
-Unsuccessful child-task joins retain their handles and data. Main completes the remaining joins during explicit battle teardown before ownership and campaign records are released. No sleep, simulation-rate or actor-count change.
+Existing30Hz combat workers,100ms stepped decisions,36hulls,physical mounts and finite resources remain. Actual current receipts and remaining strict performance/behavior limits are in tests/. Staged Lab geometry is not an earned career.

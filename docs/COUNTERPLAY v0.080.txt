@@ -1,0 +1,15 @@
+BRASS TIDE v0.080 - RELIABLE TACTICAL COUNTERPLAY
+SOURCE CANDIDATE; verification and delivery are pending.
+
+Boats blocked by traffic can try another existing route offer. A blocked boat
+can turn at zero throttle only when the integrated movement remains clear of
+terrain and the physical swept hull floor. Existing firing checks remain.
+Losing an automatic screen assignment no longer replaces explicit navigation
+orders with an idle hold. Hold, Move and Withdraw stay player commands.
+
+The scoped review uses existing stock boats and finite ammunition through the
+actual combat worker. A declared laboratory opening is not an earned voyage.
+Current native, rendered and complete-cycle observations belong in tests/;
+source inspection alone proves no completed encounter or performance gain.
+Earlier light-fleet latency, sound listening and whole-game quality are open.
+This version does not claim all fleet sizes, terrain or ship matchups reviewed.

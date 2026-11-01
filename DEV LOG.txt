@@ -1,3 +1,6 @@
+31OCT2026 - v0.080 RELIABLE TACTICAL COUNTERPLAY CANDIDATE
+Existing sampled-route and helm behavior corrected. Native/export/worker/motion acceptance and remaining limits are recorded separately.
+
 31OCT2026 - v0.079 LIGHT-FLEET RESPONSIVENESS CANDIDATE
 Existing post-step status validation reused in tactical display publication. Native/export/runtime acceptance is recorded in this build tests/.
 
