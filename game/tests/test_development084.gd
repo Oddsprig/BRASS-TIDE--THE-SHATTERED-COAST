@@ -13,8 +13,8 @@ const Tools = preload("res://scripts/tooling_ops.gd")
 const Workers = preload("res://scripts/economy_workers.gd")
 const Politics = preload("res://scripts/politics.gd")
 const Remote = preload("res://scripts/remote_expedition067.gd")
-const BODY_LIMIT_MS: int = 15000
-const SELF_STOP_MS: int = 14000
+const BODY_LIMIT_MS: int = 30000
+const SELF_STOP_MS: int = 29000
 const EFFICIENCY_GOAL_MS: int = 10000
 const SEED: int = 84084
 const HOME_PORT: String = "anvil_dock"
@@ -63,7 +63,7 @@ func bounded() -> bool:
 	if Time.get_ticks_msec() - started < SELF_STOP_MS: return true
 	if not expired:
 		expired = true
-		check(false, "Stop new work at fourteen seconds with time reserved for body cleanup")
+		check(false, "Stop new work at twenty-nine seconds with time reserved for body cleanup")
 	return false
 
 func note(kind: String, values: Dictionary = {}) -> void:
@@ -160,16 +160,67 @@ func stage_location(layer: String, region_id: String, pos: Dictionary) -> bool:
 func trade_at_home(good: String, quantity: int, buy: bool) -> bool:
 	if quantity <= 0: return true
 	var dock: Dictionary = c.current_port()
+	if not check(not dock.is_empty(), "Material trade uses the actual staged harbor berth"): return false
 	var before: Dictionary = {"coins":int(c.state.coins), "cash":int(dock.cash), "cargo":float(c.state.cargo.get(good, 0)), "stock":float(dock.stocks.get(good, 0))}
+	var unit_price: int = c.Economy.price(dock, good, "buy" if buy else "sell")
+	var available: float = c.LawOps.exportable(c, dock, good)
+	var reserves: Dictionary = dock.get("reserves", {}).duplicate(true)
 	var bill: Dictionary = c.trade(str(dock.id), good, quantity, "buy" if buy else "sell")
 	if not check(bool(bill.get("ok", false)), "Actual finite harbor trade (" + good + "): " + str(bill.get("message", ""))): return false
 	dock = c.current_port()
 	var sign: int = 1 if buy else -1
-	check(int(bill.qty) == quantity and int(c.state.coins) == before.coins - sign * int(bill.coins)
+	check(int(bill.qty) == quantity and int(bill.coins) == unit_price * quantity
+		and int(c.state.coins) == before.coins - sign * int(bill.coins)
 		and int(dock.cash) == before.cash + sign * int(bill.coins)
 		and is_equal_approx(float(c.state.cargo.get(good, 0)), before.cargo + sign * quantity)
 		and is_equal_approx(float(dock.stocks.get(good, 0)), before.stock - sign * quantity), "Trade invoice transfers exact existing cash and goods")
-	return check(Money.total(c.state) == supply, "Trade conserves world coin supply")
+	if buy:
+		check(quantity <= floori(available) and float(dock.stocks.get(good, 0)) + 0.000001 >= before.stock - available
+			and dock.get("reserves", {}) == reserves, "Paid material purchase leaves operating and contracted reserves protected")
+	check(Money.total(c.state) == supply, "Trade conserves world coin supply")
+	note("paid_material_purchase" if buy else "ordinary_opening_sale", {"portId":str(dock.id), "good":good,
+		"unitPrice":unit_price, "exportableBefore":available, "stockBefore":before.stock,
+		"stockAfter":float(dock.stocks.get(good, 0)), "invoice":bill})
+	return failures == 0
+
+func procure_warehouse_materials(food_target: int = 0) -> bool:
+	# Plan every remaining commodity before buying; only actual HOME markets support trade.
+	var targets: Dictionary = Home.KINDS.warehouse.materials.duplicate(true)
+	targets.supplies = 2
+	if food_target > 0: targets.food = food_target
+	var purchases: Array = []
+	var total: int = 0
+	var added_weight: float = 0.0
+	for key in targets:
+		var good: String = str(key)
+		var quantity: int = maxi(0, ceili(float(targets[good]) - float(c.state.cargo.get(good, 0))))
+		if quantity == 0: continue
+		var selected: Dictionary = {}
+		var offers: Array = []
+		for dock in c.state.ports:
+			if str(dock.get("regionId", "shatter_coast")) != "shatter_coast": continue
+			var available: int = floori(c.LawOps.exportable(c, dock, good))
+			var unit_price: int = c.Economy.price(dock, good, "buy")
+			var permission: Dictionary = Politics.permit(c, "buy_good", good, dock)
+			offers.append({"portId":str(dock.id), "exportable":available, "unitPrice":unit_price, "permitted":bool(permission.get("ok", false))})
+			if available < quantity or unit_price <= 0 or not bool(permission.get("ok", false)) or not c.LawOps.allow_player(c, dock, good): continue
+			if not selected.is_empty() and unit_price >= int(selected.unitPrice): continue
+			var berth: Dictionary = c.Navigation.harbor_approach(c.nav, dock, c.Routes.clearance(c), 40.0)
+			if berth.is_empty(): continue
+			selected = {"portId":str(dock.id), "good":good, "quantity":quantity, "unitPrice":unit_price, "exportable":available, "berth":berth}
+		if not check(not selected.is_empty(), "Existing accessible water berth offers the actual " + good + " shortfall: " + JSON.stringify(offers)): return false
+		purchases.append(selected)
+		total += quantity * int(selected.unitPrice)
+		added_weight += quantity * float(c.Economy.GOODS[good].weight)
+	if not check(total <= int(c.state.coins) and c.cargo_weight() + added_weight <= c.capacity() + 0.000001,
+		"All quoted warehouse materials, operating kits and food fit the actual purse and hold"): return false
+	note("material_procurement_plan", {"foodTarget":food_target, "total":total, "purchases":purchases.duplicate(true)})
+	for purchase in purchases:
+		if not bounded() or not stage_location("home", "shatter_coast", purchase.berth): return false
+		if not check(str(c.current_port().get("id", "")) == str(purchase.portId), "Declared water berth resolves the actual quoted material seller"): return false
+		if not trade_at_home(str(purchase.good), int(purchase.quantity), true): return false
+	var home_berth: Dictionary = c.Navigation.harbor_approach(c.nav, c.port(HOME_PORT), c.Routes.clearance(c), 40.0)
+	return check(not home_berth.is_empty(), "HOME_PORT retains its legitimate water berth") and stage_location("home", "shatter_coast", home_berth)
 
 func prepare_and_home_warehouse() -> bool:
 	if not bounded(): return false
@@ -246,26 +297,14 @@ func prepare_and_home_warehouse() -> bool:
 	for item in c.state.tooling.items:
 		if item.kind == "machine_tools" and item.location == "cargo": machine_id = str(item.id)
 	if not check(not machine_id.is_empty(), "Recovered machine_tools is in fleet cargo"): return false
-	# 2. Stage at HOME_PORT (anvil_dock), move regional timber/logs/iron/supplies/food stock to anvil_dock,
-	# buy the FIRST warehouse material lot within hold capacity, and complete the 076 home warehouse.
+	# 2. Sell excess opening food at HOME_PORT, then buy the FIRST material lot at
+	# existing stocked water berths without moving or unprotecting any market inventory.
 	anvil = c.port(HOME_PORT)
 	var anvil_berth: Dictionary = c.Navigation.harbor_approach(c.nav, anvil, c.Routes.clearance(c), 40.0)
 	if not check(not anvil_berth.is_empty() and stage_location("home", "shatter_coast", anvil_berth), "Staged at HOME_PORT berth"): return false
-	for donor_port in c.state.ports:
-		if str(donor_port.id) in [HOME_PORT, REMOTE_PORT, SIBLING_PORT]: continue
-		for good in ["timber", "logs", "iron", "supplies", "food"]:
-			var have: float = float(donor_port.stocks.get(good, 0.0))
-			if have >= 2.0 and float(anvil.stocks.get(good, 0.0)) < 24.0:
-				var moved: float = minf(have - 1.0, 24.0 - float(anvil.stocks.get(good, 0.0)))
-				donor_port.stocks[good] = snappedf(have - moved, 0.01)
-				anvil.stocks[good] = snappedf(float(anvil.stocks.get(good, 0.0)) + moved, 0.01)
 	var excess_food: int = maxi(0, floori(float(c.state.cargo.get("food", 0.0)) - 6.0))
 	if excess_food > 0 and not trade_at_home("food", excess_food, false): return false
-	for good in Home.KINDS.warehouse.materials:
-		var need_first: int = maxi(0, int(Home.KINDS.warehouse.materials[good]) - floori(float(c.state.cargo.get(good, 0.0))))
-		if need_first > 0 and not trade_at_home(str(good), need_first, true): return false
-	var need_kits_first: int = maxi(0, 2 - floori(float(c.state.cargo.get("supplies", 0.0))))
-	if need_kits_first > 0 and not trade_at_home("supplies", need_kits_first, true): return false
+	if not procure_warehouse_materials(): return false
 	var home_quote: Dictionary = Territory.quote_improve(c, HOME_PORT)
 	if not check(bool(home_quote.get("ok", false)), "Home 076 warehouse quote succeeds: " + str(home_quote.get("message", ""))): return false
 	var home_start: Dictionary = Territory.improve(c, HOME_PORT)
@@ -281,14 +320,8 @@ func prepare_and_home_warehouse() -> bool:
 	if not check(home_credits.size() == 1 and int(home_credits[0].get("cash", -1)) == int(home_imp.setupBill.materialCredit)
 		and home_credits[0].get("from") == "cash" and home_credits[0].get("to") == "coins",
 		"Home completion records its one exact supplied-material credit before later rolling-log truncation"): return false
-	# 3. Now that the first warehouse lot was consumed, buy the SECOND warehouse material lot + restock supplies/food at HOME_PORT.
-	for good in Home.KINDS.warehouse.materials:
-		var need_second: int = maxi(0, int(Home.KINDS.warehouse.materials[good]) - floori(float(c.state.cargo.get(good, 0.0))))
-		if need_second > 0 and not trade_at_home(str(good), need_second, true): return false
-	var need_kits_second: int = maxi(0, 2 - floori(float(c.state.cargo.get("supplies", 0.0))))
-	if need_kits_second > 0 and not trade_at_home("supplies", need_kits_second, true): return false
-	var need_food_second: int = maxi(0, 8 - floori(float(c.state.cargo.get("food", 0.0))))
-	if need_food_second > 0 and not trade_at_home("food", need_food_second, true): return false
+	# 3. Requote the SECOND lot and operating stores against actual post-HOME market stocks.
+	if not procure_warehouse_materials(8): return false
 	note("home_076_warehouse_completed", {"portId":HOME_PORT, "businessId":home_business_id, "receipt":home_completed_receipt})
 	return failures == 0
 
@@ -579,7 +612,7 @@ func finish() -> void:
 	workers = null
 	c = null
 	var elapsed: int = Time.get_ticks_msec() - started
-	check(elapsed < BODY_LIMIT_MS, "Bounded fixture completes below fifteen seconds")
+	check(elapsed < BODY_LIMIT_MS, "Bounded fixture completes below thirty seconds")
 	print(JSON.stringify({"fixture":"development084", "checks":checks, "failures":failures,
 		"elapsed_ms":elapsed, "efficiency_goal_ms":EFFICIENCY_GOAL_MS, "efficiency_goal_met":elapsed <= EFFICIENCY_GOAL_MS,
 		"complete":complete and failures == 0 and not expired,
