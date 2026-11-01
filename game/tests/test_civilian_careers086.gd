@@ -93,17 +93,22 @@ func people(s: Dictionary) -> int:
 func encounter_id(event: Dictionary) -> String:
 	return "%s@%.4f:%s>%s:%s"%[str(event.get("kind","battle")),float(event.get("day",0)),str(event.get("a","")),str(event.get("b","")),str(event.get("winner",""))]
 
-func valid_losses(event: Dictionary) -> int:
-	if not event.has("crewLosses") or not event.has("lossCheck"):return -1
-	var losses: int=int(event.get("crewLosses",-1))
-	var before: int=int(event.get("crewBefore",-1))
-	var after: int=int(event.get("crewAfter",-1))
-	var expected: String="%s:%s:%s:%.4f:%d:%d:%d"%[str(event.get("kind","")),str(event.get("a","")),str(event.get("b","")),float(event.get("day",0)),before,after,losses]
-	if losses<0 or before<after or losses!=before-after or str(event.get("lossCheck",""))!=expected.sha256_text().left(16):return -1
+func valid_losses(event: Dictionary) -> float:
+	# NavalCombat records original crew minus physical survivors for EACH side,
+	# including deaths aboard surviving hulls. Keep the actual numeric values.
+	var losses: float=0.0
+	for key in ["crewLostA","crewLostB"]:
+		if not (event.get(key) is int or event.get(key) is float):return -1.0
+		var lost: float=float(event[key])
+		if not is_finite(lost) or lost<0.0:return -1.0
+		losses+=lost
 	return losses
 
 func record_encounter_events(r: Dictionary) -> bool:
 	var events: Array=c.state.get("navalAi",{}).get("encounters",[])
+	# Validate the entire observed batch before publishing detached records;
+	# neither baseline history nor a rejected batch can mutate the receipt.
+	var recorded: Dictionary=r.encounterRecords.duplicate(true)
 	for raw in events:
 		if not raw is Dictionary:return false
 		var id: String=encounter_id(raw)
@@ -111,14 +116,18 @@ func record_encounter_events(r: Dictionary) -> bool:
 			if raw!=baseline_encounters[id]:return false
 			continue
 		if valid_losses(raw)<0:return false
-		if r.encounterRecords.has(id) and r.encounterRecords[id]!=raw:return false
-		r.encounterRecords[id]=raw.duplicate(true)
+		if recorded.has(id) and recorded[id]!=raw:return false
+		recorded[id]=raw.duplicate(true)
+	r.encounterRecords=recorded
 	return true
 
-func recorded_npc_losses(r: Dictionary) -> int:
+func recorded_npc_losses(r: Dictionary) -> float:
 	if not record_encounter_events(r):return -999999
-	var losses: int=0
-	for raw in r.encounterRecords.values():losses+=valid_losses(raw)
+	var losses: float=0.0
+	for raw in r.encounterRecords.values():
+		var lost: float=valid_losses(raw)
+		if lost<0:return -999999
+		losses+=lost
 	return losses
 
 func encounter_coverage(r: Dictionary) -> bool:
