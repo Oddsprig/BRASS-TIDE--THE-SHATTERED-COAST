@@ -112,11 +112,18 @@ func opening085(context_only: bool=false) -> bool:
 	if not check(not corridor085.is_empty(),"An existing merchant naturally earns funded two-group corridor admission"):return false
 	defender085=str(corridor085.ownerId)
 	var owner: Dictionary=c.fleet_owner(defender085)
-	for id in [str(corridor085.remoteId),str(corridor085.originId)]:
+	# Prefer the matching origin, reached before the merchant's paid-home return.
+	for id in [str(corridor085.originId),str(corridor085.remoteId)]:
 		if c.port(id).get("faction")==owner.get("faction"):target085=id;break
 	receipt.actualCorridor085={"corridor":corridor085,"ownerId":defender085,"faction":owner.get("faction"),"targetId":target085,"order":owner.get("order",{}).duplicate(true),"day":c.state.day,"route":c.state.shipping068.model.route.duplicate(true),"endpoints":[str(corridor085.originId),str(corridor085.remoteId)].map(func(id):return {"id":id,"faction":c.port(id).get("faction"),"regionId":c.port(id).get("regionId")}),"owner":owner.duplicate(true),"playerCoins":c.state.coins,"cargo":c.state.cargo.duplicate(true),"payrollPerDay":c.Economy.daily_upkeep(c.state.fleet).wages,"minimumLocalControlCoins":800+2*int(c.Economy.daily_upkeep(c.state.fleet).wages)}
 	if target085.is_empty():receipt.status="INELIGIBLE_CORRIDOR_CONTEXT"
 	if not check(not target085.is_empty(),"The actual corridor has a harbor governed by this actual merchant's faction; no reflagged or invented defender"):return false
+	var admitted_before: PackedByteArray=protected_state()
+	var admitted: Dictionary=parsed_save("remote-control085-admitted")
+	if admitted.is_empty():return false
+	var admitted_path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("career070-remote-control085-admitted.json")
+	receipt.admittedArtifact085={"path":admitted_path,"sha256":FileAccess.get_sha256(admitted_path),"day":c.state.day,"seed":c.state.seed,"targetId":target085,"ownerId":defender085,"pendingDays":c.pending_days,"pendingEvents":c.events.duplicate(true),"payroll":payroll,"scope":"Actual naturally admitted prefix before source pose, travel, politics or control; no reconstructed preparation or operation outcome. Restore must handle actual pending work and encounters."}
+	if not check(protected_state()==admitted_before,"Saving the actual admitted prefix changes no live state, pending work, events or physical accounts"):return false
 	if context_only:return true # Endpoint match only; no presence/battle/control claim.
 	source085=str(corridor085.originId) if target085==str(corridor085.remoteId) else str(corridor085.remoteId)
 	var source: Dictionary=c.port(source085)
