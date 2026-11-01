@@ -998,8 +998,8 @@ func start_lab(prepare051: Callable=Callable()):
 		ui.toast(built.error,true)
 		return
 	if career_core==null:career_core=core
-	core=Campaign.new(data)
-	# HUD-only laboratory state: never initialize a career economy or read a save.
+	# HUD-only Lab reuses immutable navigation; skip career/ocean initialization and saves.
+	core=Campaign.new(data,core.nav,false)
 	core.state={"coins":0,"day":0.0,"fleet":[]}
 	lab_active=true
 	quick_mode=true
