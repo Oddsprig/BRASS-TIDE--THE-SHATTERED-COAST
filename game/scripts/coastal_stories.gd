@@ -16,6 +16,8 @@ const CATALOG_PATH := "res://data/coastal_stories.json"
 const MAX_EVENTS := 128
 const MAX_CONSEQUENCES := 64
 const CHAINS077 := ["inverted_tide077", "last_soundings077"]
+const CHAINS087 := ["broken_meridian087", "unfinished_keel087", "two_lantern_anchorage087"]
+const KEEL087_SOURCE_PREFIX := "site:unfinished_keel087:"
 const LONGGLASS_SITE077 := "glasswind_keys:abandoned_cache067"
 const LONGGLASS_SOURCE077 := "site:glasswind_keys:abandoned_cache067"
 
@@ -78,7 +80,11 @@ static func _record(state: Dictionary, chain_id: String) -> Dictionary:
 # notified[]}. Progress for chains/stages absent from the catalog is dropped.
 static func ensure(state: Dictionary) -> Dictionary:
 	var stories: Dictionary = state.get("stories", {}) if state.get("stories") is Dictionary else {}
-	stories["catalog"] = _load()
+	var base_catalog: Array = _load()
+	if not (stories.get("chains") is Dictionary):
+		stories["chains"] = {}
+	_ensure_destinations087(state, stories)
+	stories["catalog"] = _apply_destinations087(stories, base_catalog)
 	if not (stories.get("chains") is Dictionary):
 		stories["chains"] = {}
 	for key in ["events", "consequences", "notified"]:
@@ -119,7 +125,7 @@ static func _sight_lead(state: Dictionary, site_id: String) -> void:
 # Journal reads never call this. Existing flags/stages identify earned bearings;
 # Campaign may already have sighted Shatter while charting the rock.
 static func reconcile_knowledge(state: Dictionary, chain_id: String) -> void:
-	if chain_id in CHAINS077:
+	if chain_id in CHAINS077 or chain_id in CHAINS087:
 		var accepted := _record(state, chain_id)
 		if accepted.is_empty():
 			return
@@ -179,6 +185,8 @@ static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
 	var out: Array = []
 	if chain_id == "last_soundings077":
 		return _recovery_sites077(state)
+	if chain_id == "unfinished_keel087":
+		return _recovery_sites087(state)
 	if chain_id != "middle_sea_chart":
 		return out
 	for lead in earned_leads(state, chain_id):
@@ -200,8 +208,8 @@ static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
 
 
 static func _outcome(state: Dictionary, chain_id: String) -> Dictionary:
-	if chain_id in CHAINS077:
-		return _outcome077(state, chain_id)
+	if chain_id in CHAINS077 or chain_id in CHAINS087:
+		return _outcome077(state, chain_id) if chain_id in CHAINS077 else _outcome087(state, chain_id)
 	if chain_id != "middle_sea_chart" or not bool(_record(state, chain_id).get("done", false)):
 		return {}
 	var rights: Dictionary = state.get("storyRights", {})
@@ -240,7 +248,11 @@ static func _npc_defeated(state: Dictionary, owner_id: String) -> bool:
 static func _at_port(core, port_id: String) -> bool:
 	if core != null and core.has_method("current_port"):
 		var dock: Dictionary = core.current_port()
-		return not dock.is_empty() and str(dock.get("id", "")) == port_id
+		if not dock.is_empty() and str(dock.get("id", "")) == port_id:
+			return true
+	if core != null and core.has_method("work_port070"):
+		var remote_dock: Dictionary = core.work_port070()
+		return not remote_dock.is_empty() and str(remote_dock.get("id", "")) == port_id
 	return false
 
 
@@ -293,11 +305,13 @@ static func _location(core, state: Dictionary, chain: Dictionary, stage: Diction
 		else:
 			var site := Exploration.catalog_site(state, str(gate.get("site", "")))
 			if not site.is_empty():
-				return {"kind": "site", "id": str(site["id"]), "name": str(site["name"]), "x": float(site["x"]), "y": float(site["y"])}
+				var s_region: String = Exploration._site_region(site)
+				return {"kind": "site", "id": str(site["id"]), "name": str(site["name"]), "x": float(site["x"]), "y": float(site["y"]), "regionId": s_region, "layer": "home" if s_region == Exploration.HOME_REGION else "local"}
 	var port_id := str(gate.get("port", chain.get("startPort", "")))
 	for p in state.get("ports", []) if state.get("ports") is Array else []:
 		if p is Dictionary and str(p.get("id", "")) == port_id:
-			return {"kind": "port", "id": port_id, "name": str(p.get("name", port_id)), "x": _num(p.get("x", 0.0)), "y": _num(p.get("y", 0.0))}
+			var p_region: String = str(p.get("regionId", Exploration.HOME_REGION))
+			return {"kind": "port", "id": port_id, "name": str(p.get("name", port_id)), "x": _num(p.get("x", 0.0)), "y": _num(p.get("y", 0.0)), "regionId": p_region, "layer": "home" if p_region == Exploration.HOME_REGION else "local"}
 	return {"kind": "port", "id": port_id, "name": port_id, "x": 0.0, "y": 0.0}
 
 
@@ -312,6 +326,8 @@ static func available(core) -> Array:
 	var out: Array = []
 	for chain in catalog(state):
 		if not (chain is Dictionary) or not _record(state, str(chain["id"])).is_empty():
+			continue
+		if str(chain.get("id", "")) in CHAINS087 and not package_available087(state, str(chain.get("id", ""))):
 			continue
 		if not _at_port(core, str(chain.get("startPort", ""))):
 			continue
@@ -420,7 +436,7 @@ static func choose(core, chain_id: String, choice_id: String) -> Dictionary:
 	for lead in choice.get("leads", []) if choice.get("leads") is Array else []:
 		if not (rec["leads"] as Array).has(str(lead)):
 			rec["leads"].append(str(lead))
-		if chain_id in ["middle_sea_chart", "inverted_tide077", "last_soundings077"]:
+		if chain_id in ["middle_sea_chart", "inverted_tide077", "last_soundings077"] or chain_id in CHAINS087:
 			_sight_lead(state, str(lead))
 	var reveal := str(choice.get("reveal", ""))
 	if not reveal.is_empty():
@@ -618,4 +634,337 @@ static func site_reflection(state: Dictionary, site_id: String) -> String:
 		if flags.has("west_soundings077"):
 			return "The west marker's sounding is recorded; the crown and south records remain unfinished."
 		return "Tobin's west-marker lead is entered; no recovery is claimed."
+	for chain_id in CHAINS087:
+		var rec087 := _record(state, str(chain_id))
+		if rec087.is_empty() or not (rec087.get("leads", []) as Array).has(site_id):
+			continue
+		var flags087: Array = rec087.get("flags", [])
+		if bool(rec087.get("done", false)):
+			return str(_outcome087(state, str(chain_id)).get("body", ""))
+		if chain_id == "broken_meridian087":
+			if flags087.has("meridian_full_survey087"):
+				return "Both halves of the outer meridian table are surveyed and sealed. Return to Wren at Reedwater Floats."
+			if flags087.has("meridian_turned_home087"):
+				return "The single-station meridian sight is logged for a safe return to Reedwater Floats; the outer bearing remains unrevealed."
+			if flags087.has("meridian_pushed_far087"):
+				return "The first meridian post is charted and the farther counter-post bearing is computed."
+			return "Wren's broken-meridian lead is entered; chart this outer post before deciding whether to press farther."
+		if chain_id == "unfinished_keel087":
+			if flags087.has("keel_verified_empty087"):
+				return "You verified the slipway cradle was stripped clean; return to Mara at Anvil Dock to close the ledger."
+			if flags087.has("keel_left_intact087"):
+				return "You left the heavy workboat frame on the slipway to preserve voyage margin; return to Mara at Anvil Dock."
+			if flags087.has("keel_recovered_paid087") or flags087.has("paid_keel_source087"):
+				return "Your paid recovery lot from the stranded workboat cradle is recorded; close the slipway ledger at Anvil Dock."
+			if flags087.has("keel_surveyed087"):
+				return "The slipway cradle is surveyed. Weigh a paid recovery lot against hold and crew margins, or leave the frame intact."
+			return "Mara's stranded-slipway lead is entered; complete a full survey before weighing recovery."
+		if chain_id == "two_lantern_anchorage087":
+			if flags087.has("supplied_lantern_berth087"):
+				return "Four repair kits were delivered to brace the lower lantern frame; settle the night-range charter at the harbor desk."
+			if flags087.has("lantern_headland_charted087"):
+				return "The shifted spit alignment is plotted from the headland. Dock at the frontier harbor with four repair kits."
+			return "Tobin's two-lantern headland lead is entered; chart the shifted spit alignment first."
 	return ""
+
+
+static func _raw_site_level087(state: Dictionary, site_id: String) -> int:
+	var ex: Dictionary = state.get("exploration", {}) if state.get("exploration") is Dictionary else {}
+	var sites: Dictionary = ex.get("sites", {}) if ex.get("sites") is Dictionary else {}
+	var rec = sites.get(site_id, null)
+	return int(_num(rec.get("level", 0))) if rec is Dictionary else 0
+
+
+static func _ensure_destinations087(state: Dictionary, stories: Dictionary) -> void:
+	var sector = state.get("sector069", null)
+	if not (sector is Dictionary) or not (sector.get("groups") is Array) or (sector["groups"] as Array).is_empty():
+		stories["destinations087"] = {
+			"schema": 1, "bound": false, "available": false,
+			"status": "unavailable_legacy_two_region",
+			"reason": "Legacy two-region save retains its original two regions; v0.087 remote destination packages require a seeded 48-group ocean world.",
+			"packages": {}
+		}
+		return
+	var existing = stories.get("destinations087", null)
+	var prev_pkgs: Dictionary = existing.get("packages", {}) if existing is Dictionary and bool(existing.get("bound", false)) and existing.get("packages") is Dictionary else {}
+	var chains_book: Dictionary = stories.get("chains", {}) if stories.get("chains") is Dictionary else {}
+	var used_remote: Dictionary = {}
+	var mer_pkg: Dictionary = prev_pkgs.get("broken_meridian087", {}) if prev_pkgs.get("broken_meridian087") is Dictionary else {}
+	var mer_started: bool = chains_book.get("broken_meridian087") is Dictionary and not (chains_book["broken_meridian087"] as Dictionary).is_empty()
+	if not mer_pkg.is_empty() and bool(mer_pkg.get("available", false)):
+		var s1_ok: bool = mer_started or (_raw_site_level087(state, str(mer_pkg.get("firstSiteId", ""))) == 0 and _raw_site_level087(state, str(mer_pkg.get("secondSiteId", ""))) == 0)
+		if s1_ok:
+			used_remote[str(mer_pkg.get("firstRegionId", ""))] = true
+			used_remote[str(mer_pkg.get("secondRegionId", ""))] = true
+		else:
+			mer_pkg = {}
+	var keel_pkg: Dictionary = prev_pkgs.get("unfinished_keel087", {}) if prev_pkgs.get("unfinished_keel087") is Dictionary else {}
+	var keel_started: bool = chains_book.get("unfinished_keel087") is Dictionary and not (chains_book["unfinished_keel087"] as Dictionary).is_empty()
+	if not keel_pkg.is_empty() and bool(keel_pkg.get("available", false)):
+		var k_region: String = str(keel_pkg.get("regionId", ""))
+		var k_site: String = str(keel_pkg.get("siteId", ""))
+		var k_ok: bool = not used_remote.has(k_region) and (keel_started or _raw_site_level087(state, k_site) == 0)
+		if k_ok:
+			used_remote[k_region] = true
+		else:
+			keel_pkg = {}
+	var lan_pkg: Dictionary = prev_pkgs.get("two_lantern_anchorage087", {}) if prev_pkgs.get("two_lantern_anchorage087") is Dictionary else {}
+	var lan_started: bool = chains_book.get("two_lantern_anchorage087") is Dictionary and not (chains_book["two_lantern_anchorage087"] as Dictionary).is_empty()
+	if not lan_pkg.is_empty() and bool(lan_pkg.get("available", false)):
+		var l_site: String = str(lan_pkg.get("siteId", ""))
+		if not lan_started and _raw_site_level087(state, l_site) > 0:
+			lan_pkg = {}
+	if not mer_pkg.is_empty() and not keel_pkg.is_empty() and not lan_pkg.is_empty():
+		return
+	var remote_candidates: Array = []
+	var frontier_candidates: Array = []
+	var tombstones: Dictionary = state.get("wreckSeededSources", {}) if state.get("wreckSeededSources") is Dictionary else {}
+	for raw_group in sector["groups"]:
+		if not (raw_group is Dictionary):
+			continue
+		var group: Dictionary = raw_group
+		var band: String = str(group.get("band", ""))
+		var gid: String = str(group.get("id", ""))
+		var landings: Array = group.get("landings", []) if group.get("landings") is Array else []
+		if landings.is_empty() or not (landings[0] is Dictionary):
+			continue
+		var landing: Dictionary = landings[0]
+		var site_id: String = str(landing.get("id", ""))
+		if site_id.is_empty() or _raw_site_level087(state, site_id) > 0:
+			continue
+		var origin: Dictionary = group.get("oceanOrigin", {}) if group.get("oceanOrigin") is Dictionary else {}
+		var dist: float = Vector2(_num(origin.get("x", 1600.0)) - 1600.0, _num(origin.get("y", 2100.0)) - 2100.0).length()
+		var opp: Dictionary = landing.get("opportunity", {}) if landing.get("opportunity") is Dictionary else {}
+		var opp_kind: String = str(opp.get("kind", "discovery"))
+		if band == "remote" and not used_remote.has(gid) and not tombstones.has(KEEL087_SOURCE_PREFIX + site_id):
+			remote_candidates.append({"regionId": gid, "siteId": site_id, "dist": dist, "opportunity": opp_kind})
+		elif band == "frontier":
+			var harbors: Array = group.get("harbors", []) if group.get("harbors") is Array else []
+			if not harbors.is_empty() and harbors[0] is Dictionary and not str(harbors[0].get("id", "")).is_empty():
+				frontier_candidates.append({"regionId": gid, "siteId": site_id, "portId": str(harbors[0]["id"]),
+					"faction": str(harbors[0].get("faction", "compact")), "dist": dist, "opportunity": opp_kind})
+	remote_candidates.sort_custom(func(a, b): return float(a["dist"]) < float(b["dist"]) if not is_equal_approx(float(a["dist"]), float(b["dist"])) else str(a["regionId"]) < str(b["regionId"]))
+	frontier_candidates.sort_custom(func(a, b): return str(a["regionId"]) < str(b["regionId"]))
+	var seed_val: int = maxi(0, int(_num(state.get("seed", 0))))
+	if mer_pkg.is_empty():
+		if remote_candidates.size() >= 2:
+			var half: int = maxi(1, remote_candidates.size() / 2)
+			var first_idx: int = posmod(seed_val, half)
+			for idx in range(half):
+				var probe: int = posmod(seed_val + idx, half)
+				if str(remote_candidates[probe]["opportunity"]) in ["clue", "discovery"]:
+					first_idx = probe
+					break
+			var first_pick: Dictionary = remote_candidates[first_idx]
+			var second_idx: int = remote_candidates.size() - 1
+			for idx in range(first_idx + 1, remote_candidates.size()):
+				if str(remote_candidates[idx]["opportunity"]) != str(first_pick["opportunity"]):
+					second_idx = idx
+					break
+			var second_pick: Dictionary = remote_candidates[second_idx]
+			mer_pkg = {
+				"available": true,
+				"firstRegionId": str(first_pick["regionId"]), "firstSiteId": str(first_pick["siteId"]), "firstOpportunity": str(first_pick["opportunity"]),
+				"secondRegionId": str(second_pick["regionId"]), "secondSiteId": str(second_pick["siteId"]), "secondOpportunity": str(second_pick["opportunity"])
+			}
+			used_remote[str(first_pick["regionId"])] = true
+			used_remote[str(second_pick["regionId"])] = true
+		else:
+			mer_pkg = {"available": false, "reason": "Insufficient unvisited remote landings remain for a two-station meridian survey."}
+	if keel_pkg.is_empty():
+		var keel_pool: Array = []
+		for cand in remote_candidates:
+			if not used_remote.has(str(cand["regionId"])):
+				keel_pool.append(cand)
+		if not keel_pool.is_empty():
+			var preferred: Array = []
+			for cand in keel_pool:
+				if str(cand["opportunity"]) in ["resource", "hazard"]:
+					preferred.append(cand)
+			var pick_from: Array = preferred if not preferred.is_empty() else keel_pool
+			var k_pick: Dictionary = pick_from[posmod(seed_val + 3, pick_from.size())]
+			keel_pkg = {
+				"available": true,
+				"regionId": str(k_pick["regionId"]), "siteId": str(k_pick["siteId"]),
+				"sourceId": KEEL087_SOURCE_PREFIX + str(k_pick["siteId"]),
+				"opportunity": str(k_pick["opportunity"])
+			}
+			used_remote[str(k_pick["regionId"])] = true
+		else:
+			keel_pkg = {"available": false, "reason": "No unvisited remote landing remains for the unfinished keel slipway."}
+	if lan_pkg.is_empty():
+		if not frontier_candidates.is_empty():
+			var l_pick: Dictionary = frontier_candidates[posmod(seed_val + 5, frontier_candidates.size())]
+			lan_pkg = {
+				"available": true,
+				"regionId": str(l_pick["regionId"]), "siteId": str(l_pick["siteId"]),
+				"portId": str(l_pick["portId"]), "faction": str(l_pick["faction"]),
+				"opportunity": str(l_pick["opportunity"])
+			}
+		else:
+			lan_pkg = {"available": false, "reason": "No unvisited frontier anchorage remains for the two-lantern range."}
+	var any_available: bool = bool(mer_pkg.get("available", false)) or bool(keel_pkg.get("available", false)) or bool(lan_pkg.get("available", false))
+	stories["destinations087"] = {
+		"schema": 1, "bound": true, "available": any_available,
+		"status": "bound_sector069" if any_available else "unavailable_visited",
+		"seed": seed_val,
+		"packages": {
+			"broken_meridian087": mer_pkg,
+			"unfinished_keel087": keel_pkg,
+			"two_lantern_anchorage087": lan_pkg
+		}
+	}
+
+
+static func destinations087(state: Dictionary) -> Dictionary:
+	var stories: Dictionary = state.get("stories", {}) if state.get("stories") is Dictionary else {}
+	var dest = stories.get("destinations087", null)
+	return dest.duplicate(true) if dest is Dictionary else {"schema": 1, "bound": false, "available": false, "status": "unbound", "packages": {}}
+
+
+static func package_available087(state: Dictionary, chain_id: String) -> bool:
+	if not (chain_id in CHAINS087):
+		return true
+	if not state.has("sector069"):
+		return false
+	var stories: Dictionary = state.get("stories", {}) if state.get("stories") is Dictionary else {}
+	var dest = stories.get("destinations087", null)
+	if not (dest is Dictionary) or not bool(dest.get("bound", false)) or not (dest.get("packages") is Dictionary):
+		return false
+	var pkg = dest["packages"].get(chain_id, null)
+	return pkg is Dictionary and bool(pkg.get("available", false))
+
+
+static func _apply_destinations087(stories: Dictionary, base_catalog: Array) -> Array:
+	var dest = stories.get("destinations087", null)
+	if not (dest is Dictionary) or not bool(dest.get("bound", false)) or not (dest.get("packages") is Dictionary):
+		return base_catalog
+	var pkgs: Dictionary = dest["packages"]
+	var out: Array = []
+	for raw in base_catalog:
+		if not (raw is Dictionary):
+			continue
+		var chain: Dictionary = raw.duplicate(true)
+		var cid: String = str(chain.get("id", ""))
+		if cid == "broken_meridian087" and pkgs.get(cid) is Dictionary and bool(pkgs[cid].get("available", false)):
+			var s1: String = str(pkgs[cid].get("firstSiteId", "remote_01_survey"))
+			var s2: String = str(pkgs[cid].get("secondSiteId", "remote_02_survey"))
+			chain["startLead"] = s1
+			for stage in chain.get("stages", []):
+				if not (stage is Dictionary):
+					continue
+				if stage.get("gate") is Dictionary and str(stage["gate"].get("type", "")) == "site":
+					if str(stage["gate"].get("site", "")) == "remote_01_survey":
+						stage["gate"]["site"] = s1
+					elif str(stage["gate"].get("site", "")) == "remote_02_survey":
+						stage["gate"]["site"] = s2
+				for choice in stage.get("choices", []):
+					if choice is Dictionary and choice.get("leads") is Array:
+						var leads: Array = []
+						for lid in choice["leads"]:
+							leads.append(s2 if str(lid) == "remote_02_survey" else str(lid))
+						choice["leads"] = leads
+		elif cid == "unfinished_keel087" and pkgs.get(cid) is Dictionary and bool(pkgs[cid].get("available", false)):
+			var ks: String = str(pkgs[cid].get("siteId", "remote_03_survey"))
+			chain["startLead"] = ks
+			for stage in chain.get("stages", []):
+				if stage is Dictionary and stage.get("gate") is Dictionary and str(stage["gate"].get("site", "")) == "remote_03_survey":
+					stage["gate"]["site"] = ks
+		elif cid == "two_lantern_anchorage087" and pkgs.get(cid) is Dictionary and bool(pkgs[cid].get("available", false)):
+			var ls: String = str(pkgs[cid].get("siteId", "frontier_01_survey"))
+			var lp: String = str(pkgs[cid].get("portId", "frontier_01_harbor_01"))
+			chain["startLead"] = ls
+			for stage in chain.get("stages", []):
+				if not (stage is Dictionary):
+					continue
+				if stage.get("gate") is Dictionary:
+					if str(stage["gate"].get("site", "")) == "frontier_01_survey":
+						stage["gate"]["site"] = ls
+					elif str(stage["gate"].get("port", "")) == "frontier_01_harbor_01":
+						stage["gate"]["port"] = lp
+				for choice in stage.get("choices", []):
+					if choice is Dictionary and choice.get("cost") is Dictionary and str(choice["cost"].get("port", "")) == "frontier_01_harbor_01":
+						choice["cost"]["port"] = lp
+		out.append(chain)
+	return out
+
+
+static func _recovery_sites087(state: Dictionary) -> Array:
+	var out: Array = []
+	var rec := _record(state, "unfinished_keel087")
+	if rec.is_empty():
+		return out
+	for lead in earned_leads(state, "unfinished_keel087"):
+		if int(lead.get("level", 0)) < 3:
+			continue
+		var site_id: String = str(lead.get("id", ""))
+		var source_id: String = KEEL087_SOURCE_PREFIX + site_id
+		var row: Dictionary = lead.duplicate(true)
+		row["sourceId"] = source_id
+		row["sourceExists"] = false
+		row["wreckIds"] = []
+		row["remainingComponents"] = {}
+		row["remainingStores"] = {}
+		for wreck in state.get("wrecks", []):
+			if not (wreck is Dictionary) or str(wreck.get("sourceId", "")) != source_id:
+				continue
+			row["sourceExists"] = true
+			if str(wreck.get("status", "")) != "unclaimed":
+				continue
+			row["wreckIds"].append(str(wreck.get("id", "")))
+			for pair in [["components", "remainingComponents"], ["stores", "remainingStores"]]:
+				for good in wreck.get(pair[0], {}):
+					row[pair[1]][good] = _num(row[pair[1]].get(good, 0.0)) + maxf(0.0, _num(wreck[pair[0]][good]))
+		out.append(row)
+	return out
+
+
+static func _outcome087(state: Dictionary, chain_id: String) -> Dictionary:
+	var rec := _record(state, chain_id)
+	if not bool(rec.get("done", false)):
+		return {}
+	var flags: Array = rec.get("flags", [])
+	var title := ""
+	var body := ""
+	var next_action := "The expedition record is settled; its consequences remain in your journal."
+	if chain_id == "broken_meridian087":
+		if flags.has("meridian_public087") and flags.has("meridian_full_survey087"):
+			title = "The outer meridian table is public"
+			body = "Wren entered your two-station outer meridian drift table into the public coastal register: Reed +4, Compact -2, Wren +7. One finite four-kit sight passage is unlocked at Reedwater Floats for Silt Hollow, subject to actual stocks, treasury funds and a route."
+			next_action = "Check Reedwater Floats for the once-only funded meridian sight-kit passage."
+		elif flags.has("meridian_retained087") and flags.has("meridian_full_survey087"):
+			title = "The outer meridian arc is retained"
+			body = "You filed the baseline with Wren and held the outer meridian arc for Tobin's brokers: Wren -3, Tobin +5. One finite four-kit factor passage is unlocked at Brass Haven for Silt Hollow, subject to actual stocks, treasury funds and a route."
+			next_action = "Check Brass Haven for the once-only funded meridian factor passage."
+		elif flags.has("meridian_partial_filed087") and flags.has("meridian_turned_home087"):
+			title = "The single-post meridian sight is filed"
+			body = "You turned home within reserves after charting the first meridian post and filed an honest single-station sight with Wren: Reed +2, Wren +3. The farther counter-post was never claimed or revealed."
+			next_action = "Single-station sight recorded; no outer charter passage was unlocked."
+	elif chain_id == "unfinished_keel087":
+		if flags.has("keel_ledger_forge087"):
+			title = "The outer slipway ledger is signed at Anvil Dock"
+			body = "You closed the builder forfeiture in Mara's Forge yard registry: Forge +4, Raiders -2, Mara +6."
+		elif flags.has("keel_ledger_private087"):
+			title = "The outer slipway scantlings are kept private"
+			body = "You withheld the slipway scantling notes from the Forge registry for private salvage brokers: Mara -3, Cass +5."
+		if flags.has("keel_recovered_paid087") and flags.has("paid_keel_source087"):
+			body += " Your completed paid recovery lot from the stranded workboat cradle is recorded; remaining slipway stock stays finite."
+		elif flags.has("keel_left_intact087"):
+			body += " You left the heavy frame on the slipway to preserve return hold and ration margins; no salvage lot was claimed."
+		elif flags.has("keel_verified_empty087"):
+			body += " You verified that the surveyed, seeded slipway cradle had been stripped clean; no player recovery was claimed."
+	elif chain_id == "two_lantern_anchorage087":
+		if flags.has("lantern_channel_public087"):
+			title = "The frontier two-lantern range is posted publicly"
+			body = "After charting the headland and delivering four repair kits to brace the lower lantern frame, you posted the relit leading line as an open notice: Reed +4, Compact -2, Wren +5."
+		elif flags.has("lantern_channel_bonded087"):
+			title = "The frontier two-lantern range is bonded"
+			body = "After charting the headland and delivering four repair kits to brace the lower lantern frame, you registered the relit range under Tobin's bonded desk: Compact +4, Reed -2, Tobin +6. One finite four-kit replacement passage is unlocked at Brass Haven for Silt Hollow."
+			next_action = "Check Brass Haven for the once-only funded range-kit replacement passage."
+	if title.is_empty():
+		return {}
+	var effects: Array = []
+	for effect in state.get("stories", {}).get("consequences", []):
+		if effect is Dictionary and str(effect.get("id", "")).begins_with("story:" + chain_id + ":"):
+			effects.append(effect.duplicate(true))
+	return {"title": title, "body": body, "nextAction": next_action, "consequences": effects}

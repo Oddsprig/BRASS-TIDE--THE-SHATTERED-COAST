@@ -14,6 +14,8 @@ static func ensure(c) -> void:
 	Stories.reconcile_knowledge(c.state,"middle_sea_chart")
 	for id in Stories.CHAINS077:
 		Stories.reconcile_knowledge(c.state,str(id))
+	for id in Stories.CHAINS087:
+		Stories.reconcile_knowledge(c.state,str(id))
 
 static func start(c,id: String) -> Dictionary:
 	var permission: Dictionary=c.Politics.permit(c,"service")
@@ -36,6 +38,8 @@ static func apply_pending(c) -> void:
 		# collapse different targets into one execution id; journal ids stay readable.
 		if effect_id.begins_with("story:inverted_tide077:") or effect_id.begins_with("story:last_soundings077:"):
 			effect_id="story077:"+effect_id.sha256_text()
+		elif effect_id.begins_with("story:broken_meridian087:") or effect_id.begins_with("story:unfinished_keel087:") or effect_id.begins_with("story:two_lantern_anchorage087:"):
+			effect_id="story087:"+effect_id.sha256_text()
 		if entry.kind=="faction":c.Factions.adjust(c.state,entry.target,int(entry.amount),entry.reason,effect_id)
 		elif entry.kind=="contact":c.Contacts.record(c.state,entry.target,entry.id,int(entry.amount))
 		entry.applied=true
@@ -50,8 +54,16 @@ static func choose(c,id: String,choice: String) -> Dictionary:
 		if bool(rec.get("done",false)) or str(rec.get("stage",""))!="marked_recovery":return c.fail("Check exhaustion during the active cache stage.")
 		var exhausted: Dictionary=_exhausted_longglass077(c,rec)
 		if not exhausted.ok:return exhausted
+	if id=="unfinished_keel087" and choice=="record_exhausted_keel087":
+		if bool(rec.get("done",false)) or str(rec.get("stage",""))!="decide_keel_recovery":return c.fail("Check slipway exhaustion during the active recovery stage.")
+		var keel_exhausted: Dictionary=_exhausted_keel087(c,rec)
+		if not keel_exhausted.ok:return keel_exhausted
+	if id=="unfinished_keel087" and choice=="leave_keel_for_margin087":
+		if bool(rec.get("done",false)) or str(rec.get("stage",""))!="decide_keel_recovery":return c.fail("Weigh slipway recovery during the active recovery stage.")
+		var intact: Dictionary=_intact_keel087(c,rec)
+		if not intact.ok:return intact
 	if stage.get("gate",{}).get("type","")=="at_port":
-		var permission: Dictionary=c.Politics.permit(c,"service")
+		var permission: Dictionary=c.Politics.permit(c,"service","",c.work_port070() if c.current_port().is_empty() and c.has_method("work_port070") else {})
 		if not permission.ok:return permission
 	var result: Dictionary=Stories.choose(c,id,choice)
 	if not result.ok:return result
@@ -73,6 +85,7 @@ static func refresh(c) -> void:
 	ensure(c)
 	apply_pending(c)
 	for e in Stories.tick(c):c.log_entry("Coastal lead ready: "+str(e.nextAction))
+	_seed_surveyed_keel087(c)
 
 static func daily(c) -> void:
 	refresh(c)
@@ -108,6 +121,7 @@ static func after_recovery077(c,wreck_id: String,result: Dictionary) -> void:
 	if result.get("ok",false)!=true or result.get("completed",false)!=true:return
 	if not Stories._is_num(result.get("quantity",null)) or float(result.quantity)<=0.0:return
 	var rec: Dictionary=Stories._record(c.state,"last_soundings077")
+	_after_keel_recovery087(c,wreck_id)
 	if rec.is_empty() or bool(rec.get("done",false)) or str(rec.get("stage",""))!="marked_recovery":return
 	if not (rec.get("flags") is Array) or (rec["flags"] as Array).has("paid_longglass077"):return
 	for wreck in c.state.get("wrecks",[]):
@@ -134,4 +148,57 @@ static func _exhausted_longglass077(c,rec: Dictionary) -> Dictionary:
 				if not Stories._is_num(stock[good]) or float(stock[good])<0.0:return c.fail("The cache inventory cannot establish exhaustion.")
 				if float(stock[good])>0.0:return c.fail("The cache still holds real stock; use normal paid recovery or leave it for another voyage.")
 	if not found:return c.fail("The actual Longglass cache is absent; a missing source does not establish exhaustion.")
+	return {"ok":true,"message":""}
+
+static func _seed_surveyed_keel087(c) -> void:
+	if c==null or not (c.get("state") is Dictionary) or not (c.get("events") is Array):return
+	var keel_site: String=c.Salvage._bound_keel_site087(c.state)
+	if keel_site.is_empty():return
+	var rec: Dictionary=Stories._record(c.state,"unfinished_keel087")
+	if rec.is_empty() or bool(rec.get("done",false)):return
+	for ev in c.events:
+		if ev is Dictionary and str(ev.get("kind",""))=="exploration" and str(ev.get("siteId",""))==keel_site and int(ev.get("level",0))>=3:
+			c.Salvage.seed_keel087(c,keel_site)
+			return
+
+static func _after_keel_recovery087(c,wreck_id: String) -> void:
+	var rec: Dictionary=Stories._record(c.state,"unfinished_keel087")
+	if rec.is_empty() or bool(rec.get("done",false)) or not (str(rec.get("stage","")) in ["survey_stranded_slipway","decide_keel_recovery"]):return
+	var source_id: String=c.Salvage.keel087_source(c.state)
+	if source_id.is_empty() or not (rec.get("flags") is Array) or (rec["flags"] as Array).has("paid_keel_source087"):return
+	for wreck in c.state.get("wrecks",[]):
+		if wreck is Dictionary and str(wreck.get("id",""))==wreck_id and str(wreck.get("sourceId",""))==source_id:
+			rec["flags"].append("paid_keel_source087")
+			return
+
+static func _intact_keel087(c,rec: Dictionary) -> Dictionary:
+	if (rec.get("flags",[]) as Array).has("paid_keel_source087"):return c.fail("A paid recovery lot is already recorded for this slipway; log that recovery.")
+	var site_id: String=c.Salvage._bound_keel_site087(c.state)
+	if site_id.is_empty() or Stories._site_level(c.state,site_id)<3:return c.fail("Fully survey the stranded slipway first.")
+	var source_id: String=c.Salvage.keel087_source(c.state)
+	for wreck in c.state.get("wrecks",[]):
+		if not (wreck is Dictionary) or str(wreck.get("sourceId",""))!=source_id:continue
+		if not c.Salvage._strip_items(wreck).is_empty():return {"ok":true,"message":""}
+		return c.fail("The slipway cradle has no remaining stock to leave behind; record verified exhaustion instead.")
+	return c.fail("The canonical slipway workboat source is absent.")
+
+static func _exhausted_keel087(c,rec: Dictionary) -> Dictionary:
+	if (rec.get("flags",[]) as Array).has("paid_keel_source087"):return c.fail("Your paid slipway recovery is already recorded; use that receipt.")
+	var site_id: String=c.Salvage._bound_keel_site087(c.state)
+	if site_id.is_empty() or Stories._site_level(c.state,site_id)<3 or not (rec.get("flags",[]) as Array).has("keel_surveyed087"):
+		return c.fail("Fully survey the stranded slipway and tally its manifest first.")
+	var source_id: String=c.Salvage.keel087_source(c.state)
+	if source_id.is_empty() or c.state.get("wreckSeededSources",{}).get(source_id,false)!=true:
+		return c.fail("The canonical slipway source has not been seeded.")
+	var found: bool=false
+	for wreck in c.state.get("wrecks",[]):
+		if not (wreck is Dictionary) or str(wreck.get("sourceId",""))!=source_id:continue
+		found=true
+		for key in ["components","stores"]:
+			var stock=wreck.get(key,null)
+			if not (stock is Dictionary):return c.fail("The slipway inventory cannot establish exhaustion.")
+			for good in stock:
+				if not Stories._is_num(stock[good]) or float(stock[good])<0.0:return c.fail("The slipway inventory cannot establish exhaustion.")
+				if float(stock[good])>0.0:return c.fail("The slipway cradle still holds recoverable stock; complete a paid recovery or leave the frame for margin.")
+	if not found:return c.fail("The canonical slipway workboat source is absent; a missing source does not establish exhaustion.")
 	return {"ok":true,"message":""}

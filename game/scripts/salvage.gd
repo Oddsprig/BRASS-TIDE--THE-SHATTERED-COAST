@@ -44,6 +44,8 @@ const SITE_FRACTION := 0.30
 const EXPEDITION067_SOURCE := "site:glasswind_keys:abandoned_cache067"
 const EXPEDITION067_STORES := {"engines":1,"copper":8,"supplies":12,"timber":16}
 const EXPEDITION067_SITES := ["glasswind_west_marker","glasswind_crown_log","glasswind_south_wreck"]
+const KEEL087_SOURCE_PREFIX := "site:unfinished_keel087:"
+const KEEL087_STORES := {"engines":1,"iron":6,"supplies":8,"timber":12}
 
 ## Read-only campaign facade for quotes. No Campaign/world constructor, state
 ## swap, economy tick or migration is needed to inspect an ordinary strip/tow.
@@ -336,7 +338,7 @@ static func _repair_from_max(max_hp: float) -> Dictionary:
 # Idempotent per source_id: re-recording the same battle returns the existing
 # records and adds nothing. Returns copies of the records for that source.
 static func record_battle(core, battle: Dictionary, source_id: String) -> Array:
-	if source_id==EXPEDITION067_SOURCE:return []
+	if source_id==EXPEDITION067_SOURCE or source_id.begins_with(KEEL087_SOURCE_PREFIX):return []
 	if core == null or not (core.get("state") is Dictionary):
 		return []
 	var state: Dictionary = core.state
@@ -422,7 +424,7 @@ static func seed_site_wreck(core, site: Dictionary, hull_id: String, source_id: 
 		return {}
 	# This named historical source has one fixed cargo-only birth below. Neither
 	# a raw generic seeder nor a changed caller manifest may manufacture it.
-	if source_id==EXPEDITION067_SOURCE or site.get("regionId")=="glasswind_keys" or str(site.get("id","")) in EXPEDITION067_SITES:return {}
+	if source_id==EXPEDITION067_SOURCE or source_id.begins_with(KEEL087_SOURCE_PREFIX) or site.get("regionId")=="glasswind_keys" or str(site.get("id","")) in EXPEDITION067_SITES:return {}
 	var state: Dictionary = core.state
 	ensure(state)
 	var source := source_id if not source_id.is_empty() else "site:%s" % str(site.get("id", ""))
@@ -479,6 +481,8 @@ static func validate_expedition067(state: Dictionary) -> String:
 		for id in EXPEDITION067_SITES:
 			var progress=ex.sites.get(id,{})
 			if not progress is Dictionary or not _is_num(progress.get("level")) or progress.level!=3 or not progress.get("rewarded") is bool or progress.rewarded!=true:return "Expedition cache needs three completed surveys."
+	var keel_error: String=validate_keel087(state)
+	if not keel_error.is_empty():return keel_error
 	return ""
 
 ## Historical abandoned stores, never a new canonical hull/crew/equipment owner.
@@ -530,8 +534,165 @@ static func seed_expedition067(core,site: Dictionary) -> Dictionary:
 
 static func _is_expedition067(state: Dictionary,id: String) -> bool:
 	for row in state.get("wrecks",[]):
-		if row is Dictionary and row.get("id")==id and row.get("sourceId")==EXPEDITION067_SOURCE:return true
+		if row is Dictionary and row.get("id")==id and (row.get("sourceId")==EXPEDITION067_SOURCE or str(row.get("sourceId","")).begins_with(KEEL087_SOURCE_PREFIX)):return true
 	return false
+
+static func _sector_landing087(state: Dictionary,site_id: String,expected_band: String="") -> Dictionary:
+	var sector=state.get("sector069",{})
+	if not sector is Dictionary or not sector.get("groups") is Array:return {}
+	for group in sector.groups:
+		if not group is Dictionary:continue
+		if not expected_band.is_empty() and str(group.get("band",""))!=expected_band:continue
+		var landings=group.get("landings",[])
+		if not landings is Array:continue
+		for landing in landings:
+			if landing is Dictionary and str(landing.get("id",""))==site_id:
+				var out: Dictionary=landing.duplicate(true)
+				out["regionId"]=str(landing.get("regionId",group.get("id","")))
+				out["band"]=str(group.get("band",""))
+				return out
+	return {}
+
+static func _bound_keel_site087(state: Dictionary) -> String:
+	var stories=state.get("stories",{})
+	if not stories is Dictionary or not stories.get("destinations087") is Dictionary:return ""
+	var dest: Dictionary=stories.destinations087
+	if not bool(dest.get("bound",false)) or not dest.get("packages") is Dictionary:return ""
+	var pkg=dest.packages.get("unfinished_keel087",{})
+	if not pkg is Dictionary or not bool(pkg.get("available",false)):return ""
+	return str(pkg.get("siteId",""))
+
+static func validate_keel087(state: Dictionary) -> String:
+	var stories=state.get("stories",{})
+	if stories is Dictionary and stories.has("destinations087"):
+		var dest=stories.get("destinations087")
+		if not dest is Dictionary:return "Invalid v0.087 remote destination bindings."
+		if not state.has("sector069"):
+			if bool(dest.get("bound",false)) or bool(dest.get("available",false)):return "Legacy two-region save cannot bind v0.087 sector destinations."
+		elif bool(dest.get("bound",false)):
+			var pkgs=dest.get("packages")
+			if not pkgs is Dictionary:return "Invalid v0.087 destination packages."
+			var seen_regions: Dictionary={}
+			var mer=pkgs.get("broken_meridian087",{})
+			if mer is Dictionary and bool(mer.get("available",false)):
+				var s1: Dictionary=_sector_landing087(state,str(mer.get("firstSiteId","")),"remote")
+				var s2: Dictionary=_sector_landing087(state,str(mer.get("secondSiteId","")),"remote")
+				if s1.is_empty() or s2.is_empty() or str(s1.regionId)!=str(mer.get("firstRegionId","")) or str(s2.regionId)!=str(mer.get("secondRegionId","")) or str(s1.regionId)==str(s2.regionId):
+					return "Invalid Broken Meridian destination binding."
+				seen_regions[str(s1.regionId)]=true
+				seen_regions[str(s2.regionId)]=true
+				var mer_rec=stories.get("chains",{}).get("broken_meridian087",{}) if stories.get("chains") is Dictionary else {}
+				if mer_rec is Dictionary and mer_rec.get("flags") is Array and mer_rec.get("leads") is Array:
+					if mer_rec.flags.has("meridian_turned_home087") and (mer_rec.leads.has(str(s2.id)) or mer_rec.flags.has("meridian_pushed_far087") or mer_rec.flags.has("meridian_full_survey087")):
+						return "Turned-home meridian record cannot reveal or claim the second outer landing."
+			var keel=pkgs.get("unfinished_keel087",{})
+			if keel is Dictionary and bool(keel.get("available",false)):
+				var ks: Dictionary=_sector_landing087(state,str(keel.get("siteId","")),"remote")
+				if ks.is_empty() or str(ks.regionId)!=str(keel.get("regionId","")) or seen_regions.has(str(ks.regionId)) or str(keel.get("sourceId",""))!=KEEL087_SOURCE_PREFIX+str(ks.id):
+					return "Invalid Unfinished Keel destination binding."
+				seen_regions[str(ks.regionId)]=true
+			var lan=pkgs.get("two_lantern_anchorage087",{})
+			if lan is Dictionary and bool(lan.get("available",false)):
+				var ls: Dictionary=_sector_landing087(state,str(lan.get("siteId","")),"frontier")
+				var port_id: String=str(lan.get("portId",""))
+				var port_ok: bool=false
+				for p in state.get("ports",[]) if state.get("ports") is Array else []:
+					if p is Dictionary and str(p.get("id",""))==port_id and str(p.get("regionId",""))==str(lan.get("regionId","")):port_ok=true;break
+				if ls.is_empty() or str(ls.regionId)!=str(lan.get("regionId","")) or not port_ok:
+					return "Invalid Two-Lantern Anchorage destination binding."
+	if not state.has("sector069") and stories is Dictionary and stories.get("chains") is Dictionary:
+		for cid in ["broken_meridian087","unfinished_keel087","two_lantern_anchorage087"]:
+			var rec=stories.chains.get(cid,{})
+			if rec is Dictionary and (not str(rec.get("stage","")).is_empty() or bool(rec.get("done",false)) or not (rec.get("flags",[]) as Array).is_empty() or not (rec.get("leads",[]) as Array).is_empty()):
+				return "Legacy two-region save cannot carry active v0.087 sector story progress."
+	var tombstones: Dictionary=state.get("wreckSeededSources",{})
+	var tombstone_sites: Array=[]
+	for key in tombstones:
+		var k: String=str(key)
+		if not k.begins_with(KEEL087_SOURCE_PREFIX):continue
+		if not tombstones[key] is bool or tombstones[key]!=true:return "Invalid slipway cache tombstone."
+		var site_id: String=k.trim_prefix(KEEL087_SOURCE_PREFIX)
+		tombstone_sites.append(site_id)
+		if tombstone_sites.size()>1 or not state.has("sector069"):return "Slipway cache tombstone is duplicated or unsupported on a legacy save."
+		var bound_site: String=_bound_keel_site087(state)
+		if not bound_site.is_empty() and site_id!=bound_site:return "Slipway cache tombstone does not match the bound destination."
+		var landing: Dictionary=_sector_landing087(state,site_id,"remote")
+		if landing.is_empty():return "Slipway cache tombstone names an unknown remote landing."
+		var ex=state.get("exploration",{})
+		var progress=ex.get("sites",{}).get(site_id,{}) if ex is Dictionary and ex.get("sites") is Dictionary else {}
+		if not progress is Dictionary or not _is_num(progress.get("level")) or int(progress.level)!=3 or progress.get("rewarded")!=true:
+			return "Slipway cache tombstone requires a completed level-3 landing survey."
+	var keel_count: int=0
+	for wreck in state.get("wrecks",[]):
+		if not wreck is Dictionary or not str(wreck.get("sourceId","")).begins_with(KEEL087_SOURCE_PREFIX):continue
+		keel_count+=1
+		var source_id: String=str(wreck.get("sourceId",""))
+		var site_id: String=source_id.trim_prefix(KEEL087_SOURCE_PREFIX)
+		if keel_count>1 or not tombstones.has(source_id):return "Slipway cache provenance is duplicated or missing its tombstone."
+		var landing: Dictionary=_sector_landing087(state,site_id,"remote")
+		if landing.is_empty():return "Slipway cache anchor does not match a remote landing."
+		var identity=wreck.get("world064")
+		if not identity is Dictionary or identity.size()!=3 or not _is_num(identity.get("schema")) or int(identity.schema)!=1 or identity.get("layer")!="local" or str(identity.get("regionId",""))!=str(landing.regionId):
+			return "Invalid slipway cache chart provenance."
+		if not _is_num(wreck.get("x")) or not _is_num(wreck.get("y")) or not is_equal_approx(float(wreck.x),float(landing.x)) or not is_equal_approx(float(wreck.y),float(landing.y)):
+			return "Invalid slipway cache coordinates."
+		if wreck.get("hull")!="fenhopper_lighter" or wreck.get("name")!="Stranded Workboat Frame" or wreck.get("hullStripped")!=true:
+			return "Invalid slipway cache identity."
+		if not wreck.get("hullStripped") is bool or str(wreck.get("uid",""))!="" or str(wreck.get("shipId",""))!="" or str(wreck.get("towedBoatUid",""))!="":
+			return "The stranded workboat frame cannot own a living hull."
+		if wreck.has("sourceModuleCondition") or not wreck.get("components") is Dictionary or not wreck.components.is_empty():
+			return "The stranded workboat frame cannot create physical fittings or derived components."
+		if not wreck.get("sourceLoadout",{}) is Dictionary or not wreck.get("sourceLoadout",{}).is_empty():
+			return "The stranded workboat frame has no recoverable equipment."
+		if not wreck.get("stores") is Dictionary:return "Invalid slipway cache stores."
+		for good in wreck.stores:
+			if not KEEL087_STORES.has(good) or not _is_num(wreck.stores[good]) or float(wreck.stores[good])<0 or float(wreck.stores[good])>float(KEEL087_STORES[good]):
+				return "Slipway cache stores exceed their authored source."
+		var remaining: bool=not _strip_items(wreck).is_empty()
+		if wreck.get("status")!=(STATUS_UNCLAIMED if remaining else STATUS_STRIPPED):
+			return "Slipway cache depletion does not match its finite stores."
+	return ""
+
+static func seed_keel087(core,site_id: String) -> Dictionary:
+	if core==null or not core.get("state") is Dictionary or site_id.is_empty():return {}
+	var state: Dictionary=core.state
+	if not state.has("sector069") or not validate_expedition067(state).is_empty():return {}
+	var bound_site: String=_bound_keel_site087(state)
+	if bound_site.is_empty() or bound_site!=site_id:return {}
+	var landing: Dictionary=_sector_landing087(state,site_id,"remote")
+	if landing.is_empty():return {}
+	var region_id: String=str(landing.get("regionId",""))
+	var current=state.get("world064")
+	if not current is Dictionary or current.size()!=3 or not _is_num(current.get("schema")) or int(current.schema)!=1 or current.get("layer")!="local" or str(current.get("regionId",""))!=region_id:return {}
+	var ex=state.get("exploration",{})
+	if not ex is Dictionary or not ex.get("sites") is Dictionary:return {}
+	var record=ex.sites.get(site_id,{})
+	if not record is Dictionary or not _is_num(record.get("level")) or int(record.level)!=3 or record.get("rewarded")!=true:return {}
+	var source_id: String=KEEL087_SOURCE_PREFIX+site_id
+	var existing: Array=_by_source(state,source_id)
+	if not existing.is_empty():return existing[0].duplicate(true)
+	if state.get("wreckSeededSources",{}).has(source_id):return {}
+	if core.has_method("hull") and core.hull("fenhopper_lighter").is_empty():return {}
+	var staged: Dictionary=state.duplicate(true)
+	ensure(staged)
+	var wreck: Dictionary={"id":_next_id(staged),"sourceId":source_id,"shipId":"","uid":"",
+		"hull":"fenhopper_lighter","name":"Stranded Workboat Frame","team":"","friendly":false,
+		"world064":{"schema":1,"layer":"local","regionId":region_id},"x":float(landing.x),"y":float(landing.y),
+		"battleX":0.0,"battleY":0.0,"cause":"stranded slipway frame","day":_num(state.get("day",0)),
+		"stores":KEEL087_STORES.duplicate(true),"components":{},"sourceLoadout":{},
+		"status":STATUS_UNCLAIMED,"claimedMode":"","towedBoatUid":"","hullStripped":true}
+	if staged.wrecks.any(func(row):return row.get("id")==wreck.id):return {}
+	staged.wrecks.append(wreck)
+	staged.wreckSeededSources[source_id]=true
+	_prune(staged)
+	if not validate_expedition067(staged).is_empty() or not is_equal_approx(_goods_weight(wreck.stores),54.0):return {}
+	state.wrecks=staged.wrecks;state.wreckSeq=staged.wreckSeq;state.wreckSeededSources=staged.wreckSeededSources
+	return wreck.duplicate(true)
+
+static func keel087_source(state: Dictionary) -> String:
+	var bound: String=_bound_keel_site087(state)
+	if not bound.is_empty():return KEEL087_SOURCE_PREFIX+bound
+	return ""
 
 
 

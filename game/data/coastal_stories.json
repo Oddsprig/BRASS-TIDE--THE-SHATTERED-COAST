@@ -617,6 +617,457 @@
           ]
         }
       ]
+    },
+    {
+      "id": "broken_meridian087",
+      "title": "The Broken Meridian",
+      "approach": "explorer",
+      "startPort": "reed_floats",
+      "startContact": "contact_sister_wren",
+      "startLead": "remote_01_survey",
+      "summary": "Wren holds an unfinished outer meridian sight. Chart the first mark on a funded outward run, check reserves before the second group, and settle the baseline.",
+      "stages": [
+        {
+          "id": "chart_first_meridian",
+          "title": "Chart the Outer Range Mark",
+          "nextAction": "Chart the first distant landing (remote_01_survey) and weigh fuel, food and kits before pushing on.",
+          "gate": {
+            "type": "site",
+            "site": "remote_01_survey",
+            "level": 2
+          },
+          "body": "Wren's packet names a baseline cut into this outer landing stone. Paired with ordinary outward work, charting it fixes the first meridian leg without a duplicate fee. Its back-sight points to a farther group across open water.",
+          "choices": [
+            {
+              "id": "push_farther_meridian087",
+              "text": "Plot the farther bearing and press on",
+              "next": "survey_far_meridian",
+              "setFlags": [
+                "meridian_first_charted087",
+                "meridian_pushed_far087"
+              ],
+              "leads": [
+                "remote_02_survey"
+              ],
+              "tradeoff": "Reveals only the earned second bearing. Pushing on spends your own voyage reserves; no stores or coins are granted.",
+              "consequences": []
+            },
+            {
+              "id": "turn_home_dated087",
+              "text": "Log the single-leg sight and turn home",
+              "next": "register_meridian_return",
+              "setFlags": [
+                "meridian_first_charted087",
+                "meridian_turned_home087"
+              ],
+              "leads": [],
+              "tradeoff": "Preserves return fuel and rations with a dated partial sight; leaves the second baseline unsurveyed.",
+              "consequences": []
+            }
+          ]
+        },
+        {
+          "id": "survey_far_meridian",
+          "title": "Survey the Farther Baseline",
+          "nextAction": "Fully survey the second distant landing (remote_02_survey) to complete the paired sight.",
+          "gate": {
+            "type": "site",
+            "site": "remote_02_survey",
+            "level": 3
+          },
+          "body": "The second landing holds the companion cairn. A full survey reconciles drift between both outer groups and fixes a deep-sea approach line. Your party works from its own hold; the cairn yields bearings, not cargo.",
+          "choices": [
+            {
+              "id": "record_paired_meridian087",
+              "text": "Record the paired outer meridian survey",
+              "next": "register_meridian_return",
+              "setFlags": [
+                "meridian_full_survey087"
+              ],
+              "leads": [],
+              "tradeoff": "Completes the two-group meridian record. Return travel still depends on your remaining fuel and food.",
+              "consequences": []
+            }
+          ]
+        },
+        {
+          "id": "register_meridian_return",
+          "title": "Settle the Meridian Register",
+          "nextAction": "Return to Reedwater Floats with service access and settle how the sight is entered.",
+          "gate": {
+            "type": "at_port",
+            "port": "reed_floats"
+          },
+          "body": "At Reedwater Floats, Wren reviews your logbook. A completed two-group survey can enter the public register or stay in your private book; a single-leg return is filed honestly as a dated sight.",
+          "choices": [
+            {
+              "id": "publish_full_meridian087",
+              "text": "Enter the two-group meridian in Wren's public register",
+              "next": "done",
+              "requiresFlag": "meridian_full_survey087",
+              "setFlags": [
+                "meridian_public087"
+              ],
+              "tradeoff": "Reed +4, Compact -2, Wren +7. Unlocks one later funded outer passage when stocks and treasury allow.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 4,
+                  "reason": "Published outer meridian survey"
+                },
+                {
+                  "kind": "faction",
+                  "target": "compact",
+                  "amount": -2,
+                  "reason": "Outer meridian entered publicly"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": 7,
+                  "reason": "Returned completed meridian baseline"
+                }
+              ]
+            },
+            {
+              "id": "retain_full_meridian087",
+              "text": "Keep the completed meridian in your private log",
+              "next": "done",
+              "requiresFlag": "meridian_full_survey087",
+              "setFlags": [
+                "meridian_retained087"
+              ],
+              "tradeoff": "Wren -3, Tobin +5. Retains private route notes for one later brokered passage at Brass Haven; no free coins.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": -3,
+                  "reason": "Withheld completed meridian baseline"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 5,
+                  "reason": "Shared private meridian notes"
+                }
+              ]
+            },
+            {
+              "id": "file_partial_meridian087",
+              "text": "File the dated single-leg sight with Wren",
+              "next": "done",
+              "requiresFlag": "meridian_turned_home087",
+              "setFlags": [
+                "meridian_partial_filed087"
+              ],
+              "tradeoff": "Reed +2, Wren +3. Honest partial return; records the first bearing without claiming the farther baseline.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 2,
+                  "reason": "Filed dated outer meridian sight"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": 3,
+                  "reason": "Returned prudent single-leg sight"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unfinished_keel087",
+      "title": "The Unfinished Keel",
+      "approach": "escort",
+      "startPort": "anvil_dock",
+      "startContact": "contact_mara_voss",
+      "startLead": "remote_03_survey",
+      "summary": "Mara Voss holds the slipway ledger for a workboat frame left on an outer shore. Survey the landing, weigh paid recovery against return margin, and close the record.",
+      "stages": [
+        {
+          "id": "survey_stranded_slipway",
+          "title": "Survey the Stranded Slipway",
+          "nextAction": "Fully survey the outer slipway landing (remote_03_survey).",
+          "gate": {
+            "type": "site",
+            "site": "remote_03_survey",
+            "level": 3
+          },
+          "body": "Mara's ledger places an unfinished workboat frame above a remote shingle landing. A full survey checks whether the ways still hold its documented fittings or were stripped. Surveying spawns no free hull or locker parts.",
+          "choices": [
+            {
+              "id": "inspect_keel_manifest087",
+              "text": "Verify the slipway frame against Mara's manifest",
+              "next": "decide_keel_recovery",
+              "setFlags": [
+                "keel_surveyed087"
+              ],
+              "leads": [],
+              "tradeoff": "Opens the recovery choice here. Actual part or lot extraction requires separate paid salvage recovery and hold space.",
+              "consequences": []
+            }
+          ]
+        },
+        {
+          "id": "decide_keel_recovery",
+          "title": "Weigh Recovery Against Reserves",
+          "nextAction": "Complete paid recovery from the seeded workboat source, verify an exhausted slipway, or keep your hold clear for return.",
+          "gate": {
+            "type": "site",
+            "site": "remote_03_survey",
+            "level": 3
+          },
+          "body": "The stranded frame's remaining stock is finite under one permanent source identity. Taking fittings or lots requires a paid recovery transaction and carrier space. If the source is exhausted or too heavy for safe return, log that honestly.",
+          "choices": [
+            {
+              "id": "log_paid_keel_strip087",
+              "text": "Record completed paid recovery from the workboat source",
+              "next": "settle_keel_ledger",
+              "requiresFlag": "paid_keel_source087",
+              "setFlags": [
+                "keel_recovered_paid087"
+              ],
+              "leads": [],
+              "tradeoff": "Requires an actual completed recovery receipt from the seeded source. Grants no extra parts or coins.",
+              "consequences": []
+            },
+            {
+              "id": "leave_keel_for_margin087",
+              "text": "Leave the frame untouched to preserve return margin",
+              "next": "settle_keel_ledger",
+              "setFlags": [
+                "keel_left_intact087"
+              ],
+              "leads": [],
+              "tradeoff": "Keeps hold and crew reserves for the ocean return. Unstripped stock remains finite at the landing.",
+              "consequences": []
+            },
+            {
+              "id": "record_exhausted_keel087",
+              "text": "Verify and log an already exhausted slipway source",
+              "next": "settle_keel_ledger",
+              "setFlags": [
+                "keel_verified_empty087"
+              ],
+              "leads": [],
+              "tradeoff": "Requires a surveyed, seeded source with zero remaining stock. Never refills a depleted landing.",
+              "consequences": []
+            }
+          ]
+        },
+        {
+          "id": "settle_keel_ledger",
+          "title": "Settle the Slipway Ledger",
+          "nextAction": "Return to Anvil Dock with service access and close the keel record with Mara.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "body": "At Anvil Dock, Mara compares your deck log with her yard sheet. Closing the record either releases the salvage provenance to Forge shipwrights or keeps the surveyed build notes with your company.",
+          "choices": [
+            {
+              "id": "close_forge_keel_ledger087",
+              "text": "Sign the slipway provenance into Mara's Forge register",
+              "next": "done",
+              "setFlags": [
+                "keel_ledger_forge087"
+              ],
+              "tradeoff": "Forge +4, Raiders -2, Mara +6. Keeps what you physically recovered; grants no free equipment.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "forge",
+                  "amount": 4,
+                  "reason": "Closed slipway provenance with Forge"
+                },
+                {
+                  "kind": "faction",
+                  "target": "raiders",
+                  "amount": -2,
+                  "reason": "Slipway entered in Forge records"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_mara_voss",
+                  "amount": 6,
+                  "reason": "Returned verified keel ledger"
+                }
+              ]
+            },
+            {
+              "id": "keep_company_keel_notes087",
+              "text": "Keep the surveyed framing notes in your company file",
+              "next": "done",
+              "setFlags": [
+                "keel_ledger_private087"
+              ],
+              "tradeoff": "Mara -3, Cass +5. Preserves private salvage notes for Rust contacts without minting hulls, parts or coins.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_mara_voss",
+                  "amount": -3,
+                  "reason": "Withheld slipway framing notes"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_cass_rye",
+                  "amount": 5,
+                  "reason": "Shared outer slipway bearings"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "two_lantern_anchorage087",
+      "title": "The Two-Lantern Anchorage",
+      "approach": "merchant",
+      "startPort": "brass_haven",
+      "startContact": "contact_tobin_hale",
+      "startLead": "frontier_01_survey",
+      "summary": "Tobin Hale reports a two-lantern bar signal at a distant frontier harbor. Chart the headland, deliver real repair kits into harbor stock, and settle the channel notes.",
+      "stages": [
+        {
+          "id": "chart_lantern_headland",
+          "title": "Chart the Two-Lantern Headland",
+          "nextAction": "Chart the frontier survey landing (frontier_01_survey) to read the paired bar lanterns.",
+          "gate": {
+            "type": "site",
+            "site": "frontier_01_survey",
+            "level": 2
+          },
+          "body": "Above the frontier landing, two iron lantern cages mark a dogleg channel inside the surf. Charting the headland shows how local pilots cross the bar at night. The harbor remains under its saved local faction and service rules.",
+          "choices": [
+            {
+              "id": "record_lantern_alignment087",
+              "text": "Record the two-lantern bar alignment",
+              "next": "supply_lantern_anchorage",
+              "setFlags": [
+                "lantern_headland_charted087"
+              ],
+              "leads": [],
+              "tradeoff": "Identifies the night alignment into the anchorage. Harbor entry and trade still use normal local permissions.",
+              "consequences": []
+            }
+          ]
+        },
+        {
+          "id": "supply_lantern_anchorage",
+          "title": "Supply the Frontier Berth",
+          "nextAction": "Dock at the frontier harbor (frontier_01_harbor_01) with service access and unload 4 repair kits.",
+          "gate": {
+            "type": "at_port",
+            "port": "frontier_01_harbor_01"
+          },
+          "body": "The frontier harbor's lantern frames and tide chains need four repair kits from your hold. Unloading them into real harbor stock proves your company can sustain a distant berth.",
+          "choices": [
+            {
+              "id": "deliver_lantern_kits087",
+              "text": "Unload 4 repair kits into the frontier harbor's stock",
+              "next": "settle_lantern_arrangement",
+              "setFlags": [
+                "supplied_lantern_berth087"
+              ],
+              "cost": {
+                "good": "supplies",
+                "qty": 4.0,
+                "port": "frontier_01_harbor_01"
+              },
+              "tradeoff": "Moves 4 supplies from your hold into harbor stock. Requires service access; pays no instant coin bounty.",
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 4,
+                  "reason": "Delivered kits to frontier berth"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "settle_lantern_arrangement",
+          "title": "Choose the Anchorage Arrangement",
+          "nextAction": "At the frontier harbor (frontier_01_harbor_01), publish the bar alignment or bind it to the local desk.",
+          "gate": {
+            "type": "at_port",
+            "port": "frontier_01_harbor_01"
+          },
+          "body": "With the kits in the storehouse and the bar charted, the local desk and Tobin's factors await your terms: publish the night-channel bearings openly, or register a bonded berth arrangement.",
+          "choices": [
+            {
+              "id": "publish_lantern_channel087",
+              "text": "Publish the two-lantern night bearings openly",
+              "next": "done",
+              "requiresFlag": "supplied_lantern_berth087",
+              "setFlags": [
+                "lantern_channel_public087"
+              ],
+              "tradeoff": "Reed +4, Wren +5, Compact -2. Shares the frontier approach intelligence; grants no free port or hull.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": 4,
+                  "reason": "Published frontier bar bearings"
+                },
+                {
+                  "kind": "faction",
+                  "target": "compact",
+                  "amount": -2,
+                  "reason": "Channel notes released publicly"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_sister_wren",
+                  "amount": 5,
+                  "reason": "Sent frontier channel alignment"
+                }
+              ]
+            },
+            {
+              "id": "bind_local_lantern_desk087",
+              "text": "Register a bonded berth arrangement with Tobin",
+              "next": "done",
+              "requiresFlag": "supplied_lantern_berth087",
+              "setFlags": [
+                "lantern_channel_bonded087"
+              ],
+              "tradeoff": "Compact +4, Tobin +6, Reed -2. Records a client relationship for later funded frontier freight; local sovereignty stays unchanged.",
+              "consequences": [
+                {
+                  "kind": "faction",
+                  "target": "compact",
+                  "amount": 4,
+                  "reason": "Lodged bonded frontier arrangement"
+                },
+                {
+                  "kind": "faction",
+                  "target": "reed",
+                  "amount": -2,
+                  "reason": "Kept bar alignment in bonded books"
+                },
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 6,
+                  "reason": "Established frontier client arrangement"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

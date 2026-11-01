@@ -18,6 +18,18 @@ static func available(c) -> Array:
 			definitions.append(["tide-public077","reed_floats","silt_hollow","supplies",4,"Public tide register: Silt Hollow repair kits"])
 		elif flags.has("tide_bonded077") and not flags.has("tide_public077"):
 			definitions.append(["tide-bonded077","brass_haven","silt_hollow","supplies",4,"Bonded tide register: Silt Hollow repair kits"])
+	var meridian: Dictionary=Stories._record(c.state,"broken_meridian087")
+	if bool(meridian.get("done",false)):
+		var m_flags: Array=meridian.get("flags",[]) if meridian.get("flags") is Array else []
+		if m_flags.has("meridian_full_survey087") and m_flags.has("meridian_public087") and not m_flags.has("meridian_retained087") and not m_flags.has("meridian_turned_home087"):
+			definitions.append(["meridian-public087","reed_floats","silt_hollow","supplies",4,"Public meridian table: Silt Hollow sight kits"])
+		elif m_flags.has("meridian_full_survey087") and m_flags.has("meridian_retained087") and not m_flags.has("meridian_public087") and not m_flags.has("meridian_turned_home087"):
+			definitions.append(["meridian-retained087","brass_haven","silt_hollow","supplies",4,"Retained meridian folio: Silt Hollow factor kits"])
+	var lantern: Dictionary=Stories._record(c.state,"two_lantern_anchorage087")
+	if bool(lantern.get("done",false)):
+		var l_flags: Array=lantern.get("flags",[]) if lantern.get("flags") is Array else []
+		if l_flags.has("supplied_lantern_berth087") and l_flags.has("lantern_channel_bonded087") and not l_flags.has("lantern_channel_public087"):
+			definitions.append(["lantern-bonded087","brass_haven","silt_hollow","supplies",4,"Bonded lantern desk: Silt Hollow range kits"])
 	var p: Dictionary=c.current_port()
 	if p.is_empty():return []
 	var out: Array=[]

@@ -1,0 +1,130 @@
+BRASS TIDE v0.087 - DISTINCT REMOTE DESTINATIONS
+
+Three destination packages sit alongside the existing coastal stories and
+v0.077 exploration chains (`inverted_tide077`, `last_soundings077`) without
+altering those six earlier chains. In a fresh or saved 48-group seeded ocean
+career (`sector069`), `Stories.ensure()` deterministically binds three
+distinct unvisited remote groups plus one unvisited frontier group from the
+campaign seed into `state.stories.destinations087`. None of the three leads
+mints coins, hulls, crew, or cargo by itself; outward preparation uses ordinary
+harbor provisions, recruitment, and funded `VoyageJobs`.
+
+Listed reputation changes are base amounts; ordinary rival reactions also apply.
+Because `Factions.adjust` stores execution IDs truncated to 80 characters,
+v0.087 story consequence IDs use `"story087:" + effect_id.sha256_text()` when
+posting to the faction book while keeping human-readable IDs in the journal.
+
+1. THE BROKEN MERIDIAN (`broken_meridian087`)
+Meet Sister Wren at Reedwater Floats. Her harbor is the Reedwater Commune.
+Hearing the lead enters the first bound remote landing (`firstSiteId` in
+`firstRegionId`) into `leads`. It is not sighted while the fleet remains in
+Shatter Coast; it is sighted only when the expedition reaches that remote local
+chart (`Exploration.discover_near` checks `_site_region(site) == current_region`).
+
+Chart the first meridian post to level 2 (`chart_first_meridian_post`). You
+then choose how to commit your remaining reserves:
+- `push_farther_meridian087`: Commit provisions and crew time to the outer
+  counter-post (`secondSiteId` in `secondRegionId`). Only this choice appends
+  the second remote landing to `leads`. Fully survey that second remote landing
+  to level 3 (`survey_outer_meridian_post`) and record the paired sight
+  (`record_paired_meridian087`, setting `meridian_full_survey087`).
+- `turn_home_dated087`: Turn home within safe return reserves after the first
+  station (`meridian_turned_home087`). The second remote landing is never added
+  to `leads` and never sighted by the story.
+
+Return to Reedwater Floats (`file_meridian_return`):
+- `publish_full_meridian087` (requires `meridian_full_survey087`): Reed +4,
+  Compact -2, Wren +7; sets `meridian_public087` and may unlock one once-only
+  four-kit sight passage at Reedwater Floats (`chainfreight-meridian-public087`
+  to Silt Hollow).
+- `retain_full_meridian087` (requires `meridian_full_survey087`): Wren -3,
+  Tobin +5; sets `meridian_retained087` and may unlock one once-only four-kit
+  factor passage at Brass Haven (`chainfreight-meridian-retained087` to Silt
+  Hollow).
+- `file_partial_meridian087` (requires `meridian_turned_home087`): Reed +2,
+  Wren +3; sets `meridian_partial_filed087` and closes the chain honestly
+  without unlocking outer follow-on freight.
+
+2. THE UNFINISHED KEEL (`unfinished_keel087`)
+Meet Mara Voss at Anvil Dock. Hearing the lead enters one bound unvisited
+remote landing (`siteId` in `regionId`) into `leads`.
+
+Sail to that remote group and complete a full level-3 shore survey
+(`survey_stranded_slipway`). Charting to level 2 does not spawn the slipway
+cradle. When the live level-3 survey completes while `unfinished_keel087` is
+active, `StoryOps.refresh()` calls `Salvage.seed_keel087`, which seeds at most
+one finite cargo-only workboat cradle (`sourceId`:
+`"site:unfinished_keel087:" + siteId`, tombstone in `state.wreckSeededSources`)
+on that remote local chart with finite stores:
+- 1 `engines`, 6 `iron`, 8 `supplies`, 12 `timber` (weight 54.0, empty
+  `components`, no hull shell or equipment UIDs).
+
+Record the slipway manifest (`inspect_keel_manifest087`, setting
+`keel_surveyed087`), then weigh recovery (`decide_keel_recovery`):
+- Paid recovery: Use normal `Campaign.recover_wreck(id, "strip", good, qty)`
+  through `Remote067`. That recovery requires spare able sailors above minimum
+  crew, 0.25 repair kit (`supplies`), hold capacity, elapsed working days, and
+  funded daily wages (`100` coins/sailor-day) and food. Completing at least one
+  positive lot sets `paid_keel_source087` once via `StoryOps.after_recovery077`
+  and enables `log_paid_keel_strip087` (`keel_recovered_paid087`).
+- `leave_keel_for_margin087`: Available only while no paid lot has been taken
+  and positive stock remains on the cradle. Leaves the heavy frame on the
+  slipway (`keel_left_intact087`) to preserve hold and ration margins.
+- `record_exhausted_keel087`: Available only when no paid lot was taken, the
+  slipway landing is surveyed to level 3, the tombstone is set, the canonical
+  wreck row is present, and every store and component is at or below zero. A
+  missing wreck or remaining stock is refused. Sets `keel_verified_empty087`.
+
+Return to Anvil Dock (`settle_keel_ledger`):
+- `close_forge_keel_ledger087`: Forge +4, Raiders -2, Mara +6
+  (`keel_ledger_forge087`).
+- `keep_private_keel_notes087`: Mara -3, Cass +5 (`keel_ledger_private087`).
+Remaining slipway stores stay finite and depleted across save/restore; the
+tombstone prevents refilling or re-seeding.
+
+3. TWO-LANTERN ANCHORAGE (`two_lantern_anchorage087`)
+Meet Tobin Hale at Brass Haven. Hearing the lead binds one unvisited frontier
+group that has both a landing (`siteId`) and a generated frontier harbor
+(`portId`).
+
+Sail to that frontier local chart, chart the headland spit alignment to level 2
+(`chart_lantern_headland`), and record the shifted range
+(`record_lantern_alignment087`, setting `lantern_headland_charted087`).
+
+Dock at the bound frontier harbor (`supply_lantern_anchorage` / ` settle_lantern_channel`;
+`Stories._at_port` and `StoryOps.choose` honor `work_port070()` on remote/frontier
+local charts with normal faction service permission):
+- `deliver_lantern_kits087`: Transfers 4 `supplies` (repair kits) out of
+  `state.cargo.supplies` and adds 4 `supplies` into the frontier harbor's
+  `stocks.supplies`, recording Tobin +4 (`supplied_lantern_berth087`).
+- `post_open_lantern_notice087`: Reed +4, Compact -2, Wren +5
+  (`lantern_channel_public087`).
+- `bind_local_lantern_desk087`: Compact +4, Reed -2, Tobin +6
+  (`lantern_channel_bonded087`), and may unlock one once-only four-kit
+  replacement passage at Brass Haven (`chainfreight-lantern-bonded087` to Silt
+  Hollow).
+
+ONCE-FUNDED FOLLOW-ON FREIGHT
+`chainfreight-meridian-public087` (Reedwater Floats -> Silt Hollow),
+`chainfreight-meridian-retained087` (Brass Haven -> Silt Hollow), and
+`chainfreight-lantern-bonded087` (Brass Haven -> Silt Hollow) each move 4
+`supplies` through `VoyageJobs`. They appear only at their origin harbor when
+the matching outcome flag is set, the rival flag on that chain is absent, the
+offer ID is not in `storyRights.usedOffers`, the origin harbor has at least 4
+`supplies`, a valid water route exists, and the origin harbor's
+`governmentPurse` covers both the material invoice and the passage escrow.
+
+VISITED LANDINGS, LEGACY TWO-REGION SAVES & SAVE VALIDATION
+- If a player visits a bound landing before starting its v0.087 chain,
+  `Stories.ensure()` rebinds that unstarted package to another unvisited
+  remote/frontier landing (`level == 0`). If no unvisited candidate remains,
+  that unstarted package is marked `available: false` and omitted from
+  `Stories.available(c)`.
+- Legacy two-region saves (saves without `sector069`) are never rerolled or
+  mutated into 48-group worlds. Their `destinations087` state is recorded as
+  `bound: false, available: false, status: "unavailable_legacy_two_region"`,
+  and none of `CHAINS087` are offered.
+- Raw save validation (`Salvage.validate_expedition067` ->
+  `Salvage.validate_keel087`) refuses forged or duplicate slipway wrecks,
+  missing tombstones, over-cap slipway stores, legacy saves claiming bound 087
+  destinations, or turned-home meridian saves that also claim the second lead.

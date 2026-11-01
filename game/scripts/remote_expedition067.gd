@@ -57,7 +57,20 @@ static func raw_wreck(state: Dictionary,id: String) -> Dictionary:
 	return found
 
 static func cargo_only(wreck: Dictionary) -> bool:
-	return wreck.get("sourceId")==SOURCE
+	return wreck.get("sourceId")==SOURCE or is_keel087(wreck)
+
+static func is_keel087(wreck: Dictionary) -> bool:
+	return str(wreck.get("sourceId","")).begins_with(Salvage.KEEL087_SOURCE_PREFIX)
+
+static func cache_surveyed(state: Dictionary,wreck: Dictionary) -> bool:
+	if wreck.get("sourceId")==SOURCE:return all_surveyed(state)
+	if is_keel087(wreck):
+		var site_id: String=str(wreck.get("sourceId","")).trim_prefix(Salvage.KEEL087_SOURCE_PREFIX)
+		var ex=state.get("exploration",{})
+		if not ex is Dictionary or not ex.get("sites") is Dictionary:return false
+		var progress=ex.sites.get(site_id,{})
+		return progress is Dictionary and number(progress.get("level"),3,3) and progress.get("rewarded")==true
+	return false
 
 static func spare_crew(state: Dictionary) -> int:
 	var spare: int=0
@@ -177,7 +190,7 @@ static func view(core) -> Dictionary:
 	var wrecks: Array=[]
 	for wreck in state.get("wrecks",[]):
 		if not same_world(state,wreck) or wreck.get("status","")!="unclaimed":continue
-		if cargo_only(wreck) and (not all_surveyed(state) or not Salvage.validate_expedition067(state).is_empty()):continue
+		if cargo_only(wreck) and (not cache_surveyed(state,wreck) or not Salvage.validate_expedition067(state).is_empty()):continue
 		wrecks.append({"id":str(wreck.id),"name":str(wreck.get("name","Marked wreck")),"x":float(wreck.x),"y":float(wreck.y),"world064":identity(wreck),"status":str(wreck.status),"cargoOnly":cargo_only(wreck)})
 		if cargo_only(wreck):summary.cargoOnlyAvailable=true
 	var assignment: Dictionary=state.get("exploration",{}).get("assignment",{})
@@ -228,7 +241,7 @@ static func survey_begin(core,site_id: String,action: String) -> Dictionary:
 
 static func recovery_gate(core,snapshot: Dictionary,id: String,mode: String) -> String:
 	var wreck: Dictionary=raw_wreck(snapshot,id)
-	if not local(snapshot) or not cargo_only(wreck) or not same_world(snapshot,wreck) or not all_surveyed(snapshot):return "Choose a surveyed cargo cache on the current local chart."
+	if not local(snapshot) or not cargo_only(wreck) or not same_world(snapshot,wreck) or not cache_surveyed(snapshot,wreck):return "Choose a surveyed cargo cache on the current local chart."
 	var raw_error: String=validate_saved(snapshot)
 	if not raw_error.is_empty():return raw_error
 	if mode!="strip":return "This collapsed cargo cache offers finite stores only."
