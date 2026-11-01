@@ -157,7 +157,7 @@ static func _seed_surveyed_keel087(c) -> void:
 	var rec: Dictionary=Stories._record(c.state,"unfinished_keel087")
 	if rec.is_empty() or bool(rec.get("done",false)):return
 	for ev in c.events:
-		if ev is Dictionary and str(ev.get("kind",""))=="exploration" and str(ev.get("siteId",""))==keel_site and int(ev.get("level",0))>=3:
+		if ev is Dictionary and str(ev.get("kind",""))=="survey_complete" and str(ev.get("siteId",""))==keel_site and int(ev.get("level",0))>=3:
 			c.Salvage.seed_keel087(c,keel_site)
 			return
 

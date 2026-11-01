@@ -155,6 +155,13 @@ SOURCE REVIEW AND SELECTED VERIFICATION CONTRACT
   exactly unchanged. Any actual boat-store shortfall requires paid resupply
   and covered targets. Needed loose food, repair kits and fuel still require
   real paid purchases and their full cargo targets; no stores are granted.
+- R2 native trigger correction: Exploration.advance emits survey_complete;
+  Campaign publishes that event before StoryOps.refresh. The slipway seeder
+  now listens for that actual completion kind at the exact bound level-3
+  landing. Accepted lead, active chain, current chart, completed finding,
+  finite stores and permanent tombstone checks are unchanged. No fixture
+  wreck/tombstone grant or restore-time seeding is added. Native recheck is
+  pending Root; the original exact seeding/depletion assertions remain.
 - Full-choice alternatives, Two-Lantern native completion and the synthetic
   seed/legacy/corruption sweep are optional diagnostics (--qa-all-choices087),
   not mandatory default acceptance or claims of tested play. Source review of
