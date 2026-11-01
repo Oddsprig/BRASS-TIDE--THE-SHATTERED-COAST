@@ -1,10 +1,10 @@
-BRASS TIDE v0.084 - GENERATED HARBORS THAT CAN DEVELOP
+BRASS TIDE v0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL
 01 November2026 |36 boat designs
 
 THIS VERSION
-- Develop one charted generated harbor into a paid warehouse using actual crew, wages, machinery, materials and capital.
-- Use the actual remote owner and stopped berth for warehouse service and storage.
-- Keep work, original equipment, inventory and business receipts through departure, save/load and return.
+- Extend the existing funded harbor-control operation to one known harbor on an admitted two-group trade corridor.
+- Keep actual original defender, physical chart/berth, crew payroll and delivered support authoritative.
+- Persist the supplied battle/surrender receipt, dated governor change and local access while retaining private assets and island ownership.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

@@ -36,6 +36,8 @@ Current082 music transitions verified; exact native/exportedaudio evidence in wo
 
 084 verified scoped; installation is confirmed by its delivery receipt.
 
+Current source candidate085; desktop remains084 pending verification.
+
 Campaign design: one ocean-covered planet, no major continents. Open seas serve
 the hyperspace role, island groups the system role, and individual islands the
 planet role. Groups can have differently owned islands/harbors. Keep48 seeded
