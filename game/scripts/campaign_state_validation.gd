@@ -231,10 +231,15 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 		var business_ids: Dictionary={}
 		var ports: Array=[]
 		for p in world.PORTS:ports.append(p.id)
+		# Canonical sector/account checks precede this gate during restore.
+		# Only warehouse storage extends to generated harbors in 084.
+		var warehouse_ports: Array=ports.duplicate()
+		for p in Shipping068.harbors069(s):
+			if p.get("regionId", "shatter_coast")!="shatter_coast":warehouse_ports.append(str(p.id))
 		var caps: Dictionary={"warehouse":400,"salvage_yard":600,"workshop":300}
 		var staff: Dictionary={"warehouse":{"laborer":2},"salvage_yard":{"laborer":3,"mechanic":1},"workshop":{"carpenter":3,"mechanic":1}}
 		for b in s.businesses:
-			if not b is Dictionary or not b.get("id") is String or business_ids.has(b.id) or not caps.has(b.get("kind","")) or not b.get("homePort","") in ports:return "Invalid business identity/home."
+			if not b is Dictionary or not b.get("id") is String or business_ids.has(b.id) or not caps.has(b.get("kind","")) or not (b.get("homePort","") in ports or (b.get("kind")=="warehouse" and b.get("homePort","") in warehouse_ports)):return "Invalid business identity/home."
 			business_ids[b.id]=true
 			for key in ["coins","workingCapital","capitalIn","revenue","wagesPaid","dividendsPaid","arrearsHousehold","arrearsExpert","establishedDay","costOfSales","inKindCapital","inKindReturned"]:
 				if not number(b.get(key)):return "Invalid business accounting."

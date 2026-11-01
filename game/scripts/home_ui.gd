@@ -6,15 +6,18 @@ const Politics=preload("res://scripts/politics.gd")
 const Goods=preload("res://scripts/goods.gd")
 
 class ReviewView extends Costs.QuoteView:
+	var home_port_id: String=""
 	var remote_port_id: String=""
 	func _init(c):
 		super._init(c)
+		home_port_id=str(c.current_port().get("id",""))
 		if c!=null and c.has_method("work_port070"):
 			var wp: Dictionary=c.work_port070()
 			if wp.is_empty():
 				var imp_port: String=str(c.state.get("territorial076",{}).get("improvement",{}).get("portId",""))
 				if not imp_port.is_empty():wp=preload("res://scripts/territorial076.gd")._remote_work_port(c,imp_port)
 			remote_port_id=str(wp.get("id",""))
+	func current_port() -> Dictionary:return port(home_port_id)
 	func work_port070() -> Dictionary:return port(remote_port_id)
 	func fail(message: String) -> Dictionary:return {"ok":false,"message":message}
 

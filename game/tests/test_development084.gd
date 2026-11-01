@@ -74,6 +74,17 @@ func note(kind: String, values: Dictionary = {}) -> void:
 func normalized(value) -> String:
 	return JSON.stringify(JSON.parse_string(JSON.stringify(value, "", true)), "", true)
 
+func storage_accounts(state: Dictionary) -> String:
+	var ports: Array = []
+	for port in state.ports:
+		var row: Dictionary = {}
+		for key in ["id", "faction", "cash", "householdPurse", "expertPurse", "governmentPurse", "stocks", "publicStores", "population", "workforce", "recruits", "specialists"]:
+			row[key] = port.get(key)
+		ports.append(row)
+	return normalized([ports, state.coins, state.crewPurse, state.wageArrears, state.debt,
+		state.cargo, state.businesses, state.businessSeq, state.tooling, state.territorial076,
+		state.day, state.econDay, state.world064, state.position, state.sector069, state.islandOwnership069])
+
 func people(state: Dictionary) -> float:
 	var total: float = float(state.get("captives", 0))
 	for port in state.get("ports", []):
@@ -184,10 +195,13 @@ func prepare_and_home_warehouse() -> bool:
 	if not check(Money.total(c.state) == supply and int(c.state.coins) >= 18000, "Declared treasury transfer conserves world coins and funds both warehouse setups"): return false
 	# Stage REMOTE_PORT local workforce/specialists by transferring 48 existing residents (including 8 specialists)
 	# from shatter_spire so Home.quote's free_workers/free_experts requirements hold across Economy.tick_ports without minting people.
+	if not check(int(spire.availableWorkers) >= 48 and int(spire.availableSpecialists) >= 8 and int(spire.specialists) >= 8,
+		"Declared resident transfer uses 48 idle residents including 8 existing available specialists"): return false
+	var specialists_before: int = int(spire.specialists) + int(remote.specialists)
 	spire.population = int(spire.population) - 48
 	spire.workforce = int(spire.workforce) - 48
 	spire.availableWorkers = maxi(0, int(spire.availableWorkers) - 48)
-	spire.specialists = maxi(2, int(spire.specialists) - 8)
+	spire.specialists = int(spire.specialists) - 8
 	spire.specialistWorkers = int(spire.specialists)
 	spire.availableSpecialists = mini(int(spire.specialists), int(spire.availableWorkers))
 	spire.recruits = maxi(0, int(spire.recruits) - 8)
@@ -199,7 +213,8 @@ func prepare_and_home_warehouse() -> bool:
 	remote.specialistWorkers = int(remote.specialists)
 	remote.availableSpecialists = mini(int(remote.specialists), int(remote.availableWorkers))
 	c.Economy.sync_workforce(remote)
-	if not check(people(c.state) == initial_people and c.ShippingFlow068.sector_error069(c.state).is_empty(),
+	if not check(people(c.state) == initial_people and int(spire.specialists) + int(remote.specialists) == specialists_before
+		and c.ShippingFlow068.sector_error069(c.state).is_empty(),
 		"Declared resident/specialist transfer to " + REMOTE_PORT + " conserves world population and passes sector_error069"): return false
 	var boat_id: String = str(c.state.fleet[0].uid)
 	var recruited: Dictionary = c.recruit_crew(boat_id, 2)
@@ -257,6 +272,10 @@ func prepare_and_home_warehouse() -> bool:
 	if not check(str(home_imp.get("status", "")) == "complete" and not home_business_id.is_empty()
 		and Home.business_view(c.state, home_business_id).get("homePort") == HOME_PORT,
 		"Completed 076 home warehouse is recorded at " + HOME_PORT): return false
+	var home_credits: Array = c.state.moneyLog.filter(func(row): return str(row.get("reason", "")) == "076 supplied construction materials credit")
+	if not check(home_credits.size() == 1 and int(home_credits[0].get("cash", -1)) == int(home_imp.setupBill.materialCredit)
+		and home_credits[0].get("from") == "cash" and home_credits[0].get("to") == "coins",
+		"Home completion records its one exact supplied-material credit before later rolling-log truncation"): return false
 	# 3. Now that the first warehouse lot was consumed, buy the SECOND warehouse material lot + restock supplies/food at HOME_PORT.
 	for good in Home.KINDS.warehouse.materials:
 		var need_second: int = maxi(0, int(Home.KINDS.warehouse.materials[good]) - floori(float(c.state.cargo.get(good, 0.0))))
@@ -342,8 +361,14 @@ func remote_improvement_and_service() -> bool:
 	var remote: Dictionary = c.port(REMOTE_PORT)
 	var sibling: Dictionary = c.port(SIBLING_PORT)
 	# Verify UI review models at the remote harbor before starting.
+	var before_review: PackedByteArray = var_to_bytes(c.state)
 	var reg_review: Dictionary = RegionalUI.review(c, "harbor")
 	var home_review: Dictionary = HomeUI.review(c)
+	for review in [reg_review, home_review]:
+		var public_work: Dictionary = c.work_port070()
+		if not check(review.view.current_port().get("id", "") == c.current_port().get("id", "")
+			and review.view.work_port070().get("id", "") == public_work.get("id", "")
+			and var_to_bytes(c.state) == before_review, "Private UI views retain actual core docking IDs without live account writes"): return false
 	if not check(str(reg_review.get("territoryPort", {}).get("id", "")) == REMOTE_PORT
 		and bool(reg_review.get("territoryView", {}).get("supported", false))
 		and not bool(reg_review.get("territoryView", {}).get("controlSupported", true))
@@ -382,11 +407,13 @@ func remote_improvement_and_service() -> bool:
 	# Depart to sibling harbor, serialize, validate, and restore through Campaign.restore.
 	if not stage_location("local", REMOTE_REGION, {"x": float(sibling.x), "y": float(sibling.y)}): return false
 	var saved_mid = JSON.parse_string(JSON.stringify(c.state))
+	var mid_accounts: String = storage_accounts(saved_mid)
 	var val_mid: String = Territory.validate(saved_mid, c.data)
 	if not check(val_mid.is_empty(), "Territorial076.validate accepts withdrawn remote operation on save: " + val_mid): return false
 	c.data = home_data; c.nav = home_nav; c.ocean_context064 = home_context; c.ocean_anchors064 = home_anchors
 	var restored_mid: Dictionary = c.restore(saved_mid)
 	if not check(bool(restored_mid.get("ok", false)), "Campaign.restore succeeds while remote improvement is withdrawn away from berth: " + str(restored_mid.get("message", ""))): return false
+	if not check(storage_accounts(c.state) == mid_accounts, "Withdrawn save/restore retains exact port purses, people, project, stores, machinery and prior home accounts"): return false
 	check(int(c.state.territorial076.improvement.get("paidDays", 0)) == 1
 		and c.state.territorial076.improvement.get("reservedMaterials", {}) == quote.materials
 		and c.state.territorial076.improvement.get("priorCompleted", {}) == home_completed_receipt,
@@ -421,8 +448,24 @@ func remote_improvement_and_service() -> bool:
 		and int(c.state.coins) == completion_coins - payroll_per_day * payroll_days - int(bill.get("netCost", 0)),
 		"Remote completion credits supplied materials once and charges exact net setup cost plus ordinary payroll")
 	var credits: Array = c.state.moneyLog.filter(func(row): return str(row.get("reason", "")) == "076 supplied construction materials credit")
-	check(credits.size() == 2 and int(credits[1].get("cash", -1)) == int(bill.get("materialCredit", -2)),
-		"Money log records one supplied-material credit for home 076 and one for remote 084")
+	var material_payments: Array = c.state.moneyLog.filter(func(row): return str(row.get("reason", "")) == "Home-harbor setup materials and margin")
+	if not check(not credits.is_empty() and int(credits[0].get("cash", -1)) == int(bill.get("materialCredit", -2))
+		and credits[0].get("from") == "cash" and credits[0].get("to") == "coins"
+		and not material_payments.is_empty() and int(material_payments[0].get("cash", -1)) == int(fresh.materialCost) + int(fresh.margin)
+		and material_payments[0].get("from") == "coins" and material_payments[0].get("to") == "cash",
+		"Newest actual remote setup debit and supplied-material credit match the fresh bill and real purse directions"): return false
+	var completed_accounts: String = storage_accounts(c.state)
+	Territory.daily(c)
+	var repeated: Dictionary = Territory.improve(c, REMOTE_PORT)
+	if not check(not bool(repeated.get("ok", true)) and storage_accounts(c.state) == completed_accounts,
+		"Completed remote development cannot repeat setup, material credit, staffing or material consumption"): return false
+	note("remote_setup_payment", {"portId":REMOTE_PORT, "bill":bill.duplicate(true), "credit":credits[0].duplicate(true), "materialPayment":material_payments[0].duplicate(true)})
+	var food_before_store: float = float(c.state.cargo.get("food", 0.0))
+	var stored_in: Dictionary = Home.transfer_goods(c, remote_business_id, "food", 2.0, "in")
+	if not check(bool(stored_in.get("ok", false))
+		and is_equal_approx(float(c.state.cargo.get("food", 0.0)), food_before_store - 2.0)
+		and is_equal_approx(float(Home.business_view(c.state, remote_business_id).get("inventory", {}).get("food", 0.0)), 2.0),
+		"Actual owned food enters remote warehouse before departure and save/load"): return false
 	# Depart to sibling harbor, advance 1 economic day so remote warehouse pays its workforce while player is away, validate save, then return and use storage/capital.
 	sibling = c.port(SIBLING_PORT)
 	if not stage_location("local", REMOTE_REGION, {"x": float(sibling.x), "y": float(sibling.y)}): return false
@@ -444,28 +487,30 @@ func remote_improvement_and_service() -> bool:
 		and Home.business_view(saved_done, remote_business_id).get("homePort") == REMOTE_PORT
 		and Home.business_view(saved_done, home_business_id).get("homePort") == HOME_PORT,
 		"Completed remote warehouse state passes Territorial076, SectorWorld069, and ShippingFlow068 validators: " + val_done + str(val_sec.get("message", "")) + val_acc): return false
-	if c.SaveValidation.CampaignState.validate(saved_done, c.data).is_empty():
-		c.data = home_data; c.nav = home_nav; c.ocean_context064 = home_context; c.ocean_anchors064 = home_anchors
-		var restored_done: Dictionary = c.restore(saved_done)
-		if not check(bool(restored_done.get("ok", false)), "Full Campaign.restore succeeds with completed remote warehouse: " + str(restored_done.get("message", ""))): return false
+	var done_accounts: String = storage_accounts(saved_done)
+	var business_error: String = c.SaveValidation.CampaignState.validate(saved_done, c.data)
+	if not check(business_error.is_empty(), "Completed remote warehouse passes mandatory business validation: " + business_error): return false
+	c.data = home_data; c.nav = home_nav; c.ocean_context064 = home_context; c.ocean_anchors064 = home_anchors
+	var restored_done: Dictionary = c.restore(saved_done)
+	if not check(bool(restored_done.get("ok", false)), "Full Campaign.restore succeeds with completed remote warehouse: " + str(restored_done.get("message", ""))): return false
+	if not check(storage_accounts(c.state) == done_accounts, "Completed save/restore retains exact remote and home business accounts, local purses, staff, stores and ownership"): return false
 	# Return to REMOTE_PORT and exercise usable warehouse storage and capital transfer.
 	remote = c.port(REMOTE_PORT)
 	if not stage_location("local", REMOTE_REGION, {"x": float(remote.x), "y": float(remote.y)}): return false
 	var food_before: float = float(c.state.cargo.get("food", 0.0))
-	var stored_in: Dictionary = Home.transfer_goods(c, remote_business_id, "food", 2.0, "in")
-	if not check(bool(stored_in.get("ok", false))
-		and is_equal_approx(float(c.state.cargo.get("food", 0.0)), food_before - 2.0)
-		and is_equal_approx(float(Home.business_view(c.state, remote_business_id).get("inventory", {}).get("food", 0.0)), 2.0),
-		"Docked at " + REMOTE_PORT + ", player stores 2.0 food in the completed remote warehouse"): return false
+	if not check(is_equal_approx(float(Home.business_view(c.state, remote_business_id).get("inventory", {}).get("food", 0.0)), 2.0),
+		"Returning after actual restore retains the two owned food lots deposited before departure"): return false
 	var loaded_out: Dictionary = Home.transfer_goods(c, remote_business_id, "food", 1.0, "out")
 	if not check(bool(loaded_out.get("ok", false))
-		and is_equal_approx(float(c.state.cargo.get("food", 0.0)), food_before - 1.0)
+		and is_equal_approx(float(c.state.cargo.get("food", 0.0)), food_before + 1.0)
 		and is_equal_approx(float(Home.business_view(c.state, remote_business_id).get("inventory", {}).get("food", 0.0)), 1.0),
 		"Docked at " + REMOTE_PORT + ", player loads 1.0 food back from the remote warehouse"): return false
 	var purse_before_cap: int = int(Home.business_view(c.state, remote_business_id).get("coins", 0))
+	var captain_before_cap: int = int(c.state.coins)
 	var cap_res: Dictionary = Home.capital(c, remote_business_id, 200)
 	if not check(bool(cap_res.get("ok", false))
-		and int(Home.business_view(c.state, remote_business_id).get("coins", 0)) == purse_before_cap + 200,
+		and int(Home.business_view(c.state, remote_business_id).get("coins", 0)) == purse_before_cap + 200
+		and int(c.state.coins) == captain_before_cap - 200,
 		"Player adds 200 working capital to the remote warehouse while docked at " + REMOTE_PORT): return false
 	note("remote_warehouse_service_verified", {"remoteBusiness":Home.business_view(c.state, remote_business_id), "homeBusiness":Home.business_view(c.state, home_business_id)})
 	return failures == 0
