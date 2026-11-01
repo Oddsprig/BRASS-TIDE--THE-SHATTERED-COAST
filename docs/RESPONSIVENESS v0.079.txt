@@ -16,3 +16,22 @@ speed gain. Overall combat quality and the later079-088 scopes remain open.
 Fleet laboratory setup also reuses existing immutable navigation instead of rebuilding unused campaign/ocean contexts for its HUD-only temporary campaign. Career startup is unchanged; leaving the Lab restores the original career.
 
 Unsuccessful child-task joins retain their handles and data. Main completes the remaining joins during explicit battle teardown before ownership and campaign records are released. No sleep, simulation-rate or actor-count change.
+
+ACTUAL079 REVIEW
+169 focused assertions/0, Windows export/menu and two actual retail300DP
+battle measurements passed with clean process exit and owned-child cleanup.
+The legacy R1 timeout and R2/R3 native shutdown failures remain failed;
+a separate old-fresh-read diagnostic is not shipping acceptance.
+
+Light worker-capacityP95:36.460ms (07840.352ms); maxlag149.999ms
+(078167.488ms); snapshotP958.579ms (07818.415ms); observedHold79.583ms.
+Mixed worker-capacityP95:19.228ms; maxlag50.000ms; snapshotP954.972ms;
+observedHold12.776ms. The comparison uses the same stock workloads and
+hardware family, not a controlled causal experiment or long-play guarantee.
+
+The light33.333ms/100ms and catch-up targets remain OPEN. Mixed meets
+worker/lag targets but misses the95percent-within20ms frame target.
+Both rawFPS targets met; rawplanner flags remain unmet. IntentionalHold
+is included by the old stall classifier; actual engage waiting also exists.
+080 addresses tactical counterplay and distinguishes expected holding from
+real stalls. Whole-game quality, listening and broader polish remain open.

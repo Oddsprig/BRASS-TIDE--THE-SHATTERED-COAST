@@ -1,8 +1,8 @@
 # Brass Tide: next planned versions v0.079-v0.088
 
-Installed and delivered: **v0.078**. The069-078 sequence is complete within its
+Installed and delivered: **v0.079**. The069-078 sequence is complete within its
 recorded scopes; battle performance, listening and overall quality remain open.
-Owner31October authorized sequential079-088 implementation. Sourcecandidate079; installed078 remains until delivery.
+Owner31October authorized sequential079-088 implementation. 079 verified scoped; next080 after delivery.
 
 | Version | Focus | Concrete player result |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ Windows package and one current Desktop launcher. Existing owner saves, music,
 settings, older releases and tags are preserved. The end of088 is a review,
 not a guarantee that the game is finished or at Starsector quality.
 
-Current evidence: work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
+Historical078 baseline evidence: work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
 Light workerP9540.352ms/maxlag167.488ms miss33.333ms/100ms; planner targets
 remain unmet. Mixed22.806ms/66.666ms meets those two timing targets. Retain
 all raw measurements and distinctions between stills, motion, listening and play.

@@ -1,15 +1,11 @@
 # Brass Tide - current working instructions
 
-Current delivered078: Campaign clarity and quality review.
-Testedbc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620;306 focused/0;Windows/menu and reviewed private UI.
-Receipts work/quality-v078/ACTUAL078 CHECKS.json and DELIVERED v0.078.json.
-Root alone tests/delivery. Authorized069-078 sequence is complete within bounded scopes.
-Next saved plan079-088: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt.
-Owner31October authorized implementation079 through088. ACTIVE079 only now;
-finish its package/launcher before080. Contract: ../../work/quality-v079/SCOPE079.txt.
-Read the current plan before a later build; start with079 worker cost/lag, no unrelated systems.
+Current delivered079: Light-fleet responsiveness.
+Testedfae03392f196c9f88ba1a6c253175f5f8896bb19;169 focused/0;Windows/menu and reviewed actual battle render.
+Receipts work/quality-v079/ACTUAL079 CHECKS.json and DELIVERED v0.079.json.
+Root alone tests/delivery. Next080: reliable tactical counterplay on accepted079.079-088 sequence active.
 Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 and077 passed;078 recorded independently.
+075 final QA timing gate failed183s;076 and078 passed;079 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the

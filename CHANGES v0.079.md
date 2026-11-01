@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Measure actual stock300-point fleet response and retain every remaining performance limitation.
 
 See docs/TEST RESULTS v0.079.md for actual focused checks and remaining limits.
+
+Verification: 169 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 63.840s. Preserved earlier failures; no broad acceptance claim.

@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-31 October2026 |079 ACTIVE;080-088 PLANNED | Installed game remains v0.078
+31 October2026 |079 VERIFIED SCOPED;080-088 PLANNED |079 delivery in progress
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -32,7 +32,7 @@ CURRENT BASE AND EVIDENCE
   DELIVERED v0.078.json. Actual sourcebc07b63daa9ca92f1b8da1aa4c5dac0c98fcd620.
   Earlier tests, asset reviews and story proofs remain qualified as recorded.
 
-0.079 - LIGHT-FLEET RESPONSIVENESS [IN PROGRESS]
+0.079 - LIGHT-FLEET RESPONSIVENESS [DELIVERED SCOPED; LIGHT LATENCY TARGETS OPEN]
 Player result: busy light-boat battles respond without the simulation falling
 behind the displayed boats.
 Scope: use the existing observer to identify the largest demonstrated worker
