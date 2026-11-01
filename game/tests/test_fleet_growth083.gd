@@ -185,8 +185,13 @@ func declared_loss083() -> bool:
 	c.Manifest.allocate(c.state)
 	lost.team="player";lost.sunk=true;lost.hp=0.0
 	survivor.hp=maxf(1.0,float(survivor.maxHp)-4.0)
-	var battle: Dictionary={"ships":[lost],"result":"retreated","world064":c.world_location064().world064,"engagementSource060":"fixture083-declared-loss"}
+	# Boarding settlement validates the finished battle's RNG even without a
+	# capture. The purchased support hull stays undeployed and keeps its owner.
+	var rng: RandomNumberGenerator=RandomNumberGenerator.new();rng.seed=83083
+	var battle: Dictionary={"ships":[lost],"rng":rng,"reserves":{"player":[survivor],"enemy":[]},"result":"retreated","world064":c.world_location064().world064,"engagementSource060":"fixture083-declared-loss"}
 	var report: Dictionary=c.battle_settled("retreated",[],{"kind":"fixture083","objectiveOnly":true},battle)
+	receipt.declaredSettlement083={"declared":true,"earnedCombat":false,"report":report.duplicate(true),"deployedUids":battle.ships.map(func(b):return str(b.uid)),"reserveUids":battle.reserves.player.map(func(b):return str(b.uid)),"coinsBefore":purses,"coinsAfter":c.state.coins,"worldTotal":c.Money.total(c.state),"fleet":c.state.fleet.map(func(b):return physical_boat(b).duplicate(true)),"survivorSameOwner":is_same(c.find_boat(partner083),survivor),"lostEquipmentPresent":lost.has("moduleCondition"),"lostRetiredTo":lost.get("equipmentRetiredTo","")}
+	print("FLEET083_DECLARED_SETTLEMENT ",JSON.stringify(receipt.declaredSettlement083))
 	if not check(bool(report.get("ok",true)) and c.find_boat(starter083).is_empty() and c.state.fleet.size()==1 and int(c.state.coins)==purses and report.get("wrecks",[]).size()==1,"Declared hull loss publishes one physical wreck, keeps the real survivor and grants no victory/loot coins"):return false
 	var wreck: Dictionary=c.Salvage.find_wreck(c.state,str(report.wrecks[0].id))
 	if not check(str(wreck.uid)==starter083 and wreck.get("sourceModuleCondition") is Dictionary and str(wreck.get("equipmentCustody",""))=="wreck" and not lost.has("moduleCondition") and same_values(wreck.sourceModuleCondition,original.moduleCondition) and str(lost.get("equipmentRetiredTo",""))==str(wreck.id),"Original hull and exact physical equipment transfer to the wreck; the retired source holds no duplicate condition"):return false
