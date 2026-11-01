@@ -1,3 +1,6 @@
+v0.083 VERIFIED SCOPED - 850 native checks/0; earned fleet growth, paid recovery, exported UI.
+Ordinary funded jobs buy a second boat without discounts or grants. Declared loss is not earned combat.
+
 01NOV2026 - v0.083 FLEET GROWTH CANDIDATE
 Full hull/crew and return allowance comparison; prices/rewards retained. Native earned growth and actual UI pending.
 

@@ -1,12 +1,12 @@
 BRASS TIDE - NEXT PLANNED VERSIONS079-088
-30 October2026 | Current079 verified scoped, latency targets open |080-088 PLANNED
+01 November2026 |079-083 verified scoped;084-088 planned. Earlier quality limits remain open.
 Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt
 
 0.079 - LIGHT-FLEET RESPONSIVENESS [VERIFIED SCOPED; LATENCY OPEN]
-0.080 - RELIABLE TACTICAL COUNTERPLAY [PLANNED] [DONE]
-0.081 - COMBAT ART AT NORMAL PLAY ZOOM [PLANNED] [DONE]
-0.082 - WEAPON SOUND AND MUSIC MIX [PLANNED] [DONE]
-0.083 - EARNED FLEET GROWTH [PLANNED]
+0.080 - RELIABLE TACTICAL COUNTERPLAY [VERIFIED SCOPED]
+0.081 - COMBAT ART AT NORMAL PLAY ZOOM [VERIFIED SCOPED]
+0.082 - WEAPON SOUND AND MUSIC MIX [VERIFIED SCOPED]
+0.083 - EARNED FLEET GROWTH [VERIFIED SCOPED]
 0.084 - GENERATED HARBORS THAT CAN DEVELOP [PLANNED]
 0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [PLANNED]
 0.086 - CIVILIAN CAREERS WORTH REPEATING [PLANNED]
@@ -115,21 +115,21 @@ NPC trade, piracy, response and faction battles work independently and pay their
 0.056 - FACTIONS AND CONTACTS [SCOPED BUILD DELIVERED]
 Relationships and remembered work change access, opportunity and safety.
 
-0.057 - REWARDING EXPLORATION [PLANNED] [DONE]
+0.057 - REWARDING EXPLORATION [VERIFIED SCOPED]
 Discoveries, clues and a complete original expedition make detours worthwhile.
 
 
 MILESTONE C - LONG-TERM CAMPAIGN (0.058-0.062)
-0.058 - SALVAGE AND RECOVERY [PLANNED] [DONE]
+0.058 - SALVAGE AND RECOVERY [VERIFIED SCOPED]
 Hull/equipment recovery, stripping and towing compete for real capacity and risk.
 
-0.059 - CIVILIAN CAREERS [PLANNED] [DONE]
+0.059 - CIVILIAN CAREERS [VERIFIED SCOPED]
 Fishing, freight, tankers and passenger/yacht work have viable varied progression.
 
-0.060 - FLEET IDENTITY [PLANNED] [DONE]
+0.060 - FLEET IDENTITY [VERIFIED SCOPED]
 Paid officers, crews and vessel histories create tactical identity and attachment.
 
-0.061 - CHANGING REGION [PLANNED] [DONE]
+0.061 - CHANGING REGION [VERIFIED SCOPED]
 Supplied conflict and harbor development visibly alter traffic and opportunities.
 
 0.062 - COAST/INTERFACE CORRECTIONS DELIVERED [WHOLE-GAME QUALITY MILESTONE OPEN]

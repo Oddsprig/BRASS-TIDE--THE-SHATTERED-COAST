@@ -1,11 +1,11 @@
 # Brass Tide - current working instructions
 
-Current verified082: Weapon sound and music transitions.
-Tested71163ea8228b8f486e81fcd3200b7f22e7b9c2a7;35 focused/0;Windows/menu and exported music/audio artifacts; listening unreviewed.
-Receipts work/quality-v082/ACTUAL082 CHECKS.json and DELIVERED v0.082.json.
-Root alone tests/delivery. Next083: earned fleet growth. Owner079-088 sequence active.
+Current verified083: Earned fleet growth.
+Tested4c97c7205ca3dc851497ee5cc879b8ac86d4c428;850 focused/0;Windows/menu and current earned-growth witness and reviewed exported UI.
+Receipts work/quality-v083/ACTUAL083 CHECKS.json and DELIVERED v0.083.json.
+Root alone tests/delivery. Next084: generated harbor services. Owner079-088 sequence active.
 Earlier strict performance/071 listening/whole-game quality remain open.
-075 final QA timing gate failed183s;076 and081 passed;082 recorded independently.
+075 final QA timing gate failed183s;076 and082 passed;083 recorded independently.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the

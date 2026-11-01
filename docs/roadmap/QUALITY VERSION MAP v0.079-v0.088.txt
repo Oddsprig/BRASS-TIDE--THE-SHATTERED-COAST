@@ -1,5 +1,5 @@
 BRASS TIDE - REMAINING QUALITY AND CAMPAIGN WORK
-01 November2026 |079-081 DELIVERED;082 VERIFIED;083-088 PLANNED
+01 November2026 |079-082 DELIVERED;083 VERIFIED;084-088 PLANNED
 
 PURPOSE
 Address the concrete gaps left after069-078: fleet responsiveness, dependable
@@ -87,7 +87,7 @@ If no listening route is available, supply the clips and record audio quality
 as unreviewed; generating a file never substitutes for listening acceptance.
 Boundary: no new soundtrack requirement, voice acting or live test audio.
 
-0.083 - EARNED FLEET GROWTH [PLANNED]
+0.083 - EARNED FLEET GROWTH [VERIFIED SCOPED]
 Player result: a cheap starter can make an informed fitting/specialist choice,
 then grow into a useful small fleet with a support role and return reserves.
 Scope: finish existing early/mid fleet prices, job rewards, whole-voyage costs

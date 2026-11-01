@@ -1,4 +1,4 @@
-BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.082)
+BRASS TIDE — TRADE-INTELLIGENCE MAP (generated; v0.083)
 
 Dated actual harbor observations and supplied fleets -> cargo-limited route estimates, physical shortages and blockades.
 
