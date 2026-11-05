@@ -1,7 +1,10 @@
-# Brass Tide v0.094 delivered within its scope
+# Brass Tide v0.095
 
-Useful light and heavy reference fittings
+Current candidate: Earned merchant progression and honest voyage costs.
 
-- 298 native checks/0 failures:168 reference-fit/realLab-prefix,85 paid-workshop/material/labor/condition/persistence,45 actualUI/portrait/quote/picker/draft/Lab callbacks. Windows export/menu and ownedcleanup verified. TwoTinwakefits7/8 and8/8 points contrast gun+racing engine vsnarrowtorpedo+economyengine; threeIronBastionexamples retained. Ownedhulldefault works; actualOptionButtonbrowsesheavy,threewronghullloadsdisabled; ownedtemplatechangesdraftonly; allpaidcareer/stock/purse bytesretainedduringbrowse/trial. Existingmaterial+ordinary/expertwage+tax/margin atomicapply rules unchanged andnativepaid/JSON casespass. Referencequotes/finiteLabprefixesare not earnedpurchases ornewwholefleetbalanceproof. Deferred093Argonactual3WAVlistening nowPASS_BOUNDED_STAGED_CLIPS;092Argon3normalzoomviewsPASS. Nofullgame/completeart/funqualityclaim;089/091performancegaps remainOPEN.
+- Separate additional food/fuel purchases from the full replacement value used for surplus, reserves and reinvestment; owned stores are not purchased twice or counted as free earnings.
+- Show a live cross-port ordinary-goods quote with actual source stock, destination buyer cash and hold constraints instead of unavailable same-port preserved fish.
+- Verify one ordinary starter freight-and-survey circuit, paid wages/stores, physical home return and a useful net-funded improvement with its actual saved books.
 
-Continue the authorized089-098 sequence on this accepted base. Single Desktop Brass Tide shortcut is the latest. Preserve owner saves/settings/music and source history. Full-game quality/performance/fun remains unclaimed. No new GitHub publication.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

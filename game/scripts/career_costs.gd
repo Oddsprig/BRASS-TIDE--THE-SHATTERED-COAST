@@ -7,6 +7,7 @@ const Expedition=preload("res://scripts/expedition.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Economy=preload("res://scripts/economy.gd")
 const Harbor=preload("res://scripts/harbor.gd")
+const Reserves=preload("res://scripts/harbor_reserves.gd")
 const Transport=preload("res://scripts/passenger_transport.gd")
 const Fishing=preload("res://scripts/civilian_work.gd")
 const Escort=preload("res://scripts/escort_ops.gd")
@@ -90,12 +91,22 @@ static func _budget(v,distance: float,work_days: float=0.0,kits: float=0.0) -> D
 	var prices: Dictionary={}
 	for good in ["food","fuel","supplies","ammo"]:prices[good]=Economy.price(p,good)
 	var burn: float=0.0
-	for b in v.active_fleet():burn+=Fishing.fuel_rate(b)
-	# Fuel is a conservative tank allowance for the whole interval, including
-	# contingency. Idle shore work does not itself consume this entire allowance.
-	var food: float=Economy.daily_upkeep(v.state.get("fleet",[])).food*days
+	var fuel_aboard: float=0.0
+	for b in v.active_fleet():
+		burn+=Fishing.fuel_rate(b)
+		fuel_aboard+=maxf(0,float(b.get("fuel",0)))
+	# The interval still includes return and contingency. Coins buy only the
+	# shortfall. Tanks and loose drums already aboard are not purchased again.
+	var loose_fuel: float=maxf(0,float(v.state.get("cargo",{}).get("fuel",0)))
+	var food_needed: float=Economy.daily_upkeep(v.state.get("fleet",[])).food*days
+	var food_aboard: float=maxf(0,float(v.state.get("cargo",{}).get("food",0)))
+	var food_buy: float=maxf(0,food_needed-food_aboard)
 	var wages: int=ceili(float(e.dailyWages)*days)
-	var fuel: float=burn*days
+	var fuel_needed: float=burn*days
+	var fuel_buy: float=maxf(0,fuel_needed-fuel_aboard-loose_fuel)
+	var food_coins: int=ceili(food_buy*float(prices.food))
+	var fuel_coins: int=ceili(fuel_buy*float(prices.fuel))
+	var kit_coins: int=ceili(kits*float(prices.supplies))
 	var repair: int=0
 	var repair_available: bool=not p.is_empty()
 	var repair_reason: String="Current dock repair needs a harbor quote."
@@ -105,13 +116,19 @@ static func _budget(v,distance: float,work_days: float=0.0,kits: float=0.0) -> D
 			var q: Dictionary=Harbor.service_quote(v,b,p)
 			if q.get("ok",false):repair+=int(q.get("cost",0))
 			else:repair_available=false;repair_reason=str(q.get("message","Equipment service quote unavailable."))
-	var total: int=wages+ceili(food*prices.food)+ceili(fuel*prices.fuel)+ceili(kits*prices.supplies)+repair
-	var summary: String="%.2f days including return and %.0f contingency days: %d coins payroll (%d/day), %.2f food / %d coins, %.2f fuel reserve / %d coins, %.1f work kits / %d coins; current dock repair %s. Stores already owned reduce purchases. Future damage and ammunition expenditure are extra."%[days,e.reserveDays,wages,int(e.dailyWages),food,ceili(food*prices.food),fuel,ceili(fuel*prices.fuel),kits,ceili(kits*prices.supplies),str(repair)+" coins" if repair_available else "unavailable"]
+	var purchase_total: int=wages+food_coins+fuel_coins+kit_coins+repair
+	var food_value: int=ceili(food_needed*float(prices.food))
+	var fuel_value: int=ceili(fuel_needed*float(prices.fuel))
+	var total: int=wages+food_value+fuel_value+kit_coins+repair
+	var summary: String="%.2f days including return and %.0f contingency days: %d coins payroll (%d/day). Food %.2f required, %.2f aboard, buy %.2f / %d coins. Fuel %.2f required, %.2f in tanks and %.2f loose, buy %.2f / %d coins. %.1f work kits / %d coins; current dock repair %s. Wages include the reserve days. Only the food and fuel short of stores already aboard is purchased. Loose fuel is not bought again; load it through Hold. Future damage and ammunition expenditure are extra."%[days,e.reserveDays,wages,int(e.dailyWages),food_needed,food_aboard,food_buy,food_coins,fuel_needed,fuel_aboard,loose_fuel,fuel_buy,fuel_coins,kits,kit_coins,str(repair)+" coins" if repair_available else "unavailable"]
+	summary+=" Additional cash allowance %d coins; full replacement-value allowance %d coins, including owned food and fuel valued at current replacement prices. Reward projections and reinvestment use the full value, not cash saved by consuming existing stores."%[purchase_total,total]
 	if p.is_empty():summary+=" Material values use reference prices at sea; obtain a local harbor quote before buying."
 	return {"days":days,"sailingDays":sailing,"workDays":work_days,"reserveDays":e.reserveDays,"dailyWages":e.dailyWages,"wageCoins":wages,
-		"food":food,"foodCoins":ceili(food*prices.food),"fuelReserve":fuel,"fuelCoins":ceili(fuel*prices.fuel),"workKits":kits,"workKitCoins":ceili(kits*prices.supplies),
+		"food":food_needed,"foodRequired":food_needed,"foodAboard":food_aboard,"foodPurchase":food_buy,"foodPurchaseCoins":food_coins,"foodCoins":food_value,
+		"fuelReserve":fuel_needed,"fuelRequired":fuel_needed,"fuelAboard":fuel_aboard,"looseFuel":loose_fuel,"fuelPurchase":fuel_buy,"fuelPurchaseCoins":fuel_coins,"fuelCoins":fuel_value,
+		"workKits":kits,"workKitCoins":kit_coins,
 		"repairQuoteCoins":repair,"repairQuoteAvailable":repair_available,"repairNote":repair_reason,"repairKitUnitCoins":prices.supplies,"ammoCaseCoins":prices.ammo,"roundsPerCase":Goods.ROUNDS_PER_CASE,
-		"allowanceCoins":total,"freeHold":e.freeCapacity,"capacity":e.usableCapacity,"prices":prices,"pricePort":p.get("id",""),"summary":summary}
+		"additionalCashCoins":purchase_total,"replacementAllowanceCoins":total,"allowanceCoins":total,"freeHold":e.freeCapacity,"capacity":e.usableCapacity,"prices":prices,"pricePort":p.get("id",""),"summary":summary}
 
 static func contract_offers(c) -> Array:
 	return Contracts.available(QuoteView.new(c))
@@ -257,14 +274,80 @@ static func _explorer(p: Dictionary,v) -> void:
 	if Exploration.spare_crew(v.state)<4:p.blockers.append("Full survey needs four spare sailors above the traveling boats' minimum crews.")
 	p.operatingCosts["rewardLessAllowanceCoins"]=int(j.reward)-int(p.operatingCosts.allowanceCoins)
 
+static func _route_neighbors(v,origin_id: String) -> Array:
+	var found: Array=[]
+	var farm: String=""
+	for edge in v.data.get("ROUTES",[]):
+		if not (edge is Array) or edge.size()<2:continue
+		var a: String=str(edge[0]);var b: String=str(edge[1]);var other: String=""
+		if a==origin_id:other=b
+		elif b==origin_id:other=a
+		if other.is_empty() or other==origin_id or found.has(other):continue
+		var port: Dictionary=v.port(other)
+		if port.is_empty():continue
+		found.append(other)
+		if farm.is_empty() and str(port.get("industry",""))=="agriculture":farm=other
+	if not farm.is_empty():
+		found.erase(farm)
+		found.push_front(farm)
+	return found
+
+static func _export_good(origin: Dictionary) -> String:
+	# Ordinary seeded goods only. The four unseeded finished goods, including
+	# preserved fish, are not a same-port sample when their sale stock is closed.
+	for good in ["food","timber","logs","fuel","supplies","iron","charcoal","ore","copper","crude","saltpeter","sulfur","gunpowder","ammo","engines","guns"]:
+		if floori(Reserves.exportable(origin,good))>=1:return good
+	return ""
+
+static func _market_quote(v,origin: Dictionary) -> Dictionary:
+	var refused: Dictionary={"ok":false,"good":"","originPort":"","destinationPort":"","buyCoins":0,"sellCoins":0,"unitMarginCoins":0,"buyerCash":0,"stock":0.0,"exportableLots":0,"holdLots":0,"buyerLots":0,"capLots":0,"contrastPort":"","contrastSellCoins":0,"sailed":false,"guidance":"No cross-port own-account quote."}
+	if origin.is_empty():
+		refused.guidance="No harbor quote at sea. Own-account prices need the current dock and a different authored destination, not a same-port buy and sell."
+		return refused
+	var neighbors: Array=_route_neighbors(v,str(origin.id))
+	refused.originPort=str(origin.id)
+	if neighbors.is_empty():
+		refused.guidance="No authored route leaves %s. A same-port buy and sell is not used as the route quote."%str(origin.get("name",origin.id))
+		return refused
+	var good: String=_export_good(origin)
+	refused.destinationPort=str(neighbors[0])
+	if good.is_empty():
+		refused.guidance="%s has no ordinary exportable lot. Unavailable preserved fish is not sampled, and no stock is added."%str(origin.get("name",origin.id))
+		return refused
+	var destination: Dictionary=v.port(str(neighbors[0]))
+	var buy: int=Economy.price(origin,good)
+	var sell: int=Economy.price(destination,good,"sell")
+	var stock: float=float(origin.get("stocks",{}).get(good,0.0))
+	var exportable: int=maxi(0,floori(Reserves.exportable(origin,good)))
+	var weight: float=float(Goods.ITEMS[good].weight)
+	var free_hold: float=maxf(0.0,v.capacity()-v.cargo_weight())
+	var hold_lots: int=floori(free_hold/weight) if weight>0.0 else 0
+	var buyer_cash: int=int(destination.get("cash",0))
+	var buyer_lots: int=floori(float(buyer_cash)/float(sell)) if sell>0 else 0
+	var cap: int=mini(exportable,mini(hold_lots,buyer_lots))
+	var margin: int=sell-buy
+	var contrast_port: String=""
+	var contrast_sell: int=0
+	var contrast_clause: String=""
+	if neighbors.size()>1:
+		var other: Dictionary=v.port(str(neighbors[1]))
+		contrast_port=str(other.id)
+		contrast_sell=Economy.price(other,good,"sell")
+		contrast_clause=" Other authored neighbor %s sells it at %d."%[str(other.get("name",other.id)),contrast_sell]
+	var margin_clause: String=("Unit margin %d coins before wages."%margin) if margin>=0 else ("The book loses %d coins a lot before wages."%(-margin))
+	var guidance: String="Unsailed %s: buy %d at %s (exportable %d of %.1f stock), sell %d at %s (buyer cash %d). %s Free hold %.1f fits %d lots; live cap %d.%s Not a sailed profit."%[str(Goods.ITEMS[good].name),buy,str(origin.get("name",origin.id)),exportable,stock,sell,str(destination.get("name",destination.id)),buyer_cash,margin_clause,free_hold,hold_lots,cap,contrast_clause]
+	return {"ok":true,"good":good,"originPort":str(origin.id),"destinationPort":str(destination.id),"buyCoins":buy,"sellCoins":sell,"unitMarginCoins":margin,"buyerCash":buyer_cash,"stock":stock,"exportableLots":exportable,"holdLots":hold_lots,"buyerLots":buyer_lots,"capLots":cap,"weight":weight,"freeHold":free_hold,"contrastPort":contrast_port,"contrastSellCoins":contrast_sell,"sailed":false,"guidance":guidance}
+
 static func _merchant(p: Dictionary,v) -> void:
 	p.firstGoal="Carry a funded sealed freight lot between harbors before risking your own trading capital."
 	p.requirements=["The lot must fit actual free hold space; the sponsor must own the goods and fund its invoice and escrow.","Buy and sell only with legal harbor access and a real buyer purse; record destination prices before planning a speculative trade."]
-	p.rewardSource="Freight fees come from the sponsoring treasury's escrow; ordinary trading receipts come from the buying business's cash. A local buy/sell spread includes a loss."
-	p.nextStep="Compare the freight lot with free hold and the full return allowance before accepting; use Trade's dated destination prices before risking your own capital."
+	p.rewardSource="Freight fees come from the sponsoring treasury's escrow; ordinary trading receipts come from the buying business's cash. The quoted unit margin is only the live book."
+	p.nextStep="Compare the freight lot with free hold and the return allowance before accepting. Own-account prices are the unsailed cross-port book in the requirements, not a same-port sample and not a sailed profit."
 	p.nextActionId="trade"
 	var harbor: Dictionary=v.current_port()
-	p["marketQuote"]={"good":"preserved_fish","buyCoins":Economy.price(harbor,"preserved_fish"),"sellCoins":Economy.price(harbor,"preserved_fish","sell"),"buyerCash":harbor.get("cash",0),"stock":harbor.get("stocks",{}).get("preserved_fish",0)}
+	var market: Dictionary=_market_quote(v,harbor)
+	p["marketQuote"]=market
+	p.requirements.append(str(market.guidance))
 	var offers: Array=Jobs.available(v)
 	var j: Dictionary=_job(p,v,Jobs.KIND_FREIGHT,offers)
 	var freight_alts: Array=Choices.role_alternatives086(v,Jobs.KIND_FREIGHT,offers)

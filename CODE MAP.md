@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.094: Useful light and heavy reference fittings. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: workshop_builds048.gd:examples, workshop_ui.gd:examples, test_workshop_builds048.gd, test_workshop_layout048.gd.
+v0.095: Earned merchant progression and honest voyage costs. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: career_costs.gd:_budget/_market_quote, guidance_ui.gd:open_voyage, test_voyage_career070.gd:earned_voyage.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

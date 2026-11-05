@@ -1,4 +1,4 @@
-BRASS TIDE — CIVILIAN-TRADE MAP (generated; v0.094)
+BRASS TIDE — CIVILIAN-TRADE MAP (generated; v0.095)
 
 Actual geography, remaining paid workers and ingredients -> regional lots; household savings, physical cargo/freight, dated markets and copied zero-column save migration.
 
