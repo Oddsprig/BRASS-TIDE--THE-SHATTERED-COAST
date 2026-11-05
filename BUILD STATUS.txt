@@ -1,14 +1,15 @@
-BRASS TIDE v0.092 - Coasts and harbors with visual identity
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 9fdb73292af1be6c1e93ec64d3287d7f858c99e1 / v0.092
-Test Bridge: e0f6fc9a02b54000a2bfbc95477c8f2b
-992 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 75.000s; owned cleanup verified.
+BRASS TIDE v0.093 - MUSIC TRANSITIONS AND WEAPON SOUND REVIEW
+04 November2026 |36 boat designs
 
-- Stronger clipped shore ledges, beaches and ridge relief at normal chart zoom using the existing cached three-level meshes.
-- Working harbors show their actual industry through granaries, timber racks, foundries, tanks and quays; remote exploration clues have recognizable original shore objects.
-- Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
+THIS VERSION
+- Scene music responds to the latest requested role without waiting behind a full crossfade.
+- When both music voices are audible, retire the quieter voice over40ms before reusing it; keep the other at its existing gain and retain the two-second musical fade.
+- Keep the two reusable players, all18 supplied tracks, owner volume/mute, same-role Next, finite weapon voices and existing licensed weapon banks.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-992 native checks/0 failures (629coast bounds/picking,363landmark/knowledge/liveUI), Windows export/menu and exactPCK3normalzoom1/LOD1 referencecaptures complete. HOMEBrassHaven, installedWestglass timberharbor andchartedWestglassBearingStones rendered through actualMain/Chart/OceanChart. Disposable location/knowledge staged; no earnedvoyage. State/runtimecontexts restored; allcachedcoastvertexcounts within existing [2500,9000,18000]. Root viewed all3: distinctquay/shore/reliefandlanding motifs, legiblelabels andrealapproachgeometry. IndependentQC pierpicker findingfixed byalladjacentsegments atsame14pxthreshold, two meaningfulWestglasschecks pass. R1native054incomplete becauseRootwrapper14s<unchanged25sfixture; R2cancelledwhilequeued before sourcefix; R3allcurrentassertspass. Failures preserved. No48bespokeworld, combatmotion, wholeartparity orFPS claim; earlier089/091performance targetsOPEN.
+STATUS: current source candidate; focused checks/export pending.

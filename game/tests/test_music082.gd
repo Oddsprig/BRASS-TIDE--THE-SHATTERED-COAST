@@ -21,17 +21,78 @@ func sample(m,label: String):
 	for i in range(m.players.size()):
 		var p: AudioStreamPlayer=m.players[i]
 		channels.append({"channel":i,"path":channel_paths[i],"playing":p.playing,"position_s":p.get_playback_position(),"length_s":p.stream.get_length() if p.stream!=null else 0.0,"gain_linear":db_to_linear(p.volume_db),"gain_db":p.volume_db})
-	rows.append({"phase":phase,"time_s":clock,"wall_s":(Time.get_ticks_usec()-started)/1000000.0,"event":label,"context":m.context,"current":m.current,"active":m.active,"elapsed_s":m.elapsed,"pending_next":m.pending_next,"enabled":m.enabled,"headless_guard":m.headless,"channels":channels})
+	rows.append({"phase":phase,"time_s":clock,"wall_s":(Time.get_ticks_usec()-started)/1000000.0,"event":label,"context":m.context,"current":m.current,"active":m.active,"elapsed_s":m.elapsed,"retiring":m.retiring,"retire_elapsed_s":m.retire_elapsed,"queued":str(m.queued_track.get("path","")),"pending_next":m.pending_next,"enabled":m.enabled,"headless_guard":m.headless,"channels":channels})
 
 func step(m,dt: float):
 	m._process(dt);clock+=dt;sample(m,"step")
 
 func queued_request(m,value: String,next_count: int=0):
-	var before=[m.active,m.current,m.elapsed,m.players[0].stream,m.players[1].stream,m.players[0].volume_db,m.players[1].volume_db]
+	var before_current=m.current
 	m.set_context(value)
 	for i in range(next_count):m.next_track()
-	check(m.pending_next and before==[m.active,m.current,m.elapsed,m.players[0].stream,m.players[1].stream,m.players[0].volume_db,m.players[1].volume_db],"mid-fade request preserves both streams, gains and envelope: "+value)
+	var role=""
+	for track in m.tracks:
+		if track.path==m.current:role=str(track.role);break
+	if next_count==0:
+		check(not m.pending_next and (role==value or (m.retiring>=0 and m.queued_track.get("role","")==value)),"latest role starts or enters the brief voice retirement: "+value)
+		if m.retiring<0:check(m.players[m.active].volume_db<=-80.0,"immediate role starts at the envelope floor: "+value)
+	else:
+		check(m.pending_next or m.current!=before_current,"Next during a fade queues or starts one cue")
+		check(m.current==before_current or m.pending_next,"repeated Next does not start a second cue in the same fade")
 	sample(m,"request:"+value+":next="+str(next_count))
+
+func prove_latest_context(m):
+	phase="transition093";clock=0.0
+	m.headless=false;m.enabled=true;m.pending_next=false
+	step(m,2.0)
+	m.set_context("title")
+	step(m,2.0)
+	var title_index=m.active
+	var title_stream=m.players[title_index].stream
+	m.set_context("travel");step(m,0.98)
+	var travel_index=m.active
+	var travel_stream=m.players[travel_index].stream
+	var title_db=m.players[title_index].volume_db
+	var travel_db=m.players[travel_index].volume_db
+	check(m.players.size()==2 and m.players[title_index].playing and m.players[travel_index].playing and is_equal_approx(m._audible(travel_index),0.49) and is_equal_approx(m._audible(title_index),0.51),"actual long cues both play at the QC0.49/0.51 interruption")
+	var requested_at=clock
+	m.set_context("combat")
+	check(m.retiring==travel_index and m.queued_track.get("role","")=="combat" and not m.pending_next,"combat retires the quieter live travel voice before reuse")
+	check(m.players[travel_index].stream==travel_stream and is_equal_approx(m.players[travel_index].volume_db,travel_db) and m.players[title_index].stream==title_stream and is_equal_approx(m.players[title_index].volume_db,title_db),"request keeps BOTH streams and gains intact")
+	step(m,0.01)
+	check(m.players[travel_index].stream==travel_stream and m.players[travel_index].playing and m._audible(travel_index)>0.0 and m._audible(travel_index)<0.49 and is_equal_approx(m.players[title_index].volume_db,title_db),"retirement ramps travel while holding title at its current gain")
+	m.set_context("harbor")
+	step(m,0.01)
+	m.set_context("combat");m.next_track();m.next_track()
+	check(is_equal_approx(m.retire_elapsed,0.02) and m.retiring==travel_index and m.queued_track.get("role","")=="combat","rapid roles and Next coalesce without resetting retirement")
+	step(m,0.0199)
+	check(m.players[travel_index].stream==travel_stream and m.players[title_index].stream==title_stream and m.players[travel_index].playing and m.players[title_index].playing and m._audible(travel_index)>0.0 and m._audible(travel_index)<0.002,"both original streams stay mounted until the retiring gain is near zero")
+	step(m,0.0002)
+	check(m.retiring<0 and m._role(m.current)=="combat" and m.active==travel_index and m.players[travel_index].playing and m.players[travel_index].stream!=travel_stream and clock-requested_at<=0.08,"latest combat cue starts within80ms of the original request")
+	check(m.players[m.active].volume_db<=-80.0 and is_equal_approx(m.players[title_index].volume_db,title_db) and is_equal_approx(m.release_gain,0.51),"reuse starts at the floor and preserves the held0.51 factor")
+	step(m,1.0/60.0)
+	check(m.players[title_index].stream==title_stream and m.players[title_index].volume_db<title_db and m.players[title_index].volume_db>title_db-1.0,"the held cue resumes the musical fade without a jump to full gain")
+	var bounded=true
+	for i in range(120):
+		m._process(1.0/60.0);clock+=1.0/60.0
+		bounded=bounded and db_to_linear(m.players[0].volume_db)+db_to_linear(m.players[1].volume_db)<=m.volume*db_to_linear(-7.0)+0.0001
+	sample(m,"combat_settled")
+	check(bounded,"interrupted crossfade stays inside the linear gain budget")
+	check(not m.players[title_index].playing,"the held cue is retired when its fade ends")
+	var combat_path=m.current
+	m.elapsed=0.2
+	m.next_track();m.next_track()
+	check(m.pending_next and m.current==combat_path,"two Next presses in one fade coalesce to a single later cue")
+	step(m,2.0);step(m,2.0)
+	# Separately cover early title -> travel -> combat from a silent opening.
+	for p in m.players:p.stop()
+	m.set_context("title");step(m,0.2)
+	title_index=m.active;title_stream=m.players[title_index].stream;title_db=m.players[title_index].volume_db
+	m.set_context("travel");m.set_context("combat")
+	check(m.retiring<0 and m._role(m.current)=="combat" and m.players[m.active].volume_db<=-80.0,"early rapid roles reuse the still-silent voice promptly")
+	check(m.players[title_index].playing and m.players[title_index].stream==title_stream and is_equal_approx(m.players[title_index].volume_db,title_db),"early rapid handoffs preserve the opening title stream and gain")
+	step(m,1.0/60.0)
+	check(m.players[title_index].volume_db<=title_db and m.players[title_index].volume_db>title_db-1.0,"early title release never resets toward full gain")
 
 func run():
 	Engine.max_fps=60
@@ -51,7 +112,7 @@ func run():
 		check(not m.players[0].playing and not m.players[1].playing,"headless guard prevents playback")
 		m.headless=false;m.enabled=false;step(m,2.0);m.next_track();step(m,2.0)
 		check(not m.players[0].playing and not m.players[1].playing,"disabled music never starts a player")
-		# Eight real seconds, including rapid latest-context requests and queued Next.
+		# Eight real seconds. New roles arrive within80ms; same-role Next coalesces.
 		# Only this fixture overrides the headless flag; the driver remains Dummy.
 		phase="realtime";clock=0.0;m.enabled=true;m.next_track();sample(m,"title_start")
 		check(m.players[m.active].playing and is_equal_approx(m.players[m.active].volume_db,-87.0),"real title player begins at the envelope floor")
@@ -72,8 +133,22 @@ func run():
 		for path in selected:
 			var found: Array=m.tracks.filter(func(t):return t.path==path)
 			roles.append(found[0].role if not found.is_empty() else "missing")
-		check(roles==["title","travel","combat","combat"] and selected[2]!=selected[3],"latest context wins and repeated Next coalesces into one distinct cue")
-		check(not m.pending_next and not m.players[1-m.active].playing,"completed fade retires only the outgoing player")
+		check(roles[0]=="title" and roles.has("travel") and roles.has("combat"),"capture opens on title and reaches the later roles")
+		var adopted=true
+		for index in range(rows.size()):
+			var row: Dictionary=rows[index]
+			if row.phase!="realtime":continue
+			var event=str(row.event)
+			if not event.begins_with("request:") or event.ends_with("next=2"):continue
+			var arrived=false
+			for later_index in range(index,rows.size()):
+				var later: Dictionary=rows[later_index]
+				if later.phase!="realtime" or float(later.time_s)-float(row.time_s)>0.08:break
+				if m._role(str(later.current))==str(row.context) and later.channels[int(later.active)].playing:
+					arrived=true;break
+			adopted=adopted and arrived
+		check(adopted,"each realtime context request reaches its playing role within80ms")
+		if m.elapsed>=2.0:check(not m.pending_next and not m.players[1-m.active].playing,"completed fade retires only the outgoing player")
 		var overlap=false
 		var bounded=true
 		for row in rows:
@@ -101,6 +176,7 @@ func run():
 		check(m.active!=old_active and m.players[m.active].playing and outgoing.playing and outgoing.get_playback_position()<length,"pre-end rollover starts a second real player while the outgoing cue is still live")
 		m.enabled=false;step(m,2.0)
 		check(m.players[0].volume_db<-80.0 and m.players[1].volume_db<-80.0,"mute drains both live channel gains to the silent floor")
+		prove_latest_context(m)
 		# Accelerated envelope checks are labelled separately from real playback.
 		phase="harbor_cycle";clock=0.0;m.headless=true;m.enabled=true
 		for p in m.players:p.stop()

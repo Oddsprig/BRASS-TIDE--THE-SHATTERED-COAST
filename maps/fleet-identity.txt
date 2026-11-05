@@ -1,4 +1,4 @@
-BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.092)
+BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.093)
 
 Actual crew berths, wages and fittings -> paid specialists/conversions, useful support reserves and real timed convoy protection.
 

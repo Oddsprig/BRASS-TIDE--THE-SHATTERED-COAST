@@ -1,4 +1,4 @@
-BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.092)
+BRASS TIDE — AUDIO-EFFECTS MAP (generated; v0.093)
 
 Typed bounded events -> recorded weapon voices, shaped effects, fitted weapon models and runtime music.
 
@@ -16,15 +16,19 @@ game/scripts/sound.gd: 12669 bytes; extends Node2D
   game/scripts/sound.gd:77 _process()
   game/scripts/sound.gd:191 _rapid_key()
   game/scripts/sound.gd:206 _rapid_hold()
-game/scripts/music.gd: 5236 bytes; extends Node
-  game/scripts/music.gd:53 rescan()
-  game/scripts/music.gd:68 load_track()
-  game/scripts/music.gd:75 set_context()
-  game/scripts/music.gd:81 next_track()
-  game/scripts/music.gd:126 title()
-  game/scripts/music.gd:20 _ready()
-  game/scripts/music.gd:31 _scan()
-  game/scripts/music.gd:105 _process()
+game/scripts/music.gd: 8133 bytes; extends Node
+  game/scripts/music.gd:62 rescan()
+  game/scripts/music.gd:77 load_track()
+  game/scripts/music.gd:131 set_context()
+  game/scripts/music.gd:137 next_track()
+  game/scripts/music.gd:207 title()
+  game/scripts/music.gd:29 _ready()
+  game/scripts/music.gd:40 _scan()
+  game/scripts/music.gd:84 _role()
+  game/scripts/music.gd:89 _audible()
+  game/scripts/music.gd:97 _ending()
+  game/scripts/music.gd:104 _mount()
+  game/scripts/music.gd:110 _reuse()
 game/scripts/combat_art.gd: 44081 bytes; extends RefCounted
   game/scripts/combat_art.gd:32 profile_enable()
   game/scripts/combat_art.gd:35 profile_reset()

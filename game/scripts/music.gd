@@ -1,6 +1,7 @@
 extends Node
 ## Optional user music, loaded at runtime. No online requests or imported assets needed.
 const CROSSFADE_SECONDS=2.0
+const RETIRE_SECONDS=0.04
 var folder=""
 var tracks: Array=[]
 var players: Array=[]
@@ -16,6 +17,14 @@ var scan_clock=0.0
 var headless=false
 var include_desktop=true
 var pending_next=false
+var release_gain=1.0
+var releasing=false
+var retiring=-1
+var retire_elapsed=0.0
+var retire_gain=0.0
+var held_gain=0.0
+var queued_track: Dictionary={}
+var queued_stream: AudioStream
 
 func _ready():
 	headless=DisplayServer.get_name()=="headless"
@@ -72,6 +81,53 @@ func load_track(path: String) -> AudioStream:
 		"wav":return AudioStreamWAV.load_from_file(path)
 	return null
 
+func _role(path: String) -> String:
+	for track in tracks:
+		if track.path==path:return str(track.role)
+	return ""
+
+func _audible(index: int) -> float:
+	if index<0 or index>=players.size() or not players[index].playing:return 0.0
+	if retiring>=0:
+		return retire_gain*(1.0-clampf(retire_elapsed/RETIRE_SECONDS,0.0,1.0)) if index==retiring else held_gain
+	var fade=clampf(elapsed/CROSSFADE_SECONDS,0.0,1.0)
+	if index==active:return fade
+	return (release_gain if releasing else 1.0)*(1.0-fade)
+
+func _ending() -> bool:
+	if players.is_empty() or active<0 or active>=players.size():return false
+	var player: AudioStreamPlayer=players[active]
+	if not player.playing or player.stream==null:return false
+	var length=player.stream.get_length()
+	return length>CROSSFADE_SECONDS and length-player.get_playback_position()<=CROSSFADE_SECONDS
+
+func _mount(index: int,stream: AudioStream) -> void:
+	var player: AudioStreamPlayer=players[index]
+	player.volume_db=-87
+	player.stream=stream
+	if enabled and not headless:player.play()
+
+func _reuse(stream: AudioStream,index: int,held: float) -> void:
+	release_gain=held
+	active=index
+	_mount(active,stream)
+	releasing=true
+	elapsed=0.0
+
+func _handoff(stream: AudioStream,keep_current: bool=false) -> bool:
+	# Keep both live streams mounted until the quieter voice reaches the floor.
+	# Hold the other voice at its present factor, including an ending cue.
+	var incoming=_audible(active)
+	var outgoing=_audible(1-active)
+	var reuse=active if incoming<outgoing and not keep_current else 1-active
+	var held=outgoing if reuse==active else incoming
+	var quiet=incoming if reuse==active else outgoing
+	if quiet>0.0001:
+		retiring=reuse;retire_elapsed=0.0;retire_gain=quiet;held_gain=held
+		return false
+	_reuse(stream,reuse,held)
+	return true
+
 func set_context(value: String):
 	if context==value:return
 	context=value
@@ -80,9 +136,10 @@ func set_context(value: String):
 
 func next_track():
 	if players.is_empty() or tracks.is_empty():return
-	# Reusing either player midway through a fade would cut a live cue and lift
-	# the other back to full gain. Finish this fade, then use the latest context.
-	if not current.is_empty() and elapsed<CROSSFADE_SECONDS:
+	# Same-role Next waits out this fade, so repeated presses become one cue.
+	# New roles can first need a brief live-voice retirement, never a queued fade.
+	var ending=_ending()
+	if retiring<0 and not current.is_empty() and elapsed<CROSSFADE_SECONDS and _role(current)==context and not ending:
 		pending_next=true
 		return
 	var pool=tracks.filter(func(t):return t.role==context)
@@ -96,23 +153,47 @@ func next_track():
 	var track: Dictionary=pool[next_index]
 	var stream: AudioStream=load_track(track.path)
 	if stream==null or stream.get_length()<=0:return
-	active=1-active
-	players[active].stream=stream
-	players[active].volume_db=-87
-	if enabled and not headless:players[active].play()
-	current=track.path;last_by_context[context]=current;elapsed=0.0;pending_next=false
+	if retiring>=0:
+		# Latest context/Next replaces only the pending cue, not the release clock.
+		queued_track=track;queued_stream=stream;pending_next=false
+		return
+	if not current.is_empty() and elapsed<CROSSFADE_SECONDS:
+		if not _handoff(stream,ending):
+			queued_track=track;queued_stream=stream;pending_next=false
+			return
+	else:
+		releasing=false
+		active=1-active
+		_mount(active,stream)
+		elapsed=0.0
+	current=track.path;last_by_context[context]=current;pending_next=false
 
 func _process(dt: float):
 	scan_clock+=dt
 	if scan_clock>=10.0:
 		rescan()
 		if current.is_empty():next_track()
-	elapsed+=dt
 	current_gain=move_toward(current_gain,volume if enabled else 0.0,dt*0.6)
+	if retiring>=0:
+		retire_elapsed+=dt
+		for i in range(players.size()):
+			players[i].volume_db=linear_to_db(maxf(0.0001,current_gain*_audible(i)))-7.0
+		if retire_elapsed>=RETIRE_SECONDS:
+			var reuse=retiring
+			retiring=-1
+			_reuse(queued_stream,reuse,held_gain)
+			current=queued_track.path;last_by_context[context]=current;pending_next=false
+			queued_track={};queued_stream=null
+		return
+	elapsed+=dt
+	var fade=clampf(elapsed/CROSSFADE_SECONDS,0.0,1.0)
+	var outgoing=(release_gain if releasing else 1.0)*(1.0-fade)
 	for i in range(players.size()):
-		var gain=current_gain*clampf(elapsed/CROSSFADE_SECONDS,0,1) if i==active else current_gain*(1.0-clampf(elapsed/CROSSFADE_SECONDS,0,1))
+		var factor=fade if i==active else outgoing
+		var gain=current_gain*factor
 		players[i].volume_db=linear_to_db(maxf(0.0001,gain))*1.0-7.0
 		if i!=active and elapsed>=CROSSFADE_SECONDS:players[i].stop()
+	if elapsed>=CROSSFADE_SECONDS:releasing=false
 	if pending_next and elapsed>=CROSSFADE_SECONDS:
 		pending_next=false
 		next_track()

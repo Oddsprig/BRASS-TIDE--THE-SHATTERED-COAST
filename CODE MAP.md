@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.092: Coasts and harbors with visual identity. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: coast_art050.gd:prepare_island/prepare_harbor, campaign_landmark_art054.gd:plan, ocean_chart064.gd:_prepare_local_harbor068.
+v0.093: Music transitions and weapon sound review. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: music.gd:_handoff/next_track/_process, test_music082.gd:prove_latest_context.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

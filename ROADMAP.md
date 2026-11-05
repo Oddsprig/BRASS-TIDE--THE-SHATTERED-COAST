@@ -1,8 +1,8 @@
-# Current step: v0.092 - Coasts and harbors with visual identity
+# Current step: v0.093 - Music transitions and weapon sound review
 
-- Stronger clipped shore ledges, beaches and ridge relief at normal chart zoom using the existing cached three-level meshes.
-- Working harbors show their actual industry through granaries, timber racks, foundries, tanks and quays; remote exploration clues have recognizable original shore objects.
-- Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
+- Scene music responds to the latest requested role without waiting behind a full crossfade.
+- When both music voices are audible, retire the quieter voice over40ms before reusing it; keep the other at its existing gain and retain the two-second musical fade.
+- Keep the two reusable players, all18 supplied tracks, owner volume/mute, same-role Next, finite weapon voices and existing licensed weapon banks.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.
