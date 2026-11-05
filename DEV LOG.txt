@@ -1,3 +1,5 @@
+v0.095 VERIFIED AND PACKAGED: 19/0 focused checks, selected batch 69.730s, TestBridge b507fa3241994f3a8c1b95afeac07d3a. Source 3fa9d162b41e2074ddca189bd1c6fd683b42dba7.
+
 04NOV2026 - v0.095 EARNED MERCHANT PROGRESSION AND HONEST VOYAGE COSTS
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

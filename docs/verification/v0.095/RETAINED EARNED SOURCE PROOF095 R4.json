@@ -1,0 +1,11 @@
+{
+  "onlyChangedCode": [
+    "game/tests/test_career_balance038.gd"
+  ],
+  "oldSource": "09c96c8b95df15d51d46c7e0e8ea83b5d887d33d",
+  "newSource": "3fa9d162b41e2074ddca189bd1c6fd683b42dba7",
+  "earnedJob": "368bb28966d046d0a64564fc84234daa",
+  "earnedChecks": 232,
+  "failures": 0,
+  "scope": "Allproduction/data/070unchanged; actualearnedroute retained. Merchantquote checks fundedfeesifpresent and clearunfundedrefusal/absentprofitifnojob. Allcash/fullvalue/purity/stock/hold assertions retained. Existingrunner now scans SAME fatalregex whileownedchildruns, notjustatend; oldbytespreserved, no qualitygate weakened."
+}

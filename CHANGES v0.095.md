@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Verify one ordinary starter freight-and-survey circuit, paid wages/stores, physical home return and a useful net-funded improvement with its actual saved books.
 
 See docs/TEST RESULTS v0.095.md for actual focused checks and remaining limits.
+
+Verification: 19 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 69.730s. Preserved earlier failures; no broad acceptance claim.

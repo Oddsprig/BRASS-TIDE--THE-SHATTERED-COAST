@@ -1,0 +1,284 @@
+{
+	"accepted": [
+		{
+			"escrow": 843,
+			"grossFee": 843,
+			"id": "v059-freight-settled_01_harbor_01-1-settled_01_harbor_02-supplies-8-e07505c0c1559fbc",
+			"kind": "freight",
+			"materialInvoice": 3280,
+			"port": "settled_01_harbor_01",
+			"targetPort": "settled_01_harbor_02"
+		},
+		{
+			"escrow": 5744,
+			"grossFee": 5744,
+			"id": "vsurvey-settled_01_harbor_01-1-settled_01_survey",
+			"kind": "survey",
+			"materialInvoice": 0,
+			"port": "settled_01_harbor_01",
+			"targetPort": "settled_01_harbor_01"
+		},
+		{
+			"escrow": 837,
+			"grossFee": 837,
+			"id": "v059-freight-settled_01_harbor_02-1-settled_01_harbor_01-supplies-8-9cc1d4c085d16d88",
+			"kind": "freight",
+			"materialInvoice": 2888,
+			"port": "settled_01_harbor_02",
+			"targetPort": "settled_01_harbor_01"
+		},
+		{
+			"escrow": 847,
+			"grossFee": 847,
+			"id": "v059-freight-settled_01_harbor_02-1-settled_01_harbor_01-supplies-6-dd198fd57331c7b1",
+			"kind": "freight",
+			"materialInvoice": 2340,
+			"port": "settled_01_harbor_02",
+			"targetPort": "settled_01_harbor_01"
+		}
+	],
+	"activeRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"checks": 232,
+	"compatibleLoads": {
+		"outbound": 1,
+		"return": 2
+	},
+	"completedRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"controlled": [
+		{
+			"case": "sponsor_region",
+			"refusal": "Save refused: Voyage endpoint disagrees with its canonical harbor/site."
+		},
+		{
+			"case": "target_account",
+			"refusal": "Save refused: Unknown voyage sponsor/destination account."
+		},
+		{
+			"case": "survey_site",
+			"refusal": "Save refused: Survey job has no existing canonical site/progress."
+		}
+	],
+	"crossings": [
+		{
+			"actualWorld": {
+				"layer": "ocean",
+				"regionId": "open_ocean",
+				"schema": 1
+			},
+			"approachId": "south",
+			"day": 1.17777777777778,
+			"regionId": "shatter_coast"
+		},
+		{
+			"actualWorld": {
+				"layer": "local",
+				"regionId": "settled_01",
+				"schema": 1
+			},
+			"approachId": "north",
+			"day": 1.8,
+			"regionId": "settled_01"
+		},
+		{
+			"actualWorld": {
+				"layer": "ocean",
+				"regionId": "open_ocean",
+				"schema": 1
+			},
+			"approachId": "north",
+			"day": 5.68888888888889,
+			"regionId": "settled_01"
+		},
+		{
+			"actualWorld": {
+				"layer": "home",
+				"regionId": "shatter_coast",
+				"schema": 1
+			},
+			"approachId": "south",
+			"day": 6.4,
+			"regionId": "shatter_coast"
+		}
+	],
+	"currentVersion": "0.095",
+	"earnedVoyage": true,
+	"elapsedMs": 30797,
+	"failures": 0,
+	"finalCoins": 15146,
+	"grossPaid": 8271,
+	"improvementQuote": {
+		"cost": 3855,
+		"materialCost": 3161,
+		"materials": {
+			"iron": 1.0,
+			"logs": 2.0,
+			"timber": 3.0
+		},
+		"netAfterAllCosts": 1146,
+		"purse": 16146,
+		"workerWages": 250
+	},
+	"lastAcceptance": {
+		"currentFee": 847,
+		"earlierFee": 847,
+		"heldEscrow": 847,
+		"invoice": 2340,
+		"kind": "freight",
+		"payerAfter": 17088,
+		"payerBefore": 20275,
+		"playerAfter": 13843,
+		"playerBefore": 13843
+	},
+	"payments": [
+		{
+			"actualPort": "settled_01_harbor_02",
+			"coins": 843,
+			"day": 2.0,
+			"id": "v059-freight-settled_01_harbor_01-1-settled_01_harbor_02-supplies-8-e07505c0c1559fbc"
+		},
+		{
+			"actualPort": "settled_01_harbor_01",
+			"coins": 837,
+			"day": 2.1,
+			"id": "v059-freight-settled_01_harbor_02-1-settled_01_harbor_01-supplies-8-9cc1d4c085d16d88"
+		},
+		{
+			"actualPort": "settled_01_harbor_01",
+			"coins": 847,
+			"day": 2.1,
+			"id": "v059-freight-settled_01_harbor_02-1-settled_01_harbor_01-supplies-6-dd198fd57331c7b1"
+		},
+		{
+			"actualPort": "settled_01_harbor_01",
+			"coins": 5744,
+			"day": 5.6,
+			"id": "vsurvey-settled_01_harbor_01-1-settled_01_survey"
+		}
+	],
+	"payrollPaid": 3500,
+	"phases": [
+		{
+			"coins": 15000,
+			"day": 1.0,
+			"elapsedMs": 7771,
+			"phase": "normal_starter_and_paid_capable_crew"
+		},
+		{
+			"coins": 13000,
+			"day": 1.0,
+			"elapsedMs": 7785,
+			"phase": "earned_outward_crossing"
+		},
+		{
+			"coins": 13000,
+			"day": 1.9,
+			"elapsedMs": 14666,
+			"phase": "CONTROLLED_corrupt_endpoint_refusals"
+		},
+		{
+			"coins": 13000,
+			"day": 1.9,
+			"elapsedMs": 15285,
+			"phase": "earned_freight_and_paid_shore_work"
+		},
+		{
+			"coins": 18471,
+			"day": 5.6,
+			"elapsedMs": 28061,
+			"phase": "earned_home_return_and_replacement_costs"
+		}
+	],
+	"replacementStores": {
+		"food": 3,
+		"fuel": 1.26959999999999,
+		"paidCoins": 1625,
+		"supplies": 3.0
+	},
+	"sourceCommit": "09c96c8b95df15d51d46c7e0e8ea83b5d887d33d",
+	"status": "COMPLETED",
+	"surveyQuote": {
+		"expectedCosts": {
+			"baseWages": 2800.0,
+			"basis": "All living owned crew, fitted upkeep and moving hull fuel; whole calendar settlements, work and return; replacement stores priced at the sponsor's existing buy prices.",
+			"coins": 2800.0,
+			"food": 2.24,
+			"fuel": 0.0,
+			"includesReturn": true,
+			"payrollDays": 4.0,
+			"premiums": 0.0,
+			"supplies": 3.0,
+			"totalValue": 4339.12
+		},
+		"grossFee": 5549,
+		"likelySurplus": 1209.88,
+		"returnReserve": {
+			"basis": "Conservative return and two-day contingency. Informational overlap; do not subtract this again from whole-trip expected costs.",
+			"coins": 1400.0,
+			"contingencyDays": 2.0,
+			"days": 2.0,
+			"food": 1.12,
+			"fuel": 1.242,
+			"overlapsExpected": true,
+			"supplies": 0.0,
+			"totalValue": 2183.012
+		}
+	},
+	"surveyorQuote": {
+		"advance": 1000,
+		"basePerDay": 100,
+		"eligible": true,
+		"message": "1000-coin advance; 100 base + 75 professional premium per day.",
+		"premiumPerDay": 75,
+		"qualification": "sailor",
+		"role": "surveyor",
+		"roleName": "Surveyor",
+		"totalPerDay": 175
+	},
+	"upgrade": {
+		"baseDailyWage": 100,
+		"cost": 1000,
+		"netAfterPurchase": 146,
+		"netBeforePurchase": 1146,
+		"premiumDailyWage": 75,
+		"specialist": "surveyor",
+		"surveyFactorAfter": 1.3,
+		"surveyFactorBefore": 1.0
+	},
+	"validationScope": "Actual native-source automated normal-start public-API freight+survey voyage. Not human-play, own-account arbitrage, rendered FPS or all-economy proof."
+}
