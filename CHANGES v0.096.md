@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Save admission binds the live client, original cargo carriers, finite fee, destination and arrival ledger; existing voluntary rescues remain available.
 
 See docs/TEST RESULTS v0.096.md for actual focused checks and remaining limits.
+
+Verification: 242 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 26.696s. Preserved earlier failures; no broad acceptance claim.

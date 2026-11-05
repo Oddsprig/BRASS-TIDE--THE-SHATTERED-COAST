@@ -1,0 +1,15 @@
+{
+  "status": "RECOVERED_ACTUAL_STORED_RESULT",
+  "job": "4ae5c21a4fca4f20b684ebd875c61ec9",
+  "originalAllNullSha256": "458e6be73e8d5e56f2b67c9bb63b32eca40bf9434736d2ac838c1a4651634982",
+  "recoveredResultSha256": "b77aafc32a6ccb07f6404e98484facfaba086c5e9e07bd4596be2418763b02ac",
+  "verifiedAgainst": [
+    "durable queue result",
+    "matching native phase receipt and surviving process identity line",
+    "actual startup log v0.096",
+    "actual process exit and owned cleanup",
+    "both exported binary hashes"
+  ],
+  "otherDamagedReportFilesPreserved": true,
+  "engineRerun": false
+}

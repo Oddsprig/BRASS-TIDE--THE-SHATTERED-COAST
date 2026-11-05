@@ -1,0 +1,207 @@
+{
+	"accepted": [],
+	"actualPrefix": {
+		"bytes": 542114,
+		"coins": 15000,
+		"contractId": "escort:patrol-1:1",
+		"day": 1.05555555555556,
+		"escrow": 1170,
+		"lineage": "ACTUAL_NORMAL_NEW_GAME_UI_ACCEPTANCE; R4_BODY_TIMEOUT_NOT_A_COMPLETED_VOYAGE",
+		"nativeJobId": "3932ad627b584db19e0294a200a2e7f7",
+		"path": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/3932ad627b584db19e0294a200a2e7f7/attempt-001/earned-escort096/career070-escort096-active.json",
+		"priorFailedRunChecksCredited": 0,
+		"runningFixtureSha256": "58ee44a48e161d74c2533a3b4056397e760d95f35ad0cbace56fcb866093ace1",
+		"sha256": "cfd14f6da9f9ce880be9f8ddd3c687723e0d739a62752cf6faa8e7f1da3adc3a",
+		"sourceCommit": "dcc5f72fb02864e125806e7c1c7716dad2ed333e"
+	},
+	"bodyLimitMs": 34000,
+	"checks": 80,
+	"controlled": [
+		{
+			"case": "unknown_kind",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid voyage job kind/state."
+		},
+		{
+			"case": "legacy_coins_purse",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Unknown voyage sponsor purse."
+		},
+		{
+			"case": "purse",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Unknown voyage sponsor purse."
+		},
+		{
+			"case": "client",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Missing escort client carriers."
+		},
+		{
+			"case": "client_purse",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid escort client purse."
+		},
+		{
+			"case": "carrier",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Escort carrier identity is missing or duplicated."
+		},
+		{
+			"case": "cargo_ledger",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Foreign escort carrier cargo ledger."
+		},
+		{
+			"case": "destination",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Escort destination disagrees with its exact client voyage."
+		},
+		{
+			"case": "voyage",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Escort destination disagrees with its exact client voyage."
+		},
+		{
+			"case": "escrow_over",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid voyage escrow."
+		},
+		{
+			"case": "escrow_missing",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Unfunded active escort."
+		},
+		{
+			"case": "fractional_fee",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid escort fee/escrow."
+		},
+		{
+			"case": "passenger_savings",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Escort escrow cannot contain passenger savings."
+		},
+		{
+			"case": "chronology",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid escort contract chronology."
+		},
+		{
+			"case": "shape",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Invalid escort contract shape."
+		},
+		{
+			"case": "expired_held",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Expired escort retains unrefunded client coins."
+		},
+		{
+			"case": "arrival",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "Save refused: Unearned escort arrival."
+		},
+		{
+			"case": "coins",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"refusal": "The saved coin ledger is inconsistent; use your backup."
+		},
+		{
+			"branch": "abandon",
+			"label": "STAGED_ACCOUNTING_ONLY",
+			"playerPayment": 0,
+			"refund": 1170
+		},
+		{
+			"case": "refunded_loss_json_restore",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"restored": true
+		},
+		{
+			"branch": "lost",
+			"label": "STAGED_ACCOUNTING_ONLY",
+			"playerPayment": 0,
+			"refund": 1170
+		},
+		{
+			"branch": "retreated",
+			"label": "STAGED_ACCOUNTING_ONLY",
+			"playerPayment": 0,
+			"refund": 1170
+		},
+		{
+			"branch": "won_without_carriers",
+			"label": "STAGED_ACCOUNTING_ONLY",
+			"playerPayment": 0,
+			"refund": 1170
+		},
+		{
+			"case": "reverse_escrow_for_legacy_and_partial_load",
+			"earnedProgress": false,
+			"heldCoinsReturned": 1170,
+			"label": "STAGED_SETUP_ONLY"
+		},
+		{
+			"case": "legacy_optional_job_book",
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"restored": true
+		},
+		{
+			"carrierCargo": {
+				"npc-1-0": {
+					"food": 17.5
+				}
+			},
+			"carrierUids": [
+				"npc-1-0"
+			],
+			"case": "two_boats_one_loaded_active_save",
+			"client": "patrol-1",
+			"clientBoatUids": [
+				"npc-1-0",
+				"npc-1-1"
+			],
+			"label": "STAGED_SAVE_GUARD_ONLY",
+			"restored": true,
+			"savePath": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\b3436b90fd8f409b87045a9c4f4de306\\attempt-001\\staged-escort096/escort096-staged-partial-active.json",
+			"totalCoins": 173560000
+		}
+	],
+	"crossings": [],
+	"earnedVoyage": false,
+	"elapsedMs": 16339,
+	"escort096-r4-actual-prefixRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"failures": 0,
+	"fixture": "escort096",
+	"mode": "STAGED_SAVE_ACCOUNTING_ONLY",
+	"naturalInterceptionObserved": false,
+	"payments": [],
+	"phases": [],
+	"prefixContractSourceSha256": {
+		"campaign_state_validation.gd": "509949f0bee91bfd3cc82bbf848494d6631e7a69a9e392796f3ee7d74976ecf1",
+		"escort_ops.gd": "f4a8eba935b3ca815932f4bc50b2e5e62441a4d3cc878a1e0f08a8dc9bfb79dc",
+		"naval_ui.gd": "41e8fa422a19e4dffb5ecfd4b4ed7001e35ce3b56d884515a083cdfa8ef108b6",
+		"voyage_jobs.gd": "e138cad136b0702cf6026c5846a4d9a6dd1408469daeee13afb36c74b744308b"
+	},
+	"stagedGuardsComplete": true,
+	"status": "STAGED_COMPLETED"
+}

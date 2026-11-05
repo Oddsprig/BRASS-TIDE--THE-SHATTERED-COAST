@@ -1,3 +1,5 @@
+v0.096 VERIFIED AND PACKAGED: 242/0 focused checks, selected batch 26.696s, TestBridge 4ae5c21a4fca4f20b684ebd875c61ec9. Source 797e9dd7e558229bf36f75382054becd97e1dc4d.
+
 04NOV2026 - v0.096 CLIENT-FUNDED CONVOY ESCORT AND PHYSICAL DELIVERY
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

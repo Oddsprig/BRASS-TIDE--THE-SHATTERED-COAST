@@ -1,0 +1,18 @@
+{
+  "originalBatchIncomplete": true,
+  "reason": "R9 import+80staged+57controlled+export allpassed, but lane detector at final menu had only3.64s remaining and timedout before start. No menu pass then.",
+  "exactSource": "797e9dd7e558229bf36f75382054becd97e1dc4d",
+  "export": {
+    "job": "b3436b90fd8f409b87045a9c4f4de306",
+    "prior_plan": "v0.096-plan-r9.json",
+    "prior_plan_sha256": "4defaeff0268f95a34cfad1ab2ea658d693ead98074548e018b487402ce16fc7",
+    "bridge_report_sha256": "cca99741b0f35cdcaabe9b3de064b5489e9b8f546a40d64655a74f5cd3c9de7a",
+    "export_phase_sha256": "fd624871dafaeb5f813b7063d6d24ba97ef38c5983050387f2b4d08ff073e45a",
+    "portable_sha256": {
+      "Brass Tide.exe": "4381af076ea3788648694b889ba55de126dd97e3d9d1cf37e688b448b9072207",
+      "Brass Tide.pck": "894c2293cafa3c2d380b608667fc2345874cb6d85eb647a8f0b5dd5e5e02178e"
+    }
+  },
+  "newRunnerSha256": "9a2d78f182d6f221509538fc9fc7c505dc49cb4bf726475750db6538d4e932b8",
+  "scope": "R10 actually starts same exported EXE/PCK headless/Dummy; strict current and prior source/plan/export/job/cleanup/digest checks, no repeated import/export or retained assertions. Whole selected QA will exceed180; report full actualR7+R9+R10+delivery without dropping costs."
+}

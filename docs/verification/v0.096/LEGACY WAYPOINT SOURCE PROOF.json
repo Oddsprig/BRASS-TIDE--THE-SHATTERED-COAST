@@ -1,0 +1,247 @@
+{
+  "kind": "READ_ONLY_SOURCE_AND_ARTIFACT_PREFLIGHT_ONLY",
+  "timestampUtc": "2026-11-05T04:27:39.446268+00:00",
+  "sourceBaseCommit": "67b52af49ed106a31461386f4feb4766981f306c",
+  "canonicalBaseCommit": "623defb38b0b1dc0992ddc04b43fe0dc673e61cf",
+  "file": "game/scripts/ocean_campaign066.gd",
+  "function": "prepare",
+  "baseSourceMatchesR6Exactly": true,
+  "entireDeltaIsOneWaypointPolicyReplacement": true,
+  "preNormalizedSha256": "451aeb78e8d65bad04808d06aa26e9b589fa4839f70bc52d769828ac4a240b98",
+  "postNormalizedSha256": "e290924c8bd5180d5cd53dccc59dc9289c1ab0afc3d5fca459d399fc30d9b6ff",
+  "preFileSha256": "de4c3586aaba2a640d7670c17cefb1dd0454baa3e41dbde933fb95771e28308e",
+  "postFileSha256": "3f8910d40c67918b0bd755b94f28f9b0ff0fd4ef341e6952027938b8e37fc804",
+  "diff": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v096\\SOL LEGACY WAYPOINT096.diff",
+  "diffSha256": "623c8d76e474243dd70e111ebf180a6689ae925a2c236ed3474cf2911ee2f45a",
+  "actualArtifact": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\ca2140af86e64f8a93f1ff1192ba7474\\attempt-001\\earned-escort096\\career070-escort096-completed.json",
+    "sha256Before": "ccffe5e6d403769bd3456258c37cb8b8d1b33bcd07e4bdb6089dc9732a363625",
+    "sha256After": "ccffe5e6d403769bd3456258c37cb8b8d1b33bcd07e4bdb6089dc9732a363625",
+    "bytes": 636453,
+    "nativeJobId": "ca2140af86e64f8a93f1ff1192ba7474",
+    "sourceCommit": "623defb38b0b1dc0992ddc04b43fe0dc673e61cf",
+    "day": 2.0,
+    "econDay": 2.0,
+    "coins": 15362,
+    "wageArrears": 0.0,
+    "contact": {
+      "gate": {
+        "approachId": "north",
+        "regionId": "shatter_coast"
+      },
+      "location": {
+        "destination": "",
+        "heading": 3.14159265358979,
+        "path": [],
+        "position": {
+          "x": 5200.0,
+          "y": 300.0
+        },
+        "world064": {
+          "layer": "home",
+          "regionId": "shatter_coast",
+          "schema": 1
+        }
+      },
+      "ownerId": "patrol-0",
+      "phase": "return",
+      "waypoint": {
+        "x": 1300.0,
+        "y": 1130.0
+      }
+    },
+    "corridor": {
+      "homeGate": {
+        "approachId": "north",
+        "regionId": "shatter_coast"
+      },
+      "homeId": "anvil_dock",
+      "originGate": {
+        "approachId": "north",
+        "regionId": "settled_06"
+      },
+      "originId": "settled_06_harbor_01",
+      "ownerId": "patrol-4",
+      "remoteGate": {
+        "approachId": "south",
+        "regionId": "settled_01"
+      },
+      "remoteId": "settled_01_harbor_01"
+    },
+    "ownOceanGate": {
+      "x": 1220.0,
+      "y": 1130.0
+    },
+    "corridorOriginOcean": {
+      "x": 2623.0,
+      "y": 1564.0
+    },
+    "corridorRemoteOcean": {
+      "x": 2458.0,
+      "y": 511.0
+    },
+    "distanceToOwnGate": 80.0,
+    "distanceToCorridorOrigin": 1392.3666902077196,
+    "distanceToCorridorRemote": 1313.0594045967607,
+    "modified": false
+  },
+  "actualEarlierR4Prefix": {
+    "path": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\3932ad627b584db19e0294a200a2e7f7\\attempt-001\\earned-escort096\\career070-escort096-active.json",
+    "sha256": "cfd14f6da9f9ce880be9f8ddd3c687723e0d739a62752cf6faa8e7f1da3adc3a",
+    "sameLegacyOwnerGateAndWaypoint": true,
+    "hadPublishedCorridor": false
+  },
+  "predicateModelCases": [
+    {
+      "case": "raw_R6_actual_legacy_loop",
+      "ownerId": "patrol-0",
+      "waypoint": {
+        "x": 1300.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 80.0,
+      "onCorridor": false,
+      "legacyLoop": true,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": true
+    },
+    {
+      "case": "controlled_81_unit_legacy_loop",
+      "ownerId": "patrol-0",
+      "waypoint": {
+        "x": 1301.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 81.0,
+      "onCorridor": false,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": false
+    },
+    {
+      "case": "controlled_other_raider_same_local_loop",
+      "ownerId": "patrol-6",
+      "waypoint": {
+        "x": 1300.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 80.0,
+      "onCorridor": false,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": false
+    },
+    {
+      "case": "controlled_neither_endpoint_nor_legacy_loop",
+      "ownerId": "patrol-6",
+      "waypoint": {
+        "x": 1301.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 81.0,
+      "onCorridor": false,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": false
+    },
+    {
+      "case": "controlled_origin_endpoint",
+      "ownerId": "patrol-6",
+      "waypoint": {
+        "x": 2623.0,
+        "y": 1564.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 1468.5928639347258,
+      "onCorridor": true,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": true,
+      "afterWaypointAdmission": true
+    },
+    {
+      "case": "controlled_remote_endpoint",
+      "ownerId": "patrol-6",
+      "waypoint": {
+        "x": 2458.0,
+        "y": 511.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 1384.1260780723699,
+      "onCorridor": true,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": true,
+      "afterWaypointAdmission": true
+    },
+    {
+      "case": "controlled_legacy_before_corridor",
+      "ownerId": "patrol-0",
+      "waypoint": {
+        "x": 1300.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": false,
+      "distanceFromOwnGate": 80.0,
+      "onCorridor": false,
+      "legacyLoop": true,
+      "beforeWaypointAdmission": true,
+      "afterWaypointAdmission": true
+    },
+    {
+      "case": "controlled_nonlegacy_without_corridor",
+      "ownerId": "patrol-6",
+      "waypoint": {
+        "x": 1300.0,
+        "y": 1130.0
+      },
+      "publishedCorridor": false,
+      "distanceFromOwnGate": 80.0,
+      "onCorridor": false,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": false
+    },
+    {
+      "case": "controlled_shipping_owner_rejected",
+      "ownerId": "patrol-4",
+      "waypoint": {
+        "x": 2623.0,
+        "y": 1564.0
+      },
+      "publishedCorridor": true,
+      "distanceFromOwnGate": 1468.5928639347258,
+      "onCorridor": true,
+      "legacyLoop": false,
+      "beforeWaypointAdmission": false,
+      "afterWaypointAdmission": false
+    }
+  ],
+  "predicateScope": "Source-matched arithmetic and boolean waypoint admission only; not execution of GDScript, World.prepare, public restore, or native assertions. Controlled variants exist only in local Python values. All other schema/safety/custody/phase/projection checks are byte-unchanged.",
+  "existingNativeRegression": {
+    "path": "game/tests/test_escort096.gd",
+    "function": "complete096",
+    "assertion": "parsed_save(\"escort096-completed\") then restore_exact(saved,\"escort096-completed\")",
+    "inheritedFunction": "game/tests/test_voyage_career070.gd::restore_exact",
+    "retainedUnchanged": true,
+    "reasonNoNewFixture": "This exact current regression already produces and rejects the actual raw completed book. Native rerun must accept that raw book and preserve physical snapshots/input."
+  },
+  "productionUnchangedOutsideGate": true,
+  "engineInvoked": false,
+  "testsInvoked": false,
+  "helpersInvoked": false,
+  "nativeParsing": "UNRUN",
+  "nativeRawArtifactRestore": "UNRUN",
+  "earnedCompletedVoyageGate": "UNRUN_ON_FIXED_SOURCE",
+  "priorFailedR6CountsCredited": 0,
+  "frozenCommit": "6c07fb204035f1901613dbc08b5834411eb8dc1a",
+  "worktreeCleanAfterCommit": true,
+  "frozenCommitDiffMatchesSavedDiff": true,
+  "preloadAdvisory": {
+    "engineInvoked": false,
+    "issues": []
+  },
+  "gitDiffCheck": "CLEAN"
+}
