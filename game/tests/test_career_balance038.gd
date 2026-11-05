@@ -56,14 +56,18 @@ func _initialize() -> void:
 	c=Campaign.new(JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json")))
 	check(c.new_game(3801).ok,"current campaign publishes")
 	if c.state.is_empty():finish();return
-	var explorer: Dictionary=read_plan("explorer")
-	var survey: Dictionary=offered(str(explorer.get("quote",{}).get("id","")))
-	check(not survey.is_empty() and int(explorer.quote.rewardCoins)==int(survey.reward),"explorer uses the actual finite treasury survey offer")
-	if not survey.is_empty():
-		var chart: Dictionary=Exploration.quote(c.state,str(survey.siteId),"chart")
-		var landed: Dictionary=Exploration.quote(c.state,str(survey.siteId),"survey")
-		check(close(float(explorer.operatingCosts.workDays),float(chart.days)+float(landed.days)) and close(float(explorer.operatingCosts.workKits),float(chart.supplies)+float(landed.supplies)),"survey allowance includes real chart+landed work, provisions and three kits")
+	var merchant_only095: bool=OS.get_cmdline_user_args().has("--merchant-only095")
+	if not merchant_only095:
+		var explorer: Dictionary=read_plan("explorer")
+		var survey: Dictionary=offered(str(explorer.get("quote",{}).get("id","")))
+		check(not survey.is_empty() and int(explorer.quote.rewardCoins)==int(survey.reward),"explorer uses the actual finite treasury survey offer")
+		if not survey.is_empty():
+			var chart: Dictionary=Exploration.quote(c.state,str(survey.siteId),"chart")
+			var landed: Dictionary=Exploration.quote(c.state,str(survey.siteId),"survey")
+			check(close(float(explorer.operatingCosts.workDays),float(chart.days)+float(landed.days)) and close(float(explorer.operatingCosts.workKits),float(chart.supplies)+float(landed.supplies)),"survey allowance includes real chart+landed work, provisions and three kits")
+	print("COST095_PHASE merchant_quote_begin")
 	var merchant: Dictionary=read_plan("merchant")
+	print("COST095_PHASE merchant_quote_complete")
 	var freight: Dictionary=offered(str(merchant.get("quote",{}).get("id","")))
 	check(not freight.is_empty() and int(merchant.quote.rewardCoins)==int(freight.reward) and merchant.quote.freight==freight.freight,"merchant quotes the actual funded lot and fee")
 	var quote: Dictionary=merchant.marketQuote
@@ -110,6 +114,8 @@ func _initialize() -> void:
 	check(float(costs.reserveDays)==2.0 and int(costs.wageCoins)==ceili(days*float(costs.dailyWages)) and days>=float(costs.reserveDays) and int(costs.allowanceCoins)==int(costs.wageCoins)+int(costs.foodCoins)+int(costs.fuelCoins)+int(costs.workKitCoins)+int(costs.repairQuoteCoins),"full replacement allowance retains reserve-day payroll and consumed store value")
 	check(food_aboard>0.0 and food_buy<food_needed and fuel_aboard+loose>0.0 and fuel_buy<fuel_needed and int(costs.additionalCashCoins)<gross and int(costs.allowanceCoins)==gross and int(costs.replacementAllowanceCoins)==gross,"owned food and fuel reduce new cash needed without inflating replacement-valued surplus")
 	check(int(costs.additionalCashCoins)==int(costs.wageCoins)+int(costs.foodPurchaseCoins)+int(costs.fuelPurchaseCoins)+int(costs.workKitCoins)+int(costs.repairQuoteCoins) and int(costs.rewardLessAllowanceCoins)==int(freight.reward)-gross,"additional purchases and replacement-valued reward projection have separate exact bases")
+	if merchant_only095:
+		finish();return
 	var privateer: Dictionary=read_plan("privateer")
 	var bounty: Dictionary=offered(str(privateer.get("quote",{}).get("id","")))
 	check(not bounty.is_empty() and int(privateer.quote.rewardCoins)==int(bounty.reward) and int(privateer.operatingCosts.boardingAdvanceCoins)==2000,"privateer uses funded named-raider bounty and actual optional boarder advance")
@@ -154,7 +160,7 @@ func finish() -> void:
 	if not folder.is_empty():
 		DirAccess.make_dir_recursive_absolute(folder)
 		var file=FileAccess.open(folder.path_join("CAREER BASIS v0.038.json"),FileAccess.WRITE)
-		check(file!=null,"six-quote balance artifact opens")
-		if file!=null:file.store_string(JSON.stringify({"basis":"Actual starter fleet for explorer/merchant/escort/privateer; paid crews on explicit empty canonical fixture shells for fisher/passenger. No career clock advance. All allowances name the actual full traveling fleet and paid inactive crew. No numerical economy change justified by these single-action quotes.","careers":records},"\t"));file.close()
+		check(file!=null,"selected career-quote artifact opens")
+		if file!=null:file.store_string(JSON.stringify({"basis":"Focused current095 merchant quotation only; otherfivecareers notselected." if OS.get_cmdline_user_args().has("--merchant-only095") else "Actual starter fleet for explorer/merchant/escort/privateer; paid crews on explicit empty canonical fixture shells for fisher/passenger. No career clock advance. All allowances name the actual full traveling fleet and paid inactive crew. No numerical economy change justified by these single-action quotes.","careers":records},"\t"));file.close()
 	print("%d checks, %d failures"%[checks,failures])
 	quit(0 if failures==0 else 1)
