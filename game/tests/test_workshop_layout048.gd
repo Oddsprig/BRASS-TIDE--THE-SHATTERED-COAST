@@ -85,14 +85,29 @@ func exercise() -> void:
 	if views.size()==2:views[1].mount_selected.emit(1)
 	check(game.ui.overlay.find_child("WorkshopMountComparison",true,false)!=null and "SELECTED SOCKET 2" in text(),"physical portrait selection reaches mount compatibility and before/draft firing values")
 	if not press("Back to whole fitting"):return
-	if not press("Three build examples"):return
+	if not press("Reference fittings"):return
+	var picker=game.ui.overlay.find_child("WorkshopReferenceHull",true,false)
+	check(picker is OptionButton and picker.item_count==2 and str(picker.get_item_metadata(picker.selected))==str(ship.type),"reference library defaults to the supported owned Tinwake and offers two reference hulls")
 	var loads: Array=nodes(game.ui.overlay).filter(func(node):return node is Button and str(node.name).begins_with("WorkshopExample_"))
-	check(loads.size()==3 and loads.all(func(node):return node.disabled),"three real examples are visible; an unsupported owned hull cannot receive their equipment")
-	for example in Builds.examples(career.hull(Builds.HULL_ID)):check(str(example.tradeoff) in text(),"example shows its actual tradeoff: "+str(example.id))
+	check(loads.size()==2 and loads.all(func(node):return not node.disabled),"both Tinwake choices can load into this owned hull's unpaid draft")
+	for example in Builds.examples(career.hull(str(ship.type))):check(str(example.tradeoff) in text(),"light reference shows its actual tradeoff: "+str(example.id))
+	if not picker is OptionButton:return
+	for index in range(picker.item_count):
+		if str(picker.get_item_metadata(index))==Builds.HULL_ID:
+			picker.select(index);picker.item_selected.emit(index);break
+	loads=nodes(game.ui.overlay).filter(func(node):return node is Button and str(node.name).begins_with("WorkshopExample_"))
+	check(loads.size()==3 and loads.all(func(node):return node.disabled),"three heavy examples remain browsable and cannot load onto the Tinwake")
+	for example in Builds.examples(career.hull(Builds.HULL_ID)):check(str(example.tradeoff) in text(),"heavy reference shows its actual tradeoff: "+str(example.id))
 	if not press("Compare known build"):return
 	check("KNOWN DESIGNS" in text() and "stated reload" in text(),"known-build comparison exposes actual weapon implications without buying a hull")
 	if not press("Back to owned draft"):return
 	check(game.ui.workshop_drafts[uid]==draft and career.state==saved,"example browsing and return preserve the current unpaid draft and paid fleet")
+	if not press("Reference fittings"):return
+	loads=nodes(game.ui.overlay).filter(func(node):return node is Button and str(node.name).begins_with("WorkshopExample_") and not node.disabled)
+	if loads.is_empty():check(false,"matching-hull example load callback exists");return
+	loads[0].pressed.emit()
+	check(game.ui.workshop_drafts[uid]==Builds.examples(career.hull(str(ship.type)))[0].loadout and career.state==saved,"owned template loads only its draft, leaving installed equipment, stores, materials and all purses untouched")
+	WorkshopUI.open(game.ui,uid,draft)
 	check(game.has_method("workshop_try_draft"),"Root's agreed isolated Lab host seam is integrated")
 	if not game.has_method("workshop_try_draft"):return
 	if not press("Try current draft in Lab"):return

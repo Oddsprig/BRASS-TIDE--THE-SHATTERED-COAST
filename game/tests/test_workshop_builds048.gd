@@ -55,7 +55,7 @@ func quoted(core: CoreView,example: Dictionary) -> Dictionary:
 	var label: String=str(example.id)
 	check(bool(q.validDraft) and not bool(q.affordable) and not bool(q.applicable) and int(q.cost)>0 and not str(q.quoteId).is_empty(),"legal fit has a real payable bill, never free equipment: "+label)
 	check(var_to_bytes(core.state)==before and var_to_bytes(example)==draft_before and Money.total(core.state)==int(core.state.coinSupply),"preview preserves every state/condition/stock/purse/draft byte: "+label)
-	check(q.newLoadout==example.loadout and q.afterSpec.weaponMounts==Refits.effective_spec(core.hull(Builds.HULL_ID),example.loadout).weaponMounts,"quote uses actual normalized fitted mounts: "+label)
+	check(q.newLoadout==example.loadout and q.afterSpec.weaponMounts==Refits.effective_spec(core.hull(str(core.state.fleet[0].type)),example.loadout).weaponMounts,"quote uses actual normalized fitted mounts: "+label)
 	check(int(q.cost)==int(q.materialCost)+int(q.workerWages)+int(q.expertWages)+int(q.tax)+int(q.margin) and int(q.cost)==int(q.businessIncome)+int(q.workerWages)+int(q.expertWages)+int(q.tax),"bill equals actual business, worker, expert and tax recipients: "+label)
 	var paid: int=0
 	var labor: float=0.0
@@ -73,8 +73,8 @@ func quoted(core: CoreView,example: Dictionary) -> Dictionary:
 	print("WORKSHOP BUILDS048 bill ",label,": ",q.cost," coins; parts ",q.materialCost,", workers ",q.workerWages,", experts ",q.expertWages,", materials ",q.materials,", worker/expert days ",q.workerDays,"/",q.expertDays,"; empty purse remains unchanged")
 	return q
 
-func prefix(world: Dictionary,example: Dictionary) -> Dictionary:
-	var player: Dictionary=Lab.entry(world,Builds.HULL_ID)
+func prefix(world: Dictionary,example: Dictionary,hull_id: String=Builds.HULL_ID) -> Dictionary:
+	var player: Dictionary=Lab.entry(world,hull_id)
 	player.loadout=example.loadout.duplicate(true)
 	# Same hulls, seed, closing formation, enemy fit, terrain, stores and default
 	# auto tactics every time. The descriptor's recommended role is NOT applied.
@@ -90,7 +90,7 @@ func prefix(world: Dictionary,example: Dictionary) -> Dictionary:
 	var costs: Dictionary={}
 	var spent: Dictionary={}
 	check(battle.ships.size()==2 and battle.autopilot and battle.projectiles.is_empty() and battle.events.is_empty(),"two normally deployed boats, no opening manufactured fire")
-	check(own.loadout==example.loadout and own.spec==Refits.effective_spec(Lab.hull(world,Builds.HULL_ID),example.loadout),"Lab uses the actual recommended normalized effective fit")
+	check(own.loadout==example.loadout and own.spec==Refits.effective_spec(Lab.hull(world,hull_id),example.loadout),"Lab uses the actual recommended normalized effective fit")
 	for ship in battle.ships:
 		var sid: String=str(ship.id)
 		opening.append([sid,ship.x,ship.y,ship.angle,ship.vx,ship.vy])
@@ -129,13 +129,43 @@ func prefix(world: Dictionary,example: Dictionary) -> Dictionary:
 	print("WORKSHOP BUILDS048 prefix ",example.id,": ",TICKS," real ticks; shots ",shots,", ammo ",result.ammoSpent,", fuel ",result.fuelSpent,", displacement ",result.distance,"; no battle-outcome/motion/FPS verdict")
 	return result
 
+func light_examples(world: Dictionary,heavy: Array,ids: Dictionary) -> void:
+	var base: Dictionary=Lab.hull(world,Builds.LIGHT_HULL_ID)
+	var examples: Array=Builds.examples(base)
+	check(examples.size()==2,"exactly two starter Tinwake reference fittings")
+	if examples.size()!=2:return
+	var original: PackedByteArray=var_to_bytes(examples)
+	var core: CoreView=quote_context(world,base)
+	var models: Array=[]
+	var prefixes: Array=[]
+	for example in examples:
+		check(not ids.has(str(example.id)),"reference IDs stay distinct across hulls")
+		ids[str(example.id)]=true
+		var model: Dictionary=Builds.describe_fit(base,example.loadout)
+		check(bool(model.get("ok",false)) and model.spec==Refits.effective_spec(base,example.loadout) and model.loadout==Refits.normalize(base,example.loadout).loadout and int(model.maxPoints)==8 and int(model.usedPoints)<=8,"starter references use actual compatible normalized sockets and eight-point budget")
+		check(example.loadout.weapons.size()==Refits.hardpoints(base).size() and example.loadout.weapons[1]=="" and example.loadout.armor=="stock_armor" and model.mounts.size()==1 and str(model.mounts[0].id)=="mount0","one real bow weapon, empty aft socket and original armor")
+		check(not Refits.normalize(Lab.hull(world,Builds.HULL_ID),example.loadout).ok,"Tinwake references cannot be injected onto the heavy hull")
+		models.append(model);quoted(core,example);prefixes.append(prefix(world,example,Builds.LIGHT_HULL_ID))
+	for example in heavy:
+		check(not Refits.normalize(base,example.loadout).ok,"heavy references cannot be injected onto the starter hull")
+	check(int(models[0].usedPoints)==7 and int(models[1].usedPoints)==8,"gun and torpedo fits retain their actual seven/eight-point costs")
+	check(models[0].handling.speed>models[1].handling.speed and models[0].handling.fuelUse>models[1].handling.fuelUse and models[0].range<models[1].range and models[0].mounts[0].arc>models[1].mounts[0].arc and models[0].mounts[0].ammoCost<models[1].mounts[0].ammoCost,"starter choices trade speed and broad gun traverse against fuel use, reach and two-round narrow launches")
+	check(models[0].survival==models[1].survival and models[0].survival.hp==base.hp and models[0].survival.armor==base.armor and models[0].survival.pumps==base.pumps,"neither starter fitting invents armor, health, crew or pumps")
+	if not prefixes.any(func(p):return p.is_empty()):
+		check(prefixes[0].opening==prefixes[1].opening,"starter fits share the identical real seeded encounter opening")
+		check(prefixes[0].position.distance_to(prefixes[1].position)>0.01 or not is_equal_approx(float(prefixes[0].ammoSpent),float(prefixes[1].ammoSpent)) or not is_equal_approx(float(prefixes[0].fuelSpent),float(prefixes[1].fuelSpent)),"starter alternatives change actual movement or finite stores in the same encounter")
+	models[0].spec.speed=-1.0;models[0].loadout.weapons[0]=""
+	check(var_to_bytes(examples)==original,"starter design metrics cannot mutate the reference draft")
+	examples[0].loadout.weapons[0]=""
+	check(var_to_bytes(Builds.examples(base))==original,"editing a returned starter draft cannot alter later references")
+
 func run() -> void:
 	var world: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
 	var original: PackedByteArray=var_to_bytes(world)
 	var catalog: PackedByteArray=var_to_bytes(Refits.catalog())
 	var base: Dictionary=Lab.hull(world,Builds.HULL_ID)
 	var examples: Array=Builds.examples(base)
-	check(examples.size()==3 and Builds.examples(Lab.hull(world,"tin_skiff")).is_empty(),"three supported-hull recommendations, no cross-hull template injection")
+	check(examples.size()==3 and Builds.examples(Lab.hull(world,"lantern_skiff")).is_empty(),"three heavy recommendations remain; an unsupported third hull gets no templates")
 	if examples.size()!=3:quit(1);return
 	var core: CoreView=quote_context(world,base)
 	var models: Array=[]
@@ -158,6 +188,7 @@ func run() -> void:
 			var a: Dictionary=prefixes[pair[0]]
 			var b: Dictionary=prefixes[pair[1]]
 			check(a.position.distance_to(b.position)>0.01 or not is_equal_approx(float(a.ammoSpent),float(b.ammoSpent)) or not is_equal_approx(float(a.fuelSpent),float(b.fuelSpent)),"each fit changes actual movement or finite store use in the same encounter")
+	light_examples(world,examples,ids)
 	var untouched: PackedByteArray=var_to_bytes(examples)
 	models[0].mounts[0].range=-1.0;models[0].spec.speed=-1.0
 	check(var_to_bytes(examples)==untouched and var_to_bytes(world)==original and var_to_bytes(Refits.catalog())==catalog,"returned model edits and every preview/trial preserve source knowledge bytes")

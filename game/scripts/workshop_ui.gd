@@ -40,7 +40,7 @@ static func _draft_actions(ui,parent: Node,uid: String,draft: Dictionary,q: Dict
 	trial.name="WorkshopTryDraft"
 	trial.disabled=not q.validDraft or not ui.host.has_method("workshop_try_draft")
 	trial.tooltip_text="Isolated practice with this draft; no campaign equipment, condition, coins or stores are transferred."
-	ui.button(actions,"Three build examples",func():examples(ui,uid,draft),false,false).name="WorkshopExamples"
+	ui.button(actions,"Reference fittings",func():examples(ui,uid,draft),false,false).name="WorkshopExamples"
 
 static func _selected(ui,parent: Node,base: Dictionary,ship: Dictionary,draft: Dictionary,q: Dictionary,selected: int):
 	var sockets: Array=Refits.hardpoints(base)
@@ -301,15 +301,27 @@ static func review(ui,uid: String,draft: Dictionary):
 	ui.button(body,"Apply reviewed fitting · %s coins"%ui.money(q.cost),func():EquipmentPicker.apply_workshop(ui,uid,draft,q),true).disabled=not q.applicable or q.changes.is_empty()
 	ui.button(body,"Back to draft",func():open(ui,uid,draft))
 
-static func examples(ui,uid: String,draft: Dictionary):
+static func examples(ui,uid: String,draft: Dictionary,hull_id: String=""):
 	draft=_draft(ui,uid,draft)
 	var ship: Dictionary=ui.host.core.find_boat(uid)
 	if ship.is_empty():return
-	var base: Dictionary=ui.host.core.hull(Builds.HULL_ID)
+	if hull_id not in Builds.HULL_IDS:
+		hull_id=str(ship.type) if str(ship.type) in Builds.HULL_IDS else Builds.HULL_ID
+	var base: Dictionary=ui.host.core.hull(hull_id)
+	if base.is_empty():return
 	var library: Array=Builds.examples(base)
 	ui.modal_kind="refit"
-	var body=ui.modal("Three deliberately different builds","KNOWN FITS · "+str(base.get("name",Builds.HULL_ID)).to_upper(),1100,850)
-	ui.paragraph(body,"Compare a fast gun fit, a protected cannon fit and a fixed-tube striker on the same hull. Each pays for its advantage in fuel, handling, range, armor or shared ammunition. These are starting points, not a best shopping list. Loading one changes knowledge only; the yard still needs actual parts, stock, labor and coins.",14)
+	var body=ui.modal("Reference fittings","KNOWN FITS · "+str(base.get("name",hull_id)).to_upper(),1100,850)
+	ui.eyebrow(body,"REFERENCE HULL")
+	var choice=OptionButton.new()
+	choice.name="WorkshopReferenceHull";choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	for reference_id in Builds.HULL_IDS:
+		var reference: Dictionary=ui.host.core.hull(str(reference_id))
+		choice.add_item(str(reference.name));choice.set_item_metadata(choice.item_count-1,str(reference_id))
+		if str(reference_id)==hull_id:choice.select(choice.item_count-1)
+	choice.item_selected.connect(func(index):examples(ui,uid,draft,str(choice.get_item_metadata(index))))
+	body.add_child(choice)
+	ui.paragraph(body,"Compare fittings on the same hull. Each trades fuel use, handling, reach, protection or shared ammunition. Loading one changes only the draft; the yard still needs actual parts, stock, labor and coins.",14)
 	for entry in library:
 		var example: Dictionary=entry
 		ui.label(body,str(example.name),23,ui.GOLD,true)

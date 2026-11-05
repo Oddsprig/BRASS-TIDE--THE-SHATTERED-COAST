@@ -2,11 +2,13 @@ extends RefCounted
 ## Design comparisons only. Quotes/payment/stock/condition remain FleetWorkshop's.
 const Refits=preload("res://scripts/refit.gd")
 const HULL_ID: String="iron_bastion"
+const LIGHT_HULL_ID: String="tin_skiff"
+const HULL_IDS: Array=[HULL_ID,LIGHT_HULL_ID]
 
 ## Recommendations are knowledge, never inventory or tactical-option changes.
 ## Unsupported hulls return no examples; never silently put a Bastion fit on one.
 static func examples(base: Dictionary) -> Array:
-	if str(base.get("id",""))!=HULL_ID:return []
+	if str(base.get("id","")) not in HULL_IDS:return []
 	var candidates: Array=[
 		{"id":"bastion_harasser048","name":"Fast gun pressure","role":"skirmisher",
 			"summary":"Twin machine guns, an aft Needle and a racing engine for close firing passes. Select Skirmisher tactics to harass; automatic cruiser tactics still favor anchoring.",
@@ -21,6 +23,21 @@ static func examples(base: Dictionary) -> Array:
 			"tradeoff":"Narrow bow launch arc, slow torpedoes and three shared rounds per launch. Less armor than the anchor and much less speed than the gun fit; a miss still spends ammunition. The heavy cannon can match its reach.",
 			"loadout":{"weapons":["heavy_torpedo","rapid_gun","",""],"engine":"economy_drive","armor":"scout_plating"}}
 	]
+	if str(base.id)==LIGHT_HULL_ID:
+		var gun_fit: Dictionary=Refits.defaults(base)
+		gun_fit.weapons[0]="rapid_gun";gun_fit.engine="boost_drive"
+		var torpedo_fit: Dictionary=Refits.defaults(base)
+		torpedo_fit.weapons[0]="light_torpedo";torpedo_fit.engine="economy_drive"
+		candidates=[
+			{"id":"tinwake_harasser094","name":"Fast gun skirmisher","role":"skirmisher",
+				"summary":"A bow Needle machine gun and a racing engine favor close firing passes. The original hull armor leaves fitting room for the engine.",
+				"tradeoff":"Shorter reach than the torpedo fit, higher fuel use and light hits against heavy armor. Rapid fire spends the shared rounds; the aft socket stays empty and protection is unchanged.",
+				"loadout":gun_fit},
+			{"id":"tinwake_strike094","name":"Economical torpedo striker","role":"striker",
+				"summary":"A bow Reed tube has more reach than the gun fit. The long-voyage engine reduces fuel use while retaining the original hull armor.",
+				"tradeoff":"Slower than the gun fit, with a narrow launch arc and slow torpedoes. Each launch spends two shared rounds, including misses. The aft socket stays empty; there is no close-defense gun.",
+				"loadout":torpedo_fit}
+		]
 	var result: Array=[]
 	for candidate in candidates:
 		var normalized: Dictionary=Refits.normalize(base,candidate.loadout)

@@ -1,4 +1,4 @@
-BRASS TIDE — WORKSHOP MAP (generated; v0.093)
+BRASS TIDE — WORKSHOP MAP (generated; v0.094)
 
 Owned living hull and knowledge-only draft -> physical-socket preview, finite stock/workforce/coin bill, stale-quote refusal and atomic main-thread publication preserving live hull/harbor references. Templates survive career restore; UI drafts never become equipment.
 
@@ -16,14 +16,14 @@ game/scripts/fleet_workshop.gd: 23066 bytes; extends RefCounted
   game/scripts/fleet_workshop.gd:115 _spec()
   game/scripts/fleet_workshop.gd:123 _empty_quote()
   game/scripts/fleet_workshop.gd:126 _reserve_info()
-game/scripts/workshop_ui.gd: 28477 bytes; extends RefCounted
+game/scripts/workshop_ui.gd: 29059 bytes; extends RefCounted
   game/scripts/workshop_ui.gd:103 open()
   game/scripts/workshop_ui.gd:182 draft_set()
   game/scripts/workshop_ui.gd:193 choose()
   game/scripts/workshop_ui.gd:272 review()
   game/scripts/workshop_ui.gd:304 examples()
-  game/scripts/workshop_ui.gd:332 templates()
-  game/scripts/workshop_ui.gd:361 compare()
+  game/scripts/workshop_ui.gd:344 templates()
+  game/scripts/workshop_ui.gd:373 compare()
   game/scripts/workshop_ui.gd:12 _actions()
   game/scripts/workshop_ui.gd:18 _table()
   game/scripts/workshop_ui.gd:32 _try_draft()

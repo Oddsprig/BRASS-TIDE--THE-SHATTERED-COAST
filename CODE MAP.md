@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.093: Music transitions and weapon sound review. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: music.gd:_handoff/next_track/_process, test_music082.gd:prove_latest_context.
+v0.094: Useful light and heavy reference fittings. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: workshop_builds048.gd:examples, workshop_ui.gd:examples, test_workshop_builds048.gd, test_workshop_layout048.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

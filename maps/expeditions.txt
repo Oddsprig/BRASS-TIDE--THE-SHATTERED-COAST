@@ -1,4 +1,4 @@
-BRASS TIDE — EXPEDITIONS MAP (generated; v0.093)
+BRASS TIDE — EXPEDITIONS MAP (generated; v0.094)
 
 Traveling fleet/real stores -> cargo carriers, paid endurance, shore assignments, persistent discoveries and copied-port workers.
 
