@@ -6,12 +6,56 @@ extends "res://tests/test_voyage_career070.gd"
 ## Explicit alternate accounting branches run in separate restored careers.
 const Main096=preload("res://scripts/main.gd")
 const Traffic096=preload("res://scripts/naval_ui.gd")
+const Reserves096=preload("res://scripts/harbor_reserves.gd")
 const LIMIT096_MS: int=34000
 var main096
 var owner096: String=""
 var job096: String=""
 var finished096: bool=false
 var battles096: int=0
+
+func check(value: bool,message: String) -> bool:
+	# Root's fatal scanner may stop on the inherited FAIL line. Persist the
+	# actual live context first, without depending on cleanup or a terminal receipt.
+	if not value and c!=null and not c.state.is_empty() and not finished096:retain_gap096(message)
+	return super.check(value,message)
+
+func retain_gap096(message: String) -> void:
+	# Diagnostic only. Read every real trader, including distant/unloaded ones;
+	# these records never select a contact or grant remote player access.
+	var context: Dictionary={"label":"ACTUAL_GAP_CONTEXT_ONLY_NOT_EARNED","status":receipt.status,"message":message,"elapsedMs":Time.get_ticks_msec()-started,"seed":c.state.seed,"day":c.state.day,"position":c.state.position.duplicate(true),"world064":c.state.get("world064",{}).duplicate(true),"destination":c.state.get("destination",""),"pathPoints":c.state.get("path",[]).size(),"pursuedOwner":owner096,"jobId":job096,"coins":c.state.coins,"wageArrears":c.state.wageArrears,"coinSupply":supply,"totalCoins":c.Money.total(c.state),"travelLock":c.travel_lock064,"events":c.events.duplicate(true),"observations":c.NavalAI.sightings(c.state),"traders":[]}
+	var escorts: Array=c.FleetSupport.combat(c)
+	for client in c.state.fleetOwners:
+		if client.get("kind","")!="trader":continue
+		var id: String=str(client.id)
+		var p: Dictionary=c.NavalAI._find_patrol(c.state,id)
+		var home: Dictionary=c.port(str(client.get("homePort","")))
+		var target: Dictionary=c.port(str(p.get("to","")))
+		var good: String=str(client.get("tradeGood",""))
+		var qty: float=float(client.get("tradeCargo",0))
+		var loaded: Dictionary=c.EscortOps._load_plan(c,client)
+		# Performance normalizes its argument: use a detached owner so this
+		# diagnostic cannot mutate the actual purse, hulls, stores or route.
+		var speed: float=float(c.NavalAI.fleet_performance(client.duplicate(true)).speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
+		var remaining: float=maxf(0,float(p.get("courseLength",0))*(1.0-float(p.get("progress",0))))
+		var fee: int=c.VoyageJobs._route_reward(c,remaining/maxf(1.0,speed)/float(c.DAY_SECONDS),"",false,home) if not home.is_empty() else 0
+		var wages: float=float(c.Fleets.upkeep(client).wages)
+		var event: String="escort:%s:%d"%[id,int(p.get("voyageSeq",0))]
+		var range_to_client: float=c.distance(c.state.position,p) if p.has("x") and p.has("y") else -1.0
+		var gates: Dictionary={"homeChart":c.home_local064(),"travelUnlocked":c.travel_lock064.is_empty(),"noPendingEncounter":not c.events.any(func(e):return str(e.get("kind","")) in ["encounter","ocean_encounter066","defeat"]),"activeClient":client.get("active",false),"activePatrol":p.get("active",false),"visiblePatrol":not p.get("hidden",false),"sailingPatrol":not p.get("holding",false),"independentClient":not client.get("playerCompany",false),"peacefulClient":not c.Politics.hostile(c,client),"coastalOwner":not c.NavalAI.NavalOrders.enrolled066(c.state,id),"within600":range_to_client>=0 and range_to_client<=c.EscortOps.CONTRACT_RADIUS,"waterCourse":not p.get("course",[]).is_empty(),"deliveryRoute":not p.has("interceptPoint"),"namedAwayHarbor":not target.is_empty() and not home.is_empty() and target.get("id")==p.get("to") and target.get("id")!=home.get("id"),"actualTradeLoad":c.Goods.ITEMS.has(good) and qty>0 and float(client.get("cargo",{}).get(good,0))+0.000001>=qty,"physicalHoldFit":loaded.get("ok",false),"playerCombatBoat":not escorts.is_empty(),"allClientBoatsCrewed":not client.boats.any(func(b):return b.get("sunk",false) or b.get("captureSecured",false) or float(b.crew)<float(b.crewMin)),"deploymentFits":c.Deployment.total(client.boats+escorts)<=c.Deployment.LIMIT,"remainingLeg160":remaining>=160.0,"clientCanFundFeeAndWages":int(client.get("coins",0))>=fee+int(wages),"uncreditedPassage":not c.state.get("escortEvents",{}).has(event) and not c.VoyageJobs._is_closed(c.state,event)}
+		var rejected: Array=[]
+		for gate in gates:
+			if not gates[gate]:rejected.append(gate)
+		var patrol: Dictionary={}
+		for key in ["from","to","x","y","progress","courseLength","active","holding","hidden","voyageSeq","routeFailure"]:patrol[key]=p.get(key)
+		var market: Dictionary={}
+		if not home.is_empty() and c.Goods.ITEMS.has(good):market={"stock":home.get("stocks",{}).get(good,0),"exportable":Reserves096.exportable(home,good) if home.get("reserves") is Dictionary else home.get("stocks",{}).get(good,0),"buyPrice":c.Economy.price(home,good,"buy"),"cargoWeight":c.Economy.cargo_weight(client.cargo),"holdCapacity":c.Fleets._capacity(client),"budgetAboveThreeWageDays":maxf(0,int(client.coins)-ceilf(wages*3.0))}
+		context.traders.append({"ownerId":id,"homePort":client.get("homePort",""),"tradeCargo":qty,"tradeGood":good,"actualTradeGoodAboard":client.get("cargo",{}).get(good,0),"coins":client.get("coins",0),"crewPurse":client.get("crewPurse",0),"wageArrears":client.get("wageArrears",0),"atPort":client.get("atPort",""),"purpose":client.get("purpose",""),"reason":client.get("reason",""),"patrol":patrol,"distance":range_to_client,"remainingRoute":remaining,"requiredFee":fee,"dailyWages":wages,"loadedCarrierUids":loaded.get("carrierUids",[]),"loadError":loaded.get("message",""),"falseOfferGates":rejected,"homeLoadingInputs":market})
+	receipt.failureContext=context
+	var path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("escort096-gap.json")
+	var file=FileAccess.open(path,FileAccess.WRITE)
+	if file!=null:file.store_string(JSON.stringify(context,"\t"));file.close()
+	print("ESCORT096_GAP_CONTEXT ",JSON.stringify(context))
 
 func bounded() -> bool:
 	if not finished096 and Time.get_ticks_msec()-started<30500:return true
@@ -32,12 +76,15 @@ func advance(seconds: float) -> bool:
 			return gap096("ACTUAL_INTERRUPTION","Actual encounter/loss interrupts this ordinary route: "+str(event))
 	return check(float(c.state.day)>before and c.Money.total(c.state)==supply and int(c.state.wageArrears)==0,"Actual accepted time, normal payroll and every real purse remain reconciled")
 
-func current096(id: String="") -> Dictionary:
+func current096(id: String="",seeking: bool=false) -> Dictionary:
 	var nearest: Dictionary={};var distance: float=INF
 	for seen in c.NavalAI.observe(c.state):
 		if not Traffic096.can_hail(c.state,seen) or (not id.is_empty() and str(seen.ownerId)!=id):continue
 		var owner: Dictionary=c.fleet_owner(str(seen.ownerId))
 		if owner.get("kind","")!="trader" or c.Politics.hostile(c,owner) or float(owner.get("tradeCargo",0))<=0:continue
+		if seeking:
+			var p: Dictionary=c.NavalAI._find_patrol(c.state,str(seen.ownerId))
+			if owner.get("playerCompany",false) or c.NavalAI.NavalOrders.enrolled066(c.state,str(seen.ownerId)) or p.get("holding",false) or p.has("interceptPoint") or p.get("course",[]).is_empty() or str(p.get("to",""))==str(owner.get("homePort","")) or float(p.get("courseLength",0))*(1.0-float(p.get("progress",0)))<160.0:continue
 		var d: float=c.distance(c.state.position,seen)
 		if d<distance:nearest=seen;distance=d
 	return nearest
@@ -45,13 +92,13 @@ func current096(id: String="") -> Dictionary:
 func seek096() -> Dictionary:
 	var began: float=float(c.state.day)
 	var last_plan: float=-INF
-	var destination: Dictionary=c.port("reed_floats")
+	var destination: Dictionary=c.port("kelp_reach")
 	var route: Dictionary=c.chart_course({"x":destination.x,"y":destination.y},str(destination.id))
-	if not check(route.get("ok",false),"Ordinary exploration course to Reed Floats"):return {}
+	if not check(route.get("ok",false),"Ordinary exploration course to Kelp Reach, the known fishery source of loaded coastal traffic"):return {}
 	for _piece in range(360):
 		if not bounded():return {}
-		var seen: Dictionary=current096(owner096)
-		if seen.is_empty() and not owner096.is_empty():seen=current096()
+		var seen: Dictionary=current096(owner096,true)
+		if seen.is_empty() and not owner096.is_empty():seen=current096("",true)
 		if not seen.is_empty():
 			owner096=str(seen.ownerId)
 			var offer: Dictionary=c.EscortOps.offer(c,owner096)
