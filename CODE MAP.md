@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.089: Smooth active campaign - daily customs publication. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: trade_law.gd, law_ops.gd, test_trade_law.gd, campaign.gd:apply_economy.
+v0.090: Boat separation and steering. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: battle.gd:_collisions, battle.gd:_formation_positions, hull_profiles.gd:contact_capsule090, test_hull_separation090.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

@@ -189,6 +189,28 @@ static func profile(spec: Dictionary) -> Dictionary:
 static func stations(spec: Dictionary) -> Array:
 	return profile(spec).stations
 
+## Boat-to-boat waterline only: local spine ends and radius, in world units.
+## Keep the existing size circle for terrain, weapons and unauthored test hulls.
+static func contact_capsule090(spec: Dictionary) -> Vector3:
+	var size: float=maxf(4.0,float(spec.get("size",16)))
+	var radius: float=maxf(10.0,size)
+	var id: String=str(spec.get("id",""))
+	if not _PROFILES.has(id):return Vector3(0.0,0.0,radius)
+	# Read the constant stations directly; profile() also copies decorative art.
+	var hull_stations: Array=_PROFILES[id].stations
+	var offset: float=CAT_OFFSET if str(spec.get("role",""))=="raider" else 0.0
+	for station: Vector2 in hull_stations:
+		radius=maxf(radius,(absf(station.y)+offset)*size)
+	var stern: float=0.0
+	var bow: float=0.0
+	for station: Vector2 in hull_stations:
+		var beam: float=(absf(station.y)+offset)*size
+		var cap: float=sqrt(maxf(0.0,radius*radius-beam*beam))
+		stern=minf(stern,station.x*size+cap)
+		bow=maxf(bow,station.x*size-cap)
+	# The capsule is convex and contains every station and the original circle.
+	return Vector3(stern,bow,radius)
+
 ## Shared portrait/gallery framing; keep the original24 hulls' scale unchanged.
 static func preview_span(spec: Dictionary) -> float:
 	var hull_size: float = float(spec.get("size",16))

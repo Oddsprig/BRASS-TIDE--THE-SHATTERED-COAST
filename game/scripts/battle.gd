@@ -12,6 +12,7 @@ const Certification=preload("res://scripts/tactical_certification.gd")
 const FireControl=preload("res://scripts/tactical_fire_control.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
+const HullProfiles=preload("res://scripts/hull_profiles.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
@@ -162,10 +163,14 @@ static func _formation_positions(st: Dictionary,players: Array,enemies: Array) -
 	var placed: Dictionary={"islands":st.islands,"ships":[]}
 	for team in ["player","enemy"]:
 		var fleet: Array=players if team=="player" else enemies
+		var column_step: float=85.0
+		for ship in fleet:
+			var capsule: Vector3=HullProfiles.contact_capsule090(_deployment_spec(ship))
+			column_step=maxf(column_step,capsule.y-capsule.x+capsule.z*2.0+4.0)
 		for i in range(fleet.size()):
-			var shape: Dictionary={"spec":_deployment_spec(fleet[i]),"sunk":false}
+			var shape: Dictionary={"spec":_deployment_spec(fleet[i]),"sunk":false,"angle":0.0 if team=="player" else PI}
 			var clearance: float=float(positions.clearance)
-			var preferred: Vector2=Vector2((520.0 if team=="player" else 1600.0)+(i%2)*85.0,850.0+(floor(i/2.0)-(ceil(fleet.size()/2.0)-1.0)/2.0)*85.0)
+			var preferred: Vector2=Vector2((520.0 if team=="player" else 1600.0)+(i%2)*column_step,850.0+(floor(i/2.0)-(ceil(fleet.size()/2.0)-1.0)/2.0)*85.0)
 			var spawn: Vector2=preferred if _spawn_clear(placed,shape,preferred,clearance) else Vector2(INF,INF)
 			var best: float=INF
 			if not spawn.is_finite():
@@ -260,8 +265,13 @@ static func _deploy(st: Dictionary,s: Dictionary,index: int,team: String,spawn: 
 static func _spawn_clear(st: Dictionary,s: Dictionary,p: Vector2,clearance: float=0.0) -> bool:
 	if _blocked(st,p,maxf(_radius(s),clearance)):
 		return false
+	var capsule: Vector3=HullProfiles.contact_capsule090(s.spec)
+	var forward: Vector2=Vector2.from_angle(float(s.get("angle",0.0)))
 	for other in st.ships:
-		if not other.sunk and p.distance_to(_pos(other))<_radius(s)+_radius(other)+4.0:
+		if other.sunk:continue
+		var other_capsule: Vector3=HullProfiles.contact_capsule090(other.spec)
+		var other_forward: Vector2=Vector2.from_angle(float(other.get("angle",0.0)))
+		if _capsule_delta090(p+forward*capsule.x,p+forward*capsule.y,_pos(other)+other_forward*other_capsule.x,_pos(other)+other_forward*other_capsule.y).length()<capsule.z+other_capsule.z+4.0:
 			return false
 	return true
 
@@ -679,6 +689,45 @@ static func _ai(st: Dictionary,s: Dictionary,dt: float) -> void:
 	Tactical.after_motion(st)
 	_fire(st,s,Vector2.ZERO,{},true,Tactical.fire_gates(st,s))
 
+class _HullContacts090 extends RefCounted:
+	# One scan owns these plain numeric inputs. Only centers move during contact.
+	var stern: PackedVector2Array=PackedVector2Array()
+	var bow: PackedVector2Array=PackedVector2Array()
+	var bounds: PackedFloat64Array=PackedFloat64Array()
+	var ids: PackedStringArray=PackedStringArray()
+	var targets: PackedStringArray=PackedStringArray()
+
+static func _contact_target090(st: Dictionary,ship: Dictionary) -> String:
+	var target: String=Routes.contact_target(ship)
+	if not target.is_empty():return target
+	# Automatic boarding retains engage, rather than the explicit board order.
+	var plan: Dictionary=ship.get("boardingOrder",{})
+	if not plan.is_empty() and BoardingCombat.eligible(st,ship):return str(plan.get("target",""))
+	return ""
+
+static func _capsule_delta090(a: Vector2,b: Vector2,c: Vector2,d: Vector2) -> Vector2:
+	# Closest spine points, from the first hull to the second. No pair containers.
+	var u: Vector2=b-a
+	var v: Vector2=d-c
+	var w: Vector2=a-c
+	var aa: float=u.dot(u)
+	var bb: float=u.dot(v)
+	var cc: float=v.dot(v)
+	var dd: float=u.dot(w)
+	var ee: float=v.dot(w)
+	var s: float=0.0
+	var t: float=0.0
+	if aa<=0.000001:
+		if cc>0.000001:t=clampf(ee/cc,0.0,1.0)
+	elif cc<=0.000001:s=clampf(-dd/aa,0.0,1.0)
+	else:
+		var denominator: float=aa*cc-bb*bb
+		if denominator>0.000001:s=clampf((bb*ee-cc*dd)/denominator,0.0,1.0)
+		t=(bb*s+ee)/cc
+		if t<0.0:t=0.0;s=clampf(-dd/aa,0.0,1.0)
+		elif t>1.0:t=1.0;s=clampf((bb-dd)/aa,0.0,1.0)
+	return (c+v*t)-(a+u*s)
+
 static func _collisions(st: Dictionary) -> void:
 	var ships: Array=st.ships
 	var count: int=ships.size()
@@ -689,18 +738,26 @@ static func _collisions(st: Dictionary) -> void:
 	var positions: PackedVector2Array=PackedVector2Array()
 	var radii: PackedFloat64Array=PackedFloat64Array()
 	var live: PackedByteArray=PackedByteArray()
+	var hulls: _HullContacts090=_HullContacts090.new()
 	positions.resize(count);radii.resize(count);live.resize(count)
+	hulls.stern.resize(count);hulls.bow.resize(count);hulls.bounds.resize(count)
+	hulls.ids.resize(count);hulls.targets.resize(count)
 	for i in range(count):
 		var ship: Dictionary=ships[i]
 		if ship.sunk:continue
 		live[i]=1;positions[i]=_pos(ship);radii[i]=_radius(ship)
+		var capsule: Vector3=HullProfiles.contact_capsule090(ship.spec)
+		var forward: Vector2=Vector2.from_angle(float(ship.get("angle",0.0)))
+		hulls.stern[i]=forward*capsule.x;hulls.bow[i]=forward*capsule.y
+		hulls.bounds[i]=maxf(-capsule.x,capsule.y)+radii[i]
+		hulls.ids[i]=str(ship.get("id",""));hulls.targets[i]=_contact_target090(st,ship)
 	var queue: Array[int]=[]
 	var queued: Array[bool]=[]
 	queued.resize(count);queued.fill(false)
 	# Preserve the original i<j sweep, then revisit only moved endpoints.
 	for i in range(count):
 		for j in range(i+1,count):
-			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,i,j)
+			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,i,j,0.0,hulls)
 			if (moved&1)!=0:_queue_contact051(queue,queued,i)
 			if (moved&2)!=0:_queue_contact051(queue,queued,j)
 	# These are continuation ceilings, in addition to the fixed initial sweep.
@@ -718,7 +775,7 @@ static func _collisions(st: Dictionary) -> void:
 			# Canonical pair orientation also preserves the coincident RIGHT fallback.
 			var first: int=mini(index,other)
 			var second: int=maxi(index,other)
-			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,first,second,0.0001)
+			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,first,second,0.0001,hulls)
 			if moved==0:continue
 			corrections_left-=1
 			if (moved&1)!=0:_queue_contact051(queue,queued,first)
@@ -730,17 +787,23 @@ static func _queue_contact051(queue: Array[int],queued: Array[bool],index: int) 
 	queued[index]=true
 	queue.append(index)
 
-static func _project_packed_contact051(st: Dictionary,ships: Array,positions: PackedVector2Array,radii: PackedFloat64Array,live: PackedByteArray,first: int,second: int,tolerance: float=0.0) -> int:
+static func _project_packed_contact051(st: Dictionary,ships: Array,positions: PackedVector2Array,radii: PackedFloat64Array,live: PackedByteArray,first: int,second: int,tolerance: float=0.0,hulls: _HullContacts090=null) -> int:
 	if live[first]==0 or live[second]==0:return 0
 	var start_a: Vector2=positions[first]
 	var start_b: Vector2=positions[second]
 	var delta: Vector2=start_b-start_a
-	var d: float=delta.length()
 	var radius_a: float=radii[first]
 	var radius_b: float=radii[second]
 	var minimum: float=radius_a+radius_b
+	var contact: Vector2=delta
+	if hulls!=null and not (hulls.targets[first]==hulls.ids[second] or hulls.targets[second]==hulls.ids[first]):
+		var bound: float=hulls.bounds[first]+hulls.bounds[second]
+		if delta.length_squared()>=bound*bound:return 0
+		contact=_capsule_delta090(start_a+hulls.stern[first],start_a+hulls.bow[first],start_b+hulls.stern[second],start_b+hulls.bow[second])
+	elif delta.length_squared()>=minimum*minimum:return 0
+	var d: float=contact.length()
 	if not d<minimum-tolerance:return 0
-	var normal: Vector2=delta/d if d>0.0001 else Vector2.RIGHT
+	var normal: Vector2=contact/d if d>0.0001 else (delta.normalized() if delta.length_squared()>0.00000001 else Vector2.RIGHT)
 	var push: Vector2=normal*(minimum-d)*0.51
 	var ap: Vector2=start_a-push
 	var bp: Vector2=start_b+push
@@ -781,12 +844,19 @@ static func _project_contact051(st: Dictionary,a: Dictionary,b: Dictionary,toler
 	var start_a: Vector2=_pos(a)
 	var start_b: Vector2=_pos(b)
 	var delta: Vector2=start_b-start_a
-	var d: float=delta.length()
 	var radius_a: float=_radius(a)
 	var radius_b: float=_radius(b)
 	var minimum: float=radius_a+radius_b
+	var contact: Vector2=delta
+	if not (_contact_target090(st,a)==str(b.get("id","")) or _contact_target090(st,b)==str(a.get("id",""))):
+		var ac: Vector3=HullProfiles.contact_capsule090(a.spec)
+		var bc: Vector3=HullProfiles.contact_capsule090(b.spec)
+		var af: Vector2=Vector2.from_angle(float(a.get("angle",0.0)))
+		var bf: Vector2=Vector2.from_angle(float(b.get("angle",0.0)))
+		contact=_capsule_delta090(start_a+af*ac.x,start_a+af*ac.y,start_b+bf*bc.x,start_b+bf*bc.y)
+	var d: float=contact.length()
 	if not d<minimum-tolerance:return 0
-	var normal: Vector2=delta/d if d>0.0001 else Vector2.RIGHT
+	var normal: Vector2=contact/d if d>0.0001 else (delta.normalized() if delta.length_squared()>0.00000001 else Vector2.RIGHT)
 	var push: Vector2=normal*(minimum-d)*0.51
 	var ap: Vector2=start_a-push
 	var bp: Vector2=start_b+push
