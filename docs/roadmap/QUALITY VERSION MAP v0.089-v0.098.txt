@@ -3,8 +3,8 @@ BRASS TIDE - NEXT TEN VERSIONS
 
 STATUS AND PURPOSE
 Owner authorized sequential implementation of089-098 on4November2026 using
-GrokHIGH, ArgonHIGH and twoSol6.1MAX throughBridge. Current active scope089;
-installed/accepted version088 until a new verified package is delivered.
+GrokHIGH, ArgonHIGH and twoSol6.1MAX throughBridge. This is the preserved authorized scope map, not a live build-status ledger.
+Current installed/candidate versions and actual receipts are in the live state.
 Live coordination: work/quality-v089-v098/CURRENT STATE.json.
 Build each future release on the accepted predecessor and finish its bounded
 player result before advancing. Earlier079-088 scope receipts remain historical

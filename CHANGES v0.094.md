@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Loading only changes the draft. Existing real material, ordinary/expert wages, stock, condition, reserve and reviewed atomic-payment rules still govern installation.
 
 See docs/TEST RESULTS v0.094.md for actual focused checks and remaining limits.
+
+Verification: 298 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 103.541s. Preserved earlier failures; no broad acceptance claim.

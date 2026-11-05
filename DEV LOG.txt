@@ -1,3 +1,5 @@
+v0.094 VERIFIED AND PACKAGED: 298/0 focused checks, selected batch 103.541s, TestBridge eda9cc0967544e54bf96ec2efff2dc75. Source a20f564fd3aa6f2304b2b551413d9421ebbe54d3.
+
 04NOV2026 - v0.094 USEFUL LIGHT AND HEAVY REFERENCE FITTINGS
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

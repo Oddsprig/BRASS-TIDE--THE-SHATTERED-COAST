@@ -1,10 +1,7 @@
-# Brass Tide v0.094
+# Brass Tide v0.094 delivered within its scope
 
-Current candidate: Useful light and heavy reference fittings.
+Useful light and heavy reference fittings
 
-- Add two legal contrasting Tinwake references: rapid-gun racing skirmisher and economical torpedo striker; retain the three heavy Iron Bastion choices.
-- Reference fittings open on a supported owned hull and let you browse both reference hulls; incompatible-hull loads remain disabled.
-- Loading only changes the draft. Existing real material, ordinary/expert wages, stock, condition, reserve and reviewed atomic-payment rules still govern installation.
+- 298 native checks/0 failures:168 reference-fit/realLab-prefix,85 paid-workshop/material/labor/condition/persistence,45 actualUI/portrait/quote/picker/draft/Lab callbacks. Windows export/menu and ownedcleanup verified. TwoTinwakefits7/8 and8/8 points contrast gun+racing engine vsnarrowtorpedo+economyengine; threeIronBastionexamples retained. Ownedhulldefault works; actualOptionButtonbrowsesheavy,threewronghullloadsdisabled; ownedtemplatechangesdraftonly; allpaidcareer/stock/purse bytesretainedduringbrowse/trial. Existingmaterial+ordinary/expertwage+tax/margin atomicapply rules unchanged andnativepaid/JSON casespass. Referencequotes/finiteLabprefixesare not earnedpurchases ornewwholefleetbalanceproof. Deferred093Argonactual3WAVlistening nowPASS_BOUNDED_STAGED_CLIPS;092Argon3normalzoomviewsPASS. Nofullgame/completeart/funqualityclaim;089/091performancegaps remainOPEN.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Continue the authorized089-098 sequence on this accepted base. Single Desktop Brass Tide shortcut is the latest. Preserve owner saves/settings/music and source history. Full-game quality/performance/fun remains unclaimed. No new GitHub publication.

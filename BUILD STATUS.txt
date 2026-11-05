@@ -1,15 +1,14 @@
-BRASS TIDE v0.094 - USEFUL LIGHT AND HEAVY REFERENCE FITTINGS
-04 November2026 |36 boat designs
+BRASS TIDE v0.094 - Useful light and heavy reference fittings
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: a20f564fd3aa6f2304b2b551413d9421ebbe54d3 / v0.094
+Test Bridge: eda9cc0967544e54bf96ec2efff2dc75
+298 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 103.541s; owned cleanup verified.
 
-THIS VERSION
 - Add two legal contrasting Tinwake references: rapid-gun racing skirmisher and economical torpedo striker; retain the three heavy Iron Bastion choices.
 - Reference fittings open on a supported owned hull and let you browse both reference hulls; incompatible-hull loads remain disabled.
 - Loading only changes the draft. Existing real material, ordinary/expert wages, stock, condition, reserve and reviewed atomic-payment rules still govern installation.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+298 native checks/0 failures:168 reference-fit/realLab-prefix,85 paid-workshop/material/labor/condition/persistence,45 actualUI/portrait/quote/picker/draft/Lab callbacks. Windows export/menu and ownedcleanup verified. TwoTinwakefits7/8 and8/8 points contrast gun+racing engine vsnarrowtorpedo+economyengine; threeIronBastionexamples retained. Ownedhulldefault works; actualOptionButtonbrowsesheavy,threewronghullloadsdisabled; ownedtemplatechangesdraftonly; allpaidcareer/stock/purse bytesretainedduringbrowse/trial. Existingmaterial+ordinary/expertwage+tax/margin atomicapply rules unchanged andnativepaid/JSON casespass. Referencequotes/finiteLabprefixesare not earnedpurchases ornewwholefleetbalanceproof. Deferred093Argonactual3WAVlistening nowPASS_BOUNDED_STAGED_CLIPS;092Argon3normalzoomviewsPASS. Nofullgame/completeart/funqualityclaim;089/091performancegaps remainOPEN.
