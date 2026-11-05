@@ -1,3 +1,5 @@
+v0.090 VERIFIED AND PACKAGED: 427/0 focused checks, selected batch 54.743s, TestBridge f53b1e2aa59d4e219e75e01dff526ad4. Source 05e722349e582e9ce03a706161e7bc70ec3f737a.
+
 04NOV2026 - v0.090 BOAT SEPARATION AND STEERING
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.

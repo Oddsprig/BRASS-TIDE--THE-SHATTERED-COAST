@@ -1,10 +1,7 @@
-# Brass Tide v0.090
+# Brass Tide v0.090 scoped build verified
 
-Current candidate: Boat separation and steering.
+Authored contact/spawn envelopes follow actual hull length while terrain/weapon hit radii and compact side passage remain.427 native checks/0 failures; staged six-boat worker/render encounter60/0 and Root/Argon visual sample review completed.
 
-- Use authored heading-aware hull capsules for boat-to-boat contact and spawn clearance; preserve the existing terrain and weapon hit radius.
-- Keep compact side-by-side passage and existing tactical steering/escort slots. Increase spawn column spacing only for longer hulls.
-- Preserve intentional ram/boarding contact; manual takeover revokes automatic boarding clearance exemptions. Retain all36 boats and actual stores/owners.
+427 focused native checks/0 failures (234 unchanged contacts retained from9f65 by exact test-only source proof;193 corrected hull tests in finalf53), Windows export/menu verified. One staged6-stock-boat real30Hz BattleDriver/Chart encounter13b2731c passed60/0 over8simseconds:53hashedPNGframes,205joined/371displayed samples;zero sampled waterline overlap;minimum gaps4.439m published/4.781m displayed. Heavy turn1.626rad/231.8m, loaded carrier334m, escort299m; allfive playerboats progressed89-382m toward retreat rally;120timber retained, stores finite, allsixactors afloat. Root viewed closest-pass and final stills; Argon independently reviewed6timestamped keyframes with coherent passage/turn/withdrawal and no sampled clipping/stall. This is about8Hz frame capture, not a60FPSmovie or300DP/performance/fun proof. RawscriptresourceSHA unavailable for8exported scripts; exact testedPCK/EXE/source/engine/witness bindings provide provenance, emptystrings are never hashmatches. Initial9f65failed the overstrict shore-held fixture (x530 left2m legal room); corrected only staging tox528 exactboundary with assertionsunchanged; failedreceipt preserved. Earlier089 whole-active-campaign FPS targets remain OPEN.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Next authorized scope091: use current300DP light42/mixed16 observer, measure and correct one remaining reproduced cost. Preserve30Hz worker/100ms choices; do not reopen090or tune rounded60FPS. Root owns finaldelivery and singlelatestDesktoplauncher.

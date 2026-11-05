@@ -1,6 +1,6 @@
 # Brass Tide - current working instructions
 
-Current verified source089: bounded customs copy/publication. Native95/0; callback diagnosis65/0; callback median88.0015->72.4725ms. Full active-campaign FPS/latency targets remain OPEN; actual paired aggregate was slower, no overall smoothness claim. Root owns package/install receipts and the one latest Desktop launcher. Current task work/quality-v089, cycle CURRENT STATE in work/quality-v089-v098. Next090 after installation; no089 tuning expansion.
+Current verified scoped090: authored hull contact/spawn separation. Tested05e722349e582e9ce03a706161e7bc70ec3f737a;427 native/0 (234retained+193current), Windows/menu and one staged6boat actualDriver/Chart encounter60/0,0sampledwaterlineoverlap,min4.439/4.781m,preserved cargo/stores, useful crossing/heavyturn/escort/retreat. Root/Argon sampledvisualreview completed; no60FPSmovie,300DPperformance orfungate fromthiswitness. Currentreceipts work/quality-v090. Next091: bounded fullfleetperformance with existingretailobserver before anyoptimization. Earlier089overallactivecampaignFPS remainsOPEN.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
