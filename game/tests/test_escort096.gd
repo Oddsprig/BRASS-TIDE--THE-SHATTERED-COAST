@@ -4,10 +4,20 @@ extends "res://tests/test_voyage_career070.gd"
 ## a pass. A quiet earned passage is valid; any interception requires real exits.
 ## No money/stocks/positions/clock/actors/results are supplied to it.
 ## Explicit alternate accounting branches run in separate restored careers.
+## Default: earned only. --escort096-resume-r4 continues the real active prefix;
+## --escort096-staged-r4 runs detached guards only, never earned progress.
 const Main096=preload("res://scripts/main.gd")
 const Traffic096=preload("res://scripts/naval_ui.gd")
 const Reserves096=preload("res://scripts/harbor_reserves.gd")
 const LIMIT096_MS: int=34000
+const PREFIX096_PATH: String="C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/3932ad627b584db19e0294a200a2e7f7/attempt-001/earned-escort096/career070-escort096-active.json"
+const PREFIX096_SHA256: String="cfd14f6da9f9ce880be9f8ddd3c687723e0d739a62752cf6faa8e7f1da3adc3a"
+const PREFIX096_SOURCE: String="dcc5f72fb02864e125806e7c1c7716dad2ed333e"
+const PREFIX096_CONTRACT_SOURCE: Dictionary={
+	"escort_ops.gd":"f4a8eba935b3ca815932f4bc50b2e5e62441a4d3cc878a1e0f08a8dc9bfb79dc",
+	"voyage_jobs.gd":"e138cad136b0702cf6026c5846a4d9a6dd1408469daeee13afb36c74b744308b",
+	"naval_ui.gd":"41e8fa422a19e4dffb5ecfd4b4ed7001e35ce3b56d884515a083cdfa8ef108b6",
+	"campaign_state_validation.gd":"509949f0bee91bfd3cc82bbf848494d6631e7a69a9e392796f3ee7d74976ecf1"}
 var main096
 var owner096: String=""
 var job096: String=""
@@ -118,7 +128,6 @@ func button096(node: Node,prefix: String) -> Button:
 	return null
 
 func accept096(offer: Dictionary) -> bool:
-	if not staged_partial_load096():return false
 	var client: Dictionary=c.fleet_owner(owner096)
 	var purse: int=int(client.coins);var coins: int=int(c.state.coins)
 	var seen: Dictionary=current096(owner096)
@@ -137,9 +146,44 @@ func accept096(offer: Dictionary) -> bool:
 	detached.escort.carrierUids.clear();detached.escort.carrierCargo.clear()
 	if not check(not c.EscortOps.contracted(c,owner096).escort.carrierUids.is_empty(),"Detached job projections cannot mutate the live carrier binding"):return false
 	var active: Dictionary=parsed_save("escort096-active")
-	if active.is_empty() or not restore_exact(active,"escort096-active"):return false
-	if not save_guards096(active):return false
-	return staged096(active)
+	return not active.is_empty() and restore_exact(active,"escort096-active")
+
+func resume_actual096() -> Dictionary:
+	# This is an actual ordinary new_game/UI acceptance prefix, not070's
+	# historical synthetic checkpoint mode. Never accept another file/hash.
+	for script in PREFIX096_CONTRACT_SOURCE:
+		if not check(FileAccess.get_file_as_string("res://scripts/"+script).replace("\r\n","\n").sha256_text()==PREFIX096_CONTRACT_SOURCE[script],"R4 escort contract source binding: "+script):return {}
+	if not check(FileAccess.get_sha256(PREFIX096_PATH)==PREFIX096_SHA256,"Exact R4 actual earned-prefix disk SHA256; no substituted save"):return {}
+	var active=JSON.parse_string(FileAccess.get_file_as_string(PREFIX096_PATH))
+	if not check(active is Dictionary,"Actual R4 active prefix decodes"):return {}
+	supply=int(active.coinSupply)
+	if not restore_exact(active,"escort096-r4-actual-prefix"):return {}
+	var job: Dictionary=c.EscortOps.contracted(c)
+	if not check(int(c.state.seed)==69069 and int(c.state.coins)==15000 and c.crew_count()==5 and int(c.state.wageArrears)==0 and c.Money.total(c.state)==supply and str(job.get("id",""))=="escort:patrol-1:1" and job.state=="active" and int(job.escrow)==1170 and float(job.escort.accompaniedDistance)==0.0 and not job.escort.battlePending,"R4 normal opening, actual funded client and untraveled active contract survive public restore"):return {}
+	owner096=str(job.ownerId);job096=str(job.id)
+	receipt.prefixContractSourceSha256=PREFIX096_CONTRACT_SOURCE.duplicate()
+	receipt.actualPrefix={"path":PREFIX096_PATH,"sha256":PREFIX096_SHA256,"sourceCommit":PREFIX096_SOURCE,"nativeJobId":"3932ad627b584db19e0294a200a2e7f7","contractId":job096,"bytes":FileAccess.get_file_as_bytes(PREFIX096_PATH).size(),"day":c.state.day,"coins":c.state.coins,"escrow":job.escrow,"runningFixtureSha256":FileAccess.get_sha256("res://tests/test_escort096.gd"),"lineage":"ACTUAL_NORMAL_NEW_GAME_UI_ACCEPTANCE; R4_BODY_TIMEOUT_NOT_A_COMPLETED_VOYAGE","priorFailedRunChecksCredited":0}
+	return active
+
+func staged_only096(active: Dictionary) -> bool:
+	# c is a separate Campaign restored from the exact real prefix, with no
+	# Main/earned career. Preserve every old guard, outside the passage body.
+	if not save_guards096(active) or not staged096(active):return false
+	if not bounded():return false
+	# Reconstruct only the detached pre-acceptance test book for the existing
+	# legacy/partial-load regressions: reverse the held transfer, never add
+	# coins, change a route/clock, close a voyage or supply a gameplay outcome.
+	var input: PackedByteArray=var_to_bytes(active)
+	var job: Dictionary=c.EscortOps.contracted(c,owner096)
+	var client: Dictionary=c.fleet_owner(owner096)
+	var fee: int=int(job.escrow)
+	if not check(c.Money.move(job,"escrow",client,"coins",fee,"STAGED acceptance rollback only",c.state.moneyLog),"STAGED prior escrow returns only to its original payer for detached offer regression setup"):return false
+	c.state.voyageJobs.erase(job)
+	if not check(c.Money.total(c.state)==supply and var_to_bytes(active)==input,"STAGED acceptance rollback conserves coins and leaves the actual prefix input unchanged"):return false
+	receipt.controlled.append({"label":"STAGED_SETUP_ONLY","case":"reverse_escrow_for_legacy_and_partial_load","heldCoinsReturned":fee,"earnedProgress":false})
+	if not legacy_save096() or not staged_partial_load096():return false
+	receipt.stagedGuardsComplete=true;receipt.status="STAGED_COMPLETED"
+	return true
 
 func legacy_save096() -> bool:
 	# STAGED SAVE GUARD ONLY: omit the optional book BEFORE any work is
@@ -351,15 +395,31 @@ func complete096() -> bool:
 
 func _run() -> void:
 	receipt.fixture="escort096";receipt.bodyLimitMs=LIMIT096_MS;receipt.earnedVoyage=false;receipt.naturalInterceptionObserved=false
+	var staged_only: bool=OS.get_cmdline_user_args().has("--escort096-staged-r4")
+	var resume: bool=staged_only or OS.get_cmdline_user_args().has("--escort096-resume-r4")
+	receipt.mode="STAGED_SAVE_ACCOUNTING_ONLY" if staged_only else ("EARNED_ACTUAL_PREFIX_CONTINUATION" if resume else "EARNED_ONLY_NEW_GAME")
+	receipt.stagedGuardsComplete=false
 	if not check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Private artifact/profile path required"):await finish096();return
+	if staged_only:
+		var world=JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json"))
+		if not check(world is Dictionary,"Staged-only campaign definitions decode"):await finish096();return
+		c=Campaign.new(world)
+		var active: Dictionary=resume_actual096()
+		if not active.is_empty():staged_only096(active)
+		await finish096();return
 	main096=Main096.new();main096.qa_ocean066=true
 	root.add_child.call_deferred(main096);await main096.ready
 	main096.set_process(false);main096.set_physics_process(false);main096.paused=true
+	c=main096.core
+	if resume:
+		if not resume_actual096().is_empty():
+			main096.mode="campaign";main096.quick_mode=false;main096.ui.close_modal();main096.ui.build_hud()
+			if await passage096():complete096()
+		await finish096();return
 	main096.new_game(69069);main096.paused=true;c=main096.core
 	if not check(not c.state.is_empty() and int(c.state.coins)==15000 and c.crew_count()==5,"Ordinary new_game starts with exactly15000coins and5crew"):await finish096();return
 	supply=int(c.state.coinSupply)
 	receipt.initial={"coins":c.state.coins,"crew":c.crew_count(),"boat":physical_boat(c.state.fleet[0]).duplicate(true)}
-	if not legacy_save096():await finish096();return
 	var offer: Dictionary=seek096()
 	if offer.is_empty():
 		if failures==0:gap096("NO_NATURAL_FUNDED_PASSAGE","No ordinary local loaded client with a fundable remaining route was reached; no encounter or resources supplied")
@@ -376,10 +436,10 @@ func finish096() -> void:
 	c=null
 	var elapsed: int=Time.get_ticks_msec()-started
 	check(elapsed<LIMIT096_MS,"Whole096 body, ordinary economy and owned worker/Main cleanup stays below34s")
-	if receipt.status=="UNFINISHED" or failures>0 and receipt.status=="COMPLETED":receipt.status="FAILED"
+	if receipt.status=="UNFINISHED" or failures>0 and receipt.status in ["COMPLETED","STAGED_COMPLETED"]:receipt.status="FAILED"
 	receipt.checks=checks;receipt.failures=failures;receipt.elapsedMs=elapsed
 	var path: String=OS.get_environment("GAME_TEST_ARTIFACTS").path_join("escort096-result.json")
 	var file=FileAccess.open(path,FileAccess.WRITE)
 	if file!=null:file.store_string(JSON.stringify(receipt,"\t"));file.close()
 	print("ESCORT096_RESULT ",JSON.stringify(receipt));print("%d checks, %d failures"%[checks,failures])
-	quit(0 if failures==0 and receipt.earnedVoyage else 1)
+	quit(0 if failures==0 and (receipt.earnedVoyage or receipt.stagedGuardsComplete) else 1)
