@@ -1,10 +1,10 @@
-BRASS TIDE v0.096 - CLIENT-FUNDED CONVOY ESCORT AND PHYSICAL DELIVERY
+BRASS TIDE v0.097 - LAWFUL PRIVATEERING AND FINITE RECOVERED SHIPMENTS
 04 November2026 |36 boat designs
 
 THIS VERSION
-- Hail a nearby actual loaded trader, review its route and accept a client-funded fee held in escrow; a quiet safe passage can legitimately earn payment.
-- Original loaded carriers, actual travel, proximity and physical sale at the destination govern once-only payment. Loss/withdrawal refunds the client once and retains real player costs.
-- Save admission binds the live client, original cargo carriers, finite fee, destination and arrival ledger; existing voluntary rescues remain available.
+- Existing signed letters name actual hostile factions. A peaceful trader does not become a lawful target through a commission.
+- A commissioned interception uses real cargo aboard original crewed carriers. Recover only proven captured food/fuel beyond their untouched operating goods; retain limited hold room, damaged hulls and actual goods accounting.
+- Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

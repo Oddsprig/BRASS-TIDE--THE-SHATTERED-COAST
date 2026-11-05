@@ -1,7 +1,10 @@
-# Brass Tide v0.096 delivered within its scope
+# Brass Tide v0.097
 
-Client-funded convoy escort and physical delivery
+Current candidate: Lawful privateering and finite recovered shipments.
 
-- 242 focused native assertions passed across the earned quiet passage, staged save and refund checks, and controlled exit and custody checks. The convoy delivered 40 food to Cinder Quay and paid 1,170 coins once. The captain returned home with 15,362 coins after 500 wages and 308 replacement stores, with no arrears. The actual save restored with its valid legacy raider loop. A waypoint one unit beyond the old bound was refused without changing live state. The voyage encountered no attack. Exit checks used separate controlled positions. Windows export and startup passed on identical binaries across two batches. A damaged startup report was recovered from the queue and verified against its native startup log, phase receipt and binary hashes. Selected verification exceeded 180 seconds before installation. The full measured total is in the delivery receipt.
+- Existing signed letters name actual hostile factions. A peaceful trader does not become a lawful target through a commission.
+- A commissioned interception uses real cargo aboard original crewed carriers. Recover only proven captured food/fuel beyond their untouched operating goods; retain limited hold room, damaged hulls and actual goods accounting.
+- Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
 
-Continue the authorized089-098 sequence on this accepted base. Single Desktop Brass Tide shortcut is the latest. Preserve owner saves/settings/music and source history. Full-game quality/performance/fun remains unclaimed. No new GitHub publication.
+Focused native checks/export are pending. Root owns all TestBridge work;
+helpers stay in source-only roles. Continue this version before the next.

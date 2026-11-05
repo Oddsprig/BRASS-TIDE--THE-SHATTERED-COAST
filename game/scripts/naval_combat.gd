@@ -469,6 +469,9 @@ static func _resolve_physical068(state: Dictionary, owner_a: Dictionary, owner_b
 					winner["tradeCargo"] = maxf(0.0, float(winner.get("tradeCargo", 0.0)) + float(take))
 				captured_good = l_good
 				captured_qty = take
+				# The cargo lines above are the only transfer. Operating provenance is a cap, not a second credit.
+				if str(winner.get("kind", "")) == "raider":
+					Fleets.note_captured_operating(winner, l_good, float(take))
 
 	var sides: Array = [[owner_a, patrol_a, owner_b], [owner_b, patrol_b, owner_a]]
 	for side_var in sides:

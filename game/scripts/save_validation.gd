@@ -402,6 +402,14 @@ static func _validate(s: Dictionary,world: Dictionary) -> String:
 		if owner.has("tradeGood") and (not _text(owner.tradeGood) or not GOODS.has(owner.tradeGood)): return owner.id+" has invalid traded good."
 		error=_cargo(owner.get("cargo"),owner.id+".cargo",false)
 		if not error.is_empty(): return error
+		if owner.has("capturedOperating"):
+			var captured=owner.capturedOperating
+			if not captured is Dictionary: return owner.id+" has an invalid captured operating lot."
+			var hold: Dictionary=owner.cargo if owner.get("cargo") is Dictionary else {}
+			for good in captured:
+				if not good in ["food","fuel","supplies","ammo"] or not _number(captured[good]): return owner.id+" has an invalid captured operating lot."
+				var aboard: float=float(hold.get(good,0.0)) if _number(hold.get(good,0.0)) else 0.0
+				if float(captured[good])>aboard+0.001: return owner.id+" captured operating lot exceeds the cargo aboard."
 		if not owner.get("route") is Array or not owner.get("log") is Array: return owner.id+" has invalid route/log."
 		for id in owner.route:
 			if not _text(id) or not home_ports.has(id): return owner.id+" has unknown home route harbor."

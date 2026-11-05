@@ -153,6 +153,9 @@ static func _mission(c,owner: Dictionary,kind: String) -> Dictionary:
 	return {"kind":kind,"carrierTeam":"player" if kind=="escort" else "enemy","carrierOwnerId":str(owner.id),"carrierUids":loaded.carrierUids,"carrierCargo":loaded.carrierCargo,"exit":{"x":2180.0 if kind=="escort" else 120.0,"y":850.0,"radius":70.0,"portId":str(patrol.get("to","")),"portName":str(c.port(str(patrol.get("to",""))).get("name",patrol.get("to","")))}}
 
 static func prepare_intercept(c,context: Dictionary) -> Dictionary:
+	if c.has_method("intercept_shipment"):
+		var shipment: Dictionary=c.intercept_shipment(context)
+		if shipment.get("handled",false) and shipment.get("context") is Dictionary:return shipment.context
 	var owner: Dictionary=c.fleet_owner(str(context.get("ownerId",context.get("id",""))))
 	if owner.is_empty() or owner.get("kind","")!="trader" or float(owner.get("tradeCargo",0))<=0:return context
 	var out: Dictionary=context.duplicate(true)
@@ -291,7 +294,9 @@ static func settle_cargo(c,battle: Dictionary,wrecks: Array) -> Dictionary:
 			owner.cargo[good]=maxf(0.0,float(owner.cargo.get(good,0))-qty)
 			if good==str(owner.get("tradeGood","")):owner.tradeCargo=maxf(0.0,float(owner.get("tradeCargo",0))-qty)
 			if row.fate=="sunk":wreck.stores[good]=float(wreck.stores.get(good,0))+qty*0.5
+			c.Fleets.retire_captured_operating(owner,str(good),qty)
 	if not owner.is_empty():
+		c.Fleets.keep_captured_operating(owner)
 		owner.active=owner.boats.any(func(b):return not b.sunk)
 		var patrol: Dictionary=c.NavalAI._find_patrol(c.state,str(owner.id))
 		if not patrol.is_empty():patrol.active=owner.active

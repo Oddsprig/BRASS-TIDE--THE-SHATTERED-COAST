@@ -50,7 +50,68 @@ static func normalize_owner(owner: Dictionary) -> Dictionary:
 		if not boat.get("economySpecOwned",false):
 			boat.spec=boat.spec.duplicate(true)
 			boat.economySpecOwned=true
+	keep_captured_operating(owner)
 	return owner
+
+## Operating goods a raider proved by a real debit and credit. Absent on old saves.
+## The lot is a cap on cargo already aboard. It never adds or removes goods.
+static func keep_captured_operating(owner: Dictionary) -> void:
+	if not owner.has("capturedOperating"):return
+	var book=owner.capturedOperating
+	if not book is Dictionary:
+		owner.erase("capturedOperating")
+		return
+	var cargo: Dictionary=owner.cargo if owner.get("cargo") is Dictionary else {}
+	var operating: Array=["food","fuel","supplies","ammo"]
+	var drop: Array=[]
+	for key in book.keys():
+		var name: String=str(key)
+		var raw=book[key]
+		var qty: float=-1.0
+		if (raw is int or raw is float) and is_finite(float(raw)):qty=float(raw)
+		var aboard: float=0.0
+		if cargo.has(name):
+			var held=cargo[name]
+			if (held is int or held is float) and is_finite(float(held)):aboard=maxf(0.0,float(held))
+		if not name in operating or qty<=0.000001 or aboard<=0.000001:
+			drop.append(key)
+			continue
+		book[key]=minf(qty,aboard)
+	for key in drop:book.erase(key)
+	if book.is_empty():owner.erase("capturedOperating")
+
+## Call only after the winner's cargo already includes this take. A second take adds
+## the new quantity to the previous proven remainder, then clamps to the cargo aboard.
+static func note_captured_operating(owner: Dictionary,good: String,take: float) -> void:
+	if str(owner.get("kind",""))!="raider" or not good in ["food","fuel","supplies","ammo"]:return
+	if not is_finite(take) or take<=0.0:return
+	var cargo: Dictionary=owner.get("cargo",{}) if owner.get("cargo") is Dictionary else {}
+	var aboard: float=0.0
+	if cargo.has(good):
+		var held=cargo[good]
+		if (held is int or held is float) and is_finite(float(held)):aboard=float(held)
+	if aboard+0.001<take:return
+	var before: float=maxf(0.0,aboard-take)
+	var book: Dictionary=owner.get("capturedOperating",{}) if owner.get("capturedOperating") is Dictionary else {}
+	var already: float=0.0
+	if book.has(good):
+		var raw=book[good]
+		if (raw is int or raw is float) and is_finite(float(raw)):already=minf(maxf(0.0,float(raw)),before)
+	book[good]=minf(aboard,already+take)
+	owner["capturedOperating"]=book
+	keep_captured_operating(owner)
+
+## A real cargo debit retires that quantity from a proven lot. Max zero.
+## It never creates a marker and never changes the goods just debited.
+static func retire_captured_operating(owner: Dictionary,good: String,removed: float) -> void:
+	if not owner.get("capturedOperating") is Dictionary:return
+	if good.is_empty() or not is_finite(removed) or removed<=0.0:return
+	var book: Dictionary=owner.capturedOperating
+	if not book.has(good):return
+	var raw=book[good]
+	var qty: float=0.0
+	if (raw is int or raw is float) and is_finite(float(raw)):qty=maxf(0.0,float(raw))
+	book[good]=maxf(0.0,qty-removed)
 
 static func upkeep(owner: Dictionary) -> Dictionary:
 	var crew: float=0.0
@@ -275,6 +336,7 @@ static func dock(owner: Dictionary,port: Dictionary,core=null) -> Array:
 				owner.tradeCargo=maxi(0,owner.tradeCargo-moved)
 			boat[good]+=moved*conversion
 		_repair(owner,port,boat,core)
+	keep_captured_operating(owner)
 	if owner.kind=="trader" and port.id==owner.homePort:
 		var reserve: int=ceili(costs.wages*3.0)
 		var budget: int=maxi(0,owner.coins-reserve)
@@ -427,6 +489,7 @@ static func dock_at068(owner: Dictionary,port: Dictionary,location: Dictionary,r
 			if good==owner.tradeGood:owner.tradeCargo=maxf(0.0,float(owner.tradeCargo)-moved)
 			boat[good]=float(boat.get(good,0.0))+moved*conversion
 		_repair_finite068(owner,port,boat,core)
+	keep_captured_operating(owner)
 	owner.harborServiceUntilDay=now+0.25
 	var spent: int=before-int(owner.coins)-int(owner.crewPurse)
 	return {"ok":true,"spent":spent,"total":spent,"message":"Finite harbor service recorded; unfunded readiness still holds departure."}
@@ -474,6 +537,8 @@ static func tick(owners: Array,ports: Array,days: float,core=null) -> Array:
 			if owner.tradeGood=="food":
 				owner.tradeCargo=maxf(0.0,owner.tradeCargo-maxf(0.0,food-owned_food))
 			owner.cargo.food=maxf(0.0,owner.cargo.food-food)
+			# Reserve is the cargo below the proven lot, so rations are eaten before it.
+			keep_captured_operating(owner)
 			owner.lastFoodConsumed=food
 			owner.lastFuelConsumed=0.0
 			for boat in owner.boats:

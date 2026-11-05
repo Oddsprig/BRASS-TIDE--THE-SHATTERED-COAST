@@ -1,14 +1,15 @@
-BRASS TIDE v0.096 - Client-funded convoy escort and physical delivery
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 797e9dd7e558229bf36f75382054becd97e1dc4d / v0.096
-Test Bridge: 4ae5c21a4fca4f20b684ebd875c61ec9
-242 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 26.696s; owned cleanup verified.
+BRASS TIDE v0.097 - LAWFUL PRIVATEERING AND FINITE RECOVERED SHIPMENTS
+04 November2026 |36 boat designs
 
-- Hail a nearby actual loaded trader, review its route and accept a client-funded fee held in escrow; a quiet safe passage can legitimately earn payment.
-- Original loaded carriers, actual travel, proximity and physical sale at the destination govern once-only payment. Loss/withdrawal refunds the client once and retains real player costs.
-- Save admission binds the live client, original cargo carriers, finite fee, destination and arrival ledger; existing voluntary rescues remain available.
+THIS VERSION
+- Existing signed letters name actual hostile factions. A peaceful trader does not become a lawful target through a commission.
+- A commissioned interception uses real cargo aboard original crewed carriers. Recover only proven captured food/fuel beyond their untouched operating goods; retain limited hold room, damaged hulls and actual goods accounting.
+- Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-242 focused native assertions passed across the earned quiet passage, staged save and refund checks, and controlled exit and custody checks. The convoy delivered 40 food to Cinder Quay and paid 1,170 coins once. The captain returned home with 15,362 coins after 500 wages and 308 replacement stores, with no arrears. The actual save restored with its valid legacy raider loop. A waypoint one unit beyond the old bound was refused without changing live state. The voyage encountered no attack. Exit checks used separate controlled positions. Windows export and startup passed on identical binaries across two batches. A damaged startup report was recovered from the queue and verified against its native startup log, phase receipt and binary hashes. Selected verification exceeded 180 seconds before installation. The full measured total is in the delivery receipt.
+STATUS: current source candidate; focused checks/export pending.

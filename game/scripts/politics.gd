@@ -112,14 +112,37 @@ static func declare_attack(c,owner: Dictionary) -> void:
 	var home: String=str(owner.homePort)
 	Factions.adjust(c.state,id,-20,"claim:%s:Shipping damage claim"%home,eid+":claim")
 
+## Read-only. A committed commission names lawful enemies; it does not make a peaceful fleet hostile.
+static func commission_enemy(c,owner: Dictionary) -> Dictionary:
+	var result: Dictionary={"lawful":false,"patronId":"","enemies":[],"reason":"No letters of marque are committed."}
+	if owner.is_empty():result.reason="No fleet is identified.";return result
+	var book: Dictionary=c.state.get("relationships",{}) if c.state.get("relationships") is Dictionary else {}
+	var deal: Dictionary=book.get("commission",{}) if book.get("commission") is Dictionary else {}
+	if not deal.get("committed",false):return result
+	var patron: String=str(deal.get("factionId",""))
+	var contract: Dictionary=deal.get("contract",{}) if deal.get("contract") is Dictionary else {}
+	var enemies: Array=contract.get("enemies",[]) if contract.get("enemies") is Array else []
+	result.patronId=patron
+	result.enemies=enemies.duplicate()
+	var faction: String=str(owner.get("faction",""))
+	if not enemies.has(faction):result.reason="The committed letters do not name %s."%faction;return result
+	if not hostile(c,owner):result.reason="Letters do not make a peaceful fleet a lawful target.";return result
+	result.lawful=true
+	result.reason="Letters of marque from %s name this hostile %s fleet."%[patron,faction]
+	return result
+
 static func settled(c,owner: Dictionary,result: String,context: Dictionary) -> void:
 	if owner.is_empty():return
 	var id: String=str(owner.faction)
 	var eid: String="battle:%s:%d"%[owner.id,c.state.wins+c.state.losses]
+	var letters: Dictionary=commission_enemy(c,owner)
 	if context.get("aggression",false):
 		Factions.adjust(c.state,id,-25,"witness:Confirmed losses in your attack",eid)
 	elif result=="won" and id=="raiders":
-		for legal in ["compact","forge","reed"]:Factions.adjust(c.state,legal,2,"Defended coastal shipping",eid+":"+legal)
+		for legal in ["compact","forge","reed"]:
+			var why: String="Defended coastal shipping"
+			if letters.lawful and str(letters.patronId)==legal:why="Letters of marque for %s: defeated hostile %s."%[str(Factions.standing(c.state,legal).name),str(owner.get("name",id))]
+			Factions.adjust(c.state,legal,2,why,eid+":"+legal)
 
 static func hostile(c,owner: Dictionary) -> bool:
 	return not owner.is_empty() and Factions.is_hostile(c.state,str(owner.faction))

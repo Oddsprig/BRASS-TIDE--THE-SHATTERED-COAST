@@ -1,4 +1,4 @@
-BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.096)
+BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.097)
 
 Actual stern motion and reported combat/equipment state -> bounded wash, distinct weapon impulses, engine/fire/flooding/sinking cues and recorded audio voices. Main draws/mixes; worker owns battle data.
 

@@ -40,6 +40,7 @@ const HomeOps=preload("res://scripts/home_ops.gd")
 const RegionalOps=preload("res://scripts/regional_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
+const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
 const FleetSupport=preload("res://scripts/fleet_support.gd")
 const TradeIntel=preload("res://scripts/trade_intel.gd")
@@ -1464,6 +1465,85 @@ func _record_battle_service060(physical_battle: Dictionary,result: String) -> Ar
 		if row.fate in ["sunk","captured"]:
 			log_entry("%s %s (%s); service %d battles, %d wins. %s"%[row.fate.capitalize(),row.name,row.uid,int(row.service.get("battles",0)),int(row.service.get("wins",0)),detail])
 	return rows
+
+## Read-only plan. A raider's own operating food, fuel, supplies and ammunition stay reserved.
+## Only a proven captured remainder of those goods, past that reserve, can enter the manifest.
+## That remainder is capped by the cargo aboard and by crewed hold space. Nothing is created or removed.
+func prize_shipment(owner: Dictionary) -> Dictionary:
+	var law: Dictionary=Politics.commission_enemy(self,owner)
+	var empty: Dictionary={"ok":false,"lawful":bool(law.get("lawful",false)),"message":str(law.get("reason","")),"carrierUids":[],"carrierCargo":{}}
+	if not law.get("lawful",false):return empty
+	if str(owner.get("kind",""))!="raider":empty.message="Letters name this faction, but this fleet is not a hostile shipment.";return empty
+	var boats: Array=[]
+	for boat in owner.get("boats",[]):
+		if boat is Dictionary and not boat.get("sunk",false) and not boat.get("captureSecured",false) and float(boat.get("crew",0))>=float(boat.get("crewMin",1)):boats.append(boat)
+	boats.sort_custom(func(a,b):return str(a.get("uid",""))<str(b.get("uid","")))
+	if boats.is_empty():empty.message="The hostile fleet has no crewed boat that can carry a shipment.";return empty
+	var operating: Array=["food","fuel","supplies","ammo"]
+	var free: Dictionary={}
+	for boat in boats:
+		var uid: String=str(boat.get("uid",""))
+		if uid.is_empty() or free.has(uid):empty.message="Hostile carrier identities are unavailable.";return empty
+		free[uid]=maxf(0.0,float(boat.get("spec",{}).get("cargo",0))-Expedition.store_overflow(boat))
+	var cargo: Dictionary=owner.get("cargo",{}) if owner.get("cargo") is Dictionary else {}
+	var captured_book: Dictionary=owner.get("capturedOperating",{}) if owner.get("capturedOperating") is Dictionary else {}
+	var goods: Array=cargo.keys();goods.sort()
+	var operating_left: Dictionary={};var prize_left: Dictionary={}
+	for good in goods:
+		var name: String=str(good)
+		if not Goods.ITEMS.has(name):continue
+		var qty: float=float(cargo[good])
+		if not is_finite(qty) or qty<0.0:empty.message="Hostile cargo is not a finite lot.";return empty
+		if qty<=0.0:continue
+		if name in operating:
+			var proven: float=0.0
+			if captured_book.has(name):
+				var raw=captured_book[name]
+				if (raw is int or raw is float) and is_finite(float(raw)) and float(raw)>0.0:proven=minf(float(raw),qty)
+			var reserve: float=maxf(0.0,qty-proven)
+			if reserve>0.0:operating_left[name]=reserve
+			if proven>0.0:prize_left[name]=proven
+		else:prize_left[name]=qty
+	for good in operating_left:
+		var left: float=float(operating_left[good]);var weight: float=float(Goods.ITEMS[good].weight)
+		for boat in boats:
+			var uid: String=str(boat.uid)
+			var take: float=minf(left,float(free[uid])/weight) if weight>0.0 else 0.0
+			if take<=0.0:continue
+			free[uid]-=take*weight;left-=take
+			if left<=0.000001:break
+	var manifest: Dictionary={};var uids: Array=[]
+	for good in prize_left:
+		var left: float=float(prize_left[good]);var weight: float=float(Goods.ITEMS[good].weight)
+		for boat in boats:
+			var uid: String=str(boat.uid)
+			var take: float=minf(left,float(free[uid])/weight) if weight>0.0 else 0.0
+			if take<=0.0:continue
+			if not manifest.has(uid):manifest[uid]={}
+			manifest[uid][good]=take;free[uid]-=take*weight;left-=take
+			if left<=0.000001:break
+	for boat in boats:
+		var uid: String=str(boat.uid)
+		if manifest.has(uid) and not manifest[uid].is_empty():uids.append(uid)
+	if uids.is_empty():empty.message="This hostile fleet has no captured shipment that fits a crewed hold.";return empty
+	return {"ok":true,"lawful":true,"message":str(law.reason),"carrierUids":uids,"carrierCargo":manifest,"patronId":str(law.patronId)}
+
+## A commissioned hostile shipment uses the existing intercept mission. No prize cargo means an ordinary battle.
+## Any nonempty mission already on the context, including a convoy escort, stays assigned.
+func intercept_shipment(context: Dictionary) -> Dictionary:
+	var existing: Dictionary=context.get("mission",{}) if context.get("mission") is Dictionary else {}
+	if not existing.is_empty():return {"handled":false,"message":"An existing mission stays assigned."}
+	var owner: Dictionary=fleet_owner(str(context.get("ownerId",context.get("id",""))))
+	var plan: Dictionary=prize_shipment(owner)
+	if not plan.ok:return {"handled":false,"message":str(plan.message)}
+	var patrol: Dictionary=NavalAI._find_patrol(state,str(owner.id))
+	var dest: String=str(patrol.get("to",""))
+	var mission: Dictionary={"kind":"intercept","carrierTeam":"enemy","carrierOwnerId":str(owner.id),"carrierUids":plan.carrierUids,"carrierCargo":plan.carrierCargo,"exit":{"x":120.0,"y":850.0,"radius":70.0,"portId":dest,"portName":str(port(dest).get("name",dest))}}
+	var error: String=Objectives.deployment_error(FleetSupport.combat(self),owner.get("boats",[]).filter(func(b):return not b.get("sunk",false)),mission)
+	if not error.is_empty():return {"handled":false,"message":error}
+	var out: Dictionary=context.duplicate(true)
+	out.mission=mission
+	return {"handled":true,"context":out,"message":str(plan.message)}
 
 func battle_settled(result: String, enemy_specs: Array, context: Dictionary,physical_battle: Dictionary={}) -> Dictionary:
 	if not home_local064() and context.get("kind","") in ["patrol","escort","contract"]:return fail("This encounter belongs to Shatter Coast waters.")

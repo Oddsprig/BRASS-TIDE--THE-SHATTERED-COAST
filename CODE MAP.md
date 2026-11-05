@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.096: Client-funded convoy escort and physical delivery. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: naval_ui.gd:paid convoy review, escort_ops.gd:offer/advance_contract, voyage_jobs.gd:escort acceptance and settlement, campaign_state_validation.gd:validate_jobs070.
+v0.097: Lawful privateering and finite recovered shipments. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: politics.gd:commission_enemy/settled, campaign.gd:prize_shipment/intercept_shipment, naval_combat.gd:actual NPC taken cargo, escort_ops.gd:settle_cargo, save_validation.gd:captured operating lot admission.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
