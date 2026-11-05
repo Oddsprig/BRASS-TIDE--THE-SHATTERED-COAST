@@ -168,7 +168,10 @@ func resume_actual096() -> Dictionary:
 func staged_only096(active: Dictionary) -> bool:
 	# c is a separate Campaign restored from the exact real prefix, with no
 	# Main/earned career. Preserve every old guard, outside the passage body.
-	if not save_guards096(active) or not staged096(active):return false
+	print("STAGED096_PHASE malformed_save_guards")
+	if not save_guards096(active):return false
+	print("STAGED096_PHASE refund_accounting")
+	if not staged096(active):return false
 	if not bounded():return false
 	# Reconstruct only the detached pre-acceptance test book for the existing
 	# legacy/partial-load regressions: reverse the held transfer, never add
@@ -181,9 +184,17 @@ func staged_only096(active: Dictionary) -> bool:
 	c.state.voyageJobs.erase(job)
 	if not check(c.Money.total(c.state)==supply and var_to_bytes(active)==input,"STAGED acceptance rollback conserves coins and leaves the actual prefix input unchanged"):return false
 	receipt.controlled.append({"label":"STAGED_SETUP_ONLY","case":"reverse_escrow_for_legacy_and_partial_load","heldCoinsReturned":fee,"earnedProgress":false})
+	print("STAGED096_PHASE legacy_and_partial_carriers")
 	if not legacy_save096() or not staged_partial_load096():return false
 	receipt.stagedGuardsComplete=true;receipt.status="STAGED_COMPLETED"
 	return true
+
+func staged_core096():
+	# Restore builds and validates its actual atlas once. Reuse the immutable
+	# home navigation/anchors, just as Campaign's own restore candidate does.
+	var staged=Campaign.new(c.data,c.nav,false)
+	staged.ocean_anchors064=c.ocean_anchors064
+	return staged
 
 func legacy_save096() -> bool:
 	# STAGED SAVE GUARD ONLY: omit the optional book BEFORE any work is
@@ -191,7 +202,7 @@ func legacy_save096() -> bool:
 	if not bounded():return false
 	var legacy: Dictionary=c.state.duplicate(true);legacy.erase("voyageJobs")
 	var input: PackedByteArray=var_to_bytes(legacy);var live: PackedByteArray=protected_state()
-	var staged=Campaign.new(c.data,c.nav)
+	var staged=staged_core096()
 	var result: Dictionary=staged.restore(legacy)
 	if not check(result.get("ok",false) and same_values(physical(c.state),physical(staged.state)) and staged.Money.total(staged.state)==supply and var_to_bytes(legacy)==input and protected_state()==live,"STAGED legacy book without escort jobs restores unchanged, with no ledger or live-state mutation"):return false
 	receipt.controlled.append({"label":"STAGED_SAVE_GUARD_ONLY","case":"legacy_optional_job_book","restored":true})
@@ -202,7 +213,7 @@ func staged_partial_load096() -> bool:
 	# a separate career. Return surplus cargo to stock; never clone a boat.
 	if not bounded():return false
 	var live: PackedByteArray=protected_state()
-	var staged=Campaign.new(c.data,c.nav)
+	var staged=staged_core096()
 	if not check(staged.restore(c.state.duplicate(true)).get("ok",false),"STAGED partial-load career restores the real pre-acceptance state"):return false
 	var client: Dictionary=staged.fleet_owner(owner096)
 	if not check(client.get("boats",[]).size()==2,"STAGED partial-load case uses two existing client boats"):return false
@@ -285,7 +296,7 @@ func staged096(active: Dictionary) -> bool:
 	# terminal callbacks are never a battle, death, voyage or success witness.
 	for branch in ["abandon","lost","retreated","won_without_carriers"]:
 		if not bounded():return false
-		var staged=Campaign.new(c.data)
+		var staged=staged_core096()
 		if not check(staged.restore(active).get("ok",false),"Separate staged "+branch+" career restores the real accepted escrow"):return false
 		var job: Dictionary=staged.EscortOps.contracted(staged,owner096)
 		var client: Dictionary=staged.fleet_owner(owner096)
