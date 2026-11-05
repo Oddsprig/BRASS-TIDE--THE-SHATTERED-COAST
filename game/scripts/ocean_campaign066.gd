@@ -82,7 +82,9 @@ static func prepare(saved: Dictionary,context064: Dictionary) -> Dictionary:
 			if str(approach.id)==str(contact.gate.approachId):ocean_gate={"x":float(region.oceanOrigin.x)+float(approach.position.x)/10.0,"y":float(region.oceanOrigin.y)+float(approach.position.y)/10.0}
 		var points: Dictionary=_corridor_points(saved,context064)
 		var on_corridor: bool=not points.is_empty() and (World._distance(contact.waypoint,points.originOcean)<=0.001 or World._distance(contact.waypoint,points.remoteOcean)<=0.001)
-		if ocean_gate.is_empty() or (not corridor.is_empty() and not on_corridor) or (corridor.is_empty() and World._distance(contact.waypoint,ocean_gate)>80.000001):return _fail("The raider waypoint must be a corridor choke point or a legacy short gate-local loop.")
+		# An unrelated newly published shipment cannot invalidate an admitted legacy loop.
+		var legacy_loop: bool=id==OWNER and not ocean_gate.is_empty() and World._distance(contact.waypoint,ocean_gate)<=80.000001
+		if ocean_gate.is_empty() or (not on_corridor and not legacy_loop):return _fail("The raider waypoint must be a corridor choke point or a legacy short gate-local loop.")
 		var living: Array=Orders.living_boats(owner)
 		if contact.phase=="lost":
 			if not living.is_empty() or owner.get("active",true) or not str(owner.get("atPort","")).is_empty():return _fail("Lost offshore owner cannot retain living hulls or a home berth.")

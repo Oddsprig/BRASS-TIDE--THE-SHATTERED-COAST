@@ -391,7 +391,16 @@ func complete096() -> bool:
 	var replacements: int=before_stores-int(c.state.coins)
 	if not check(payroll>0 and int(c.state.coins)==15000+gross_paid-payroll-repair-replacements and int(c.state.wageArrears)==0,"Starting capital, fee, all normal wages, actual damage and replacement stores reconcile"):return false
 	var saved: Dictionary=parsed_save("escort096-completed")
-	if saved.is_empty() or not restore_exact(saved,"escort096-completed"):return false
+	if saved.is_empty():return false
+	# The actual legacy return loop survives a newly published corridor;
+	# extending it beyond the original80-unit gate bound still must fail.
+	var bad_waypoint: Dictionary=saved.duplicate(true)
+	bad_waypoint.ocean066.contact.waypoint.x=float(bad_waypoint.ocean066.contact.waypoint.x)+1.0
+	var live_waypoint: PackedByteArray=protected_state()
+	var bad_input: PackedByteArray=var_to_bytes(bad_waypoint)
+	var refused_waypoint: Dictionary=c.restore(bad_waypoint)
+	if not check(not refused_waypoint.get("ok",false) and str(refused_waypoint.get("message","")).contains("waypoint must") and protected_state()==live_waypoint and var_to_bytes(bad_waypoint)==bad_input,"Actual completed book still refuses an over-bound legacy waypoint atomically"):return false
+	if not restore_exact(saved,"escort096-completed"):return false
 	if not check(saved.get("lastEscortVoyage",{}).get("payment",0)==gross_paid and job096 in saved.doneVoyageJobs and c.work_port070().get("id")=="brass_haven","Earned completed save retains paid client route/carrier evidence and physical home return"):return false
 	receipt.accounting={"startingCoins":15000,"clientFee":gross_paid,"payroll":payroll,"repairs":repair,"replacementStores":replacements,"endingCoins":c.state.coins,"coinSupply":supply,"totalCoins":c.Money.total(c.state)}
 	receipt.returnBoatBeforeService=before;receipt.returnBoatAfterService=physical_boat(c.state.fleet[0]).duplicate(true)
