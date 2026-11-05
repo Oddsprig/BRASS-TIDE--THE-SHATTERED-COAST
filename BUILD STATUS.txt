@@ -1,15 +1,14 @@
-BRASS TIDE v0.093 - MUSIC TRANSITIONS AND WEAPON SOUND REVIEW
-04 November2026 |36 boat designs
+BRASS TIDE v0.093 - Music transitions and weapon sound review
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: dcc61c7a709b7be4cf0c667621366cd90bab5b5d / v0.093
+Test Bridge: 8abb1e3de9d845c1913dd0edd2e1e7bf
+42 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 63.799s; owned cleanup verified.
 
-THIS VERSION
 - Scene music responds to the latest requested role without waiting behind a full crossfade.
 - When both music voices are audible, retire the quieter voice over40ms before reusing it; keep the other at its existing gain and retain the two-second musical fade.
 - Keep the two reusable players, all18 supplied tracks, owner volume/mute, same-role Next, finite weapon voices and existing licensed weapon banks.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+42 current native music checks/0 failures, Windows export/menu passed; actual12sheadless/Dummy PCK recorder passes3/0 and13declaredweapon/engine/impact/sinking events plusfourtitle/travel/combat/harbor changes. QC0.49/0.51 interruptedfade nowretiresquietervoice40ms before reuse,latestrolearriveswithin80ms infixture;2players,2sfade,18tracks,mute/volume/Next/preendretained. IndependentfinalsourceQCblockercleared. ThreecurrentWAVs andsourcehashes saved in docs/audio/v0.093; peaksfinite/nofullscalePCMclippingsamples, which is not listening evidence. ACTUAL ARGON LISTENING PENDING in the authorized Bridge queue; audioquality remains OPEN until thatreview, no subjectivefinish/realism claim. This delivers the functional transition correction and reproducibleclips; deferredlisten does not block independent reference-fitting source/native work. Nativefixture reported14ObjectDB instances at exit; warningpreserved, no resource-leak clearanceclaim, ownedprocess cleanup verified. Earlier089/091performance targets remainOPEN.

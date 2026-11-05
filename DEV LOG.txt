@@ -1,3 +1,5 @@
+v0.093 VERIFIED AND PACKAGED: 42/0 focused checks, selected batch 63.799s, TestBridge 8abb1e3de9d845c1913dd0edd2e1e7bf. Source dcc61c7a709b7be4cf0c667621366cd90bab5b5d.
+
 04NOV2026 - v0.093 MUSIC TRANSITIONS AND WEAPON SOUND REVIEW
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
