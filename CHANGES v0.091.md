@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Preserve30Hz combat,100ms choices, existing task/route budgets, boats, weapons, damage, numerical crews and actual stores.
 
 See docs/TEST RESULTS v0.091.md for actual focused checks and remaining limits.
+
+Verification: 127 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 66.537s. Preserved earlier failures; no broad acceptance claim.
