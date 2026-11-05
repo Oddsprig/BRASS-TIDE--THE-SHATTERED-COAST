@@ -1,0 +1,808 @@
+{
+	"accepted": [],
+	"activeArtifact085": {
+		"path": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\ef290934873c42e8a29b803e1c61830e\\attempt-001\\corridor-aftermath/career070-remote-control085-active.json",
+		"pendingDays": 0,
+		"scope": "Actual paid active prefix; no reconstructed preparation or outcome.",
+		"sha256": "8eaa15112ba3ea8e022480c02dbd392aeac50a30de407d7fa96b1e7564b63a2c"
+	},
+	"aftermathContrast098": {
+		"earnedCareerProgression": false,
+		"holding": "Corridor market is governed by a hostile faction; returning physically to the paid home yard.",
+		"interruptedPhase": "to_origin",
+		"scope": "Controlled098 surviving-carrier aftermath contrast on active prefix; no earned career claim.",
+		"surrenderedDestination": "kelp_reach",
+		"surrenderedPhase": "to_yard"
+	},
+	"checks": 56,
+	"completedControl085": {
+		"battleSeconds085": 34.3000000000006,
+		"battleSeq": 1.0,
+		"battleSource": "engagement:69069:1",
+		"battleWon": true,
+		"battleWorld085": {
+			"layer": "local",
+			"regionId": "settled_01",
+			"schema": 1.0
+		},
+		"completedDay085": 14.0333333333333,
+		"corridor085": {
+			"originId": "settled_01_harbor_02",
+			"ownerId": "patrol-1",
+			"remoteId": "settled_05_harbor_01"
+		},
+		"crewByBoat": {},
+		"defenderId": "patrol-1",
+		"defenderUids": [
+			"npc-1-0",
+			"npc-1-1"
+		],
+		"fromFaction": "reed",
+		"funded": 800.0,
+		"lastPaidDay": 14.0,
+		"newFaction": "compact",
+		"objective": false,
+		"portId": "settled_01_harbor_02",
+		"reason": "Negotiated harbor sovereignty after the selected actual contest and paid support; private assets retained.",
+		"startBattleSeq": 0.0,
+		"startedDay": 12.0,
+		"status": "complete",
+		"supportDays": 2.0,
+		"supportGoods": {
+			"food": 4.0,
+			"supplies": 2.0
+		}
+	},
+	"completedTrade098": {
+		"good": "food",
+		"governor": "compact",
+		"portId": "settled_01_harbor_02",
+		"publicStores": {
+			"ammo": 0.0,
+			"charcoal": 0.0,
+			"copper": 0.0,
+			"crude": 0.0,
+			"engines": 0.0,
+			"fine_timber": 0.0,
+			"food": 17.4583,
+			"fuel": 0.0,
+			"gunpowder": 0.0,
+			"guns": 0.0,
+			"iron": 0.0,
+			"lacquer": 0.0,
+			"logs": 0.0,
+			"medicinal_plants": 0.0,
+			"ore": 0.0,
+			"preserved_fish": 0.0,
+			"saltpeter": 0.0,
+			"sulfur": 0.0,
+			"supplies": 2.0,
+			"timber": 0.0
+		},
+		"qty": 1,
+		"receipt": {
+			"day": 14.2222222222222,
+			"good": "food",
+			"portId": "settled_01_harbor_02",
+			"qty": 1,
+			"sequence": 1,
+			"side": "buy",
+			"total": 265
+		},
+		"total": 265
+	},
+	"contests085": [
+		{
+			"control": {
+				"battleSeconds085": 12.0,
+				"battleSeq": 1,
+				"battleSource": "engagement:69069:1",
+				"battleWon": false,
+				"battleWorld085": {
+					"layer": "local",
+					"regionId": "settled_01",
+					"schema": 1
+				},
+				"corridor085": {
+					"originId": "settled_01_harbor_02",
+					"ownerId": "patrol-1",
+					"remoteId": "settled_05_harbor_01"
+				},
+				"crewByBoat": {},
+				"defenderId": "patrol-1",
+				"defenderUids": [
+					"npc-1-0",
+					"npc-1-1"
+				],
+				"fromFaction": "reed",
+				"funded": 800.0,
+				"lastPaidDay": 12.0,
+				"newFaction": "compact",
+				"objective": false,
+				"portId": "settled_01_harbor_02",
+				"reason": "The actual coastal contest was lost or abandoned. Support remains spent; resume only with real surviving sailors.",
+				"startBattleSeq": 0.0,
+				"startedDay": 12.0,
+				"status": "interrupted",
+				"supportDays": 0.0,
+				"supportGoods": {
+					"food": 0.0,
+					"supplies": 0.0
+				}
+			},
+			"declaredRetreatOrder": true,
+			"report": {
+				"coins": 0,
+				"completed": false,
+				"escapedUids": [],
+				"fleetLost": false,
+				"losses": [],
+				"participants": [
+					{
+						"crewDecrease": 0.0,
+						"crewEnd": 5.0,
+						"crewStart": 5.0,
+						"fate": "afloat",
+						"hpEnd": 150.0,
+						"hpStart": 150.0,
+						"hull": "tin_skiff",
+						"maxHp": 150.0,
+						"name": "Tinwake Skiff",
+						"repair": {
+							"engine": 1.0,
+							"fire": 0.0,
+							"missingHp": 0.0,
+							"needsHarborRepair": false,
+							"water": 0.0
+						},
+						"result": "retreated",
+						"service": {
+							"battles": 1
+						},
+						"serviceHistory": [
+							{
+								"day": 12.1666666666666,
+								"detail": "Tinwake Skiff (boat-1): afloat; crew 5 -> 5, wounded 0 -> 0; hull 150 -> 150 / 150 HP; missing 0 HP, water 0, fire 0, engine 100%.",
+								"event": "retreated"
+							}
+						],
+						"uid": "boat-1",
+						"woundedEnd": 0.0,
+						"woundedStart": 0.0
+					}
+				],
+				"salvage": {},
+				"wrecks": []
+			},
+			"result": "retreated",
+			"seconds": 12.0
+		},
+		{
+			"control": {
+				"battleSeconds085": 34.3000000000006,
+				"battleSeq": 1,
+				"battleSource": "engagement:69069:1",
+				"battleWon": true,
+				"battleWorld085": {
+					"layer": "local",
+					"regionId": "settled_01",
+					"schema": 1
+				},
+				"corridor085": {
+					"originId": "settled_01_harbor_02",
+					"ownerId": "patrol-1",
+					"remoteId": "settled_05_harbor_01"
+				},
+				"crewByBoat": {
+					"boat-1": 2.0
+				},
+				"defenderId": "patrol-1",
+				"defenderUids": [
+					"npc-1-0",
+					"npc-1-1"
+				],
+				"fromFaction": "reed",
+				"funded": 800.0,
+				"lastPaidDay": 12.0,
+				"newFaction": "compact",
+				"objective": false,
+				"portId": "settled_01_harbor_02",
+				"reason": "The selected defender lost the actual coastal contest. Finish funded local support, then negotiate explicitly.",
+				"startBattleSeq": 0.0,
+				"startedDay": 12.0,
+				"status": "active",
+				"supportDays": 0.0,
+				"supportGoods": {
+					"food": 0.0,
+					"supplies": 0.0
+				}
+			},
+			"declaredRetreatOrder": false,
+			"report": {
+				"coins": 3104,
+				"completed": false,
+				"escapedUids": [],
+				"fleetLost": false,
+				"losses": [],
+				"participants": [
+					{
+						"crewDecrease": 0.0,
+						"crewEnd": 5.0,
+						"crewStart": 5.0,
+						"fate": "afloat",
+						"hpEnd": 150.0,
+						"hpStart": 150.0,
+						"hull": "tin_skiff",
+						"maxHp": 150.0,
+						"name": "Tinwake Skiff",
+						"repair": {
+							"engine": 1.0,
+							"fire": 0.0,
+							"missingHp": 0.0,
+							"needsHarborRepair": false,
+							"water": 0.0
+						},
+						"result": "won",
+						"service": {
+							"battles": 1,
+							"wins": 1
+						},
+						"serviceHistory": [
+							{
+								"day": 12.1666666666666,
+								"detail": "Tinwake Skiff (boat-1): afloat; crew 5 -> 5, wounded 0 -> 0; hull 150 -> 150 / 150 HP; missing 0 HP, water 0, fire 0, engine 100%.",
+								"event": "won"
+							}
+						],
+						"uid": "boat-1",
+						"woundedEnd": 0.0,
+						"woundedStart": 0.0
+					}
+				],
+				"salvage": {},
+				"wrecks": [
+					{
+						"battleX": 1752.56494140625,
+						"battleY": 561.383361816406,
+						"cause": "hull",
+						"claimedMode": "",
+						"components": {
+							"copper": 0.28,
+							"fuel": 0.39,
+							"iron": 0.51,
+							"logs": 0.64,
+							"supplies": 0.52,
+							"timber": 1.48
+						},
+						"day": 12.1666666666666,
+						"equipmentCustody": "wreck",
+						"friendly": false,
+						"hull": "kelpnet_dory",
+						"hullStripped": false,
+						"id": "wreck-2",
+						"name": "Kelpnet Dory",
+						"retiredSourceUid": "npc-1-0",
+						"service": {},
+						"serviceHistory": [],
+						"shipId": "enemy-0-kelpnet_dory",
+						"sourceId": "engagement:69069:1",
+						"sourceLoadout": {
+							"armor": "stock_armor",
+							"engine": "stock_engine",
+							"weapons": [
+								"stock_primary",
+								""
+							]
+						},
+						"sourceModuleCondition": {
+							"birthNamespace": "npc-1-0",
+							"items": {
+								"it-3490f4370b309211-1": {
+									"cause": "Gunfire hit on mount0",
+									"family": "weapons",
+									"hp": 0.0,
+									"itemUid": "it-3490f4370b309211-1",
+									"location": "mount0",
+									"lockerOrder": 0.0,
+									"originHullType": "kelpnet_dory",
+									"status": "disabled",
+									"typeId": "stock_primary"
+								},
+								"it-3490f4370b309211-2": {
+									"cause": "Gunfire hit on engine",
+									"family": "engines",
+									"hp": 0.590363593657933,
+									"itemUid": "it-3490f4370b309211-2",
+									"location": "engine",
+									"lockerOrder": 0.0,
+									"originHullType": "kelpnet_dory",
+									"status": "damaged",
+									"typeId": "stock_engine"
+								},
+								"it-3490f4370b309211-3": {
+									"cause": "Gunfire hit on armor",
+									"family": "armor",
+									"hp": 0.356404954402819,
+									"itemUid": "it-3490f4370b309211-3",
+									"location": "armor",
+									"lockerOrder": 0.0,
+									"originHullType": "kelpnet_dory",
+									"status": "damaged",
+									"typeId": "stock_armor"
+								},
+								"it-3490f4370b309211-4": {
+									"cause": "",
+									"family": "pumps",
+									"hp": 1.0,
+									"itemUid": "it-3490f4370b309211-4",
+									"location": "pumps",
+									"lockerOrder": 0.0,
+									"originHullType": "kelpnet_dory",
+									"status": "ok",
+									"typeId": "hull_pumps"
+								}
+							},
+							"legacyEngineSynced": 0.590363593657933,
+							"nextItemSeq": 5.0,
+							"repairPriority": "auto",
+							"version": 1.0
+						},
+						"status": "unclaimed",
+						"stores": {
+							"ammo": 1.0,
+							"fuel": 2.29815062656621,
+							"supplies": 1.77214159999998
+						},
+						"team": "enemy",
+						"towedBoatUid": "",
+						"uid": "npc-1-0",
+						"world064": {
+							"layer": "local",
+							"regionId": "settled_01",
+							"schema": 1
+						},
+						"x": 2677.0,
+						"y": 988.0
+					},
+					{
+						"battleX": 2073.74243164063,
+						"battleY": 590.429321289063,
+						"cause": "hull",
+						"claimedMode": "",
+						"components": {
+							"copper": 0.62,
+							"fuel": 0.81,
+							"iron": 1.41,
+							"logs": 1.44,
+							"supplies": 1.58,
+							"timber": 5.11
+						},
+						"day": 12.1666666666666,
+						"equipmentCustody": "wreck",
+						"friendly": false,
+						"hull": "fenhopper_lighter",
+						"hullStripped": false,
+						"id": "wreck-3",
+						"name": "Fenhopper Lighter",
+						"retiredSourceUid": "npc-1-1",
+						"service": {},
+						"serviceHistory": [],
+						"shipId": "enemy-1-fenhopper_lighter",
+						"sourceId": "engagement:69069:1",
+						"sourceLoadout": {
+							"armor": "stock_armor",
+							"engine": "stock_engine",
+							"weapons": [
+								"stock_primary",
+								""
+							]
+						},
+						"sourceModuleCondition": {
+							"birthNamespace": "npc-1-1",
+							"items": {
+								"it-3390f2a4052e4a08-1": {
+									"cause": "Gunfire hit on mount0",
+									"family": "weapons",
+									"hp": 0.0,
+									"itemUid": "it-3390f2a4052e4a08-1",
+									"location": "mount0",
+									"lockerOrder": 0.0,
+									"originHullType": "fenhopper_lighter",
+									"status": "disabled",
+									"typeId": "stock_primary"
+								},
+								"it-3390f2a4052e4a08-2": {
+									"cause": "Fire aboard",
+									"family": "engines",
+									"hp": 0.627479917987054,
+									"itemUid": "it-3390f2a4052e4a08-2",
+									"location": "engine",
+									"lockerOrder": 0.0,
+									"originHullType": "fenhopper_lighter",
+									"status": "damaged",
+									"typeId": "stock_engine"
+								},
+								"it-3390f2a4052e4a08-3": {
+									"cause": "Gunfire hit on armor",
+									"family": "armor",
+									"hp": 0.364902830532325,
+									"itemUid": "it-3390f2a4052e4a08-3",
+									"location": "armor",
+									"lockerOrder": 0.0,
+									"originHullType": "fenhopper_lighter",
+									"status": "damaged",
+									"typeId": "stock_armor"
+								},
+								"it-3390f2a4052e4a08-4": {
+									"cause": "",
+									"family": "pumps",
+									"hp": 1.0,
+									"itemUid": "it-3390f2a4052e4a08-4",
+									"location": "pumps",
+									"lockerOrder": 0.0,
+									"originHullType": "fenhopper_lighter",
+									"status": "ok",
+									"typeId": "hull_pumps"
+								}
+							},
+							"legacyEngineSynced": 0.627479917987054,
+							"nextItemSeq": 5.0,
+							"repairPriority": "auto",
+							"version": 1.0
+						},
+						"status": "unclaimed",
+						"stores": {
+							"ammo": 1.0,
+							"fuel": 2.08648395989939,
+							"supplies": 1.9558064
+						},
+						"team": "enemy",
+						"towedBoatUid": "",
+						"uid": "npc-1-1",
+						"world064": {
+							"layer": "local",
+							"regionId": "settled_01",
+							"schema": 1
+						},
+						"x": 2677.0,
+						"y": 988.0
+					}
+				]
+			},
+			"result": "won",
+			"seconds": 34.3000000000006
+		}
+	],
+	"controlled": [],
+	"corridorRefusal085": {
+		"actual": {
+			"originId": "settled_01_harbor_02",
+			"ownerId": "patrol-1",
+			"remoteId": "settled_05_harbor_01"
+		},
+		"message": "Save refused: Remote control lacks its original two-group merchant corridor.",
+		"substituted": {
+			"originId": "settled_05_harbor_01",
+			"ownerId": "patrol-1",
+			"remoteId": "settled_01_harbor_02"
+		}
+	},
+	"crossings": [
+		{
+			"actualWorld": {
+				"layer": "ocean",
+				"regionId": "open_ocean",
+				"schema": 1
+			},
+			"approachId": "north",
+			"day": 14.1222222222222,
+			"regionId": "settled_01"
+		},
+		{
+			"actualWorld": {
+				"layer": "local",
+				"regionId": "settled_01",
+				"schema": 1
+			},
+			"approachId": "north",
+			"day": 14.1222222222222,
+			"regionId": "settled_01"
+		}
+	],
+	"diagnosticOnly": false,
+	"earnedControl085": true,
+	"elapsedMs": 20557,
+	"encounters085": [],
+	"failures": 0,
+	"fixture": "remote_control085",
+	"interrupted085": {
+		"coins": 30611,
+		"control": {
+			"battleSeconds085": 12.0,
+			"battleSeq": 1,
+			"battleSource": "engagement:69069:1",
+			"battleWon": false,
+			"battleWorld085": {
+				"layer": "local",
+				"regionId": "settled_01",
+				"schema": 1
+			},
+			"corridor085": {
+				"originId": "settled_01_harbor_02",
+				"ownerId": "patrol-1",
+				"remoteId": "settled_05_harbor_01"
+			},
+			"crewByBoat": {},
+			"defenderId": "patrol-1",
+			"defenderUids": [
+				"npc-1-0",
+				"npc-1-1"
+			],
+			"fromFaction": "reed",
+			"funded": 800.0,
+			"lastPaidDay": 12.0,
+			"newFaction": "compact",
+			"objective": false,
+			"portId": "settled_01_harbor_02",
+			"reason": "The actual coastal contest was lost or abandoned. Support remains spent; resume only with real surviving sailors.",
+			"startBattleSeq": 0.0,
+			"startedDay": 12.0,
+			"status": "interrupted",
+			"supportDays": 0.0,
+			"supportGoods": {
+				"food": 0.0,
+				"supplies": 0.0
+			}
+		},
+		"limit": "Actual retreat continuation from the same funded prefix; no supplied day is invented.",
+		"paidSupportDays": 0.0,
+		"treasury": 20593.0
+	},
+	"payments": [],
+	"phases": [],
+	"remote-control085-activeRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"remote-control085-completedRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"remote-control085-success-forkRestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"retained-active098RestoreScopes": {
+		"coinSupply": true,
+		"contacts": true,
+		"doneVoyageJobs": true,
+		"exploration": true,
+		"islandOwnership069": true,
+		"marketSnapshots": true,
+		"owners": true,
+		"player": true,
+		"ports": true,
+		"sector069": true,
+		"sectorApplied069": true,
+		"sectorKnowledge069": true,
+		"shipping068": true,
+		"specialistSeq": true,
+		"specialists": true,
+		"totalCoins": true,
+		"voyageJobs": true
+	},
+	"retainedOpening098": {
+		"day": 12.1444444444444,
+		"evidence": "Actual saved opening from the controlled prior run. No prior assertion count is credited.",
+		"owner": "patrol-1",
+		"path": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/5e0761d94cf34be1bd7d56236297cde7/attempt-001/corridor-aftermath/career070-remote-control085-active.json",
+		"sha256": "ac11bb350104fc47f5b60b52ef912aab6e4b7973188bcaab318726dc005c1c09",
+		"target": "settled_01_harbor_02"
+	},
+	"status": "COMPLETED",
+	"supplyInvoices085": [],
+	"supportTransfers098": [
+		{
+			"afterStores": {
+				"ammo": 0.0,
+				"charcoal": 0.0,
+				"copper": 0.0,
+				"crude": 0.0,
+				"engines": 0.0,
+				"fine_timber": 0.0,
+				"food": 16.3599,
+				"fuel": 0.0,
+				"gunpowder": 0.0,
+				"guns": 0.0,
+				"iron": 0.0,
+				"lacquer": 0.0,
+				"logs": 0.0,
+				"medicinal_plants": 0.0,
+				"ore": 0.0,
+				"preserved_fish": 0.0,
+				"saltpeter": 0.0,
+				"sulfur": 0.0,
+				"supplies": 1.0,
+				"timber": 0.0
+			},
+			"carriedFoodSpentIncludingRations": 2.4,
+			"carriedKitsSpent": 1.0,
+			"day": 13.0,
+			"foodAdded": 2.0,
+			"harbor": "settled_01_harbor_02",
+			"kitsAdded": 1.0,
+			"workerStores": {
+				"ammo": 0.0,
+				"charcoal": 0.0,
+				"copper": 0.0,
+				"crude": 0.0,
+				"engines": 0.0,
+				"fine_timber": 0.0,
+				"food": 14.3599,
+				"fuel": 0.0,
+				"gunpowder": 0.0,
+				"guns": 0.0,
+				"iron": 0.0,
+				"lacquer": 0.0,
+				"logs": 0.0,
+				"medicinal_plants": 0.0,
+				"ore": 0.0,
+				"preserved_fish": 0.0,
+				"saltpeter": 0.0,
+				"sulfur": 0.0,
+				"supplies": 0.0,
+				"timber": 0.0
+			}
+		},
+		{
+			"afterStores": {
+				"ammo": 0.0,
+				"charcoal": 0.0,
+				"copper": 0.0,
+				"crude": 0.0,
+				"engines": 0.0,
+				"fine_timber": 0.0,
+				"food": 17.4583,
+				"fuel": 0.0,
+				"gunpowder": 0.0,
+				"guns": 0.0,
+				"iron": 0.0,
+				"lacquer": 0.0,
+				"logs": 0.0,
+				"medicinal_plants": 0.0,
+				"ore": 0.0,
+				"preserved_fish": 0.0,
+				"saltpeter": 0.0,
+				"sulfur": 0.0,
+				"supplies": 2.0,
+				"timber": 0.0
+			},
+			"carriedFoodSpentIncludingRations": 2.4,
+			"carriedKitsSpent": 1.0,
+			"day": 14.0,
+			"foodAdded": 2.0,
+			"harbor": "settled_01_harbor_02",
+			"kitsAdded": 1.0,
+			"workerStores": {
+				"ammo": 0.0,
+				"charcoal": 0.0,
+				"copper": 0.0,
+				"crude": 0.0,
+				"engines": 0.0,
+				"fine_timber": 0.0,
+				"food": 15.4583,
+				"fuel": 0.0,
+				"gunpowder": 0.0,
+				"guns": 0.0,
+				"iron": 0.0,
+				"lacquer": 0.0,
+				"logs": 0.0,
+				"medicinal_plants": 0.0,
+				"ore": 0.0,
+				"preserved_fish": 0.0,
+				"saltpeter": 0.0,
+				"sulfur": 0.0,
+				"supplies": 1.0,
+				"timber": 0.0
+			}
+		}
+	],
+	"traffic085": {
+		"datedLog": [
+			"Day 14 · Negotiated harbor sovereignty after the selected actual contest and paid support; private assets retained.",
+			"Day 14 · Reef raiders: 3488 coins wage arrears; morale 17.",
+			"Day 14 · Coastal convoy: 7873 coins wage arrears; morale 57.",
+			"Day 14 · Sawtooth Mill reports shortages of iron.",
+			"Day 14 · Kelp Reach reports shortages of iron, crude.",
+			"Day 14 · Brass Haven reports shortages of logs, charcoal.",
+			"Day 13 · Reef raiders: 3088 coins wage arrears; morale 25.",
+			"Day 13 · Coastal convoy: 5673 coins wage arrears; morale 65."
+		],
+		"day": 14.2222222222222,
+		"limit": "Actual short continuation; unchanged075 paid-recovery coverage is retained by source proof, not claimed newly executed here.",
+		"merchantRoute": {
+			"corridor075": {
+				"homeGate": {
+					"approachId": "north",
+					"regionId": "shatter_coast"
+				},
+				"homeId": "kelp_reach",
+				"originGate": {
+					"approachId": "north",
+					"regionId": "settled_01"
+				},
+				"originId": "settled_01_harbor_02",
+				"ownerId": "patrol-1",
+				"remoteGate": {
+					"approachId": "north",
+					"regionId": "settled_05"
+				},
+				"remoteId": "settled_05_harbor_01"
+			},
+			"location": {
+				"destination": "",
+				"heading": 0.938763074870879,
+				"path": [],
+				"position": {
+					"x": 2638.79725380091,
+					"y": 935.82709877837
+				},
+				"world064": {
+					"layer": "local",
+					"regionId": "settled_01",
+					"schema": 1.0
+				}
+			},
+			"nextDueSecond": 547.499999999998,
+			"ownerId": "patrol-1",
+			"phase": "lost",
+			"sequence": 1.0
+		},
+		"otherContact": {}
+	}
+}

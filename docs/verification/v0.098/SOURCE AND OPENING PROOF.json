@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "8a87578ca1900c464b19189b9f69386ef5413d42",
+  "source": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\scoped-v032-v041\\release-v0.098-r3",
+  "previous": "5f3b2fae4a77ca25ea4266681374597a1be2cdde",
+  "onlyChangedCode": [
+    "game/tests/test_remote_control085.gd"
+  ],
+  "productionUnchanged": true,
+  "actualPrefix": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\5e0761d94cf34be1bd7d56236297cde7\\attempt-001\\corridor-aftermath\\career070-remote-control085-active.json",
+  "prefixSha256": "ac11bb350104fc47f5b60b52ef912aab6e4b7973188bcaab318726dc005c1c09",
+  "priorNativeJob": "5e0761d94cf34be1bd7d56236297cde7",
+  "priorAssertionCountCredited": 0,
+  "correction": "Observe actual worker-published public stores immediately before Campaign.apply_economy. Check both real support deliveries as deltas after payroll publication. Ordinary procurement and civic consumption have already run on that baseline. Resume the same actual controlled paid opening."
+}

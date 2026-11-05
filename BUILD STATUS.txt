@@ -1,15 +1,14 @@
-BRASS TIDE v0.098 - SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
-05 November2026 |36 boat designs
+BRASS TIDE v0.098 - Supplied corridor aftermath and hostile shipping access
+DELIVERED SCOPED WINDOWS BUILD
+Source/tag: 8a87578ca1900c464b19189b9f69386ef5413d42 / v0.098
+Test Bridge: ef290934873c42e8a29b803e1c61830e
+56 focused checks, 0 failures; menu startup passed.
+Selected batch plus setup: 78.074s; owned cleanup verified.
 
-THIS VERSION
 - A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
 - One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
 - Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
 
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
 
-STATUS: current source candidate; focused checks/export pending.
+56 focused native assertions, zero failures, Windows export and menu startup passed. From one real funded controlled opening, retreat left the Reed harbor closed and credited no support. The successful branch transferred four food and two repair kits over two paid days after normal economic publication, negotiated Compact control, restored the completed save, and returned for a one-lot food purchase at 265 coins. A separate controlled comparison verified that a hostile corridor refuses loading and delivery and diverts the old carrier toward the paid home yard at Kelp Reach. These are controlled operations with declared opening conditions. The final batch took 77.922 seconds. The measured delivery total also includes the original 91.406-second attempt because it produced the retained opening. That attempt ended at a stock comparison that overlooked ordinary public procurement and consumption. Its assertion count was not credited.

@@ -1,10 +1,7 @@
-# Brass Tide v0.098
+# Brass Tide v0.098 delivered within its scope
 
-Current candidate: Supplied corridor aftermath and hostile shipping access.
+Supplied corridor aftermath and hostile shipping access
 
-- A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
-- One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
-- Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
+- 56 focused native assertions, zero failures, Windows export and menu startup passed. From one real funded controlled opening, retreat left the Reed harbor closed and credited no support. The successful branch transferred four food and two repair kits over two paid days after normal economic publication, negotiated Compact control, restored the completed save, and returned for a one-lot food purchase at 265 coins. A separate controlled comparison verified that a hostile corridor refuses loading and delivery and diverts the old carrier toward the paid home yard at Kelp Reach. These are controlled operations with declared opening conditions. The final batch took 77.922 seconds. The measured delivery total also includes the original 91.406-second attempt because it produced the retained opening. That attempt ended at a stock comparison that overlooked ordinary public procurement and consumption. Its assertion count was not credited.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Continue the authorized089-098 sequence on this accepted base. Single Desktop Brass Tide shortcut is the latest. Preserve owner saves/settings/music and source history. Full-game quality/performance/fun remains unclaimed. No new GitHub publication.
