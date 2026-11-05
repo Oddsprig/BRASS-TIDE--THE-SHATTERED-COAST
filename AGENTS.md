@@ -1,11 +1,6 @@
 # Brass Tide - current working instructions
 
-Current verified088: Whole-loop clarity and campaign review.
-Tested6e220ef8de532064df3c448313b6815e4da0ec76;17908 focused/0;Windows/menu, 8 saved-state restores, 23 read-only career guidance readings, 2 current disk round-trips (loss083, destinations087), title/settings/governor UI captures (settings Separate-claim removal + completed-port governor secured-control explanation) and 300DP light42/mixed16 retail runtime profile (quality_target_pass=True).
-Receipts work/quality-v088/ACTUAL088 CHECKS.json and DELIVERED v0.088.json.
-Root alone tests/delivery. Authorized079-088 sequence complete within bounded scopes; later work requires a new saved scope.
-Staged086/087 openings, no completed player Escort/Privateer save, no active-campaign FPS or whole-economy profitability proof, unreviewed071/082 listening and fun, and earlier art/strict battle performance gaps remain open.
-075 final QA timing gate failed183s;076 and087 passed;088 recorded independently.
+Current verified source089: bounded customs copy/publication. Native95/0; callback diagnosis65/0; callback median88.0015->72.4725ms. Full active-campaign FPS/latency targets remain OPEN; actual paired aggregate was slower, no overall smoothness claim. Root owns package/install receipts and the one latest Desktop launcher. Current task work/quality-v089, cycle CURRENT STATE in work/quality-v089-v098. Next090 after installation; no089 tuning expansion.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the

@@ -1,3 +1,5 @@
+v0.089 SCOPED:95 native/0; Windows/menu; six paired customs callbacks65/0,17.65% median saving. Actual rendered campaign pair completed but overall targets missed/worsened. See work/quality-v089/ACTUAL089 CHECKS.json and TEST RESULTS v0.089.md; no broad FPS/audio/fun claim.
+
 v0.076 CURRENT:396/0; funded existing-harbor construction, interrupted/resumed paid
 support, actual selected-defender victory, negotiated title and full save/load.
 Windows/menu native jobdb07828926cc4fbc9993b7f93649e34c,90.387s inclsetup.

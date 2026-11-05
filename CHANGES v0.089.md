@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Keep cheap water, numerical crews, default autopilot, WASD camera, conserved coins and100coins per sailor-day.
 
 See docs/TEST RESULTS v0.089.md for actual focused checks and remaining limits.
+
+Verification: 95 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 58.343s. Preserved earlier failures; no broad acceptance claim.

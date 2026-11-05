@@ -1,3 +1,5 @@
+v0.089 VERIFIED AND PACKAGED: 95/0 focused checks, selected batch 58.343s, TestBridge 6784d68bad7449eb978e0f3b4e5d1d68. Source 47da5c3135e7619840240786005111b86dfd1698.
+
 04NOV2026 - v0.089 SMOOTH ACTIVE CAMPAIGN - DAILY CUSTOMS PUBLICATION
 Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
 Focused checks and Windows packaging are next. Other version scopes remain separate.
