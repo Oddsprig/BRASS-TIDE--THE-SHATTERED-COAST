@@ -1,10 +1,7 @@
-# Brass Tide v0.092
+# Brass Tide v0.092 delivered within its scope
 
-Current candidate: Coasts and harbors with visual identity.
+Coasts and harbors with visual identity
 
-- Stronger clipped shore ledges, beaches and ridge relief at normal chart zoom using the existing cached three-level meshes.
-- Working harbors show their actual industry through granaries, timber racks, foundries, tanks and quays; remote exploration clues have recognizable original shore objects.
-- Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
+- 992 native checks/0 failures (629coast bounds/picking,363landmark/knowledge/liveUI), Windows export/menu and exactPCK3normalzoom1/LOD1 referencecaptures complete. HOMEBrassHaven, installedWestglass timberharbor andchartedWestglassBearingStones rendered through actualMain/Chart/OceanChart. Disposable location/knowledge staged; no earnedvoyage. State/runtimecontexts restored; allcachedcoastvertexcounts within existing [2500,9000,18000]. Root viewed all3: distinctquay/shore/reliefandlanding motifs, legiblelabels andrealapproachgeometry. IndependentQC pierpicker findingfixed byalladjacentsegments atsame14pxthreshold, two meaningfulWestglasschecks pass. R1native054incomplete becauseRootwrapper14s<unchanged25sfixture; R2cancelledwhilequeued before sourcefix; R3allcurrentassertspass. Failures preserved. No48bespokeworld, combatmotion, wholeartparity orFPS claim; earlier089/091performance targetsOPEN.
 
-Focused native checks/export are pending. Root owns all TestBridge work;
-helpers stay in source-only roles. Continue this version before the next.
+Continue the authorized089-098 sequence on this accepted base. Single Desktop Brass Tide shortcut is the latest. Preserve owner saves/settings/music and source history. Full-game quality/performance/fun remains unclaimed. No new GitHub publication.

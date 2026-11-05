@@ -37,7 +37,7 @@ game/scripts/sector_ui069.gd: 3843 bytes; extends RefCounted
   game/scripts/sector_ui069.gd:62 _known_port_id()
   game/scripts/sector_ui069.gd:81 _route()
   game/scripts/sector_ui069.gd:86 _enter()
-game/scripts/ocean_chart064.gd: 92536 bytes; extends RefCounted
+game/scripts/ocean_chart064.gd: 92567 bytes; extends RefCounted
   game/scripts/ocean_chart064.gd:99 generated_member()
   game/scripts/ocean_chart064.gd:486 known_ownership_line()
   game/scripts/ocean_chart064.gd:825 pick_local067()

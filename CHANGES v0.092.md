@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
 
 See docs/TEST RESULTS v0.092.md for actual focused checks and remaining limits.
+
+Verification: 992 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 75.000s. Preserved earlier failures; no broad acceptance claim.
