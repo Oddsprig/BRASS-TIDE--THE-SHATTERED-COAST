@@ -369,6 +369,14 @@ func complete096() -> bool:
 	if not check(not c.settle_voyage_job(job096).ok and int(c.state.coins)==coins+gross_paid,"Repeated success claim cannot pay again"):return false
 	receipt.completedContract=job
 	if not sail("brass_haven"):return false
+	# This short earned route can return before the first daily payroll.
+	# Wait at the actual home berth for the next normal wage publication;
+	# then replace the supplies consumed by both passage and berth standby.
+	var standby_day: float=float(c.state.day)
+	var next_payroll: float=float(c.state.econDay)+1.0
+	while payroll<=0 and float(c.state.day)<next_payroll+0.05:
+		if not advance(0.5):return false
+	receipt.berthStandby={"fromDay":standby_day,"toDay":c.state.day,"publishedPayroll":payroll,"reason":"Ordinary home-berth time until actual first daily wage publication; no direct clock or purse writes."}
 	var boat: Dictionary=c.state.fleet[0]
 	var before: Dictionary=physical_boat(boat).duplicate(true)
 	var before_service: int=int(c.state.coins)
