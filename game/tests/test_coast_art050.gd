@@ -2,6 +2,7 @@ extends SceneTree
 ## Source-only handoff: Root runs this one bounded fixture through TestBridge.
 ## Actual authored world / translated encounter rings, no simulation or mock map.
 const CoastArt=preload("res://scripts/coast_art050.gd")
+const OceanChart092=preload("res://scripts/ocean_chart064.gd")
 const NauticalArt=preload("res://scripts/nautical_art.gd")
 const Terrain=preload("res://scripts/coastal_terrain.gd")
 const Navigation=preload("res://scripts/navigation.gd")
@@ -165,6 +166,17 @@ func run() -> void:
 		remote_landmarks[r_plan.landmark]=true;remote_layouts[var_to_bytes(r_plan.levels[1].vertices)]=true
 		validate(r_plan,str(r_port.id))
 	check(remote_landmarks.size()==7 and remote_layouts.size()==7,"seven distinct remote harbor layouts and industry landmarks")
+	# Pick the actual water-side connector beyond the berth's42px disk.
+	var ocean092=OceanChart092.new()
+	var west092: Dictionary=remote_ports[0].duplicate(true);west092.regionId="glasswind_keys"
+	var local092: Dictionary={"layer":"local","regionId":"glasswind_keys","islands":glass_islands}
+	var pier092: PackedVector2Array=ocean092._prepare_local_harbor068(west092,glass_islands).pier
+	var point092: Vector2=pier092[1].lerp(pier092[2],0.45)
+	chart.host.mode="campaign";chart.camera=point092;chart.scale_factor=2.4
+	var screen092: Vector2=chart.project(point092)
+	check(chart.project(Vector2(west092.x,west092.y)).distance_to(screen092)>42.0,"connector regression is outside berth click disk at supported close zoom")
+	var pick092: Dictionary=ocean092.pick_port068(chart,local092,{"ports":[west092]},screen092)
+	check(str(pick092.get("portId",""))=="westglass_anchorage","every visible Westglass pier segment selects its actual harbor")
 	check(var_to_bytes(data)==original,"all art / draw / label preparation leaves world, ports, routes, economy and roster bytes unchanged")
 	chart.free()
 	print("COAST050: %d checks, %d failures; peak vertices by LOD %s; no simulation or visual-quality verdict"%[checks,failures,str(peak_vertices)])

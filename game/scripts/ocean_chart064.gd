@@ -1019,9 +1019,9 @@ func pick_port068(chart, view_or_ship068: Dictionary, screen_or_ship068, maybe_s
 					break
 			if not hit:
 				var pier: PackedVector2Array = plan.get("pier", PackedVector2Array())
-				if pier.size() >= 2:
-					var a: Vector2 = chart.project(pier[0])
-					var b: Vector2 = chart.project(pier[1])
+				for segment in range(1, pier.size()):
+					var a: Vector2 = chart.project(pier[segment-1])
+					var b: Vector2 = chart.project(pier[segment])
 					var seg_d: float = Geometry2D.get_closest_point_to_segment(screen, a, b).distance_to(screen)
 					if seg_d <= 14.0:
 						hit = true
