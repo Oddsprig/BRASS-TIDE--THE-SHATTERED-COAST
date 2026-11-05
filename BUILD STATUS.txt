@@ -1,15 +1,17 @@
-BRASS TIDE v0.088 - Whole-loop clarity and campaign review
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 6e220ef8de532064df3c448313b6815e4da0ec76 / v0.088
-Test Bridge: 5d09c73d8f084290b2e6c0b1374b0bd7
-17908 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 64.561s; owned cleanup verified.
+BRASS TIDE v0.089 - SMOOTH ACTIVE CAMPAIGN - DAILY CUSTOMS PUBLICATION
+04 November2026 |36 boat designs
 
-- Remove the obsolete Settings paragraph claiming that the normal launcher keeps separate rendering enabled while retaining requested Safe thread mode 1 and the 1280x800 title/settings layout, and replace the completed current-harbor Sponsor/Fund/Negotiate action row in regional_ui.gd with a secured-control explanation while preserving all other harbor controls.
-- Restore eight hash-pinned completed campaign states across early/mid earned progression (078, 083), later world/NPC traffic (075), staged civilian roles (086) and staged remote destinations (087), verifying exact purse, coinSupply, cargo, hull/equipment UID, wreck/tombstone, contact/market and geography continuity.
-- Review 23 read-only career guidance plans without mutating campaign state, verify full-precision private current-format save reopenings on 083 and 087, and record explicit staging, unplayed career completions and remaining performance/listening/presentation limits.
-- Remove an internal developer phrase from the existing auxiliary-tank tradeoff text; all numerical effects and prices remain unchanged.
+THIS VERSION
+- Limit the daily customs cleanup draft and publication to the customs book, preserving all validation, paid transactions, expiry, provenance, surrounding accounts and live object identities.
+- Measure one populated48-group campaign with camera/panel actions, actual travel, independent fleets and a paid economy update using identical private observer bytes before and after.
+- Keep cheap water, numerical crews, default autopilot, WASD camera, conserved coins and100coins per sailor-day.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-Tested6e220ef8de532064df3c448313b6815e4da0ec76;17908 focused assertions/0. Eight hash-pinned actual completed saved states restore with exact protected physical/economic/story/geography continuity;23read-only guidance plans and2current full-precision disk reopenings passed. Current1280x800 title/settings and actual completed085 harbor screen reviewed; completed selected-harbor contest controls now give a clear secured-governor explanation. Safe-render wording and auxiliary-tank developer wording corrected. Two current retail300DP/side light42/mixed16 short samples meet all recorded strict targets in this run; endpoint art still visibly needs work. 079-088 complete only within saved bounded scopes; this is not a finished game or Starsector parity. No new088 earned playthrough;086/087 opening staging and083 declared loss remain explicit.075 is later WORLD/NPC activity, not a late-player career; its historical183s gate remains failed. Player Escort/Privateer completion absent.23guidance readings do not prove6completed careers, sustainable NPC/player voyage profitability, long-term balance or active campaign FPS. Current short runtime pass does not erase historical light-battle latency misses or prove sustained performance. Requested2560x1600, actualclient2560x1570; actual render thread mode and GPU frame time unavailable. Hull overlap/crowding/basic shore art, audio listening and live enjoyment remain open; endpoints are stills. Failed native/key-shape and private capture coordinate/monitor checks retained; corrections do not change production physical values or strict performance thresholds. Owner01Nov retention override removes old compiled copies/Windows ZIPs while preserving current installed game, source/tags and unique owner saves/settings/music. Retail 300DP runtime quality_target_pass=True (088 is honest review, not target fix): light42 workerP95=31374.0us/maxLag=100000us/FPS=60.0084477911939 ({}); mixed16 workerP95=16264.0us/maxLag=66612us/FPS=60.0101659385128 ({}); Safe1 requested, actual threadModel monitor=None. 086 specialist hull profiles and 087 regional berths/90-day reserve are declared staged openings (stagedOpening=true, earnedFromDefaultStarter=false); no new earned playthroughs in 088. No player-completed Escort or Privateer save is supplied or claimed; their current guidance is read-only. CPU restoreUs/queryUs/elapsedUs measure saved-campaign Continue/Guidance only; active-campaign FPS, whole-economy merchant voyage profitability and long-term faction balance remain unmeasured. Audio listening (071/082), live play enjoyment/fun, normal-zoom hull overlap/basic shores and full-game/Starsector-parity quality remain unreviewed and open. 075 timing gate failed; 076 and 087 passed; this release records its own actual time. Unchanged 087 source/raw asset acceptance retained by exact plan-hash equality; no fresh checks. Runtime completion is separate from strict performance target acceptance.
+STATUS: current source candidate; focused checks/export pending.
+
+Authorized089-098 sequence: work/quality-v089-v098/CURRENT STATE.json. Installed game remains088 pending089 acceptance. Background batches<120s; selected final suite<180s. Root alone tests and delivery.

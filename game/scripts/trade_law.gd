@@ -178,11 +178,14 @@ static func _clean(s):
 	b.bans=b.bans.filter(func(r):return r.expires>s.day)
 	b.seen=s.cargo.duplicate()
 	if b.stamp!=floori(s.day):b.stamp=floori(s.day);b.seenBy={}
-static func _draft(c)->Dictionary:
+static func _draft(c,daily_book_only:bool=false)->Dictionary:
 	for key in ["price","access","permit","standing","relation","move","adjust"]:
 		if not api.get(key) is Callable or not api[key].is_valid():return _no("Adapter missing")
 	if not api.get("wages") is Dictionary or not _uint(api.wages.get("laborer")) or not _uint(api.wages.get("foreman")) or api.wages.laborer<1 or api.wages.foreman<1:return _no("Invalid wages")
-	var s:Dictionary=c.state.duplicate(true)
+	# Daily cleanup writes only tradeLaw; other operations still detach all state.
+	var s:Dictionary=c.state.duplicate(not daily_book_only)
+	if daily_book_only and s.get("tradeLaw") is Dictionary:
+		s.tradeLaw=s.tradeLaw.duplicate(true)
 	var e:=validate(s,_world(c),true)
 	if not e.is_empty():return _no(str(e))
 	if not s.has("tradeLaw"):
@@ -207,17 +210,23 @@ static func publish(target: Dictionary,source: Dictionary) -> void:
 				else:live[i]=incoming[i].duplicate(true) if incoming[i] is Dictionary or incoming[i] is Array else incoming[i]
 		else:target[key]=incoming.duplicate(true) if incoming is Dictionary or incoming is Array else incoming
 
-static func _put(c,s,extra={})->Dictionary:
+static func _put(c,s,extra={},daily_book_only:bool=false)->Dictionary:
 	_clean(s)
 	var e:=validate(s,_world(c))
 	if not e.is_empty():return _no(str(e))
-	publish(c.state,s)
+	if daily_book_only:
+		# Retain every full validation, but publish only the detached daily book.
+		if c.state.get("tradeLaw") is Dictionary:publish(c.state.tradeLaw,s.tradeLaw)
+		else:c.state.tradeLaw=s.tradeLaw.duplicate(true)
+	else:publish(c.state,s)
 	return _ok(extra)
 static func ensure(c)->Dictionary:
 	var d:=_draft(c)
 	return _put(c,d.state) if d.ok else d
 static func reconcile(c)->Dictionary:return ensure(c)
-static func daily(c)->Dictionary:return ensure(c)
+static func daily(c)->Dictionary:
+	var d:=_draft(c,true)
+	return _put(c,d.state,{},true) if d.ok else d
 static func set_mode(c,mode:String)->Dictionary:
 	if not ["declared","concealed"].has(mode):return _no("Invalid mode")
 	var d:=_draft(c)

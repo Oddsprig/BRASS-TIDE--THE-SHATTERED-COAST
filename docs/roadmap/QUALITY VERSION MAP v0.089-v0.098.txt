@@ -1,0 +1,168 @@
+BRASS TIDE - NEXT TEN VERSIONS
+04 November 2026 | AUTHORIZED v0.089-v0.098 | ACCEPTED BASE v0.088
+
+STATUS AND PURPOSE
+Owner authorized sequential implementation of089-098 on4November2026 using
+GrokHIGH, ArgonHIGH and twoSol6.1MAX throughBridge. Current active scope089;
+installed/accepted version088 until a new verified package is delivered.
+Live coordination: work/quality-v089-v098/CURRENT STATE.json.
+Build each future release on the accepted predecessor and finish its bounded
+player result before advancing. Earlier079-088 scope receipts remain historical
+and valid; their completion did not establish whole-game or Starsector parity.
+
+Priorities: smooth active play, boats moving without overlap, convincing coastal
+presentation, finished sound, useful refits, and earned merchant/escort/privateer
+loops. Reuse the current36 boats,48 generated island groups in fresh careers,
+existing careers, economies, fleet AI, progression, tools and supplied music.
+No new hull roster, engine rewrite, asset-builder project or economy replacement.
+
+CURRENT OPEN BASIS
+HANDOFF.md records unmeasured current active-campaign FPS, strict battle latency
+and frame-time gaps, hull overlap/basic shores, unreviewed listening/fun, staged
+086/087 openings, no player-completed Escort/Privateer save, and no whole-economy
+merchant profitability proof. These are distinct gaps, not proof that every
+existing component is broken. Inspect the current behavior before changing it.
+
+0.089 - SMOOTH ACTIVE CAMPAIGN
+Player result: chart travel, camera movement, port access and menus stay
+responsive while production, trade and independent fleets continue operating.
+Scope: measure one representative populated current campaign; correct its
+largest reproduced scheduling, allocation, refresh or drawing bottleneck using
+the existing workers, cached views and stepped decisions.
+Done: the same active workload shows the before/after improvement; record frame
+cadence, simulation progress and response separately. No paused/empty-world FPS
+stand-in and no disabling traffic, households or production to improve numbers.
+Boundary: one measured bottleneck; no new threading architecture or long soak.
+
+0.090 - BOAT SEPARATION AND STEERING
+Player result: light boats, heavies and loaded civilians pass, turn and retreat
+without visibly driving through one another or becoming stuck in a cluster.
+Scope: correct the demonstrated overlap/clearance issue in existing steering,
+collision or displayed-pose handling. Distinguish a drawing overlap from an
+actual physical/avoidance failure before choosing the fix.
+Done: a bounded encounter shows crossing traffic, a heavy turn, an escort and
+a retreat; boats keep useful clearance and light boats retain flanking ability.
+Boundary: existing movement and hull bounds; no buoyancy/fluid physics or new AI.
+
+0.091 - RESPONSIVE FULL-FLEET COMBAT
+Player result: the existing300DP battles keep pace and respond to orders when
+many boats maneuver and fire together.
+Scope: use current300DP light42/mixed16 workloads and the existing observer;
+fix the largest remaining reproduced worker/planner/publication delay. Preserve
+30Hz authoritative combat,100ms role/target choices and interpolated rendering.
+Done: report real worker capacity, simulation lag, command response and rendered
+frame cadence against existing targets. Keep light workerP95<=33.333ms,
+maximum lag<=100ms and publicationP95<=6ms as their distinct existing targets;
+record any remaining miss honestly. A capped frame counter's rounding alone is
+not a reason for an unbounded tuning pass. Preserve actors, weapons and damage.
+Boundary: one named correction, no simulation rewrite or new benchmark system.
+
+0.092 - COASTS AND HARBORS WITH VISUAL IDENTITY
+Player result: normal chart zoom shows recognizable coastal places, useful
+landmarks and readable approaches, with affordable attractive water.
+Scope: establish a stronger reusable shore/harbor treatment in the home group
+and two existing remote destination types; improve the affected shared assets.
+Done: actual normal-zoom views distinguish those places, labels remain legible,
+and approach/navigation bounds agree with shore art. Keep chart and battle
+projections appropriate to their views rather than stretching one asset blindly.
+Boundary: three reference settings and their shared assets, not48 bespoke groups,
+continent generation, expensive waves or another complete36-boat art pass.
+
+0.093 - WEAPON SOUND AND MUSIC FINISH
+Player result: each weapon family has weight and identity, damage is audible,
+and supplied music moves cleanly between title, travel and combat.
+Scope: review existing offline exports by actual listening where an authorized
+route is available; fix the worst demonstrated repetition, weak timbre, masking,
+clipping or abrupt transition. Retain provenance for recordings and all18 tracks.
+Done: short representative clips cover guns, cannon, rocket, torpedo, engines,
+impacts and one sinking, plus scene transitions. Report listening separately
+from file generation or level analysis. Without listening, quality stays open.
+Boundary: the existing audio system; no voice acting or new soundtrack project.
+All automated playback remains muted/background; do not commandeer user audio.
+
+0.094 - FITTINGS THAT OFFER REAL CHOICES
+Player result: understand why to choose a weapon, engine or armor arrangement,
+what fits each mount, what it costs and what capability is being traded away.
+Scope: finish existing refit comparisons, mount/arcs presentation and complete
+material/labor quotes. Use one light and one heavier existing hull as references,
+with two useful contrasting fittings on each; change balance only if a specific
+choice is demonstrably dominated or its costs are wrong.
+Done: displayed mounts, actual firing arcs/origins and installed equipment agree;
+the reference builds serve different roles and paid installation persists.
+Boundary: current equipment and refit rules; no new fitting framework, universal
+rebalance, free upgrades or compulsory weapon/art redesign across all36 boats.
+
+0.095 - EARNED MERCHANT PROGRESSION
+Player result: start cheaply, make informed trade runs, pay running costs, earn
+a genuine surplus and buy a useful carrier or support upgrade.
+Scope: follow one normal starter-to-reinvestment route across real markets;
+correct its largest revealed margin, quote or progression blocker coherently.
+Count crew wages, fuel, food, damage/repairs, replacement stores and travel time.
+Done: one recorded earned route buys the useful improvement and preserves a
+return reserve; a comparable alternative route makes a meaningful risk/capacity
+choice. Save/return retains actual goods, purses and ownership.
+Boundary: this route and diagnosed causes, not proof of the whole economy or
+all careers. No free stocks, artificial discounts or staged-earned claims.
+
+0.096 - COMPLETE ESCORT VOYAGE
+Player result: accept paid work, rendezvous with a real loaded convoy, protect
+its passage, get paid, repair and prepare for the next job.
+Scope: finish one existing escort contract through its full physical route,
+interception/extraction and once-only settlement, with understandable orders.
+Done: an earned player-completed Escort save records an actual successful
+voyage; a bounded alternate outcome handles loss/withdrawal without duplicate
+payment or erased costs. NPC cargo and physical exits matter.
+Boundary: existing convoy/pirate/escort systems, no forced attack on every
+natural voyage and no rebuilding all independent campaign AI. Label any staged
+encounter opening separately from the earned career outcome.
+
+0.097 - COMPLETE PRIVATEER VOYAGE
+Player result: obtain lawful hostile-target access, intercept valuable shipping,
+choose a prize/salvage outcome, return and feel the financial/reputation effect.
+Scope: finish one existing commission-to-raid-to-return loop, connecting actual
+target identity, cargo, recovery capacity, rewards and faction consequences.
+Done: an earned player-completed Privateer save retains the legitimate proceeds,
+paid costs and explained relationship changes. One alternative, such as taking
+cargo versus recovering a damaged hull, has a real capacity or risk tradeoff.
+Boundary: one coherent existing loop, not a boarding overhaul, new faction set
+or free prize creation. Friendly/neutral ownership and access remain meaningful.
+
+0.098 - REGIONAL AFTERMATH THAT MATTERS
+Player result: helping or disrupting one supplied corridor changes later trade,
+safety and opportunities after the player sails elsewhere and returns.
+Scope: extend/review the aftermath of one existing two-group contested corridor:
+a funded reinforcement or recovery response plus its supplied market/access
+consequences. Reuse085 control,075 traffic and existing finite accounts.
+Done: player support versus interruption produces an explained later difference
+in actual traffic, available goods, service/access or patrol capacity. Paid
+repairs/replacements use real workers/stores; a return/save/load preserves it.
+Boundary: one corridor and its observable aftermath, not a second war/economy
+engine or all-faction expansion. Harbor control never grants a whole island group.
+
+EXECUTION AND STOPPING RULES
+- Owner4November authorized this sequence. Deliver089 before090 and continue
+  through098; do not silently add scopes or stop after a status reply.
+- One bounded player result per release, followed by its usable Windows package
+  and the single latest Desktop launcher. Use established delivery tools.
+- Preserve numerical crews, fixed asset gunners/helmsmen, default autopilot,
+  WASD camera,300DP deployment distinct from ownership, original art/world and
+  coins. Ordinary sailor wage remains100coins/day; construction/repair still
+  use actual workers, materials and conserved purses.
+- Keep one ocean world: open seas connect island groups; individual islands,
+  harbors and their owners remain distinct. No major continents.
+- Use existing models/helpers only within recorded owner limits and named-plan
+  routes; no silent paid fallback. Planning does not require a helper quota.
+- Existing shared process detector/TestBridge FIFO, one engine/GPU job, private
+  background/muted operation and no physical input/focus remain mandatory.
+  Whole batches<120seconds; selected final verification<180seconds including
+  setup/import/export/capture/cleanup/package/install verification; queue wait
+  separate. Reuse unchanged evidence honestly; do not build a new test framework.
+- Earned voyages may be accumulated as ordinary play progress; never compress
+  them into staged outcomes and label them earned to fit an automated budget.
+  Keep player play feedback distinct from a timed automated suite.
+- Screenshots, motion, audio listening, frame measurements and enjoyable play
+  answer different questions. A scoped pass does not clear unexplained earlier
+  failures. No milestone automatically certifies Starsector parity.
+- Keep latest verified install plus active candidate; preserve unique owner
+  saves/settings/music, source history and useful evidence. No Git maintenance,
+  repair, new GitHub push, automatic cleanup or site publication for this plan.

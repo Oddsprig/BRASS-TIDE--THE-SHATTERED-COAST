@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.088: Whole-loop clarity and campaign review. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: interface.gd, regional_ui.gd, campaign.gd, campaign_guidance.gd, equipment_campaign.gd, coastal_stories.gd, test_campaign_review088.gd, fleet_identity.gd.
+v0.089: Smooth active campaign - daily customs publication. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: trade_law.gd, law_ops.gd, test_trade_law.gd, campaign.gd:apply_economy.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

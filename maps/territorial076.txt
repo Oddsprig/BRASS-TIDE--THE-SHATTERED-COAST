@@ -1,4 +1,4 @@
-BRASS TIDE — TERRITORIAL076 MAP (generated; v0.088)
+BRASS TIDE — TERRITORIAL076 MAP (generated; v0.089)
 
 One funded HOME warehouse/berth and one supplied negotiated harbor control; private business, port sovereignty and island jurisdiction stay distinct. Reserved inputs, real paid work and actual selected-defender combat precede transfer.
 
@@ -42,19 +42,19 @@ game/scripts/regional_ui.gd: 36767 bytes; extends RefCounted
   game/scripts/regional_ui.gd:425 act()
   game/scripts/regional_ui.gd:154 _details()
   game/scripts/regional_ui.gd:318 _home_port()
-game/scripts/trade_law.gd: 22597 bytes; class_name TradeLaw
+game/scripts/trade_law.gd: 23139 bytes; class_name TradeLaw
   game/scripts/trade_law.gd:21 configure()
   game/scripts/trade_law.gd:65 validate()
-  game/scripts/trade_law.gd:193 publish()
-  game/scripts/trade_law.gd:216 ensure()
-  game/scripts/trade_law.gd:219 reconcile()
-  game/scripts/trade_law.gd:220 daily()
-  game/scripts/trade_law.gd:221 set_mode()
-  game/scripts/trade_law.gd:242 license_quote()
-  game/scripts/trade_law.gd:251 buy_license()
-  game/scripts/trade_law.gd:265 licensed()
-  game/scripts/trade_law.gd:280 consume_license()
-  game/scripts/trade_law.gd:291 illicit_quote()
+  game/scripts/trade_law.gd:196 publish()
+  game/scripts/trade_law.gd:223 ensure()
+  game/scripts/trade_law.gd:226 reconcile()
+  game/scripts/trade_law.gd:227 daily()
+  game/scripts/trade_law.gd:230 set_mode()
+  game/scripts/trade_law.gd:251 license_quote()
+  game/scripts/trade_law.gd:260 buy_license()
+  game/scripts/trade_law.gd:274 licensed()
+  game/scripts/trade_law.gd:289 consume_license()
+  game/scripts/trade_law.gd:300 illicit_quote()
 
 TESTS (game/tests/*.gd)
 396 focused/0, Windows/menu and one Root-reviewed actual harbor UI: work/quality-v076/ACTUAL076 CHECKS.json. One-operation prototype and declared control opening; no whole-game/performance/listening acceptance.

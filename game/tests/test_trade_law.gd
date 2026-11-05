@@ -54,8 +54,77 @@ func raw(c:Core,g:String)->float:
 	for p in c.state.ports:n+=float(p.stocks.get(g,0))+float(p.publicStores.get(g,0))
 	return n
 func snap(c)->String:return JSON.stringify(c.state)
+func _daily_matches089(c:Core,label:String)->void:
+	var reference:=fresh();reference.state=c.state.duplicate(true)
+	var outside:Dictionary=c.state.duplicate(true);outside.erase("tradeLaw")
+	var ports:Array=c.state.ports;var p:Dictionary=harbor(c)
+	var owners:Array=c.state.fleetOwners;var cargo:Dictionary=c.state.cargo
+	var ledger:Array=c.state.moneyLog;var fitted:Dictionary=c.state.fitted
+	var book:Variant=c.state.get("tradeLaw")
+	var total:int=funds(c)
+	var actual:Dictionary=T.daily(c);var expected:Dictionary=T.ensure(reference)
+	ck(actual.ok and expected.ok and actual==expected and snap(c)==snap(reference),"089 daily reference: "+label)
+	var after:Dictionary=c.state.duplicate(true);after.erase("tradeLaw")
+	ck(after==outside and funds(c)==total,"089 daily preserves all other data/accounts: "+label)
+	ck(is_same(ports,c.state.ports) and is_same(p,harbor(c)) and is_same(owners,c.state.fleetOwners) and is_same(cargo,c.state.cargo) and is_same(ledger,c.state.moneyLog) and is_same(fitted,c.state.fitted),"089 daily retains live aliases: "+label)
+	if book is Dictionary:ck(is_same(book,c.state.tradeLaw),"089 daily retains live book identity: "+label)
+	var published:String=snap(c)
+	ck(T.daily(c).ok and snap(c)==published,"089 repeated daily is idempotent: "+label)
+	var restored:=fresh();restored.state=JSON.parse_string(published)
+	reference.state=restored.state.duplicate(true)
+	ck(T.validate(restored.state,T._world(restored)).is_empty(),"089 daily JSON validates: "+label)
+	ck(T.daily(restored).ok and T.ensure(reference).ok and snap(restored)==snap(reference),"089 restored daily matches reference: "+label)
+func _daily_rejects089(c:Core,label:String)->void:
+	var reference:=fresh();reference.state=c.state.duplicate(true)
+	var prior:String=snap(c);var ports:Array=c.state.ports
+	var book:Variant=c.state.get("tradeLaw")
+	var actual:Dictionary=T.daily(c);var expected:Dictionary=T.ensure(reference)
+	ck(not actual.ok and actual==expected and snap(c)==prior and snap(reference)==prior,"089 daily rejection matches reference without mutation: "+label)
+	ck(is_same(ports,c.state.ports) and (not book is Dictionary or is_same(book,c.state.tradeLaw)),"089 rejection retains live aliases: "+label)
+func _test_daily_publication089()->void:
+	_daily_matches089(fresh(),"legacy book initialization")
+	var c:=fresh();c.state.cargo={"guns":4.0,"engines":2.0,"food":3.0}
+	ck(T.ensure(c).ok,"089 booked fixture initializes through actual API")
+	c.state.tradeLaw.next=6
+	c.state.tradeLaw.permits=[{"id":1,"port":"a","good":"guns","qty":4,"bound":4,"expires":3.25},{"id":2,"port":"a","good":"engines","qty":2,"bound":2,"expires":12.0}]
+	c.state.tradeLaw.lots=[{"id":3,"port":"a","good":"guns","qty":4}]
+	c.state.tradeLaw.debts=[{"id":4,"port":"a","amount":50}]
+	c.state.tradeLaw.bans=[{"id":5,"issuer":"compact","target":"forge","good":"guns","expires":3.25}]
+	c.state.tradeLaw.seenBy={"port:a":true}
+	c.state.metadata089={"nested":[[{"values":[1,2,3]}]]}
+	c.state.fleetOwners=[{"id":"watch089","coins":120,"crewPurse":40,"boats":[{"uid":"npc089-1","crew":5,"stores":[1,2]}]}]
+	var owner:Dictionary=c.state.fleetOwners[0];var boat:Dictionary=owner.boats[0]
+	var stores:Array=boat.stores;var nested:Array=c.state.metadata089.nested[0]
+	var prior:String=snap(c)
+	var draft:Dictionary=T._draft(c,true)
+	ck(draft.ok,"089 daily detached draft accepts canonical book")
+	if draft.ok:
+		draft.state.tradeLaw.lots[0].qty=0;draft.state.tradeLaw.debts[0].amount=0;draft.state.tradeLaw.seen.guns=0
+		ck(snap(c)==prior,"089 nested draft book changes cannot leak before publication")
+	_daily_matches089(c,"live permits/lots/debt/embargo")
+	c.state.cargo.guns=1.0;c.state.cargo.engines=1.0
+	_daily_matches089(c,"consumed raw cargo")
+	ck(c.state.tradeLaw.lots[0].qty==1 and c.state.tradeLaw.permits[0].bound==1 and c.state.tradeLaw.permits[1].bound==1,"089 cleanup keeps remaining lots and coverage equal to actual cargo")
+	c.state.day=3.25;c.state.econDay=3
+	_daily_matches089(c,"exact expiry boundary and new day")
+	ck(c.state.tradeLaw.permits.size()==1 and c.state.tradeLaw.permits[0].id==2 and c.state.tradeLaw.bans.is_empty() and c.state.tradeLaw.seenBy.is_empty() and c.state.tradeLaw.stamp==3,"089 expiry removes only expired rights and resets daily observations")
+	ck(c.state.tradeLaw.debts==[{"id":4,"port":"a","amount":50}] and c.state.tradeLaw.lots[0].qty==1,"089 daily retains debt and unconsumed provenance")
+	ck(is_same(owner,c.state.fleetOwners[0]) and is_same(boat,c.state.fleetOwners[0].boats[0]) and is_same(stores,boat.stores) and is_same(nested,c.state.metadata089.nested[0]),"089 nested non-book fleet and array aliases survive publication")
+	var valid:Dictionary=c.state.duplicate(true)
+	c.state.tradeLaw.mode="bad";_daily_rejects089(c,"malformed book")
+	c.state=valid.duplicate(true);c.state.metadata089.invalid=[INF]
+	_daily_rejects089(c,"nested nonfinite state")
+	ck(is_inf(c.state.metadata089.invalid[0]),"089 rejected nonfinite preimage remains intact")
+	c.state=valid.duplicate(true);var unsupported:=RefCounted.new();c.state.metadata089.invalid=unsupported
+	_daily_rejects089(c,"unsupported state object")
+	ck(is_same(unsupported,c.state.metadata089.invalid),"089 rejected object preimage remains intact")
+	c.state=valid.duplicate(true);T.api.price=Callable()
+	_daily_rejects089(c,"invalid adapter");setup()
+	c.state=valid.duplicate(true);T.api.wages={"laborer":0,"foreman":200}
+	_daily_rejects089(c,"invalid wages");setup()
 func _initialize()->void:
 	setup()
+	_test_daily_publication089()
 	var c:=fresh()
 	var prior:=snap(c)
 	var q:=T.illicit_quote(c,"guns",100)
