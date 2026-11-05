@@ -1,0 +1,41 @@
+{
+  "onto": "797e9dd7e558229bf36f75382054becd97e1dc4d",
+  "helperCommit": "8625c3d0746a637c7b9877a83324227fd7cfcf91",
+  "files": {
+    "game/scripts/campaign.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\campaign.gd",
+      "sha256": "b763ce060256babbec3962f3daa019de36e4c87a8e9140fa54977ce589e4f06b"
+    },
+    "game/scripts/escort_ops.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\escort_ops.gd",
+      "sha256": "8c85c3419a4822a292483250d3552c5c1d3b88dc34421f63f41d61d171258eb2"
+    },
+    "game/scripts/fleet_economy.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\fleet_economy.gd",
+      "sha256": "2850fd8076a0b47a5ebb7e3630208c6dae80043114819eb6ca98177e3e6b83e4"
+    },
+    "game/scripts/naval_combat.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\naval_combat.gd",
+      "sha256": "091f1e8274038ff85529898535db9ca8ceba98d3587847e1d61c1eb3c79587e4"
+    },
+    "game/scripts/politics.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\politics.gd",
+      "sha256": "3805955ea03af88f8badef961a4c8dbadd348abd5d5ad12aa77ddf65823a2b40"
+    },
+    "game/scripts/save_validation.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\scripts\\save_validation.gd",
+      "sha256": "7f28938626c2d0c505678b69f909608c906b4e536efb2d1a8f0a64af43e11fce"
+    },
+    "game/tests/test_privateer097.gd": {
+      "path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\quality-v097\\root-merged\\game\\tests\\test_privateer097.gd",
+      "sha256": "5d610045877a1de8be858684db330409a224e97a734fcb89676fd7896504ae5c",
+      "new": true
+    }
+  },
+  "escortOnlyFunctions": [
+    "prepare_intercept",
+    "settle_cargo"
+  ],
+  "all096OtherHooksPreserved": true,
+  "nativeStatus": "UNRUN"
+}

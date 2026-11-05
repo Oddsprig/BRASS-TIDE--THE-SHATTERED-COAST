@@ -7,3 +7,5 @@ Owner: "stick to the scope of each one".
 - Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
 
 See docs/TEST RESULTS v0.097.md for actual focused checks and remaining limits.
+
+Verification: 42 focused assertions/0 failures, Windows export and portable menu startup. Whole selected batch plus setup 98.881s. Preserved earlier failures; no broad acceptance claim.

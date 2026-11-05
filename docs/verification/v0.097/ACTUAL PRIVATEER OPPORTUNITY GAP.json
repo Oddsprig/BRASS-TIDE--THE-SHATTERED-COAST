@@ -1,0 +1,115 @@
+{
+	"avoided": [],
+	"bodyLimitMs": 45000,
+	"checks": 6,
+	"commands": [
+		"Campaign.restore",
+		"Factions.accept_commission",
+		"NavalAI.observe",
+		"Campaign.chart_course",
+		"Campaign.step"
+	],
+	"commission": {
+		"committed": true,
+		"message": "Commission recorded. No stipend was minted.",
+		"ok": true,
+		"patron": "compact",
+		"repeated": false
+	},
+	"earnedContinuation": false,
+	"earnedSave": "C:/Users/bligh/Documents/Codex/.runtime/game-test-bridge/jobs/368bb28966d046d0a64564fc84234daa/attempt-001/career070-completed.json",
+	"earnedSha256": "a3e419449c5870a567d77a0283e815ee927a1e283e408e2f0316c2e345f36f51",
+	"elapsedMs": 10030,
+	"entry": "Pass both user arguments after --. GAME_TEST_ARTIFACTS must be an absolute test profile. Do not pass --qa-campaign. No arguments keeps the staged unit. This witness does not replay test_voyage_career070.",
+	"expectsSave": "Hash-bound career070-completed.json from unchanged test_voyage_career070, ordinary new_game 69069. Root binds file, hash, source and provenance after 095 is accepted.",
+	"failExit": 1,
+	"failures": 0,
+	"gap": {
+		"code": "NO_OBSERVED_CARGO_HOSTILE",
+		"message": "Reached the ordinary coastal course without a currently observed cargo-bearing raider",
+		"state": {
+			"battleResult": "",
+			"coins": 15146,
+			"commissionCommitted": true,
+			"commissionFaction": "compact",
+			"day": 6.74444444444443,
+			"ownerId": "",
+			"port": "reed_floats",
+			"position": {
+				"x": 6362.0,
+				"y": 4704.25
+			},
+			"seed": 69069
+		}
+	},
+	"gapExit": 2,
+	"humanFunProof": false,
+	"opened": {
+		"coins": 15146,
+		"day": 6.58888888888888,
+		"fleet": 1,
+		"port": "brass_haven",
+		"position": {
+			"x": 1476.75,
+			"y": 5059.0
+		},
+		"seed": 69069
+	},
+	"partialMeaning": "Partial earned state after a GAP. Not a completed privateer voyage and not a pass.",
+	"partialPath": "C:\\Users\\bligh\\Documents\\Codex\\.runtime\\game-test-bridge\\jobs\\69149782e6874643b4632b30dbffbbd6\\attempt-001/privateer097-partial.json",
+	"partialSha256": "1e2baa4585a064fd95f3a6a6f9eb7d61b365f0da7a4a541f9fe518e4d071dd58",
+	"passExit": 0,
+	"phases": [
+		{
+			"coins": 15146,
+			"day": 6.58888888888888,
+			"elapsedMs": 9082,
+			"phase": "restored_earned_career"
+		},
+		{
+			"coins": 15146,
+			"day": 6.58888888888888,
+			"elapsedMs": 9120,
+			"phase": "earned_standing_and_public_commission"
+		},
+		{
+			"coins": 15146,
+			"day": 6.58888888888888,
+			"elapsedMs": 9148,
+			"phase": "bounded_observation_of_cargo_bearing_raider"
+		}
+	],
+	"proof": "automated public-API continuation, not a human fun proof",
+	"raiders": [],
+	"sourcePrep": "UNPLAYED until this witness is run",
+	"standing": [
+		{
+			"band": "friendly",
+			"eligible": true,
+			"enemies": [
+				"raiders"
+			],
+			"factionId": "compact",
+			"score": 20
+		},
+		{
+			"band": "neutral",
+			"eligible": false,
+			"enemies": [
+				"raiders"
+			],
+			"factionId": "forge",
+			"score": 0
+		},
+		{
+			"band": "neutral",
+			"eligible": false,
+			"enemies": [
+				"raiders"
+			],
+			"factionId": "reed",
+			"score": 17
+		}
+	],
+	"status": "GAP"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "privateer097-staged",
+  "outcome": "passed",
+  "cleanup_complete": true,
+  "resource_envelope": {
+    "memory_mib": 512,
+    "cpu_rate_percent": 33,
+    "affinity_cores_max": 8,
+    "active_process_limit": 2
+  },
+  "pid": 52844,
+  "creation_utc": "2026-11-05T04:59:33.433863+00:00",
+  "exit_code": 0,
+  "resource_usage": {
+    "cpu_user_seconds": 25.171875,
+    "cpu_kernel_seconds": 1.09375,
+    "active_processes": 0,
+    "peak_job_memory_bytes": 279539712,
+    "affinity_mask": 255,
+    "affinity_logical_cores": 8
+  },
+  "checks": 42,
+  "failures": 0,
+  "active_seconds": 34.2349999999999
+}
