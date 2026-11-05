@@ -1,8 +1,8 @@
-# Current step: v0.095 - Earned merchant progression and honest voyage costs
+# Current step: v0.096 - Client-funded convoy escort and physical delivery
 
-- Separate additional food/fuel purchases from the full replacement value used for surplus, reserves and reinvestment; owned stores are not purchased twice or counted as free earnings.
-- Show a live cross-port ordinary-goods quote with actual source stock, destination buyer cash and hold constraints instead of unavailable same-port preserved fish.
-- Verify one ordinary starter freight-and-survey circuit, paid wages/stores, physical home return and a useful net-funded improvement with its actual saved books.
+- Hail a nearby actual loaded trader, review its route and accept a client-funded fee held in escrow; a quiet safe passage can legitimately earn payment.
+- Original loaded carriers, actual travel, proximity and physical sale at the destination govern once-only payment. Loss/withdrawal refunds the client once and retains real player costs.
+- Save admission binds the live client, original cargo carriers, finite fee, destination and arrival ledger; existing voluntary rescues remain available.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

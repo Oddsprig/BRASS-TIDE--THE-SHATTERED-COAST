@@ -31,12 +31,12 @@ static func validate_jobs070(s: Dictionary,world: Dictionary) -> String:
 	for job in s.voyageJobs:
 		if not job is Dictionary or not job.get("id") is String or jobs.has(job.id):return "Invalid or duplicate voyage job."
 		jobs[job.id]=true
-		if job.get("kind","") not in ["freight","survey","bounty","fuel_delivery","passenger_charter"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
+		if job.get("kind","") not in ["freight","survey","bounty","fuel_delivery","passenger_charter","escort"] or job.get("state","") not in ["active","expired"]:return "Invalid voyage job kind/state."
 		for key in ["port","targetPort"]:
 			var id=job.get(key)
 			if not id is String or not ports.has(id) or not accounts.has(id):return "Unknown voyage sponsor/destination account."
 			if str(accounts[id].get("regionId","shatter_coast"))!=str(ports[id]):return "Voyage harbor account belongs to the wrong region."
-		if job.get("payerKey","") not in ["cash","governmentPurse"]:return "Unknown voyage sponsor purse."
+		if job.get("payerKey","") not in (["coins"] if job.kind=="escort" else ["cash","governmentPurse"]):return "Unknown voyage sponsor purse."
 		for key in ["reward","escrow","deadlineDay","acceptedDay"]:
 			if not number(job.get(key)):return "Invalid voyage job accounting."
 		var savings: float=0.0
@@ -68,6 +68,44 @@ static func validate_jobs070(s: Dictionary,world: Dictionary) -> String:
 			var value=job[key]
 			if not value is String or value.length()>80:return "Invalid voyage endpoint region."
 			if not value.is_empty() and value!=(str(ports[job.port]) if key=="regionId" else target_region):return "Voyage endpoint disagrees with its canonical harbor/site."
+		if job.kind=="escort":
+			# Raw preflight runs before legacy normalization. Admit only the
+			# client-funded shape; other job kinds retain their original purses.
+			if not number(s.get("day")) or not s.get("fleetOwners") is Array:return "Missing escort client ledger."
+			var client: Dictionary={}
+			for owner in s.fleetOwners:
+				if not owner is Dictionary:return "Invalid escort client ledger."
+				if owner.get("id")==job.ownerId:
+					if not client.is_empty():return "Duplicate escort client identity."
+					client=owner
+			if client.is_empty() or not client.get("boats") is Array or client.boats.any(func(b):return not b is Dictionary):return "Missing escort client carriers."
+			if not number(client.get("coins")) or floorf(float(client.coins))!=float(client.coins):return "Invalid escort client purse."
+			if not job.get("failed") is bool or not job.get("escort") is Dictionary:return "Invalid escort contract shape."
+			if not job.siteId.is_empty() or job.get("carrierUid","")!="":return "Escort must name its client carriers, never a player cargo job."
+			for key in ["savingsHousehold","savingsExpert"]:
+				if not number(job.get(key,0)) or float(job.get(key,0))!=0:return "Escort escrow cannot contain passenger savings."
+			for key in ["passengers","charterFood"]:
+				if not job.get(key,{}) is Dictionary or not job.get(key,{}).is_empty():return "Escort cannot carry a passenger charter."
+			var escort_jobs: Script=load("res://scripts/voyage_jobs.gd")
+			var escort_problem: String=escort_jobs.escort_error(s,job,world)
+			if not escort_problem.is_empty():return escort_problem
+			var route: Dictionary=job.escort
+			if not ports.has(route.fromPort) or not accounts.has(route.fromPort) or route.fromPort==job.targetPort or job.port==job.targetPort:return "Invalid escort passage endpoints."
+			if route.carrierCargo.size()!=route.carrierUids.size():return "Foreign escort carrier cargo ledger."
+			if float(job.acceptedDay)>float(s.day) or float(job.deadlineDay)<float(job.acceptedDay) or float(route.lastDay)<float(job.acceptedDay):return "Invalid escort contract chronology."
+			if job.state=="expired" and int(job.escrow)!=0:return "Expired escort retains unrefunded client coins."
+			if job.state=="active" and not route.arrived:
+				if not s.get("patrols") is Array:return "Missing escort client passage."
+				var passage: Dictionary={}
+				for patrol in s.patrols:
+					if not patrol is Dictionary:return "Invalid escort client passage."
+					if patrol.get("id")==job.ownerId:
+						if not passage.is_empty():return "Duplicate escort client passage."
+						passage=patrol
+				if passage.is_empty() or passage.get("to")!=job.targetPort or not number(passage.get("voyageSeq",0)) or float(passage.get("voyageSeq",0))!=float(route.voyageSeq):return "Escort destination disagrees with its exact client voyage."
+				# Docking changes patrol.from before the next normal job tick.
+				if passage.get("from")!=route.fromPort and not (passage.get("from")==job.targetPort and client.get("atPort")==job.targetPort and number(client.get("tradeDelivered",0)) and float(client.get("tradeDelivered",0))-float(route.baselineDelivered)+0.000001>=float(route.tradeQty)):return "Escort origin disagrees with its client passage."
+			if route.arrived and (not number(client.get("tradeDelivered",0)) or float(route.deliveredQty)>float(client.get("tradeDelivered",0))-float(route.baselineDelivered)+0.000001):return "Escort delivery exceeds the actual client ledger."
 	return ""
 
 static func validate(s: Dictionary,world: Dictionary) -> String:

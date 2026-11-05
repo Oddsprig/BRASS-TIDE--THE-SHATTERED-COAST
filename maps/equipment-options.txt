@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.095)
+BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.096)
 
 Shared physical chassis/equipment geometry and portable presentation preferences; canonical economic stats stay outside art.
 

@@ -1,4 +1,4 @@
-BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.095)
+BRASS TIDE — FLEET-IDENTITY MAP (generated; v0.096)
 
 Actual crew berths, wages and fittings -> paid specialists/conversions, useful support reserves and real timed convoy protection.
 
@@ -31,17 +31,19 @@ game/scripts/identity_ui.gd: 10077 bytes; extends RefCounted
   game/scripts/identity_ui.gd:63 open()
   game/scripts/identity_ui.gd:127 conversions()
   game/scripts/identity_ui.gd:43 _intent()
-game/scripts/escort_ops.gd: 11585 bytes; extends RefCounted
-  game/scripts/escort_ops.gd:41 prepare_intercept()
-  game/scripts/escort_ops.gd:51 threat()
-  game/scripts/escort_ops.gd:64 start()
-  game/scripts/escort_ops.gd:83 settled()
-  game/scripts/escort_ops.gd:98 cargo_error()
-  game/scripts/escort_ops.gd:121 take_prize_cargo()
-  game/scripts/escort_ops.gd:133 settle_cargo()
-  game/scripts/escort_ops.gd:8 _load_plan()
-  game/scripts/escort_ops.gd:35 _mission()
-  game/scripts/escort_ops.gd:116 _held_prize()
+game/scripts/escort_ops.gd: 23347 bytes; extends RefCounted
+  game/scripts/escort_ops.gd:11 contracted()
+  game/scripts/escort_ops.gd:16 offer()
+  game/scripts/escort_ops.gd:53 advance_contract()
+  game/scripts/escort_ops.gd:94 review()
+  game/scripts/escort_ops.gd:155 prepare_intercept()
+  game/scripts/escort_ops.gd:165 threat()
+  game/scripts/escort_ops.gd:178 start()
+  game/scripts/escort_ops.gd:205 settled()
+  game/scripts/escort_ops.gd:221 cargo_error()
+  game/scripts/escort_ops.gd:244 take_prize_cargo()
+  game/scripts/escort_ops.gd:256 settle_cargo()
+  game/scripts/escort_ops.gd:48 _contract_failure()
 game/scripts/battle_objectives.gd: 8729 bytes; extends RefCounted
   game/scripts/battle_objectives.gd:8 is_convoy()
   game/scripts/battle_objectives.gd:11 carrier_uids()

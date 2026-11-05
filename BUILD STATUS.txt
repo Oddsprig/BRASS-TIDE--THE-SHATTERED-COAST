@@ -1,14 +1,15 @@
-BRASS TIDE v0.095 - Earned merchant progression and honest voyage costs
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 3fa9d162b41e2074ddca189bd1c6fd683b42dba7 / v0.095
-Test Bridge: b507fa3241994f3a8c1b95afeac07d3a
-19 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 69.730s; owned cleanup verified.
+BRASS TIDE v0.096 - CLIENT-FUNDED CONVOY ESCORT AND PHYSICAL DELIVERY
+04 November2026 |36 boat designs
 
-- Separate additional food/fuel purchases from the full replacement value used for surplus, reserves and reinvestment; owned stores are not purchased twice or counted as free earnings.
-- Show a live cross-port ordinary-goods quote with actual source stock, destination buyer cash and hold constraints instead of unavailable same-port preserved fish.
-- Verify one ordinary starter freight-and-survey circuit, paid wages/stores, physical home return and a useful net-funded improvement with its actual saved books.
+THIS VERSION
+- Hail a nearby actual loaded trader, review its route and accept a client-funded fee held in escrow; a quiet safe passage can legitimately earn payment.
+- Original loaded carriers, actual travel, proximity and physical sale at the destination govern once-only payment. Loss/withdrawal refunds the client once and retains real player costs.
+- Save admission binds the live client, original cargo carriers, finite fee, destination and arrival ledger; existing voluntary rescues remain available.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-19 focused merchant quote/cash/replacement-value/stock/hold/preview-purity checks and Windows export/menu passed;232 separate retained unchanged070 current-source normal-start voyage checks passed. Actual freight+survey circuit earns8271coins, pays3500wages and1625replacementstores; spends1000 on hired surveyor (+30%survey) and returns home with15146coins,8crew,no arrears and conserved173560000coin supply. Active/completed synthetic test saves and full report retained under docs/verification/v0.095; owner saves never substituted. Unfunded starter harbor correctly shows no funded offer and no fictional job surplus. R1/R2/R3 incomplete/nonpasses retained with actual script-error cause; R4 test-only change preserves232route proof. Automated native public-API voyage, not human-play/own-account arbitrage/all-career/full-game-quality evidence.089/091 performance gaps remain open.
+STATUS: current source candidate; focused checks/export pending.

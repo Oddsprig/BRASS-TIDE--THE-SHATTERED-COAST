@@ -4,6 +4,120 @@ const Deployment=preload("res://scripts/deployment.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const Goods=preload("res://scripts/goods.gd")
 const Damage=preload("res://scripts/damage.gd")
+const CONTRACT_RADIUS: float=600.0
+
+# Sea offers use the existing trader, water route, loaded holds and purse.
+# No NPC is rerouted, stocked, attacked or held waiting for the player.
+static func contracted(c,owner_id: String="") -> Dictionary:
+	for job in c.state.get("voyageJobs",[]):
+		if str(job.get("kind",""))=="escort" and (owner_id.is_empty() or str(job.get("ownerId",""))==owner_id):return job
+	return {}
+
+static func offer(c,owner_id: String) -> Dictionary:
+	if not Locality064.home_local064(c.state):return {}
+	if not c.travel_lock064.is_empty():return {}
+	for event in c.events:
+		if str(event.get("kind","")) in ["encounter","ocean_encounter066","defeat"]:return {}
+	var client: Dictionary=c.fleet_owner(owner_id)
+	var p: Dictionary=c.NavalAI._find_patrol(c.state,owner_id)
+	if client.is_empty() or p.is_empty() or not client.get("active",false) or not p.get("active",false) or p.get("hidden",false) or p.get("holding",false):return {}
+	if client.get("kind","")!="trader" or client.get("playerCompany",false) or c.Politics.hostile(c,client) or c.NavalAI.NavalOrders.enrolled066(c.state,owner_id):return {}
+	if c.distance(c.state.position,p)>CONTRACT_RADIUS or p.get("course",[]).is_empty() or p.has("interceptPoint"):return {}
+	var target: Dictionary=c.port(str(p.get("to","")))
+	var home: Dictionary=c.port(str(client.get("homePort","")))
+	if target.is_empty() or home.is_empty() or str(target.id)==str(home.id):return {}
+	var good: String=str(client.get("tradeGood",""))
+	var qty: float=float(client.get("tradeCargo",0))
+	if not Goods.ITEMS.has(good) or qty<=0 or float(client.get("cargo",{}).get(good,0))+0.000001<qty:return {}
+	var loaded: Dictionary=_load_plan(c,client)
+	var escorts: Array=c.FleetSupport.combat(c)
+	if not loaded.ok or escorts.is_empty() or client.boats.any(func(b):return b.get("sunk",false) or b.get("captureSecured",false) or float(b.crew)<float(b.crewMin)):return {}
+	if Deployment.total(client.boats+escorts)>Deployment.LIMIT:return {}
+	var remaining: float=maxf(0,float(p.get("courseLength",0))*(1.0-float(p.get("progress",0))))
+	if remaining<160.0:return {} # A dockside acceptance is not an escorted leg.
+	var speed: float=float(c.NavalAI.fleet_performance(client).speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
+	var days: float=remaining/maxf(1.0,speed)/float(c.DAY_SECONDS)
+	var fee: int=c.VoyageJobs._route_reward(c,days,"",false,home)
+	if int(client.get("coins",0))<fee+int(c.Fleets.upkeep(client).wages):return {}
+	var event: String="escort:%s:%d"%[owner_id,int(p.get("voyageSeq",0))]
+	if c.state.get("escortEvents",{}).has(event) or c.VoyageJobs._is_closed(c.state,event):return {}
+	var carrier_cargo: Dictionary={}
+	for uid in loaded.carrierUids:carrier_cargo[uid]=loaded.carrierCargo[uid].duplicate(true)
+	return {"id":event,"title":"Escort %s to %s"%[client.name,target.name],"description":"The convoy client escrows its own coins. Stay within 600 along the remaining water route; keep the original loaded carriers and complete their real sale at the named harbor. If intercepted, every carrier must physically escape. Loss, withdrawal, route change or leaving the convoy refunds the client. Your fuel, wages and repairs remain paid costs.","kind":"escort","port":str(home.id),"targetPort":str(target.id),"ownerId":owner_id,"payerKey":"coins","reward":fee,"escrow":0,"freight":{},"state":"offered","deadlineDay":float(c.state.day)+ceilf(days*2.0)+2.0,"acceptedDay":0.0,"escort":{"voyageSeq":int(p.get("voyageSeq",0)),"fromPort":str(p.get("from","")),"carrierUids":loaded.carrierUids.duplicate(),"carrierCargo":carrier_cargo,"tradeGood":good,"tradeQty":qty,"baselineDelivered":float(client.get("tradeDelivered",0)),"routeDistance":remaining,"accompaniedDistance":0.0,"playerDistance":0.0,"lastPosition":c.state.position.duplicate(),"lastConvoyPosition":{"x":float(p.x),"y":float(p.y)},"lastDay":float(c.state.day),"arrived":false,"battlePending":false,"exitSecured":false,"failure":""}}
+
+static func _contract_failure(c,job: Dictionary,reason: String) -> void:
+	job.failed=true;job.escort.failure=reason
+	c.VoyageJobs._expire_overdue(c,c.state)
+	c.log_entry("Escort ended: %s. Unearned escrow returns to its original client; actual voyage costs remain."%reason)
+
+static func advance_contract(c,job: Dictionary) -> void:
+	var route: Dictionary=job.escort
+	if route.arrived or route.battlePending:return
+	var client: Dictionary=c.fleet_owner(str(job.ownerId))
+	var p: Dictionary=c.NavalAI._find_patrol(c.state,str(job.ownerId))
+	if not Locality064.home_local064(c.state) or client.is_empty() or p.is_empty() or not client.get("active",false) or c.active_fleet().is_empty():_contract_failure(c,job,"The escort or original client is no longer on this coastal passage.");return
+	for uid in route.carrierUids:
+		if not client.boats.any(func(b):return str(b.get("uid",""))==str(uid) and not b.get("sunk",false) and not b.get("captureSecured",false)):_contract_failure(c,job,"An original loaded carrier was lost or captured.");return
+	if int(p.get("voyageSeq",0))!=int(route.voyageSeq) or str(p.get("to",""))!=str(job.targetPort):_contract_failure(c,job,"The client left the contracted route before completing delivery.");return
+	var near: bool=c.distance(c.state.position,p)<=CONTRACT_RADIUS and c.distance(route.lastPosition,route.lastConvoyPosition)<=CONTRACT_RADIUS
+	if not near:_contract_failure(c,job,"You left the convoy's 600-unit protection radius.");return
+	var moved: float=c.distance(p,route.lastConvoyPosition)
+	route.accompaniedDistance=float(route.accompaniedDistance)+moved
+	route.playerDistance=float(route.playerDistance)+c.distance(c.state.position,route.lastPosition)
+	route.lastPosition=c.state.position.duplicate();route.lastConvoyPosition={"x":float(p.x),"y":float(p.y)};route.lastDay=float(c.state.day)
+	var dock: Dictionary=c.port(str(job.targetPort))
+	var delivered: float=float(client.get("tradeDelivered",0))-float(route.baselineDelivered)
+	if str(client.get("atPort",""))==str(job.targetPort) and p.get("holding",false) and not dock.is_empty() and c.distance(p,dock)<40.0 and delivered+0.000001>=float(route.tradeQty):
+		# Endpoint proximity/acceptance alone never pays. Both real participants
+		# must traverse the protected leg, and the original client must sell it.
+		if float(route.accompaniedDistance)+40.0<float(route.routeDistance)*0.8 or float(route.playerDistance)+40.0<float(route.routeDistance)*0.8:return
+		if int(route.get("interceptions",0))>0 and not route.exitSecured:return
+		route.arrived=true;route.deliveredQty=delivered;route.arrivedDay=float(c.state.day)
+		c.log_entry("Escorted loaded carriers delivered at %s. Report there to release %d held client coins."%[dock.name,job.reward])
+		return
+	if str(client.get("tradeGood",""))!=str(route.tradeGood) or float(client.get("tradeCargo",0))+0.000001<float(route.tradeQty) or float(client.get("cargo",{}).get(str(route.tradeGood),0))+0.000001<float(route.tradeQty):_contract_failure(c,job,"The contracted trade cargo did not remain aboard through delivery.")
+
+static func _settle_contract_battle(c,result: String,context: Dictionary,outcome: Dictionary) -> void:
+	var job: Dictionary=c.VoyageJobs._find(c.state,str(context.get("escortJobId","")))
+	if job.is_empty() or str(job.kind)!="escort" or job.state!="active" or not job.escort.battlePending:return
+	if str(job.ownerId)!=str(context.get("allyOwnerId","")) or str(job.id)!=str(context.get("escortEvent","")):return
+	var cargo: float=0.0
+	var uids: Array=[]
+	for row in outcome.get("carriers",[]):
+		uids.append(str(row.uid));cargo+=float(row.get("cargoAboard",{}).get(str(job.escort.tradeGood),0))
+	if result!="won" or not outcome.get("success",false) or int(outcome.get("escaped",0))!=int(outcome.get("total",-1)) or uids!=job.escort.carrierUids or str(outcome.get("exit",{}).get("portId",""))!=str(job.targetPort) or cargo+0.000001<float(job.escort.tradeQty):
+		job.escort.battlePending=false;_contract_failure(c,job,"Physical interception ended in loss, withdrawal or an incomplete loaded-carrier escape.");return
+	job.escort.battlePending=false;job.escort.exitSecured=true
+
+# One review reached through ordinary Coastal traffic -> Hail. The existing
+# encounter/protect button remains available for voluntary rescues as before.
+static func review(ui,owner_id: String) -> void:
+	ui.host.sync_economy()
+	var c=ui.host.core
+	var job: Dictionary=contracted(c,owner_id)
+	var shown: Dictionary=offer(c,owner_id) if job.is_empty() else job
+	ui.modal_kind="escort_review"
+	var body=ui.modal("Paid convoy escort","ACTUAL CLIENT, CARGO AND ROUTE",760,700)
+	if shown.is_empty():ui.paragraph(body,"No funded loaded passage is available here. Approach within 600 of a sailing peaceful convoy; it needs an existing load, safe route, crew and enough operating coins.",17)
+	else:
+		ui.label(body,str(shown.title),23,ui.GOLD,true)
+		ui.paragraph(body,str(shown.description),17)
+		ui.paragraph(body,"%d coins %s · %.1f %s · %d original loaded carrier(s) · report at %s · deadline day %.2f"%[int(shown.reward),"held in client-funded escrow" if not job.is_empty() else "from the client's own purse",float(shown.escort.tradeQty),str(shown.escort.tradeGood),shown.escort.carrierUids.size(),c.port(str(shown.targetPort)).get("name",shown.targetPort),float(shown.deadlineDay)],16,ui.GOLD)
+		if job.is_empty():ui.button(body,"Accept funded escort (%d coins)"%int(shown.reward),func():_respond(ui,c.VoyageJobs.accept_escort(c,owner_id,int(shown.reward)),owner_id))
+		else:
+			ui.paragraph(body,"Status: %s. Accompanied %.0f / %.0f route units. %s"%[str(job.state),float(job.escort.accompaniedDistance),float(job.escort.routeDistance),str(job.escort.get("failure",""))],16)
+			if job.state=="active" and job.escort.arrived:ui.button(body,"Claim held fee at delivery harbor",func():_respond(ui,c.settle_voyage_job(str(job.id)),owner_id))
+			if job.state=="active" and not job.escort.arrived and not threat(c,c.fleet_owner(owner_id)).is_empty():ui.button(body,"Protect convoy to its exit",func():start(ui.host,owner_id))
+			ui.button(body,"Withdraw contract; refund client",func():_respond(ui,c.VoyageJobs.abandon(c,str(job.id)),owner_id))
+	var p: Dictionary=c.NavalAI._find_patrol(c.state,owner_id)
+	if Locality064.home_local064(c.state) and not p.is_empty() and p.get("active",false) and not p.get("hidden",false) and c.distance(c.state.position,p)<=1800.0:
+		ui.button(body,"Plot course to current convoy position",func():ui.host.respond(c.chart_course({"x":float(p.x),"y":float(p.y)}));ui.close_modal())
+		ui.button(body,"Exchange signals / encounter",func():ui.host.show_patrol_encounter(owner_id))
+
+static func _respond(ui,result: Dictionary,owner_id: String) -> void:
+	ui.host.respond(result)
+	if result.get("ok",false):ui.host.save_game(false)
+	review(ui,owner_id)
 
 static func _load_plan(c,owner: Dictionary) -> Dictionary:
 	var boats: Array=owner.get("boats",[]).filter(func(b):return not b.get("sunk",false) and not b.get("captureSecured",false))
@@ -78,10 +192,19 @@ static func start(host,convoy_id: String) -> void:
 	var p: Dictionary=c.NavalAI._find_patrol(c.state,convoy_id)
 	var event: String="escort:%s:%d"%[convoy_id,int(p.get("voyageSeq",0))]
 	if c.state.escortEvents.has(event):host.ui.toast("This passage has already been credited. Let the convoy complete its delivery.",true);return
-	host.begin_battle(enemy.boats.filter(func(b):return not b.sunk).map(func(b):return b.spec),{"kind":"escort","ownerId":enemy.id,"allyOwnerId":convoy_id,"escortEvent":event,"name":"Escort %s through the interception"%convoy.name,"mission":mission})
+	var job: Dictionary=contracted(c,convoy_id)
+	if not job.is_empty() and job.state=="active":
+		if job.escort.arrived:host.ui.toast("This contracted delivery is complete. Report at its harbor for the held fee.");return
+		advance_contract(c,job)
+		if job.failed or str(job.id)!=event or mission.carrierUids!=job.escort.carrierUids:host.ui.toast("The contracted original loaded passage is no longer available.",true);return
+	host.begin_battle(enemy.boats.filter(func(b):return not b.sunk).map(func(b):return b.spec),{"kind":"escort","ownerId":enemy.id,"allyOwnerId":convoy_id,"escortEvent":event,"escortJobId":str(job.get("id","")) if job.get("state","")=="active" else "","name":"Escort %s through the interception"%convoy.name,"mission":mission})
+	# Main may refuse deployment. Only an actual begun battle locks this job.
+	if host.mode=="battle" and str(host.battle_context.get("escortJobId",""))==str(job.get("id","")) and not job.is_empty():
+		job=c.VoyageJobs._find(c.state,str(job.id));job.escort.battlePending=true;job.escort.interceptions=int(job.escort.get("interceptions",0))+1
 
 static func settled(c,result: String,context: Dictionary,outcome: Dictionary={}) -> void:
 	if context.get("kind","")!="escort":return
+	_settle_contract_battle(c,result,context,outcome)
 	var ally: Dictionary=c.fleet_owner(str(context.get("allyOwnerId","")))
 	if ally.is_empty():return
 	ally.active=ally.boats.any(func(b):return not b.sunk)

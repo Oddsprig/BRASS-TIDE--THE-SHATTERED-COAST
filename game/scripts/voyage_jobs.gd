@@ -32,6 +32,7 @@ const KIND_SURVEY := "survey"
 const KIND_BOUNTY := "bounty"
 const KIND_FUEL := "fuel_delivery"
 const KIND_CHARTER := "passenger_charter"
+const KIND_ESCORT := "escort"
 const STATE_OFFERED := "offered"
 const STATE_ACTIVE := "active"
 const STATE_EXPIRED := "expired"
@@ -71,7 +72,7 @@ static func _sanitize_job(raw) -> Dictionary:
 	if not job_state in [STATE_OFFERED, STATE_ACTIVE, STATE_EXPIRED]:
 		job_state = STATE_ACTIVE
 	var payer := str(raw.get("payerKey", "cash"))
-	if not payer in ["cash", "governmentPurse"]:
+	if not payer in (["coins"] if str(raw.get("kind",""))==KIND_ESCORT else ["cash", "governmentPurse"]):
 		payer = "cash"
 	return {
 		"id": str(raw["id"]), "title": str(raw.get("title", "Voyage job")),
@@ -89,6 +90,7 @@ static func _sanitize_job(raw) -> Dictionary:
 		"materialInvoice":maxi(0,int(_num(raw.get("materialInvoice",0)))),"failed":bool(raw.get("failed",false)),
 		"baselineDefeats":maxi(0,int(_num(raw.get("baselineDefeats",0)))),
 		"carrierUid":str(raw.get("carrierUid","")),
+		"escort":raw.get("escort",{}).duplicate(true) if raw.get("escort",{}) is Dictionary else {},
 		"passengers":raw.get("passengers",{}).duplicate(true) if raw.get("passengers",{}) is Dictionary else {},
 		"charterFood":raw.get("charterFood",{}).duplicate(true) if raw.get("charterFood",{}) is Dictionary else {},
 		"savingsHousehold":maxi(0,int(_num(raw.get("savingsHousehold",0)))),"savingsExpert":maxi(0,int(_num(raw.get("savingsExpert",0)))),
@@ -217,7 +219,7 @@ static func _refund_escrow(core, state: Dictionary, job: Dictionary, reason: Str
 	var amount := maxi(0,int(job.get("escrow",0))-int(job.get("savingsHousehold",0))-int(job.get("savingsExpert",0)))
 	if amount <= 0:
 		return
-	var sponsor: Dictionary = core.port(str(job["port"])) if core.has_method("port") else {}
+	var sponsor: Dictionary = core.fleet_owner(str(job.ownerId)) if str(job.kind)==KIND_ESCORT else (core.port(str(job["port"])) if core.has_method("port") else {})
 	if sponsor.is_empty():
 		return  # escrow stays on the job record; never vanish it silently
 	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
@@ -685,6 +687,27 @@ static func _bounty_cleared(state: Dictionary, owner_id: String,baseline: int=0)
 	return int(state.get("defeatedOwners",{}).get(owner_id,0))>baseline
 
 
+# Hailed sea work uses the SAME finite job escrow and closed-id book. Terms
+# are rebuilt from the live client; the displayed fee must still match.
+static func accept_escort(core,owner_id: String,quoted_fee: int) -> Dictionary:
+	ensure(core)
+	_expire_overdue(core,core.state)
+	if not core.travel_lock064.is_empty():return _fail(core,core.travel_lock064)
+	if core.state.voyageJobs.size()>=MAX_ACTIVE:return _fail(core,"Finish or abandon a carried voyage job first.")
+	for carried in core.state.voyageJobs:
+		if str(carried.kind)==KIND_ESCORT:return _fail(core,"Finish or withdraw from your existing escort contract first.")
+	var offer: Dictionary=core.EscortOps.offer(core,owner_id)
+	if offer.is_empty() or int(offer.reward)!=quoted_fee:return _fail(core,"That loaded passage or its quoted fee changed. Hail the convoy again.")
+	if _is_closed(core.state,str(offer.id)) or not _find(core.state,str(offer.id)).is_empty():return _fail(core,"This convoy passage has already been contracted.")
+	var client: Dictionary=core.fleet_owner(owner_id)
+	var job: Dictionary=_sanitize_job(offer)
+	if not Money.move(client,"coins",job,"escrow",int(job.reward),"Convoy client funds escort escrow",core.state.moneyLog):return _fail(core,"The actual convoy client can no longer fund this fee.")
+	job.state=STATE_ACTIVE;job.acceptedDay=float(core.state.day)
+	core.state.voyageJobs.append(job)
+	core.log_entry("Accepted %s: %d client coins held in escrow; no advance. Stay within %.0f of its loaded boats, secure any physical interception exit, then report at %s after their actual delivery."%[job.title,job.reward,core.EscortOps.CONTRACT_RADIUS,core.port(str(job.targetPort)).get("name",job.targetPort)])
+	return _ok(core,"Convoy client funded your escort contract.",{"job":job.duplicate(true)})
+
+
 # Pays escrow to the captain exactly once when the kind's real condition is
 # met: freight delivered at targetPort (target stocks rise by the sealed
 # lot), survey reported at the sponsoring harbor after exploration level 3,
@@ -702,6 +725,9 @@ static func finish(core, id: String) -> Dictionary:
 	if str(job["state"]) == STATE_EXPIRED:
 		return _fail(core, "That job expired and its escrow was refunded. Abandon it at a harbor to unload any sealed freight.")
 	var kind := str(job["kind"])
+	if kind==KIND_ESCORT:
+		if not job.escort.get("arrived",false) or job.escort.get("battlePending",false):return _fail(core,"Accompany the original loaded carriers to their actual delivery; every interception must end in their physical escape.")
+		if not _at_port(core,state,str(job.targetPort)):return _fail(core,"Report at the convoy's delivery harbor to release its client-funded fee.")
 	if job.get("failed",false) or job.get("freight",{}).get("lost",false):return _fail(core,"Part of this sealed cargo was lost. Return the remainder and abandon the failed delivery at a harbor.")
 	if kind == KIND_FREIGHT and not _at_port(core, state, str(job["targetPort"])):
 		return _fail(core, "Deliver the sealed freight at its destination harbor first.")
@@ -729,6 +755,8 @@ static func finish(core, id: String) -> Dictionary:
 	if not Money.move(job, "escrow", state, "coins", paid, "Voyage job payment from escrow", ledger):
 		return _fail(core, "The job escrow could not be released.")
 	state["moneyLog"] = ledger
+	if kind==KIND_ESCORT:
+		state.lastEscortVoyage={"job":job.duplicate(true),"paidDay":float(state.day),"payment":paid,"deliveryPort":str(job.targetPort)}
 	_remember_client(core,job,true)
 	var freight := _clean_freight(job.get("freight", {}))
 	if kind==KIND_FUEL:
@@ -777,6 +805,7 @@ static func abandon(core, id: String) -> Dictionary:
 	if str(job.kind)==KIND_CHARTER and not job.passengers.is_empty():
 		if dock.is_empty() or not Transport.discharge_charter(core,job,dock):return _fail(core,"Bring passengers to an actual harbor with safe reception room before abandoning.")
 	_refund_escrow(core, state, job, "Abandoned voyage job escrow refunded")
+	if str(job.kind)==KIND_ESCORT and int(job.escrow)>0:return _fail(core,"The original client is unavailable; its escrow stays held, never discarded.")
 	_remember_client(core,job,false)
 	if not freight.is_empty():
 		var stocks: Dictionary = dock.get("stocks", {}) if dock.get("stocks") is Dictionary else {}
@@ -926,7 +955,8 @@ static func tick(c,dt_days: float) -> void:
 	if not is_finite(dt_days) or dt_days<0 or not c.state.has("voyageJobs"):return
 	ensure(c)
 	for j in c.state.voyageJobs:
-		if j.kind==KIND_CHARTER:Transport.tick_charter(c,j,dt_days)
+		if j.kind==KIND_ESCORT and j.state==STATE_ACTIVE:c.EscortOps.advance_contract(c,j)
+		elif j.kind==KIND_CHARTER:Transport.tick_charter(c,j,dt_days)
 		elif j.kind==KIND_FUEL:
 			var b: Dictionary=c.find_boat(str(j.carrierUid))
 			if b.is_empty() or b.sunk:
@@ -934,10 +964,58 @@ static func tick(c,dt_days: float) -> void:
 			elif not c.active_fleet().has(b):j.failed=true
 	_expire_overdue(c,c.state)
 
+# Raw preflight, reusable from the canonical save-kind admission gate. The
+# nested record survives ensure()/JSON without borrowing live dictionaries.
+static func escort_error(s: Dictionary,j: Dictionary,world: Dictionary) -> String:
+	if j.get("payerKey")!="coins" or not j.get("freight") is Dictionary or not j.freight.is_empty():return "Escort escrow must be client coins, never sealed player freight."
+	if not _is_num(j.get("reward")) or float(j.reward)<=0 or floorf(float(j.reward))!=float(j.reward) or not _is_num(j.get("escrow")) or floorf(float(j.escrow))!=float(j.escrow) or float(j.escrow)<0 or float(j.escrow)>float(j.reward):return "Invalid escort fee/escrow."
+	if j.get("state")==STATE_ACTIVE and j.escrow!=j.reward:return "Unfunded active escort."
+	var client: Dictionary={}
+	for owner in s.get("fleetOwners",[]):
+		if owner.get("id")==j.get("ownerId"):client=owner;break
+	if client.is_empty() or client.get("kind")!="trader" or client.get("playerCompany",false) or client.get("homePort")!=j.get("port"):return "Escort must retain its original independent trader client."
+	var route=j.get("escort")
+	if not route is Dictionary:return "Missing escort passage record."
+	for key in ["voyageSeq","tradeQty","baselineDelivered","routeDistance","accompaniedDistance","playerDistance","lastDay"]:
+		if not _is_num(route.get(key)) or float(route[key])<0 or float(route[key])>1000000000.0:return "Invalid escort route accounting."
+	if floorf(float(route.voyageSeq))!=float(route.voyageSeq) or str(j.get("id",""))!="escort:%s:%d"%[str(j.get("ownerId","")),int(route.voyageSeq)]:return "Escort id disagrees with its exact client voyage."
+	if not route.get("fromPort") is String or not route.get("tradeGood") is String or not Goods.ITEMS.has(route.tradeGood) or route.tradeQty<=0 or route.routeDistance<160 or float(route.lastDay)>float(s.day):return "Invalid escort cargo/route."
+	for key in ["arrived","battlePending","exitSecured"]:
+		if not route.get(key) is bool:return "Invalid escort physical endstate."
+	if not route.get("failure") is String:return "Invalid escort failure record."
+	var count=route.get("interceptions",0)
+	if not _is_num(count) or float(count)<0 or floorf(float(count))!=float(count):return "Invalid escort interception count."
+	if not route.get("carrierUids") is Array or route.carrierUids.is_empty() or route.carrierUids.size()>64 or not route.get("carrierCargo") is Dictionary:return "Invalid original escort carriers."
+	var seen: Dictionary={}
+	for uid in route.carrierUids:
+		if not uid is String or seen.has(uid) or not client.get("boats",[]).any(func(b):return b.get("uid")==uid):return "Escort carrier identity is missing or duplicated."
+		seen[uid]=true
+		if not route.carrierCargo.get(uid) is Dictionary or route.carrierCargo[uid].is_empty():return "Escort carrier lacks its original cargo."
+	var qty: float=0.0
+	for uid in route.carrierCargo:
+		var lot=route.carrierCargo[uid]
+		if not lot is Dictionary or (not lot.is_empty() and not seen.has(uid)):return "Invalid escort carrier cargo ledger."
+		for good in lot:
+			if not Goods.ITEMS.has(good) or not _is_num(lot[good]) or float(lot[good])<=0:return "Invalid original escort goods."
+		qty+=float(lot.get(str(route.tradeGood),0))
+	if qty+0.000001<float(route.tradeQty):return "Original carriers do not contain the promised trade load."
+	for key in ["lastPosition","lastConvoyPosition"]:
+		if not route.get(key) is Dictionary:return "Missing escort position."
+		for axis in ["x","y"]:
+			if not _is_num(route[key].get(axis)) or float(route[key][axis])<0 or float(route[key][axis])>float(world.WORLD.width if axis=="x" else world.WORLD.height):return "Invalid escort route position."
+	if route.arrived:
+		if route.battlePending or (int(count)>0 and not route.exitSecured) or not _is_num(route.get("arrivedDay")) or float(route.arrivedDay)>float(s.day) or float(route.arrivedDay)<float(j.acceptedDay) or not _is_num(route.get("deliveredQty")) or float(route.deliveredQty)+0.000001<float(route.tradeQty):return "Unearned escort arrival."
+		if float(route.accompaniedDistance)+40.0<float(route.routeDistance)*0.8 or float(route.playerDistance)+40.0<float(route.routeDistance)*0.8:return "Escort arrival lacks actual accompanying movement."
+	return ""
+
+
 static func validate(s: Dictionary,world: Dictionary) -> String:
 	var hulls: Dictionary={}
 	for h in world.HULLS:hulls[str(h.id)]=h
 	for j in s.get("voyageJobs",[]):
+		if j is Dictionary and j.get("kind","")==KIND_ESCORT:
+			var escort_problem: String=escort_error(s,j,world)
+			if not escort_problem.is_empty():return escort_problem
 		if not j is Dictionary or j.get("kind","") not in [KIND_FUEL,KIND_CHARTER]:continue
 		if not j.get("carrierUid") is String or str(j.carrierUid).is_empty() or not j.get("failed") is bool:return "Invalid civilian job carrier/status."
 		var boat: Dictionary={}

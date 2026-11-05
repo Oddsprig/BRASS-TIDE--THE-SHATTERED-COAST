@@ -74,6 +74,10 @@ static func hail(ui, sighting: Dictionary) -> void:
 		ui.toast("Contact lost. Check the dated traffic report for the last sighting.")
 		open(ui)
 		return
+	var c=ui.host.core
+	var owner: Dictionary=c.fleet_owner(str(sighting.ownerId))
+	if not c.EscortOps.contracted(c,str(sighting.ownerId)).is_empty() or (owner.get("kind","")=="trader" and float(owner.get("tradeCargo",0))>0 and not c.Politics.hostile(c,owner)):
+		c.EscortOps.review(ui,str(sighting.ownerId));return
 	ui.host.show_patrol_encounter(str(sighting.ownerId))
 
 
@@ -84,6 +88,8 @@ static func open(ui) -> void:
 	ui.modal_kind="sea_traffic"
 	var body=ui.modal("Coastal traffic","LOCAL WATCH AND DATED INTELLIGENCE",1040,800)
 	ui.paragraph(body,"Day %.2f · Reports show what your lookout last saw. Old intelligence keeps its observed purpose and route; it does not follow a distant fleet. Only a current local contact can be hailed." % float(c.state.day),16)
+	var escort: Dictionary=c.EscortOps.contracted(c)
+	if not escort.is_empty():ui.button(body,"Review active paid escort",func():c.EscortOps.review(ui,str(escort.ownerId)))
 	if observed.contacts.is_empty():
 		ui.paragraph(body,"No fleets have been sighted by your current watch. Sail closer to a coastal route to gather intelligence.",17)
 	for sighting in observed.contacts:

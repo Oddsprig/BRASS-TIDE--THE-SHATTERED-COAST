@@ -370,11 +370,11 @@ static func _merchant(p: Dictionary,v) -> void:
 		p["alternativesSummary"]="Board options: %d freight load/route choices and %d tanker fuel-restock choices. Compare small (<=8 lot) vs larger (9..16 lot) holds and return fuel/payroll before accepting."%[freight_alts.size(),fuel_alts.size()]
 
 static func _escort(p: Dictionary,v) -> void:
-	p.actionId="traffic";p.nextActionId="jobs"
-	p.firstGoal="Hail a nearby loaded friendly convoy with an observed armed threat, then protect every carrier through the actual exit."
-	p.requirements=["At least one crewed combat boat, working ammunition and stores; all convoy boats plus your escorts must fit the 300-point deployment.","The convoy must be peaceful to you, physically loaded, near enough to hail and threatened by a nearby hostile fleet."]
-	p.rewardSource="Successful passage grants one service credit and +5 standing with the convoy's faction. This escort promises 0 coins and no enemy purse."
-	p.nextStep="Check coastal traffic for an eligible threatened convoy and protect payroll and stores first. Use the work board for a separately funded job if you need coin income."
+	p.actionId="traffic";p.nextActionId="traffic"
+	p.firstGoal="Hail a nearby loaded friendly convoy to review a client-funded passage; stay with its loaded boats to their delivery harbor. An observed attack can also be met as a voluntary rescue."
+	p.requirements=["At least one crewed combat boat, working ammunition and stores; all convoy boats plus your escorts must fit the 300-point deployment.","A paid passage needs a peaceful loaded client within600 with its own fee and real water route. Voluntary rescue additionally needs a nearby observed hostile fleet."]
+	p.rewardSource="A paid Hail review names the actual client fee held in escrow; it is released once after delivery. The voluntary rescue quote below grants one service credit and +5 standing, promises0coins and no enemy purse."
+	p.nextStep="Open Coastal traffic and Hail a loaded peaceful client for paid passage terms; a quiet passage can earn its fee. Keep payroll and return stores reserved. Voluntary rescues are separate and require an observed threat."
 	p["quote"]={"rewardCoins":0,"standing":5,"serviceCredit":1}
 	var witnessed: Array=p.get("convoyOpportunities",[])
 	if not witnessed.is_empty():
@@ -395,7 +395,7 @@ static func _escort(p: Dictionary,v) -> void:
 		if Deployment.total(owner.boats.filter(func(b):return not b.sunk and b.crew>=b.crewMin)+combat)>Deployment.LIMIT:p.blockers.append("Convoy plus escorts exceed 300 deployment points.")
 		if distance<0:p.blockers.append("No safe approach to this convoy.")
 		return
-	p.blockers.append("No nearby loaded peaceful convoy with an observed armed threat; inspect coastal traffic rather than starting an invented escort.")
+	p.blockers.append("No threatened convoy is observed for this voluntary rescue quote. Paid passage offers may still be available through Hail on peaceful loaded clients; their reviews show actual fees.")
 
 static func _privateer(p: Dictionary,v) -> void:
 	p.firstGoal="Choose one funded bounty against its named actual raider; review Law, then defeat that fleet and report for escrow."

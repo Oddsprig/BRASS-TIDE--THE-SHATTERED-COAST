@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.095: Earned merchant progression and honest voyage costs. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: career_costs.gd:_budget/_market_quote, guidance_ui.gd:open_voyage, test_voyage_career070.gd:earned_voyage.
+v0.096: Client-funded convoy escort and physical delivery. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: naval_ui.gd:paid convoy review, escort_ops.gd:offer/advance_contract, voyage_jobs.gd:escort acceptance and settlement, campaign_state_validation.gd:validate_jobs070.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL
