@@ -7,6 +7,58 @@ const SAMPLE_SECONDS: float=0.15
 const BATCH_SECONDS: float=0.10
 const CHOICE_SECONDS: float=0.45
 
+# Detached schema work only. This object grants no live goal authority; Runtime
+# may reuse it only after admitting the exact completed+joined encounter slot.
+class _PreparedGoal091 extends RefCounted:
+	const Schema091=preload("res://scripts/tactical_stations.gd")
+	var _source: Dictionary={}
+	var source: Dictionary:
+		get:return _source
+
+	func _init(payload: Dictionary) -> void:
+		# Public plan callers may retain nested input memory. Freeze a detached
+		# copy, never an alias of that memory or of the planner's route cache.
+		var frozen: Dictionary=payload.duplicate(true)
+		var state: Variant=frozen.get("state")
+		var candidate: Variant=frozen.get("candidate")
+		if not state is Dictionary or state.is_empty() or not bounded_value(state,{"nodes":0}):return
+		if not candidate is Dictionary or (not candidate.is_empty() and not Schema091.valid_candidate(candidate)):return
+		read_only(frozen)
+		_source=frozen
+
+	static func bounded_value(value: Variant,count: Dictionary,depth: int=0) -> bool:
+		count.nodes+=1
+		if depth>8 or int(count.nodes)>2048:return false
+		if value is Dictionary:
+			if value.size()>64:return false
+			for key in value:
+				# Native Dictionary dot assignments create StringName textual keys.
+				if not (key is String or key is StringName) or str(key).length()>128 or not bounded_value(value[key],count,depth+1):return false
+			return true
+		if value is Array:
+			if value.size()>64:return false
+			for child in value:
+				if not bounded_value(child,count,depth+1):return false
+			return true
+		if value is Vector2:return value.is_finite()
+		if value is String:return value.length()<=256
+		if value is float:return is_finite(value)
+		return value==null or value is int or value is bool
+
+	static func read_only(value: Variant) -> void:
+		if value is Dictionary or value is Array:
+			if value.is_read_only():return
+			for child in (value.values() if value is Dictionary else value):read_only(child)
+			value.make_read_only()
+
+static func _prepared_goal091(result: Dictionary,id: String,source: Dictionary) -> _PreparedGoal091:
+	var entries: Variant=result.get("preparedGoals091")
+	if not entries is Dictionary:return null
+	var prepared: Variant=entries.get(id)
+	# A flag, copied payload, or sibling's preparation cannot skip validation.
+	if not prepared is _PreparedGoal091 or not is_same(prepared.source,source) or source.is_empty() or not source.is_read_only():return null
+	return prepared
+
 static func plan051(data: Dictionary) -> Dictionary:
 	var view: Dictionary=data.view
 	var context: Dictionary=Roles.ships_by_id(view)
@@ -103,4 +155,10 @@ static func plan051(data: Dictionary) -> Dictionary:
 		# input sample, not completion/adoption; there is no semantic-age renewal.
 		goals[id]={"candidate":candidate,"state":state,"chosenAt":float(view.time),"sampledAt":float(view.time),"sampledRisk":risk,"reservation":reservation}
 	view.erase("_observation051") # Never publish the worker-local object graph.
-	return {"goals051":goals,"cache":data.cache,"budgets":data.budgets}
+	var prepared: Dictionary={}
+	for id: String in goals:
+		var goal: _PreparedGoal091=_PreparedGoal091.new(goals[id])
+		if goal.source.is_empty():continue # Invalid output retains the full rejection path.
+		goals[id]=goal.source;prepared[id]=goal
+	prepared.make_read_only()
+	return {"goals051":goals,"cache":data.cache,"budgets":data.budgets,"preparedGoals091":prepared}

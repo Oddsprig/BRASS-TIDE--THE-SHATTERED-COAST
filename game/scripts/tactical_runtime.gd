@@ -278,12 +278,14 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 	var t: Dictionary=st.tactical
 	# Publication is possible ONLY from this encounter's exact, completed+joined
 	# SIDE slot. Neither public dictionaries nor an unfinished capsule is read.
-	if not _fleet_goals051(t) or not bool(slot.get("fleetGoals051",false)) or not bool(slot.joined) or bool(slot.retired) or slot.capsule==null or id not in slot.remaining:return false
+	if not _fleet_goals051(t) or not bool(slot.get("fleetGoals051",false)) or not bool(slot.joined) or int(slot.taskId)!=-1 or bool(slot.retired) or slot.capsule==null or id not in slot.remaining:return false
 	if not is_same(t.workers051.slots.get(int(slot.generation051)),slot) or int(t.workers051.members051.get(id,-1))!=int(slot.generation051):return false
 	var guard: Dictionary=slot.guards.get(id,{})
 	if not _goal_input_reason051(st,id,guard,frame_cache).is_empty() or guard.capability.is_empty():return false
-	var source: Dictionary=slot.capsule.result.get("goals051",{}).get(id,{})
+	var result: Dictionary=slot.capsule.result
+	var source: Dictionary=result.get("goals051",{}).get(id,{})
 	if source.is_empty():return false
+	var prepared=Planner.Goals051._prepared_goal091(result,id,source)
 	var sample: float=float(source.get("sampledAt",-1.0))
 	var chosen: float=float(source.get("chosenAt",-1.0))
 	var risk: float=float(source.get("sampledRisk",NAN))
@@ -294,7 +296,8 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 		or sample<=float(t.lastDecision.get(id,-1.0))):return false
 	var state: Dictionary=source.get("state",{})
 	var candidate: Dictionary=source.get("candidate",{})
-	if state.is_empty() or int(state.get("orderRevision",-1))!=int(guard.revision) or not bounded_value(state,{"nodes":0}):return false
+	if state.is_empty() or int(state.get("orderRevision",-1))!=int(guard.revision):return false
+	if prepared==null and not bounded_value(state,{"nodes":0}):return false
 	var ship: Dictionary=t.ships[id]
 	var owners: Dictionary={}
 	var required: Dictionary={}
@@ -313,7 +316,7 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 		if not Routes.point(target).is_finite() or not Vector2(target.vx,target.vy).is_finite() or not is_finite(float(target.angle)):return false
 		owners[target_id]={"owner":target,"team":str(target.team),"uid":str(target.get("uid",""))}
 	if not candidate.is_empty():
-		if not Stations.valid_candidate(candidate) or str(candidate.shipId)!=id or int(candidate.orderRevision)!=int(guard.revision) or int(candidate.snapshotRevision)!=int(slot.snapshotRevision) or str(candidate.role)!=str(state.get("role","")):return false
+		if (prepared==null and not Stations.valid_candidate(candidate)) or str(candidate.shipId)!=id or int(candidate.orderRevision)!=int(guard.revision) or int(candidate.snapshotRevision)!=int(slot.snapshotRevision) or str(candidate.role)!=str(state.get("role","")):return false
 		var order_view: Dictionary={"options":t.options}
 		var ordered: Dictionary=ship.duplicate()
 		if not str(guard.boarding).is_empty():ordered.order="board";ordered.orderTarget={"shipId":str(guard.boarding)}
@@ -335,7 +338,7 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 		t.reasons[id]=str(state.get("reason","Waiting for a shared approach"))
 		if not t.pending.has(id):t.pending[id]=now
 		return false
-	_view_read_only051(source)
+	if prepared==null:_view_read_only051(source)
 	var held: _Goal051=_Goal051.new()
 	held.source=source;held.guard=guard;held.owners=owners;held.workers=t.workers051
 	held.generation=int(slot.generation051);held.snapshot_revision=int(slot.snapshotRevision)
@@ -647,10 +650,7 @@ static func _worker_view051(st: Dictionary,side: String,due: Array,frame_cache=n
 	return _view051(st,side,due,frame_cache,true,true)
 
 static func _view_read_only051(value: Variant) -> void:
-	if value is Dictionary or value is Array:
-		if value.is_read_only():return
-		for child in (value.values() if value is Dictionary else value):_view_read_only051(child)
-		value.make_read_only()
+	Planner.Goals051._PreparedGoal091.read_only(value)
 
 static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Variant=null) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
@@ -1384,23 +1384,7 @@ static func _publish(st: Dictionary,snapshot: Dictionary,resolved: Dictionary,of
 		if held is Certification._Retained051:t.preferences051[id]=Certification._preference051(st,t.ships[id],held)
 
 static func bounded_value(value: Variant,count: Dictionary,depth: int=0) -> bool:
-	count.nodes+=1
-	if depth>8 or int(count.nodes)>2048:return false
-	if value is Dictionary:
-		if value.size()>64:return false
-		for key in value:
-			# Native Dictionary dot assignments create StringName textual keys.
-			if not (key is String or key is StringName) or str(key).length()>128 or not bounded_value(value[key],count,depth+1):return false
-		return true
-	if value is Array:
-		if value.size()>64:return false
-		for child in value:
-			if not bounded_value(child,count,depth+1):return false
-		return true
-	if value is Vector2:return value.is_finite()
-	if value is String:return value.length()<=256
-	if value is float:return is_finite(value)
-	return value==null or value is int or value is bool
+	return Planner.Goals051._PreparedGoal091.bounded_value(value,count,depth)
 
 static func order_candidate(snapshot: Dictionary,ship: Dictionary,candidate: Dictionary) -> bool:
 	var order: String=str(ship.get("order","engage"))

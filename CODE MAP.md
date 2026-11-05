@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.090: Boat separation and steering. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: battle.gd:_collisions, battle.gd:_formation_positions, hull_profiles.gd:contact_capsule090, test_hull_separation090.gd.
+v0.091: Responsive full-fleet combat. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: tactical_goals051.gd:plan051, tactical_runtime.gd:_publish_goal051, test_goal_adoption091.gd.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

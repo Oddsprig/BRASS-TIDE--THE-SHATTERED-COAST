@@ -1,4 +1,4 @@
-BRASS TIDE — CONSTRUCTION MAP (generated; v0.090)
+BRASS TIDE — CONSTRUCTION MAP (generated; v0.091)
 
 Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.
 
