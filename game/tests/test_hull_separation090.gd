@@ -107,7 +107,7 @@ func contacts() -> void:
 	var crowd: Array=[boat("brasswind_motor_galleon","a",Vector2(700,850)),boat("brasswind_motor_galleon","b",Vector2(785,850)),boat("brasswind_motor_galleon","c",Vector2(870,850))]
 	resolve(state(crowd),"reopened three-hull contact")
 	var left: Dictionary={"points":[[0,0],[500,0],[500,1700],[0,1700]]}
-	var held: Dictionary=boat("brasswind_motor_galleon","held",Vector2(530,850))
+	var held: Dictionary=boat("brasswind_motor_galleon","held",Vector2(528,850))
 	var free: Dictionary=boat("brasswind_motor_galleon","free",Vector2(585,850))
 	var held_bytes: PackedByteArray=var_to_bytes(held)
 	resolve(state([held,free],[left]),"one shore-held hull")
