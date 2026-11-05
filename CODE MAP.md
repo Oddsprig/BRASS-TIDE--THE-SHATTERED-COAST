@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.097: Lawful privateering and finite recovered shipments. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: politics.gd:commission_enemy/settled, campaign.gd:prize_shipment/intercept_shipment, naval_combat.gd:actual NPC taken cargo, escort_ops.gd:settle_cargo, save_validation.gd:captured operating lot admission.
+v0.098: Supplied corridor aftermath and hostile shipping access. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: shipping068.gd:port snapshots and hostile access, shipping_flow068.gd:market/delivery/diversion, test_remote_control085.gd:aftermath098.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

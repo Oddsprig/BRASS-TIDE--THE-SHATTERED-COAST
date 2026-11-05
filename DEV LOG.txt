@@ -1,3 +1,7 @@
+05NOV2026 - v0.098 SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.097 VERIFIED AND PACKAGED: 42/0 focused checks, selected batch 98.881s, TestBridge 56f009c20d9140aabee1dca59a51f09b. Source 18cc89e82f91d66a626c9bad07143cb108f952d0.
 
 04NOV2026 - v0.097 LAWFUL PRIVATEERING AND FINITE RECOVERED SHIPMENTS

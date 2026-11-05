@@ -1,10 +1,10 @@
-BRASS TIDE v0.097 - LAWFUL PRIVATEERING AND FINITE RECOVERED SHIPMENTS
-04 November2026 |36 boat designs
+BRASS TIDE v0.098 - SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
+05 November2026 |36 boat designs
 
 THIS VERSION
-- Existing signed letters name actual hostile factions. A peaceful trader does not become a lawful target through a commission.
-- A commissioned interception uses real cargo aboard original crewed carriers. Recover only proven captured food/fuel beyond their untouched operating goods; retain limited hold room, damaged hulls and actual goods accounting.
-- Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
+- A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
+- One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
+- Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
 
 This is one scoped playable step. Later roadmap features and general tuning
 remain in their own versions. Coins and100 coins per sailor-day remain.

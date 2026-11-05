@@ -1,14 +1,15 @@
-BRASS TIDE v0.097 - Lawful privateering and finite recovered shipments
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: 18cc89e82f91d66a626c9bad07143cb108f952d0 / v0.097
-Test Bridge: 56f009c20d9140aabee1dca59a51f09b
-42 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 98.881s; owned cleanup verified.
+BRASS TIDE v0.098 - SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
+05 November2026 |36 boat designs
 
-- Existing signed letters name actual hostile factions. A peaceful trader does not become a lawful target through a commission.
-- A commissioned interception uses real cargo aboard original crewed carriers. Recover only proven captured food/fuel beyond their untouched operating goods; retain limited hold room, damaged hulls and actual goods accounting.
-- Prize settlement retires the proven amount physically removed before autosave. Existing paid escort objectives keep their mission, carrier and fee bindings.
+THIS VERSION
+- A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
+- One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
+- Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-42 staged native assertions passed for commission legality, finite NPC cargo capture, remaining holds, immediate post-prize save and restore, and preservation of an existing escort mission. Windows export and menu startup passed. The separate normal continuation opened the exact earned merchant save, signed a Compact commission and sailed to Reed Floats. No observed hostile carried cargo in that window. A full earned privateering voyage remains open. The partial result records the opportunity gap and exit code 2. The queue also flagged its diagnostic receipt schema. Neither that run nor the earlier detector timeout contributes passed assertions. The selected elapsed total includes the detector attempt and the actual continuation.
+STATUS: current source candidate; focused checks/export pending.

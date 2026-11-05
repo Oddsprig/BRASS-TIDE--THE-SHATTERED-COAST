@@ -183,6 +183,29 @@ func contest085(retreat: bool) -> bool:
 	if not check(result.get("ok",true) and c.Money.total(c.state)==supply,"Native offshore settlement retains original custody and finite purses"):return false
 	return check(str(battle.result)==("retreated" if retreat else "won"),"Requested continuation requires its actual terminal result; no manufactured victory or retreat")
 
+func aftermath098(active: Dictionary) -> bool:
+	if not c.restore(active.duplicate(true)).get("ok",false):return check(false,"Controlled098 carrier contrast restores active prefix")
+	var initial_phase: String=str(c.state.shipping068.model.route.phase)
+	c.state.shipping068.model.route["nextDueSecond"]=float(c.state.day)*45.0
+	var snap_keep: Dictionary=c.ShippingFlow068.snapshot(c)
+	var staged_keep: Dictionary=c.ShippingFlow068.stage(c,0.0)
+	if not check(not snap_keep.originPort.get("hostileToOwner075",false) and not snap_keep.remotePort.get("hostileToOwner075",false) and staged_keep.get("ok",false) and str(staged_keep.model.route.phase)==initial_phase,"Interrupted unsurrendered harbor keeps corridor endpoints open to the original carrier"):return false
+	c.port(target085)["faction"]=sponsor085
+	var snap_hostile: Dictionary=c.ShippingFlow068.snapshot(c)
+	var target_snap: Dictionary=snap_hostile.originPort if target085==str(corridor085.originId) else snap_hostile.remotePort
+	var blocked_offer: Dictionary=c.ShippingFlow068.Shipping.cargo_offer075(snap_hostile.owner,snap_hostile.originPort,snap_hostile.remotePort,0)
+	if not check(bool(target_snap.get("hostileToOwner075",false)) and not snap_hostile.yardPort.get("hostileToOwner075",false) and not blocked_offer.get("ok",false) and c.ShippingFlow068.Shipping._delivery075(snap_hostile.owner,target_snap)==0,"Supplied surrender to a hostile governor blocks corridor loading/delivery quotes for the old governor's carrier"):return false
+	var staged_divert: Dictionary=c.ShippingFlow068.stage(c,0.0)
+	c.ShippingFlow068.commit(c,staged_divert)
+	var owner: Dictionary=c.fleet_owner(defender085)
+	var route: Dictionary=c.state.shipping068.model.route
+	if not check(staged_divert.get("ok",false) and str(route.phase)=="to_yard" and not route.location.path.is_empty() and str(owner.get("order",{}).get("purpose",""))=="repair" and str(owner.get("destination",""))==str(corridor085.homeId) and str(c.state.shipping068.get("holding","")).begins_with("Corridor market is governed by a hostile faction;") and c.state.shipping068.invoices.size()==active.shipping068.invoices.size() and c.Money.total(c.state)==supply and c.ShippingFlow068.prepare(c.state,c.data,c.ocean_context064).get("ok",false),"Hostile surrendered corridor diverts the surviving carrier physically to its paid home yard without an invoice"):return false
+	c.port(target085)["faction"]=str(active.territorial076.control.fromFaction)
+	var diverted_save: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	if not check(c.restore(diverted_save).get("ok",false) and str(c.state.shipping068.model.route.phase)=="to_yard","Diverted home-yard withdrawal route survives campaign save/restore"):return false
+	receipt.aftermathContrast098={"earnedCareerProgression":false,"scope":"Controlled098 surviving-carrier aftermath contrast on active prefix; no earned career claim.","interruptedPhase":staged_keep.model.route.phase,"surrenderedPhase":route.phase,"surrenderedDestination":owner.get("destination",""),"holding":c.state.shipping068.holding}
+	return true
+
 func control085() -> bool:
 	var active: Dictionary=parsed_save("remote-control085-active")
 	if active.is_empty():return false
@@ -204,6 +227,9 @@ func control085() -> bool:
 	var frozen: PackedByteArray=protected_state()
 	if not check(interrupted.status=="interrupted" and interrupted.funded==800 and not interrupted.battleWon and not Territory085.negotiate(c).get("ok",false) and protected_state()==frozen,"Real retreat interrupts the supplier, retains its paid treasury contribution and cannot grant surrender"):return false
 	receipt.interrupted085={"control":interrupted.duplicate(true),"coins":c.state.coins,"treasury":c.port(target085).governmentPurse,"paidSupportDays":interrupted.supportDays,"limit":"Actual retreat continuation from the same funded prefix; no supplied day is invented."}
+	var active_target: Dictionary=active.ports.filter(func(p):return str(p.id)==target085)[0]
+	if not check(c.port(target085).faction!=sponsor085 and c.work_port070().is_empty() and not c.ShippingFlow068.remote_gate(c,target085).get("ok",false) and not c.ShippingFlow068.market(c,"food",1,"buy",target085).get("ok",false) and same_values(c.port(target085).publicStores,active_target.publicStores),"Interrupted operation leaves the harbor hostile, refuses player berth/market access and credits no public stores"):return false
+	if not aftermath098(active):return false
 	# Separate continuation of the exact saved finite prefix, never earned travel
 	# or a resurrection within either branch. The actual active save must restore.
 	if not restore_exact(active,"remote-control085-success-fork"):return false
@@ -213,6 +239,7 @@ func control085() -> bool:
 		if not advance():return false
 	var job: Dictionary=c.state.territorial076.control
 	if not check(job.status=="active" and job.supportDays==2 and job.supportGoods=={"food":4.0,"supplies":2.0} and int(c.state.wageArrears)==0 and payroll>0,"Actual published payroll and two local support days deliver exactly4food/2repair-kit lots"):return false
+	if not check(float(c.port(target085).publicStores.food)==float(active_target.publicStores.food)+4.0 and float(c.port(target085).publicStores.supplies)==float(active_target.publicStores.supplies)+2.0,"Two funded support days transfer the carried4food and2supplies lots into this harbor's publicStores"):return false
 	var private_assets: PackedByteArray=var_to_bytes([c.state.businesses,c.state.tooling,c.state.territorial076.improvement])
 	var total: int=c.Money.total(c.state)
 	var negotiated: Dictionary=Territory085.negotiate(c)
@@ -227,8 +254,16 @@ func control085() -> bool:
 	var return_gate: Dictionary=corridor085.remoteGate if target085==str(corridor085.remoteId) else corridor085.originGate
 	if not gate(str(return_gate.regionId),str(return_gate.approachId)) or not gate(str(return_gate.regionId),str(return_gate.approachId)) or not sail(target085):return false
 	if not check(c.port(target085).faction==sponsor085 and c.work_port070().get("id")==target085,"Actual departure and ordinary return retain this harbor's new governor and paid-service access"):return false
+	var trade_good: String="food"
+	for candidate_good in c.Economy.GOODS:
+		if float(c.port(target085).stocks.get(candidate_good,0.0))>=1.0 and c.LawOps.allow_player(c,c.port(target085),str(candidate_good)) and candidate_good not in c.Politics.access(c,c.port(target085)).get("restrictedGoods",[]):trade_good=str(candidate_good);break
+	var coins_before098: int=int(c.state.coins);var cash_before098: int=int(c.port(target085).cash);var stock_before098: float=float(c.port(target085).stocks.get(trade_good,0.0));var cargo_before098: float=float(c.state.cargo.get(trade_good,0.0))
+	var market098: Dictionary=c.ShippingFlow068.market(c,trade_good,1,"buy",target085)
+	if not check(c.ShippingFlow068.remote_gate(c,target085).get("ok",false) and market098.get("ok",false) and int(market098.qty)==1 and int(c.state.coins)==coins_before098-int(market098.total) and int(c.port(target085).cash)==cash_before098+int(market098.total) and float(c.port(target085).stocks.get(trade_good,0.0))==stock_before098-1.0 and float(c.state.cargo.get(trade_good,0.0))==cargo_before098+1.0 and str(c.state.shipping068.receipts[-1].portId)==target085,"Supplied surrender opens legal remote market trade after ocean return and records its finite receipt"):return false
+	receipt.completedTrade098={"portId":target085,"governor":c.port(target085).faction,"good":trade_good,"qty":1,"total":market098.total,"receipt":c.state.shipping068.receipts[-1].duplicate(true),"publicStores":c.port(target085).publicStores.duplicate(true)}
 	receipt.traffic085={"day":c.state.day,"merchantRoute":c.state.shipping068.model.route.duplicate(true),"otherContact":c.state.ocean066.contact.duplicate(true),"datedLog":c.state.log.slice(0,8),"limit":"Actual short continuation; unchanged075 paid-recovery coverage is retained by source proof, not claimed newly executed here."}
 	saved=JSON.parse_string(JSON.stringify(c.state))
+	if not check(c.restore(saved.duplicate(true)).get("ok",false) and str(c.state.shipping068.receipts[-1].portId)==target085,"Post-return remote trade receipt, public stores and control record survive restore"):return false
 	var bad: Dictionary=saved.duplicate(true)
 	var neighbor: Dictionary=bad.ports.filter(func(p):return str(p.id)==source085)[0]
 	for faction in c.Factions.CANON:

@@ -417,6 +417,12 @@ static func install(c) -> Dictionary:
 	c.state=candidate
 	return {"ok":true,"message":"Installed the historical Westglass branch split; no coins, residents or boats were created."}
 
+static func _snapshot_port075(c,owner: Dictionary,id: String) -> Dictionary:
+	var port: Dictionary=c.port(id).duplicate(true)
+	if not port.is_empty() and not owner.is_empty():
+		port["hostileToOwner075"]=owner.get("faction")!=port.get("faction") and c.Factions.relation(c.state,str(owner.get("faction","")),str(port.get("faction","")))<=-20
+	return port
+
 static func snapshot(c,selected: Dictionary={}) -> Dictionary:
 	var corridor: Dictionary=corridor075(c.state) if selected.is_empty() else selected
 	var id: String=OWNER if corridor.is_empty() else str(corridor.ownerId)
@@ -424,8 +430,8 @@ static func snapshot(c,selected: Dictionary={}) -> Dictionary:
 	var patrol: Dictionary=Orders.find_patrol(c.state,id).duplicate(true)
 	var reserves: Dictionary=Orders.fleet_reserves(owner)
 	var performance: Dictionary=Orders.fleet_performance(owner)
-	var physical: Dictionary={"owner":owner,"patrol":patrol,"originPort":c.port(ORIGIN if corridor.is_empty() else str(corridor.originId)).duplicate(true),"remotePort":c.port(PORT if corridor.is_empty() else str(corridor.remoteId)).duplicate(true) if installed(c.state) or not corridor.is_empty() else {},"reserves":reserves,"performance":performance,"clearance":_clearance(owner),"campaignScale":float(c.data.get("CAMPAIGN_SCALE",1.0))}
-	if not corridor.is_empty():physical["yardPort"]=c.port(str(corridor.homeId)).duplicate(true);physical["corridor075"]=corridor.duplicate(true)
+	var physical: Dictionary={"owner":owner,"patrol":patrol,"originPort":_snapshot_port075(c,owner,ORIGIN if corridor.is_empty() else str(corridor.originId)),"remotePort":_snapshot_port075(c,owner,PORT if corridor.is_empty() else str(corridor.remoteId)) if installed(c.state) or not corridor.is_empty() else {},"reserves":reserves,"performance":performance,"clearance":_clearance(owner),"campaignScale":float(c.data.get("CAMPAIGN_SCALE",1.0))}
+	if not corridor.is_empty():physical["yardPort"]=_snapshot_port075(c,owner,str(corridor.homeId));physical["corridor075"]=corridor.duplicate(true)
 	return physical
 
 static func _clearance(owner: Dictionary) -> float:
@@ -600,7 +606,8 @@ static func _execute(c,command: Dictionary,proposal: Dictionary) -> Dictionary:
 			if port.id!=corridor.originId or current.phase!="to_origin" or next_route.phase!="outbound" or qty<0 or qty>64:return _fail("Generated loading requires its actual origin berth and next departure.")
 			var required: Dictionary=Shipping.requirements(c.ocean_context064,snapshot(c))
 			if not required.get("ok",false):return required
-			var offer: Dictionary=Shipping.cargo_offer075(owner,port,c.port(str(corridor.remoteId)),int(required.wageCoins)+int(required.repairCoins))
+			var physical: Dictionary=snapshot(c)
+			var offer: Dictionary=Shipping.cargo_offer075(owner,physical.originPort,physical.remotePort,int(required.wageCoins)+int(required.repairCoins))
 			if not offer.get("ok",false) or good!=offer.good or (qty>0 and (offer.retained or qty>int(offer.qty))) or (qty==0 and not offer.retained):return _fail("Generated load no longer matches an affordable finite stock/demand quote.")
 			result=_trade(owner,port,good,qty,"buy",c)
 			if result.get("ok",false) and qty>0:owner["tradeGood"]=good;owner["tradeCargo"]=float(result.qty)

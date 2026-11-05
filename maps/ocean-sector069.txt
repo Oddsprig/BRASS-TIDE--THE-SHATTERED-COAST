@@ -1,4 +1,4 @@
-BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.097)
+BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.098)
 
 Fresh seed -> saved 48-group geography/finite opening accounts; earned holdings, markets and surveys. Legacy voyages keep two regions. Pure spatial reads; player restore/transition prepares one generated grid alongside home and Glasswind.
 
@@ -24,7 +24,7 @@ game/scripts/ocean_travel066.gd: 52746 bytes; extends RefCounted
   game/scripts/ocean_travel066.gd:31 create()
   game/scripts/ocean_travel066.gd:38 prepare()
   game/scripts/ocean_travel066.gd:53 validate_memory()
-game/scripts/shipping_flow068.gd: 60701 bytes; extends RefCounted
+game/scripts/shipping_flow068.gd: 61109 bytes; extends RefCounted
   game/scripts/shipping_flow068.gd:20 empty_book()
   game/scripts/shipping_flow068.gd:37 installed()
   game/scripts/shipping_flow068.gd:40 corridor075()

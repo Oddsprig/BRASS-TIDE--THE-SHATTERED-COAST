@@ -31,12 +31,19 @@ static func cargo_offer075(owner: Dictionary, origin: Dictionary, destination: D
 
 ## Detached, short-lived prices/demand for one admission attempt, never a stock
 ## reservation. The physical loading berth still obtains a fresh quotation.
+static func _hostile075(owner: Dictionary, port: Dictionary) -> bool:
+	if port.has("hostileToOwner075"):return bool(port.get("hostileToOwner075",false))
+	var of: String = str(owner.get("faction",""))
+	var pf: String = str(port.get("faction",""))
+	return of!=pf and (of=="raiders" or pf=="raiders")
+
+
 static func _market_quote075(owner: Dictionary, port: Dictionary, exportRows: Dictionary = {}) -> Dictionary:
 	var exports: Dictionary = Harbor.report(port).goods if exportRows.is_empty() else exportRows
 	var rows: Dictionary = {}
 	for key in Goods.ITEMS:
 		var good: String = str(key)
-		rows[good]={"allowed":Fleets.allowed_trade(owner,port,good),"buy":maxi(1,Economy.price(port,good,"buy")),"sell":maxi(1,Economy.price(port,good,"sell")),"demand":maxi(0,floori(Economy.get_equilibrium_stock(port,good)-float(port.get("stocks",{}).get(good,0.0)))),"exportable":floori(float(exports.get(good,{}).get("exportable",0.0)))}
+		rows[good]={"allowed":not _hostile075(owner,port) and Fleets.allowed_trade(owner,port,good),"buy":maxi(1,Economy.price(port,good,"buy")),"sell":maxi(1,Economy.price(port,good,"sell")),"demand":maxi(0,floori(Economy.get_equilibrium_stock(port,good)-float(port.get("stocks",{}).get(good,0.0)))),"exportable":floori(float(exports.get(good,{}).get("exportable",0.0)))}
 	return rows
 
 
@@ -256,7 +263,7 @@ static func _command075(route: Dictionary, kind: String, port: Dictionary, good:
 
 static func _delivery075(owner: Dictionary, port: Dictionary) -> int:
 	var good: String = str(owner.tradeGood)
-	if not Fleets.allowed_trade(owner,port,good):return 0
+	if _hostile075(owner,port) or not Fleets.allowed_trade(owner,port,good):return 0
 	var carried: int = floori(minf(float(owner.tradeCargo),float(owner.cargo.get(good,0.0))))
 	var affordable: int = int(port.get("cash",0))/maxi(1,Economy.price(port,good,"sell"))
 	var demand: int = floori(maxf(0.0,Economy.get_equilibrium_stock(port,good)-float(port.get("stocks",{}).get(good,0.0))))
@@ -275,7 +282,11 @@ static func _plan075(context: Dictionary, book: Dictionary, snapshot: Dictionary
 		return _result(book,{},"Actual carrier lost; no cargo delivery or at-sea replacement.")
 	if now+EPS<float(route.nextDueSecond):return _result(book,{},"Scheduled generated-corridor watch or paid service is not due.")
 	route.nextDueSecond=now+1.0
-	if route.phase in ["to_origin","outbound"] and (not snapshot.performance.get("seaworthy",false) or int(owner.wageArrears)>0):
+	var origin_hostile: bool = _hostile075(owner,snapshot.originPort)
+	var remote_hostile: bool = _hostile075(owner,snapshot.remotePort)
+	var corridor_hostile: bool = origin_hostile or remote_hostile
+	var hostile_leg: bool = (route.phase=="to_origin" and corridor_hostile) or (route.phase=="outbound" and remote_hostile)
+	if route.phase in ["to_origin","outbound"] and (not snapshot.performance.get("seaworthy",false) or int(owner.wageArrears)>0 or hostile_leg):
 		route.phase="to_yard";route.location.path=[];route.location.destination=""
 	if route.phase=="yard_arrival":
 		if not _at_berth(route.location,snapshot.yardPort):return _fail("Paid recovery requires the actual stopped home yard.")
@@ -291,10 +302,16 @@ static func _plan075(context: Dictionary, book: Dictionary, snapshot: Dictionary
 			# repeat subsidy and no free readiness grant while the fleet holds.
 			route.nextDueSecond=now+SERVICE_SECONDS
 			return _result(book,_command075(route,"service",snapshot.yardPort,"",0),"Holding at the real home yard for paid recovery and actual voyage reserves.")
+		if corridor_hostile:
+			route.nextDueSecond=now+3.0
+			return _result(book,{},"Corridor market is governed by a hostile faction; holding at the paid home yard.")
 		route.phase="to_origin"
 	if not route.location.path.is_empty():return _result(book,{},"The same generated-corridor carrier is physically underway.")
 	var destination: Dictionary = snapshot.originPort if route.phase=="to_origin" else (snapshot.remotePort if route.phase=="outbound" else snapshot.yardPort)
-	if not _at_berth(route.location,destination):return _next_leg075(context,book,snapshot,destination)
+	if not _at_berth(route.location,destination):
+		var leg: Dictionary = _next_leg075(context,book,snapshot,destination)
+		if leg.get("ok",false) and hostile_leg:leg["message"]="Corridor market is governed by a hostile faction; returning physically to the paid home yard."
+		return leg
 	if route.phase=="to_origin":
 		var required: Dictionary = requirements(context,snapshot)
 		if not required.get("ok",false):return _result(book,{},str(required.message))
