@@ -167,6 +167,25 @@ func landmark_cases(sites: Array) -> void:
 	check(str(wreck_art.kind)=="wreck" and not wreck_art.commands.is_empty() and var_to_bytes(wreck)==wreck_before,"An actual unclaimed hull record resolves wreck art without changing recovery state")
 	wreck.status="claimed"
 	check(Landmarks.wreck_plan(wreck,Vector2(640,400),0.5).commands.is_empty(),"Claimed wrecks create no live recoverable artwork")
+	var templates069: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/sector_templates069.json"))
+	var remote_kinds: Dictionary={};var remote_geoms: Dictionary={}
+	var remote_sites: Array=[]
+	for candidate in sites:
+		if str(candidate.get("regionId",""))=="glasswind_keys":remote_sites.append(candidate)
+	var opps: Array=templates069.get("opportunities",[])
+	for i in range(opps.size()):
+		var opp: Dictionary=opps[i]
+		remote_sites.append({"id":"settled_%02d_survey"%[i+1],"name":"Uncharted Landing","clue":str(opp.get("clue",""))})
+	for r_site in remote_sites:
+		var r_sighted: Dictionary=Landmarks.plan(r_site,1,Vector2(640,400),0.5)
+		var r_charted: Dictionary=Landmarks.plan(r_site,2,Vector2(640,400),0.5)
+		var r_far: Dictionary=Landmarks.plan(r_site,2,Vector2(640,400),0.08)
+		var r_rec=ChartTest.ChartRecorder.new()
+		Landmarks.draw(r_rec,r_charted)
+		check(str(r_sighted.get("kind","sighting"))!="sighting" and str(r_sighted.get("kind",""))==str(r_charted.get("kind","")) and not bool(r_sighted.get("identified",true)) and str(r_sighted.get("label",""))!=str(r_site.get("name","")) and not r_sighted.has("resource") and not r_sighted.has("discovery"),"Remote landing resolves distinct clue motif without leaking survey findings: "+str(r_site.id))
+		check(r_rec.invalid==0 and not r_rec.prims.is_empty() and primitives_inside(r_rec,r_charted.bounds) and int(r_charted.primitive_count)<=80 and int(r_far.lod)<int(r_charted.lod) and r_far.commands.size()<=r_charted.commands.size(),"Remote landing has bounded LOD geometry: "+str(r_site.id))
+		remote_kinds[str(r_charted.get("kind",""))]=true;remote_geoms[var_to_bytes(r_charted.get("commands",[]))]=true
+	check(remote_kinds.size()==9 and remote_geoms.size()==9,"Three Glasswind landings and six sector survey clue types resolve nine distinct shore illustrations")
 	check(var_to_bytes(sites)==frozen,"Landmark art preserves catalog coordinates, knowledge inputs and rewards")
 
 func _initialize() -> void:

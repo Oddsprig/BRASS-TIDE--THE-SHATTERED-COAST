@@ -1,6 +1,6 @@
 BRASS TIDE - CURRENT SCOPED UPDATE
-v0.091: Responsive full-fleet combat. Read current ROADMAP.md and targeted maps/*.txt.
-Current changed entry points: tactical_goals051.gd:plan051, tactical_runtime.gd:_publish_goal051, test_goal_adoption091.gd.
+v0.092: Coasts and harbors with visual identity. Read current ROADMAP.md and targeted maps/*.txt.
+Current changed entry points: coast_art050.gd:prepare_island/prepare_harbor, campaign_landmark_art054.gd:plan, ocean_chart064.gd:_prepare_local_harbor068.
 Older performance/status paragraphs below are historical, not active gates.
 
 HISTORICAL MAP DETAIL

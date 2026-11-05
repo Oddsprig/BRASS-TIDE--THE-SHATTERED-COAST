@@ -104,7 +104,16 @@ static func _profile(id: String) -> Dictionary:
 		"glasswind_west","glasswind_keys_ocean_0":return {"biome":"wind-scoured limestone / beacon scrub","ground":"728f84","rock":"a7b1a5","leaf":"446c5b","beach":[[0.11,0.22],[0.48,0.68]],"ridge":[[0.20,0.52],[0.38,0.34],[0.56,0.44],[0.74,0.62]],"groves":[[0.30,0.44],[0.48,0.36],[0.64,0.52],[0.42,0.66],[0.56,0.68]],"fields":false}
 		"glasswind_crown","glasswind_keys_ocean_1":return {"biome":"weather-bleached crown ridge / sea-pine","ground":"7c968b","rock":"b3b9aa","leaf":"48705e","beach":[[0.22,0.34],[0.64,0.82]],"ridge":[[0.18,0.48],[0.36,0.28],[0.56,0.34],[0.74,0.54],[0.62,0.74]],"groves":[[0.28,0.42],[0.46,0.34],[0.66,0.46],[0.54,0.66],[0.38,0.64]],"fields":true}
 		"glasswind_south","glasswind_keys_ocean_2":return {"biome":"reef-cut basalt key / driftwood shoals","ground":"68877d","rock":"8f9c96","leaf":"3d6454","beach":[[0.11,0.29],[0.66,0.78]],"ridge":[[0.18,0.62],[0.36,0.38],[0.56,0.42],[0.76,0.58]],"groves":[[0.28,0.54],[0.46,0.44],[0.64,0.52],[0.52,0.68],[0.36,0.68]],"fields":false}
-	return {"biome":"rocky coastal heath","ground":"82956b","rock":"a3a48b","leaf":"466b50","beach":[[0.0,0.25]],"ridge":[[0.30,0.30],[0.50,0.50],[0.65,0.65]],"groves":[[0.40,0.40]],"fields":false}
+		"settled_01_island_01","settled_01_ocean_0":return {"biome":"terraced loam headlands / sheltered coves","ground":"8c996e","rock":"b6b08e","leaf":"4c7250","beach":[[0.06,0.24],[0.54,0.72]],"ridge":[[0.18,0.46],[0.36,0.30],[0.58,0.38],[0.76,0.56]],"groves":[[0.28,0.38],[0.46,0.34],[0.64,0.48],[0.38,0.64],[0.56,0.66]],"fields":true}
+		"settled_01_island_02","settled_01_ocean_1":return {"biome":"sea-pine ridge / timber bench","ground":"788e6d","rock":"a59d84","leaf":"3a624b","beach":[[0.12,0.28],[0.62,0.78]],"ridge":[[0.16,0.52],[0.32,0.32],[0.50,0.26],[0.68,0.40],[0.78,0.62]],"groves":[[0.26,0.44],[0.44,0.32],[0.62,0.42],[0.52,0.64],[0.34,0.66]],"fields":false}
+	var seed_sum: int=0
+	for idx in range(id.length()):seed_sum+=id.unicode_at(idx)*(idx+3)
+	match posmod(seed_sum,5):
+		0:return {"biome":"terraced coastal loam / windbreak bench","ground":"899870","rock":"b2ac8c","leaf":"4b7251","beach":[[0.05,0.24],[0.55,0.72]],"ridge":[[0.20,0.48],[0.38,0.32],[0.58,0.38],[0.75,0.58]],"groves":[[0.28,0.40],[0.48,0.35],[0.64,0.50],[0.40,0.64]],"fields":true}
+		1:return {"biome":"sea-pine ridge / shingle coves","ground":"798e6e","rock":"a4a18d","leaf":"3b634b","beach":[[0.10,0.27],[0.60,0.76]],"ridge":[[0.18,0.54],[0.34,0.34],[0.54,0.30],[0.74,0.52]],"groves":[[0.26,0.44],[0.46,0.34],[0.64,0.46],[0.50,0.66],[0.34,0.64]],"fields":false}
+		2:return {"biome":"iron-stained crags / scrub shelf","ground":"85886c","rock":"9f846b","leaf":"526a4f","beach":[[0.14,0.30],[0.64,0.78]],"ridge":[[0.20,0.34],[0.38,0.42],[0.56,0.34],[0.74,0.58]],"groves":[[0.30,0.38],[0.50,0.42],[0.66,0.54],[0.42,0.66]],"fields":false}
+		3:return {"biome":"salt-meadow bench / limestone point","ground":"849878","rock":"adb398","leaf":"497358","beach":[[0.0,0.22],[0.48,0.68]],"ridge":[[0.22,0.42],[0.40,0.30],[0.60,0.44],[0.74,0.64]],"groves":[[0.30,0.36],[0.50,0.38],[0.64,0.54],[0.38,0.64]],"fields":true}
+	return {"biome":"rocky coastal heath","ground":"82956b","rock":"a3a48b","leaf":"466b50","beach":[[0.0,0.25],[0.56,0.72]],"ridge":[[0.22,0.32],[0.42,0.44],[0.60,0.38],[0.74,0.60]],"groves":[[0.32,0.38],[0.52,0.42],[0.64,0.56],[0.40,0.64]],"fields":false}
 
 static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 	var land: PackedVector2Array=plan.land
@@ -129,16 +138,21 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 		if sand:
 			_paint(plan,1,PackedVector2Array([a,b,b+inward*7.0,middle+inward*10.0,a+inward*5.0]),Color("9eac96"))
 			_paint(plan,1,PackedVector2Array([a+inward*13.0,b+inward*12.0,inner_b,shoulder,inner_a]),Color("dfcea0"))
-		else:
-			_paint(plan,1,PackedVector2Array([a+inward*width*0.35,b+inward*width*0.48,inner_b,shoulder,inner_a]),rock.lightened(0.10-face))
+			_paint(plan,1,PackedVector2Array([a+inward*18.0,middle+inward*(width*0.74),b+inward*17.0,shoulder]),Color("eadbb0"))
 			if i%3==0:
+				_paint(plan,1,_box(middle+inward*11.5,Vector2(14.0,3.4),along,inward),Color("7d6d52"))
+		else:
+			_paint(plan,1,PackedVector2Array([a,b,b+inward*6.0,middle+inward*8.0,a+inward*5.0]),rock.darkened(0.36+face*0.5))
+			_paint(plan,1,PackedVector2Array([a+inward*width*0.35,b+inward*width*0.48,inner_b,shoulder,inner_a]),rock.lightened(0.10-face))
+			if i%2==0:
 				var crag: Vector2=middle+inward*width*0.6
-				_paint(plan,1,PackedVector2Array([crag-along*19.0,crag+inward*16.0,crag+along*15.0]),rock.lightened(0.24))
+				_paint(plan,1,PackedVector2Array([crag-along*18.0,crag+inward*16.0,crag+along*3.0]),rock.lightened(0.24))
+				_paint(plan,1,PackedVector2Array([crag+along*3.0,crag+inward*16.0,crag+along*16.0]),rock.darkened(0.18))
 		_paint(plan,1,PackedVector2Array([inner_a,shoulder,inner_b,inner_b+inward*9.0,middle+inward*(width+19.0),inner_a+inward*8.0]),Color(profile.ground).lightened(0.07))
 		if i%4==1:
 			var stone: Vector2=middle+inward*(width+10.0)
 			_paint(plan,1,_patch(stone,Vector2(12,7),i%12),rock.darkened(0.07))
-			_paint(plan,2,_oval(stone+Vector2(-2,-2),Vector2(7,3)),rock.lightened(0.24))
+			_paint(plan,1,_oval(stone+Vector2(-2,-2),Vector2(7,3)),rock.lightened(0.24))
 		# Deliberately transparent, broken seabed hatching rather than opaque
 		# rocks on water a captain is allowed to cross. It has no blocking meaning.
 		if sand and i%4==0 and plan.reef.size()<MAX_REEF_SEGMENTS*2:
@@ -159,6 +173,7 @@ static func _relief(plan: Dictionary,profile: Dictionary,ridge: PackedVector2Arr
 		_paint(plan,0,PackedVector2Array([a-side*width*0.7,a-side*width*1.12+(b-a)*0.33,b-side*width*0.65,b+side*width*0.65,a+side*width*0.84]),ground.darkened(0.08))
 		_paint(plan,0,PackedVector2Array([a,a+side*width*0.63,crest+side*width*0.77,b+side*width*0.45,b,crest]),ground.lerp(rock,0.50).lightened(0.06))
 		_paint(plan,0,PackedVector2Array([a,crest,b,b-side*width*0.61,crest-side*width*0.92,a-side*width*0.54]),ground.lerp(rock,0.40).darkened(0.13))
+		_paint(plan,1,PackedVector2Array([crest,crest-side*width*0.56+(b-a)*0.16,b-side*width*0.42]),ground.darkened(0.19).lerp(rock,0.36))
 		var ledge: PackedVector2Array=PackedVector2Array([a+side*width*0.26,crest+side*width*0.35,b+side*width*0.19])
 		_ribbon(plan,ledge,12.0 if craggy else 9.0,rock.lightened(0.18).lerp(ground,0.25),1)
 		for j in range(2):
@@ -166,7 +181,8 @@ static func _relief(plan: Dictionary,profile: Dictionary,ridge: PackedVector2Arr
 			_paint(plan,1,PackedVector2Array([spur+side*width*0.20,spur-side*width*0.55+(b-a)*0.10,spur-side*width*0.39-(b-a)*0.07]),rock.darkened(0.16).lerp(ground,0.35))
 			if craggy:
 				_paint(plan,1,PackedVector2Array([spur,spur+side*width*0.36,spur+(b-a)*0.14]),rock.lightened(0.25))
-		_ribbon(plan,PackedVector2Array([a,crest,b]),4.0,rock.lightened(0.29),2)
+		_ribbon(plan,PackedVector2Array([a,crest,b]),4.2,rock.lightened(0.27),1)
+		_ribbon(plan,PackedVector2Array([a,crest,b]),2.4,rock.lightened(0.35),2)
 
 static func _reeds(plan: Dictionary,at: Vector2,height: float,leaf: Color,first_lod: int=1) -> void:
 	for i in range(3):
@@ -215,7 +231,7 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 			_ribbon(plan,PackedVector2Array([terrace[3],terrace[2]]),7.0,Color("73875f"),1)
 			for j in range(2):
 				var furrow: Vector2=center+Vector2(0,float(j)*breadth*0.015)
-				_ribbon(plan,PackedVector2Array([furrow-Vector2(breadth*0.10,0),furrow+Vector2(breadth*0.09,-breadth*0.009)]),3.0,Color("c5be8c"),2)
+				_ribbon(plan,PackedVector2Array([furrow-Vector2(breadth*0.10,0),furrow+Vector2(breadth*0.09,-breadth*0.009)]),3.0,Color("c5be8c"),1 if j==0 else 2)
 	var wet: bool=plan.id in ["isl_kelp","isl_fen","isl_verdigris","glasswind_south","glasswind_keys_ocean_2"]
 	for at: Vector2 in _mapped(bounds,profile.groves):_grove(plan,at,breadth*(0.075 if wet else 0.085),Color(profile.leaf),wet)
 	plan.outline=land.duplicate();plan.outline.append(land[0])
@@ -226,6 +242,9 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 	# Include the offshore ink in the draw-culling bounds, never in the land ring.
 	for p in plan.reef:plan.bounds=Rect2(plan.bounds).expand(p)
 	return _finish(plan)
+
+static func _is_home_port(id: String) -> bool:
+	return id in ["brass_haven","kelp_reach","sawtooth_mill","silt_hollow","cinder_quay","anvil_dock","reed_floats","naphtha_bay","rust_anchorage","shatter_spire"]
 
 static func harbor_caption(port: Dictionary) -> String:
 	match str(port.get("id","")):
@@ -240,9 +259,17 @@ static func harbor_caption(port: Dictionary) -> String:
 		"rust_anchorage":return "SALVAGE WHARVES"
 		"shatter_spire":return "FORTIFIED GUNWORKS"
 		"westglass_anchorage":return "TIMBER BRANCH QUAY"
+	var ind: String=str(port.get("industry","")).to_lower()
+	var spec: String=str(port.get("specialty","")).to_lower()
+	match ind:
+		"agriculture":return "TERRACED GRANARY QUAY"
+		"timber":return "TIMBER BOOM ANCHORAGE"
+		"foundry":return "ORE SMELTING QUAY"
+		"refinery":return "SALTPETER LEACH WORKS" if spec=="saltpeter" else "NAPHTHA STILL QUAY"
+		"trade":return "BOTANICAL DEPOT QUAY" if spec in ["supplies","medicinal_plants"] else "MERCHANT EXCHANGE QUAY"
 	return str(port.get("industry","harbor")).to_upper()
 
-static func _harbor_design(id: String) -> Dictionary:
+static func _harbor_design(id: String,industry: String="",specialty: String="") -> Dictionary:
 	# x runs along shore, y inland. Each silhouette is composed around its own
 	# working landmark, streets and courtyards; there is no repeated house grid.
 	# Building tuples: x,y,width,depth,kind (0 roof,1 shed,2 tank,3 hall,4 rack,5 fort).
@@ -257,8 +284,19 @@ static func _harbor_design(id: String) -> Dictionary:
 		"naphtha_bay":return {"landmark":"tank farm and cracking hall","roofs":[[0,76,90,38,1],[-74,132,47,47,2],[-12,155,53,53,2],[59,140,47,47,2],[-59,205,39,39,2],[29,222,47,47,2],[110,194,27,81,1],[-100,282,41,29,0],[-35,303,38,25,0],[42,297,47,31,1]],"roads":[[[-136,44],[0,41],[138,47]],[[-132,51],[-131,230],[-93,313]],[[-129,255],[19,263],[134,249]]]}
 		"rust_anchorage":return {"landmark":"salvage fan and prize sheds","roofs":[[0,81,91,40,1],[-97,100,46,30,1],[94,124,52,35,1],[-62,157,65,19,4],[11,181,78,21,4],[-101,225,36,28,0],[-38,259,43,27,0],[29,246,38,26,0],[92,216,35,30,0],[9,311,62,39,5]],"roads":[[[-149,54],[-28,40],[142,78]],[[-28,43],[-15,128],[-62,218],[9,321]],[[-124,219],[-62,218],[40,207],[126,174]]]}
 		"shatter_spire":return {"landmark":"bastioned gun court and armored yard","roofs":[[0,98,117,66,5],[-90,78,31,38,5],[90,81,31,38,5],[-91,164,35,43,5],[88,173,36,43,5],[-36,223,61,29,1],[45,238,59,32,1],[-93,278,40,31,0],[2,304,47,33,5],[88,294,37,29,0]],"roads":[[[-144,43],[0,39],[145,45]],[[0,40],[0,168],[-9,308]],[[-130,203],[-5,187],[128,220]]]}
-		"westglass_anchorage":return {"landmark":"timber storehouse, drying rack and log quay","roofs":[[0,68,56,30,1],[-44,112,48,15,4],[38,116,32,22,0]],"roads":[[[-52,34],[0,32],[52,36]],[[0,24],[0,132]]]}
-	return {"landmark":"working harbor","roofs":[[0,78,78,41,1],[-66,144,38,27,0],[42,183,41,29,0]],"roads":[[[0,30],[0,220]]]}
+		"westglass_anchorage":return {"landmark":"timber storehouse, drying rack and log quay","roofs":[[0,66,58,30,1],[-52,82,34,24,0],[50,84,36,24,1],[-42,122,48,16,4],[36,124,44,16,4],[-4,154,38,24,3]],"roads":[[[-58,34],[0,30],[58,34]],[[0,22],[0,156]],[[-46,102],[0,100],[46,102]]]}
+	var ind: String=industry.to_lower()
+	var spec: String=specialty.to_lower()
+	match ind:
+		"agriculture":return {"landmark":"terraced stone granaries, threshing court and grain chute","roofs":[[-36,68,32,44,1],[0,74,32,44,1],[36,80,32,44,1],[-40,124,48,15,4],[24,128,48,15,4],[-4,156,42,24,3]],"roads":[[[-60,34],[0,30],[60,36]],[[0,22],[0,158]],[[-50,106],[0,108],[50,110]]]}
+		"timber":return {"landmark":"coastal saw shed, logyard skids and timber shear crane","roofs":[[0,68,62,32,1],[-50,88,34,24,1],[48,90,34,24,0],[-32,124,54,15,4],[28,130,50,15,4],[4,158,38,24,0]],"roads":[[[-58,34],[0,32],[58,36]],[[-12,22],[-6,110],[4,160]],[[-46,110],[0,110],[46,112]]]}
+		"foundry":return {"landmark":"ore calcining kiln, blast stack and slag tip quay","roofs":[[0,70,64,34,1],[-46,82,22,22,2],[46,84,22,22,2],[-34,122,40,32,1],[28,126,42,32,1],[0,158,38,24,5]],"roads":[[[-58,34],[0,30],[58,34]],[[0,22],[0,160]],[[-46,106],[0,106],[46,106]]]}
+		"refinery":
+			if spec=="saltpeter":
+				return {"landmark":"nitrate leaching vats, drying pans and boiling house","roofs":[[0,68,56,30,1],[-44,86,28,28,2],[44,88,28,28,2],[-34,124,48,15,4],[26,126,46,15,4],[0,156,40,24,1]],"roads":[[[-58,34],[0,30],[58,34]],[[0,22],[0,158]],[[-46,106],[0,106],[46,106]]]}
+			return {"landmark":"coastal still tanks, piping manifold and drum wharf","roofs":[[0,68,56,30,1],[-44,92,30,30,2],[0,100,34,34,2],[44,94,30,30,2],[-34,142,36,24,1],[30,144,36,24,0]],"roads":[[[-58,34],[0,30],[58,34]],[[-48,38],[-48,144]],[[-46,124],[0,126],[46,124]]]}
+		"trade":return {"landmark":"arcaded spice factor hall, botanical frames and bale court","roofs":[[0,70,58,34,3],[-50,82,32,24,0],[50,84,32,24,0],[-34,122,46,15,4],[30,124,46,15,4],[0,154,44,24,3]],"roads":[[[-60,36],[-24,30],[24,30],[60,38]],[[0,22],[0,156]],[[-48,106],[0,106],[48,106]]]}
+	return {"landmark":"working harbor","roofs":[[0,70,62,32,1],[-48,118,34,24,0],[38,136,36,26,0]],"roads":[[[-56,34],[0,30],[56,34]],[[0,24],[0,152]]]}
 
 static func _local(plan: Dictionary,p: Vector2) -> Vector2:
 	return Vector2(plan.anchor)+Vector2(plan.tangent)*p.x+Vector2(plan.inland)*p.y
@@ -437,11 +475,16 @@ static func _landmark(plan: Dictionary) -> void:
 			# composition at normal scale, above its warm roof and pale arcade.
 			var tower: Vector2=_local(plan,Vector2(8,82))+Vector2(-3,-9)
 			var rise:=Vector2(-3,-24)
-			_building_base(plan,tower,Vector2(20,23),rise,Color("d1c297"),1,false)
-			_hip_roof(plan,tower+rise,Vector2(24,27),Color("5c9083"),1)
+			_building_base(plan,tower,Vector2(20,23),rise,Color("d1c297"),0,false)
+			_hip_roof(plan,tower+rise,Vector2(24,27),Color("5c9083"),0)
 			var clock: Vector2=tower+rise*0.45+Vector2(7,2)
 			_paint(plan,1,_oval(clock,Vector2(5,5)),Color("eddbac"))
 			_ribbon(plan,PackedVector2Array([clock+Vector2(0,-3),clock,clock+Vector2(3,1)]),1.8,Color("45635b"),1)
+			var steps: Vector2=_local(plan,Vector2(0,51))
+			_paint(plan,1,_box(steps,Vector2(66,11),tangent,inland),Color("dcd0a7"))
+			_paint(plan,1,_box(steps-inland*4,Vector2(54,5),tangent,inland),Color("efe3ba"))
+			_chimney(plan,Vector2(-36,28),Vector2(9,9),19.0,Color("b7a57a"))
+			_paint(plan,1,_oval(_local(plan,Vector2(-36,28))+Vector2(-3,-22),Vector2(5,5)),Color("f0d78a"))
 			_work_pile(plan,Vector2(-110,53),Vector2(21,17),Color("b29466"))
 			_work_pile(plan,Vector2(113,55),Vector2(23,14),Color("ae8a5a"))
 			_work_pile(plan,Vector2(132,78),Vector2(15,18),Color("c2aa7e"))
@@ -524,10 +567,69 @@ static func _landmark(plan: Dictionary) -> void:
 				_paint(plan,1,_box(gun-inland*9,Vector2(7,25),tangent,inland),Color("42615d"))
 			_work_pile(plan,Vector2(-35,262),Vector2(30,17),Color("929f8b"))
 		"westglass_anchorage":
-			_work_pile(plan,Vector2(-38,56),Vector2(24,14),Color("bf9b61"))
-			_work_pile(plan,Vector2(36,62),Vector2(20,13),Color("a7ad84"))
-			for x in [-48.0,-38.0,-28.0]:
-				_paint(plan,1,_oval(_local(plan,Vector2(x,60)),Vector2(3.5,3.5)),Color("dec18c"))
+			_work_pile(plan,Vector2(-38,52),Vector2(26,13),Color("bf9b61"))
+			_work_pile(plan,Vector2(36,54),Vector2(24,13),Color("a7ad84"))
+			for x in [-48.0,-38.0,-28.0,26.0,36.0,46.0]:
+				_paint(plan,1,_oval(_local(plan,Vector2(x,56)),Vector2(3.5,3.5)),Color("dec18c"))
+			var crane: Vector2=_local(plan,Vector2(18,32))
+			_paint(plan,1,_box(crane,Vector2(11,11),tangent,inland),Color("637466"))
+			_ribbon(plan,PackedVector2Array([crane-tangent*4,crane-inland*14+Vector2(-2,-14),crane+tangent*4]),3.2,Color("d3ba83"),1)
+			var wheel_w: Vector2=_local(plan,Vector2(-28,66))+Vector2(-2,-6)
+			_paint(plan,1,_oval(wheel_w,Vector2(10,10)),Color("455b54"))
+			_paint(plan,1,_oval(wheel_w,Vector2(7,7)),Color("aa9563"))
+		_:
+			var ind: String=str(plan.get("industry","")).to_lower()
+			var spec: String=str(plan.get("specialty","")).to_lower()
+			match ind:
+				"agriculture":
+					for x in [-36.0,0.0,36.0]:
+						var chute: Vector2=_local(plan,Vector2(x,46))
+						_paint(plan,1,_box(chute,Vector2(13,8),tangent,inland),Color("536955"))
+						_paint(plan,1,_box(chute-inland*4,Vector2(17,4),tangent,inland),Color("decc9a"))
+					var thresh: Vector2=_local(plan,Vector2(-4,104))
+					_paint(plan,1,_oval(thresh,Vector2(14,10)),Color("c9c093"))
+					for x in [-42.0,-28.0,16.0,30.0]:
+						var sack: Vector2=_local(plan,Vector2(x,126))
+						_paint(plan,1,_oval(sack+Vector2(1,2),Vector2(7,4.5)),Color("837d54"))
+						_paint(plan,1,_oval(sack,Vector2(6,4)),Color("dbc68e"))
+				"timber":
+					for y in [124.0,130.0]:
+						_work_pile(plan,Vector2(-28 if y<127.0 else 26,y-18.0),Vector2(34,11),Color("bf9b61"))
+						for dx in [-10.0,0.0,10.0]:
+							_paint(plan,1,_oval(_local(plan,Vector2((-28.0 if y<127.0 else 26.0)+dx,y-14.0)),Vector2(3.5,3.5)),Color("dec18c"))
+					var wheel_t: Vector2=_local(plan,Vector2(-30,66))+Vector2(-2,-6)
+					_paint(plan,1,_oval(wheel_t,Vector2(11,11)),Color("455b54"))
+					_paint(plan,1,_oval(wheel_t,Vector2(8,8)),Color("aa9563"))
+					_chimney(plan,Vector2(26,68),Vector2(10,12),21.0,Color("7d7b61"))
+				"foundry":
+					for x in [-46.0,46.0]:
+						_chimney(plan,Vector2(x,80),Vector2(14,18),27.0,Color("796e58"))
+						var hearth: Vector2=_local(plan,Vector2(x,90))
+						_paint(plan,1,_box(hearth,Vector2(10,7),tangent,inland),Color("435750"))
+						_paint(plan,1,_box(hearth,Vector2(6,4),tangent,inland),Color("d29a58"))
+					_work_pile(plan,Vector2(-32,52),Vector2(24,13),Color("a36f52"))
+					_work_pile(plan,Vector2(32,54),Vector2(24,13),Color("8b968e"))
+				"refinery":
+					if spec=="saltpeter":
+						for x in [-32.0,26.0]:
+							var pan: Vector2=_local(plan,Vector2(x,54))
+							_paint(plan,1,_box(pan,Vector2(26,12),tangent,inland),Color("637368"))
+							_paint(plan,1,_box(pan,Vector2(22,8),tangent,inland),Color("e5e0ca"))
+						_chimney(plan,Vector2(24,68),Vector2(11,14),24.0,Color("9aa595"))
+					else:
+						_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-44,92)),_local(plan,Vector2(0,100)),_local(plan,Vector2(44,94))]),5.5,Color("586e61"),1)
+						_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-44,92)),_local(plan,Vector2(0,100)),_local(plan,Vector2(44,94))]),2.6,Color("d3b77d"),1)
+						_chimney(plan,Vector2(34,138),Vector2(13,16),28.0,Color("9aa694"))
+						_work_pile(plan,Vector2(-30,52),Vector2(22,12),Color("7b8774"))
+				"trade":
+					var cupola: Vector2=_local(plan,Vector2(0,70))+Vector2(-2,-8)
+					_building_base(plan,cupola,Vector2(16,18),Vector2(-2,-16),Color("d2c398"),1,false)
+					_hip_roof(plan,cupola+Vector2(-2,-16),Vector2(20,22),Color("5c9083"),1)
+					_work_pile(plan,Vector2(-34,52),Vector2(20,12),Color("b39668"))
+					_work_pile(plan,Vector2(34,52),Vector2(20,12),Color("96a889"))
+				_:
+					_work_pile(plan,Vector2(-32,54),Vector2(22,13),Color("b09567"))
+					_work_pile(plan,Vector2(32,56),Vector2(20,12),Color("9ba483"))
 
 static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	var berth:=Vector2(float(port.x),float(port.y))
@@ -552,16 +654,30 @@ static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	if str(port.get("faction",""))=="forge":plan.color=Color("a66c51")
 	elif str(port.get("faction",""))=="reed":plan.color=Color("779382")
 	elif str(port.get("faction",""))=="raiders":plan.color=Color("8d7163")
-	var design: Dictionary=_harbor_design(plan.id)
+	var design: Dictionary=_harbor_design(plan.id,plan.industry,plan.specialty)
 	plan.landmark=design.landmark
 	if land.size()<3:return _finish(plan)
+	var is_remote: bool=not _is_home_port(plan.id)
 	# Paving remains on actual land; the real berth connector below stays ink.
+	var footing:=PackedVector2Array()
+	var foot_pts: Array=[[-64,6],[64,6],[68,18],[-68,18]] if is_remote else [[-140,7],[138,8],[144,21],[-144,21]]
+	for p in foot_pts:footing.append(_local(plan,Vector2(p[0],p[1])))
+	_paint(plan,1,footing,Color("556760"))
 	var apron:=PackedVector2Array()
-	var apron_pts: Array=[[-68,14],[68,14],[74,42],[0,46],[-72,42]] if plan.id=="westglass_anchorage" else [[-146,17],[141,18],[151,51],[98,60],[-36,45],[-149,57]]
+	var apron_pts: Array=[[-68,14],[68,14],[74,42],[0,46],[-72,42]] if is_remote else [[-146,17],[141,18],[151,51],[98,60],[-36,45],[-149,57]]
 	for p in apron_pts:apron.append(_local(plan,Vector2(p[0],p[1])))
 	_paint(plan,1,apron,Color("b3ac87"))
-	var cope_x: float=62.0 if plan.id=="westglass_anchorage" else 138.0
-	_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-cope_x,20 if plan.id=="westglass_anchorage" else 22)),_local(plan,Vector2(cope_x,21 if plan.id=="westglass_anchorage" else 23))]),5.0,Color("dbcca0"),1)
+	var court:=PackedVector2Array()
+	var court_pts: Array=[[-32,16],[32,16],[36,36],[-36,36]] if is_remote else [[-54,19],[54,19],[58,44],[-58,44]]
+	for p in court_pts:court.append(_local(plan,Vector2(p[0],p[1])))
+	_paint(plan,1,court,Color("cac19b"))
+	var cope_x: float=62.0 if is_remote else 138.0
+	var cope_y: float=20.0 if is_remote else 22.0
+	_ribbon(plan,PackedVector2Array([_local(plan,Vector2(-cope_x,cope_y)),_local(plan,Vector2(cope_x,cope_y+1.0))]),5.0,Color("dbcca0"),1)
+	for bx in [-16.0,16.0]:
+		var bastion: Vector2=_local(plan,Vector2(bx,cope_y-2.0))
+		_paint(plan,1,_box(bastion,Vector2(8,7),plan.tangent,plan.inland),Color("dfd2a8"))
+		_paint(plan,1,_box(bastion,Vector2(3.5,3.5),plan.tangent,plan.inland),Color("3e5250"))
 	for road in design.roads:
 		var points:=PackedVector2Array()
 		for p in road:points.append(_local(plan,Vector2(p[0],p[1])))
@@ -571,7 +687,8 @@ static func prepare_harbor(port: Dictionary,islands: Array) -> Dictionary:
 	_landmark(plan)
 	# Existing real berth connector remains chart ink, with an open quay symbol.
 	# No filled pier / breakwater extends the actual land collision silhouette.
-	plan.pier=PackedVector2Array([anchor,berth])
+	var head_span: float=7.0 if is_remote else 8.0
+	plan.pier=PackedVector2Array([anchor+inland*10.0,anchor,berth,berth+plan.tangent*head_span,berth-plan.tangent*head_span])
 	var extent:=PackedVector2Array([anchor,berth])
 	for p in [Vector2(-180,0),Vector2(180,0),Vector2(180,340),Vector2(-180,340)]:extent.append(_local(plan,p))
 	plan.bounds=_bounds(extent).grow(60)

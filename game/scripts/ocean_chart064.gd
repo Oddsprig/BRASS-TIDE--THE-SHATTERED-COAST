@@ -703,6 +703,7 @@ static func _extract_local_sites067(view064: Dictionary, view067: Dictionary) ->
 			continue
 		out.append({
 			"id": sid,
+			"kind": str(raw_s.get("kind", "")),
 			"regionId": s_reg,
 			"x": float(raw_s["x"]),
 			"y": float(raw_s["y"]),
@@ -887,7 +888,7 @@ func _prepare_local_harbor068(port: Dictionary, islands: Array) -> Dictionary:
 	var pid: String = str(port.get("id", "westglass_anchorage"))
 	var px: float = float(port.get("x", 756.0))
 	var py: float = float(port.get("y", 732.0))
-	var cache_key: String = "%s:%.1f,%.1f:%s:%d" % [pid, px, py, str(port.get("faction", "reed")), islands.size()]
+	var cache_key: String = "%s:%.1f,%.1f:%s:%s:%s:%d" % [pid, px, py, str(port.get("faction", "reed")), str(port.get("industry", "timber")), str(port.get("specialty", "logs")), islands.size()]
 	if _harbor_cache068.has(cache_key):
 		return _harbor_cache068[cache_key]
 	var norm_islands: Array = []

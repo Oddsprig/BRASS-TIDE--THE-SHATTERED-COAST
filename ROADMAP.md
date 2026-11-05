@@ -1,8 +1,8 @@
-# Current step: v0.091 - Responsive full-fleet combat
+# Current step: v0.092 - Coasts and harbors with visual identity
 
-- Prepare bounded immutable AI goal payloads inside the existing detached side-planner jobs, shortening their adoption on the battle worker.
-- Keep exact joined-slot ownership and live command, target, terrain, equipment, capability and freshness checks at adoption. Unprepared/legacy data retains full validation.
-- Preserve30Hz combat,100ms choices, existing task/route budgets, boats, weapons, damage, numerical crews and actual stores.
+- Stronger clipped shore ledges, beaches and ridge relief at normal chart zoom using the existing cached three-level meshes.
+- Working harbors show their actual industry through granaries, timber racks, foundries, tanks and quays; remote exploration clues have recognizable original shore objects.
+- Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
 
 Finish this scope, run focused checks under120seconds, package, then advance
 to the next saved scope. No speculative fine-tuning or full-game gate.

@@ -1,14 +1,15 @@
-BRASS TIDE v0.091 - Responsive full-fleet combat
-DELIVERED SCOPED WINDOWS BUILD
-Source/tag: c24285e542bb88ce8a98a4198dadd9874b047290 / v0.091
-Test Bridge: 60a58da13547459a9e59c0d3368eecf3
-127 focused checks, 0 failures; menu startup passed.
-Selected batch plus setup: 66.537s; owned cleanup verified.
+BRASS TIDE v0.092 - COASTS AND HARBORS WITH VISUAL IDENTITY
+04 November2026 |36 boat designs
 
-- Prepare bounded immutable AI goal payloads inside the existing detached side-planner jobs, shortening their adoption on the battle worker.
-- Keep exact joined-slot ownership and live command, target, terrain, equipment, capability and freshness checks at adoption. Unprepared/legacy data retains full validation.
-- Preserve30Hz combat,100ms choices, existing task/route budgets, boats, weapons, damage, numerical crews and actual stores.
+THIS VERSION
+- Stronger clipped shore ledges, beaches and ridge relief at normal chart zoom using the existing cached three-level meshes.
+- Working harbors show their actual industry through granaries, timber racks, foundries, tanks and quays; remote exploration clues have recognizable original shore objects.
+- Keep actual island/navigation polygons, open approaches, numerical crews and inexpensive water; scope is HOME plus two remote reference settings and reusable assets.
 
-Later roadmap scopes remain separate. No full-game/rendered/audio acceptance claim.
+This is one scoped playable step. Later roadmap features and general tuning
+remain in their own versions. Coins and100 coins per sailor-day remain.
+Crew remain numerical/fixed asset details; water remains inexpensive.
+The portable tests/ directory contains this build's actual focused verification
+and startup receipts. Headless checks do not establish rendered/audio quality.
 
-127 focused native guards/0 failures, Windows export/menu and unchanged retail300DP observation complete. Independent source review found no blocker. Matched single-step resolution P95 fell light8.565 to5.890ms and mixed3.633 to2.471ms. This is only the named adoption correction: light whole-job capacityP9536.154ms vs36.5915, mean per-step27.715 to28.242ms (worse), maxlag183.333ms unchanged; light94.868% frames within20ms misses95%. LightHold69.982ms and publicationP95.394ms; mixedworker19.311ms/lag50ms/Hold33.266ms. Allactors/DP,30Hz/100ms,stores,drawing andobserver preserved. Strict lightcapacity/lag/catchup/20ms targets remain OPEN; FPS59.999 rounding is not tuned. Earlier089 campaign performance targets remain OPEN. No overall smoothness, fun, art or listening claim.
+STATUS: current source candidate; focused checks/export pending.

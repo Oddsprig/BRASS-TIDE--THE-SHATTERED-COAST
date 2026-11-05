@@ -3,7 +3,7 @@ extends RefCounted
 ## These are observations and objects, never filled replacement islands, terrain,
 ## rewards or a second navigation model. Preparation creates no render resources.
 
-const TEMPLATE_LIMIT: int=64
+const TEMPLATE_LIMIT: int=96
 const COMMAND_LIMIT: int=80
 const INK:=Color("31494b")
 const LIGHT:=Color("d5c9a0")
@@ -59,6 +59,27 @@ static func _crown(out: Array,at: Vector2,size: float) -> void:
 	_oval(out,at+Vector2(-2,-2),Vector2(size*0.8,size*0.6),Color("648264"))
 	_stroke(out,[[at.x-size*0.3,at.y+size*0.45],[at.x,at.y-2],[at.x+size*0.4,at.y]],Color("8c9e75"),1.0)
 
+static func _resolve_kind(site: Dictionary) -> String:
+	var raw_kind: String=str(site.get("kind","")).strip_edges()
+	var sid: String=str(site.get("id","")).strip_edges()
+	var clue: String=str(site.get("clue","")).strip_edges().to_lower()
+	var res: String=str(site.get("resource","")).strip_edges().to_lower()
+	if raw_kind in ["bearing_marker","signal_log","expedition_cache","survey_terrace","survey_timber","survey_ore","survey_crude","survey_herbs","survey_saltpeter"]:
+		return raw_kind
+	match sid:
+		"glasswind_west_marker":return "bearing_marker"
+		"glasswind_crown_log":return "signal_log"
+		"glasswind_south_wreck":return "expedition_cache"
+	if raw_kind=="sector_survey" or sid.ends_with("_survey") or (raw_kind.is_empty() and not clue.is_empty()):
+		if clue.contains("terrace") or res=="food":return "survey_terrace"
+		if clue.contains("dark stands") or clue.contains("trunk") or res=="logs":return "survey_timber"
+		if clue.contains("rust-colored") or clue.contains("ore") or res=="ore":return "survey_ore"
+		if clue.contains("dark sheen") or clue.contains("seep") or res=="crude":return "survey_crude"
+		if clue.contains("pale-leaved") or clue.contains("medicinal") or res=="medicinal_plants":return "survey_herbs"
+		if clue.contains("white mineral") or clue.contains("crust") or res=="saltpeter":return "survey_saltpeter"
+		if raw_kind=="sector_survey" or sid.ends_with("_survey"):return "survey_terrace"
+	return raw_kind if not raw_kind.is_empty() else "sighting"
+
 static func _observation(kind: String) -> String:
 	match kind:
 		"freshwater_cove":return "Gulls over still water"
@@ -75,6 +96,15 @@ static func _observation(kind: String) -> String:
 		"chart_fragment":return "Cairn and bottle-post"
 		"salvage_anchorage":return "Leaning spars in a bay"
 		"wreck_field":return "Breakers over dark shapes"
+		"bearing_marker":return "Pale stones above landing"
+		"signal_log":return "Broken ridge signal frame"
+		"expedition_cache":return "Split timbers in pale surf"
+		"survey_terrace","sector_survey":return "Terraced slope above landing"
+		"survey_timber":return "Dark ridge stands above shore"
+		"survey_ore":return "Rust-banded coastal rock"
+		"survey_crude":return "Dark sheen in tidal rock"
+		"survey_herbs":return "Pale-leaved growth in saddle"
+		"survey_saltpeter":return "White-crusted dry ledges"
 	return "Coastal sighting"
 
 static func _commands(kind: String,detail: bool,identified: bool) -> Array:
@@ -150,10 +180,12 @@ static func _commands(kind: String,detail: bool,identified: bool) -> Array:
 				_stroke(out,[[x-3,y+4],[x,y],[x-1,y-6],[x+3,y-8]],Color("6b927b"),1.7)
 				if detail:_stroke(out,[[x,y],[x+5,y-2]],Color("94ad82"),1.0)
 		"freshwater_cove","sheltered_inlet":
+			_poly(out,[[-23,6],[-16,-4],[-7,-2],[-11,8]],Color("7c8c7e"))
 			for i in range(3):
 				var y: float=3.0+float(i)*5.0
 				_stroke(out,[[-22,y],[-9,y-2],[7,y-1],[21,y-4]],Color(FOAM,0.32),1.2)
 			if kind=="freshwater_cove":
+				_stroke(out,[[-14,-3],[-10,6]],Color(FOAM,0.72),1.5)
 				for item in [Vector2(-15,-11),Vector2(2,-19),Vector2(17,-8)]:
 					_stroke(out,[[item.x-5,item.y],[item.x-2,item.y-2],[item.x,item.y],[item.x+3,item.y-2],[item.x+6,item.y-1]],Color("d5d7bc"),1.3)
 			else:
@@ -167,6 +199,7 @@ static func _commands(kind: String,detail: bool,identified: bool) -> Array:
 			if identified:
 				_poly(out,[[-25,10],[-18,-2],[-7,7],[-15,13]],Color("a69972"))
 				_stroke(out,[[-18,-2],[-15,13]],LIGHT,1.2)
+				_stroke(out,[[-5,8],[6,6],[14,9]],WOOD,1.6)
 		"salt_seam","ore_seam","sulfur_vents":
 			var tone: Color=Color("c1bc99") if kind=="salt_seam" else Color("b88262") if kind=="ore_seam" else Color("bdb573")
 			for i in range(4 if detail else 3):
@@ -182,6 +215,104 @@ static func _commands(kind: String,detail: bool,identified: bool) -> Array:
 				var y: float=-9.0+float(i)*5.0
 				var tones: Array=[Color("859d91"),Color("998e9b"),Color("a5a37d"),Color("729a9b"),Color("a68a7b")]
 				_stroke(out,[[-24,y],[-11,y-4],[3,y-2],[20,y-6]],Color(tones[i],0.68),2.0)
+		"bearing_marker":
+			_poly(out,[[-22,10],[-12,4],[6,3],[21,9],[14,14],[-15,14]],Color("869488"))
+			_poly(out,[[-11,7],[-13,-14],[-7,-18],[-4,-12],[-5,7]],Color("c9ceb8"))
+			_poly(out,[[-11,7],[-13,-14],[-9,-16],[-8,6]],Color("e2dec0"))
+			_poly(out,[[3,6],[2,-11],[7,-14],[10,-9],[9,6]],Color("b4baa4"))
+			if identified:
+				_stroke(out,[[-15,-9],[13,-6]],Color("d6b878"),1.6)
+				_box(out,Vector2(-1,6),Vector2(7,4),Color("9ea596"))
+			if detail:
+				_stroke(out,[[-18,11],[-6,9],[11,10]],LIGHT,1.1)
+		"signal_log":
+			_poly(out,[[-23,11],[-14,2],[2,0],[19,5],[23,12],[-12,14]],Color("7f8d84"))
+			_poly(out,[[-15,4],[-6,-2],[8,-1],[14,5],[-4,7]],Color("a8b1a2"))
+			_poly(out,[[-8,4],[-5,-4],[4,-4],[7,4]],Color("9ca494"))
+			_stroke(out,[[-11,5],[-4,-21],[3,4]],WOOD,2.4)
+			_stroke(out,[[-16,-14],[11,-19]],Color("bfa87e"),2.0)
+			if identified:
+				_box(out,Vector2(9,-16),Vector2(6,5),RUST)
+				_stroke(out,[[13,4],[13,-9]],LIGHT,1.4)
+			if detail:
+				_stroke(out,[[-17,3],[-4,-19],[14,4]],Color(LIGHT,0.5),1.0)
+		"expedition_cache":
+			_poly(out,[[-24,9],[-15,1],[-3,3],[2,11],[-18,13]],Color("697b75"))
+			_poly(out,[[-17,6],[-12,-8],[1,-11],[6,-3],[-3,5]],WOOD)
+			_stroke(out,[[-14,-5],[0,-8]],LIGHT,1.3)
+			_poly(out,[[5,6],[7,-4],[18,-3],[20,7]],Color("8d7a58"))
+			_stroke(out,[[6,1],[19,2]],LIGHT,1.2)
+			if identified:
+				_box(out,Vector2(13,-6),Vector2(8,5),Color("c8a96e"))
+				_stroke(out,[[17,5],[17,-15]],LIGHT,1.4)
+			if detail:
+				for x in [-13.0,-8.0,-3.0]:_stroke(out,[[x,-4],[x+2,3]],INK,1.1)
+		"survey_terrace","sector_survey":
+			_poly(out,[[-23,11],[-15,4],[16,3],[23,10]],Color("8b9276"))
+			_poly(out,[[-19,3],[-12,-4],[13,-5],[18,2]],Color("9ea87a"))
+			_poly(out,[[-13,-5],[-7,-12],[9,-12],[13,-6]],Color("b3b888"))
+			_stroke(out,[[-20,4],[19,3]],LIGHT,1.5)
+			_stroke(out,[[-15,-4],[15,-5]],Color("c8c09a"),1.4)
+			if identified:
+				_stroke(out,[[12,3],[12,-17]],WOOD,1.8)
+				_box(out,Vector2(14,-14),Vector2(5,4),Color("d5b97b"))
+			if detail:
+				_stroke(out,[[2,-12],[0,10]],Color(FOAM,0.75),1.5)
+		"survey_timber":
+			_poly(out,[[-22,10],[-14,2],[4,1],[20,7],[14,13],[-16,13]],Color("78886e"))
+			for item in [Vector3(-14,-2,9),Vector3(-1,-9,11),Vector3(13,-1,9)]:
+				_stroke(out,[[item.x,item.y+3],[item.x,item.y+11]],WOOD,2.2)
+				_crown(out,Vector2(item.x,item.y),item.z)
+			_stroke(out,[[-18,9],[8,6]],WOOD,2.6)
+			if identified:
+				_stroke(out,[[15,7],[15,-12]],LIGHT,1.5)
+				_box(out,Vector2(17,-9),Vector2(5,4),RUST)
+			if detail:
+				_stroke(out,[[-16,9],[6,6]],LIGHT,1.0)
+		"survey_ore":
+			_poly(out,[[-23,10],[-17,-6],[-4,-13],[9,-9],[21,2],[17,11],[-14,12]],Color("7d8278"))
+			_poly(out,[[-16,-5],[-4,-13],[8,-9],[2,-1]],Color("a3a596"))
+			_poly(out,[[-18,4],[-8,-5],[2,-3],[-9,6]],RUST)
+			_poly(out,[[-4,5],[6,-4],[15,-2],[5,7]],Color("c47b54"))
+			if identified:
+				_stroke(out,[[14,2],[14,-16]],LIGHT,1.6)
+				_box(out,Vector2(16,-13),Vector2(5,4),RUST)
+			if detail:
+				_stroke(out,[[-15,1],[-7,-4]],Color("e0a97e"),1.2)
+				_stroke(out,[[-1,2],[8,-3]],Color("e0a97e"),1.2)
+		"survey_crude":
+			_poly(out,[[-23,9],[-14,-2],[-2,-4],[-5,8]],Color("637270"))
+			_poly(out,[[2,-5],[15,-3],[22,6],[9,10],[1,4]],Color("72827e"))
+			_poly(out,[[-5,4],[-1,-5],[5,-3],[2,7]],Color("27383a"))
+			for i in range(4 if detail else 2):
+				var y: float=-2.0+float(i)*3.5
+				var tones: Array=[Color("859d91"),Color("998e9b"),Color("c2a978"),Color("729a9b")]
+				_stroke(out,[[-18,y],[-4,y-2],[7,y-1],[19,y-3]],Color(tones[i],0.75),1.7)
+			if identified:
+				_stroke(out,[[12,-2],[12,-18]],WOOD,1.8)
+				_box(out,Vector2(14,-15),Vector2(5,4),Color("c2a978"))
+		"survey_herbs":
+			_poly(out,[[-24,10],[-19,-6],[-9,-8],[-4,4],[-14,11]],Color("7c8874"))
+			_poly(out,[[6,4],[11,-7],[20,-5],[23,9],[12,11]],Color("8c9680"))
+			_oval(out,Vector2(-3,2),Vector2(8,5),Color("6f926e"))
+			_oval(out,Vector2(3,0),Vector2(7,4.5),Color("a3bd92"))
+			_oval(out,Vector2(-1,-3),Vector2(6,3.5),Color("cfe0bc"))
+			if identified:
+				_stroke(out,[[-11,6],[10,6]],WOOD,2.0)
+				_stroke(out,[[14,-4],[14,-17]],LIGHT,1.5)
+			if detail:
+				for dx in [-6.0,-1.0,4.0]:_stroke(out,[[dx,2],[dx+1,-5]],Color("e4edd2"),1.1)
+		"survey_saltpeter":
+			_poly(out,[[-23,10],[-18,-3],[-3,-8],[14,-6],[22,4],[15,11],[-15,11]],Color("7f7d6e"))
+			_poly(out,[[-15,-3],[-3,-12],[12,-10],[16,-3]],Color("9a9582"))
+			_poly(out,[[-16,2],[-7,-2],[4,-1],[-4,4]],Color("e3dec8"))
+			_poly(out,[[1,-4],[11,-6],[17,-2],[8,0]],Color("ebe7d5"))
+			_stroke(out,[[-14,-4],[12,-7]],Color("f2efe0"),1.6)
+			if identified:
+				_box(out,Vector2(13,4),Vector2(7,5),WOOD)
+				_stroke(out,[[16,2],[16,-15]],LIGHT,1.5)
+			if detail:
+				_stroke(out,[[-12,3],[5,1]],Color("f7f4e8"),1.2)
 		_:
 			_stroke(out,[[-19,2],[-9,-3],[6,-1],[20,-7]],FOAM,1.4)
 	if _templates.size()>=TEMPLATE_LIMIT:_templates.erase(_templates.keys()[0])
@@ -201,7 +332,7 @@ static func _make(kind: String,level: int,center: Vector2,chart_scale: float,lab
 static func plan(site: Dictionary,level: int,center: Vector2,chart_scale: float) -> Dictionary:
 	if level<=0:return {"kind":"hidden","knowledge":0,"identified":false,"center":center,"bounds":Rect2(),"lod":0,"scale":1.0,"commands":[],"label":"","primitive_count":0}
 	var known: int=clampi(level,1,3)
-	var kind: String=str(site.get("kind","sighting"))
+	var kind: String=_resolve_kind(site)
 	return _make(kind,known,center,chart_scale,str(site.get("name","Coastal site")) if known>=2 else _observation(kind))
 
 static func wreck_plan(wreck: Dictionary,center: Vector2,chart_scale: float) -> Dictionary:

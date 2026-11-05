@@ -141,6 +141,30 @@ func run() -> void:
 		var repeated: Array=[]
 		for sheet in chart._battle_coast:repeated.append(sheet.levels[2].mesh.get_instance_id())
 		check(mesh_ids==repeated and var_to_bytes(encounter)==before,"battle cache identity is reused and actual encounter stays unchanged")
+	var ocean064: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/ocean_regions064.json"))
+	var glass_islands: Array=[]
+	for reg in ocean064.get("regions",[]):
+		if str(reg.get("id",""))=="glasswind_keys":glass_islands=reg.get("islands",[]);break
+	check(glass_islands.size()==3,"authored remote Glasswind Keys islands resolve")
+	for g_isl in glass_islands:
+		var g_sheet: Dictionary=CoastArt.prepare_island(g_isl)
+		validate(g_sheet,str(g_isl.get("id","glasswind")))
+	var remote_landmarks: Dictionary={};var remote_layouts: Dictionary={}
+	var remote_ports: Array=[
+		{"id":"westglass_anchorage","name":"Westglass Anchorage","faction":"reed","industry":"timber","specialty":"logs","x":756.0,"y":732.0},
+		{"id":"settled_01_harbor_01","name":"Tarnbell Anchorage","faction":"compact","industry":"agriculture","specialty":"food","x":756.0,"y":732.0},
+		{"id":"settled_01_harbor_02","name":"Ochreloom Quay","faction":"reed","industry":"timber","specialty":"logs","x":756.0,"y":732.0},
+		{"id":"settled_03_harbor_01","name":"Morrowfen Anchorage","faction":"forge","industry":"foundry","specialty":"ore","x":756.0,"y":732.0},
+		{"id":"settled_04_harbor_01","name":"Rivetfall Anchorage","faction":"forge","industry":"refinery","specialty":"fuel","x":756.0,"y":732.0},
+		{"id":"settled_05_harbor_01","name":"Palespar Anchorage","faction":"compact","industry":"trade","specialty":"supplies","x":756.0,"y":732.0},
+		{"id":"settled_06_harbor_01","name":"Coppersong Anchorage","faction":"forge","industry":"refinery","specialty":"saltpeter","x":756.0,"y":732.0}
+	]
+	for r_port in remote_ports:
+		var r_plan: Dictionary=CoastArt.prepare_harbor(r_port,glass_islands)
+		check(r_plan.roofs.size()>0 and r_plan.roofs.size()<=CoastArt.MAX_ROOFS and r_plan.caption==CoastArt.harbor_caption(r_port),"prepared remote working harbor "+str(r_port.id))
+		remote_landmarks[r_plan.landmark]=true;remote_layouts[var_to_bytes(r_plan.levels[1].vertices)]=true
+		validate(r_plan,str(r_port.id))
+	check(remote_landmarks.size()==7 and remote_layouts.size()==7,"seven distinct remote harbor layouts and industry landmarks")
 	check(var_to_bytes(data)==original,"all art / draw / label preparation leaves world, ports, routes, economy and roster bytes unchanged")
 	chart.free()
 	print("COAST050: %d checks, %d failures; peak vertices by LOD %s; no simulation or visual-quality verdict"%[checks,failures,str(peak_vertices)])

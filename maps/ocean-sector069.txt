@@ -1,4 +1,4 @@
-BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.091)
+BRASS TIDE — OCEAN-SECTOR069 MAP (generated; v0.092)
 
 Fresh seed -> saved 48-group geography/finite opening accounts; earned holdings, markets and surveys. Legacy voyages keep two regions. Pure spatial reads; player restore/transition prepares one generated grid alongside home and Glasswind.
 
@@ -37,13 +37,13 @@ game/scripts/sector_ui069.gd: 3843 bytes; extends RefCounted
   game/scripts/sector_ui069.gd:62 _known_port_id()
   game/scripts/sector_ui069.gd:81 _route()
   game/scripts/sector_ui069.gd:86 _enter()
-game/scripts/ocean_chart064.gd: 92417 bytes; extends RefCounted
+game/scripts/ocean_chart064.gd: 92536 bytes; extends RefCounted
   game/scripts/ocean_chart064.gd:99 generated_member()
   game/scripts/ocean_chart064.gd:486 known_ownership_line()
-  game/scripts/ocean_chart064.gd:824 pick_local067()
-  game/scripts/ocean_chart064.gd:971 pick_port068()
-  game/scripts/ocean_chart064.gd:1425 pick_contact()
-  game/scripts/ocean_chart064.gd:1494 world_bounds()
+  game/scripts/ocean_chart064.gd:825 pick_local067()
+  game/scripts/ocean_chart064.gd:972 pick_port068()
+  game/scripts/ocean_chart064.gd:1426 pick_contact()
+  game/scripts/ocean_chart064.gd:1495 world_bounds()
 game/scripts/shipping_ui068.gd: 31158 bytes; extends RefCounted
   game/scripts/shipping_ui068.gd:175 open()
   game/scripts/shipping_ui068.gd:579 render_preparation_summary068()

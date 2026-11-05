@@ -1,3 +1,7 @@
+04NOV2026 - v0.092 COASTS AND HARBORS WITH VISUAL IDENTITY
+Implemented the agreed scope in isolated helper checkouts; Root reviewed the combined change.
+Focused checks and Windows packaging are next. Other version scopes remain separate.
+
 v0.091 VERIFIED AND PACKAGED: 127/0 focused checks, selected batch 66.537s, TestBridge 60a58da13547459a9e59c0d3368eecf3. Source c24285e542bb88ce8a98a4198dadd9874b047290.
 
 04NOV2026 - v0.091 RESPONSIVE FULL-FLEET COMBAT

@@ -1,3 +1,5 @@
+04NOV2026 - v0.091 verification budget miss: selected baseline+native+candidate+packaging/install totaled183.441s, exceeding180s by3.441s. Receipt remains a budget miss, not a pass. Future scoped releases leave packaging/install headroom, reuse unchanged baseline facts honestly and queue only the one necessary native plus representative presentation check. Strict light300DP lag/capacity targets remain open despite lower named adoption cost.
+
 v0.089-v0.090: compare a namedcallback in thesameprocess when wholeworldbefore/after is noisy; never turn callback savings into an overallFPSclaim. A test that assumes immobilization must place its body exactly at the legal boundary. Keep already-passed unchanged components with strict source proof; do not rerun for an unavailable rawscriptSHA when the exactPCK and testedsource bindings provideprovenance. Sparse timestampedframe review and numeric hullclearance are separate from realtimeFPS/fun.
 
 31OCT2026 - STARTER PROMPTv34 ADOPTED / board165
