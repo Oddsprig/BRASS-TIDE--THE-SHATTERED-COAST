@@ -13,6 +13,7 @@ var sponsor085: String=""
 var corridor085: Dictionary={}
 var source085: String=""
 var base_geography085: Dictionary={}
+var observe_support098: bool=false
 
 func geography085() -> Dictionary:
 	# Decode BOTH complete books before exact same_values comparison, as083/084.
@@ -69,6 +70,54 @@ func bounded() -> bool:
 	if Time.get_ticks_msec()-started<58000:return true
 	receipt.status="BODY_TIMEOUT"
 	return check(false,"Stop work before58seconds, preserving saves and joined cleanup below60seconds")
+
+func settle_days() -> bool:
+	if not observe_support098:return super.settle_days()
+	while c.pending_days>0:
+		if not bounded():return false
+		var due: int=int(c.Economy.daily_upkeep(c.state.fleet).wages)
+		var coins_before: int=int(c.state.coins)
+		var old_days: int=int(c.state.territorial076.control.supportDays)
+		var food_before: float=float(c.state.cargo.food)
+		var kits_before: float=float(c.state.cargo.supplies)
+		c.pending_days-=1
+		workers.start(c.state.ports,1,c.TradeFlow.blockades(c),int(c.state.seed)+int(c.state.econDay)*104729)
+		var result: Dictionary=workers.finish(true)
+		var published_ports: Array=result.ports.filter(func(port):return str(port.id)==target085)
+		if not check(published_ports.size()==1,"Economy worker published the actual support harbor"):return false
+		# Procurement and civic consumption already ran on these published stores.
+		var worker_stores: Dictionary=published_ports[0].publicStores.duplicate(true)
+		c.apply_economy(result.ports,result.events,result.days)
+		if not check(coins_before-int(c.state.coins)==due and int(c.state.wageArrears)==0,"Actual working crew paid the normal100coins/sailor-day"):return false
+		payroll+=due
+		var support_days: int=int(c.state.territorial076.control.supportDays)
+		if support_days==old_days:continue
+		var stores: Dictionary=c.port(target085).publicStores
+		var food_added: float=float(stores.food)-float(worker_stores.food)
+		var kits_added: float=float(stores.supplies)-float(worker_stores.supplies)
+		var food_spent: float=food_before-float(c.state.cargo.food)
+		var kits_spent: float=kits_before-float(c.state.cargo.supplies)
+		receipt.supportTransfers098.append({"day":c.state.econDay,"harbor":target085,"workerStores":worker_stores,"afterStores":stores.duplicate(true),"foodAdded":food_added,"kitsAdded":kits_added,"carriedFoodSpentIncludingRations":food_spent,"carriedKitsSpent":kits_spent})
+		if not check(support_days==old_days+1 and absf(food_added-2.0)<0.000001 and absf(kits_added-1.0)<0.000001 and food_spent>=2.0-0.000001 and absf(kits_spent-1.0)<0.000001,"Paid support moves two carried food and one repair kit into the published harbor stores"):return false
+	return true
+
+func restore_active098(path: String,digest: String) -> bool:
+	if not check(path.is_absolute_path() and digest.length()==64 and FileAccess.get_sha256(path)==digest,"Actual prior active prefix matches its pinned disk hash"):return false
+	var saved=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not check(saved is Dictionary,"Actual active prefix decodes"):return false
+	c=Campaign.new(JSON.parse_string(FileAccess.get_file_as_string("res://data/world.json")))
+	supply=int(saved.coinSupply)
+	if not restore_exact(saved,"retained-active098"):return false
+	var job: Dictionary=c.state.territorial076.control
+	corridor085=c.ShippingFlow068.corridor075(c.state).duplicate(true)
+	target085=str(job.get("portId",""))
+	defender085=str(job.get("defenderId",""))
+	sponsor085=str(job.get("newFaction",""))
+	if not check(int(c.state.seed)==69069 and job.get("status")=="active" and int(job.get("funded",0))==800 and int(job.get("supportDays",-1))==0 and not job.get("battleWon",true) and not corridor085.is_empty() and target085 in [str(corridor085.originId),str(corridor085.remoteId)] and defender085==str(corridor085.ownerId) and c.Money.total(c.state)==supply,"Restored actual paid opening with an unfinished operation and original carrier"):return false
+	source085=str(corridor085.originId) if target085==str(corridor085.remoteId) else str(corridor085.remoteId)
+	base_geography085=geography085()
+	receipt.retainedOpening098={"path":path,"sha256":digest,"day":c.state.day,"target":target085,"owner":defender085,"evidence":"Actual saved opening from the controlled prior run. No prior assertion count is credited."}
+	return true
 
 func advance(seconds: float=4.0) -> bool:
 	if not bounded():return false
@@ -234,12 +283,14 @@ func control085() -> bool:
 	# or a resurrection within either branch. The actual active save must restore.
 	if not restore_exact(active,"remote-control085-success-fork"):return false
 	if not contest085(false):return false
+	observe_support098=true
 	for _piece in range(40):
 		if int(c.state.territorial076.control.supportDays)==2:break
 		if not advance():return false
+	observe_support098=false
 	var job: Dictionary=c.state.territorial076.control
 	if not check(job.status=="active" and job.supportDays==2 and job.supportGoods=={"food":4.0,"supplies":2.0} and int(c.state.wageArrears)==0 and payroll>0,"Actual published payroll and two local support days deliver exactly4food/2repair-kit lots"):return false
-	if not check(float(c.port(target085).publicStores.food)==float(active_target.publicStores.food)+4.0 and float(c.port(target085).publicStores.supplies)==float(active_target.publicStores.supplies)+2.0,"Two funded support days transfer the carried4food and2supplies lots into this harbor's publicStores"):return false
+	if not check(receipt.supportTransfers098.size()==2,"Observed both paid support transfers at the published economy boundary"):return false
 	var private_assets: PackedByteArray=var_to_bytes([c.state.businesses,c.state.tooling,c.state.territorial076.improvement])
 	var total: int=c.Money.total(c.state)
 	var negotiated: Dictionary=Territory085.negotiate(c)
@@ -293,6 +344,13 @@ func opening_context085(stage: String="opening") -> void:
 func _run() -> void:
 	receipt.fixture="remote_control085";receipt.earnedControl085=false;receipt.erase("earnedVoyage")
 	receipt.encounters085=[];receipt.supplyInvoices085=[];receipt.contests085=[]
+	receipt.supportTransfers098=[]
+	var prefix_path: String=""
+	var prefix_digest: String=""
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--prefix098="):prefix_path=argument.trim_prefix("--prefix098=")
+		elif argument.begins_with("--prefix-sha098="):prefix_digest=argument.trim_prefix("--prefix-sha098=")
+	var resume_prefix: bool=not prefix_path.is_empty() or not prefix_digest.is_empty()
 	var context_only: bool=OS.get_cmdline_user_args().has("--qa-eligibility085")
 	receipt.diagnosticOnly=context_only
 	if check(OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path(),"Root supplies private artifacts/profile"):
@@ -301,7 +359,7 @@ func _run() -> void:
 			elif receipt.status=="UNFINISHED":receipt.status="OPENING_FAILED"
 			opening_context085()
 		else:
-			var opened: bool=opening085()
+			var opened: bool=restore_active098(prefix_path,prefix_digest) if resume_prefix else opening085()
 			if opened:
 				if control085():receipt.earnedControl085=true;receipt.status="COMPLETED"
 				else:
