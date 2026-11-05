@@ -69,7 +69,10 @@ func _initialize() -> void:
 	var merchant: Dictionary=read_plan("merchant")
 	print("COST095_PHASE merchant_quote_complete")
 	var freight: Dictionary=offered(str(merchant.get("quote",{}).get("id","")))
-	check(not freight.is_empty() and int(merchant.quote.rewardCoins)==int(freight.reward) and merchant.quote.freight==freight.freight,"merchant quotes the actual funded lot and fee")
+	if not freight.is_empty():
+		check(int(merchant.quote.rewardCoins)==int(freight.reward) and merchant.quote.freight==freight.freight,"merchant quotes the actual funded lot and fee")
+	else:
+		check(merchant.get("quote",{}).is_empty() and not merchant.ready and merchant.blockers.any(func(line):return str(line).begins_with("No funded freight offer")),"unfunded starting harbor reports no invented job, fee or readiness")
 	var quote: Dictionary=merchant.marketQuote
 	var origin: Dictionary=c.port(str(quote.get("originPort","")))
 	var destination: Dictionary=c.port(str(quote.get("destinationPort","")))
@@ -113,7 +116,11 @@ func _initialize() -> void:
 	check(close(float(costs.fuelRequired),fuel_needed) and close(float(costs.fuelAboard),fuel_aboard) and close(float(costs.looseFuel),loose) and close(float(costs.fuelPurchase),fuel_buy) and int(costs.fuelPurchaseCoins)==ceili(fuel_buy*float(costs.prices.fuel)) and int(costs.fuelCoins)==ceili(fuel_needed*float(costs.prices.fuel)),"fuel allowance buys only the shortfall against tanks and loose drums")
 	check(float(costs.reserveDays)==2.0 and int(costs.wageCoins)==ceili(days*float(costs.dailyWages)) and days>=float(costs.reserveDays) and int(costs.allowanceCoins)==int(costs.wageCoins)+int(costs.foodCoins)+int(costs.fuelCoins)+int(costs.workKitCoins)+int(costs.repairQuoteCoins),"full replacement allowance retains reserve-day payroll and consumed store value")
 	check(food_aboard>0.0 and food_buy<food_needed and fuel_aboard+loose>0.0 and fuel_buy<fuel_needed and int(costs.additionalCashCoins)<gross and int(costs.allowanceCoins)==gross and int(costs.replacementAllowanceCoins)==gross,"owned food and fuel reduce new cash needed without inflating replacement-valued surplus")
-	check(int(costs.additionalCashCoins)==int(costs.wageCoins)+int(costs.foodPurchaseCoins)+int(costs.fuelPurchaseCoins)+int(costs.workKitCoins)+int(costs.repairQuoteCoins) and int(costs.rewardLessAllowanceCoins)==int(freight.reward)-gross,"additional purchases and replacement-valued reward projection have separate exact bases")
+	check(int(costs.additionalCashCoins)==int(costs.wageCoins)+int(costs.foodPurchaseCoins)+int(costs.fuelPurchaseCoins)+int(costs.workKitCoins)+int(costs.repairQuoteCoins),"additional purchases have the exact shortfall basis")
+	if not freight.is_empty():
+		check(int(costs.rewardLessAllowanceCoins)==int(freight.reward)-gross,"funded reward projection subtracts full replacement value")
+	else:
+		check(not costs.has("rewardLessAllowanceCoins"),"unfunded job produces no fictional surplus")
 	if merchant_only095:
 		finish();return
 	var privateer: Dictionary=read_plan("privateer")
