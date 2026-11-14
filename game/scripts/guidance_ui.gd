@@ -29,6 +29,8 @@ static func _choice_summary(ui,c,candidate: Dictionary,q: Dictionary,selected: b
 	var destination: String="" if target_name in choice_title else " → "+target_name
 	var hostiles: String=ui.count_text(candidate.get("enemyHulls",[]).size(),"hostile boat","hostile boats")
 	var status: String="ready" if q.get("canAccept",false) and q.get("ready",false) else ("unfunded" if not q.get("funded",false) else ("no route" if not q.get("routeAvailable",false) else "check reserves"))
+	if not q.get("active",false) and not q.get("atSponsor",false):
+		status="accept at "+str(c.port(str(candidate.get("port",""))).get("name",candidate.get("port","")))
 	if q.get("routeAvailable",false) and q.get("estimatedSurplusCoins",null)!=null:
 		return "%s%s%s · %s · %d coins gross (%d estimated surplus) · %s"%[prefix,choice_title,destination,hostiles,int(q.grossRewardCoins),int(q.estimatedSurplusCoins),status]
 	return "%s%s%s · %s · %d coins gross · %s"%[prefix,choice_title,destination,hostiles,int(q.grossRewardCoins),status]
