@@ -1,3 +1,25 @@
+CURRENT — v0.099 EARLY-DEVELOPMENT WINDOWS STORE DELIVERY
+Live page: https://marketplace.oddsprig.com/brass-tide/
+Buy $9.99 and purchased Windows download are live. Product brass-tide, build99.
+Download127,616,517bytes; full entitled stream SHA256 matches the clean53-file ZIP.
+Three distinct current gallery views: changed fittings, close harbor, trade.
+Actual desktop render, gallery/Buy controls and originals reviewed independently;
+deployed HTML/assets/product/library read back after publication. No payment made.
+Export passed24.61s. Native photo attempt failed its short cap after two completed
+PNGs; owned cleanup succeeded. No native-save-suite, performance or full-game
+quality pass is claimed. Installed desktop v0.098 is unchanged; download is0.099.
+Current evidence: parent work/store-commerce-fix-2026-11-14/PUBLISHED.json,
+COMMERCE VERIFICATION.json, IMAGE PROVENANCE.json and red-team final report.
+The original responsiveness/performance roadmap scope is still incomplete;
+remaining planned scopes are not silently accepted. The board watch is paused.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+CURRENT RED-TEAM STATUS — 13 NOVEMBER2026
+Installed game remainsv0.098. Read HANDOFF.md for unreleased copy/label
+corrections and release blockers. The old store gallery is rejected and removed.
+No export/installation or new pixels are claimed. The099-108 map is still a plan.
+
 BRASS TIDE - START HERE
 Play the current delivered game using the single plain Brass Tide desktop icon.
 Read BUILD STATUS.txt for the current verified version and remaining limits.
@@ -7,5 +29,12 @@ for source locations and docs/DEVELOPER LESSONS.txt for reusable lessons.
 docs/GAME BUILDER STARTER PROMPT.txt is the generic shared builder prompt;
 AGENTS.md holds the owner's actual game/platform/budget rules.
 36 boats. Earlier performance and audible-quality goals remain open.
-Owner voyages, settings, music and older releases are preserved. Tests stay
+Source history and owner voyages, settings and music are preserved. Tests stay
 background and queued; do not launch the owner's game for a test.
+
+13 November2026 — NEXT RELEASE PLAN (game still v0.098)
+Read docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt and
+docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt.
+Review docs/store/preview/index.html for the local $9.99 store-page draft.
+Four earlier development images are labeled with their real versions.
+No new game version or store publication is claimed. Board watch stays paused.

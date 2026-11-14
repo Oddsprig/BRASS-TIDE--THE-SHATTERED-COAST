@@ -1,0 +1,228 @@
+BRASS TIDE — RETAIL DEVELOPMENT PLAN
+13 November 2026 | Planning deliverable | Windows PC | US$9.99
+
+CURRENT POSITION
+v0.098 is the latest installed, scoped Windows build. It contains substantial
+fleet, campaign and economic systems, but it is not yet accepted as a sellable
+finished game. The next ten work packages are in docs/roadmap/SELLABLE RELEASE
+MAP v0.099-v0.108.txt. This task prepared that plan, a local store page and
+retained screenshot references. It did not implement v0.099 or change the
+installed executable, desktop launcher, saves, settings or owner music.
+
+Product: a single-player motorboat fleet game for Windows PC, with local offline
+play, keyboard/mouse controls, 36 existing hull designs, interchangeable physical
+weapon mounts, crew damage control, finite bronze coins and goods, local island
+charts and the Open Seas connecting generated island groups. A 300-point battle
+deployment cap is separate from fleet ownership. No Android or multiplayer
+promise. Price is fixed at $9.99 USD. Early Access versus a full-release label
+has not been selected; the present listing is an in-development draft.
+
+BASELINE AND WHAT REMAINS UNPROVED
+Receipt: work/quality-v098/DELIVERED v0.098.json in the parent workspace.
+Tested source: 8a87578ca1900c464b19189b9f69386ef5413d42.
+Final docs/tag: bbf345d7cabaf5b67f9e6a890847ebe8b4e13faf.
+Game tree at delivery: e32942ebed2801015af6e65f759aae66d04c0b52.
+
+- Campaign: v089's named daily callback improved about 17.65%, but the old
+  aggregate active-campaign comparison went from 56.26 to 40.96 FPS. That is
+  unresolved historical evidence, not a new benchmark of v098 or a proven cause.
+- Combat: v091 light 300-point worker P95 36.154 ms and maximum lag 183.333 ms
+  missed 33.333 ms/100 ms targets. 94.868% of frames <=20 ms missed 95%. Mixed
+  fleets did better; main-thread publication already met its timing target.
+- Earnings: v095 completed an ordinary combined freight/survey circuit. It
+  earned 8,271 coins gross, paid 3,500 wages and 1,625 replacement stores,
+  purchased a 1,000-coin surveyor improvement and returned with 15,146 coins.
+  It does not prove independent merchant arbitrage or all-career balance.
+- Escort: v096 delivered 40 food for a 1,170-coin fee; wages 500 and replacement
+  stores 308. The voyage was quiet. Physical-exit controls do not supply an attack.
+- Privateering: v097 has 42 staged custody/commission checks; the ordinary
+  continuation found no observed cargo-bearing hostile. The earned sortie is OPEN.
+- Factions: v098's 56 checks establish controlled supplied support, harbor access,
+  negotiated control, hostile-carrier diversion and restore/trade. Its declared
+  50,000-coin opening advance is not an earned starter conquest.
+- Presentation: retained v090 motion and v092 coast images are useful earlier
+  references. They are not final screenshots or proof of fun/full-fleet smoothness.
+  Existing v093 listening covered three staged clips, not every live battle mix.
+- Persistence: save validation exists, but main.gd currently opens the live save
+  for writing after a best-effort backup. Interrupted-write/recovery protection
+  needs a bounded correction and evidence before a paid release.
+- Retail: README and release text contain older counts/version/render wording.
+  Commercial asset permissions, measured buyer requirements, final images,
+  support route and exact marketplace product/download mapping still need closure.
+
+IMPLEMENTATION OWNERSHIP AND SCOPE
+Root owns the acceptance decision, file allowlists, integration and test-lane
+admission. A build helper receives one version, exact inputs/files, player
+outcome, proof requirement and exclusions. A separate reviewer checks changed
+code, relevant callers, actual receipts and media without manufacturing new gates.
+Helper model ceilings are task-specific. This planning task used two Sol 6.1
+MAX and two Carbon HIGH leads through Bridge; it does not dispatch a future team.
+
+Before every future merge update these exact documents together:
+  CODE MAP.md
+  game/data/DEVELOPER NOTES.txt
+  CHANGES v<version>.md
+Reconcile BUILD STATUS.txt, HANDOFF.md, VERSION MAP.txt and package instructions
+with actual delivery. Planning notes do not create a fake CHANGES v0.099 file,
+version bump, tag or release receipt. The post-merge notes reconciliation must
+fit the user's active helper ceiling and use the final source, not draft claims.
+
+Existing source seams, for bounded assignment rather than blanket edit access:
+099: main/economy_workers and measured copy/apply/UI/save leaf.
+100: battle_driver051/tactical_runtime/tactical_goals051 and measured hot leaf.
+101: boat_art/weapon_art/motor_art/combat_art/hull_feedback, cached boat/shore
+     geometry, chart/ocean_chart064, tactics_ui and existing audio mix.
+102: campaign_guidance/guidance_ui/career_costs/voyage_panel070/refit UI.
+103: civilian_work/passenger_transport and current freight/fuel job callers.
+104: naval_ai/naval_orders/escort_ops/naval_combat/campaign prize settlement.
+105: main save/menu boundary, save_validation, preferences and failure/result UI.
+106: exploration/coastal_stories/regional goals/faction UI and actual job quotes.
+107: existing release/package tools, credits, docs/store and native marketplace.
+108: only reproduced release blockers and exact package/readback/status evidence.
+
+PERFORMANCE AND THREADING CONTRACT
+The game already runs authoritative combat at 30 Hz on detached worker data,
+with staggered role/target decisions. Godot's nominal 60 Hz callback is not a
+requirement to recalculate fleet goals or scan every target 60 times per second.
+Keep commands and revisions authoritative; interpolate visible movement apart
+from decision cadence. Main owns SceneTree/UI/resources/draw/audio submission.
+Worker tasks own copied data/RNG and publish after completion; retire/join them
+before reconciling original boat/cargo owners. Do not move Godot resources into
+arbitrary workers or solve one backlog by increasing contention.
+
+Lock a representative populated campaign and light/mixed 300-point battles
+before optimizing. Record CPU/GPU/driver, RAM/VRAM, Windows, resolution, settings,
+speed, active entities, frames and actual simulation progress. Compare matched
+workloads and relevant source dependencies. Unmatched old results establish a
+gap, not an attributable before/after gain. Profile simulation, targeting,
+planning, copies, application, draw calls and caches separately.
+
+Proposed release acceptance to pin before implementation:
+  - Combat worker P95 <=33.333 ms; maximum simulation lag <=100 ms.
+  - Main publication P95 <=6 ms; no recurring catch-up/deadlock.
+  - >=95% of active rendered frames <=20 ms on the declared tested configuration.
+  - Aim for a steady 60 FPS; report raw FPS and recurring >50 ms hitches openly.
+    Historical strict >=60 results stay historical; do not round or relabel them.
+  - Command/ordinary control to visible acknowledgement P95 <=200 ms.
+  - Populated travel, daily publication and normal harbor use remain responsive.
+These are acceptance targets, not achieved results or published minimum specs.
+If a measured case fails, fix its demonstrated cause or retain HOLD. No hidden
+smaller fleets, slower world, missing weapons or free transactions to pass.
+Safe rendering mode 1 remains requested. Separate mode previously had native
+resource failures and is not a release shortcut. Cosmetic quality options may
+reduce measured visual expense without removing important damage information;
+they cannot be presented as resolving authoritative simulation lag.
+
+EARNED GAMEPLAY AND ECONOMIC PROOF
+Six roles are reached through the common ordinary start and paid acquisition;
+six new starting classes are not required. Each reference records discoverable
+work, starting capital/boat, payer/buyer, trip time, gross receipts, wages,
+food/fuel/ammunition, replenishment, repairs, fees, losses and return reserve.
+Keep 100 coins per sailor-day as the base and show any actual specialist/crew
+differences. Separate capital expenditure and escrow from operating profit.
+
+Explorer/merchant use 102 and the completed 106 expedition. Local fisher and
+passenger operator use 103; fuel transport is an existing merchant application.
+Escort/privateer use 104. At the final reconciliation, each repeatable role
+needs a successful paid return and an affordable second departure; where
+repeatability is the issue, retain two settled outings. Risky careers must offer
+recoverable choices and truthful losses, not a guaranteed profit on every fight.
+Known alternative opportunities must be discoverable on declared seeds without
+selecting a favorable seed after a failure. No global statistical balance study.
+
+Reuse real earned checkpoint saves to avoid replaying settled history. Preserve
+their source/state hashes and origin. Do not inject position, cargo, cash,
+reputation or a target and call it ordinary play. A controlled negative/failure
+case stays labeled controlled. No target, no buyer or unfunded demand is a GAP.
+No live omniscient prices or enemy cargo finder. Opportunity and reserve advice
+use information the captain actually knows, including its age.
+
+The opening design should let a new captain prepare in roughly the first ten
+minutes, do useful work in the next twenty and return/reinvest within an hour.
+Those are design goals, not current measurements or authorization for a long
+test. Automated receipts cannot establish enjoyment or a stranger's understanding.
+Record attributed player feedback when available and use the owner's normal
+play feedback without taking control of their PC. No hour-long autoplay/soak.
+
+SAVE, PACKAGE AND COMMERCIAL GATES
+1. No known save loss, duplication, unpaid reward or progression softlock in
+   the marketed core loops. Verify migrations using copied retained files;
+   keep good bytes/state after failed writes or invalid future/corrupt input.
+   Repeated migration/settlement is idempotent. Never use owner live saves as
+   writable fixtures. Any discovered data-loss issue blocks the current version,
+   even if its main durability milestone is 105.
+2. Defeat/withdrawal/rescue and quitting after settlement preserve actual
+   survivors, wounded crew, equipment condition, cargo, prizes and obligations.
+   Do not close a result panel and pay twice. Settings and controls are usable.
+3. Inventory every redistributed art/code/icon/font/audio asset against final
+   file hashes, creator/source, license/terms evidence, edits and notices.
+   Original project art/code and existing Godot notices are starting evidence.
+   SFX source/CC0/license-page hashes are in game/assets/sfx/manifest.json and
+   docs/audio. Check actual shipped cuts against them. No Windows font files
+   are bundled; SystemFont use and any later font change must be reconciled.
+   Eighteen owner Lyria MP3s plus manifest/readme currently make twenty music
+   folder files. Integration permission and hashes alone do not establish the
+   commercial redistribution terms for those exact outputs/account. Resolve
+   the evidence or omit/replace an uncleared optional asset in a bounded change;
+   preserve owner originals. Do not claim a legal clearance opinion.
+   Root owns this register from the start, before 101 retail audio lock; 107
+   reconciles the final payload. See docs/store/COMMERCIAL ASSET CHECKLIST.txt.
+4. Publish hardware/OS support only from an actually measured configuration.
+   The high-end local system and 2 GiB/24-core process envelope do not establish
+   a low-end minimum. No Android, code-signing or save-version promise by guess.
+   Resolve title/branding clearance appropriate to commercial publication.
+5. Final portable Windows ZIP includes a verified launcher, required files,
+   accurate installation/update/backup/recovery instructions, notices, version,
+   log/report location, known limits and a monitored buyer support/refund route.
+   No editor/Python/Node, personal voyage/debug dump or credentials in the product.
+   Keep one plain desktop launcher, owner settings/saves and all owner music.
+6. Final screenshots come from the sale candidate after art/UX freeze. State
+   whether an image is gameplay, UI detail or illustrated cover. Keep the actual
+   HUD/camera and literal captions. Images alone cannot prove smooth AI or fun.
+7. The $9.99 page, real marketplace product, entitlement/library download and
+   offered archive/version must agree. Lookup/reuse native product records;
+   static /sell/ text does not prove absence of a record. Never reuse another
+   title's product identifier/script. Current draft makes no purchase requests.
+   Release designation, final requirements, support and publication stay pending
+   until concrete evidence and the owner's release decision are available.
+
+CURRENT TESTING RULE — READ CENTRAL RULES AGAIN BEFORE EXECUTION
+One whole selected pass, ONE batch, ONE engine, self-quit plus an identity-owned
+watchdog, hard <=60 seconds TOTAL, then stop. Follow the read-only detector and
+shared Test Bridge FIFO behind existing editors/players/renamed games/leases.
+Queue wait is separate. Muted, isolated profiles, background only; no keys,
+mouse, focus, another app's settings or broad process kills. Match PID and
+creation time/retained handle before stopping only our own process tree.
+
+Default functional verification is headless. A necessary rendered capture or
+performance observation must be the explicitly admitted appropriate pass under
+the current rule and authorization, never an uncounted extra after a headless
+run. No GPU tests/captures/engine launches occurred during this planning task.
+Do not chain short jobs or label a second engine as preparation. Use the existing
+queue/watchdog/observer tools; no new test-framework project. Correct outdated
+per-phase defaults only in a necessary bounded execution brief.
+
+Planning allocation, not a measured promise: ~5s admission/input setup,
+~35s selected changed-risk native work including startup/self-quit, ~10s
+required validation/cleanup, ~5s receipt, ~5s safety reserve. Any export/import,
+screenshots, package/install verification claimed as part of the pass counts
+toward the same ceiling. If the necessary changed coverage cannot fit one engine
+and that limit, reduce scope, reuse only truly unchanged evidence or leave HOLD;
+do not weaken assertions or invent approval from elapsed queue time.
+
+Reuse completed proof only if relevant code, data/assets, callers, initialization,
+engine/settings and fixture closure still match. New source needs new binary
+identity; old matching filenames are not enough. Queued/interrupted/timeout/GAP
+is never PASS. Older timing misses remain recorded: 091=183.441s,
+096=222.364s, 098=183.262s against their then-used allowance. They do not define
+today's permission. Stop after the current pass; a new test requires an explicit
+owner/coordinator dispatch, never a self-issued rename to continue the suite.
+
+FOLDER AND HANDOFF
+Canonical roadmap: docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt.
+Buyer-facing draft/copy/media: docs/store/ (one authoritative set, no duplicate builds).
+Current plan/helper evidence: parent work/release-plan-v099-v108/.
+Existing delivered receipts: parent work/quality-v098/ and prior cited versions.
+Keep source, useful receipts, unique saves and lessons. Remove no historical
+builds/assets during this planning task. Do not resume the paused message board.
+No new GitHub publication, live store deployment, checkout or charge was performed.

@@ -265,7 +265,7 @@ func handle_campaign_events067() -> void:
 				audio.play("bell")
 			"defeat":
 				paused = true
-				var body = ui.modal("A skiff, a second chance", "HARBOR RESCUE", 700, 500)
+				var body = ui.modal("Harbor rescue", "REPLACEMENT BOAT AND CREW", 700, 500)
 				ui.paragraph(body, "Brass Haven can fund a replacement and crew from its treasury. The actual cost becomes a loan owed to the harbor.", 19)
 				ui.button(body, "Accept harbor rescue", accept_rescue, true)
 			"encounter":show_patrol_encounter(event.patrol)
@@ -475,6 +475,10 @@ func new_game(seed_override: int = 0):
 	if not begun.get("ok", false):
 		ui.toast(str(begun.get("message", "New career was refused. The previous voyage is unchanged.")), true)
 		return
+	_present_new_voyage()
+	save_game(false)
+
+func _present_new_voyage():
 	ui.workshop_drafts.clear()
 	ui.voyage_intent065.clear()
 	mode = "campaign"
@@ -486,7 +490,119 @@ func new_game(seed_override: int = 0):
 	ui.close_modal()
 	ui.build_hud()
 	ui.toast("Welcome to Brass Haven. Enter harbor and accept your first contract.")
-	save_game(false)
+
+func new_voyage_needs_confirmation() -> bool:
+	return has_save() or FileAccess.file_exists(save_directory.path_join("voyage.backup.json")) or not core.state.is_empty() or career_core != null
+
+func _save_file_matches(path: String, bytes: PackedByteArray) -> bool:
+	var file = FileAccess.open(path, FileAccess.READ)
+	if file == null:return false
+	var matches: bool = file.get_length() == bytes.size()
+	if matches:
+		var read: PackedByteArray = file.get_buffer(bytes.size())
+		matches = read == bytes and file.get_error() in [OK, ERR_FILE_EOF]
+	file.close()
+	return matches
+
+func _store_save_copy(path: String, bytes: PackedByteArray) -> bool:
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	if file == null:return false
+	file.store_buffer(bytes)
+	file.flush()
+	var error: int = file.get_error()
+	file.close()
+	return error == OK
+
+func _commit_save_file(staged: String, path: String) -> int:
+	return DirAccess.rename_absolute(staged, path)
+
+func _write_verified_save_copy(path: String, bytes: PackedByteArray) -> bool:
+	# Only verified content receives a stable name. A failed temporary write
+	# cannot block the next attempt, and existing stable files are never truncated.
+	if FileAccess.file_exists(path):return _save_file_matches(path, bytes)
+	if DirAccess.dir_exists_absolute(path):return false
+	var temporary: String = ""
+	for attempt: int in range(100):
+		var proposed: String = "%s.writing.%d.%d" % [path, Time.get_ticks_usec(), attempt]
+		if not FileAccess.file_exists(proposed) and not DirAccess.dir_exists_absolute(proposed):
+			temporary = proposed
+			break
+	if temporary.is_empty():return false
+	if not _store_save_copy(temporary, bytes) or not _save_file_matches(temporary, bytes):return false
+	if FileAccess.file_exists(path):return _save_file_matches(path, bytes)
+	if DirAccess.dir_exists_absolute(path) or _commit_save_file(temporary, path) != OK:return false
+	return _save_file_matches(path, bytes)
+
+func replace_voyage(seed_override: int = 0) -> bool:
+	# Only the ordinary title-screen confirmation reaches this transaction.
+	# Direct new_game calls retain the existing first-start, QA and lab contract.
+	if mode != "menu" or lab_active or not ui.modal_open or ui.modal_kind != "new_voyage":return false
+	if save_directory.is_empty() or DirAccess.make_dir_recursive_absolute(save_directory) != OK:
+		ui.toast("Cannot prepare a saved replacement here. The previous voyage is unchanged.", true)
+		return false
+	var originals: Dictionary = {}
+	var archives: PackedStringArray = []
+	# Preserve the fallback too: a damaged primary must not cost the last good save.
+	for name: String in ["voyage.json", "voyage.backup.json"]:
+		var path: String = save_directory.path_join(name)
+		if not FileAccess.file_exists(path):
+			if DirAccess.dir_exists_absolute(path):
+				ui.toast("A save path is a folder. The previous voyage is unchanged.", true)
+				return false
+			continue
+		var original = FileAccess.open(path, FileAccess.READ)
+		if original == null:
+			ui.toast("Cannot read the saved voyage. Replacement was cancelled.", true)
+			return false
+		var length: int = original.get_length()
+		var bytes: PackedByteArray = original.get_buffer(length)
+		var error: int = original.get_error()
+		original.close()
+		if bytes.is_empty() or bytes.size() != length or error not in [OK, ERR_FILE_EOF]:
+			ui.toast("Cannot read the complete saved voyage. Replacement was cancelled.", true)
+			return false
+		var digest: String = FileAccess.get_sha256(path)
+		var archive: String = save_directory.path_join("voyage.before-new.%s.json" % digest)
+		if digest.length() != 64 or not _write_verified_save_copy(archive, bytes) or FileAccess.get_sha256(archive) != digest:
+			ui.toast("Cannot write and verify a preserved save. The previous voyage is unchanged.", true)
+			return false
+		originals[path] = {"bytes":bytes, "archive":archive}
+		if not archives.has(archive):archives.append(archive)
+	# Build and write off to the side; no old core, worker or UI state is retired yet.
+	var candidate = Campaign.new(data.duplicate(true), core.nav, false)
+	candidate.ocean_anchors064 = core.ocean_anchors064.duplicate(true)
+	var begun: Dictionary = candidate.new_game(seed_override if seed_override != 0 else int(Time.get_unix_time_from_system()))
+	if not begun.get("ok", false):
+		ui.toast(str(begun.get("message", "New voyage was refused. The previous voyage is unchanged.")), true)
+		return false
+	candidate.state.version = Version.text()
+	var text: String = JSON.stringify(candidate.state, "\t")
+	var staged: String = save_directory.path_join("voyage.new.%s.pending" % text.sha256_text())
+	if not _write_verified_save_copy(staged, text.to_utf8_buffer()):
+		ui.toast("Cannot write and verify the new save. The previous voyage is unchanged.", true)
+		return false
+	# A changed source or archive aborts before the only replacement operation.
+	for name: String in ["voyage.json", "voyage.backup.json"]:
+		var path: String = save_directory.path_join(name)
+		if FileAccess.file_exists(path) != originals.has(path):
+			ui.toast("Saved files changed during preparation. Replacement was cancelled.", true)
+			return false
+		if originals.has(path) and (not _save_file_matches(path, originals[path].bytes) or not _save_file_matches(originals[path].archive, originals[path].bytes)):
+			ui.toast("Saved files could not be verified again. Replacement was cancelled.", true)
+			return false
+	# Both files are in the same directory. A failed rename leaves the old save in place.
+	if _commit_save_file(staged, save_directory.path_join("voyage.json")) != OK:
+		ui.toast("Cannot replace the save file. The previous voyage is unchanged.", true)
+		return false
+	_retire_battle_driver051()
+	_leave_lab()
+	sync_economy()
+	core = candidate
+	_present_new_voyage()
+	# The committed file is already verified; do not rotate it through save_game.
+	if not archives.is_empty():
+		ui.toast("Previous saves preserved at:\n%s\nRecovery: Guide > Preserved voyages." % "\n".join(archives))
+	return true
 
 func click_chart(position: Vector2):
 	var view064: Dictionary=core.world_view064()
@@ -1359,16 +1475,18 @@ func accept_rescue():
 	return_to_campaign()
 	respond(result)
 
-func return_to_title():
+func return_to_title() -> bool:
+	var must_save: bool = mode == "campaign" and not core.state.is_empty() and not quick_mode and not lab_active
+	if must_save and not save_game(true):
+		return false
 	_retire_battle_driver051()
-	if mode == "campaign":
-		save_game(false)
 	_leave_lab()
 	mode = "menu"
 	paused = false
 	quick_mode = false
 	battle = {}
 	ui.title_screen()
+	return true
 
 func wait_one_day():
 	sync_economy()
@@ -1406,33 +1524,56 @@ func sync_economy():
 func has_save() -> bool:
 	return not save_directory.is_empty() and FileAccess.file_exists(save_directory.path_join("voyage.json"))
 
-func save_game(show_notice: bool = true,allow_settled_battle: bool = false):
+func save_game(show_notice: bool = true,allow_settled_battle: bool = false) -> bool:
 	var settled_battle: bool=allow_settled_battle and mode=="battle" and not lab_active and result_handled and battle.get("result")!=null and not battle_report.is_empty() and bool(battle_report.get("ok",true))
 	if (mode != "campaign" and not settled_battle) or core.state.is_empty() or quick_mode:
 		if show_notice:
 			ui.toast("Return to the campaign chart before saving.", true)
-		return
+		return false
 	sync_economy()
 	var error = DirAccess.make_dir_recursive_absolute(save_directory)
 	if error != OK:
 		if show_notice:
 			ui.toast("Cannot save here. Move the portable folder to a writable location.", true)
-		return
+		return false
 	var path = save_directory.path_join("voyage.json")
+	var backup_path: String = save_directory.path_join("voyage.backup.json")
+	var backup_staged: String = ""
+	core.state.version = Version.text()
+	var text: String = JSON.stringify(core.state, "\t")
+	var staged: String = save_directory.path_join("voyage.save.%s.pending" % text.sha256_text())
+	# Verify the complete candidate before touching either existing save file.
+	if not _write_verified_save_copy(staged, text.to_utf8_buffer()):
+		if show_notice:ui.toast("The new save could not be written and verified. The previous save is unchanged.", true)
+		return false
 	if FileAccess.file_exists(path):
-		var backup = FileAccess.open(save_directory.path_join("voyage.backup.json"), FileAccess.WRITE)
-		if backup:
-			backup.store_string(FileAccess.get_file_as_string(path))
-			backup.close()
-	var file = FileAccess.open(path, FileAccess.WRITE)
-	if file:
-		core.state.version = Version.text()
-		file.store_string(JSON.stringify(core.state, "\t"))
-		file.close()
-		if show_notice:
-			ui.toast("Voyage saved beside the portable game.")
-	elif show_notice:
-		ui.toast("The save file could not be written.", true)
+		var previous = FileAccess.open(path, FileAccess.READ)
+		if previous == null:
+			if show_notice:ui.toast("Cannot read the previous save. It has not been replaced.", true)
+			return false
+		var length: int = previous.get_length()
+		var bytes: PackedByteArray = previous.get_buffer(length)
+		var read_error: int = previous.get_error()
+		previous.close()
+		if bytes.size() != length or read_error not in [OK, ERR_FILE_EOF]:
+			if show_notice:ui.toast("Cannot read the complete previous save. It has not been replaced.", true)
+			return false
+		backup_staged = save_directory.path_join("voyage.backup.%s.pending" % FileAccess.get_sha256(path))
+		if not _write_verified_save_copy(backup_staged, bytes) or not _save_file_matches(path, bytes):
+			if show_notice:ui.toast("Cannot write and verify the backup. The previous save is unchanged.", true)
+			return false
+		if DirAccess.dir_exists_absolute(backup_path):
+			if show_notice:ui.toast("Cannot replace the backup. The previous save is unchanged.", true)
+			return false
+	# Preserve the pre-call fallback until the primary has committed successfully.
+	if DirAccess.dir_exists_absolute(path) or _commit_save_file(staged, path) != OK:
+		if show_notice:ui.toast("The save file could not be replaced. The previous save is unchanged.", true)
+		return false
+	if not backup_staged.is_empty() and _commit_save_file(backup_staged, backup_path) != OK:
+		if show_notice:ui.toast("Voyage was saved, but its backup could not be updated. Previous saved bytes remain at %s." % backup_staged, true)
+		return false
+	if show_notice:ui.toast("Voyage saved beside the portable game.")
+	return true
 
 func load_game():
 	_retire_battle_driver051()
@@ -1443,7 +1584,7 @@ func load_game():
 		return
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string(save_directory.path_join("voyage.json")))
 	if not parsed is Dictionary:
-		ui.toast("Save is unreadable. Your backup is in the saves folder.", true)
+		ui.toast("Save is unreadable. Check voyage.backup.json and Guide > Preserved voyages for recovery options.", true)
 		return
 	if int(data.get("MAP_REVISION",1))>int(parsed.get("mapRevision",1)):
 		var source_text=FileAccess.get_file_as_string(save_directory.path_join("voyage.json"))
@@ -1468,12 +1609,15 @@ func load_game():
 		ui.build_hud()
 	respond(result)
 
-func quit_game():
+func quit_game() -> bool:
+	var must_save: bool = mode == "campaign" and not core.state.is_empty() and not quick_mode and not lab_active
+	if must_save and not save_game(true):
+		return false
 	_retire_battle_driver051()
 	save_preferences()
-	save_game(false)
 	sync_economy()
 	get_tree().quit()
+	return true
 
 func _exit_tree():
 	_retire_battle_driver051()

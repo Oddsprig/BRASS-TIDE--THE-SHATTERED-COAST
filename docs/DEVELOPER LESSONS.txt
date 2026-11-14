@@ -1,3 +1,44 @@
+CURRENT OWNER-AUTHORIZED STORE DELIVERY — v0.099
+The owner explicitly demanded publishing a $9.99 listing with screenshots and
+working purchase/download controls. Current source/export/product/download is
+v0.099; installed desktop game remainsv0.098. Current store facts and evidence:
+docs/store/README.txt, CURRENT PUBLICATION.json and MARKETPLACE HANDOFF.json.
+Root used up to3 Sol6.1MAX Bridge roles; one independent storefront red team.
+Carbon quota prevented its use; no extra paid fallback. No additional helpers,
+game engines or board checks should start merely to recheck this completed scope.
+
+For a store-page review, inspect the actual customer page header through footer,
+all original screenshots, genre/platform/price/copy, real Buy and owner-download
+path. Authenticity, image count and hashes do not establish marketing quality.
+Omit unfit images; never fill a gallery with adjacent frames or internal records.
+For normal releases verify the real product/release association, clean artifact,
+checkout handoff and protected complete download. Do not make a real payment.
+Use existing production infrastructure and preserve other products/deployments.
+No slogans, scenery captions, QA banners or internal process prose on customer UI.
+This owner's no-slogan preference is style-specific; functional store completion,
+independent visual review and preserving other live products transfer generally.
+
+Test Bridge owns canonical process inspection and the shared lane. Avoid a
+redundant full process scan inside a short queued command; verify the current
+job/attempt lease binding and honor cancellation/yield. A failed photo attempt
+may retain valid raw stills, but never becomes a passed native suite.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+13 NOVEMBER2026 — PLAYER-FACING REVIEW FAILURE
+The owner rejected slogans and captions on passive scenery in actual shipped
+screens. Reading docs, matching hashes and passing source assertions did not
+constitute review of those screens. Inspect what the player sees, apply explicit
+owner copy preferences, and have an independent reviewer challenge the actual
+artifact before accepting it. Preserve current-build evidence and source-only
+boundaries; an old labeled image remains unsuitable for a retail gallery.
+Source review also found New voyage can replace a career and rotate away its
+backup. Escalate discovered data-loss paths before any successor acceptance,
+regardless of a later roadmap slot. Do not turn every style suggestion into a
+bug: review CSS defaults, native aspect ratios and actual UI semantics first.
+This project's plain-copy/no-slogan preference is OWNER/STYLE-specific. Actual
+artifact review, honest proof boundaries and save protection transfer broadly.
+
 05 NOV 2026 · Scoped delivery through v0.098
 Measure a transfer at the application boundary. For public support, compare the worker-published stores with the stores after paid support. Ordinary procurement and civic consumption change the opening-to-closing balance. Reuse an actual saved opening with its source and hash when the next check needs the same starting state. Keep the prior attempt and credit only completed checks.
 
@@ -711,3 +752,17 @@ Read new posts216/217 (v56/v57), compared exact changed clauses against reviewed
 [Existing proof limit] The accepted004 tool check warmed one browser context and opened a new page for the new release, then checked exact recipe reload within004. Its versioned request-path evidence is not an old-tab normal-reload transition or fingerprints of every executing module. No new run or retroactive acceptance claim is made here.
 
 These are general or conditional technical practices, not STYLE/taste. Owner retention and the10000-character public contribution cap still govern. No engine/GPU/game tests, input control, game implementation, package, tag, push or Git operation was performed for this review.
+
+STOREFRONT REVIEW — OWNER CORRECTION
+Review the complete rendered page as a customer, including genre, screenshots,
+visual hierarchy, words, price, platform and actual availability. Individual-file
+checks, correct captions and authentic image bytes cannot establish page quality.
+Inspect the actual final desktop and narrow-screen render before approval. Reject
+near-identical frames from one scene as gallery variety. For this boat game the
+gallery should explain campaign navigation, trading, fitting and combat with
+different real views; this particular shot list is genre-specific. General review
+rules transfer to other games. Check image scale, obstructing overlays and whether
+the featured image communicates the game. Public copy states development status
+plainly; private review history, staging notes and release gates stay internal.
+The implementer and independent reviewer both sign off the same visible artifact.
+The owner should not be the first person to see obvious layout or content defects.

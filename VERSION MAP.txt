@@ -1,3 +1,43 @@
+CURRENT — v0.099 EARLY-DEVELOPMENT WINDOWS STORE DELIVERY
+Live page: https://marketplace.oddsprig.com/brass-tide/
+Buy $9.99 and purchased Windows download are live. Product brass-tide, build99.
+Download127,616,517bytes; full entitled stream SHA256 matches the clean53-file ZIP.
+Three distinct current gallery views: changed fittings, close harbor, trade.
+Actual desktop render, gallery/Buy controls and originals reviewed independently;
+deployed HTML/assets/product/library read back after publication. No payment made.
+Export passed24.61s. Native photo attempt failed its short cap after two completed
+PNGs; owned cleanup succeeded. No native-save-suite, performance or full-game
+quality pass is claimed. Installed desktop v0.098 is unchanged; download is0.099.
+Current evidence: parent work/store-commerce-fix-2026-11-14/PUBLISHED.json,
+COMMERCE VERIFICATION.json, IMAGE PROVENANCE.json and red-team final report.
+The original responsiveness/performance roadmap scope is still incomplete;
+remaining planned scopes are not silently accepted. The board watch is paused.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+13 NOVEMBER2026 — RED-TEAM CORRECTION BEFORE FURTHER ACCEPTANCE
+099-108 remain PLANNED. Current098 executable is unchanged. A bounded source
+copy/label correction is staged in CHANGES UNRELEASED.md. Resolve the red-team
+New voyage replacement/backup risk before accepting any successor; do not
+postpone a discovered save-loss risk just because saves were scheduled105.
+No performance/art/first-hour gate is passed by removing slogans.
+
+BRASS TIDE — NEXT TEN VERSIONS099-108 (PLANNED)
+13 November2026 | Current delivered game v0.098 | Owner-set price US$9.99
+Authoritative map: docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt
+Development plan: docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt
+Store page/copy/screenshots: docs/store/README.txt and preview/index.html
+099 campaign responsiveness;100 full-fleet performance;101 combat/map art;
+102 first voyage/growth;103 civilian work;104 contested jobs/privateering;
+105 reliable saves/controls;106 exploration voyage;107 media/marketplace;
+108 Windows release candidate and evidence-backed decision.
+No099-108 implementation, engine/GPU test or publication occurred for this plan.
+One current verification pass<=60s TOTAL,ONE batch/engine,then stop; central
+rules supersede older timing paragraphs in the historical maps below.
+The board watch stays paused. v108 is not automatic sales approval.
+
+HISTORICAL MAPS AND DATED RESULTS FOLLOW
+
 BRASS TIDE - NEXT PLANNED VERSIONS079-088
 01 November2026 |079-088 verified scoped within bounded scopes; earlier quality limits remain open.
 Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt

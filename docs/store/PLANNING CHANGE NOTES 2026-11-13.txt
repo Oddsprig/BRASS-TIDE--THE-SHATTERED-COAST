@@ -1,0 +1,21 @@
+13 NOVEMBER 2026 — RELEASE PLANNING CHANGE NOTES
+Current installed build remains v0.098. No runtime version bump or tag.
+
+Added the authoritative099-108 release map and retail development plan.
+Prepared literal $9.99 Windows-only copy, eight-shot final media plan and local
+HTML/CSS gallery using four unedited real090/092 development captures, with
+source-job/hash/version provenance and retail_approved=false.
+Added native-marketplace handoff and initial commercial asset checklist.
+Updated current navigation in VERSION MAP, CODE MAP, HANDOFF, START HERE,
+AGENTS and in-game DEVELOPER NOTES. Central60s rule and paused board now
+supersede stale local instructions. Preserved dated results and evidence.
+Root adopted five independent review findings: bound art scope, attributed
+player feedback, named save/migration coverage, honest60s pass admission and
+early ownership of exact music rights evidence. Current page chooses neither
+Early Access nor a finished-release designation and invents no product ID.
+
+No engine/GPU tests, new renders/captures, installs, owner-save/settings/music
+changes, historical-build deletions, GitHub push, deployment, purchase or charge.
+Static document/media validation is recorded separately; it is not game proof.
+Canonical future-version change notes will be written with implementation,
+not prefilled with claims from this planning task.

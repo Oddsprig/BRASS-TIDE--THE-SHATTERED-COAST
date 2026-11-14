@@ -1,3 +1,31 @@
+CURRENT — v0.099 EARLY-DEVELOPMENT WINDOWS STORE DELIVERY
+Live page: https://marketplace.oddsprig.com/brass-tide/
+Buy $9.99 and purchased Windows download are live. Product brass-tide, build99.
+Download127,616,517bytes; full entitled stream SHA256 matches the clean53-file ZIP.
+Three distinct current gallery views: changed fittings, close harbor, trade.
+Actual desktop render, gallery/Buy controls and originals reviewed independently;
+deployed HTML/assets/product/library read back after publication. No payment made.
+Export passed24.61s. Native photo attempt failed its short cap after two completed
+PNGs; owned cleanup succeeded. No native-save-suite, performance or full-game
+quality pass is claimed. Installed desktop v0.098 is unchanged; download is0.099.
+Current evidence: parent work/store-commerce-fix-2026-11-14/PUBLISHED.json,
+COMMERCE VERIFICATION.json, IMAGE PROVENANCE.json and red-team final report.
+The original responsiveness/performance roadmap scope is still incomplete;
+remaining planned scopes are not silently accepted. The board watch is paused.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+UNRELEASED SOURCE CORRECTIONS — 13 NOVEMBER 2026
+Installed/latest delivered executable remains v0.098. Copy/count, content-fit
+campaign HUD/labels and save-replacement safety changes are integrated. A separate
+Sol red team found no concrete source blocker in the bounded save/layout changes.
+The one admitted job stopped in the required process detector after a 10-second
+timeout, before Godot launched: zero engine runs, zero game checks, no pass.
+Total queued-command runtime plus charged setup: 21.184 seconds; no retry/export/
+install. Native, rendered, performance, privateer and commercial acceptance stay
+open. Source is unreleased; the retained delivery facts below describe v0.098.
+Evidence: parent work/current-fixes-2026-11-13/VALIDATION RESULT.json.
+
 BRASS TIDE v0.098 - Supplied corridor aftermath and hostile shipping access
 DELIVERED SCOPED WINDOWS BUILD
 Source/tag: 8a87578ca1900c464b19189b9f69386ef5413d42 / v0.098

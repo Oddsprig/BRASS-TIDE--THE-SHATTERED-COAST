@@ -1,0 +1,40 @@
+BRASS TIDE — INITIAL COMMERCIAL ASSET CHECKLIST
+13 November 2026 | Source inventory for planning, NOT legal clearance
+Owner: Root release coordinator. Final exact-payload review required at v0.107.
+
+MUSIC — OPEN, resolve before v0.101 retail audio lock
+Eighteen owner-supplied Lyria MP3 outputs are listed in music/MANIFEST.json;
+the music folder also includes manifest/readme (20 preserved files total).
+Record each final file hash, generation/source identity, applicable service
+and account/output permissions at generation, and evidence allowing the intended
+commercial game redistribution. Current provenance/integration notes do not
+settle that question. Do not redistribute uncertain tracks on assumption. If a
+track cannot be cleared, plan a bounded omission/replacement from the commercial
+payload while preserving owner originals. This task changed no music files.
+
+RECORDED SOUND EFFECTS — EVIDENCE PRESENT, FINAL PAYLOAD MATCH OPEN
+game/assets/sfx/manifest.json records source/creator URLs, CC0 designations,
+source/license-page hashes, edits and shipped cut hashes. Reconcile retained
+evidence with actual final cuts and docs/audio/RECORDED AUDIO CREDITS.txt.
+The procedural engine bed is recorded separately. A manifest entry is a starting
+record, not a fresh verification of every source's ownership or live terms.
+
+PROJECT ART / CODE / ICON / GEOGRAPHY — PROVENANCE PRESENT, FINAL AUDIT OPEN
+docs/ORIGINALITY AND CREDITS.md describes project-created art, code and world.
+Confirm final exports contain no imported unrecorded items. Record later
+commissioned/generated media with source, terms and required notices. Illustrated
+cover art is kept distinct from actual gameplay. Title/brand commercial review
+is still open; no affiliation with inspiration games is implied.
+
+ENGINE / COMPONENTS / FONTS — EXISTING NOTICES, FINAL MATCH OPEN
+Godot and component notices are under docs/legal. Reconcile against the engine
+and libraries actually shipped. Existing Windows SystemFont use bundles no
+Windows font file; check final payload rather than redistributing an installed
+typeface. Any new bundled font needs its own distribution evidence.
+
+FINAL ROWS REQUIRED
+Each final redistributed file/category needs path, SHA256, creator/source,
+applicable license/terms evidence, edits, notices, review date and reviewer.
+Mark unresolved rows OPEN. Removing an optional uncleared asset requires a
+bounded product change and truthful credits, never deletion of owner originals.
+No blanket commercial-clearance claim is made by this planning checklist.

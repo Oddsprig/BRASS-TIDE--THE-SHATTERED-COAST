@@ -1,6 +1,65 @@
+CURRENT OWNER-AUTHORIZED STORE DELIVERY — v0.099
+The owner explicitly demanded publishing a $9.99 listing with screenshots and
+working purchase/download controls. Current source/export/product/download is
+v0.099; installed desktop game remainsv0.098. Current store facts and evidence:
+docs/store/README.txt, CURRENT PUBLICATION.json and MARKETPLACE HANDOFF.json.
+Root used up to3 Sol6.1MAX Bridge roles; one independent storefront red team.
+Carbon quota prevented its use; no extra paid fallback. No additional helpers,
+game engines or board checks should start merely to recheck this completed scope.
+
+For a store-page review, inspect the actual customer page header through footer,
+all original screenshots, genre/platform/price/copy, real Buy and owner-download
+path. Authenticity, image count and hashes do not establish marketing quality.
+Omit unfit images; never fill a gallery with adjacent frames or internal records.
+For normal releases verify the real product/release association, clean artifact,
+checkout handoff and protected complete download. Do not make a real payment.
+Use existing production infrastructure and preserve other products/deployments.
+No slogans, scenery captions, QA banners or internal process prose on customer UI.
+This owner's no-slogan preference is style-specific; functional store completion,
+independent visual review and preserving other live products transfer generally.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+13 NOVEMBER2026 LATEST TEAM AUTHORIZATION
+Owner explicitly requested up to SIX Bridge helpers: THREE Sol6.1 MAX and
+THREE Carbon HIGH. Root is the orchestrator/integrator/test-queue owner. One
+Sol stays independent as the red team and authors no implementation. Current
+six roles and isolated patch folders are in parent work/current-fixes-2026-11-13/
+TEAM STATUS.json. This supersedes earlier2+2 team text for this active task.
+Workers do not edit canonical source, run engines/GPU/tests, or start helpers.
+Root protected the two current owner save files in a content-addressed local
+backup; originals remain unchanged. Correcting the New voyage risk is active.
+No new build/version/export/installation or accepted gameplay claim yet.
+
+13 NOVEMBER2026 OWNER CORRECTION — RED TEAM / PLAIN UI COPY
+Use an independent red team on actual touched source and current candidate
+screens before accepting a game/UI/store build. A checklist, old screenshot or
+proof hash is not a player-facing quality review. State source-only, rendered,
+installed and commercial acceptance separately; unresolved findings stay open.
+Owner explicitly bans catchphrases. Use plain labels, actual counts, costs,
+objectives and actions. No slogan headlines or descriptive captions on passive
+scenery such as birds. Preserve useful selected/identified navigation information.
+Current source has UNRELEASED UI/copy corrections in interface, chart,
+campaign_landmark_art054, ocean_chart064, and the rescue title in main.
+Installed game remainsv0.098.
+Review work/red-team-2026-11-13 in the parent workspace. The New voyage
+save-replacement path, performance and earned privateering remain release HOLD.
+No099 version bump, new engine/GPU test, export or installation has occurred.
+
 # Brass Tide - current working instructions
 
-Current verified scoped090: authored hull contact/spawn separation. Tested05e722349e582e9ce03a706161e7bc70ec3f737a;427 native/0 (234retained+193current), Windows/menu and one staged6boat actualDriver/Chart encounter60/0,0sampledwaterlineoverlap,min4.439/4.781m,preserved cargo/stores, useful crossing/heavyturn/escort/retreat. Root/Argon sampledvisualreview completed; no60FPSmovie,300DPperformance orfungate fromthiswitness. Currentreceipts work/quality-v090. Next091: bounded fullfleetperformance with existingretailobserver before anyoptimization. Earlier089overallactivecampaignFPS remainsOPEN.
+CURRENT 13 NOVEMBER 2026: v0.098 is delivered within its scope; source
+8a87578ca1900c464b19189b9f69386ef5413d42, final docs/tag
+bbf345d7cabaf5b67f9e6a890847ebe8b4e13faf. No full-game quality claim.
+Current task prepared the v0.099-v0.108 sellable-release plan and local store
+page at US$9.99. Implementation has not begun; do not turn this planning task
+into ten automatic builds or a live sale. Read HANDOFF.md and docs/roadmap/
+SELLABLE RELEASE MAP v0.099-v0.108.txt, then the retail development plan.
+The installed build, launcher, owner data and music remain unchanged.
+The message-board watch is PAUSED by the owner's 5 November instruction.
+Current central test rule is ONE batch/ONE engine <=60 seconds TOTAL with
+self-quit and an identity-owned watchdog, then stop. Older120/180 rules below
+are historical and superseded. No tests ran for the planning task.
 
 Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
 major continents. Open seas fill the hyperspace role; island groups fill the
@@ -13,15 +72,12 @@ required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
 this model. Current069 fresh careers contain48 seeded groups; older careers retain their two authored regions.
 069 delivers seeded geography and starting asset ownership; retain068 physical shipping. Dynamic expansion/capture need explicit later bounded milestones.
 
-Latest owner team authorization31October2026: up to4Argon and4Grok through
-Bridge; one Sol6.1MAX buildlead delegates and takes harder source work, a
-separate Sol6.1MAX owns independent quality/red-team gates. Argon/GrokHIGH
-remain the standing preference. These are ceilings, not a quota. Namedplan
-routes/manual routing, no paidfallback or silent model substitution. Root
-coordinates/reviews/integrates and alone owns queued engine/GPU jobs/delivery.
-One-level buildlead delegation is now explicitly authorized; helpers do not
-start helpers. Isolated file allowlists, source-only commits, no new sidebar
-chats. Finished helpers stay idle until the next bounded task.
+13 November planning team authorization: up to TWO Sol6.1 MAX and TWO Carbon
+HIGH leads through Bridge. These were used for systems planning, independent
+release review, marketplace copy and screenshot/integration planning. No extra
+helpers or paid fallback. This is a task-specific ceiling, not a future build
+team dispatch. Root reviews/integrates and owns any separately admitted shared-
+lane engine/GPU pass. No foreground/input control and no owner-save fixtures.
 
 Completed069-078 scopes are recorded in docs/roadmap/QUALITY VERSION MAP
 v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are
@@ -79,20 +135,17 @@ raw commands and never nest another lease. Preserve job IDs and actual receipts.
 Yield only our own identity-verified process if another game starts.
 <!-- END GAME TEST LANE -->
 
-29October owner correction: finish and install the current version. Do not turn
-elapsed test time into a stop-work rule before packaging. Keep each bounded batch below120seconds and the entire
-selected verification suite below180seconds (latest owner three-minute ceiling),
-including setup/import/export/startup/cleanup; queuewaitseparate. Reuse passed
-unchanged components with strict source proof and avoid repeated unnecessary
-checks. Continue through Windows export, actualscreenreview and launcher delivery.
-Historical retries remain recorded honestly; they are not a lifetime version
-budget or permission gate. No requesting another budget reset just to finish.
-
-Whole selected test batches MUST finish below120seconds including setup/import,
-export/startups and cleanup; queue wait is separate. Split useful small batches
-before the limit. Retain passed unchanged component evidence with source hashes;
-queued/interrupted/timed-out checks are not passes. Never weaken assertions just
-to pass. Source/static checks are advisory, not native execution.
+Current central FINAL OWNER RULE supersedes historical120/180-second wording:
+one whole selected pass, ONE batch and ONE engine, self-quit and identity-owned
+watchdog <=60 seconds TOTAL, then report and stop. Queue wait is separate.
+Count setup/import/export/startup/capture/validation/cleanup/package work claimed
+by that pass. Do not chain renamed short runs or add an extra rendered launch.
+Use existing runners and the shared detector/FIFO. Default functional checks
+are headless; rendered/GPU work needs its appropriate explicit admission and
+user authorization. Reuse only actually unchanged source/caller/data/settings/
+fixture proof; a queued/interrupted/GAP/timeout result is not a pass. If coverage
+cannot fit, reduce scope or retain HOLD, never weaken assertions. No tests are
+required for this reversible planning/document update.
 
 Background/hidden/silent only, synthetic APPDATA/saves and Dummy/muted audio.
 No mouse/keyboard/focus/computer control, no Desktop game autolaunch. Keep owner
@@ -111,13 +164,10 @@ fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authoriz
 01 November2026 OWNER OVERRIDE: explicitly delete older Brass Tide playable copies and Windows ZIPs to reclaim space. Keep the latest verified installed release and active next candidate. Preserve source Git/tags, useful test receipts/tools, source archives and verified unique owner saves/settings/music in the content-indexed archive. Earlier all-playable-releases retention is superseded for this game. Cleanup255targets reclaimed32.82GiB; receipt work/release-cleanup-2026-11-01/CLEANUP RESULT.json. This logistics cleanup does not require an engine test or change a build number.
 
 
-31October board cadence supersedes earlier requests: expanded fullpromptv34/post165
-was contributed/adopted. Stop2minutechecks. Dailyfirst31Oct03:28UTC/30Oct23:28
-NewYork requested; original registration attempts failed and that first check
-was missed. Daily heartbeat brass-tide-board-learning-daily is now ACTIVE at
-23:28 New York, registered31October. No retroactive run is claimed. Request,
-cursor and current watch-state are in work/board-collaboration-2026-10-30.
-Use one canonical builderprompt and condition project/style/engine advice.
+5 November OWNER OVERRIDE: stop checking the message board for now.
+The brass-tide-board-learning-daily automation is PAUSED. Keep its cursor and
+prior useful lessons, but do not browse, review, post or re-enable it from this
+planning task. Historical daily/two-minute schedules are superseded.
 
 30October board adoption: start with START HERE.txt, HANDOFF.md and the relevant
 map before opening source. Keep one current authority; older test contracts are
@@ -162,3 +212,17 @@ were consolidated here on27October2026.
 
 
 04 November2026 OWNER AUTHORIZATION: implement089-098 sequentially from accepted088 using one GrokHIGH, one ArgonHIGH, two Sol6.1MAX through Bridge (build and independentQC). Current scope089; Root owns queue/tests/integration/package/install. See docs/roadmap/QUALITY VERSION MAP v0.089-v0.098.txt and work/quality-v089-v098/CURRENT STATE.json. No silent fallback or additional helpers. All preceding machine, scope, accounting and retention rules remain.
+
+STOREFRONT REVIEW — OWNER CORRECTION
+Review the complete rendered page as a customer, including genre, screenshots,
+visual hierarchy, words, price, platform and actual availability. Individual-file
+checks, correct captions and authentic image bytes cannot establish page quality.
+Inspect the actual final desktop and narrow-screen render before approval. Reject
+near-identical frames from one scene as gallery variety. For this boat game the
+gallery should explain campaign navigation, trading, fitting and combat with
+different real views; this particular shot list is genre-specific. General review
+rules transfer to other games. Check image scale, obstructing overlays and whether
+the featured image communicates the game. Public copy states development status
+plainly; private review history, staging notes and release gates stay internal.
+The implementer and independent reviewer both sign off the same visible artifact.
+The owner should not be the first person to see obvious layout or content defects.

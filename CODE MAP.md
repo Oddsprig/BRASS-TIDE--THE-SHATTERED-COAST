@@ -1,3 +1,97 @@
+CURRENT STOREFRONT PUBLICATION
+Live $9.99 Buy and purchased Windows0.099 download: https://marketplace.oddsprig.com/brass-tide/
+Three-image gallery and complete desktop render independently reviewed.
+Exact publication/readback and commerce evidence: parent work/store-commerce-fix-2026-11-14.
+Installedv0.098 unchanged; native fixture/performance/full-game acceptance remain open.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+14 NOVEMBER 2026 - v0.099 EARLY-DEVELOPMENT WINDOWS DELIVERY
+
+Scope: the current copy/count/layout/save corrections plus functional Windows
+store delivery. This is not completion of the older v0.099 performance roadmap.
+game/scripts/version.gd declares BUILD 99; game/project.godot is 0.099;
+game/export_presets.cfg carries Windows versions 0.0.99.0 and excludes developer
+text, tests, saves, settings and profiles. Runtime behavior remains the corrected
+current source: main.gd owns staged save publication and guarded retirement;
+interface.gd owns confirmation, preserved-voyage help and viewport-capped tools;
+guidance_ui.gd shares count grammar; chart.gd owns available label bounds and
+compass exclusion; campaign_landmark_art054.gd and ocean_chart064.gd retain the
+plain, selection-aware map-label policy.
+
+Root's single admitted headless Windows export passed: job
+e951d276230f4bb6b1ddfbb953e1317f, 24.61 seconds of Bridge process time; normal
+exit, no watchdog kill or timeout. Static assembly/readback verified a clean
+53-file portable ZIP, 127,616,517 bytes, and all 723 PCK entries against the
+unchanged integrity/privacy checks. All 538 frozen non-cache source files match
+the canonical versioned source except the isolated candidate's template path.
+ZIP SHA256: 7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7
+SOURCE SNAPSHOT.json SHA256:
+f6437dd4241180b62e1cdc6924428d3f7ec54baa0c65231c5b07a201340acb29
+Candidate digest: ed0f77c2ade1c9cc94c22a82555418f45f345085c521338659f2f2ea00e076d2
+
+Root uploaded the standard SKU/release for the US$9.99 Windows product. The
+commerce receipt verifies library build 99 and an entitled full-stream download
+whose 127,616,517 bytes and SHA256 exactly match the verified ZIP. Live checkout
+opened successfully; no payment completed. Anonymous/unowned downloads were
+refused with 401/403. This verifies commerce delivery without a checkout charge.
+Evidence: parent work/store-commerce-fix-2026-11-14/COMMERCE VERIFICATION.json
+and its release/PACKAGE VERIFICATION.json and release/SOURCE SNAPSHOT.json.
+
+The native save fixture remains UNRUN; export and static package checks establish
+no gameplay-suite, performance, earned-privateer or full-game parity acceptance.
+The older v0.099 performance milestone is NOT complete. Installed v0.098 remains
+unchanged. Gallery replacement and public purchase/download controls remain
+pending; Root will add the final publication pointer. Dated records below retain
+their original stage-specific facts.
+
+STOREFRONT GALLERY CORRECTION
+Replaced two near-identical maneuver frames with four actual current-source views:
+campaign map, harbor market, boat fitting workshop and Coastal Clash combat.
+A different independent reviewer opened all originals plus actual complete desktop
+and mobile page renders and cleared the exact artifact before publication.
+Live https://marketplace.oddsprig.com/brass-tide/ ; $9.99, early development.
+Four raw PNGs completed; owned engine missed shutdown deadline, so no native-suite
+pass is claimed. CPU-only full-page preview passed and all owned cleanup completed.
+Publication and public image-hash readback: parent work/store-gallery-fix-2026-11-13.
+No installed game, checkout or entitlement change. Earlier two-image records below
+are historical and superseded for the store gallery.
+
+STORE PAGE PUBLICATION — 13 NOVEMBER 2026
+Published https://marketplace.oddsprig.com/brass-tide/ at US$9.99 with the notice
+Game is in early development. Two unchanged real gameplay captures are included.
+Owner authorized immediate publication; static page/assets/card HTTP readback
+verified. No checkout, entitlement, new game build or installation change.
+Evidence: parent work/store-publish-2026-11-13/PUBLISHED.json. Earlier no-publication
+notes below predate this explicit store-page request and remain dated history.
+
+VALIDATION RECEIPT — 13 NOVEMBER 2026
+Job 0a6e148dbe734e5da816e88d78cf34cd stopped before engine launch when the
+mandatory process inspection timed out at 10 seconds. Engine runs/checks: 0/0;
+no game-test pass. Queue-command runtime plus charged setup: 21.184 seconds.
+Owned cleanup complete; no follow-on test/export/install. The fixture is UNRUN.
+See parent work/current-fixes-2026-11-13/VALIDATION RESULT.json.
+
+13 NOVEMBER 2026 — UNRELEASED SOURCE CORRECTIONS; NATIVE UNRUN
+main.gd: confirmed New voyage preserves verified primary/fallback bytes before
+replacement. Staged save_game reports failures; campaign Quit and return to title
+refuse failed saves before retirement. interface.gd: confirmation and Guide >
+Preserved voyages recovery; shared count_text with guidance_ui.gd; content-fit,
+viewport-capped scroll tools. chart.gd: right gutter follows the actual contract
+panel visibility and label placement excludes the compass. Home/remote charts
+suppress passive unknown-site captions; scenery and functional labels remain.
+Installed build remains v0.098. Independent source review found no concrete
+blocker in the bounded save/layout changes; native validation is UNRUN. Rendered,
+performance, earned privateer and commercial gates remain open. See parent
+work/current-fixes-2026-11-13 and CHANGES UNRELEASED.md.
+
+13 NOVEMBER2026 — PLANNING NAVIGATION (delivered game remains v0.098)
+Next scope: docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt.
+Acceptance/ownership: docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt.
+Store copy/media/local HTML/rights checklist: docs/store/README.txt.
+Planning only: no runtime code, source-map structure, game version or installed
+build changed. Older implementation notes below remain dated history.
+
 BRASS TIDE - CURRENT SCOPED UPDATE
 v0.098: Supplied corridor aftermath and hostile shipping access. Read current ROADMAP.md and targeted maps/*.txt.
 Current changed entry points: shipping068.gd:port snapshots and hostile access, shipping_flow068.gd:market/delivery/diversion, test_remote_control085.gd:aftermath098.

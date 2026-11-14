@@ -942,13 +942,14 @@ static func draw_chart_coast(canvas,points: PackedVector2Array) -> void:
 	outline.append(points[0])
 	canvas.draw_polyline(outline,Color("dac48b"),2.0,true)
 
-static func chart_label_bounds(viewport: Vector2) -> Rect2:
-	return Rect2(345,110,maxf(0,viewport.x-700),maxf(0,viewport.y-260))
+static func chart_label_bounds(viewport: Vector2,right_panel_visible: bool=true) -> Rect2:
+	var right_margin: float=355.0 if right_panel_visible else 25.0
+	return Rect2(345,110,maxf(0,viewport.x-345-right_margin),maxf(0,viewport.y-260))
 
-static func chart_label_layout(entries: Array,bounds: Rect2,font: Font) -> Array:
+static func chart_label_layout(entries: Array,bounds: Rect2,font: Font,exclusions: Array=[]) -> Array:
 	var ordered: Array=entries.duplicate()
 	ordered.sort_custom(func(a,b):return int(a.priority)>int(b.priority) if int(a.priority)!=int(b.priority) else str(a.text)<str(b.text))
-	var occupied: Array=[]
+	var occupied: Array=exclusions.duplicate()
 	for entry in entries:
 		var art: Rect2=entry.get("art_bounds",Rect2(entry.at-Vector2(17,17),Vector2(34,34)))
 		if art.has_area():occupied.append(art.grow(4))
@@ -1004,7 +1005,16 @@ static func _chart_label_text054(canvas,font: Font,at: Vector2,text: String,font
 	canvas.draw_string(font,at,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 
 func _draw_chart_labels(entries: Array):
-	_map_labels=chart_label_layout(entries,chart_label_bounds(get_viewport_rect().size),sans)
+	var right_panel_visible: bool=true
+	if host is Object:
+		var hud=host.get("ui")
+		if is_instance_valid(hud):
+			var body=hud.get("right_body")
+			if is_instance_valid(body) and body.get_parent() is CanvasItem:
+				right_panel_visible=body.get_parent().visible
+	var size: Vector2=get_viewport_rect().size
+	var exclusions: Array=[Rect2(size-Vector2(112,193),Vector2(84,100))]
+	_map_labels=chart_label_layout(entries,chart_label_bounds(size,right_panel_visible),sans,exclusions)
 	for label in _map_labels:draw_chart_label(self,label,sans)
 
 func trade_paths() -> Array:
@@ -1085,7 +1095,8 @@ func draw_campaign():
 		var art: Dictionary=campaign_site_art054(site,level)
 		if not get_viewport_rect().intersects(art.bounds):continue
 		LandmarkArt054.draw(self,art,selected)
-		labels.append({"at":at,"art_bounds":Rect2(art.bounds).grow(5 if selected else 0),"text":art.label if selected or not overview else "","priority":120 if selected else 20,"color":color})
+		var show_site_label: bool=selected or (level>=2 and not overview)
+		labels.append({"at":at,"art_bounds":Rect2(art.bounds).grow(5 if selected else 0),"text":art.label if show_site_label else "","priority":120 if selected else 20,"color":color})
 	for wreck in world.get("wrecks",[]):
 		if not Locality064.home_local064(wreck) or wreck.get("status","")!="unclaimed":continue
 		var marker_pos: Vector2=project(Vector2(wreck.x,wreck.y))
@@ -1107,7 +1118,6 @@ func draw_campaign():
 	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
 	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)
-	text_at("Nothing stays afloat alone.", Vector2(size.x * 0.5, size.y - 144), 26, Color("c7d4bd"), serif, true)
 	text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK HARBOR TO SAIL  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118), 10, Color("93b4a8"), mono, true)
 	draw_compass(Vector2(size.x - 70, size.y - 133))
 

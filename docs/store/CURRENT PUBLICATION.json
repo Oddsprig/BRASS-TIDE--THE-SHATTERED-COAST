@@ -1,0 +1,72 @@
+{
+  "status": "PUBLISHED_AND_READ_BACK",
+  "url": "https://marketplace.oddsprig.com/brass-tide/",
+  "deployment_url": "https://15047247.oddsprig-marketplace.pages.dev",
+  "price_cents": 999,
+  "currency": "usd",
+  "platform": "Windows PC",
+  "version": "0.099",
+  "build": 99,
+  "download_bytes": 127616517,
+  "download_sha256": "7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7",
+  "checkout": "COMMERCE VERIFICATION.json: live handoff; zero payments completed",
+  "download": "COMMERCE VERIFICATION.json: authenticated library and complete streamed byte/SHA match",
+  "screenshots": [
+    "Boat fittings",
+    "Brass Haven harbor",
+    "Harbor trading"
+  ],
+  "public_readback": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 5987,
+      "sha256": "411538c18d290963162230a46cd2f3c3e9291fa234d4fbe2ecb04f7fa32dbec6",
+      "content_type": "text/html; charset=utf-8"
+    },
+    {
+      "file": "style.css?v=20261114",
+      "status": 200,
+      "bytes": 5223,
+      "sha256": "473b7e1c6ea81086d4f4a883431f4258f44c146590f8e6ce4b88bf4fdc6307a8",
+      "content_type": "text/css; charset=utf-8"
+    },
+    {
+      "file": "gallery.js",
+      "status": 200,
+      "bytes": 665,
+      "sha256": "90794dc34bc4abcf8a93d4db7e0e951061368f77a291285b1407b25386c76b25",
+      "content_type": "application/javascript"
+    },
+    {
+      "file": "buy.js",
+      "status": 200,
+      "bytes": 5703,
+      "sha256": "074c87c84d5535db7e6a1481bb04b5ce278bc35406ba52df6f34546190d1cc04",
+      "content_type": "application/javascript"
+    },
+    {
+      "file": "media/harbor.png",
+      "status": 200,
+      "bytes": 230023,
+      "sha256": "17ce8fae8effe89375187de4fd4638c580471990d4b3042f0c5683ba74af8d3d",
+      "content_type": "image/png"
+    },
+    {
+      "file": "media/trading.png",
+      "status": 200,
+      "bytes": 266628,
+      "sha256": "fda9453edbfc0f37d0e0ebeefacc14201dc5a61463deb2e32325d1c2e73bb735",
+      "content_type": "image/png"
+    },
+    {
+      "file": "media/fittings.png",
+      "status": 200,
+      "bytes": 431125,
+      "sha256": "a8281963afdafbd9c2a3731ae02a9cc218e505c169198285f13d71c4906b35c0",
+      "content_type": "image/png"
+    }
+  ],
+  "library_http_status": 200,
+  "installed_game_changed": false
+}

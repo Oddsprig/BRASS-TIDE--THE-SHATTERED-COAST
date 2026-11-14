@@ -1,3 +1,103 @@
+CURRENT STOREFRONT PUBLICATION
+Live $9.99 Buy and purchased Windows0.099 download: https://marketplace.oddsprig.com/brass-tide/
+Three-image gallery and complete desktop render independently reviewed.
+Exact publication/readback and commerce evidence: parent work/store-commerce-fix-2026-11-14.
+Installedv0.098 unchanged; native fixture/performance/full-game acceptance remain open.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+14 NOVEMBER 2026 - v0.099 EARLY-DEVELOPMENT WINDOWS DELIVERY
+
+Version identity: BUILD 99; project 0.099; Windows file/product version 0.0.99.0.
+Scope is the current plain copy/count grammar, HUD/chart label layout, New voyage
+confirmation/archive, staged save publication and save-failure retirement guards,
+plus a clean portable Windows download for the $9.99 store product. The older
+performance roadmap milestone is not being declared complete.
+
+These developer notes stay private and are excluded from the retail PCK/ZIP.
+Retail player help and change notes are separate. Public support/music/licenses
+are selectively retained from the hash-verified delivered v0.098 archive; no old
+executable, PCK, save, settings, test profile or private report is carried over.
+
+DELIVERY RECEIPTS - 14 NOVEMBER 2026
+Root's one admitted headless Windows export PASSED, job
+e951d276230f4bb6b1ddfbb953e1317f, Bridge process 24.61 seconds; no watchdog kill
+or timeout. Static assembly/readback verified the clean 53-file portable ZIP,
+127,616,517 bytes, all 723 PCK entries and the unchanged privacy/integrity checks.
+ZIP SHA256: 7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7
+All 538 frozen non-cache source files match canonical versioned source, except
+for the isolated candidate's export-template path. SOURCE SNAPSHOT.json SHA256:
+f6437dd4241180b62e1cdc6924428d3f7ec54baa0c65231c5b07a201340acb29
+
+Root uploaded the standard SKU/release for the US$9.99 Windows product. Commerce
+verification returned library build 99 and a complete entitled download with the
+same 127,616,517 bytes and SHA256. Live checkout opened; no payment completed or
+charge occurred. Anonymous and unowned downloads returned 401 and 403.
+Evidence: parent work/store-commerce-fix-2026-11-14/COMMERCE VERIFICATION.json
+and its release/PACKAGE VERIFICATION.json and release/SOURCE SNAPSHOT.json.
+
+The earlier native save fixture remains UNRUN. Export/static checks and captured
+images do not establish a gameplay-suite, performance or earned-privateer pass.
+The older v0.099 performance milestone is NOT complete; installed v0.098 remains
+unchanged. Gallery replacement and public purchase/download controls remain
+pending; Root will add the final publication pointer. Earlier dated notes retain
+their original stage-specific facts.
+
+STOREFRONT GALLERY CORRECTION
+Replaced two near-identical maneuver frames with four actual current-source views:
+campaign map, harbor market, boat fitting workshop and Coastal Clash combat.
+A different independent reviewer opened all originals plus actual complete desktop
+and mobile page renders and cleared the exact artifact before publication.
+Live https://marketplace.oddsprig.com/brass-tide/ ; $9.99, early development.
+Four raw PNGs completed; owned engine missed shutdown deadline, so no native-suite
+pass is claimed. CPU-only full-page preview passed and all owned cleanup completed.
+Publication and public image-hash readback: parent work/store-gallery-fix-2026-11-13.
+No installed game, checkout or entitlement change. Earlier two-image records below
+are historical and superseded for the store gallery.
+
+STORE PAGE PUBLICATION — 13 NOVEMBER 2026
+Published https://marketplace.oddsprig.com/brass-tide/ at US$9.99 with the notice
+Game is in early development. Two unchanged real gameplay captures are included.
+Owner authorized immediate publication; static page/assets/card HTTP readback
+verified. No checkout, entitlement, new game build or installation change.
+Evidence: parent work/store-publish-2026-11-13/PUBLISHED.json. Earlier no-publication
+notes below predate this explicit store-page request and remain dated history.
+
+VALIDATION RECEIPT — 13 NOVEMBER 2026
+Job 0a6e148dbe734e5da816e88d78cf34cd stopped before engine launch when the
+mandatory process inspection timed out at 10 seconds. Engine runs/checks: 0/0;
+no game-test pass. Queue-command runtime plus charged setup: 21.184 seconds.
+Owned cleanup complete; no follow-on test/export/install. The fixture is UNRUN.
+See parent work/current-fixes-2026-11-13/VALIDATION RESULT.json.
+
+13 NOVEMBER 2026 — UNRELEASED SAVE, COPY AND LAYOUT CORRECTIONS
+New voyage asks before replacing an existing career and keeps verified exact
+primary/fallback bytes in voyage.before-new.<full SHA256>.json. Later ordinary
+saves and autosaves do not rotate these copies. Guide > Preserved voyages lists
+verified files and closed-game copy/Continue recovery instructions. Confirming
+replacement discards unsaved progress. Failed campaign Quit or return to title
+keeps the live career before retirement. The focused fixture covers the actual
+confirmation, cancellation, autosave, manual-save and recovery paths plus explicit
+write/commit failure injections; it is UNRUN and is not exhaustive crash recovery.
+Removed slogans and passive sea-bird captions. Shared count grammar covers the
+scoped first-hour views. The tools panel fits content within the viewport cap;
+labels can use the hidden contract panel's gutter while avoiding the compass.
+Independent source review found no concrete blocker in the bounded changes.
+Installed v0.098 is unchanged; no new export/install/rendered acceptance. Full-fleet
+performance, earned privateer opportunity and commercial readiness remain open.
+Historical planning and delivered notes follow.
+
+13 NOVEMBER2026 — RELEASE PLANNING, NOT A GAME UPDATE
+Current delivered build remains v0.098. Planned099-108: campaign/combat
+performance; readable boat/map presentation; earned careers; reliable saves;
+one complete exploration voyage; factual screenshots/store; Windows candidate.
+Owner-set price US$9.99. See docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt
+and docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt in the source folder.
+The local store draft uses dated actual development images; it is not on sale.
+No new engine/GPU test, installed build, owner data or music changed here.
+Testing follows the current central one-batch/one-engine<=60s total rule.
+Board checks remain paused. Historical delivered notes follow.
+
 BRASS TIDE v0.098 - SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
 05 November2026 |36 boat designs
 

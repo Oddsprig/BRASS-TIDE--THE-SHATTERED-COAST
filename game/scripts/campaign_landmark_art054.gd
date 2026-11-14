@@ -82,7 +82,7 @@ static func _resolve_kind(site: Dictionary) -> String:
 
 static func _observation(kind: String) -> String:
 	match kind:
-		"freshwater_cove":return "Gulls over still water"
+		"freshwater_cove":return "Unsurveyed site"
 		"shoal_shortcut":return "Pale lane through kelp"
 		"defended_camp":return "Smoke along the shore"
 		"timber_stand":return "Dark coastal crowns"

@@ -799,8 +799,8 @@ func _draw_local_sites_and_wrecks067(chart, view064: Dictionary, view067: Dictio
 		labels.append({
 			"at": screen_pos,
 			"art_bounds": Rect2(art.get("bounds", Rect2())).grow(4.0),
-			"text": str(s["name"]),
-			"subtitle": sub,
+			"text": str(s["name"]) if is_selected or lvl >= 2 else "",
+			"subtitle": sub if is_selected or lvl >= 2 else "",
 			"priority": 92 if is_selected else (84 if lvl >= 2 else 78),
 			"color": GOLD if (is_selected or lvl >= 2) else FOAM
 		})
@@ -2118,7 +2118,6 @@ func _draw_local_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	var size: Vector2 = viewport_rect.size
 	var title_text: String = str(view.get("name", "GLASSWIND KEYS" if region_id == GLASSWIND_REGION_ID else "COASTAL WATERS")).to_upper()
 	chart.text_at(title_text, Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
-	chart.text_at("Local coastal waters  ·  Northern and Southern sea approaches", Vector2(size.x * 0.5, size.y - 144.0), 22, Color("c7d4bd"), chart.get("serif"), true)
 	chart.text_at("WASD CAMERA  ·  I SURVEYS  ·  M TERRITORY  ·  CLICK HARBOR, LANDING, WRECK, CONTACT OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, false)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))
@@ -2261,10 +2260,6 @@ func _draw_ocean_layer(chart, view: Dictionary, view066: Dictionary = {}, view06
 	if not active_zone_summary.is_empty():
 		chart.text_at(active_zone_summary.to_upper(), Vector2(size.x * 0.5, size.y - 196.0), 10, FOAM, chart.get("mono"), true)
 	chart.text_at(str(view.get("name", "OPEN OCEAN")).to_upper(), Vector2(size.x * 0.5, size.y - 175.0), 12, GOLD, chart.get("mono"), true)
-	if generated_atlas:
-		chart.text_at("Prepared island groups  ·  known holdings only", Vector2(size.x * 0.5, size.y - 144.0), 22, Color("c7d4bd"), chart.get("serif"), true)
-	else:
-		chart.text_at("Shatter Coast  ·  Glasswind Keys", Vector2(size.x * 0.5, size.y - 144.0), 24, Color("c7d4bd"), chart.get("serif"), true)
 	chart.text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK CONTACT, APPROACH OR WATER  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118.0), 10, Color("93b4a8"), chart.get("mono"), true)
 	_draw_scale_bar(chart, size, true)
 	chart.draw_compass(Vector2(size.x - 70.0, size.y - 133.0))

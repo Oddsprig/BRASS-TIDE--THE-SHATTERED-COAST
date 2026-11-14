@@ -235,14 +235,14 @@ func title_screen():
 	v.size = Vector2(560, 780)
 	v.add_theme_constant_override("separation", 8)
 	title_root.add_child(v)
-	eyebrow(v, "—  A COAST WORTH FIGHTING FOR")
+	eyebrow(v, "MOTORBOAT FLEET GAME")
 	spacer(v, 20)
 	label(v, "BRASS", 88, TEXT, true)
 	var title = label(v, "TIDE", 88, GOLD, true)
 	title.add_theme_constant_override("line_spacing", -20)
 	eyebrow(v, "THE SHATTER COAST")
 	spacer(v, 22)
-	paragraph(v, "One worn-out skiff. An ocean of trouble.\nBuild your fleet. Keep it afloat. Break the blockade.", 21, Color("b5ccc0"))
+	paragraph(v, "Fleet combat, trading and island exploration.", 21, Color("b5ccc0"))
 	spacer(v, 20)
 	var actions = column(v)
 	actions.custom_minimum_size.x = 345
@@ -250,7 +250,7 @@ func title_screen():
 	var first: Button
 	if host.has_save():
 		first=button(actions, "Continue voyage", host.load_game, true)
-	var new_voyage: Button=button(actions, "New voyage", host.new_game, first==null)
+	var new_voyage: Button=button(actions, "New voyage", open_new_voyage, first==null, false)
 	if first==null:first=new_voyage
 	add_coastal_clash(actions, false)
 	button(actions, "Fleet battle laboratory", host.open_lab)
@@ -262,14 +262,44 @@ func title_screen():
 		if action is Button:action.custom_minimum_size.y=36
 	first.grab_focus()
 	spacer(v, 25)
-	eyebrow(v, "FLEET COMBAT  ·  LIVING PORTS  ·  YOUR OWN FLOTILLA")
+	eyebrow(v, "SINGLE PLAYER  ·  KEYBOARD AND MOUSE")
 	var footer = Label.new()
-	footer.text = "CAPTAIN'S EDITION  v%s\nORIGINAL WORLD  ·  NATIVE WINDOWS  ·  PORTABLE SAVES" % host.Version.text()
+	footer.text = "v%s  ·  WINDOWS PC" % host.Version.text()
 	footer.position = Vector2(100, size.y - 73)
 	footer.add_theme_font_size_override("font_size", 11)
 	footer.add_theme_color_override("font_color", MUTED)
 	footer.add_theme_font_override("font", host.chart.mono)
 	title_root.add_child(footer)
+
+func open_new_voyage():
+	if host.mode != "menu":return
+	if not host.new_voyage_needs_confirmation():
+		host.new_game()
+		return
+	modal_kind = "new_voyage"
+	var body = modal("Start a new voyage?", "REPLACE CURRENT VOYAGE", 700, 520)
+	paragraph(body, "This replaces the current career. Progress since the last save will be discarded.", 18, TEXT)
+	paragraph(body, "Your last saved voyage will be kept separately so you can recover it later. Its existing backup will also be kept. Later autosaves leave these copies alone.", 16)
+	paragraph(body, "If the saved files cannot be preserved or the new voyage cannot be saved, replacement is cancelled. Recovery help is in Guide > Preserved voyages.", 16)
+	button(body, "Cancel", close_modal, true, false).grab_focus()
+	button(body, "Replace voyage", host.replace_voyage, false, false)
+
+func open_preserved_voyages():
+	modal_kind = "preserved_voyages"
+	var body = modal("Preserved voyages", "SAVED FILES", 820, 680)
+	paragraph(body, "New voyage keeps the original saved bytes in the files listed below. Autosaves use voyage.json and voyage.backup.json; they do not rotate these preserved copies.", 16)
+	paragraph(body, "To recover a copy, close the game. Keep the current voyage.json separately, then COPY the chosen preserved file to voyage.json in the same saves folder. Reopen the game and choose Continue voyage. Keep the preserved original.", 16, TEXT)
+	var found: bool = false
+	if DirAccess.dir_exists_absolute(host.save_directory):
+		for name: String in DirAccess.get_files_at(host.save_directory):
+			if not name.begins_with("voyage.before-new.") or not name.ends_with(".json"):continue
+			var digest: String = name.trim_prefix("voyage.before-new.").trim_suffix(".json")
+			var path: String = host.save_directory.path_join(name)
+			if digest.length() != 64 or FileAccess.get_sha256(path) != digest:continue
+			found = true
+			paragraph(body, path, 14, GOLD)
+	if not found:paragraph(body, "No verified preserved copies were found in %s." % host.save_directory, 16)
+	button(body, "Back to guide", open_guide, false, false)
 
 func build_hud():
 	title_root.visible = false
@@ -303,17 +333,22 @@ func build_hud():
 
 func build_campaign_hud(size: Vector2):
 	# Keep the expanding campaign tools reachable on every supported logical viewport.
-	var frame: Node=left_body.get_parent()
+	var frame: Control=left_body.get_parent() as Control
 	frame.remove_child(left_body)
 	var scroll=ScrollContainer.new()
-	scroll.custom_minimum_size=Vector2(280,maxf(300,size.y-230))
+	scroll.custom_minimum_size=Vector2(280,0)
+	scroll.custom_maximum_size=Vector2(-1,maxf(1,size.y-230))
+	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_MAXIMIZE_FIRST
 	scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus=true
 	frame.add_child(scroll)
 	scroll.add_child(left_body)
 	left_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	scroll.minimum_size_changed.connect(frame.reset_size,CONNECT_DEFERRED)
+	frame.reset_size.call_deferred()
 	if not host.core.home_local064():
 		eyebrow(left_body,"YOUR FLOTILLA")
-		flagship_label=label(left_body,"",26,TEXT,true)
+		flagship_label=label(left_body,"",20,TEXT)
 		var view064: Dictionary=host.core.world_view064()
 		paragraph(left_body,str(view064.get("name","Chart unavailable")),22,GOLD)
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
@@ -353,20 +388,19 @@ func build_campaign_hud(size: Vector2):
 		dock_button=button(actions064,"Coastal approaches",_on_remote_dock_button068,true,false)
 		return
 	eyebrow(left_body, "YOUR FLOTILLA")
-	flagship_label = label(left_body, "", 26, TEXT, true)
-	paragraph(left_body, "A captain is only as strong as the boats and sailors that come home.", 14)
+	flagship_label = label(left_body, "", 20, TEXT)
 	rule(left_body)
 	var active: Dictionary=host.core.state.activeContract
 	if not active.is_empty():
 		paragraph(left_body,str(active.title),18,GOLD)
 	elif not host.core.state.completed and host.core.state.missionIndex<host.data.MISSIONS.size():
 		paragraph(left_body,str(host.data.MISSIONS[host.core.state.missionIndex].title),18,GOLD)
-	paragraph(left_body,"Review the route, paid crew and return reserves before committing.",14)
+	paragraph(left_body,"Review fuel, supplies, crew wages and the return route.",14)
 	button(left_body,"Prepare first voyage" if host.core.state.missionIndex==0 and active.is_empty() else "Review voyage",func():GuidanceUI.open_voyage(self),true,false)
 	button(left_body,"Open ocean & coastal approaches",open_ocean064,false,false)
 	button(left_body,"More charts & business",open_campaign_tools,false,false)
 	rule(left_body)
-	paragraph(left_body, "Choose a harbor on the chart. Coastal villages build hulls from workers, timber, steel, and engines.", 13)
+	paragraph(left_body, "Select a harbor to travel or dock.", 13)
 	if not host.core.state.activeContract.is_empty():
 		var c = host.core.state.activeContract
 		eyebrow(right_body, "ACTIVE CONTRACT")
@@ -376,13 +410,7 @@ func build_campaign_hud(size: Vector2):
 		label(right_body, "+%s coins  ·  +%d renown" % [money(c.reward), c.renown], 14, TEAL)
 		button(right_body, "View contract  ↗", open_contracts, true)
 	else:
-		eyebrow(right_body, "CAPTAIN'S ORDERS")
-		label(right_body, "Start small.\nThink like a fleet.", 27, TEXT, true)
-		paragraph(right_body, "Your skiff is cheap. Your crew isn't expendable. Take harbor contracts, trade between ports, and buy or recover boats to grow your flotilla.", 15)
-		var next = host.data.MISSIONS[mini(host.core.state.missionIndex, host.data.MISSIONS.size() - 1)]
-		if not host.core.state.completed:
-			paragraph(right_body, "Next story contract: %s" % host.core.port(next.port).name, 14, GOLD)
-		button(right_body, "Find a contract  ↗", open_contracts, true)
+		right_body.get_parent().visible = false
 	var bottom = panel(chrome, Vector2(0, size.y - 85), Vector2(size.x, 85))
 	var actions = row(bottom)
 	button(actions, "▱  Fleet", open_fleet, false, false)
@@ -503,7 +531,7 @@ func _on_remote_dock_button068() -> void:
 func add_coastal_clash(actions: Node, primary: bool=true) -> Button:
 	var clash: Button=button(actions, "Coastal Clash", host.start_coastal_clash, primary)
 	clash.name="CoastalClash"
-	paragraph(actions, "One loaded packet, a mixed escort, raiders already in range.", 14, GOLD)
+	paragraph(actions, "Escort a cargo packet to the exit.", 14, GOLD)
 	return clash
 
 func skirmish_guidance(body: Node = null) -> void:
@@ -543,9 +571,11 @@ func update_hud():
 		ammo += s.ammo
 		fuel += s.fuel
 		crew += int(s.crew)
-	stats_label.text = "%s coins     ▱  %d boats     ◉  %d crew     ▣  %d kits     ◆  %d fuel     ·  %d ammo" % [money(w.coins), boats.size(), crew, supplies, fuel, ammo]
+	var boat_word: String = "boat" if boats.size() == 1 else "boats"
+	stats_label.text = "%s coins     ▱  %d %s owned     ◉  %d crew     ▣  %d kits     ◆  %d fuel     ·  %d ammo" % [money(w.coins), boats.size(), boat_word, crew, supplies, fuel, ammo]
+	stats_label.tooltip_text = "Owned boats, their crew and onboard stores. Stored boats are included."
 	clock_label.text = "DAY %d  ·  %s" % [int(w.day), "PAUSED" if host.paused else "%d×" % host.speed if host.mode != "battle" else "%02d:%02d" % [int(host.battle.time) / 60, int(host.battle.time) % 60]]
-	flagship_label.text = "%d %s. One captain." % [w.fleet.size(),"boat" if w.fleet.size() == 1 else "boats"]
+	flagship_label.text = "%d %s owned · %d crew" % [boats.size(), boat_word, crew]
 	var p = host.core.current_port()
 	dock_button.disabled = p.is_empty() if host.core.home_local064() else false
 	if not host.core.home_local064():
@@ -592,7 +622,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068","sector069"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068","sector069","new_voyage","preserved_voyages"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -792,7 +822,7 @@ func open_fleet():
 
 func fleet_view(body: Node, docked: bool):
 	paragraph(body, "Crew counts show minimum / full effectiveness / maximum. Wounded sailors remain aboard but cannot work. An uncrewed hull is towed and stays out of battle. All damage, stores and casualties persist.", 15)
-	label(body,"%d owned points · 300 deployable per battle · %d / %d owned hulls"%[host.core.fleet_points(),host.core.state.fleet.size(),host.core.MAX_FLEET],17,GOLD)
+	label(body,"%s · 300 deployable per battle · %d / %d owned hulls"%[count_text(int(host.core.fleet_points()),"owned point","owned points"),host.core.state.fleet.size(),host.core.MAX_FLEET],17,GOLD)
 	paragraph(body,"Only seaworthy, crewed traveling boats add expedition hold space. Stored and inactive hulls add none; their sailors still need food and wages. Mark a traveling partner as support through Support conversion to keep it outside battle deployment.",14)
 	button(body,"Review expedition limits & support choices",func():CampaignUI.expedition(self))
 	button(body,"Long-voyage preparation",open_voyage_preparation065,false,false)
@@ -822,7 +852,7 @@ func fleet_view(body: Node, docked: bool):
 			var b = button(priorities, policy.capitalize(), func(): host.Damage.set_policy(s, policy); refresh_fleet())
 			b.add_theme_color_override("font_color", GOLD if s.policy == policy else TEXT)
 		var actions = row(card)
-		label(card, "%d deployment points · %d weapon mounts" % [Deployment.cost(s), s.spec.get("weaponMounts", []).size()], 13, TEAL)
+		label(card, "%s · %s" % [count_text(int(Deployment.cost(s)), "deployment point", "deployment points"), count_text(s.spec.get("weaponMounts", []).size(), "weapon mount", "weapon mounts")], 13, TEAL)
 		button(actions, "Equipment & condition", func(): open_equipment(uid)).disabled = s.get("sunk",false)
 		button(actions, "Fleet workshop & fitting templates", func(): open_refit(uid)).disabled = s.get("sunk",false)
 		button(card,"People, command & service history",func():IdentityUI.open(self,uid),false,false)
@@ -956,7 +986,7 @@ func open_cargo():
 
 func open_contracts():
 	modal_kind = "contracts"
-	var body = modal("Contracts & logbook", "THE COAST REMEMBERS WHAT YOU DO")
+	var body = modal("Contracts & logbook", "ACTIVE CONTRACTS · AVAILABLE WORK · RECENT EVENTS")
 	if host.core.home_local064():button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	contracts_view(body)
 	rule(body)
@@ -1000,7 +1030,7 @@ func contracts_view(body: Node):
 		eyebrow(card, "STORY CONTRACT" if c.get("story", false) else "HARBOR WORK")
 		label(card, c.title, 23, TEXT, true)
 		paragraph(card, c.description, 14)
-		label(card, "%s → %s · %s coins · %d hostile boats" % [host.core.port(c.port).name, host.core.port(c.targetPort).name, money(c.reward), c.enemyHulls.size()], 14, GOLD)
+		label(card, "%s → %s · %s coins · %s" % [host.core.port(c.port).name, host.core.port(c.targetPort).name, money(c.reward), count_text(c.enemyHulls.size(), "hostile boat", "hostile boats")], 14, GOLD)
 		var p = host.core.current_port()
 		if p.is_empty() or p.id != c.port:
 			button(card, "Go to %s  ↗" % host.core.port(c.port).name, func(): host.sail_to(c.port); close_modal())
@@ -1012,6 +1042,7 @@ func open_guide():
 	modal_kind = "guide"
 	var body = modal("A captain's guide", "BRASS TIDE · v%s" % host.Version.text())
 	button(body,"Career goals & first steps",func():GuidanceUI.open(self),true,false)
+	button(body, "Preserved voyages", open_preserved_voyages, false, false)
 	for section in [
 		["Bronze coins and paid work","An ordinary sailor earns 100 bronze coins per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
 		["Why a boat costs what it costs","Every design has physical material requirements and paid shipwrights, mechanics, fitters, foremen and supervising experts. Trace the price through logs and planks, ore and iron, powder ingredients, ammunition, guns and engines. Yard quotes list those inputs, wages, overhead, margin and duty. Commissions hold wages in escrow and only pay for work completed."],
@@ -1019,13 +1050,13 @@ func open_guide():
 		["Your camera", "WASD pans the camera in both the chart and battle, even while paused. Shift pans faster. Scroll zooms. M shows the whole coast. Home returns to a regional view around your fleet or flagship. F11 toggles fullscreen. Your flagship begins on autopilot; the fleet fights without manual steering."],
 		["Command a flotilla", "Left-click a boat or drag a box to select; Shift adds boats. Right-click open water to move, an enemy to attack, or an ally to escort. Space pauses. Tab opens a paused tactical overview and restores your prior pause state when closed. 1 engages, 2 escorts the flagship, 3 holds. Each side fields up to 300 deployment points. U toggles flagship autopilot; optional manual controls use the arrows and mouse. X cycles flagship."] ,
 		["Refit your boat", "Dock at a harbor and open Refit, or use the Fleet refit button. Fit compatible machine guns, cannons, rocket racks and torpedo launchers within each hull’s fitting budget. Engine and armor packages trade speed, fuel use and protection. The bill shows physical materials, paid fitting workers, experts and duty. Removed modules remain in that boat’s locker; stored modules still need paid installation. Refitting does not repair existing damage."],
-		["Keep the water outside", "Hits can puncture hulls, wound sailors, damage engines, and start fires. Breaches admit water; too much water sinks a boat even if its hull is intact. Powered pumps need fuel and engine power. Crew can bail without supplies. More water slows the boat."],
-		["Choose what the crew does", "Balanced divides hands among guns, bailing and repair. Bail water moves hands off the guns. Patch & repair closes holes using supplies, then slowly repairs hull once holes are closed. Guns first leaves little damage control. Wounded sailors cannot work. Fixed helmsman and gunner details are just part of a boat's art."],
-		["Make the coast work for you", "Villages hire woodcutters, carpenters, miners, smelters and other trades. They need both inputs and payroll. Buy abundant goods and sell into shortages. Your cargo can restart a stalled workshop. A commissioned hull needs its full bill of materials, workforce and supervisors."],
-		["Build your fleet", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
+		["Flooding and hull damage", "Hits can puncture hulls, wound sailors, damage engines, and start fires. Breaches admit water; too much water sinks a boat even if its hull is intact. Powered pumps need fuel and engine power. Crew can bail without supplies. More water slows the boat."],
+		["Crew assignments", "Balanced divides hands among guns, bailing and repair. Bail water moves hands off the guns. Patch & repair closes holes using supplies, then slowly repairs hull once holes are closed. Guns first leaves little damage control. Wounded sailors cannot work. Fixed helmsman and gunner details are just part of a boat's art."],
+		["Production and trade", "Villages hire woodcutters, carpenters, miners, smelters and other trades. They need both inputs and payroll. Buy abundant goods and sell into shortages. Your cargo can restart a stalled workshop. A commissioned hull needs its full bill of materials, workforce and supervisors."],
+		["Buying and repairing boats", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
 		["Save your voyage", "Autosaves happen on the campaign chart and after major actions. Manual saves are in the captain's menu. Saves live in a saves folder beside the portable game. Quick battle is separate from the campaign. If every boat is lost, a harbor rescue provides another cheap skiff on a funded harbor loan."],
-		["Free the Shatter Coast", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
-		,["Build a life on the coast","Prepare expedition shows hold space, wages and return reserves. I opens island surveys, K holds compatible jobs and contacts, and L opens regional goals. Salvage individual wrecks, follow coastal stories, earn faction access and support real convoys. A paid home-harbor business stores cargo and hires shore workers. You own your whole roster while each battle deploys up to 300 points; stored and traveling support boats remain separate."]
+		["Story contracts", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
+		,["Voyage planning","Prepare expedition shows hold space, wages and return reserves. I opens island surveys, K holds compatible jobs and contacts, and L opens regional goals. Salvage individual wrecks, follow coastal stories, earn faction access and support real convoys. A paid home-harbor business stores cargo and hires shore workers. You own your whole roster while each battle deploys up to 300 points; stored and traveling support boats remain separate."]
 	]:
 		label(body, section[0], 24, GOLD, true)
 		paragraph(body, section[1], 17)
@@ -1081,9 +1112,10 @@ func open_settings():
 func outcome(result: String, report: Dictionary, enemies: Array):
 	modal_kind = "outcome"
 	var body = modal("Waters secured" if result == "won" else "Fleet withdrawn" if result == "retreated" else "Lost at sea", "AFTER ACTION REPORT", 820, 690)
-	paragraph(body, "Your crew can breathe again. Inspect the damage and load fresh stores before your next engagement." if result == "won" else "Surviving hulls carry their damage, wounded and missing stores back to the campaign. A withdrawal can save a fleet.", 18)
+	paragraph(body, "Inspect the damage and load fresh stores before your next engagement." if result == "won" else "Surviving hulls carry their damage, wounded and missing stores back to the campaign. A withdrawal can save a fleet.", 18)
 	label(body, "+%s coins" % money(report.get("coins", 0)), 38, GOLD, true)
-	paragraph(body, "%d hostile boats encountered · %d friendly boats afloat" % [enemies.size(), host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk).size()], 17, TEAL)
+	var afloat: int = host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk).size()
+	paragraph(body, "%s encountered · %s afloat" % [count_text(enemies.size(), "hostile boat", "hostile boats"), count_text(afloat, "friendly boat", "friendly boats")], 17, TEAL)
 	for participant in report.get("participants",[]):
 		var entry: Dictionary=participant
 		rule(body)
@@ -1097,13 +1129,13 @@ func outcome(result: String, report: Dictionary, enemies: Array):
 		if str(entry.fate)=="sunk":paragraph(body,"Ending crew is the last recorded count aboard, not rescued survivors. History follows the marked wreck. A paid tow returns a damaged, empty hull; recruitment, repairs and stores are separate costs. Lost staff are not returned.",14,RED)
 	if report.get("completed", false):
 		label(body, "THE SHATTER COAST IS FREE", 26, GOLD, true)
-		paragraph(body, "The Admiral's blockade is broken. Harbors reopen their routes. Your flotilla has earned its place in the coast's history. You can keep trading, building and sailing.")
+		paragraph(body, "The blockade has ended. You can continue trading, building and sailing.")
 	if host.quick_mode:
 		button(body, "Fight another skirmish", host.quick_battle, true)
 		button(body, "Main menu", host.return_to_title)
 		return
 	if not report.get("wrecks",[]).is_empty():
-		paragraph(body,"%d individual wrecks marked. Recovery choices persist on the coastal chart."%report.wrecks.size(),16,GOLD)
+		paragraph(body,"%s marked. Recovery choices persist on the coastal chart."%count_text(report.wrecks.size(),"individual wreck","individual wrecks"),16,GOLD)
 		button(body,"Inspect wrecks & recovery",func():host.return_to_campaign();RecoveryUI.open(self)).disabled=host.core.active_fleet().is_empty()
 	var salvage = report.get("salvage", {})
 	if result == "won" and not salvage.is_empty():
@@ -1142,3 +1174,7 @@ func money(value) -> String:
 			result += ","
 		result += s[i]
 	return result
+
+func count_text(count: int, singular: String, plural: String = "") -> String:
+	var word: String = singular if count == 1 else (singular + "s" if plural.is_empty() else plural)
+	return "%d %s" % [count, word]

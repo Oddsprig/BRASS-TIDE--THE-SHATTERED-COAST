@@ -1,0 +1,213 @@
+BRASS TIDE — SELLABLE WINDOWS RELEASE MAP
+v0.099–v0.108 | 13 November 2026 | PLANNED, NOT BUILT
+Owner-set price: US$9.99. Current delivered game: v0.098.
+
+The next ten versions finish a connected game that a buyer can understand,
+enjoy and keep playing. They use the existing 36 boats, physical mount slots,
+300-point battle deployment, bronze-coin economy and 48-group ocean world.
+Each version builds on its accepted predecessor and advances by exactly .001.
+Reaching v0.108 does not by itself authorize selling an unfinished build.
+
+VERSION   FOCUS                         PLAYER RESULT
+0.099     Campaign responsiveness       Sail, pan and use harbors while the
+                                        populated world advances smoothly.
+0.100     Full-fleet battle performance  Issue orders to a 300-point fleet
+                                        without simulation falling behind.
+0.101     Combat and map presentation    Recognizable boats, readable islands,
+                                        clear weapons, damage, wakes and orders.
+0.102     First voyage and fleet growth  Choose affordable work, return paid,
+                                        understand costs and buy an improvement.
+0.103     Civilian work that pays        Earn repeatable income with existing
+                                        fishing, passenger and freight boats.
+0.104     Contested jobs and privateering Protect real convoys or take lawful
+                                        prizes, with meaningful risk and reward.
+0.105     Reliable progress and controls Keep saves through updates and failures;
+                                        escape, quit and recover predictably.
+0.106     A complete exploration voyage  Follow an existing island chain and see
+                                        its faction and economic consequences.
+0.107     Screenshots and marketplace    A factual $9.99 listing with final-build
+                                        images, rights and download instructions.
+0.108     Windows release candidate      A reviewable package with every required
+                                        sales gate resolved before publication.
+
+0.099 — CAMPAIGN RESPONSIVENESS
+Scope: profile an ordinary populated campaign during travel, daily production,
+traffic publication, harbor use and an autosave. Fix the largest demonstrated
+cause in the current copy/apply/UI/save path, then reassess that workload.
+Keep physical traffic, finite purses and goods, dates and economic cadence.
+Exit: actual active-world measurements, responsive controls and unchanged
+accounting. Attribute worker time, main-thread application and rendering
+separately. A faster callback or a paused empty chart is not the result.
+Do not: rewrite the economy, hide NPCs, reduce the world or add threads blindly.
+
+0.100 — FULL-FLEET BATTLE PERFORMANCE
+Scope: resolve the measured light-fleet worker lag; retain mixed-fleet comparison
+and real firing/orders. Keep authoritative combat at 30 Hz with staggered
+decisions and interpolated drawing. Measure before changing task sizes/caches.
+Exit: existing light and mixed 300-point workloads satisfy the locked performance
+gates in RETAIL DEVELOPMENT PLAN; no recurring catch-up, stale target authority,
+planner deadlock or teardown error. Keep exact raw timings and hardware context.
+Do not: lower the deployment promise, omit weapons, alter damage to shorten the
+test or enable previously unstable Separate rendering as a shortcut.
+
+0.101 — COMBAT AND MAP PRESENTATION
+Before dispatch: list the blocking defects and select three bounded correction
+families in order: physical hull/mount/motor contact, live combat readability,
+then chart/harbor visibility. The 36-hull sheet is an inventory/consistency review;
+one selected motion witness does not prove every hull, fit, LOD and damage state.
+Keep unobserved combinations explicitly open; fix named defects, not all art.
+Scope: one consistent normal-play view using the existing art systems. Fix the
+identified hull/mount/weapon/motor silhouettes, contact points and LOD defects;
+review all 36 existing hulls for consistency rather than adding another roster.
+Make fire, hits, disabled machinery, flooding, retreat and sinking distinguishable.
+Keep stern wakes attached to movement, bounded in length and cheap to draw.
+Use existing recorded weapons and music; balance the mix instead of synthetic
+ping cues. On the chart, preserve visible boats, island relief, harbors and
+exploration landmarks at useful zoom; reduce panel obstruction and label clashes.
+Exit: a current normal-zoom contact sheet, chart/harbor views and a short real
+encounter show a light flank, a heavy firing role, escorting and withdrawal.
+Issued orders, firing arcs and hit effects agree with actual actions. Distinguish
+small, medium and large hulls at ordinary play size. No detached weapons, fake
+under-hull reflections, old marker-only substitutions or obscured primary action.
+Performance gates from 099/100 remain valid for changed rendering/effect paths.
+Do not: introduce fluid simulation, walking crews, a new renderer or universal AI.
+
+0.102 — FIRST VOYAGE AND FLEET GROWTH
+Scope: connect the existing guidance, route quotes, freight/survey work, return
+reserve and fitting workshop into one ordinary opening. Offer two affordable,
+discoverable choices. Explain wages, tank fuel versus loose cargo fuel, repairs,
+hold capacity and what the next hull/refit actually improves. Distinguish paid
+escort contracts from assistance that awards service credit.
+Exit: an unmodified start can prepare, do useful work, return, replenish, pay
+the crew, buy an earned improvement and save/continue. A merchant transaction
+sells to an actual funded buyer; unsold cargo value is not profit. Low-cash and
+unavailable-job messages give a usable next action. Reference saves come from
+real prior actions, never grants or test-only relocation.
+Do not: make surveying an invisible subsidy for every career or add a tutorial
+campaign separate from the ordinary game. First-hour timing is a design target,
+not permission for an hour-long automated test.
+
+0.103 — CIVILIAN WORK THAT PAYS
+Scope: finish the existing home-water fishing circuit, a funded passenger
+charter, and one freight/fuel delivery route. Reuse common departure/settlement
+UI and actual civilian hull acquisition. This is operating-cost and opportunity
+polish, not a new household or production model.
+Exit: reference owners can fund a second outing after wages, food, fuel, fees
+and replenishment. Record real catch quotas, buyer cash, berths, passenger
+transfers and delivery custody. Passenger savings/escrow are not player income;
+carried fuel is not conjured or counted twice. Show both successful settlement
+and a refusal without enough stock, buyers, capacity or money.
+Do not: promise fishing in every group, guarantee every risky trip profits or
+grant a transport merely to make the career demonstration pass.
+
+0.104 — CONTESTED JOBS AND PRIVATEERING
+Scope: finish two existing combat-job contexts: a paid loaded convoy meeting a
+real hostile fleet, and an earned commissioned privateer sortie. Fix the actual
+opportunity/discovery/rendezvous defect, if reproduced, in existing campaign AI.
+Show dated sightings, lawful targets and actual fee/commission terms. Pirates,
+patrols and conflicting factions must continue to act while the player travels.
+Exit: ordinary traffic can create the encounter; physical cargo and survivors
+reach an exit or withdraw, outcomes settle once, and costs/repairs carry home.
+For privateering, locate eligible hostile cargo, win or withdraw normally, return
+and sell the captured remainder with loser debit and save/restore intact. The
+successful reference can afford another sortie; withdrawal preserves real losses.
+No observed target remains an OPEN opportunity gate, not a staged victory.
+Do not: create an ambush every voyage, spawn fake prizes, grant warships, expose
+omniscient cargo, sell operating reserves twice or rewrite global faction AI.
+
+0.105 — RELIABLE PROGRESS AND CONTROLS
+Scope: protect the last good save with a checked temporary write/commit and
+reachable backup recovery; preserve current detached restore validation. Cover
+updates, failed writes, incompatible saves, ordinary quit/Continue, defeat,
+withdrawal and funded rescue. Finish existing title/settings/Esc/help flows,
+volume controls, window sizes and readable key actions; do not add a menu system.
+Exit: copied retained saves and the earned cases survive save/reload/update
+without changing coins, cargo, people, boat IDs, jobs, geography or knowledge.
+Name supported versions before dispatch: include retained v0.095 earned and
+v0.098 controlled cases, plus the oldest supported pre-atlas copy actually found
+in the inventory. Record originals/migrated hashes and migration-twice stability;
+include damage, fitted/locker gear and tank-versus-cargo fuel. No unnamed legacy
+version receives a compatibility promise merely because these copies pass.
+Bad input leaves good bytes and live state intact. A defeated captain gets an
+honest recovery or load/new-voyage choice. A refused action does not spend money.
+Review common screens at 1280x800 and ordinary desktop sizes/scaling; primary
+actions, prices and close/pause/quit controls remain reachable.
+Do not: reset old worlds, weaken conservation, overwrite owner data or advertise
+blanket compatibility with versions that were never checked.
+
+0.106 — A COMPLETE EXPLORATION VOYAGE
+Scope: finish one existing connected island story across two groups, using
+surveys, a lead, a real salvage/work choice, a faction decision and a paid return.
+Make geography, individual harbor ownership, standing and access reasons legible.
+Connect rewards and consequences to existing stocks, people, jobs and equipment.
+Reconcile all six supported career paths using the completed reference loops;
+change only a demonstrated blocking quote, payout or availability error.
+Exit: an earned expedition can depart with reserves, find a useful lead, choose,
+return and improve the fleet; knowledge and consequences survive a remote save.
+The player can explain why one harbor allows/refuses access and what changed.
+Explorer, merchant, escort, privateer, local fisher and passenger operator each
+have discoverable work, real costs and an affordable continuation. Rights and
+buyer-support inventories started in parallel are complete enough for 107.
+Do not: add 48 bespoke stories, another diplomacy model, continents or claim
+that the controlled v0.098 harbor operation was starter-earned conquest.
+
+0.107 — SCREENSHOTS AND THE $9.99 MARKETPLACE PAGE
+Scope: lock accepted art/UX and capture the actual sale candidate. Prepare
+eight gameplay images and a matching catalog capsule; any illustrated cover is
+labeled separately from gameplay. Use literal descriptions and captions matching
+the existing Oddsprig listings. Resolve asset redistribution evidence, notices,
+tested requirements, support route and exact installation/update instructions.
+Map the page to the existing marketplace product/library/download system after
+looking up the real product record. Price is 999 US cents. No invented IDs.
+Exit: every visible claim has evidence, image captions match their frames, all
+media identify their build, and the page agrees with the downloadable package.
+An approved sandbox/manual commerce check may verify the existing purchase and
+library path; this plan never authorizes a real charge. Page and package remain
+reviewable until the release decision. See docs/store for copy, shot list and draft.
+Do not: use historical screenshots as final-build media, generic slogans,
+unverified minimum specs, Android promises, release-date/update guarantees,
+another game's checkout script or a new storefront/backend project.
+
+0.108 — WINDOWS RELEASE CANDIDATE
+Scope: freeze features. Address only demonstrated release blockers. Package the
+exact accepted source with accurate version, controls, install/update/recovery
+help, credits and known limits; preserve the one plain desktop launcher and
+owner saves/settings/music. Review the bounded verification and retained proof.
+Exit: all required performance, earned-loop, save, presentation, rights, package
+and listing gates have named evidence. Fresh extracted portable operation needs
+no editor or development runtime; source/archive/media identities agree.
+Include attributed unfamiliar-player feedback on choosing work, return reserves,
+reinvestment and frustration. Use an explicitly admitted bounded review and
+existing normal-play feedback; assertions are not a substitute for this verdict.
+Record a go/no-go decision and the concrete product being offered for US$9.99.
+No known data-loss, duplication, progression dead-end or material false claim is
+waived because the version is 108. Failed gates hold release or require an
+explicit owner decision to narrow the actual product and its claims.
+Do not: publish automatically, take payment, add late systems or claim parity
+with another finished game from the version number.
+
+DEVELOPMENT RULES
+These rows are the plan; implementation has not started. Each future brief pins
+files and one result. The same merge updates CODE MAP.md, in-game DEVELOPER
+NOTES.txt and CHANGES v<version>.md, with actual checks/limits. No giant polish
+pass, feature creep or duplicate test framework. Independent review checks the
+merged result, not a helper's confidence. A failed leaf gets a bounded correction.
+Root owns the commercial asset register from the start of development. Resolve
+the exact 18 Lyria-output terms/account evidence before locking their retail use
+at 101; otherwise plan an omission/replacement preserving owner originals. Check
+the complete final payload/notices at 107. Provenance alone does not clear music.
+
+Follow the current central GAME TESTING RULES.md: one selected pass, ONE batch,
+ONE engine, self-quit plus identity-owned watchdog, <=60 seconds TOTAL, then
+stop. Shared lane/FIFO behind other games; muted private background sessions,
+no input/focus control. Queue wait is separate. No chained short runs to evade
+the cap. A required unproved claim remains OPEN. No tests ran for this plan.
+
+Supporting files
+- docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt — evidence, ownership, release gates.
+- docs/store/STORE PAGE COPY.txt — ready-to-use factual copy and $9.99 metadata.
+- docs/store/SCREENSHOT SHOT LIST.txt — current references and final shot requirements.
+- docs/store/preview/index.html — local illustrated store-page draft, purchases disabled.
+- docs/store/MARKETPLACE HANDOFF.json — publishing dependencies; no live product assumed.
+- work/release-plan-v099-v108 in the parent workspace — two Sol MAX and two
+  Carbon HIGH contributions, live reference pages and Root's reconciliation.

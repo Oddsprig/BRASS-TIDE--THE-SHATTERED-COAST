@@ -27,9 +27,10 @@ static func open_voyage(ui,offer_id: String="") -> void:
 	var budget: Dictionary=q.operatingCosts;var e: Dictionary=q.endurance
 	ui.label(body,str(offer.title),25,ui.GOLD,true)
 	_primary_contract_action(ui,body,c,offer,q)
-	ui.paragraph(body,"%s → %s · %d hostile boats"%[str(c.port(str(offer.port)).get("name",offer.port)),str(c.port(str(offer.targetPort)).get("name",offer.targetPort)),offer.get("enemyHulls",[]).size()],17,ui.TEXT)
+	ui.paragraph(body,"%s → %s · %s"%[str(c.port(str(offer.port)).get("name",offer.port)),str(c.port(str(offer.targetPort)).get("name",offer.targetPort)),ui.count_text(offer.get("enemyHulls",[]).size(),"hostile boat","hostile boats")],17,ui.TEXT)
 	ui.paragraph(body,"Gross reward: %d coins · %s"%[int(q.grossRewardCoins),("held in contract escrow" if q.active else "sponsor can fund escrow on acceptance") if q.funded else "FUNDING UNAVAILABLE"],16,ui.TEAL)
-	var route_note: String="Safe route: %.0f chart units. %.2f days including return and %.0f contingency days."%[float(q.routeDistance),float(budget.days),float(budget.reserveDays)] if q.routeAvailable else "No safe sailing route. Sailing quote unavailable; %.0f reserve days only, excluding travel."%float(budget.reserveDays)
+	var reserve_days: int=roundi(float(budget.reserveDays))
+	var route_note: String="Safe route: %s. %.2f days including return and %s."%[ui.count_text(roundi(float(q.routeDistance)),"chart unit","chart units"),float(budget.days),ui.count_text(reserve_days,"contingency day","contingency days")] if q.routeAvailable else "No safe sailing route. Sailing quote unavailable; %s only, excluding travel."%ui.count_text(reserve_days,"reserve day","reserve days")
 	ui.paragraph(body,route_note+" Payroll %d coins/day; %d coins over this allowance."%[int(budget.dailyWages),int(budget.wageCoins)],15)
 	ui.paragraph(body,"Coverage: %.1f food days · %.1f working-fuel days · %.1f repair kits. Full replacement values still to buy: %.2f food / %d coins, %.2f fuel / %d coins. Stores already aboard are not purchased again; loose fuel must be loaded through Hold."%[float(e.foodDays),float(e.fuelDays),float(e.repairKits),float(budget.foodPurchase),int(budget.foodPurchaseCoins),float(budget.fuelPurchase),int(budget.fuelPurchaseCoins)],15)
 	ui.paragraph(body,"Current paid repairs: %s. Full payroll, stores replacement and repair value: %d coins."%[str(int(budget.repairQuoteCoins))+" coins" if budget.repairQuoteAvailable else "dock quote unavailable",int(budget.allowanceCoins)],15)
@@ -48,7 +49,7 @@ static func open_voyage(ui,offer_id: String="") -> void:
 	var hull: Dictionary=q.secondHull
 	if not hull.is_empty():
 		ui.label(body,"Towards a second hull",20,ui.TEAL,true)
-		ui.paragraph(body,"Lowest local ready-hull entry: %s, %d coins + %d coins for %d sailors' advance; %d in stock. Commission hull alone: %d coins, with materials and paid construction required."%[str(hull.name),int(hull.readyCoins),int(hull.crewAdvanceCoins),int(hull.minimumCrew),int(hull.stock),int(hull.commissionCoins)],14)
+		ui.paragraph(body,"Lowest local ready-hull entry: %s, %d coins + %d coins for %s; %d in stock. Commission hull alone: %d coins, with materials and paid construction required."%[str(hull.name),int(hull.readyCoins),int(hull.crewAdvanceCoins),ui.count_text(int(hull.minimumCrew),"sailor's advance","sailors' advance"),int(hull.stock),int(hull.commissionCoins)],14)
 		if q.routeAvailable:ui.paragraph(body,"Estimated shortfall if this contract pays, after protecting the full voyage allowance: %d coins. New-boat stores, fitting and ongoing payroll are extra."%int(hull.gapCoins),14)
 	if not VoyagePanel.service_berth(c).is_empty():
 		var services=ui.row(body)
@@ -147,14 +148,14 @@ static func open(ui) -> void:
 	# Career entry stays visible even when all warning-card slots are occupied.
 	career_plan(ui,body,report.get("careerPlan",{}))
 	var fleet: Dictionary=report.fleet
-	ui.label(body,"%d owned boats · %d in your company fleets · %d stored · %d supporting"%[int(fleet.owned),int(fleet.company),int(fleet.stored),int(fleet.support)],21,ui.GOLD,true)
-	ui.paragraph(body,"Next battle: %d deployed boats at %d / %d points, %d held in reserve. Ownership, traveling support and battle deployment are separate. Secured prizes need harbor repair before combat."%[int(fleet.deployed),int(fleet.points),int(fleet.limit),int(fleet.reserve)],15)
+	ui.label(body,"%s · %d in your company fleets · %d stored · %d supporting"%[ui.count_text(int(fleet.owned),"owned boat","owned boats"),int(fleet.company),int(fleet.stored),int(fleet.support)],21,ui.GOLD,true)
+	ui.paragraph(body,"Next battle: %s at %d / %d points, %d held in reserve. Ownership, traveling support and battle deployment are separate. Secured prizes need harbor repair before combat."%[ui.count_text(int(fleet.deployed),"deployed boat","deployed boats"),int(fleet.points),int(fleet.limit),int(fleet.reserve)],15)
 	var budget: Dictionary=report.route_trip_returnbudget
 	ui.label(body,"Return allowance" if sailing_quote else "Reserve-only budget",22,ui.TEAL,true)
 	var journey: String="No harbor selected. Sailing quote unavailable; reserve-only budget, excluding travel."
 	if not target.is_empty():
 		journey="Selected harbor: %s. "%str(target.name)
-		journey+="The estimate is a round trip from your current position plus %.0f reserve days."%float(budget.reserveDays) if sailing_quote else "No safe sailing route. Sailing quote unavailable; reserve-only budget, excluding travel."
+		journey+="The estimate is a round trip from your current position plus %s."%ui.count_text(roundi(float(budget.reserveDays)),"reserve day","reserve days") if sailing_quote else "No safe sailing route. Sailing quote unavailable; reserve-only budget, excluding travel."
 	ui.paragraph(body,journey+"\n%.1f %s days · %s coins daily payroll · %s coins %s payroll · %.1f food days · %.1f working-fuel days · %.1f repair kits.
 Holds: %.1f / %.1f space. Loose fuel still needs loading into boat tanks. Estimate for the current fleet."%[float(budget.tripDays),"planned" if sailing_quote else "reserve",str(budget.dailyWages),str(budget.returnWages),"return" if sailing_quote else "reserve",float(budget.foodDays),float(budget.fuelDays),float(budget.repairKits),float(budget.cargoWeight),float(budget.usableCapacity)],15)
 	VoyagePanel.connect_views(ui,body,false,true)
