@@ -1,0 +1,29 @@
+{
+  "schema": 2,
+  "state": "PUBLISHED EARLY-DEVELOPMENT PAGE WITH CHECKOUT AND DOWNLOAD",
+  "url": "https://marketplace.oddsprig.com/brass-tide/",
+  "price_cents": 999,
+  "currency": "USD",
+  "platforms": [
+    "Windows PC x86_64"
+  ],
+  "product_id": "brass-tide",
+  "sale_build_version": "0.099",
+  "build": 99,
+  "installed_desktop_version": "0.098",
+  "purchase_disabled": false,
+  "checkout": "POST /api/checkout; live handoff verified without payment",
+  "download": "Owned library /api/download; complete stream verified",
+  "gallery": [
+    "Boat fittings",
+    "Brass Haven harbor",
+    "Harbor trading"
+  ],
+  "current_record": "CURRENT PUBLICATION.json",
+  "source_snapshot_sha256": "f6437dd4241180b62e1cdc6924428d3f7ec54baa0c65231c5b07a201340acb29",
+  "download_sha256": "7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7",
+  "native_save_fixture": "UNRUN",
+  "performance_roadmap_scope": "INCOMPLETE",
+  "board_watch": "PAUSED",
+  "private_evidence": "../../../../work/store-commerce-fix-2026-11-14"
+}

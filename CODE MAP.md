@@ -19,3 +19,5 @@ Bounded verification: game/tests contains retained useful fixtures. Current priv
 v0.109 delivers current distinct media, a full-width gallery with actual-size viewing, the $9.99 Windows store listing and the matching current download. Read CHANGES v0.109.md and docs/store/CURRENT PUBLICATION.json for actual review and delivery evidence. Export and storefront correctness do not establish whole-game art, performance or play quality.
 
 Current109 acceptance: v0.109 — Current game media, readable desktop gallery and matching Windows delivery. See CHANGES v0.109.md for the full scoped result.
+
+Postdelivery context closure: current screenshot provenance, store copy and marketplace handoff now name109; older drafts are archived. Verified obsolete100-107 local binaries were pruned after preserving unique owner files, reclaiming4.0GiB. Current109 and108 rollback plus the098 historical baseline remain. Source, tags, raw evidence, useful tools and the earned checkpoint are retained.

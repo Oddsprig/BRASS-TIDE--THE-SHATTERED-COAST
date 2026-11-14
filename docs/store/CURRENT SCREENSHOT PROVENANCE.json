@@ -1,56 +1,78 @@
 {
+  "version": "0.109",
   "images": [
     {
-      "public_file": "media/fittings.png",
-      "source_path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\store-commerce-fix-2026-11-14\\capture\\attempt-16c8e718e8fe4f958e1440b8ee9844f3-attempt-002\\current-refit.png",
-      "version": "0.099",
-      "job_id": "16c8e718e8fe4f958e1440b8ee9844f3",
-      "sha256": "a8281963afdafbd9c2a3731ae02a9cc218e505c169198285f13d71c4906b35c0",
-      "bytes": 431125,
+      "public_file": "media/combat.png",
+      "version": "0.109",
+      "sha256": "7b0ca29a1c3d566a368ef07fdf8cf85ee333012b85eab3874ad2cdefc56ad5af",
+      "bytes": 466024,
       "pixels": [
         1920,
         1200
       ],
-      "staging": "Actual changed cannon draft and price; no Apply or purchase",
-      "pixel_processing": "None; raw native viewport PNG"
+      "source_job": "99f62597f75a4ef1a5bf46c77430965e",
+      "source_attempt": 3,
+      "pixel_processing": "None; unmodified raw native viewport PNG",
+      "scope": "Actual five-boat public all-weapons practice"
+    },
+    {
+      "public_file": "media/fittings.png",
+      "version": "0.109",
+      "sha256": "a0917b03b65dd62338a7bb6dfa78a3d4b31466d2b3635be2b6eca24886eb127f",
+      "bytes": 439082,
+      "pixels": [
+        1920,
+        1200
+      ],
+      "source_job": "34d6575ac4c34e33acd942a6fe8e06e0",
+      "source_attempt": 1,
+      "pixel_processing": "None; unmodified raw native viewport PNG",
+      "scope": "722-coin engine quote only; actual earned boat, installed primary selected; no installation"
     },
     {
       "public_file": "media/harbor.png",
-      "source_path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\store-commerce-fix-2026-11-14\\capture\\attempt-16c8e718e8fe4f958e1440b8ee9844f3-attempt-002\\current-harbor.png",
-      "version": "0.099",
-      "job_id": "16c8e718e8fe4f958e1440b8ee9844f3",
-      "sha256": "17ce8fae8effe89375187de4fd4638c580471990d4b3042f0c5683ba74af8d3d",
-      "bytes": 230023,
+      "version": "0.109",
+      "sha256": "aebce65a48e27698fdaeeb05b2b979e004ca0327fdec20dab57bdbcd5684b40e",
+      "bytes": 293508,
       "pixels": [
         1920,
         1200
       ],
-      "staging": "Close photo camera and hidden HUD; unmodified harbor and starter boat",
-      "pixel_processing": "None; raw native viewport PNG"
+      "source_job": "99f62597f75a4ef1a5bf46c77430965e",
+      "source_attempt": 3,
+      "pixel_processing": "None; unmodified raw native viewport PNG",
+      "scope": "Read-only actual105 earned career view; voyage planning is not an Open Seas map"
     },
     {
       "public_file": "media/trading.png",
-      "source_path": "C:\\Users\\bligh\\Documents\\Codex\\2026-10-20\\how\\work\\store-gallery-fix-2026-11-13\\capture\\attempt-d3aadd0129754fe19e4013d4f3b93289\\current-trading.png",
-      "version": "0.098 with current copy/layout corrections",
-      "job_id": "d3aadd0129754fe19e4013d4f3b93289",
-      "sha256": "fda9453edbfc0f37d0e0ebeefacc14201dc5a61463deb2e32325d1c2e73bb735",
-      "bytes": 266628,
+      "version": "0.109",
+      "sha256": "3c2b38f11338cb0eb761872a05b2930dc2abc4c14bdfa580597cae97b8f050fd",
+      "bytes": 315478,
       "pixels": [
         1920,
         1200
       ],
-      "staging": "Ordinary Brass Haven market; unchanged runtime except release version",
-      "pixel_processing": "None; raw native viewport PNG"
+      "source_job": "99f62597f75a4ef1a5bf46c77430965e",
+      "source_attempt": 3,
+      "pixel_processing": "None; unmodified raw native viewport PNG",
+      "scope": "Read-only actual105 earned career view; voyage planning is not an Open Seas map"
+    },
+    {
+      "public_file": "media/voyage.png",
+      "version": "0.109",
+      "sha256": "843002292bdb61b7f961c042a8a31d96b1d9f7f6f5fa0f1a2c6d3d676a5b8fd8",
+      "bytes": 519992,
+      "pixels": [
+        1920,
+        1200
+      ],
+      "source_job": "99f62597f75a4ef1a5bf46c77430965e",
+      "source_attempt": 3,
+      "pixel_processing": "None; unmodified raw native viewport PNG",
+      "scope": "Read-only actual105 earned career view; voyage planning is not an Open Seas map"
     }
   ],
-  "photo_job_outcome": "FAILED at 12-second SceneTree cap before third image; completed first two raw images retained",
-  "photo_native_suite_pass": false,
-  "photo_owned_cleanup": true,
-  "pck_sha256": "6b6dcaef5049f7b701cdce323ed44b0789e9064f44aeec87e8857ccde0efbb75",
-  "script_sha256": "3f6169c5be9b19ceb211ce18ba8877619ac99c2738f103ae8c8d6c0cd530d4e7",
-  "excluded_from_gallery": [
-    "rejected whole-province map",
-    "obscured combat shot",
-    "near-identical fleet-maneuver frames"
-  ]
+  "visual_review": "CURRENT VISUAL REVIEW.json",
+  "publication": "CURRENT PUBLICATION.json",
+  "note": "Independent reviewer and Root opened the actual originals and complete desktop renders. Raw authenticity is separate from whole-game quality."
 }

@@ -1,0 +1,116 @@
+BRASS TIDE — STORE SCREENSHOTS AND CAPSULE PLAN
+13 November 2026 | Price US$9.99 | Final media gate v0.107
+
+CURRENT REJECTED INTERNAL REFERENCES
+Four unedited, real retained gameplay captures remain as internal review
+evidence. None is displayed on the current store-page draft:
+  preview/media/campaign-home-v0.092.png     Brass Haven, normal chart zoom.
+  preview/media/fleet-maneuver-v0.090.png    Actual controlled fleet maneuver.
+  preview/media/island-harbor-v0.092.png     Westglass Anchorage and quay.
+  preview/media/island-landing-v0.092.png    Westglass Bearing Stones landing.
+Root opened and visually inspected all four on 13 November. Original versions,
+jobs, SHA256, dimensions and copy identity are in SCREENSHOT PROVENANCE.json.
+The coast scenes are explicitly staged references; the maneuver is not a
+gunfight or a performance claim. No crop, composite, warning removal or generated
+image has been substituted. These are draft discussion media, NOT retail-approved.
+
+What they show needs work: wide unused water around small boats, substantial
+side-panel obstruction, limited visible combat context. v101 must address the
+normal play view rather than hide those issues in a promotional close-up.
+Do not publish these old images as final-build screenshots. The actual game
+remains v098. No new engine, GPU job or capture ran for this planning task.
+
+FINAL GALLERY — CAPTURE AFTER ART/UX FREEZE, FROM THE EXACT SALE CANDIDATE
+Aim for eight clear native gameplay/UI frames, normally 1920x1080. Respect the
+actual supported aspect ratio; do not stretch the game. Preserve original PNGs;
+web-sized derivatives, if later needed, remain linked to their originals.
+One screenshot should explain one player action. Keep text readable at the page's
+display size. Use actual frames with modest, honest camera composition; retain
+the native HUD when it explains the action. Captions live outside the images.
+
+01 — FLEET COMBAT (lead image)
+Frame: a real engagement with distinct small/medium/heavy silhouettes, a readable
+target/order, short stern wakes and an identifiable impact. Avoid empty water,
+wall-to-wall damage numbers and an artificially enlarged one-boat glamour shot.
+Caption: Give orders while your boats fight on autopilot.
+Proof: actual order/target/fire events and short motion witness from 100/101;
+the frame alone proves neither flanking behavior nor 300-point smoothness.
+
+02 — WEAPON MOUNTS AND PAID REFIT
+Frame: one existing hull in the fitting bay, physical numbered slots/arcs and a
+meaningfully changed compatible fit; show the actual material/labor coin quote.
+Caption: Fit weapons, engines and armor, then pay the harbor yard.
+Proof: paid before/after, sockets/projectile origins, locker contents and boat ID.
+Gate: accepted 101/102 with existing 094 checks retained only where unchanged.
+
+03 — COASTAL HARBOR AND DEPARTURE
+Frame: clear island relief, useful harbor detail, boat at normal visible size,
+and affordable selected work/return reserve without covering the whole map.
+Caption: Choose a harbor job and budget the return voyage.
+Proof: ordinary start, actual quote and actionable next step from 102.
+
+04 — OPEN SEAS
+Frame: long-voyage route between several readable island groups; distinguish
+geography from individual factions' known harbors. Show only known information.
+Caption: Cross the Open Seas between island groups.
+Proof: actual generated world/region transition, remembered location and route.
+Do not imply that each of 48 groups contains a bespoke story or market.
+
+05 — CIVILIAN WORK AND VOYAGE ACCOUNTS
+Frame: an actual fishing return, passenger discharge or freight delivery with
+the relevant boat and clear gross/cost/net account. Pick the clearest one, not
+a composite that pretends all three actions share one screen.
+Caption: Pay for crew and supplies from the proceeds of a voyage.
+Proof: real buyer/payer, transferred fish/people/cargo and settled costs from 103.
+Caption names the actual role chosen for the final image.
+
+06 — CONTESTED ESCORT OR LAWFUL PRIZE
+Frame: loaded convoy reaching its physical exit under protection, or a real
+privateer prize/cargo result. Use the actual earned encounter from 104.
+Caption A: Protect a loaded convoy on its way to harbor.
+Caption B: Take hostile cargo under a faction commission.
+Choose A or B to match the frame. No quiet escort sold as attacked, neutral
+target sold as lawful, staged prize sold as naturally discovered or quote sold
+as payout. Caption B stays blocked until the ordinary privateer gate passes.
+
+07 — DAMAGE CONTROL AND RECOVERY
+Frame: damaged but readable boat with a failed mount/engine or hull breach,
+flooding/pump status and a repair/bail choice; avoid unreadable overlapping bars.
+Caption: Use crew and supplies to keep a damaged boat afloat.
+Proof: actual module/crew/stores state changes, finite repairs and withdrawal
+aftermath from 101/104/105. A decorative spark is not module-failure evidence.
+
+08 — EXPLORATION AND A FACTION CONSEQUENCE
+Frame: a distinctive discovered island landmark and its actual useful lead or
+consequence in the existing chain. If the outcome UI fills the frame, label it
+as UI rather than compositing it over an unrelated island.
+Caption: Survey an island and follow the leads you bring back.
+Proof: earned 106 discovery, paid time, persistent knowledge and meaningful next
+choice/access. A supplied strategic comparison is labeled prepared if used.
+
+CATALOG CAPSULE / SOCIAL IMAGE — SEPARATE FROM GAMEPLAY
+Preferred: select an approved actual battle frame or original project boat art
+with readable title treatment. If illustrated art is commissioned/generated,
+label it illustrated key art and record its provenance/terms; do not imply it
+is a gameplay screenshot. Match native marketplace card sizing after inspecting
+the catalog CSS; keep a high-resolution master and safe central crop. A capsule
+does not replace the eight real gameplay frames. No AI art was generated here.
+
+PROVENANCE FOR EACH FINAL IMAGE
+Record filename/SHA256/native dimensions, exact source/build/package identity,
+GPU/display/settings, camera/zoom/UI scale, scene/region, save hash/origin,
+staged-versus-earned conditions and the literal action visible. Attribute who
+actually reviewed pixels, motion or audio. Keep claims beyond the frame bound
+to their relevant behavioral receipts. A future caption change gets a new review.
+
+CAPTURE AND DELIVERY
+Reuse existing Main/Chart/Workshop capture entrypoints and private-desktop owned
+runner; source details are retained in the Carbon media handoff. Do not build a
+new capture framework. Before a future capture, read current central test rules,
+admit one bounded <=60s pass on the shared lane and budget all associated work.
+No extra GPU run after the allowed pass. Retained screenshots are enough for
+this planning draft; final capture is deliberately held until art/UX lock.
+Review final page desktop/narrow layout, alt text, image framing and keyboard
+gallery use under its appropriately admitted pass, then review native marketplace
+integration without triggering a real purchase. Keep assets local to the
+product route; no hotlink to another game's images and no invented download URL.

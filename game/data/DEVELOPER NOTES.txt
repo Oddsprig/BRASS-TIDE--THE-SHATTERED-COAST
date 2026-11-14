@@ -21,3 +21,5 @@ Lessons to retain:
 Style-specific owner requirements: plain useful UI wording, no slogans or captions on passive scenery; low-poly/isometric boats, inexpensive water, a Windows-first control scheme. General practices above transfer to other projects. Board watch remains PAUSED.
 
 Current109 acceptance: v0.109 — Current game media, readable desktop gallery and matching Windows delivery. See CHANGES v0.109.md for the full scoped result.
+
+Postdelivery context closure: current screenshot provenance, store copy and marketplace handoff now name109; older drafts are archived. Verified obsolete100-107 local binaries were pruned after preserving unique owner files, reclaiming4.0GiB. Current109 and108 rollback plus the098 historical baseline remain. Source, tags, raw evidence, useful tools and the earned checkpoint are retained.

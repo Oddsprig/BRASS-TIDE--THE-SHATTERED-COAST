@@ -1,87 +1,15 @@
-BRASS TIDE — ODDSPRIG MARKETPLACE COPY
-13 November 2026 | Reviewable draft | Owner-set price: US$9.99
-Current build v0.098; final paid-release version/designation/date remain pending.
+CURRENT v0.109 STORE COPY
 
-TITLE
+Canonical current published copy: product109/index.html.
 Brass Tide — The Shatter Coast
+Windows PC · Single player · Fleet combat & trading
+US$9.99
+Game is in early development.
 
-CATALOG DESCRIPTION
-Motorboat fleet combat, trading and island exploration. Windows PC.
+Build a motorboat fleet, fit weapons, trade between island harbors and fight fleet battles. Pay your crews, carry supplies and keep damaged boats afloat.
 
-SHORT DESCRIPTION
-A single-player motorboat fleet game with trading, weapon fitting and island
-exploration. Crew wages, fuel, supplies and repairs are paid in bronze coins.
+Feature sections: Build and equip your fleet; Command fleet battles; Trade between island harbors; Explore the ocean. The page contains36 original boat designs, compatible mounts,300-point deployment, bronze coins, cargo/fuel/wages/repairs and island-group travel.
 
-ABOUT THE GAME
-Take harbor jobs, move goods between settlements and put the proceeds into
-boats and equipment. Cargo capacity, fuel, supplies and crew wages all affect
-what a voyage can earn. Prices and wages use bronze coins. Harbor fitting quotes list materials and
-paid yard labor.
+Buy — $9.99; Download from your library. Actual current109 metadata comes from the live same-origin product API. No slogans, passive-scenery captions or private review-process prose.
 
-Choose from 36 existing boat designs, including gunboats, fishing boats,
-transports, tankers and yachts. Fit compatible machine guns, cannons, rockets
-and torpedoes to weapon mounts, then compare engine and armor options. A
-larger fleet gives you more choices, while each battle has a 300-point
-deployment limit per side.
-
-Your flagship starts on autopilot. Give fleet orders or take manual control
-while the rest of the fleet follows its assignments. Damaged equipment,
-hull breaches and flooding can force a withdrawal; crew, pumps and repair
-supplies help keep a damaged boat afloat.
-
-Use the Open Seas chart for long voyages, then enter local waters to reach
-harbors, survey islands and investigate wrecks. Different factions own and
-trade through the same ocean. Contracts, trading access and hostile traffic
-give you reasons to choose a route and prepare for the return trip.
-
-PRODUCT FACTS
-Price: $9.99 USD. Platform: Windows PC, 64-bit. Single player.
-Keyboard and mouse. English. Offline game after download.
-Default flagship autopilot; WASD camera. No mobile version promised.
-
-CURRENT DEVELOPMENT DISCLOSURE
-The current build is v0.098. Work toward a paid release focuses on full-fleet
-performance, combat and map presentation, a clear first voyage, reliable
-career income and save compatibility. Replacement gameplay screenshots are
-pending review. A release date has not been announced.
-
-FINAL PAGE PREPARATION
-After the release gates pass, replace the current development disclosure with
-the exact sale-build version, chosen release designation and honest remaining
-limits. Do not state Early Access or finished release until selected. Do not
-say all six careers are profitable or encounters are naturally repeatable
-until their earned-loop evidence is complete. No competitor names as sales
-copy, catchphrases, lifetime-update promise or invented playtime/review scores.
-
-INSTALL / UPDATE COPY TO FINALIZE AGAINST THE REAL PACKAGE
-Download the Windows ZIP from your Oddsprig library after purchase. Extract
-the entire folder before opening the included launcher; do not launch inside
-the ZIP. Keep required game files and music together in a writable location.
-Follow the included update and backup instructions to preserve your voyage,
-settings and music. Name the final verified launcher and save location here.
-No download or purchase is offered by the local planning draft.
-
-REQUIRED BEFORE THE LIVE LISTING
-Actual product lookup and native checkout/library mapping; exact release ZIP,
-version/size/hash; measured supported PC requirements; monitored support and
-refund route; commercial asset notices; final gameplay/capsule images with
-matching captions; selected development/release label; owner release decision.
-Do not copy another title's product ID, checkout script or platform promises.
-
-STYLE REFERENCES READ LIVE ON 13 NOVEMBER 2026
-https://marketplace.oddsprig.com/copper-oath/
-  Explains the player's decisions and which battles run automatically.
-https://marketplace.oddsprig.com/the-reed/
-  Gives a concrete contract-to-progression loop, visible price and status.
-https://marketplace.oddsprig.com/anvil-and-crown/
-  Describes specific actions and distinguishes playable content from development.
-https://marketplace.oddsprig.com/hatch-to-hoard/
-  Uses factual gameplay captions, clear Windows delivery and extraction steps.
-Adopt those structures; do not copy their prose, slogans, update guarantees,
-OS/Android support or game-specific checkout implementation.
-
-The old v0.090/v0.092 images are rejected for store use and removed from the HTML.
-They remain unchanged as internal review evidence. New gameplay images need
-actual capture and independent acceptance after source corrections are built.
-See SCREENSHOT SHOT LIST.txt and SCREENSHOT PROVENANCE.json.
-The HTML draft is preview/index.html; the installed game remains v0.098.
+Previous draft copy is preserved under docs/history/quality100-108/store-before109.

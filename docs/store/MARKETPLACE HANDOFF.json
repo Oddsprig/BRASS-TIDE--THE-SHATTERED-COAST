@@ -1,6 +1,6 @@
 {
-  "schema": 2,
-  "state": "PUBLISHED EARLY-DEVELOPMENT PAGE WITH CHECKOUT AND DOWNLOAD",
+  "schema": 3,
+  "state": "PUBLISHED EARLY-DEVELOPMENT WINDOWS GAME",
   "url": "https://marketplace.oddsprig.com/brass-tide/",
   "price_cents": 999,
   "currency": "USD",
@@ -8,22 +8,23 @@
     "Windows PC x86_64"
   ],
   "product_id": "brass-tide",
-  "sale_build_version": "0.099",
-  "build": 99,
-  "installed_desktop_version": "0.098",
+  "sale_build_version": "0.109",
+  "build": 109,
+  "installed_desktop_version": "0.109",
   "purchase_disabled": false,
-  "checkout": "POST /api/checkout; live handoff verified without payment",
-  "download": "Owned library /api/download; complete stream verified",
+  "checkout": "Actual live Stripe handoff verified without payment",
+  "download": "Owned library109 and complete protected ZIP size/hash verified; unique temporary synthetic account removed",
+  "download_sha256": "813c0337fd830e6620a3d6b4c9bef25c37b0617c74128bbaf874a73ec4c76041",
+  "download_bytes": 130093416,
   "gallery": [
-    "Boat fittings",
-    "Brass Haven harbor",
-    "Harbor trading"
+    "media/combat.png",
+    "media/fittings.png",
+    "media/harbor.png",
+    "media/trading.png",
+    "media/voyage.png"
   ],
-  "current_record": "CURRENT PUBLICATION.json",
-  "source_snapshot_sha256": "f6437dd4241180b62e1cdc6924428d3f7ec54baa0c65231c5b07a201340acb29",
-  "download_sha256": "7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7",
-  "native_save_fixture": "UNRUN",
-  "performance_roadmap_scope": "INCOMPLETE",
-  "board_watch": "PAUSED",
-  "private_evidence": "../../../../work/store-commerce-fix-2026-11-14"
+  "authoring_source": "product109/",
+  "visual_review": "CURRENT VISUAL REVIEW.json",
+  "game_status": "Game is in early development. Whole-game, performance and audio listening quality remain open.",
+  "board_watch": "PAUSED"
 }
