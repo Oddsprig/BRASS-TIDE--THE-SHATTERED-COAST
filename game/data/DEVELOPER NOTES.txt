@@ -1,195 +1,21 @@
-v0.108 — Saved progress and PC Settings
-Settings Back and Esc now share leave_settings: Captain's desk/Resume during play, title/default action otherwise. The existing first title action is retained as a safe focus reference. Other pending-command cancellation and outcome Esc branches are unchanged.
-The native phase completes130 checks/0 failures, INCLUDING the retained099 replacement/failure fixture's103 checks/0 failures, not in addition to them. It exercises verified replacement archives, write/commit failures, a copied actual105 earned save through Continue, visible/enabled Continue controls, distinct dirty private boat names persisted by Return to title and Quit, exact title/Resume focus, campaign/battle pause retention and private independent volume values0.21/0.13/0.18. Original retained105 bytes remain unchanged; owner saves/settings are not used. Private test names are controlled persistence inputs, not earned growth. No settings-specific battle-time/store assertion beyond reused106 controls is claimed.
-Whole combined job6ec7658eec9d459a993f4865e3bc184b/attempt-001 remains FAILED: its130/0 native process completed successfully, then the55-second owned watchdog killed the exporter during initial filesystem scanning. Native exit0 is supported by the terminal count and the command's explicit exit guard before the observed export start.103-fixture elapsed29.161s is not the whole native/engine time. Overall55.672s inner/56.313s Bridge shows budget exhaustion, not a Quit freeze.
-Unchanged tested source b9823a8e97affddd77ea5cafaa3f9add174e098c then passes exact export and properly waited portable startup in1cf851469e3543b8b9a9f3bf763aa008/attempt-001:15.676s inner/16.547s Bridge, portable8.922s. Heavy completed checks are reused, not replayed. Both jobs total72.860 Bridge seconds, exceeding one60-second aggregate; no such aggregate pass is claimed. Phase evidence and failed whole-job status stay distinct. No fullscreen-toggle, audio-quality, FPS or broad visual certification follows from headless controls. Latest desktop/package replacement preserves the owner files and both known launcher targets.
+v0.109 — Current developer handoff (delivery candidate)
 
-v0.107 — Loaded traffic and paid escort inquiries
-Coastal traffic now projects each dated observation's loaded flag, puts current loaded trading contacts first, and exposes an Ask about escort work action for peaceful colors. Opposing contacts suggest reviewing interception and Law; stale sightings require reacquisition. These descriptions promise no available fee or prize. The report adds no live cargo or coordinates. Existing1800-unit local Hail rechecks and600-unit funded-escort requirements remain authoritative. Escort review uses a plain heading; an internal contact-owner button identifier supports short unambiguous native checks.
-125 checks/0 failures from the actual105 earned checkpoint physically reach a naturally loaded Coastal convoy from Kelp Reach toward Cinder Quay at day2.2985. Mixed current-loaded/other buckets are actually present; report/opening preserve state. The actual contact button opens the funded review. The client's3306 coins become1424 plus1882 held escrow; the captain receives nothing on acceptance. Visible contract withdrawal returns the1882 to the original client, leaves its cargo/carrier identities unchanged, and prevents a completion claim. Total world coins remain conserved.
-Searching books500 coins of normal payroll:captain26566→26066; crew purse5000→5440 after other normal transactions. Fuel inventory60→59.63511; that consumption is not falsely booked as a cash purchase. This is earned-prefix discovery, funding and an honest withdrawal, NOT a completed escort or newly observed hostile interception. Prior unchanged civilian/escort completion evidence is reused; actual new opposing-contact combat remains unobserved in this selected pass.
-Receipt8283ee9eca464eff9c051fe165b8fd1c/attempt-001:34.183s inner/34.766s Bridge; native body10.735s. Exact Windows export and properly waited portable startup pass; no watchdog kill. Source b39489eb0fd8d8b242faed9395e19bc4577020e4. Independent review accepts only the reported scope; no new completion payout, physical battle exit, broad career balance, FPS/audio or store approval is implied.
+This is an early-development Windows game. The 0.100-0.109 sequence improves existing systems; it does not establish Starsector parity or a finished commercial-quality game. See CODE MAP.md for code navigation and the individual CHANGES files for exact receipts and remaining limits. Previous verbose notes are preserved in docs/history/quality100-108/DEVELOPER NOTES before109.txt and Git.
 
-v0.106 — Survival priority and applied battle controls
-Missing-protector fallback no longer overwrites a permitted survival phase. An autonomous screen on Engage can break away from fire or exhausted fuel and regroup when dry after its last protected ally is lost; healthy Engage still holds without a protector, and an explicit Hold with conditional withdrawal disabled remains Hold. These are actual Battle.update decisions, not injected role memory. Named escort loss is handled earlier by order lifetime and is not claimed as the reachable regression. Physical escape and broad fleet AI quality are not established by these five controlled cases.
-The battle HUD shortens repeated weapon text to Loaded, reload time or a short blocker; the existing tooltip/details retain full current reasons. The legacy047 fixture now primes a real zero-time Driver command, waits for successful newer receipts and reacquires published boats. It exercises crew policy, eight command controls, actual native target submission, manual/autopilot and both overview pause states. Actual clocks, completed simulation steps, finite stores and the career remain unchanged through paused command-only work.
-0e365d18c0d14ab3941a19fa3dd02612/attempt-002 passes166 checks/0 failures, including55 survival assertions. Corrected tested source06fb49235a63f9789a3a6e070d304b557b6ed397; final notes change no game code. Exact Windows export and a properly waited portable startup also pass.24.993s inner/25.594s Bridge; portable7.390s. Earlier attempt001 remains failed164/3: one wrong tooltip punctuation expectation and two mistaken checks of set_autopilot(false)'s enabled-state return. Queue-success and successful actual receipt checks replace that mistake. Both attempts total39.250 queued-command seconds; no watchdog kills. This resolves the current full047 control coverage gap carried from103 without retroactively passing its failed run. No FPS, audio, rendered dense-combat or whole-game quality claim.
+Keep: 36 original boat designs; compatible interchangeable physical mounts; bronze coins and conserved worker/business/government/fleet purses; total fleet ownership separate from 300-point battle deployment; 48 seeded island groups on an ocean world with no major continents; Open Seas between groups. Water remains inexpensive. Crew are numerical except figures already in boat assets. User music, saves and settings are preserved.
 
-v0.105 — Voyage choices and paid fleet growth
-Voyage review exposes story, patrol and dispatch alternatives in both directions. It separates onboard stores, additional purchases and a full replacement/return allowance. Actual yard stock, paid labor, legal access and the captain purse constrain fitting recommendations; lower-cost upgrades are shown beside the second-hull goal. Low-funds advice names costs and funded ready alternatives without a subsidy. Remote story offers name the harbor where they must be accepted. Repeated destination titles are removed.
-Actual ordinary Tinwake first voyage:208 campaign steps/5045.283 route units, a39.1-second30Hz physical battle won, return to Brass Haven,663-coin paid repair and1337-coin replacement stores, then26379-coin paid boost engine with its actual material/labor debits and old engine retained once.34545 sponsor escrow plus5400 captured from the real owner paid once;26566 captain coins remain, with1000 payroll reserve. World coins are conserved. This journey stays on day1.154:booked daily wages are0;77.037 coins of pro-rated wage allowance are NOT claimed as a paid payroll transaction. Two further contracts are ready after the returned paid services.
-Native a381f4313ffc46f4bd35436371555e92/attempt-001 passes286 assertions, including explicit distinct affordable story/dispatch, connected acceptance, quote byte-purity, missing-stock refusal and actual zero-purse paid-fitting refusal.32.712s inner/40.609s Bridge. Final a0bdd7841de64277a6b4d6c5e0d51929/attempt-001 passes8 focused UI readback checks, corrected current images, exact Windows export and a properly waited headless portable startup(exit0/header checked);31.265s inner/31.906s Bridge, portable startup7.453s. Root and independent reviewer inspect current opening and earned-return panels.
-The intervening52e8a6f37df04b29ae120ee069f5777c17.047-second queue timeout remains failed; its completed native export is not credited as a passed delivery job. A too-tight outer deadline and asynchronous GUI-executable waiting were corrected. All105 attempts total89.562 queued-command seconds, exceeding a single60-second aggregate; no such aggregate pass is claimed. The corrected necessary pass remains bounded below60s. No FPS/audio/whole-game/store-quality claim follows from these checks. Remaining lower panel/service actions use existing scrolling; the full interaction set is outside the pictured visual verdict.
+Architecture: authoritative combat is a detached 30Hz data worker with staggered role/target decisions; main owns scene/input, publication, interpolation, render submission, UI and audio. Automatic saves defer while economy work is pending. Explicit saves and retirement still settle and verify complete data. The 101 payload optimization is a measured small constructor improvement, not proof of overall FPS.
 
-v0.104 — Harbor route preview and campaign scale
-Selecting a noncurrent local harbor opens a safe-water route and return-reserve quote before explicit Set course. Preview and Cancel preserve campaign purses, goods and course; sailing rechecks existing actual navigation. Close campaign boats grow more clearly within the existing bounded five-vessel layout. Generated-chart pan clamps honor actual bounds origins. Redundant chart footer labels are removed.
-Native 15 checks/0 failures cover actual fresh career, safe route, read-only quote/open/cancel and real Set course with no store purchases. Brass Haven and Sawtooth Mill current rendered views show useful boat/quay scale and contrasting residential/industrial approaches. Root and independent reviewer saw the corrected text separator and mill/quay framing. These are camera-only QA views, not earned arrivals or approved store art; all48 regions and broad navigation performance remain outside this scope.
-Final exact Windows export/menu receipt495556954ac749bab2d31d52873b9478/attempt-001:17.445s inner,25.391s Bridge. Earlier76ad507d attempt001 failed loading a QA hook; attempt002 passed15checks but revealed a UTF8 separator and poor camera framing; both were corrected before acceptance. All104 engine commands including failure/readback total53.625s; no watchdog kills. Static package/install timing is separate. Legacy047 full controls remain unresolved until106's actual Driver-publication fixture.
+Current delivery: local scopes100-108 accepted and packaged in order.109 media/store/download work is pending. Public version and installed version must be recorded separately. Do not claim dense 300-point smoothness, audio listening quality, sinking/recoil polish or whole-game balance from small fixtures, raw screenshots, export or startup. Larger-case rendering and daily publication/serialization remain practical performance concerns.
 
-v0.103 — Combat readability
-Shorter 0.5-second/64-unit attached stern wash; narrower softer foam and smaller hull flashes, fragments and smoke preserve hull visibility. Real damage, fire, flooding and sinking rules remain unchanged. One compact battle-notice slot and a reserved 190x100 minimap column replace world-space HUD overlap.
-Selected native layout:21 checks/0 failures at1600x1000 and1280x800. Actual retail all-weapons practice:five boats,220 authority steps at30Hz,7.333 simulation seconds,18 ordered frames. Normal zoom2/close zoom3 retain flagship following. Independent direct image review accepts the pictured four fitted weapon families, stern attachment and lighter damage effects at these scales; MG/cannon remains the weakest pair. Peripheral boats can pass under the HUD; repeated status wording remains verbose and is carried to106. Dense battles, small-hull recognition, sinking animation, recoil cycle, audio and FPS quality are not established by this sample.
-Receipt37739201b22d40418f26e08d0405bb0f/attempt-001:44.339s inner;54.796s queued command; exact Windows export and isolated portable menu included, no watchdog kill. Earlier full047 test dba422b1 failed a legacy immediate crew-change assertion; that failure remains unresolved. The explicit --layout-only selector covers geometry and one-notice behavior, not the full control suite. Package/install timings are separate; no claim that all setup and delivery work fits60s. Existing original music/SFX remain unchanged.
+Lessons to retain:
+- Read and write UTF-8 explicitly. Preserve mixed line endings in surgical source edits.
+- Confirm API return meaning. set_autopilot(false) returns disabled state; queue success and actual successful receipts are separate.
+- Wait on the original exported GUI process handle. Shell completion can occur before a GUI game exits.
+- A whole test job includes import, initialization, native checks, export, startup and teardown. Reuse completed evidence instead of replaying heavy checks. Failed or interrupted jobs remain failed even when an earlier phase passed.
+- Use one shared test lane, owned process identity, private profile and silent background session. Never interrupt another game or take input control. Current selected passes are capped at60 seconds with an owned55-second backstop.
+- Inspect raw images AND the full rendered customer page independently. Hashes and image counts cannot establish visual quality or useful gallery variety. Use distinct real modes and worthwhile framing, with no fake effects or fabricated wealth.
+- Preserve actual earned state and finite money/material transfers. Wages already paid, future reserve allowance, client escrow and cargo consumption are not interchangeable accounting entries.
+- Validate the exact source/export template and keep candidate code frozen during native jobs. The self-contained Godot toolchain reads templates from its editor_data folder.
 
-v0.102 — Accepted close boat/equipment detail
-All36 existing hulls rendered through the actual authored-atlas CanvasItem path in opposite headings, cached and direct. Close hulls gain exposed socket/motor details without floating parts; neutral recoil matches the existing0.16s return. Rocket cells now use warm full-body paint; torpedo tubes use cool full-body paint within their unchanged physical envelopes and actual cell/tube counts. Small encounters start atzoom2.0 and larger encounters1.4; normal controls/300-point deployment remain.
-Independent review of the finalR3 fitted-family image accepts close-view family differentiation and attachment sanity. MG/cannon remains the weakest pair. NORMAL-VIEW weapon recognition and unobscured framing remain OPEN forv0.103 actual-play QA; no overall art/game/store/motion/FPS approval is claimed. Earlier normalR2 captures do not proveR3 recognition.
-Actual retail practice battle advanced7.1simulation seconds on the30Hz worker,213steps, with real shot histories/damage/stores and12orderedframes. It exposed minimap overlap and capture framing weaknesses carried tov0.103. Four bounded jobs took4.547+20.703+14.781+16.656=56.687s aggregate queued-command time; no watchdog kills. Packaging/install are separate timings and push all-work aggregate above60; no extra test.
-FinalR3 export/menu receipt5527c40cc85b486d920977d9aca41dc1/attempt-001. Existing original music/SFX remain; no audio-quality claim.
-v0.101 count clarification:42boats TOTAL,21boats and294DP on each side.
-
-v0.102 — Boat and weapon detail candidate
-Close-detail authored hulls now receive attached socket details and conservative exposed motor caps, and actual weapon atlas renders receive receiver/feed/collar details. Existing36 hulls, physical sockets, motor plans, neutral recoil and bounded geometry caches remain authoritative. Potentially obscured detail is omitted; distantLOD is unchanged.
-Independent source review challenged cabin/hull occlusion and recoil rest. The corrected candidate uses conservative geometry blockers and existing recoil_offset(0.16)==0. Four actual CanvasItem atlas/cached/direct/oppositeheading gallery images and normal play/motion acceptance are pending. No native or art-quality pass is claimed yet.
-
-v0.101 — Accepted scoped worker-payload change
-Native1446 checks/0failures: identical payload values and read-only flags, nested worker isolation, and fresh targets on both sides. Twelve paired constructions per side on42 boats/294DP per side: player median14.328 ->13.446ms; enemy17.221 ->16.362ms (about6.2%/5.0%). This measures capsule construction only, with variable samples; it does not establish overall FPS or eliminate the historical36.154ms workerP95/183.333ms lag.
-Job5384f742f5204de6a13169238938d9f1 attempt003 passed native/export/isolated101menu. First two attempts remain failures in fixture wiring (static-call parse, then missing initial live index); production was not accepted from those attempts. Successful queued command25.969s, native body2.321s; no watchdog kill. No additional native tests for this change.
-
-v0.101 — Battle worker payload construction
-Sampled fleet worker requests now copy each final friendly payload once. Mounted equipment, shot histories and lean specifications remain detached from the live state. Public, main and legacy view behavior stays unchanged. Each request still rebuilds fresh observations before selecting targets.
-Verification pending: one paired current/baseline light42 (21 boats/294 points per side) ownership, parity, freshness and construction timing fixture. This does not establish overall FPS or tactical quality. v0.100 campaign scheduling stays included.
-
-V0.100 WINDOWS DELIVERY RECORDED
-v0.100 DELIVERED SCOPED — automatic-save scheduling
-Source/tag5159cdae0a10990ecc686ebac5d03f11a056d8de /v0.100.
-25nativechecks,0failures; isolated exportedmenu starts100; clean53-file Windows ZIP.
-InstalledDesktop/Brass Tide/v0.100. Both plain desktop and organized game-launchers links now100 (the latter had been030).23owner files copied with unchanged hashes; original098 retained. No owner game launch/input.
-Publicstore/download still099 at$9.99 until109 replacement is reviewed.
-Evidence: parent work/quality-v100-v109-2026-11-14/v0.100.
-The controlled autosave case is accepted; campaign daily publication415ms andsave53ms remain headless observations, not FPSproof. Initial export missed self-contained template path; fixed once. Commands+package59.531s; shared setup/install push total over60, recorded as a budget miss. No repeated native test.
-
-v0.100 — Scoped campaign autosave scheduling
-Automatic saving stays due while copied harbor jobs or pending days remain. A settled frame commits through the existing verified writer. Explicit Save/Quit/title/New voyage, simulation rules, ports, purses and cargo are unchanged.
-Native job313b1f5d64274a90abd3f4ca23852b91 passed25checks/0failures, normalexit/no watchdog kill,19.656s queued command time. The actual48-group world settled one real day, preserved coin supply, saved the exact settled state once, and refused failed retirement saves. The semaphore-held busy-worker case is functional evidence, not FPS or a representative before/after speedup.
-Headless observations: snapshot/enqueue3.412ms; join+daily publication415.350ms; settled save52.543ms. Main daily work and serialization remain bottlenecks. No normal-play/rendered/sustained performance or full-game quality pass is claimed. Export/package/desktop receipts follow separately.
-
-14 NOVEMBER 2026 - v0.100 CANDIDATE; PERFORMANCE UNMEASURED
-
-Automatic saves no longer request a forced harbor-worker join from _process
-while economy_task is open or pending_days is nonzero. The timer stays due, so
-the next settled campaign frame attempts the existing complete verified save.
-Explicit saves and retirement guards still synchronize all pending daily work.
-There is no partial-state save or dropped/deferred simulation callback.
-
-Only main.gd's automatic-save condition changes. EconomyWorkers copying, group
-size/seeds, worker cadence and finish semantics are unchanged. Main still owns
-daily publication and save serialization/I/O; this candidate cannot promise to
-remove those hitches or establish the reported freeze's cause. No FPS or faster
-campaign claim before a matched current-source observation. Source-only, native
-and rendered UNRUN; no export/install/store update. Existing player assets and
-economic conservation are preserved; installed098 and live/download099 remain.
-
-CURRENT STOREFRONT PUBLICATION
-Live $9.99 Buy and purchased Windows0.099 download: https://marketplace.oddsprig.com/brass-tide/
-Three-image gallery and complete desktop render independently reviewed.
-Exact publication/readback and commerce evidence: parent work/store-commerce-fix-2026-11-14.
-Installedv0.098 unchanged; native fixture/performance/full-game acceptance remain open.
-
-HISTORICAL RECORDS BELOW — later current facts above supersede them.
-
-14 NOVEMBER 2026 - v0.099 EARLY-DEVELOPMENT WINDOWS DELIVERY
-
-Version identity: BUILD 99; project 0.099; Windows file/product version 0.0.99.0.
-Scope is the current plain copy/count grammar, HUD/chart label layout, New voyage
-confirmation/archive, staged save publication and save-failure retirement guards,
-plus a clean portable Windows download for the $9.99 store product. The older
-performance roadmap milestone is not being declared complete.
-
-These developer notes stay private and are excluded from the retail PCK/ZIP.
-Retail player help and change notes are separate. Public support/music/licenses
-are selectively retained from the hash-verified delivered v0.098 archive; no old
-executable, PCK, save, settings, test profile or private report is carried over.
-
-DELIVERY RECEIPTS - 14 NOVEMBER 2026
-Root's one admitted headless Windows export PASSED, job
-e951d276230f4bb6b1ddfbb953e1317f, Bridge process 24.61 seconds; no watchdog kill
-or timeout. Static assembly/readback verified the clean 53-file portable ZIP,
-127,616,517 bytes, all 723 PCK entries and the unchanged privacy/integrity checks.
-ZIP SHA256: 7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7
-All 538 frozen non-cache source files match canonical versioned source, except
-for the isolated candidate's export-template path. SOURCE SNAPSHOT.json SHA256:
-f6437dd4241180b62e1cdc6924428d3f7ec54baa0c65231c5b07a201340acb29
-
-Root uploaded the standard SKU/release for the US$9.99 Windows product. Commerce
-verification returned library build 99 and a complete entitled download with the
-same 127,616,517 bytes and SHA256. Live checkout opened; no payment completed or
-charge occurred. Anonymous and unowned downloads returned 401 and 403.
-Evidence: parent work/store-commerce-fix-2026-11-14/COMMERCE VERIFICATION.json
-and its release/PACKAGE VERIFICATION.json and release/SOURCE SNAPSHOT.json.
-
-The earlier native save fixture remains UNRUN. Export/static checks and captured
-images do not establish a gameplay-suite, performance or earned-privateer pass.
-The older v0.099 performance milestone is NOT complete; installed v0.098 remains
-unchanged. Gallery replacement and public purchase/download controls remain
-pending; Root will add the final publication pointer. Earlier dated notes retain
-their original stage-specific facts.
-
-STOREFRONT GALLERY CORRECTION
-Replaced two near-identical maneuver frames with four actual current-source views:
-campaign map, harbor market, boat fitting workshop and Coastal Clash combat.
-A different independent reviewer opened all originals plus actual complete desktop
-and mobile page renders and cleared the exact artifact before publication.
-Live https://marketplace.oddsprig.com/brass-tide/ ; $9.99, early development.
-Four raw PNGs completed; owned engine missed shutdown deadline, so no native-suite
-pass is claimed. CPU-only full-page preview passed and all owned cleanup completed.
-Publication and public image-hash readback: parent work/store-gallery-fix-2026-11-13.
-No installed game, checkout or entitlement change. Earlier two-image records below
-are historical and superseded for the store gallery.
-
-STORE PAGE PUBLICATION — 13 NOVEMBER 2026
-Published https://marketplace.oddsprig.com/brass-tide/ at US$9.99 with the notice
-Game is in early development. Two unchanged real gameplay captures are included.
-Owner authorized immediate publication; static page/assets/card HTTP readback
-verified. No checkout, entitlement, new game build or installation change.
-Evidence: parent work/store-publish-2026-11-13/PUBLISHED.json. Earlier no-publication
-notes below predate this explicit store-page request and remain dated history.
-
-VALIDATION RECEIPT — 13 NOVEMBER 2026
-Job 0a6e148dbe734e5da816e88d78cf34cd stopped before engine launch when the
-mandatory process inspection timed out at 10 seconds. Engine runs/checks: 0/0;
-no game-test pass. Queue-command runtime plus charged setup: 21.184 seconds.
-Owned cleanup complete; no follow-on test/export/install. The fixture is UNRUN.
-See parent work/current-fixes-2026-11-13/VALIDATION RESULT.json.
-
-13 NOVEMBER 2026 — UNRELEASED SAVE, COPY AND LAYOUT CORRECTIONS
-New voyage asks before replacing an existing career and keeps verified exact
-primary/fallback bytes in voyage.before-new.<full SHA256>.json. Later ordinary
-saves and autosaves do not rotate these copies. Guide > Preserved voyages lists
-verified files and closed-game copy/Continue recovery instructions. Confirming
-replacement discards unsaved progress. Failed campaign Quit or return to title
-keeps the live career before retirement. The focused fixture covers the actual
-confirmation, cancellation, autosave, manual-save and recovery paths plus explicit
-write/commit failure injections; it is UNRUN and is not exhaustive crash recovery.
-Removed slogans and passive sea-bird captions. Shared count grammar covers the
-scoped first-hour views. The tools panel fits content within the viewport cap;
-labels can use the hidden contract panel's gutter while avoiding the compass.
-Independent source review found no concrete blocker in the bounded changes.
-Installed v0.098 is unchanged; no new export/install/rendered acceptance. Full-fleet
-performance, earned privateer opportunity and commercial readiness remain open.
-Historical planning and delivered notes follow.
-
-13 NOVEMBER2026 — RELEASE PLANNING, NOT A GAME UPDATE
-Current delivered build remains v0.098. Planned099-108: campaign/combat
-performance; readable boat/map presentation; earned careers; reliable saves;
-one complete exploration voyage; factual screenshots/store; Windows candidate.
-Owner-set price US$9.99. See docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt
-and docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt in the source folder.
-The local store draft uses dated actual development images; it is not on sale.
-No new engine/GPU test, installed build, owner data or music changed here.
-Testing follows the current central one-batch/one-engine<=60s total rule.
-Board checks remain paused. Historical delivered notes follow.
-
-BRASS TIDE v0.098 - SUPPLIED CORRIDOR AFTERMATH AND HOSTILE SHIPPING ACCESS
-05 November2026 |36 boat designs
-
-THIS VERSION
-- A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
-- One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
-- Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
-
-This is one scoped playable step. Later roadmap features and general tuning
-remain in their own versions. Coins and100 coins per sailor-day remain.
-Crew remain numerical/fixed asset details; water remains inexpensive.
-The portable tests/ directory contains this build's actual focused verification
-and startup receipts. Headless checks do not establish rendered/audio quality.
+Style-specific owner requirements: plain useful UI wording, no slogans or captions on passive scenery; low-poly/isometric boats, inexpensive water, a Windows-first control scheme. General practices above transfer to other projects. Board watch remains PAUSED.

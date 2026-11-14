@@ -1,0 +1,238 @@
+ACTIVE QUALITY SEQUENCE — v0.100-v0.109 (14 November2026)
+Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then work through that plan. Use four helpers, go."
+This authorizes implementation, four Bridge helpers and necessary bounded background verification; the previous completed-store-task stop does not apply to this new task.
+Root orchestrates three Sol6.1MAX roles and one CarbonHIGH: campaign/performance, combat/art, player experience/store and an independent red team. No nested helpers, paid fallback or foreground/input control. The owner-authorized four-helper ceiling supersedes older task-specific ceilings.
+Read ROADMAP.md and docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt. Current code/tag/desktop0.100; publicdownload0.099 until109. v100 delivered within autosave scope;101DOING; future versions are not complete. Work/evidence: parent work/quality-v100-v109-2026-11-14. Global Bridge memory contains unrelated game entries: ignore them and follow exact Brass paths/briefs. Board watch remains PAUSED.
+Each version has a bounded player result, map/notes/change notes, independent review, exact-source queued tests and a portable delivery. Whole selected pass <=60seconds; obey canonical machine-wide detector/lane, owned watchdog, isolation, silence and yield. No repeated inner detector, automatic retries, copied full-suite rituals or new framework. Never claim whole-game quality from a tag, compile, technical pass or authentic screenshot.
+Keep literal UI/copy, bronze coins, real wages/purses/goods, physical mounts,36boats,300-point battle deployment and the island-group/OpenSeas world. Preserve owner data/music, existing store price9.99 and other live products. No new roster, fluid simulation or walking crew.
+
+PREVIOUS TASK/HISTORICAL INSTRUCTIONS FOLLOW; current owner scope above takes precedence.
+
+CURRENT OWNER-AUTHORIZED STORE DELIVERY — v0.099
+The owner explicitly demanded publishing a $9.99 listing with screenshots and
+working purchase/download controls. Current source/export/product/download is
+v0.099; installed desktop game remainsv0.098. Current store facts and evidence:
+docs/store/README.txt, CURRENT PUBLICATION.json and MARKETPLACE HANDOFF.json.
+Root used up to3 Sol6.1MAX Bridge roles; one independent storefront red team.
+Carbon quota prevented its use; no extra paid fallback. No additional helpers,
+game engines or board checks should start merely to recheck this completed scope.
+
+For a store-page review, inspect the actual customer page header through footer,
+all original screenshots, genre/platform/price/copy, real Buy and owner-download
+path. Authenticity, image count and hashes do not establish marketing quality.
+Omit unfit images; never fill a gallery with adjacent frames or internal records.
+For normal releases verify the real product/release association, clean artifact,
+checkout handoff and protected complete download. Do not make a real payment.
+Use existing production infrastructure and preserve other products/deployments.
+No slogans, scenery captions, QA banners or internal process prose on customer UI.
+This owner's no-slogan preference is style-specific; functional store completion,
+independent visual review and preserving other live products transfer generally.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+13 NOVEMBER2026 LATEST TEAM AUTHORIZATION
+Owner explicitly requested up to SIX Bridge helpers: THREE Sol6.1 MAX and
+THREE Carbon HIGH. Root is the orchestrator/integrator/test-queue owner. One
+Sol stays independent as the red team and authors no implementation. Current
+six roles and isolated patch folders are in parent work/current-fixes-2026-11-13/
+TEAM STATUS.json. This supersedes earlier2+2 team text for this active task.
+Workers do not edit canonical source, run engines/GPU/tests, or start helpers.
+Root protected the two current owner save files in a content-addressed local
+backup; originals remain unchanged. Correcting the New voyage risk is active.
+No new build/version/export/installation or accepted gameplay claim yet.
+
+13 NOVEMBER2026 OWNER CORRECTION — RED TEAM / PLAIN UI COPY
+Use an independent red team on actual touched source and current candidate
+screens before accepting a game/UI/store build. A checklist, old screenshot or
+proof hash is not a player-facing quality review. State source-only, rendered,
+installed and commercial acceptance separately; unresolved findings stay open.
+Owner explicitly bans catchphrases. Use plain labels, actual counts, costs,
+objectives and actions. No slogan headlines or descriptive captions on passive
+scenery such as birds. Preserve useful selected/identified navigation information.
+Current source has UNRELEASED UI/copy corrections in interface, chart,
+campaign_landmark_art054, ocean_chart064, and the rescue title in main.
+Installed game remainsv0.098.
+Review work/red-team-2026-11-13 in the parent workspace. The New voyage
+save-replacement path, performance and earned privateering remain release HOLD.
+No099 version bump, new engine/GPU test, export or installation has occurred.
+
+# Brass Tide - current working instructions
+
+CURRENT 13 NOVEMBER 2026: v0.098 is delivered within its scope; source
+8a87578ca1900c464b19189b9f69386ef5413d42, final docs/tag
+bbf345d7cabaf5b67f9e6a890847ebe8b4e13faf. No full-game quality claim.
+Current task prepared the v0.099-v0.108 sellable-release plan and local store
+page at US$9.99. Implementation has not begun; do not turn this planning task
+into ten automatic builds or a live sale. Read HANDOFF.md and docs/roadmap/
+SELLABLE RELEASE MAP v0.099-v0.108.txt, then the retail development plan.
+The installed build, launcher, owner data and music remain unchanged.
+The message-board watch is PAUSED by the owner's 5 November instruction.
+Current central test rule is ONE batch/ONE engine <=60 seconds TOTAL with
+self-quit and an identity-owned watchdog, then stop. Older120/180 rules below
+are historical and superseded. No tests ran for the planning task.
+
+Owner campaign clarification, 29 October 2026: one ocean-covered planet, no
+major continents. Open seas fill the hyperspace role; island groups fill the
+star-system role; individual islands fill the planet role. Harbors/outposts are
+markets/installations. Groups can contain islands and ports owned by different
+factions, with peaceful mixed ownership or conflict. Geographic sectors and
+political ownership/influence are distinct. Seeded generation, shipping/trading/
+pirate actors, faction relationships and funded territorial expansion are the
+required direction. docs/roadmap/OCEAN WORLD DESIGN.txt is authoritative for
+this model. Current069 fresh careers contain48 seeded groups; older careers retain their two authored regions.
+069 delivers seeded geography and starting asset ownership; retain068 physical shipping. Dynamic expansion/capture need explicit later bounded milestones.
+
+13 November planning team authorization: up to TWO Sol6.1 MAX and TWO Carbon
+HIGH leads through Bridge. These were used for systems planning, independent
+release review, marketplace copy and screenshot/integration planning. No extra
+helpers or paid fallback. This is a task-specific ceiling, not a future build
+team dispatch. Root reviews/integrates and owns any separately admitted shared-
+lane engine/GPU pass. No foreground/input control and no owner-save fixtures.
+
+Completed069-078 scopes are recorded in docs/roadmap/QUALITY VERSION MAP
+v0.069-v0.078.txt (29 October 2026 owner request). Existing 069-072 scopes are
+preserved, followed by boat/weapon assets 073, tactical AI 074, faction strategy 075,
+funded territorial change 076, exploration chains 077 and quality review 078.
+Owner authorized implementation on 29 October: start 069 on accepted 068,
+deliver one bounded version before advancing. Do not claim parity from tags.
+063 through078 are scoped verified; the069-078 sequence is complete within its bounded scopes. Earlier quality
+limits remain. The older 063-072 map retains accepted history and context.
+Roadmap056-062 remains saved in docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
+Strict performance and whole-game quality remain OPEN at062. Do not reopen051
+fine-tuning as a prerequisite for each later bounded scope. 051 receipts remain
+unchanged: light workerP9538.435ms exceeds33.333ms, maxlag151.409ms exceeds100ms;
+measured light59.999155/mixed59.987253FPS misses strict>=60, rawqualityflagFALSE.
+Full facts/receipts are in tools/quality051, DEVELOPER LESSONS, current task and
+DELIVERED v0.051.json; historical checkpoint text is archived in the task.
+
+Architecture: authoritative combat30Hz on a data worker, role/target choices100ms
+per side. Main owns input/command publication, UI/audio/render submission and
+independently interpolated poses. Workers own detached plain data/RNG/contexts;
+retirement joins children and reconciles original physical owners. Public
+synchronous Battle APIs remain references. Safe render mode1 is requested; the072 monitor returned no actual mode value. Separate2
+previously caused native errors and must not be claimed active.
+
+## Scope and design
+
+Each version advances0.001 and addresses its saved scope. Do not add unrelated
+features, chase speculative edge cases, build duplicate test frameworks or call
+an unfinished milestone complete. A failed quality gate gets a bounded fix to
+its demonstrated failing part. Do not preserve expensive internal policy solely
+to satisfy old implementation-shaped checks; explain an intentional policy
+change and keep meaningful gameplay/accounting/physical regressions intact.
+Read docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt for forward scope;
+STARSECTOR QUALITY ROADMAP.txt preserves earlier overall quality criteria.
+
+Godot Windows PC, strategic coastal chart plus isometric battles, cheap beautiful
+water, numerical crews and fixed asset helmsmen/gunners. Default autopilot and
+WASD camera. Fleet ownership/storage is distinct from300DP battle deployment
+per side. Interchangeable physical mount IDs/positions/arcs must agree across
+art, refit, aiming and projectile origins. Use original boats/factions/geography;
+do not copy Blood Wake/Starsector assets, names, stories, maps or code.
+Coins,100coins per sailor-day, finite labor/materials/stores and conserved purses.
+Real construction/repair/replacement wages and material costs; no free resources.
+
+## Testing and machine use
+
+<!-- GAME TEST LANE -->
+Follow [Game testing rules](C:/Users/bligh/Documents/Codex/GAME%20TESTING%20RULES.md).
+Before every engine/game/GPU test use the read-only process detector and shared
+C:/Users/bligh/Documents/Codex/tools/game-testing/Invoke-GameTestLane.ps1 FIFO.
+Queue behind Godot/Unity editors/players/renamed games and other test leases.
+Never close, control or reconfigure another app. Failed process inspection queues.
+One bounded engine/GPU job at a time. Test Bridge claims the SAME lane; submit
+raw commands and never nest another lease. Preserve job IDs and actual receipts.
+Yield only our own identity-verified process if another game starts.
+<!-- END GAME TEST LANE -->
+
+Current central FINAL OWNER RULE supersedes historical120/180-second wording:
+one whole selected pass, ONE batch and ONE engine, self-quit and identity-owned
+watchdog <=60 seconds TOTAL, then report and stop. Queue wait is separate.
+Count setup/import/export/startup/capture/validation/cleanup/package work claimed
+by that pass. Do not chain renamed short runs or add an extra rendered launch.
+Use existing runners and the shared detector/FIFO. Default functional checks
+are headless; rendered/GPU work needs its appropriate explicit admission and
+user authorization. Reuse only actually unchanged source/caller/data/settings/
+fixture proof; a queued/interrupted/GAP/timeout result is not a pass. If coverage
+cannot fit, reduce scope or retain HOLD, never weaken assertions. No tests are
+required for this reversible planning/document update.
+
+Background/hidden/silent only, synthetic APPDATA/saves and Dummy/muted audio.
+No mouse/keyboard/focus/computer control, no Desktop game autolaunch. Keep owner
+voyages/settings/18MP3s plus music manifest/readme and one plain Brass Tide shortcut intact. Apply the dated release-retention override below to old build copies.
+Cleanup must match PID AND creation time/retained handle; no broad process kills.
+Use existing Godot4.7.2/Python, no global installs or system setting changes.
+UI/Scene/resources remain on main; workers own copied data and publish only after
+join. Safe render thread mode1 is requested; Separate2 caused native texture/finalizer
+errors; never claim Separate active. Existing economy/tactical workers remain.
+Profile actual representative battles before increasing concurrency. No expensive
+fluid simulation, actor deletion or fake idle-FPS acceptance. The owner-authorized
+30Hz worker cadence above replaces the old 60Hz simulation requirement.
+
+## Source, handoff and delivery
+
+01 November2026 OWNER OVERRIDE: explicitly delete older Brass Tide playable copies and Windows ZIPs to reclaim space. Keep the latest verified installed release and active next candidate. Preserve source Git/tags, useful test receipts/tools, source archives and verified unique owner saves/settings/music in the content-indexed archive. Earlier all-playable-releases retention is superseded for this game. Cleanup255targets reclaimed32.82GiB; receipt work/release-cleanup-2026-11-01/CLEANUP RESULT.json. This logistics cleanup does not require an engine test or change a build number.
+
+
+5 November OWNER OVERRIDE: stop checking the message board for now.
+The brass-tide-board-learning-daily automation is PAUSED. Keep its cursor and
+prior useful lessons, but do not browse, review, post or re-enable it from this
+planning task. Historical daily/two-minute schedules are superseded.
+
+30October board adoption: start with START HERE.txt, HANDOFF.md and the relevant
+map before opening source. Keep one current authority; older test contracts are
+historical where the owner superseded them. Batch related checks per engine
+boot, reset shared state, retain actual source/evidence bindings and skips.
+Declared staged openings are not earned career progress; neither test may fake
+its measured result. Still images do not establish motion, sound or enjoyment.
+Do not add mandatory tests for every trivial reversible edit or re-run unchanged
+passes. See docs/DEVELOPER LESSONS.txt for what was taken and what was rejected.
+Before a heavy job, check the fixture's terminal/report schema against the
+runner's expected binding and required report path using a small sample.
+Peer additions: one rules/art authority across views; verify actual exported
+dependencies/UI bounds. Mock/compile/still evidence never becomes end-to-end proof.
+
+Read relevant maps and actual API/schema before editing. Use rg and bounded file
+reads; docs/DEVELOPER LESSONS.txt and docs/VERIFICATION INDEX.txt hold reusable
+lessons/evidence. Give helpers isolated checkouts, exact source and file allowlists.
+No competing tests or deletion. Integrate named commits, not someone else's HEAD.
+No git reset/amend/gc/maintenance/repair; no automatic remote publication.
+Current session has no authorization for new GitHub pushes after the old028 push.
+
+Update in-game DEVELOPER NOTES.txt, BUILD STATUS.txt, scope notes and current maps
+with changes and actual limitations. tools/update_maps.py regenerates maps.
+tools/check_preload_calls.py GAME RELATIVE_FILE... is one cheap source advisory;
+it cannot prove native parsing/types/assertions. Read complete constructor chains.
+Refits use weapons:Array; effective_spec returns the spec directly. Preserve UIDs.
+
+Prepare each version once, build on the accepted predecessor and preserve exact
+source/hash/tag provenance. Export from the isolated reviewed release checkout.
+Tag/package/install only after that scope's acceptance. Preserve source tags,
+two voyages,18music tracks plus manifest/readme and the single unambiguous latest verified launcher. Keep compiled releases under the dated retention override above.
+No retagging rejected candidates. Retain failed receipts and distinguish source,
+native checks, rendered measurement, art review, listening and actual play quality.
+
+Owner permits routine pruning of obsolete scratch after preserving unique work,
+useful evidence and lessons; follow docs/WORKSPACE MAINTENANCE.txt. Resolve and
+verify absolute workspace containment, refuse reparse targets, preserve current releases,
+source archives/saves/music/launcher under the dated retention override above. No broad cleanup during an active test gate.
+Historical instructions and measured results remain recoverable in Git and the
+current task's evidence files; older contradictory scope/team/status paragraphs
+were consolidated here on27October2026.
+
+
+04 November2026 OWNER AUTHORIZATION: implement089-098 sequentially from accepted088 using one GrokHIGH, one ArgonHIGH, two Sol6.1MAX through Bridge (build and independentQC). Current scope089; Root owns queue/tests/integration/package/install. See docs/roadmap/QUALITY VERSION MAP v0.089-v0.098.txt and work/quality-v089-v098/CURRENT STATE.json. No silent fallback or additional helpers. All preceding machine, scope, accounting and retention rules remain.
+
+STOREFRONT REVIEW — OWNER CORRECTION
+Review the complete rendered page as a customer, including genre, screenshots,
+visual hierarchy, words, price, platform and actual availability. Individual-file
+checks, correct captions and authentic image bytes cannot establish page quality.
+Inspect the actual final desktop and narrow-screen render before approval. Reject
+near-identical frames from one scene as gallery variety. For this boat game the
+gallery should explain campaign navigation, trading, fitting and combat with
+different real views; this particular shot list is genre-specific. General review
+rules transfer to other games. Check image scale, obstructing overlays and whether
+the featured image communicates the game. Public copy states development status
+plainly; private review history, staging notes and release gates stay internal.
+The implementer and independent reviewer both sign off the same visible artifact.
+The owner should not be the first person to see obvious layout or content defects.
