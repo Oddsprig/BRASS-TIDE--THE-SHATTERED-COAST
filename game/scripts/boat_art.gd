@@ -522,6 +522,12 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 		profile051.boat_hull_us += Time.get_ticks_usec() - phase_started051
 		phase_started051 = Time.get_ticks_usec()
 	if bool(ctx.authored_hull):
+		# The baked hull remains the silhouette authority. These attached parts
+		# use its original sockets/transom and the existing heading mesh cache.
+		if int(ctx.lod)==0:
+			if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
+				_cached_base(ctx,spec,boat,c,arch,true)
+			else:_attached_hull_detail(ctx,spec,boat,c)
 		MotorArt.draw_motion(ctx,spec,boat,c,prepared.motor_palette)
 	elif bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
 		_cached_base(ctx,spec,boat,c,arch)
@@ -532,7 +538,12 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 		phase_started051 = Time.get_ticks_usec()
 	for m in mounts:
 		var local_bearing: float=float(ctx.localAimAngles.get(str(m.get("id","mount0")),m.angle))
-		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051):continue
+		if SpriteArt._draw_weapon051(ctx,m,float(ctx.angle)+local_bearing,sprite_scale,atlas_frames051):
+			if int(ctx.lod)==0:
+				if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):
+					_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c,true)
+				else:WeaponArt.draw_attached_detail(ctx,m,float(ctx.angle)+local_bearing,c)
+			continue
 		if bool(opts.get("cache",false)) and (canvas is CanvasItem or canvas.has_method("draw_mesh")):_cached_weapon(ctx,m,float(ctx.angle)+local_bearing,c)
 		else:_draw_mount(ctx,m,float(ctx.angle)+local_bearing,c)
 	if profile_enabled051:
@@ -546,39 +557,191 @@ static func _draw_boat051(canvas, projector: Callable, boat: Dictionary, opts: D
 		"circles": int(ctx.ncirc), "archetype": arch, "mounts": mounts.size(), "lod": int(ctx.lod),
 		"authored_hull":bool(ctx.authored_hull),"sprites":int(ctx.get("nsprite",0))}
 
-static func _cached_base(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String) -> void:
+static func _cached_base(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String,detail_only: bool=false) -> void:
 	var engine_id: String=MotorArt._engine_id(spec,boat)
 	var density: float=MeshCache.density(ctx.proj,ctx.pos)
 	var key: String="hull:%s:%.2f:%d:%s:%s:%s:%s"%[str(spec.get("id","boat")),float(ctx.size),int(ctx.lod),engine_id,c.deck.to_html(),c.cabin.to_html(),c.accent.to_html()]
 	key+=":density%.3f"%density
+	if detail_only:
+		key="attached102r2:"+key+":%s:%d:%s:%s:%s:%s"%[str(spec.get("role","")),int(spec.get("tier",1)),str(spec.get("faction","")),c.plate.to_html(),c.metal.to_html(),c.metal_light.to_html()]
 	var bake=func(rec,angle: float):
 		var context: Dictionary=ctx.duplicate()
 		context.canvas=rec;context.pos=Vector2.ZERO;context.angle=angle
 		context.proj=func(p: Vector2,h: float):return Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*density
 		context.px=context.size*0.82*density;context.clock=0.0;context.speed=0.0
 		var frozen: Dictionary=boat.duplicate();frozen.engine=1.0;frozen.fuel=0.0;frozen.vx=0.0;frozen.vy=0.0
-		_static(context,spec,frozen,c,arch)
+		if detail_only:_attached_hull_detail(context,spec,frozen,c)
+		else:_static(context,spec,frozen,c,arch)
 	MeshCache.draw(ctx.canvas,ctx.proj,ctx.pos,ctx.angle,key,bake,0.0,density)
 	ctx.n+=1
 
-static func _cached_weapon(ctx: Dictionary,mount: Dictionary,bearing: float,c: Dictionary) -> void:
+static func _cached_weapon(ctx: Dictionary,mount: Dictionary,bearing: float,c: Dictionary,detail_only: bool=false) -> void:
 	var id: String=str(mount.get("id","mount0"))
 	var age: float=float(ctx.shot_clock)-float(ctx.shots.get(id,-100.0))
+	# Atlas recoil is continuous. During a real shot, project its small detail
+	# pass directly rather than overlaying the fallback's quantized recoil phase.
+	if detail_only and age>=0.0 and age<WeaponArt.RECOIL_SECONDS:
+		WeaponArt.draw_attached_detail(ctx,mount,bearing,c)
+		return
 	var phase: int=clampi(int(age/0.04),0,4) if age>=0.0 and age<0.16 else 4
 	var density: float=MeshCache.density(ctx.proj,ctx.pos)
 	var key: String="weapon:%s:%s:%d:%.2f:%.2f:%d:%d:%s:%s"%[mount.kind,str(mount.get("moduleId","")),int(mount.get("size",1)),float(ctx.hull_size),float(ctx.enlargement),int(ctx.lod),phase,c.top.to_html(),c.brass.to_html()]
 	key+=":density%.3f"%density
+	if detail_only:key="attached102r2:"+key+":"+c.plate.to_html()
 	var bake=func(rec,angle: float):
 		var context: Dictionary=ctx.duplicate()
 		context.canvas=rec;context.pos=Vector2.ZERO;context.angle=0.0
 		context.proj=func(p: Vector2,h: float):return Vector2((p.x-p.y)*0.82,(p.x+p.y)*0.41-h)*density
 		context.px=context.size*0.82*density;context.shot_clock=phase*0.04;context.shots={id:0.0}
 		var centered: Dictionary=mount.duplicate();centered.x=0.0;centered.y=0.0
-		_draw_mount(context,centered,angle,c)
+		if detail_only:WeaponArt.draw_attached_detail(context,centered,angle,c)
+		else:_draw_mount(context,centered,angle,c)
 	var position: Vector2=ctx.pos+Vector2(mount.x,mount.y).rotated(ctx.angle)*float(ctx.size)
 	var firing_height: float=WeaponArt.Geometry.height(str(mount.kind),float(ctx.hull_size),int(mount.get("size",1)))
 	MeshCache.draw(ctx.canvas,ctx.proj,position,bearing,key,bake,firing_height,density)
 	ctx.n+=1
+
+# Conservative screen-space blockers. Record existing geometry without drawing
+# it; rejecting a whole detail on overlap deliberately favors omission.
+class _AttachedBlocker102 extends RefCounted:
+	var boxes: Array[Rect2] = []
+
+	static func bounds_of(points: PackedVector2Array, margin: float = 1.0) -> Rect2:
+		if points.is_empty():
+			return Rect2()
+		var bounds := Rect2(points[0], Vector2.ZERO)
+		for point in points:
+			bounds = bounds.expand(point)
+		return bounds.grow(maxf(0.0, margin))
+
+	func add_points(points: PackedVector2Array, margin: float = 1.0) -> void:
+		if not points.is_empty():
+			boxes.append(bounds_of(points, margin))
+
+	func overlaps(bounds: Rect2) -> bool:
+		for box in boxes:
+			if box.intersects(bounds, true):
+				return true
+		return false
+
+	func draw_colored_polygon(points: PackedVector2Array, _color: Color) -> void:
+		add_points(points)
+
+	func draw_polyline(points: PackedVector2Array, _color: Color, width: float) -> void:
+		add_points(points, absf(width) * 0.5 + 1.0)
+
+	func draw_line(a: Vector2, b: Vector2, _color: Color, width: float) -> void:
+		add_points(PackedVector2Array([a, b]), absf(width) * 0.5 + 1.0)
+
+	func draw_circle(at: Vector2, radius: float, _color: Color) -> void:
+		var extent := Vector2.ONE * absf(radius)
+		boxes.append(Rect2(at - extent, extent * 2.0).grow(1.0))
+
+
+static func _attached_hull_detail(ctx: Dictionary, spec: Dictionary, boat: Dictionary, c: Dictionary) -> void:
+	if int(ctx.lod) != 0:
+		return
+	var stations: Array = _stations(spec)
+	if stations.is_empty():
+		return
+
+	var arch: String = archetype(spec)
+	var offsets: Array = [-CAT_OFFSET, CAT_OFFSET] if arch == "catamaran" else [0.0]
+	var decks: Array[PackedVector2Array] = []
+	var hull_points := PackedVector2Array()
+
+	for offset in offsets:
+		var deck := PackedVector2Array()
+		for point in _outline(stations, float(offset), 0.84, 0.94):
+			deck.append(_pt(ctx, point, 9.0))
+		decks.append(deck)
+
+		# Full-footprint height envelope also covers the sheer and armor.
+		# Filling gaps between catamaran hulls is intentionally conservative.
+		for point in _outline(stations, float(offset)):
+			hull_points.append(_pt(ctx, point, -3.0))
+			hull_points.append(_pt(ctx, point, 10.0))
+
+	if arch == "catamaran":
+		var bridge := PackedVector2Array()
+		for point in [
+			Vector2(-1.80, -CAT_OFFSET), Vector2(1.45, -CAT_OFFSET),
+			Vector2(1.45, CAT_OFFSET), Vector2(-1.80, CAT_OFFSET)
+		]:
+			bridge.append(_pt(ctx, point, 9.5))
+		decks.append(bridge)
+
+	var hull_blocker := _AttachedBlocker102.new()
+	hull_blocker.add_points(hull_points)
+
+	# Include the existing cabin, engine housing, upper tower, deck items,
+	# masts and rails, rather than checking only a face normal or cabin center.
+	var structure_blocker := _AttachedBlocker102.new()
+	var blocked_ctx: Dictionary = ctx.duplicate()
+	blocked_ctx.canvas = structure_blocker
+	DeckDetail.rails(blocked_ctx, spec, c)
+	_superstructure(blocked_ctx, arch, spec, c)
+
+	for socket in Layout.hardpoints(spec):
+		var at := Vector2(socket.localX, socket.localY)
+		var r: float = float(socket.footprintRadius) * 0.76
+		var locals: Array = [
+			at + Vector2(-r, -r),
+			at + Vector2(r, -r),
+			at + Vector2(r, r)
+		]
+		var screen := PackedVector2Array()
+		for point in locals:
+			screen.append(_pt(ctx, point, 9.8))
+		var bounds: Rect2 = _AttachedBlocker102.bounds_of(screen)
+		if structure_blocker.overlaps(bounds):
+			continue
+
+		# The entire padded stroke must fit inside one exposed deck polygon.
+		var footprint := PackedVector2Array([
+			bounds.position,
+			bounds.position + Vector2(bounds.size.x, 0.0),
+			bounds.end,
+			bounds.position + Vector2(0.0, bounds.size.y)
+		])
+		var on_deck: bool = false
+		for deck in decks:
+			if Geometry2D.clip_polygons(footprint, deck).is_empty():
+				on_deck = true
+				break
+		if on_deck:
+			_line(ctx, locals, 9.8, c.metal_light, 0.65)
+
+	# Retain only an unobstructed top cap on a single-motor installation.
+	# Multiple drives need inter-motor occlusion evidence before adding caps.
+	var plan: Dictionary = MotorArt._plan(spec, boat)
+	if plan.units.size() != 1:
+		return
+	var origin: Vector2 = _pt(ctx, Vector2.ZERO, 0.0)
+	if _pt(ctx, Vector2.LEFT, 0.0).y <= origin.y:
+		return
+
+	var unit: Dictionary = plan.units[0]
+	var model: Dictionary = MotorArt._model(ctx, Vector2(unit.transomX, unit.y))
+	var w: float = float(unit.scale)
+	var small: bool = bool(plan.isSmallHull)
+	var top: float = 14.9 if small else 13.4
+	var front: float = -0.03 if small else 0.02
+	var aft: float = -0.34 if small else -0.32
+	var cap: Array = [
+		Vector3(aft, -0.085 * w, top),
+		Vector3(front, -0.060 * w, top - 0.45),
+		Vector3(front, 0.060 * w, top - 0.45),
+		Vector3(aft, 0.085 * w, top)
+	]
+	var cap_screen := PackedVector2Array()
+	for vertex in cap:
+		cap_screen.append(WeaponArt._p(model, vertex))
+	var cap_bounds: Rect2 = _AttachedBlocker102.bounds_of(cap_screen)
+	if hull_blocker.overlaps(cap_bounds) or structure_blocker.overlaps(cap_bounds):
+		return
+	var mc: Dictionary = MotorArt._palette(c, spec)
+	WeaponArt._face(model, cap, mc.plate)
 
 static func _static(ctx: Dictionary,spec: Dictionary,boat: Dictionary,c: Dictionary,arch: String) -> void:
 	var stations := _stations(spec)

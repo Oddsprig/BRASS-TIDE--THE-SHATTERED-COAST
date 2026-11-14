@@ -1,3 +1,7 @@
+v0.102 — Boat and weapon detail candidate
+Close-detail authored hulls now receive attached socket details and conservative exposed motor caps, and actual weapon atlas renders receive receiver/feed/collar details. Existing36 hulls, physical sockets, motor plans, neutral recoil and bounded geometry caches remain authoritative. Potentially obscured detail is omitted; distantLOD is unchanged.
+Independent source review challenged cabin/hull occlusion and recoil rest. The corrected candidate uses conservative geometry blockers and existing recoil_offset(0.16)==0. Four actual CanvasItem atlas/cached/direct/oppositeheading gallery images and normal play/motion acceptance are pending. No native or art-quality pass is claimed yet.
+
 v0.101 — Accepted scoped worker-payload change
 Native1446 checks/0failures: identical payload values and read-only flags, nested worker isolation, and fresh targets on both sides. Twelve paired constructions per side on42 boats/294DP per side: player median14.328 ->13.446ms; enemy17.221 ->16.362ms (about6.2%/5.0%). This measures capsule construction only, with variable samples; it does not establish overall FPS or eliminate the historical36.154ms workerP95/183.333ms lag.
 Job5384f742f5204de6a13169238938d9f1 attempt003 passed native/export/isolated101menu. First two attempts remain failures in fixture wiring (static-call parse, then missing initial live index); production was not accepted from those attempts. Successful queued command25.969s, native body2.321s; no watchdog kill. No additional native tests for this change.

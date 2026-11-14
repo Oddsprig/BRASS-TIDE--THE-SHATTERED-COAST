@@ -35,6 +35,66 @@ static func draw(ctx: Dictionary, mount: Dictionary, world_bearing: float, palet
 		"cannon":_cannon(model,recoil,palette)
 		"rocket":_rocket(model,mount,tier,palette)
 		"torpedo":_torpedo(model,tier,palette)
+	draw_attached_detail(ctx,mount,world_bearing,palette)
+
+## The authored atlas and procedural fallback share these attached highlights.
+## Preserve the fitted socket, real module scale, recoil and muzzle envelope.
+## Only close LOD0 boats receive this pass; no per-boat nodes or textures.
+static func draw_attached_detail(ctx: Dictionary,mount: Dictionary,world_bearing: float,c: Dictionary) -> void:
+	if int(ctx.lod)!=0:return
+	var kind: String=str(mount.kind)
+	var tier: int=clampi(int(mount.get("size",1)),1,3)
+	var physical: float=Geometry.unit(float(ctx.get("hull_size",ctx.size)),tier)
+	var model: Dictionary={"ctx":ctx,"at":Vector2(mount.x,mount.y),"bearing":world_bearing-float(ctx.angle),
+		"u":physical*float(ctx.get("enlargement",1.0))/float(ctx.size),"world_unit":physical,"lod":int(ctx.lod),"h":9.7}
+	var recoil: float=recoil_offset(ctx,mount)
+	var edge:=Color("c2d0ca")
+	var steel:=Color("5d747b")
+	var dark:=Color("223238")
+	var front_visible: bool=Vector2.from_angle(world_bearing).dot(Vector2(1,1))>0.0
+	match kind:
+		"gun":
+			var twin: bool=tier>1 or "twin" in str(mount.get("moduleId",""))
+			for y in [-0.5,0.5] if twin else [0.0]:
+				# A tapered receiver top and jacket edge read as a mechanism,
+				# with each channel ending at the original physical muzzle.
+				_face(model,[Vector3(-2.4+recoil,y-0.33,5.32),Vector3(1.75+recoil,y-0.33,5.32),Vector3(1.25+recoil,y+0.33,5.32),Vector3(-2.4+recoil,y+0.33,5.32)],steel)
+				_line(model,Vector3(1.4+recoil,y-0.28,5.04),Vector3(8.65+recoil,y-0.28,5.04),edge,0.8)
+				if int(ctx.lod)==0:
+					if front_visible:_line(model,Vector3(8.79+recoil,y-0.34,4.8),Vector3(8.79+recoil,y+0.34,4.8),dark,1.0)
+					_line(model,Vector3(-1.9+recoil,y,5.38),Vector3(0.8+recoil,y,5.38),dark,0.65)
+			if int(ctx.lod)==0:
+				_box(model,Vector3(-2.7,-1.75,3.3),Vector3(-0.3,-1.0,5.05),c.brass.darkened(0.30))
+				_line(model,Vector3(-1.7,-1.0,5.4),Vector3(-0.8,-0.4,5.5),edge,0.9)
+		"cannon":
+			# Fixed trunnion cheeks support the moving barrel and breech.
+			for side in [-1.0,1.0]:
+				if Vector2(0,side).rotated(world_bearing).dot(Vector2(1,1))<=0.0:continue
+				_face(model,[Vector3(-2.6,side*1.8,2.3),Vector3(1.9,side*1.8,2.3),Vector3(1.0,side*1.8,5.4),Vector3(-1.6,side*1.8,5.4)],c.plate if side>0.0 else c.plate.darkened(0.2))
+			_line(model,Vector3(4.25+recoil,-0.35,6.42),Vector3(12.2+recoil,-0.35,6.42),edge,0.9)
+			if int(ctx.lod)==0:
+				_line(model,Vector3(-2.4+recoil,-1.26,6.72),Vector3(2.3+recoil,-1.26,6.72),edge,0.7)
+				if front_visible:_line(model,Vector3(14.19+recoil,-0.75,5.8),Vector3(14.19+recoil,0.75,5.8),dark,1.1)
+				_line(model,Vector3(-2.5+recoil,0.85,6.3),Vector3(-3.1+recoil,1.55,6.6),c.brass,0.9)
+		"rocket":
+			var rows: int=2 if tier>=3 or "salvo" in str(mount.get("moduleId","")) else 1
+			for row in range(rows):
+				var z: float=6.0+float(row)*1.85
+				# Visible collars stay on the actual three/six launch cells.
+				for y in [-1.8,0.0,1.8]:
+					_line(model,Vector3(5.89,y-0.50,z+0.54),Vector3(5.89,y+0.50,z+0.54),edge,0.85)
+				if int(ctx.lod)==0:
+					for y in [-1.8,0.0,1.8]:
+						if front_visible:_line(model,Vector3(5.9,y-0.48,z),Vector3(5.9,y+0.48,z),dark,1.0)
+			if int(ctx.lod)==0:
+				_line(model,Vector3(-3.4,-2.6,2.9),Vector3(-3.4,-2.6,5.1),c.brass,0.85)
+		"torpedo":
+			for y in [-1.5,1.5] if tier>1 else [0.0]:
+				_line(model,Vector3(-6.8,y-0.5,3.86),Vector3(6.2,y-0.5,3.86),edge,0.8)
+				if int(ctx.lod)==0:
+					for x in [-3.0,3.0]:
+						_line(model,Vector3(x,y-1.05,3.45),Vector3(x,y+1.05,3.45),c.brass,1.0)
+					if not front_visible:_line(model,Vector3(-7.2,y-0.8,2.8),Vector3(-7.2,y+0.8,2.8),dark,1.0)
 
 static func _machine_gun(m: Dictionary, mount: Dictionary, tier: int, recoil: float, c: Dictionary) -> void:
 	var steel := Color("647a82")
