@@ -215,24 +215,24 @@ func exercise() -> void:
 		game.paused=initial
 		var manual_sequence: int=int(game._battle_ack_sequence051)
 		check(game.queue_battle_command051("autopilot",{"enabled":false}),"manual baseline command queues")
-		if not (await publish106(func():return not receipt106(manual_sequence,"autopilot").is_empty() and not bool(game.battle.autopilot),"manual baseline publishes")):return
+		if not (await publish106(func():return bool(receipt106(manual_sequence,"autopilot").get("ok",false)) and not bool(game.battle.autopilot),"manual baseline publishes")):return
 		var previous_autopilot: bool=bool(game.battle.autopilot)
 		var overview_sequence: int=int(game._battle_ack_sequence051)
 		game.toggle_tactical()
-		if not (await publish106(func():return not receipt106(overview_sequence,"autopilot").is_empty() and bool(game.battle.autopilot),"overview autopilot publishes")):return
+		if not (await publish106(func():return bool(receipt106(overview_sequence,"autopilot").get("ok",false)) and bool(game.battle.autopilot),"overview autopilot publishes")):return
 		var restore_sequence: int=int(game._battle_ack_sequence051)
 		game.toggle_tactical()
-		if not (await publish106(func():return not receipt106(restore_sequence,"autopilot").is_empty() and bool(game.battle.autopilot)==previous_autopilot,"overview restores autopilot")):return
+		if not (await publish106(func():return bool(receipt106(restore_sequence,"autopilot").get("ok",false)) and bool(game.battle.autopilot)==previous_autopilot,"overview restores autopilot")):return
 		check(game.paused==initial,"overview restores prior pause state")
 	game.paused=true
 	check(game.Battle.set_autopilot(game.battle,true),"autopilot baseline queues")
 	if not (await publish106(func():return bool(game.battle.autopilot),"autopilot baseline publishes")):return
 	var manual_button_sequence: int=int(game._battle_ack_sequence051)
 	press("BattleAutopilot")
-	if not (await publish106(func():return not receipt106(manual_button_sequence,"autopilot").is_empty() and not bool(game.battle.autopilot),"manual flagship publishes")):return
+	if not (await publish106(func():return bool(receipt106(manual_button_sequence,"autopilot").get("ok",false)) and not bool(game.battle.autopilot),"manual flagship publishes")):return
 	var autopilot_button_sequence: int=int(game._battle_ack_sequence051)
 	press("BattleAutopilot")
-	if not (await publish106(func():return not receipt106(autopilot_button_sequence,"autopilot").is_empty() and bool(game.battle.autopilot),"autopilot restores")):return
+	if not (await publish106(func():return bool(receipt106(autopilot_button_sequence,"autopilot").get("ok",false)) and bool(game.battle.autopilot),"autopilot restores")):return
 	press("BattleDetails")
 	check(game.ui.modal_kind=="battle_details" and "Inflow" in game.ui.battle_details_label.text and "Stores:" in game.ui.battle_details_label.text,"expanded detail keeps finite damage control and stores")
 	game.ui.close_modal();press("BattleTactics")
