@@ -182,17 +182,19 @@ static func _pair101(factory: Callable) -> Array:
 
 static func _view101(runtime: Script, mode: String, st: Dictionary,
 		side: String, due: Array) -> Dictionary:
+	var baseline: bool=runtime==Baseline
 	if mode == "public":
-		return runtime.callv("view", [st, side, due, null])
+		return Baseline.view(st,side,due,null) if baseline else Candidate.view(st,side,due,null)
 	if mode == "main":
-		return runtime.callv("_begin_view051", [st, side, due, null, {}])
+		return Baseline._begin_view051(st,side,due,null,{}) if baseline else Candidate._begin_view051(st,side,due,null,{})
 	if mode == "main_cached":
 		var current: Dictionary = {}
-		runtime.callv("_begin_context051", [st, side, null, current])
-		return runtime.callv("_begin_view051", [st, side, due, null, current])
+		if baseline:Baseline._begin_context051(st,side,null,current)
+		else:Candidate._begin_context051(st,side,null,current)
+		return Baseline._begin_view051(st,side,due,null,current) if baseline else Candidate._begin_view051(st,side,due,null,current)
 	if mode == "legacy":
-		return runtime.callv("_begin_view051", [st, side, due, null])
-	return runtime.callv("_worker_view051", [st, side, due, null])
+		return Baseline._begin_view051(st,side,due,null) if baseline else Candidate._begin_view051(st,side,due,null)
+	return Baseline._worker_view051(st,side,due,null) if baseline else Candidate._worker_view051(st,side,due,null)
 
 
 static func _aliases101(st: Dictionary, payload: Dictionary,
@@ -349,8 +351,7 @@ static func _functional101(a: Dictionary, b: Dictionary, side: String) -> void:
 static func _timed101(runtime: Script, st: Dictionary,
 		side: String, due: Array) -> Dictionary:
 	var started: int = Time.get_ticks_usec()
-	var payload: Dictionary = runtime.callv(
-		"_worker_view051", [st, side, due, null])
+	var payload: Dictionary = Baseline._worker_view051(st,side,due,null) if runtime==Baseline else Candidate._worker_view051(st,side,due,null)
 	var elapsed: int = Time.get_ticks_usec() - started
 	return {"us": elapsed, "payload": payload}
 
