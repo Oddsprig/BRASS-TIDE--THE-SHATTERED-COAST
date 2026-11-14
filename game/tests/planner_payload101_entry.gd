@@ -173,9 +173,9 @@ static func _pair101(factory: Callable) -> Array:
 	_check101(_same101(a.get("mission", {}), b.get("mission", {})),
 		"baseline/candidate start with identical mission")
 	_check101(float(a.time) == float(b.time), "identical initial time")
-	_check101(bool(Baseline.callv("_fleet_goals051", [a.tactical])),
+	_check101(bool(Baseline._fleet_goals051(a.tactical)),
 		"baseline exercises sampled fleet worker path")
-	_check101(bool(Candidate.callv("_fleet_goals051", [b.tactical])),
+	_check101(bool(Candidate._fleet_goals051(b.tactical)),
 		"candidate exercises sampled fleet worker path")
 	return result
 
