@@ -1,29 +1,11 @@
 # Brass Tide: The Shatter Coast
 
-Original Godot motorboat fleet campaign for Windows: 24 hulls, interchangeable
-fittings, numerical crews, finite stores and real coin budgets. Sailors earn
-100 coins per day. Battle admission is 300 deployment points per side,
-separate from total fleet ownership, stored hulls and traveling support.
+Early-development single-player motorboat fleet campaign for Windows PC. Build a fleet from36 original hull designs; fit compatible weapons, engines and armor; manage numerical crews, cargo, fuel and repairs; trade between island harbors and fight fleet battles. The ocean world contains48 seeded island groups. Open Seas connect their local coasts; there are no major continents.
 
-Development and silent background testing have resumed. The preserved v0.030
-portable is its original **UNTESTED** build; verified v0.029 remains available.
-There is no v0.031+ playable release or complete AI/performance acceptance yet.
+Current release: v0.109. Store and purchased Windows download: https://marketplace.oddsprig.com/brass-tide/ — US$9.99. The current gallery has distinct actual gameplay views, full-width presentation and actual-size viewing. This remains an early-development game; ten scoped updates do not establish Starsector parity or a finished commercial-quality game.
 
-Combat starts on autopilot. WASD pans the camera, Space pauses, and U toggles
-manual flagship control. Original boats, geography, factions and stories are
-inspired by the requested naval combat and fleet campaign ideas.
+Combat defaults to autopilot. WASD pans the camera, Space pauses, U toggles manual flagship control, Tab opens overview and right-click issues contextual orders. Total fleet ownership is separate from the300-point battle deployment limit per side. Trade, construction, wages and paid repairs move finite bronze coins between actual purses.
 
-Start with [HANDOFF](HANDOFF.md), [current verification](docs/VERIFICATION%20INDEX.txt),
-[source map](CODE%20MAP.md) and [version map](VERSION%20MAP.txt). The current work
-closes tactical verification and integrates persistent equipment damage, finite
-crew repairs and paid part custody. Pure component checks are not live features.
+Start with HANDOFF.md, CODE MAP.md, game/data/DEVELOPER NOTES.txt and docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt. Exact per-version changes/coverage are in CHANGES v0.xxx.md. Current publication and screenshot provenance are under docs/store. Historical status text is preserved under docs/history and Git.
 
-Tests stay hidden/headless/silent with isolated profiles. Original voyages,
-settings, music and earlier releases are protected. Keep portable EXE/PCK/music
-files together. Windows export, launcher, visual/audio quality and remote upload
-have separate proof. No authenticated remote publication has been established.
-
-Historical v0.030 build-only provenance remains unchanged under
-`docs/SOURCE INTEGRATION v0.030.txt`, `docs/SOURCE MANIFEST v0.030.json` and
-`docs/helper-reports/v0.030-owner-stop/`. Historical test deferral is superseded
-by the owner's resume instruction in [AGENTS](AGENTS.md).
+Engine tests use silent private profiles and the shared machine-wide test lane; no foreground/input control. Export/startup, functional checks, visual review, listening quality and measured performance are distinct evidence. Preserve owner saves, settings and music when updating.

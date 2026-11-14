@@ -1,0 +1,9 @@
+# Current step: v0.101 — Fleet battle responsiveness
+
+Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then work through that plan. Use four helpers, go."
+
+Build v0.100–v0.109 sequentially from accepted v0.099. The authoritative plan is [QUALITY DELIVERY MAP v0.100-v0.109](<docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt>).
+
+v0.100 is delivered within its autosave scheduling scope. For0.101 measure and reduce detached planner payload construction cost, preserve targets/orders/ownership, and observe actual light/mixed fleet response. Report remaining performance limits; do not round an unresolved global quality gate into a pass.
+
+Four Bridge helpers: campaign/performance, combat/art, player experience/store, independent red team. Root integrates and owns the shared test queue. No foreground/input control. Whole selected pass <=60seconds; no nested helpers, duplicate detector or framework. Board watch stays paused.

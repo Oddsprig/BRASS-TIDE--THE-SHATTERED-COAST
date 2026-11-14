@@ -1,0 +1,37 @@
+{
+  "accepted": true,
+  "root_raw_images_reviewed": true,
+  "independent_raw_images_reviewed": true,
+  "root_complete_page_reviewed": true,
+  "independent_complete_page_reviewed": true,
+  "reviewed_product_sha256": {
+    "buy.js": "074c87c84d5535db7e6a1481bb04b5ce278bc35406ba52df6f34546190d1cc04",
+    "gallery.js": "6a1ecb08a5355779c89e91bb5448985bec681e91bd2382996c9deeb971b16146",
+    "index.html": "f40ca53944a5849e6a86713ae7fc53dffa8dffe79d8bca7cfd1363a6c1c99b00",
+    "style.css": "88e0624e4e993ee77e67d269e467cb7b4bf6bed891cb9ea7c60b487c1aed3ffe",
+    "media/combat.png": "7b0ca29a1c3d566a368ef07fdf8cf85ee333012b85eab3874ad2cdefc56ad5af",
+    "media/fittings.png": "a0917b03b65dd62338a7bb6dfa78a3d4b31466d2b3635be2b6eca24886eb127f",
+    "media/harbor.png": "aebce65a48e27698fdaeeb05b2b979e004ca0327fdec20dab57bdbcd5684b40e",
+    "media/trading.png": "3c2b38f11338cb0eb761872a05b2930dc2abc4c14bdfa580597cae97b8f050fd",
+    "media/voyage.png": "843002292bdb61b7f961c042a8a31d96b1d9f7f6f5fa0f1a2c6d3d676a5b8fd8"
+  },
+  "desktop_viewports": [
+    1440,
+    2440
+  ],
+  "rendered_image_widths": [
+    1374,
+    1918
+  ],
+  "actual_size_image_pixels": 1920,
+  "images": [
+    "Fleet combat",
+    "Boat refit",
+    "Island harbor",
+    "Harbor trading",
+    "Voyage planning"
+  ],
+  "root_finding": "Directly inspected five actual raw originals and five complete/viewport/customer-viewer renders. Distinct relevant images, readable full-width viewing, actual-size controls, clear platform/price/genre and real Buy/library controls. Quiet water and dense management images remain artistic limitations.",
+  "independent_finding": "I’ll open all five page captures and judge readability, purchase visibility, copy and gallery presentation independently. Checkout and interaction results remain relayed evidence.\n\n\n**All five exact PNGs SEEN. Approve the pictured v109 customer page; no visual publication blocker found.**\n\n- Windows PC, single player, fleet combat/trading, **$9.99 USD** and early-development status are clear.\n- Purchase bar appears before the gallery; **Buy** leads, with library download visibly secondary.\n- Gallery uses both desktop widths effectively. Five distinct scenes communicate combat, refitting, harbors, trading and voyage planning.\n- Plain copy, readable headings and spacing establish a clear hierarchy; no page overflow observed.\n- Actual-size refit capture makes the **722-coin quote** and engine tradeoffs readable. Viewer controls are clear.\n\nVisual approval only. Interaction, checkout/download and native results remain relayed evidence; this grants no whole-game quality approval.\n",
+  "scope": "Actual visual publication acceptance only; native/interaction/commerce receipts are separate. No whole-game/Starsector-quality claim. Early-development notice remains visible."
+}

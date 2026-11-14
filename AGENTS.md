@@ -1,7 +1,7 @@
 # Brass Tide — current working instructions
 
 Active owner instruction: "Game clearly isn't quality yet. Prepare a ten version plan and then work through that plan. Use four helpers, go."
-Read CODE MAP.md, game/data/DEVELOPER NOTES.txt and docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt. Local scopes100-108 are delivered;109 is the current delivery candidate. Public version and installed build are separate facts; read the current publication/install receipts. Historical instructions are preserved in docs/history/quality100-108/AGENTS before109.txt; dated obsolete stops/status do not supersede this current authorization.
+Read CODE MAP.md, game/data/DEVELOPER NOTES.txt and docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt. Local scopes100-109 are delivered within their recorded scope; both desktop links and the public Windows build are109. Public version and installed build are separate facts; read the current publication/install receipts. Historical instructions are preserved in docs/history/quality100-108/AGENTS before109.txt; dated obsolete stops/status do not supersede this current authorization.
 
 Root orchestrates three Sol6.1MAX Bridge roles and one CarbonHIGH, including an independent red team. No additional/nested helpers or paid fallback. Helpers use exact assigned files and return bounded work; Root owns integration, test queue, packaging and publication. Board watch is PAUSED.
 

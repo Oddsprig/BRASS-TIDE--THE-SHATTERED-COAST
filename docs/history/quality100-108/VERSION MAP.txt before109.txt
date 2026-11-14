@@ -1,0 +1,18 @@
+BRASS TIDE — CURRENT QUALITY SEQUENCE
+Current accepted/installed100; publicdownload099 at$9.99 until109.
+
+0.100 DELIVERED SCOPED — Campaign responsiveness
+0.101 DOING — Full-fleet battle performance
+0.102 PLANNED — Boat, weapon and motor detail
+0.103 PLANNED — Combat feedback, wakes, sound and overlays
+0.104 PLANNED — Harbors, chart scale and navigation
+0.105 PLANNED — First voyage, affordable retry and earned upgrade
+0.106 PLANNED — Tactical roles, commands and withdrawal
+0.107 PLANNED — Contested paid work: discovery and settlement
+0.108 PLANNED — Saves, settings, PC controls and launcher
+0.109 PLANNED — Actual gameplay media and Windows/store delivery
+
+Plan: docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt
+History: docs/archive/status-before-v0.100/VERSION MAP.txt and dated roadmap files.
+Each accepted version advances by .001. No whole-game quality or finished-release claim.
+Board watch PAUSED.

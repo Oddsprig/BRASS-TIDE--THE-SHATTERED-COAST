@@ -1,4 +1,4 @@
-v0.109 — Current developer handoff (delivery candidate)
+v0.109 — Current developer handoff (delivered scoped)
 
 This is an early-development Windows game. The 0.100-0.109 sequence improves existing systems; it does not establish Starsector parity or a finished commercial-quality game. See CODE MAP.md for code navigation and the individual CHANGES files for exact receipts and remaining limits. Previous verbose notes are preserved in docs/history/quality100-108/DEVELOPER NOTES before109.txt and Git.
 
@@ -6,7 +6,7 @@ Keep: 36 original boat designs; compatible interchangeable physical mounts; bron
 
 Architecture: authoritative combat is a detached 30Hz data worker with staggered role/target decisions; main owns scene/input, publication, interpolation, render submission, UI and audio. Automatic saves defer while economy work is pending. Explicit saves and retirement still settle and verify complete data. The 101 payload optimization is a measured small constructor improvement, not proof of overall FPS.
 
-Current delivery: local scopes100-108 accepted and packaged in order.109 media/store/download work is pending. Public version and installed version must be recorded separately. Do not claim dense 300-point smoothness, audio listening quality, sinking/recoil polish or whole-game balance from small fixtures, raw screenshots, export or startup. Larger-case rendering and daily publication/serialization remain practical performance concerns.
+Current delivery: local scopes100-109 accepted and packaged in order; both desktop links and the $9.99 public Windows download are109. Public and installed identities are recorded separately under docs/store and the private release receipts. Do not claim dense 300-point smoothness, audio listening quality, sinking/recoil polish or whole-game balance from small fixtures, raw screenshots, export or startup. Larger-case rendering and daily publication/serialization remain practical performance concerns.
 
 Lessons to retain:
 - Read and write UTF-8 explicitly. Preserve mixed line endings in surgical source edits.
@@ -19,3 +19,5 @@ Lessons to retain:
 - Validate the exact source/export template and keep candidate code frozen during native jobs. The self-contained Godot toolchain reads templates from its editor_data folder.
 
 Style-specific owner requirements: plain useful UI wording, no slogans or captions on passive scenery; low-poly/isometric boats, inexpensive water, a Windows-first control scheme. General practices above transfer to other projects. Board watch remains PAUSED.
+
+Current109 acceptance: v0.109 — Current game media, readable desktop gallery and matching Windows delivery. See CHANGES v0.109.md for the full scoped result.

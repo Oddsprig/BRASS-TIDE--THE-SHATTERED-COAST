@@ -105,5 +105,5 @@ STATUS
 0.106 DELIVERED_SCOPED — see CHANGES v0.106.md and current delivery handoff for exact acceptance and limits.
 0.107 DELIVERED_SCOPED — see CHANGES v0.107.md and current delivery handoff for exact acceptance and limits.
 0.108 DELIVERED_SCOPED — see CHANGES v0.108.md and current delivery handoff for exact acceptance and limits.
-0.109 DOING — no acceptance or installation implied.
+0.109 DELIVERED_SCOPED — see CHANGES v0.109.md and docs/store/CURRENT PUBLICATION.json; whole-game quality remains open.
 Board watch PAUSED. Source, installed and public versions are recorded separately.

@@ -1,9 +1,7 @@
-# Current step: v0.101 — Fleet battle responsiveness
+# Brass Tide current roadmap
 
-Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then work through that plan. Use four helpers, go."
+Delivered sequence: v0.100-v0.109. Read docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt and the individual CHANGES files for bounded results, source bindings and limits. Current Windows build, desktop launchers and$9.99 public download are109. The game remains in early development.
 
-Build v0.100–v0.109 sequentially from accepted v0.099. The authoritative plan is [QUALITY DELIVERY MAP v0.100-v0.109](<docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt>).
+Remaining quality work should begin from observed player problems: sustained large-fleet simulation/render performance; daily publication and serialization spikes; dense combat, small-boat and weapon readability; weapon/engine audio listening and mix; career pacing/balance and a complete ordinary user playthrough. These are unresolved directions, not secretly completed milestones or another automatically authorized ten-version sequence.
 
-v0.100 is delivered within its autosave scheduling scope. For0.101 measure and reduce detached planner payload construction cost, preserve targets/orders/ownership, and observe actual light/mixed fleet response. Report remaining performance limits; do not round an unresolved global quality gate into a pass.
-
-Four Bridge helpers: campaign/performance, combat/art, player experience/store, independent red team. Root integrates and owns the shared test queue. No foreground/input control. Whole selected pass <=60seconds; no nested helpers, duplicate detector or framework. Board watch stays paused.
+Preserve36 original hulls, physical compatible mounts, finite coin/material economies, crew repair/flooding,300-point deployment separate from ownership,48 seeded island groups and Open Seas. Do not add a new roster, expensive water simulation, walking crews or continents to disguise existing quality issues. Public page reviews must inspect actual full-size images and complete rendered pages, including purchase/download and genre clarity.

@@ -1,72 +1,105 @@
 {
   "status": "PUBLISHED_AND_READ_BACK",
   "url": "https://marketplace.oddsprig.com/brass-tide/",
-  "deployment_url": "https://15047247.oddsprig-marketplace.pages.dev",
+  "deployment_url": "https://efbd9949.oddsprig-marketplace.pages.dev",
   "price_cents": 999,
   "currency": "usd",
   "platform": "Windows PC",
-  "version": "0.099",
-  "build": 99,
-  "download_bytes": 127616517,
-  "download_sha256": "7aebc478f54d7dd4a67e85fbc2de9d1c5f6aa717f0dfc4e0ea4a7ba7353137c7",
-  "checkout": "COMMERCE VERIFICATION.json: live handoff; zero payments completed",
-  "download": "COMMERCE VERIFICATION.json: authenticated library and complete streamed byte/SHA match",
-  "screenshots": [
-    "Boat fittings",
-    "Brass Haven harbor",
-    "Harbor trading"
+  "version": "0.109",
+  "build": 109,
+  "download_bytes": 130093416,
+  "download_sha256": "813c0337fd830e6620a3d6b4c9bef25c37b0617c74128bbaf874a73ec4c76041",
+  "gallery": [
+    "Fleet combat",
+    "Boat refit",
+    "Island harbor",
+    "Harbor trading",
+    "Voyage planning"
   ],
-  "public_readback": [
+  "readability": "Full-width1920 gallery; actual-size viewer; Root and independent actual-image/full-page review recorded separately.",
+  "public_assets": [
     {
       "file": "index.html",
       "status": 200,
-      "bytes": 5987,
-      "sha256": "411538c18d290963162230a46cd2f3c3e9291fa234d4fbe2ecb04f7fa32dbec6",
-      "content_type": "text/html; charset=utf-8"
+      "bytes": 7523,
+      "sha256": "ccf46956a36f53b186875437542b03ee412da20ceb3683416eafc38c92f4e6e6",
+      "content_type": "text/html; charset=utf-8",
+      "source_verified": true,
+      "hosting_analytics_appended": true
     },
     {
-      "file": "style.css?v=20261114",
+      "file": "style.css?v=109-readable",
       "status": 200,
-      "bytes": 5223,
-      "sha256": "473b7e1c6ea81086d4f4a883431f4258f44c146590f8e6ce4b88bf4fdc6307a8",
-      "content_type": "text/css; charset=utf-8"
+      "bytes": 5794,
+      "sha256": "88e0624e4e993ee77e67d269e467cb7b4bf6bed891cb9ea7c60b487c1aed3ffe",
+      "content_type": "text/css; charset=utf-8",
+      "source_verified": true,
+      "hosting_analytics_appended": false
     },
     {
-      "file": "gallery.js",
+      "file": "gallery.js?v=109-readable",
       "status": 200,
-      "bytes": 665,
-      "sha256": "90794dc34bc4abcf8a93d4db7e0e951061368f77a291285b1407b25386c76b25",
-      "content_type": "application/javascript"
+      "bytes": 2276,
+      "sha256": "6a1ecb08a5355779c89e91bb5448985bec681e91bd2382996c9deeb971b16146",
+      "content_type": "application/javascript",
+      "source_verified": true,
+      "hosting_analytics_appended": false
     },
     {
       "file": "buy.js",
       "status": 200,
       "bytes": 5703,
       "sha256": "074c87c84d5535db7e6a1481bb04b5ce278bc35406ba52df6f34546190d1cc04",
-      "content_type": "application/javascript"
+      "content_type": "application/javascript",
+      "source_verified": true,
+      "hosting_analytics_appended": false
     },
     {
-      "file": "media/harbor.png",
+      "file": "media/combat.png",
       "status": 200,
-      "bytes": 230023,
-      "sha256": "17ce8fae8effe89375187de4fd4638c580471990d4b3042f0c5683ba74af8d3d",
-      "content_type": "image/png"
-    },
-    {
-      "file": "media/trading.png",
-      "status": 200,
-      "bytes": 266628,
-      "sha256": "fda9453edbfc0f37d0e0ebeefacc14201dc5a61463deb2e32325d1c2e73bb735",
-      "content_type": "image/png"
+      "bytes": 466024,
+      "sha256": "7b0ca29a1c3d566a368ef07fdf8cf85ee333012b85eab3874ad2cdefc56ad5af",
+      "content_type": "image/png",
+      "source_verified": true,
+      "hosting_analytics_appended": false
     },
     {
       "file": "media/fittings.png",
       "status": 200,
-      "bytes": 431125,
-      "sha256": "a8281963afdafbd9c2a3731ae02a9cc218e505c169198285f13d71c4906b35c0",
-      "content_type": "image/png"
+      "bytes": 439082,
+      "sha256": "a0917b03b65dd62338a7bb6dfa78a3d4b31466d2b3635be2b6eca24886eb127f",
+      "content_type": "image/png",
+      "source_verified": true,
+      "hosting_analytics_appended": false
+    },
+    {
+      "file": "media/harbor.png",
+      "status": 200,
+      "bytes": 293508,
+      "sha256": "aebce65a48e27698fdaeeb05b2b979e004ca0327fdec20dab57bdbcd5684b40e",
+      "content_type": "image/png",
+      "source_verified": true,
+      "hosting_analytics_appended": false
+    },
+    {
+      "file": "media/trading.png",
+      "status": 200,
+      "bytes": 315478,
+      "sha256": "3c2b38f11338cb0eb761872a05b2930dc2abc4c14bdfa580597cae97b8f050fd",
+      "content_type": "image/png",
+      "source_verified": true,
+      "hosting_analytics_appended": false
+    },
+    {
+      "file": "media/voyage.png",
+      "status": 200,
+      "bytes": 519992,
+      "sha256": "843002292bdb61b7f961c042a8a31d96b1d9f7f6f5fa0f1a2c6d3d676a5b8fd8",
+      "content_type": "image/png",
+      "source_verified": true,
+      "hosting_analytics_appended": false
     }
   ],
   "library_http_status": 200,
-  "installed_game_changed": false
+  "commerce_evidence": "COMMERCE VERIFICATION.json; live handoff with zero payments and full protected byte/hash download"
 }

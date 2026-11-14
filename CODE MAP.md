@@ -1,4 +1,4 @@
-v0.109 — Current source map (delivery candidate)
+v0.109 — Current source map (delivered scoped)
 
 Read docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt for the ten bounded milestones. Version acceptance and limitations belong in CHANGES v0.100.md through CHANGES v0.109.md. Historical source-map/status text is preserved under docs/history/quality100-108 and in Git.
 
@@ -16,4 +16,6 @@ Equipment/economy: workshop, workshop_comparison048 and equipment_* retain compa
 
 Bounded verification: game/tests contains retained useful fixtures. Current private queue tools, raw images, receipts and source bindings are in parent work/quality-v100-v109-2026-11-14. Retained earned checkpoint105 is an actual completed public journey copied into private profiles; it is not owner data or supplied victory. Retail exports exclude tests, private notes, profiles and evidence.
 
-v0.109 prepares distinct current gameplay media, a plain $9.99 Windows store listing and a verified current download. Delivery is pending until the actual media, complete rendered page, clean portable and live purchase/library/download path are reviewed. Export success alone does not establish art, performance or game quality.
+v0.109 delivers current distinct media, a full-width gallery with actual-size viewing, the $9.99 Windows store listing and the matching current download. Read CHANGES v0.109.md and docs/store/CURRENT PUBLICATION.json for actual review and delivery evidence. Export and storefront correctness do not establish whole-game art, performance or play quality.
+
+Current109 acceptance: v0.109 — Current game media, readable desktop gallery and matching Windows delivery. See CHANGES v0.109.md for the full scoped result.
