@@ -153,7 +153,8 @@ static func update_compact(ui, selection: Dictionary, status: Dictionary, flow: 
 	var crew: int=0
 	for member in battle.ships:
 		if member.team=="player" and not member.sunk and not member.get("captureSecured",false):crew+=int(member.crew)
-	ui.stats_label.text="%d active boats · %d crew"%[friendly_count,crew]
+	var active_boat_word109: String="boat" if friendly_count==1 else "boats"
+	ui.stats_label.text="%d active %s · %d crew"%[friendly_count,active_boat_word109,crew]
 	ui.voyage_label.text="%d SELECTED · %d HOSTILE · %s"%[int(selection.count),enemy_count,"AUTOPILOT" if battle.get("autopilot",true) else "MANUAL FLAGSHIP"]
 	if not status.is_empty():ui.voyage_label.text="%d SELECTED · %d HOSTILE · %s · %s%s"%[int(selection.count),enemy_count,str(status.role).capitalize(),str(status.order).capitalize()," → "+str(status.targetName) if not str(status.targetName).is_empty() else ""]
 	if battle.get("retreatTimer")!=null:ui.voyage_label.text="Fleet withdrawal · %.0f seconds"%float(battle.retreatTimer)
