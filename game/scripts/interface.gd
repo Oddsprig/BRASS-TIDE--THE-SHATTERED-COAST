@@ -57,6 +57,7 @@ var notices: VBoxContainer
 var notices_home_position = Vector2(560, 95)
 var title_root: Control
 var modal_open = false
+var title_default_focus: Button=null
 var modal_kind = ""
 var workshop_drafts: Dictionary={}
 var workshop_requests: Dictionary={}
@@ -261,6 +262,7 @@ func title_screen():
 	button(actions, "Quit to desktop", host.quit_game)
 	for action in actions.get_children():
 		if action is Button:action.custom_minimum_size.y=36
+	title_default_focus=first
 	first.grab_focus()
 	spacer(v, 25)
 	eyebrow(v, "SINGLE PLAYER  ·  KEYBOARD AND MOUSE")
@@ -1080,6 +1082,12 @@ func open_menu():
 	button(body, "Main menu", func(): host.return_to_title())
 	button(body, "Quit to desktop", func(): host.quit_game())
 
+func leave_settings():
+	if host.mode=="menu":
+		close_modal()
+		if is_instance_valid(title_default_focus) and not title_default_focus.disabled:title_default_focus.grab_focus()
+	else:open_menu()
+
 func open_settings():
 	modal_kind = "settings"
 	var body = modal("Settings", "VIDEO · AUDIO · PERFORMANCE", 800, 650)
@@ -1108,7 +1116,7 @@ func open_settings():
 	button(body,"Development tools: "+("ON · F9 overlay" if host.dev_enabled else "OFF"),func():host.dev_enabled=not host.dev_enabled;host.save_preferences();open_settings())
 	paragraph(body, "Options are saved beside the game. Music is optional and can be added while the game is running. A lower frame cap reduces power use.", 16)
 	paragraph(body, "CPU: %s\nThreads: %d · Adapter: %s\nCurrent frame rate: %d FPS" % [OS.get_processor_name(), OS.get_processor_count(), RenderingServer.get_video_adapter_name(), Engine.get_frames_per_second()], 15, TEAL)
-	button(body, "Back", close_modal if host.mode=="menu" else open_menu)
+	button(body, "Back", leave_settings)
 
 func outcome(result: String, report: Dictionary, enemies: Array):
 	modal_kind = "outcome"

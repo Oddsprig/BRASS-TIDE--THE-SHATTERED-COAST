@@ -375,7 +375,9 @@ func _unhandled_input(event):
 				ui.toast("Command canceled.");ui.update_hud()
 				return
 			if ui.modal_open:
-				if ui.modal_kind == "outcome":
+				if ui.modal_kind == "settings":
+					ui.leave_settings()
+				elif ui.modal_kind == "outcome":
 					if quick_mode:
 						return_to_title()
 					elif core.active_fleet().is_empty():
