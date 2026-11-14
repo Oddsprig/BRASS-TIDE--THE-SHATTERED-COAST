@@ -101,8 +101,8 @@ STATUS
 0.102 DELIVERED_SCOPED — see CHANGES v0.102.md and current delivery handoff for exact acceptance and limits.
 0.103 DELIVERED_SCOPED — see CHANGES v0.103.md and current delivery handoff for exact acceptance and limits.
 0.104 DELIVERED_SCOPED — see CHANGES v0.104.md and current delivery handoff for exact acceptance and limits.
-0.105 DOING — no acceptance or installation implied.
-0.106 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+0.105 DELIVERED_SCOPED — see CHANGES v0.105.md and current delivery handoff for exact acceptance and limits.
+0.106 DOING — no acceptance or installation implied.
 0.107 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
 0.108 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
 0.109 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
