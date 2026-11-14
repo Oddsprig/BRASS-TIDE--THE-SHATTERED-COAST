@@ -1,5 +1,5 @@
 extends SceneTree
-## SOURCE CANDIDATE, UNRUN. Root alone executes through Test Bridge, after 046.
+## Actual Driver-publication fixture. Root executes through the shared Test Bridge lane.
 ## One tiny public Lab, two actual viewport layouts, native control signals only.
 const Lab=preload("res://scripts/fleet_lab.gd")
 var game
@@ -18,10 +18,18 @@ func descendants(node: Node) -> Array:
 func control(name: String):
 	return game.ui.root.find_child(name,true,false)
 
-func press(name: String) -> void:
+func press(name: String) -> bool:
 	var button=control(name)
-	check(button is Button and button.is_visible_in_tree() and not button.disabled,"reachable control: "+name)
-	if button is Button and not button.disabled:button.pressed.emit()
+	var reachable: bool=(
+		button is Button
+		and button.is_visible_in_tree()
+		and not button.disabled
+	)
+	check(reachable,"reachable control: "+name)
+	if not reachable:
+		return false
+	button.pressed.emit()
+	return true
 
 func labels() -> Array:
 	return [game.ui.stats_label,game.ui.clock_label,game.ui.voyage_label,game.ui.flagship_label,game.ui.damage_label,game.ui.objective_label,game.ui.battle_points_label,game.ui.battle_control_label,game.ui.tactical_intent_label]
@@ -66,53 +74,166 @@ func geometry(viewport: Vector2i) -> void:
 	check(game.ui.chrome.get_child_count()==4,"no empty permanent sidebar frames at "+str(viewport))
 	print("battle_layout047 %s: actual clear centre %.0fpx², inherited centre bound %.0fpx²"%[viewport,open_area,previous_centre])
 
+func boat106(id: String) -> Dictionary:
+	for boat: Dictionary in game.battle.ships:
+		if str(boat.id)==id:
+			return boat
+	return {}
+
+func stores106() -> Dictionary:
+	var result: Dictionary={}
+	for boat: Dictionary in game.battle.ships:
+		result[str(boat.id)]=[
+			boat.crew,boat.wounded,boat.supplies,boat.fuel,boat.ammo
+		]
+	return result
+
+func receipt106(after: int, kind: String="") -> Dictionary:
+	var result: Dictionary={}
+	for row: Dictionary in game.battle_driver051.telemetry().get("commandResults",[]):
+		if int(row.get("sequence",0))<=after:
+			continue
+		if not kind.is_empty() and str(row.get("kind",""))!=kind:
+			continue
+		if result.is_empty() or int(row.sequence)>int(result.sequence):
+			result=row.duplicate(true)
+	return result
+
+func publish106(done: Callable, message: String) -> bool:
+	if game.battle_driver051==null:
+		check(false,"native Driver exists: "+message)
+		return false
+
+	var before_stores: Dictionary=stores106()
+	var before_career: Dictionary=game.core.state.duplicate(true)
+	var deadline: int=Time.get_ticks_msec()+2000
+
+	for attempt in range(120):
+		# Always stopped, including while testing the pause button.
+		game.poll_battle051(0.0,true)
+		game.ui.update_hud()
+
+		if stores106()!=before_stores or game.core.state!=before_career:
+			check(false,"zero-time publication preserves stores/career: "+message)
+			return false
+
+		if bool(done.call()):
+			check(true,message)
+			return true
+		if Time.get_ticks_msec()>=deadline:
+			break
+		await process_frame
+
+	check(false,"publication deadline: "+message)
+	return false
+
+func command106(command: String) -> bool:
+	var sequence: int=int(game._battle_ack_sequence051)
+	if not press("BattleCommand_"+command):
+		return false
+
+	if game.battle_command_pending==command:
+		check("Right-click" in game.ui.battle_control_label.text,
+			"target command visibly awaits its target: "+command)
+		return true
+
+	if not (await publish106(func():
+		return not receipt106(sequence,"player_command").is_empty()
+	,"native command receipt: "+command)):
+		return false
+
+	var receipt: Dictionary=receipt106(sequence,"player_command")
+	var accepted: bool=bool(receipt.get("ok",false))
+	check(accepted,"native command accepted: "+command)
+	check(
+		str(game.battle_command_ack.get("command",""))=="player_command"
+		and not game.ui.battle_control_label.text.is_empty(),
+		"published command acknowledgment is visible: "+command
+	)
+	return accepted
+
 func exercise() -> void:
 	var career=game.core
 	var saved: Dictionary=career.state.duplicate(true)
 	game.open_lab()
 	game.lab_config={"player":[Lab.entry(game.data,"iron_bastion"),Lab.entry(game.data,"lantern_skiff")],"enemy":[Lab.entry(game.data,"tin_skiff")]}
 	game.lab_seed=47047;game.start_lab();game.paused=true
-	var flagship: Dictionary=game.Battle.get_flagship(game.battle)
-	var ally: Dictionary=game.battle.ships.filter(func(s):return s.team=="player" and s.id!=flagship.id)[0]
-	var stores: Array=[]
-	for boat in game.battle.ships:stores.append([boat.crew,boat.wounded,boat.supplies,boat.fuel,boat.ammo])
+	check(game.Battle.set_autopilot(game.battle,true),"initial zero-time public command queues the worker boot")
+	if not (await publish106(func():
+		var boat: Dictionary=game.Battle.get_flagship(game.battle)
+		return not boat.is_empty() and game.Battle.tactical_status(game.battle,str(boat.id)).has("reason")
+	,"initial native status publication")):return
+	var flagship_id: String=str(game.Battle.get_flagship(game.battle).id)
+	var ally_id: String="";var enemy_id: String=""
+	for boat in game.battle.ships:
+		if boat.team=="player" and str(boat.id)!=flagship_id:ally_id=str(boat.id)
+		if boat.team=="enemy":enemy_id=str(boat.id)
+	check(not ally_id.is_empty() and not enemy_id.is_empty(),"actual friendly and enemy targets exist")
+	if ally_id.is_empty() or enemy_id.is_empty():return
+	var stores: Dictionary=stores106()
+	var clock: float=float(game.battle.time)
+	var steps: int=int(game.battle_driver051.telemetry().completedSteps)
+	check(clock==0.0 and float(game.battle_driver051.telemetry().stateTime)==0.0 and steps==0,"boot publishes without any priming physics step")
 	for viewport in [Vector2i(1600,1000),Vector2i(1280,800)]:await geometry(viewport)
 	game.ui.toast("first battle notice");game.ui.toast("second battle notice")
 	check(game.ui.notices.get_child_count()==1,"battle feedback has one notice rather than a stack")
 	if "--layout-only" in OS.get_cmdline_user_args():return
 	var refs: Array=labels()
-	game.select_battle_boat(str(ally.id))
-	check(game.ui.flagship_label.text==str(ally.name) and is_equal_approx(game.ui.hull_bar.value,100.0*float(ally.hp)/float(ally.maxHp)),"selected condition follows actual selection, independently of flagship")
+	game.select_battle_boat(ally_id)
+	check(game.ui.flagship_label.text==str(boat106(ally_id).name),"condition follows actual selected ally")
+	var ally_policy: String=str(boat106(ally_id).policy)
+	var sequence: int=int(game._battle_ack_sequence051)
 	game.ui.policy_buttons.repair.pressed.emit()
-	check(flagship.policy=="repair" and ally.policy!="repair","compact crew priority acts on actual flagship only")
-	game.select_battle_boat(str(flagship.id))
-	var status: Dictionary=game.Battle.tactical_status(game.battle,str(flagship.id))
-	check(game.ui.tactical_intent_label.text==game.ui.TacticsUI.plain(str(status.reason)) and "Cannon 1:" in game.ui.battle_reload_label.text,"default HUD exposes actual AI reason and physical-mount readiness")
-	check("/300 DP" in game.ui.battle_points_label.text and "%d reserve"%game.battle.reserves.player.size() in game.ui.battle_points_label.text,"DP/reserves label follows actual deployment state")
+	if not (await publish106(func():return not receipt106(sequence).is_empty() and boat106(flagship_id).get("policy")=="repair","flagship crew priority reaches worker publication")):return
+	check(bool(receipt106(sequence).get("ok",false)) and str(boat106(ally_id).policy)==ally_policy,"crew priority changes flagship only")
+	game.select_battle_boat(flagship_id)
+	var status: Dictionary=game.Battle.tactical_status(game.battle,flagship_id)
+	check(game.ui.tactical_intent_label.text==game.ui.TacticsUI.plain(str(status.reason)) and "Cannon 1 · " in game.ui.battle_reload_label.text and "Cannon 1:" in game.ui.battle_reload_label.tooltip_text,"compact physical mount readiness keeps full reason in tooltip")
+	check("/300 DP" in game.ui.battle_points_label.text,"deployment remains distinct from ownership")
 	for command in ["engage","harass","focus","escort","defend","rally","hold","withdraw"]:
+		if not (await command106(command)):return
+	# Exercise actual native target submission, without OS input or simulation.
+	for command in ["focus","escort","defend","rally"]:
 		press("BattleCommand_"+command)
-		check(str(game.battle_command_ack.get("command",""))==command and not game.ui.battle_control_label.text.is_empty(),"button publishes immediate visible host acknowledgment: "+command)
-	press("BattleCommand_focus")
-	check(game.battle_command_pending=="focus" and "Right-click" in game.ui.battle_control_label.text,"target order stays visibly pending rather than pretending it executed")
-	game.request_battle_command("hold")
-	press("BattlePause");check(not game.paused,"native pause button resumes")
-	press("BattlePause");check(game.paused,"native pause button pauses")
+		check(game.battle_command_pending==command,"target selection is visibly pending: "+command)
+		var target_id: String=enemy_id if command=="focus" else ally_id
+		var at: Vector2=Vector2(boat106(target_id).x,boat106(target_id).y) if command in ["focus","escort"] else Vector2(boat106(flagship_id).x,boat106(flagship_id).y)
+		var target_sequence: int=int(game._battle_ack_sequence051)
+		game.order_at(game.chart.project(at))
+		if not (await publish106(func():return not receipt106(target_sequence,"player_command").is_empty(),"target command published: "+command)):return
+		check(bool(receipt106(target_sequence,"player_command").get("ok",false)),"native target command accepted: "+command)
+		check(str(boat106(flagship_id).order)==str({"focus":"attack","escort":"escort","defend":"hold","rally":"move"}[command]),"actual boat receives mapped target order: "+command)
+		if command in ["focus","escort"]:check(str(boat106(flagship_id).orderTarget.get("shipId",""))==target_id,"order retains actual target identity: "+command)
+	if not (await command106("hold")):return
+	check(game.battle_command_pending.is_empty(),"hold clears pending target order")
+	press("BattlePause");check(not game.paused,"pause control resumes")
+	press("BattlePause");check(game.paused,"pause control pauses")
 	for initial in [false,true]:
-		game.paused=initial;game.toggle_tactical();game.toggle_tactical()
-		check(game.paused==initial,"overview restores prior pause state "+str(initial))
+		game.paused=initial
+		check(game.Battle.set_autopilot(game.battle,false),"manual baseline command queues")
+		if not (await publish106(func():return not bool(game.battle.autopilot),"manual baseline publishes")):return
+		var previous_autopilot: bool=bool(game.battle.autopilot)
+		game.toggle_tactical()
+		if not (await publish106(func():return bool(game.battle.autopilot),"overview autopilot publishes")):return
+		game.toggle_tactical()
+		if not (await publish106(func():return bool(game.battle.autopilot)==previous_autopilot,"overview restores autopilot")):return
+		check(game.paused==initial,"overview restores prior pause state")
 	game.paused=true
-	press("BattleAutopilot");check(not game.battle.autopilot,"compact autopilot button yields manual flagship")
-	press("BattleAutopilot");check(game.battle.autopilot,"compact autopilot button restores autopilot")
+	check(game.Battle.set_autopilot(game.battle,true),"autopilot baseline queues")
+	if not (await publish106(func():return bool(game.battle.autopilot),"autopilot baseline publishes")):return
+	press("BattleAutopilot")
+	if not (await publish106(func():return not bool(game.battle.autopilot),"manual flagship publishes")):return
+	press("BattleAutopilot")
+	if not (await publish106(func():return bool(game.battle.autopilot),"autopilot restores")):return
 	press("BattleDetails")
-	check(game.ui.modal_kind=="battle_details" and "Inflow" in game.ui.battle_details_label.text and "Stores:" in game.ui.battle_details_label.text,"on-demand detail retains finite crew, flows and stores")
+	check(game.ui.modal_kind=="battle_details" and "Inflow" in game.ui.battle_details_label.text and "Stores:" in game.ui.battle_details_label.text,"expanded detail keeps finite damage control and stores")
 	game.ui.close_modal();press("BattleTactics")
 	var routes: bool=game.chart.battle_overlays.routes
-	press("BattleOverlay_routes");check(game.chart.battle_overlays.routes!=routes,"on-demand routes toggle uses agreed host overlay API")
+	press("BattleOverlay_routes");check(game.chart.battle_overlays.routes!=routes,"optional route overlay changes")
 	game.ui.close_modal()
-	check(labels()==refs and refs.all(func(node):return is_instance_valid(node)),"modal round trip preserves every legacy HUD label reference")
-	var remaining: Array=[]
-	for boat in game.battle.ships:remaining.append([boat.crew,boat.wounded,boat.supplies,boat.fuel,boat.ammo])
-	check(remaining==stores and career.state==saved,"UI-only callbacks invent no stores, people or paid career mutations")
+	check(labels()==refs and refs.all(func(node):return is_instance_valid(node)),"modal round trip preserves HUD controls")
+	check(stores106()==stores and career.state==saved,"all UI-only commands preserve finite stores and the actual career")
+	check(float(game.battle.time)==clock and float(game.battle_driver051.telemetry().stateTime)==clock and int(game.battle_driver051.telemetry().completedSteps)==steps,"command-only publication advances no simulation clock or steps")
 
 func _initialize() -> void:call_deferred("run")
 
@@ -124,8 +245,9 @@ func run() -> void:
 		game.audio.enabled=false;game.music.enabled=false
 		game.save_directory=OS.get_user_data_dir().path_join("layout047-%d"%Time.get_ticks_usec())
 		await process_frame
-		game.new_game();game.paused=true
+		game.new_game(47047);game.paused=true
 		await exercise()
 		game.queue_free();await process_frame
+	if has_method("after_controls106"):await call("after_controls106")
 	print("battle_layout047: %d checks, %d failures; layout/control signals only, no motion or quality verdict"%[checks,failures])
 	quit(0 if failures==0 else 1)

@@ -141,7 +141,7 @@ static func update(ui, compact: bool=false):
 				var reason: String=str(status.weapons.get(str(mount.id),"Waiting for a firing opportunity"))
 				var state: String=PressureView.weapon_state(boat,mount,index,flow,plain(reason))
 				lines.append("%s %d · %s"%[str(mount.kind).capitalize(),index+1,state])
-				weapons.append("%s %d: %s"%[str(mount.kind).capitalize(),index+1,state.left(48)])
+				weapons.append("%s %d · %s"%[str(mount.kind).capitalize(),index+1,compact_weapon_status106(state)])
 				index+=1
 		var expanded: String="\n".join(lines) if not lines.is_empty() else "Select a boat to see its intent."
 		if compact:update_compact(ui,selection,status,flow,weapons,expanded,player.size(),enemy.size())
@@ -361,3 +361,26 @@ static func options(ui,weapon_kind: String="all") -> void:
 		ui.button(line,"Select group %d"%slot,func():
 			if ui.host.recall_selection_group(slot):options(ui))
 	ui.button(body,"Close",ui.close_modal,true)
+
+static func compact_weapon_status106(full_status: String) -> String:
+	var text: String=full_status.strip_edges()
+	var normalized: String=text.replace("·"," ").replace("—"," ")
+	normalized=normalized.replace("\n"," ").strip_edges()
+	while normalized.contains("  "):
+		normalized=normalized.replace("  "," ")
+	normalized=normalized.trim_suffix(".").to_lower()
+
+	if normalized in ["loaded","loaded waiting for firing opportunity","loaded waiting for a firing opportunity","loaded waiting for shot"]:
+		return "Loaded"
+	if normalized in ["hold","hold fire","holding fire"]:
+		return "Hold"
+
+	if text.begins_with("Loaded "):
+		text=text.trim_prefix("Loaded ").lstrip(" :·—")
+	elif text.begins_with("Loaded:"):
+		text=text.trim_prefix("Loaded:").lstrip(" :·—")
+
+	if text.begins_with("Reloading "):
+		text="Reload "+text.trim_prefix("Reloading ")
+
+	return text if text.length()<=24 else text.left(23)+"…"
