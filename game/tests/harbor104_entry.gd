@@ -40,7 +40,7 @@ func run() -> void:
 	button(game.ui.overlay,"Set course").pressed.emit()
 	check(str(game.core.state.destination)==str(target.id) and not game.core.state.path.is_empty(),"confirmation uses actual sailing path and destination")
 	check(int(game.core.state.coins)==int(var_to_dict(before).get("coins",-1)),"charting the route does not buy stores")
-	if has_method("capture104"):await capture104(game,q)
+	if has_method("capture104"):await call("capture104",game,q)
 	print("HARBOR104_DONE ",JSON.stringify({"checks":checks,"failures":failures,"distance":q.distance,"days":q.endurance.outwardDays}))
 	game.queue_free()
 	await process_frame
