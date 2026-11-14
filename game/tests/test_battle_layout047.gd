@@ -188,7 +188,10 @@ func exercise() -> void:
 	check(bool(receipt106(sequence).get("ok",false)) and str(boat106(ally_id).policy)==ally_policy,"crew priority changes flagship only")
 	game.select_battle_boat(flagship_id)
 	var status: Dictionary=game.Battle.tactical_status(game.battle,flagship_id)
-	check(game.ui.tactical_intent_label.text==game.ui.TacticsUI.plain(str(status.reason)) and "Cannon 1 · " in game.ui.battle_reload_label.text and "Cannon 1:" in game.ui.battle_reload_label.tooltip_text,"compact physical mount readiness keeps full reason in tooltip")
+	check(game.ui.tactical_intent_label.text==game.ui.TacticsUI.plain(str(status.reason)),"actual selected AI reason remains visible")
+	check("Cannon 1 · " in game.ui.battle_reload_label.text,"compact label names the actual physical mount")
+	var full_reason: String=str(status.weapons.get(str(status.mounts[0].id),"")) if not status.mounts.is_empty() else ""
+	check(not full_reason.is_empty() and "Cannon 1 · " in game.ui.battle_reload_label.tooltip_text and full_reason in game.ui.battle_reload_label.tooltip_text,"tooltip retains the complete current weapon reason")
 	check("/300 DP" in game.ui.battle_points_label.text,"deployment remains distinct from ownership")
 	for command in ["engage","harass","focus","escort","defend","rally","hold","withdraw"]:
 		if not (await command106(command)):return
@@ -210,21 +213,26 @@ func exercise() -> void:
 	press("BattlePause");check(game.paused,"pause control pauses")
 	for initial in [false,true]:
 		game.paused=initial
-		check(game.Battle.set_autopilot(game.battle,false),"manual baseline command queues")
-		if not (await publish106(func():return not bool(game.battle.autopilot),"manual baseline publishes")):return
+		var manual_sequence: int=int(game._battle_ack_sequence051)
+		check(game.queue_battle_command051("autopilot",{"enabled":false}),"manual baseline command queues")
+		if not (await publish106(func():return not receipt106(manual_sequence,"autopilot").is_empty() and not bool(game.battle.autopilot),"manual baseline publishes")):return
 		var previous_autopilot: bool=bool(game.battle.autopilot)
+		var overview_sequence: int=int(game._battle_ack_sequence051)
 		game.toggle_tactical()
-		if not (await publish106(func():return bool(game.battle.autopilot),"overview autopilot publishes")):return
+		if not (await publish106(func():return not receipt106(overview_sequence,"autopilot").is_empty() and bool(game.battle.autopilot),"overview autopilot publishes")):return
+		var restore_sequence: int=int(game._battle_ack_sequence051)
 		game.toggle_tactical()
-		if not (await publish106(func():return bool(game.battle.autopilot)==previous_autopilot,"overview restores autopilot")):return
+		if not (await publish106(func():return not receipt106(restore_sequence,"autopilot").is_empty() and bool(game.battle.autopilot)==previous_autopilot,"overview restores autopilot")):return
 		check(game.paused==initial,"overview restores prior pause state")
 	game.paused=true
 	check(game.Battle.set_autopilot(game.battle,true),"autopilot baseline queues")
 	if not (await publish106(func():return bool(game.battle.autopilot),"autopilot baseline publishes")):return
+	var manual_button_sequence: int=int(game._battle_ack_sequence051)
 	press("BattleAutopilot")
-	if not (await publish106(func():return not bool(game.battle.autopilot),"manual flagship publishes")):return
+	if not (await publish106(func():return not receipt106(manual_button_sequence,"autopilot").is_empty() and not bool(game.battle.autopilot),"manual flagship publishes")):return
+	var autopilot_button_sequence: int=int(game._battle_ack_sequence051)
 	press("BattleAutopilot")
-	if not (await publish106(func():return bool(game.battle.autopilot),"autopilot restores")):return
+	if not (await publish106(func():return not receipt106(autopilot_button_sequence,"autopilot").is_empty() and bool(game.battle.autopilot),"autopilot restores")):return
 	press("BattleDetails")
 	check(game.ui.modal_kind=="battle_details" and "Inflow" in game.ui.battle_details_label.text and "Stores:" in game.ui.battle_details_label.text,"expanded detail keeps finite damage control and stores")
 	game.ui.close_modal();press("BattleTactics")
