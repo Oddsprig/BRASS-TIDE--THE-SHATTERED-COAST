@@ -12,7 +12,7 @@ const CoastalTerrain = preload("res://scripts/coastal_terrain.gd")
 
 const CASE_WALL_US: int = 18000000 # Selected case: 18s; default all: 36s total.
 const CAMPAIGN_STEPS: int = 900 # 30 simulated seconds shared by both legs.
-const COMBAT_STEPS: int = 5400 # 90 simulated seconds at production 60 Hz.
+const COMBAT_STEPS: int = 2700 # 90 simulated seconds at current production 30 Hz.
 
 const ACTIONS = ["fleet", "hold", "training", "supply", "tooling", "workers",
 	"trade", "companies", "law", "boarding", "crises", "exploration",
@@ -484,11 +484,11 @@ func test_first_voyage_public_loop() -> void:
 			if not in_time("physical Kelp battle at %.3fs" % float(battle.time)):
 				save_first_voyage_failure(battle)
 				return
-			Battle.update(battle, 1.0 / 60.0, {})
+			Battle.update(battle, 1.0 / 30.0, {})
 		Tactical.retire_planning051(battle)
 		combat_time = float(battle.time)
 		print("first voyage fight result=%s sim=%.3fs hp=%.3f ammo=%.3f kits=%.3f" % [str(battle.result), combat_time, float(ship.hp), float(ship.ammo), float(ship.supplies)])
-		if not voyage_ck(battle.result == "won", "actual 60Hz win within 90s; outcome=" + str(battle.result)):
+		if not voyage_ck(battle.result == "won", "actual 30Hz win within 90s; outcome=" + str(battle.result)):
 			save_first_voyage_failure(battle)
 			return
 		if not in_time("physical battle settlement"):
@@ -608,8 +608,9 @@ func test_first_voyage_public_loop() -> void:
 		return
 	if not in_time("voyage final guidance"):
 		return
+	if has_method("capture_earned105"):call("capture_earned105",c)
 	voyage_complete = true
-	print("first voyage metrics " + JSON.stringify({"campaignSteps":campaign_steps, "routeDistance":route_distance, "combatSeconds60Hz":combat_time, "fittingCapitalSpent":quote.cost, "captainCoins":c.state.coins, "payrollReserve":reserve, "wallSecondsEntireFile":float(Time.get_ticks_usec()-file_started_us)/1000000.0}))
+	print("first voyage metrics " + JSON.stringify({"campaignSteps":campaign_steps, "routeDistance":route_distance, "combatSeconds30Hz":combat_time, "fittingCapitalSpent":quote.cost, "captainCoins":c.state.coins, "payrollReserve":reserve, "wallSecondsEntireFile":float(Time.get_ticks_usec()-file_started_us)/1000000.0}))
 
 func _initialize() -> void:
 	file_started_us = Time.get_ticks_usec()

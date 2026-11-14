@@ -4,8 +4,38 @@ const Expedition = preload("res://scripts/expedition.gd")
 const Deployment = preload("res://scripts/deployment.gd")
 const Goods = preload("res://scripts/goods.gd")
 const CareerCosts = preload("res://scripts/career_costs.gd")
+const Refits = preload("res://scripts/refit.gd")
+const Workshop = preload("res://scripts/fleet_workshop.gd")
+const Identity = preload("res://scripts/fleet_identity.gd")
 const MAX_CARDS = 8
 const DISPLAY_CAP = 1000000000.0
+
+class PreviewCore extends RefCounted:
+	var state: Dictionary
+	var data: Dictionary
+	var dock_id: String
+	var source
+	func _init(c, harbor_id: String):
+		source = c
+		state = c.state.duplicate(true)
+		data = c.data
+		dock_id = harbor_id
+	func current_port() -> Dictionary:
+		for p in state.get("ports", []) if state.get("ports") is Array else []:
+			if p is Dictionary and str(p.get("id", "")) == dock_id:
+				return p
+		return {}
+	func find_boat(uid: String) -> Dictionary:
+		for b in state.get("fleet", []) if state.get("fleet") is Array else []:
+			if b is Dictionary and str(b.get("uid", "")) == uid:
+				return b
+		return {}
+	func hull(id: String) -> Dictionary:
+		return source.hull(id) if source != null and source.has_method("hull") else {}
+	func fitted_spec(boat: Dictionary) -> Dictionary:
+		return source.fitted_spec(boat) if source != null and source.has_method("fitted_spec") else boat.get("spec", {})
+	func fail(message: String) -> Dictionary:
+		return {"ok": false, "message": message}
 
 static func _finite(v) -> bool:
 	return (v is int or v is float) and is_finite(float(v))
@@ -49,6 +79,196 @@ static func _add(cards: Array, id: String, title: String, reason: String,
 		cards.append({"id":id, "title":title.left(72),
 			"reason":reason.left(500), "actionId":action, "urgent":urgent})
 
+static func _yard_ready(q: Dictionary) -> bool:
+	if q.get("ok", false):
+		return true
+	if not q.get("validDraft", false) or int(_n(q.get("cost"), 0.0)) <= 0:
+		return false
+	var reasons: Array = _rows(q.get("reasons"))
+	return not q.get("affordable", false) and reasons.size() == 1 and str(reasons[0]).begins_with("The whole fitting needs ")
+
+static func _upgrade_entry(boat_name: String, name: String, slot_label: String,
+		effect: String, cost: int, purse: int, reserve_wages: int,
+		post_voyage_coins: int, action: String) -> Dictionary:
+	var affordable_now: bool = purse >= cost
+	var safe_now: bool = purse >= cost + reserve_wages
+	var after_contract: bool = post_voyage_coins >= cost if post_voyage_coins >= 0 else false
+	return {
+		"boatName": boat_name,
+		"name": name,
+		"slotLabel": slot_label,
+		"effect": effect,
+		"cost": cost,
+		"affordableNow": affordable_now,
+		"safeReserveNow": safe_now,
+		"affordableAfterContract": after_contract,
+		"shortCoins": maxi(0, cost - purse),
+		"action": action
+	}
+
+static func upgrade_quotes(c, post_voyage_coins: int = -1) -> Array:
+	if c == null or not c.get("state") is Dictionary or not c.get("data") is Dictionary or not c.has_method("current_port"):
+		return []
+	var live_dock: Dictionary = c.current_port()
+	if live_dock.is_empty() or not _rows(c.state.get("path")).is_empty():
+		return []
+	var view := PreviewCore.new(c, str(live_dock.get("id", "")))
+	var dock: Dictionary = view.current_port()
+	if dock.is_empty():
+		return []
+	var ship: Dictionary = view.find_boat(str(view.state.get("flagship", "")))
+	if ship.is_empty() or ship.get("sunk", false) or (str(ship.get("storedPort", "")) != "" and str(ship.get("storedPort", "")) != str(dock.get("id", ""))):
+		ship = {}
+		for candidate in _rows(view.state.get("fleet")):
+			if candidate is Dictionary and not candidate.get("sunk", false) and (str(candidate.get("storedPort", "")) == "" or str(candidate.get("storedPort", "")) == str(dock.get("id", ""))):
+				ship = candidate
+				break
+	if ship.is_empty():
+		return []
+	var uid: String = str(ship.get("uid", ""))
+	var boat_name: String = str(ship.get("name", "Flagship"))
+	var base: Dictionary = view.hull(str(ship.get("type", "")))
+	if uid.is_empty() or base.is_empty():
+		return []
+	var norm: Dictionary = Refits.normalize(base, _dict(ship.get("loadout")))
+	if not norm.get("ok", false):
+		return []
+	var current_fit: Dictionary = norm.loadout
+	var cat: Dictionary = Refits.catalog()
+	var mounts: Array = Refits.hardpoints(base)
+	var purse: int = maxi(0, int(_n(view.state.get("coins"))) - int(_n(view.state.get("wageArrears"))))
+	var e_now: Dictionary = Expedition.report(view.state, view.data, 0.0)
+	var reserve_wages: int = maxi(0, int(ceil(_n(e_now.get("returnWages")))))
+	var results: Array = []
+
+	var best_armor: Dictionary = {}
+	for armor_id in ["scout_plating", "naval_plating"]:
+		if str(current_fit.get("armor", "")) == armor_id:
+			continue
+		var trial_a: Dictionary = current_fit.duplicate(true)
+		trial_a.armor = armor_id
+		if not Refits.normalize(base, trial_a).get("ok", false):
+			continue
+		var qa: Dictionary = Workshop.preview(view, uid, trial_a)
+		if _yard_ready(qa) and (best_armor.is_empty() or int(qa.cost) < int(best_armor.cost)):
+			var info_a: Dictionary = _dict(_dict(cat.get("armor")).get(armor_id))
+			var add_a: float = _n(info_a.get("armorAdd"))
+			best_armor = _upgrade_entry(boat_name, str(info_a.get("name", armor_id)),
+				"Hull protection", "+%.0f armor" % add_a, int(qa.cost), purse,
+				reserve_wages, post_voyage_coins, "refit")
+	if not best_armor.is_empty():
+		results.append(best_armor)
+
+	if not mounts.is_empty():
+		var best_weapon: Dictionary = {}
+		var slot_idx: int = 0
+		for i in range(mounts.size()):
+			if str(current_fit.weapons[i]).is_empty():
+				slot_idx = i
+				break
+		var mount_label: String = "%d · %s" % [slot_idx + 1, str(_dict(mounts[slot_idx]).get("label", "Weapon mount"))]
+		for weapon_id in ["rapid_gun", "light_cannon", "fire_rocket", "light_torpedo", "heavy_gun"]:
+			if str(current_fit.weapons[slot_idx]) == weapon_id:
+				continue
+			var trial_w: Dictionary = current_fit.duplicate(true)
+			trial_w.weapons = current_fit.weapons.duplicate()
+			trial_w.weapons[slot_idx] = weapon_id
+			if not Refits.normalize(base, trial_w).get("ok", false):
+				continue
+			var qw: Dictionary = Workshop.preview(view, uid, trial_w)
+			if _yard_ready(qw) and (best_weapon.is_empty() or int(qw.cost) < int(best_weapon.cost)):
+				var info_w: Dictionary = _dict(_dict(cat.get("weapons")).get(weapon_id))
+				var eff_w: String = "%.0f dmg, %.0f range" % [_n(info_w.get("damage")), _n(info_w.get("range"))]
+				best_weapon = _upgrade_entry(boat_name, str(info_w.get("name", weapon_id)),
+					mount_label, eff_w, int(qw.cost), purse, reserve_wages,
+					post_voyage_coins, "refit")
+		if not best_weapon.is_empty():
+			results.append(best_weapon)
+
+	var best_engine: Dictionary = {}
+	for engine_id in ["economy_drive", "boost_drive"]:
+		if str(current_fit.get("engine", "")) == engine_id:
+			continue
+		var trial_e: Dictionary = current_fit.duplicate(true)
+		trial_e.engine = engine_id
+		if not Refits.normalize(base, trial_e).get("ok", false):
+			continue
+		var qe: Dictionary = Workshop.preview(view, uid, trial_e)
+		if _yard_ready(qe) and (best_engine.is_empty() or int(qe.cost) < int(best_engine.cost)):
+			var info_e: Dictionary = _dict(_dict(cat.get("engines")).get(engine_id))
+			var eff_e: String = "-32% fuel burn" if engine_id == "economy_drive" else "+18% speed, +8% turn"
+			best_engine = _upgrade_entry(boat_name, str(info_e.get("name", engine_id)),
+				"Propulsion", eff_e, int(qe.cost), purse, reserve_wages,
+				post_voyage_coins, "refit")
+	if not best_engine.is_empty() and (bool(best_engine.affordableNow) or bool(best_engine.affordableAfterContract) or results.size() < 2):
+		results.append(best_engine)
+
+	if str(ship.get("conversion", "")).is_empty():
+		var convs: Dictionary = Identity.conversions()
+		var best_conv: Dictionary = {}
+		for conv_id in ["cargo_rig", "survey_rig", "auxiliary_tanks"]:
+			var qc: Dictionary = Identity.quote_conversion(view, uid, conv_id)
+			if qc.get("ok", false) and int(_n(qc.get("cost"), 0.0)) > 0:
+				if best_conv.is_empty() or int(qc.cost) < int(best_conv.cost):
+					var info_c: Dictionary = _dict(convs.get(conv_id))
+					var eff_c: String = "+35% hold" if conv_id == "cargo_rig" else ("+35% survey rate" if conv_id == "survey_rig" else "+50% fuel tank, -10% burn")
+					best_conv = _upgrade_entry(boat_name, str(info_c.get("name", conv_id)),
+						"Interior conversion", eff_c, int(qc.cost), purse,
+						reserve_wages, post_voyage_coins, "fleet")
+		if not best_conv.is_empty():
+			results.append(best_conv)
+	return results.slice(0, 4)
+
+static func recovery_notes(c, offers: Array, q: Dictionary) -> Array:
+	if c == null or not c.get("state") is Dictionary or q.is_empty() or bool(q.get("ready", false)):
+		return []
+	var notes: Array = []
+	var budget: Dictionary = _dict(q.get("operatingCosts"))
+	var e: Dictionary = _dict(q.get("endurance"))
+	var coins: int = maxi(0, int(_n(c.state.get("coins"))))
+	var arrears: int = maxi(0, int(_n(c.state.get("wageArrears"))))
+	var cash_needed: int = maxi(0, int(_n(budget.get("additionalCashCoins"))) + arrears)
+	var low_cash: bool = coins < cash_needed or (_finite(e.get("affordableDays")) and _n(e.get("affordableDays")) < _n(budget.get("days"))) or arrears > 0
+	if low_cash:
+		var arrears_clause: String = ", %d wage arrears" % arrears if arrears > 0 else ""
+		notes.append("Available coins: %d. Required for this trip: %d (%d payroll reserve, %d store purchases, %d dock repairs%s)." % [
+			coins, cash_needed, int(_n(budget.get("wageCoins"))),
+			int(_n(budget.get("foodPurchaseCoins"))) + int(_n(budget.get("fuelPurchaseCoins"))),
+			int(_n(budget.get("repairQuoteCoins"))), arrears_clause])
+	var current_offer: Dictionary = _dict(q.get("offer"))
+	var current_id: String = str(current_offer.get("id", ""))
+	var best_alt: Dictionary = {}
+	var best_quote: Dictionary = {}
+	for cand in offers:
+		if not cand is Dictionary or str(cand.get("id", "")) == current_id:
+			continue
+		var cq: Dictionary = CareerCosts.contract_quote(c, cand)
+		if not cq.get("canAccept", false) or not cq.get("funded", false) or not cq.get("routeAvailable", false) or not cq.get("ready", false):
+			continue
+		var cand_cash: int = int(_n(_dict(cq.get("operatingCosts")).get("additionalCashCoins")))
+		if coins < cand_cash + arrears:continue
+		var cand_hostiles: int = _rows(cand.get("enemyHulls")).size()
+		var best_cash: int = int(_n(_dict(best_quote.get("operatingCosts")).get("additionalCashCoins")))
+		var best_hostiles: int = _rows(best_alt.get("enemyHulls")).size()
+		if best_alt.is_empty() or cand_hostiles < best_hostiles or (cand_hostiles == best_hostiles and cand_cash < best_cash):
+			best_alt = cand
+			best_quote = cq
+	if not best_alt.is_empty():
+		var alt_cash: int = int(_n(_dict(best_quote.get("operatingCosts")).get("additionalCashCoins")))
+		var alt_hostiles: int = _rows(best_alt.get("enemyHulls")).size()
+		notes.append("Next affordable departure: %s (%d hostile %s, %d coins gross, %d coins voyage outlay) is funded and open for review above." % [
+			str(best_alt.get("title", "Local contract")), alt_hostiles,
+			"boat" if alt_hostiles == 1 else "boats",
+			int(_n(best_quote.get("grossRewardCoins"))), alt_cash])
+	var saleable_lots: int = 0
+	var cargo: Dictionary = _dict(c.state.get("cargo"))
+	for good in cargo:
+		if str(good) not in ["food", "fuel", "supplies", "ammo"]:
+			saleable_lots += maxi(0, floori(_n(cargo.get(good))))
+	if low_cash and saleable_lots > 0 and not c.current_port().is_empty():
+		notes.append("Review possible sales: %d cargo %s in Hold, subject to buyer funds and market access." % [saleable_lots, "lot" if saleable_lots == 1 else "lots"])
+	return notes
+
 static func careers() -> Array:
 	var rows = [
 		["captain", "Captain", [
@@ -73,19 +293,19 @@ static func careers() -> Array:
 				"Review actual crew and hull readiness before planning a boarding attempt.", "boarding"]]],
 		["escort", "Escort", [
 			["Protect a loaded convoy",
-				"Hail real nearby peaceful traffic with an armed threat; every loaded carrier must reach the exit.", "traffic"],
+				"Hail nearby loaded friendly traffic for paid passage, or defend a threatened convoy to its exit.", "traffic"],
 			["Budget the service voyage",
-				"Escort success grants service credit and standing. Check payroll and stores; no coin fee is promised.", "supply"]]],
+				"Paid passage escrows a client fee; voluntary rescue grants service credit and standing. Check payroll and stores.", "supply"]]],
 		["fisher", "Fisher", [
 			["Prepare a working fishing boat",
-				"Use a crewed fishing hull, stop in safe open water and let actual campaign time earn a bounded catch.", "fishing"],
+				"Sail a crewed fishing hull to safe open water, stop and work for a daily catch.", "fishing"],
 			["Find a paying buyer",
-				"Return to Market with the actual catch; sales need a business purse and leave unsold lots aboard.", "market"]]],
+				"Return to Market with your catch; sales depend on local buyer cash and leave unsold lots aboard.", "market"]]],
 		["passenger", "Passenger operator", [
 			["Quote a funded charter",
-				"Prepare one transport or yacht with spare berths and food space for a real civilian cohort.", "jobs"],
+				"Prepare a transport or yacht with spare berths and food space for a funded charter.", "jobs"],
 			["Prepare the actual carrier",
-				"Buy or commission a suitable hull, pay its crew and preserve the passengers' own savings.", "yard"]]],
+				"Buy or commission a suitable hull, pay its crew and carry passengers safely to their destination.", "yard"]]],
 		["harbormaster", "Harbormaster", [
 			["Check workplace commitments",
 				"Review employees, cash, fatigue and arrears before funding more work.", "workers"],
@@ -182,7 +402,7 @@ static func _opportunities(cards: Array, s: Dictionary, p: Dictionary,
 	var reserves = p.get("reserves")
 	if reserves is Dictionary and not reserves.is_empty():
 		_add(cards, "reserves", "Inspect harbor reserves",
-			"This harbor protects operating lots and records actual supply coverage. Review exportable stock before buying.", "supply")
+			"This harbor holds protected operating stock alongside exportable goods. Check Supply before buying bulk stores.", "supply")
 
 	var counts = {"commissioning":0, "active":0, "lost":0}
 	for item in _rows(_dict(s.get("tooling")).get("items")):
@@ -258,7 +478,7 @@ static func report(c, route_distance: float = 0.0,
 			budget.displayCapped = true
 	if budget.displayCapped:
 		notes.append("Large numerical estimates are capped at 1000000000 for display.")
-	budget["note"] = "Trip days, wages and material stores use the expedition report. Inspect Supply for material purchases at current prices. Empty durations have no finite estimate."
+	budget["note"] = "Trip days, payroll and onboard stores come from your current fleet. Open Expedition preparation for harbor store prices."
 
 	var links = _companies(s)
 	var owned = _unique(_rows(s.get("fleet"))+_rows(s.get("boardingPrizes")))
@@ -330,7 +550,7 @@ static func report(c, route_distance: float = 0.0,
 			"supply" if owed > 0.0 else "companies", true)
 	if _positive(e.get("overload")):
 		_add(cards, "overload", "Reduce the loaded hold",
-			"The expedition report records overload. Inspect fitted capacity and cargo weight.",
+			"Cargo weight exceeds fitted hold capacity. Offload cargo or shift stores in Hold before sailing.",
 			"hold", true)
 
 	var trip = _n(e.get("tripDays"))
@@ -348,7 +568,7 @@ static func report(c, route_distance: float = 0.0,
 	if _finite(e.get("affordableDays")) and _n(e.get("dailyWages")) > 0.0 \
 			and _n(e.affordableDays) < trip:
 		_add(cards, "return_pay", "Protect the return payroll",
-			"The recorded wage cover is shorter than this trip. Return wage budget: %s coins. Review available pay funds." %
+			"Purse covers fewer wage days than this trip. Return payroll needed: %s coins." %
 				_amount(e.get("returnWages")), "supply", true)
 
 	var expedition_warnings: Array[String] = []

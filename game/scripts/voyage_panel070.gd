@@ -9,6 +9,41 @@ const FITTINGS := ["cargo_rig", "survey_rig", "workshop_rig", "auxiliary_tanks"]
 const HOME_REGION := "shatter_coast"
 
 
+class DetachedCore extends RefCounted:
+	var state: Dictionary
+	var data: Dictionary
+	var dock_id: String
+	var source
+	func _init(c, harbor_id: String):
+		source = c
+		state = c.state.duplicate(true) if c != null and c.get("state") is Dictionary else {}
+		data = c.data if c != null and c.get("data") is Dictionary else {}
+		dock_id = harbor_id
+	func current_port() -> Dictionary:
+		for p in state.get("ports", []) if state.get("ports") is Array else []:
+			if p is Dictionary and str(p.get("id", "")) == dock_id:
+				return p
+		return {}
+	func find_boat(uid: String) -> Dictionary:
+		for b in state.get("fleet", []) if state.get("fleet") is Array else []:
+			if b is Dictionary and str(b.get("uid", "")) == uid:
+				return b
+		return {}
+	func fitted_spec(boat: Dictionary) -> Dictionary:
+		return source.fitted_spec(boat) if source != null and source.has_method("fitted_spec") else boat.get("spec", {})
+	func fail(message: String) -> Dictionary:
+		return {"ok": false, "message": message}
+
+
+static func _actions(parent: Node) -> HFlowContainer:
+	var flow := HFlowContainer.new()
+	flow.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	flow.add_theme_constant_override("h_separation", 8)
+	flow.add_theme_constant_override("v_separation", 8)
+	parent.add_child(flow)
+	return flow
+
+
 static func region_name(c) -> String:
 	if c != null and c.has_method("world_view064"):
 		var view: Dictionary = c.world_view064()
@@ -70,7 +105,7 @@ static func selected_quote(c, offer: Dictionary) -> Dictionary:
 			"ok": false,
 			"routeOk": false,
 			"quoted": false,
-			"message": "This campaign has no selected voyage quote yet. The published gross fee still stands. No home-waters route was substituted.",
+			"message": "Voyage quote unavailable; published gross fee is %d coins." % gross,
 			"grossFee": gross,
 			"kind": str(offer.get("kind", "")),
 			"offerId": str(offer.get("id", "")),
@@ -78,7 +113,7 @@ static func selected_quote(c, offer: Dictionary) -> Dictionary:
 	var view = c.VoyageJobs.offer_view070(c, offer)
 	if view is Dictionary:
 		return view
-	return {"ok": false, "routeOk": false, "quoted": false, "message": "The selected voyage quote did not return a reading.", "grossFee": gross, "kind": str(offer.get("kind", ""))}
+	return {"ok": false, "routeOk": false, "quoted": false, "message": "Selected voyage quote unavailable.", "grossFee": gross, "kind": str(offer.get("kind", ""))}
 
 
 static func origin_name(c, offer: Dictionary) -> String:
@@ -202,10 +237,9 @@ static func support_lines(view: Dictionary) -> Array:
 static func fleet_notes(c) -> Array:
 	var notes: Array = []
 	if c == null or not c.has_method("active_fleet"):
-		return ["Fleet role notes need a loaded campaign."]
+		return ["No active campaign fleet."]
 	var conversions: Dictionary = Identity.conversions()
 	var roles: Dictionary = Identity.roles()
-	var scout_seen := false
 	var catalog: Dictionary = {}
 	var boats: Array = c.active_fleet()
 	for boat in boats:
@@ -217,7 +251,7 @@ static func fleet_notes(c) -> Array:
 		var role_text := _role_line(role)
 		if role_text.is_empty():
 			var hull_role := str(spec.get("role", ""))
-			role_text = "Hull role %s." % hull_role if not hull_role.is_empty() else "Working boat."
+			role_text = "Hull role: %s." % hull_role if not hull_role.is_empty() else "Working boat."
 		notes.append("%s · %s" % [name, role_text])
 		var fitted := str(boat.get("conversion", ""))
 		if conversions.has(fitted):
@@ -226,50 +260,47 @@ static func fleet_notes(c) -> Array:
 		var active: Dictionary = boat.get("specialistActive", {}) if boat.get("specialistActive") is Dictionary else {}
 		if bool(active.get("surveyor", false)):
 			var surveyor: Dictionary = roles.get("surveyor", {})
-			notes.append("Surveyor aboard %s. Daily premium %d coins, %s." % [name, int(surveyor.get("premium", 0)), str(surveyor.get("basis", "published specialist rate"))])
+			notes.append("Surveyor aboard %s (+%d coins/day)." % [name, int(surveyor.get("premium", 0))])
 		if bool(active.get("chief_engineer", false)):
-			notes.append("Chief engineer aboard %s. Underway repair still consumes kits." % name)
+			notes.append("Chief engineer aboard %s (repairs consume onboard kits)." % name)
 		var armor := ""
 		if boat.get("loadout") is Dictionary:
 			armor = str(boat.loadout.get("armor", ""))
 		if armor == "scout_plating":
-			scout_seen = true
 			if catalog.is_empty():
 				catalog = Refit.catalog()
 			var described: Dictionary = catalog.get("armor", {}).get("scout_plating", {})
 			notes.append("%s carries %s. %s" % [name, str(described.get("name", "Scout plating")), str(described.get("description", ""))])
-	if not scout_seen:
-		notes.append("Scout plating is an armor fitting. No traveling hull has it fitted, so this estimate includes no scout-plating change.")
-	notes.append_array(_fitting_quotes(c, boats, conversions))
-	notes.append("Role lines follow the traveling fleet and fittings you have now. Voyage costs are on the job you review.")
+	notes.append_array(_fitting_quotes(c, boats))
 	return notes
 
 
 static func _role_line(role: String) -> String:
 	match role:
 		"transport":
-			return "Transport hull. Existing fuel jobs take a transport or a tanker. Existing passenger jobs take a transport or a yacht."
+			return "Transport hull (eligible for fuel and passenger charters)."
 		"tanker":
-			return "Tanker hull. Existing fuel jobs take a tanker or a transport. Fuel loaded through Cargo stays in that boat's tank."
+			return "Tanker hull (eligible for bulk fuel jobs; tank fuel stays on this boat)."
 		"yacht":
-			return "Yacht hull. Existing passenger jobs take a yacht or a transport. Spare berths are the bunks left after the crew."
+			return "Yacht hull (eligible for passenger charters using spare berths)."
 		"fishing":
-			return "Fishing hull. It works from the fishing board, then sells whole lots at a market you are docked in."
+			return "Fishing hull (works offshore grounds; sell whole lots at a harbor market)."
 		"scout":
-			return "Scout hull. A fitted survey factor can shorten shore work. Spare sailors and kits are still required."
+			return "Scout hull (faster shore surveys when fitted; still requires spare crew and kits)."
 		"repair":
-			return "Repair hull. A fitted repair factor uses real kits. It does not supply free repairs."
+			return "Repair hull (faster underway repairs using onboard kits)."
 		_:
 			return ""
 
 
-static func _fitting_quotes(c, boats: Array, conversions: Dictionary) -> Array:
+static func _fitting_quotes(c, boats: Array) -> Array:
 	var service := service_berth(c)
 	var work := work_berth(c)
 	if service.is_empty():
-		return ["Cargo, survey, workshop and auxiliary-tank prices are quoted at a Shatter Coast service harbor. This list does not buy a fitting."]
+		return ["Interior conversions (Cargo, Survey, Workshop, Auxiliary Tanks) are quoted at Shatter Coast harbors."]
 	if not work.is_empty() and str(work.get("id", "")) != str(service.get("id", "")):
-		return ["Fitting prices are from %s. The work berth is %s." % [str(service.get("name", "the home harbor")), str(work.get("name", "this berth"))]]
+		return ["Conversion quotes at %s (current berth: %s)." % [str(service.get("name", "the service harbor")), str(work.get("name", "this berth"))]]
+	var detached := DetachedCore.new(c, str(service.get("id", "")))
 	var lines: Array = []
 	for id in FITTINGS:
 		var uid := ""
@@ -284,9 +315,8 @@ static func _fitting_quotes(c, boats: Array, conversions: Dictionary) -> Array:
 			break
 		if uid.is_empty():
 			continue
-		var quote: Dictionary = Identity.quote_conversion(c, uid, id)
-		var title := str(conversions.get(id, {}).get("name", id))
-		lines.append("%s on %s · quoted at %s. %s" % [title, boat_name, str(service.get("name", "this harbor")), str(quote.get("message", ""))])
+		var quote: Dictionary = Identity.quote_conversion(detached, uid, id)
+		lines.append("%s (%s) · %s" % [boat_name, str(service.get("name", "this harbor")), str(quote.get("message", ""))])
 	return lines
 
 
@@ -316,7 +346,7 @@ static func _saved_site_level(c, site_id: String) -> int:
 
 static func course_line(c) -> String:
 	if c == null or not c.get("state") is Dictionary:
-		return "Current course: none. No campaign is loaded."
+		return "Current course: none."
 	var state: Dictionary = c.state
 	var path: Array = state.get("path", []) if state.get("path") is Array else []
 	var destination := str(state.get("destination", ""))
@@ -325,14 +355,14 @@ static func course_line(c) -> String:
 	if destination.begins_with("approach:"):
 		var approach := _approach_name(c, destination)
 		if approach.is_empty():
-			return "Current course: a coastal approach on this chart."
+			return "Current course: coastal approach."
 		return "Current course: %s." % approach
 	if not destination.is_empty() and c.has_method("port"):
 		var name := str(c.port(destination).get("name", "")).strip_edges()
 		if not name.is_empty():
 			return "Current course: %s." % name
-		return "Current course is set."
-	return "Current course: open water on this chart."
+		return "Current course: active."
+	return "Current course: open water."
 
 
 static func selection_note(c, selected_id: String) -> String:
@@ -348,11 +378,11 @@ static func selection_note(c, selected_id: String) -> String:
 	if destination == picked:
 		return ""
 	if destination.is_empty():
-		return "Chart pick: %s. An allowance can use this pick. It is not the current course." % name
+		return "Selected on chart: %s (current course: none)." % name
 	var course := str(c.port(destination).get("name", "")).strip_edges()
 	if course.is_empty():
-		return "Chart pick: %s. A different course is already set." % name
-	return "Chart pick: %s. Current course remains %s." % [name, course]
+		return "Selected on chart: %s (different course active)." % name
+	return "Selected on chart: %s (current course: %s)." % [name, course]
 
 
 static func services_line(c) -> String:
@@ -361,17 +391,17 @@ static func services_line(c) -> String:
 	if not service.is_empty():
 		var named := str(service.get("name", "this harbor"))
 		if not work.is_empty() and str(work.get("id", "")) != str(service.get("id", "")):
-			return "Ordinary services at %s: market, paid drydock, paid fitting and yard quotes. Funded work is listed at %s." % [named, str(work.get("name", "the work berth"))]
-		return "Ordinary services at %s: market, paid drydock, paid fitting and yard quotes. Funded work listed here is a separate board." % named
+			return "Harbor services (%s): Market, Crew & repairs, Refit, Boatyard · Work berth: %s." % [named, str(work.get("name", "the work berth"))]
+		return "Harbor services (%s): Market, Crew & repairs, Refit, Boatyard." % named
 	if not work.is_empty():
-		return "Work berth: %s. Funded jobs can be reviewed here. Paid drydock, fitting and yard quotes stay at a Shatter Coast service harbor." % str(work.get("name", "this berth"))
-	return "No harbor berth. Paid drydock, fitting and yard quotes need a Shatter Coast service harbor. Funded work appears only while stopped at a known harbor."
+		return "Work berth (%s): funded jobs available here; drydock, refit and boatyard require Shatter Coast." % str(work.get("name", "this berth"))
+	return "At sea: dock at a Shatter Coast harbor for market, repairs, refit and boatyard, or at any harbor for funded work."
 
 
 static func reserve_line(report: Dictionary) -> String:
 	if not report.has("foodDays") or not report.has("fuelDays") or not report.has("repairKits"):
 		return ""
-	return "Reserves now: %.1f food days · %.1f loaded-fuel days · %.1f repair kits." % [float(report.foodDays), float(report.fuelDays), float(report.repairKits)]
+	return "Reserves now: %.1f food days · %.1f tank-fuel days · %.1f repair kits." % [float(report.foodDays), float(report.fuelDays), float(report.repairKits)]
 
 
 static func connect_views(ui, body, work_button: bool = true, service_buttons: bool = true) -> void:
@@ -394,7 +424,7 @@ static func connect_views(ui, body, work_button: bool = true, service_buttons: b
 			var held := pending.duplicate(true)
 			ui.button(body, "Open the waiting contact", func(): _open_contact(ui, held), true, false)
 	ui.paragraph(body, services_line(c), 14)
-	var actions = ui.row(body)
+	var actions := _actions(body)
 	ui.button(actions, "Long-voyage preparation", func(): ui.open_voyage_preparation065(), false, false)
 	if work_button and c != null:
 		var header := board_header(c)
