@@ -1,0 +1,101 @@
+BRASS TIDE — QUALITY DELIVERY PLAN
+14 November 2026 | Windows PC | $9.99 | Base: v0.099 / 495eb5b
+
+Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then
+work through that plan. Use four helpers, go."
+
+Purpose: improve the game a player actually sees and plays. Existing technical
+checks and a working checkout do not establish good art, enjoyable play or a good
+store page. Do not declare Starsector parity or a finished game from ten tags.
+Use the existing36 hulls, physical mounts, real crews, finite bronze coins/goods,
+300-point deployment and48-group ocean. No new roster, fluid simulation or
+walking crews. Open Seas connect island groups; no major continents.
+
+VERSION  SCOPE AND PLAYER RESULT
+0.100    Campaign responsiveness. Measure travel/daily publication/autosave in
+         the populated world; fix one demonstrated interaction-blocking cause.
+         Camera and ordinary controls remain responsive while the world works.
+0.101    Battle responsiveness. Profile real light/mixed300-point fleets; fix
+         the dominant simulation/targeting/publication bottleneck. Keep30Hz
+         authority, staggered decisions, real firing and independent rendering.
+0.102    Boats and equipment. Improve hull, gun and motor shapes through the
+         live art path. Clearly distinguish boat roles and weapon types at
+         normal play size; mounts and motors visibly meet the hull/deck.
+0.103    Combat presentation. Short attached wakes, readable firing/impacts,
+         module damage, flooding and sinking; usable weapon/music mix. Show
+         real motion and action. Replace stacked help over boats with a compact
+         objective and optional help; keep rings/effects out of the focal action.
+0.104    Campaign chart and navigation. Useful boat/harbor/island scale, clearer
+         local/Open Seas transitions, contacts and destinations. More usable
+         chart area; primary actions and navigation information stay reachable.
+         Give the starter quay/boat a useful arrival composition; verify one
+         contrasting approach rather than decorating all48 groups.
+0.105    Opening and earned fleet growth. Two affordable discoverable choices
+         lead to a real return, paid costs and an attainable useful improvement.
+         Explain the next action/reserve in context; reduce menu/text overload.
+         Include an affordable next departure after a setback and an explained
+         low-cash refusal, without a tutorial-only subsidy or free replacement.
+0.106    Tactical roles and commands. Light boats flank/harass/break away,
+         escorts protect vulnerable allies, heavies hold useful range. Orders,
+         target choice and retreat must be understandable and visibly obeyed.
+0.107    Contested paid work. Reuse unchanged civilian-career evidence; fix one
+         demonstrated discovery/availability/settlement fault in existing loaded
+         traffic. From an earned checkpoint locate a dated hostile convoy or
+         lawful privateer opportunity, then settle an honest exit/withdrawal.
+         Explain payer/loser debit and operating costs, without guaranteed raids.
+0.108    Reliable progress and PC controls. Verify save replacement/recovery,
+         ordinary quit/Continue and retained-save update. Finish settings/Esc,
+         volume/window readability and a single current desktop launcher.
+0.109    Game media and Windows/store delivery. Capture distinct worthwhile
+         current-game images, including real combat, fleet fittings, a useful
+         coastal view and a player activity. Rebuild the actual public page
+         around the genre, concrete play, $9.99 Buy and purchased Windows build.
+
+ACCEPTANCE PER VERSION
+Each step needs a named player-visible defect, a bounded change and evidence
+which actually exercises that change. Separate code correctness, current
+rendered behavior, measured performance and subjective play-quality findings.
+Retain a failed result as failed. Reuse unchanged evidence rather than running
+old suites ritualistically. Measure matched workloads; never lower fleet size,
+slow time, remove weapons, hide NPCs or grant coins/prizes to make a result pass.
+
+100/101: attribute simulation, copies/publication and drawing separately. Retain
+the existing33.333ms worker/100ms lag targets as performance goals and report
+actual results. One scoped measured bottleneck fix is not overall60FPS proof;
+remaining limits remain explicit. Do not spend the whole sequence fine-tuning
+one marginal metric instead of making the later player-facing improvements.
+102-104: inspect current normal-size views and brief real motion, not only huge
+asset sheets or paused empty scenes. Cover all36 designs for consistency; record
+which live states actually ran. Decorative art cannot obscure actionable state.
+105/107: ordinary starts and prior earned states only; record payer, costs,
+cargo custody and resulting useful choice. Unsold cargo/escrow is not profit.
+106: exercise orders against actual opposing roles, including withdrawal; keep
+command authority, equipment condition and costs through the encounter.
+108: isolated copied saves, failure controls and unchanged owner originals.
+109: reviewer opens the actual complete page and originals and challenges the
+genre, wording, focal point, screenshot variety and real purchase/download flow.
+No internal QA prose, slogans, passive scenery captions or mobile-game claim.
+Keep exactly: Game is in early development.
+
+EXECUTION
+Root integrates sequentially; four Bridge helpers cover campaign/performance,
+combat/art, player experience/store and independent red team. No nested helpers.
+Separate private patch folders; no concurrent canonical edits. Review each exact
+change, then one necessary selected engine/GPU pass in the shared queue. The
+whole pass is <=60seconds, background, silent and isolated, with an owned
+watchdog. Never take mouse/focus or stop somebody else's game. Queue delays and
+failed/interrupted attempts are separate from successful checks. No duplicate
+process detector inside a Test Bridge lease, duplicate harness or automatic retry.
+
+For every version update CODE MAP.md, game/data/DEVELOPER NOTES.txt and
+CHANGES v<version>.md before merge. A light existing helper reconciles notes
+after integration. Commit/tag by .001, export the exact accepted source, verify
+the portable package, preserve saves/music and maintain the one plain launcher.
+Do not push a weak new screenshot/gallery merely because it is authentic.
+The existing live listing/checkout stays available until its replacement is
+concrete and reviewed. Preserve other marketplace products and current deployments.
+
+STATUS
+0.100 DOING — source diagnosis and matched-measurement proposal.
+0.101-0.109 PLANNED — future candidates may be prepared privately; no fake
+completion, acceptance, export or installation is implied. Board watch PAUSED.

@@ -1,8 +1,9 @@
-# Current step: v0.098 - Supplied corridor aftermath and hostile shipping access
+# Current step: v0.100 — Campaign responsiveness
 
-- A hostile endpoint refuses shipping quotes and new loading; an underway carrier retains its cargo and physically diverts to its paid home yard.
-- One declared two-group controlled operation compares interruption with two paid support days and a finite negotiated harbor surrender.
-- Harbor control, carried/public supplies, access and actual paid trade survive disk restore; other islands and private businesses remain unchanged.
+Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then work through that plan. Use four helpers, go."
 
-Finish this scope, run focused checks under120seconds, package, then advance
-to the next saved scope. No speculative fine-tuning or full-game gate.
+Build v0.100–v0.109 sequentially from accepted v0.099. The authoritative plan is [QUALITY DELIVERY MAP v0.100-v0.109](<docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt>).
+
+Measure an ordinary populated campaign during travel, daily publication and autosave. Fix one demonstrated cause of blocked interaction while preserving world activity, coins, cargo and cadence. Report remaining performance limits honestly, then address the next bounded scope.
+
+Four Bridge helpers: campaign/performance, combat/art, player experience/store, independent red team. Root integrates and owns the shared test queue. No foreground/input control. Whole selected pass <=60seconds; no nested helpers, duplicate detector or framework. Board watch stays paused.

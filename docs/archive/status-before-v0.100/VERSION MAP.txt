@@ -1,0 +1,194 @@
+CURRENT — v0.099 EARLY-DEVELOPMENT WINDOWS STORE DELIVERY
+Live page: https://marketplace.oddsprig.com/brass-tide/
+Buy $9.99 and purchased Windows download are live. Product brass-tide, build99.
+Download127,616,517bytes; full entitled stream SHA256 matches the clean53-file ZIP.
+Three distinct current gallery views: changed fittings, close harbor, trade.
+Actual desktop render, gallery/Buy controls and originals reviewed independently;
+deployed HTML/assets/product/library read back after publication. No payment made.
+Export passed24.61s. Native photo attempt failed its short cap after two completed
+PNGs; owned cleanup succeeded. No native-save-suite, performance or full-game
+quality pass is claimed. Installed desktop v0.098 is unchanged; download is0.099.
+Current evidence: parent work/store-commerce-fix-2026-11-14/PUBLISHED.json,
+COMMERCE VERIFICATION.json, IMAGE PROVENANCE.json and red-team final report.
+The original responsiveness/performance roadmap scope is still incomplete;
+remaining planned scopes are not silently accepted. The board watch is paused.
+
+HISTORICAL RECORDS BELOW — later current facts above supersede them.
+
+13 NOVEMBER2026 — RED-TEAM CORRECTION BEFORE FURTHER ACCEPTANCE
+099-108 remain PLANNED. Current098 executable is unchanged. A bounded source
+copy/label correction is staged in CHANGES UNRELEASED.md. Resolve the red-team
+New voyage replacement/backup risk before accepting any successor; do not
+postpone a discovered save-loss risk just because saves were scheduled105.
+No performance/art/first-hour gate is passed by removing slogans.
+
+BRASS TIDE — NEXT TEN VERSIONS099-108 (PLANNED)
+13 November2026 | Current delivered game v0.098 | Owner-set price US$9.99
+Authoritative map: docs/roadmap/SELLABLE RELEASE MAP v0.099-v0.108.txt
+Development plan: docs/RETAIL DEVELOPMENT PLAN v0.099-v0.108.txt
+Store page/copy/screenshots: docs/store/README.txt and preview/index.html
+099 campaign responsiveness;100 full-fleet performance;101 combat/map art;
+102 first voyage/growth;103 civilian work;104 contested jobs/privateering;
+105 reliable saves/controls;106 exploration voyage;107 media/marketplace;
+108 Windows release candidate and evidence-backed decision.
+No099-108 implementation, engine/GPU test or publication occurred for this plan.
+One current verification pass<=60s TOTAL,ONE batch/engine,then stop; central
+rules supersede older timing paragraphs in the historical maps below.
+The board watch stays paused. v108 is not automatic sales approval.
+
+HISTORICAL MAPS AND DATED RESULTS FOLLOW
+
+BRASS TIDE - NEXT PLANNED VERSIONS079-088
+01 November2026 |079-088 verified scoped within bounded scopes; earlier quality limits remain open.
+Detailed acceptance/exclusions: docs/roadmap/QUALITY VERSION MAP v0.079-v0.088.txt
+
+0.079 - LIGHT-FLEET RESPONSIVENESS [VERIFIED SCOPED; LATENCY OPEN]
+0.080 - RELIABLE TACTICAL COUNTERPLAY [VERIFIED SCOPED]
+0.081 - COMBAT ART AT NORMAL PLAY ZOOM [VERIFIED SCOPED]
+0.082 - WEAPON SOUND AND MUSIC MIX [VERIFIED SCOPED]
+0.083 - EARNED FLEET GROWTH [VERIFIED SCOPED]
+0.084 - GENERATED HARBORS THAT CAN DEVELOP [VERIFIED SCOPED]
+0.085 - SUPPLIED REGIONAL CONFLICT AND HARBOR CONTROL [VERIFIED SCOPED]
+0.086 - CIVILIAN CAREERS WORTH REPEATING [VERIFIED SCOPED]
+0.087 - DISTINCT REMOTE DESTINATIONS [VERIFIED SCOPED]
+0.088 - WHOLE-LOOP CLARITY AND CAMPAIGN REVIEW [VERIFIED SCOPED; GAPS OPEN]
+
+One0.001 release at a time on its accepted predecessor. Quality remains open;088 is not an automatic finished-game claim.
+Root owns background shared-lane tests: each batch<120s, selected total<180s incl setup/export/capture/archive/install/verification; queuewaitseparate.
+
+HISTORICAL MAP TEXT THROUGH v0.078 (dated claims below are history)
+CURRENT v0.071 VERIFIED SCOPED:189 focused/0; next072.
+Actual071 CHECKS.json holds scoped proof. Audible quality remains unverified.
+Historical records below are dated context; current scope is in the069-078 map.
+
+CURRENT v0.069 VERIFIED SCOPED: 585 focused/0, Windows/menu and9 reviewed private stills.
+Next saved scope070. Historical plans/receipts below remain dated context.
+
+30 OCTOBER 2026 - THROUGH v0.076 VERIFIED SCOPED; v0.077-v0.078 PLANNED
+Authoritative forward scope/acceptance:
+docs/roadmap/QUALITY VERSION MAP v0.069-v0.078.txt
+World structure: docs/roadmap/OCEAN WORLD DESIGN.txt
+Accepted 063-068 history: docs/roadmap/OPEN OCEAN VERSION MAP v0.063-v0.072.txt
+
+0.069 - A GENERATED OCEAN SECTOR [DONE]
+0.070 - VOYAGES THAT PAY AND FLEETS WORTH BUILDING [DONE]
+0.071 - COMBAT FEEL, WAKES AND SOUND [DONE]
+0.072 - ONE COMPLETE VOYAGE AND A RESPONSIVE SECTOR [DONE]
+0.073 - FINISHED BOAT AND WEAPON ASSETS [DONE]
+0.074 - TACTICAL AI WITH COUNTERPLAY [DONE]
+0.075 - FACTIONS THAT PURSUE AND PAY FOR A STRATEGY [DONE]
+0.076 - FUNDED EXPANSION AND CHANGING CONTROL [DONE]
+0.077 - EXPLORATION WITH PEOPLE, CHOICES AND PAYOFFS [DONE]
+0.078 - CAMPAIGN POLISH AND QUALITY REVIEW [DONE]
+
+Ocean planet, no major continents. Open seas fill the hyperspace role;
+archipelagos the system role; islands the planet role. Different factions can
+own different islands or harbors inside a group. 48 groups remains a design
+target (8 settled / 12 frontier / 28 remote), not delivered geography or a quality claim.
+
+Keep 36 existing hulls, physical mounts, numerical crew, cheap water, finite
+coins/goods/people and actual service/construction costs. One scoped .001
+release on the last accepted build. No new test framework or unbounded polish.
+Queued private/muted background batches <120 seconds, full selected suite <180 seconds
+including setup/cleanup; queue waits separate. Preserve saves/music/old builds.
+Planning changes no executable, launcher or release tag. Quality review 078
+records actual strengths and remaining gaps; version numbers do not prove parity.
+
+HISTORICAL v0.042-v0.062 PLAN AND OUTCOMES FOLLOW
+27 OCTOBER 2026 PRIORITY UPDATE
+User rejects the actual053 campaign marker art. Insert focused054 visual correction now; saved054-061scopes move to055-062 without being dropped. Whole-game milestone is now062. All exact051remaining performance/quality targets stay OPEN and unchanged, carried into062; this reorder does not waive them or certify parity. Continue one bounded scope at a time.
+
+BRASS TIDE - STARSECTOR QUALITY VERSION MAP
+27 October2026 | AUTHORIZED SEQUENTIAL BUILDS | Delivered v0.054
+
+Owner: "MAKE THE GAME AS GOOD AS STAR SECTOR ... PREPARE A ROADMAP PLAN FOR THAT."
+The target is the complete experience, not a matching list of features.
+Owner authorized sequential implementation through Bridge: threeSol6.1MAX, optionalGrok4.7HIGH.
+Only explicitly delivered scopes are implemented; later scopes remain planned. Quality gates require actual evidence.
+One .001 increment per delivered version; no parity claim from a version number.
+
+MILESTONE A - CORE QUALITY (0.042-0.051)
+0.042 - AUTHORED BOAT ASSETS [DELIVERED; OVERALL QUALITY GATE OPEN]
+Three representative boats prove a coherent, inexpensive asset pipeline.
+
+0.043 - RENDERED PERFORMANCE [MEASURED FIXES DELIVERED; 60FPS TARGET OPEN]
+Real active300-vs-300 battles meet the stated frame and simulation budgets.
+
+0.044 - COMBAT FEEL [SCOPED BUILD DELIVERED; PLAY FEEL NOT CERTIFIED]
+Weight, weapon windows, damage pressure and disengagement create useful decisions.
+
+0.045 - WEAPONS AND FEEDBACK [SCOPED BUILD DELIVERED; AUDIO/WHOLE QUALITY OPEN]
+Distinct gun models, impacts, wakes and recorded sound feel coherent in combat.
+
+0.046 - TACTICAL AI [SCOPED BUILD DELIVERED; PERFORMANCE/WHOLE QUALITY OPEN]
+Flankers, strike boats, heavies, escorts and support perform their actual roles.
+
+0.047 - FLEET COMMAND [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
+Deployment, orders, groups and battle information are clear and responsive.
+
+0.048 - REFITTING DEPTH [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
+Different affordable builds change real behavior and have meaningful tradeoffs.
+
+0.049 - COMPLETE ROSTER QUALITY [AUTHORED ROSTER DELIVERED; CORE VISUAL QUALITY OPEN]
+All36 boats and their guns reach the proven visual and role standard.
+
+0.050 - COASTAL WORLD ART [SCOPED BUILD DELIVERED; WHOLE QUALITY OPEN]
+Distinct designed ports/regions, authored terrain and readable real navigation.
+
+0.051 - FIRST-VOYAGE MILESTONE [SCOPED BUILD DELIVERED; CORE QUALITY GATE OPEN]
+A satisfying opening voyage and fleet decision clear the whole core-quality bar.
+
+
+MILESTONE B - PROGRESSION AND THE LIVING COAST (0.052-0.057)
+0.052 - FLEET GROWTH AND LOGISTICS [SCOPED BUILD DELIVERED]
+Useful support boats, affordable progression and clear operating/return reserves.
+
+0.053 - MEANINGFUL LTV TRADE [SCOPED BUILD DELIVERED]
+Visible demand and margins connect actual labor, purses, goods and production.
+
+0.054 - CAMPAIGN PRESENTATION CORRECTION [SCOPED BUILD DELIVERED; BROADER ART QUALITY OPEN]
+Visible original boats and real fleet formations replace triangle markers; landmarks, harbors, title and labels receive the same treatment.
+
+0.055 - CAMPAIGN FLEET AI [SCOPED BUILD DELIVERED]
+NPC trade, piracy, response and faction battles work independently and pay their costs.
+
+0.056 - FACTIONS AND CONTACTS [SCOPED BUILD DELIVERED]
+Relationships and remembered work change access, opportunity and safety.
+
+0.057 - REWARDING EXPLORATION [VERIFIED SCOPED]
+Discoveries, clues and a complete original expedition make detours worthwhile.
+
+
+MILESTONE C - LONG-TERM CAMPAIGN (0.058-0.062)
+0.058 - SALVAGE AND RECOVERY [VERIFIED SCOPED]
+Hull/equipment recovery, stripping and towing compete for real capacity and risk.
+
+0.059 - CIVILIAN CAREERS [VERIFIED SCOPED]
+Fishing, freight, tankers and passenger/yacht work have viable varied progression.
+
+0.060 - FLEET IDENTITY [VERIFIED SCOPED]
+Paid officers, crews and vessel histories create tactical identity and attachment.
+
+0.061 - CHANGING REGION [VERIFIED SCOPED]
+Supplied conflict and harbor development visibly alter traffic and opportunities.
+
+0.062 - COAST/INTERFACE CORRECTIONS DELIVERED [WHOLE-GAME QUALITY MILESTONE OPEN]
+The complete experience earns the quality claim; failed pillars remain open.
+
+Do not hide unfinished art, AI, combat or performance by advancing to campaign
+breadth. A real failed criterion gets a bounded correction to that system.
+Existing36-boat roster/economy/crew/content is a prototype foundation to finish,
+not a reason to recreate the same systems or inflate the boat count.
+Actual play and presentation determine milestone completion; assertion counts
+alone do not. The entire selected automated batch stays below120seconds through
+the existing shared background lane; no foreground/input takeover.
+
+Current scope: ROADMAP.md.
+Full outcomes, proof, architecture and quality criteria:
+docs/roadmap/STARSECTOR QUALITY ROADMAP.txt.
+Earlier version map, roadmap, build plan and handoff are preserved verbatim in
+docs/roadmap/before-quality-plan-26Oct2026/.
+
+0.068 scoped acceptance: 555 focused native assertions/0failures; Windows
+export/menu and21reviewed private stills. Actual068 CHECKS.json holds
+receipts. Wider generation/territorial expansion/strict quality remain open.
