@@ -79,6 +79,7 @@ func exercise() -> void:
 	for viewport in [Vector2i(1600,1000),Vector2i(1280,800)]:await geometry(viewport)
 	game.ui.toast("first battle notice");game.ui.toast("second battle notice")
 	check(game.ui.notices.get_child_count()==1,"battle feedback has one notice rather than a stack")
+	if "--layout-only" in OS.get_cmdline_user_args():return
 	var refs: Array=labels()
 	game.select_battle_boat(str(ally.id))
 	check(game.ui.flagship_label.text==str(ally.name) and is_equal_approx(game.ui.hull_bar.value,100.0*float(ally.hp)/float(ally.maxHp)),"selected condition follows actual selection, independently of flagship")
