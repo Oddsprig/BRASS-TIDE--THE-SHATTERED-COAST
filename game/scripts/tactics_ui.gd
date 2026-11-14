@@ -2,6 +2,13 @@ extends RefCounted
 const Deployment = preload("res://scripts/deployment.gd")
 const PressureView = preload("res://scripts/combat_pressure_view044.gd")
 
+class MiniMap103 extends Control:
+	var host
+	func _process(_dt: float) -> void:queue_redraw()
+	func _draw() -> void:
+		if host!=null and not host.battle.is_empty():
+			host.chart.paint_battle_minimap103(self,Rect2(Vector2.ZERO,size))
+
 static func build(ui, size: Vector2):
 	# Four shallow occupied bands, with no invisible sidebar frames over the chart.
 	# Main rebuilds on resize; labels/buttons never set an unbounded minimum width.
@@ -57,6 +64,13 @@ static func build(ui, size: Vector2):
 	ui.battle_reload_label.name="BattleReload"
 	ui.battle_control_label=limited_label(ui,ui.right_body,12,ui.MUTED,2)
 	ui.battle_control_label.name="BattleAcknowledgment"
+	var minimap=MiniMap103.new()
+	minimap.name="BattleMinimap"
+	minimap.host=ui.host
+	minimap.custom_minimum_size=Vector2(190,100)
+	minimap.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	minimap.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	status_row.add_child(minimap)
 	var orders=compact_panel(ui,"BattleOrders",Rect2(12,size.y-52,size.x-24,44))
 	var actions=ui.row(orders);actions.add_theme_constant_override("separation",6)
 	ui.label(actions,"SELECTED",10,ui.GOLD)

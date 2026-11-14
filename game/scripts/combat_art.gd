@@ -570,6 +570,13 @@ static func _draw_rocket_blast(fx: Dictionary, p: Vector2, ground: Vector2, dir:
 			_fx_circle(fx, tip, maxf(1.0, 1.5 * s), Color(1.0, 0.97, 0.82, alpha * 0.94))
 
 static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Vector2, side: Vector2, family: String, kind: String, mat: String, hull_mat: String, subtype: String, t: float, alpha: float, radius: float, length_val: float, mag: float, seq: int) -> void:
+	# Finish the cosmetic burst within the first 65% of its existing timeline.
+	if t >= 0.65:
+		return
+	t = clampf(t / 0.65, 0.0, 1.0)
+	alpha *= 0.85 * (1.0 - t)
+	radius *= 0.75
+	length_val *= 0.75
 	var lod: int = int(fx.lod)
 	var s: float = float(fx.scale)
 	var impact_a: float = alpha * clampf(1.0 - t * 3.2, 0.0, 1.0)
@@ -583,10 +590,10 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 	var reflect_dir: Vector2 = -dir
 
 	if is_engine:
-		var eng_smoke: int = 3 if lod == 0 else (2 if lod == 1 else 1)
+		var eng_smoke: int = 2 if lod == 0 else 1
 		for i in range(eng_smoke):
 			var eoff: Vector2 = Vector2(_det_signed(seq, i, 131) * radius * 0.32, -t * (14.0 + 6.0 * float(i)) * s)
-			_fx_circle(fx, p + eoff, radius * (0.26 + 0.24 * t), Color(0.18, 0.19, 0.20, alpha * 0.62))
+			_fx_circle(fx, p + eoff, radius * (0.22 + 0.18 * t), Color(0.18, 0.19, 0.20, alpha * 0.34))
 		if bool(e.get("incendiary", false)):
 			_fx_circle(fx, p, radius * (0.30 * (1.0 - 0.4 * t)), Color(1.0, 0.54, 0.14, alpha * 0.88))
 
@@ -594,9 +601,9 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 		var burst_r: float = radius * (0.48 + 0.22 * (1.0 - t))
 		_fx_poly(fx, _star_poly(p, burst_r, burst_r * 0.44, 6, seq), Color(1.0, 0.54, 0.14, impact_a * 0.88))
 		if lod < 2:
-			for i in range(2):
+			for i in range(1):
 				var c_off: Vector2 = reflect_dir * (4.0 + float(i) * 7.0) * s * t + Vector2(0.0, -t * (10.0 + float(i) * 5.0) * s)
-				_fx_circle(fx, p + c_off, radius * (0.24 + 0.22 * t), Color(0.28, 0.26, 0.24, alpha * 0.46))
+				_fx_circle(fx, p + c_off, radius * (0.18 + 0.16 * t), Color(0.28, 0.26, 0.24, alpha * 0.26))
 
 	if is_metal_or_armor:
 		var glint_r: float = maxf(3.2 * s, radius * (0.42 - 0.14 * t))
@@ -613,7 +620,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 				var rico_ang: float = reflect_dir.angle() + (0.42 if seq % 2 == 0 else -0.42)
 				var rico_vec: Vector2 = Vector2.from_angle(rico_ang) * length_val * (0.55 + 0.85 * t)
 				_fx_line(fx, p, p + rico_vec, Color(1.0, 0.96, 0.78, alpha * 0.92), maxf(1.2, 2.2 * s))
-		var spark_n: int = 8 if lod == 0 else (5 if lod == 1 else 3)
+		var spark_n: int = 5 if lod == 0 else (3 if lod == 1 else 2)
 		for i in range(spark_n):
 			var sang: float = _det_angle(seq, i, spark_n, reflect_dir.angle(), PI * 1.35)
 			var sdir: Vector2 = Vector2.from_angle(sang)
@@ -624,7 +631,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 			var tail: Vector2 = tip - sdir * streak_len
 			var spark_col: Color = Color(1.0, 0.87, 0.42, alpha * 0.96) if i % 2 == 0 else Color(0.85, 0.95, 1.0, alpha * 0.96)
 			_fx_line(fx, tail, tip, spark_col, maxf(1.1, 2.0 * s))
-			if lod == 0 and i < 4:
+			if lod == 0 and i < 2:
 				_fx_circle(fx, tip, maxf(1.0, 1.45 * s), Color(1.0, 0.99, 0.88, alpha * 0.96))
 		if lod == 0:
 			for i in range(2):
@@ -638,8 +645,8 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 	var burst_w: float = maxf(3.0 * s, radius * (0.38 - 0.10 * t))
 	_fx_poly(fx, _star_poly(p, burst_w, burst_w * 0.42, 5, seq, dir.angle()), Color(0.96, 0.80, 0.48, impact_a * 0.90))
 	if lod < 2:
-		_fx_circle(fx, p + reflect_dir * 3.0 * s * t + Vector2(0.0, -t * 7.0 * s), radius * (0.24 + 0.22 * t), Color(0.66, 0.50, 0.32, alpha * 0.44))
-	var shard_n: int = 3 if lod == 0 else (2 if lod == 1 else 1)
+		_fx_circle(fx, p + reflect_dir * 3.0 * s * t + Vector2(0.0, -t * 7.0 * s), radius * (0.18 + 0.14 * t), Color(0.66, 0.50, 0.32, alpha * 0.24))
+	var shard_n: int = 2 if lod == 0 else 1
 	for i in range(shard_n):
 		var pang: float = _det_angle(seq, i, shard_n, reflect_dir.angle(), PI * 1.25)
 		var pdir: Vector2 = Vector2.from_angle(pang)
@@ -647,7 +654,7 @@ static func _draw_hull_impact(fx: Dictionary, e: Dictionary, p: Vector2, dir: Ve
 		var rot_dir: Vector2 = pdir.rotated(0.4 + t * (2.4 if i % 2 == 0 else -2.4))
 		var plank_col: Color = Color(0.90, 0.68, 0.38, alpha * 0.94) if i % 2 == 0 else Color(0.72, 0.48, 0.24, alpha * 0.92)
 		_fx_poly(fx, _shard_poly(ppos, rot_dir, maxf(3.4, (5.8 + mag) * s), maxf(1.4, 1.8 * s)), plank_col)
-	var splinter_n: int = 7 if lod == 0 else (4 if lod == 1 else 2)
+	var splinter_n: int = 5 if lod == 0 else (3 if lod == 1 else 2)
 	for i in range(splinter_n):
 		var wang: float = _det_angle(seq, i, splinter_n, reflect_dir.angle(), PI * 1.45)
 		var wdir: Vector2 = Vector2.from_angle(wang)

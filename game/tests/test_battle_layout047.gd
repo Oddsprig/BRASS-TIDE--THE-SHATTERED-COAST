@@ -42,8 +42,10 @@ func geometry(viewport: Vector2i) -> void:
 	for i in range(panels.size()):
 		for j in range(i):no_overlap=no_overlap and not panels[i].get_global_rect().intersects(panels[j].get_global_rect())
 	check(no_overlap,"four occupied HUD bands do not overlap at "+str(viewport))
-	var minimap: Rect2=game.chart.battle_minimap_rect()
-	check(screen.encloses(minimap) and panels.all(func(panel):return not panel.get_global_rect().intersects(minimap.grow(1.0))),"actual drawn minimap stays visible above occupied HUD bands at "+str(viewport))
+	var map_control=control("BattleMinimap")
+	check(map_control is Control and panels[2].get_global_rect().encloses(map_control.get_global_rect()),"minimap occupies its reserved status-band column at "+str(viewport))
+	if map_control is Control:
+		check(labels().all(func(item):return not item.get_global_rect().intersects(map_control.get_global_rect())),"minimap does not cover status text or actionable state")
 	var visible_fit: bool=true
 	var buttons: Array=[]
 	for node in descendants(game.ui.chrome):
@@ -75,6 +77,8 @@ func exercise() -> void:
 	var stores: Array=[]
 	for boat in game.battle.ships:stores.append([boat.crew,boat.wounded,boat.supplies,boat.fuel,boat.ammo])
 	for viewport in [Vector2i(1600,1000),Vector2i(1280,800)]:await geometry(viewport)
+	game.ui.toast("first battle notice");game.ui.toast("second battle notice")
+	check(game.ui.notices.get_child_count()==1,"battle feedback has one notice rather than a stack")
 	var refs: Array=labels()
 	game.select_battle_boat(str(ally.id))
 	check(game.ui.flagship_label.text==str(ally.name) and is_equal_approx(game.ui.hull_bar.value,100.0*float(ally.hp)/float(ally.maxHp)),"selected condition follows actual selection, independently of flagship")
@@ -114,7 +118,7 @@ func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	if DisplayServer.get_name()!="headless":check(false,"requires Root background/headless/Dummy Test Bridge batch")
 	else:
-		game=load("res://main.tscn").instantiate();root.add_child(game)
+		game=load("res://main.tscn").instantiate();game.qa_ocean066=true;root.add_child(game)
 		game.set_process(false);game.set_physics_process(false)
 		game.audio.enabled=false;game.music.enabled=false
 		game.save_directory=OS.get_user_data_dir().path_join("layout047-%d"%Time.get_ticks_usec())

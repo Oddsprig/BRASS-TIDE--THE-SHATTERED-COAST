@@ -3,13 +3,13 @@ extends RefCounted
 ## textures, shaders, particles, reflection or synthetic heading extension.
 ## samples are oldest -> newest: {p: stern Vector2, age: seconds, w: half-width}.
 ## Legacy d (bow heading) is deliberately ignored: the actual path owns the bend.
-const LIFE_SEC: float = 0.7
+const LIFE_SEC: float = 0.5
 const MAX_SAMPLES: int = 12
 # Ten history intervals plus a live stern tip use the existing lifetime/budget.
 const SAMPLE_INTERVAL: float = LIFE_SEC / float(MAX_SAMPLES - 2)
 const MAX_INPUT_SAMPLES: int = 26
 const MAX_PRIMITIVES: int = 3
-const MAX_LENGTH: float = 96.0
+const MAX_LENGTH: float = 64.0
 const MAX_WIDTH: float = 12.0
 const MAX_VERTICES: int = MAX_SAMPLES * 2 - 1
 const MIN_PAINT_AREA: float = 0.01 # Screen pixels squared, below visible paint.
@@ -229,12 +229,12 @@ static func draw(canvas, projector: Callable, samples: Array, opts: Dictionary =
 	for index in range(path.size()):
 		var along: float = distances[index] / length
 		var age_fade: float = sqrt(maxf(0.0, 1.0 - float(path[index].age) / life))
-		var width: float = minf(float(path[index].w) * 0.62, length * 0.24)
+		var width: float = minf(float(path[index].w) * 0.46, length * 0.18)
 		# A small neck at the transom opens into the wash just aft, then tapers
 		# to the recorded tail. Parallel sections keep the existing strip proof.
 		var neck: float = lerpf(1.0, 0.80, smoothstep(0.65, 1.0, along))
 		widths.append(width * smoothstep(0.0, 0.65, along) * neck * age_fade)
-	var colors: Array[Color] = [Color(0.58, 0.81, 0.78, 0.13 * fade), Color(0.75, 0.91, 0.86, 0.17 * fade), Color(0.92, 0.98, 0.93, 0.18 * fade)]
+	var colors: Array[Color] = [Color(0.58, 0.81, 0.78, 0.10 * fade), Color(0.75, 0.91, 0.86, 0.13 * fade), Color(0.92, 0.98, 0.93, 0.14 * fade)]
 	var scales: Array[float] = [1.0, 0.57, 0.20]
 	# The water projector is affine. Project each center once, then share its
 	# screen-space side vector across all three bands instead of invoking the

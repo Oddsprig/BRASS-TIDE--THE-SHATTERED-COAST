@@ -1397,7 +1397,7 @@ func draw_battle():
 	draw_arc(mouse, 9, 0, TAU, 24, Color(GOLD, 0.75), 1, true)
 	draw_line(mouse - Vector2(15, 0), mouse - Vector2(5, 0), Color(GOLD, 0.8), 1, true)
 	draw_line(mouse + Vector2(5, 0), mouse + Vector2(15, 0), Color(GOLD, 0.8), 1, true)
-	draw_minimap()
+	# The minimap occupies reserved HUD space; it never covers boats on the water.
 	if host.paused and not host.ui.modal_open:
 		var size = get_viewport_rect().size
 		text_at("TACTICAL PAUSE", Vector2(size.x * 0.5, 128), 28, GOLD, serif, true)
@@ -1409,19 +1409,22 @@ func battle_minimap_rect() -> Rect2:
 	return Rect2(size.x - 240, size.y - 344, 190, 140)
 
 func draw_minimap():
-	var box: Rect2 = battle_minimap_rect()
-	draw_rect(box, Color(0.025, 0.10, 0.14, 0.88))
-	draw_rect(box, Color(0.5, 0.70, 0.59, 0.35), false, 1)
+	paint_battle_minimap103(self,battle_minimap_rect())
+
+func paint_battle_minimap103(canvas: CanvasItem,box: Rect2) -> void:
+	canvas.draw_rect(box, Color(0.025, 0.10, 0.14, 0.88))
+	canvas.draw_rect(box, Color(0.5, 0.70, 0.59, 0.35), false, 1)
+	canvas.draw_string(mono,box.position+Vector2(6,13),"OVERVIEW",HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color("acc6b4"))
+	var plot: Rect2=Rect2(box.position+Vector2(4,20),Vector2(maxf(1,box.size.x-8),maxf(1,box.size.y-24)))
 	for island in host.battle.islands:
 		var points = PackedVector2Array()
 		for p in island.points:
-			points.append(box.position + Vector2(p[0] / 2300.0 * box.size.x, p[1] / 1700.0 * box.size.y))
-		draw_colored_polygon(points, Color("5f7861"))
+			points.append(plot.position + Vector2(p[0] / 2300.0 * plot.size.x, p[1] / 1700.0 * plot.size.y))
+		canvas.draw_colored_polygon(points, Color("5f7861"))
 	for boat in battle_boats051():
 		if not boat.sunk:
-			var p = box.position + Vector2(boat.x / 2300.0 * box.size.x, boat.y / 1700.0 * box.size.y)
-			draw_circle(p, 3 if boat.id == host.battle.playerId else 2, ENEMY if boat.team == "enemy" else GOLD if boat.id == host.battle.playerId else FRIEND)
-	text_at("TACTICAL CHART", box.position - Vector2(0, 9), 10, Color("acc6b4"), mono)
+			var p = plot.position + Vector2(boat.x / 2300.0 * plot.size.x, boat.y / 1700.0 * plot.size.y)
+			canvas.draw_circle(p, 3 if boat.id == host.battle.playerId else 2, ENEMY if boat.team == "enemy" else GOLD if boat.id == host.battle.playerId else FRIEND)
 
 func draw_compass(p: Vector2):
 	draw_arc(p, 27, 0, TAU, 48, Color(0.69, 0.79, 0.65, 0.35), 1, true)

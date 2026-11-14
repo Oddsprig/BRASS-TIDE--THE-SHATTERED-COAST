@@ -308,7 +308,7 @@ func build_hud():
 	EquipmentPicker.prune_requests(self)
 	var size = root.get_viewport_rect().size
 	if host.mode == "battle":
-		notices.position = Vector2((size.x - 480) * 0.5, 120)
+		notices.position = Vector2(16, 122)
 		build_battle_hud(size)
 		hud_mode = host.mode
 		update_hud()
@@ -1155,9 +1155,15 @@ func toast(message: String, bad: bool = false):
 	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	container.add_theme_stylebox_override("panel", box(Color("173d43"), RED if bad else GOLD, 14))
 	var text = paragraph(container, message, 15, TEXT)
-	text.custom_minimum_size.x = 440
+	var in_battle: bool=host!=null and host.mode=="battle"
+	text.custom_minimum_size.x = 340 if in_battle else 440
+	if in_battle:
+		text.max_lines_visible=2
+		text.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		text.tooltip_text=message
+		text.mouse_filter=Control.MOUSE_FILTER_PASS
 	notices.add_child(container)
-	if notices.get_child_count() > 4:
+	while notices.get_child_count() > (1 if in_battle else 4):
 		var old = notices.get_child(0)
 		notices.remove_child(old)
 		old.queue_free()

@@ -198,32 +198,32 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 	if bool(ctx.get("combat",false)) and not scars.is_empty():
 		var hit: Dictionary=scars[-1]
 		var age: float=float(ctx.get("shot_clock",0))-float(hit.get("at",-100))
-		if age>=0 and age<0.18:
+		if age>=0 and age<0.12:
 			var p: Vector2=_p(ctx,Vector2(hit.x,hit.y),11)
-			var radius: float=(3+float(hit.power)*3)*scale
+			var radius: float=(2+float(hit.power)*2.2)*scale
 			var glint:=Color(0.82,0.94,1.0) if str(hit.get("material","wood")) in ["armor","metal"] else Color(1,0.74,0.33)
-			glint.a=(1-age/0.18)*0.5
+			glint.a=(1-age/0.12)*0.34
 			_circle(ctx,p,radius,glint)
 	var fire: float=clampf(float(boat.get("fire",0)),0,100)
 	var engine: float=_engine_hp(boat)
 	var clock: float=float(ctx.clock)
 	if engine<0.72 and lod<2:
-		_smoke(ctx,Vector2(-1.04,0.03),engine<0.3,clock,scale,3 if lod==0 else 2)
+		_smoke(ctx,Vector2(-1.04,0.03),engine<0.3,clock,scale,2 if lod==0 else 1)
 	if fire<=0 or lod>=2:return
 	# Pointed, layered flame tongues follow damaged deck positions; smoke drifts upward.
 	var fire_at := Vector2(-0.1,0)
 	if not scars.is_empty():fire_at = Vector2(scars[-1].x,scars[-1].y)
-	var tongues: int=3 if lod==0 else 2
+	var tongues: int=2 if lod==0 else 1
 	for i in range(tongues):
-		var at:=Vector2(-0.42+i*0.28,0.08 if i%2==0 else -0.08)
+		var at:=fire_at+Vector2((float(i)-float(tongues-1)*0.5)*0.22,0.06 if i%2==0 else -0.06)
 		if not scars.is_empty():
 			var hit: Dictionary=scars[i%scars.size()]
 			at=Vector2(hit.x,hit.y)+Vector2((i-1)*0.07,0)
 		var p: Vector2=_p(ctx,at,12)
 		var phase: float=clock*9.0+i*2.1
-		# Small real fires need a readable core above the surrounding deck fittings.
-		var height: float=maxf(8.0,(9+minf(20,fire*0.25))*(0.75+0.17*sin(phase)+0.12*sin(float(i)*2.7))*scale)
-		var width: float=maxf(1.7,(3+fire*0.025)*scale)
+		# Keep a readable core while exposing more of the damaged deck.
+		var height: float=maxf(5.5,(7+minf(14,fire*0.18))*(0.75+0.17*sin(phase)+0.12*sin(float(i)*2.7))*scale)
+		var width: float=maxf(1.2,(2.2+fire*0.018)*scale)
 		var lean: float=sin(phase*0.7)*width
 		_poly(ctx,PackedVector2Array([p+Vector2(-width,1),p+Vector2(-width*0.9,-height*0.2),p+Vector2(-width*0.45+lean*0.2,-height*0.44),p+Vector2(-width*0.65+lean*0.6,-height*0.65),p+Vector2(lean,-height),p+Vector2(width*0.2+lean*0.8,-height*0.72),p+Vector2(width*0.05+lean*0.5,-height*0.48),p+Vector2(width*0.8,-height*0.27),p+Vector2(width,1)]),Color(0.94,0.25,0.045,0.88))
 		_poly(ctx,PackedVector2Array([p+Vector2(-width*0.6,0),p+Vector2(-width*0.3,-height*0.23),p+Vector2(lean*0.4,-height*0.64),p+Vector2(width*0.4,-height*0.2),p+Vector2(width*0.6,0)]),Color(1,0.63,0.12,0.95))
@@ -233,12 +233,12 @@ static func draw(ctx: Dictionary,boat: Dictionary,stations: Array) -> void:
 			var rise: float=fposmod(clock*0.8+i*0.45,1.0)
 			var p: Vector2=_p(ctx,fire_at+Vector2(-0.05-rise*0.15,sin(clock+i)*0.1),18+rise*25)
 			_line(ctx,p,p+Vector2(0,2)*scale,Color(1,0.57,0.14,(1-rise)*0.8),maxf(0.7,scale))
-	_smoke(ctx,fire_at,true,clock,scale,5 if lod==0 else 3)
+	_smoke(ctx,fire_at,true,clock,scale,3 if lod==0 else 2)
 
 static func _smoke(ctx: Dictionary,at: Vector2,dark: bool,clock: float,scale: float,count: int) -> void:
 	for i in range(count):
 		var phase: float=fposmod(clock*0.42+float(i)/count,1.0)
 		var p: Vector2=_p(ctx,at+Vector2(-phase*0.4,phase*0.1),20+phase*30)
-		var radius: float=(2.5+phase*7)*scale
-		var color:=Color(0.13,0.16,0.16,(1-phase)*0.48) if dark else Color(0.49,0.54,0.52,(1-phase)*0.35)
+		var radius: float=(1.8+phase*4.5)*scale
+		var color:=Color(0.13,0.16,0.16,(1-phase)*0.28) if dark else Color(0.49,0.54,0.52,(1-phase)*0.22)
 		_circle(ctx,p,radius,color)
