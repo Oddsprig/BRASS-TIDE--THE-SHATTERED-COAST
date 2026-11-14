@@ -1,0 +1,13 @@
+# Current delivery: v0.109
+
+The ten-version100-109 sequence is delivered within its recorded scopes. Both known plain Brass Tide desktop shortcuts target the current Windows build. Owner saves/settings/music were copied with unchanged hashes. The live$9.99 store and purchased Windows download are109: https://marketplace.oddsprig.com/brass-tide/
+
+Read CODE MAP.md for actual modules, game/data/DEVELOPER NOTES.txt for architecture and lessons, and CHANGES v0.100.md through CHANGES v0.109.md for exact results and open limitations. Current public release/media identity is under docs/store. Private evidence and useful queue tools remain in parent work/quality-v100-v109-2026-11-14.
+
+Changes: automatic saves defer pending economy work; worker payload construction avoids an unnecessary friendly-spec copy; existing boat/gun details and sockets improve; wakes/effects/HUD are shorter and clearer; harbor routes and reserves preview before departure; opening choices and paid fitting goals are discoverable; missing-protector fallback respects survival; observed loaded traffic exposes actual funded escort inquiries; settings Esc/Back, focus and saved progress are verified; the store uses distinct real views and a full-width gallery with actual-size viewing.
+
+Four Bridge helpers were used: three Sol6.1MAX roles and one CarbonHIGH. Root integrates and owns the queue/publication; one Sol remains an independent visual red team. No extra/nested helpers or paid fallback. A helper tool stall is not a validation result; source-relay reviews are labeled. Board watch stays PAUSED.
+
+Important practical limits remain: sustained large300-point performance, daily publication/serialization spikes, dense-combat presentation, small-hull/weapon recognition, audio listening/mix and whole-career balance are not certified by this sequence. Test corrections and failed attempts remain failed records; they are never relabeled as whole-suite success. Use targeted evidence and fix demonstrated player problems, rather than reopening old full suites or endlessly adjusting one metric.
+
+Tests are background/silent/private and use the canonical detector/Test Bridge/shared lane. Whole selected jobs<=60seconds with identity-owned55-second backstops. Obey actual workflow cooldowns; never rename workflows or run outside the lane to bypass another app. No mouse/input/foreground control and no owner-save fixtures. Preserve the actual earned105 checkpoint and useful tools/receipts; routine old-binary cleanup must preserve source/tags and unique owner files.

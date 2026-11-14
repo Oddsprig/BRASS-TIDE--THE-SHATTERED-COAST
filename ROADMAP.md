@@ -1,7 +1,5 @@
-# Brass Tide current roadmap
+# Current work: original storyline campaign110–119
 
-Delivered sequence: v0.100-v0.109. Read docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt and the individual CHANGES files for bounded results, source bindings and limits. Current Windows build, desktop launchers and$9.99 public download are109. The game remains in early development.
+Read docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt for the researched story, characters, commitments, endings, twelve operations, six optional jobs and exact ten-version scopes. Build110 first, then progress sequentially after each scoped release. No version after the current accepted build is implicitly complete.
 
-Remaining quality work should begin from observed player problems: sustained large-fleet simulation/render performance; daily publication and serialization spikes; dense combat, small-boat and weapon readability; weapon/engine audio listening and mix; career pacing/balance and a complete ordinary user playthrough. These are unresolved directions, not secretly completed milestones or another automatically authorized ten-version sequence.
-
-Preserve36 original hulls, physical compatible mounts, finite coin/material economies, crew repair/flooding,300-point deployment separate from ownership,48 seeded island groups and Open Seas. Do not add a new roster, expensive water simulation, walking crews or continents to disguise existing quality issues. Public page reviews must inspect actual full-size images and complete rendered pages, including purchase/download and genre clarity.
+Delivered baseline:109. Its quality limits remain: sustained300-point performance, daily publication/serialization spikes, dense-combat and small-hull recognition, audio listening/mix and whole-career pacing. Campaign work reuses existing finite systems and must not hide these problems under a new roster, water simulation or generic framework. Historical quality plan100–109 remains in docs/roadmap.

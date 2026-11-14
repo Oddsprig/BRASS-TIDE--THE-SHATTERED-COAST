@@ -258,6 +258,8 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not rec is Dictionary or not rec.get("stage") is String or not rec.get("done") is bool or not rec.get("flags") is Array or not rec.get("leads") is Array:return "Invalid story progress."
 		for e in stories.consequences:
 			if not e is Dictionary or not e.get("id") is String or e.get("kind","") not in ["faction","contact"] or not number(e.get("amount"),-25,25) or not e.get("applied") is bool:return "Invalid story consequence."
+	var arc110_problem: String=preload("res://scripts/campaign_arc110.gd").validate(s)
+	if not arc110_problem.is_empty():return arc110_problem
 	if s.has("storyRights"):
 		if not s.storyRights is Dictionary:return "Invalid story rights."
 		var r: Dictionary=s.storyRights

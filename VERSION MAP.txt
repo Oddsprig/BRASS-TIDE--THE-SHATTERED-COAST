@@ -1,14 +1,13 @@
-BRASS TIDE — CURRENT QUALITY SEQUENCE
+BRASS TIDE CAMPAIGN — BUILD ONE VERSION AT A TIME
+110 Overdue Merchant: native loaded escort, first return and Venn's claim.
+111 Second Signature: challenge seizure and secure actual property; Tobin side work.
+112 Exit Channel: evacuate working boats; Wren survey side work.
+113 A Useful Enemy: deliver pump materials; Mara recovery side work.
+114 Bought Route: negotiate or raid and withdraw; Cass provenance side work.
+115 Names on Paper: protect claimants; commit to public or protected testimony.
+116 Two Distress Flags / Narrow Withdrawal: rescue relief boats and cover retreat.
+117 Who Pays First: fund replacement obligations, joint escort; Mara labor side work.
+118 Fuel Has Owners / Last Warrant: cordon and claimant protection; Tobin side work.
+119 Common Passage: decisive actual relief delivery, three endings and continuing sandbox.
 
-v0.100 — Settled automatic-save scheduling
-v0.101 — Detached planner payload construction
-v0.102 — Existing boat and weapon detail
-v0.103 — Short wakes, effects and compact battle HUD
-v0.104 — Harbor route preview and chart scale
-v0.105 — Voyage choices and earned paid fleet growth
-v0.106 — Survival priorities and applied commands
-v0.107 — Observed loaded traffic and funded escort inquiries
-v0.108 — Save preservation and PC settings controls
-v0.109 — Readable actual-game gallery and current Windows/store delivery
-
-Each is scoped acceptance, not whole-game certification. See CHANGES v0.xxx.md for actual evidence and remaining limits. Earlier maps/history remain in docs and Git.
+Only individually accepted releases are built. Details and limits: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.

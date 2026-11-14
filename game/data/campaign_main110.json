@@ -1,0 +1,94 @@
+{
+  "chains": [
+    {
+      "id": "common_passage110",
+      "title": "The Common Passage",
+      "approach": "campaign",
+      "startPort": "brass_haven",
+      "startContact": "contact_tobin_hale",
+      "summary": "A merchant fails to arrive. Tobin asks you to investigate the Kelp Reach shipping routes. The rescue guarantee brings Della Venn into the dispute.",
+      "stages": [
+        {
+          "id": "overdue_brief110",
+          "title": "Overdue Merchant",
+          "body": "Tobin Hale: ‘A merchant out of Kelp Reach missed its berth. The departure report is dated; I cannot tell you where it is now. Find a loaded independent convoy and bring its passage safely into harbor. Take a paid escort only after its captain shows you the actual terms.’\n\nYou can keep your Tinwake and your other work. The client pays from its own operating purse after delivery. Your wages, fuel and repairs remain your costs.",
+          "nextAction": "Review the Kelp Reach route and return allowance. Approach a peaceful loaded merchant, accept its native escort and remain within 600 units.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "take_short_escort110",
+              "text": "Investigate the overdue merchants",
+              "next": "escort_work110",
+              "setFlags": [
+                "investigating_guarantee110"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "escort_work110",
+          "title": "Escort a loaded merchant",
+          "body": "Keep the original loaded boats together until they sell their cargo at the named harbor. Any interception requires their physical escape. Losing a carrier, leaving the protection radius or withdrawing ends the contract under its normal refund rules. You can seek another actual client after closing a failed passage.",
+          "nextAction": "Collect the bound client's escort fee at the delivery harbor, then return to Tobin at Brass Haven.",
+          "gate": {
+            "type": "arc110",
+            "operation": "overdue_merchant110",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "report_merchant110",
+              "text": "Report the completed passage to Tobin",
+              "next": "venn_claim110",
+              "setFlags": [
+                "merchant_reported110"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "venn_claim110",
+          "title": "The rescue guarantee",
+          "body": "Tobin Hale: ‘The cargo arrived. The merchant's fee is yours. This claim is separate.’\n\nDella Venn, the Compact's charter administrator, puts a guarantee on Tobin's desk. ‘My wardens keep these routes open. A captain who asks for rescue accepts our service terms. Your escort does not cancel the earlier debt.’\n\nTobin recognizes the countersignature. He financed the guarantee when the harbors needed protection; he did not tell you how a missed payment could transfer control of a boat.",
+          "nextAction": "Ask Tobin about the guarantee. No debt is added to your own fleet, and no agreement is accepted on your behalf.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "question_guarantee110",
+              "text": "Ask who authorized the seizure terms",
+              "next": "second_signature111",
+              "setFlags": [
+                "venn_claim_seen110"
+              ],
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 3,
+                  "reason": "Returned with a paid escort's actual delivery and questioned the rescue guarantee"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "second_signature111",
+          "title": "Second Signature",
+          "body": "Tobin has asked for the impound record bearing his guarantee. The next campaign operation is not available in this build. Your completed passage and the investigation remain saved; other harbor work, exploration and fleet building remain available.",
+          "nextAction": "The opening chapter is complete. Continue ordinary harbor work or return to the campaign after its next operation is available.",
+          "gate": {
+            "type": "unreleased",
+            "message": "The next campaign operation is not available in this build."
+          },
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

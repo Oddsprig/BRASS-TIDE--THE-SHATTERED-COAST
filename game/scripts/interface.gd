@@ -401,6 +401,7 @@ func build_campaign_hud(size: Vector2):
 	paragraph(left_body,"Review fuel, supplies, crew wages and the return route.",14)
 	button(left_body,"Prepare first voyage" if host.core.state.missionIndex==0 and active.is_empty() else "Review voyage",func():GuidanceUI.open_voyage(self),true,false)
 	button(left_body,"Open ocean & coastal approaches",open_ocean064,false,false)
+	button(left_body,"Campaign & coastal stories",func():StoryUI.open(self),false,false)
 	button(left_body,"More charts & business",open_campaign_tools,false,false)
 	rule(left_body)
 	paragraph(left_body, "Select a harbor to travel or dock.", 13)
@@ -990,6 +991,7 @@ func open_cargo():
 func open_contracts():
 	modal_kind = "contracts"
 	var body = modal("Contracts & logbook", "ACTIVE CONTRACTS · AVAILABLE WORK · RECENT EVENTS")
+	button(body,"Storyline campaign & coastal stories",func():StoryUI.open(self),true,false)
 	if host.core.home_local064():button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	contracts_view(body)
 	rule(body)

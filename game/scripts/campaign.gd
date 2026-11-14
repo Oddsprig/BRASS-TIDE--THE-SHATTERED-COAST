@@ -39,6 +39,7 @@ const TrainingOps=preload("res://scripts/training_ops.gd")
 const HomeOps=preload("res://scripts/home_ops.gd")
 const RegionalOps=preload("res://scripts/regional_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
+const Arc110=preload("res://scripts/campaign_arc110.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -71,6 +72,7 @@ var nav: Dictionary = {}
 var events: Array = []
 var pending_days: int = 0
 var exploration_timer: float=0.0
+var arc_follow_timer110: float=0.0
 var sailing_clearance: float=0.0
 var ocean_context064: Dictionary={}
 var ocean_error064: String=""
@@ -558,7 +560,7 @@ func travel_speed() -> float:
 			var best_tug: float=0.55
 			for tug in fleet:best_tug=maxf(best_tug,float(tug.spec.get("towSpeedFactor",0.55)))
 			tow_factor=minf(tow_factor,maxf(best_tug,float(s.get("towSpeedFactor",0.55))))
-	return speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor
+	return Arc110.follow_speed(self,speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor)
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if destination==ShippingFlow068.PORT and (not ShippingFlow068.installed(state) or ShippingFlow068.PORT not in state.get("shipping068",{}).get("knownPorts",[])):
@@ -588,6 +590,7 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	path.pop_front()
 	var departure: Dictionary=current_port()
 	if not departure.is_empty():state.regionalOrigin=str(departure.id)
+	Arc110.cancel_follow(self)
 	state.path = path
 	state.destination = destination
 	sailing_clearance=actual
@@ -607,6 +610,7 @@ func validate_sailing_route() -> bool:
 	return false
 
 func stop_sailing():
+	Arc110.cancel_follow(self)
 	state.path = []
 	state.destination = ""
 
@@ -644,6 +648,7 @@ func _step066(dt: float) -> float:
 		ShippingFlow068.observe_sector069(self)
 	advance_surveys(dt/DAY_SECONDS)
 	var voyage_before: Dictionary=state.position.duplicate()
+	Arc110.follow_step(self,dt)
 	validate_sailing_route()
 	var moving: bool = not state.path.is_empty()
 	var voyage_distance: float=0.0
@@ -1393,6 +1398,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	var completed_berth: Dictionary=work_port070()
 	var before: Dictionary=VoyageJobs._find(state,id).duplicate(true)
 	var result: Dictionary=VoyageJobs.abandon(self,id) if abandon else VoyageJobs.finish(self,id)
+	Arc110.after_job(self,before,result,abandon)
 	if result.ok:
 		if not abandon:
 			Politics.job_completed(self,before)

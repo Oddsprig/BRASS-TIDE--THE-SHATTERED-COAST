@@ -1,0 +1,14 @@
+BRASS TIDE — CURRENT QUALITY SEQUENCE
+
+v0.100 — Settled automatic-save scheduling
+v0.101 — Detached planner payload construction
+v0.102 — Existing boat and weapon detail
+v0.103 — Short wakes, effects and compact battle HUD
+v0.104 — Harbor route preview and chart scale
+v0.105 — Voyage choices and earned paid fleet growth
+v0.106 — Survival priorities and applied commands
+v0.107 — Observed loaded traffic and funded escort inquiries
+v0.108 — Save preservation and PC settings controls
+v0.109 — Readable actual-game gallery and current Windows/store delivery
+
+Each is scoped acceptance, not whole-game certification. See CHANGES v0.xxx.md for actual evidence and remaining limits. Earlier maps/history remain in docs and Git.

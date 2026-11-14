@@ -44,6 +44,11 @@ static func _load() -> Array:
 			for raw in parsed["chains"]:
 				if raw is Dictionary and not str(raw.get("id", "")).is_empty() and raw.get("stages") is Array and not (raw["stages"] as Array).is_empty():
 					out.append(raw.duplicate(true))
+	# The main arc is a small append-only content file; existing nine chains stay intact.
+	var campaign = JSON.parse_string(FileAccess.get_file_as_string("res://data/campaign_main110.json"))
+	if campaign is Dictionary and campaign.get("chains") is Array:
+		for entry in campaign.chains:
+			if entry is Dictionary and entry.get("id") is String and entry.get("stages") is Array:out.append(entry.duplicate(true))
 	out.sort_custom(func(a, b): return str(a["id"]) < str(b["id"]))
 	_cache = out.duplicate(true)
 	return out
@@ -273,6 +278,11 @@ static func _contact_met(state: Dictionary, contact_id: String) -> bool:
 # contact_met {contact}, none/missing (always ok).
 static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 	match str(gate.get("type", "none")):
+		"none":pass
+		"arc110":
+			if core==null:return {"ok":false,"message":"Open the campaign aboard your actual fleet."}
+			return core.Arc110.gate(core,gate)
+		"unreleased":return {"ok":false,"message":str(gate.get("message","This campaign operation is unavailable."))}
 		"site":
 			var level := _site_level(state, str(gate.get("site", "")))
 			if level < 0:
@@ -291,6 +301,7 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 		"contact_met":
 			if not _contact_met(state, str(gate.get("contact", ""))):
 				return {"ok": false, "message": "Meet that contact first."}
+		_:return {"ok":false,"message":"Unknown campaign objective; progress has not been changed."}
 	return {"ok": true, "message": ""}
 
 

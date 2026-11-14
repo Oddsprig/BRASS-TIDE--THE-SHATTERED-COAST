@@ -1,5 +1,6 @@
 extends RefCounted
 const Stories=preload("res://scripts/coastal_stories.gd")
+const ArcUI110=preload("res://scripts/campaign_arc_ui110.gd")
 static func open(ui) -> void:
 	ui.host.sync_economy()
 	var c=ui.host.core
@@ -7,10 +8,12 @@ static func open(ui) -> void:
 	var p: Dictionary=c.current_port()
 	if not p.is_empty() and c.Politics.access(c,p).legal:c.Contacts.visit(c.state,p,c.state.day)
 	ui.modal_kind="coastal_stories"
-	var body=ui.modal("Coastal stories & expedition leads","DECISIONS THAT OPEN DIFFERENT WORK",1070,800)
+	var body=ui.modal("Campaign & coastal stories","CONTACTS · OPERATIONS · EXPEDITION LEADS",1070,800)
 	ui.paragraph(body,"Keep several leads alongside your paid voyage jobs. Surveys, deliveries and actual fleet defeats advance them. Knowledge and relationships are the rewards; any later freight or business still needs a real sponsor, materials and workers.",16)
 	ui.paragraph(body,"Listed standing changes are base changes. Helping a faction can also anger its rivals; your faction log records the full result.",14,ui.TEAL)
-	for row in Stories.journal(c.state):
+	var entries110: Array=Stories.journal(c.state)
+	entries110.sort_custom(func(a,b):return str(a.chainId)=="common_passage110" and str(b.chainId)!="common_passage110")
+	for row in entries110:
 		var entry: Dictionary=row
 		ui.rule(body)
 		ui.label(body,entry.title+" · "+("Complete" if entry.done else entry.approach.capitalize()),26,ui.GOLD,true)
@@ -28,6 +31,7 @@ static func open(ui) -> void:
 			ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
 			ui.paragraph(row_body,_shown_next_action(entry),16,ui.TEAL)
 		if entry.done:ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
+		ArcUI110.controls(ui,row_body,entry)
 		_paint_leads(ui,row_body,entry)
 		payoff(ui,row_body,entry)
 		if entry.done:
@@ -49,6 +53,7 @@ static func open(ui) -> void:
 	ui.rule(body)
 	ui.label(body,"Harbor leads",26,ui.GOLD,true)
 	var offers: Array=Stories.available(c)
+	offers.sort_custom(func(a,b):return str(a.id)=="common_passage110" and str(b.id)!="common_passage110")
 	for item in offers:
 		var offer: Dictionary=item
 		ui.label(body,offer.title,23,ui.GOLD,true)

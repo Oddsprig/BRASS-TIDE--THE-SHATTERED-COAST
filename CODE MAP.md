@@ -1,4 +1,4 @@
-v0.109 — Current source map (delivered scoped)
+v0.110 — Current source map (campaign candidate)
 
 Read docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt for the ten bounded milestones. Version acceptance and limitations belong in CHANGES v0.100.md through CHANGES v0.109.md. Historical source-map/status text is preserved under docs/history/quality100-108 and in Git.
 
@@ -21,3 +21,5 @@ v0.109 delivers current distinct media, a full-width gallery with actual-size vi
 Current109 acceptance: v0.109 — Current game media, readable desktop gallery and matching Windows delivery. See CHANGES v0.109.md for the full scoped result.
 
 Postdelivery context closure: current screenshot provenance, store copy and marketplace handoff now name109; older drafts are archived. Verified obsolete100-107 local binaries were pruned after preserving unique owner files, reclaiming4.0GiB. Current109 and108 rollback plus the098 historical baseline remain. Source, tags, raw evidence, useful tools and the earned checkpoint are retained.
+
+Campaign110: campaign_main110.json appends one stable coastal chain. campaign_arc110 binds native escort job/client/carrier/cargo identities and consumes only successful original payment. campaign_arc_ui110 exposes current observed clients, follow, normal interception, collection and refund. Existing story UI and HUD link the chapter; unknown objective types fail closed. Follow plans run at most once per simulated second, never per render frame; ordinary movement, wages, navigation, NPC simulation and detached workers retain their existing owners. Native evidence pending.

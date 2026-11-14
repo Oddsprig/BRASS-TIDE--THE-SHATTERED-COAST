@@ -25,6 +25,7 @@ static func start(c,id: String) -> Dictionary:
 	for offer in Stories.available(c):
 		if offer.id!=id:continue
 		c.state.stories.chains[id]={"stage":offer.stage,"flags":[],"leads":[],"done":false,"startedDay":c.state.day}
+		if id=="common_passage110":c.Arc110.accept_lead(c)
 		Stories.reconcile_knowledge(c.state,id)
 		c.log_entry("New coastal lead: %s. %s"%[offer.title,offer.nextAction])
 		return c.ok("Lead entered in the journal. "+offer.nextAction)
@@ -36,7 +37,9 @@ static func apply_pending(c) -> void:
 		var effect_id: String=str(entry.id)
 		# Factions retains only80characters. New long story prefixes must not
 		# collapse different targets into one execution id; journal ids stay readable.
-		if effect_id.begins_with("story:inverted_tide077:") or effect_id.begins_with("story:last_soundings077:"):
+		if effect_id.begins_with("story:common_passage110:"):
+			effect_id="arc110:"+effect_id.sha256_text()
+		elif effect_id.begins_with("story:inverted_tide077:") or effect_id.begins_with("story:last_soundings077:"):
 			effect_id="story077:"+effect_id.sha256_text()
 		elif effect_id.begins_with("story:broken_meridian087:") or effect_id.begins_with("story:unfinished_keel087:") or effect_id.begins_with("story:two_lantern_anchorage087:"):
 			effect_id="story087:"+effect_id.sha256_text()

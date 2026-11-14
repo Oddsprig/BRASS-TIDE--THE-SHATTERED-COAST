@@ -1,0 +1,121 @@
+BRASS TIDE CAMPAIGN BUILD MAP — v0.110–v0.119
+Owner authorization: prepare the ten-version campaign plan, then build one version at a time. Baseline v0.109. Planning complete; implementation begins at110. This is an original design, not a promise that all ten versions or target playtime are already complete.
+
+**The campaign plan is ready for Root to freeze: _The Common Passage_, twelve main operations across v110–119, with six optional character jobs.** The table below replaces the earlier working map.
+
+Exactly five helpers were launched, all **Codex / gpt-6.1-sol / MAX**, with no other models or paid fallback:
+
+| Helper ID | Role |
+|---|---|
+| `45ccc00205e0` | Blood Wake research |
+| `a8f1f0026f57` | Original storyline and cast |
+| `3c91897cc782` | Integration engineering |
+| `7802314a6871` | Mission and production design |
+| `ff21dd5c9e1e` | Independent red team |
+
+Reports were recovered in chat. Initial jobs marked “failed” because no report file changed are **not runtime failures or passes**. Same-ID follow-ups recovered material without creating additional helpers.
+
+**What the research actually established**
+
+Starsector’s documented Galatia arc moves from paid Academy work into **Extract ‘Researcher’**, the parallel **Kallichore Archive / Finding Coureuse** investigations, **Project Ziggurat**, and **At The Gates**. Its obstacles include negotiation, evasion and combat; its political relationships persist beyond individual missions. The consulted mission pages identify their verification as **0.98**, so these are not claims about every subsequent addition. [Galatia missions](https://starsector.wiki.gg/wiki/Galatia_Academy_missions), [Finding Coureuse](https://starsector.wiki.gg/wiki/Finding_Coureuse), [At The Gates](https://starsector.wiki.gg/wiki/At_The_Gates).
+
+The developer describes recurring characters, choosing a strategy before acting, and debriefs that change how characters regard one another. He also explains cutting an elaborate investigation into manageable branches. Official blog requests returned 402; I read the published developer prose through its RSS copies. These support our **structure**, not borrowed plot. [Writing Starsector](https://starsector4.rssing.com/a/writing-starsector-15fwmpoq), [Westernesse Boondoggle](https://starsector4.rssing.com/a/writing-starsector-2-westernesse-boondoggle-nomm7wq), [Writing False Idols](https://starsector4.rssing.com/a/writing-false-idols-17exqrnu).
+
+Blood Wake’s actual 28-mission, six-act campaign alternates small raids and training, rescue and convoy protection, blockades, diplomatic protection, hit-and-run operations, withdrawal, capture and escape, then major assaults. Its manual shows reused waterways and access to different boats as trust develops. Its changing coalition is scripted, rather than evidence of freely selectable faction branches. We take **mission pacing, geographical reuse and changing relationships** from it. [Original manual](https://www.ogxbox.co.uk/media/com_eshop/attachments/Blood_Wake_User_Manual.pdf), [complete walkthrough](https://gamefaqs.gamespot.com/xbox/516534-blood-wake/faqs/22133), [official strategy guide](https://www.ogxbox.co.uk/media/com_eshop/attachments/Blood_Wake_Strategy_Guide_2004_Book.pdf).
+
+**The story bible**
+
+A delayed merchant convoy exposes something worse than ordinary raiding: paid escorts have been abandoning boats whose owners refuse restrictive rescue agreements.
+
+**Della Venn**, a Compact charter administrator, once kept vulnerable harbors supplied through genuine disasters. She now converts rescue debts into control of passage rights. Her protection works for favored clients, which makes her dangerous: simply destroying her wardens could strand the people the player wants to help.
+
+The player remains an independent captain. Participation is optional, and neither faction allegiance nor completion of the old eight missions is required.
+
+The following histories are **new writing proposals**, not claims about existing lore:
+
+- **Tobin Hale**, at Brass Haven, financed some early guarantees. He initially defends Venn because he remembers the boats her organization saved. His growth comes through admitting his responsibility and risking actual escrow, rather than offering another speech.
+- **Mara Voss**, at Anvil Dock, depends on reliable orders to keep shipwrights employed. She opposes coercion but refuses to pretend that repairs, materials and skilled labor become free under a kinder banner.
+- **Sister Wren**, at Reedwater Floats, wants public accountability. Experience makes her confront the practical consequences of exposing witnesses before there are boats and safe berths to protect them.
+- **Cass Rye**, at Rust Anchorage, knows how impoundment and resale work. She supplied a route used in an earlier seizure. Her useful knowledge and selective honesty make cooperation uncomfortable.
+- **Venn** appears early as an effective organizer, offers credible bargains, and acts against the replacement effort. She is not introduced only at the final reveal.
+
+Use one existing native captain as a recurring warden or rival where identity and survival permit. Bind the actual owner ID; a dead captain stays dead. Crew reactions refer to the player’s surviving complement and actual service history.
+
+The four acts are:
+
+1. **The guarantee:** rescue, seizure and evacuation reveal who receives protection.
+2. **The exception list:** Venn’s useful work complicates the accusation; witnesses force a commitment.
+3. **The replacement:** the player must secure ships, fuel, labor and support while Venn interferes.
+4. **The passage:** the proposed alternative must survive a real voyage, followed by a personal harbor reckoning.
+
+**Two commitments with physical consequences**
+
+**C1 — Public disclosure or protected testimony.** Public disclosure exposes named crews and requires moving and protecting their actual cohort at Reedwater Floats; Venn receives warning. Protected testimony keeps identities restricted and requires safe passage and reception at Anvil Dock under the existing service rules. The choice changes the people, destination and protection obligation—not merely prices or reputation.
+
+**C2 — Mutual rescue pool or bonded owner service.** The mutual arrangement pools funded escorts and repair obligations. The bonded arrangement purchases defined service and priority through separate owners. Both require real sponsors, stock and labor. Neither grants ports, sovereignty, free fleets or worldwide peace.
+
+**Three endings**
+
+- **Common Passage:** the mutual arrangement funds and completes its first relief passage. Contact scenes acknowledge who paid, who survived and who remains excluded.
+- **Many Harbors:** the bonded arrangement completes its passage under explicit obligations and limits. It is a viable political compromise, with different beneficiaries.
+- **Unsettled Coast:** the replacement fails or the player explicitly closes the effort after withdrawal. Native losses remain; surviving people and unresolved coercion are acknowledged.
+
+**Consent is stored separately from outcome.** Retreat never means accepting Venn’s terms. Any negotiated concession requires an explicit choice. A retreat can remain resumable; partial closure happens at debrief, not automatically during battle.
+
+**The complete ten-version build**
+
+| Version | Main story content and player-visible result | Native work and necessary focused checks |
+|---|---|---|
+| **110** | **1. Overdue Merchant.** Tobin sends the captain after an overdue merchant. Complete a short rescue escort in the existing Tinwake; Venn then claims the merchant’s rescue debt. The player experiences the problem before receiving its explanation. | Bind an actual eligible loaded merchant and funded native escort job. No compulsory combat, sinking or hull purchase. Verify outward/return affordability from the actual 15,000-coin start, native completion, duplicate debrief and unchanged legacy progress. |
+| **111** | **2. Second Signature.** Challenge an impound escort and recover secured property. The seizure terms reveal Tobin’s financial involvement. | Existing physical interception, capture/salvage and custody. Only actual secured property counts; unrelated victories and destroyed cargo do not. Introduce Tobin’s first optional job. |
+| **112** | **3. Exit Channel.** Cover working boats evacuating a threatened Kelp Reach channel. Discover that the opposing wardens also await wages. | Protect actual boats/cohorts through their required exits and safe reception. Partial survival changes the debrief. No fabricated passengers or restored casualties. Add Wren’s optional survey job. |
+| **113** | **4. A Useful Enemy.** Escort purchased pump cargo to Cinder Quay. Venn’s allocation saves another shipment, forcing Mara to explain what abolition would disrupt. | Funded cargo, sealed custody, real destination stock and escort completion. Add Mara’s damaged-yard-boat job. No new industrial framework. |
+| **114** | **5. Bought Route.** At Rust Anchorage, negotiate release or raid an impounding convoy, then withdraw. Cass admits supplying the original seizure route. | Existing permission/payment or physical battle route; actual escape, losses and recovered property persist. Add Cass’s distinct provenance/salvage job. No forced capture or scripted loss. |
+| **115** | **6. Names on Paper.** Bring claimants to safety and make **C1**. Allies appear among the guarantee’s beneficiaries. | Reuse native passenger charter and safe discharge where applicable. Public and protected branches bind different destinations and protection obligations. Verify commitment persistence and exactly-once effects. |
+| **116** | **7. Two Distress Flags** and **8. Narrow Withdrawal.** Protect finite relief boats, then cover a working convoy’s retreat or strike its pursuers. Venn’s wardens save one threatened boat; Cass’s withheld route becomes consequential. | Reuse existing escort/interception machinery. Measure individual carriers and cargo, not “won” alone. No new split-battle system: use supported carriers or serial encounters. Missing/dead actors receive a distinct valid route, never respawn. |
+| **117** | **9. Who Pays First.** Negotiate replacement terms and perform the first joint escort. Mara rejects unpaid solidarity; make **C2** with actual obligations shown. | Sponsor escrow, material availability and crew costs gate commitment. No mutation when funding is refused. Add Mara’s second optional job concerning paid recovery and workers. |
+| **118** | **10. Fuel Has Owners** and **11. Last Warrant.** Break or purchase passage through a selective Naphtha cordon, then protect claimant boats near Brass Haven—including culpable crews Tobin refuses to abandon. | Native fuel demand, transit permissions, funded opponents and witness survival. Add Tobin’s second optional job. No abstract army debuff, forced global war or replenished enemy fleet. |
+| **119** | **12. Common Passage.** Defend the first replacement relief convoy through an existing Open Seas connection, or negotiate a permitted passage. Return for the three endings and changed contact scenes. | Actual loaded delivery, remaining funds, casualties, consent and chosen arrangement determine closure. Verify three bounded ending fixtures, duplicate settlement and save/reload. Continue the sandbox. |
+
+The six optional jobs occupy **four contact arcs**: Tobin two, Mara two, Wren one and Cass one. They reveal character and offer ordinary funded opportunities; skipping all six must leave a viable main campaign.
+
+This uses **nine preserved chains + one main chain + four contact arcs = fourteen**, within sixteen. Keep two slots spare. Main duration is provisionally **2–3 hours**, excluding optional work and unrelated sandbox activity; that remains a target until played.
+
+**Decisive minimal integration recommendation**
+
+Use **one main coastal-story chain plus a narrow `arc110` adapter**. The existing story system owns presentation and progression; the adapter binds native operations to their outcomes. It is not another mission engine.
+
+For v110:
+
+1. Add the opening chain/content to `game/data/coastal_stories.json`. Preserve every existing chain, stage and choice ID. Establish stable new operation IDs and valid non-advancing boundaries for later releases.
+2. Reuse `StoryOps.start/choose/refresh`, the existing offers and story UI.
+3. Launch the opening through the actual `Campaign.accept_voyage_job(id, carrier_uid)` path. Select and bind an eligible native convoy; retain its job, owner and carrier identities. Do not synthesize a completed escort.
+4. In `Campaign.settle_voyage_job`, capture the job before `VoyageJobs.finish` closes it. After successful native settlement, immediately record the matching operation outcome. Do not rely solely on `lastEscortVoyage`, which another completed escort can replace.
+5. Keep at most one pending main operation and twelve bounded outcome records. Validate them in `campaign_state_validation.gd`. Do not place twelve outcomes into the eight-entry `usedOffers`.
+6. Add explicit recognized objective gating before exposing choices. Unknown gate types currently pass, so a new gate name alone provides no protection.
+
+For later battle operations, finish native cargo, casualty and payment settlement first. Attach operation evidence before caching `physical_battle.settlementReport`; an idempotent consumer handles both initial and cached reports. Require the bound operation and physical encounter identity. Empty-physical legacy “won” calls cannot prove a campaign operation.
+
+The supplied `VoyageJobs.finish` already checks loaded escort arrival, unresolved interception, destination, lost freight, exact escrow and actual charter discharge. Reuse those checks. **Legacy `Contracts` has one active contract slot; do not overwrite it. VoyageJobs is a separate collection—do not impose an invented global one-job restriction.**
+
+Never set new work’s `contract.story=true`: that advances the old mission index. Likewise, preserve legacy `completed`; the new arc uses its own completion. Root’s later Main inspection found no demonstrated hard world ending, so no speculative Main rewrite is included.
+
+**Independent red-team findings incorporated**
+
+The reviewer returned six initial risks and three specific objections to the synthesized draft:
+
+- **First-voyage bankruptcy:** mandatory supplies or repairs could strand progression. Opening acceptance must show a funded outward-and-return route without unique salvage or a hull purchase.
+- **Old-save damage:** reserved cargo and existing story state must survive. New operation bindings are namespaced and released stage IDs remain valid.
+- **Cosmetic C1:** public/private wording repeated existing chains. C1 now changes the actual witness destination and protection duty.
+- **Dead former enemy:** a required captain might already be dead. Actor-dependent content now has a distinct native alternative; optional Cass work does not duplicate the main operation.
+- **False consent:** “Guarantee Remains” wrongly combined retreat with agreement. The third ending is now **Unsettled Coast**, with consent recorded separately.
+- **Repetition, unseen expiry and invented fleets:** operations need distinct protection, seizure, evacuation and withdrawal decisions; narrative progress must not silently expire; every encounter uses finite funded assets.
+
+These are design findings, **not runtime certification**. The targeted red-team follow-up is still finishing.
+
+Root can now freeze this plan and build **v110 only**. Each version proceeds through source acceptance, the three documents in the same merge, tag and Windows portable package before the next version; retain current and rollback builds. An existing helper performs notes reconciliation.
+
+**No canonical game edits, version bump, engine tests, exports or publication were performed by this planning team.** Root retains sole integration and Test Bridge ownership, with selected verification ≤60 seconds and watchdog 55.
+
+ROOT INTEGRATION CLARIFICATION — v110
+The opening uses a loaded merchant escort, not a tow. Existing fresh-career merchants leave Kelp Reach and Anvil Dock; none is assumed to be beside Brass Haven. Tobin provides a dated departure lead, then the captain approaches an actually sighted client. No live unseen cargo is revealed. Escort acceptance uses VoyageJobs.accept_escort, not the harbor-only accept method. A bounded player follow order may assist the existing escort; it does not pause, reroute, stock or fund its NPC. A missing or lost client means another eligible real passage, never a respawn. Content boundaries remain valid saved stages in each intermediate release.
