@@ -1,9 +1,13 @@
-# v0.100 source checked; finishing Windows delivery
+# Current: v0.101 in progress; v0.100 delivered
 
-v0.100 — Scoped campaign autosave scheduling
-Automatic saving stays due while copied harbor jobs or pending days remain. A settled frame commits through the existing verified writer. Explicit Save/Quit/title/New voyage, simulation rules, ports, purses and cargo are unchanged.
-Native job313b1f5d64274a90abd3f4ca23852b91 passed25checks/0failures, normalexit/no watchdog kill,19.656s queued command time. The actual48-group world settled one real day, preserved coin supply, saved the exact settled state once, and refused failed retirement saves. The semaphore-held busy-worker case is functional evidence, not FPS or a representative before/after speedup.
-Headless observations: snapshot/enqueue3.412ms; join+daily publication415.350ms; settled save52.543ms. Main daily work and serialization remain bottlenecks. No normal-play/rendered/sustained performance or full-game quality pass is claimed. Export/package/desktop receipts follow separately.
+v0.100 DELIVERED SCOPED — automatic-save scheduling
+Source/tag5159cdae0a10990ecc686ebac5d03f11a056d8de /v0.100.
+25nativechecks,0failures; isolated exportedmenu starts100; clean53-file Windows ZIP.
+InstalledDesktop/Brass Tide/v0.100. Both plain desktop and organized game-launchers links now100 (the latter had been030).23owner files copied with unchanged hashes; original098 retained. No owner game launch/input.
+Publicstore/download still099 at$9.99 until109 replacement is reviewed.
+Evidence: parent work/quality-v100-v109-2026-11-14/v0.100.
+The controlled autosave case is accepted; campaign daily publication415ms andsave53ms remain headless observations, not FPSproof. Initial export missed self-contained template path; fixed once. Commands+package59.531s; shared setup/install push total over60, recorded as a budget miss. No repeated native test.
+Next101: detached planner-payload construction; preserve public/main/legacy copies and target freshness.102art/105UI private drafts unaccepted. Four Bridge helpers remain assigned; some Sol file tools stalled, so exact patch/report text is returned in chat and Root writes artifacts. No extra models/providers.
 
 # Current work: v0.100-v0.109 quality sequence
 

@@ -1,3 +1,7 @@
+## v0.100 — Scoped autosave scheduling
+
+Source/tag5159cdae0a10990ecc686ebac5d03f11a056d8de. InstalledDesktop/Brass Tide/v0.100; outputs/Brass Tide v0.100 Windows.zip, SHA07a989557d768ce72984844514953c729e543cb139daa5d0202123d7b870efa7.25nativechecks, no general performance pass.
+
 ## v0.030 - packaged UNTESTED build, stopped
 
 Game tag v0.030: `7492fb764d22c5cd4485a889f481bd27f3b9d795`. Compiler/export and archives complete; no game launch or tests after owner stop. Desktop launcher updated. All further work stopped. See BUILD STATUS.txt.

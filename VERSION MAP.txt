@@ -1,8 +1,8 @@
 BRASS TIDE — CURRENT QUALITY SEQUENCE
-Base accepted099; installed098; publicdownload099 at$9.99.
+Current accepted/installed100; publicdownload099 at$9.99 until109.
 
-0.100 SOURCE CHECKED / PACKAGE PENDING — Campaign responsiveness
-0.101 PLANNED — Full-fleet battle performance
+0.100 DELIVERED SCOPED — Campaign responsiveness
+0.101 DOING — Full-fleet battle performance
 0.102 PLANNED — Boat, weapon and motor detail
 0.103 PLANNED — Combat feedback, wakes, sound and overlays
 0.104 PLANNED — Harbors, chart scale and navigation
