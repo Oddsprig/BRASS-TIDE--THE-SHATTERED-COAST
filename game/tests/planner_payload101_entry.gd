@@ -33,7 +33,14 @@ static func _make_light101() -> Dictionary:
 	if not bool(made.get("ok",false)):
 		push_error("V101 factory: "+str(made.get("error","")))
 		return {}
-	return made.battle
+	var st: Dictionary=made.battle
+	Candidate.enable_planning051(st,true)
+	# Prepare the same current-owner index and budget that begin() builds,
+	# without launching an unrelated planning job inside this leaf benchmark.
+	st.tactical.budget={"clearanceTests":0,"clearanceLimit":2900}
+	for ship in st.ships:
+		if not ship.sunk and not ship.get("captureSecured",false):st.tactical.ships[str(ship.id)]=ship
+	return st
 
 
 static func _check101(ok: bool, message: String) -> bool:
@@ -124,15 +131,15 @@ static func _prepare101(st: Dictionary) -> bool:
 			points += int(Deployment.cost(ship.spec))
 			spec_ids[str(ship.spec.id)] = true
 
-		if not _check101(ids.size() == 21 and points == 294,
-				"%s has exactly 21 boats and 294 DP" % side):
-			return false
 		print("V101_FLEET ", JSON.stringify({
 			"side": side,
 			"boats": ids.size(),
 			"points": points,
 			"specIds": spec_ids.keys()
 		}))
+		if not _check101(ids.size() == 21 and points == 294,
+				"%s has exactly 21 boats and 294 DP" % side):
+			return false
 
 		# One due and one non-due owner exercise targetless attack resolution.
 		# Give both real live nested options so ownership probes are meaningful.
