@@ -254,9 +254,9 @@ func pan_camera(screen_direction: Vector2, dt: float, fast: bool = false):
 	_campaign_follow = false
 	var speed := 1150.0 if fast else 540.0
 	camera += _screen_to_world_delta(screen_direction.normalized() * speed * dt)
-	var world_size := Vector2(2300, 1700) if (host != null and host.mode == "battle") else active_bounds064().size
-	camera.x = clampf(camera.x, -450.0, world_size.x + 450.0)
-	camera.y = clampf(camera.y, -450.0, world_size.y + 450.0)
+	var bounds: Rect2=Rect2(0,0,2300,1700) if (host != null and host.mode == "battle") else active_bounds064()
+	camera.x = clampf(camera.x, bounds.position.x-450.0, bounds.end.x+450.0)
+	camera.y = clampf(camera.y, bounds.position.y-450.0, bounds.end.y+450.0)
 	queue_redraw()
 
 func center_camera():
@@ -1117,8 +1117,6 @@ func draw_campaign():
 		labels.append({"at":project(gate_point064),"text":str(gate064.name),"priority":90,"color":GOLD})
 	_draw_chart_labels(labels)
 	var size = get_viewport_rect().size
-	text_at("THE SHATTER COAST", Vector2(size.x * 0.5, size.y - 175), 12, GOLD, mono, true)
-	text_at("WASD CAMERA  ·  M TERRITORY  ·  HOME FLEET  ·  CLICK HARBOR TO SAIL  ·  SCROLL ZOOM", Vector2(size.x * 0.5, size.y - 118), 10, Color("93b4a8"), mono, true)
 	draw_compass(Vector2(size.x - 70, size.y - 133))
 
 func boat_shape(p: Vector2, angle: float, shape: Array, size_value: float, height: float, color: Color):

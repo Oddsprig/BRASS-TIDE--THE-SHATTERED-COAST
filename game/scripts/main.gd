@@ -645,7 +645,7 @@ func click_chart(position: Vector2):
 		if not current.is_empty() and current.id == nearest.id:
 			ui.open_port()
 		else:
-			sail_to(nearest.id)
+			ui.HarborRoute104.open(ui,str(nearest.id))
 		return
 	for site in core.Exploration.sites(core.state):
 		if site.level>0 and (chart.project(Vector2(site.x,site.y)).distance_to(position)<22 or Rect2(chart.campaign_site_art054(site,int(site.level)).bounds).grow(3).has_point(position)):

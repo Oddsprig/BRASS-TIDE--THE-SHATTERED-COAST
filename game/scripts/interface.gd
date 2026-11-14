@@ -1,4 +1,5 @@
 extends CanvasLayer
+const HarborRoute104=preload("res://scripts/harbor_route104.gd")
 const TacticsUI = preload("res://scripts/tactics_ui.gd")
 const RefitUI = preload("res://scripts/refit_ui.gd")
 const WorkshopUI = preload("res://scripts/workshop_ui.gd")

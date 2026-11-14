@@ -186,7 +186,7 @@ static func layout(boats: Array, center: Vector2, heading: float, zoom: float = 
 	var lod: int = 2 if overview else 0 if zoom>=0.56 else 1
 	var maximum: int = clampi(int(opts.get("max_vessels",MAX_VESSELS)),1,MAX_VESSELS)
 	var multiplier: float = clampf(float(opts.get("size_multiplier",1.0)),0.5,2.0)
-	var regional_scale: float = clampf(pow(maxf(0.01,zoom)/0.30,0.34),0.88,1.55)
+	var regional_scale: float = clampf(pow(maxf(0.01,zoom)/0.30,0.65 if zoom>0.30 else 0.34),0.88,3.2)
 	var unit: float = (7.3 if overview else 15.25)*regional_scale*multiplier
 	var prepared: Array = []
 	var roster_count: int = 0
