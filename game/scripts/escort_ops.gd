@@ -97,7 +97,7 @@ static func review(ui,owner_id: String) -> void:
 	var job: Dictionary=contracted(c,owner_id)
 	var shown: Dictionary=offer(c,owner_id) if job.is_empty() else job
 	ui.modal_kind="escort_review"
-	var body=ui.modal("Paid convoy escort","ACTUAL CLIENT, CARGO AND ROUTE",760,700)
+	var body=ui.modal("Paid convoy escort","CONVOY ESCORT",760,700)
 	if shown.is_empty():ui.paragraph(body,"No funded loaded passage is available here. Approach within 600 of a sailing peaceful convoy; it needs an existing load, safe route, crew and enough operating coins.",17)
 	else:
 		ui.label(body,str(shown.title),23,ui.GOLD,true)

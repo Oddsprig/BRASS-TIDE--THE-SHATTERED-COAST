@@ -1,0 +1,4 @@
+# Brass Tide v0.107 — Loaded traffic and paid work
+
+v0.107 — Loaded traffic and paid work (candidate; validation pending)
+Current locally hail-able loaded observations appear first in Coastal traffic. Dated cargo information suggests asking about escort work or reviewing an opposing contact; it never asserts job funding or reveals distant live cargo/positions. Existing Hail rechecks and600-unit funded escort requirements remain authoritative. A contact button carries an owner identifier for short native checks. Escort review uses a plain heading. Native verification starts from the actual105 earned career, seeks an observed loaded client, tests real escrow funding and an honest contract withdrawal/refund. Prior unchanged civilian completion evidence is reused; no guaranteed raid or completed fee is inferred from a withdrawal. Native acceptance pending.

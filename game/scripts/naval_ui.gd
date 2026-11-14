@@ -37,6 +37,27 @@ static func purpose_text(sighting: Dictionary) -> String:
 	return "Watching a coastal sea lane."
 
 
+static func opportunity_text(state: Dictionary, sighting: Dictionary) -> String:
+	if str(sighting.get("purpose", "")) not in ["deliver", "trade"] or not bool(sighting.get("loaded", false)):
+		return ""
+	var basis: String="Loaded shipment · seen day %.2f." % float(sighting.get("day", 1.0))
+	if not bool(sighting.get("current", false)):
+		return basis+" Reacquire this fleet before hailing."
+	var faction: String=str(sighting.get("faction", ""))
+	if not Factions.CANON_NAMES.has(faction):return basis+" Hail to identify this contact."
+	if Factions.is_hostile(state,faction):return basis+" Review interception and check Law before attacking."
+	return basis+" Hail to ask about escort work."
+
+static func opportunity_priority(sighting: Dictionary) -> int:
+	if not bool(sighting.get("current",false)):return 3
+	return 0 if bool(sighting.get("loaded",false)) and str(sighting.get("purpose","")) in ["deliver","trade"] else 1
+
+static func hail_caption(state: Dictionary,sighting: Dictionary) -> String:
+	if not bool(sighting.get("loaded",false)) or str(sighting.get("purpose","")) not in ["deliver","trade"]:return "Hail this fleet"
+	var faction: String=str(sighting.get("faction",""))
+	if not Factions.CANON_NAMES.has(faction):return "Hail this fleet"
+	return "Review interception" if Factions.is_hostile(state,faction) else "Ask about escort work"
+
 static func report(state: Dictionary) -> Dictionary:
 	var contacts: Array = []
 	for sighting in AI.observe(state):
@@ -47,6 +68,7 @@ static func report(state: Dictionary) -> Dictionary:
 		contacts.append({
 			"ownerId": str(sighting.get("ownerId", "")), "name": str(sighting.get("name", "Unknown fleet")),
 			"faction": str(sighting.get("faction", "")), "purpose": str(sighting.get("purpose", "patrol")),
+			"loaded": bool(sighting.get("loaded", false)),
 			"day": float(sighting.get("day", 1.0)), "ageDays": float(sighting.get("ageDays", 0.0)),
 			"expiresDay": float(sighting.get("expiresDay", 0.0)), "expired": expired, "current": current,
 			"status": status, "destination": str(sighting.get("destination", "")),
@@ -65,7 +87,12 @@ static func report(state: Dictionary) -> Dictionary:
 		outcomes.append({"day": float(event.get("day", 1.0)), "detail": detail})
 		if outcomes.size() >= 6:
 			break
-	return {"contacts": contacts, "outcomes": outcomes}
+	# Stable buckets preserve observation order without querying remote fleets.
+	var prioritized: Array=[]
+	for priority in range(4):
+		for contact in contacts:
+			if opportunity_priority(contact)==priority:prioritized.append(contact)
+	return {"contacts": prioritized, "outcomes": outcomes}
 
 
 static func hail(ui, sighting: Dictionary) -> void:
@@ -100,8 +127,10 @@ static func open(ui) -> void:
 		var destination: String = str(sighting.destination)
 		var route: String = "Last signaled toward %s." % str(c.port(destination).get("name", destination)) if not destination.is_empty() else "No destination observed."
 		ui.paragraph(body,"%s · %s" % [str(Factions.CANON_NAMES.get(str(sighting.faction), "Unidentified colors")), route],14)
+		var opportunity: String=opportunity_text(c.state,sighting)
+		if not opportunity.is_empty():ui.paragraph(body,opportunity,16)
 		if bool(sighting.current):
-			ui.button(body,"Hail this fleet",func():hail(ui,sighting))
+			ui.button(body,hail_caption(c.state,sighting),func():hail(ui,sighting)).set_meta("contactOwnerId",str(sighting.ownerId))
 		else:
 			ui.paragraph(body,"Position and purpose may have changed. Reacquire the fleet locally before hailing.",14)
 	ui.rule(body)
