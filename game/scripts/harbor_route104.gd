@@ -22,7 +22,7 @@ static func open(ui,port_id: String) -> void:
 	var body=ui.modal(str(q.destination.name),"HARBOR ROUTE",780,620)
 	var e: Dictionary=q.endurance
 	if q.routeAvailable:
-		ui.label(body,"%.2f sailing days Â· %.0f chart units"%[float(e.outwardDays),float(q.distance)],23,ui.TEXT,true)
+		ui.label(body,"%.2f sailing days · %.0f chart units"%[float(e.outwardDays),float(q.distance)],23,ui.TEXT,true)
 		ui.paragraph(body,"Return allowance: %.2f days, including %.0f contingency days."%[float(e.tripDays),float(e.reserveDays)],16)
 		ui.paragraph(body,"Reserve %s coins for crew wages. Food aboard: %.1f days. Loaded fuel: %.1f days."%[ui.money(e.returnWages),float(e.foodDays),float(e.fuelDays)],16)
 		for warning in e.warnings:ui.paragraph(body,str(warning),14,ui.GOLD)
