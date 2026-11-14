@@ -25,11 +25,13 @@ static func _switch_caption(candidate: Dictionary) -> String:
 static func _choice_summary(ui,c,candidate: Dictionary,q: Dictionary,selected: bool) -> String:
 	var prefix: String="▶ " if selected else "• "
 	var target_name: String=str(c.port(str(candidate.get("targetPort",""))).get("name",candidate.get("targetPort","")))
+	var choice_title: String=str(candidate.get("title","Contract"))
+	var destination: String="" if target_name in choice_title else " → "+target_name
 	var hostiles: String=ui.count_text(candidate.get("enemyHulls",[]).size(),"hostile boat","hostile boats")
 	var status: String="ready" if q.get("canAccept",false) and q.get("ready",false) else ("unfunded" if not q.get("funded",false) else ("no route" if not q.get("routeAvailable",false) else "check reserves"))
 	if q.get("routeAvailable",false) and q.get("estimatedSurplusCoins",null)!=null:
-		return "%s%s → %s · %s · %d coins gross (%d estimated surplus) · %s"%[prefix,str(candidate.get("title","Contract")),target_name,hostiles,int(q.grossRewardCoins),int(q.estimatedSurplusCoins),status]
-	return "%s%s → %s · %s · %d coins gross · %s"%[prefix,str(candidate.get("title","Contract")),target_name,hostiles,int(q.grossRewardCoins),status]
+		return "%s%s%s · %s · %d coins gross (%d estimated surplus) · %s"%[prefix,choice_title,destination,hostiles,int(q.grossRewardCoins),int(q.estimatedSurplusCoins),status]
+	return "%s%s%s · %s · %d coins gross · %s"%[prefix,choice_title,destination,hostiles,int(q.grossRewardCoins),status]
 
 static func open_voyage(ui,offer_id: String="") -> void:
 	# Quotes are prepared only on opening/refresh, never by the campaign HUD tick.
