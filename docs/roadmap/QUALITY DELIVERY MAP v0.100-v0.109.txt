@@ -1,4 +1,4 @@
-BRASS TIDE — QUALITY DELIVERY PLAN
+BRASS TIDE â€” QUALITY DELIVERY PLAN
 14 November 2026 | Windows PC | $9.99 | Base: v0.099 / 495eb5b
 
 Owner: "Game clearly isn't quality yet. Prepare a ten version plan and then
@@ -96,6 +96,11 @@ The existing live listing/checkout stays available until its replacement is
 concrete and reviewed. Preserve other marketplace products and current deployments.
 
 STATUS
-0.100 DOING — source diagnosis and matched-measurement proposal.
-0.101-0.109 PLANNED — future candidates may be prepared privately; no fake
-completion, acceptance, export or installation is implied. Board watch PAUSED.
+0.100 DELIVERED_SCOPED — autosave avoids unsettled daily publication.
+0.101 DELIVERED_SCOPED — detached sampled planner payload; modest measured construction improvement, not overall FPS proof.
+0.102 DELIVERED_SCOPED — all36 hulls inspected; close fittings/attachments accepted. Normal-view review completed for the pictured103 fittings only.
+0.103 DELIVERED_SCOPED — shorter wake, lighter damage effects, reserved minimap and one-notice HUD. Full legacy047 control test remains failed/unresolved; selected layout passes.
+0.104 DOING — harbor route preview, chart zoom scale and generated-chart pan bounds; private draft, native unrun.
+0.105-0.108 PRIVATE_DRAFT — no acceptance/export/install implied.
+0.109 PLANNED — actual game media and public Windows/store delivery.
+Board watch PAUSED. Installed/public versions are recorded separately in the current delivery handoff.
