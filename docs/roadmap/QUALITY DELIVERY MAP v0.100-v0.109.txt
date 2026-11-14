@@ -104,6 +104,6 @@ STATUS
 0.105 DELIVERED_SCOPED — see CHANGES v0.105.md and current delivery handoff for exact acceptance and limits.
 0.106 DELIVERED_SCOPED — see CHANGES v0.106.md and current delivery handoff for exact acceptance and limits.
 0.107 DELIVERED_SCOPED — see CHANGES v0.107.md and current delivery handoff for exact acceptance and limits.
-0.108 DOING — no acceptance or installation implied.
-0.109 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+0.108 DELIVERED_SCOPED — see CHANGES v0.108.md and current delivery handoff for exact acceptance and limits.
+0.109 DOING — no acceptance or installation implied.
 Board watch PAUSED. Source, installed and public versions are recorded separately.
