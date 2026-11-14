@@ -80,6 +80,8 @@ static func draw_attached_detail(ctx: Dictionary,mount: Dictionary,world_bearing
 			var rows: int=2 if tier>=3 or "salvo" in str(mount.get("moduleId","")) else 1
 			for row in range(rows):
 				var z: float=6.0+float(row)*1.85
+				for y in [-1.8,0.0,1.8]:
+					_face(model,[Vector3(-3.0,y-0.46,z+0.55),Vector3(4.8,y-0.46,z+0.55),Vector3(4.8,y+0.46,z+0.55),Vector3(-3.0,y+0.46,z+0.55)],Color("c49a68"))
 				# Visible collars stay on the actual three/six launch cells.
 				for y in [-1.8,0.0,1.8]:
 					_line(model,Vector3(5.89,y-0.50,z+0.54),Vector3(5.89,y+0.50,z+0.54),edge,0.85)
@@ -90,6 +92,7 @@ static func draw_attached_detail(ctx: Dictionary,mount: Dictionary,world_bearing
 				_line(model,Vector3(-3.4,-2.6,2.9),Vector3(-3.4,-2.6,5.1),c.brass,0.85)
 		"torpedo":
 			for y in [-1.5,1.5] if tier>1 else [0.0]:
+				_face(model,[Vector3(-6.5,y-0.72,3.82),Vector3(6.0,y-0.72,3.82),Vector3(6.0,y+0.72,3.82),Vector3(-6.5,y+0.72,3.82)],Color("779c9b"))
 				_line(model,Vector3(-6.8,y-0.5,3.86),Vector3(6.2,y-0.5,3.86),edge,0.8)
 				if int(ctx.lod)==0:
 					for x in [-3.0,3.0]:
