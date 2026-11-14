@@ -23,6 +23,7 @@ func _initialize() -> void:
 
 
 func _entry101() -> void:
+	print("V101_SOURCE ",JSON.stringify({"candidate":FileAccess.get_sha256("res://scripts/tactical_runtime.gd"),"baseline":FileAccess.get_sha256("res://tests/baseline_tactical_runtime101.gd"),"fixture":FileAccess.get_sha256("res://tests/planner_payload101_entry.gd")}))
 	quit(run_light101(_make_light101,12))
 
 static func _make_light101() -> Dictionary:
