@@ -81,6 +81,7 @@ static func draw_attached_detail(ctx: Dictionary,mount: Dictionary,world_bearing
 			for row in range(rows):
 				var z: float=6.0+float(row)*1.85
 				for y in [-1.8,0.0,1.8]:
+					_tube(model,Vector3(-4.8,y,4.5+float(row)*1.85),Vector3(5.9,y,z),0.75,Color("cc8a45"),Color("e0d4ad"))
 					_face(model,[Vector3(-3.0,y-0.46,z+0.55),Vector3(4.8,y-0.46,z+0.55),Vector3(4.8,y+0.46,z+0.55),Vector3(-3.0,y+0.46,z+0.55)],Color("c49a68"))
 				# Visible collars stay on the actual three/six launch cells.
 				for y in [-1.8,0.0,1.8]:
@@ -92,7 +93,9 @@ static func draw_attached_detail(ctx: Dictionary,mount: Dictionary,world_bearing
 				_line(model,Vector3(-3.4,-2.6,2.9),Vector3(-3.4,-2.6,5.1),c.brass,0.85)
 		"torpedo":
 			for y in [-1.5,1.5] if tier>1 else [0.0]:
-				_face(model,[Vector3(-6.5,y-0.72,3.82),Vector3(6.0,y-0.72,3.82),Vector3(6.0,y+0.72,3.82),Vector3(-6.5,y+0.72,3.82)],Color("779c9b"))
+				_tube(model,Vector3(-7.1,y,2.8),Vector3(7.6,y,2.8),1.16,Color("74b6bb"),Color("c2d0ca"))
+				_tube(model,Vector3(6.5,y,2.8),Vector3(7.9,y,2.8),1.35,Color("35858b"),Color("c2d0ca"))
+				_face(model,[Vector3(-6.5,y-0.72,3.82),Vector3(6.0,y-0.72,3.82),Vector3(6.0,y+0.72,3.82),Vector3(-6.5,y+0.72,3.82)],Color("9ed3d4"))
 				_line(model,Vector3(-6.8,y-0.5,3.86),Vector3(6.2,y-0.5,3.86),edge,0.8)
 				if int(ctx.lod)==0:
 					for x in [-3.0,3.0]:
