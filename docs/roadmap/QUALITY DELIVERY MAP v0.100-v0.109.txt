@@ -96,11 +96,14 @@ The existing live listing/checkout stays available until its replacement is
 concrete and reviewed. Preserve other marketplace products and current deployments.
 
 STATUS
-0.100 DELIVERED_SCOPED — autosave avoids unsettled daily publication.
-0.101 DELIVERED_SCOPED — detached sampled planner payload; modest measured construction improvement, not overall FPS proof.
-0.102 DELIVERED_SCOPED — all36 hulls inspected; close fittings/attachments accepted. Normal-view review completed for the pictured103 fittings only.
-0.103 DELIVERED_SCOPED — shorter wake, lighter damage effects, reserved minimap and one-notice HUD. Full legacy047 control test remains failed/unresolved; selected layout passes.
-0.104 DOING — harbor route preview, chart zoom scale and generated-chart pan bounds; private draft, native unrun.
-0.105-0.108 PRIVATE_DRAFT — no acceptance/export/install implied.
-0.109 PLANNED — actual game media and public Windows/store delivery.
-Board watch PAUSED. Installed/public versions are recorded separately in the current delivery handoff.
+0.100 DELIVERED_SCOPED — see CHANGES v0.100.md and current delivery handoff for exact acceptance and limits.
+0.101 DELIVERED_SCOPED — see CHANGES v0.101.md and current delivery handoff for exact acceptance and limits.
+0.102 DELIVERED_SCOPED — see CHANGES v0.102.md and current delivery handoff for exact acceptance and limits.
+0.103 DELIVERED_SCOPED — see CHANGES v0.103.md and current delivery handoff for exact acceptance and limits.
+0.104 DELIVERED_SCOPED — see CHANGES v0.104.md and current delivery handoff for exact acceptance and limits.
+0.105 DOING — no acceptance or installation implied.
+0.106 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+0.107 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+0.108 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+0.109 PLANNED_PRIVATE_DRAFT — no acceptance or installation implied.
+Board watch PAUSED. Source, installed and public versions are recorded separately.
