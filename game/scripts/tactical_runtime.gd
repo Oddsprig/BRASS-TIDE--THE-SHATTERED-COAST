@@ -656,6 +656,8 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var sampled051: bool=_fleet_goals051(t)
+	# Fleet workers construct each final friendly row once; public/main/legacy stay unchanged.
+	var direct_worker051: bool=sampled051 and closed_begin051 and worker_owned051
 	if sampled051:
 		# Only an actual snapshot request pays for full observations. In pooled
 		# battles the dispatcher calls this AFTER cadence/occupancy/task gates;
@@ -680,7 +682,7 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 		var mounts: Array=t.mountCache[id].mounts
 		var observed051: Dictionary={}
 		if closed_begin051:
-			observed051=t.observed[id].duplicate(true) if worker_owned051 else t.observed[id]
+			observed051=t.observed[id].duplicate(true) if worker_owned051 and not direct_worker051 else t.observed[id]
 			if not main051 and not worker_owned051 and not observed051.is_read_only():
 				# Begin observations can borrow live mount generations. Detach before
 				# freezing, then share this exact observation on either side only once.
@@ -706,6 +708,11 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 						if ship.has(key):own[key]=ship[key].duplicate(true) if not main051 and ship[key] is Dictionary else ship[key]
 					var status051: Dictionary=Damage._read_status_in_phase043(ship,frame_cache)
 					own.status=status051 if main051 else status051.duplicate(true)
+			if direct_worker051:
+				# Detach retained observation children after allocating the final owner row.
+				own.mounts=observed051.mounts.duplicate(true)
+				own.mountShotTimes=observed051.mountShotTimes.duplicate(true)
+				if not id in due:own.spec=observed051.spec.duplicate(true)
 			own.orderSince=float(t.orderTimes.get(id,0.0))
 			own.failedTargetIds=t.failures.get(id,[]).duplicate()
 			var contact: String=_boarding_contact(st,ship,frame_cache)
@@ -744,7 +751,7 @@ static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_b
 			if own.order=="withdraw" and own.orderTarget.has("x"):choices[id].rally=own.orderTarget if main051 else own.orderTarget.duplicate(true)
 		else:
 			if closed_begin051:
-				ships.append(observed051)
+				ships.append(observed051.duplicate(true) if direct_worker051 else observed051)
 				if main051:index051[id]=observed051
 			else:
 				var profile_started: int=Time.get_ticks_usec() if _runtime_profile043_enabled else 0
