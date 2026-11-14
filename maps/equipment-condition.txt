@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.098)
+BRASS TIDE — EQUIPMENT-CONDITION MAP (generated; v0.100)
 
 Core/Records, paid physical fitting/damage and whole-campaign custody preflight feed integrated constructors/save migration/UI and paid Harbor/NPC service. Working live combat/tow has Lab99/0, equipment voyage67/0 and salvage voyage14/0; remaining gates stay open; legacy counts cannot create free perfect parts.
 
@@ -52,7 +52,7 @@ game/scripts/equipment_campaign.gd: 20897 bytes; extends RefCounted
   game/scripts/equipment_campaign.gd:36 _remember()
   game/scripts/equipment_campaign.gd:44 _boat_lists()
   game/scripts/equipment_campaign.gd:56 _clone_boats()
-game/scripts/equipment_recovery.gd: 16224 bytes; extends RefCounted
+game/scripts/equipment_recovery.gd: 16603 bytes; extends RefCounted
   game/scripts/equipment_recovery.gd:37 prepare()
   game/scripts/equipment_recovery.gd:216 registry()
   game/scripts/equipment_recovery.gd:226 refusal()

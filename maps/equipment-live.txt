@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.098)
+BRASS TIDE — EQUIPMENT-LIVE MAP (generated; v0.100)
 
 Working v0.031 integration candidate: copied numerical prediction, live machinery condition, preserved physical wrecks and paid tow, plus canonical title Lab boats. No release acceptance.
 
@@ -17,10 +17,10 @@ game/scripts/equipment_rollout.gd: 16418 bytes; extends RefCounted
   game/scripts/equipment_rollout.gd:44 mount_target()
   game/scripts/equipment_rollout.gd:49 primary_mounts()
   game/scripts/equipment_rollout.gd:61 motion_with_status()
-game/scripts/equipment_tow.gd: 2249 bytes; extends RefCounted
+game/scripts/equipment_tow.gd: 2296 bytes; extends RefCounted
   game/scripts/equipment_tow.gd:13 contract()
   game/scripts/equipment_tow.gd:16 stage()
-game/scripts/equipment_lifecycle.gd: 24648 bytes; extends RefCounted
+game/scripts/equipment_lifecycle.gd: 25195 bytes; extends RefCounted
   game/scripts/equipment_lifecycle.gd:127 tow_contract()
   game/scripts/equipment_lifecycle.gd:150 next_hull_uid()
   game/scripts/equipment_lifecycle.gd:170 stage_legacy_recovery()

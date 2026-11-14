@@ -1,4 +1,4 @@
-BRASS TIDE — POLITICS MAP (generated; v0.098)
+BRASS TIDE — POLITICS MAP (generated; v0.100)
 
 Witnessed player actions, public standing, claims and faction pairs -> explained access, paid conduct and explicit commissions.
 
@@ -16,7 +16,7 @@ game/scripts/factions.gd: 39520 bytes; extends RefCounted
   game/scripts/factions.gd:361 accept_commission()
   game/scripts/factions.gd:416 _repair_book()
   game/scripts/factions.gd:457 _faction_defs()
-game/scripts/politics.gd: 9568 bytes; extends RefCounted
+game/scripts/politics.gd: 9716 bytes; extends RefCounted
   game/scripts/politics.gd:6 ensure()
   game/scripts/politics.gd:12 access()
   game/scripts/politics.gd:41 encounter()

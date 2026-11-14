@@ -1,9 +1,9 @@
-BRASS TIDE — CIVILIAN-TRADE MAP (generated; v0.098)
+BRASS TIDE — CIVILIAN-TRADE MAP (generated; v0.100)
 
 Actual geography, remaining paid workers and ingredients -> regional lots; household savings, physical cargo/freight, dated markets and copied zero-column save migration.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/regional_goods.gd: 16074 bytes; class_name RegionalGoods
+game/scripts/regional_goods.gd: 16562 bytes; class_name RegionalGoods
   game/scripts/regional_goods.gd:27 specs()
   game/scripts/regional_goods.gd:56 ensure()
   game/scripts/regional_goods.gd:78 daily()
@@ -16,7 +16,7 @@ game/scripts/regional_goods.gd: 16074 bytes; class_name RegionalGoods
   game/scripts/regional_goods.gd:248 _need_per_day()
   game/scripts/regional_goods.gd:259 _terms()
   game/scripts/regional_goods.gd:300 _payroll()
-game/scripts/civilian_goods_ops.gd: 3280 bytes; extends RefCounted
+game/scripts/civilian_goods_ops.gd: 3348 bytes; extends RefCounted
   game/scripts/civilian_goods_ops.gd:6 prepare()
   game/scripts/civilian_goods_ops.gd:22 fill()
   game/scripts/civilian_goods_ops.gd:26 ensure()

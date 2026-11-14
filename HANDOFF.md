@@ -1,3 +1,10 @@
+# v0.100 source checked; finishing Windows delivery
+
+v0.100 — Scoped campaign autosave scheduling
+Automatic saving stays due while copied harbor jobs or pending days remain. A settled frame commits through the existing verified writer. Explicit Save/Quit/title/New voyage, simulation rules, ports, purses and cargo are unchanged.
+Native job313b1f5d64274a90abd3f4ca23852b91 passed25checks/0failures, normalexit/no watchdog kill,19.656s queued command time. The actual48-group world settled one real day, preserved coin supply, saved the exact settled state once, and refused failed retirement saves. The semaphore-held busy-worker case is functional evidence, not FPS or a representative before/after speedup.
+Headless observations: snapshot/enqueue3.412ms; join+daily publication415.350ms; settled save52.543ms. Main daily work and serialization remain bottlenecks. No normal-play/rendered/sustained performance or full-game quality pass is claimed. Export/package/desktop receipts follow separately.
+
 # Current work: v0.100-v0.109 quality sequence
 
 Owner requested a ten-version plan and its implementation with four helpers. The game and store remain below the owner's quality expectation. The current plan is docs/roadmap/QUALITY DELIVERY MAP v0.100-v0.109.txt; ROADMAP.md holds the active scope.

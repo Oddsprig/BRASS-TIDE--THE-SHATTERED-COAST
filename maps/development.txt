@@ -1,27 +1,27 @@
-BRASS TIDE — DEVELOPMENT MAP (generated; v0.098)
+BRASS TIDE — DEVELOPMENT MAP (generated; v0.100)
 
 Main-thread lifetime/input/portable preferences -> saved careers and isolated laboratory. tools/check_game.py runs registered native suites; tools/advance_series.py records sequential source milestones/logs; tools/release_game.py requires separate clean exact-tag Windows proof.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/main.gd: 94273 bytes; extends Node2D
-  game/scripts/main.gd:258 handle_campaign_events067()
-  game/scripts/main.gd:285 poll_battle051()
-  game/scripts/main.gd:348 queue_battle_command051()
-  game/scripts/main.gd:448 toggle_pause()
-  game/scripts/main.gd:453 toggle_fullscreen()
-  game/scripts/main.gd:457 save_preferences()
-  game/scripts/main.gd:460 music_context()
-  game/scripts/main.gd:470 new_game()
-  game/scripts/main.gd:491 click_chart()
-  game/scripts/main.gd:550 sail_to()
-  game/scripts/main.gd:559 sail_approach064()
-  game/scripts/main.gd:565 enter_approach064()
-game/scripts/preferences.gd: 1358 bytes; extends RefCounted
+game/scripts/main.gd: 102661 bytes; extends Node2D
+  game/scripts/main.gd:260 handle_campaign_events067()
+  game/scripts/main.gd:287 poll_battle051()
+  game/scripts/main.gd:350 queue_battle_command051()
+  game/scripts/main.gd:450 toggle_pause()
+  game/scripts/main.gd:455 toggle_fullscreen()
+  game/scripts/main.gd:459 save_preferences()
+  game/scripts/main.gd:462 music_context()
+  game/scripts/main.gd:472 new_game()
+  game/scripts/main.gd:496 new_voyage_needs_confirmation()
+  game/scripts/main.gd:538 replace_voyage()
+  game/scripts/main.gd:609 click_chart()
+  game/scripts/main.gd:668 sail_to()
+game/scripts/preferences.gd: 1385 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()
   game/scripts/preferences.gd:22 save_options()
-game/scripts/interface.gd: 67788 bytes; extends CanvasLayer
+game/scripts/interface.gd: 69875 bytes; extends CanvasLayer
   game/scripts/interface.gd:87 setup()
   game/scripts/interface.gd:112 create_theme()
   game/scripts/interface.gd:132 box()
@@ -34,7 +34,7 @@ game/scripts/interface.gd: 67788 bytes; extends CanvasLayer
   game/scripts/interface.gd:195 column()
   game/scripts/interface.gd:201 spacer()
   game/scripts/interface.gd:206 rule()
-game/scripts/version.gd: 122 bytes; extends RefCounted
+game/scripts/version.gd: 129 bytes; extends RefCounted
   game/scripts/version.gd:5 text()
 
 TESTS (game/tests/*.gd)

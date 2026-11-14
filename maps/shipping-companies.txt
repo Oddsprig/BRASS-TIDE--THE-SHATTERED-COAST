@@ -1,4 +1,4 @@
-BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.098)
+BRASS TIDE — SHIPPING-COMPANIES MAP (generated; v0.100)
 
 Actual player hulls, crews, purses and fixed physical routes -> shared-stock trade, material/hull basis, paid operation, real losses and physical recall.
 
@@ -29,7 +29,7 @@ game/scripts/company_ops.gd: 13466 bytes; extends RefCounted
   game/scripts/company_ops.gd:101 collect()
   game/scripts/company_ops.gd:110 record()
   game/scripts/company_ops.gd:114 reconcile()
-game/scripts/company_ui.gd: 5384 bytes; extends RefCounted
+game/scripts/company_ui.gd: 5457 bytes; extends RefCounted
   game/scripts/company_ui.gd:4 result()
   game/scripts/company_ui.gd:8 number()
   game/scripts/company_ui.gd:10 open()

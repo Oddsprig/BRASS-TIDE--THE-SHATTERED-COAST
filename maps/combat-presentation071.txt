@@ -1,9 +1,9 @@
-BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.098)
+BRASS TIDE — COMBAT-PRESENTATION071 MAP (generated; v0.100)
 
 Actual stern motion and reported combat/equipment state -> bounded wash, distinct weapon impulses, engine/fire/flooding/sinking cues and recorded audio voices. Main draws/mixes; worker owns battle data.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/chart.gd: 70901 bytes; extends Node2D
+game/scripts/chart.gd: 71384 bytes; extends Node2D
   game/scripts/chart.gd:70 reset_battle_presentation051()
   game/scripts/chart.gd:74 clear_battle_poses051()
   game/scripts/chart.gd:101 battle_boats051()

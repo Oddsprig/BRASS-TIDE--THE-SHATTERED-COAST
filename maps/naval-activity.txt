@@ -1,4 +1,4 @@
-BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.098)
+BRASS TIDE — NAVAL-ACTIVITY MAP (generated; v0.100)
 
 Existing companies, spatial positions, stores and shipyards -> actual trade, escorts/intercepts, paid combat, recovery and replacements.
 
@@ -17,7 +17,7 @@ game/scripts/naval_orders.gd: 48188 bytes; extends RefCounted
   game/scripts/naval_orders.gd:38 canonical_location068()
   game/scripts/naval_orders.gd:48 is_story_owner()
   game/scripts/naval_orders.gd:52 state_of()
-game/scripts/naval_combat.gd: 25327 bytes; extends RefCounted
+game/scripts/naval_combat.gd: 25889 bytes; extends RefCounted
   game/scripts/naval_combat.gd:21 spatial_index()
   game/scripts/naval_combat.gd:65 are_hostile()
   game/scripts/naval_combat.gd:70 faction_hostile068()

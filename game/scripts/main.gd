@@ -237,7 +237,9 @@ func _process(dt: float):
 		ui.update_hud()
 	if mode == "campaign":
 		save_timer += dt
-		if save_timer > 20 and not ui.modal_open:
+		# Keep autosave due until copied harbor days have settled on Main.
+		# Explicit saves still join and verify their complete state.
+		if save_timer > 20 and not ui.modal_open and economy_task < 0 and core.pending_days == 0:
 			save_timer = 0
 			save_game(false)
 	if runtime_profile043!=null:runtime_profile043.after_process(dt)

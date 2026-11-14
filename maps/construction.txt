@@ -1,9 +1,9 @@
-BRASS TIDE — CONSTRUCTION MAP (generated; v0.098)
+BRASS TIDE — CONSTRUCTION MAP (generated; v0.100)
 
 Physical bill/local prices/ordinary and expert workers/escrow -> paid hull building, repairs, stock and hires.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/construction.gd: 36995 bytes; extends RefCounted
+game/scripts/construction.gd: 37871 bytes; extends RefCounted
   game/scripts/construction.gd:112 blueprint()
   game/scripts/construction.gd:334 quote()
   game/scripts/construction.gd:494 make_order()

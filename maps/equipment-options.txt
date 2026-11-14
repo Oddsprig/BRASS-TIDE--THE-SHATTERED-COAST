@@ -1,4 +1,4 @@
-BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.098)
+BRASS TIDE — EQUIPMENT-OPTIONS MAP (generated; v0.100)
 
 Shared physical chassis/equipment geometry and portable presentation preferences; canonical economic stats stay outside art.
 
@@ -27,7 +27,7 @@ game/scripts/weapon_geometry.gd: 590 bytes; extends RefCounted
   game/scripts/weapon_geometry.gd:3 unit()
   game/scripts/weapon_geometry.gd:6 muzzle()
   game/scripts/weapon_geometry.gd:9 height()
-game/scripts/preferences.gd: 1358 bytes; extends RefCounted
+game/scripts/preferences.gd: 1385 bytes; extends RefCounted
   game/scripts/preferences.gd:3 defaults()
   game/scripts/preferences.gd:6 sanitize()
   game/scripts/preferences.gd:17 load_options()

@@ -1,9 +1,9 @@
-BRASS TIDE — WORKER-CONDITIONS MAP (generated; v0.098)
+BRASS TIDE — WORKER-CONDITIONS MAP (generated; v0.100)
 
 Actual paid jobs and purchased food -> harbor conditions; funded workplace shifts, material relief and elapsed negotiated recovery.
 
 FILES AND VERIFIED SYMBOLS
-game/scripts/worker_conditions.gd: 14219 bytes; extends RefCounted
+game/scripts/worker_conditions.gd: 14557 bytes; extends RefCounted
   game/scripts/worker_conditions.gd:19 configure()
   game/scripts/worker_conditions.gd:27 ensure()
   game/scripts/worker_conditions.gd:42 daily_port()
@@ -16,7 +16,7 @@ game/scripts/worker_conditions.gd: 14219 bytes; extends RefCounted
   game/scripts/worker_conditions.gd:14 _whole()
   game/scripts/worker_conditions.gd:16 _num()
   game/scripts/worker_conditions.gd:32 _labor()
-game/scripts/worker_ops.gd: 3904 bytes; extends RefCounted
+game/scripts/worker_ops.gd: 3980 bytes; extends RefCounted
   game/scripts/worker_ops.gd:16 step()
   game/scripts/worker_ops.gd:19 ensure()
   game/scripts/worker_ops.gd:23 service_access()
