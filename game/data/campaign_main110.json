@@ -473,11 +473,128 @@
         {
           "id": "fuel_has_owners118",
           "title": "Fuel Has Owners",
-          "body": "The next campaign operation is not available in this version.",
+          "body": "At Naphtha Bay, Tobin's report of selective stops lies beside the current harbor terms. A report is not a reason to pay for permission you already have. Check whether ordinary entry is lawful today before buying safe conduct.\n\nMara has added a note: \"Getting through the entrance doesn't buy the seller's fuel. Ask what is for sale, and what it costs.\"\n\nTobin has written beneath it: \"Venn kept supplies moving when we could not. Replacing her terms still means paying the people who do that work.\"",
+          "nextAction": "Review Naphtha's current entry terms, then the fuel seller's price.",
+          "gate": {
+            "type": "at_port",
+            "port": "naphtha_bay"
+          },
+          "choices": [
+            {
+              "id": "begin_fuel118",
+              "text": "Check the entry terms and fuel offer.",
+              "next": "fuel_work118",
+              "tradeoff": "Lawful entry costs no permission fee. If paid safe conduct is needed, its disclosed charge buys three days of port-specific permission, not fuel or protection at sea."
+            }
+          ]
+        },
+        {
+          "id": "fuel_work118",
+          "title": "The Seller's Stock",
+          "body": "The entry terms and the fuel invoice belong on separate lines. Review the stock offered for sale, your hold space and the price before ordering. Passing the harbor does not place fuel aboard.\n\nYou can buy a small quantity or leave the offer alone. Any passage charge, purchase and later operating costs remain expenses of this voyage.",
+          "nextAction": "Review the purchase record before reporting at Naphtha Bay.",
+          "gate": {
+            "type": "arc118",
+            "mode": "fuel",
+            "port": "naphtha_bay"
+          },
+          "choices": [
+            {
+              "id": "report_fuel118",
+              "text": "Enter the fuel purchase in the account.",
+              "next": "fuel_account118",
+              "tradeoff": "Report the dated purchase and its paid price. Permission alone, or fuel already aboard, cannot stand in for the seller's receipt."
+            }
+          ]
+        },
+        {
+          "id": "fuel_account118",
+          "title": "The Fuel Account",
+          "body": "Mara copies the purchase into the voyage book and leaves the entry-permission charge on a separate line. \"The fuel came from someone's stock,\" she says. \"It has a price whether we agree with Venn or not.\"\n\nTobin asks you to return to Brass Haven. He wants a way to hear a request for protection without signing away another boat. The earlier guarantees and their disputed obligations remain on the books.",
+          "nextAction": "Read Tobin's request, then return to Brass Haven.",
+          "gate": {
+            "type": "arc118",
+            "mode": "fuel_reported",
+            "port": "naphtha_bay"
+          },
+          "choices": [
+            {
+              "id": "next_warrant118",
+              "text": "Read the request from Brass Haven.",
+              "next": "last_warrant118",
+              "tradeoff": "A protection request does not establish a right to payment or prove what its applicant did under an earlier guarantee."
+            }
+          ]
+        },
+        {
+          "id": "last_warrant118",
+          "title": "Last Warrant",
+          "body": "At Brass Haven, Tobin has ruled a place for the date and boat on a fresh application. Any applicant must be identified from the current coastal watch. A claim to protection under a guarantee will be entered as unverified.\n\n\"I won't promise an escort we cannot pay for,\" he says. \"Some people asking may owe us answers. I still won't use an accusation as a reason to abandon a crew.\"\n\nVenn's protection has carried useful cargo as well as disputed claims. A completed passage can establish what happened to one load. It cannot decide every earlier accusation.",
+          "nextAction": "Review the current boats and funded passages near Brass Haven.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "begin_warrant118",
+              "text": "Review the current protection request.",
+              "next": "warrant_work118",
+              "tradeoff": "Only an existing loaded convoy with an affordable escort offer can be accepted. Without one, keep watching or report the request unresolved at Brass Haven."
+            }
+          ]
+        },
+        {
+          "id": "warrant_work118",
+          "title": "A Passage to Account For",
+          "body": "Keep the applicant's statement beside the passage record, not in place of it. Check the owner, original loaded boats, destination, held fee and your own operating reserves.\n\nA paid delivery establishes that contracted passage. A failed, unavailable or unseen passage remains unresolved; it proves neither rescue nor guilt. You may continue the coastal watch instead of closing the request.",
+          "nextAction": "Review the passage record; report a paid delivery or an unresolved request at Brass Haven.",
+          "gate": {
+            "type": "arc118",
+            "mode": "warrant",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "report_warrant118",
+              "text": "Report the paid passage at Brass Haven.",
+              "next": "warrant_account118",
+              "tradeoff": "Requires the original contracted delivery, sale and collected escort fee. This receipt establishes the passage, not the applicant's earlier claims."
+            },
+            {
+              "id": "report_unresolved118",
+              "text": "Report the request unresolved at Brass Haven.",
+              "next": "warrant_account118",
+              "tradeoff": "Available at Brass Haven after any carried escort is closed. Record the missing or unsuccessful passage without claiming a rescue, payment or finding of guilt."
+            }
+          ]
+        },
+        {
+          "id": "warrant_account118",
+          "title": "The Warrant Account",
+          "body": "Tobin reviews your account. “I’ll enter what you can show,” he says. “A paid delivery has its receipt. An unsuccessful passage keeps its outcome. A request without a contracted boat stays unresolved.”\n\nIf an application was recorded, he keeps its unverified claims separate from the observed outcome. The costs already incurred and the obligations already recorded remain.\n\nThe next proposal concerns a common passage beyond this coast. That sailing still needs its own funding.",
+          "nextAction": "Keep this account and read the next passage proposal.",
+          "gate": {
+            "type": "arc118",
+            "mode": "warrant_reported",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "next_passage118",
+              "text": "Read the common passage proposal.",
+              "next": "common_passage119",
+              "tradeoff": "This preserves the current account. It buys no boat, cargo or later passage and cancels no debt."
+            }
+          ]
+        },
+        {
+          "id": "common_passage119",
+          "title": "Common Passage",
+          "body": "The next campaign operation is not available in this version. Your voyage book and outstanding obligations remain; ordinary harbor work can continue.",
           "nextAction": "Continue other harbor work.",
           "gate": {
             "type": "unreleased",
-            "port": "naphtha_bay",
             "message": "The next campaign operation is not available in this version."
           },
           "choices": []
@@ -546,14 +663,45 @@
         },
         {
           "id": "later_tobin118",
-          "title": "The guarantee conversation is recorded",
-          "body": "Tobin's explanation is retained. His later conversation will be available as the campaign develops. This optional lead places no condition on your main voyage.",
-          "nextAction": "Continue the main campaign or ordinary harbor work.",
+          "title": "Who Can Pay",
+          "body": "Tobin turns back to the seizure clause he read to you. \"I signed it. When people asked what we could take, I answered with the sailings we'd kept alive. That didn't make the powers I signed any narrower.\"\n\nThis time he asks who can pay before asking a captain to sail. He offers to read the funding terms already chosen for the recent escort. There is no new commission on the desk. You can leave without buying anything.",
+          "nextAction": "Read the existing funding account with Tobin, or leave.",
           "gate": {
-            "type": "unreleased",
-            "message": "No further Tobin contact job is available in this version."
+            "type": "arc118",
+            "mode": "optional"
           },
-          "choices": []
+          "choices": [
+            {
+              "id": "discuss_funding118",
+              "text": "Read the funding account together.",
+              "next": "tobin_funding118",
+              "tradeoff": "Discuss only the recorded funding terms, payments and remaining obligations. This orders no escort and transfers no coins."
+            },
+            {
+              "id": "leave_tobin118",
+              "text": "Leave without commissioning work.",
+              "next": "done",
+              "tradeoff": "No purchase, payment or new commission is required."
+            }
+          ]
+        },
+        {
+          "id": "tobin_funding118",
+          "title": "Before Asking a Captain",
+          "body": "Tobin reads the recorded payer and terms before saying what he wants the next captain to do. Harbor contributions belong to those harbors; an owner's bond comes from that owner's purse. Neither supplies the escort captain's wages, provisions or repairs.\n\n\"If the money isn't there, I have to say so before I ask them to go,\" he says. \"And if something is still owed, I can't call it settled just because I've written another offer.\"\n\nHe makes no payment during this conversation. His earlier signature and explanation stay in the record.",
+          "nextAction": "Finish the conversation when ready.",
+          "gate": {
+            "type": "arc118",
+            "mode": "optional"
+          },
+          "choices": [
+            {
+              "id": "finish_tobin118",
+              "text": "Keep the account and finish the conversation.",
+              "next": "done",
+              "tradeoff": "The conversation adds no commission and changes no outstanding balance."
+            }
+          ]
         }
       ]
     },

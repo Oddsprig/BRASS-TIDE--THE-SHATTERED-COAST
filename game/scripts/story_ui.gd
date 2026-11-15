@@ -8,6 +8,7 @@ const ArcUI114=preload("res://scripts/campaign_arc_ui114.gd")
 const ArcUI115=preload("res://scripts/campaign_arc_ui115.gd")
 const ArcUI116=preload("res://scripts/campaign_arc_ui116.gd")
 const ArcUI117=preload("res://scripts/campaign_arc_ui117.gd")
+const ArcUI118=preload("res://scripts/campaign_arc_ui118.gd")
 static func open(ui) -> void:
 	ui.host.sync_economy()
 	var c=ui.host.core
@@ -35,8 +36,8 @@ static func open(ui) -> void:
 			row_body=ui.column(body)
 			row_body.visible=false
 		else:
-			ui.paragraph(row_body,ArcUI117.body(ui,entry,ArcUI116.body(ui,entry,ArcUI115.body(ui,entry,ArcUI111.body(ui,entry)))),17,ui.TEXT)
-			ui.paragraph(row_body,ArcUI117.next_action(ui,entry,ArcUI116.next_action(ui,entry,ArcUI115.next_action(ui,entry,ArcUI111.next_action(ui,entry,_shown_next_action(entry))))),16,ui.TEAL)
+			ui.paragraph(row_body,ArcUI118.body(ui,entry,ArcUI117.body(ui,entry,ArcUI116.body(ui,entry,ArcUI115.body(ui,entry,ArcUI111.body(ui,entry))))),17,ui.TEXT)
+			ui.paragraph(row_body,ArcUI118.next_action(ui,entry,ArcUI117.next_action(ui,entry,ArcUI116.next_action(ui,entry,ArcUI115.next_action(ui,entry,ArcUI111.next_action(ui,entry,_shown_next_action(entry)))))),16,ui.TEAL)
 		if entry.done:ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
 		ArcUI110.controls(ui,row_body,entry)
 		ArcUI111.controls(ui,row_body,entry)
@@ -46,6 +47,7 @@ static func open(ui) -> void:
 		ArcUI115.controls(ui,row_body,entry)
 		ArcUI116.controls(ui,row_body,entry)
 		ArcUI117.controls(ui,row_body,entry)
+		ArcUI118.controls(ui,row_body,entry)
 		_paint_leads(ui,row_body,entry)
 		payoff(ui,row_body,entry)
 		if entry.done:
@@ -65,11 +67,12 @@ static func open(ui) -> void:
 			if str(entry.stage)=="tobin_admission111":show_chart110=false
 			if str(entry.stage)=="withdrawal_work112" and not c.Arc112.work(c).is_empty():show_chart110=false
 			if str(entry.stage)=="wren_account112":show_chart110=false
-			if str(entry.stage) in ["materials_work113","material_account113","route_work114","route_account114","witness_board115","witness_account115","two_distress116","narrow_withdrawal116","distress_account116","funding_work117","funding_account117"]:show_chart110=false
+			if str(entry.stage) in ["materials_work113","material_account113","route_work114","route_account114","witness_board115","witness_account115","two_distress116","narrow_withdrawal116","distress_account116","funding_work117","funding_account117","fuel_work118","fuel_account118","warrant_work118","warrant_account118"]:show_chart110=false
 		if show_chart110:ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port,kind,target_id):_chart.call_deferred(ui,x,y,port,kind,target_id)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port,chart_kind,chart_id))
 		var gate: Dictionary=Stories._gate(c,c.state,stage.get("gate",{}))
 		if not gate.ok:ui.paragraph(body,gate.message,14,ui.RED)
 		for option in entry.choices:
+			if ArcUI118.owns(entry):continue
 			#117 renders its own state-checked primary choices above its details.
 			if str(entry.get("chainId",""))=="common_passage110" and str(entry.get("stage","")) in ["who_pays117","funding_work117","funding_account117"]:continue
 			if str(entry.get("chainId",""))=="mara_work113" and str(entry.get("stage",""))=="later_mara117":continue
@@ -84,7 +87,7 @@ static func open(ui) -> void:
 					label="Report without original property"
 					explanation="Requires a confirmed target loss and no retained original fitting or hull."
 			else:ui.paragraph(choice_body,explanation,15)
-			ui.button(choice_body,label,(func(chain_id,choice_id):_commit.call_deferred(ui,chain_id,choice_id)).bind(str(entry.get("chainId","")),str(choice.get("id",""))),true).disabled=not gate.ok or not ArcUI111.allowed(ui,entry,str(choice.get("id",""))) or not c.Arc112.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc113.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc114.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc115.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc116.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc117.choice_gate(c,str(choice.get("id",""))).ok or (not str(choice.get("requiresFlag","")).is_empty() and not entry.flags.has(choice.requiresFlag))
+			ui.button(choice_body,label,(func(chain_id,choice_id):_commit.call_deferred(ui,chain_id,choice_id)).bind(str(entry.get("chainId","")),str(choice.get("id",""))),true).disabled=not gate.ok or not ArcUI111.allowed(ui,entry,str(choice.get("id",""))) or not c.Arc112.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc113.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc114.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc115.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc116.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc117.choice_gate(c,str(choice.get("id",""))).ok or not c.Arc118.choice_gate(c,str(choice.get("id",""))).ok or (not str(choice.get("requiresFlag","")).is_empty() and not entry.flags.has(choice.requiresFlag))
 			if property_report and not explanation.is_empty():ui.paragraph(choice_body,explanation,15)
 		ArcUI111.briefing(ui,body,entry)
 	ui.rule(body)

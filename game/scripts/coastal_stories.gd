@@ -295,6 +295,8 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 			return core.Arc114.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc115":
 			return core.Arc115.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
+		"arc118":
+			return core.Arc118.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc117":
 			return core.Arc117.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc116":

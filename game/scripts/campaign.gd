@@ -47,6 +47,7 @@ const Arc114=preload("res://scripts/campaign_arc114.gd")
 const Arc115=preload("res://scripts/campaign_arc115.gd")
 const Arc116=preload("res://scripts/campaign_arc116.gd")
 const Arc117=preload("res://scripts/campaign_arc117.gd")
+const Arc118=preload("res://scripts/campaign_arc118.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -567,7 +568,7 @@ func travel_speed() -> float:
 			var best_tug: float=0.55
 			for tug in fleet:best_tug=maxf(best_tug,float(tug.spec.get("towSpeedFactor",0.55)))
 			tow_factor=minf(tow_factor,maxf(best_tug,float(s.get("towSpeedFactor",0.55))))
-	return Arc117.follow_speed(self,Arc116.follow_speed(self,Arc112.follow_speed(self,Arc110.follow_speed(self,speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor))))
+	return Arc118.follow_speed(self,Arc117.follow_speed(self,Arc116.follow_speed(self,Arc112.follow_speed(self,Arc110.follow_speed(self,speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor)))))
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if destination==ShippingFlow068.PORT and (not ShippingFlow068.installed(state) or ShippingFlow068.PORT not in state.get("shipping068",{}).get("knownPorts",[])):
@@ -601,6 +602,7 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	Arc112.cancel_follow(self)
 	Arc116.cancel_follow(self)
 	Arc117.cancel_follow(self)
+	Arc118.cancel_follow(self)
 	state.path = path
 	state.destination = destination
 	sailing_clearance=actual
@@ -624,6 +626,7 @@ func stop_sailing():
 	Arc112.cancel_follow(self)
 	Arc116.cancel_follow(self)
 	Arc117.cancel_follow(self)
+	Arc118.cancel_follow(self)
 	state.path = []
 	state.destination = ""
 
@@ -661,7 +664,9 @@ func _step066(dt: float) -> float:
 		ShippingFlow068.observe_sector069(self)
 	advance_surveys(dt/DAY_SECONDS)
 	var voyage_before: Dictionary=state.position.duplicate()
-	if not Arc117.active(self).is_empty():
+	if not Arc118.active(self).is_empty():
+		Arc118.follow_step(self,dt)
+	elif not Arc117.active(self).is_empty():
 		Arc117.follow_step(self,dt)
 	elif not Arc116.work(self).is_empty() and not Arc116.work(self).get("reported",false):
 		Arc116.follow_step(self,dt)
@@ -1108,7 +1113,10 @@ func jettison(good: String,qty: int) -> Dictionary:
 	return ok("Cargo set on a marked float. It can be recovered later if space is available.")
 
 func trade(id: String, good: String, qty: int, side: String) -> Dictionary:
-	return LawOps.trade(self,id,good,qty,side)
+	var before118: Dictionary=Arc118.before_trade(self,id,good,qty,side)
+	var result: Dictionary=LawOps.trade(self,id,good,qty,side)
+	Arc118.after_trade(self,before118,result)
+	return result
 
 func ship_materials(h: Dictionary) -> Dictionary:
 	return Construction.blueprint(h).materials
@@ -1462,6 +1470,7 @@ func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool)
 	Arc113.after_job(self,before,result,abandon)
 	Arc116.after_job(self,before,result,abandon)
 	Arc117.after_job(self,before,result,abandon)
+	Arc118.after_job(self,before,result,abandon)
 
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
