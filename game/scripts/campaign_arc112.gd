@@ -222,7 +222,7 @@ static func choice_gate(c,choice: String) -> Dictionary:
 	if choice!="report_withdrawal112":return c.ok("")
 	var w: Dictionary=work(c)
 	if str(record(c).get("stage",""))!=STAGE or w.is_empty() or w.reported:return c.fail("Accept and account for this original Kelp passage first.")
-	if counts(c).unresolved>0:return c.fail("Some original boats have no confirmed exit or loss. Their withdrawal remains open.")
+	if counts(c).unresolved>0 and same_passage(c):return c.fail("Some original boats have no confirmed exit or loss. Their passage is still active.")
 	if str(w.status)=="carried":return c.fail("Claim or withdraw the native escort contract before sending Wren the separate report.")
 	if not c.travel_lock064.is_empty() or c.current_port().is_empty():return c.fail("Send Wren the report from an actual harbor after the encounter settles.")
 	return c.Politics.permit(c,"service")
@@ -233,7 +233,7 @@ static func after_choice(c,choice: String,result: Dictionary) -> void:
 	if w.is_empty() or w.reported:return
 	var n: Dictionary=counts(c)
 	w.reported=true;w.follow=false
-	w.resolution="clear" if n.escaped+n.arrived==w.carrierUids.size() else ("partial" if n.escaped+n.arrived>0 else "lost")
+	w.resolution="unconfirmed" if n.unresolved>0 else ("clear" if n.escaped+n.arrived==w.carrierUids.size() else ("partial" if n.escaped+n.arrived>0 else "lost"))
 
 static func follow(c,enabled: bool) -> Dictionary:
 	var w: Dictionary=work(c)
@@ -281,8 +281,8 @@ static func cargo_budget(w: Dictionary) -> Dictionary:
 
 static func protection_gate(c) -> Dictionary:
 	var w: Dictionary=work(c)
-	if w.is_empty() or w.reported or counts(c).unresolved==0 or not same_passage(c):
-		return c.fail("No unresolved original boats are available on this same passage.")
+	if w.is_empty() or w.reported or (counts(c).unresolved==0 and not delivery_pending(c)) or not same_passage(c):
+		return c.fail("No original boats need protection on this same passage.")
 	var plan: Dictionary=c.EscortOps._load_plan(c,c.fleet_owner(str(w.ownerId)))
 	if not plan.get("ok",false):
 		return c.fail("This protection action needs a loaded carrier. Unloaded survivors can be accounted for at their actual arrival harbor.")
@@ -297,3 +297,9 @@ static func protection_gate(c) -> Dictionary:
 		if not budget.has(good) or float(totals[good])>float(budget[good])+0.000001:
 			return c.fail("The current load no longer matches the remaining original passage.")
 	return c.ok("")
+
+static func delivery_pending(c) -> bool:
+	var w: Dictionary=work(c)
+	if w.is_empty() or str(w.status)!="carried":return false
+	var job: Dictionary=c.VoyageJobs._find(c.state,str(w.jobId))
+	return not job.is_empty() and str(job.get("state",""))=="active" and not job.get("failed",false) and not job.get("escort",{}).get("arrived",false)

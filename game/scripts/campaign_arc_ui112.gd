@@ -39,7 +39,7 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 	if status=="carried" and not job.is_empty():
 		if str(job.get("state",""))=="active" and not job.get("failed",false) and job.get("escort",{}).get("arrived",false):ui.button(body,"Collect the held escort fee",func():_close.call_deferred(ui,false),true)
 		ui.button(body,"Withdraw escort and refund client",func():_close.call_deferred(ui,true))
-	if int(tally.get("unresolved",0))>0:
+	if int(tally.get("unresolved",0))>0 or c.Arc112.delivery_pending(c):
 		if str(c.current_port().get("id",""))==str(w.targetPort):ui.button(body,"Check this harbor's recorded arrivals",func():_check_record.call_deferred(ui))
 		else:ui.button(body,"Review route to the arrival-record harbor",(func(port_id):ui.HarborRoute104.open(ui,port_id)).bind(str(w.targetPort)))
 		if c.Arc112.same_passage(c):

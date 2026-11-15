@@ -11,3 +11,5 @@ game/tests/test_campaign112.gd: selected current-scope native/save/UI fixture an
 
 Declared post111 story boundary, controlled late-leg native sailing and isolated native convoy-exit reference arena over existing finite owners; not an earned full campaign, battle balance, map reachability, FPS, audio or store-media claim.
 Native fixture, independent review and Windows delivery pending. Canonical/desktop111 remains accepted until this version completes.
+
+Independent review fixes: explicit ended-passage reports preserve unknown boats as unconfirmed; active delivery keeps follow/protection after an escape. Test checkpoint comparisons use serialized coordinates. First batch dd869dd3284a47eebfc4e9df2ba25574 failed after17s on its pre-serialization comparison; this repaired candidate is not yet runtime accepted.

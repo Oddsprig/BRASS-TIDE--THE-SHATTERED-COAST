@@ -21,7 +21,7 @@ static func validate(s: Dictionary) -> String:
 	for key in ["carrierCargo","crewAtAcceptance","outcomes","closure","arrival"]:
 		if not w.get(key) is Dictionary:return "Invalid Exit Channel evidence book."
 	if w.carrierCargo.size()!=w.carrierUids.size() or w.crewAtAcceptance.size()!=w.carrierUids.size() or w.outcomes.size()>w.carrierUids.size():return "Carrier books disagree."
-	if not w.get("follow") is bool or not w.get("reported") is bool or w.get("status","") not in ["carried","paid","withdrawn"] or w.get("resolution","") not in ["","clear","partial","lost"]:return "Invalid Exit Channel state."
+	if not w.get("follow") is bool or not w.get("reported") is bool or w.get("status","") not in ["carried","paid","withdrawn"] or w.get("resolution","") not in ["","clear","partial","lost","unconfirmed"]:return "Invalid Exit Channel state."
 	if (w.status=="paid" and w.payment!=w.reward) or (w.status!="paid" and w.payment!=0):return "Fee disagrees with native closure."
 	if w.status=="carried" and not w.closure.is_empty():return "Carried fee already has closure."
 	if w.status!="carried":
@@ -80,8 +80,8 @@ static func validate(s: Dictionary) -> String:
 			if float(groups[source][good])>remaining+0.000001:return "Physical outcome invented cargo beyond the remaining original load."
 	if w.lastSequence>w.battleFloor and (not sources.has(w.lastSource) or float(sources[w.lastSource])!=float(w.lastSequence)):return "Latest source has no carrier evidence."
 	if w.reported:
-		var expected: String="clear" if escaped+arrived==w.carrierUids.size() else ("partial" if escaped+arrived>0 else "lost")
-		if unresolved>0 or w.status=="carried" or w.resolution!=expected or w.follow:return "Reported withdrawal has unresolved boats or fee."
+		var expected: String="unconfirmed" if unresolved>0 else ("clear" if escaped+arrived==w.carrierUids.size() else ("partial" if escaped+arrived>0 else "lost"))
+		if w.status=="carried" or w.resolution!=expected or w.follow:return "Reported withdrawal disagrees with its boats or fee."
 	elif w.resolution!="":return "Unreported withdrawal has a completed resolution."
 	if str(rec.get("stage","")) in ["wren_account112","useful_enemy113"] and not w.reported:return "Exit Channel advanced without its explicit report."
 	var job: Dictionary={}

@@ -85,7 +85,11 @@ class Preview extends "res://scripts/main.gd":
 		var detached = JSON.parse_string(JSON.stringify(value))
 		if not detached is Dictionary:
 			return false
-		return bool(core.restore(detached).get("ok", false))
+		var restored: Dictionary = core.restore(detached)
+		if not restored.get("ok", false):
+			proof112.last_restore_error = str(restored.get("message", "Restore refused without a message."))
+			print("CAMPAIGN112_RESTORE_REFUSED " + proof112.last_restore_error)
+		return bool(restored.get("ok", false))
 
 	func same112(a, b) -> bool:
 		if (a is int or a is float) and (b is int or b is float):
@@ -338,8 +342,14 @@ class Preview extends "res://scripts/main.gd":
 			return
 
 		var active: Dictionary = snapshot112()
-		var active_work: Dictionary = w.duplicate(true)
-		var active_job: Dictionary = bound_job.duplicate(true)
+		# Compare the actual serialized checkpoint with its restored value. Raw
+		# pre-serialization route coordinates can differ at JSON's last digit.
+		var active_work: Dictionary = active.stories.chains[core.Arc110.ID].work112.duplicate(true)
+		var active_job: Dictionary = {}
+		for saved_job in active.voyageJobs:
+			if str(saved_job.id) == job_id112:
+				active_job = saved_job.duplicate(true)
+				break
 		if not verify112(restore112(active)
 			and same112(core.Arc112.work(core), active_work)
 			and same112(native_job112(), active_job) and conserved112(),
@@ -451,6 +461,22 @@ class Preview extends "res://scripts/main.gd":
 			"Explicit native quiet report records Clear and its private checkpoint restores"):
 			return
 
+		# Knowledge-only probe: erase the observations, never invent a physical
+		# result. An ended passage can be reported honestly as unconfirmed.
+		core.Arc110.record(core).stage = "withdrawal_work112"
+		w = core.Arc112.work(core)
+		w.reported = false
+		w.resolution = ""
+		w.outcomes = {}
+		w.arrival = {}
+		var unknown_coins: int = int(core.state.coins)
+		var unknown_report: Dictionary = core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112")
+		if not verify112(unknown_report.get("ok", false) and w.reported and w.resolution == "unconfirmed"
+			and core.Arc112.counts(core).unresolved == original_uids112.size()
+			and Check112.validate(core.state).is_empty() and int(core.state.coins) == unknown_coins and conserved112(),
+			"Ended passage permits an explicit unconfirmed report without invented arrivals or extra payment"):
+			return
+
 		if not verify112(restore112(active)
 			and same112(core.Arc112.work(core), active_work)
 			and same112(native_job112(), active_job) and conserved112(),
@@ -544,11 +570,14 @@ class Preview extends "res://scripts/main.gd":
 			return
 
 		proof112.reference_combat.sequence = sequence
+		if not verify112(core.Arc112.delivery_pending(core) and core.Arc112.protection_gate(core).get("ok", false),
+			"Successful first exit keeps protection available for the still-carried original delivery"):
+			return
 		proof112.reference_combat.outcomes = w.outcomes.duplicate(true)
 		proof112.reference_combat.cargoBefore = cargo_before
 		proof112.reference_combat.cargoAfter = client112().cargo.duplicate(true)
 		var after_physical: Dictionary = snapshot112()
-		var retained_work: Dictionary = w.duplicate(true)
+		var retained_work: Dictionary = after_physical.stories.chains[core.Arc110.ID].work112.duplicate(true)
 		var retained_coins: int = int(core.state.coins)
 		var retained_sequence: int = int(core.state.battleSeq)
 		core.battle_settled(str(physical.result), enemy_specs, context, physical)
@@ -638,6 +667,7 @@ class Preview extends "res://scripts/main.gd":
 		if not budget112("final state"):
 			return
 		var final_snapshot: Dictionary = snapshot112()
+		boundary_work = final_snapshot.stories.chains[core.Arc110.ID].work112.duplicate(true)
 		var final_written: bool = json112("final-state.json", final_snapshot)
 		var final_read = JSON.parse_string(FileAccess.get_file_as_string(output112.path_join("final-state.json"))) if final_written else null
 		var final_read_ok: bool = final_read is Dictionary and same112(final_read, final_snapshot)
