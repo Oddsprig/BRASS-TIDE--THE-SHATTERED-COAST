@@ -152,9 +152,9 @@ class Preview extends "res://scripts/main.gd":
 		var target_before: int=int(core.port("reed_floats").workforce)
 		if not complete_route_and_reception("reed_floats"):return
 		if not check(int(core.port("reed_floats").workforce)-target_before==2 and core.Arc115.choice_gate(core,"report_witnesses115").get("ok",false),"Only the real public discharge admits exactly two destination workers"):return
-		if not check(core.StoryOps.choose(core,core.Arc110.ID,"report_witnesses115").get("ok",false) and core.Arc115.work(core).reported and write_json("public-state.json",snapshot()),"Explicit public report retains the actual completed cohort account"):return
-		await capture("public.png")
+		await capture("public.png") # Completed reception BEFORE reporting must show the report action.
 		if finished:return
+		if not check(core.StoryOps.choose(core,core.Arc110.ID,"report_witnesses115").get("ok",false) and core.Arc115.work(core).reported and write_json("public-state.json",snapshot()),"Explicit public report retains the actual completed cohort account"):return
 		if not check(core.StoryOps.start(core,"wren_witness115").get("ok",false) and core.StoryOps.choose(core,"wren_witness115","finish_wren_witness115").get("ok",false),"Actual discharged survivors open Wren's optional conversation"):return
 		if not check(core.restore(starting).get("ok",false) and conserved(),"The separate protected branch starts from the original accepted114 checkpoint"):return
 		locate("reed_floats")

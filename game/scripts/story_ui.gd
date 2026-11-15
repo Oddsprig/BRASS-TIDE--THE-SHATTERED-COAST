@@ -33,8 +33,8 @@ static func open(ui) -> void:
 			row_body=ui.column(body)
 			row_body.visible=false
 		else:
-			ui.paragraph(row_body,ArcUI111.body(ui,entry),17,ui.TEXT)
-			ui.paragraph(row_body,ArcUI111.next_action(ui,entry,_shown_next_action(entry)),16,ui.TEAL)
+			ui.paragraph(row_body,ArcUI115.body(ui,entry,ArcUI111.body(ui,entry)),17,ui.TEXT)
+			ui.paragraph(row_body,ArcUI115.next_action(ui,entry,ArcUI111.next_action(ui,entry,_shown_next_action(entry))),16,ui.TEAL)
 		if entry.done:ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
 		ArcUI110.controls(ui,row_body,entry)
 		ArcUI111.controls(ui,row_body,entry)

@@ -8,6 +8,32 @@ static func _job(c,w: Dictionary) -> Dictionary:
 		if str(j.get("id",""))==str(w.get("jobId","")):return j
 	return {}
 
+static func body(ui,entry: Dictionary,fallback: String) -> String:
+	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="witness_board115":return fallback
+	var c=ui.host.core
+	var w: Dictionary=c.Arc115.work(c)
+	var status: String=str(w.get("status",""))
+	var destination: String=_port(c,str(w.get("destination","")))
+	match status:
+		"delivered":return "Two witnesses completed reception at "+destination+". Review the cost account and send Wren the outcome."
+		"returned":return "The two witnesses returned to Rust Anchorage. Send Wren the return account."
+		"lost":return "The witnesses did not complete their reception. Review the recorded loss and send Wren the passage account."
+		"holding":return "The two witnesses are ashore in reception at "+destination+". Their account remains open until the two paid service days are complete."
+		"aboard":return "The two witnesses are returning to Rust Anchorage. Settle their return there." if str(w.get("nativeStage",""))=="returning" else "The two witnesses are aboard for "+destination+". Bring them to the agreed reception and register their arrival."
+		"unresolved":return "Check the passenger manifest. No discharge, return or loss settlement is recorded for this passage."
+	return fallback
+
+static func next_action(ui,entry: Dictionary,fallback: String) -> String:
+	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="witness_board115":return fallback
+	var c=ui.host.core
+	var w: Dictionary=c.Arc115.work(c)
+	var status: String=str(w.get("status",""))
+	if status in ["delivered","returned","lost"]:return "Send Wren the passage account from a harbor."
+	if status=="holding":return "Complete the two paid reception service days at "+_port(c,str(w.get("destination","")))+"."
+	if status=="aboard":return "Return to Rust Anchorage and settle the passage." if str(w.get("nativeStage",""))=="returning" else "Sail to "+_port(c,str(w.get("destination","")))+" and register arrival."
+	if status=="unresolved":return "Check the manifest for the open passage."
+	return fallback
+
 static func controls(ui,body: Node,entry: Dictionary) -> void:
 	if not _live(ui) or str(entry.get("chainId",""))!="common_passage110":return
 	if str(entry.get("stage","")) not in ["witness_board115","witness_account115"]:return
