@@ -1,4 +1,4 @@
-extends RefCounted
+﻿extends RefCounted
 ## Main-thread long-voyage preparation presenter for v0.065-v0.066.
 ## Consumes Core.voyage_quote065(intent) read-only and never settles economy on view.
 
@@ -15,7 +15,7 @@ static func open(ui, region_id: String = "", approach_id: String = "") -> void:
 	ui.modal_kind = "ocean064"
 	var view: Dictionary = c.world_view064()
 	var chart_name: String = str(view.get("name", "Ocean charts"))
-	var body = ui.modal(chart_name + " · Voyage Preparation", "COASTAL APPROACHES · LONG-VOYAGE FORECAST & RESERVES", 1120, 720)
+	var body = ui.modal(chart_name + " - Plan voyage", "DESTINATION - COST - NEXT LEG", 1120, 720)
 	body.add_theme_constant_override("separation", 8)
 	if view.is_empty():
 		ui.paragraph(body, "Ocean chart definitions are unavailable.", 18, ui.RED)
@@ -119,34 +119,104 @@ static func _apply_draft(ui, patch: Dictionary) -> void:
 	open(ui)
 
 
+static func _fold120(ui, parent: Node, caption: String) -> VBoxContainer:
+	var details = ui.column(parent)
+	details.visible = false
+	var toggle = ui.button(parent, caption, func(): details.visible = not details.visible, false, false)
+	parent.move_child(toggle, details.get_index())
+	return details
+
+
 static func render_quote(ui, body: VBoxContainer, view: Dictionary, intent: Dictionary, quote: Dictionary) -> void:
 	var c = ui.host.core
+	body.add_theme_constant_override("separation", 6)
 	var named: Dictionary = quote.get("intent", {})
 	var target_region: String = str(intent.get("targetRegionId", REMOTE_REGION))
 	var target_region_name: String = str(named.get("targetRegionName", "Glasswind Keys" if target_region == REMOTE_REGION else "Shatter Coast"))
 	var return_port_id: String = str(intent.get("returnPortId", "brass_haven"))
-	var return_port_name: String = str(named.get("returnPortName", c.port(return_port_id).get("name", return_port_id)))
+	var return_port_name: String = str(named.get("returnPortName", c.port(return_port_id).get("name", "Home harbor")))
 	var distances: Dictionary = quote.get("distances", {})
-	var by_layer: Dictionary = distances.get("byLayer", {})
 	var timing: Dictionary = quote.get("timing", {})
 	var expected: Dictionary = quote.get("expected", {})
-	var by_phase: Dictionary = expected.get("byPhase", {})
 	var allowance: Dictionary = quote.get("allowance", {})
 	var funding: Dictionary = quote.get("funding", {})
 	var stores: Dictionary = quote.get("stores", {})
-	var maintenance: Dictionary = quote.get("maintenance", {})
 	var next_action: Dictionary = quote.get("nextAction", {})
 
-	_render_route_controls(ui, body, c, view, intent, quote, named, target_region, target_region_name, return_port_id, return_port_name, distances, by_layer, timing, expected)
-	_render_phase_columns(ui, body, quote, distances, timing, expected, by_phase, allowance, funding, stores, return_port_name)
-	_render_funding_and_holds(ui, body, c, expected, allowance, funding, stores)
-	ui.rule(body)
-	_render_boats_and_transfer(ui, body, c, view, stores, allowance)
-	ui.rule(body)
-	_render_maintenance_and_conditions(ui, body, quote, maintenance, stores)
-	ShippingUI068.render_preparation_summary068(ui, body, c, view)
+	_render_decision120(ui, body, c, view, intent, quote, target_region_name, return_port_name)
+	_render_departure120(ui, body, c, view, intent, quote, next_action)
+	var services := HFlowContainer.new()
+	services.add_theme_constant_override("h_separation", 8)
+	services.add_theme_constant_override("v_separation", 6)
+	body.add_child(services)
+	if not c.current_port().is_empty():
+		ui.button(services, "Buy stores and repairs", func(): ui.open_port("Crew & repairs"), false, false)
+	else:
+		ui.button(services, "Harbor trade and supplies", func(): ShippingUI068.open(ui), false, false)
+	ui.button(services, "Load hold reserves", func(): ui.host.load_reserves065(), false, false)
+	ui.button(services, "Hold and reserves", ui.open_cargo, false, false)
+	ui.button(services, "Choose paid work", func(): ui.GuidanceUI.choose_work120(ui), false, false)
+
+	var route_details = _fold120(ui, body, "Change destination, approaches and return harbor")
+	_render_route_controls(ui, route_details, c, view, intent, quote, named, target_region, target_region_name, return_port_id, return_port_name, distances, distances.get("byLayer", {}), timing, expected)
+	var fuel_details = _fold120(ui, body, "Per-boat fuel and manual transfers")
+	_render_boats_and_transfer(ui, fuel_details, c, view, stores, allowance)
+	var accounts = _fold120(ui, body, "Full voyage costs, weather and repair conditions")
+	_render_phase_columns(ui, accounts, quote, distances, timing, expected, expected.get("byPhase", {}), allowance, funding, stores, return_port_name)
+	_render_funding_and_holds(ui, accounts, c, expected, allowance, funding, stores)
+	_render_maintenance_and_conditions(ui, accounts, quote, quote.get("maintenance", {}), stores)
+	ShippingUI068.render_preparation_summary068(ui, accounts, c, view)
 	_render_footer_bar(ui, body, c, view, intent, quote, next_action)
 
+
+static func _render_decision120(ui, body: VBoxContainer, c, view: Dictionary, intent: Dictionary, quote: Dictionary, target: String, home: String) -> void:
+	ui.label(body, "Destination: " + target, 24, ui.GOLD, true)
+	if not quote.get("routeOk", false):
+		ui.paragraph(body, str(quote.get("message", "Choose a reachable destination.")), 16, ui.RED)
+		return
+	var timing: Dictionary = quote.get("timing", {})
+	var required: int = ceili(float(quote.get("funding", {}).get("requiredCoins", 0.0)))
+	var purse: int = int(c.state.get("coins", 0))
+	var expected: Dictionary = quote.get("expected", {})
+	var allowance: Dictionary = quote.get("allowance", {})
+	var stores: Dictionary = quote.get("stores", {})
+	var origin_day: float = float(quote.get("origin", {}).get("day", c.state.get("day", 1.0)))
+	var arrival_day: float = origin_day + float(timing.get("outwardDays", 0.0))
+	ui.paragraph(body, "About %.1f days outward; arrive around day %.1f. Return planned to %s. Weather, stops and damage can add time." % [float(timing.get("outwardDays", 0.0)), arrival_day, home], 15)
+	ui.paragraph(body, "Expected crew debit %d coins for this plan. Keep %d for crew pay and arrears, including the return and %.0f spare days. Purse %d; %d outside that allowance." % [ceili(float(expected.get("coinsRequired", 0.0))), required, float(allowance.get("reserveDays", 2.0)), purse, purse - required], 15, ui.TEAL if purse >= required else ui.GOLD)
+	var food_short: float = float(allowance.get("foodShortfall", 0.0))
+	var fuel_short: float = float(stores.get("loadedShortfall", 0.0))
+	var shortage: String = "Missing for the return allowance: %.1f food bales and %.1f loaded fuel drums." % [food_short, fuel_short]
+	if food_short <= 0.001 and fuel_short <= 0.001: shortage = "Food and loaded fuel cover this return allowance."
+	ui.paragraph(body, shortage + " Supplies and repairs cost extra; they are not included in the crew figure.", 14, ui.GOLD if food_short > 0.001 or fuel_short > 0.001 else ui.TEXT)
+	var blocks: Array = quote.get("blockers", [])
+	if not blocks.is_empty(): ui.paragraph(body, str(blocks[0]), 14, ui.RED)
+	var next_kind: String = str(quote.get("nextAction", {}).get("kind", "none"))
+	var actual_block: String = c._sailing_blocker064() if next_kind == "course" else (c.transition_blocker064() if next_kind == "transition" else "")
+	if not actual_block.is_empty() and not blocks.has(actual_block): ui.paragraph(body, actual_block, 14, ui.RED)
+	if not quote.get("readyForAllowance", false) and actual_block.is_empty() and next_kind != "none":
+		ui.paragraph(body, "You can set a course with a short reserve. Buy or load what is missing before committing to a long crossing.", 13, ui.GOLD)
+	var maintenance: Dictionary = quote.get("maintenance", {})
+	if not maintenance.get("usageKnown", false) or maintenance.get("conditionalFuel", false):
+		ui.paragraph(body, "Existing damage makes repair costs, speed and extra fuel use uncertain. Review repair conditions before sailing.", 13, ui.GOLD)
+
+
+static func _render_departure120(ui, body: VBoxContainer, c, view: Dictionary, intent: Dictionary, quote: Dictionary, next_action: Dictionary) -> void:
+	var actions := HFlowContainer.new()
+	actions.add_theme_constant_override("h_separation", 8)
+	actions.add_theme_constant_override("v_separation", 6)
+	body.add_child(actions)
+	var kind: String = str(next_action.get("kind", "none"))
+	var caption: String = str(next_action.get("title", "Destination reached"))
+	var next_button = ui.button(actions, caption, func(): ui.host.voyage_action065(intent.duplicate(true)), true, false)
+	if kind == "course": next_button.disabled = not quote.get("routeOk", false) or not c._sailing_blocker064().is_empty()
+	elif kind == "transition": next_button.disabled = not quote.get("routeOk", false) or not view.get("path", []).is_empty() or not c.transition_blocker064().is_empty()
+	else: next_button.disabled = true
+	if kind == "none" or str(view.get("regionId", "")) == REMOTE_REGION:
+		ui.button(actions, "Plan return to Shatter Coast", func(): _apply_draft(ui, {"targetRegionId":HOME_REGION}), false, false)
+	if str(view.get("layer", "")) == "local":
+		ui.button(actions, "Island surveys", func(): ui.CampaignUI.islands(ui), false, false)
+		ui.button(actions, "Salvage", func(): ui.RecoveryUI.open(ui), false, false)
 
 static func _wrapped_label(ui, parent: Node, text: String, font_size: int = 16, color: Color = Color.WHITE, serif: bool = false) -> Label:
 	var lbl: Label = ui.label(parent, text, font_size, color, serif)
@@ -261,7 +331,7 @@ static func _render_gate_selector(ui, parent: Node, title: String, field: String
 	col.add_theme_constant_override("separation", 4)
 	if current_val.is_empty():
 		ui.paragraph(col, "%s: Unused on this layer" % title, 12, ui.MUTED)
-		ui.paragraph(col, "Stripped to empty for current chart/target", 11, ui.MUTED)
+		ui.paragraph(col, "Not needed for this route.", 11, ui.MUTED)
 		return
 	var detail: String = readable_name if not readable_name.is_empty() else current_val.capitalize()
 	ui.paragraph(col, "%s: %s" % [title, detail], 12, ui.GOLD)
@@ -423,7 +493,7 @@ static func _render_boats_and_transfer(ui, body: VBoxContainer, c, view: Diction
 		var tank_cap: float = maxf(0.01, float(entry.get("tankCapacity", 60.0)))
 		var short_fuel: float = float(entry.get("loadedShortfall", entry.get("fuelShortfall", 0.0)))
 		var tank_short: float = float(entry.get("tankShortfall", 0.0))
-		_wrapped_label(ui, b_head, "%s (%s)  ·  %s" % [b_name, b_uid, role_tag], 15, ui.GOLD if traveling else ui.TEXT, true)
+		_wrapped_label(ui, b_head, "%s - %s" % [b_name, role_tag], 15, ui.GOLD if traveling else ui.TEXT, true)
 		ui.label(b_head, "Tank %.2f / %.1f drums  ·  Shortfall %.2f" % [loaded_fuel, tank_cap, short_fuel], 13, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		var bar = ui.progress(b_col, ui.RED if short_fuel > 0.001 else ui.TEAL)
 		bar.value = clampf(loaded_fuel / tank_cap * 100.0, 0.0, 100.0)
@@ -624,56 +694,14 @@ static func _render_maintenance_and_conditions(ui, body: VBoxContainer, quote: D
 		ui.paragraph(body, "Declared conditions: " + " ".join(joined), 12, ui.MUTED)
 
 
-static func _render_footer_bar(ui, body: VBoxContainer, c, view: Dictionary, intent: Dictionary, quote: Dictionary, next_action: Dictionary) -> void:
+static func _render_footer_bar(ui, body: VBoxContainer, _c, _view: Dictionary, _intent: Dictionary, _quote: Dictionary, _next_action: Dictionary) -> void:
 	var scroll_node: Node = body.get_parent()
 	var outer: Node = scroll_node.get_parent() if scroll_node != null else body
 	ui.rule(outer)
 	var actions := HFlowContainer.new()
-	actions.add_theme_constant_override("h_separation", 10)
+	actions.add_theme_constant_override("h_separation", 8)
 	actions.add_theme_constant_override("v_separation", 6)
 	outer.add_child(actions)
-	var next_kind: String = str(next_action.get("kind", "none"))
-	var next_title: String = str(next_action.get("title", "Destination reached"))
-	var primary_btn = ui.button(actions, next_title, func():
-		ui.host.voyage_action065(intent.duplicate(true))
-	, true, false)
-	primary_btn.custom_minimum_size.y = 36
-	if next_kind == "course":
-		primary_btn.disabled = not bool(quote.get("routeOk", false)) or not c._sailing_blocker064().is_empty()
-	elif next_kind == "transition":
-		primary_btn.disabled = not bool(quote.get("routeOk", false)) or not view.get("path", []).is_empty() or not c.transition_blocker064().is_empty()
-	else:
-		primary_btn.disabled = true
-
-	if next_kind == "none" or str(view.get("regionId", "")) == REMOTE_REGION:
-		var home_btn = ui.button(actions, "Destination: Shatter Coast", func(): _apply_draft(ui, {"targetRegionId": HOME_REGION}), false, false)
-		home_btn.custom_minimum_size.y = 36
-	if str(view.get("layer", "")) == "local":
-		var survey_btn = ui.button(actions, "Island surveys", func(): ui.CampaignUI.islands(ui), false, false)
-		survey_btn.custom_minimum_size.y = 36
-		var salvage_btn = ui.button(actions, "Salvage & cache", func(): ui.RecoveryUI.open(ui), false, false)
-		salvage_btn.custom_minimum_size.y = 36
-	var ship_btn068 = ui.button(actions, "Shipping & anchorage", func(): ShippingUI068.open(ui), false, false)
-	ship_btn068.custom_minimum_size.y = 36
-
-	if ui.has_method("open_ocean_contact066") and c.has_method("ocean_view066"):
-		var v066: Dictionary = c.ocean_view066()
-		var contacts066: Array = v066.get("contacts", []) if v066.get("contacts") is Array else []
-		var mode066: String = str(v066.get("travel066", {}).get("mode", "direct")) if v066.get("travel066") is Dictionary else "direct"
-		if not contacts066.is_empty() or mode066 != "direct":
-			var contact_btn = ui.button(actions, "Sightings & course orders", func(): ui.open_ocean_contact066(), false, false)
-			contact_btn.custom_minimum_size.y = 36
-
-	var refresh_btn = ui.button(actions, "Refresh", func(): open(ui), false, false)
-	refresh_btn.custom_minimum_size.y = 36
-	var fleet_btn = ui.button(actions, "Fleet & crew", ui.open_fleet, false, false)
-	fleet_btn.custom_minimum_size.y = 36
-	var hold_btn = ui.button(actions, "Hold & reserves", ui.open_cargo, false, false)
-	hold_btn.custom_minimum_size.y = 36
-	var chart_btn = ui.button(actions, "Show entire chart", func():
-		ui.close_modal()
-		ui.host.chart.territory_view()
-	, false, false)
-	chart_btn.custom_minimum_size.y = 36
-	var close_btn = ui.button(actions, "Close", ui.close_modal, false, false)
-	close_btn.custom_minimum_size.y = 36
+	ui.button(actions, "Refresh plan", func(): open(ui), false, false)
+	ui.button(actions, "Show chart", func(): ui.close_modal(); ui.host.chart.territory_view(), false, false)
+	ui.button(actions, "Close", ui.close_modal, false, false)

@@ -1,5 +1,6 @@
 extends CanvasLayer
 const HarborRoute104=preload("res://scripts/harbor_route104.gd")
+const MarketWorkshop120=preload("res://scripts/fleet_workshop.gd")
 const TacticsUI = preload("res://scripts/tactics_ui.gd")
 const RefitUI = preload("res://scripts/refit_ui.gd")
 const WorkshopUI = preload("res://scripts/workshop_ui.gd")
@@ -85,6 +86,10 @@ var tactical_intent_label: Label
 var battle_reload_label: Label
 var battle_crew_label: Label
 var battle_details_label: Label
+var battle_pause_button120: Button
+var battle_speed_button120: Button
+var battle_follow_button120: Button
+var battle_retreat_button120: Button
 
 func setup(game_host):
 	host = game_host
@@ -352,6 +357,7 @@ func build_campaign_hud(size: Vector2):
 	if not host.core.home_local064():
 		eyebrow(left_body,"YOUR FLOTILLA")
 		flagship_label=label(left_body,"",20,TEXT)
+		GuidanceUI.render_next120(self,left_body)
 		var view064: Dictionary=host.core.world_view064()
 		paragraph(left_body,str(view064.get("name","Chart unavailable")),22,GOLD)
 		paragraph(left_body,"Choose a coastal approach to enter local waters or return to the open ocean. Wages, food and working fuel continue on the same voyage.",15)
@@ -393,15 +399,9 @@ func build_campaign_hud(size: Vector2):
 	eyebrow(left_body, "YOUR FLOTILLA")
 	flagship_label = label(left_body, "", 20, TEXT)
 	rule(left_body)
-	var active: Dictionary=host.core.state.activeContract
-	if not active.is_empty():
-		paragraph(left_body,str(active.title),18,GOLD)
-	elif not host.core.state.completed and host.core.state.missionIndex<host.data.MISSIONS.size():
-		paragraph(left_body,str(host.data.MISSIONS[host.core.state.missionIndex].title),18,GOLD)
-	paragraph(left_body,"Review fuel, supplies, crew wages and the return route.",14)
-	button(left_body,"Prepare first voyage" if host.core.state.missionIndex==0 and active.is_empty() else "Review voyage",func():GuidanceUI.open_voyage(self),true,false)
+	GuidanceUI.render_next120(self,left_body)
 	button(left_body,"Open ocean & coastal approaches",open_ocean064,false,false)
-	button(left_body,"Campaign & coastal stories",func():StoryUI.open(self),false,false)
+	button(left_body,"Common Passage campaign",func():StoryUI.open(self),false,false)
 	button(left_body,"More charts & business",open_campaign_tools,false,false)
 	rule(left_body)
 	paragraph(left_body, "Select a harbor to travel or dock.", 13)
@@ -553,7 +553,113 @@ func skirmish_guidance(body: Node = null) -> void:
 
 func build_battle_hud(size: Vector2):
 	TacticsUI.build(self, size)
+	_reflow_battle_hud120(size)
 	skirmish_guidance()
+
+func _reflow_battle_hud120(size: Vector2) -> void:
+	# Reuse the existing four-band HUD and its status authority. No duplicate UI
+	# controller or empty sidebars; detailed crew work stays in Fleet & crew.
+	var top120: PanelContainer=chrome.get_node("BattleTop")
+	var nav120: HBoxContainer=top120.get_child(0).get_child(0)
+	var buttons120: Array=[]
+	for child120: Node in nav120.get_children():
+		if child120 is Button:buttons120.append(child120)
+	buttons120[0].text="Menu"
+	battle_pause_button120=buttons120[1]
+	battle_speed_button120=buttons120[2]
+	battle_speed_button120.disabled=true
+	battle_speed_button120.tooltip_text="Battles run at normal speed. Pause with Space to give orders."
+	buttons120[3].text="Tab: Overview"
+	buttons120[4].text="Fleet & crew"
+	buttons120[4].tooltip_text="Active boats, undeployed reserves, damage and flagship crew priorities."
+	buttons120[5].text="Tactics & guns"
+	battle_follow_button120=TacticsUI.compact_button(self,nav120,"Follow ON",func():
+		if host.chart.follow_camera:host.chart.follow_camera=false
+		else:host.chart.center_camera()
+		update_hud())
+	var battle_guide120: Button=TacticsUI.compact_button(self,nav120,"?",func():GuidanceUI.open_battle120(self))
+	battle_guide120.name="BattleGuide120";battle_guide120.tooltip_text="Battle guide: orders, autopilot, damage and retreat."
+	battle_follow_button120.name="BattleFollow"
+	battle_follow_button120.tooltip_text="Follow the selected fight. WASD pans freely; Home resumes follow. Tab fits the whole arena."
+	var status120: PanelContainer=chrome.get_node("BattleStatus")
+	status120.position=Vector2(12,size.y-168)
+	status120.size=Vector2(size.x-24,108)
+	var status_row120: HBoxContainer=status120.get_child(0).get_child(0)
+	var selected120: VBoxContainer=flagship_label.get_parent()
+	selected120.custom_minimum_size.x=260
+	flagship_label.add_theme_font_size_override("font_size",16)
+	# The former permanent row described the flagship below another boat's
+	# condition. Its complete controls remain in the named, existing detail view.
+	battle_crew_label.get_parent().visible=false
+	tactical_intent_label.max_lines_visible=2
+	battle_reload_label.max_lines_visible=1
+	battle_control_label.max_lines_visible=1
+	var minimap120: Control=status_row120.get_node("BattleMinimap")
+	minimap120.custom_minimum_size=Vector2(152,76)
+	var orders120: PanelContainer=chrome.get_node("BattleOrders")
+	var actions120: HBoxContainer=orders120.get_child(0).get_child(0)
+	var fallback120: Button=actions120.get_node("BattleCommand_withdraw")
+	fallback120.text="Fall back"
+	fallback120.tooltip_text="Selected boats disengage to their local rally. The battle continues. Use Retreat fleet to leave."
+	battle_retreat_button120=TacticsUI.compact_button(self,actions120,"Retreat fleet",host.withdraw_fleet)
+	battle_retreat_button120.name="BattleRetreatFleet"
+	battle_retreat_button120.tooltip_text="Order the existing 12-second fleet withdrawal. Boats remain exposed; damage, crew losses and contract consequences persist. Resume if paused to run the countdown."
+	notices.position=Vector2(24,120)
+	_sync_battle_view120()
+	call_deferred("_sync_battle_view120")
+
+func _sync_battle_view120() -> void:
+	if host.mode!="battle" or not is_instance_valid(chrome) or not host.chart.has_method("set_battle_view120"):return
+	var mission120: Control=chrome.get_node_or_null("BattleMission")
+	var status120: Control=chrome.get_node_or_null("BattleStatus")
+	if mission120==null or status120==null:return
+	var top120: float=mission120.position.y+mission120.size.y+12.0
+	var bottom120: float=status120.position.y-12.0
+	var width120: float=root.get_viewport_rect().size.x
+	host.chart.set_battle_view120(Rect2(12,top120,maxf(1.0,width120-24),maxf(1.0,bottom120-top120)))
+
+func _update_battle_controls120() -> void:
+	if not is_instance_valid(battle_pause_button120):return
+	var battle120: Dictionary=host.battle
+	battle_pause_button120.text="Resume" if host.paused else "Pause"
+	battle_speed_button120.text="Real time"
+	autopilot_button.text="U: Auto ON" if battle120.get("autopilot",true) else "U: Manual helm"
+	autopilot_button.tooltip_text="All boats steer and fire automatically." if battle120.get("autopilot",true) else "Arrow keys steer the flagship; mouse aims and fires. Its queued order waits for U to restore autopilot. Other boats remain automatic."
+	battle_follow_button120.text="Follow ON" if host.chart.follow_camera else "Follow OFF"
+	battle_retreat_button120.disabled=battle120.get("retreatTimer")!=null or battle120.get("result")!=null
+	if battle120.get("retreatTimer")!=null:
+		battle_retreat_button120.text="Retreat %.0fs"%float(battle120.retreatTimer)
+	else:battle_retreat_button120.text="Retreat fleet"
+	var pending120: String=str(host.battle_command_pending)
+	var has_selection120: bool=battle120.ships.any(func(boat120):return boat120.team=="player" and not boat120.sunk and not boat120.get("captureSecured",false) and boat120.id in host.selected_battle_ids)
+	var orders120: Node=chrome.get_node("BattleOrders")
+	for command120: String in ["engage","harass","focus","escort","defend","rally","hold","withdraw"]:
+		var action120: Button=orders120.find_child("BattleCommand_"+command120,true,false)
+		action120.disabled=not has_selection120 or battle120.get("result")!=null
+		action120.add_theme_color_override("font_color",GOLD if pending120==command120 else TEXT)
+	# The short line retains its complete, live explanation on hover.
+	if not pending120.is_empty():
+		battle_control_label.text=str(host.battle_command_ack.get("message","Choose a target."))+" Esc cancels."
+		battle_control_label.tooltip_text=battle_control_label.text
+	var selection120: Dictionary=TacticsUI.PressureView.selection(battle120,host.selected_battle_ids)
+	var selected_boat120: Dictionary=selection120.boat
+	if not selected_boat120.is_empty():
+		flagship_label.text="Selected: "+str(selected_boat120.name)
+		var status120: Dictionary=host.Battle.tactical_status(battle120,str(selected_boat120.id))
+		if not status120.is_empty():
+			var role120: String=str({"auto":"Choosing role","heavy":"Gun platform","striker":"Strike boat","screen":"Escort screen","skirmisher":"Skirmisher","support":"Support"}.get(str(status120.role),str(status120.role).capitalize()))
+			var order120: String=str({"attack":"Focus attack","withdraw":"Fall back","move":"Move","engage":"Engage","hold":"Hold","escort":"Escort"}.get(str(status120.order),str(status120.order).capitalize()))
+			voyage_label.text="%d selected · %s · %s"%[int(selection120.count),role120,order120]
+			var phase120: String=str({"stage":"Staging","align":"Lining up","launch-window":"Launch approach","fire-pass":"Firing pass","breakaway":"Breaking away","turn-away":"Turning away","regroup":"Regrouping","screen":"Screening","pressure":"Applying pressure","protected":"Keeping cover","approach":"Approaching"}.get(str(status120.get("phase","")),""))
+			tactical_intent_label.text=(phase120+" · " if not phase120.is_empty() else "")+TacticsUI.plain(str(status120.reason))
+			voyage_label.tooltip_text=voyage_label.text+(" · Target: "+str(status120.targetName) if not str(status120.targetName).is_empty() else "")
+			if str(selected_boat120.id)==str(battle120.playerId) and not battle120.get("autopilot",true):
+				voyage_label.text="Manual flagship · queued order: "+order120
+				tactical_intent_label.text=TacticsUI.plain(str(status120.reason))
+	if battle120.get("retreatTimer")!=null:
+		voyage_label.text="FLEET RETREAT · %.0fs%s"%[float(battle120.retreatTimer)," · resume to withdraw" if host.paused else ""]
+	flagship_label.tooltip_text="Selected boat condition. Fleet & crew contains the named flagship's crew priorities; X changes flagship."
+	_sync_battle_view120()
 
 func update_hud():
 	if host.mode == "menu" or host.mode != hud_mode or stats_label == null or not is_instance_valid(stats_label) or host.core.state.is_empty():
@@ -563,6 +669,7 @@ func update_hud():
 		var cadence: Dictionary=host.battle.get("simulation051",{})
 		clock_label.tooltip_text="Authoritative worker: %d Hz · %d completed steps\nPresentation: %.0f FPS · Main poll %.3f ms\nSimulation lag %.3f s"%[int(cadence.get("workerStepHz",30)),int(cadence.get("completedSteps",0)),Engine.get_frames_per_second(),float(cadence.get("mainPollUs",0))/1000.0,float(cadence.get("simulationLagSeconds",0.0))] if not cadence.is_empty() else "Synchronous reference battle"
 		TacticsUI.update(self, true)
+		_update_battle_controls120()
 		return
 	var w = host.core.state
 	var boats = w.fleet
@@ -626,7 +733,7 @@ func modal(title: String, subtitle: String = "CAPTAIN'S DESK", width: float = 10
 	var heading = column(head)
 	eyebrow(heading, subtitle)
 	label(heading, title, 36, TEXT, true)
-	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068","sector069","new_voyage","preserved_voyages"])
+	button(head, "×", close_modal, false, modal_kind not in ["guide","captain_priorities","voyage_review","campaign_tools","harbor_services","fleet","fleet_identity","fleet_conversions","economic_workforce","regional","home_harbor","cargo","ocean064","voyage_preparation065","ocean_contact066","shipping068","remote_port068","sector069","new_voyage","preserved_voyages","first_voyage120","first_fit120","next_work120","career_departure120","battle_guide120"])
 	rule(outer)
 	# Reserve a row below the heading, including for action failures.
 	notices.reparent(outer, false)
@@ -696,15 +803,21 @@ func open_port(tab: String = ""):
 		port_tab = tab
 	modal_kind = "port"
 	var body = modal(p.name, "%s · %s" % [host.core.faction(p.faction).name, p.industry.to_upper()])
-	paragraph(body, p.description, 16)
-	paragraph(body,access.reason,14,TEAL)
+	if port_tab != "Market":paragraph(body,p.description,16)
+	var harbor_context120: Label=paragraph(body,access.reason,13,TEAL)
+	if port_tab=="Market":
+		harbor_context120.max_lines_visible=1
+		harbor_context120.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		harbor_context120.tooltip_text=p.description+"\n"+str(access.reason)
 	host.core.Contacts.visit(host.core.state,p,host.core.state.day)
 	var tabs = row(body)
 	for item in ["Market", "Boatyard", "Crew & repairs", "Refit", "Economy", "Contracts"]:
 		var value: String = item
 		var b = button(tabs, value, func(): open_port(value))
 		b.add_theme_color_override("font_color", GOLD if port_tab == value else MUTED)
-	button(body,"Advanced harbor services",open_harbor_services)
+		b.custom_minimum_size.y=34;b.add_theme_font_size_override("font_size",14)
+	var services120: Button=button(tabs,"Services",open_harbor_services)
+	services120.custom_minimum_size.y=34;services120.add_theme_font_size_override("font_size",14)
 	match port_tab:
 		"Market": market_view(body, p)
 		"Boatyard": yard_view(body, p)
@@ -743,19 +856,28 @@ func open_harbor_services():
 	button(body,"Back to harbor",func():open_port())
 
 func market_view(body: Node, p: Dictionary):
-	button(body,"Trade opportunities · compare dated quotes",func():TradeUI.open(self),true)
-	TradeUI.market_summary(self,body,str(p.id))
-	paragraph(body, "Prices follow local stocks, labor and trade. Working stores aboard boats are separate from cargo. Buy reserves here, then load them through the Hold screen.", 14)
 	var options = row(body)
 	label(options, "TRADE QUANTITY", 11, MUTED)
 	var qty = SpinBox.new()
 	qty.min_value = 1
 	qty.max_value = 100
+	qty.step = 1
+	qty.rounded = true
 	qty.value = trade_qty
 	qty.custom_minimum_size = Vector2(110, 38)
-	qty.value_changed.connect(func(value): trade_qty = int(value))
+	var quote_buttons120: Array=[]
+	# Permission.ensure normalizes faction books. Give every row a shared,
+	# detached preview so opening/changing quantity cannot write live relations.
+	var permission_context120=MarketWorkshop120.PermissionView.new(host.core.state.duplicate(true),host.core.data,p.duplicate(true))
+	qty.value_changed.connect(func(value):
+		trade_qty=int(value)
+		for quote120: Dictionary in quote_buttons120:_refresh_market_quote120(quote120))
 	options.add_child(qty)
 	label(options, "Hold %.0f / %.0f" % [host.core.cargo_weight(), host.core.capacity()], 14, GOLD)
+	var compare120: Button=button(options,"Compare ports",func():TradeUI.open(self),false,false)
+	compare120.custom_minimum_size.y=34;compare120.add_theme_font_size_override("font_size",14)
+	compare120.tooltip_text="Dated prices, actual supply needs and quoted voyage costs at other harbors."
+	paragraph(body,"Prices are for the selected quantity. Fuel and repair kits in the Hold must be loaded aboard through Hold.",13,MUTED)
 	for good in host.Economy.GOODS:
 		var key: String = good
 		var definition = host.Economy.GOODS[key]
@@ -764,10 +886,55 @@ func market_view(body: Node, p: Dictionary):
 		name_label.custom_minimum_size.x = 220
 		label(line, "%4d stock" % p.stocks[key], 13, MUTED).custom_minimum_size.x = 110
 		label(line, "%4d hold" % host.core.state.cargo[key], 13, MUTED).custom_minimum_size.x = 100
-		button(line, "Buy %d coins" % host.Economy.price(p, key), func(): host.trade(key, trade_qty, "buy"))
-		button(line, "Sell %d coins" % host.Economy.price(p, key, "sell"), func(): host.trade(key, trade_qty, "sell"))
+		var buy120: Button=button(line,"",func():host.trade(key,trade_qty,"buy"))
+		var sell120: Button=button(line,"",func():host.trade(key,trade_qty,"sell"))
+		buy120.add_theme_font_size_override("font_size",14)
+		sell120.add_theme_font_size_override("font_size",14)
+		var quote120: Dictionary={"port":p,"good":key,"buy":buy120,"sell":sell120,"permission":permission_context120}
+		quote_buttons120.append(quote120)
+		_refresh_market_quote120(quote120)
 		button(line,"Cost",func():Finance.good_recipe(self,key))
 		rule(body)
+	TradeUI.market_summary(self,body,str(p.id))
+
+func _refresh_market_quote120(quote120: Dictionary) -> void:
+	# Economy.transact charges this exact integer unit quote times the whole
+	# selected quantity. Only labels change; trade and its stock/purse checks
+	# still run through Main -> Core -> LawOps -> Economy.transact.
+	for side120: String in ["buy","sell"]:
+		var unit120: int=host.Economy.price(quote120.port,str(quote120.good),side120)
+		var total120: int=unit120*trade_qty
+		var action120: Button=quote120[side120]
+		action120.text="%s %d · %s coins\n%s coins each"%[side120.capitalize(),trade_qty,money(total120),money(unit120)]
+		action120.tooltip_text="%s %d for %s coins total, at %s coins each."%[side120.capitalize(),trade_qty,money(total120),money(unit120)]
+		var availability120: Dictionary=_market_availability120(quote120,side120)
+		action120.disabled=not availability120.get("ok",false)
+		if action120.disabled:
+			var reason120: String=str(availability120.get("message","Unavailable"))
+			var short120: String="Unavailable"
+			if "coins" in reason120.to_lower():short120="Need coins" if side120=="buy" else "Harbor funds low"
+			elif "capacity" in reason120.to_lower():short120="Hold full"
+			elif "protected" in reason120.to_lower():short120="Stock reserved"
+			elif "player" in reason120.to_lower() or "cargo" in reason120.to_lower():short120="Not aboard"
+			elif "stock" in reason120.to_lower() or "sufficient" in reason120.to_lower():short120="Not in stock"
+			action120.text="%s %d · %s coins\n%s each · %s"%[side120.capitalize(),trade_qty,money(total120),money(unit120),short120]
+			action120.tooltip_text+="\n"+reason120
+
+func _market_availability120(quote120: Dictionary,side120: String) -> Dictionary:
+	# Read-only preview on isolated purses/stocks, through the actual commerce
+	# rules. Main/Core still recheck and commit; a UI preview never spends.
+	var c=host.core
+	var p: Dictionary=quote120.port
+	var good: String=str(quote120.good)
+	var view120=quote120.permission
+	if not c.LawOps.allow_player(view120,view120.harbor,good):return {"ok":false,"message":"The carrier agreement restricts this commodity here."}
+	var permission120: Dictionary=Politics.permit(view120,"buy_good" if side120=="buy" else "trade",good)
+	if not permission120.get("ok",false):
+		if side120!="buy" or good not in ["guns","engines"] or not c.LawOps.Law.licensed(view120,str(p.id),good,trade_qty):return permission120
+	var overflow120: float=maxf(0,c.cargo_weight()-host.Economy.cargo_weight(c.state.cargo)-c.freight_weight())
+	var limit120: float=maxf(0,c.capacity()-c.freight_weight()-overflow120)
+	var detached_wallet120: Dictionary={"coins":c.state.coins,"cargo":c.state.cargo.duplicate(true)}
+	return host.Economy.transact(p.duplicate(true),detached_wallet120,good,trade_qty,side120,limit120)
 
 func hull_card(body: Node, h: Dictionary, in_yard: bool, stock: int = 0):
 	var q = host.core.ship_quote(h)
@@ -990,7 +1157,7 @@ func open_cargo():
 
 func open_contracts():
 	modal_kind = "contracts"
-	var body = modal("Contracts & logbook", "ACTIVE CONTRACTS · AVAILABLE WORK · RECENT EVENTS")
+	var body = modal("Local contracts & logbook", "ACTIVE CONTRACTS · AVAILABLE WORK · RECENT EVENTS")
 	button(body,"Storyline campaign & coastal stories",func():StoryUI.open(self),true,false)
 	if host.core.home_local064():button(body,"Several voyage jobs, contacts & intelligence",func():VoyageUI.open(self))
 	contracts_view(body)
@@ -1012,7 +1179,7 @@ func contracts_view(body: Node):
 		button(body,"Coastal approaches",open_ocean064)
 		return
 	var w = host.core.state
-	label(body, "Story progress · %d / 8" % w.missionIndex, 24, GOLD, true)
+	label(body,"Local contracts · %d / %d"%[w.missionIndex,host.data.MISSIONS.size()],24,GOLD,true)
 	if not w.activeContract.is_empty():
 		var active = w.activeContract
 		eyebrow(body, "ACTIVE CONTRACT")
@@ -1032,7 +1199,7 @@ func contracts_view(body: Node):
 		container.add_theme_stylebox_override("panel", box(Color("17343d"), LINE, 18))
 		body.add_child(container)
 		var card = column(container)
-		eyebrow(card, "STORY CONTRACT" if c.get("story", false) else "HARBOR WORK")
+		eyebrow(card, "LOCAL CONTRACT" if c.get("story", false) else "HARBOR WORK")
 		label(card, c.title, 23, TEXT, true)
 		paragraph(card, c.description, 14)
 		label(card, "%s → %s · %s coins · %s" % [host.core.port(c.port).name, host.core.port(c.targetPort).name, money(c.reward), count_text(c.enemyHulls.size(), "hostile boat", "hostile boats")], 14, GOLD)
@@ -1046,12 +1213,13 @@ func contracts_view(body: Node):
 func open_guide():
 	modal_kind = "guide"
 	var body = modal("A captain's guide", "BRASS TIDE · v%s" % host.Version.text())
+	if host.mode in ["campaign","battle"]:button(body,"Current voyage guidance",func():GuidanceUI.open_first120(self),false,false)
 	button(body,"Career goals & first steps",func():GuidanceUI.open(self),true,false)
 	button(body, "Preserved voyages", open_preserved_voyages, false, false)
 	for section in [
 		["Bronze coins and paid work","An ordinary sailor earns 100 bronze coins per day, with rations supplied separately. Wages move into the crew's shared purse. Missed wages become arrears and reduce morale and combat performance. The Hold shows savings and arrears. Each town has business, worker, specialist and government purses; its Economy screen shows employment and actual transfers."],
 		["Why a boat costs what it costs","Every design has physical material requirements and paid shipwrights, mechanics, fitters, foremen and supervising experts. Trace the price through logs and planks, ore and iron, powder ingredients, ammunition, guns and engines. Yard quotes list those inputs, wages, overhead, margin and duty. Commissions hold wages in escrow and only pay for work completed."],
-		["Your first voyage", "Start at Brass Haven in a cheap Tinwake skiff with five sailors. Enter harbor, open Contracts, and accept Clear the Lantern Narrows. Chart Kelp Reach, sail there, then engage its raider. Earn bronze coins, buy another hull, and recruit enough sailors to use it."],
+		["Your first voyage", "At Brass Haven, Current voyage guidance can walk through the first local contract. Sail to Kelp Reach, give orders while paused, then resume the real fight. Victory pays its sponsor's escrow at settlement. Review repairs, stores and a useful paid fitting, then choose freight, convoy protection, surveying or Common Passage. Manual helm is optional."],
 		["Your camera", "WASD pans the camera in both the chart and battle, even while paused. Shift pans faster. Scroll zooms. M shows the whole coast. Home returns to a regional view around your fleet or flagship. F11 toggles fullscreen. Your flagship begins on autopilot; the fleet fights without manual steering."],
 		["Command a flotilla", "Left-click a boat or drag a box to select; Shift adds boats. Right-click open water to move, an enemy to attack, or an ally to escort. Space pauses. Tab opens a paused tactical overview and restores your prior pause state when closed. 1 engages, 2 escorts the flagship, 3 holds. Each side fields up to 300 deployment points. U toggles flagship autopilot; optional manual controls use the arrows and mouse. X cycles flagship."] ,
 		["Refit your boat", "Dock at a harbor and open Refit, or use the Fleet refit button. Fit compatible machine guns, cannons, rocket racks and torpedo launchers within each hull’s fitting budget. Engine and armor packages trade speed, fuel use and protection. The bill shows physical materials, paid fitting workers, experts and duty. Removed modules remain in that boat’s locker; stored modules still need paid installation. Refitting does not repair existing damage."],
@@ -1060,7 +1228,7 @@ func open_guide():
 		["Production and trade", "Villages hire woodcutters, carpenters, miners, smelters and other trades. They need both inputs and payroll. Buy abundant goods and sell into shortages. Your cargo can restart a stalled workshop. A commissioned hull needs its full bill of materials, workforce and supervisors."],
 		["Buying and repairing boats", "Buy completed hulls at a yard; the price of minimum crew is added. Recruit toward optimal crew for full efficiency. Drydock consumes repair kits and coins. Refill working stores from local stock, or buy reserves into the hold and load them. Victory may offer a battered hull to recover; it needs crew and repairs."],
 		["Save your voyage", "Autosaves happen on the campaign chart and after major actions. Manual saves are in the captain's menu. Saves live in a saves folder beside the portable game. Quick battle is separate from the campaign. If every boat is lost, a harbor rescue provides another cheap skiff on a funded harbor loan."],
-		["Story contracts", "The eight story contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
+		["Local contracts", "The eight local contracts lead through the original archipelago to the blockade flagship. Side patrols and sealed-freight jobs provide extra income. The world remains playable after the finale. Use the main menu fleet laboratory to test any hulls and fittings without spending career coins. M shows the expanded coast. Click numbered fittings in the yard preview to select a mount."]
 		,["Voyage planning","Prepare expedition shows hold space, wages and return reserves. I opens island surveys, K holds compatible jobs and contacts, and L opens regional goals. Salvage individual wrecks, follow coastal stories, earn faction access and support real convoys. A paid home-harbor business stores cargo and hires shore workers. You own your whole roster while each battle deploys up to 300 points; stored and traveling support boats remain separate."]
 	]:
 		label(body, section[0], 24, GOLD, true)
@@ -1124,8 +1292,8 @@ func outcome(result: String, report: Dictionary, enemies: Array):
 	modal_kind = "outcome"
 	var body = modal("Waters secured" if result == "won" else "Fleet withdrawn" if result == "retreated" else "Lost at sea", "AFTER ACTION REPORT", 820, 690)
 	paragraph(body, "Inspect the damage and load fresh stores before your next engagement." if result == "won" else "Surviving hulls carry their damage, wounded and missing stores back to the campaign. A withdrawal can save a fleet.", 18)
-	label(body, "+%s coins" % money(report.get("coins", 0)), 38, GOLD, true)
-	var afloat: int = host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk).size()
+	label(body, "Battle proceeds: %s coins" % money(report.get("coins", 0)), 26, GOLD, true)
+	var afloat: int = host.battle.ships.filter(func(s): return s.team == "player" and not s.sunk and not s.get("captureSecured",false)).size()
 	paragraph(body, "%s encountered · %s afloat" % [count_text(enemies.size(), "hostile boat", "hostile boats"), count_text(afloat, "friendly boat", "friendly boats")], 17, TEAL)
 	for participant in report.get("participants",[]):
 		var entry: Dictionary=participant

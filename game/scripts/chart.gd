@@ -66,10 +66,21 @@ var _chart_towns: Dictionary={}
 var _coast_battle_source=null
 var _battle_coast: Array=[]
 var _battle_render051: Dictionary={}
+var _battle_view120: Rect2=Rect2()
+var _follow_fit120: float=1.0
+var _overview_camera120: Vector2=Vector2.ZERO
+var _overview_follow120: bool=true
+var _overview_zoom120: float=1.0
+var _overview_fit120: float=1.0
+var _hover_probe120: float=-1.0
+var _hover_mouse120: Vector2=Vector2.INF
+var _hover_id120: String=""
 
 func reset_battle_presentation051() -> void:
 	clear_battle_poses051()
 	_wakes.clear();_trails.clear();_last_trail_stamp=-1.0
+	_follow_fit120=1.0
+	_hover_probe120=-1.0;_hover_id120="";_hover_mouse120=Vector2.INF
 
 func clear_battle_poses051() -> void:
 	_battle_render051={}
@@ -106,6 +117,39 @@ func battle_boat_position051(boat: Dictionary) -> Vector2:
 	for visual: Dictionary in battle_boats051():
 		if str(visual.id)==str(boat.id):return Vector2(visual.x,visual.y)
 	return Vector2(boat.x,boat.y)
+
+func pick_battle_boat120(screen: Vector2, team: String="") -> Dictionary:
+	# Root's two Main callers consume only this observed boat's ID/team. Use
+	# the same interpolated pose and real baked occupied bounds as the draw.
+	if host==null or host.mode!="battle" or not battle_view_rect120().has_point(screen):return {}
+	var picked120: Dictionary={}
+	var depth120: float=-INF
+	for boat120: Dictionary in battle_boats051():
+		if boat120.sunk or boat120.get("captureSecured",false) or (not team.is_empty() and str(boat120.team)!=team):continue
+		var point120: Vector2=Vector2(boat120.x,boat120.y)
+		var center120: Vector2=project(point120)
+		var occupied120: Rect2=BoatArt.SpriteArt.bounds(boat120.spec,float(boat120.angle))
+		var hit120: bool=false
+		if occupied120.has_area():
+			var screen_bounds120: Rect2=Rect2(center120+occupied120.position*scale_factor,occupied120.size*scale_factor)
+			hit120=screen_bounds120.grow(4.0).has_point(screen)
+		else:
+			# Existing procedural fallback: its actual station outline at deck
+			# height, with the original two hulls for a catamaran. No mock boat.
+			var stations120: Array=BoatArt._stations(boat120.spec)
+			var offsets120: Array=[-BoatArt.CAT_OFFSET,BoatArt.CAT_OFFSET] if str(boat120.spec.get("role",""))=="raider" else [0.0]
+			for offset120: float in offsets120:
+				var outline120: PackedVector2Array=PackedVector2Array()
+				for local120: Vector2 in BoatArt._outline(stations120,offset120):
+					outline120.append(project(point120+local120.rotated(float(boat120.angle))*maxf(4.0,float(boat120.spec.get("size",16))),6.5))
+				if outline120.size()>=3 and Geometry2D.is_point_in_polygon(screen,outline120):hit120=true
+		# Tiny overview symbols remain selectable without a 42px empty-water
+		# catchment. When bounds overlap, the frontmost drawn boat wins.
+		hit120=hit120 or center120.distance_squared_to(screen)<=16.0*16.0
+		var boat_depth120: float=float(boat120.x)+float(boat120.y)
+		if hit120 and boat_depth120>=depth120:
+			picked120=boat120;depth120=boat_depth120
+	return picked120
 
 ## Main-thread opt-in attribution only. Timings are CPU submission, not GPU/FPS.
 ## Static child counters include every caller in this process, including UI.
@@ -167,15 +211,96 @@ func nautical_chart() -> bool:
 	# Campaign and the title chart are top-down. Battles keep the isometric frame.
 	return host == null or str(host.mode) != "battle"
 
+func set_battle_view120(rectangle: Rect2) -> void:
+	var next120: Rect2=rectangle.intersection(get_viewport_rect())
+	if next120==_battle_view120:return
+	_battle_view120=next120
+	if host!=null and host.mode=="battle" and not host.battle.is_empty() and follow_camera:
+		_frame_battle120(host.battle,0.0,true)
+
+func battle_view_rect120() -> Rect2:
+	if _battle_view120.has_area():return _battle_view120
+	var viewport120: Vector2=get_viewport_rect().size
+	return Rect2(12,124,maxf(1.0,viewport120.x-24),maxf(1.0,viewport120.y-304))
+
+func _projection_origin120() -> Vector2:
+	return get_viewport_rect().size*0.5 if nautical_chart() else battle_view_rect120().get_center()
+
+func _frame_battle120(battle: Dictionary, dt: float, instant: bool=false) -> void:
+	# Presentation only: no ship/order, worker or campaign state is written here.
+	if not is_inside_tree():return
+	var usable120: Rect2=battle_view_rect120().grow(-32.0)
+	var viewport120: Vector2=get_viewport_rect().size
+	var requested120: float=clampf(viewport120.x/1700.0,0.65,1.2)*zoom
+	var bounds120: Rect2
+	if tactical:
+		# Tab must show the whole arena, independently of the close combat zoom.
+		bounds120=Rect2(_chart_plane(Vector2.ZERO),Vector2.ZERO)
+		for corner120: Vector2 in [Vector2(2300,0),Vector2(2300,1700),Vector2(0,1700)]:
+			bounds120=bounds120.expand(_chart_plane(corner120))
+		bounds120=bounds120.grow(100.0)
+	else:
+		var focal120: Dictionary=host.Battle.get_flagship(battle)
+		if bool(battle.get("autopilot",true)):
+			var selected120: Array=_selected_battle_ids(battle)
+			var found120: bool=false
+			for selected_id120: Variant in selected120:
+				for boat120: Dictionary in battle.ships:
+					if str(boat120.id)==str(selected_id120) and boat120.team=="player" and not boat120.sunk and not boat120.get("captureSecured",false):
+						focal120=boat120;found120=true
+						break
+				if found120:break
+		if focal120.is_empty():return
+		var point120: Vector2=Vector2(focal120.x,focal120.y)
+		var target120: Dictionary={}
+		var target_id120: String=str(focal120.get("orderTarget",{}).get("shipId",""))
+		var distance120: float=INF
+		for other120: Dictionary in battle.ships:
+			if other120.sunk or other120.get("captureSecured",false) or other120.team==focal120.team:continue
+			var delta120: float=point120.distance_squared_to(Vector2(other120.x,other120.y))
+			if str(other120.id)==target_id120:
+				target120=other120
+				distance120=-1.0
+			elif distance120>=0.0 and delta120<distance120:
+				distance120=delta120
+				target120=other120
+		var midpoint120: Vector2=point120
+		if not target120.is_empty() and point120.distance_to(Vector2(target120.x,target120.y))<=1350.0:
+			midpoint120=(point120+Vector2(target120.x,target120.y))*0.5
+		else:target120={}
+		var started120: bool=false
+		for member120: Dictionary in battle.ships:
+			if member120.sunk or member120.get("captureSecured",false):continue
+			var member_point120: Vector2=Vector2(member120.x,member120.y)
+			if str(member120.id)!=str(focal120.id) and str(member120.id)!=str(target120.get("id","")) and member_point120.distance_squared_to(midpoint120)>620.0*620.0:continue
+			# Include hull/deck/health-bar extent rather than fitting bare centers.
+			var size120: float=maxf(10.0,float(member120.spec.get("size",16)))
+			var half120: Vector2=Vector2(size120*3.0+35.0,size120*1.8+45.0)
+			var envelope120: Rect2=Rect2(_chart_plane(member_point120)-half120,half120*2.0)
+			bounds120=bounds120.merge(envelope120) if started120 else envelope120
+			started120=true
+	var fit120: float=maxf(0.05,minf(maxf(1.0,usable120.size.x)/maxf(1.0,bounds120.size.x),maxf(1.0,usable120.size.y)/maxf(1.0,bounds120.size.y)))
+	var scale120: float=fit120*zoom/maxf(0.01,_overview_zoom120) if tactical else minf(requested120,fit120)
+	var weight120: float=1.0 if instant else 1.0-exp(-maxf(0.0,dt)*4.0)
+	# Zoom out immediately when needed; ease closer only after space opens up.
+	scale_factor=scale120 if instant or scale120<scale_factor else lerpf(scale_factor,scale120,weight120)
+	_follow_fit120=scale_factor/maxf(0.01,requested120)
+	var camera_plane120: Vector2=_chart_plane(camera.lerp(_plane_to_world(bounds120.get_center()),weight120))
+	var half_view120: Vector2=usable120.size/(2.0*maxf(0.01,scale_factor))
+	# Ease inside the allowed interval, but never ease a followed hull under HUD.
+	var minimum120: Vector2=bounds120.end-half_view120
+	var maximum120: Vector2=bounds120.position+half_view120
+	camera=_plane_to_world(Vector2(clampf(camera_plane120.x,minimum120.x,maxf(minimum120.x,maximum120.x)),clampf(camera_plane120.y,minimum120.y,maxf(minimum120.y,maximum120.y))))
+
 func project(p: Vector2, height: float = 0.0) -> Vector2:
 	var d = p - camera
-	var origin := get_viewport_rect().size * 0.5
+	var origin := _projection_origin120()
 	if nautical_chart():
 		return origin + d * scale_factor
 	return origin + Vector2((d.x - d.y) * ISO_X, (d.x + d.y) * ISO_Y - height) * scale_factor
 
 func world_at(screen: Vector2) -> Vector2:
-	var d = (screen - get_viewport_rect().size * 0.5) / maxf(0.0001, scale_factor)
+	var d = (screen - _projection_origin120()) / maxf(0.0001, scale_factor)
 	if nautical_chart():
 		return camera + d
 	var a = d.x / ISO_X
@@ -210,10 +335,9 @@ func step(dt: float):
 			_wakes.clear()
 			_trails.clear()
 		if follow_camera:
-			var boat = host.Battle.get_flagship(_battle_render051 if not _battle_render051.is_empty() else host.battle)
-			if not boat.is_empty():
-				camera = camera.lerp(Vector2(boat.x, boat.y), 1.0 - exp(-dt * 4.0))
-		scale_factor = clampf(viewport.x / 1700.0, 0.65, 1.2) * zoom * (0.52 if tactical else 1.0)
+			_frame_battle120(_battle_render051 if not _battle_render051.is_empty() else host.battle,dt,mode_changed)
+		else:
+			scale_factor=clampf(viewport.x/1700.0,0.65,1.2)*zoom*_follow_fit120
 		var wake_started: int=Time.get_ticks_usec() if _profile_enabled else 0
 		_update_wakes(battle_boats051())
 		if _profile_enabled:
@@ -264,9 +388,7 @@ func center_camera():
 	if host == null:
 		return
 	if host.mode == "battle" and not host.battle.is_empty():
-		var boat = host.Battle.get_flagship(host.battle)
-		if not boat.is_empty():
-			camera = battle_boat_position051(boat)
+		_frame_battle120(_battle_render051 if not _battle_render051.is_empty() else host.battle,0.0,true)
 	elif host.mode != "menu" and host.core != null and not host.core.state.is_empty():
 		zoom=1.0
 		_campaign_follow = true
@@ -362,9 +484,17 @@ func territory_view():
 	queue_redraw()
 
 func set_tactical(enabled: bool):
+	if enabled and not tactical:
+		_overview_camera120=camera;_overview_follow120=follow_camera
+		_overview_zoom120=zoom;_overview_fit120=_follow_fit120
+		follow_camera=true
+	elif not enabled and tactical:
+		camera=_overview_camera120;follow_camera=_overview_follow120
+		zoom=_overview_zoom120;_follow_fit120=_overview_fit120
 	tactical = enabled
 	if host != null and "tactical_mode" in host:
 		host.tactical_mode = enabled
+	if enabled and host!=null and not host.battle.is_empty():_frame_battle120(host.battle,0.0,true)
 	queue_redraw()
 
 func _boat_key(boat: Dictionary, fallback: int) -> String:
@@ -466,7 +596,7 @@ func _projector() -> Callable:
 	# Every caller consumes this inside its current draw. Camera, viewport and
 	# mode stay fixed there; querying the viewport again for every gun/foam
 	# vertex adds work without changing the projection.
-	var view_origin: Vector2 = get_viewport_rect().size * 0.5
+	var view_origin: Vector2 = _projection_origin120()
 	var view_camera: Vector2 = camera
 	var view_scale: float = scale_factor
 	if nautical_chart():
@@ -1291,8 +1421,8 @@ func draw_battle():
 		world_ring(exit_point,radius,Color(GOLD,0.85),2.0)
 		var at: Vector2=project(exit_point)
 		text_at("CONVOY EXIT",at+Vector2(0,-30),14,GOLD,mono,true)
-		var view: Vector2=get_viewport_rect().size
-		var edge: Vector2=Vector2(clampf(at.x,355,view.x-355),clampf(at.y,125,view.y-180))
+		var safe_exit120: Rect2=battle_view_rect120().grow(-28.0)
+		var edge: Vector2=Vector2(clampf(at.x,safe_exit120.position.x,safe_exit120.end.x),clampf(at.y,safe_exit120.position.y,safe_exit120.end.y))
 		if edge.distance_to(at)>35:
 			var direction: Vector2=(at-edge).normalized()
 			draw_line(edge,edge+direction*22,GOLD,2,true)
@@ -1343,7 +1473,10 @@ func draw_battle():
 	sorted_ships.sort_custom(func(a, b): return a.x + a.y < b.x + b.y)
 	if _profile_drawing:_profile_frame.sort_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
-	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), camera, scale_factor, true)
+	# BoatArt's cached projector uses a full-window origin. Offset its camera by
+	# the inverse screen delta so hulls, hit tests, effects and orders agree.
+	var render_camera120: Vector2=camera+_screen_to_world_delta(get_viewport_rect().size*0.5-_projection_origin120())
+	var battle_draw051: BoatArt._BattleDraw051 = null if nautical_chart() else BoatArt._BattleDraw051.new(get_viewport_rect(), render_camera120, scale_factor, true)
 	if battle_draw051 != null and _profile_drawing: battle_draw051.profile051 = _profile_frame
 	for boat in sorted_ships:
 		if not boat.sunk:
@@ -1356,8 +1489,9 @@ func draw_battle():
 				route_boats += 1
 	if _profile_drawing:_profile_frame.boats_us=Time.get_ticks_usec()-phase_started
 	phase_started=Time.get_ticks_usec() if _profile_drawing else 0
+	var projectile_projector120: Callable=_projector()
 	for shot in battle.projectiles:
-		var primitives: int=BoatArt.draw_projectile(self, _projector(), shot, {})
+		var primitives: int=BoatArt.draw_projectile(self, projectile_projector120, shot, {})
 		if _profile_drawing:_profile_frame.projectile_primitives+=primitives
 		pass # projectile body drawn by BoatArt above
 		pass
@@ -1385,21 +1519,89 @@ func draw_battle():
 				nearest = foe
 		if not nearest.is_empty():
 			var p = project(Vector2(nearest.x, nearest.y))
-			var size = get_viewport_rect().size
-			var clamped = Vector2(clampf(p.x, 355, size.x - 355), clampf(p.y, 125, size.y - 180))
+			var edge120: Rect2=battle_view_rect120().grow(-28.0)
+			var clamped = Vector2(clampf(p.x, edge120.position.x, edge120.end.x), clampf(p.y, edge120.position.y, edge120.end.y))
 			if clamped.distance_to(p) > 15:
 				var direction = (p - clamped).normalized()
 				draw_colored_polygon(PackedVector2Array([clamped + direction * 12, clamped - direction * 7 + direction.orthogonal() * 6, clamped - direction * 7 - direction.orthogonal() * 6]), ENEMY)
-				text_at("%d m" % best, clamped + Vector2(0, 27), 12, ENEMY, mono, true)
+				var nearest_label120: Vector2=Vector2(clampf(clamped.x,edge120.position.x+64.0,edge120.end.x-64.0),clamped.y+27.0)
+				text_at("NEAREST · %d m" % best, nearest_label120, 11, ENEMY, mono, true)
+	_draw_battle_contact120(battle)
 	var mouse = get_global_mouse_position()
-	draw_arc(mouse, 9, 0, TAU, 24, Color(GOLD, 0.75), 1, true)
-	draw_line(mouse - Vector2(15, 0), mouse - Vector2(5, 0), Color(GOLD, 0.8), 1, true)
-	draw_line(mouse + Vector2(5, 0), mouse + Vector2(15, 0), Color(GOLD, 0.8), 1, true)
+	if battle_view_rect120().has_point(mouse) and not host.ui.modal_open:
+		draw_arc(mouse, 9, 0, TAU, 24, Color(GOLD, 0.75), 1, true)
+		draw_line(mouse - Vector2(15, 0), mouse - Vector2(5, 0), Color(GOLD, 0.8), 1, true)
+		draw_line(mouse + Vector2(5, 0), mouse + Vector2(15, 0), Color(GOLD, 0.8), 1, true)
 	# The minimap occupies reserved HUD space; it never covers boats on the water.
 	if host.paused and not host.ui.modal_open:
-		var size = get_viewport_rect().size
-		text_at("TACTICAL PAUSE", Vector2(size.x * 0.5, 128), 28, GOLD, serif, true)
-		text_at("SET CREW PRIORITIES AND FLEET ORDERS · SPACE TO RESUME", Vector2(size.x * 0.5, 155), 11, Color("c6d2be"), mono, true)
+		var pause_origin120: Vector2=battle_view_rect120().position+Vector2(battle_view_rect120().size.x*0.5,28)
+		text_at("TACTICAL OVERVIEW" if tactical else "PAUSED",pause_origin120,24,GOLD,serif,true)
+		text_at("RIGHT-CLICK ORDERS · TAB TO RETURN" if tactical else "SET ORDERS · SPACE TO RESUME",pause_origin120+Vector2(0,24),11,Color("c6d2be"),mono,true)
+
+func _draw_battle_contact120(battle: Dictionary) -> void:
+	if host.ui.modal_open:return
+	var water120: Rect2=battle_view_rect120().grow(-8.0)
+	var mouse120: Vector2=get_global_mouse_position()
+	var selected120: Dictionary={}
+	for selected_id120: Variant in _selected_battle_ids(battle):
+		for boat120: Dictionary in battle.ships:
+			if str(boat120.id)==str(selected_id120) and boat120.team=="player" and not boat120.sunk and not boat120.get("captureSecured",false):
+				selected120=boat120
+				break
+		if not selected120.is_empty():break
+	var target120: Dictionary={}
+	var order120: String=str(selected120.get("order",""))
+	var target_id120: String=str(selected120.get("orderTarget",{}).get("shipId","")) if order120 in ["attack","escort"] else ""
+	for candidate120: Dictionary in battle.ships:
+		if str(candidate120.id)==target_id120 and not candidate120.sunk and not candidate120.get("captureSecured",false):
+			target120=candidate120
+			break
+	var queued120: bool=not selected120.is_empty() and str(selected120.id)==str(battle.playerId) and not battle.get("autopilot",true)
+	if not target120.is_empty():
+		var point120: Vector2=project(Vector2(target120.x,target120.y))
+		var marker_box120: Rect2=water120.grow_individual(-76.0,-28.0,-76.0,-28.0)
+		var marker120: Vector2=Vector2(clampf(point120.x,marker_box120.position.x,marker_box120.end.x),clampf(point120.y,marker_box120.position.y,marker_box120.end.y))
+		var color120: Color=ENEMY if order120=="attack" else FRIEND
+		if marker120.distance_to(point120)>16.0:
+			var direction120: Vector2=(point120-marker120).normalized()
+			draw_colored_polygon(PackedVector2Array([marker120+direction120*12,marker120-direction120*7+direction120.orthogonal()*6,marker120-direction120*7-direction120.orthogonal()*6]),color120)
+		else:draw_arc(marker120,20.0,0,TAU,24,color120,2.0,true)
+		text_at(("QUEUED " if queued120 else "ORDERED ")+("ATTACK" if order120=="attack" else "ESCORT"),marker120-Vector2(0,25),11,color120,mono,true)
+	if water120.has_point(mouse120):
+		# Picking reads baked bounds only on movement or at most ten times/sec.
+		# The small card's condition/role still comes from each current publication.
+		if mouse120.distance_squared_to(_hover_mouse120)>4.0 or clock-_hover_probe120>=0.1 or _hover_probe120<0.0:
+			_hover_id120=str(pick_battle_boat120(mouse120).get("id",""))
+			_hover_mouse120=mouse120;_hover_probe120=clock
+	else:_hover_id120=""
+	var contact120: Dictionary={}
+	for hovered120: Dictionary in battle.ships:
+		if str(hovered120.id)==_hover_id120 and not hovered120.sunk and not hovered120.get("captureSecured",false):
+			contact120=hovered120
+			break
+	var hovering120: bool=not contact120.is_empty()
+	if not hovering120:contact120=target120
+	if contact120.is_empty():return
+	var card_size120: Vector2=Vector2(340,94)
+	var card_at120: Vector2=mouse120+Vector2(22,22) if hovering120 else water120.position+Vector2(12,water120.size.y-card_size120.y-12)
+	if hovering120 and card_at120.x+card_size120.x>water120.end.x:card_at120.x=mouse120.x-card_size120.x-18
+	if hovering120 and card_at120.y+card_size120.y>water120.end.y:card_at120.y=mouse120.y-card_size120.y-18
+	card_at120=Vector2(clampf(card_at120.x,water120.position.x,water120.end.x-card_size120.x),clampf(card_at120.y,water120.position.y,water120.end.y-card_size120.y))
+	var card120: Rect2=Rect2(card_at120,card_size120)
+	var accent120: Color=ENEMY if contact120.team=="enemy" else FRIEND
+	draw_rect(card120,Color(0.035,0.10,0.14,0.96))
+	draw_rect(card120,Color(accent120,0.8),false,1.0)
+	var name120: String=("Enemy: " if contact120.team=="enemy" else "Ally: ")+str(contact120.name)
+	text_at(name120.left(34),card_at120+Vector2(12,20),14,accent120,mono)
+	var intent120: Dictionary=battle.get("tactical",{}).get("intents",{}).get(str(contact120.id),{})
+	var role120: String=str(contact120.spec.get("role","Boat")).capitalize()
+	if not str(intent120.get("role","")).is_empty():role120+=" · "+str(intent120.role).capitalize()
+	text_at(role120.left(42),card_at120+Vector2(12,40),12,FOAM,mono)
+	var condition120: String="Hull %.0f%% · Crew %d · Water %.0f%%"%[100.0*float(contact120.hp)/maxf(1.0,float(contact120.maxHp)),int(contact120.crew),100.0*float(contact120.water)/maxf(1.0,float(contact120.capacity))]
+	text_at(condition120,card_at120+Vector2(12,59),12,Color("d3dfd5"),mono)
+	var last120: String="Fire %.0f%%"%float(contact120.fire)
+	if not target120.is_empty():last120=("Queued target: " if queued120 else "Order target: ")+str(target120.name)
+	text_at(last120.left(46),card_at120+Vector2(12,79),11,GOLD if not target120.is_empty() else FOAM,mono)
 
 func battle_minimap_rect() -> Rect2:
 	var size = get_viewport_rect().size

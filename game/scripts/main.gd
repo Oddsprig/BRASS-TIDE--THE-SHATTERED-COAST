@@ -25,6 +25,10 @@ const RuntimeProfile043=preload("res://scripts/runtime_profile043.gd")
 const BattleCommands047=preload("res://scripts/battle_commands047.gd")
 const WorkshopBuilds060=preload("res://scripts/workshop_builds048.gd")
 const ShippingUI068=preload("res://scripts/shipping_ui068.gd")
+const FirstVoyage120=preload("res://scripts/first_voyage120.gd")
+const Guidance120=preload("res://scripts/campaign_guidance.gd")
+const GuidanceUI120=preload("res://scripts/guidance_ui.gd")
+const CareerCosts120=preload("res://scripts/career_costs.gd")
 
 class _DamageView051 extends RefCounted:
 	var owner: WeakRef
@@ -118,6 +122,9 @@ var simulation_us: int=0
 var preferences_path=""
 var runtime_profile043=null
 var qa_ocean066: bool=false
+var first_voyage120=FirstVoyage120.new()
+var _campaign_motion120: float=0.0
+var _engine_load120: float=0.0
 
 func _ready():
 	if qa_ocean066 and not OS.get_environment("GAME_TEST_ARTIFACTS").is_absolute_path():
@@ -227,14 +234,13 @@ func _process(dt: float):
 	if mode=="battle" and result_handled and not paused and not battle.is_empty() and (not ui.modal_open or ui.modal_kind=="outcome"):
 		Battle.advance_visuals(battle,minf(dt,0.1))
 	chart.step(minf(dt, 0.1))
-	var running: bool=mode=="battle" and not result_handled and not paused and not ui.modal_open
-	if mode=="campaign" and not core.state.is_empty():running=not core.state.path.is_empty() and not paused and not ui.modal_open
-	audio.set_engine(running,0.65)
+	_update_propulsion120(dt)
 	music.set_context(music_context())
 	hud_timer += dt
 	if hud_timer >= 0.15:
 		hud_timer = 0.0
 		ui.update_hud()
+		GuidanceUI120.refresh_next120(ui)
 	if mode == "campaign":
 		save_timer += dt
 		# Keep autosave due until copied harbor days have settled on Main.
@@ -244,7 +250,92 @@ func _process(dt: float):
 			save_game(false)
 	if runtime_profile043!=null:runtime_profile043.after_process(dt)
 
+## This cue reads the published flagship. It never writes a worker-owned boat.
+func _update_propulsion120(dt: float) -> void:
+	var boat: Dictionary={}
+	var moving: float=0.0
+	var engine_factor: float=0.0
+	if not paused and not ui.modal_open:
+		if mode=="battle" and not result_handled:
+			boat=Battle.get_flagship(battle)
+			moving=Vector2(float(boat.get("vx",0.0)),float(boat.get("vy",0.0))).length()
+			var status: Dictionary=battle.get("tactical",{}).get("damageStatusById051",{}).get(str(boat.get("id","")),{})
+			engine_factor=float(status.get("engineFactor",boat.get("engine",0.0)))
+		elif mode=="campaign" and not core.state.is_empty():
+			boat=core.find_boat(str(core.state.get("flagship","")))
+			moving=_campaign_motion120
+			engine_factor=float(boat.get("engine",0.0))
+	var live: bool=not boat.is_empty() and not boat.get("sunk",false) and not boat.get("captureSecured",false) and float(boat.get("hp",0.0))>0.0 and float(boat.get("fuel",0.0))>0.0 and engine_factor>0.001 and float(boat.get("crew",0.0))-float(boat.get("wounded",0.0))>0.0
+	var running: bool=live and is_finite(moving) and moving>1.0
+	if not running:
+		_engine_load120=0.0
+		audio.set_engine(false,0.0)
+		return
+	var nominal: float=maxf(1.0,float(boat.get("spec",{}).get("speed",100.0)))
+	var load: float=clampf(moving/nominal,0.0,1.0)*clampf(engine_factor,0.0,1.0)
+	_engine_load120=move_toward(_engine_load120,load,minf(dt,0.1)*2.5)
+	audio.set_engine(true,_engine_load120)
+
+func set_guidance120(enabled: bool) -> void:
+	first_voyage120.enabled=enabled
+	GuidanceUI120.refresh_next120(ui)
+
+func accept_guided_contract120(shown: Dictionary) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the chart before accepting work.")
+	sync_economy()
+	var quote: Dictionary=CareerCosts120.contract_quote(core,shown)
+	var actual: Dictionary=quote.get("offer",{})
+	for key in ["id","port","targetPort","reward","enemyHulls","cargo"]:
+		if actual.get(key)!=shown.get(key):
+			var stale: Dictionary=core.fail("The contract changed. Review its current terms before accepting.")
+			respond(stale)
+			return stale
+	if not quote.get("canAccept",false):
+		var blockers120: Array=quote.get("blockers",[])
+		var refused: Dictionary=core.fail(str(blockers120[0]) if not blockers120.is_empty() else "This contract is already active or unavailable.")
+		respond(refused)
+		return refused
+	var result: Dictionary=core.accept_contract(str(actual.get("id","")))
+	respond(result)
+	if result.get("ok",false):
+		save_game(false)
+		ui.build_hud()
+	return result
+
+func apply_guided_fit120(shown: Dictionary) -> Dictionary:
+	if mode!="campaign":return core.fail("Return to the chart before paying for a fitting.")
+	sync_economy()
+	var focus: String=str(shown.get("focus","economy"))
+	var current: Dictionary=Guidance120.first_fit120(core,focus)
+	var quoted: Dictionary=shown.get("quote",{})
+	var fresh: Dictionary=current.get("quote",{})
+	var same_bill: bool=not str(quoted.get("quoteId","")).is_empty() and str(quoted.quoteId)==str(fresh.get("quoteId","")) and shown.get("uid")==current.get("uid") and shown.get("loadout")==current.get("loadout")
+	if not same_bill or not current.get("safe",false):
+		var refused: Dictionary=core.fail("The bill or reserve changed. Review a fresh fitting quote." if not same_bill else str(current.get("message","Keep the crew and store reserve before fitting.")))
+		GuidanceUI120.open_first_fit120(ui,focus)
+		respond(refused)
+		return refused
+	var before: int=int(core.state.get("coins",0))
+	var result: Dictionary=core.workshop_apply(str(current.uid),current.loadout,fresh)
+	first_voyage120.observe_fit(result,before,int(core.state.get("coins",0)))
+	respond(result)
+	if result.get("ok",false) and result.get("changed",false):
+		ui.workshop_drafts.erase(str(current.uid))
+		save_game(false)
+		ui.build_hud()
+		GuidanceUI120.choose_work120(ui)
+	else:GuidanceUI120.open_first_fit120(ui,focus)
+	return result
+
+func close_battle_guidance120(resume: bool) -> void:
+	ui.close_modal()
+	if mode!="battle" or result_handled:return
+	if resume and tactical_mode:toggle_tactical()
+	paused=not resume
+	ui.update_hud()
+
 func _physics_process(dt: float):
+	_campaign_motion120=0.0
 	if paused or ui == null or ui.modal_open:
 		return
 	if mode == "campaign":
@@ -252,7 +343,11 @@ func _physics_process(dt: float):
 		_finish_economy(false)
 		if economy_task>=0:return # Await copied port jobs without stalling a frame or trading stale purses.
 		if core.pending_days>0:start_economy();return
+		var before120: Dictionary=core.state.get("position",{}).duplicate()
 		core.step(dt * speed)
+		var after120: Dictionary=core.state.get("position",{})
+		if dt>0.0 and before120.has("x") and after120.has("x"):
+			_campaign_motion120=Vector2(float(after120.x)-float(before120.x),float(after120.y)-float(before120.y)).length()/maxf(0.001,dt*speed)
 		handle_campaign_events067()
 	# Battle numerical work belongs to the driver; rendering polls it in _process.
 
@@ -302,6 +397,7 @@ func poll_battle051(dt: float, stopped: bool) -> void:
 			ui.toast(str(battle_command_ack.message),true)
 		elif str(receipt.get("kind",""))=="player_command":
 			battle_command_ack=BattleCommands047.reply("player_command",true,str(receipt.get("message","Fleet command applied.")))
+			first_voyage120.command_seen=true
 	var events: Array=battle_driver051.take_events()
 	if runtime_profile043!=null and runtime_profile043.has_method("observe_events051"):
 		runtime_profile043.observe_events051(events)
@@ -491,9 +587,10 @@ func _present_new_voyage():
 	chart.zoom = 1.0
 	chart.center_camera()
 	selected_port = data.START.port
+	first_voyage120.begin(core,true)
 	ui.close_modal()
 	ui.build_hud()
-	ui.toast("Welcome to Brass Haven. Enter harbor and accept your first contract.")
+	GuidanceUI120.open_first120(ui)
 
 func new_voyage_needs_confirmation() -> bool:
 	return has_save() or FileAccess.file_exists(save_directory.path_join("voyage.backup.json")) or not core.state.is_empty() or career_core != null
@@ -753,7 +850,9 @@ func prepare_voyage_job070(id: String) -> Dictionary:
 func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the campaign chart before settling harbor work.")
 	sync_economy()
+	var before120: int=int(core.state.get("coins",0))
 	var result: Dictionary=core.settle_voyage_job(id,abandon)
+	if not abandon:first_voyage120.observe_payment(result,before120,int(core.state.get("coins",0)))
 	if result.get("ok",false):save_game(false)
 	respond(result)
 	return result
@@ -864,10 +963,17 @@ func resolve_contract():
 		return
 	var contract = core.state.activeContract
 	if contract.cleared:
-		respond(core.finish_contract())
+		var first_payment120: bool=not first_voyage120.earned
+		var before120: int=int(core.state.get("coins",0))
+		var result120: Dictionary=core.finish_contract()
+		first_voyage120.observe_payment(result120,before120,int(core.state.get("coins",0)))
+		respond(result120)
 		ui.close_modal()
 		ui.build_hud()
 		save_game(false)
+		if result120.get("ok",false) and first_payment120 and first_voyage120.earned and first_voyage120.enabled:
+			first_voyage120.offer_reinvestment=false
+			GuidanceUI120.open_first_fit120(ui)
 	else:
 		var specs: Array = []
 		for id in contract.enemyHulls:
@@ -1135,7 +1241,10 @@ func _enter_battle():
 	audio.reset_battle()
 	ui.modal_kind = ""
 	mode = "battle"
-	paused = false
+	var first_orders120: bool=not quick_mode and not lab_active and first_voyage120.enabled and not first_voyage120.earned and not first_voyage120.battle_introduced and str(battle_context.get("kind",""))=="contract"
+	paused = first_orders120
+	if first_orders120:first_voyage120.battle_introduced=true
+	first_voyage120.command_seen=false
 	tactical_mode = false
 	auto_gunners = true
 	Battle.set_autopilot(battle, true)
@@ -1154,7 +1263,8 @@ func _enter_battle():
 	chart.center_camera()
 	ui.close_modal()
 	ui.build_hud()
-	ui.toast("Autopilot engaged. WASD camera · Space pause · select boats, right-click orders · Tab tactical view.")
+	if first_orders120:ui.toast("Paused for your first order. Select your boat, choose Focus attack and click an enemy. Space resumes; autopilot handles the helm.")
+	else:ui.toast("Autopilot engaged. Space pauses; select boats and right-click to give orders. Tab opens the tactical view.")
 	if RecoveryFlow.is_convoy(battle):ui.toast(RecoveryFlow.objective_label(battle))
 
 func switch_flagship():
@@ -1268,16 +1378,8 @@ func finish_battle_selection(position: Vector2, additive: bool = false):
 	selection_dragging = false
 	var rectangle = Rect2(selection_start, position - selection_start).abs()
 	if rectangle.size.length() < 8:
-		var nearest = ""
-		var distance = 42.0
-		for boat in battle.ships:
-			if boat.team == "player" and not boat.sunk and not boat.get("captureSecured",false):
-				var d = chart.project(chart.battle_boat_position051(boat)).distance_to(position)
-				if d < distance:
-					distance = d
-					nearest = str(boat.id)
-		if not nearest.is_empty():
-			select_battle_boat(nearest, additive)
+		var hit120: Dictionary=chart.pick_battle_boat120(position,"player")
+		if not hit120.is_empty():select_battle_boat(str(hit120.id),additive)
 	else:
 		if not additive:
 			selected_battle_ids.clear()
@@ -1327,15 +1429,7 @@ func request_battle_command(command: String, target: Dictionary = {}) -> bool:
 func order_at(position: Vector2):
 	if battle.is_empty():
 		return
-	var target: Dictionary = {}
-	var closest = 42.0
-	for boat in battle.ships:
-		if boat.sunk or boat.get("captureSecured",false):
-			continue
-		var distance = chart.project(chart.battle_boat_position051(boat)).distance_to(position)
-		if distance < closest:
-			closest = distance
-			target = boat
+	var target: Dictionary=chart.pick_battle_boat120(position)
 	if not battle_command_pending.is_empty():
 		if battle_command_pending in ["focus", "escort"]:
 			request_battle_command(battle_command_pending, {"shipId":str(target.get("id", ""))})
@@ -1363,7 +1457,9 @@ func workshop_preview(uid: String, loadout: Dictionary, request: Dictionary = {}
 
 func workshop_apply(uid: String,loadout: Dictionary,expected_quote: Dictionary={},request: Dictionary={}):
 	sync_economy()
+	var before120: int=int(core.state.get("coins",0))
 	var result: Dictionary=core.workshop_apply(uid,loadout,expected_quote,request)
+	first_voyage120.observe_fit(result,before120,int(core.state.get("coins",0)))
 	respond(result)
 	if result.ok:
 		ui.workshop_drafts.erase(uid)
@@ -1407,10 +1503,13 @@ func settle_battle():
 		return
 	var report = {"coins": 0, "salvage": {}, "fleetLost": false, "completed": false}
 	if not quick_mode:
+		var contract120: Dictionary=core.state.get("activeContract",{}).duplicate(true) if str(battle_context.get("kind",""))=="contract" else {}
+		var purse120: int=int(core.state.get("coins",0))
 		battle_context.objectiveOnly=bool(battle.get("objectiveOnly",false))
 		report = core.battle_settled(battle.result,battle_enemies,battle_context,battle)
 		if not report.get("ok",true):
 			paused=true;result_handled=false;ui.toast(str(report.message),true);return
+		first_voyage120.observe_battle_payment(core,contract120,purse120)
 	battle_report=report.duplicate(true)
 	save_game(false,true)
 	show_battle_report()
@@ -1468,6 +1567,9 @@ func return_to_campaign():
 	ui.close_modal()
 	ui.build_hud()
 	save_game(false)
+	if first_voyage120.offer_reinvestment and first_voyage120.enabled:
+		first_voyage120.offer_reinvestment=false
+		GuidanceUI120.open_first_fit120(ui)
 
 func accept_rescue():
 	sync_economy()
@@ -1601,6 +1703,7 @@ func load_game():
 			original.store_string(source_text);original.close()
 	var result = core.restore(parsed)
 	if result.ok:
+		first_voyage120.begin(core)
 		ui.workshop_drafts.clear()
 		ui.voyage_intent065.clear()
 		mode = "campaign"

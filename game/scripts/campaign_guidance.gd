@@ -7,6 +7,7 @@ const CareerCosts = preload("res://scripts/career_costs.gd")
 const Refits = preload("res://scripts/refit.gd")
 const Workshop = preload("res://scripts/fleet_workshop.gd")
 const Identity = preload("res://scripts/fleet_identity.gd")
+const FleetSupport = preload("res://scripts/fleet_support.gd")
 const MAX_CARDS = 8
 const DISPLAY_CAP = 1000000000.0
 
@@ -218,6 +219,71 @@ static func upgrade_quotes(c, post_voyage_coins: int = -1) -> Array:
 		if not best_conv.is_empty():
 			results.append(best_conv)
 	return results.slice(0, 4)
+
+## One useful whole-fitting draft, quoted with the existing yard authority.
+## The recommendation cannot spend cash. Main re-quotes it again on payment.
+static func first_fit120(c, focus: String = "economy") -> Dictionary:
+	var result: Dictionary = {"ok":false, "safe":false, "message":"Dock at a Shatter Coast harbor for paid fitting.", "focus":focus}
+	var dock: Dictionary = c.current_port()
+	if dock.is_empty() or not c.state.get("path", []).is_empty(): return result
+	var view := PreviewCore.new(c, str(dock.get("id", "")))
+	var boat: Dictionary = view.find_boat(str(view.state.get("flagship", "")))
+	if boat.is_empty() or boat.get("sunk", false):
+		result.message = "Choose a living flagship in Fleet before requesting a fitting."
+		return result
+	var base: Dictionary = view.hull(str(boat.get("type", "")))
+	var current: Dictionary = Refits.normalize(base, boat.get("loadout", {}))
+	if not current.get("ok", false):
+		result.message = "Open Refit to inspect this boat's current equipment."
+		return result
+	var fit: Dictionary = current.loadout.duplicate(true)
+	if focus == "armor": fit.armor = "scout_plating"
+	else: fit.engine = "economy_drive"
+	var q: Dictionary = Workshop.preview(view, str(boat.uid), fit)
+	result.merge({"quote":q, "uid":str(boat.uid), "loadout":fit, "boatName":str(boat.get("name", "Flagship")), "cost":int(q.get("cost", 0)), "message":str(q.get("message", "Fitting unavailable."))}, true)
+	if q.get("changes", []).is_empty():
+		result.message = "This fitting is already installed. Choose the other comparison or open Refit."
+		return result
+	if not q.get("validDraft", false): return result
+	var before: Dictionary = q.get("beforeSpec", {})
+	var after: Dictionary = q.get("afterSpec", {})
+	var fuel_change: float = (float(after.get("fuelUse", 1.0)) / maxf(0.001, float(before.get("fuelUse", 1.0))) - 1.0) * 100.0
+	var speed_change: float = (float(after.get("speed", 1.0)) / maxf(0.001, float(before.get("speed", 1.0))) - 1.0) * 100.0
+	var armor_change: float = float(after.get("armor", 0.0)) - float(before.get("armor", 0.0))
+	result.title = "Long-voyage engine" if focus != "armor" else "Riveted light plates"
+	result.effect = "Fuel use %+.0f%%; speed %+.0f%%." % [fuel_change, speed_change] if focus != "armor" else "Armor %+.0f; speed %+.0f%%." % [armor_change, speed_change]
+	result.purpose = "Less fuel for paid freight and the trip home." if focus != "armor" else "More protection for convoy defense; slower travel still costs wages."
+	if (focus == "armor" and armor_change <= 0.0) or (focus != "armor" and fuel_change >= 0.0):
+		result.message = "Keep your current fitting; this draft would not improve the proposed job. Open Refit for a different comparison."
+		return result
+	# Reserve the actual current dock repair and store purchases as well as
+	# two days' pay. Use the fitted boat on a detached copy, never a live edit.
+	var costs_view := CareerCosts.QuoteView.new(c)
+	var preview_boat: Dictionary = costs_view.find_boat(str(boat.uid))
+	preview_boat.loadout = fit.duplicate(true)
+	preview_boat.spec = after.duplicate(true)
+	costs_view.state.coins = maxi(0, int(c.state.get("coins", 0)) - int(q.get("cost", 0)))
+	var budget: Dictionary = CareerCosts._budget(costs_view, 0.0)
+	var needed: int = int(budget.additionalCashCoins) + int(c.state.get("wageArrears", 0)) + FleetSupport.premium(costs_view.state, true)
+	var ammo_cases: float = 0.0
+	var kits: float = 0.0
+	for working in costs_view.active_fleet():
+		var magazine: float = maxf(80.0, float(working.get("spec", {}).get("ammoCapacity", 80.0)))
+		ammo_cases += maxf(0.0, magazine - float(working.get("ammo", 0.0))) / Goods.ROUNDS_PER_CASE
+		kits += maxf(0.0, 6.0 - float(working.get("supplies", 0.0)))
+	ammo_cases = maxf(0.0, ammo_cases - float(c.state.get("cargo", {}).get("ammo", 0.0)))
+	kits = maxf(0.0, kits - float(c.state.get("cargo", {}).get("supplies", 0.0)))
+	var working_stores: int = ceili(ammo_cases * float(budget.ammoCaseCoins)) + ceili(kits * float(budget.repairKitUnitCoins))
+	needed += working_stores
+	budget["workingStoreCoins"] = working_stores
+	budget.summary += " Keep another %d coins for current ammunition and six working repair kits per boat, after loose stores already owned." % working_stores
+	var remaining: int = int(c.state.get("coins", 0)) - int(q.get("cost", 0))
+	result.merge({"ok":bool(q.get("ok", false)), "reserveCoins":needed, "remainingCoins":remaining, "budget":budget,
+		"safe":bool(q.get("ok", false)) and int(q.get("cost", 0)) > 0 and remaining >= needed and bool(budget.get("repairQuoteAvailable", false))}, true)
+	if not q.get("ok", false): result.message = str(q.get("message", "The yard cannot complete this fitting."))
+	elif remaining < needed: result.message = "Keep %d coins for crew, stores and current repairs; this fitting would leave %d." % [needed, remaining]
+	else: result.message = "The yard bill leaves the harbor reserve. Price the chosen onward voyage before sailing."
+	return result
 
 static func recovery_notes(c, offers: Array, q: Dictionary) -> Array:
 	if c == null or not c.get("state") is Dictionary or q.is_empty() or bool(q.get("ready", false)):

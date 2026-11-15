@@ -48,10 +48,13 @@ class Capture extends RefCounted:
 	func draw_circle(p: Vector2,r: float,c: Color) -> void:
 		for i in range(10):_triangle(p,p+Vector2.from_angle(i*TAU/10.0)*r,p+Vector2.from_angle((i+1)*TAU/10.0)*r,c)
 	func mesh() -> ArrayMesh:
+		# An intentionally empty bake has no RenderingServer mesh RID. Caching
+		# an empty ArrayMesh and drawing it caused Vulkan null-mesh errors.
+		if vertices.is_empty():return null
 		var arrays: Array=[];arrays.resize(Mesh.ARRAY_MAX)
 		arrays[Mesh.ARRAY_VERTEX]=vertices;arrays[Mesh.ARRAY_COLOR]=colors
 		var result:=ArrayMesh.new()
-		if not vertices.is_empty():result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+		result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 		return result
 
 static func heading(angle: float) -> float:return roundf(angle/TAU*STEPS)*TAU/STEPS
@@ -81,6 +84,8 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 	else:
 		hits+=1
 		if _profile_enabled:_profile_hits+=1
+	# Null is the cached empty-bake sentinel, not geometry to submit.
+	if _meshes[full_key]==null:return
 	var origin: Vector2=projector.call(position,0.0)
 	var scale: float=(projector.call(position+Vector2(1,0),0.0)-origin).length()/Vector2(0.82,0.41).length()
 	var transform: Transform2D=ISO*Transform2D(angle-quantized,Vector2.ZERO)*ISO.affine_inverse()
