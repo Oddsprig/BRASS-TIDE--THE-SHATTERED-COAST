@@ -225,6 +225,7 @@ static func _refund_escrow(core, state: Dictionary, job: Dictionary, reason: Str
 	var ledger: Array = state.get("moneyLog", []) if state.get("moneyLog") is Array else []
 	if Money.move(job, "escrow", sponsor, str(job["payerKey"]), amount, reason, ledger):
 		state["moneyLog"] = ledger
+		if core is Object and core.has_method("campaign_refund117"):core.campaign_refund117(job,amount)
 
 
 # Lazy expiry on mutating calls only. Expired escrow returns to the sponsor;

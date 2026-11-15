@@ -414,11 +414,70 @@
         {
           "id": "who_pays117",
           "title": "Who Pays First",
+          "body": "Mara lays Tobin’s revised terms across her workbench. He wants each boat owner to commission and bond its own escort. Wren has sent a second proposal: the departure and receiving harbors share the escort fee from their separate local budgets.\n\n\"Tobin wants each owner to post its own bond,\" Mara says. \"Wren wants both harbors to pay. You’ll be the one meeting the captains. Choose the terms you can offer them.\"\n\nReview the cost of the first passage before signing it. Your crew wages, fuel, provisions and repairs remain your responsibility.",
+          "nextAction": "Choose the funding terms at Anvil Dock.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "choose_mutual117",
+              "text": "Mutual harbor funding.",
+              "next": "funding_work117",
+              "tradeoff": "The departure and receiving harbors each contribute a disclosed share from their own budgets, subject to available coins. Unused refunded contributions remain owed to their original harbors."
+            },
+            {
+              "id": "choose_separate117",
+              "text": "Separate owners’ bonds.",
+              "next": "funding_work117",
+              "tradeoff": "Each convoy owner pays the held escort fee from its own operating purse. Harbor budgets do not contribute."
+            }
+          ]
+        },
+        {
+          "id": "funding_work117",
+          "title": "The First Funded Escort",
+          "body": "Find a loaded convoy whose captain can offer a passage under the agreed terms. Check the original boats, cargo, fee and payer before accepting.\n\nStay with the contracted delivery. If the passage fails, close the native escort account and review what was returned and what remains owed before reporting.",
+          "nextAction": "Review a current funded escort and carry out the agreed passage.",
+          "gate": {
+            "type": "arc117",
+            "mode": "funding"
+          },
+          "choices": [
+            {
+              "id": "report_funding117",
+              "text": "Send Mara the funding account.",
+              "next": "funding_account117",
+              "tradeoff": "The account must distinguish a paid delivery, an unearned refund and any unsettled harbor contribution."
+            }
+          ]
+        },
+        {
+          "id": "funding_account117",
+          "title": "The Funding Account",
+          "body": "Mara sends the account to the harbor clerks with the terms you chose. The payer, held fee and settlement are recorded against that passage.\n\nTobin replies with a report of selective stops around Naphtha Bay’s fuel routes. The sellers still control their own stock. He asks you to check what passage is available before he promises the next sailing.",
+          "nextAction": "Read Tobin’s report from Naphtha Bay.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "next_fuel117",
+              "text": "Read the Naphtha passage report.",
+              "next": "fuel_has_owners118",
+              "tradeoff": ""
+            }
+          ]
+        },
+        {
+          "id": "fuel_has_owners118",
+          "title": "Fuel Has Owners",
           "body": "The next campaign operation is not available in this version.",
           "nextAction": "Continue other harbor work.",
           "gate": {
             "type": "unreleased",
-            "port": "anvil_dock",
+            "port": "naphtha_bay",
             "message": "The next campaign operation is not available in this version."
           },
           "choices": []
@@ -546,14 +605,45 @@
         },
         {
           "id": "later_mara117",
-          "title": "Mara's Later Work",
-          "body": "Mara returns to her other customers. Her later conversation is not available yet.",
-          "nextAction": "Continue other harbor work.",
+          "title": "A Boat at the Quay",
+          "body": "Mara leaves the account with her clerk and comes down to the quay. \"Which boat do you want me to look at?\"\n\nChoose one of your damaged boats for a repair estimate. You can leave without ordering work.",
+          "nextAction": "Choose a damaged boat for an estimate, or leave.",
           "gate": {
-            "type": "unreleased",
-            "message": "Mara's later conversation is not available in this version."
+            "type": "at_port",
+            "port": "anvil_dock"
           },
-          "choices": []
+          "choices": [
+            {
+              "id": "discuss_owned_hull117",
+              "text": "Review this boat’s repair estimate.",
+              "next": "mara_condition117",
+              "tradeoff": "Requires a selected boat you own, present at Anvil Dock, with damage that the yard can quote. No repair is ordered."
+            },
+            {
+              "id": "leave_mara117",
+              "text": "Leave the inspection for another time.",
+              "next": "done",
+              "tradeoff": ""
+            }
+          ]
+        },
+        {
+          "id": "mara_condition117",
+          "title": "The Repair Estimate",
+          "body": "Mara marks the damage beside the boat’s name and itemizes the estimate. Materials, expert work and harbor charges remain separate costs.\n\n\"The estimate is here when you need it,\" she says. \"The yard still needs the supplies before work can begin.\"",
+          "nextAction": "Review the estimate; repair work remains a separate order.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "finish_mara117",
+              "text": "Keep the estimate and finish the conversation.",
+              "next": "done",
+              "tradeoff": ""
+            }
+          ]
         }
       ]
     },
