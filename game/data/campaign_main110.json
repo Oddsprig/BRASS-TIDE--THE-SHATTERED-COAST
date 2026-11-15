@@ -135,11 +135,71 @@
         {
           "id": "exit_channel112",
           "title": "Exit Channel",
-          "body": "Wren has asked about the working boats leaving Kelp Reach. This next campaign operation is not available in this version. Your completed investigation, original equipment, losses and Tobin's admission remain saved.",
-          "nextAction": "Continue harbor work, fleet building or exploration until the next campaign operation is available.",
+          "body": "Wren writes from Reedwater Floats: ‘The working boats at Kelp Reach are trying to leave. Stay with them while they are exposed. Chasing an enemy that turns away leaves their passage uncovered.’\n\n‘Protection crews need wages too. That does not excuse impounding a boat. I must explain how the next escort will be paid for when I ask people to reject Venn’s guarantee. First, find the boats already moving out.’",
+          "nextAction": "Approach a loaded convoy leaving Kelp Reach and review its funded escort and your reserves.",
+          "gate": {
+            "type": "none",
+            "port": "kelp_reach"
+          },
+          "choices": [
+            {
+              "id": "cover_withdrawal112",
+              "text": "Cover the Kelp departure",
+              "next": "withdrawal_work112",
+              "setFlags": [
+                "covering_kelp112"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "withdrawal_work112",
+          "title": "Cover the working boats",
+          "body": "Keep the original working boats covered as they leave Kelp. During an interception, boats must reach the physical exit. A quiet passage can clear at its actual harbor. The journal records each boat separately, including losses and boats whose withdrawal remains unconfirmed.",
+          "nextAction": "Account for the original boats, then claim or withdraw the escort contract and send Wren the report from a harbor.",
+          "gate": {
+            "type": "arc112",
+            "port": "kelp_reach"
+          },
+          "choices": [
+            {
+              "id": "report_withdrawal112",
+              "text": "Send Wren the withdrawal report",
+              "next": "wren_account112",
+              "setFlags": [
+                "kelp_reported112"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "wren_account112",
+          "title": "Wren’s account",
+          "body": "Wren accepts your list of the original boats and the outcomes you could confirm. She records arrivals, escapes and losses separately. A sunken hull cannot appear among the boats that got clear.\n\n‘Their owners still have crews to pay and damage to repair. Those costs belong in the account too. Mara at Anvil Dock needs repair materials brought to Cinder Quay. The wardens have been protecting some of that work. I want to know what would be lost if their protection ended.’",
+          "nextAction": "Read Mara’s repair-material lead.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "hear_useful_enemy112",
+              "text": "Read Mara’s Cinder Quay lead",
+              "next": "useful_enemy113",
+              "setFlags": [
+                "wren_accounted112"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "useful_enemy113",
+          "title": "A Useful Enemy",
+          "body": "Mara needs repair materials at Cinder Quay. This next operation is not available in this version. Your withdrawal report, actual fees, surviving boats and losses remain saved.",
+          "nextAction": "Continue other harbor work, trade or exploration.",
           "gate": {
             "type": "unreleased",
-            "message": "The next campaign operation is not available in this version."
+            "message": "The next campaign operation is not available in this version.",
+            "port": "cinder_quay"
           },
           "choices": []
         }

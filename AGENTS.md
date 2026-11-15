@@ -4,6 +4,10 @@ Active owner task: research Starsector and Blood Wake campaigns, prepare ten cam
 
 Six Sol6.1MAX Bridge roles total: one lead and five helpers (reference research, original story, integration, missions, independent red team). No extra/nested helpers or other-model/paid fallback. Root owns canonical integration, tests, release and publication. Helpers return scoped source/content/review; source-relay observations are identified. Board watch is PAUSED.
 
+Owner continuation,14November2026: continue112 through119 one accepted version at a time from111 using the same Sol6.1MAX Bridge team. One additional Carbon HIGH on the Google plan may provide independent review. No other models or paid fallback. Keep at most two helper calls active concurrently; do not retry the already-lost sessions. Root remains sole canonical integrator/tester/releaser. Each version's three required notes change in its own merge; each scoped test batch remains at most60seconds under the shared lane/watchdog.
+
+Confirmed-unavailable helper sessions may be replaced by fresh Sol6.1MAX runs in the same roles, within the original maximum six live Sol roles and two concurrent helper calls. Retire missing sessions rather than retrying them. This does not authorize another model, paid fallback or nested helpers.
+
 Each version changes CODE MAP.md, game/data/DEVELOPER NOTES.txt and CHANGES v0.xxx.md in one merge, followed by existing-helper notes reconciliation. Finalize change notes before release/tag; later corrections go in current notes or the next version. Do not recursively duplicate old notes. Preserve failed evidence and coverage limits.
 
 Background tests use C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md, canonical detector, shared Test Bridge lane and identity-owned watchdog. Whole selected pass<=60seconds, backstop55seconds. Queue behind other apps and leases, obey workflow cooldowns, and never control their apps or use foreground/input. Private profiles and silent audio. Test only the current changed scope; do not replay old full suites.

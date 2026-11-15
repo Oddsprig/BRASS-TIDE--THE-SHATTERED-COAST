@@ -285,6 +285,9 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 		"arc111":
 			if core==null:return {"ok":false,"message":"Open this investigation aboard your actual fleet."}
 			return core.Arc111.gate(core,gate)
+		"arc112":
+			if core==null:return {"ok":false,"message":"Open this withdrawal aboard your actual fleet."}
+			return core.Arc112.gate(core,gate)
 		"unreleased":return {"ok":false,"message":str(gate.get("message","This campaign operation is unavailable."))}
 		"site":
 			var level := _site_level(state, str(gate.get("site", "")))

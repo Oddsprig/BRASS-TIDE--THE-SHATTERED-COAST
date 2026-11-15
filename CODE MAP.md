@@ -1,25 +1,13 @@
-v0.111 — Current source map
+v0.112 — Exit Channel (candidate; unrun)
 
-Campaign plan: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.110 and111 are implemented;112–119 remain planned. Current navigation: maps/campaign-main110.txt. Game version, local install and public marketplace download have separate delivery receipts. Public store remains109 until a recorded publication update.
+game/scripts/campaign_arc112.gd: one work112 binding, native closure, physical battle/docking observations, counts, report gates, bounded follow and protection checks.
+game/scripts/campaign_validation112.gd: bounded types, native carried/closed equality, original per-hull outcomes, docking/encounter provenance and explicit-report consistency; invoked before restore publication.
+game/scripts/campaign_arc_ui112.gd: current actual offers/reserves, per-boat outcomes, fees, follow/protect, deferred joined callbacks.
+game/scripts/campaign.gd: Arc112 preload, existing one-second follow timer dispatch, stop/course cancellation, normal post-close/post-battle hooks and guarded docking forwarders.
+game/scripts/naval_lifecycle.gd: snapshot before route-origin change, observe after dock before hire; supported-core guards preserve other callers.
+game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd: arc112 gate, explicit report validation/recording and current journal navigation.
+game/data/campaign_main110.json: exit_channel112 -> withdrawal_work112 -> wren_account112 -> useful_enemy113; preserves all earlier IDs, nine old stories/eight legacy contracts and optional Tobin arc.
+game/tests/test_campaign112.gd: selected current-scope native/save/UI fixture and retained final private state for the next version. Existing110/111 modules retain their own accepted historical evidence.
 
-Main/interface: main.gd owns modes, input, worker publication and saves; interface.gd owns title/settings/HUD/modals. Modal mutations join the economy worker. Autosaves wait for worker publication. Detached economy and30Hz authoritative battle workers are unchanged by this chapter; Main retains input, UI, rendering and audio. Existing tactical decision cadences, inexpensive water and interpolated boat poses remain.
-
-World/economy: campaign.gd owns career state and economic actions. sector_world069/ocean_world064/ocean_campaign066/ocean_travel066/shipping068/shipping_flow068 own island groups, Open Seas and actual shipments. Sightings are dated observations. Workshop/equipment systems retain physical sockets, original item UIDs and material/labor costs. Native purses, stocks, wages, escrow and payments stay separate.
-
-Content: campaign_main110.json appends common_passage110 and optional tobin_clause111 to the nine preserved coastal stories. There are11 catalog chains in111 and eight unchanged legacy missionIndex contracts. Main stages reach exit_channel112, a saved unreleased boundary. Optional clause-reading is unlocked by the actual110 guarantee conversation and does not gate the main campaign. Stable released IDs remain valid.
-
-Arc110: campaign_arc110.gd binds native escort identity, original carriers/load/voyage sequence and paid outcomes. Follow alters only the player's water course at most once per simulated second; course/Stop/lost-client conditions cancel it. NPCs keep moving independently. reserve_quote includes actual convoy pace, delivery/return route, normal stores/payroll and contingency days. Its separate escort schema is unchanged.
-
-Arc111: campaign_arc111.gd owns a bounded work111 record over the existing funded VoyageJobs bounty. Target owner and original hull UIDs bind only after successful native acceptance. campaign_job_closed110 dispatches111 after the normal native close/payment/refund; it stores the native closure rather than paying twice. campaignSequence111 is assigned once to an actual newly settled physical encounter, preventing later counters from freshening an old battle. Empty legacy victories are insufficient.
-
-Property: capture records retain original source hull identity before any native rename. Paid selected-equipment recovery records the original item UIDs only after canonical salvage publishes and forfeits the remaining hull/equipment. Normal tow/strip actions retain their own terminal evidence. Local fleet/harbor custody gates the report; property stored elsewhere is not declared lost. Missing/unknown wrecks remain unresolved. No proof path creates a replacement boat, fitting, person or prize.
-
-Validation: campaign_validation111.gd checks bounded types, native active/closed-job equality, immutable encounter freshness, retained source identities, recovery receipts and completed report consistency. campaign_state_validation.gd invokes it before restore publication. story_ops.gd applies the exact report gate before recording its result. campaign_arc_ui111.gd supplies current objectives, ordinary watch/recovery/contract actions and collapsed briefing; story_ui.gd groups each report with its own explanation. Native callbacks join workers before mutation.
-
-Accepted evidence:46 native checks on41c5d4d,49.312s whole Bridge batch; controlled post110 boundary and isolated native battle fixture, not an earned full voyage. Three UI layout checks and six actual standard-retail Main/new-career checks ond758048; final pipeline28.578s / whole Bridge batch29.672s, clean exit0, normal exporter0, all736 pack entries/source/template checks valid. Raw UI metadata is declared layout-only and never store media.455 native files match the original accepted Git source after checkout EOL normalization;458 current runtime hashes are frozen. Both actual views were inspected, including the final corrected report screen.
-
-History/tools: v0.110 CHANGES remains immutable. Its failed exporter and separate accepted complete artifact remain recorded.111's first UI image was held for copy placement, then corrected; native46 were retained without replay. All-NUL owned verification records/index were preserved before metadata repair; source Git objects and actual artifact hashes were checked. Cause unknown. See parent work/campaign-v110-v119-2026-11-14/v0.111. Scoped checks do not certify119 completion, full careers,300-point FPS or audio.
-
-Delivery: clean portable/ZIP manifests and install readback separately record exact source, artifact and unchanged owner save/settings/music hashes. All three required release notes change in this merge; an existing authorized Sol performs notes-only reconciliation after merge. Board watch remains paused.
-
-111 installation readback completed: both existing plain Brass Tide shortcuts target Desktop/Brass Tide/v0.111/Brass Tide.exe. All23 owner save/settings/music files copied unchanged; previous110 preserved. No game launched. Published source/tag111 is45a6f1d; current documentation clarification does not alter that release artifact or tag. Public download remains109.
+Declared post111 story boundary, controlled late-leg native sailing and isolated native convoy-exit reference arena over existing finite owners; not an earned full campaign, battle balance, map reachability, FPS, audio or store-media claim.
+Native fixture, independent review and Windows delivery pending. Canonical/desktop111 remains accepted until this version completes.

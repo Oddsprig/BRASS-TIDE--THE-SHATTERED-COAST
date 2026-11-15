@@ -222,8 +222,11 @@ static func step(c,dt: float) -> void:
 					continue
 				var origin: String=str(p.from)
 				var delivered_before: float=float(owner.get("tradeDelivered",0))
+				var arrival112: Dictionary=c.campaign_before_arrival112(owner,p) if c.has_method("campaign_before_arrival112") else {}
 				p.x=endpoint.x;p.y=endpoint.y;p.from=p.to;p.progress=0.0;p.holding=true
-				Fleets.dock(owner,dock,c);hire(c,owner,dock)
+				Fleets.dock(owner,dock,c)
+				if c.has_method("campaign_after_arrival112"):c.campaign_after_arrival112(owner,p,dock,arrival112)
+				hire(c,owner,dock)
 				owner.harborServiceUntilDay=float(c.state.day)+HARBOR_SERVICE_DAYS
 				c.RegionalOps.delivered(c,str(dock.id),maxf(0,float(owner.get("tradeDelivered",0))-delivered_before),origin,false)
 				var next: String=AI.arrived(c,owner,dock)
