@@ -146,6 +146,10 @@ class Preview extends "res://scripts/main.gd":
 		request.acceptForfeiture=true
 		var recovered: Dictionary=core.recover_wreck(wreck_id,"gear","",0,request)
 		if not verify111(recovered.ok and int(recovered.get("wagesPaid",0))>0 and core.Arc111.work(core).recoveries.size()==1 and core.Arc111.secured(core).ok,"Actual paid recovery publishes original fitting custody and story receipt after state replacement"):return
+		var terminal_wreck: Dictionary=core.Arc111.raw_wreck(core,wreck_id)
+		if not verify111(terminal_wreck.get("hullStripped",false) and terminal_wreck.get("claimedMode","")=="gear" and terminal_wreck.get("equipmentCustody","")=="retired" and not terminal_wreck.has("sourceModuleCondition"),"Actual selected recovery forfeits the whole source snapshot and remaining fittings"):return
+		var after_recovery_coins: int=int(core.state.coins)
+		if not verify111(not core.recover_wreck(wreck_id,"gear","",0,request).ok and int(core.state.coins)==after_recovery_coins and core.Arc111.work(core).recoveries.size()==1,"Repeated native fitting recovery is refused without new charge or story receipt"):return
 		proof111.paid_recovery={"partUid":part_uid,"wagesPaid":recovered.wagesPaid,"foodConsumed":recovered.foodConsumed,"workDays":recovered.workDays}
 		var retained: Dictionary=snapshot111()
 		boat=core.state.fleet[0]
