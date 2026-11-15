@@ -45,6 +45,7 @@ const Arc112=preload("res://scripts/campaign_arc112.gd")
 const Arc113=preload("res://scripts/campaign_arc113.gd")
 const Arc114=preload("res://scripts/campaign_arc114.gd")
 const Arc115=preload("res://scripts/campaign_arc115.gd")
+const Arc116=preload("res://scripts/campaign_arc116.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -565,7 +566,7 @@ func travel_speed() -> float:
 			var best_tug: float=0.55
 			for tug in fleet:best_tug=maxf(best_tug,float(tug.spec.get("towSpeedFactor",0.55)))
 			tow_factor=minf(tow_factor,maxf(best_tug,float(s.get("towSpeedFactor",0.55))))
-	return Arc112.follow_speed(self,Arc110.follow_speed(self,speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor))
+	return Arc116.follow_speed(self,Arc112.follow_speed(self,Arc110.follow_speed(self,speed*1.55*float(data.get("CAMPAIGN_SCALE",1.0))*powered_mass/maxf(1,powered_mass+tow_mass*0.8)*tow_factor)))
 
 func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if destination==ShippingFlow068.PORT and (not ShippingFlow068.installed(state) or ShippingFlow068.PORT not in state.get("shipping068",{}).get("knownPorts",[])):
@@ -597,6 +598,7 @@ func chart_course(target: Dictionary, destination: String = "") -> Dictionary:
 	if not departure.is_empty():state.regionalOrigin=str(departure.id)
 	Arc110.cancel_follow(self)
 	Arc112.cancel_follow(self)
+	Arc116.cancel_follow(self)
 	state.path = path
 	state.destination = destination
 	sailing_clearance=actual
@@ -618,6 +620,7 @@ func validate_sailing_route() -> bool:
 func stop_sailing():
 	Arc110.cancel_follow(self)
 	Arc112.cancel_follow(self)
+	Arc116.cancel_follow(self)
 	state.path = []
 	state.destination = ""
 
@@ -655,7 +658,9 @@ func _step066(dt: float) -> float:
 		ShippingFlow068.observe_sector069(self)
 	advance_surveys(dt/DAY_SECONDS)
 	var voyage_before: Dictionary=state.position.duplicate()
-	if not Arc112.work(self).is_empty() and not Arc112.work(self).get("reported",false):
+	if not Arc116.work(self).is_empty() and not Arc116.work(self).get("reported",false):
+		Arc116.follow_step(self,dt)
+	elif not Arc112.work(self).is_empty() and not Arc112.work(self).get("reported",false):
 		Arc112.follow_step(self,dt)
 	else:
 		Arc110.follow_step(self,dt)
@@ -1450,6 +1455,7 @@ func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool)
 	Arc111.after_job(self,before,result,abandon)
 	Arc112.after_job(self,before,result,abandon)
 	Arc113.after_job(self,before,result,abandon)
+	Arc116.after_job(self,before,result,abandon)
 
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
@@ -1690,6 +1696,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		report.convoy=convoy_outcome
 	Arc111.after_battle(self,result,context,physical_battle,report,captures111)
 	Arc112.after_battle(self,result,context,physical_battle,report)
+	Arc116.after_battle(self,result,context,physical_battle,report)
 	Arc114.after_battle(self,result,context,physical_battle,report,captures114)
 	if not physical_battle.is_empty():
 		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
@@ -1994,10 +2001,14 @@ func tooling_hold_room(weight: float) -> bool:
 	return ToolingOps.hold_room(self,weight)
 
 func campaign_before_arrival112(owner: Dictionary,patrol: Dictionary) -> Dictionary:
-	return Arc112.before_arrival(self,owner,patrol)
+	var prior: Dictionary=Arc112.before_arrival(self,owner,patrol)
+	var observation116: Dictionary=Arc116.before_arrival(self,owner,patrol)
+	if not observation116.is_empty():prior._arc116=observation116
+	return prior
 
 func campaign_after_arrival112(owner: Dictionary,patrol: Dictionary,dock: Dictionary,prior: Dictionary) -> void:
 	Arc112.after_arrival(self,owner,patrol,dock,prior)
+	Arc116.after_arrival(self,owner,patrol,dock,prior.get("_arc116",{}))
 
 func campaign_witness_authorized115(origin: String,destination: String,count: int) -> bool:
 	return Arc115.authorized(self,origin,destination,count)
@@ -2007,3 +2018,6 @@ func campaign_witness_reception115(job_id: String,destination: String,count: int
 
 func campaign_witness_closed115(before: Dictionary,destination: String,loss: bool,earned: int) -> void:
 	Arc115.after_closed(self,before,destination,loss,earned)
+
+func campaign_naval_new116(event: Dictionary) -> void:
+	Arc116.after_naval_encounter(self,event)

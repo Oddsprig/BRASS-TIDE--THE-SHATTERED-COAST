@@ -272,6 +272,7 @@ static func scan_encounters(core) -> Array:
 		if busy.has(id_a) or busy.has(id_b):
 			continue
 		var outcome: Dictionary = resolve_encounter(state, NavalOrders.find_owner(state, id_a), NavalOrders.find_owner(state, id_b), NavalOrders.find_patrol(state, id_a), NavalOrders.find_patrol(state, id_b), int(state.get("seed", 1)))
+		if outcome.get("ok",false) and core is Object and core.has_method("campaign_naval_new116"):core.campaign_naval_new116(outcome.event)
 		if bool(outcome.get("ok", false)) and bool(outcome.event.get("witnessed", false)):
 			messages.append(str(outcome.get("summary", "")))
 	# HOME patrols can respond to a physically present shared-travel fleet.
@@ -288,6 +289,7 @@ static func scan_encounters(core) -> Array:
 				var other: Dictionary=NavalOrders.canonical_location068(state,other_id)
 				if other.is_empty() or World068._distance(actual.position,other.position)>ENCOUNTER_RADIUS:continue
 				var outcome: Dictionary=resolve_at068(core,id,other_id,actual,other)
+				if outcome.get("ok",false) and core.has_method("campaign_naval_new116"):core.campaign_naval_new116(outcome.event)
 				if outcome.get("ok",false) and outcome.event.get("witnessed",false):messages.append(str(outcome.get("summary","")))
 	return messages
 

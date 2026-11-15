@@ -77,6 +77,8 @@ static func choose(c,id: String,choice: String) -> Dictionary:
 		if not permission113.ok:return permission113
 		var permission114: Dictionary=c.Arc114.choice_gate(c,choice)
 		if not permission114.ok:return permission114
+		var permission116: Dictionary=c.Arc116.choice_gate(c,choice)
+		if not permission116.ok:return permission116
 	if id in ["common_passage110","wren_witness115"]:
 		var permission115: Dictionary=c.Arc115.choice_gate(c,choice)
 		if not permission115.ok:return permission115
@@ -87,6 +89,7 @@ static func choose(c,id: String,choice: String) -> Dictionary:
 		c.Arc112.after_choice(c,choice,result)
 		c.Arc113.after_choice(c,choice,result)
 		c.Arc114.after_choice(c,choice,result)
+		c.Arc116.after_choice(c,choice,result)
 	if id in ["common_passage110","wren_witness115"]:
 		c.Arc115.after_choice(c,choice,result)
 	var r: Dictionary=c.state.storyRights

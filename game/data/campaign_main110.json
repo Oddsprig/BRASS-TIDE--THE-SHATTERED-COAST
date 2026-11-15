@@ -360,11 +360,65 @@
         {
           "id": "two_distress116",
           "title": "Two Distress Flags",
-          "body": "The Kelp distress operation is not available in this version.",
+          "body": "At Kelp Reach, the signal clerk opens requests for cover from the coastal cargo boats. The reports name their owners, loads and last observed positions. Their captains are still underway.\n\nChoose which passage to cover first. The other boats will continue under their own captain; accepting one request does not reserve the other convoy or its cargo.",
+          "nextAction": "Review two distinct reported passages and accept one current funded escort.",
+          "gate": {
+            "type": "arc116",
+            "mode": "priority",
+            "port": "kelp_reach"
+          },
+          "choices": [
+            {
+              "id": "begin_withdrawal116",
+              "text": "Review the withdrawal.",
+              "next": "narrow_withdrawal116",
+              "tradeoff": "Keep the original boats, surviving load and existing escort terms."
+            }
+          ]
+        },
+        {
+          "id": "narrow_withdrawal116",
+          "title": "Narrow Withdrawal",
+          "body": "The contracted boats still have a harbor to reach. Stay alongside their withdrawal or turn toward an actual pursuer. The held fee covers the contracted delivery; your fuel, crew wages and repairs remain operating costs.\n\nThe signal clerk needs an account of the original boats. Unseen boats have an unconfirmed fate until an arrival record or an observed encounter establishes what happened.",
+          "nextAction": "Cover the remaining passage or interdict a pursuer; settle the native contract before reporting.",
+          "gate": {
+            "type": "arc116",
+            "mode": "report"
+          },
+          "choices": [
+            {
+              "id": "report_distress116",
+              "text": "Send the convoy account.",
+              "next": "distress_account116",
+              "tradeoff": "Confirmed arrivals, physical exits, losses and unconfirmed boats remain separate from the escort fee."
+            }
+          ]
+        },
+        {
+          "id": "distress_account116",
+          "title": "The Convoy Account",
+          "body": "You send the passage account to Kelp Reach. Wren keeps the confirmed arrivals and losses beside the unresolved reports. No second payment has been promised for the same passage.\n\nMara asks you to meet at Anvil Dock. Tobin has proposed paid escort obligations to replace Venn’s guarantee. Before the next sailing, the harbors must decide which accounts will fund it.",
+          "nextAction": "Read Mara’s request about funding the next escort.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "next_funding116",
+              "text": "Read Mara’s funding request.",
+              "next": "who_pays117",
+              "tradeoff": ""
+            }
+          ]
+        },
+        {
+          "id": "who_pays117",
+          "title": "Who Pays First",
+          "body": "The next campaign operation is not available in this version.",
           "nextAction": "Continue other harbor work.",
           "gate": {
             "type": "unreleased",
-            "port": "kelp_reach",
+            "port": "anvil_dock",
             "message": "The next campaign operation is not available in this version."
           },
           "choices": []
