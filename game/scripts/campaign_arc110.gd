@@ -111,15 +111,16 @@ static func follow_step(c,dt: float) -> void:
 	if c.arc_follow_timer110>0:return
 	c.arc_follow_timer110=1.0
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(bound.jobId))
-	if job.is_empty() or job.get("state","")!="active" or job.get("failed",false) or not c.home_local064():cancel_follow(c);return
+	if job.is_empty() or job.get("state","")!="active" or job.get("failed",false) or not c.home_local064():c.stop_sailing();return
 	if job.escort.get("battlePending",false):return
 	if job.escort.get("arrived",false):c.stop_sailing();return
 	var p: Dictionary=c.NavalAI._find_patrol(c.state,str(bound.ownerId))
-	if p.is_empty() or c.distance(c.state.position,p)>c.EscortOps.CONTRACT_RADIUS:cancel_follow(c);return
+	if p.is_empty() or c.distance(c.state.position,p)>c.EscortOps.CONTRACT_RADIUS:c.stop_sailing();return
 	var points: Array=c.remaining_patrol_course(p)
 	var target: Dictionary={"x":float(p.x),"y":float(p.y)} if points.is_empty() else points[0]
 	var plotted: Dictionary=c.chart_course(target)
 	bound.follow=bool(plotted.get("ok",false))
+	if not bound.follow:c.stop_sailing()
 
 static func follow_speed(c,ordinary: float) -> float:
 	var bound: Dictionary=pending(c)

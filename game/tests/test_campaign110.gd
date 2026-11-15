@@ -73,9 +73,9 @@ class Preview extends "res://scripts/main.gd":
 				replot=1.0
 				for sight in core.NavalAI.sightings(core.state):
 					if sight.get("current",false) and str(sight.get("purpose","")) in ["trade","deliver"] and not core.Politics.hostile(core,core.fleet_owner(str(sight.get("ownerId","")))):
-					var patrol: Dictionary=core.NavalAI._find_patrol(core.state,str(sight.get("ownerId","")))
-					if not patrol.is_empty():core.chart_course({"x":float(patrol.x),"y":float(patrol.y)})
-					break
+						var patrol: Dictionary=core.NavalAI._find_patrol(core.state,str(sight.get("ownerId","")))
+						if not patrol.is_empty():core.chart_course({"x":float(patrol.x),"y":float(patrol.y)})
+						break
 			if int(hunt_time*4)%12==0:await get_tree().process_frame
 		if not verify(not offer.is_empty(),"Actual starting Tinwake reacquired a funded loaded native merchant"):return
 		evidence.offer=offer.duplicate(true);evidence.hunt_seconds=hunt_time
