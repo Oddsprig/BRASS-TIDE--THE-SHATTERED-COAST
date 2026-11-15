@@ -95,6 +95,10 @@ func advance(delta: float,input: Dictionary={},paused: bool=false) -> Dictionary
 			_debt+=elapsed;_desired_time+=elapsed
 		if _task<0 and _mirror.get("result")==null:
 			var steps: int=mini(MAX_STEPS_PER_JOB,int(floor((_debt+0.000000001)/STEP))) if not paused else 0
+			# Publish real queued-command results after at most one next step.
+			# Debit ONLY that step: every remaining second stays in _debt and the
+			# unchanged desired-time lag clock. No in-flight owner is interrupted.
+			if not _commands.is_empty():steps=mini(steps,1)
 			if steps>0 or not _commands.is_empty():
 				_debt=maxf(0.0,_debt-float(steps)*STEP)
 				_submit(steps,input,false)

@@ -896,6 +896,15 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 
 static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=null) -> void:
 	var survivors: Array=[]
+	# Motion/contact/boarding have finished. The synchronous hit/blast path
+	# changes condition, crew and sunk flags, never hull positions/spec.size or
+	# st.ships membership. Keep eligibility LIVE below; hoist only this geometry.
+	# Local value arrays expire with this call and never enter a public snapshot.
+	var centers120: PackedVector2Array=PackedVector2Array()
+	var radii120: PackedFloat64Array=PackedFloat64Array()
+	var ready120: PackedByteArray=PackedByteArray()
+	if not st.projectiles.is_empty():
+		centers120.resize(st.ships.size());radii120.resize(st.ships.size());ready120.resize(st.ships.size())
 	for p in st.projectiles:
 		p.px=p.x
 		p.py=p.y
@@ -905,13 +914,22 @@ static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=
 		p.age=Damage.number(p.get("age"))+dt
 		var start: Vector2=Vector2(p.px,p.py)
 		var delta: Vector2=_pos(p)-start
+		var denominator120: float=maxf(0.0001,delta.length_squared())
 		var hit: Dictionary={}
 		var first: float=INF
-		for s in st.ships:
+		for index120 in range(st.ships.size()):
+			var s: Dictionary=st.ships[index120]
 			if s.sunk or s.team==p.team or s.get("captureSecured",false):
 				continue
-			var t: float=clampf((_pos(s)-start).dot(delta)/maxf(0.0001,delta.length_squared()),0.0,1.0)
-			if _pos(s).distance_to(start+delta*t)<_radius(s)+p.radius and t<first:
+			# Preserve guard-before-field-read for sunk, friendly, captured or
+			# otherwise ineligible legacy rows. No position/spec read at setup.
+			if ready120[index120]==0:
+				centers120[index120]=_pos(s);radii120[index120]=_radius(s);ready120[index120]=1
+			var center120: Vector2=centers120[index120]
+			var t: float=clampf((center120-start).dot(delta)/denominator120,0.0,1.0)
+			# Same closest-point arithmetic, distance_to, strict radius comparison,
+			# ordered first-hit tie break and RNG-consuming hit path as before.
+			if center120.distance_to(start+delta*t)<radii120[index120]+p.radius and t<first:
 				hit=s
 				first=t
 		var land_t: float=INF

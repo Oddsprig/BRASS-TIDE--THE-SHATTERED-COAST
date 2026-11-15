@@ -14,3 +14,5 @@ Commercial integration; release acceptance pending.
 R2 semantic/performance verification, final images/full-page independent review, matching clean Windows package/desktop installation and live purchase/library delivery are still pending. Previous119 remains rollback. See developer notes for exact receipts and failed performance results; no sale-ready claim from source review or version number.
 
 Coastal Clash HUD shows compact control hints and points to Fleet & crew for full scenario guidance. Tab is the paused overview. The objective, complete Fleet & crew description and full tooltip remain. This addresses the clipped HUD line without changing any scenario or simulation. Final capture remains pending.
+
+- Reuse stable projectile-phase geometry after live eligibility checks, retaining exact hit/land/RNG behavior. Publish queued-command results after at most one next real step while preserving remaining physics debt. Reviewed source only; R3 native parity and retail timing pending. R2 actual329checks passed but414.728ms peak/318.953ms acknowledgement failed, retained in developer notes.
