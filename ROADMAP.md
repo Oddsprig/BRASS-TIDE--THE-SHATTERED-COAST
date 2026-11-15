@@ -1,6 +1,6 @@
 # Current campaign sequence110–119
 
-Implemented through0.118. Next0.119 only: Common Passage, a genuinely funded loaded relief delivery across the existing Shatter–Glasswind/Westglass Open Seas connection, actual settlement and explicit Brass debrief.0.119 remains planned.
+Implemented through0.119. The authorized110–119 campaign sequence ends here. Do not start another version automatically. Continuing sandbox play is preserved; commercial art, sustained performance, full-career balance, audio listening and full earned campaign pacing retain their separate validation limits.
 
 Complete researched story, ten version scopes, twelve operations, six optional jobs, commitments and ending rules: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
 

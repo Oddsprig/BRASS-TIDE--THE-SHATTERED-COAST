@@ -1,3 +1,7 @@
+## v0.119 — Common Passage
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. The authorized110–119 campaign sequence ends here. Do not start another version automatically. Continuing sandbox play is preserved; commercial art, sustained performance, full-career balance, audio listening and full earned campaign pacing retain their separate validation limits.
+
 ## v0.118 — Fuel Has Owners and Last Warrant
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.119 only: Common Passage, a genuinely funded loaded relief delivery across the existing Shatter–Glasswind/Westglass Open Seas connection, actual settlement and explicit Brass debrief.0.119 remains planned.

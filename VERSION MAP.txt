@@ -8,6 +8,6 @@ BRASS TIDE — CURRENT VERSION MAP
 116 accepted: Two Distress Flags and Narrow Withdrawal; Choose between actual loaded coastal passages and retain the selected original carriers, cargo and losses through their withdrawal.
 117 accepted: Who Pays First; Commit mutual harbor funding or separate owners’ bonds, then complete a real funded escort; Mara can quote a damaged owned hull without commissioning repairs.
 118 accepted: Fuel Has Owners and Last Warrant; Check actual Naphtha passage and pay for fresh fuel; consider an existing claimant passage near Brass or explicitly report it unresolved, with Tobin’s later funding conversation.
-119 planned: Common Passage; actual offshore relief and three explicit endings.
+119 accepted: Common Passage; Fund and carry a finite relief order across Open Seas to Westglass, settle its real cargo and fee, then return to Brass for the campaign ending under the chosen funding terms.
 Full researched design: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
 Each version builds on the accepted previous one; plan is not a completion claim.
