@@ -243,12 +243,69 @@
         },
         {
           "id": "bought_route114",
-          "title": "The Bought Route",
-          "body": "Cass has no further commission available here yet.",
-          "nextAction": "Continue other harbor work, trade or exploration.",
+          "title": "Bought Route",
+          "body": "Cass meets you at Rust Anchorage. \"I sold the route. I knew the buyers meant to stop a boat. I took the money anyway.\"\n\nCass names the Rust crews that used it. \"What they still hold may have changed. Find the actual boats before you agree to a price or risk your crew. I cannot promise what is left.\"",
+          "nextAction": "Hear Cass, then inspect a currently observed Rust raider.",
+          "gate": {
+            "type": "at_port",
+            "port": "rust_anchorage"
+          },
+          "choices": [
+            {
+              "id": "investigate_route114",
+              "text": "Identify the route’s current holders.",
+              "next": "route_work114"
+            }
+          ]
+        },
+        {
+          "id": "route_work114",
+          "title": "The Held Property",
+          "body": "Cass’s information points to the Rust raiders. A release buys only the actual cargo shown in its terms. It does not settle other claims against the crew.\n\nFor a raid, retain an original captured hull or recover an original fitting from its wreck, then withdraw to another lawful harbor with it. A battle result by itself brings nothing home.",
+          "nextAction": "Inspect a current Rust contact. Review a release or recover original property, then report from a harbor.",
+          "gate": {
+            "type": "arc114",
+            "port": "rust_anchorage"
+          },
+          "choices": [
+            {
+              "id": "report_property114",
+              "text": "Report the release or recovered property.",
+              "next": "route_account114",
+              "tradeoff": "Requires a completed paid release, or original raid property retained after sailing to another lawful harbor."
+            },
+            {
+              "id": "report_unrecovered114",
+              "text": "Close this attempt without a recovery.",
+              "next": "route_account114",
+              "tradeoff": "Records no recovery or reward. Unconfirmed property remains unconfirmed; the existing crews and their property remain in the world."
+            }
+          ]
+        },
+        {
+          "id": "route_account114",
+          "title": "Cass’s Account",
+          "body": "You send Cass the outcome. Her reply is short: \"I will give the witnesses the same account. I knew what the route could be used for. What you managed afterward does not change what I sold.\"\n\nWren is gathering the people willing to speak. Their destination must be agreed before anyone boards.",
+          "nextAction": "Read Wren’s Reedwater Floats lead.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "next_witnesses114",
+              "text": "Read Wren’s witness lead.",
+              "next": "names_on_paper115"
+            }
+          ]
+        },
+        {
+          "id": "names_on_paper115",
+          "title": "Names on Paper",
+          "body": "Wren’s witness transport is not available in this version.",
+          "nextAction": "Continue other harbor work.",
           "gate": {
             "type": "unreleased",
-            "port": "rust_anchorage",
+            "port": "reed_floats",
             "message": "The next campaign operation is not available in this version."
           },
           "choices": []
@@ -384,6 +441,54 @@
             "message": "Mara's later conversation is not available in this version."
           },
           "choices": []
+        }
+      ]
+    },
+    {
+      "id": "cass_price114",
+      "title": "Cass: the route sale",
+      "approach": "contact",
+      "summary": "Ask Cass what she knew when she sold the route.",
+      "startPort": "rust_anchorage",
+      "startContact": "contact_cass_rye",
+      "startGate": {
+        "type": "arc114",
+        "mode": "optional"
+      },
+      "stages": [
+        {
+          "id": "cass_question114",
+          "title": "The Price of Directions",
+          "body": "Cass offers to tell you what the buyer paid. \"Would the amount make a difference to you?\"",
+          "nextAction": "Ask what Cass knew.",
+          "gate": {
+            "type": "at_port",
+            "port": "rust_anchorage"
+          },
+          "choices": [
+            {
+              "id": "ask_cass_knowledge114",
+              "text": "What did you know the buyer intended?",
+              "next": "cass_answer114"
+            }
+          ]
+        },
+        {
+          "id": "cass_answer114",
+          "title": "What Cass Knew",
+          "body": "\"They meant to stop that boat. I knew it, and I sold the route anyway.\" Cass puts the tally away. \"You can hear that without forgiving it. I will stop offering useful information as if it repays them.\"",
+          "nextAction": "Finish the conversation when ready.",
+          "gate": {
+            "type": "at_port",
+            "port": "rust_anchorage"
+          },
+          "choices": [
+            {
+              "id": "finish_cass_price114",
+              "text": "Keep Cass’s admission in the account.",
+              "next": "done"
+            }
+          ]
         }
       ]
     }

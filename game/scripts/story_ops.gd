@@ -75,12 +75,15 @@ static func choose(c,id: String,choice: String) -> Dictionary:
 		if not permission112.ok:return permission112
 		var permission113: Dictionary=c.Arc113.choice_gate(c,choice)
 		if not permission113.ok:return permission113
+		var permission114: Dictionary=c.Arc114.choice_gate(c,choice)
+		if not permission114.ok:return permission114
 	var result: Dictionary=Stories.choose(c,id,choice)
 	if not result.ok:return result
 	if id=="common_passage110":
 		c.Arc111.after_choice(c,choice,result)
 		c.Arc112.after_choice(c,choice,result)
 		c.Arc113.after_choice(c,choice,result)
+		c.Arc114.after_choice(c,choice,result)
 	var r: Dictionary=c.state.storyRights
 	match choice:
 		"open_field":r.openField=true;r.privateField=false

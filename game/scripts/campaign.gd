@@ -43,6 +43,7 @@ const Arc110=preload("res://scripts/campaign_arc110.gd")
 const Arc111=preload("res://scripts/campaign_arc111.gd")
 const Arc112=preload("res://scripts/campaign_arc112.gd")
 const Arc113=preload("res://scripts/campaign_arc113.gd")
+const Arc114=preload("res://scripts/campaign_arc114.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -683,7 +684,9 @@ func _step066(dt: float) -> float:
 		if state.path.is_empty() and not state.destination.is_empty() and not state.destination.begins_with("approach:"):
 			state.lastPort = state.destination
 			events.append({"kind": "arrival", "port": state.destination})
+			var arrival114: String=str(state.destination)
 			state.destination = ""
+			if distance(voyage_before,state.position)>0.000001:Arc114.arrived(self,port(arrival114))
 	if home_local064():voyage_distance=distance(voyage_before,state.position)
 	CrisisOps.step(self,voyage_distance)
 	for s in state.fleet:
@@ -1051,6 +1054,7 @@ func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
 	pending_days=0
 	events=staged.events
 	Arc111.after_recovery(self,id,q)
+	Arc114.after_recovery(self,id,q)
 	return q
 
 func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
@@ -1076,7 +1080,9 @@ func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,reques
 	pending_days+=int(state.day)-previous_day
 	Manifest.allocate(state)
 	log_entry(str(result.message)+" %.2f working days; normal wages/provisions apply."%work_days)
-	if mode=="tow":Arc111.after_tow(self,id,result)
+	if mode=="tow":
+		Arc111.after_tow(self,id,result)
+		Arc114.after_tow(self,id,result)
 	if mode=="strip":Arc111.after_strip(self,id,result)
 	return result
 
@@ -1588,7 +1594,13 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		var cargo_problem: String=EscortOps.cargo_error(self,physical_battle)
 		if not cargo_problem.is_empty():return fail(cargo_problem)
 		context=context.duplicate(true);context.objectiveOnly=true
+	# The physical arena retains its actual chart origin; campaign time is paused during combat.
+	if physical_battle.get("chartPosition") is Dictionary:
+		context=context.duplicate(true)
+		context.position114=physical_battle.chartPosition.duplicate(true)
+		context.day114=float(state.day)
 	var captures111: Array=Arc111.capture_snapshot(self,context,physical_battle)
+	var captures114: Array=Arc114.capture_snapshot(self,context,physical_battle)
 	CrisisOps.losses(self)
 	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
 	if not boarding_result.ok:return boarding_result
@@ -1677,6 +1689,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		report.convoy=convoy_outcome
 	Arc111.after_battle(self,result,context,physical_battle,report,captures111)
 	Arc112.after_battle(self,result,context,physical_battle,report)
+	Arc114.after_battle(self,result,context,physical_battle,report,captures114)
 	if not physical_battle.is_empty():
 		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
 		physical_battle.settlementReport=report.duplicate(true)
