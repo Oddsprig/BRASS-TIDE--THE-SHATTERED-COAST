@@ -29,8 +29,8 @@ static func open(ui) -> void:
 			row_body=ui.column(body)
 			row_body.visible=false
 		else:
-			ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
-			ui.paragraph(row_body,_shown_next_action(entry),16,ui.TEAL)
+			ui.paragraph(row_body,ArcUI111.body(ui,entry),17,ui.TEXT)
+			ui.paragraph(row_body,ArcUI111.next_action(ui,entry,_shown_next_action(entry)),16,ui.TEAL)
 		if entry.done:ui.paragraph(row_body,str(entry.get("body",stage.get("body",""))),17,ui.TEXT)
 		ArcUI110.controls(ui,row_body,entry)
 		ArcUI111.controls(ui,row_body,entry)
@@ -58,6 +58,7 @@ static func open(ui) -> void:
 			var choice: Dictionary=option
 			ui.paragraph(body,str(choice.get("tradeoff","")),15)
 			ui.button(body,str(choice.get("text","")),(func(chain_id,choice_id):_commit.call_deferred(ui,chain_id,choice_id)).bind(str(entry.get("chainId","")),str(choice.get("id",""))),true).disabled=not gate.ok or not ArcUI111.allowed(ui,entry,str(choice.get("id",""))) or (not str(choice.get("requiresFlag","")).is_empty() and not entry.flags.has(choice.requiresFlag))
+		ArcUI111.briefing(ui,body,entry)
 	ui.rule(body)
 	ui.label(body,"Harbor leads",26,ui.GOLD,true)
 	var offers: Array=Stories.available(c)

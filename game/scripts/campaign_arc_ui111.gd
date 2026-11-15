@@ -1,5 +1,31 @@
 extends RefCounted
 
+static func body(ui,entry: Dictionary) -> String:
+	var original: String=str(entry.get("body",""))
+	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="second_signature111":return original
+	var c=ui.host.core
+	var w: Dictionary=c.Arc111.work(c)
+	if w.is_empty():return original
+	if c.Arc111.secured(c).ok:
+		return "Original property from the investigation is retained. Finish the harbor contract, then send Tobin your report from a harbor with that property." if str(w.status)=="carried" else "Original property from the investigation is retained. Send Tobin your report while it remains with your fleet or at this harbor."
+	return "Identify the original boats and secure what remains. Claim or withdraw the harbor contract before reporting. An unconfirmed loss leaves the investigation open."
+
+static func next_action(ui,entry: Dictionary,fallback: String) -> String:
+	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="second_signature111":return fallback
+	var c=ui.host.core
+	var w: Dictionary=c.Arc111.work(c)
+	if w.is_empty():return fallback
+	if c.Arc111.secured(c).ok:
+		return "Claim or withdraw the harbor bounty, then send Tobin the property report." if str(w.status)=="carried" else "Send Tobin the report from a harbor while you retain the original property."
+	return "Secure original property, or confirm its actual loss, before reporting."
+
+static func briefing(ui,parent: Node,entry: Dictionary) -> void:
+	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="second_signature111" or ui.host.core.Arc111.work(ui.host.core).is_empty():return
+	var panel=ui.column(parent);panel.visible=false
+	ui.paragraph(panel,str(entry.get("body","")),16)
+	var toggle=ui.button(parent,"Read Tobin's original briefing",(func(view):view.visible=not view.visible).bind(panel))
+	parent.move_child(toggle,panel.get_index())
+
 static func controls(ui,body: Node,entry: Dictionary) -> void:
 	if str(entry.get("chainId",""))!="common_passage110" or str(entry.get("stage",""))!="second_signature111":return
 	var c=ui.host.core
@@ -20,6 +46,18 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 		return
 	var owner: Dictionary=c.fleet_owner(str(w.ownerId))
 	ui.paragraph(body,"Target: %s · original boats: %d · bounty %s"%[str(owner.get("name",w.ownerId)),w.targetUids.size(),str(w.status)],18,ui.GOLD)
+	var custody: Dictionary=c.Arc111.secured(c)
+	if custody.ok:
+		ui.paragraph(body,str(custody.message),16,ui.TEAL)
+		if str(w.status)=="carried":
+			ui.paragraph(body,"Close the contract at %s before reporting."%str(c.port(str(w.port)).name),16)
+			if str(c.current_port().get("id",""))!=str(w.port):ui.button(body,"Review bounty report route",func():ui.HarborRoute104.open(ui,str(w.port)))
+			ui.button(body,"Claim the harbor's held bounty",func():_close.call_deferred(ui,false))
+			ui.button(body,"Withdraw bounty and refund sponsor",func():_close.call_deferred(ui,true))
+		else:ui.paragraph(body,"Contract %s · %s coins received."%["paid" if w.status=="paid" else "withdrawn",ui.money(w.payment)],16,ui.TEAL)
+		var report: Dictionary=c.Arc111.choice_gate(c,"report_property111")
+		if not report.ok:ui.paragraph(body,str(report.message),15,ui.GOLD)
+		return
 	ui.paragraph(body,"Use the coastal watch to reacquire its actual boats. Stay with your repair and return reserves; a retreat leaves this investigation open.",16)
 	ui.button(body,"Coastal watch and last sightings",func():ui.NavalUI.open(ui))
 	for sight in c.NavalAI.sightings(c.state):
@@ -30,10 +68,11 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 	for known in w.wrecks:
 		var wreck: Dictionary=c.Salvage.find_wreck(c.state,str(known.id))
 		if wreck.is_empty():continue
-		ui.paragraph(body,"Identified wreck: %s · %.0f water units · %s"%[str(wreck.name),c.distance(c.state.position,wreck),str(wreck.status)],16,ui.GOLD)
+		var dismantled: bool=bool(wreck.get("hullStripped",false))
+		ui.paragraph(body,"Identified wreck: %s · %.0f water units · %s"%[str(wreck.name),c.distance(c.state.position,wreck),"fittings and hull dismantled" if dismantled else str(wreck.status)],16,ui.GOLD)
 		if c.home_local064():
 			ui.button(body,"Chart this original wreck",(func(point):_course.call_deferred(ui,point)).bind(wreck.duplicate(true)))
-			if c.distance(c.state.position,wreck)<=180:ui.button(body,"Review original fitting or hull recovery",(func(id):ui.StoryUI._open_recovery(ui,id)).bind(str(known.id)))
+			if c.distance(c.state.position,wreck)<=180:ui.button(body,"Review remaining stores" if dismantled else "Review original fitting or hull recovery",(func(id):ui.StoryUI._open_recovery(ui,id)).bind(str(known.id)))
 	if str(w.status)=="carried":
 		var job: Dictionary=c.VoyageJobs._find(c.state,str(w.jobId))
 		ui.paragraph(body,"Bounty report harbor: %s. Claim the fee after the target condition, or withdraw under normal refund rules. Closing it does not invent recovery evidence."%str(c.port(str(w.port)).name),15)
