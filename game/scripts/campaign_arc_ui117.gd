@@ -107,7 +107,7 @@ static func _account(ui,body: Node,c,a: Dictionary) -> void:
 	if status=="abandoned" and total>int(a.get("reimbursed",0)):
 		var owner: Dictionary=c.fleet_owner(str(b.get("ownerId","")))
 		var shortfall: int=maxi(0,maxi(total-int(a.get("refund",0)),total-int(owner.get("coins",0))))
-		ui.paragraph(body,"Unsettled harbor contributions: %s coins; current refund or client-cash shortfall: %s."%[ui.money(total-int(a.get("reimbursed",0))),ui.money(shortfall)],15,ui.GOLD)
+		ui.paragraph(body,"Unsettled harbor contributions: %s coins; current refund or client coin shortfall: %s."%[ui.money(total-int(a.get("reimbursed",0))),ui.money(shortfall)],15,ui.GOLD)
 
 static func _carried(ui,body: Node,c,entry: Dictionary,a: Dictionary) -> void:
 	var b: Dictionary=a.get("binding",{})

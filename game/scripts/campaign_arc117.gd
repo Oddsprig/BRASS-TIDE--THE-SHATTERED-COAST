@@ -37,7 +37,7 @@ static func _admission(c) -> Dictionary:
 	var a: Dictionary=attempt(c)
 	if not a.is_empty() and (a.status!="abandoned" or int(a.reimbursed)!=_contributed(a)):return c.fail("Close the previous escort and return its actual harbor contributions before another attempt.")
 	if c.state.get("voyageJobs",[]).size()>=c.VoyageJobs.MAX_ACTIVE:return c.fail("Finish or abandon a carried voyage job first.")
-	if not c.EscortOps.contracted(c).is_empty():return c.fail("Finish or abandon the existing native escort first.")
+	if not c.EscortOps.contracted(c).is_empty():return c.fail("Finish or abandon the existing escort first.")
 	return c.ok("A fresh funded passage may be considered.")
 
 static func offers(c) -> Array:
@@ -70,7 +70,7 @@ static func quote(c,terms: Dictionary) -> Dictionary:
 		for share in shares:
 			var p: Dictionary=c.port(share.portId)
 			if p.is_empty() or not V.number(p.get("governmentPurse"),float(share.amount),V.COINS,true):return c.fail("The named harbor government cannot fund its quoted share from its actual purse.")
-	return {"ok":true,"message":"Current native terms; no coins moved by this quote.","offer":live.duplicate(true),"model":str(work(c).model),"contributions":shares,"reserve":reserve}
+	return {"ok":true,"message":"Current escort terms; reviewing this quote moves no coins.","offer":live.duplicate(true),"model":str(work(c).model),"contributions":shares,"reserve":reserve}
 
 static func _contributed(a: Dictionary) -> int:
 	var amount: int=0
@@ -92,7 +92,7 @@ static func _transfer(c,client: Dictionary,shares: Array,to_client: bool) -> boo
 	if (to_client and int(client.coins)>int(V.COINS)-total) or (not to_client and int(client.coins)<total):return false
 	var moved: int=0
 	for i in range(shares.size()):
-		var ok: bool=c.Money.move(ports[i],"governmentPurse",client,"coins",int(shares[i].amount),"Harbor contribution to native escort client",c.state.moneyLog) if to_client else c.Money.move(client,"coins",ports[i],"governmentPurse",int(shares[i].amount),"Returned actual abandoned escort contribution",c.state.moneyLog)
+		var ok: bool=c.Money.move(ports[i],"governmentPurse",client,"coins",int(shares[i].amount),"Harbor contribution to convoy escort",c.state.moneyLog) if to_client else c.Money.move(client,"coins",ports[i],"governmentPurse",int(shares[i].amount),"Returned actual abandoned escort contribution",c.state.moneyLog)
 		if not ok:
 			for j in range(moved-1,-1,-1):
 				if to_client:c.Money.move(client,"coins",ports[j],"governmentPurse",int(shares[j].amount),"Reversed unadmitted harbor contribution",c.state.moneyLog)
@@ -107,7 +107,7 @@ static func accept(c,quoted: Dictionary) -> Dictionary:
 	if not q.ok:return q
 	if quoted.get("model")!=q.model or quoted.get("contributions")!=q.contributions:return c.fail("The selected funding terms changed; review them again.")
 	var shown: Dictionary=q.offer
-	if c.VoyageJobs._is_closed(c.state,str(shown.id)) or not c.VoyageJobs._find(c.state,str(shown.id)).is_empty():return c.fail("This native passage has already been admitted or closed.")
+	if c.VoyageJobs._is_closed(c.state,str(shown.id)) or not c.VoyageJobs._find(c.state,str(shown.id)).is_empty():return c.fail("This passage has already been accepted or closed.")
 	var client: Dictionary=c.fleet_owner(str(shown.ownerId))
 	if client.is_empty() or not _transfer(c,client,q.contributions,true):return c.fail("The actual contribution purses changed. No escort was admitted.")
 	var result: Dictionary=c.VoyageJobs.accept_escort(c,str(shown.ownerId),int(shown.reward))
@@ -119,7 +119,8 @@ static func accept(c,quoted: Dictionary) -> Dictionary:
 	# The synchronous native success appended this authoritative original job.
 	var binding: Dictionary=V.identity(job)
 	work(c).attempts.append({"binding":binding,"contributions":q.contributions.duplicate(true),"refund":0,"refundDay":-1.0,"reimbursed":0,"status":"carried","closure":{},"follow":false,"followClock":0.0})
-	c.log_entry("Funding terms %s: actual native escort %s holds %d coins; no advance to the captain."%[str(work(c).model),str(binding.jobId),int(binding.reward)])
+	var funding_name: String="Mutual harbor funding" if str(work(c).model)=="mutual" else "Owner bond"
+	c.log_entry("%s: %d coins held for %s. Payment follows the contracted delivery."%[funding_name,int(binding.reward),str(client.get("name","the convoy"))])
 	return result
 
 static func observe_refund(c,job: Dictionary,amount: int) -> void:
@@ -155,14 +156,14 @@ static func settle_refund(c) -> Dictionary:
 	var due: int=_contributed(a)
 	if int(a.reimbursed)==due:return c.ok("No harbor contribution remains to return.")
 	var b: Dictionary=a.binding
-	if not c.VoyageJobs._find(c.state,str(b.jobId)).is_empty():return c.fail("The native escort has not closed.")
+	if not c.VoyageJobs._find(c.state,str(b.jobId)).is_empty():return c.fail("The escort contract has not closed.")
 	var client: Dictionary=c.fleet_owner(str(b.ownerId))
 	var funds: int=int(client.get("coins",0))
 	var shortfall: int=maxi(0,maxi(due-int(a.refund),due-funds))
 	if client.is_empty() or shortfall>0:return {"ok":false,"message":"The abandoned contribution remains unsettled: recorded refund and actual client funds must cover both shares.","shortfall":shortfall,"needed":due,"refund":int(a.refund)}
 	if not _transfer(c,client,a.contributions,false):return c.fail("The original contributor purses cannot receive an atomic return yet; the obligation remains unsettled.")
 	a.reimbursed=due
-	return c.ok("Returned both actual harbor contributions from the native client's received refund.")
+	return c.ok("Returned both harbor contributions from the client's received refund.")
 
 static func follow(c,enabled: bool) -> Dictionary:
 	var a: Dictionary=active(c)
@@ -258,7 +259,7 @@ static func choice_gate(c,choice: String) -> Dictionary:
 		return c.ok("Choose the disclosed funding terms before boarding.") if str(c.current_port().get("id",""))=="anvil_dock" else c.fail("Meet Mara at Anvil Dock to commit the funding terms.")
 	if choice=="report_funding117":
 		var a: Dictionary=attempt(c)
-		if record(c).get("stage","")!=WORK or work(c).get("reported",false) or a.get("status","")!="paid":return c.fail("Complete the original loaded escort and collect its actual native fee before reporting.")
+		if record(c).get("stage","")!=WORK or work(c).get("reported",false) or a.get("status","")!="paid":return c.fail("Complete the loaded escort and collect its held fee before reporting.")
 		return c.ok("Report the real escort payment under the chosen funding terms.")
 	if choice=="next_fuel117":return c.ok("The funding account is recorded.") if record(c).get("stage","")==ACCOUNT and work(c).get("reported",false) else c.fail("Record the paid funding account first.")
 	return c.ok("")

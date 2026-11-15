@@ -8,4 +8,6 @@ Each admission binds the native owner, voyage, original carrier identities, carg
 Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
 
 Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-Final existing Sol6.1MAX core/validator/UI relays integrated with native refund and story hooks. Exact call graph needs no passenger DayView change. Selected financial/native movement/refund/save/UI fixture and independent frozen review pending; no acceptance claimed.
+
+Routine funding logs use named convoys and funding sources, with coins as the currency. Internal job IDs, version numbers and adapter terminology stay out of normal player messages. This copy correction changes no financial calculation, identity, timing or settlement guard.
+Independent frozen source review and the first selected native batch remain pending; no acceptance claimed.
