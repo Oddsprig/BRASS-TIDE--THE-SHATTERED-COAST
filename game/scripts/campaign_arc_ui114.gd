@@ -9,6 +9,9 @@ static func controls(ui, body: Node, entry: Dictionary) -> void:
 	var w: Dictionary=c.Arc114.work(c)
 	var owner_id: String=str(w.get("ownerId",""))
 	var reported: bool=bool(w.get("reported",false))
+	if reported and owner_id.is_empty():
+		_outcome(ui,body,c,w)
+		return
 	if owner_id.is_empty():
 		var targets: Array=c.Arc114.targets(c)
 		if targets.is_empty():

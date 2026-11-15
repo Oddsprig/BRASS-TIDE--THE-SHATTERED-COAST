@@ -1,4 +1,4 @@
-# Brass Tide v0.114 — Bought Route — report display correction
+# Brass Tide v0.114 — Bought Route — empty-source report display
 
-v0.114 — Bought Route — report display correction (candidate; validation pending)
-First source/native33, Windows export0 and actual retail6 passed at51b3043 in44.145seconds. Actual images were rejected before installation: both completed outcomes showed generic text and stale raid instructions. Only the report display, singular wording and private branch checkpoints changed for recapture. Native transaction, battle, recovery, arrival and raw validation sources remain unchanged. New source/UI/export/retail acceptance pending; prior successful native evidence retained separately.
+v0.114 — Bought Route — empty-source report display (candidate; validation pending)
+The same completed-outcome display also handles an explicit unrecovered report made without binding a source. It no longer shows contact selection or pending raid instructions for that completed account. No native operation changed; independent display-diff review and recapture pending.
