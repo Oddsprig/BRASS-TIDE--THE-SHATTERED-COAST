@@ -221,7 +221,7 @@ static func details(ui) -> void:
 		for boat in reserves:ui.paragraph(ui.battle_fleet,"RESERVE · %s · %d DP · outside the arena"%[boat.get("name",boat.get("spec",{}).get("name","Boat")),Deployment.cost(boat)],13)
 	ui.paragraph(body,"WASD camera · Shift fast pan · Scroll zoom · Home center · Space pause · Tab overview · Click/drag select · Shift add · Right-click order · 1 engage / 2 escort flagship / 3 hold · F1–F4 recall / Ctrl+F1–F4 save · U autopilot · X flagship. Manual helm uses arrows and mouse.",13)
 	var footer=ui.row(body)
-	ui.button(footer,"Withdraw fleet ↗",func():ui.close_modal();ui.host.withdraw_fleet(),false,false)
+	ui.button(footer,"Retreat fleet ↗",func():ui.close_modal();ui.host.withdraw_fleet(),false,false)
 	ui.button(footer,"Return to battle",ui.close_modal,true,false)
 	ui.update_hud()
 
@@ -317,7 +317,7 @@ static func options(ui,weapon_kind: String="all") -> void:
 	var y_edited: Array=number_choice(y,"rally" in mixed)
 	ui.button(rally_row,"Set rally",func():
 		if x_edited[0] and y_edited[0]:apply_choices(ui,{"rally":{"x":float(x.value),"y":float(y.value)}}))
-	ui.button(rally_row,"Withdraw selected to rally",func():ui.host.command_selected("withdraw"))
+	ui.button(rally_row,"Fall back selected",func():ui.host.command_selected("withdraw"))
 	var conditional=CheckButton.new();conditional.name="ConditionalWithdrawal";conditional.text="Allow survival withdrawal during explicit orders";conditional.button_pressed=bool(current.get("conditionalWithdrawal",false));body.add_child(conditional)
 	if "conditionalWithdrawal" in mixed:conditional.text+=" (Mixed)"
 	conditional.toggled.connect(func(value: bool):apply_choices(ui,{"conditionalWithdrawal":value}))

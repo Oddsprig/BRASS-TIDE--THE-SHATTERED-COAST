@@ -909,6 +909,7 @@ func _refresh_market_quote120(quote120: Dictionary) -> void:
 		action120.tooltip_text="%s %d for %s coins total, at %s coins each."%[side120.capitalize(),trade_qty,money(total120),money(unit120)]
 		var availability120: Dictionary=_market_availability120(quote120,side120)
 		action120.disabled=not availability120.get("ok",false)
+		action120.add_theme_color_override("font_disabled_color",MUTED)
 		if action120.disabled:
 			var reason120: String=str(availability120.get("message","Unavailable"))
 			var short120: String="Unavailable"

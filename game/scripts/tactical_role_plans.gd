@@ -147,9 +147,11 @@ static func mount_reload(ship: Dictionary, mount: Dictionary) -> float:
 	return INF
 
 static func solo_recovery_guns(view: Dictionary, ship: Dictionary, state: Dictionary) -> Array:
+	# Focus keeps its named target through the same covered turn as Engage.
+	# Runtime still checks that target, every live shot and the current helm.
 	# Routine gun recovery only. Real danger, explicit destinations and every
 	# missile/torpedo keep their existing withdrawal and salvo rules.
-	if not state.get("localRecovery", false) or str(state.get("role", "")) != "skirmisher" or str(state.get("phase", "")) not in ["breakaway", "regroup"] or not str(state.get("leaderId", "")).is_empty() or str(ship.get("order", "engage")) != "engage":
+	if not state.get("localRecovery", false) or str(state.get("role", "")) != "skirmisher" or str(state.get("phase", "")) not in ["breakaway", "regroup"] or not str(state.get("leaderId", "")).is_empty() or str(ship.get("order", "engage")) not in ["engage", "attack"]:
 		return []
 	var opts: Dictionary = options(view, ship)
 	var supplied: Variant = opts.get("rally")

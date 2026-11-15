@@ -52,7 +52,7 @@ static func open_first120(ui) -> void:
 		ui.paragraph(body, "Last fitting was installed for %d coins." % ui.host.first_voyage120.last_fit_cost, 15, ui.TEAL)
 	ui.button(body, str(step.get("caption", "Choose work")), func(): _next120(ui, step), true, false)
 	if not ui.host.first_voyage120.earned:
-		ui.paragraph(body, "First: accept local work, sail, fight and collect. Then compare a paid fitting and choose a different job. Manual steering is optional.", 15)
+		ui.paragraph(body,"Accept the local contract and sail to its destination. Combat victory pays the sponsor's fee in the battle report. Then review repairs, a paid fitting and your next job. Manual steering is optional.",15)
 	var row = _actions(body)
 	ui.button(row, "Choose other work", func(): choose_work120(ui), false, false)
 	ui.button(row, "Common Passage", func(): ui.StoryUI.open(ui), false, false)
@@ -280,7 +280,7 @@ static func open_voyage(ui, offer_id: String = "") -> void:
 	var e: Dictionary = q.endurance
 	ui.label(body, str(offer.title), 24, ui.GOLD, true)
 	ui.paragraph(body, "%s to %s" % [str(c.port(str(offer.port)).get("name", "Sponsor")), str(c.port(str(offer.targetPort)).get("name", "Destination"))], 17, ui.TEAL)
-	var job_type: String = "Deliver the sealed dispatch" if offer.get("enemyHulls", []).is_empty() else "Clear %s, then collect at the destination" % ui.count_text(offer.get("enemyHulls", []).size(), "hostile boat", "hostile boats")
+	var job_type: String="Deliver the sealed dispatch" if offer.get("enemyHulls",[]).is_empty() else "Defeat %s; the battle settlement pays the sponsor's fee"%ui.count_text(offer.get("enemyHulls",[]).size(),"hostile boat","hostile boats")
 	ui.paragraph(body, job_type + ".", 15)
 	var money_state: String = "held in escrow" if q.active else ("funded by the sponsor on acceptance" if q.funded else "sponsor cannot fund it")
 	ui.paragraph(body, "Payment: %d coins, %s." % [int(q.grossRewardCoins), money_state], 17, ui.GOLD if q.funded else ui.RED)
