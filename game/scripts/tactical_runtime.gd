@@ -432,12 +432,30 @@ static func refresh_mounts(st: Dictionary,ship: Dictionary,frame_cache=null) -> 
 	var id: String=str(ship.id)
 	if not t.mountCache.has(id):return []
 	var entry: Dictionary=t.mountCache[id]
-	var cond_key: String=EquipmentCombat.mount_cache_key(ship,{},frame_cache)
+	var info051: Dictionary={}
+	var immutable_condition051: bool=false
+	if frame_cache is Damage.BattlePhase043 and frame_cache.active:
+		var owned051=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),t.get("damageCache",{}))
+		if owned051!=null and is_same(frame_cache.owned,owned051) and is_same(frame_cache.source,owned051.source):
+			# Keep Damage's CURRENT exact-owner/generation/priority inspection. Only
+			# the immutable equipment packet it returns may elide repeated key math.
+			# This retains no phase, readiness, pose, status or clearance authority.
+			info051=Damage._inspect_owner_in_phase043(ship,frame_cache)
+			immutable_condition051=str(info051.get("mode",""))=="canonical" and info051.is_read_only() and info051.get("snapshot") is Dictionary and info051.snapshot.is_read_only()
+	if (immutable_condition051 and is_same(entry.get("_conditionOwner051"),ship)
+		and is_same(entry.get("_conditionInfo051"),info051) and entry.get("_conditionSunk051")==bool(ship.get("sunk",false))
+		and entry.get("_conditionKey051")==entry.get("conditionKey") and is_same(entry.get("_conditionMounts051"),entry.get("mounts"))):
+		return entry.mounts
+	var cond_key: String=EquipmentCombat._mount_cache_key_from_info051(ship,info051) if immutable_condition051 else EquipmentCombat.mount_cache_key(ship,{},frame_cache)
 	if str(entry.get("conditionKey",""))!=cond_key:
 		var base_mounts: Array=entry.get("baseMounts",entry.get("mounts",[]))
 		entry.conditionKey=cond_key
 		entry.mounts=EquipmentCombat.apply_mount_condition(ship,base_mounts,{},frame_cache)
 		t.mountCache[id]=entry
+	if immutable_condition051:
+		entry._conditionOwner051=ship;entry._conditionInfo051=info051
+		entry._conditionSunk051=bool(ship.get("sunk",false))
+		entry._conditionKey051=entry.conditionKey;entry._conditionMounts051=entry.mounts
 	return entry.mounts
 
 static func accept_command(st: Dictionary,ship: Dictionary,order: String,target: Dictionary={},automatic: bool=false) -> void:
@@ -1776,7 +1794,7 @@ static func status(st: Dictionary,id: String,frame_cache=null) -> Dictionary:
 	# HUD never admits/drops authoritative goals or touches phase/owner handles.
 	if bool(st.get("_battleMirror051",false)):
 		return st.get("tactical",{}).get("statusById051",{}).get(id,{}).duplicate(true)
-	# The exclusive worker may supply its current UNSEALED post-step phase.
+	# The exclusive worker may supply its fresh post-step publication phase.
 	# Omitted contexts retain fresh public inspection; no status read seals it.
 	var t: Dictionary=ensure(st)
 	var ship: Dictionary=_live(st,id)

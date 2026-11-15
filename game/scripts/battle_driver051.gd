@@ -242,11 +242,12 @@ static func _work(job: _Job) -> void:
 		Battle._close_damage_owned051(st)
 	var snapshot_started: int=Time.get_ticks_usec()
 	job.events=_plain(Battle.pop_events(st))
-	job.publication=_snapshot(st,true)
+	var snapshot_detail051: Dictionary={}
+	job.publication=_snapshot(st,true,snapshot_detail051)
 	job.poses={"previous":previous,"current":_pose_table(st)}
 	var snapshot_us: int=Time.get_ticks_usec()-snapshot_started
 	job.completed+=steps_done
-	job.receipt={"workerStepHz":30,"workerThreadId":OS.get_thread_caller_id(),"completedSteps":job.completed,"stateTime":float(st.get("time",0.0)),"workerJobUs":Time.get_ticks_usec()-started,"simulationUs":simulation_us,"snapshotUs":snapshot_us,"stepsInJob":steps_done,"commandResults":acknowledgements}
+	job.receipt={"workerStepHz":30,"workerThreadId":OS.get_thread_caller_id(),"completedSteps":job.completed,"stateTime":float(st.get("time",0.0)),"workerJobUs":Time.get_ticks_usec()-started,"simulationUs":simulation_us,"snapshotUs":snapshot_us,"snapshotDetailUs":snapshot_detail051,"stepsInJob":steps_done,"commandResults":acknowledgements}
 	if not acknowledgements.is_empty():job.receipt.lastCommandSequence=int(acknowledgements[-1].sequence)
 	job.commands=[];job.input={}
 
@@ -312,22 +313,31 @@ static func _apply_command(st: Dictionary,kind: String,p: Dictionary) -> bool:
 		"repair_priority":return Battle.set_repair_priority(st,p.get("ids",[]),str(p.get("priority","")))
 	return false
 
-static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
+static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null) -> Dictionary:
+	# Four bounded stage clocks per publication, independent of acceptance gates.
+	var stage051: int=Time.get_ticks_usec() if detail051 is Dictionary else 0
 	var result: Dictionary={}
 	for key in st:
 		if str(key).begins_with("_") or key in ["rng","tactical","events"]:continue
 		if not st[key] is Object:
 			result[key]=_copy_plain_owned051(st[key]) if key in PLAIN_STATE_GROUPS051 else _plain(st[key])
 	result.events=[] # Audio goes through take_events(), never repeated UI snapshots.
+	if detail051 is Dictionary:
+		detail051.stateCopy=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	var t: Dictionary=st.get("tactical",{})
 	var damage_cache: Dictionary=t.get("damageCache",{})
 	var damage_owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),damage_cache) if with_status and st.get("result")==null else null
 	var status_phase=null
 	if damage_owned!=null:
-		# New post-step borrow, never the pre-contact/fire phase. Leave unsealed:
-		# every status read checks CURRENT scalars as well as owned generations.
+		# A NEW post-contact/projectile phase validates every CURRENT status input
+		# once. This closed snapshot has no actor/equipment/crew/policy writers,
+		# command callbacks or awaits. Status may retire goals, not physical state.
+		# Never borrow Battle's earlier pre-contact phase or a previous job's seal.
 		status_phase=Damage._begin_battle_phase043(damage_cache)
 		Damage._bind_battle_owned051(status_phase,damage_owned,st.ships,damage_cache)
+		Damage._seal_battle_reads051(status_phase)
+	if detail051 is Dictionary:
+		detail051.statusPreparation=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	var public_t: Dictionary={"statusById051":{},"mountsById051":{},"damageStatusById051":{},"mountCache":{}}
 	for ship: Dictionary in st.get("ships",[]):
 		var id: String=str(ship.get("id",""))
@@ -350,6 +360,8 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 			var owned_status: bool=status_phase!=null and not Damage._battle_entry051(ship,damage_owned).is_empty()
 			public_t.damageStatusById051[id]=_copy_plain_owned051(Damage._read_status_in_phase043(ship,status_phase) if owned_status else Damage.get_status(ship))
 	if status_phase!=null:Damage._end_battle_phase043(status_phase)
+	if detail051 is Dictionary:
+		detail051.shipRows=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	# status may retire an invalid goal on the authoritative owner. Publish the
 	# matching post-status public fields, rather than an older intent table.
 	for key in PUBLIC_TACTICAL:
@@ -359,6 +371,7 @@ static func _snapshot(st: Dictionary,with_status: bool) -> Dictionary:
 		if t.has(key):public_t[key]=_plain(t[key]) if key=="predictions" else _copy_plain_owned051(t[key])
 	result.tactical=public_t
 	_relink_ship_aliases(result)
+	if detail051 is Dictionary:detail051.tacticalCopy=Time.get_ticks_usec()-stage051
 	return result
 
 static func _copy_plain_owned051(value: Variant) -> Variant:

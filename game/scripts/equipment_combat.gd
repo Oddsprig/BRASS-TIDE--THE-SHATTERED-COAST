@@ -119,6 +119,11 @@ static func mount_cache_key(ship: Dictionary, status: Dictionary = {}, frame_cac
 	if not (ship is Dictionary) or not (ship.get("moduleCondition") is Dictionary):
 		return "legacy"
 	var info: Dictionary = Damage._inspect_owner_in_phase043(ship, frame_cache)
+	return _mount_cache_key_from_info051(ship, info, status)
+
+static func _mount_cache_key_from_info051(ship: Dictionary, info: Dictionary, status: Dictionary = {}) -> String:
+	# Pure key math shared with Runtime's already-validated owned-phase read.
+	# Public mount_cache_key still performs its original fresh owner inspection.
 	if str(info.get("mode", "")) != "canonical":
 		return "legacy"
 	var supplied: bool = not status.is_empty() and status.has("equipmentMode")
