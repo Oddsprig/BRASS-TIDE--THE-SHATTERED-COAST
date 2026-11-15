@@ -28,14 +28,14 @@ class Preview extends "res://scripts/main.gd":
 		f.store_string(JSON.stringify(value,"\t"));f.close();return true
 
 	func snapshot() -> Dictionary:
-		return JSON.parse_string(JSON.stringify(core.state))
+		return core.state.duplicate(true)
 
 	func conserved() -> bool:
 		return core.Money.total(core.state)==int(core.state.coinSupply)
 
 	func check(value: bool,label: String) -> bool:
 		value=value and Time.get_ticks_msec()-began<25000
-		proof.checks.append({"name":label,"passed":value,"branch":branch})
+		proof.checks.append({"name":label,"passed":value,"branch":branch,"elapsed_ms":Time.get_ticks_msec()-began})
 		print("CAMPAIGN119_CHECK %d %s %s"%[proof.checks.size(),str(value),label])
 		write_json("progress.json",{"checks":proof.checks,"elapsed_ms":Time.get_ticks_msec()-began})
 		return value
