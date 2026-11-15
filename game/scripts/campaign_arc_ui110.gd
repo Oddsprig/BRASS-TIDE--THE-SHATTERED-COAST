@@ -5,7 +5,7 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 	var c=ui.host.core
 	var arc=c.Arc110
 	var lead: Dictionary=arc.record(c).get("lead110",{})
-	if not lead.is_empty():ui.paragraph(body,"Tobin's departure entry, day %.2f: %s, Kelp Reach to %s. This is a dated route report; current position and load must be reacquired at sea."%[float(lead.day),str(lead.name),str(c.port(str(lead.targetPort)).get("name",lead.targetPort))],15,ui.GOLD)
+	if not lead.is_empty() and str(entry.get("stage","")) in ["overdue_brief110","escort_work110"]:ui.paragraph(body,"Tobin's departure entry, day %.2f: %s, Kelp Reach to %s. This is a dated route report; current position and load must be reacquired at sea."%[float(lead.day),str(lead.name),str(c.port(str(lead.targetPort)).get("name",lead.targetPort))],15,ui.GOLD)
 	if str(entry.get("stage",""))!="escort_work110":return
 	var bound: Dictionary=arc.pending(c)
 	var receipt: Dictionary=arc.completed(c,arc.OPENING)

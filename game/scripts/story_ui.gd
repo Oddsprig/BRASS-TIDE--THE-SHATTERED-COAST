@@ -43,7 +43,11 @@ static func open(ui) -> void:
 		var chart_kind: String=str(location.get("kind",""))
 		var chart_id: String=str(location.get("id",""))
 		var chart_port: String=chart_id if chart_kind=="port" else ""
-		ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port,kind,target_id):_chart.call_deferred(ui,x,y,port,kind,target_id)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port,chart_kind,chart_id))
+		var show_chart110: bool=true
+		if str(entry.get("chainId",""))=="common_passage110":
+			show_chart110=not (chart_kind=="port" and str(c.current_port().get("id",""))==chart_id)
+			if str(entry.stage)=="escort_work110" and c.Arc110.completed(c,c.Arc110.OPENING).is_empty():show_chart110=false
+		if show_chart110:ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port,kind,target_id):_chart.call_deferred(ui,x,y,port,kind,target_id)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port,chart_kind,chart_id))
 		var gate: Dictionary=Stories._gate(c,c.state,stage.get("gate",{}))
 		if not gate.ok:ui.paragraph(body,gate.message,14,ui.RED)
 		for option in entry.choices:

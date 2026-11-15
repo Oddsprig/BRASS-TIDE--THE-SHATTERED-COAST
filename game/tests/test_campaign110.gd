@@ -21,6 +21,21 @@ class Preview extends "res://scripts/main.gd":
 			push_error("CAMPAIGN110 "+message)
 			write_evidence();get_tree().quit(2)
 		return condition
+	func same_saved(a,b) -> bool:
+		# JSON stores numbers without GDScript's int/float container distinction.
+		# Compare all values/keys; do not ignore changed fields or quantities.
+		if (a is int or a is float) and (b is int or b is float):return float(a)==float(b)
+		if a is Dictionary and b is Dictionary:
+			if a.size()!=b.size():return false
+			for key in a:
+				if not b.has(key) or not same_saved(a[key],b[key]):return false
+			return true
+		if a is Array and b is Array:
+			if a.size()!=b.size():return false
+			for i in a.size():
+				if not same_saved(a[i],b[i]):return false
+			return true
+		return typeof(a)==typeof(b) and a==b
 	func write_evidence() -> void:
 		var f=FileAccess.open(output.path_join("evidence.json"),FileAccess.WRITE)
 		f.store_string(JSON.stringify(evidence,"\t"));f.close()
@@ -90,6 +105,11 @@ class Preview extends "res://scripts/main.gd":
 		var roundtrip: Dictionary=JSON.parse_string(JSON.stringify(core.state))
 		# Controlled API regression branch; restore the entire detached world
 		# before the real voyage. This withdrawal is not an earned outcome.
+		var bad: Dictionary=roundtrip.duplicate(true)
+		bad.stories.chains[core.Arc110.ID].pending110.voyageSeq={}
+		if not verify(not core.Arc110.validate(bad).is_empty(),"Malformed passage sequence is rejected before conversion"):return
+		bad=roundtrip.duplicate(true);bad.stories.chains[core.Arc110.ID].pending110.tradeQty+=1
+		if not verify(not core.Arc110.validate(bad).is_empty(),"Pending cargo must match the actual native lot"):return
 		var held: int=int(core.fleet_owner(str(offer.ownerId)).coins)
 		if not verify(bool(core.VoyageJobs.abandon(core,job_id).get("ok",false)) and core.Arc110.pending(core).is_empty() and int(core.fleet_owner(str(offer.ownerId)).coins)==held+int(offer.reward),"Ordinary native withdrawal refunds and releases campaign binding"):return
 		if not verify(bool(core.restore(roundtrip).get("ok",false)) and str(core.Arc110.pending(core).jobId)==job_id,"Active original binding survives full native JSON restore"):return
@@ -121,7 +141,12 @@ class Preview extends "res://scripts/main.gd":
 		if not verify(bool(core.StoryOps.choose(core,core.Arc110.ID,"report_merchant110").get("ok",false)),"Actual return unlocks Tobin and Venn conversation"):return
 		ui.StoryUI.open(ui);await picture("return")
 		if not verify(bool(core.StoryOps.choose(core,core.Arc110.ID,"question_guarantee110").get("ok",false)),"Player questions claim without accepting a debt or faction agreement"):return
-		if not verify(int(core.state.missionIndex)==0 and core.state.activeContract==legacy_copy and core.state.stories.chains[str(original.id)].flags==["retained_fixture"],"Legacy mission, active contract and old chain progress remain intact"):return
+		evidence.legacy_before=legacy_copy
+		evidence.legacy_after=core.state.activeContract.duplicate(true)
+		evidence.old_chain=core.state.stories.chains.get(str(original.id),{}).duplicate(true)
+		if not verify(int(core.state.missionIndex)==0,"Legacy mission index remains unchanged"):return
+		if not verify(same_saved(core.state.activeContract,legacy_copy),"Every legacy contract field and quantity survives JSON restore and campaign work"):return
+		if not verify(core.state.stories.chains[str(original.id)].flags==["retained_fixture"],"Old chain progress remains intact"):return
 		var snapshot: Dictionary=JSON.parse_string(JSON.stringify(core.state))
 		if not verify(bool(core.restore(snapshot).get("ok",false)) and str(core.Arc110.record(core).stage)=="second_signature111" and not bool(core.Arc110.record(core).done),"Paid chapter and stable next-version boundary survive native restore"):return
 		if not verify(core.Money.total(core.state)==int(core.state.coinSupply),"Final native coin conservation"):return

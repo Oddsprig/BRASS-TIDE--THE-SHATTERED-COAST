@@ -53,7 +53,7 @@
           "id": "venn_claim110",
           "title": "The rescue guarantee",
           "body": "Tobin Hale: ‘The cargo arrived. The merchant's fee is yours. This claim is separate.’\n\nTobin opens a notice from Della Venn, the Compact's charter administrator. ‘My wardens keep these routes open. A captain who asks for rescue accepts our service terms. Your escort does not cancel the earlier debt.’\n\nTobin recognizes the countersignature. He financed the guarantee when the harbors needed protection; he did not tell you how a missed payment could transfer control of a boat.",
-          "nextAction": "Ask Tobin about the guarantee. No debt is added to your own fleet, and no agreement is accepted on your behalf.",
+          "nextAction": "Ask Tobin why his signature appears on Venn’s guarantee.",
           "gate": {
             "type": "at_port",
             "port": "brass_haven"

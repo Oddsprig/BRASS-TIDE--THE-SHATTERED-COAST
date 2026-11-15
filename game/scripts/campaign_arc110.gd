@@ -3,6 +3,8 @@ extends RefCounted
 ## cargo, movement, wages, loss, escrow and payment. No new account or actor.
 const ID: String="common_passage110"
 const OPENING: String="overdue_merchant110"
+const OPERATIONS: Array=[OPENING]
+const Goods=preload("res://scripts/goods.gd")
 
 static func record(c) -> Dictionary:
 	return c.state.get("stories",{}).get("chains",{}).get(ID,{})
@@ -166,34 +168,40 @@ static func validate(state: Dictionary) -> String:
 		if not (day is int or day is float) or not is_finite(float(day)) or float(day)<1:return "Invalid campaign110 report date."
 	var proofs: Dictionary=rec.get("outcomes110",{})
 	if proofs.size()>12:return "Campaign110 outcome limit exceeded."
-	var entries: Array=proofs.values()
 	var p: Dictionary=rec.get("pending110",{})
+	var entries: Array=proofs.values()
 	if not p.is_empty():
-		if not p.get("operation") is String or not p.get("follow") is bool or not p.get("acceptedDay") is float and not p.get("acceptedDay") is int:return "Invalid pending campaign operation."
-		if not is_finite(float(p.acceptedDay)) or float(p.acceptedDay)<1:return "Invalid campaign110 acceptance date."
-		var native: Dictionary={}
-		for job in state.get("voyageJobs",[]):
-			if str(job.get("id",""))==str(p.get("jobId","")):native=job;break
-		if native.is_empty() or str(native.get("kind",""))!=str(p.get("kind","")) or str(native.get("ownerId",""))!=str(p.get("ownerId","")) or str(native.get("targetPort",""))!=str(p.get("targetPort","")) or native.get("escort",{}).get("carrierUids",[])!=p.get("carrierUids",[]) or int(native.get("escort",{}).get("voyageSeq",-1))!=int(p.get("voyageSeq",-2)):return "Campaign110 binding has no matching native passage."
+		if p.get("operation","") not in OPERATIONS or not p.get("follow") is bool:return "Invalid pending campaign operation."
+		var day=p.get("acceptedDay")
+		if not (day is float or day is int) or not is_finite(float(day)) or float(day)<1:return "Invalid campaign110 acceptance date."
 		entries.append(p)
+	# Validate types BEFORE converting or comparing a pending native identity.
 	for item in entries:
 		if not item is Dictionary:return "Invalid campaign110 receipt."
 		for key in ["jobId","kind","ownerId","targetPort","tradeGood"]:
-			if not item.get(key) is String or str(item[key]).length()>160:return "Invalid campaign110 operation identity."
-		if not item.get("voyageSeq") is int and not item.get("voyageSeq") is float:return "Invalid campaign110 passage sequence."
-		if not is_finite(float(item.voyageSeq)) or float(item.voyageSeq)<0 or floorf(float(item.voyageSeq))!=float(item.voyageSeq):return "Invalid campaign110 passage sequence."
-		if item.kind!="escort" or not item.get("carrierUids") is Array or item.carrierUids.is_empty() or item.carrierUids.size()>48:return "Invalid campaign110 bound carriers."
+			if not item.get(key) is String or str(item[key]).is_empty() or str(item[key]).length()>160:return "Invalid campaign110 operation identity."
+		var sequence=item.get("voyageSeq")
+		if not (sequence is int or sequence is float) or not is_finite(float(sequence)) or float(sequence)<0 or float(sequence)>1000000000 or floorf(float(sequence))!=float(sequence):return "Invalid campaign110 passage sequence."
+		if item.kind!="escort" or not Goods.ITEMS.has(str(item.tradeGood)) or not item.get("carrierUids") is Array or item.carrierUids.is_empty() or item.carrierUids.size()>48:return "Invalid campaign110 bound carriers."
 		var unique: Dictionary={}
 		for uid in item.carrierUids:
 			if not uid is String or uid.is_empty() or uid.length()>120 or unique.has(uid):return "Invalid campaign110 carrier identity."
 			unique[uid]=true
 		var qty=item.get("tradeQty")
-		if not (qty is float or qty is int) or not is_finite(float(qty)) or float(qty)<=0:return "Invalid campaign110 cargo quantity."
+		if not (qty is float or qty is int) or not is_finite(float(qty)) or float(qty)<=0 or float(qty)>1000000000:return "Invalid campaign110 cargo quantity."
+	if not p.is_empty():
+		var native: Dictionary={}
+		for job in state.get("voyageJobs",[]):
+			if job is Dictionary and str(job.get("id",""))==str(p.jobId):native=job;break
+		var route=native.get("escort",{})
+		if not route is Dictionary:return "Invalid campaign110 native passage."
+		if native.is_empty() or str(native.get("kind",""))!=str(p.kind) or str(native.get("ownerId",""))!=str(p.ownerId) or str(native.get("targetPort",""))!=str(p.targetPort) or route.get("carrierUids",[])!=p.carrierUids or int(route.get("voyageSeq",-1))!=int(p.voyageSeq) or str(route.get("tradeGood",""))!=str(p.tradeGood) or float(route.get("tradeQty",-1))!=float(p.tradeQty):return "Campaign110 binding has no matching native passage and load."
 	var used_jobs: Dictionary={}
 	for key in proofs:
-		if not key is String or key.length()>80:return "Invalid campaign110 operation key."
+		if key not in OPERATIONS:return "Unknown campaign110 operation."
 		var item: Dictionary=proofs[key]
-		if item.get("result")!="paid" or not (item.get("reward") is int or item.get("reward") is float) or not is_finite(float(item.reward)) or float(item.reward)<=0 or floorf(float(item.reward))!=float(item.reward):return "Invalid campaign110 paid outcome."
+		var reward=item.get("reward")
+		if item.get("result")!="paid" or not (reward is int or reward is float) or not is_finite(float(reward)) or float(reward)<=0 or float(reward)>1000000000 or floorf(float(reward))!=float(reward):return "Invalid campaign110 paid outcome."
 		if used_jobs.has(str(item.jobId)):return "A native job cannot complete two campaign operations."
 		used_jobs[str(item.jobId)]=true
 		for field in ["day","arrivedDay"]:
