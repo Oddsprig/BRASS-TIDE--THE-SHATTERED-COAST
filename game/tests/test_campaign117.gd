@@ -194,6 +194,13 @@ class Preview extends "res://scripts/main.gd":
 		if not check(not preload("res://scripts/campaign_validation117.gd").validate(fractional).is_empty(),"Fractional coin reimbursements still fail raw preflight before conversion"):return
 		if not check(restore_value(active) and core.Arc117.active(core).binding.jobId==native_job().id and conserved(),"The funded refund-probe checkpoint fully restores with its original native identity"):return
 		if not check(not core.Arc117.accept(core,q).get("ok",false) and core.Arc117.work(core).attempts.size()==1,"A carried original funding attempt cannot be admitted twice"):return
+		core.VoyageJobs.ensure(core)
+		var validator=preload("res://scripts/campaign_validation117.gd")
+		var restored_binding: Dictionary=core.Arc117.attempt(core).binding
+		if not check(validator.same_value(validator.identity(native_job()),restored_binding) and validator.validate(core.state).is_empty(),"Native normalization after restore retains the exact original numeric identity"):return
+		var changed_identity: Dictionary=restored_binding.duplicate(true)
+		changed_identity.reward=float(changed_identity.reward)+0.5
+		if not check(not validator.same_value(changed_identity,restored_binding) and not validator.same_value({"amount":false},{"amount":0}) and validator.same_value({"amount":941},{"amount":941.0}),"Exact value comparison accepts JSON numeric representations and rejects changed or boolean amounts"):return
 		var job: Dictionary=native_job();var id: String=str(job.id);var fee: int=int(job.reward)
 		var p: Dictionary=core.NavalAI._find_patrol(core.state,"patrol-7")
 		var away: Dictionary={}

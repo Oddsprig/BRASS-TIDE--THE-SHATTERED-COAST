@@ -10,6 +10,24 @@ const BINDING_FIELDS: Array=["jobId","ownerId","port","targetPort","payerKey","r
 static func number(v,low: float=0,high: float=1000000000,whole: bool=false) -> bool:
 	return (v is int or v is float) and is_finite(float(v)) and float(v)>=low and float(v)<=high and (not whole or floorf(float(v))==float(v))
 
+static func same_value(a,b) -> bool:
+	# Exact numeric values across JSON/native int/float representations.
+	# Raw field-specific whole-coin, identity and cargo guards remain required.
+	if a is int or a is float or b is int or b is float:
+		return number(a,-COINS,COINS) and number(b,-COINS,COINS) and float(a)==float(b)
+	if typeof(a)!=typeof(b):return false
+	if a is Dictionary:
+		if a.size()!=b.size():return false
+		for key in a:
+			if not b.has(key) or not same_value(a[key],b[key]):return false
+		return true
+	if a is Array:
+		if a.size()!=b.size():return false
+		for i in range(a.size()):
+			if not same_value(a[i],b[i]):return false
+		return true
+	return a==b
+
 static func text(v) -> bool:
 	return v is String and not v.is_empty() and v.length()<=160
 
@@ -108,7 +126,7 @@ static func _attempt(a,s: Dictionary,model: String,selected: float) -> String:
 	if not a.closure is Dictionary:return "117: invalid native closure record."
 	var live: Dictionary=_find(s.get("voyageJobs",[]),str(b.jobId))
 	if a.status=="carried":
-		if not a.closure.is_empty() or a.reimbursed!=0 or live.is_empty() or identity(live)!=b or s.get("doneVoyageJobs",[]).has(str(b.jobId)):return "117: carried native escort disappeared, changed or already closed."
+		if not a.closure.is_empty() or a.reimbursed!=0 or live.is_empty() or not same_value(identity(live),b) or s.get("doneVoyageJobs",[]).has(str(b.jobId)):return "117: carried native escort disappeared, changed or already closed."
 		if live.get("state") not in ["active","expired"] or not number(live.get("escrow"),0,float(b.reward),true) or int(live.escrow)+int(a.refund)!=int(b.reward):return "117: observed refund disagrees with actual remaining native escrow."
 		if live.state=="active" and a.refund!=0:return "117: active fee was already refunded."
 		return ""

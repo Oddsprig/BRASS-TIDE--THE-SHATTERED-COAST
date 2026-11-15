@@ -55,7 +55,7 @@ static func quote(c,terms: Dictionary) -> Dictionary:
 	if not admission.ok:return admission
 	var live: Dictionary={}
 	for row in offers(c):
-		if V.terms(row)==V.terms(terms):live=row;break
+		if V.same_value(V.terms(row),V.terms(terms)):live=row;break
 	if live.is_empty():return c.fail("No matching fresh loaded offer is available. Reacquire the actual trader and review its terms.")
 	if str(live.id)==str(record(c).get("work116",{}).get("priority",{}).get("jobId","")):return c.fail("The previous convoy operation cannot be reused for this funding account.")
 	var reserve: Dictionary=c.Arc110.reserve_quote(c,live)
@@ -105,7 +105,7 @@ static func accept(c,quoted: Dictionary) -> Dictionary:
 	if not quoted.get("ok",false) or not quoted.get("offer") is Dictionary:return c.fail("Review a current funding quote first.")
 	var q: Dictionary=quote(c,quoted.offer)
 	if not q.ok:return q
-	if quoted.get("model")!=q.model or quoted.get("contributions")!=q.contributions:return c.fail("The selected funding terms changed; review them again.")
+	if quoted.get("model")!=q.model or not V.same_value(quoted.get("contributions"),q.contributions):return c.fail("The selected funding terms changed; review them again.")
 	var shown: Dictionary=q.offer
 	if c.VoyageJobs._is_closed(c.state,str(shown.id)) or not c.VoyageJobs._find(c.state,str(shown.id)).is_empty():return c.fail("This passage has already been accepted or closed.")
 	var client: Dictionary=c.fleet_owner(str(shown.ownerId))
@@ -125,7 +125,7 @@ static func accept(c,quoted: Dictionary) -> Dictionary:
 
 static func observe_refund(c,job: Dictionary,amount: int) -> void:
 	var a: Dictionary=active(c)
-	if a.is_empty() or amount<=0 or V.identity(job)!=a.binding:return
+	if a.is_empty() or amount<=0 or not V.same_value(V.identity(job),a.binding):return
 	var live: Dictionary=c.VoyageJobs._find(c.state,str(a.binding.jobId))
 	if live.is_empty() or not is_same(live,job) or int(a.refund)+amount>int(a.binding.reward):return
 	if int(a.refund)+amount!=int(a.binding.reward)-int(job.get("escrow",-1)):return
@@ -133,7 +133,7 @@ static func observe_refund(c,job: Dictionary,amount: int) -> void:
 
 static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> void:
 	var a: Dictionary=active(c)
-	if a.is_empty() or not result.get("ok",false) or V.identity(before)!=a.binding:return
+	if a.is_empty() or not result.get("ok",false) or not V.same_value(V.identity(before),a.binding):return
 	var b: Dictionary=a.binding
 	if not c.state.get("doneVoyageJobs",[]).has(str(b.jobId)) or not c.VoyageJobs._find(c.state,str(b.jobId)).is_empty():return
 	if abandon:
@@ -143,7 +143,7 @@ static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> 
 		return
 	var receipt: Dictionary=c.state.get("lastEscortVoyage",{})
 	var settled: Dictionary=receipt.get("job",{})
-	if V.identity(settled)!=b or int(result.get("reward",-1))!=int(b.reward) or int(receipt.get("payment",-1))!=int(b.reward) or str(receipt.get("deliveryPort",""))!=str(b.targetPort) or float(receipt.get("paidDay",-1))!=float(c.state.day):return
+	if not V.same_value(V.identity(settled),b) or int(result.get("reward",-1))!=int(b.reward) or int(receipt.get("payment",-1))!=int(b.reward) or str(receipt.get("deliveryPort",""))!=str(b.targetPort) or float(receipt.get("paidDay",-1))!=float(c.state.day):return
 	var sale: Dictionary=V.sale(settled)
 	if int(a.refund)!=0 or not V.sale_valid(sale,b,float(c.state.day)) or settled.get("failed",false) or not settled.get("escort",{}).get("arrived",false) or settled.get("escort",{}).get("battlePending",false):return
 	a.status="paid";a.follow=false
@@ -253,7 +253,7 @@ static func choice_gate(c,choice: String) -> Dictionary:
 		if optional.get("stage","")!="later_mara117" or optional.get("done",false) or work(c).get("mara",{}).get("discussed",false):return c.fail("This optional discussion is not open.")
 		var q: Dictionary=mara_quote(c)
 		if not q.ok:return q
-		return c.ok("Discuss this actual paid-service estimate.") if q.quote==work(c).mara.quote else c.fail("The hull or service quote changed. Select its current estimate again.")
+		return c.ok("Discuss this actual paid-service estimate.") if V.same_value(q.quote,work(c).mara.quote) else c.fail("The hull or service quote changed. Select its current estimate again.")
 	if MODELS.has(choice):
 		if record(c).get("stage","")!=INTRO or not str(work(c).get("model","")).is_empty():return c.fail("The funding commitment is already chosen or is not yet open.")
 		return c.ok("Choose the disclosed funding terms before boarding.") if str(c.current_port().get("id",""))=="anvil_dock" else c.fail("Meet Mara at Anvil Dock to commit the funding terms.")
@@ -274,4 +274,4 @@ static func after_choice(c,choice: String,result: Dictionary) -> void:
 		work(c).reported=true;work(c).reportDay=float(c.state.day)
 	elif choice=="discuss_owned_hull117":
 		var q: Dictionary=mara_quote(c)
-		if q.ok and q.quote==work(c).get("mara",{}).get("quote",{}):work(c).mara.discussed=true
+		if q.ok and V.same_value(q.quote,work(c).get("mara",{}).get("quote",{})):work(c).mara.discussed=true
