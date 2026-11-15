@@ -189,6 +189,9 @@ class Preview extends "res://scripts/main.gd":
 		var owner_before: int=int(core.fleet_owner("patrol-7").coins)
 		if not check(core.Arc117.accept(core,q).get("ok",false) and int(core.fleet_owner("patrol-7").coins)==owner_before and conserved(),"Actual mutual contributions fund native escrow while retaining the client's original operating coins"):return
 		var active: Dictionary=snapshot()
+		var fractional: Dictionary=JSON.parse_string(JSON.stringify(active))
+		fractional.stories.chains.common_passage110.work117.attempts[-1].reimbursed=0.5
+		if not check(not preload("res://scripts/campaign_validation117.gd").validate(fractional).is_empty(),"Fractional coin reimbursements still fail raw preflight before conversion"):return
 		if not check(restore_value(active) and core.Arc117.active(core).binding.jobId==native_job().id and conserved(),"The funded refund-probe checkpoint fully restores with its original native identity"):return
 		if not check(not core.Arc117.accept(core,q).get("ok",false) and core.Arc117.work(core).attempts.size()==1,"A carried original funding attempt cannot be admitted twice"):return
 		var job: Dictionary=native_job();var id: String=str(job.id);var fee: int=int(job.reward)

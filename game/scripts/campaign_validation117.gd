@@ -101,7 +101,7 @@ static func _attempt(a,s: Dictionary,model: String,selected: float) -> String:
 	var contributed: int=_shares(a,model)
 	if contributed<0:return "117: contribution identities or integer shares differ from the chosen terms."
 	if a.status not in ["carried","paid","abandoned"] or not a.follow is bool or not number(a.followClock,0,1):return "117: invalid attempt state or follow clock."
-	if not number(a.refund,0,float(b.reward),true) or not number(a.reimbursed,0,float(contributed),true) or a.reimbursed not in [0,contributed] or a.reimbursed>a.refund:return "117: unsupported or duplicate contributor return."
+	if not number(a.refund,0,float(b.reward),true) or not number(a.reimbursed,0,float(contributed),true) or (int(a.reimbursed)!=0 and int(a.reimbursed)!=contributed) or a.reimbursed>a.refund:return "117: unsupported or duplicate contributor return."
 	if a.refund==0:
 		if not number(a.refundDay,-1,-1):return "117: unobserved refund has a receipt date."
 	elif not number(a.refundDay,float(b.acceptedDay),float(s.day)):return "117: refund observation predates admission or is in the future."
