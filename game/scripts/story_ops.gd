@@ -68,8 +68,12 @@ static func choose(c,id: String,choice: String) -> Dictionary:
 	if stage.get("gate",{}).get("type","")=="at_port":
 		var permission: Dictionary=c.Politics.permit(c,"service","",c.work_port070() if c.current_port().is_empty() and c.has_method("work_port070") else {})
 		if not permission.ok:return permission
+	if id=="common_passage110":
+		var permission111: Dictionary=c.Arc111.choice_gate(c,choice)
+		if not permission111.ok:return permission111
 	var result: Dictionary=Stories.choose(c,id,choice)
 	if not result.ok:return result
+	if id=="common_passage110":c.Arc111.after_choice(c,choice,result)
 	var r: Dictionary=c.state.storyRights
 	match choice:
 		"open_field":r.openField=true;r.privateField=false

@@ -80,11 +80,139 @@
         {
           "id": "second_signature111",
           "title": "Second Signature",
-          "body": "Tobin has asked for the impound record bearing his guarantee. The next campaign operation is not available in this build. Your completed passage and the investigation remain saved; other harbor work, exploration and fleet building remain available.",
-          "nextAction": "The opening chapter is complete. Continue ordinary harbor work or return to the campaign after its next operation is available.",
+          "body": "Tobin lays Venn's notice beside a harbor bounty. ‘The raiders named in these claims collected under my guarantee. I financed it. I thought I was paying for protection. Find their original boats, then keep what you can recover or secure. A bounty paid for someone else's victory will not tell us what happened aboard them.’\n\nTake only the harbor's existing funded contract. After a physical encounter, paid fitting recovery or an intact captured hull can establish original property. Its identity and your current custody matter. If the source is actually lost, report that outcome plainly; the investigation creates no replacement boat or prize.",
+          "nextAction": "Review the actual bounty, reacquire its boats through the coastal watch, and bring original secured property to a harbor. Claim or withdraw the contract before sending Tobin the report.",
+          "gate": {
+            "type": "arc111"
+          },
+          "choices": [
+            {
+              "id": "report_property111",
+              "text": "Send Tobin the report with secured original property",
+              "next": "tobin_admission111",
+              "setFlags": [
+                "second_signature_reported111"
+              ]
+            },
+            {
+              "id": "report_no_property111",
+              "text": "Explicitly report that no original property is retained",
+              "tradeoff": "Available only after actual loss or a paid public defeat confirmation. This awards no property and makes no claim that you witnessed someone else's battle.",
+              "next": "tobin_admission111",
+              "setFlags": [
+                "second_signature_loss111"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tobin_admission111",
+          "title": "Tobin's countersignature",
+          "body": "Tobin replies in writing: ‘I checked the seizure clause against my guarantee. It permits the administrator to take control of a boat after an unpaid rescue claim. My signature made that enforceable. Public money stood behind it.’\n\n‘I kept saying we needed the next convoy protected. That did not entitle me to hide these terms from its captain. Wren is trying to get working boats out of Kelp Reach. She needs to know what I signed before she asks anyone to rely on a different promise.’",
+          "nextAction": "Keep the actual property or recorded loss, and read the lead concerning Wren and Kelp Reach.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "hear_exit_channel111",
+              "text": "Read Wren's Kelp Reach lead",
+              "next": "exit_channel112",
+              "setFlags": [
+                "tobin_admitted111"
+              ],
+              "consequences": [
+                {
+                  "kind": "contact",
+                  "target": "contact_tobin_hale",
+                  "amount": 3,
+                  "reason": "Required Tobin to acknowledge his funded guarantee and its seizure terms"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "exit_channel112",
+          "title": "Exit Channel",
+          "body": "Wren has asked about the working boats leaving Kelp Reach. This next campaign operation is not available in this version. Your completed investigation, original equipment, losses and Tobin's admission remain saved.",
+          "nextAction": "Continue harbor work, fleet building or exploration until the next campaign operation is available.",
           "gate": {
             "type": "unreleased",
-            "message": "The next campaign operation is not available in this build."
+            "message": "The next campaign operation is not available in this version."
+          },
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "tobin_clause111",
+      "title": "Tobin: The guarantee",
+      "approach": "contact",
+      "startPort": "brass_haven",
+      "startContact": "contact_tobin_hale",
+      "startGate": {
+        "type": "arc111",
+        "mode": "optional"
+      },
+      "summary": "Ask Tobin to read the seizure clause, or explain why he signed it. This optional conversation does not gate the campaign.",
+      "stages": [
+        {
+          "id": "read_clause111",
+          "title": "Read It Aloud",
+          "body": "Tobin sets the guarantee on the desk. ‘We were keeping boats moving. I thought the limits were obvious.’\n\nYou can ask him to read the seizure authority without paraphrasing, or explain why he accepted it. Hearing him out does not commit you to his explanation.",
+          "nextAction": "Choose what to ask Tobin.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "read_seizure_clause111",
+              "text": "Ask Tobin to read the seizure clause as written",
+              "next": "explain_clause111",
+              "setFlags": [
+                "asked_plain_clause111"
+              ]
+            },
+            {
+              "id": "ask_guarantee_reason111",
+              "text": "Ask why Tobin signed the guarantee",
+              "next": "explain_clause111",
+              "setFlags": [
+                "asked_guarantee_reason111"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "explain_clause111",
+          "title": "Tobin's answer",
+          "body": "Tobin reads the authority allowing an unpaid rescue claim to become control of the boat. He stops at his own signature.\n\n‘I was afraid no one would back the next sailing. I signed wider powers than I could justify. When people asked what the guarantee meant, I argued about the boats we had already saved.’\n\nHe leaves the paper where you can read it. You do not have to accept his explanation, forgive him or buy anything.",
+          "nextAction": "End this conversation whenever you are ready.",
+          "gate": {
+            "type": "at_port",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "finish_clause111",
+              "text": "Finish the conversation",
+              "next": "later_tobin118",
+              "setFlags": [
+                "clause_heard111"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "later_tobin118",
+          "title": "The guarantee conversation is recorded",
+          "body": "Tobin's explanation is retained. His later conversation will be available as the campaign develops. This optional lead places no condition on your main voyage.",
+          "nextAction": "Continue the main campaign or ordinary harbor work.",
+          "gate": {
+            "type": "unreleased",
+            "message": "No further Tobin contact job is available in this version."
           },
           "choices": []
         }

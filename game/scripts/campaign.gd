@@ -40,6 +40,7 @@ const HomeOps=preload("res://scripts/home_ops.gd")
 const RegionalOps=preload("res://scripts/regional_ops.gd")
 const StoryOps=preload("res://scripts/story_ops.gd")
 const Arc110=preload("res://scripts/campaign_arc110.gd")
+const Arc111=preload("res://scripts/campaign_arc111.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -1042,6 +1043,7 @@ func _recover_selected_gear(id: String,request: Dictionary) -> Dictionary:
 	state=staged.state
 	pending_days=0
 	events=staged.events
+	Arc111.after_recovery(self,id,q)
 	return q
 
 func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,request: Dictionary={}) -> Dictionary:
@@ -1067,6 +1069,8 @@ func recover_wreck(id: String,mode: String,good: String="",qty: float=0.0,reques
 	pending_days+=int(state.day)-previous_day
 	Manifest.allocate(state)
 	log_entry(str(result.message)+" %.2f working days; normal wages/provisions apply."%work_days)
+	if mode=="tow":Arc111.after_tow(self,id,result)
+	if mode=="strip":Arc111.after_strip(self,id,result)
 	return result
 
 func jettison(good: String,qty: int) -> Dictionary:
@@ -1422,6 +1426,7 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 
 func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool) -> void:
 	Arc110.after_job(self,before,result,abandon)
+	Arc111.after_job(self,before,result,abandon)
 
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
@@ -1567,6 +1572,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 		var cargo_problem: String=EscortOps.cargo_error(self,physical_battle)
 		if not cargo_problem.is_empty():return fail(cargo_problem)
 		context=context.duplicate(true);context.objectiveOnly=true
+	var captures111: Array=Arc111.capture_snapshot(self,context,physical_battle)
 	CrisisOps.losses(self)
 	var boarding_result: Dictionary=BoardingOps.settle(self,physical_battle)
 	if not boarding_result.ok:return boarding_result
@@ -1580,6 +1586,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	if physical_battle.is_empty() or not physical_battle.has("engagementSource060"):
 		state.battleSeq=int(state.get("battleSeq",0))+1
 		if not physical_battle.is_empty():
+			physical_battle.campaignSequence111=int(state.battleSeq)
 			physical_battle.engagementSource060=str(physical_battle.get("convoyEngagementSource","engagement:%d:%d"%[state.seed,state.battleSeq]))
 			if physical_battle.has("convoy"):physical_battle.convoyEngagementSource=physical_battle.engagementSource060
 	var physical_wrecks: Array=[]
@@ -1652,6 +1659,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	var report: Dictionary={"coins":loot,"salvage":salvage,"wrecks":physical_wrecks,"fleetLost":active_fleet().is_empty(),"completed":state.completed,"participants":participants,"losses":participants.filter(func(row):return str(row.fate) in ["sunk","captured"]).duplicate(true)}
 	if not convoy_outcome.is_empty():
 		report.convoy=convoy_outcome
+	Arc111.after_battle(self,result,context,physical_battle,report,captures111)
 	if not physical_battle.is_empty():
 		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
 		physical_battle.settlementReport=report.duplicate(true)

@@ -1,4 +1,4 @@
-v0.110 — Current source map
+v0.111 — Current source map (candidate)
 
 Current original campaign design: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.110 delivers the first chapter;111–119 remain planned. Previous quality milestones and actual store109 evidence remain in their immutable CHANGES files and docs/store/CURRENT PUBLICATION.json. Game build, installed build and public download are separate delivery records.
 
@@ -21,3 +21,5 @@ Equipment/economy: workshop/workshop_comparison048 and equipment_* retain compat
 110 acceptance:37 native gameplay/save/UI checks passed on4245483b, with two independently reviewed private images. Native child22.953s/exit0. Whole parent failed when the Windows exporter access-violated after writing the complete pack; this failure remains recorded. Separate audit validated all730 entries, matching campaign source, template code sections and PE version. The exact copied artifact subsequently passed five private headless packed startup checks with clean exit0. No repeat of37 and no whole-game quality/performance/audio claim.
 
 Delivery evidence and tools: parent work/campaign-v110-v119-2026-11-14/v0.110, raw Test Bridge job receipts, clean package manifest and install readback. Retail excludes tests, private notes/profiles/evidence. Keep current+rollback and unique owner files. Released CHANGES are immutable; an existing authorized Sol performs post-merge notes reconciliation. Board watch remains paused.
+
+111 candidate: campaign_arc111 owns separate work111 over native bounty/physical encounter/paid recovery/current custody. campaign_validation111 validates bounded types and native carried/closed equality. campaign_arc_ui111 reuses watch, real encounter, native recovery and contract closure. Existing110 schema stays intact. Selected verification pending.

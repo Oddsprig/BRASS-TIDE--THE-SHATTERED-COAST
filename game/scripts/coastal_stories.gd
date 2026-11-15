@@ -282,6 +282,9 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 		"arc110":
 			if core==null:return {"ok":false,"message":"Open the campaign aboard your actual fleet."}
 			return core.Arc110.gate(core,gate)
+		"arc111":
+			if core==null:return {"ok":false,"message":"Open this investigation aboard your actual fleet."}
+			return core.Arc111.gate(core,gate)
 		"unreleased":return {"ok":false,"message":str(gate.get("message","This campaign operation is unavailable."))}
 		"site":
 			var level := _site_level(state, str(gate.get("site", "")))
@@ -345,6 +348,7 @@ static func available(core) -> Array:
 		var contact_id := str(chain.get("startContact", ""))
 		if not contact_id.is_empty() and not _contact_met(state, contact_id):
 			continue
+		if not _gate(core,state,chain.get("startGate",{})).ok:continue
 		var first: Dictionary = (chain["stages"] as Array)[0]
 		out.append({"id": str(chain["id"]), "title": str(chain["title"]),
 			"approach": str(chain.get("approach", "")), "summary": str(chain.get("summary", "")),

@@ -260,6 +260,8 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 			if not e is Dictionary or not e.get("id") is String or e.get("kind","") not in ["faction","contact"] or not number(e.get("amount"),-25,25) or not e.get("applied") is bool:return "Invalid story consequence."
 	var arc110_problem: String=preload("res://scripts/campaign_arc110.gd").validate(s)
 	if not arc110_problem.is_empty():return arc110_problem
+	var arc111_problem: String=preload("res://scripts/campaign_validation111.gd").validate(s)
+	if not arc111_problem.is_empty():return arc111_problem
 	if s.has("storyRights"):
 		if not s.storyRights is Dictionary:return "Invalid story rights."
 		var r: Dictionary=s.storyRights
