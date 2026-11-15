@@ -1,8 +1,8 @@
-v0.100 DELIVERED SCOPED — automatic-save scheduling
-Source/tag5159cdae0a10990ecc686ebac5d03f11a056d8de /v0.100.
-25nativechecks,0failures; isolated exportedmenu starts100; clean53-file Windows ZIP.
-InstalledDesktop/Brass Tide/v0.100. Both plain desktop and organized game-launchers links now100 (the latter had been030).23owner files copied with unchanged hashes; original098 retained. No owner game launch/input.
-Publicstore/download still099 at$9.99 until109 replacement is reviewed.
-Evidence: parent work/quality-v100-v109-2026-11-14/v0.100.
-The controlled autosave case is accepted; campaign daily publication415ms andsave53ms remain headless observations, not FPSproof. Initial export missed self-contained template path; fixed once. Commands+package59.531s; shared setup/install push total over60, recorded as a budget miss. No repeated native test.
-Next101: detached planner-payload construction; preserve public/main/legacy copies and target freshness.102art/105UI private drafts unaccepted. Four Bridge helpers remain assigned; some Sol file tools stalled, so exact patch/report text is returned in chat and Root writes artifacts. No extra models/providers.
+v0.110 — Accepted opening chapter and portable package
+Original campaign build plan110–119 saved;111–119 remain planned.
+Tested runtime4245483b;37 native checks/pass,5 packed checks/pass,730pack entries valid.
+Parent exporterFAILED aftercomplete savepack; separate exact-artifact acceptance retained.
+Clean Windows53-file portable and ZIP in outputs/Brass Tide v0.110; checksums in RELEASE/SHA256SUMS.
+Install/launcher readback and unchanged owner-file hashes are recorded in parent work/campaign-v110-v119-2026-11-14/v0.110/INSTALL RESULT.json when installation completes. No owner app launched.
+Public store/download remains109 at9.99USD until an explicitly recorded publication update.
+Read CHANGES v0.110.md for exact scope and limits; next111 Second Signature.

@@ -1,13 +1,13 @@
-BRASS TIDE CAMPAIGN — BUILD ONE VERSION AT A TIME
-110 Overdue Merchant: native loaded escort, first return and Venn's claim.
-111 Second Signature: challenge seizure and secure actual property; Tobin side work.
-112 Exit Channel: evacuate working boats; Wren survey side work.
-113 A Useful Enemy: deliver pump materials; Mara recovery side work.
-114 Bought Route: negotiate or raid and withdraw; Cass provenance side work.
-115 Names on Paper: protect claimants; commit to public or protected testimony.
-116 Two Distress Flags / Narrow Withdrawal: rescue relief boats and cover retreat.
-117 Who Pays First: fund replacement obligations, joint escort; Mara labor side work.
-118 Fuel Has Owners / Last Warrant: cordon and claimant protection; Tobin side work.
-119 Common Passage: decisive actual relief delivery, three endings and continuing sandbox.
-
-Only individually accepted releases are built. Details and limits: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
+BRASS TIDE — CURRENT VERSION MAP
+110 accepted: Overdue Merchant; native loaded escort, actual client fee, Tobin/Venn claim.
+111 planned: Second Signature; funded target, original wreck/property, Tobin admission.
+112 planned: Exit Channel; working-boat withdrawal and Wren's protection costs.
+113 planned: A Useful Enemy; actual repair stores and Mara's dependence on paid work.
+114 planned: Bought Route; permitted release or raid/withdrawal, Cass's admission.
+115 planned: Names on Paper; public/protected real witness passage to different harbors.
+116 planned: Two Distress Flags / Narrow Withdrawal; finite carriers and actual retreat.
+117 planned: Who Pays First; separately funded mutual obligations or owner bonds.
+118 planned: Fuel Has Owners / Last Warrant; passage/fuel ownership and claimant protection.
+119 planned: Common Passage; actual offshore relief and three explicit endings.
+Full researched design: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
+Each version builds on the accepted previous one; plan is not a completion claim.
