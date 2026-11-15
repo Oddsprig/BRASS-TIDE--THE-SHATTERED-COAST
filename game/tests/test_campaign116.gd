@@ -98,13 +98,23 @@ class Preview extends "res://scripts/main.gd":
 	func quiet_leg(minimum: float) -> bool:
 		var followed: Dictionary=core.Arc116.follow(core,true)
 		if not followed.get("ok",false):write_json("follow-refusal.json",followed);return false
+		var previous_player: Dictionary=core.state.position.duplicate(true)
+		var previous_convoy: Dictionary=core.NavalAI._find_patrol(core.state,"patrol-1").duplicate(true)
+		var actual_player: float=0.0
+		var actual_convoy: float=0.0
 		for i in range(80):
 			if Time.get_ticks_msec()-began>21000:return false
 			core.step(0.25)
 			core.VoyageJobs.tick(core,0.25/float(core.DAY_SECONDS))
 			var j: Dictionary=native_job()
 			if j.is_empty() or j.get("failed",false):return false
-			if float(j.escort.accompaniedDistance)>=minimum and float(j.escort.playerDistance)>=minimum:return true
+			var convoy: Dictionary=core.NavalAI._find_patrol(core.state,"patrol-1")
+			actual_player+=core.distance(core.state.position,previous_player)
+			actual_convoy+=core.distance(convoy,previous_convoy)
+			previous_player=core.state.position.duplicate(true)
+			previous_convoy={"x":float(convoy.x),"y":float(convoy.y)}
+			proof.actual_short_movement={"player":actual_player,"convoy":actual_convoy}
+			if actual_player>=minimum and actual_convoy>=minimum and float(j.escort.accompaniedDistance)>=minimum and float(j.escort.playerDistance)>=minimum:return true
 		return false
 
 	func run() -> void:

@@ -6,4 +6,4 @@ Two Distress Flags presents dated observations of separate existing loaded coast
 Narrow Withdrawal keeps the same surviving passage. Cover uses the existing physical convoy exit; interdiction needs an actual available hostile pursuer. Native cargo, casualties, arrival, sale, refunds and escort fee remain canonical. One passage never earns duplicate escort credit or replacement cargo. Unknown boats remain unconfirmed and an active native obligation cannot be discarded by a story report. Existing Venn/warden assistance is claimed only when supported by an actual matching native event.
 
 The current work is limited to these two116 operations. The existing36 boats, workers, Open Seas, finite purses and legacy stories remain. Who Pays First117 is a locked lead until its own release.
-Source relay, native observation/follow hooks, UI and selected fixture integrated. Independent frozen review and selected native batch pending; no runtime acceptance claimed.
+The private quiet-leg assertion measures actual post-restore movement of both actors as well as native contract distance. Independent source review and native verification pending; no acceptance claimed.
