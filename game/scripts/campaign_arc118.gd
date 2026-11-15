@@ -266,6 +266,11 @@ static func gate(c,rule: Dictionary={}) -> Dictionary:
 			var paid: Dictionary=choice_gate(c,"report_warrant118")
 			return paid if paid.ok else choice_gate(c,"report_unresolved118")
 		"warrant_reported":return choice_gate(c,"next_passage118")
+		"optional_start":
+			var original: Dictionary=c.Arc111.gate(c,{"mode":"optional"})
+			if original.get("ok",false):return original
+			var funding: Dictionary=record(c).get("work117",{})
+			return c.ok("Tobin can discuss the recorded funding account at Brass.") if funding.get("reported",false) and funding.get("model") in ["mutual","separate"] else original
 		"optional":return c.ok("Tobin's optional discussion commissions nothing; leaving remains available.")
 	return c.fail("This chapter condition is unavailable.")
 
@@ -326,9 +331,9 @@ static func view(c) -> Dictionary:
 	var w: Dictionary=work(c)
 	var q: Dictionary=passage_quote(c)
 	var access: String=str(q.message)
-	if not w.get("passage",{}).is_empty():access="Naphtha access was recorded for %s coins. Current harbor permissions still apply; the pass owns no fuel and protects against no fleets."%str(w.passage.cost)
+	if not w.get("passage",{}).is_empty():access="Naphtha entry fee recorded: %d coins. Entry permission and fuel purchases are separate."%int(w.passage.cost)
 	var fuel: String="No fresh paid Naphtha fuel purchase recorded. Existing working tank fuel is not a purchase."
-	if not w.get("fuel",{}).is_empty():fuel="Bought %s Naphtha fuel for %s actual coins on day %.2f; the seller received the money and your holds received the fuel."%[str(w.fuel.qty),str(w.fuel.cost),float(w.fuel.day)]
+	if not w.get("fuel",{}).is_empty():fuel="Bought %d fuel at Naphtha for %d coins on day %.2f."%[int(w.fuel.qty),int(w.fuel.cost),float(w.fuel.day)]
 	var warrant: String="No claimant passage has been contracted. A nearby loaded convoy must be sighted and able to pay its fee; any current claim remains unverified."
 	var a: Dictionary=w.get("attempt",{})
 	if not a.is_empty():

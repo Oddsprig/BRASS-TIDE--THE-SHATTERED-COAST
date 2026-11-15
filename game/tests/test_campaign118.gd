@@ -140,7 +140,9 @@ class Preview extends "res://scripts/main.gd":
 		if not check(chosen("report_fuel118") and core.Arc110.record(core).stage=="fuel_account118","Only actual fresh paid fuel can be reported"):return
 		locate("brass_haven")
 		coins=int(core.state.coins)
-		if not check(core.StoryOps.start(core,"tobin_clause111").get("ok",false),"Tobin's previously unstarted optional chain begins through its actual harbor contact"):return
+		var optional_start: Dictionary=core.StoryOps.start(core,"tobin_clause111")
+		write_json("optional-start-result.json",optional_start)
+		if not check(optional_start.get("ok",false),"Tobin's previously unstarted optional chain begins through its actual harbor contact"):return
 		if not check(core.StoryOps.choose(core,"tobin_clause111","read_seizure_clause111").get("ok",false) and core.StoryOps.choose(core,"tobin_clause111","finish_clause111").get("ok",false) and core.state.stories.chains.tobin_clause111.stage=="later_tobin118","The real111 conversation is retained before Tobin's later118 discussion"):return
 		var later: Dictionary=snapshot()
 		if not check(core.StoryOps.choose(core,"tobin_clause111","leave_tobin118").get("ok",false) and core.state.stories.chains.tobin_clause111.done and int(core.state.coins)==coins and conserved(),"Tobin's later conversation can be left without commissioning or buying anything"):return

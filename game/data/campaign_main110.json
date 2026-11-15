@@ -608,8 +608,8 @@
       "startPort": "brass_haven",
       "startContact": "contact_tobin_hale",
       "startGate": {
-        "type": "arc111",
-        "mode": "optional"
+        "type": "arc118",
+        "mode": "optional_start"
       },
       "summary": "Ask Tobin to read the seizure clause, or explain why he signed it. This optional conversation does not gate the campaign.",
       "stages": [
