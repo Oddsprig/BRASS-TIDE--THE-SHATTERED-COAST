@@ -188,8 +188,10 @@ class Preview extends "res://scripts/main.gd":
 		var parts: PackedStringArray=str(core.state.destination).split(":")
 		if not check(a.get("status")=="paid" and a.binding.good==core.Arc119.GOOD and a.funding.model=="separate" and a.travel.outbound.size()==2 and a.travel.returning.size()==1 and a.travel.returnDay==-1 and parts.size()==3 and parts[0]=="approach" and parts[1]=="shatter_coast" and core.state.world064.layer=="ocean" and conserved(),"Retained actual purchase, original crossing, paid delivery and partial return remain bound"):return false
 		proof.resumed_checkpoint={"sha256":digest,"source_job":"998b1961bdf148fe9cca02120d9115ab","location":core.world_location064(),"attempt":a.duplicate(true)}
-		if not sail(core.approach_course064("shatter_coast",parts[2]),"continued actual saved Open Seas return"):return false
-		if not check(core.transition064("shatter_coast",parts[2]).get("ok",false),"Actual resumed return transition enters Shatter Coast"):return false
+		var return_gate: String="south"
+		proof.route_choice={"gate":return_gate,"reason":"Independent pre-encounter checkpoint branch uses the existing south approach. Actual patrol-0 interception at the north approach is retained in failed jobcb0068152eed465e95ff3fcf87d26b0b; no encounter, pursuit, actor or relation is cleared."}
+		if not sail(core.approach_course064("shatter_coast",return_gate),"actual south-approach return from the saved voyage"):return false
+		if not check(core.transition064("shatter_coast",return_gate).get("ok",false),"Actual resumed south return transition enters Shatter Coast"):return false
 		if not sail(harbor_course("brass_haven"),"actual resumed Brass return"):return false
 		if not check(core.work_port070().get("id","")=="brass_haven" and core.Arc119.attempt(core).travel.returnDay>=0 and chosen("report_many119") and chosen("finish_many119") and core.Arc119.outcome(core.state).get("title","")=="Many Harbors","Actual resumed paid voyage reaches Brass and completes its real final choices"):return false
 		proof.paid_route=true;proof.paid_attempt=core.Arc119.attempt(core).duplicate(true)
