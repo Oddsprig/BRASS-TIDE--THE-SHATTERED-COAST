@@ -247,7 +247,7 @@ static func _work(job: _Job) -> void:
 	var snapshot_started: int=Time.get_ticks_usec()
 	job.events=_plain(Battle.pop_events(st))
 	var snapshot_detail051: Dictionary={}
-	job.publication=_snapshot(st,true,snapshot_detail051)
+	job.publication=_snapshot(st,true,snapshot_detail051,job.retiring or st.get("result")!=null)
 	job.poses={"previous":previous,"current":_pose_table(st)}
 	var snapshot_us: int=Time.get_ticks_usec()-snapshot_started
 	job.completed+=steps_done
@@ -317,7 +317,7 @@ static func _apply_command(st: Dictionary,kind: String,p: Dictionary) -> bool:
 		"repair_priority":return Battle.set_repair_priority(st,p.get("ids",[]),str(p.get("priority","")))
 	return false
 
-static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null) -> Dictionary:
+static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null,include_trace120: bool=true) -> Dictionary:
 	# Four bounded stage clocks per publication, independent of acceptance gates.
 	var stage051: int=Time.get_ticks_usec() if detail051 is Dictionary else 0
 	var result: Dictionary={}
@@ -368,7 +368,14 @@ static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null) 
 		detail051.shipRows=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	# status may retire an invalid goal on the authoritative owner. Publish the
 	# matching post-status public fields, rather than an older intent table.
+	# Routine display has current status/intents; the bounded developer history
+	# stays on the exclusive worker. Result/retirement publishes its full detached
+	# history. Direct/legacy snapshots retain full history by default. The actual
+	# profiler retires before its end-history read; no measured interval is changed.
+	public_t.traceDeferred120=not include_trace120
 	for key in PUBLIC_TACTICAL:
+		if key=="trace" and not include_trace120:
+			public_t.trace=[];continue
 		# Public intent/HUD/trace writers emit only copied numeric/string/value
 		# data. Legacy predictions also carry owner/proof inputs: retain their
 		# recursive sanitizer rather than widening that ownership assumption.

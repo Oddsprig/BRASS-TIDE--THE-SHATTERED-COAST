@@ -9,6 +9,24 @@ const Roles=preload("res://scripts/tactical_role_plans.gd")
 const Damage=preload("res://scripts/damage.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 
+# Pure capability values, not goal/helm/fire authority. Pose and store magnitude
+# stay live; only their finite validation is relevant to this numerical packet.
+const GOAL_VOLATILE_INPUTS120: Array=["x","y","vx","vy","angle","fuel","ammo","supplies"]
+const GOAL_CONDITION_INPUTS120: Array=["hp","maxHp","water","capacity","engine","crew","wounded","fire"]
+const GOAL_SPEC_INPUTS120: Array=["size","speed","turn","fuelUse","pumps","repairFactor"]
+const GOAL_SPEC_DEFAULTS120: Array=[16,90,1.8,1,0,1]
+
+class _GoalCapability120 extends RefCounted:
+	# Encounter-local, owner-bound derivation memo. Never stored in a capsule,
+	# goal record or public view. No phase, pose, timestamp or clearance retained.
+	var owner: Dictionary={}
+	var entry: Dictionary={}
+	var info: Dictionary={}
+	var status: Dictionary={}
+	var generation: int=-1
+	var conditions: Array=[]
+	var value: Array=[]
+
 # Main-owned publication. Worker output contains no owner references and no
 # physical certificate. Only a joined capsule may construct this wrapper.
 class _Goal051 extends RefCounted:
@@ -96,6 +114,7 @@ static func retire_planning051(st: Dictionary) -> void:
 	_close_numeric051(st)
 	if st.get("tactical") is Dictionary:
 		_clear_goals051(st.tactical);Planner._retire_workers051(st.tactical)
+		st.tactical.get("_goalCapability120",{}).clear()
 
 static func poll_planning051() -> void:
 	if _battle_worker_owned051:return
@@ -129,6 +148,7 @@ static func ensure(st: Dictionary) -> Dictionary:
 	if not st.tactical.has("physicalRetry051"):st.tactical.physicalRetry051={}
 	if not st.tactical.has("goals051"):st.tactical.goals051={}
 	if not st.tactical.has("goalRevisions051"):st.tactical.goalRevisions051={}
+	if not st.tactical.has("_goalCapability120"):st.tactical._goalCapability120={}
 	return st.tactical
 
 static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -> Dictionary:
@@ -231,9 +251,42 @@ static func _goal_capability_reusable051(st: Dictionary,ship: Dictionary,held: _
 		if not (value is int or value is float) or not is_finite(float(value)):return false
 	return true
 
+static func _goal_capability_matches120(ship: Dictionary,entry: Dictionary,memo: _GoalCapability120) -> bool:
+	# Reuse only the current numeric epoch's EXISTING owned-entry admission.
+	# Damage/repair/revoke/priority changes replace or dirty these exact packets.
+	if (not is_same(memo.owner,ship) or not is_same(memo.entry,entry)
+		or memo.generation!=int(entry.generation) or not is_same(memo.info,entry.info)
+		or not is_same(memo.status,entry.status)):return false
+	for index: int in range(GOAL_CONDITION_INPUTS120.size()):
+		# Strict scalar equality carries the original finite/type proof; a changed
+		# type/value takes the complete reader below, including every live loss.
+		if not is_same(ship.get(GOAL_CONDITION_INPUTS120[index]),memo.conditions[index]):return false
+	var motion: Array=memo.value[0]
+	for index: int in range(GOAL_SPEC_INPUTS120.size()):
+		if not is_same(ship.spec.get(GOAL_SPEC_INPUTS120[index],GOAL_SPEC_DEFAULTS120[index]),motion[index]):return false
+	if (not is_same(ship.get("supportRepairFactor",1),motion[6]) or not is_same(ship.crewMin,motion[7])
+		or not is_same(ship.crewOptimal,motion[8]) or not is_same(ship.policy,motion[10])
+		or not is_same(ship.get("shoreCrew",0),motion[11])):return false
+	# Fuel quantity is deliberately NOT retained: crossing zero changes motion.
+	# Engine-positive/working-crew bits follow the exact matching condition inputs.
+	# The caller has just checked every current pose/store value for finiteness.
+	return (float(ship.fuel)>0.0)==bool(motion[12])
+
 static func _goal_capability051(st: Dictionary,id: String,frame_cache=null) -> Array:
 	var ship: Dictionary=st.tactical.ships[id]
-	for key: String in ["x","y","vx","vy","angle","hp","maxHp","water","capacity","engine","crew","wounded","fire","fuel","ammo","supplies"]:
+	# Keep malformed stores/pose out of both the existing owned-entry proof and
+	# the memo. A fuel container must be rejected before any float conversion.
+	for key: String in GOAL_VOLATILE_INPUTS120:
+		var value: Variant=ship.get(key)
+		if not (value is int or value is float) or not is_finite(float(value)):return []
+	var entry: Dictionary=_goal_capability_entry051(st,ship,frame_cache)
+	var memo: Variant=st.tactical.get("_goalCapability120",{}).get(id)
+	if not entry.is_empty() and memo is _GoalCapability120 and _goal_capability_matches120(ship,entry,memo):
+		# A caller owns its outer Array. Both nested numerical arrays and the
+		# DETACHED weapon-factor map are frozen, so held guards cannot poison the
+		# memo or a sibling. Public/worker views keep their existing deep copies.
+		return memo.value.duplicate()
+	for key: String in GOAL_CONDITION_INPUTS120:
 		var value: Variant=ship.get(key)
 		if not (value is int or value is float) or not is_finite(float(value)):return []
 	var actual: Array=_worker_capability051(st,id,[],frame_cache)
@@ -243,6 +296,23 @@ static func _goal_capability051(st: Dictionary,id: String,frame_cache=null) -> A
 		if not is_finite(float(actual[1][index])):return []
 	for factor in actual[1][12].values():
 		if not is_finite(float(factor)):return []
+	if (not entry.is_empty() and entry.info.is_read_only() and entry.info.get("snapshot") is Dictionary
+		and entry.info.snapshot.is_read_only() and entry.status.is_read_only()):
+		# All motion inputs must be scalar before freezing: malformed legacy
+		# values must never recursively freeze a container borrowed from an owner.
+		for value: Variant in actual[0]:
+			if not (value is int or value is float or value is bool or value is String):return actual
+		var next: _GoalCapability120=_GoalCapability120.new()
+		next.owner=ship;next.entry=entry;next.info=entry.info;next.status=entry.status
+		next.generation=int(entry.generation)
+		for key: String in GOAL_CONDITION_INPUTS120:next.conditions.append(ship.get(key))
+		next.conditions.make_read_only()
+		# _worker_capability051 already detached the complete live-capability
+		# graph. The motion row above contains no owner containers. Freeze only
+		# this derived data, never the ship, immutable Damage packets or ledger.
+		_view_read_only051(actual);next.value=actual
+		st.tactical._goalCapability120[id]=next
+		return actual.duplicate()
 	return actual
 
 static func _goal_inputs051(st: Dictionary,id: String,frame_cache=null) -> Dictionary:
@@ -835,7 +905,7 @@ static func _order_lifetime(st: Dictionary,ship: Dictionary) -> void:
 			t.reasons[id]="Attack complete; target unavailable" if lost else "Attack could not reach a firing lane; regrouping"
 
 static func _prune(t: Dictionary,live: Dictionary,now: float) -> void:
-	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051","physicalRetry051","goals051","goalRevisions051"]:
+	for key in ["intents","mountCache","pending","lastDecision","lastSafety","orderTimes","reasons","fireReasons","passes","home","failures","certificationAttempts","lastCertified","safety","retained051","preferences051","physicalRetry051","goals051","goalRevisions051","_goalCapability120"]:
 		for id in t[key].keys():
 			if not live.has(id):t[key].erase(id)
 	for id in t.options.byId.keys():
