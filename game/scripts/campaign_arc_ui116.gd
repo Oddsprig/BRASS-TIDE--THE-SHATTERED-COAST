@@ -176,6 +176,7 @@ static func _fee(ui,body: Node,c,p: Dictionary,active: bool) -> void:
 	var job: Dictionary=_job(c,p)
 	if job.is_empty():ui.paragraph(body,"No matching open escort job is available. No fee receipt is recorded.",16,ui.GOLD);return
 	ui.paragraph(body,"Escort: %s%s. Client escrow %s coins; agreed fee %s. No fee received yet."%[str(job.get("state","pending")).capitalize(),"; failed" if job.get("failed",false) else "",ui.money(job.get("escrow",0)),ui.money(job.get("reward",0))],16)
+	if c.current_port().is_empty():return
 	var docked: bool=str(c.current_port().get("id",""))==str(p.targetPort)
 	var delivered: bool=str(job.get("state",""))=="active" and not job.get("failed",false) and job.get("escort",{}).get("arrived",false) and not job.get("escort",{}).get("battlePending",false)
 	var actions=ui.row(body)
@@ -193,7 +194,7 @@ static func _navigation(ui,body: Node,c,w: Dictionary,p: Dictionary) -> void:
 		ui.paragraph(body,"Observed pursuer: %s, day %.2f."%[str(pursuer.get("name","Hostile fleet")),float(pursuer.get("day",0))],15,ui.GOLD)
 		_button(ui,body,"Interdict this pursuer","interdict",{"job":str(p.jobId),"owner":str(pursuer.get("ownerId",""))})
 	var harbor=ui.row(body)
-	_button(ui,harbor,"Check harbor arrivals","arrival",args,str(c.current_port().get("id",""))==str(p.targetPort))
+	if str(c.current_port().get("id",""))==str(p.targetPort):_button(ui,harbor,"Check harbor arrivals","arrival",args)
 	_button(ui,harbor,"Review delivery route","route",{"port":str(p.targetPort),"job":str(p.jobId)})
 
 static func _job(c,p: Dictionary) -> Dictionary:
