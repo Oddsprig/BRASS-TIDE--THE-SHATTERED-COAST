@@ -1,6 +1,6 @@
 BRASS TIDE — CURRENT VERSION MAP
 110 accepted: Overdue Merchant; native loaded escort, actual client fee, Tobin/Venn claim.
-111 planned: Second Signature; funded target, original wreck/property, Tobin admission.
+111 accepted: Second Signature; funded target, original physical property, paid recovery/current custody, Tobin admission.
 112 planned: Exit Channel; working-boat withdrawal and Wren's protection costs.
 113 planned: A Useful Enemy; actual repair stores and Mara's dependence on paid work.
 114 planned: Bought Route; permitted release or raid/withdrawal, Cass's admission.

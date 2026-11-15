@@ -1,8 +1,9 @@
-v0.110 — Accepted opening chapter and portable package
-Original campaign build plan110–119 saved;111–119 remain planned.
-Tested runtime4245483b;37 native checks/pass,5 packed checks/pass,730pack entries valid.
-Parent exporterFAILED aftercomplete savepack; separate exact-artifact acceptance retained.
-Clean Windows53-file portable and ZIP in outputs/Brass Tide v0.110; checksums in RELEASE/SHA256SUMS.
-Install/launcher readback and unchanged owner-file hashes are recorded in parent work/campaign-v110-v119-2026-11-14/v0.110/INSTALL RESULT.json when installation completes. No owner app launched.
-Public store/download remains109 at9.99USD until an explicitly recorded publication update.
-Read CHANGES v0.110.md for exact scope and limits; next111 Second Signature.
+v0.111 — Second Signature: scoped source and Windows delivery accepted
+110 opening and111 original-property investigation implemented;112–119 planned.
+Native46 on41c5d4d; final3layout/6retail on d758048; normal exporter0,736 pack entries valid.
+455 gameplay files unchanged;458 final runtime hashes verified. No whole-game quality claim.
+Clean53-file portable and ZIP: outputs/Brass Tide v0.111; separate manifests/checksums.
+Package/install/source readbacks: parent work/campaign-v110-v119-2026-11-14/v0.111.
+Install receipt is authoritative for launcher completion and unchanged owner files.
+Public store/download remains109 at9.99USD until recorded publication update.
+Read CHANGES v0.111.md and researched ten-version plan. Next112 Exit Channel.

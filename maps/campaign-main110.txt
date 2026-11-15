@@ -1,39 +1,28 @@
-BRASS TIDE — ORIGINAL CAMPAIGN MAP v0.110
+BRASS TIDE — ORIGINAL CAMPAIGN MAP v0.111
 
 CONTENT
-game/data/campaign_main110.json: common_passage110, one appended main chain.
-Released stages: overdue_brief110 -> escort_work110 -> venn_claim110 -> second_signature111.
-Last stage is a valid non-advancing110boundary, not campaign completion.
-Nine existing chains/coastal_stories.json and eight missionIndex contracts preserved.
-Full design: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt;111–119 planned.
+game/data/campaign_main110.json preserves common_passage110 and appends tobin_clause111.
+Main: overdue_brief110 -> escort_work110 -> venn_claim110 -> second_signature111 -> tobin_admission111 -> exit_channel112.
+exit_channel112 is a valid saved unreleased boundary, not campaign completion.
+Nine old chains and eight missionIndex contracts preserved;111 catalog total11.
+Optional Tobin clause conversation follows actual110 guarantee knowledge; never required.
 
 OWNERS
-campaign_arc110.gd: record/pending/completed; actual clients/reserve_quote;
- accept_escort; after_job; follow/cancel_follow/follow_step/follow_speed; validate.
-campaign_arc_ui110.gd: observed client/allowance review, follow, collect, withdraw.
-coastal_stories.gd: catalog, stable stages, actual gates; unknown types fail closed.
-story_ops.gd: native start/choice/consequence; hashed long effect IDs.
-story_ui.gd: journal/main-first ordering and explicit choices.
-interface.gd: HUD and contracts links; Main joins economy before modal mutation.
-campaign.gd: course/speed and canonical post-native-close hook.
-voyage_jobs.gd: actual funded escort acceptance, payment/refund and close.
-campaign_state_validation.gd: native job preflight then strict Arc110 validation.
+campaign_arc110: existing native escort binding, paid receipts, reserve quote and follow.
+campaign_arc111: separate work111 funded bounty/original physical property/current custody.
+campaign_validation111: bounded source/closure/recovery/custody/report validation.
+campaign_arc_ui110/111: current native actions, goals and retained original briefing.
+coastal_stories: stable catalog and gates; story_ops: explicit choice before mutation.
+story_ui: main-first journal and individually grouped report explanations.
+campaign.campaign_job_closed110 dispatches after canonical payment/refund/close.
+Native battle settlement assigns immutable campaignSequence111 once per actual source.
+Selected recovery captures actual receipts after canonical salvage forfeiture/publication.
+Main/UI join economy before action; existing worker architecture unchanged.
 
-DATA
-state.stories.chains.common_passage110:
- lead110 = dated departure knowledge, never live unseen cargo/position.
- pending110 = one native escort identity, original carriers/load/sequence/follow.
- outcomes110 = bounded unique matching original paid records, independent of cache.
-No new treasury, boat, crew, cargo, battle result or second mission engine.
-Native job owns failure, deadline, physical interception and client-funded fee.
-Follow modifies only player's existing water course, once per simulated second.
-Stop/manual course/invalid or lost client stops following; NPC simulation continues.
-Allowance quotes actual escort pace, return route, payroll/food/fuel+two contingency days.
-
-ACCEPTANCE
-game/tests/test_campaign110.gd:37 scoped checks, native ordinary voyage, private images.
-Tested runtime4245483b; parent exportFAILED, native childPASSED.
-Separate730entry artifact audit and five actual packed startup checksPASSED.
-Raw evidence/tools: parent work/campaign-v110-v119-2026-11-14/v0.110.
-Whole selected native22.953s;55s owned watchdog; one shared lane/private/mute.
-No whole119campaign,300pointFPS or audio claim. Owner data not used as fixtures.
+EVIDENCE
+46native on41c5d4d; controlled post110 boundary/native reference arena.
+Final3layout and6retail on d758048; no full capture/tow or map pursuit proof.
+455 native files match accepted Git-normalised source;458 final runtime hashes.
+Final normal exporter0,736pack entries valid. Each bounded batch<60s; total longer.
+Private UI fixtures are not store media. Full119,300pointFPS/audio unverified.
+See parent work/campaign-v110-v119-2026-11-14/v0.111 for exact receipts.

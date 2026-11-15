@@ -1,3 +1,10 @@
+## v0.111 — Second Signature
+
+Current scoped campaign release.110 and111 implemented;112–119 planned.
+See BUILD STATUS.txt, CHANGES v0.111.md and the campaign build map for current source and delivery evidence. Public marketplace/download remains109 until recorded publication.
+
+## Historical records — superseded for current status and authorization
+
 ## v0.100 — Scoped autosave scheduling
 
 Source/tag5159cdae0a10990ecc686ebac5d03f11a056d8de. InstalledDesktop/Brass Tide/v0.100; outputs/Brass Tide v0.100 Windows.zip, SHA07a989557d768ce72984844514953c729e543cb139daa5d0202123d7b870efa7.25nativechecks, no general performance pass.
