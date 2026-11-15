@@ -151,6 +151,7 @@ class Preview extends "res://scripts/main.gd":
 		return true
 
 	func run() -> void:
+		if not check(preload("res://scripts/campaign_validation117.gd").validate({"day":1}).is_empty(),"Legacy absence of this optional chapter book is handled without dictionary-key access errors"):return
 		var path: String=OS.get_environment("CAMPAIGN_PRIOR_SAVE")
 		if not check(FileAccess.file_exists(path) and FileAccess.get_sha256(path)==OS.get_environment("CAMPAIGN_PRIOR_SHA"),"Exact accepted116 checkpoint is used by SHA256"):return
 		var loaded: bool=restore_value(JSON.parse_string(FileAccess.get_file_as_string(path)))

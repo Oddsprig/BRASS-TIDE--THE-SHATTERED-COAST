@@ -10,4 +10,6 @@ Mara’s second optional conversation keeps the first conversation’s history a
 Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
 
 Routine funding logs use named convoys and funding sources, with coins as the currency. Internal job IDs, version numbers and adapter terminology stay out of normal player messages. This copy correction changes no financial calculation, identity, timing or settlement guard.
-Independent frozen source review and the first selected native batch remain pending; no acceptance claimed.
+
+The optional117 validator reads a missing legacy story-chain book through guarded dictionary lookup; it does not access an absent chains property. A small leaf regression checks absence of the new optional book. The ordinary full-save validators retain their authority.
+Independent source fixes and the first bounded native run remain pending. No acceptance claimed; prior released notes and financial guards unchanged.

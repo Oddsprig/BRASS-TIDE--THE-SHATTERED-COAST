@@ -130,7 +130,7 @@ static func validate(s: Dictionary) -> String:
 		if not s.get(key,[]) is Array:return "117: validate native harbor/job arrays first."
 	var stories=s.get("stories",{})
 	if not stories is Dictionary or not stories.get("chains",{}) is Dictionary:return "117: invalid raw story structure."
-	var rec=stories.chains.get(ID,{})
+	var rec=stories.get("chains",{}).get(ID,{})
 	if not rec is Dictionary:return "117: invalid campaign record."
 	var stage=rec.get("stage","")
 	var required: bool=stage in ["funding_work117","funding_account117","fuel_has_owners118"]
