@@ -6,7 +6,7 @@ const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Records=preload("res://scripts/equipment_records.gd")
 const STEP: float=1.0/30.0
-const MAX_STEPS_PER_JOB: int=4
+const MAX_STEPS_PER_JOB: int=2
 const PUBLIC_TACTICAL: Array=["snapshotRevision","terrainRevision","terrainKey","options","groups","intents","predictions","reasons","fireReasons","trace","counters","metrics","manualId","dt","failures"]
 # Acquired through _plain, then written only by numerical combat/objective/
 # boarding code. No Objects, Callables, Signals or RIDs may be added to these
@@ -340,6 +340,11 @@ static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null,i
 		status_phase=Damage._begin_battle_phase043(damage_cache)
 		Damage._bind_battle_owned051(status_phase,damage_owned,st.ships,damage_cache)
 		Damage._seal_battle_reads051(status_phase)
+		# This CLOSED post-step publication has no pose/equipment writers. Bind
+		# a NEW current numeric table, never the pre-contact epoch, so pure
+		# capability/status reads can use their existing exact current proofs.
+		# No helm, fire, physical step or certificate is executed here.
+		Tactical.after_motion(st,status_phase)
 	if detail051 is Dictionary:
 		detail051.statusPreparation=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	var public_t: Dictionary={"statusById051":{},"mountsById051":{},"damageStatusById051":{},"mountCache":{}}
@@ -363,7 +368,9 @@ static func _snapshot(st: Dictionary,with_status: bool,detail051: Variant=null,i
 			# exclusive worker stage borrows a still-validated canonical owner.
 			var owned_status: bool=status_phase!=null and not Damage._battle_entry051(ship,damage_owned).is_empty()
 			public_t.damageStatusById051[id]=_copy_plain_owned051(Damage._read_status_in_phase043(ship,status_phase) if owned_status else Damage.get_status(ship))
-	if status_phase!=null:Damage._end_battle_phase043(status_phase)
+	if status_phase!=null:
+		Tactical._close_numeric051(st)
+		Damage._end_battle_phase043(status_phase)
 	if detail051 is Dictionary:
 		detail051.shipRows=Time.get_ticks_usec()-stage051;stage051=Time.get_ticks_usec()
 	# status may retire an invalid goal on the authoritative owner. Publish the
