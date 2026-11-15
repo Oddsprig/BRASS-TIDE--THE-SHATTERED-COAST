@@ -99,8 +99,6 @@ static func validate(s: Dictionary) -> String:
 	var funding=rec.get("work117",{})
 	if not w.tobin.is_empty():
 		if not P.shape(w.tobin,["day"]) or not P.number(w.tobin.day,1,float(s.day)) or not stories.chains.get("tobin_clause111") is Dictionary:return "118: funding discussion lacks its actual optional history or date."
-		var funding=rec.get("work117",{})
-		if not funding is Dictionary or not funding.get("reported",false) or funding.get("model") not in ["mutual","separate"] or not P.number(funding.get("reportDay"),1,float(s.day)) or float(w.tobin.day)<float(funding.reportDay):return "118: later discussion predates the actual chosen funding account."
 		if not funding is Dictionary or not funding.get("reported") is bool or not funding.reported or funding.get("model") not in ["mutual","separate"] or not P.number(funding.get("reportDay"),1,float(w.tobin.day)):return "118: Tobin discussion predates the chosen actual reported117 funding account."
 		var optional: Dictionary=stories.chains.tobin_clause111
 		if optional.get("stage") not in ["tobin_funding118","done"] and optional.get("done")!=true:return "118: funding discussion predates the actual later Tobin choice."
