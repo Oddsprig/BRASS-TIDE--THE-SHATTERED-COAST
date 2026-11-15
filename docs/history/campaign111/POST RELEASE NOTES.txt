@@ -1,0 +1,7 @@
+v0.111 — post-merge documentation reconciliation
+
+The existing authorized Sol6.1MAX independently reconciled the three merged release notes. No runtime issue was found. Its installation-pending observation used the earlier brief; the install completed before the verdict. INSTALL RESULT.json confirms23 unchanged copied owner files, two read-back111 shortcuts, prior110 preserved and no launch.
+
+The released notes correctly label28.578seconds as pipeline time. The complete final Test Bridge batch took29.672seconds. Both measures are now explicit in current CODE MAP and developer notes. Original native batch49.312seconds, first corrected UI batch31.531seconds; the sum is not presented as one under60second pass. No extra tests were run for documentation.
+
+Release source/tag v0.111 remains45a6f1da2a9f39966a221695491b12dc47636645. CHANGES v0.111.md and the clean package are immutable. Native runtime41c5 and final UI/artifact runtimed758 remain separately bound to their accepted evidence. Public marketplace/download remains109.
