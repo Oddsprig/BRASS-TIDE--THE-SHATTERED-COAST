@@ -341,8 +341,8 @@ static func view(c) -> Dictionary:
 		if a.funding.model=="separate" and a.status=="paid":out.funding="Your purse bought the goods for %d coins and posted %d as a bond. That bond returned to you; the goods and operating costs remain spent."%[int(a.binding.materialInvoice),int(a.binding.fee)]
 		elif a.funding.model=="separate" and a.status=="abandoned":out.funding="Your purse spent %d coins on goods and posted %d as a bond. Only the actual fee refund can repay that bond; the goods invoice remains a cost."%[int(a.binding.materialInvoice),int(a.binding.fee)]
 		if a.status=="abandoned":out.route="This passage is closed. A fresh attempt needs its own available stock, funds and route."
-		if a.travel.returnDay>=0:out.route="The outward crossing, delivery and later Brass return are recorded."
-		elif a.travel.arrivalDay>=0:out.route="Arrival at Westglass is recorded. Payment and the later Brass return remain separate." if a.status!="paid" else "Westglass received the cargo and paid the held fee. The return to Brass remains open."
+		if a.status!="abandoned" and a.travel.returnDay>=0:out.route="The outward crossing, delivery and later Brass return are recorded."
+		elif a.status!="abandoned" and a.travel.arrivalDay>=0:out.route="Arrival at Westglass is recorded. Payment and the later Brass return remain separate." if a.status!="paid" else "Westglass received the cargo and paid the held fee. The return to Brass remains open."
 	for row in work(c).get("attempts",[]):
 		out.refundDue+=V.refund_due(row)
 		if _returnable(c,row):out.refundReturnable=true
