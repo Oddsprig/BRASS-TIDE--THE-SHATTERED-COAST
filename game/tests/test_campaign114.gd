@@ -124,7 +124,7 @@ class Preview extends "res://scripts/main.gd":
 		var release: Dictionary = core.Arc114.release(core,q)
 		if not check(release.get("ok",false) and before_coins-int(core.state.coins)==int(q.cost) and int(owner.coins)-before_owner==int(q.cost) and absf(float(core.state.cargo.get(str(q.good),0))-before_cargo-float(q.qty))<0.000001 and absf(before_lot-float(owner.cargo.get(str(q.good),0))-float(q.qty))<0.000001 and conserved(),"Actual release transfers the finite original lot and its full payment between the real purses"):return
 		if not check(not core.Arc114.release(core,q).get("ok",false),"The same release cannot be bought again"):return
-		if not check(core.StoryOps.choose(core,core.Arc110.ID,"report_property114").get("ok",false),"The actual completed release supports its explicit report without a claimed raid"):return
+		if not check(core.StoryOps.choose(core,core.Arc110.ID,"report_property114").get("ok",false) and write_json("released-state.json",snapshot()),"The actual completed release supports its explicit report without a claimed raid"):return
 		await capture("release.png")
 		if finished:return
 		if not check(core.restore(bound).get("ok",false) and conserved(),"Original bound owner restores after the separate paid-release branch"):return
@@ -166,7 +166,7 @@ class Preview extends "res://scripts/main.gd":
 		var plotted: Dictionary = core.chart_course(harbor,"anvil_dock")
 		if not check(plotted.get("ok",false) and not core.state.path.is_empty(),"Native course starts the short physical harbor return"):return
 		core.step(minf(4.0,20.0/maxf(1,core.travel_speed())+0.08))
-		if not check(core.state.path.is_empty() and str(core.current_port().get("id",""))=="anvil_dock" and core.Arc114.choice_gate(core,"report_property114").get("ok",false),"Actual native arrival and retained original fitting allow the separate raid return report"):return
+		if not check(core.state.path.is_empty() and str(core.current_port().get("id",""))=="anvil_dock" and core.Arc114.choice_gate(core,"report_property114").get("ok",false) and write_json("raid-arrival-state.json",snapshot()),"Actual native arrival and retained original fitting allow the separate raid return report"):return
 		var invalid: Dictionary = snapshot();invalid.stories.chains[core.Arc110.ID].work114.ownerId="missing-owner114"
 		if not check(not preload("res://scripts/campaign_validation114.gd").validate(invalid).is_empty(),"Unknown original ownership is rejected before restore publication"):return
 		if not check(core.StoryOps.choose(core,core.Arc110.ID,"report_property114").get("ok",false) and core.Arc114.work(core).reported and conserved(),"Explicit returned-property report records the actual native raid/recovery/arrival"):return

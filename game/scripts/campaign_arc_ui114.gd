@@ -21,14 +21,17 @@ static func controls(ui, body: Node, entry: Dictionary) -> void:
 		var owner: Dictionary=c.fleet_owner(owner_id)
 		var name: String=str(owner.get("name","")).strip_edges()
 		if name.is_empty():name="The identified fleet"
-		ui.paragraph(body,"%s: %d original boats identified"%[name,w.get("targetUids",[]).size()],17,ui.GOLD)
+		var count: int=w.get("targetUids",[]).size()
+		ui.paragraph(body,"%s: %d original %s identified"%[name,count,"boat" if count==1 else "boats"],17,ui.GOLD)
 		if owner.is_empty():ui.paragraph(body,"This fleet is no longer available for contact.",16)
 		if not reported:
 			_quote(ui,body,c)
 			if _can_hail(c,owner_id):
 				ui.button(body,"Hail this fleet",(func(id):_hail.call_deferred(ui,id)).bind(owner_id))
 			_wrecks(ui,body,c,w)
-		else:ui.paragraph(body,"Cass has received your account.",16)
+		else:
+			_outcome(ui,body,c,w)
+			return
 	ui.paragraph(body,"After a raid, secure original property and sail with it to a different harbor where you have lawful access. Arrive and stop there before reporting to Cass.",16)
 	ui.paragraph(body,"The battle's 12-second withdrawal ends the encounter. A battle win or bounty payment does not complete the return voyage.",15)
 	if not reported:
@@ -40,6 +43,23 @@ static func controls(ui, body: Node, entry: Dictionary) -> void:
 	if not anvil.is_empty():
 		ui.button(body,"Review route to "+str(anvil.get("name","Anvil Dock")),func():ui.HarborRoute104.open(ui,"anvil_dock"))
 	ui.button(body,"Refresh",func():_refresh.call_deferred(ui))
+
+static func _outcome(ui,body: Node,c,w: Dictionary) -> void:
+	var resolution: String=str(w.get("resolution",""))
+	if resolution=="released":
+		var release: Dictionary=w.get("release",{})
+		ui.label(body,"Cargo release completed",21,ui.GOLD,true)
+		ui.paragraph(body,"%.0f %s released for %s coins."%[float(release.get("qty",0)),str(c.Goods.ITEMS.get(str(release.get("good","")),{}).get("name","cargo")),ui.money(release.get("cost",0))],17)
+	elif resolution=="raid":
+		var arrival: Dictionary=w.get("arrival",{})
+		var destination: Dictionary=c.port(str(arrival.get("port","")))
+		ui.label(body,"Raid property returned",21,ui.GOLD,true)
+		ui.paragraph(body,"An original %s arrived at %s."%["captured hull" if str(arrival.get("kind",""))=="hull" else "recovered fitting",str(destination.get("name","the return harbor"))],17)
+	else:
+		ui.label(body,"No recovery reported",21,ui.GOLD,true)
+		ui.paragraph(body,"This attempt closed without recovered property or a reward.",17)
+	var report_port: Dictionary=c.port(str(w.get("debrief",{}).get("port","")))
+	ui.paragraph(body,"Cass received your account from %s."%str(report_port.get("name","the reporting harbor")),16)
 
 static func _quote(ui, body: Node, c) -> void:
 	var q: Dictionary=c.Arc114.release_quote(c)
