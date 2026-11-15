@@ -116,9 +116,9 @@ class Preview extends "res://scripts/main.gd":
 		if not check(save_game(false),"Game writes complete private ending save: "+title):return false
 		var saved=JSON.parse_string(FileAccess.get_file_as_string(save_directory.path_join("voyage.json")))
 		if not saved is Dictionary:return check(false,"Private save is a complete JSON state")
-		var book: Dictionary=core.Arc119.work(core).duplicate(true)
+		var book: Dictionary=saved.get("stories",{}).get("chains",{}).get(core.Arc110.ID,{}).get("work119",{}).duplicate(true)
 		var fleet_ids: Array=core.state.fleet.map(func(b):return str(b.uid))
-		if not check(restore_value(saved) and P117.same_value(core.Arc119.work(core),book) and P117.same_value(core.Arc117.work(core),earlier) and core.Arc119.outcome(core.state).get("title","")==title and core.state.fleet.map(func(b):return str(b.uid))==fleet_ids and conserved(),"Full restore retains actual ending, obligations, original fleet and117"):return false
+		if not check(restore_value(saved) and P117.same_value(core.Arc119.work(core),book) and P117.same_value(core.Arc117.work(core),earlier) and core.Arc119.outcome(core.state).get("title","")==title and core.state.fleet.map(func(b):return str(b.uid))==fleet_ids and int(core.state.coins)==int(saved.get("coins",-1)) and conserved(),"Full restore retains actual ending, obligations, original fleet and117"):return false
 		write_json("ending-"+str(core.Arc119.work(core).report)+".json",snapshot())
 		return true
 
