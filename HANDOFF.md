@@ -1,15 +1,17 @@
-# Current campaign version0.115: Names on Paper
+# Current campaign version0.116: Two Distress Flags and Narrow Withdrawal
 
-Names on Paper releases Wren’s Reedwater Floats lead. Before boarding, the captain chooses public testimony at Reedwater Floats or protected reception at Anvil Dock. Two actual existing Rust residents are admitted through the regional civilian transport lifecycle under one-use chapter authorization. Only the original source-crisis predicate is replaced for this bounded undertaking. Commercial charter hull-role rules and ordinary regional crises remain unchanged.
+Two Distress Flags presents dated observations of separate existing loaded coastal owners. Accepting one live funded native escort records which passage received priority and preserves the other report without reserving or respawning it. Original carrier identities, load, crew and client-funded terms remain bound.
 
-Native systems retain physical berths, provision space, finite government funding, food purchases, source workforce and proportional household/expert savings. Other passenger commitments count against reception capacity. The source, cohort job, selected destination and carrier remain bound through persistence. Arrival begins reception; two distinct, provisioned and staffed service days precede actual discharge. Returning to Rust or a native loss settlement records a different outcome. Missing records do not establish success; an explicit unfilled report moves no people or money.
+Narrow Withdrawal keeps the same surviving passage. Cover uses the existing physical convoy exit; interdiction needs an actual available hostile pursuer. Native cargo, casualties, arrival, sale, refunds and escort fee remain canonical. One passage never earns duplicate escort credit or replacement cargo. Unknown boats remain unconfirmed and an active native obligation cannot be discarded by a story report. Existing Venn/warden assistance is claimed only when supported by an actual matching native event.
 
-A narrow observation of successful native closure records the original cohort and actual payment after the real financial and workforce transaction. No chapter callback grants people, savings, fees or a free hull. The optional Wren conversation needs actual discharged survivors and keeps protected identities out of public dialogue. Earlier110–114 and all legacy content remain intact; Two Distress Flags116 remains unavailable until its own release.
+The current work is limited to these two116 operations. The existing36 boats, workers, Open Seas, finite purses and legacy stories remain. Who Pays First117 is a locked lead until its own release.
 
-Native named food keys and restored JSON food keys are validated in their respective textual forms. The fresh-booking type check preserves the same key-length, quantity, identity, finance and replay bounds; it does not create or replace a cohort.
+Warden assistance records both its actual native economic event day and its calendar observation time; the save preflight compares the matching economic dates without assuming the detached day publication is synchronous. Closed escort UI directs the player to the actual report rather than asking for an already completed delivery or fee closure.
 
-Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
+Actual first-run priority capture exposed an offscreen primary choice below disabled offshore fee controls. Collection/refund buttons now appear at a real harbor; arrival inspection appears at the actual destination. The fee, carrier counts and useful sailing controls remain visible at sea.
 
-Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.115.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime source52f8ca010445fc47a0e103810acd4e1d898d67c2; receipts in parent work/campaign-v110-v119-2026-11-14/v0.115.
+Next0.117 only: Who Pays First, actual mutual harbor contributions or separate-owner bonds and the first funded escort under those terms; optional Mara on an actually owned damaged hull.0.117–0.119 remain planned.
+
+Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.116.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime source8cdd5379e135de985ae98a36bcb37d7aec275c2e; receipts in parent work/campaign-v110-v119-2026-11-14/v0.116.
 
 Same Sol6.1MAX Bridge team and independent red team; no further Carbon calls, other models, paid fallback or nested helpers. At most two active helper calls. Root alone integrates/tests/packages/installs/pushes. Shared detector/TestBridge; private/muted/background,whole selectedbatch<=60s/watchdog55. All three notes perversion merge, existing reviewer notes-only reconciliation afteractualinstall. Preserve source/tags/useful evidence, owner files and rollback. Released CHANGES immutable. Boardwatch paused.

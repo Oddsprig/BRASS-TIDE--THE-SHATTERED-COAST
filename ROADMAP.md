@@ -1,6 +1,6 @@
 # Current campaign sequence110–119
 
-Implemented through0.115. Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
+Implemented through0.116. Next0.117 only: Who Pays First, actual mutual harbor contributions or separate-owner bonds and the first funded escort under those terms; optional Mara on an actually owned damaged hull.0.117–0.119 remain planned.
 
 Complete researched story, ten version scopes, twelve operations, six optional jobs, commitments and ending rules: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
 

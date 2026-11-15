@@ -1,3 +1,7 @@
+## v0.116 — Two Distress Flags and Narrow Withdrawal
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.117 only: Who Pays First, actual mutual harbor contributions or separate-owner bonds and the first funded escort under those terms; optional Mara on an actually owned damaged hull.0.117–0.119 remain planned.
+
 ## v0.115 — Names on Paper
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
