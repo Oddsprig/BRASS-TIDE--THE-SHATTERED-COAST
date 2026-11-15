@@ -1,4 +1,4 @@
-# Brass Tide v0.115 — Names on Paper — fresh native food keys
+# Brass Tide v0.115 — Names on Paper — reference-calendar coherence
 
-v0.115 — Names on Paper — fresh native food keys (candidate; validation pending)
-First batch e193edb696ab40d6a8ded27d8f0e0843 stopped in14.316seconds at the boarding postcondition. The actual two-person job, funding and carrier existed; its native named food assignment used a StringName dictionary key, while JSON restores use String. Only that food-key check now accepts both textual forms, retaining key length, finite quantities, original identities and all money/duplicate-admission guards. No passengers are boarded again from the failed checkpoint; the isolated test restarts from the accepted114 baseline. Failed evidence is retained. Independent fix review and native rerun pending.
+v0.115 — Names on Paper — reference-calendar coherence (candidate; validation pending)
+Corrected batch a80d3591c0f74413b47fd1ea967537f4 passed39 selected checks, including both real cohort discharges and saved images, then failed full restore in15.992seconds. Declared fixture calendar jumps left an unrelated frozen ocean supply actor deadline behind. The fixture now rebases only that actor’s existing remaining service time by the declared calendar delta and records the setup, while preserving production ocean validation and all people/money/campaign code. Restore result is saved explicitly. The batch remains failed; final rerun and image review pending.

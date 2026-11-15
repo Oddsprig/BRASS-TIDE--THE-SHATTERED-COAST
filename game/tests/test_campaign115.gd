@@ -87,7 +87,13 @@ class Preview extends "res://scripts/main.gd":
 
 	func cohort_day(duplicate_probe: bool=false) -> bool:
 		var next: int=int(core.state.econDay)+1
-		core.state.day=maxf(float(core.state.day),float(next)+0.01)
+		var previous_day: float=float(core.state.day)
+		core.state.day=maxf(previous_day,float(next)+0.01)
+		# This fixture freezes unrelated NPC sailing during its declared calendar steps.
+		var contact: Dictionary=core.state.ocean066.contact
+		if str(contact.get("phase",""))=="supply":
+			var owner: Dictionary=core.OceanCampaign066._owner(core.state)
+			owner.harborServiceUntilDay=float(owner.harborServiceUntilDay)+(float(core.state.day)-previous_day)
 		core.CrisisOps.daily(core)
 		if duplicate_probe:
 			var first: Dictionary=cohort_job().duplicate(true)
@@ -125,6 +131,7 @@ class Preview extends "res://scripts/main.gd":
 		var restored: Dictionary=core.restore(JSON.parse_string(FileAccess.get_file_as_string(path)))
 		mode="campaign";paused=true;ui.close_modal();ui.build_hud()
 		if not check(restored.get("ok",false) and core.Arc110.record(core).stage=="names_on_paper115" and core.state.stories.catalog.size()==14 and conserved(),"Accepted114 restores with its original property account and the new115 catalog"):return
+		proof.declarations.append("Declared calendar steps preserve the remaining paid supply time of the frozen, unrelated ocean contact. No NPC sailing/service or general-world daily-cost claim.")
 		var earlier: Dictionary=core.Arc114.work(core).duplicate(true)
 		var starting: Dictionary=snapshot()
 		locate("reed_floats")
@@ -187,7 +194,9 @@ class Preview extends "res://scripts/main.gd":
 		if not check(core.StoryOps.choose(core,core.Arc110.ID,"next_distress115").get("ok",false) and core.Arc110.record(core).stage=="two_distress116" and core.Arc114.work(core)==earlier,"115 ends at the locked116 lead and preserves the accepted114 property report"):return
 		if not check(save_game(false),"Native private115 portable save is written"):return
 		var actual = JSON.parse_string(FileAccess.get_file_as_string(save_directory.path_join("voyage.json")))
-		if not check(core.restore(actual).get("ok",false) and core.state.version=="0.115" and core.Arc115.work(core).reported and conserved(),"Actual115 save reloads with destination, discharged people and historical native account intact"):return
+		var reload: Dictionary=core.restore(actual)
+		write_json("reload-result.json",reload)
+		if not check(reload.get("ok",false) and core.state.version=="0.115" and core.Arc115.work(core).reported and conserved(),"Actual115 save reloads with destination, discharged people and historical native account intact"):return
 		finish(true)
 
 func _initialize() -> void:
