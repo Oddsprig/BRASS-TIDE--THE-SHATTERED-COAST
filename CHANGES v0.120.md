@@ -12,3 +12,5 @@ Commercial integration; release acceptance pending.
 - Accepted earned remote voyage and physical save continuity retain real payments, wages, stores, specialists and part identity. Original failed/timed-out evidence remains recorded.
 
 R2 semantic/performance verification, final images/full-page independent review, matching clean Windows package/desktop installation and live purchase/library delivery are still pending. Previous119 remains rollback. See developer notes for exact receipts and failed performance results; no sale-ready claim from source review or version number.
+
+Coastal Clash HUD now shows compact complete control hints and points to Tab for full scenario guidance; the objective, complete orders-panel description and full tooltip remain. This addresses the recorded clipped long HUD line without changing any scenario or simulation. Final capture remains pending.

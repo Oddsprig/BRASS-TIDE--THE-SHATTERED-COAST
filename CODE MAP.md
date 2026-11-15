@@ -25,3 +25,5 @@ See game/data/DEVELOPER NOTES.txt for exact accepted outcomes and retained failu
 
 ## Working constraints
 Root alone integrates/tests/packages/installs/publishes. Existing Bridge Sol6.1MAX roles, at most2active; no nested helpers/fallback. Each source merge changes this map, game/data/DEVELOPER NOTES.txt and CHANGES v0.120.md together, followed by light independent notes reconciliation. Shared detector/TestBridge FIFO; private muted background, one owned engine, whole necessary batch<=60seconds with55second watchdog. Keep queued/interrupted/failed outcomes distinct. Preserve owner saves/settings/music and119 rollback. Board paused. Literal player/store copy, no catchphrases or scenic labels. Existing marketplace,999cents, real distinct gameplay images and functional purchase/download.
+
+Coastal Clash HUD now shows compact complete control hints and points to Tab for full scenario guidance; the objective, complete orders-panel description and full tooltip remain. This addresses the recorded clipped long HUD line without changing any scenario or simulation. Final capture remains pending.
