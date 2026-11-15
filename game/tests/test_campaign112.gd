@@ -359,14 +359,14 @@ class Preview extends "res://scripts/main.gd":
 			return
 		var quiet_closure: Dictionary = core.VoyageJobs.abandon(core, job_id112)
 		w = core.Arc112.work(core)
-		var quiet_report: Dictionary = core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112")
+		var quiet_report: Dictionary = core.Arc112.choice_gate(core, "report_withdrawal112")
 		var quiet_checkpoint: Dictionary = snapshot112()
 		var quiet_saved: bool = json112("quiet-checkpoint.json", quiet_checkpoint)
 		proof112.quiet = {"arrival":arrival,"closure":quiet_closure,"checkpoint":"quiet-checkpoint.json","observer_only":true}
 		if not verify112(quiet_closure.get("ok", false) and quiet_report.get("ok", false) and quiet_saved
-			and w.reported and w.resolution == "clear" and w.status == "withdrawn" and int(w.payment) == 0
+			and not w.reported and w.resolution == "" and all_arrived112() and w.status == "withdrawn" and int(w.payment) == 0
 			and Check112.validate(core.state).is_empty() and conserved112(),
-			"Explicit arrival report retains actual safe boats with a refunded escort and zero fee"):
+			"Actual arrival account permits explicit reporting with a refunded escort and zero fee"):
 			return
 
 		# Knowledge-only probe: erase the observations, never invent a physical
