@@ -81,7 +81,7 @@ static func snapshot(j, native_day: float) -> bool:
 		if not number(j[key], 0, 1000000000000.0, true): return false
 	if not j.food is Dictionary or j.food.size() > 32: return false
 	for key in j.food:
-		if not text(key) or not number(j.food[key]): return false
+		if not (key is String or key is StringName) or not text(str(key)) or not number(j.food[key]): return false
 	if j.stage not in ["aboard", "holding", "returning"]: return false
 	if not number(j.arrived, -1, native_day, true): return false
 	if not number(j.lastFed, float(j.created) - 1, native_day, true): return false

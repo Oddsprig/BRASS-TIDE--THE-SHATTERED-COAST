@@ -1,4 +1,4 @@
-# Brass Tide v0.115 — Names on Paper — passage status instructions
+# Brass Tide v0.115 — Names on Paper — fresh native food keys
 
-v0.115 — Names on Paper — passage status instructions (candidate; validation pending)
-Independent static review caught pre-boarding instructions after native closure but before reporting. The journal body and next action now follow preparing, aboard/returning, holding, delivered, returned, lost and unresolved states. The public capture exercises completed reception BEFORE its report, while the protected capture remains AFTER reporting. No native people, purse, calendar, admission or closure logic changed. Static addendum and first engine pass pending.
+v0.115 — Names on Paper — fresh native food keys (candidate; validation pending)
+First batch e193edb696ab40d6a8ded27d8f0e0843 stopped in14.316seconds at the boarding postcondition. The actual two-person job, funding and carrier existed; its native named food assignment used a StringName dictionary key, while JSON restores use String. Only that food-key check now accepts both textual forms, retaining key length, finite quantities, original identities and all money/duplicate-admission guards. No passengers are boarded again from the failed checkpoint; the isolated test restarts from the accepted114 baseline. Failed evidence is retained. Independent fix review and native rerun pending.
