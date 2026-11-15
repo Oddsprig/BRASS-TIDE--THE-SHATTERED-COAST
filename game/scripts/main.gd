@@ -1263,7 +1263,7 @@ func _enter_battle():
 	chart.center_camera()
 	ui.close_modal()
 	ui.build_hud()
-	if first_orders120:ui.toast("Paused for your first order. Select your boat, choose Focus attack and click an enemy. Space resumes; autopilot handles the helm.")
+	if first_orders120:ui.toast("Paused for your first order. Select your boat, choose Focus attack and right-click an enemy. Space resumes; autopilot handles the helm.")
 	else:ui.toast("Autopilot engaged. Space pauses; select boats and right-click to give orders. Tab opens the tactical view.")
 	if RecoveryFlow.is_convoy(battle):ui.toast(RecoveryFlow.objective_label(battle))
 

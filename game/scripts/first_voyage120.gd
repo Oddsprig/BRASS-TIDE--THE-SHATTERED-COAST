@@ -86,7 +86,7 @@ func status(host) -> Dictionary:
 	var c = host.core
 	if c == null or c.state.is_empty(): return {}
 	if host.mode == "battle":
-		var reason: String = "Select your boat, choose Focus attack, then click an enemy. Space resumes. Autopilot handles the helm."
+		var reason: String = "Select your boat, choose Focus attack, then right-click an enemy. Space resumes. Autopilot handles the helm."
 		if command_seen: reason = "Your order was accepted. Watch the target and firing arcs; pull back or order fleet escape if the fight turns."
 		return _card("Give the first order" if not command_seen else "Watch your order take effect", reason, "battle", "Battle guidance")
 	# Existing commitments always take priority over suggestions for new work.

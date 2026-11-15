@@ -57,7 +57,7 @@ static func open_first120(ui) -> void:
 	ui.button(row, "Choose other work", func(): choose_work120(ui), false, false)
 	ui.button(row, "Common Passage", func(): ui.StoryUI.open(ui), false, false)
 	ui.button(row, "Continue sailing", ui.close_modal, false, false)
-	ui.button(row, "Hide guidance", func(): ui.host.set_guidance120(false); ui.close_modal(), false, false)
+	ui.button(row, "Hide guidance for this session", func(): ui.host.set_guidance120(false); ui.close_modal(), false, false)
 
 static func _next120(ui, step: Dictionary) -> void:
 	var c = ui.host.core
@@ -212,8 +212,8 @@ static func open_battle120(ui) -> void:
 	ui.host.poll_battle051(0.0, true)
 	ui.modal_kind = "battle_guide120"
 	var body = ui.modal("Give a battle order", "PAUSED - AUTOPILOT IS OPTIONAL", 820, 560)
-	ui.paragraph(body, "Close this panel to give orders while paused. Select your boat, choose Focus attack and click an enemy. Turn on firing arcs to see which weapons can bear.", 17)
-	ui.paragraph(body, "Space resumes or pauses. Autopilot steers and fires; U switches to optional manual helm. Watch hull and water. Use the named boat's Bail or Repair controls when needed.", 16)
+	ui.paragraph(body, "Close this panel to give orders while paused. Select your boat, choose Focus attack and right-click an enemy. Turn on firing arcs to see which weapons can bear.", 17)
+	ui.paragraph(body, "Space resumes or pauses. Autopilot steers and fires; U switches to optional manual helm. Watch hull and water. Open Fleet & crew for the named flagship's Bail or Repair priority. X cycles flagship; selected condition can show a different boat.", 16)
 	ui.paragraph(body, "Fall back changes position. Retreat fleet starts the real withdrawal; it can lose cargo and the contract may remain unfinished.", 15)
 	ui.button(body, "Close and give orders", func(): ui.host.close_battle_guidance120(false), true, false)
 	ui.button(body, "Resume battle", func(): ui.host.close_battle_guidance120(true), false, false)
