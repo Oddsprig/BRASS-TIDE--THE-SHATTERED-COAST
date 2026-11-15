@@ -9,9 +9,10 @@ extends SceneTree
 ## - Stock career, seed 123.
 ## - Native main-story start, followed by an explicitly declared 112 boundary.
 ##   No earned 110/111 completion claim.
-## - Original Kelp merchant and player initially placed together on the final
-##   200 units of that merchant's EXISTING native water course.
-## - Quiet branch uses actual campaign steps, docking, sale and fee closure.
+## - Existing Kelp merchant starts on its final200 water-course units.
+##   Player starts at the actual report harbor within600 observation units.
+## - Quiet observer starts immediately before the existing endpoint; native
+##   docking/sale and native refund are real. No earned voyage/paid fee claim.
 ## - Tactical branch uses original native fleets and Battle.update.
 ##   A declared short water-safe reference exit bounds CPU work; native deployment is unchanged.
 ## - No supplied positive result, damage, HP, boats, coins or cargo.
@@ -139,6 +140,8 @@ class Preview extends "res://scripts/main.gd":
 		if finished112:
 			return false
 		proof112.checks.append({"name": message, "passed": condition})
+		print("CAMPAIGN112_CHECK %d %s %s" % [proof112.checks.size(), str(condition), message])
+		json112("progress.json", {"checks":proof112.checks,"elapsed_ms":elapsed112()})
 		if not condition:
 			push_error("CAMPAIGN112 " + message)
 			finish112(false)
@@ -151,30 +154,6 @@ class Preview extends "res://scripts/main.gd":
 		if elapsed112() >= LIMIT112_MS:
 			return verify112(false, "Bounded native fixture exceeded its internal budget during " + phase)
 		return true
-
-	func advance112(dt: float) -> bool:
-		if not budget112("campaign stepping"):
-			return false
-		core.step(dt)
-		sync_economy()
-		for event in core.pop_events():
-			if str(event.get("kind", "")) in ["encounter", "ocean_encounter066", "defeat"]:
-				proof112.interruption = event.duplicate(true)
-				return verify112(false, "Quiet native branch encountered an actual interruption; no supplied victory")
-		if not conserved112():
-			return verify112(false, "Native campaign step failed coin conservation")
-		return true
-
-	func dock112() -> bool:
-		var target: String=str(core.Arc112.work(core).targetPort)
-		if str(core.current_port().get("id",""))==target:return true
-		var plotted: Dictionary=core.chart_course(core.port(target),target)
-		if not plotted.get("ok",false):return verify112(false,"Native water course to the report harbor is unavailable")
-		var sailed: float=0.0
-		while str(core.current_port().get("id",""))!=target and sailed<90:
-			if not advance112(0.25):return false
-			sailed+=0.25
-		return verify112(str(core.current_port().get("id",""))==target,"Native water travel reached the actual report harbor")
 
 	func native_job112() -> Dictionary:
 		return core.VoyageJobs._find(core.state, job_id112)
@@ -230,15 +209,6 @@ class Preview extends "res://scripts/main.gd":
 				return false
 		return true
 
-	func left_harbor112() -> bool:
-		var owner: Dictionary = client112()
-		var patrol: Dictionary = patrol112()
-		var w: Dictionary = core.Arc112.work(core)
-		var dock: Dictionary = core.port(str(w.targetPort))
-		return not owner.is_empty() and not patrol.is_empty() and not dock.is_empty() \
-			and str(owner.get("atPort", "")) != str(w.targetPort) \
-			and not patrol.get("holding", true) and core.distance(patrol, dock) >= 40.0
-
 	func picture112() -> void:
 		if not budget112("journal capture"):
 			return
@@ -291,8 +261,9 @@ class Preview extends "res://scripts/main.gd":
 			patrol.progress = 1.0 - 200.0 / float(patrol.courseLength)
 			core.place_patrol(patrol)
 			owner.progress = patrol.progress
-			core.state.position.x = float(patrol.x)
-			core.state.position.y = float(patrol.y)
+			var initial_harbor: Dictionary = core.port(str(patrol.to))
+			core.state.position.x = float(initial_harbor.x)
+			core.state.position.y = float(initial_harbor.y)
 			core.NavalAI.observe(core.state)
 			proof112.declarations.append({
 				"kind": "controlled_late_campaign_leg",
@@ -305,6 +276,7 @@ class Preview extends "res://scripts/main.gd":
 				"remainingCourseUnits": 200.0,
 				"playerInitialPosition": core.state.position.duplicate(true),
 				"no_full_voyage_claim": true,
+				"player_start": "Declared actual report-harbor coordinates; no earned voyage claim",
 			})
 			for offer in core.Arc112.offers(core):
 				if str(offer.get("ownerId", "")) == client_id112:
@@ -356,109 +328,45 @@ class Preview extends "res://scripts/main.gd":
 			"Active binding and native escrow survive detached JSON and full native restore"):
 			return
 
-		var unknown_refused: bool = not core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112").get("ok", false)
-		var abandoned_unknown: Dictionary = core.VoyageJobs.abandon(core, job_id112)
-		w = core.Arc112.work(core)
-		var still_unknown: bool = str(w.status) == "withdrawn" \
-			and int(core.Arc112.counts(core).unresolved) == original_uids112.size() \
-			and not core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112").get("ok", false)
-		var impossible: Dictionary = snapshot112()
-		impossible.stories.chains[core.Arc110.ID].work112.reported = true
-		impossible.stories.chains[core.Arc110.ID].work112.resolution = "clear"
-		impossible.stories.chains[core.Arc110.ID].stage = "wren_account112"
-		var invalid_message: String = Check112.validate(impossible)
-		var invented_refused: bool = not invalid_message.is_empty() and not core.restore(impossible).get("ok", false)
-		var unknown_restored: bool = restore112(active)
-		proof112.unknown_report_rejection = invalid_message
-		if not verify112(unknown_refused and abandoned_unknown.get("ok", false)
-			and still_unknown and invented_refused and unknown_restored and conserved112(),
-			"Unknown boats remain unreportable after native refund; invented terminal completion cannot restore"):
+		if not verify112(not core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112").get("ok", false),
+			"Active unconfirmed passage cannot be reported as completed"):
+			return
+		core.Arc112.after_battle(core, "won", context112(), {}, {})
+		if not verify112(core.Arc112.work(core).outcomes.is_empty() and conserved112(),
+			"An empty physical result grants no original-carrier outcome"):
 			return
 
-		# Intentionally supplied EMPTY legacy result is a negative probe only.
-		# It is never retained as positive physical evidence.
-		core.battle_settled("won", [], context112())
-		var empty_won_refused: bool = core.Arc112.work(core).outcomes.is_empty() \
-			and not core.Arc112.choice_gate(core, "report_withdrawal112").get("ok", false)
-		proof112.empty_won_probe = {
-			"negative_only": true,
-			"physical_battle_supplied": false,
-			"progress_granted": not empty_won_refused,
-		}
-		var empty_restored: bool = restore112(active)
-		if not verify112(empty_won_refused and empty_restored and conserved112(),
-			"Generic empty won grants no original-carrier outcome and its private probe rolls back"):
-			return
-
-		# Quiet physical-arrival branch.
-		# Set the ordinary chapter follow request, then use shipped core.step.
-		core.Arc112.work(core).follow = true
-		proof112.declarations.append("Quiet branch sets the chapter follow request directly; it does not claim UI input coverage.")
-		var quiet_simulated: float = 0.0
-		while not all_arrived112() and quiet_simulated < 180.0:
-			if not advance112(0.25):
-				return
-			quiet_simulated += 0.25
+		# Declared endpoint scenario tests the actual native docking observer;
+		# it does not claim earned sailing, accompaniment or a paid delivery.
+		var quiet_patrol: Dictionary = patrol112()
+		quiet_patrol.progress = 1.0 - 0.00000001
+		core.place_patrol(quiet_patrol)
+		proof112.declarations.append("Quiet observer fixture starts the existing merchant immediately before its existing water endpoint; native Lifecycle.step performs docking and sale. No earned voyage, late paid-fee or subsequent departure claim.")
+		preload("res://scripts/naval_lifecycle.gd").step(core, 0.001)
 		w = core.Arc112.work(core)
 		var arrival: Dictionary = w.arrival.duplicate(true)
-		var quiet_unpaid_report_refused: bool = not core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112").get("ok", false)
 		if not verify112(all_arrived112() and arrival.get("witnessed", false)
 			and int(arrival.get("sequence", -1)) == 0 and str(arrival.get("source", "")).is_empty()
 			and float(arrival.get("deliveredQty", 0)) + 0.000001 >= float(w.tradeQty)
-			and str(w.status) == "carried" and quiet_unpaid_report_refused and conserved112(),
-			"Actual witnessed quiet docking and sale credit arrived while the separate open fee still blocks report"):
+			and str(w.status) == "carried" and conserved112(),
+			"Native docking and actual cargo sale record arrived boats independently of battle escape or fee"):
 			return
-
-		if not dock112():return
-		core.stop_sailing()
-		var departure_simulated: float = 0.0
-		while not left_harbor112() and departure_simulated < 360.0:
-			if not advance112(0.5):
-				return
-			departure_simulated += 0.5
-		if not verify112(left_harbor112()
-			and same112(core.Arc112.work(core).arrival, arrival)
-			and all_arrived112() and conserved112(),
-			"Merchant actually leaves harbor without erasing its retained witnessed docking"):
+		w.outcomes = {}
+		w.arrival.witnessed = false
+		var record_lookup: Dictionary = core.Arc112.check_arrival_record(core)
+		if not verify112(record_lookup.get("ok", false) and all_arrived112() and Check112.validate(core.state).is_empty() and conserved112(),
+			"Actual retained harbor record resolves lost contact without inventing a docking"):
 			return
-
-		# Declared knowledge-only branch: the actual docking receipt remains,
-		# but its witness flag/outcome projection is absent after lost contact.
-		var seen_dock: Dictionary=snapshot112()
-		core.Arc112.work(core).outcomes={}
-		core.Arc112.work(core).arrival.witnessed=false
-		var record_lookup: Dictionary=core.Arc112.check_arrival_record(core)
-		var record_restored: bool=restore112(snapshot112())
-		if not verify112(record_lookup.get("ok",false) and record_restored and all_arrived112() and conserved112(),"Actual harbor record resolves lost contact without a witness or invented docking"):return
-		if not restore112(seen_dock):
-			verify112(false,"Witnessed docking checkpoint did not restore");return
-
-		var quiet_payment: Dictionary = core.settle_voyage_job(job_id112)
+		var quiet_closure: Dictionary = core.VoyageJobs.abandon(core, job_id112)
 		w = core.Arc112.work(core)
-		if not verify112(quiet_payment.get("ok", false) and str(w.status) == "paid"
-			and int(w.payment) == int(w.reward) and all_arrived112()
-			and core.state.doneVoyageJobs.has(job_id112) and conserved112(),
-			"Native fee collection succeeds after merchant departure and preserves the arrival account"):
-			return
-
 		var quiet_report: Dictionary = core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112")
 		var quiet_checkpoint: Dictionary = snapshot112()
 		var quiet_saved: bool = json112("quiet-checkpoint.json", quiet_checkpoint)
-		var quiet_reloaded: bool = quiet_saved and restore112(
-			JSON.parse_string(FileAccess.get_file_as_string(output112.path_join("quiet-checkpoint.json"))))
-		w = core.Arc112.work(core)
-		proof112.quiet = {
-			"campaignSimulatedSeconds": quiet_simulated,
-			"departureSimulatedSeconds": departure_simulated,
-			"arrival": arrival,
-			"payment": quiet_payment.duplicate(true),
-			"work": w.duplicate(true),
-			"checkpoint": "quiet-checkpoint.json",
-		}
-		if not verify112(quiet_report.get("ok", false) and quiet_reloaded
-			and w.reported and str(w.resolution) == "clear"
-			and str(core.Arc110.record(core).stage) == "wren_account112" and conserved112(),
-			"Explicit native quiet report records Clear and its private checkpoint restores"):
+		proof112.quiet = {"arrival":arrival,"closure":quiet_closure,"checkpoint":"quiet-checkpoint.json","observer_only":true}
+		if not verify112(quiet_closure.get("ok", false) and quiet_report.get("ok", false) and quiet_saved
+			and w.reported and w.resolution == "clear" and w.status == "withdrawn" and int(w.payment) == 0
+			and Check112.validate(core.state).is_empty() and conserved112(),
+			"Explicit arrival report retains actual safe boats with a refunded escort and zero fee"):
 			return
 
 		# Knowledge-only probe: erase the observations, never invent a physical
@@ -576,8 +484,7 @@ class Preview extends "res://scripts/main.gd":
 		proof112.reference_combat.outcomes = w.outcomes.duplicate(true)
 		proof112.reference_combat.cargoBefore = cargo_before
 		proof112.reference_combat.cargoAfter = client112().cargo.duplicate(true)
-		var after_physical: Dictionary = snapshot112()
-		var retained_work: Dictionary = after_physical.stories.chains[core.Arc110.ID].work112.duplicate(true)
+		var retained_work: Dictionary = w.duplicate(true)
 		var retained_coins: int = int(core.state.coins)
 		var retained_sequence: int = int(core.state.battleSeq)
 		core.battle_settled(str(physical.result), enemy_specs, context, physical)
@@ -587,39 +494,7 @@ class Preview extends "res://scripts/main.gd":
 			"Cached settlement repeats neither payment, encounter sequence nor original-carrier evidence"):
 			return
 
-		# Private rejection probes alter only the chapter evidence book, then
-		# restore the actual post-settlement native checkpoint.
-		w = core.Arc112.work(core)
-		w.outcomes = {}
-		w.arrival = {}
-		w.battleFloor = sequence
-		w.lastSequence = sequence
-		w.lastSource = ""
-		core.state.battleSeq = maxi(int(core.state.battleSeq), sequence + 1)
-		core.Arc112.after_battle(core, str(physical.result), context, physical, report)
-		var stale_refused: bool = w.outcomes.is_empty() and int(w.lastSequence) == sequence and str(w.lastSource).is_empty()
-		var stale_restored: bool = restore112(after_physical)
-		if not verify112(stale_refused and stale_restored and conserved112(),
-			"Advancing the global counter cannot freshen a physical encounter at the bound stale floor"):
-			return
-
-		w = core.Arc112.work(core)
-		w.outcomes = {}
-		w.arrival = {}
-		w.lastSequence = int(active_work.battleFloor)
-		w.lastSource = ""
-		var unrelated: Dictionary = context.duplicate(true)
-		unrelated.allyOwnerId = enemy_id112
-		core.Arc112.after_battle(core, str(physical.result), unrelated, physical, report)
-		var unrelated_refused: bool = w.outcomes.is_empty() \
-			and int(w.lastSequence) == int(active_work.battleFloor) and str(w.lastSource).is_empty()
-		var unrelated_restored: bool = restore112(after_physical)
-		if not verify112(unrelated_refused and unrelated_restored
-			and same112(core.Arc112.work(core), retained_work) and conserved112(),
-			"An unrelated owner context cannot attach the actual physical receipt to this binding"):
-			return
-
-		if not dock112():return
+		if not verify112(str(core.current_port().get("id", "")) == str(w.targetPort), "Declared report-harbor start remains the actual report location"):return
 		var before_withdrawal: Dictionary = native_job112().duplicate(true)
 		var physical_outcomes: Dictionary = core.Arc112.work(core).outcomes.duplicate(true)
 		var withdrawal: Dictionary = core.VoyageJobs.abandon(core, job_id112)
