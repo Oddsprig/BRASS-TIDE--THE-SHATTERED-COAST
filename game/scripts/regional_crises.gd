@@ -202,6 +202,16 @@ func _ready() -> bool:
 		if not (hooks.get(key) is Callable) or not hooks[key].is_valid(): return false
 	return true
 
+func _witness_authorized115(core, origin: String, destination: String, count: int) -> bool:
+	var callback = hooks.get("witness_authorized115")
+	return count == 2 and callback is Callable and callback.is_valid() \
+		and callback.call(core, origin, destination, count) == true
+
+func _witness_reception115(core, id: String, destination: String, count: int) -> bool:
+	if not hooks.has("witness_reception115"): return true
+	var callback = hooks.witness_reception115
+	return callback is Callable and callback.is_valid() and callback.call(core, id, destination, count) == true
+
 func _dock(core, id: String) -> bool:
 	var p = core.current_port()
 	var actual = p.get("id", "") if p is Dictionary else p
@@ -318,11 +328,12 @@ func _observe(s, p, day: int) -> void:
 		r.advice = "Day %d: %s" % [day, advice[kind]]
 		if fact[0] < 0: r.advice = "Day %d: Restore verified observations before intervention." % day
 
-func _quote(core, origin: String, destination: String, maximum: int) -> Dictionary:
+func _quote(core, origin: String, destination: String, maximum: int, story115: bool = false) -> Dictionary:
+	if story115 and not _witness_authorized115(core, origin, destination, maximum): return {}
 	if origin==World068.REMOTE_PORT068 or destination==World068.REMOTE_PORT068:return {}
 	if str(core.port(origin).get("regionId","shatter_coast"))!="shatter_coast" or str(core.port(destination).get("regionId","shatter_coast"))!="shatter_coast":return {}
 	var s = core.state[KEY]
-	if s.jobs.size() >= 8 or origin == destination or not _bad(s, origin) or _bad(s, destination): return {}
+	if s.jobs.size() >= 8 or origin == destination or (not story115 and not _bad(s, origin)) or _bad(s, destination): return {}
 	var p = core.port(origin)
 	var berths = hooks.berths.call(core)
 	var days = hooks.route_days.call(core, origin, destination)
@@ -352,12 +363,13 @@ func offers(core) -> Array:
 			if out.size() >= 16: return out
 	return out
 
-func begin_resettlement(core, origin: String, destination: String, count):
+func begin_resettlement(core, origin: String, destination: String, count, story115: bool = false):
 	if not ensure(core) or not _ready(): return core.fail("Regional service unavailable.")
 	if not _whole(count, 1, 32) or not _dock(core, origin): return core.fail("Visit the origin service with a whole passenger count.")
 	if core.port(origin) == null or core.port(destination) == null: return core.fail("Unknown endpoint.")
 	if not _catalog(core.data.PORTS).has(destination): return core.fail("Unknown destination.")
-	var offer = _quote(core, origin, destination, int(count))
+	if story115 and not _witness_authorized115(core, origin, destination, int(count)): return core.fail("Witness passage is not authorized here.")
+	var offer = _quote(core, origin, destination, int(count), story115)
 	if offer.is_empty() or offer.count != count: return core.fail("No funded, provisioned capacity for that cohort.")
 	var s = core.state[KEY]
 	if s.nextId >= LIMIT: return core.fail("Voyage ID limit reached.")
@@ -393,7 +405,7 @@ func arrive(core, id: String):
 	var j = _job(core, id)
 	if j == null: return core.fail("Unknown/completed voyage.")
 	if j.stage != "aboard" or not _dock(core, j.destination): return core.fail("Dock at the destination with this cohort.")
-	if j.progress != j.days or _room(core, j.destination, id) < j.n: return core.fail("Route work or reception capacity incomplete.")
+	if j.progress != j.days or _room(core, j.destination, id) < j.n or not _witness_reception115(core, id, j.destination, int(j.n)): return core.fail("Route work or reception capacity incomplete.")
 	j.stage = "holding"
 	j.arrived = _day(core.state)
 	return core.ok("Cohort ashore in reception; two distinct service days remain.")
@@ -414,7 +426,7 @@ func recall(core, id: String):
 func _finish(core, j, destination: String, loss = false) -> bool:
 	var s = core.state[KEY]
 	var target = null if loss else core.port(destination)
-	if not loss and (target == null or _room(core, destination, j.id) < j.n): return false
+	if not loss and (target == null or _room(core, destination, j.id) < j.n or not _witness_reception115(core, str(j.id), destination, int(j.n))): return false
 	if loss and (s.lostPeople + j.n > LIMIT or s.lostPurse + j.householdPurse + j.expertPurse > LIMIT): return false
 	var account = hooks.fleet_account.call(core)
 	if not (account is Array) or account.size() != 2: return false
@@ -430,6 +442,8 @@ func _finish(core, j, destination: String, loss = false) -> bool:
 		[j, "escrow", account[0], account[1], earned],
 		[j, "escrow", sponsor, "governmentPurse", int(j.escrow) - earned]]
 	var event = {"action": "lose" if loss else "release", "job": j, "port": destination}
+	var before = {"job": j.duplicate(true),
+		"carrierUid": core.state.get("passengerTransport", {}).get("carriers", {}).get(str(j.id), "")}
 	if not _atomic(core, moves, event): return false
 	if loss:
 		s.lostPeople = int(s.lostPeople) + int(j.n)
@@ -440,6 +454,8 @@ func _finish(core, j, destination: String, loss = false) -> bool:
 		_people(target, j, 1)
 	s.jobs.erase(j)
 	core.log_entry("Resettlement %s settled: %s." % [j.id, "recorded loss" if loss else destination])
+	var closed = hooks.get("witness_closed115")
+	if closed is Callable and closed.is_valid(): closed.call(core, before, destination, loss, earned)
 	return true
 
 func return_to_origin(core, id: String):
@@ -479,7 +495,7 @@ func daily(core):
 		if j.served == 2:
 			_finish(core, j, j.destination)
 			continue
-		if day <= j.arrived or j.lastFed != day or _room(core, j.destination, j.id) < j.n: continue
+		if day <= j.arrived or j.lastFed != day or _room(core, j.destination, j.id) < j.n or not _witness_reception115(core, str(j.id), j.destination, int(j.n)): continue
 		var p = core.port(j.destination)
 		var moves = [[j, "escrow", p, "householdPurse", int(j.handlers) * 100],
 			[j, "escrow", p, "expertPurse", 175]]

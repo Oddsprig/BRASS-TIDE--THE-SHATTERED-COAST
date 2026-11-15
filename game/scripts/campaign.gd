@@ -44,6 +44,7 @@ const Arc111=preload("res://scripts/campaign_arc111.gd")
 const Arc112=preload("res://scripts/campaign_arc112.gd")
 const Arc113=preload("res://scripts/campaign_arc113.gd")
 const Arc114=preload("res://scripts/campaign_arc114.gd")
+const Arc115=preload("res://scripts/campaign_arc115.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -1997,3 +1998,12 @@ func campaign_before_arrival112(owner: Dictionary,patrol: Dictionary) -> Diction
 
 func campaign_after_arrival112(owner: Dictionary,patrol: Dictionary,dock: Dictionary,prior: Dictionary) -> void:
 	Arc112.after_arrival(self,owner,patrol,dock,prior)
+
+func campaign_witness_authorized115(origin: String,destination: String,count: int) -> bool:
+	return Arc115.authorized(self,origin,destination,count)
+
+func campaign_witness_reception115(job_id: String,destination: String,count: int) -> bool:
+	return Arc115.reception(self,job_id,destination,count)
+
+func campaign_witness_closed115(before: Dictionary,destination: String,loss: bool,earned: int) -> void:
+	Arc115.after_closed(self,before,destination,loss,earned)

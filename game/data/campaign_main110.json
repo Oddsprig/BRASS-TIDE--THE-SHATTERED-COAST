@@ -301,11 +301,70 @@
         {
           "id": "names_on_paper115",
           "title": "Names on Paper",
-          "body": "Wren’s witness transport is not available in this version.",
+          "body": "At Reedwater Floats, Wren opens a letter from Rust Anchorage. Two residents who saw the collections are willing to give an account. Cass has agreed to introduce them.\n\n\"Agree where they will be received before anyone boards,\" Wren says. \"Here, they can testify before the public clerks. Mara can arrange protected reception at Anvil Dock instead. The harbor still needs berths, provisions and paid reception workers.\"",
+          "nextAction": "Choose the destination, then collect the two witnesses at Rust Anchorage.",
+          "gate": {
+            "type": "at_port",
+            "port": "reed_floats"
+          },
+          "choices": [
+            {
+              "id": "choose_public115",
+              "text": "Public testimony — Reedwater Floats.",
+              "next": "witness_board115",
+              "tradeoff": "The agreed destination is Reedwater Floats. Their account enters a public hearing."
+            },
+            {
+              "id": "choose_protected115",
+              "text": "Protected reception — Anvil Dock.",
+              "next": "witness_board115",
+              "tradeoff": "The agreed destination is Anvil Dock. Keep their identities out of the public account."
+            }
+          ]
+        },
+        {
+          "id": "witness_board115",
+          "title": "Witness Passage",
+          "body": "The two places must be on an actual boat, with food aboard and a funded reception at the agreed destination. Review the terms before boarding.\n\nOnce they embark, their existing savings and provisions travel with the cohort. If the passage cannot continue, use the normal recall and return arrangements. Reaching the destination begins reception; it does not finish the hearing.",
+          "nextAction": "Board at Rust Anchorage, sail to the agreed reception, and complete its two service days.",
+          "gate": {
+            "type": "arc115",
+            "port": "rust_anchorage"
+          },
+          "choices": [
+            {
+              "id": "report_witnesses115",
+              "text": "Send Wren the passage account.",
+              "next": "witness_account115",
+              "tradeoff": "Requires the actual cohort’s completed discharge, return or loss settlement. An unaccepted passage can be reported as unfilled; passengers aboard cannot be discarded by this report."
+            }
+          ]
+        },
+        {
+          "id": "witness_account115",
+          "title": "The Witness Account",
+          "body": "You send Wren the outcome and the paid costs. She keeps that account beside Cass’s admission. The record separates the agreed destination from what actually happened on the voyage.\n\nAnother message reaches the harbor: loaded boats on the Kelp routes have reported danger. Their owners still have to decide what they can afford to protect.",
+          "nextAction": "Read the Kelp distress lead.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "next_distress115",
+              "text": "Read the Kelp distress report.",
+              "next": "two_distress116",
+              "tradeoff": ""
+            }
+          ]
+        },
+        {
+          "id": "two_distress116",
+          "title": "Two Distress Flags",
+          "body": "The Kelp distress operation is not available in this version.",
           "nextAction": "Continue other harbor work.",
           "gate": {
             "type": "unreleased",
-            "port": "reed_floats",
+            "port": "kelp_reach",
             "message": "The next campaign operation is not available in this version."
           },
           "choices": []
@@ -487,6 +546,38 @@
               "id": "finish_cass_price114",
               "text": "Keep Cass’s admission in the account.",
               "next": "done"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wren_witness115",
+      "title": "Wren: the testimony",
+      "approach": "contact",
+      "summary": "Talk with Wren after the witnesses have completed their agreed reception.",
+      "startPort": "reed_floats",
+      "startContact": "contact_sister_wren",
+      "startGate": {
+        "type": "arc115",
+        "mode": "optional"
+      },
+      "stages": [
+        {
+          "id": "wren_hearing115",
+          "title": "Hearing the Account",
+          "body": "Wren checks the reception account. \"They have been received, and the work is paid for. Now the clerks can hear what they saw.\" She places a clean sheet beside the ledger. \"We can record the costs without putting protected names into the public copy.\"",
+          "nextAction": "Finish the conversation when ready.",
+          "gate": {
+            "type": "at_port",
+            "port": "reed_floats"
+          },
+          "choices": [
+            {
+              "id": "finish_wren_witness115",
+              "text": "Keep the cost account with the testimony.",
+              "next": "done",
+              "tradeoff": ""
             }
           ]
         }

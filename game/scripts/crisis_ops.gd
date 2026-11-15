@@ -6,8 +6,22 @@ const Politics=preload("res://scripts/politics.gd")
 static func api(c):
 	if c.crises==null:
 		c.crises=Crises.new()
-		c.crises.configure({"wage":100,"berths":Transport.berths,"site_room":Transport.room,"route_days":Transport.route_days,"service":Transport.service,"food_quote":Transport.quote,"atomic":Transport.atomic,"travel_day":Transport.travel,"fleet_account":Transport.account})
+		c.crises.configure({"wage":100,"berths":Transport.berths,"site_room":Transport.room,"route_days":Transport.route_days,"service":Transport.service,"food_quote":Transport.quote,"atomic":Transport.atomic,"travel_day":Transport.travel,"fleet_account":Transport.account,"witness_authorized115":_witness_authorized115,"witness_reception115":_witness_reception115,"witness_closed115":_witness_closed115})
 	return c.crises
+static func _witness_authorized115(view,origin: String,destination: String,count: int) -> bool:
+	var c=Transport.actual(view)
+	if origin!="rust_anchorage" or count!=2 or str(c.current_port().get("id",""))!=origin:return false
+	if not c.has_method("campaign_witness_authorized115"):return false
+	var p=c.port(destination)
+	if not (p is Dictionary) or p.is_empty() or Transport.charter_room(c,p)<count:return false
+	return c.call("campaign_witness_authorized115",origin,destination,count)==true
+static func _witness_reception115(view,id: String,destination: String,count: int) -> bool:
+	var c=Transport.actual(view)
+	if not c.has_method("campaign_witness_reception115"):return true
+	return c.call("campaign_witness_reception115",id,destination,count)==true
+static func _witness_closed115(view,before: Dictionary,destination: String,loss: bool,earned: int) -> void:
+	var c=Transport.actual(view)
+	if c.has_method("campaign_witness_closed115"):c.call("campaign_witness_closed115",before,destination,loss,earned)
 static func housing(definition: Dictionary) -> int:
 	# Existing civilian reception places: canonical worker settlement plus
 	# one vacant worker place per 200 authored residents. Never adds people.
@@ -32,6 +46,19 @@ static func begin(c,destination: String,count: int) -> Dictionary:
 	var p: Dictionary=c.current_port()
 	if p.is_empty():return c.fail("Visit the actual sponsoring harbor.")
 	return result(c,api(c).begin_resettlement(c,str(p.id),destination,count))
+static func witness_quote115(c,destination: String) -> Dictionary:
+	ensure(c)
+	var origin: String=str(c.current_port().get("id",""))
+	if origin!="rust_anchorage":return {}
+	var module=api(c)
+	if not module.ensure(c) or not module._ready() or not module._dock(c,origin):return {}
+	var q: Dictionary=module._quote(c,origin,destination,2,true)
+	return q if int(q.get("count",0))==2 else {}
+static func begin_witness115(c,destination: String) -> Dictionary:
+	ensure(c)
+	var origin: String=str(c.current_port().get("id",""))
+	if origin!="rust_anchorage":return c.fail("Board the witnesses at Rust Anchorage.")
+	return result(c,api(c).begin_resettlement(c,origin,destination,2,true))
 static func arrive(c,id: String) -> Dictionary:return result(c,api(c).arrive(c,id))
 static func recall(c,id: String) -> Dictionary:return result(c,api(c).recall(c,id))
 static func home(c,id: String) -> Dictionary:return result(c,api(c).return_to_origin(c,id))
