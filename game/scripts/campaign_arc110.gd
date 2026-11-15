@@ -107,7 +107,9 @@ static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> 
 	if not route.get("arrived",false) or route.get("battlePending",false) or route.get("carrierUids",[])!=bound.carrierUids or str(route.get("tradeGood",""))!=str(bound.tradeGood) or float(route.get("tradeQty",0))!=float(bound.tradeQty) or int(result.get("reward",0))!=int(before.get("reward",-1)):return
 	if not rec.get("outcomes110") is Dictionary:rec.outcomes110={}
 	var operation: String=str(bound.operation)
-	if rec.outcomes110.has(operation):return
+	if rec.outcomes110.has(operation):
+		if str(rec.outcomes110[operation].get("jobId",""))==str(before.id):rec.pending110={}
+		return
 	rec.outcomes110[operation]={"result":"paid","jobId":str(before.id),"kind":str(before.kind),"ownerId":str(before.ownerId),"targetPort":str(before.targetPort),"carrierUids":bound.carrierUids.duplicate(),"tradeGood":str(bound.tradeGood),"tradeQty":float(bound.tradeQty),"reward":int(result.reward),"day":float(c.state.day),"arrivedDay":float(route.get("arrivedDay",c.state.day)),"voyageSeq":int(bound.voyageSeq)}
 	rec.pending110={}
 	c.log_entry("Campaign: the original loaded merchant delivered and paid. Return to Tobin at Brass Haven.")
@@ -174,6 +176,9 @@ static func validate(state: Dictionary) -> String:
 		if p.get("operation","") not in OPERATIONS or not p.get("follow") is bool:return "Invalid pending campaign operation."
 		var day=p.get("acceptedDay")
 		if not (day is float or day is int) or not is_finite(float(day)) or float(day)<1:return "Invalid campaign110 acceptance date."
+		if proofs.has(str(p.operation)):return "Campaign operation is both pending and settled."
+		for proof in proofs.values():
+			if proof is Dictionary and str(proof.get("jobId",""))==str(p.get("jobId","")):return "Campaign job is already settled."
 		entries.append(p)
 	# Validate types BEFORE converting or comparing a pending native identity.
 	for item in entries:

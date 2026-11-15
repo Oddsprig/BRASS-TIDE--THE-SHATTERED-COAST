@@ -110,6 +110,13 @@ class Preview extends "res://scripts/main.gd":
 		if not verify(not core.Arc110.validate(bad).is_empty(),"Malformed passage sequence is rejected before conversion"):return
 		bad=roundtrip.duplicate(true);bad.stories.chains[core.Arc110.ID].pending110.tradeQty+=1
 		if not verify(not core.Arc110.validate(bad).is_empty(),"Pending cargo must match the actual native lot"):return
+		bad=roundtrip.duplicate(true);bad.stories.chains[core.Arc110.ID].lead110=7
+		if not verify(not core.Arc110.validate(bad).is_empty(),"Malformed departure report is rejected before UI reads"):return
+		bad=roundtrip.duplicate(true)
+		var conflict: Dictionary=bad.stories.chains[core.Arc110.ID].pending110.duplicate(true)
+		conflict.result="paid";conflict.reward=int(offer.reward);conflict.day=float(core.state.day);conflict.arrivedDay=float(core.state.day)
+		bad.stories.chains[core.Arc110.ID].outcomes110={core.Arc110.OPENING:conflict}
+		if not verify(core.Arc110.validate(bad)=="Campaign operation is both pending and settled.","Conflicting pending and settled operation is rejected"):return
 		var held: int=int(core.fleet_owner(str(offer.ownerId)).coins)
 		if not verify(bool(core.VoyageJobs.abandon(core,job_id).get("ok",false)) and core.Arc110.pending(core).is_empty() and int(core.fleet_owner(str(offer.ownerId)).coins)==held+int(offer.reward),"Ordinary native withdrawal refunds and releases campaign binding"):return
 		if not verify(bool(core.restore(roundtrip).get("ok",false)) and str(core.Arc110.pending(core).jobId)==job_id,"Active original binding survives full native JSON restore"):return
