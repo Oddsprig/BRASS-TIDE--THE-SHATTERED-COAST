@@ -8,6 +8,8 @@ Owner continuation,14November2026: continue112 through119 one accepted version a
 
 Confirmed-unavailable helper sessions may be replaced by fresh Sol6.1MAX runs in the same roles, within the original maximum six live Sol roles and two concurrent helper calls. Retire missing sessions rather than retrying them. This does not authorize another model, paid fallback or nested helpers.
 
+Owner steering,15November2026: Carbon's pass finished and its Bridge review project is now Sol6.1MAX. Preserve its historical Carbon findings; all subsequent calls use Sol. Keep at most six Sol roles, two active helper calls and independent red-team review.
+
 Each version changes CODE MAP.md, game/data/DEVELOPER NOTES.txt and CHANGES v0.xxx.md in one merge, followed by existing-helper notes reconciliation. Finalize change notes before release/tag; later corrections go in current notes or the next version. Do not recursively duplicate old notes. Preserve failed evidence and coverage limits.
 
 Background tests use C:/Users/bligh/Documents/Codex/GAME TESTING RULES.md, canonical detector, shared Test Bridge lane and identity-owned watchdog. Whole selected pass<=60seconds, backstop55seconds. Queue behind other apps and leases, obey workflow cooldowns, and never control their apps or use foreground/input. Private profiles and silent audio. Test only the current changed scope; do not replay old full suites.

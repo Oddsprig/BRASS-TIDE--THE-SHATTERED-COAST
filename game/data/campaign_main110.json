@@ -175,7 +175,7 @@
         {
           "id": "wren_account112",
           "title": "Wren’s account",
-          "body": "Wren accepts your list of the original boats and the outcomes you could confirm. She records arrivals, escapes and losses separately. A sunken hull cannot appear among the boats that got clear.\n\n‘Their owners still have crews to pay and damage to repair. Those costs belong in the account too. Mara at Anvil Dock needs repair materials brought to Cinder Quay. The wardens have been protecting some of that work. I want to know what would be lost if their protection ended.’",
+          "body": "Wren accepts your list of the original boats and the outcomes you could confirm. She records arrivals, escapes and losses separately. A sunken hull cannot appear among the boats that got clear.\n\n‘Their owners still have crews to pay and fuel to buy. Those costs belong in the account too. Mara at Anvil Dock needs repair materials brought to Cinder Quay. Venn says her wardens keep some of those routes open. Check what they actually protect before deciding what should replace them.’",
           "nextAction": "Read Mara’s repair-material lead.",
           "gate": {
             "type": "none"
