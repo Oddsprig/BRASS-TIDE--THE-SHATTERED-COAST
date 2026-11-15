@@ -1,40 +1,13 @@
-v0.112 — Exit Channel — current source map
+v0.113 — A Useful Enemy (candidate; unrun)
 
-Core: game/scripts/main.gd owns input, mode, save and worker publication; interface.gd owns title/settings/HUD/modals. campaign.gd owns native campaign actions. Existing detached economy and30Hz authoritative battle workers, bounded tactical decisions and interpolated rendering remain. No water/rendering/threading rewrite.
+game/scripts/campaign_arc113.gd: finite existing-stock/native-priced reserve order; exact native binding, before/after closure observations, explicit report and optional-contact gates.
+game/scripts/campaign_validation113.gd: carried job/account equality, finite invoice/quantity/payment, original payload and retained native closure, truthful unfilled/lost/withdrawn history.
+game/scripts/campaign_arc_ui113.gd: native quotation, delivery/withdrawal controls, literal human-facing transaction facts and Mara's owned-boat estimate.
+game/scripts/campaign.gd/voyage_jobs.gd: guarded offer/observation callbacks, normal-work acceptance binding and pre-clear payload snapshots. Legacy callback payloads preserved outside the bound113 job; lost sealed goods cannot reappear through abandonment.
+game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: small chapter gate, choice, UI and restore hooks.
+game/data/campaign_main110.json: appended113 scenes and optional Mara arc; nine original stories,110–112 stages and Tobin's existing arc preserved. Catalog12; no changes to36 boats, workers,30Hz battle worker or Open Seas.
+game/tests/test_campaign113.gd: selected native transaction/save/UI fixture, private current-version portable save and retained next-chapter checkpoint. Existing subsystem maps remain under maps/.
 
-World: sector_world069/ocean_world064/ocean_campaign066/ocean_travel066/shipping068/shipping_flow068 own48 seeded island groups, Open Seas and physical shipments. Sightings stay dated observations. Existing36 hull designs, compatible equipment sockets,300-point deployment and finite cargo/purses/workforce remain.
+Actual accepted112 final-state checkpoint by SHA. Declared reference-harbor positions; real native funded eight-kit reserve quote/acceptance, invoice/escrow/stock/payment/refund, honest unfilled/withdrawn reporting, a declared negative lost-freight marker branch, optional Mara contact, actual private journal captures and portable save/reload. No earned full voyage, operating-cost timing, physical loss/boarding, FPS, audio or store-media certification.
 
-Story: game/data/campaign_main110.json appends the original Common Passage and optional contact arcs to the nine legacy coastal stories. coastal_stories.gd owns stable catalog/gates; story_ops.gd explicit choices; story_ui.gd journal. Small campaign_arcNNN adapters bind actual native operations and their original identities; native systems own movement, escrow, inventories, wages, damage, loss and settlement. Validators run before restore publication. Existing eight missionIndex contracts remain separate.
-
-game/scripts/campaign_arc112.gd: one work112 binding, native closure, physical battle/docking observations, counts, report gates, bounded follow and protection checks.
-game/scripts/campaign_validation112.gd: bounded types, native carried/closed equality, original per-hull outcomes, docking/encounter provenance and explicit-report consistency; invoked before restore publication.
-game/scripts/campaign_arc_ui112.gd: current actual offers/reserves, per-boat outcomes, fees, follow/protect, deferred joined callbacks.
-game/scripts/campaign.gd: Arc112 preload, existing one-second follow timer dispatch, stop/course cancellation, normal post-close/post-battle hooks and guarded docking forwarders.
-game/scripts/naval_lifecycle.gd: snapshot before route-origin change, observe after dock before hire; supported-core guards preserve other callers.
-game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd: arc112 gate, explicit report validation/recording and current journal navigation.
-game/data/campaign_main110.json: exit_channel112 -> withdrawal_work112 -> wren_account112 -> useful_enemy113; preserves all earlier IDs, nine old stories/eight legacy contracts and optional Tobin arc.
-game/tests/test_campaign112.gd: selected current-scope native/save/UI fixture and retained final private state for the next version. Existing110/111 modules retain their own accepted historical evidence.
-
-CURRENT CHAPTER
-Exit Channel follows Tobin's investigation. Wren asks the captain to cover existing loaded working boats leaving Kelp Reach. The player binds a current native funded escort, original owner/voyage/hull UIDs/cargo and fee before risk. Native systems retain all movement, cargo, paid crew work, damage, losses, escrow/refunds and all-carrier fee conditions. No actor, purse or good is invented.
-
-Physical battle settlement records each original hull's actual escaped, sunk, captured or unresolved fate after canonical settlement and before caching. Immutable encounter source/sequence and original owner/voyage/load checks reject generic wins, stale or unrelated battles; repeated cached settlement is inert. Cargo can redistribute across surviving original holds within the remaining accepted total. A protection gate refuses unrelated replacement boats or invented load.
-
-The native docking hook takes a read-only original passage snapshot before p.from changes; it observes original boats after Fleets.dock and before hire. It labels harbor arrival separately from tactical escape. A witnessed quiet arrival can clear a boat; matching paid-route evidence can also use the retained actual docking observation after the merchant departs. Fees remain separate and must be claimed or withdrawn before the explicit harbor report. Unknown boats stay unresolved; retreat does not silently complete the chapter. No native route/hiring/fee order is changed.
-
-The journal shows individual outcomes and current fees, real outward/homeward reserves, bounded convoy follow, ordinary interception and contract closure. Callbacks join the economy worker before mutation. Kelp navigation replaces the generic Brass chart prompt. The neutral Wren debrief reports actual outcomes without declaring every boat rescued. The next useful_enemy113 boundary remains unavailable in112.
-
-If the player loses contact, the destination harbor can reveal the retained actual original docking record through an explicit legal service. No docking record means no arrival credit. Inspection port/day and source identities survive restore. This avoids losing the chapter after the original merchant moves to its next route; normal fee rules remain unchanged.
-
-Independent review fixes: when a passage has ended and its fee is closed, an explicit report may retain unconfirmed boats as unconfirmed, never rescued or lost by assumption. Active native delivery keeps follow/protection controls after the first successful battle exit. Serialized checkpoint expectations use the saved coordinates, with exact comparisons retained.
-
-Initial native merchant passages may omit voyageSeq, meaning zero under the existing native escort convention. Chapter112 follows the same zero default for patrol matching and docking snapshots, retaining strict explicit identity checks on required job/receipt fields.
-
-Stopped native routes retain active/from/to but are holding rather than continuing a passage. The same-passage gate excludes holding, so a closed fee and explicit harbor report cannot remain blocked forever by a failed route; unresolved fates stay unconfirmed.
-
-ACCEPTANCE
-25 selected native/gameplay/save/UI checks passed ona6500ed42c99. Native child, exporter and retail phases are separate. Pipeline41.844s; watchdog-owned whole child42.399s; actual standard-retail Main/new-career checks6; exporter exit0;742 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Declared post111 boundary and actual report-harbor starting geometry. Existing loaded Kelp merchant starts at its existing water endpoint; native Lifecycle.step performs actual docking and cargo sale, retained harbor-record lookup and native refund. Actual Battle.create/update moves original convoy carriers through an authored short water-safe reference exit; native settlement, explicit report and full JSON restore checked. No earned campaign, full campaign sailing, paid quiet escort, merchant-departure timing, stock-arena balance, FPS, audio or store-media claim.
-
-DELIVERY/NEXT
-Next0.113 only: A Useful Enemy, actual repair goods toward Cinder Quay, Mara and useful protection; existing goods, paid work and no new industrial framework.0.113–0.119 remain planned.
-Source/runtime/package/install/remote readbacks: parent work/campaign-v110-v119-2026-11-14/v0.112. Public marketplace/download remains109 until a recorded publication update. Source/tag and installed build are distinct from public download. Released CHANGES immutable; all three notes change in this merge and an existing authorized reviewer reconciles them after installation. Boardwatch paused.
+Source review, selected native/export/retail batch and actual PNG review pending. Accepted canonical/Desktop112 remains installed.

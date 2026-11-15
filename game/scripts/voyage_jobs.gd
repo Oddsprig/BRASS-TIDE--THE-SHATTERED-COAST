@@ -498,6 +498,9 @@ static func available(core) -> Array:
 			break
 	offers.append_array(_civilian_offers(core,p,day,taken))
 	if state.get("storyRights") is Dictionary:offers.append_array(preload("res://scripts/story_offers.gd").available(core))
+	if core is Object and core.has_method("campaign_material_offer113"):
+		var material113: Dictionary=core.campaign_material_offer113()
+		if not material113.is_empty() and not taken.has(str(material113.id)) and not _is_closed(state,str(material113.id)):offers.append(material113)
 	_attach_client_memory(core,p,offers)
 	_select_contact_work(core,p,offers)
 	return offers
@@ -747,6 +750,8 @@ static func finish(core, id: String) -> Dictionary:
 			return _fail(core, "The site is not fully surveyed yet.")
 	if kind==KIND_BOUNTY and not _bounty_cleared(state,str(job.ownerId),int(job.get("baselineDefeats",0))):
 		return _fail(core, "The named raider fleet is still at sea.")
+	var chapter_before113: Dictionary=job.duplicate(true)
+	if core is Object and core.has_method("campaign_delivery_before113"):chapter_before113._delivery113=core.campaign_delivery_before113(job)
 	var paid := int(job.get("escrow",0))-int(job.get("savingsHousehold",0))-int(job.get("savingsExpert",0))
 	if paid != int(job.get("reward", 0)) or paid <= 0:
 		return _fail(core, "The job escrow is incomplete.")
@@ -783,7 +788,7 @@ static func finish(core, id: String) -> Dictionary:
 	if core.has_method("log_entry"):
 		core.log_entry("Completed voyage job %s: %d bronze coins released by its sponsor." % [str(job["title"]), paid])
 	var result110: Dictionary=_ok(core, "Voyage job paid: %d coins." % paid, {"reward": paid})
-	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(job.duplicate(true),result110,false)
+	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(chapter_before113 if not chapter_before113.get("_delivery113",{}).is_empty() else job.duplicate(true),result110,false)
 	return result110
 
 
@@ -806,17 +811,21 @@ static func abandon(core, id: String) -> Dictionary:
 		return _fail(core, "Dock at a harbor to unload the sealed freight before abandoning.")
 	if str(job.kind)==KIND_CHARTER and not job.passengers.is_empty():
 		if dock.is_empty() or not Transport.discharge_charter(core,job,dock):return _fail(core,"Bring passengers to an actual harbor with safe reception room before abandoning.")
+	var chapter_before113: Dictionary=job.duplicate(true)
+	if core is Object and core.has_method("campaign_delivery_before113"):chapter_before113._delivery113=core.campaign_delivery_before113(job)
 	_refund_escrow(core, state, job, "Abandoned voyage job escrow refunded")
 	if str(job.kind)==KIND_ESCORT and int(job.escrow)>0:return _fail(core,"The original client is unavailable; its escrow stays held, never discarded.")
 	_remember_client(core,job,false)
-	if not freight.is_empty():
+	if not freight.is_empty() and not bool(freight.get("lost",false)):
 		var stocks: Dictionary = dock.get("stocks", {}) if dock.get("stocks") is Dictionary else {}
 		stocks[str(freight["good"])] = _num(stocks.get(str(freight["good"]), 0.0)) + float(freight["qty"])
 		dock["stocks"] = stocks
 		job["freight"] = {}
 	_close(state, job)
-	var result110: Dictionary=_ok(core, "Voyage job abandoned. Escrow refunded and sealed freight unloaded." if not freight.is_empty() else "Voyage job abandoned. Escrow refunded.")
-	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(job.duplicate(true),result110,true)
+	var closing_message113: String="Voyage job abandoned. Escrow refunded."
+	if not freight.is_empty():closing_message113="Voyage job abandoned. Escrow refunded; lost freight cannot be returned." if bool(freight.get("lost",false)) else "Voyage job abandoned. Escrow refunded and sealed freight unloaded."
+	var result110: Dictionary=_ok(core,closing_message113)
+	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(chapter_before113 if not chapter_before113.get("_delivery113",{}).is_empty() else job.duplicate(true),result110,true)
 	return result110
 
 static func _fuel_owner(c,id: String) -> Dictionary:

@@ -194,12 +194,62 @@
         {
           "id": "useful_enemy113",
           "title": "A Useful Enemy",
-          "body": "Mara needs repair materials at Cinder Quay. This next operation is not available in this version. Your withdrawal report, actual fees, surviving boats and losses remain saved.",
+          "body": "A letter from Mara waits at Cinder Quay with a repair list. \"Venn says her patrols keep these routes open. Bring the kits; I need to know who pays for the next sailing.\"\n\nAnvil Dock can commission a public shipment of eight repair kits from its existing stores. Review the funded quantity, materials invoice and delivery fee there. Your fleet still pays its own wages, fuel and repairs.",
+          "nextAction": "Read the repair request, then review the order at Anvil Dock.",
+          "gate": {
+            "type": "at_port",
+            "port": "cinder_quay"
+          },
+          "choices": [
+            {
+              "id": "accept_material_request113",
+              "text": "I will review the order at Anvil Dock.",
+              "next": "materials_work113"
+            }
+          ]
+        },
+        {
+          "id": "materials_work113",
+          "title": "Repair Materials",
+          "body": "Review the public order at Anvil Dock before accepting it. Bring any accepted freight to Cinder Quay and deliver it through the harbor service. If the freight is lost, you withdraw, or the request cannot be filled, tell Mara how the run ended.",
+          "nextAction": "Review the order, then report its outcome.",
+          "gate": {
+            "type": "arc113",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "report_materials113",
+              "text": "Tell Mara what happened to the kits.",
+              "next": "material_account113"
+            }
+          ]
+        },
+        {
+          "id": "material_account113",
+          "title": "The Materials Account",
+          "body": "Your report is filed for Mara. Her instructions remain with the order: \"The kits are part of it. The people fitting them need wages, and the next sailing needs fuel. I need an alternative that can pay those costs.\"\n\nHer letter refers you to Cass at Rust Anchorage, who knows how the seized routes were sold.",
+          "nextAction": "Read Cass's Rust Anchorage lead.",
+          "gate": {
+            "type": "none"
+          },
+          "choices": [
+            {
+              "id": "ask_cass113",
+              "text": "Read Cass's route lead",
+              "next": "bought_route114"
+            }
+          ]
+        },
+        {
+          "id": "bought_route114",
+          "title": "The Bought Route",
+          "body": "Cass has no further commission available here yet.",
           "nextAction": "Continue other harbor work, trade or exploration.",
           "gate": {
             "type": "unreleased",
-            "message": "The next campaign operation is not available in this version.",
-            "port": "cinder_quay"
+            "port": "rust_anchorage",
+            "message": "The next campaign operation is not available in this version."
           },
           "choices": []
         }
@@ -273,6 +323,65 @@
           "gate": {
             "type": "unreleased",
             "message": "No further Tobin contact job is available in this version."
+          },
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "mara_work113",
+      "title": "Mara: repair work",
+      "approach": "contact",
+      "summary": "Talk with Mara about repair materials and the people who fit them.",
+      "startPort": "anvil_dock",
+      "startContact": "contact_mara_voss",
+      "startGate": {
+        "type": "arc113",
+        "mode": "optional"
+      },
+      "stages": [
+        {
+          "id": "mara_quote113",
+          "title": "The Repair Quote",
+          "body": "Mara looks toward your boats. \"Which hull needs attention? The harbor can give you an estimate for the kits and the work.\" She waits while you consider the price.",
+          "nextAction": "Review the estimate or ask about the work.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "ask_paid_work113",
+              "text": "How do you price the work?",
+              "next": "mara_account113"
+            }
+          ]
+        },
+        {
+          "id": "mara_account113",
+          "title": "Terms for the Work",
+          "body": "\"Some repairs need more skilled hands than others,\" Mara says. \"The kits come from the stores, and the people fitting them need wages. Ask what the whole job costs before you commission it.\"",
+          "nextAction": "Finish the conversation when ready.",
+          "gate": {
+            "type": "at_port",
+            "port": "anvil_dock"
+          },
+          "choices": [
+            {
+              "id": "finish_mara_work113",
+              "text": "Thank Mara for explaining.",
+              "next": "later_mara117"
+            }
+          ]
+        },
+        {
+          "id": "later_mara117",
+          "title": "Mara's Later Work",
+          "body": "Mara returns to her other customers. Her later conversation is not available yet.",
+          "nextAction": "Continue other harbor work.",
+          "gate": {
+            "type": "unreleased",
+            "message": "Mara's later conversation is not available in this version."
           },
           "choices": []
         }

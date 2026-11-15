@@ -42,6 +42,7 @@ const StoryOps=preload("res://scripts/story_ops.gd")
 const Arc110=preload("res://scripts/campaign_arc110.gd")
 const Arc111=preload("res://scripts/campaign_arc111.gd")
 const Arc112=preload("res://scripts/campaign_arc112.gd")
+const Arc113=preload("res://scripts/campaign_arc113.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -1399,6 +1400,7 @@ func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
 	if result.ok:
 		Contacts.visit(state,work_port070(),state.day)
 		if id.begins_with("chainfreight-"):state.storyRights.usedOffers[id]=true
+	if result.ok and id==Arc113.JOB:Arc113.bind(self)
 	Manifest.allocate(state)
 	return result
 
@@ -1430,10 +1432,17 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	Manifest.allocate(state)
 	return result
 
+func campaign_material_offer113() -> Dictionary:
+	return Arc113.offer(self)
+
+func campaign_delivery_before113(job: Dictionary) -> Dictionary:
+	return Arc113.before_job(self,job)
+
 func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool) -> void:
 	Arc110.after_job(self,before,result,abandon)
 	Arc111.after_job(self,before,result,abandon)
 	Arc112.after_job(self,before,result,abandon)
+	Arc113.after_job(self,before,result,abandon)
 
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90

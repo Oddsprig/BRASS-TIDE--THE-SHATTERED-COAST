@@ -264,6 +264,8 @@ static func validate(s: Dictionary,world: Dictionary) -> String:
 	if not arc111_problem.is_empty():return arc111_problem
 	var arc112_problem: String=preload("res://scripts/campaign_validation112.gd").validate(s)
 	if not arc112_problem.is_empty():return arc112_problem
+	var arc113_problem: String=preload("res://scripts/campaign_validation113.gd").validate(s)
+	if not arc113_problem.is_empty():return arc113_problem
 	if s.has("storyRights"):
 		if not s.storyRights is Dictionary:return "Invalid story rights."
 		var r: Dictionary=s.storyRights
