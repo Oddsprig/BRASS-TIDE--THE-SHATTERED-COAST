@@ -23,12 +23,12 @@ static func completed(c,operation: String) -> Dictionary:
 	return record(c).get("outcomes110",{}).get(operation,{})
 
 static func gate(c,rule: Dictionary) -> Dictionary:
-	if c==null:return {"ok":false,"message":"Open the campaign aboard your actual fleet."}
+	if c==null:return {"ok":false,"message":"Return to your voyage to open the campaign."}
 	var receipt: Dictionary=completed(c,str(rule.get("operation","")))
-	if receipt.get("result","")!="paid":return c.fail("Complete the bound operation and collect its native fee first.")
+	if receipt.get("result","")!="paid":return c.fail("Complete this escort and collect the client’s fee first.")
 	var port: String=str(rule.get("port",""))
 	if not port.is_empty() and str(c.current_port().get("id",""))!=port:return c.fail("Return to "+str(c.port(port).get("name",port))+" for this conversation.")
-	return c.ok("Operation settled; the contact can hear your report.")
+	return c.ok("The contact can hear your report.")
 
 # Only currently observed contacts are shown. An old report is not access to
 # the client's live load, position, destination or purse.
@@ -58,7 +58,7 @@ static func accept_escort(c,quote: Dictionary) -> Dictionary:
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(shown.id))
 	# accept_escort's successful job is authoritative, not the displayed copy.
 	rec.pending110={"operation":OPENING,"jobId":str(job.id),"kind":"escort","ownerId":str(job.ownerId),"targetPort":str(job.targetPort),"carrierUids":job.escort.carrierUids.duplicate(),"tradeGood":str(job.escort.tradeGood),"tradeQty":float(job.escort.tradeQty),"acceptedDay":float(job.acceptedDay),"voyageSeq":int(job.escort.voyageSeq),"follow":false}
-	c.log_entry("Campaign: escort bound to %s, passage %s. No other victory or delivery can replace it."%[str(c.fleet_owner(owner_id).name),str(job.id)])
+	c.log_entry("Campaign escort accepted: %s, passage %s."%[str(c.fleet_owner(owner_id).name),str(job.id)])
 	return result
 
 # Called immediately AFTER the original native payment/refund, before a

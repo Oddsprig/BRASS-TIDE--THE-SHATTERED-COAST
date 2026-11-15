@@ -28,11 +28,11 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 		return
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(bound.jobId))
 	if job.is_empty():
-		ui.paragraph(body,"This bound passage is unavailable. Its saved identity has been retained; an unrelated delivery cannot replace its result.",16,ui.RED)
+		ui.paragraph(body,"This convoy contract is unavailable. Close it before seeking another client.",16,ui.RED)
 		return
 	ui.paragraph(body,"%s · %.0f / %.0f route units accompanied · report at %s · deadline day %.2f"%[str(job.title),float(job.escort.accompaniedDistance),float(job.escort.routeDistance),str(c.port(str(job.targetPort)).name),float(job.deadlineDay)],16,ui.GOLD)
 	if job.get("failed",false) or str(job.state)!="active":
-		ui.paragraph(body,str(job.escort.get("failure","The passage expired; its native refund and custody rules still apply.")),16,ui.RED)
+		ui.paragraph(body,str(job.escort.get("failure","The passage expired; the client’s held fee is refunded under the contract terms.")),16,ui.RED)
 	elif job.escort.get("arrived",false):
 		ui.button(body,"Collect the client's held escort fee",func():_settle.call_deferred(ui,str(job.id)),true)
 	else:

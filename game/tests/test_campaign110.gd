@@ -85,6 +85,10 @@ class Preview extends "res://scripts/main.gd":
 		if not verify(bool(core.Arc110.accept_escort(core,offer).get("ok",false)),"Original native passage funds and binds campaign escort"):return
 		var job_id: String=str(offer.id)
 		var roundtrip: Dictionary=JSON.parse_string(JSON.stringify(core.state))
+		# Controlled API regression branch; restore the entire detached world
+		# before the real voyage. This withdrawal is not an earned outcome.
+		var held: int=int(core.fleet_owner(str(offer.ownerId)).coins)
+		if not verify(bool(core.VoyageJobs.abandon(core,job_id).get("ok",false)) and core.Arc110.pending(core).is_empty() and int(core.fleet_owner(str(offer.ownerId)).coins)==held+int(offer.reward),"Ordinary native withdrawal refunds and releases campaign binding"):return
 		if not verify(bool(core.restore(roundtrip).get("ok",false)) and str(core.Arc110.pending(core).jobId)==job_id,"Active original binding survives full native JSON restore"):return
 		if not verify(bool(core.Arc110.follow(core,true).get("ok",false)),"Player follow order accepted"):return
 		var elapsed: float=0.0

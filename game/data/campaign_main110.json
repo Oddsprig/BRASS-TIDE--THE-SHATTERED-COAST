@@ -12,7 +12,7 @@
           "id": "overdue_brief110",
           "title": "Overdue Merchant",
           "body": "Tobin Hale: ‘A merchant out of Kelp Reach missed its berth. The departure report is dated; I cannot tell you where it is now. Find a loaded independent convoy and bring its passage safely into harbor. Take a paid escort only after its captain shows you the actual terms.’\n\nYou can keep your Tinwake and your other work. The client pays from its own operating purse after delivery. Your wages, fuel and repairs remain your costs.",
-          "nextAction": "Review the Kelp Reach route and return allowance. Approach a peaceful loaded merchant, accept its native escort and remain within 600 units.",
+          "nextAction": "Review the Kelp Reach route and return allowance. Approach a peaceful loaded merchant, accept its escort and remain within 600 units.",
           "gate": {
             "type": "at_port",
             "port": "brass_haven"
@@ -52,7 +52,7 @@
         {
           "id": "venn_claim110",
           "title": "The rescue guarantee",
-          "body": "Tobin Hale: ‘The cargo arrived. The merchant's fee is yours. This claim is separate.’\n\nDella Venn, the Compact's charter administrator, puts a guarantee on Tobin's desk. ‘My wardens keep these routes open. A captain who asks for rescue accepts our service terms. Your escort does not cancel the earlier debt.’\n\nTobin recognizes the countersignature. He financed the guarantee when the harbors needed protection; he did not tell you how a missed payment could transfer control of a boat.",
+          "body": "Tobin Hale: ‘The cargo arrived. The merchant's fee is yours. This claim is separate.’\n\nTobin opens a notice from Della Venn, the Compact's charter administrator. ‘My wardens keep these routes open. A captain who asks for rescue accepts our service terms. Your escort does not cancel the earlier debt.’\n\nTobin recognizes the countersignature. He financed the guarantee when the harbors needed protection; he did not tell you how a missed payment could transfer control of a boat.",
           "nextAction": "Ask Tobin about the guarantee. No debt is added to your own fleet, and no agreement is accepted on your behalf.",
           "gate": {
             "type": "at_port",

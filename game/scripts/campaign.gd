@@ -1420,6 +1420,9 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	Manifest.allocate(state)
 	return result
 
+func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool) -> void:
+	Arc110.after_job(self,before,result,abandon)
+
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
 

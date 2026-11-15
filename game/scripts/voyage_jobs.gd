@@ -782,7 +782,9 @@ static func finish(core, id: String) -> Dictionary:
 	_close(state, job)
 	if core.has_method("log_entry"):
 		core.log_entry("Completed voyage job %s: %d bronze coins released by its sponsor." % [str(job["title"]), paid])
-	return _ok(core, "Voyage job paid: %d coins." % paid, {"reward": paid})
+	var result110: Dictionary=_ok(core, "Voyage job paid: %d coins." % paid, {"reward": paid})
+	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(job.duplicate(true),result110,false)
+	return result110
 
 
 # Refunds any remaining escrow to the sponsor purse and closes the job.
@@ -813,7 +815,9 @@ static func abandon(core, id: String) -> Dictionary:
 		dock["stocks"] = stocks
 		job["freight"] = {}
 	_close(state, job)
-	return _ok(core, "Voyage job abandoned. Escrow refunded and sealed freight unloaded." if not freight.is_empty() else "Voyage job abandoned. Escrow refunded.")
+	var result110: Dictionary=_ok(core, "Voyage job abandoned. Escrow refunded and sealed freight unloaded." if not freight.is_empty() else "Voyage job abandoned. Escrow refunded.")
+	if core is Object and core.has_method("campaign_job_closed110"):core.campaign_job_closed110(job.duplicate(true),result110,true)
+	return result110
 
 static func _fuel_owner(c,id: String) -> Dictionary:
 	for owner in c.state.get("fleetOwners",[]):
