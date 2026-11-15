@@ -388,7 +388,19 @@ static func _begin_goals051(st: Dictionary,frame_cache=null) -> void:
 		t.metrics.pendingAges.append(age);t.counters.oldestPendingAge=maxf(float(t.counters.oldestPendingAge),age)
 	detail.resolution=Time.get_ticks_usec()-started
 	started=Time.get_ticks_usec()
-	var tally: Dictionary=Planner._dispatch_goals051(st,t.ships.keys(),_worker_view051,_goal_inputs051,frame_cache)
+	# One synchronous dispatch owns this base. Both SIDE capsules still detach
+	# every child; no observation table or live mount/status row goes to a worker.
+	# begin refreshed ALL mounts before entering here. No equipment, pose, timer
+	# or shot writer runs between these callbacks; the closure is not retained.
+	var dispatch_observed051: Dictionary={}
+	var build_view051: Callable=func(owner: Dictionary,side: String,due: Array,phase) -> Dictionary:
+		if dispatch_observed051.is_empty():
+			var runtime: Dictionary=owner.tactical
+			for id: String in runtime.ships:
+				var ship: Dictionary=runtime.ships[id]
+				dispatch_observed051[id]=_observed(ship,runtime.mountCache[id].mounts,true)
+		return _view051(owner,side,due,phase,true,true,null,dispatch_observed051)
+	var tally: Dictionary=Planner._dispatch_goals051(st,t.ships.keys(),build_view051,_goal_inputs051,frame_cache)
 	if _runtime_profile043_enabled:
 		_runtime_profile043_counts.workerDispatches+=int(tally.dispatches);_runtime_profile043_counts.workerDrops+=int(tally.drops)
 	detail.proposals=Time.get_ticks_usec()-started
@@ -652,21 +664,24 @@ static func _worker_view051(st: Dictionary,side: String,due: Array,frame_cache=n
 static func _view_read_only051(value: Variant) -> void:
 	Planner.Goals051._PreparedGoal091.read_only(value)
 
-static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Variant=null) -> Dictionary:
+static func _view051(st: Dictionary,side: String,due: Array,frame_cache,closed_begin051: bool,worker_owned051: bool=false,current051: Variant=null,dispatch_observed051: Variant=null) -> Dictionary:
 	if _runtime_profile043_enabled:_runtime_profile043_counts.viewCalls+=1
 	var t: Dictionary=st.tactical
 	var sampled051: bool=_fleet_goals051(t)
 	# Fleet workers construct each final friendly row once; public/main/legacy stay unchanged.
 	var direct_worker051: bool=sampled051 and closed_begin051 and worker_owned051
 	if sampled051:
-		# Only an actual snapshot request pays for full observations. In pooled
-		# battles the dispatcher calls this AFTER cadence/occupancy/task gates;
-		# public requests also observe NOW, even after this tick's motion/fire.
-		# Rebuild unconditionally: a prior SIDE/public request is not fresh input.
-		t.observed={}
-		for id in t.ships:
-			var ship: Dictionary=t.ships[id]
-			t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache),true)
+		if direct_worker051 and dispatch_observed051 is Dictionary:
+			# Only _begin_goals051's local dispatch passes this just-built base.
+			# Sharing preparation within that call never shares a capsule's children.
+			t.observed=dispatch_observed051
+		else:
+			# Public/default/legacy requests remain freshly observed, including two
+			# requests in one tick with intervening motion, commands or fit writes.
+			t.observed={}
+			for id in t.ships:
+				var ship: Dictionary=t.ships[id]
+				t.observed[id]=_observed(ship,refresh_mounts(st,ship,frame_cache),true)
 	var ships: Array=[]
 	var choices: Dictionary={}
 	var main051: bool=closed_begin051 and not worker_owned051 and current051 is Dictionary

@@ -756,7 +756,13 @@ static func _collisions(st: Dictionary) -> void:
 	queued.resize(count);queued.fill(false)
 	# Preserve the original i<j sweep, then revisit only moved endpoints.
 	for i in range(count):
+		if live[i]==0:continue
 		for j in range(i+1,count):
+			if live[j]==0:continue
+			# The projector already rejects this SAME containing-circle bound.
+			# Read live corrected centers here, before unpacking a distant pair.
+			var bound: float=hulls.bounds[i]+hulls.bounds[j]
+			if (positions[j]-positions[i]).length_squared()>=bound*bound:continue
 			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,i,j,0.0,hulls)
 			if (moved&1)!=0:_queue_contact051(queue,queued,i)
 			if (moved&2)!=0:_queue_contact051(queue,queued,j)
@@ -775,6 +781,9 @@ static func _collisions(st: Dictionary) -> void:
 			# Canonical pair orientation also preserves the coincident RIGHT fallback.
 			var first: int=mini(index,other)
 			var second: int=maxi(index,other)
+			if live[first]==0 or live[second]==0:continue
+			var bound: float=hulls.bounds[first]+hulls.bounds[second]
+			if (positions[second]-positions[first]).length_squared()>=bound*bound:continue
 			var moved: int=_project_packed_contact051(st,ships,positions,radii,live,first,second,0.0001,hulls)
 			if moved==0:continue
 			corrections_left-=1

@@ -177,6 +177,7 @@ static func update_compact(ui, selection: Dictionary, status: Dictionary, flow: 
 	var pending: String=str(ui.host.battle_command_pending)
 	var ack: Dictionary=ui.host.battle_command_ack
 	ui.battle_control_label.text=str(ack.get("message","WASD camera · Space pause · right-click orders · F1–F4 groups · X flagship"))
+	if not ack.is_empty():ui.battle_control_label.text="Last command: "+ui.battle_control_label.text
 	if not pending.is_empty():ui.battle_control_label.text+=" · Right-click target; Esc cancels."
 	ui.battle_control_label.tooltip_text=ui.battle_control_label.text
 	ui.battle_control_label.add_theme_color_override("font_color",ui.GOLD if not pending.is_empty() else (ui.TEAL if ack.get("ok",true) else ui.RED))
