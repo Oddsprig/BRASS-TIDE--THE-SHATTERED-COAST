@@ -79,6 +79,9 @@ class Preview extends "res://scripts/main.gd":
 			if int(hunt_time*4)%12==0:await get_tree().process_frame
 		if not verify(not offer.is_empty(),"Actual starting Tinwake reacquired a funded loaded native merchant"):return
 		evidence.offer=offer.duplicate(true);evidence.hunt_seconds=hunt_time
+		var escort_allowance: Dictionary=core.Arc110.reserve_quote(core,offer)
+		evidence.escort_allowance=escort_allowance
+		if not verify(not escort_allowance.is_empty() and bool(escort_allowance.get("readyForAllowance",false)) and int(escort_allowance.returnWages)<int(core.state.coins),"Client-specific escort and return reserve covered before any fee"):return
 		var stale: Dictionary=offer.duplicate(true);stale.targetPort="brass_haven"
 		var before_coins: int=core.Money.total(core.state)
 		if not verify(not bool(core.Arc110.accept_escort(core,stale).get("ok",false)) and core.Arc110.pending(core).is_empty() and core.Money.total(core.state)==before_coins,"Stale destination quote refuses without escrow or binding"):return

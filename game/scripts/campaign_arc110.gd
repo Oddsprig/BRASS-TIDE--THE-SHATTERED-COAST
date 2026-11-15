@@ -43,6 +43,25 @@ static func clients(c) -> Array:
 	out.sort_custom(func(a,b):return str(a.id)<str(b.id))
 	return out
 
+# The escort fee belongs to the client. This quote separately reserves the
+# player's entire payroll, food and fuel through the actual delivery and home.
+# It is an explicit modal/acceptance calculation, never a per-frame forecast.
+static func reserve_quote(c,offer: Dictionary) -> Dictionary:
+	var owner: Dictionary=c.fleet_owner(str(offer.get("ownerId","")))
+	var destination: Dictionary=c.port(str(offer.get("targetPort","")))
+	var home: Dictionary=c.port("brass_haven")
+	if owner.is_empty() or destination.is_empty() or home.is_empty():return {}
+	var path: Array=c.Routes.path(c,destination,home)
+	if path.is_empty():return {}
+	var returning: float=0.0
+	for i in range(1,path.size()):returning+=c.distance(path[i-1],path[i])
+	var own_speed: float=c.travel_speed()
+	var client_speed: float=float(c.NavalAI.fleet_performance(owner).speed)*0.38*float(c.data.get("CAMPAIGN_SCALE",1.0))
+	var outward: float=float(offer.get("escort",{}).get("routeDistance",0))/maxf(0.01,minf(own_speed,client_speed))/float(c.DAY_SECONDS)
+	var return_days: float=returning/maxf(0.01,own_speed)/float(c.DAY_SECONDS)
+	var plan: Dictionary={"outwardDays":outward,"returnDays":return_days}
+	return c.Expedition.report(c.state,c.data,float(offer.get("escort",{}).get("routeDistance",0))+returning,own_speed,plan)
+
 static func accept_escort(c,quote: Dictionary) -> Dictionary:
 	var owner_id: String=str(quote.get("ownerId",""))
 	var quoted_fee: int=int(quote.get("reward",-1))
@@ -53,9 +72,12 @@ static func accept_escort(c,quote: Dictionary) -> Dictionary:
 		if str(offer.ownerId)==owner_id and int(offer.reward)==quoted_fee:shown=offer;break
 	if shown.is_empty():return c.fail("Reacquire and hail the actual loaded client; this quote is no longer current.")
 	if str(shown.id)!=str(quote.get("id","")) or str(shown.targetPort)!=str(quote.get("targetPort","")) or shown.escort.get("voyageSeq",-1)!=quote.get("escort",{}).get("voyageSeq",-2) or shown.escort.carrierUids!=quote.get("escort",{}).get("carrierUids",[]) or str(shown.escort.tradeGood)!=str(quote.get("escort",{}).get("tradeGood","")) or float(shown.escort.tradeQty)!=float(quote.get("escort",{}).get("tradeQty",-1)):return c.fail("The original voyage, destination or load changed. Review its actual terms again.")
+	var allowance: Dictionary=reserve_quote(c,shown)
+	if allowance.is_empty() or not bool(allowance.get("readyForAllowance",false)):return c.fail("Prepare payroll, food and loaded fuel for the delivery, return to Brass Haven and two contingency days before taking this campaign escort.")
 	var result: Dictionary=c.VoyageJobs.accept_escort(c,owner_id,quoted_fee)
 	if not result.get("ok",false):return result
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(shown.id))
+	if job.is_empty() or str(job.get("ownerId",""))!=owner_id or str(job.get("id",""))!=str(shown.id):return c.fail("The escort was accepted, but its campaign record is unavailable. Review your active voyage jobs; no campaign progress was awarded.")
 	# accept_escort's successful job is authoritative, not the displayed copy.
 	rec.pending110={"operation":OPENING,"jobId":str(job.id),"kind":"escort","ownerId":str(job.ownerId),"targetPort":str(job.targetPort),"carrierUids":job.escort.carrierUids.duplicate(),"tradeGood":str(job.escort.tradeGood),"tradeQty":float(job.escort.tradeQty),"acceptedDay":float(job.acceptedDay),"voyageSeq":int(job.escort.voyageSeq),"follow":false}
 	c.log_entry("Campaign escort accepted: %s, passage %s."%[str(c.fleet_owner(owner_id).name),str(job.id)])

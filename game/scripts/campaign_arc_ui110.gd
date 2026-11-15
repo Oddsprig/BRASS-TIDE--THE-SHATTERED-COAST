@@ -23,7 +23,11 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 			for item in clients.slice(0,3):
 				var offer: Dictionary=item
 				ui.paragraph(body,"%s · %.1f %s in %d loaded boat(s) · %s client coins held until delivery"%[str(offer.title),float(offer.escort.tradeQty),str(offer.escort.tradeGood),offer.escort.carrierUids.size(),ui.money(offer.reward)],16,ui.GOLD)
-				ui.button(body,"Accept this campaign escort",(func(terms):_accept.call_deferred(ui,terms)).bind(offer.duplicate(true)),true)
+				var reserve: Dictionary=arc.reserve_quote(c,offer)
+				if not reserve.is_empty():
+					ui.paragraph(body,"Your allowance: %.2f escort days, %.2f days home and two contingency days. Reserve %s coins for payroll; %.1f food and %.1f loaded fuel. The client fee is paid after delivery."%[float(reserve.outwardDays),float(reserve.returnDays),ui.money(reserve.returnWages),float(reserve.foodRequired),float(reserve.fuelRequired)],15)
+					for warning in reserve.warnings:ui.paragraph(body,str(warning),14,ui.GOLD)
+				ui.button(body,"Accept this campaign escort",(func(terms):_accept.call_deferred(ui,terms)).bind(offer.duplicate(true)),true).disabled=reserve.is_empty() or not bool(reserve.get("readyForAllowance",false))
 		ui.button(body,"Refresh current local watch",func():c.NavalAI.observe(c.state);ui.StoryUI.open(ui))
 		return
 	var job: Dictionary=c.VoyageJobs._find(c.state,str(bound.jobId))
