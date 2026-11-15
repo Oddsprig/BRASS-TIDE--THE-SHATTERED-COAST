@@ -1,6 +1,6 @@
 # Current campaign sequence110–119
 
-Implemented through0.113. Next0.114 only: Bought Route, Cass, actual property/release or raid/withdrawal and optional route-sale conversation.0.114–0.119 remain planned.
+Implemented through0.114. Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.
 
 Complete researched story, ten version scopes, twelve operations, six optional jobs, commitments and ending rules: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
 

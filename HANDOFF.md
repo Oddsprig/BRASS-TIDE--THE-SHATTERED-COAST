@@ -1,15 +1,13 @@
-# Current campaign version0.113: A Useful Enemy
+# Current campaign version0.114: Bought Route
 
-A Useful Enemy releases the existing Cinder Quay lead. Mara requests a finite reserve shipment of existing drydock kits from Anvil Dock. A native freight quote derives the funded quantity (at most the requested eight kits), material invoice, fee and current-fleet route/cargo/purse readiness. Anvil's real government purse buys the actual source kits and funds native escrow; no stock, coins, production need or free repair is invented.
+Cass admits what she knew when she sold the route. One existing observed Rust raider and its original hull identities can be bound. A paid release is limited to a real eligible lot held by that owner, uses current native harbor prices, transfers the player’s coins into the actual owner purse and preserves operating stores, holds and trade restrictions. It neither creates seized cargo nor claims an unproved original victim.
 
-Acceptance through either the campaign or ordinary native work board binds the actual job. Original freight and current harbor stock observations are captured before native settlement clears the payload. Successful delivery records the actual Cinder stock transfer and native fee. Native withdrawal keeps its actual unloading harbor and fee/refund outcome; lost freight is not restored to harbor stock. No story callback pays resources or silently completes the order.
+The alternative uses existing physical battle settlement and original hull, captured-prize or paid fitting recovery. A native battle result or withdrawal timer alone is insufficient. Raid property must remain in local custody after a later native sailing arrival at another lawful harbor; proximity or stale lastPort does not establish the return. Missing or unavailable sources are not respawned. Explicit unrecovered closure grants no property, aid or reward.
 
-The captain explicitly reports a delivered, withdrawn or unaccepted/unfilled undertaking from a lawful harbor. Actual unloading under withdrawal is distinguished from paid contract completion. Historical closure survives bounded native done-ID eviction. Separate schema validation runs before restore publication; prior112 carrier reports and all earlier story IDs remain intact.
+The optional Cass conversation separates admission from forgiveness and restitution. Earlier main and optional stages remain intact; the next Names on Paper operation remains locked until115.
 
-Mara's optional contact at Anvil shows an existing owned-boat repair estimate and a conversation about materials, skilled labor and wages. It does not force a purchase or assert that a quote performed repairs. Its existing later_mara117 boundary retains the first conversation for later work. The main journal and work board show human port/goods names, funded quantities and coins. Venn's protection is attributed as her claim; no assistance or completed repair is awarded by dialogue. The new bought_route114 boundary remains unavailable in113.
+Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.
 
-Next0.114 only: Bought Route, Cass, actual property/release or raid/withdrawal and optional route-sale conversation.0.114–0.119 remain planned.
-
-Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.113.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime source1579e5c74395a51154979d85dcac09fb0bf5bb22; receipts in parent work/campaign-v110-v119-2026-11-14/v0.113.
+Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.114.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime sourceb859d9347e91c097363124adb375ec5eed9c4930; receipts in parent work/campaign-v110-v119-2026-11-14/v0.114.
 
 Same Sol6.1MAX Bridge team and independent red team; no further Carbon calls, other models, paid fallback or nested helpers. At most two active helper calls. Root alone integrates/tests/packages/installs/pushes. Shared detector/TestBridge; private/muted/background,whole selectedbatch<=60s/watchdog55. All three notes perversion merge, existing reviewer notes-only reconciliation afteractualinstall. Preserve source/tags/useful evidence, owner files and rollback. Released CHANGES immutable. Boardwatch paused.

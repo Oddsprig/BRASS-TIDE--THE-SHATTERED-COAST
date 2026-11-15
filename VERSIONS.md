@@ -1,3 +1,7 @@
+## v0.114 — Bought Route
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.
+
 ## v0.113 — A Useful Enemy
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.114 only: Bought Route, Cass, actual property/release or raid/withdrawal and optional route-sale conversation.0.114–0.119 remain planned.
