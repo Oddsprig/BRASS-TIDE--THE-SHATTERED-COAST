@@ -13,4 +13,4 @@ Commercial integration; release acceptance pending.
 
 R2 semantic/performance verification, final images/full-page independent review, matching clean Windows package/desktop installation and live purchase/library delivery are still pending. Previous119 remains rollback. See developer notes for exact receipts and failed performance results; no sale-ready claim from source review or version number.
 
-Coastal Clash HUD now shows compact complete control hints and points to Tab for full scenario guidance; the objective, complete orders-panel description and full tooltip remain. This addresses the recorded clipped long HUD line without changing any scenario or simulation. Final capture remains pending.
+Coastal Clash HUD shows compact control hints and points to Fleet & crew for full scenario guidance. Tab is the paused overview. The objective, complete Fleet & crew description and full tooltip remain. This addresses the clipped HUD line without changing any scenario or simulation. Final capture remains pending.

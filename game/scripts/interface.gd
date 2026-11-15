@@ -546,7 +546,7 @@ func skirmish_guidance(body: Node = null) -> void:
 	var text: String=str(host.lab_config.get("guidance",""))
 	if text.is_empty():
 		text="Escort the loaded packet to the exit. WASD camera, Space pause, Tab orders, U manual helm."
-	var banner: String="Space pause · WASD camera · U manual helm · 1 Engage · 2 Escort · 3 Hold · Tab orders & full scenario guidance"
+	var banner: String="Fleet & crew: full guidance · Tab overview · Space pause · WASD camera · U manual helm"
 	var hint: Label=paragraph(parent, banner if body==null else text, 11 if body==null else 14, GOLD)
 	hint.name="SkirmishGuidance"
 	hint.tooltip_text=text
