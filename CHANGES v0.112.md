@@ -1,22 +1,14 @@
-v0.112 — Exit Channel (candidate; unrun)
+# Brass Tide v0.112 — Exit Channel
 
-Exit Channel follows Tobin's investigation. Wren asks the captain to cover existing loaded working boats leaving Kelp Reach. The player binds a current native funded escort, original owner/voyage/hull UIDs/cargo and fee before risk. Native systems retain all movement, cargo, paid crew work, damage, losses, escrow/refunds and all-carrier fee conditions. No actor, purse or good is invented.
+Cover actual loaded working boats leaving Kelp Reach under a client-funded escort.
 
-Physical battle settlement records each original hull's actual escaped, sunk, captured or unresolved fate after canonical settlement and before caching. Immutable encounter source/sequence and original owner/voyage/load checks reject generic wins, stale or unrelated battles; repeated cached settlement is inert. Cargo can redistribute across surviving original holds within the remaining accepted total. A protection gate refuses unrelated replacement boats or invented load.
+Track each original boat through physical battle exits, harbor arrivals, losses and unresolved withdrawal. Escort fees keep their ordinary delivery/refund rules.
 
-The native docking hook takes a read-only original passage snapshot before p.from changes; it observes original boats after Fleets.dock and before hire. It labels harbor arrival separately from tactical escape. A witnessed quiet arrival can clear a boat; matching paid-route evidence can also use the retained actual docking observation after the merchant departs. Fees remain separate and must be claimed or withdrawn before the explicit harbor report. Unknown boats stay unresolved; retreat does not silently complete the chapter. No native route/hiring/fee order is changed.
+Send Wren the actual outcome from a harbor and read Mara’s repair-material lead. The next chapter is still in development in this build.
 
-The journal shows individual outcomes and current fees, real outward/homeward reserves, bounded convoy follow, ordinary interception and contract closure. Callbacks join the economy worker before mutation. Kelp navigation replaces the generic Brass chart prompt. The neutral Wren debrief reports actual outcomes without declaring every boat rescued. The next useful_enemy113 boundary remains unavailable in112.
+The journal shows original boat outcomes, current fees, outward/return reserves and follow/protection controls.
 
-Declared post111 story boundary, controlled late-leg native sailing and isolated native convoy-exit reference arena over existing finite owners; not an earned full campaign, battle balance, map reachability, FPS, audio or store-media claim.
-Native fixture, independent review and Windows delivery pending. Canonical/desktop111 remains accepted until this version completes.
+Validation: 25 selected native/gameplay/save/UI checks passed ona6500ed42c99. Native child, exporter and retail phases are separate. Pipeline41.844s; watchdog-owned whole child42.399s; actual standard-retail Main/new-career checks6; exporter exit0;742 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Declared post111 boundary and actual report-harbor starting geometry. Existing loaded Kelp merchant starts at its existing water endpoint; native Lifecycle.step performs actual docking and cargo sale, retained harbor-record lookup and native refund. Actual Battle.create/update moves original convoy carriers through an authored short water-safe reference exit; native settlement, explicit report and full JSON restore checked. No earned campaign, full campaign sailing, paid quiet escort, merchant-departure timing, stock-arena balance, FPS, audio or store-media claim.
 
-Independent review fixes: explicit ended-passage reports preserve unknown boats as unconfirmed; active delivery keeps follow/protection after an escape. Test checkpoint comparisons use serialized coordinates. First batch dd869dd3284a47eebfc4e9df2ba25574 failed after17s on its pre-serialization comparison; this repaired candidate is not yet runtime accepted.
-
-112 selected fixture bounded to native docking observer, actual cargo sale/refund, native physical convoy exit and three full save restores. Earlier private capture ea5dd902d77048a094050ec81ee709c0 stopped at its28s child cap while whole-world sailing/waiting; no completion evidence and no accepted result. Removed redundant old probes and whole-world waiting; retained progress after each check. This candidate remains unrun.
-
-112 native first-voyage compatibility repair: missing patrol voyageSeq means0, matching EscortOps and restore. Third batch631b53dd76e04a61a3c35b03713e13cd failed its docking observer after real sale/dock because chapter112 incorrectly treated absent sequence as-1. Repair uses native0 convention and verifies same_passage before/after real restore. Retained first3failures; candidate not accepted.
-
-Final112copy/model reconciliation: Wren attributes the protection claim to Venn rather than declaring unproved aid; wages and fuel do not assert unsupported damage. Owner switched completed Carbon reviewer to Sol6.1MAX. Independent Sol copy/source reviews passed; runtime remains pending the shared operator pause ending06:44:03UTC.
-
-Final independent Sol6.1MAX review verified the native stopped-route case: same_passage excludes holding. Added a reversible private holding-marker guard probe, with no movement/outcome/resource claim. Whole runtime remains unrun until the shared pause ends06:44:03UTC.
+Next0.113 only: A Useful Enemy, actual repair goods toward Cinder Quay, Mara and useful protection; existing goods, paid work and no new industrial framework.0.113–0.119 remain planned.
+The clean portable, original source/tag and installation have separate checksums/readbacks. Existing owner saves/settings/music are preserved; install receipt is authoritative. Public marketplace/download remains109 until recorded publication. This chapter does not certify overall commercial art, audio, full-career balance or300-point performance.

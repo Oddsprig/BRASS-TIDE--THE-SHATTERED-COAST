@@ -1,5 +1,7 @@
-# Current work: original storyline campaign110–119
+# Current campaign sequence110–119
 
-Read docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt for the researched story, characters, commitments, endings, twelve operations, six optional jobs and exact ten-version scopes.110's opening and111's Second Signature are accepted. Next112 is Exit Channel;112–119 remain planned. Progress sequentially after each scoped release. No version after the current accepted build is implicitly complete.
+Implemented through0.112. Next0.113 only: A Useful Enemy, actual repair goods toward Cinder Quay, Mara and useful protection; existing goods, paid work and no new industrial framework.0.113–0.119 remain planned.
 
-Delivered baseline:109. Its quality limits remain: sustained300-point performance, daily publication/serialization spikes, dense-combat and small-hull recognition, audio listening/mix and whole-career pacing. Campaign work reuses existing finite systems and must not hide these problems under a new roster, water simulation or generic framework. Historical quality plan100–109 remains in docs/roadmap.
+Complete researched story, ten version scopes, twelve operations, six optional jobs, commitments and ending rules: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
+
+Earlier quality limits remain: sustained300-point performance, campaign publication spikes, dense-combat recognition, listening/mix and whole-career pacing. A scoped campaign pass does not certify those. Use existing finite systems and workers; no new roster, water simulation or generic mission engine.
