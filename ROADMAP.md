@@ -1,6 +1,6 @@
 # Current campaign sequence110–119
 
-Implemented through0.117. Next0.118 only: Fuel Has Owners and Last Warrant, available affordable Naphtha passage or actual interdiction, real purchased fuel, then original claimant-boat protection; optional Tobin.0.118–0.119 remain planned.
+Implemented through0.118. Next0.119 only: Common Passage, a genuinely funded loaded relief delivery across the existing Shatter–Glasswind/Westglass Open Seas connection, actual settlement and explicit Brass debrief.0.119 remains planned.
 
 Complete researched story, ten version scopes, twelve operations, six optional jobs, commitments and ending rules: docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt.
 

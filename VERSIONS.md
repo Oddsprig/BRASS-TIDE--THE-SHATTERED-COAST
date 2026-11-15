@@ -1,3 +1,7 @@
+## v0.118 — Fuel Has Owners and Last Warrant
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.119 only: Common Passage, a genuinely funded loaded relief delivery across the existing Shatter–Glasswind/Westglass Open Seas connection, actual settlement and explicit Brass debrief.0.119 remains planned.
+
 ## v0.117 — Who Pays First
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.118 only: Fuel Has Owners and Last Warrant, available affordable Naphtha passage or actual interdiction, real purchased fuel, then original claimant-boat protection; optional Tobin.0.118–0.119 remain planned.
