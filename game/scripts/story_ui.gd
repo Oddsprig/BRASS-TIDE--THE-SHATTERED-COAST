@@ -72,7 +72,7 @@ static func open(ui) -> void:
 			if str(entry.stage) in ["materials_work113","material_account113","route_work114","route_account114","witness_board115","witness_account115","two_distress116","narrow_withdrawal116","distress_account116","funding_work117","funding_account117","fuel_work118","fuel_account118","warrant_work118","warrant_account118"]:show_chart110=false
 		if show_chart110:ui.button(body,"Chart "+str(location.get("name","")),(func(x,y,port,kind,target_id):_chart.call_deferred(ui,x,y,port,kind,target_id)).bind(float(location.get("x",0.0)),float(location.get("y",0.0)),chart_port,chart_kind,chart_id))
 		var gate: Dictionary=Stories._gate(c,c.state,stage.get("gate",{}))
-		if not gate.ok:ui.paragraph(body,gate.message,14,ui.RED)
+		if not gate.ok and not ArcUI119.owns(entry):ui.paragraph(body,gate.message,14,ui.RED)
 		for option in entry.choices:
 			if ArcUI118.owns(entry) or ArcUI119.owns(entry):continue
 			#117 renders its own state-checked primary choices above its details.

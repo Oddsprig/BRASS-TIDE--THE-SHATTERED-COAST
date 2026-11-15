@@ -35,7 +35,7 @@ static func controls(ui,body: Node,entry: Dictionary) -> void:
 		_line(ui,body,v,"ending")
 		_refund(ui,body,entry,v)
 		ui.button(body,"Continue ordinary voyages",ui.close_modal,false,false)
-		_facts(ui,body,v)
+		_facts(ui,body,v,true)
 		_records(ui,body,c,entry,a)
 		return
 	match str(entry.get("stage","")):
@@ -117,8 +117,10 @@ static func _refund(ui,body: Node,entry: Dictionary,v: Dictionary) -> void:
 	if not v.get("refundReturnable",false):ui.paragraph(body,"No repayment is currently available from the recorded refund and sponsor's funds. This obligation remains after the debrief.",15)
 	_button(ui,body,entry,"Repay from the recorded fee refund","reimburse")
 
-static func _facts(ui,body: Node,v: Dictionary) -> void:
-	for key in ["funding","cargo","route","reception"]:_line(ui,body,v,key)
+static func _facts(ui,body: Node,v: Dictionary,complete: bool=false) -> void:
+	for key in ["funding","cargo","route","reception"]:
+		if complete and key=="reception":continue
+		_line(ui,body,v,key)
 
 static func _line(ui,body: Node,v: Dictionary,key: String) -> void:
 	var value: String=str(v.get(key,""))

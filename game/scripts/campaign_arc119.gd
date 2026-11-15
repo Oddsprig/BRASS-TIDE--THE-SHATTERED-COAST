@@ -329,11 +329,18 @@ static func view(c) -> Dictionary:
 	var a: Dictionary=attempt(c)
 	var basis: Dictionary=V.c2(c.state)
 	var out: Dictionary={"summary":"Discuss the final passage with Tobin at Brass Haven.","funding":"No completed funding commitment is available." if basis.is_empty() else ("Mutual harbor contributions remain the chosen terms." if basis.model=="mutual" else "Your own purse must buy the cargo and post the separate service bond."),"cargo":"Only a fresh paid Anvil food load can complete this passage.","route":"Discover Westglass on its existing Glasswind chart, then use the actual Open Seas route and return to Brass.","ending":"The campaign remains open until your explicit Brass debrief.","reception":V.reception(c.state),"refundDue":0,"refundReturnable":false}
+	if c.VoyageJobs.WorkRegion070.known_port(c,c.port(TO)):out.route="Use the sailing charts to reach Westglass, deliver at its berth and return to Brass."
 	if not work(c).is_empty():out.summary="The undertaking is open; inspect current availability at Anvil Dock."
 	if not a.is_empty():
 		out.summary="The original sealed freight is still carried; a retreat leaves the undertaking open." if a.status=="carried" else ("The original cargo delivery was paid; sail back to Brass." if a.status=="paid" else "The undertaking was abandoned. Its actual cargo and fee account remain recorded.")
-		out.cargo="%d purchased food bales, invoice %d coins, held service fee %d coins."%[int(a.binding.qty),int(a.binding.materialInvoice),int(a.binding.fee)]
+		var held: int=int(c.VoyageJobs._find(c.state,str(a.binding.jobId)).get("escrow",0))
+		out.cargo="%d purchased food bales, invoice %d coins; %d coins currently held."%[int(a.binding.qty),int(a.binding.materialInvoice),held]
+		if a.status=="paid":out.cargo="%d food bales delivered; invoice %d coins spent, %d held coins paid."%[int(a.binding.qty),int(a.binding.materialInvoice),int(a.binding.fee)]
+		elif a.status=="abandoned":out.cargo="Passage closed; invoice %d coins stays spent. Fee refund recorded: %d coins; returned contribution: %d coins; still owed: %d coins."%[int(a.binding.materialInvoice),int(a.refund),int(a.repaid),V.refund_due(a)]
 		out.funding="Anvil government paid %d for materials and %d of the fee; Westglass paid %d. Your fleet pays its operating costs."%[int(a.binding.materialInvoice),floori(float(a.binding.fee)/2),int(a.binding.fee)-floori(float(a.binding.fee)/2)] if a.funding.model=="mutual" else "Your own purse paid %d for materials and posted %d as a service bond. Completion returns your bond; it does not repay materials or operating expenses."%[int(a.binding.materialInvoice),int(a.binding.fee)]
+		if a.funding.model=="separate" and a.status=="paid":out.funding="Your purse bought the goods for %d coins and posted %d as a bond. That bond returned to you; the goods and operating costs remain spent."%[int(a.binding.materialInvoice),int(a.binding.fee)]
+		elif a.funding.model=="separate" and a.status=="abandoned":out.funding="Your purse spent %d coins on goods and posted %d as a bond. Only the actual fee refund can repay that bond; the goods invoice remains a cost."%[int(a.binding.materialInvoice),int(a.binding.fee)]
+		if a.status=="abandoned":out.route="This passage is closed. A fresh attempt needs its own available stock, funds and route."
 		if a.travel.returnDay>=0:out.route="The outward crossing, delivery and later Brass return are recorded."
 		elif a.travel.arrivalDay>=0:out.route="Arrival at Westglass is recorded. Payment and the later Brass return remain separate." if a.status!="paid" else "Westglass received the cargo and paid the held fee. The return to Brass remains open."
 	for row in work(c).get("attempts",[]):
@@ -341,5 +348,7 @@ static func view(c) -> Dictionary:
 		if _returnable(c,row):out.refundReturnable=true
 	if out.refundDue>0:out.funding+=" %d coins remain owed from an abandoned fee. The spent material invoice is excluded."%int(out.refundDue)
 	var final: Dictionary=outcome(c.state)
-	if not final.is_empty():out.ending=str(final.title)+": "+str(final.body);out.summary=str(final.nextAction)
+	if not final.is_empty():
+		out.ending=str(final.title)+": "+str(final.body);out.summary=str(final.nextAction)
+		if work(c).report=="unsettled":out.route="This relief undertaking is closed. Ordinary voyages remain available."
 	return out
