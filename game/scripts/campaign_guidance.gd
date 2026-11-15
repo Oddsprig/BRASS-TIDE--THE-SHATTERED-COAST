@@ -6,6 +6,7 @@ const Goods = preload("res://scripts/goods.gd")
 const CareerCosts = preload("res://scripts/career_costs.gd")
 const Refits = preload("res://scripts/refit.gd")
 const Workshop = preload("res://scripts/fleet_workshop.gd")
+const EquipmentFitting = preload("res://scripts/equipment_fitting.gd")
 const Identity = preload("res://scripts/fleet_identity.gd")
 const FleetSupport = preload("res://scripts/fleet_support.gd")
 const MAX_CARDS = 8
@@ -260,7 +261,13 @@ static func first_fit120(c, focus: String = "economy") -> Dictionary:
 	# two days' pay. Use the fitted boat on a detached copy, never a live edit.
 	var costs_view := CareerCosts.QuoteView.new(c)
 	var preview_boat: Dictionary = costs_view.find_boat(str(boat.uid))
-	preview_boat.loadout = fit.duplicate(true)
+	# Commit the quoted physical transfer before changing its declared loadout.
+	if q.has("fittingPlan"):
+		var committed: Dictionary = EquipmentFitting.commit(preview_boat, q.fittingPlan, Refits.catalog(), base)
+		if not committed.get("ok", false):
+			result.message = str(committed.get("message", committed.get("error", "The fitting preview could not be completed.")))
+			return result
+	preview_boat.loadout = q.newLoadout.duplicate(true)
 	preview_boat.spec = after.duplicate(true)
 	costs_view.state.coins = maxi(0, int(c.state.get("coins", 0)) - int(q.get("cost", 0)))
 	var budget: Dictionary = CareerCosts._budget(costs_view, 0.0)
@@ -281,6 +288,7 @@ static func first_fit120(c, focus: String = "economy") -> Dictionary:
 	result.merge({"ok":bool(q.get("ok", false)), "reserveCoins":needed, "remainingCoins":remaining, "budget":budget,
 		"safe":bool(q.get("ok", false)) and int(q.get("cost", 0)) > 0 and remaining >= needed and bool(budget.get("repairQuoteAvailable", false))}, true)
 	if not q.get("ok", false): result.message = str(q.get("message", "The yard cannot complete this fitting."))
+	elif not budget.get("repairQuoteAvailable", false): result.message = "Current repairs cannot be priced. %s The fitting reserve is unverified." % str(budget.get("repairNote", "Ask the harbor for a fresh service quote."))
 	elif remaining < needed: result.message = "Keep %d coins for crew, stores and current repairs; this fitting would leave %d." % [needed, remaining]
 	else: result.message = "The yard bill leaves the harbor reserve. Price the chosen onward voyage before sailing."
 	return result
