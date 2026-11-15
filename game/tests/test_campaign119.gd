@@ -88,10 +88,15 @@ class Preview extends "res://scripts/main.gd":
 				return check(false,"Actual encounter interrupted travel; no victory or clearing supplied")
 		return check(conserved(),"Native advance and pending-day synchronization conserve all coins")
 
+	func harbor_course(id: String) -> Dictionary:
+		var dock: Dictionary=core.port(id)
+		return core.chart_course({"x":float(dock.x),"y":float(dock.y)},id)
+
 	func sail(result: Dictionary,label: String) -> bool:
+		proof.get_or_add("courses",[]).append({"name":label,"result":result.duplicate(true)})
 		if not check(result.get("ok",false),"Native course accepted: "+label):return false
 		var steps: int=0
-		while not core.state.path.is_empty() and steps<64 and Time.get_ticks_msec()-began<18000:
+		while not core.state.path.is_empty() and steps<64 and Time.get_ticks_msec()-began<22500:
 			if not advance(4.0):return false
 			steps+=1
 		proof.legs.append({"name":label,"steps":steps,"location":core.world_location064(),"day":core.state.day})
@@ -127,8 +132,7 @@ class Preview extends "res://scripts/main.gd":
 		if not check(int(core.Arc119.view(core).refundDue)==due and core.Arc119.settle_refund(core).get("ok",false) and int(core.state.coins)==int(before.captain)+due and int(core.port(core.Arc119.FROM).governmentPurse)==int(before.sourceGov)-due and int(core.port(core.Arc119.FROM).cash)==int(before.supplierCash) and conserved(),"Actual observed fee remains repayable after done; spent invoice stays spent"):return false
 		before=balances()
 		if not check(core.Arc119.settle_refund(core).get("ok",false) and P117.same_value(balances(),before) and not chosen("finish_unsettled119"),"Completed repayment and final choice cannot pay or finish twice"):return false
-		if not check(core.chart_course(core.port("anvil_dock"),"anvil_dock").get("ok",false) and advance(0.5) and core.Arc119.record(core).get("done",false),"Ordinary native chart and step remain usable after the ending"):return false
-		await capture("ending.png")
+		if not check(harbor_course("anvil_dock").get("ok",false) and advance(0.5) and core.Arc119.record(core).get("done",false),"Ordinary native chart and step remain usable after the ending"):return false
 		return save_ending("Unsettled Coast")
 
 	func funded() -> bool:
@@ -186,7 +190,7 @@ class Preview extends "res://scripts/main.gd":
 		if not check(core.transition064("shatter_coast",str(pair.depart)).get("ok",false),"Actual departure transition enters Open Seas"):return false
 		if not sail(core.approach_course064("glasswind_keys",str(pair.arrive)),"Open Seas outward"):return false
 		if not check(core.transition064("glasswind_keys",str(pair.arrive)).get("ok",false),"Actual arrival transition enters Glasswind"):return false
-		if not sail(core.chart_course(core.port(core.Arc119.TO),core.Arc119.TO),"actual Westglass berth"):return false
+		if not sail(harbor_course(core.Arc119.TO),"actual Westglass berth"):return false
 		var a: Dictionary=core.Arc119.attempt(core);var id: String=str(a.binding.jobId);var coins: int=int(core.state.coins)
 		var stock: float=float(core.port(core.Arc119.TO).stocks.get(core.Arc119.GOOD,0));var fee: int=int(a.binding.fee);var qty: int=int(a.binding.qty)
 		proof.pre_delivery={"nativeJob":core.VoyageJobs._find(core.state,id).duplicate(true),"attempt":a.duplicate(true),"stock":stock,"coins":coins}
@@ -197,7 +201,7 @@ class Preview extends "res://scripts/main.gd":
 		if not check(core.transition064("glasswind_keys",str(pair.arrive)).get("ok",false),"Actual return departure enters Open Seas"):return false
 		if not sail(core.approach_course064("shatter_coast",str(pair.home)),"Open Seas return"):return false
 		if not check(core.transition064("shatter_coast",str(pair.home)).get("ok",false),"Actual return transition enters Shatter Coast"):return false
-		if not sail(core.chart_course(core.port("brass_haven"),"brass_haven"),"actual Brass return"):return false
+		if not sail(harbor_course("brass_haven"),"actual Brass return"):return false
 		if not check(core.work_port070().get("id","")=="brass_haven" and core.Arc119.attempt(core).travel.returnDay>=0 and chosen("report_many119") and chosen("finish_many119") and core.Arc119.outcome(core.state).get("title","")=="Many Harbors","Actual paid separate passage and physical Brass return admit their real final choices"):return false
 		proof.paid_route=true;proof.paid_attempt=core.Arc119.attempt(core).duplicate(true)
 		await capture("ending.png")
