@@ -1,13 +1,15 @@
-# Current campaign version0.114: Bought Route
+# Current campaign version0.115: Names on Paper
 
-Cass admits what she knew when she sold the route. One existing observed Rust raider and its original hull identities can be bound. A paid release is limited to a real eligible lot held by that owner, uses current native harbor prices, transfers the player’s coins into the actual owner purse and preserves operating stores, holds and trade restrictions. It neither creates seized cargo nor claims an unproved original victim.
+Names on Paper releases Wren’s Reedwater Floats lead. Before boarding, the captain chooses public testimony at Reedwater Floats or protected reception at Anvil Dock. Two actual existing Rust residents are admitted through the regional civilian transport lifecycle under one-use chapter authorization. Only the original source-crisis predicate is replaced for this bounded undertaking. Commercial charter hull-role rules and ordinary regional crises remain unchanged.
 
-The alternative uses existing physical battle settlement and original hull, captured-prize or paid fitting recovery. A native battle result or withdrawal timer alone is insufficient. Raid property must remain in local custody after a later native sailing arrival at another lawful harbor; proximity or stale lastPort does not establish the return. Missing or unavailable sources are not respawned. Explicit unrecovered closure grants no property, aid or reward.
+Native systems retain physical berths, provision space, finite government funding, food purchases, source workforce and proportional household/expert savings. Other passenger commitments count against reception capacity. The source, cohort job, selected destination and carrier remain bound through persistence. Arrival begins reception; two distinct, provisioned and staffed service days precede actual discharge. Returning to Rust or a native loss settlement records a different outcome. Missing records do not establish success; an explicit unfilled report moves no people or money.
 
-The optional Cass conversation separates admission from forgiveness and restitution. Earlier main and optional stages remain intact; the next Names on Paper operation remains locked until115.
+A narrow observation of successful native closure records the original cohort and actual payment after the real financial and workforce transaction. No chapter callback grants people, savings, fees or a free hull. The optional Wren conversation needs actual discharged survivors and keeps protected identities out of public dialogue. Earlier110–114 and all legacy content remain intact; Two Distress Flags116 remains unavailable until its own release.
 
-Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.
+Native named food keys and restored JSON food keys are validated in their respective textual forms. The fresh-booking type check preserves the same key-length, quantity, identity, finance and replay bounds; it does not create or replace a cohort.
 
-Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.114.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime sourceb859d9347e91c097363124adb375ec5eed9c4930; receipts in parent work/campaign-v110-v119-2026-11-14/v0.114.
+Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
+
+Read CODE MAP.md, game/data/DEVELOPER NOTES.txt, CHANGES v0.115.md and researched docs/roadmap/CAMPAIGN BUILD MAP v0.110-v0.119.txt. Runtime source52f8ca010445fc47a0e103810acd4e1d898d67c2; receipts in parent work/campaign-v110-v119-2026-11-14/v0.115.
 
 Same Sol6.1MAX Bridge team and independent red team; no further Carbon calls, other models, paid fallback or nested helpers. At most two active helper calls. Root alone integrates/tests/packages/installs/pushes. Shared detector/TestBridge; private/muted/background,whole selectedbatch<=60s/watchdog55. All three notes perversion merge, existing reviewer notes-only reconciliation afteractualinstall. Preserve source/tags/useful evidence, owner files and rollback. Released CHANGES immutable. Boardwatch paused.

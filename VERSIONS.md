@@ -1,3 +1,7 @@
+## v0.115 — Names on Paper
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
+
 ## v0.114 — Bought Route
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.

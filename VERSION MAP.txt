@@ -4,7 +4,7 @@ BRASS TIDE — CURRENT VERSION MAP
 112 accepted: Exit Channel; real Kelp departures, original boat outcomes, separate native fee and Wren report.
 113 accepted: A Useful Enemy; native funded repair-kit shipment, honest outcome report and optional Mara repair-work conversation.
 114 accepted: Bought Route; Cass’s route account, finite paid release or original-property raid recovery and native harbor withdrawal.
-115 planned: Names on Paper; public/protected real witness passage to different harbors.
+115 accepted: Names on Paper; Public or protected witness reception using a finite native two-person cohort, real capacity, provisions, savings and paid discharge.
 116 planned: Two Distress Flags / Narrow Withdrawal; finite carriers and actual retreat.
 117 planned: Who Pays First; separately funded mutual obligations or owner bonds.
 118 planned: Fuel Has Owners / Last Warrant; passage/fuel ownership and claimant protection.

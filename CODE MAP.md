@@ -1,21 +1,4 @@
-v0.115 — Names on Paper — reference-calendar coherence (candidate; validation pending)
-Corrected batch a80d3591c0f74413b47fd1ea967537f4 passed39 selected checks, including both real cohort discharges and saved images, then failed full restore in15.992seconds. Declared fixture calendar jumps left an unrelated frozen ocean supply actor deadline behind. The fixture now rebases only that actor’s existing remaining service time by the declared calendar delta and records the setup, while preserving production ocean validation and all people/money/campaign code. Restore result is saved explicitly. The batch remains failed; final rerun and image review pending.
-
-v0.115 — Names on Paper — fresh native food keys (candidate; validation pending)
-First batch e193edb696ab40d6a8ded27d8f0e0843 stopped in14.316seconds at the boarding postcondition. The actual two-person job, funding and carrier existed; its native named food assignment used a StringName dictionary key, while JSON restores use String. Only that food-key check now accepts both textual forms, retaining key length, finite quantities, original identities and all money/duplicate-admission guards. No passengers are boarded again from the failed checkpoint; the isolated test restarts from the accepted114 baseline. Failed evidence is retained. Independent fix review and native rerun pending.
-
-v0.115 — Names on Paper — passage status instructions (candidate; validation pending)
-Independent static review caught pre-boarding instructions after native closure but before reporting. The journal body and next action now follow preparing, aboard/returning, holding, delivered, returned, lost and unresolved states. The public capture exercises completed reception BEFORE its report, while the protected capture remains AFTER reporting. No native people, purse, calendar, admission or closure logic changed. Static addendum and first engine pass pending.
-
-v0.115 — Names on Paper (candidate; validation pending)
-Names on Paper releases Wren’s Reedwater Floats lead. Before boarding, the captain chooses public testimony at Reedwater Floats or protected reception at Anvil Dock. Two actual existing Rust residents are admitted through the regional civilian transport lifecycle under one-use chapter authorization. Only the original source-crisis predicate is replaced for this bounded undertaking. Commercial charter hull-role rules and ordinary regional crises remain unchanged.
-
-Native systems retain physical berths, provision space, finite government funding, food purchases, source workforce and proportional household/expert savings. Other passenger commitments count against reception capacity. The source, cohort job, selected destination and carrier remain bound through persistence. Arrival begins reception; two distinct, provisioned and staffed service days precede actual discharge. Returning to Rust or a native loss settlement records a different outcome. Missing records do not establish success; an explicit unfilled report moves no people or money.
-
-A narrow observation of successful native closure records the original cohort and actual payment after the real financial and workforce transaction. No chapter callback grants people, savings, fees or a free hull. The optional Wren conversation needs actual discharged survivors and keeps protected identities out of public dialogue. Earlier110–114 and all legacy content remain intact; Two Distress Flags116 remains unavailable until its own release.
-Selected native/UI tests and independent review pending; no runtime acceptance claimed.
-
-v0.114 — Bought Route — current source map
+v0.115 — Names on Paper — current source map
 
 Core: game/scripts/main.gd owns input, mode, save and worker publication; interface.gd owns title/settings/HUD/modals. campaign.gd owns native campaign actions. Existing detached economy and30Hz authoritative battle workers, bounded tactical decisions and interpolated rendering remain. No water/rendering/threading rewrite.
 
@@ -23,24 +6,26 @@ World: sector_world069/ocean_world064/ocean_campaign066/ocean_travel066/shipping
 
 Story: game/data/campaign_main110.json appends the original Common Passage and optional contact arcs to the nine legacy coastal stories. coastal_stories.gd owns stable catalog/gates; story_ops.gd explicit choices; story_ui.gd journal. Small campaign_arcNNN adapters bind actual native operations and their original identities; native systems own movement, escrow, inventories, wages, damage, loss and settlement. Validators run before restore publication. Existing eight missionIndex contracts remain separate.
 
-game/scripts/campaign_arc114.gd: current Rust target binding, finite release exchange, original native battle/recovery receipts and native return/report gates.
-game/scripts/campaign_validation114.gd: raw finite record and original owner/property/settlement validation before restore publication.
-game/scripts/campaign_arc_ui114.gd: current observations, literal release quotation, normal encounters/recovery and return-route controls.
-game/scripts/campaign.gd: narrow native arrival, battle and recovery observations; native systems remain the sole physical/economic owners.
-game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: chapter choice, optional-contact, journal and restore hooks.
-game/data/campaign_main110.json: appended114 and optional Cass; nine legacy stories and110–113/Tobin/Mara preserved. Catalog13; existing36 boats, workers and Open Seas unchanged.
-game/tests/test_campaign114.gd: selected transaction/native battle/recovery/arrival/save and actual journal fixture.
+game/scripts/campaign_arc115.gd: destination selection, native two-person quotation/admission binding, combined reception capacity, actual closure and report gates.
+game/scripts/campaign_validation115.gd: finite selection/native job/cohort/closure and raw pre-restore validation.
+game/scripts/regional_crises.gd/crisis_ops.gd: narrowly authorized witness admission and optional native closure/reception observations; normal crisis paths and job schema preserved.
+game/scripts/campaign_arc_ui115.gd: disclosed destination, funded terms, native passenger actions and distinct completed outcomes.
+game/scripts/campaign.gd/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: small chapter callbacks, choice, journal and restore hooks.
+game/data/campaign_main110.json: appended115 and optional Wren; nine legacy stories and110–114/Tobin/Mara/Cass preserved. Catalog14;36 boats,300-point deployment, existing workers and Open Seas unchanged.
+game/tests/test_campaign115.gd: selected native person/money/food/capacity/closure/save and actual journal fixture with declared travel/calendar setup.
 
 CURRENT CHAPTER
-Cass admits what she knew when she sold the route. One existing observed Rust raider and its original hull identities can be bound. A paid release is limited to a real eligible lot held by that owner, uses current native harbor prices, transfers the player’s coins into the actual owner purse and preserves operating stores, holds and trade restrictions. It neither creates seized cargo nor claims an unproved original victim.
+Names on Paper releases Wren’s Reedwater Floats lead. Before boarding, the captain chooses public testimony at Reedwater Floats or protected reception at Anvil Dock. Two actual existing Rust residents are admitted through the regional civilian transport lifecycle under one-use chapter authorization. Only the original source-crisis predicate is replaced for this bounded undertaking. Commercial charter hull-role rules and ordinary regional crises remain unchanged.
 
-The alternative uses existing physical battle settlement and original hull, captured-prize or paid fitting recovery. A native battle result or withdrawal timer alone is insufficient. Raid property must remain in local custody after a later native sailing arrival at another lawful harbor; proximity or stale lastPort does not establish the return. Missing or unavailable sources are not respawned. Explicit unrecovered closure grants no property, aid or reward.
+Native systems retain physical berths, provision space, finite government funding, food purchases, source workforce and proportional household/expert savings. Other passenger commitments count against reception capacity. The source, cohort job, selected destination and carrier remain bound through persistence. Arrival begins reception; two distinct, provisioned and staffed service days precede actual discharge. Returning to Rust or a native loss settlement records a different outcome. Missing records do not establish success; an explicit unfilled report moves no people or money.
 
-The optional Cass conversation separates admission from forgiveness and restitution. Earlier main and optional stages remain intact; the next Names on Paper operation remains locked until115.
+A narrow observation of successful native closure records the original cohort and actual payment after the real financial and workforce transaction. No chapter callback grants people, savings, fees or a free hull. The optional Wren conversation needs actual discharged survivors and keeps protected identities out of public dialogue. Earlier110–114 and all legacy content remain intact; Two Distress Flags116 remains unavailable until its own release.
+
+Native named food keys and restored JSON food keys are validated in their respective textual forms. The fresh-booking type check preserves the same key-length, quantity, identity, finance and replay bounds; it does not create or replace a cohort.
 
 ACCEPTANCE
-33 selected native/gameplay/save/UI checks passed onb859d9347e91. Native child, exporter and retail phases are separate. Pipeline39.546s; watchdog-owned whole child40.080s; actual standard-retail Main/new-career checks6; exporter exit0;754 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Actual accepted113 checkpoint by SHA. Declared Rust observation and paid finite owner-lot preconditions, actual release payment/inventory, native reference combat and paid fitting recovery, declared final approach followed by real native sailing/harbor arrival, optional Cass and portable save/UI. No earned full voyage, native NPC theft provenance, original-victim restitution, rendered combat/FPS or store-media certification.
+40 selected native/gameplay/save/UI checks passed on52f8ca010445. Native child, exporter and retail phases are separate. Pipeline38.562s; watchdog-owned whole child39.077s; actual standard-retail Main/new-career checks6; exporter exit0;760 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Actual accepted114 checkpoint by SHA. Declared harbor positions, route-work and calendar preconditions for the existing regional transport lifecycle; real two-person admission, sponsor/provision/savings transfers, reception, return/loss settlement, public/protected accounts and private save/UI. No earned full voyage, general-world daily operating-cost timing, physical battle casualty proof, FPS/audio or store-media certification. The declared calendar setup rebases only the remaining supply time of the frozen unrelated ocean contact; it does not simulate or certify that NPC’s service.
 
 DELIVERY/NEXT
-Next0.115 only: Names on Paper, finite actual witnesses, disclosed public/protected destinations, real berths/provisions/discharge and optional Wren.0.115–0.119 remain planned.
-Source/runtime/package/install/remote readbacks: parent work/campaign-v110-v119-2026-11-14/v0.114. Public marketplace/download remains109 until a recorded publication update. Source/tag and installed build are distinct from public download. Released CHANGES immutable; all three notes change in this merge and an existing authorized reviewer reconciles them after installation. Boardwatch paused.
+Next0.116 only: Two Distress Flags and Narrow Withdrawal, finite real loaded carriers, chosen priority, surviving cargo/capacity and actual physical encounters.0.116–0.119 remain planned.
+Source/runtime/package/install/remote readbacks: parent work/campaign-v110-v119-2026-11-14/v0.115. Public marketplace/download remains109 until a recorded publication update. Source/tag and installed build are distinct from public download. Released CHANGES immutable; all three notes change in this merge and an existing authorized reviewer reconciles them after installation. Boardwatch paused.
