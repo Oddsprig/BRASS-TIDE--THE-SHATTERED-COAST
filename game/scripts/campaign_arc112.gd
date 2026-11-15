@@ -52,7 +52,7 @@ static func same_passage(c) -> bool:
 	var w: Dictionary=work(c)
 	if w.is_empty() or not c.home_local064():return false
 	var p: Dictionary=c.NavalAI._find_patrol(c.state,str(w.ownerId))
-	return not p.is_empty() and p.get("active",false) and int(p.get("voyageSeq",-1))==int(w.voyageSeq) and str(p.get("from",""))=="kelp_reach" and str(p.get("to",""))==str(w.targetPort)
+	return not p.is_empty() and p.get("active",false) and int(p.get("voyageSeq",0))==int(w.voyageSeq) and str(p.get("from",""))=="kelp_reach" and str(p.get("to",""))==str(w.targetPort)
 
 static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> void:
 	var w: Dictionary=work(c)
@@ -71,8 +71,8 @@ static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> 
 static func before_arrival(c,owner: Dictionary,p: Dictionary) -> Dictionary:
 	var w: Dictionary=work(c)
 	if w.is_empty() or w.reported or str(owner.get("id",""))!=str(w.ownerId):return {}
-	if str(p.get("from",""))!="kelp_reach" or str(p.get("to",""))!=str(w.targetPort) or int(p.get("voyageSeq",-1))!=int(w.voyageSeq):return {}
-	return {"ownerId":str(owner.id),"fromPort":str(p.from),"targetPort":str(p.to),"voyageSeq":int(p.voyageSeq)}
+	if str(p.get("from",""))!="kelp_reach" or str(p.get("to",""))!=str(w.targetPort) or int(p.get("voyageSeq",0))!=int(w.voyageSeq):return {}
+	return {"ownerId":str(owner.id),"fromPort":str(p.from),"targetPort":str(p.to),"voyageSeq":int(p.get("voyageSeq",0))}
 
 static func after_arrival(c,owner: Dictionary,p: Dictionary,dock: Dictionary,prior: Dictionary) -> void:
 	var w: Dictionary=work(c)

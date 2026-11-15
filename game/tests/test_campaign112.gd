@@ -305,6 +305,7 @@ class Preview extends "res://scripts/main.gd":
 			original_uids112 = w.carrierUids.duplicate()
 		var bound_job: Dictionary = native_job112()
 		if not verify112(accepted.get("ok", false) and not original_uids112.is_empty()
+			and core.Arc112.same_passage(core)
 			and not bound_job.is_empty() and str(bound_job.kind) == "escort"
 			and str(w.ownerId) == client_id112
 			and same112(w.carrierUids, bound_job.escort.carrierUids)
@@ -323,6 +324,7 @@ class Preview extends "res://scripts/main.gd":
 				active_job = saved_job.duplicate(true)
 				break
 		if not verify112(restore112(active)
+			and core.Arc112.same_passage(core)
 			and same112(core.Arc112.work(core), active_work)
 			and same112(native_job112(), active_job) and conserved112(),
 			"Active binding and native escrow survive detached JSON and full native restore"):
