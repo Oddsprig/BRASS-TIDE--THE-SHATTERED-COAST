@@ -56,8 +56,18 @@ static func open(ui) -> void:
 		if not gate.ok:ui.paragraph(body,gate.message,14,ui.RED)
 		for option in entry.choices:
 			var choice: Dictionary=option
-			ui.paragraph(body,str(choice.get("tradeoff","")),15)
-			ui.button(body,str(choice.get("text","")),(func(chain_id,choice_id):_commit.call_deferred(ui,chain_id,choice_id)).bind(str(entry.get("chainId","")),str(choice.get("id",""))),true).disabled=not gate.ok or not ArcUI111.allowed(ui,entry,str(choice.get("id",""))) or (not str(choice.get("requiresFlag","")).is_empty() and not entry.flags.has(choice.requiresFlag))
+			var choice_body=body
+			var label: String=str(choice.get("text",""))
+			var explanation: String=str(choice.get("tradeoff",""))
+			var property_report: bool=str(entry.get("chainId",""))=="common_passage110" and str(entry.get("stage",""))=="second_signature111"
+			if property_report:
+				choice_body=ui.column(body)
+				if str(choice.get("id",""))=="report_no_property111":
+					label="Report without original property"
+					explanation="Requires a confirmed target loss and no retained original fitting or hull."
+			else:ui.paragraph(choice_body,explanation,15)
+			ui.button(choice_body,label,(func(chain_id,choice_id):_commit.call_deferred(ui,chain_id,choice_id)).bind(str(entry.get("chainId","")),str(choice.get("id",""))),true).disabled=not gate.ok or not ArcUI111.allowed(ui,entry,str(choice.get("id",""))) or (not str(choice.get("requiresFlag","")).is_empty() and not entry.flags.has(choice.requiresFlag))
+			if property_report and not explanation.is_empty():ui.paragraph(choice_body,explanation,15)
 		ArcUI111.briefing(ui,body,entry)
 	ui.rule(body)
 	ui.label(body,"Harbor leads",26,ui.GOLD,true)
