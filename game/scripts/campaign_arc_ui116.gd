@@ -10,6 +10,8 @@ static func body(ui,entry: Dictionary,fallback: String) -> String:
 	var w: Dictionary=ui.host.core.Arc116.work(ui.host.core)
 	if w.get("reported",false) or str(entry.stage)=="distress_account116":return fallback
 	if w.get("priority",{}).is_empty():return fallback
+	if str(w.priority.get("status","carried"))!="carried":return "The escort contract is closed. Review the original boats’ confirmed outcomes and any remaining unknowns before sending the convoy account."
+	if w.get("withdrawal",{}).is_empty() and ui.host.core.Arc116.choice_gate(ui.host.core,"begin_withdrawal116").get("ok",false):return "Review the original boats and their remaining load before planning the withdrawal."
 	if not w.get("withdrawal",{}).is_empty():return "Keep track of the surviving original boats, their remaining load and crew. A battle escape leaves the contracted delivery and its fee to be settled separately."
 	return "The priority is accepted. Accompany its original boats and respond to the actual situation before beginning the withdrawal. No outcome is known for the other convoy."
 
@@ -19,8 +21,13 @@ static func next_action(ui,entry: Dictionary,fallback: String) -> String:
 	var w: Dictionary=c.Arc116.work(c)
 	if w.get("reported",false) or str(entry.stage)=="distress_account116":return fallback
 	if w.get("priority",{}).is_empty():return fallback
+	if w.get("withdrawal",{}).is_empty():
+		var first: Dictionary=c.Arc116.choice_gate(c,"begin_withdrawal116")
+		return "Review the withdrawal." if first.get("ok",false) else str(first.get("message","Accompany the original boats before reviewing the withdrawal."))
+	if str(w.priority.get("status","carried"))!="carried":
+		var report: Dictionary=c.Arc116.choice_gate(c,"report_distress116")
+		return "Send the convoy account." if report.get("ok",false) else str(report.get("message","Review the carrier records at a harbor."))
 	if c.Arc116.delivery_pending(c):return "Accompany the original boats to their delivery harbor; escape alone does not release the fee."
-	if w.get("withdrawal",{}).is_empty():return "Complete the first accompanied leg or encounter, then begin the withdrawal."
 	return "Check the remaining boats and close the escort contract before sending the withdrawal account."
 
 static func controls(ui,body: Node,entry: Dictionary) -> void:

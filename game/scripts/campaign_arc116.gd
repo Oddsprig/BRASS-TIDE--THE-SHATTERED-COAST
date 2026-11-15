@@ -443,7 +443,7 @@ static func after_naval_encounter(c,event: Dictionary) -> void:
 		if patrol.is_empty() or convoy.is_empty() or not c.home_local064() or c.distance(patrol,convoy)>1800:continue
 		var ids: Array=warden.boats.map(func(boat):return str(boat.uid))
 		if ids.is_empty():continue
-		w.aid.append({"id":id,"day":float(c.state.day),"wardenId":pair[0],"wardenUids":ids,"pursuerId":pair[1],"threat":threat.duplicate(true),"event":event.duplicate(true)})
+		w.aid.append({"id":id,"day":float(c.state.day),"economyDay":int(c.state.econDay),"wardenId":pair[0],"wardenUids":ids,"pursuerId":pair[1],"threat":threat.duplicate(true),"event":event.duplicate(true)})
 		return
 
 static func follow(c,enabled: bool) -> Dictionary:

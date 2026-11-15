@@ -258,11 +258,12 @@ static func _aid(w: Dictionary,s: Dictionary) -> String:
 	if w.withdrawal.is_empty():return "116 aid predates withdrawal." if not w.aid.is_empty() else ""
 	var seen: Dictionary={}
 	for row in w.aid:
-		if not _fields(row,["id","day","wardenId","wardenUids","pursuerId","threat","event"],7):return "Invalid116 warden receipt."
+		if not _fields(row,["id","day","economyDay","wardenId","wardenUids","pursuerId","threat","event"],8):return "Invalid116 warden receipt."
 		if not text(row.id) or seen.has(row.id) or w.withdrawal.navalFloor.has(row.id) or not number(row.day,float(w.withdrawal.begunDay),float(s.day)) or row.wardenId not in ["patrol-2","patrol-8"] or not _ids(row.wardenUids,48) or not text(row.pursuerId):return "116 assistance has no new finite native warden."
 		if not _threat(row.threat,p,s) or row.threat.get("phase")!="withdrawal" or row.threat.ownerId!=row.pursuerId or float(row.threat.day)<float(w.withdrawal.begunDay) or float(row.threat.day)>float(row.day) or float(row.day)-float(row.threat.day)>0.25:return "116 warden aid has no matching dated pursuer."
+		if not number(row.economyDay,1,minf(float(s.get("econDay",s.day)),floorf(float(row.day))),true):return "Invalid116 warden economic date."
 		var e=row.event
-		if not e is Dictionary or not e.get("witnessed",false) is bool or e.get("witnessed")!=true or not number(e.get("day"),1,float(s.get("econDay",s.day)),true) or int(e.day)!=int(row.day):return "116 warden event was not newly witnessed."
+		if not e is Dictionary or not e.get("witnessed",false) is bool or e.get("witnessed")!=true or not number(e.get("day"),1,float(s.get("econDay",s.day)),true) or int(e.day)!=int(row.economyDay):return "116 warden event was not newly witnessed."
 		if row.id!="naval:%d:%s:%s"%[int(e.day),str(e.get("a","")),str(e.get("b",""))]:return "116 warden event identity disagrees."
 		var side: String="A" if e.get("a")==row.wardenId and e.get("b")==row.pursuerId else ("B" if e.get("b")==row.wardenId and e.get("a")==row.pursuerId else "")
 		if side.is_empty() or not number(e.get("shots"+side),1,1000000000,true) or (e.get("winner")!=row.wardenId and e.get("retreated")!=row.pursuerId):return "116 wardens supplied no actual matching armed interruption."
