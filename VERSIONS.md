@@ -1,3 +1,7 @@
+## v0.113 — A Useful Enemy
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.114 only: Bought Route, Cass, actual property/release or raid/withdrawal and optional route-sale conversation.0.114–0.119 remain planned.
+
 ## v0.112 — Exit Channel
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.113 only: A Useful Enemy, actual repair goods toward Cinder Quay, Mara and useful protection; existing goods, paid work and no new industrial framework.0.113–0.119 remain planned.

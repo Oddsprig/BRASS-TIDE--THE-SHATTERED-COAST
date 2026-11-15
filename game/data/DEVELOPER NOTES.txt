@@ -1,4 +1,4 @@
-v0.113 — A Useful Enemy (candidate; unrun)
+v0.113 — A Useful Enemy
 
 A Useful Enemy releases the existing Cinder Quay lead. Mara requests a finite reserve shipment of existing drydock kits from Anvil Dock. A native freight quote derives the funded quantity (at most the requested eight kits), material invoice, fee and current-fleet route/cargo/purse readiness. Anvil's real government purse buys the actual source kits and funds native escrow; no stock, coins, production need or free repair is invented.
 
@@ -8,6 +8,21 @@ The captain explicitly reports a delivered, withdrawn or unaccepted/unfilled und
 
 Mara's optional contact at Anvil shows an existing owned-boat repair estimate and a conversation about materials, skilled labor and wages. It does not force a purchase or assert that a quote performed repairs. Its existing later_mara117 boundary retains the first conversation for later work. The main journal and work board show human port/goods names, funded quantities and coins. Venn's protection is attributed as her claim; no assistance or completed repair is awarded by dialogue. The new bought_route114 boundary remains unavailable in113.
 
-Actual accepted112 final-state checkpoint by SHA. Declared reference-harbor positions; real native funded eight-kit reserve quote/acceptance, invoice/escrow/stock/payment/refund, honest unfilled/withdrawn reporting, a declared negative lost-freight marker branch, optional Mara contact, actual private journal captures and portable save/reload. No earned full voyage, operating-cost timing, physical loss/boarding, FPS, audio or store-media certification.
+SOURCE OWNERS
+game/scripts/campaign_arc113.gd: finite existing-stock/native-priced reserve order; exact native binding, before/after closure observations, explicit report and optional-contact gates.
+game/scripts/campaign_validation113.gd: carried job/account equality, finite invoice/quantity/payment, original payload and retained native closure, truthful unfilled/lost/withdrawn history.
+game/scripts/campaign_arc_ui113.gd: native quotation, delivery/withdrawal controls, literal human-facing transaction facts and Mara's owned-boat estimate.
+game/scripts/campaign.gd/voyage_jobs.gd: guarded offer/observation callbacks, normal-work acceptance binding and pre-clear payload snapshots. Legacy callback payloads preserved outside the bound113 job; lost sealed goods cannot reappear through abandonment.
+game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: small chapter gate, choice, UI and restore hooks.
+game/data/campaign_main110.json: appended113 scenes and optional Mara arc; nine original stories,110–112 stages and Tobin's existing arc preserved. Catalog12; no changes to36 boats, workers,30Hz battle worker or Open Seas.
+game/tests/test_campaign113.gd: selected native transaction/save/UI fixture, private current-version portable save and retained next-chapter checkpoint. Existing subsystem maps remain under maps/.
 
-Source review, selected native/export/retail batch and actual PNG review pending. Accepted canonical/Desktop112 remains installed.
+VERIFIED SCOPE
+24 selected native/gameplay/save/UI checks passed on1579e5c74395. Native child, exporter and retail phases are separate. Pipeline42.266s; watchdog-owned whole child42.957s; actual standard-retail Main/new-career checks6; exporter exit0;748 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Actual accepted112 final-state checkpoint by SHA. Declared reference-harbor positions; real native funded eight-kit reserve quote/acceptance, invoice/escrow/stock/payment/refund, honest unfilled/withdrawn reporting, a declared negative lost-freight marker branch, optional Mara contact, actual private journal captures and portable save/reload. No earned full voyage, operating-cost timing, physical loss/boarding, FPS, audio or store-media certification.
+
+Native receipts use original actors/cargo/equipment, actual paid work and canonical settlement. Unknown outcomes remain unresolved; retreat is not consent or automatic completion. No source of free coins, boats, people or goods. Save types and current native bindings are checked before conversion/publication. Public art/performance/audio/full-earned-campaign claims do not follow from a scoped fixture. Private controlled fixture metadata is declared and never used as store media.
+
+Tests use the canonical detector/shared lane and55second owned watchdog, private/muted profiles and no foreground/input/owner fixtures. Each selected batch<=60seconds. Retain actual failed/interrupted results and accepted child evidence. No retry under a new workflow/helper to bypass a governor. All previous released change notes and source tags remain immutable.
+
+Next0.114 only: Bought Route, Cass, actual property/release or raid/withdrawal and optional route-sale conversation.0.114–0.119 remain planned.
+Install/owner file/launcher receipts are recorded separately forv0.113. The post-merge reviewer receives actual readbacks before reconciling notes.
