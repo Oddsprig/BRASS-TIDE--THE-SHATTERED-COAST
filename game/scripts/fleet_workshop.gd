@@ -247,10 +247,18 @@ static func _plan(core,uid: String,loadout: Dictionary,request=null) -> Dictiona
 	if not checked_locker.ok:q.reasons.append(str(checked_locker.message))
 	q.affordable=Refits._whole(core.state.get("coins")) and float(core.state.coins)>=q.cost
 	var probe: Dictionary=ship.duplicate(true)
-	probe.loadout=fit.loadout.duplicate(true);probe.refitLocker=pool.duplicate(true)
+	# The voyage forecast must describe the same physical parts as installation.
+	# Otherwise the status reader correctly treats the copied mismatched engine
+	# as invalid and displays a fictitious25% propulsion safety fallback.
+	if q.has("fittingPlan"):
+		var preview_commit: Dictionary=Fitting.commit(probe,q.fittingPlan,Refits.catalog(),base)
+		if not preview_commit.get("ok",false):return _refuse(q,str(preview_commit.get("message",preview_commit.get("error","The fitting preview could not be completed."))))
+	probe.loadout=fit.loadout.duplicate(true)
 	# Only copied dictionaries are normalized. Hull damage/stores/crew stay intact.
 	# A physical record is not reseeded from the count locker during preview.
-	if kind!="physical":Refits.ensure(probe,base)
+	if not q.has("fittingPlan"):
+		probe.refitLocker=pool.duplicate(true)
+		Refits.ensure(probe,base)
 	else:
 		var old_max: float=maxf(1.0,Refits._number(ship.get("maxHp"),q.afterSpec.hp))
 		var old_hp: float=clampf(Refits._number(ship.get("hp"),old_max),0.0,old_max)
