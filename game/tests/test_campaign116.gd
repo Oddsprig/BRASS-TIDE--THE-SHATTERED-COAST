@@ -79,6 +79,16 @@ class Preview extends "res://scripts/main.gd":
 		var frame = get_viewport().get_texture().get_image()
 		check(frame != null and frame.save_png(out.path_join(name)) == OK,"Saved actual116 journal image: "+name)
 
+	func same_load(left: Dictionary,right: Dictionary) -> bool:
+		if left.size()!=right.size():return false
+		for uid in left:
+			if not right.has(uid) or not left[uid] is Dictionary or not right[uid] is Dictionary or left[uid].size()!=right[uid].size():return false
+			for good in left[uid]:
+				if not right[uid].has(good):return false
+				var a: float=float(left[uid][good]);var b: float=float(right[uid][good])
+				if not is_finite(a) or not is_finite(b) or absf(a-b)>0.000001:return false
+		return true
+
 	func native_job() -> Dictionary:
 		return core.VoyageJobs._find(core.state,str(core.Arc116.work(core).get("priority",{}).get("jobId","")))
 
@@ -164,7 +174,8 @@ class Preview extends "res://scripts/main.gd":
 		if finished:return
 		if not check(core.StoryOps.choose(core,core.Arc110.ID,"begin_withdrawal116").get("ok",false) and stage()=="narrow_withdrawal116","The explicit choice opens the second operation after real first-leg work"):return
 		w=core.Arc116.work(core)
-		if not check(w.withdrawal.carrierUids==ids and w.withdrawal.carrierCargo==w.priority.carrierCargo and w.withdrawal.basis.kind=="quiet_leg","Withdrawal inherits the original surviving capacity and cargo without reloading"):return
+		write_json("withdrawal-binding.json",{"uidsExact":w.withdrawal.carrierUids==ids,"originalCargo":w.priority.carrierCargo,"remainingCargo":w.withdrawal.carrierCargo,"basis":w.withdrawal.basis,"maximumQuantityTolerance":0.000001})
+		if not check(w.withdrawal.carrierUids==ids and same_load(w.withdrawal.carrierCargo,w.priority.carrierCargo) and w.withdrawal.capacity==w.priority.capacityAtAcceptance and w.withdrawal.basis.kind=="quiet_leg","Withdrawal retains exact original IDs and hold capacity, with unchanged fractional cargo to one millionth of a lot"):return
 		var corrupt: Dictionary=snapshot()
 		corrupt.stories.chains.common_passage110.work116.priority.reward="free"
 		if not check(not preload("res://scripts/campaign_validation116.gd").validate(corrupt).is_empty(),"Raw malformed priority accounting refuses before restore publication"):return

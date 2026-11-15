@@ -8,4 +8,4 @@ Narrow Withdrawal keeps the same surviving passage. Cover uses the existing phys
 The current work is limited to these two116 operations. The existing36 boats, workers, Open Seas, finite purses and legacy stories remain. Who Pays First117 is a locked lead until its own release.
 
 Warden assistance records both its actual native economic event day and its calendar observation time; the save preflight compares the matching economic dates without assuming the detached day publication is synchronous. Closed escort UI directs the player to the actual report rather than asking for an already completed delivery or fee closure.
-Independent corrections await static verification and the first selected native batch. No runtime acceptance claimed.
+First native job a521095180d74a31b47b9b470db25512 reached17 successful checks then failed the strict fractional cargo assertion at withdrawal. Saved IDs, goods and quiet-leg basis match. The fixture now compares finite fractional lots to1e-6 while exact IDs, hold capacities and whole coins remain exact, and records the full comparison. No production code or economic guard changes. Corrected native batch pending.
