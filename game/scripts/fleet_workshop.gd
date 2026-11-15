@@ -308,7 +308,7 @@ static func _plan(core,uid: String,loadout: Dictionary,request=null) -> Dictiona
 	if core.state.has("coinSupply") and (not Refits._whole(core.state.coinSupply) or Money.total(core.state)!=int(core.state.coinSupply)):q.reasons.append("The existing coin ledger must reconcile before fitting.")
 	if float(next_reserve.overload)>float(old_reserve.overload)+EPS:q.reasons.append("This fitting would overflow the traveling holds with existing stores. Offload the excess first.")
 	q.applicable=q.reasons.is_empty();q.ok=q.applicable
-	q.message="Whole fitting: %d coins; %d changed slots."%[q.cost,q.changes.size()] if q.ok else str(q.reasons[0])
+	q.message="Whole fitting: %d coins; changed slots: %d."%[q.cost,q.changes.size()] if q.ok else str(q.reasons[0])
 	Manifest.allocate(staged)
 	return {"quote":q,"ship":probe,"port":dock,"manifest":staged.get("cargoManifest",{})}
 

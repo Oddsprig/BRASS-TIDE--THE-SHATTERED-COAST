@@ -111,7 +111,7 @@ static func open(ui,uid: String,draft: Dictionary={},selected: int=0):
 	ui.modal_kind="refit"
 	var body=ui.modal(ship.name,"FITTING BAY · FLEET WORKSHOP · CURRENT FIT & DRAFT",1160,890)
 	_picker(ui,body,uid,draft)
-	var quote_status: String="Draft only · %d changed slots · %s coins quoted · %.2f ordinary + %.2f expert worker-days\nPurse covers bill: %s · Yard can apply now: %s"%[q.changes.size(),ui.money(q.cost),float(q.workerDays),float(q.expertDays),"yes" if q.affordable else "no","yes" if q.applicable else "no"]
+	var quote_status: String="Draft only · Changed slots: %d · %s coins quoted · %.2f ordinary + %.2f expert worker-days\nPurse covers bill: %s · Yard can apply now: %s"%[q.changes.size(),ui.money(q.cost),float(q.workerDays),float(q.expertDays),"yes" if q.affordable else "no","yes" if q.applicable else "no"]
 	if not q.validDraft:quote_status="Invalid draft · correct its compatibility or fitting budget before a bill can be reviewed."
 	ui.paragraph(body,quote_status,14,ui.TEAL if q.applicable else ui.GOLD).name="WorkshopQuoteStatus"
 	if q.validDraft:ui.paragraph(body,Comparison.headline(q),14,ui.TEXT).name="WorkshopHeadline"
