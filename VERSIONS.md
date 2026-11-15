@@ -1,3 +1,7 @@
+## v0.117 — Who Pays First
+
+Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.118 only: Fuel Has Owners and Last Warrant, available affordable Naphtha passage or actual interdiction, real purchased fuel, then original claimant-boat protection; optional Tobin.0.118–0.119 remain planned.
+
 ## v0.116 — Two Distress Flags and Narrow Withdrawal
 
 Current scoped campaign release. Read BUILD STATUS.txt and its exact receipts. Next0.117 only: Who Pays First, actual mutual harbor contributions or separate-owner bonds and the first funded escort under those terms; optional Mara on an actually owned damaged hull.0.117–0.119 remain planned.

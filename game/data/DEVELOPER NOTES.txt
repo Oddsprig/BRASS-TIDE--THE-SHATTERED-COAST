@@ -1,4 +1,5 @@
-v0.117 — Who Pays First (candidate; validation pending)
+v0.117 — Who Pays First
+
 At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
 
 Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
@@ -14,97 +15,23 @@ The optional117 validator reads a missing legacy story-chain book through guarde
 Whole-coin reimbursement alternatives are compared numerically only after finite integral bounds pass. Restored JSON zero/full amounts remain valid even when represented as floats; fractional amounts remain rejected before conversion. This changes no coin movement or refund eligibility.
 
 Chapter117 compares nested native and saved records by exact finite numeric value across integer/float JSON representations. This covers original identities, displayed shares, closure and the optional estimate. Field-specific type, whole-coin and cargo bounds and the live native-job reference guard remain. No tolerance, rounding, new payout or native money movement is introduced.
-Native job5aba0a63d5034549933377db298fa87e remains failed:19 checks passed, then actual941-coin client refund was not recorded because normalized integer reward differed by nested type from its saved float representation. The actual owner balance proves payment. The exact numeric representation fix and two focused identity guards await independent review and the corrected selected batch. No117 acceptance claimed.
-
-v0.117 — Who Pays First (candidate; validation pending)
-At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
-
-Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
-
-Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
-
-Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-
-Routine funding logs use named convoys and funding sources, with coins as the currency. Internal job IDs, version numbers and adapter terminology stay out of normal player messages. This copy correction changes no financial calculation, identity, timing or settlement guard.
-
-The optional117 validator reads a missing legacy story-chain book through guarded dictionary lookup; it does not access an absent chains property. A small leaf regression checks absence of the new optional book. The ordinary full-save validators retain their authority.
-
-Whole-coin reimbursement alternatives are compared numerically only after finite integral bounds pass. Restored JSON zero/full amounts remain valid even when represented as floats; fractional amounts remain rejected before conversion. This changes no coin movement or refund eligibility.
-First native job36c68763c8f343c7907976d8139e6be4 passed15 checks including a real1408-coin owned-hull estimate with no purchase and actual mutual contributions/escrow, then failed its first funded save restore because strict collection membership rejected JSON zero floats. That run remains failed. Numeric integral comparison corrected; a fractional-corruption probe and corrected native run remain pending.
-
-v0.117 — Who Pays First (candidate; validation pending)
-At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
-
-Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
-
-Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
-
-Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-
-Routine funding logs use named convoys and funding sources, with coins as the currency. Internal job IDs, version numbers and adapter terminology stay out of normal player messages. This copy correction changes no financial calculation, identity, timing or settlement guard.
-
-The optional117 validator reads a missing legacy story-chain book through guarded dictionary lookup; it does not access an absent chains property. A small leaf regression checks absence of the new optional book. The ordinary full-save validators retain their authority.
-Independent source fixes and the first bounded native run remain pending. No acceptance claimed; prior released notes and financial guards unchanged.
-
-v0.117 — Who Pays First (candidate; validation pending)
-At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
-
-Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
-
-Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
-
-Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-
-Routine funding logs use named convoys and funding sources, with coins as the currency. Internal job IDs, version numbers and adapter terminology stay out of normal player messages. This copy correction changes no financial calculation, identity, timing or settlement guard.
-Independent frozen source review and the first selected native batch remain pending; no acceptance claimed.
-
-v0.117 — Who Pays First (candidate; validation pending)
-At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
-
-Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
-
-Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
-
-Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-Final existing Sol6.1MAX core/validator/UI relays integrated with native refund and story hooks. Exact call graph needs no passenger DayView change. Selected financial/native movement/refund/save/UI fixture and independent frozen review pending; no acceptance claimed.
-
-v0.117 — Who Pays First (candidate; validation pending)
-At Anvil Dock, choose mutual harbor contributions or separate-owner terms before accepting the first escort. Mutual departure and destination governments pay disclosed whole-coin shares from separate existing purses into the client’s operating account and then native escrow. Separate owners fund the native fee from their own coins. Quotes move no money. Actual captain payroll, food, loaded fuel, return and contingency reserves are required before income. No pooled treasury, insurance account or currency supply is added.
-
-Each admission binds the native owner, voyage, original carrier identities, cargo, route and fee. Native sailing, cargo sale and settlement remain authoritative. A successful native refund observation records actual money returned to the client, including expiry before abandonment. Harbor shares are reimbursed once only after native closure and sufficient actual refunded funds; a shortfall remains an obligation, not a payout. A bounded sequence permits a fresh attempt only after the prior abandoned contributions are settled. Reporting requires an actual paid loaded escort under the chosen terms.
-
-Mara’s second optional conversation keeps the first conversation’s history and presents an owned, locally serviceable damaged hull’s current native estimate. Leaving needs no damage, selection, purchase or repair. The estimate moves no money and commissions no work. Optional inspection alone never takes over another chapter’s convoy-follow control.
-
-Only117 is released here. Fuel Has Owners118 remains a locked lead; earlier chapters,36 hulls, native workers, Open Seas and finite purses remain intact.
-Source relay and integration are in progress. Independent source review and selected native verification pending; no acceptance claimed.
-
-v0.116 — Two Distress Flags and Narrow Withdrawal
-
-Two Distress Flags presents dated observations of separate existing loaded coastal owners. Accepting one live funded native escort records which passage received priority and preserves the other report without reserving or respawning it. Original carrier identities, load, crew and client-funded terms remain bound.
-
-Narrow Withdrawal keeps the same surviving passage. Cover uses the existing physical convoy exit; interdiction needs an actual available hostile pursuer. Native cargo, casualties, arrival, sale, refunds and escort fee remain canonical. One passage never earns duplicate escort credit or replacement cargo. Unknown boats remain unconfirmed and an active native obligation cannot be discarded by a story report. Existing Venn/warden assistance is claimed only when supported by an actual matching native event.
-
-The current work is limited to these two116 operations. The existing36 boats, workers, Open Seas, finite purses and legacy stories remain. Who Pays First117 is a locked lead until its own release.
-
-Warden assistance records both its actual native economic event day and its calendar observation time; the save preflight compares the matching economic dates without assuming the detached day publication is synchronous. Closed escort UI directs the player to the actual report rather than asking for an already completed delivery or fee closure.
-
-Actual first-run priority capture exposed an offscreen primary choice below disabled offshore fee controls. Collection/refund buttons now appear at a real harbor; arrival inspection appears at the actual destination. The fee, carrier counts and useful sailing controls remain visible at sea.
 
 SOURCE OWNERS
-game/scripts/campaign_arc116.gd: dated passage reports, priority binding, native escort and original-carrier withdrawal/interdiction observation.
-game/scripts/campaign_validation116.gd: raw report, original-passage, closure and physical evidence preflight.
-game/scripts/campaign_arc_ui116.gd: current funded terms, dated reports, withdrawal controls and distinct physical/financial outcomes.
-game/scripts/campaign.gd/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: narrow optional116 hooks and choices; earlier adapters preserved.
-game/data/campaign_main110.json:116 priority and withdrawal plus locked117 lead, catalog14.
-game/tests/test_campaign116.gd: bounded selected native funds, identity, physical exit, closure and save/UI fixture.
-game/scripts/naval_ai.gd: optional observation of only the actual newly returned successful native encounter event; no resolver changes or historical-event rewards.
+game/scripts/campaign_arc117.gd: commitment, exact current funding quote, real contributions/native admission, observed refund and once-only repayment, paid-delivery report, independent follow and optional owned-hull quote.
+game/scripts/campaign_validation117.gd: raw bounded commitment/attempts, original native identities, actual payment/refund/repayment and quote history validation.
+game/scripts/campaign_arc_ui117.gd: named payers/shares, operating reserves, native status/actions and Mara estimate with an unconditional leave option.
+game/scripts/voyage_jobs.gd: optional observation immediately after an actual successful native escrow refund; original money movement unchanged.
+game/scripts/campaign.gd: main-core successful-refund callback and active117-only follow dispatch; passenger day view unchanged.
+game/scripts/coastal_stories.gd/story_ops.gd/story_ui.gd/campaign_state_validation.gd: small117 gates, native choices, journal and pre-restore hooks.
+game/data/campaign_main110.json:117 funding and optional Mara extension, locked118 lead, fourteen-chain catalog retained.
+game/tests/test_campaign117.gd: selected financial/native movement/refund/save/UI fixture with declared positions and short reference leg.
 
 VERIFIED SCOPE
-36 selected native/gameplay/save/UI checks passed on8cdd5379e135. Native child, exporter and retail phases are separate. Pipeline35.063s; watchdog-owned whole child35.676s; actual standard-retail Main/new-career checks6; exporter exit0;766 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Accepted115 checkpoint by SHA; declared observation/harbor/late-route setup and a short water-safe reference exit, exercising native quotation, real client escrow, original-carrier physical escape/settlement, serial withdrawal, paid sale and fee closure and actual private save/UI. No earned complete voyage, stock arena balance, actual casualty coverage, general-world timing, FPS/audio or store-media certification. The quiet-leg assertion measures both actors’ actual post-restore coordinate movement as well as the native accompanied-distance counters. Cargo equality across JSON/recomputed native load allocations uses a one-millionth-lot tolerance; carrier IDs, hold capacities, whole-coin transfers and source identity remain exact. The selected116 run does not repeat the existing abandonment/refund path or positively exercise pursuer interdiction/warden aid; those adapters receive source review and their negative/identity guards are exercised. Prior native coverage is retained separately.
+54 selected native/gameplay/save/UI checks passed on839d73cc5e6c. Native child, exporter and retail phases are separate. Pipeline39.734s; watchdog-owned whole child40.429s; actual standard-retail Main/new-career checks6; exporter exit0;772 PCK entries validated. No old full-suite replay. All frozen runtime hashes unchanged. Evidence is scoped: Accepted116 checkpoint by SHA; declared harbor/observation/late-route preconditions and actual short native convoy movement/sale. Real separate-government contributions, client escrow, actual abandonment/refund/reimbursement and separate-owner fee payment, finite negative funding and replay probes, actual private save and journal. No earned full voyage, general-world operating-cost timing, battle balance, FPS/audio, store media or actual repair-work certification. The optional Mara check follows the real checkpoint eligibility: an available owned damaged estimate is discussed, otherwise unconditional leave is exercised and positive estimate coverage is explicitly absent. Independent private checkpoints separate the mutual/refund/owner branches.
 
 Native receipts use original actors/cargo/equipment, actual paid work and canonical settlement. Unknown outcomes remain unresolved; retreat is not consent or automatic completion. No source of free coins, boats, people or goods. Save types and current native bindings are checked before conversion/publication. Public art/performance/audio/full-earned-campaign claims do not follow from a scoped fixture. Private controlled fixture metadata is declared and never used as store media.
 
 Tests use the canonical detector/shared lane and55second owned watchdog, private/muted profiles and no foreground/input/owner fixtures. Each selected batch<=60seconds. Retain actual failed/interrupted results and accepted child evidence. No retry under a new workflow/helper to bypass a governor. All previous released change notes and source tags remain immutable.
 
-Next0.117 only: Who Pays First, actual mutual harbor contributions or separate-owner bonds and the first funded escort under those terms; optional Mara on an actually owned damaged hull.0.117–0.119 remain planned.
-Install/owner file/launcher receipts are recorded separately forv0.116. The post-merge reviewer receives actual readbacks before reconciling notes.
+Next0.118 only: Fuel Has Owners and Last Warrant, available affordable Naphtha passage or actual interdiction, real purchased fuel, then original claimant-boat protection; optional Tobin.0.118–0.119 remain planned.
+Install/owner file/launcher receipts are recorded separately forv0.117. The post-merge reviewer receives actual readbacks before reconciling notes.
