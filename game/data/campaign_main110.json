@@ -591,13 +591,112 @@
         {
           "id": "common_passage119",
           "title": "Common Passage",
-          "body": "The next campaign operation is not available in this version. Your voyage book and outstanding obligations remain; ordinary harbor work can continue.",
-          "nextAction": "Continue other harbor work.",
+          "body": "At Brass Haven, Tobin proposes food bales from Anvil Dock to Westglass Anchorage, beyond the Open Seas. The funding terms chosen with Mara still apply; this sailing needs its own load and return allowance.\n\n\"I signed the powers in those guarantees,\" he says. \"Keeping supplies moving did not excuse them. This time, you see the invoice and who can pay before I ask you to sail.\"\n\nMara requires real stock and paid work. Wren asks that the account distinguish supplies delivered from supplies promised. Venn's protection did useful work; replacing it still has costs.",
+          "nextAction": "Read the proposal with Tobin at Brass Haven, then review the current freight terms at Anvil Dock.",
           "gate": {
-            "type": "unreleased",
-            "message": "The next campaign operation is not available in this version."
+            "type": "arc119",
+            "mode": "begin",
+            "port": "brass_haven"
           },
-          "choices": []
+          "choices": [
+            {
+              "id": "begin_passage119",
+              "text": "Review the common passage proposal.",
+              "next": "passage_work119",
+              "tradeoff": "Keep the funding terms already chosen. Reviewing the proposal buys no cargo and grants no harbor knowledge or passage permission."
+            }
+          ]
+        },
+        {
+          "id": "passage_work119",
+          "title": "The Westglass Passage",
+          "body": "The offer must name the goods, their price, the held service fee and who supplies each coin. Under mutual terms, Anvil buys the goods and shares the fee with Westglass. Under separate terms, you are the boat owner: your own purse buys the goods and posts the bond. Receiving that bond after delivery returns your money; it is not a trading profit. Wages, fuel and repairs remain voyage costs.\n\nUse the supplies loaded under this agreement and the boats that accepted them. Sail the connection from Shatter into the Open Seas and onward to Glasswind. Any passage permission must be obtained on its actual terms. If you meet resistance, getting away with the load matters more than an unverified report of victory. Deliver at Westglass, collect the held amount there and return to Tobin at Brass Haven.\n\nAn unavailable offer or an unfinished passage can remain open while you seek a way forward. Turning back does not close the account. If you decide to end the undertaking, first close any carried freight at a harbor, then give Tobin an incomplete account at Brass. The goods invoice stays spent; any fee return still owed stays on the books.",
+          "nextAction": "Review the current load and funding, sail to delivery, then return to Brass Haven; or explicitly debrief an incomplete undertaking there.",
+          "gate": {
+            "type": "arc119",
+            "mode": "work",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "report_common119",
+              "text": "Give Tobin the harbor-funded delivery account.",
+              "next": "common_account119",
+              "tradeoff": "Requires the mutual funding, original loaded boats, completed crossing, delivered supplies, paid fee and actual return to Brass Haven. This receipt promises no later sailing."
+            },
+            {
+              "id": "report_many119",
+              "text": "Give Tobin the owner-funded delivery account.",
+              "next": "many_account119",
+              "tradeoff": "Requires your own funded invoice and bond, the original load and boats, completed crossing, delivery, returned bond and actual return to Brass Haven. The invoice and operating costs remain your expenses."
+            },
+            {
+              "id": "close_unsettled119",
+              "text": "Debrief the incomplete undertaking at Brass Haven.",
+              "next": "unsettled_account119",
+              "tradeoff": "Explicitly end this campaign undertaking at Brass with no carried passage. This does not claim an unmade delivery, return a spent invoice or cancel an unpaid fee return. You can keep the undertaking open instead."
+            }
+          ]
+        },
+        {
+          "id": "common_account119",
+          "title": "Common Passage",
+          "body": "Tobin lays out Anvil's goods invoice, both governments' fee shares and Westglass's delivery receipt. Your return to Brass completes this passage. Neither treasury has promised another sailing.\n\n\"Venn kept supplies moving,\" he says. \"I used that work to excuse powers I signed. We've paid for one replacement passage. I'm still answerable for the rest.\"\n\nMara keeps stock and paid labor in the costs. Wren keeps the witness terms already chosen, including limits on disclosure. One delivery has not replaced Venn's protection across the coast.\n\nYour fleet remains yours. Earlier debts and duties continue, and ordinary voyages remain open.",
+          "nextAction": "Finish the debrief with Tobin, then continue ordinary voyages.",
+          "gate": {
+            "type": "arc119",
+            "mode": "finish",
+            "choice": "finish_common119",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "finish_common119",
+              "text": "Keep the Common Passage account and continue sailing.",
+              "next": "done",
+              "tradeoff": "Finish this campaign with the completed mutual-funded delivery recorded. No boat, future subsidy, cancelled debt or peace between factions is awarded."
+            }
+          ]
+        },
+        {
+          "id": "many_account119",
+          "title": "Many Harbors",
+          "body": "At Brass Haven, Tobin reads Westglass's receipt against your funded account. Your coins bought the supplies and posted the service bond. Delivery returned your own bond; the invoice, wages, fuel and repairs remain your expenses.\n\n\"You could afford this sailing,\" he says. \"Not every owner can. I have to ask before commissioning the next one. My signature on those guarantees is still mine to answer for.\"\n\nMara can account for supplies and paid work without offering free repairs. Wren keeps the witness protections and disclosures already chosen. Separate arrangements still leave an owner without funds unable to sail; Venn's useful protection has not been replaced everywhere.\n\nThis passage is complete. Your fleet and remaining obligations stay with you as ordinary voyages continue.",
+          "nextAction": "Finish the debrief with Tobin, then continue ordinary voyages.",
+          "gate": {
+            "type": "arc119",
+            "mode": "finish",
+            "choice": "finish_many119",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "finish_many119",
+              "text": "Keep the Many Harbors account and continue sailing.",
+              "next": "done",
+              "tradeoff": "Finish with the completed owner-funded delivery recorded. The returned bond is your own money; the goods invoice and operating costs stay spent. Other owners receive no funding guarantee."
+            }
+          ]
+        },
+        {
+          "id": "unsettled_account119",
+          "title": "Unsettled Coast",
+          "body": "At Brass Haven, you tell Tobin this undertaking will go no further. If no load was accepted, he enters no shipment. If an attempt was closed, its observed outcome and costs remain.\n\n\"I can't turn an incomplete account into a sailing,\" he says. \"And it gives me no excuse for what I signed before.\"\n\nMara's workers and stock still cost money. Wren's witness duties remain under the terms already chosen. Venn's protection still does useful work and carries disputed powers; ending this undertaking grants her no agreement from you.\n\nAn actual fee refund remains repayable when funds allow. Any shortfall stays owed; a spent goods invoice stays spent. Finish the debrief and keep sailing with the remaining obligations.",
+          "nextAction": "Finish the incomplete account. Ordinary voyages and any outstanding fee repayments remain available.",
+          "gate": {
+            "type": "arc119",
+            "mode": "finish",
+            "choice": "finish_unsettled119",
+            "port": "brass_haven"
+          },
+          "choices": [
+            {
+              "id": "finish_unsettled119",
+              "text": "Keep the Unsettled Coast account and continue sailing.",
+              "next": "done",
+              "tradeoff": "Finish only this campaign undertaking. Unpaid fee returns remain owed and repayable; earlier debts, witness duties and ordinary voyages continue."
+            }
+          ]
         }
       ]
     },

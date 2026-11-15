@@ -48,6 +48,7 @@ const Arc115=preload("res://scripts/campaign_arc115.gd")
 const Arc116=preload("res://scripts/campaign_arc116.gd")
 const Arc117=preload("res://scripts/campaign_arc117.gd")
 const Arc118=preload("res://scripts/campaign_arc118.gd")
+const Arc119=preload("res://scripts/campaign_arc119.gd")
 const EscortOps=preload("res://scripts/escort_ops.gd")
 const Objectives=preload("res://scripts/battle_objectives.gd")
 const FleetIdentity=preload("res://scripts/fleet_identity.gd")
@@ -212,11 +213,13 @@ func approach_course064(region_id: String,approach_id: String) -> Dictionary:
 
 func transition064(region_id: String,approach_id: String) -> Dictionary:
 	if ocean_context064.is_empty():return fail(ocean_error064)
+	var prior119: Dictionary=world_location064() if not Arc119.attempt(self).is_empty() else {}
 	var result: Dictionary=OceanWorld064.transition_player(ocean_context064,world_location064(),region_id,approach_id,Routes.clearance(self),transition_blocker064())
 	if not result.get("ok",false):return result
 	_publish_location064(result.location)
 	sailing_clearance=Routes.clearance(self)
 	ShippingFlow068.observe_sector069(self)
+	if not prior119.is_empty():Arc119.after_transition(self,prior119,region_id,approach_id,result)
 	return ok("Entered %s."%str(world_view064().get("name",region_id)))
 
 func cached_path(a: Dictionary,b: Dictionary,clearance: float=10.0) -> Array:
@@ -647,6 +650,8 @@ func _step066(dt: float) -> float:
 	if state.is_empty():
 		return 0.0
 	var trace_mark075: int=Time.get_ticks_usec() if trace_steps075 else 0
+	var prior119: Dictionary=world_location064() if not Arc119.attempt(self).is_empty() else {}
+	var day119: float=float(state.day)
 	var staged: Dictionary=OceanCampaign066.stage(self,dt)
 	if trace_steps075:
 		step_costs075={"ocean_stage_us":Time.get_ticks_usec()-trace_mark075}
@@ -752,6 +757,7 @@ func _step066(dt: float) -> float:
 			stop_sailing()
 			events.append({"kind":"ocean_encounter066","ownerId":defender if attacker=="player" else attacker})
 		else:ShippingFlow068.resolve_encounter(self,staged.encounter)
+	if not prior119.is_empty():Arc119.after_step(self,prior119,day119,dt)
 	return dt
 
 func apply_economy(ports: Array, messages: Array, days: int):
@@ -1419,6 +1425,8 @@ func cancel_fishing(uid: String) -> Dictionary:
 	return CivilianWork.cancel_fishing(self,uid)
 
 func accept_voyage_job(id: String,carrier_uid: String="") -> Dictionary:
+	if id.begins_with("common119:") and Arc119.native_offer(self).get("id","")!=id:
+		return fail("Review and accept the disclosed passage funding first.")
 	var permission: Dictionary=_work_permission070()
 	if not permission.ok:return permission
 	var result: Dictionary=VoyageJobs.accept(self,id,carrier_uid)
@@ -1457,6 +1465,12 @@ func settle_voyage_job(id: String,abandon: bool=false) -> Dictionary:
 	Manifest.allocate(state)
 	return result
 
+func campaign_passage_offer119() -> Dictionary:
+	return Arc119.native_offer(self)
+
+func campaign_delivery_before119(job: Dictionary) -> Dictionary:
+	return Arc119.before_job(self,job)
+
 func campaign_material_offer113() -> Dictionary:
 	return Arc113.offer(self)
 
@@ -1471,6 +1485,7 @@ func campaign_job_closed110(before: Dictionary,result: Dictionary,abandon: bool)
 	Arc116.after_job(self,before,result,abandon)
 	Arc117.after_job(self,before,result,abandon)
 	Arc118.after_job(self,before,result,abandon)
+	Arc119.after_job(self,before,result,abandon)
 
 func contract_ready() -> bool:
 	return home_local064() and not state.activeContract.is_empty() and not state.freight.get("lost",false) and distance(state.position,port(state.activeContract.targetPort)) < 90
@@ -1714,6 +1729,7 @@ func battle_settled(result: String, enemy_specs: Array, context: Dictionary,phys
 	Arc116.after_battle(self,result,context,physical_battle,report)
 	Arc114.after_battle(self,result,context,physical_battle,report,captures114)
 	if not physical_battle.is_empty():
+		Arc119.after_battle(self,result,context,physical_battle,report)
 		report.escapedUids=physical_battle.get("escapedShips",[]).map(func(b):return str(b.get("uid","")))
 		physical_battle.settlementReport=report.duplicate(true)
 		for key in ["ships","escapedShips","captured"]:
@@ -2039,3 +2055,4 @@ func campaign_naval_new116(event: Dictionary) -> void:
 
 func campaign_refund117(job: Dictionary,amount: int) -> void:
 	Arc117.observe_refund(self,job,amount)
+	Arc119.observe_refund(self,job,amount)

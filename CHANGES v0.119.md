@@ -1,0 +1,17 @@
+119 integration complete; selected native execution and visual/export/retail acceptance pending. The actual nested operating allowance is displayed, and live/raw chronology requires the preceding118 report. The selected native fixture requires an actual funded, delivered and returned separate passage; the alternate mutual financing branch is not replayed.
+
+The relief commodity is food, using the existing Westglass household equilibrium deficit. Repair-supply need can also exist through reported shortages; the earlier source concern did not establish that a supplies offer was impossible. The quote retains its real observed gap, promised-freight subtraction, export reserve, maximum eight whole bales, physical hold, invoice and tariff. No new demand series or stock adjustment is introduced.
+
+# Brass Tide v0.119 — Common Passage
+
+v0.119 — Common Passage (candidate; validation pending)
+The final Common Passage request uses the existing player-loaded freight system from Anvil Dock to the existing, actually known Westglass harbor in Glasswind. It requires current exportable food, receiving demand, legal access, a real route, physical hold allocation and funded operating reserves. Ordinary boards do not expose the private staged admission; the chosen funding terms cannot be bypassed through another accept button.
+
+Mutual terms use the actual departure government for the goods invoice and its fee share, with the receiving government funding the remaining fee share through the existing sponsor purse. Separate terms use the captain’s own real coins for the goods invoice and performance bond. Completion returns that captain-funded bond; it is not new profit. Wages, provisions, fuel, repairs and the goods purchase remain paid costs. Deposits, native purchase/escrow, canonical allocation and binding publish atomically on complete successful admission, preserving runtime clocks and pending work.
+
+Original sealed cargo must traverse the native Open Seas connection, arrive and settle at Westglass. Stored observations distinguish actual accepted movement and transitions from requested travel time. Native encounters and physical exits retain authority. Reporting requires the actual stopped return to Brass. The chosen real funding and paid delivery determine Common Passage or Many Harbors; an explicit failed or incomplete debrief determines Unsettled Coast. Retreat alone never ends the campaign.
+
+Actual native fee refunds are recorded at successful money movement. After a closed abandonment, only the refundable fee contribution is returned once when actual funds exist; spent goods invoices are not reimbursed. Shortfalls remain owed and repayment remains accessible after the story ends. A bounded fresh attempt requires prior closure and settled fee-return obligations.
+
+Reception reflects the actual public or protected witness reception from115 without exposing protected names or adding an arbitrary ending gate. The campaign ends in its journal while ordinary voyages, factions, trade and fleet management continue. No boats, goods, people, debt cancellation, territory or global peace are awarded. Earlier histories,36 boats and fourteen story chains remain intact.
+Candidate only. Source relays, integration, independent source review and selected native/visual/export/retail evidence remain pending. No119 acceptance claimed.

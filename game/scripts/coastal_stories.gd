@@ -213,6 +213,7 @@ static func _recovery_sites(state: Dictionary, chain_id: String) -> Array:
 
 
 static func _outcome(state: Dictionary, chain_id: String) -> Dictionary:
+	if chain_id=="common_passage110":return preload("res://scripts/campaign_arc119.gd").outcome(state)
 	if chain_id in CHAINS077 or chain_id in CHAINS087:
 		return _outcome077(state, chain_id) if chain_id in CHAINS077 else _outcome087(state, chain_id)
 	if chain_id != "middle_sea_chart" or not bool(_record(state, chain_id).get("done", false)):
@@ -295,6 +296,8 @@ static func _gate(core, state: Dictionary, gate: Dictionary) -> Dictionary:
 			return core.Arc114.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc115":
 			return core.Arc115.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
+		"arc119":
+			return core.Arc119.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc118":
 			return core.Arc118.gate(core,gate) if core!=null else {"ok":false,"message":"Return to the voyage."}
 		"arc117":
