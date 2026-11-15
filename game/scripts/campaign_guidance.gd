@@ -223,7 +223,7 @@ static func upgrade_quotes(c, post_voyage_coins: int = -1) -> Array:
 
 ## One useful whole-fitting draft, quoted with the existing yard authority.
 ## The recommendation cannot spend cash. Main re-quotes it again on payment.
-static func first_fit120(c, focus: String = "economy") -> Dictionary:
+static func first_fit120(c, focus: String = "armor") -> Dictionary:
 	var result: Dictionary = {"ok":false, "safe":false, "message":"Dock at a Shatter Coast harbor for paid fitting.", "focus":focus}
 	var dock: Dictionary = c.current_port()
 	if dock.is_empty() or not c.state.get("path", []).is_empty(): return result

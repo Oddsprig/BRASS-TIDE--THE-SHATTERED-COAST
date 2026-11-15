@@ -305,7 +305,7 @@ func accept_guided_contract120(shown: Dictionary) -> Dictionary:
 func apply_guided_fit120(shown: Dictionary) -> Dictionary:
 	if mode!="campaign":return core.fail("Return to the chart before paying for a fitting.")
 	sync_economy()
-	var focus: String=str(shown.get("focus","economy"))
+	var focus: String=str(shown.get("focus","armor"))
 	var current: Dictionary=Guidance120.first_fit120(core,focus)
 	var quoted: Dictionary=shown.get("quote",{})
 	var fresh: Dictionary=current.get("quote",{})

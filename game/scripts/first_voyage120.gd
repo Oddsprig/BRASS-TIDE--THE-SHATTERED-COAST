@@ -132,5 +132,5 @@ func status(host) -> Dictionary:
 	if not earned:
 		return _card("Earn the first contract payment", "Clear the Lantern Narrows pays only after its real fight and delivery. Review the destination, fee and return reserve first.", "contract", "Review first local contract")
 	if not paid_fit:
-		return _card("Put paid work into a useful fitting", "Compare a fuel-saving engine or better protection. Pay the yard only after leaving money and stores for the next departure.", "fit", "Review a paid fitting")
+		return _card("Put paid work into a useful fitting", "Compare light armor, keep your current equipment or inspect a different fitting. Leave money and stores for the next departure.", "fit", "Review a paid fitting")
 	return _card("Choose a different next voyage", "Protect loaded carriers, deliver freight, survey an island or follow Common Passage. Choose the work before buying more equipment.", "choose", "Choose next work")

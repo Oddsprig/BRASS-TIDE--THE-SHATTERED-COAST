@@ -87,13 +87,13 @@ static func _next120(ui, step: Dictionary) -> void:
 		"ocean": ui.open_ocean064()
 		_: choose_work120(ui)
 
-static func open_first_fit120(ui, focus: String = "economy") -> void:
+static func open_first_fit120(ui, focus: String = "armor") -> void:
 	if ui.host.mode != "campaign": return
 	# Viewing a yard never joins a pending economy job or buys anything.
 	var c = ui.host.core
 	var plan: Dictionary = Guidance.first_fit120(c, focus)
 	ui.modal_kind = "first_fit120"
-	var body = ui.modal("Reinvest in your boat", "PAID FITTING - MONEY KEPT FOR CREW AND STORES", 960, 700)
+	var body = ui.modal("Compare boat fittings", "HULL PROTECTION · FUEL USE · OPERATING RESERVE", 960, 700)
 	body.add_theme_constant_override("separation", 7)
 	ui.label(body, str(plan.get("title", "Harbor fitting")), 24, ui.GOLD, true)
 	ui.paragraph(body, str(plan.get("purpose", "Return to a Shatter Coast harbor to inspect a fitting.")), 16)
@@ -113,7 +113,7 @@ static func open_first_fit120(ui, focus: String = "economy") -> void:
 	var more = _actions(body)
 	ui.button(more, "All fittings", func(): ui.open_refit(str(c.state.get("flagship", ""))) if not c.current_port().is_empty() else ui.open_fleet(), false, false)
 	ui.button(more, "Paid repairs and supplies", func(): ui.open_port("Crew & repairs") if not c.current_port().is_empty() else ui.open_cargo(), false, false)
-	ui.button(more, "Choose next work", func(): choose_work120(ui), false, false)
+	ui.button(more, "Keep current fitting / choose work", func(): choose_work120(ui), false, false)
 	ui.button(more, "Close", ui.close_modal, false, false)
 	if plan.has("quote"):
 		var details = _details120(ui, body, "Materials, wages and reserve details")
