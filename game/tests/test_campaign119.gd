@@ -127,7 +127,7 @@ class Preview extends "res://scripts/main.gd":
 		if not check(int(core.Arc119.view(core).refundDue)==due and core.Arc119.settle_refund(core).get("ok",false) and int(core.state.coins)==int(before.captain)+due and int(core.port(core.Arc119.FROM).governmentPurse)==int(before.sourceGov)-due and int(core.port(core.Arc119.FROM).cash)==int(before.supplierCash) and conserved(),"Actual observed fee remains repayable after done; spent invoice stays spent"):return false
 		before=balances()
 		if not check(core.Arc119.settle_refund(core).get("ok",false) and P117.same_value(balances(),before) and not chosen("finish_unsettled119"),"Completed repayment and final choice cannot pay or finish twice"):return false
-		if not check(core.chart_course(core.port("brass_haven"),"brass_haven").get("ok",false) and advance(0.5) and core.Arc119.record(core).get("done",false),"Ordinary native chart and step remain usable after the ending"):return false
+		if not check(core.chart_course(core.port("anvil_dock"),"anvil_dock").get("ok",false) and advance(0.5) and core.Arc119.record(core).get("done",false),"Ordinary native chart and step remain usable after the ending"):return false
 		await capture("ending.png")
 		return save_ending("Unsettled Coast")
 
