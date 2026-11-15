@@ -173,7 +173,28 @@ class Preview extends "res://scripts/main.gd":
 		q=core.Arc119.quote(core);proof.retry_quote=q.duplicate(true)
 		if not check(q.get("ok",false) and core.Arc119.accept(core,q).get("ok",false) and core.Arc119.work(core).attempts.size()==2 and conserved(),"Real availability permits one fresh funded retry after closed repayment"):return false
 		await capture("passage.png")
+		if not OS.get_environment("CAMPAIGN_RESUME_SAVE").is_empty():return await resume_paid_route()
 		return await paid_route()
+
+	func resume_paid_route() -> bool:
+		branch="source-matched-paid-resume"
+		var path: String=OS.get_environment("CAMPAIGN_RESUME_SAVE")
+		var digest: String=OS.get_environment("CAMPAIGN_RESUME_SHA")
+		if not check(digest.length()==64 and FileAccess.file_exists(path) and FileAccess.get_sha256(path)==digest,"Exact source-matched actual paid checkpoint is read by SHA256"):return false
+		proof.declarations.append("Independent full checkpoint resume of the actual measured paid voyage from job998b1961bdf148fe9cca02120d9115ab; current fresh financial branch is not combined with its movements or money. No position, cargo, actor, history or purse is injected.")
+		if not check(restore_value(JSON.parse_string(FileAccess.get_file_as_string(path))),"Actual partial voyage restores through every native save validator"):return false
+		measured=true
+		var a: Dictionary=core.Arc119.attempt(core)
+		var parts: PackedStringArray=str(core.state.destination).split(":")
+		if not check(a.get("status")=="paid" and a.binding.good==core.Arc119.GOOD and a.funding.model=="separate" and a.travel.outbound.size()==2 and a.travel.returning.size()==1 and a.travel.returnDay==-1 and parts.size()==3 and parts[0]=="approach" and parts[1]=="shatter_coast" and core.state.world064.layer=="ocean" and conserved(),"Retained actual purchase, original crossing, paid delivery and partial return remain bound"):return false
+		proof.resumed_checkpoint={"sha256":digest,"source_job":"998b1961bdf148fe9cca02120d9115ab","location":core.world_location064(),"attempt":a.duplicate(true)}
+		if not sail(core.approach_course064("shatter_coast",parts[2]),"continued actual saved Open Seas return"):return false
+		if not check(core.transition064("shatter_coast",parts[2]).get("ok",false),"Actual resumed return transition enters Shatter Coast"):return false
+		if not sail(harbor_course("brass_haven"),"actual resumed Brass return"):return false
+		if not check(core.work_port070().get("id","")=="brass_haven" and core.Arc119.attempt(core).travel.returnDay>=0 and chosen("report_many119") and chosen("finish_many119") and core.Arc119.outcome(core.state).get("title","")=="Many Harbors","Actual resumed paid voyage reaches Brass and completes its real final choices"):return false
+		proof.paid_route=true;proof.paid_attempt=core.Arc119.attempt(core).duplicate(true)
+		await capture("ending.png")
+		return save_ending("Many Harbors")
 
 	func paid_route() -> bool:
 		var pairs: Array=core.VoyageJobs.WorkRegion070._gate_pairs(core.ocean_context064,core.world_location064(),core.port(core.Arc119.TO),core.port(core.Arc119.FROM))
