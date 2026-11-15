@@ -19,3 +19,5 @@ Independent review fixes: explicit ended-passage reports preserve unknown boats 
 112 native first-voyage compatibility repair: missing patrol voyageSeq means0, matching EscortOps and restore. Third batch631b53dd76e04a61a3c35b03713e13cd failed its docking observer after real sale/dock because chapter112 incorrectly treated absent sequence as-1. Repair uses native0 convention and verifies same_passage before/after real restore. Retained first3failures; candidate not accepted.
 
 Final112copy/model reconciliation: Wren attributes the protection claim to Venn rather than declaring unproved aid; wages and fuel do not assert unsupported damage. Owner switched completed Carbon reviewer to Sol6.1MAX. Independent Sol copy/source reviews passed; runtime remains pending the shared operator pause ending06:44:03UTC.
+
+Final independent Sol6.1MAX review verified the native stopped-route case: same_passage excludes holding. Added a reversible private holding-marker guard probe, with no movement/outcome/resource claim. Whole runtime remains unrun until the shared pause ends06:44:03UTC.

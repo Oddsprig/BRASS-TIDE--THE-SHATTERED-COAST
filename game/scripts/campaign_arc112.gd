@@ -52,7 +52,7 @@ static func same_passage(c) -> bool:
 	var w: Dictionary=work(c)
 	if w.is_empty() or not c.home_local064():return false
 	var p: Dictionary=c.NavalAI._find_patrol(c.state,str(w.ownerId))
-	return not p.is_empty() and p.get("active",false) and int(p.get("voyageSeq",0))==int(w.voyageSeq) and str(p.get("from",""))=="kelp_reach" and str(p.get("to",""))==str(w.targetPort)
+	return not p.is_empty() and p.get("active",false) and not p.get("holding",false) and int(p.get("voyageSeq",0))==int(w.voyageSeq) and str(p.get("from",""))=="kelp_reach" and str(p.get("to",""))==str(w.targetPort)
 
 static func after_job(c,before: Dictionary,result: Dictionary,abandon: bool) -> void:
 	var w: Dictionary=work(c)

@@ -330,6 +330,15 @@ class Preview extends "res://scripts/main.gd":
 			"Active binding and native escrow survive detached JSON and full native restore"):
 			return
 
+		var stopped_probe: Dictionary = patrol112()
+		var original_holding: bool = bool(stopped_probe.get("holding", false))
+		stopped_probe.holding = true
+		var stopped_route_refused: bool = not core.Arc112.same_passage(core)
+		stopped_probe.holding = original_holding
+		if not verify112(stopped_route_refused and core.Arc112.same_passage(core) and conserved112(),
+			"Stopped-route marker is not a continuing passage; the private guard probe restores its original state"):
+			return
+
 		if not verify112(not core.StoryOps.choose(core, core.Arc110.ID, "report_withdrawal112").get("ok", false),
 			"Active unconfirmed passage cannot be reported as completed"):
 			return
