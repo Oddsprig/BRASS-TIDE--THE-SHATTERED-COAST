@@ -3,9 +3,11 @@ extends RefCounted
 const Roles=preload("res://scripts/tactical_role_plans.gd")
 const Stations=preload("res://scripts/tactical_stations.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
-const SAMPLE_SECONDS: float=0.15
-const BATCH_SECONDS: float=0.10
+const SAMPLE_SECONDS: float=0.30
+const BATCH_SECONDS: float=0.20
 const CHOICE_SECONDS: float=0.45
+const URGENT_SECONDS120: float=0.10
+const URGENT_MEMBERS120: int=4
 
 # Detached schema work only. This object grants no live goal authority; Runtime
 # may reuse it only after admitting the exact completed+joined encounter slot.
@@ -65,10 +67,13 @@ static func plan051(data: Dictionary) -> Dictionary:
 	# This preparation is local to ONE copied SIDE job, never a live borrow.
 	view._observation051=Roles._prepare_observation051(view,context)
 	var private_state: Dictionary={"time":view.time,"tactical":{"routeCache":data.cache}}
-	var reservations: Dictionary={}
+	# Urgent subsets keep non-due allies' detached, unexpired claims at their
+	# ORIGINAL times. Routine full-SIDE jobs supply no retained claims.
+	var reservations: Dictionary=data.memory.get("reservations",{}).duplicate(true)
+	for id: String in data.order:reservations.erase(id)
 	var goals: Dictionary={}
-	# All automated side members are sampled together. Prior reservations for
-	# those same members cannot veto their replacements or reserve old stations.
+	# Due members' old claims are excluded by dispatch; they cannot veto their
+	# replacements. Every due member still receives a real full policy search.
 	for id: String in data.order:
 		var ship: Dictionary=context[id]
 		var previous: Dictionary=data.memory.byId.get(id,{})

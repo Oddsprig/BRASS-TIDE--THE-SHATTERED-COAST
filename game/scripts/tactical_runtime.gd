@@ -195,6 +195,7 @@ static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -
 			_remember_goal_capability051(st,ship,held,frame_cache)
 	if not reason.is_empty():
 		_drop_goal051(t,id,not expired)
+		if not expired and is_same(t.ships.get(id),ship):_request_goal120(t,id)
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]=reason
 		return {}
@@ -202,6 +203,13 @@ static func _goal_current051(st: Dictionary,ship: Dictionary,frame_cache=null) -
 
 static func _fleet_goals051(t: Dictionary) -> bool:
 	return bool(t.get("workers051",{}).get("fleetGoals051",false))
+
+static func _request_goal120(t: Dictionary,id: String) -> void:
+	# Scheduling only. Existing command/capability/owner checks still revoke
+	# unsafe authority immediately, even while both real worker seats are busy.
+	if not _fleet_goals051(t) or not t.ships.has(id):return
+	if not t.workers051.has("urgentGoals120"):t.workers051.urgentGoals120={}
+	t.workers051.urgentGoals120[id]=int(t.goalRevisions051.get(id,0))
 
 static func _goal_capability_entry051(st: Dictionary,ship: Dictionary,frame_cache) -> Dictionary:
 	# Reuse the numeric epoch's existing encounter/phase admission. No new
@@ -382,7 +390,8 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 	if required.size()>6:return false
 	for target_id: String in required:
 		var target: Dictionary=t.ships.get(target_id,{})
-		if not is_same(target,slot.owners.get(target_id)) or not Roles.active(target) or (str(target.team)==str(ship.team))!=bool(required[target_id]):return false
+		if not is_same(target,slot.owners.get(target_id)) or not Roles.active(target) or (str(target.team)==str(ship.team))!=bool(required[target_id]):
+			_request_goal120(t,id);return false
 		if not Routes.point(target).is_finite() or not Vector2(target.vx,target.vy).is_finite() or not is_finite(float(target.angle)):return false
 		owners[target_id]={"owner":target,"team":str(target.team),"uid":str(target.get("uid",""))}
 	if not candidate.is_empty():
@@ -393,7 +402,8 @@ static func _publish_goal051(st: Dictionary,id: String,slot: Dictionary,frame_ca
 		if not order_candidate(order_view,ordered,candidate):return false
 	var actual: Array=_goal_capability051(st,id,frame_cache)
 	var heat: Vector2=Certification._heat_wear(ship,maxf(0.0,now-sample),float(guard.capability[1][2]))
-	if actual.is_empty() or actual[0]!=guard.capability[0] or Certification._live_capability_lost(actual[1],guard.capability[1],heat):return false
+	if actual.is_empty() or actual[0]!=guard.capability[0] or Certification._live_capability_lost(actual[1],guard.capability[1],heat):
+		_request_goal120(t,id);return false
 	_drop_goal051(t,id,false)
 	# Even a route-pending answer owns a real sampled observation. Its time is
 	# never replaced by adoption time and it cannot renew certification clocks.
@@ -538,6 +548,7 @@ static func accept_command(st: Dictionary,ship: Dictionary,order: String,target:
 	# independently in Boarding and are deliberately never recalled here.
 	ship.erase("boardingOrder")
 	_drop_retained051(t,id);t.pending[id]=float(st.time)
+	_request_goal120(t,id)
 	t.lastDecision[id]=-1.0;t.orderTimes[id]=float(st.time)
 	t.certificationAttempts[id]=-2.0
 	t.reasons[id]="Order received: "+order.capitalize()
@@ -553,6 +564,7 @@ static func control_changed(st: Dictionary) -> void:
 	var t: Dictionary=ensure(st)
 	var id: String=str(st.get("playerId",""))
 	_drop_retained051(t,id)
+	_request_goal120(t,id)
 	t.certificationAttempts[id]=-2.0
 	t.reasons[id]="Checking order after control change"
 
@@ -665,6 +677,7 @@ static func set_options(st: Dictionary,ids: Array,patch: Dictionary) -> bool:
 	for id in staged:
 		t.options.byId[id]=staged[id]
 		_drop_retained051(t,id);t.pending[id]=float(st.time)
+		_request_goal120(t,str(id))
 		t.reasons[id]="Tactical choices updated"
 	t.groups={1:[],2:[],3:[],4:[]}
 	for id in t.options.byId:
@@ -962,10 +975,12 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	# physical-certification queue. It cannot invent an unchecked escape path.
 	if danger and allowed and id!=str(t.manualId) and not bool(previous.get("withdraw",false)):
 		_drop_retained051(t,id);t.certificationAttempts[id]=-2.0
+		_request_goal120(t,id)
 		if not t.pending.has(id):t.pending[id]=now
 		t.reasons[id]="Fire or flooding danger; seeking a safe local rally"
 	elif (abrupt or discrete_equip) and id!=str(t.manualId):
 		_drop_retained051(t,id);t.certificationAttempts[id]=-2.0
+		_request_goal120(t,id)
 		if not t.pending.has(id):t.pending[id]=now
 
 static func _reserved_path(st: Dictionary,side: String,ship: Dictionary,candidate: Dictionary) -> String:
@@ -1110,6 +1125,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		if not str(t.manualId).is_empty():
 			t.certificationAttempts[t.manualId]=-2.0;t.lastDecision[t.manualId]=-1.0
 			_drop_retained051(t,str(t.manualId))
+			_request_goal120(t,str(t.manualId))
 		if not new_manual_id.is_empty():_drop_retained051(t,new_manual_id)
 		t.manualId=new_manual_id
 	for ship in t.ships.values():safety_check(st,ship,frame_cache)

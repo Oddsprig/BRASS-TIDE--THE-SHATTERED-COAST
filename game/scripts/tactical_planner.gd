@@ -354,6 +354,9 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 	var t: Dictionary=st.tactical
 	var w: Dictionary=t.workers051
 	var tally: Dictionary={"dispatches":0,"drops":0}
+	if not w.has("urgentGoals120"):w.urgentGoals120={}
+	for id: String in w.urgentGoals120.keys():
+		if not t.ships.has(id) or id==str(t.manualId):w.urgentGoals120.erase(id)
 	for slot: Dictionary in w.slots.values():
 		if float(st.time)<float(slot.createdAt) or float(st.time)-float(slot.createdAt)>Goals051.SAMPLE_SECONDS+0.000001 or str(slot.terrainKey)!=str(t.geometry.key) or int(slot.terrainRevision)!=int(t.geometry.revision):
 			tally.drops+=slot.remaining.size()
@@ -361,7 +364,10 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 	for side: String in ["player","enemy"]:
 		if _tasks051.size()>=MAX_TASKS051:break
 		var period: Dictionary=w.periods051.get(side,{})
-		if not period.is_empty() and float(st.time)<float(period.at)+Goals051.BATCH_SECONDS-0.000001:continue
+		var routine120: bool=period.is_empty() or float(st.time)>=float(period.at)+Goals051.BATCH_SECONDS-0.000001
+		# A due whole-SIDE review always wins. Coalesced urgent subsets can use
+		# the intervening 100ms slot, never postpone the routine 200ms deadline.
+		if not routine120 and float(st.time)<float(period.get("lastDispatch120",period.at))+Goals051.URGENT_SECONDS120-0.000001:continue
 		var occupied: bool=false
 		for slot: Dictionary in w.slots.values():
 			if str(slot.side)==side:occupied=true;break
@@ -374,18 +380,33 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 		var cursor: int=int(w.goalCursor051.get(side,0))%ids.size()
 		var fair: Dictionary={}
 		for index: int in range(ids.size()):fair[ids[index]]=(index-cursor+ids.size())%ids.size()
+		var side_count120: int=ids.size()
+		if not routine120:
+			ids=ids.filter(func(id: String) -> bool:return w.urgentGoals120.has(id))
+			if ids.is_empty():continue
 		# Pending/hazard/order actors receive the first finite route and clearance
-		# slices. One whole SIDE job owns ONE 2900-test/four-A* allowance per100ms.
+		# slices. Routine jobs keep 2900 tests/four A*. An urgent subset receives
+		# only its proportional share, rounded up, under those same finite caps.
 		ids.sort_custom(func(a: String,b: String) -> bool:
 			if t.pending.has(a)!=t.pending.has(b):return t.pending.has(a)
 			var aa: float=float(t.lastDecision.get(a,-1.0))
 			var bb: float=float(t.lastDecision.get(b,-1.0))
 			return aa<bb if aa!=bb else int(fair[a])<int(fair[b]))
+		if not routine120 and ids.size()>Goals051.URGENT_MEMBERS120:ids.resize(Goals051.URGENT_MEMBERS120)
 		var budgets: Dictionary={}
 		var guards: Dictionary={}
 		var memory: Dictionary={"byId":{},"reservations":{}}
-		var clearance: int=2900
-		var routes: int=4
+		var fraction120: float=1.0 if routine120 else float(ids.size())/float(side_count120)
+		var clearance: int=ceili(2900.0*fraction120)
+		var routes: int=ceili(4.0*fraction120)
+		if not routine120:
+			for peer: String in t.memory[side].reservations:
+				if peer in ids or not t.ships.has(peer) or not t.get("goals051",{}).has(peer) or str(t.ships[peer].team)!=side:continue
+				var claim: Dictionary=t.memory[side].reservations[peer]
+				var from120: float=float(claim.get("from",INF))
+				var until120: float=float(claim.get("until",-INF))
+				if not is_finite(from120) or not is_finite(until120) or from120>float(st.time) or until120<=float(st.time):continue
+				memory.reservations[peer]=claim.duplicate(true)
 		for index: int in range(ids.size()):
 			var id: String=ids[index]
 			var left: int=ids.size()-index
@@ -405,12 +426,17 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 		capsule.input={"fleetGoals051":true,"view":snapshot051,"memory":memory,"geometry":t.geometry.duplicate(true),"cache":cache,"order":ids.duplicate(),"budgets":budgets}
 		w.generation051+=1
 		var generation: int=int(w.generation051)
-		var slot: Dictionary={"fleetGoals051":true,"side":side,"generation051":generation,"periodAt051":float(st.time),"capsule":capsule,"guards":guards,"owners":t.ships.duplicate(),"remaining":ids,"createdAt":float(st.time),"snapshotRevision":int(t.snapshotRevision),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision),"joined":false,"retired":false,"adopted":[],"discarded":[],"taskId":-1}
+		var routine_at120: float=float(st.time) if routine120 else float(period.at)
+		var slot: Dictionary={"fleetGoals051":true,"side":side,"generation051":generation,"periodAt051":float(st.time),"urgentOnly120":not routine120,"routineAt120":routine_at120,"capsule":capsule,"guards":guards,"owners":t.ships.duplicate(),"remaining":ids,"createdAt":float(st.time),"snapshotRevision":int(t.snapshotRevision),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision),"joined":false,"retired":false,"adopted":[],"discarded":[],"taskId":-1}
 		slot.taskId=WorkerThreadPool.add_task(_work051.bind(capsule),false,"Brass Tide sampled fleet goals")
 		w.slots[generation]=slot
-		w.periods051[side]={"at":float(st.time),"dispatched051":true}
-		w.goalCursor051[side]=(cursor+mini(4,ids.size()))%ids.size()
-		for id: String in ids:w.members051[id]=generation
+		w.periods051[side]={"at":routine_at120,"lastDispatch120":float(st.time),"dispatched051":true}
+		w.goalCursor051[side]=(cursor+mini(4,ids.size()))%side_count120
+		for id: String in ids:
+			w.members051[id]=generation
+			# Consume only the revisions actually sent. A later event can enqueue
+			# this ID again in flight; completion/adoption never erases that entry.
+			w.urgentGoals120.erase(id)
 		_tasks051.append(slot)
 		tally.dispatches+=1
 	return tally
