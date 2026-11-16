@@ -100,7 +100,7 @@ func _init(initial: Dictionary) -> void:
 	_poses.current=_pose_table(_mirror);_poses.previous=_plain(_poses.current)
 	_published_at=Time.get_ticks_usec()
 	_thread=Thread.new()
-	var error: Error=_thread.start(_run_worker.bind(_mailbox,owned))
+	var error: Error=_thread.start(_run_worker.bind(_mailbox,owned),Thread.PRIORITY_HIGH)
 	if error!=OK:
 		_thread=null
 		Tactical.retire_planning051(owned)
