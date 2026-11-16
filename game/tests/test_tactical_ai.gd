@@ -1746,7 +1746,7 @@ func goals_fleet051() -> void:
 	var batch_times: Dictionary={}
 	for receipt: Dictionary in ready.joined.values():
 		var slot: Dictionary=receipt.slot
-		batch_times[str(slot.side)]={"at":float(slot.get("routineAt120",slot.createdAt)),"last":float(slot.createdAt),"generation":int(slot.generation051)}
+		batch_times[str(slot.side)]={"at":float(slot.get("routineAt120",slot.createdAt)),"last":float(slot.createdAt),"generation":int(slot.generation051),"next":float(slot.createdAt)+(Planner.Goals051.BATCH_SECONDS*0.5 if str(slot.side)=="enemy" else Planner.Goals051.BATCH_SECONDS)}
 	var worker_work: Array=[]
 	for tick: int in range(60):
 		var ammunition: Dictionary={}
@@ -1768,9 +1768,9 @@ func goals_fleet051() -> void:
 			var previous: Dictionary=batch_times.get(str(slot.side),{})
 			if not previous.is_empty() and int(previous.generation)==int(slot.generation051):continue
 			var urgent120: bool=bool(slot.get("urgentOnly120",false))
-			var boundary120: float=0.0 if previous.is_empty() else (float(previous.last)+Planner.Goals051.URGENT_SECONDS120 if urgent120 else float(previous.at)+Planner.Goals051.BATCH_SECONDS)
+			var boundary120: float=0.0 if previous.is_empty() else (float(previous.last)+Planner.Goals051.URGENT_SECONDS120 if urgent120 else float(previous.next))
 			check(previous.is_empty() or float(slot.createdAt)>=boundary120-0.000001,"SIDE output respects its configured routine deadline or extra-urgent gate")
-			batch_times[str(slot.side)]={"at":float(slot.get("routineAt120",slot.createdAt)),"last":float(slot.createdAt),"generation":int(slot.generation051)}
+			batch_times[str(slot.side)]={"at":float(slot.get("routineAt120",slot.createdAt)),"last":float(slot.createdAt),"generation":int(slot.generation051),"next":float(previous.next) if urgent120 else float(slot.createdAt)+Planner.Goals051.BATCH_SECONDS}
 			var spent: int=0;var allocated: int=0
 			for budget: Dictionary in slot.capsule.result.budgets.values():
 				spent+=int(budget.clearanceTests);allocated+=int(budget.clearanceLimit)

@@ -364,7 +364,8 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 	for side: String in ["player","enemy"]:
 		if _tasks051.size()>=MAX_TASKS051:break
 		var period: Dictionary=w.periods051.get(side,{})
-		var routine120: bool=period.is_empty() or float(st.time)>=float(period.at)+Goals051.BATCH_SECONDS-0.000001
+		var next_routine120: float=float(period.get("nextRoutine120",float(period.get("at",0.0))+Goals051.BATCH_SECONDS))
+		var routine120: bool=period.is_empty() or float(st.time)>=next_routine120-0.000001
 		# A due whole-SIDE review always wins. Coalesced urgent subsets can use
 		# the intervening 100ms slot, never postpone the routine 200ms deadline.
 		if not routine120 and float(st.time)<float(period.get("lastDispatch120",period.at))+Goals051.URGENT_SECONDS120-0.000001:continue
@@ -427,10 +428,14 @@ static func _dispatch_goals051(st: Dictionary, order: Array, build_view: Callabl
 		w.generation051+=1
 		var generation: int=int(w.generation051)
 		var routine_at120: float=float(st.time) if routine120 else float(period.at)
+		# Both initial SIDE jobs are immediate. One genuine early enemy review
+		# starts its offset at100ms; every later routine interval stays200ms.
+		# Urgent subsets keep this deadline and never renew sample/choice clocks.
+		if routine120:next_routine120=float(st.time)+(Goals051.BATCH_SECONDS*0.5 if side=="enemy" and period.is_empty() else Goals051.BATCH_SECONDS)
 		var slot: Dictionary={"fleetGoals051":true,"side":side,"generation051":generation,"periodAt051":float(st.time),"urgentOnly120":not routine120,"routineAt120":routine_at120,"capsule":capsule,"guards":guards,"owners":t.ships.duplicate(),"remaining":ids,"createdAt":float(st.time),"snapshotRevision":int(t.snapshotRevision),"terrainKey":str(t.geometry.key),"terrainRevision":int(t.geometry.revision),"joined":false,"retired":false,"adopted":[],"discarded":[],"taskId":-1}
 		slot.taskId=WorkerThreadPool.add_task(_work051.bind(capsule),false,"Brass Tide sampled fleet goals")
 		w.slots[generation]=slot
-		w.periods051[side]={"at":routine_at120,"lastDispatch120":float(st.time),"dispatched051":true}
+		w.periods051[side]={"at":routine_at120,"nextRoutine120":next_routine120,"lastDispatch120":float(st.time),"dispatched051":true}
 		w.goalCursor051[side]=(cursor+mini(4,ids.size()))%side_count120
 		for id: String in ids:
 			w.members051[id]=generation
