@@ -40,6 +40,7 @@ class _Job extends RefCounted:
 	var boot: bool=true
 	var retiring: bool=false
 	var publish: bool=false
+	var routine_due_us: int=0
 	var publication: Dictionary={}
 	var poses: Dictionary={}
 	var events: Array=[]
@@ -308,7 +309,8 @@ static func _run_worker(mail: _Mailbox,initial: Dictionary) -> Dictionary:
 		job.retiring=retiring and not runnable
 		# Large-fleet routine DISPLAY obeys a wall interval, even in catch-up.
 		# Physics never waits for that interval or Main to adopt a frame.
-		job.publish=job.retiring or not job.commands.is_empty() or (dirty and paused) or (observe_next_step and job.steps>0) or (per_step_display and job.steps>0) or ((dirty or job.steps>0) and Time.get_ticks_usec()-published_at>=DISPLAY_US)
+		job.routine_due_us=published_at+DISPLAY_US
+		job.publish=job.retiring or not job.commands.is_empty() or (dirty and paused) or (observe_next_step and job.steps>0) or (per_step_display and job.steps>0) or ((dirty or job.steps>0) and Time.get_ticks_usec()>=job.routine_due_us)
 		if job.steps==0 and job.commands.is_empty() and not job.publish and job.state.get("result")==null:
 			mail.mutex.lock();mail.busy=false;mail.mutex.unlock()
 			mail.wake.wait()
@@ -387,6 +389,9 @@ static func _work(job: _Job) -> void:
 	job.events=_plain(Battle.pop_events(st))
 	var snapshot_detail051: Dictionary={}
 	var snapshot_us: int=0
+	# A real step can reach the routine wall deadline after the admission check.
+	# Recheck before cloning, keeping every existing forced-publication path.
+	if steps_done>0 and job.routine_due_us>0 and Time.get_ticks_usec()>=job.routine_due_us:job.publish=true
 	if job.publish:
 		var snapshot_started: int=Time.get_ticks_usec()
 		job.publication=_snapshot(st,true,snapshot_detail051,job.retiring or st.get("result")!=null)
