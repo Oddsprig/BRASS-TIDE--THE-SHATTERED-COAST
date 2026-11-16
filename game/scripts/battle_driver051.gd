@@ -1,54 +1,68 @@
 extends RefCounted
-## Main owns this scheduler and its display. Only the in-flight job owns _state.
+## Main owns detached presentation and the mailbox; one Thread owns combat.
 const Battle=preload("res://scripts/battle.gd")
 const PlayerCommands=preload("res://scripts/battle_commands047.gd")
 const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Records=preload("res://scripts/equipment_records.gd")
 const STEP: float=1.0/30.0
-const MAX_STEPS_PER_JOB: int=4
+const DISPLAY_US: int=66667
 const PUBLIC_TACTICAL: Array=["snapshotRevision","terrainRevision","terrainKey","options","groups","intents","predictions","reasons","fireReasons","trace","counters","metrics","manualId","dt","failures"]
-# Acquired through _plain, then written only by numerical combat/objective/
-# boarding code. No Objects, Callables, Signals or RIDs may be added to these
-# public groups. Unknown state fields and legacy predictions stay sanitized.
 const PLAIN_STATE_GROUPS051: Array=["ships","reserves","projectiles","effects","wrecks","islands","mission","location","deployment","log","convoy","escapedShips","captured","convoyOutcome","coastalDefenses","boarding"]
 
+class _Mailbox extends RefCounted:
+	var mutex: Mutex=Mutex.new()
+	var wake: Semaphore=Semaphore.new()
+	var wake_pending: bool=false # At most ONE outstanding semaphore credit.
+	var elapsed: float=0.0
+	var input: Dictionary={}
+	var paused: bool=true
+	var commands: Array=[]
+	var accepting: bool=true
+	var retiring: bool=false
+	var busy: bool=false
+	var finished: bool=false
+	var remaining_debt: float=0.0
+	var actual_completed: int=0
+	var actual_time: float=0.0
+	var thread_id: int=-1
+	var packet: Dictionary={} # Replaceable DETACHED frame, never live state.
+	var events: Array=[] # Lossless queues, independent of frame coalescing.
+	var acknowledgements: Array=[]
+
 class _Job extends RefCounted:
+	# Worker-local kernel arguments; never given to Main or put in the mailbox.
 	var state: Dictionary={}
 	var commands: Array=[]
 	var input: Dictionary={}
 	var steps: int=0
 	var completed: int=0
-	var boot: bool=false
+	var boot: bool=true
 	var retiring: bool=false
+	var publish: bool=false
 	var publication: Dictionary={}
-	var events: Array=[]
 	var poses: Dictionary={}
+	var events: Array=[]
 	var receipt: Dictionary={}
 
-var _state: Dictionary={}
+var _mailbox: _Mailbox=_Mailbox.new()
+var _thread: Thread=null
 var _mirror: Dictionary={}
-var _commands: Array=[]
 var _events: Array=[]
-var _owners: Dictionary={} # Original campaign dictionaries; NEVER given to a job.
+var _owners: Dictionary={} # Original campaign records stay exclusively on Main.
 var _reserve_owners: Dictionary={}
 var _port_owners: Dictionary={}
 var _profile_flags: Dictionary={}
-var _job: _Job=null
-var _task: int=-1
 var _sequence: int=0
-var _boot: bool=true
 var _retired: bool=false
 var _claimed: bool=false
-var _debt: float=0.0
 var _desired_time: float=0.0
 var _published_at: int=0
+var _presentation_span: float=STEP
 var _poses: Dictionary={"previous":{},"current":{}}
 var _telemetry: Dictionary={"workerStepHz":30,"workerThreadId":-1,"completedSteps":0,"stateTime":0.0,"workerJobUs":0,"simulationUs":0,"snapshotUs":0,"stepsInJob":0,"mainPollUs":0,"simulationLagSeconds":0.0,"jobsCompleted":0,"lastCommandSequence":0,"commandResults":[],"totalWorkerJobUs":0,"totalSimulationUs":0,"totalSnapshotUs":0,"lastSimulationJobUs":0,"lastSimulationUs":0,"lastSimulationSnapshotUs":0}
 
 func _init(initial: Dictionary) -> void:
-	# Acquire only at a Main-owned encounter boundary. Never clone phase/goal/RNG
-	# Objects through duplicate(true): those objects would still alias live state.
 	if not Tactical.claim_battle_worker051():
 		_retired=true
 		_mirror={"startError":"Another battle driver still owns the simulation.","result":"lost","ships":[],"projectiles":[],"effects":[],"wrecks":[],"islands":[],"time":0.0}
@@ -66,42 +80,52 @@ func _init(initial: Dictionary) -> void:
 	for fort: Dictionary in initial.get("coastalDefenses",[]):
 		var port: Dictionary=fort.get("port",{})
 		if not port.is_empty():_port_owners[str(port.get("id",""))]=port
+	var owned: Dictionary={}
 	for key in initial:
 		if key in ["tactical","rng","_damageOwned051","_battleDriver051","_battleMirror051"]:continue
-		if not initial[key] is Object:_state[key]=_plain(initial[key])
+		if not initial[key] is Object:owned[key]=_plain(initial[key])
 	var random: RandomNumberGenerator=RandomNumberGenerator.new()
 	if initial.get("rng") is RandomNumberGenerator:
 		random.seed=initial.rng.seed;random.state=initial.rng.state
-	_state.rng=random # New RNG; exclusive worker ownership after construction.
-	_relink_ship_aliases(_state)
-	var t: Dictionary=Tactical.ensure(_state)
+	owned.rng=random
+	_relink_ship_aliases(owned)
+	var t: Dictionary=Tactical.ensure(owned)
 	for key in ["options","groups","home","orderTimes"]:
 		if initial.get("tactical",{}).has(key):t[key]=_plain(initial.tactical[key])
-	_desired_time=float(_state.get("time",0.0))
+	_desired_time=float(owned.get("time",0.0))
 	_telemetry.stateTime=_desired_time
-	# Before submission Main still owns the detached state. This one initial
-	# display copy performs no update and contains no mutable authoritative refs.
-	_mirror=_snapshot(_state,false)
+	_mailbox.actual_time=_desired_time
+	# The sole initial acquisition snapshot precedes Thread ownership.
+	_mirror=_snapshot(owned,false)
 	_poses.current=_pose_table(_mirror);_poses.previous=_plain(_poses.current)
 	_published_at=Time.get_ticks_usec()
+	_thread=Thread.new()
+	var error: Error=_thread.start(_run_worker.bind(_mailbox,owned))
+	if error!=OK:
+		_thread=null
+		Tactical.retire_planning051(owned)
+		Battle._close_damage_owned051(owned)
+		_retired=true
+		_mirror.startError="The battle worker could not start."
+		_mirror.result="lost"
+		_release_owner()
+	owned={} # Main NEVER retains the authoritative state after successful start.
 	_attach_mirror()
 
 func advance(delta: float,input: Dictionary={},paused: bool=false) -> Dictionary:
 	var started: int=Time.get_ticks_usec()
 	if not _retired:
 		_poll()
-		if not paused and _mirror.get("result")==null:
-			var elapsed: float=maxf(0.0,Damage.number(delta))
-			_debt+=elapsed;_desired_time+=elapsed
-		if _task<0 and _mirror.get("result")==null:
-			var steps: int=mini(MAX_STEPS_PER_JOB,int(floor((_debt+0.000000001)/STEP))) if not paused else 0
-			# Publish real queued-command results after at most one next step.
-			# Debit ONLY that step: every remaining second stays in _debt and the
-			# unchanged desired-time lag clock. No in-flight owner is interrupted.
-			if not _commands.is_empty():steps=mini(steps,1)
-			if steps>0 or not _commands.is_empty():
-				_debt=maxf(0.0,_debt-float(steps)*STEP)
-				_submit(steps,input,false)
+		var detached_input: Dictionary=_plain(input)
+		_mailbox.mutex.lock()
+		if _mailbox.accepting:
+			_mailbox.input=detached_input
+			_mailbox.paused=paused
+			if not paused:
+				var elapsed: float=maxf(0.0,Damage.number(delta))
+				_mailbox.elapsed+=elapsed;_desired_time+=elapsed
+			_notify_locked(_mailbox)
+		_mailbox.mutex.unlock()
 	_telemetry.mainPollUs=Time.get_ticks_usec()-started
 	_attach_mirror()
 	return _mirror
@@ -110,8 +134,14 @@ func queue_command(kind: String,payload: Dictionary={}) -> bool:
 	if _retired or _mirror.get("result")!=null:return false
 	if kind not in ["flagship","autopilot","order","fleet_order","options","retreat","crew_policy","repair_priority","player_command","boarding_auto","boarding_order","boarding_abort","lab_refill"]:return false
 	if not _is_plain(payload):return false
+	var detached: Dictionary=_plain(payload)
+	_mailbox.mutex.lock()
+	if not _mailbox.accepting:
+		_mailbox.mutex.unlock();return false
 	_sequence+=1
-	_commands.append({"sequence":_sequence,"kind":kind,"payload":_plain(payload)})
+	_mailbox.commands.append({"sequence":_sequence,"kind":kind,"payload":detached})
+	_notify_locked(_mailbox)
+	_mailbox.mutex.unlock()
 	return true
 
 func take_events() -> Array:
@@ -122,35 +152,66 @@ func take_events() -> Array:
 func telemetry() -> Dictionary:
 	var result: Dictionary=_telemetry.duplicate(true)
 	result.simulationLagSeconds=maxf(0.0,_desired_time-float(result.stateTime))
-	result.inFlight=_task>=0
+	_mailbox.mutex.lock()
+	result.inFlight=_mailbox.busy or (not _mailbox.finished and not _mailbox.paused and _mailbox.remaining_debt+_mailbox.elapsed+0.000000001>=STEP) or not _mailbox.commands.is_empty()
+	result.actualCompletedSteps=_mailbox.actual_completed
+	result.actualStateTime=_mailbox.actual_time
+	result.remainingDebtSeconds=_mailbox.remaining_debt+_mailbox.elapsed
+	result.workerFinished=_mailbox.finished
+	result.workerThreadId=_mailbox.thread_id
+	_mailbox.mutex.unlock()
+	result.workerRunning=_thread!=null and _thread.is_alive()
+	result.workerJoined=_thread==null
 	result.retired=_retired
 	return result
 
 func presentation_fraction() -> float:
-	return clampf(float(Time.get_ticks_usec()-_published_at)/1000000.0/STEP,0.0,1.0)
+	if _presentation_span<=0.0:return 1.0
+	return clampf(float(Time.get_ticks_usec()-_published_at)/1000000.0/_presentation_span,0.0,1.0)
 
 func presentation_poses() -> Dictionary:
-	return _poses # Main-only detached tables, replaced after each joined job.
+	return _poses # Main-only tables; previous is the LAST ADOPTED display pose.
 
 func retire() -> Dictionary:
 	if _retired:return _mirror
-	# Teardown is the ONLY path which waits for unfinished authoritative work.
-	if _task>=0:
-		WorkerThreadPool.wait_for_task_completion(_task)
-		_adopt()
-	_submit(0,{},true)
-	WorkerThreadPool.wait_for_task_completion(_task)
-	_adopt()
-	# The authoritative worker may have been refused an older child-task join.
-	# Main joins retained handles before releasing ownership or campaign records.
-	Tactical.Planner._poll_tasks051(true)
+	_mailbox.mutex.lock()
+	_mailbox.accepting=false
+	_mailbox.retiring=true
+	_notify_locked(_mailbox) # Also wakes an idle or paused Thread.
+	_mailbox.mutex.unlock()
+	# Only teardown joins. Finish at most the ALREADY admitted step. Remaining
+	# debt is reported, never simulated offscreen or relabelled as completed time.
+	var final_state: Dictionary=_thread.wait_to_finish()
+	_thread=null
+	_poll()
+	Tactical.Planner._poll_tasks051(true) # Retained child handles, before release.
+	# A terminal packet may already have been exposed and edited on Main. Never
+	# restore campaign records FROM that packet or replace its ships in place.
+	# The joined state is now exclusively Main-owned; make a NEW full final copy.
+	var final_snapshot_started: int=Time.get_ticks_usec()
+	_mirror=_snapshot(final_state,true,{},true)
+	_telemetry.finalMainSnapshotUs=Time.get_ticks_usec()-final_snapshot_started
+	var final_poses: Dictionary=_pose_table(_mirror)
+	_poses={"previous":final_poses.duplicate(true),"current":final_poses}
+	_presentation_span=0.0
 	_retired=true
+	_release_owner()
+	_restore_campaign_owners()
+	var final_random: RandomNumberGenerator=RandomNumberGenerator.new()
+	if final_state.get("rng") is RandomNumberGenerator:
+		final_random.seed=final_state.rng.seed;final_random.state=final_state.rng.state
+	_mirror.rng=final_random
+	final_state={}
+	_attach_mirror()
+	return _mirror
+
+func _release_owner() -> void:
 	if _claimed:Tactical.release_battle_worker051();_claimed=false
 	Damage.set_runtime_profile043(bool(_profile_flags.get("damage",false)))
 	Records.set_runtime_profile043(bool(_profile_flags.get("records",false)))
 	Tactical.set_runtime_profile043(bool(_profile_flags.get("tactical",false)))
-	# Restore the original campaign owner identities only after exclusive worker
-	# ownership and all detached tactical children have ended.
+
+func _restore_campaign_owners() -> void:
 	for side in _mirror.get("reserves",{}):
 		var reserve: Array=_mirror.reserves[side]
 		var originals: Array=_reserve_owners.get(side,[])
@@ -167,55 +228,135 @@ func retire() -> Dictionary:
 		var port: Dictionary=fort.get("port",{})
 		var original: Dictionary=_port_owners.get(str(port.get("id","")),{})
 		if not original.is_empty():_sync_record(original,port);fort.port=original
-	# Boarding.settle requires its synchronous battle RNG even when no prizes
-	# exist. Reconstruct it on Main after ownership ends; never publish the worker
-	# RNG or share it with the display during active combat.
-	var final_random: RandomNumberGenerator=RandomNumberGenerator.new()
-	if _state.get("rng") is RandomNumberGenerator:
-		final_random.seed=_state.rng.seed;final_random.state=_state.rng.state
-	_mirror.rng=final_random
-	_state={}
-	_attach_mirror()
-	return _mirror
-
-func _submit(steps: int,input: Dictionary,retiring: bool) -> void:
-	var next: _Job=_Job.new()
-	next.state=_state;_state={} # Main retains no readable authoritative container.
-	next.steps=steps;next.input=_plain(input);next.commands=_commands;_commands=[]
-	next.completed=int(_telemetry.completedSteps);next.boot=_boot;_boot=false
-	next.retiring=retiring
-	_job=next
-	_task=WorkerThreadPool.add_task(_work.bind(next),false,"Brass Tide authoritative battle 30Hz")
 
 func _poll() -> void:
-	if _task<0 or not WorkerThreadPool.is_task_completed(_task):return
-	WorkerThreadPool.wait_for_task_completion(_task)
-	_adopt()
-
-func _adopt() -> void:
-	_state=_job.state
-	_mirror=_job.publication
-	_events.append_array(_job.events)
-	_poses=_job.poses
-	for key in _job.receipt:_telemetry[key]=_job.receipt[key]
-	_telemetry.jobsCompleted=int(_telemetry.jobsCompleted)+1
-	_telemetry.totalWorkerJobUs=int(_telemetry.totalWorkerJobUs)+int(_job.receipt.workerJobUs)
-	_telemetry.totalSimulationUs=int(_telemetry.totalSimulationUs)+int(_job.receipt.simulationUs)
-	_telemetry.totalSnapshotUs=int(_telemetry.totalSnapshotUs)+int(_job.receipt.snapshotUs)
-	if int(_job.receipt.stepsInJob)>0:
-		_telemetry.lastSimulationJobUs=int(_job.receipt.workerJobUs)
-		_telemetry.lastSimulationUs=int(_job.receipt.simulationUs)
-		_telemetry.lastSimulationSnapshotUs=int(_job.receipt.snapshotUs)
-	_published_at=Time.get_ticks_usec()
-	_task=-1;_job=null
+	_mailbox.mutex.lock()
+	var packet: Dictionary=_mailbox.packet;_mailbox.packet={}
+	var feedback: Array=_mailbox.events;_mailbox.events=[]
+	var acknowledgements: Array=_mailbox.acknowledgements;_mailbox.acknowledgements=[]
+	_mailbox.mutex.unlock()
+	_events.append_array(feedback)
+	if not acknowledgements.is_empty():
+		_telemetry.commandResults=acknowledgements
+		_telemetry.lastCommandSequence=int(acknowledgements[-1].sequence)
+	if packet.is_empty():return
+	var receipt: Dictionary=packet.receipt
+	var added: int=int(receipt.completedSteps)-int(_telemetry.completedSteps)
+	var worker_us: int=int(receipt.totalWorkerJobUs)-int(_telemetry.totalWorkerJobUs)
+	var simulation_us: int=int(receipt.totalSimulationUs)-int(_telemetry.totalSimulationUs)
+	var snapshot_us: int=int(receipt.totalSnapshotUs)-int(_telemetry.totalSnapshotUs)
+	var prior: Dictionary=_poses.current
+	var span: float=float(packet.display.time)-float(_mirror.get("time",0.0))
+	_mirror=packet.display
+	if span>0.000000001:
+		var previous: Dictionary={}
+		for id in packet.poses:previous[id]=prior.get(id,packet.poses[id])
+		_poses={"previous":previous,"current":packet.poses}
+		_presentation_span=span
+		_published_at=Time.get_ticks_usec()
+	elif _mirror.get("result")!=null:
+		_poses={"previous":packet.poses.duplicate(true),"current":packet.poses}
+		_presentation_span=0.0
+	# A same-time command frame keeps the existing in-progress interpolation.
+	for key in receipt:_telemetry[key]=receipt[key]
+	_telemetry.stepsInJob=added
+	_telemetry.workerJobUs=worker_us
+	_telemetry.simulationUs=simulation_us
+	_telemetry.snapshotUs=snapshot_us
+	if added>0:
+		_telemetry.lastSimulationJobUs=worker_us
+		_telemetry.lastSimulationUs=simulation_us
+		_telemetry.lastSimulationSnapshotUs=snapshot_us
 
 func _attach_mirror() -> void:
 	_mirror._battleMirror051=true
 	_mirror._battleDriver051=weakref(self)
 	_mirror.simulation051=telemetry()
 
+static func _notify_locked(mail: _Mailbox) -> void:
+	# Caller holds mutex. Credits stay coalesced while the Thread is running;
+	# only the waiter clears this flag AFTER consuming the one existing credit.
+	if not mail.wake_pending:
+		mail.wake_pending=true
+		mail.wake.post()
+
+static func _run_worker(mail: _Mailbox,initial: Dictionary) -> Dictionary:
+	var job: _Job=_Job.new();job.state=initial;initial={}
+	# Chart interpolates hulls/turrets, but projectile/FX packets are direct.
+	# Preserve their per-real-step cadence in cheap encounters. This fixed
+	# publication budget NEVER changes actor participation or physical stepping.
+	var per_step_display: bool=job.state.get("ships",[]).size()<=6
+	var debt: float=0.0
+	var dirty: bool=false
+	var observe_next_step: bool=false
+	var published_at: int=Time.get_ticks_usec()
+	var totals: Dictionary={"completedSteps":0,"stateTime":float(job.state.get("time",0.0)),"totalWorkerJobUs":0,"totalSimulationUs":0,"totalSnapshotUs":0,"jobsCompleted":0,"workerTurns":0,"workerStepHz":30,"workerThreadId":OS.get_thread_caller_id(),"displayBudgetHz":30 if per_step_display else 15}
+	var feedback: Array=[]
+	var acknowledgements: Array=[]
+	mail.mutex.lock();mail.thread_id=OS.get_thread_caller_id();mail.mutex.unlock()
+	while true:
+		mail.mutex.lock()
+		debt+=mail.elapsed;mail.elapsed=0.0
+		var paused: bool=mail.paused
+		var retiring: bool=mail.retiring
+		job.input=mail.input
+		job.commands=mail.commands;mail.commands=[]
+		mail.remaining_debt=debt
+		mail.mutex.unlock()
+		var runnable: bool=not retiring and not paused and debt+0.000000001>=STEP and job.state.get("result")==null
+		job.steps=1 if runnable else 0
+		job.retiring=retiring and not runnable
+		# Large-fleet routine DISPLAY obeys a wall interval, even in catch-up.
+		# Physics never waits for that interval or Main to adopt a frame.
+		job.publish=job.retiring or not job.commands.is_empty() or (dirty and paused) or (observe_next_step and job.steps>0) or (per_step_display and job.steps>0) or ((dirty or job.steps>0) and Time.get_ticks_usec()-published_at>=DISPLAY_US)
+		if job.steps==0 and job.commands.is_empty() and not job.publish and job.state.get("result")==null:
+			mail.mutex.lock();mail.busy=false;mail.mutex.unlock()
+			mail.wake.wait()
+			mail.mutex.lock();mail.wake_pending=false;mail.mutex.unlock()
+			continue # No CPU work or simulation time is charged for waiting.
+		mail.mutex.lock();mail.busy=true;mail.mutex.unlock()
+		var started: int=Time.get_ticks_usec()
+		_work(job)
+		debt=maxf(0.0,debt-float(job.receipt.stepsInJob)*STEP)
+		dirty=dirty or int(job.receipt.stepsInJob)>0 or not job.receipt.commandResults.is_empty()
+		if int(job.receipt.stepsInJob)>0:observe_next_step=false
+		if not job.receipt.commandResults.is_empty() and int(job.receipt.stepsInJob)==0:observe_next_step=true
+		feedback.append_array(job.events)
+		acknowledgements.append_array(job.receipt.commandResults)
+		var finished: bool=job.retiring or job.state.get("result")!=null
+		if finished:
+			# Close ingress before the final transfer. Commands admitted while the
+			# terminal step ran still get their own FIFO declined receipts.
+			mail.mutex.lock()
+			mail.accepting=false
+			var tail: Array=mail.commands;mail.commands=[]
+			debt+=mail.elapsed;mail.elapsed=0.0
+			mail.mutex.unlock()
+			for command: Dictionary in tail:
+				var result: Dictionary=_plain(_command_result(job.state,str(command.kind),command.payload))
+				result.sequence=command.sequence;result.kind=command.kind
+				acknowledgements.append(result)
+		totals.completedSteps=job.completed;totals.stateTime=float(job.state.get("time",0.0))
+		totals.totalWorkerJobUs=int(totals.totalWorkerJobUs)+Time.get_ticks_usec()-started
+		totals.totalSimulationUs=int(totals.totalSimulationUs)+int(job.receipt.simulationUs)
+		totals.totalSnapshotUs=int(totals.totalSnapshotUs)+int(job.receipt.snapshotUs)
+		totals.workerTurns=int(totals.workerTurns)+1
+		mail.mutex.lock()
+		mail.actual_completed=job.completed;mail.actual_time=float(job.state.get("time",0.0));mail.remaining_debt=debt
+		if job.publish:
+			totals.jobsCompleted=int(totals.jobsCompleted)+1
+			totals.snapshotDetailUs=job.receipt.snapshotDetailUs
+			mail.packet={"display":job.publication,"poses":job.poses,"receipt":totals.duplicate(true)}
+			mail.events.append_array(feedback);feedback=[]
+			mail.acknowledgements.append_array(acknowledgements);acknowledgements=[]
+			dirty=false;published_at=Time.get_ticks_usec()
+		mail.busy=false
+		mail.finished=finished
+		mail.mutex.unlock()
+		if finished:return job.state # Main may read only AFTER wait_to_finish().
+	return {}
+
 static func _work(job: _Job) -> void:
-	var started: int=Time.get_ticks_usec()
 	var st: Dictionary=job.state
 	if job.boot:
 		var t: Dictionary=Tactical.ensure(st)
@@ -225,34 +366,34 @@ static func _work(job: _Job) -> void:
 			if not ship.get("sunk",false) and not ship.get("captureSecured",false):t.ships[str(ship.id)]=ship
 		st._damageOwned051=Damage._create_battle_owned051(st.ships,t.damageCache)
 		Tactical.enable_planning051(st,true)
+		job.boot=false
 	var acknowledgements: Array=[]
 	for command: Dictionary in job.commands:
-		var acknowledgement: Dictionary=_command_result(st,str(command.kind),command.payload)
+		var acknowledgement: Dictionary=_plain(_command_result(st,str(command.kind),command.payload))
 		acknowledgement.sequence=command.sequence;acknowledgement.kind=command.kind
 		acknowledgements.append(acknowledgement)
-	var previous: Dictionary=_pose_table(st)
 	var steps_done: int=0
 	var simulation_started: int=Time.get_ticks_usec()
 	for index in range(job.steps):
 		if st.get("result")!=null:break
-		# The initial table already describes the first step's starting pose.
-		if index>0:previous=_pose_table(st)
 		Battle.update(st,STEP,job.input)
 		steps_done+=1
 	var simulation_us: int=Time.get_ticks_usec()-simulation_started
 	if job.retiring or st.get("result")!=null:
 		Tactical.retire_planning051(st)
-		Tactical.Planner._poll_tasks051(true) # Owned teardown, including retired slots.
+		Tactical.Planner._poll_tasks051(true)
 		Battle._close_damage_owned051(st)
-	var snapshot_started: int=Time.get_ticks_usec()
+		job.publish=true
 	job.events=_plain(Battle.pop_events(st))
 	var snapshot_detail051: Dictionary={}
-	job.publication=_snapshot(st,true,snapshot_detail051,job.retiring or st.get("result")!=null)
-	job.poses={"previous":previous,"current":_pose_table(st)}
-	var snapshot_us: int=Time.get_ticks_usec()-snapshot_started
+	var snapshot_us: int=0
+	if job.publish:
+		var snapshot_started: int=Time.get_ticks_usec()
+		job.publication=_snapshot(st,true,snapshot_detail051,job.retiring or st.get("result")!=null)
+		job.poses=_pose_table(st)
+		snapshot_us=Time.get_ticks_usec()-snapshot_started
 	job.completed+=steps_done
-	job.receipt={"workerStepHz":30,"workerThreadId":OS.get_thread_caller_id(),"completedSteps":job.completed,"stateTime":float(st.get("time",0.0)),"workerJobUs":Time.get_ticks_usec()-started,"simulationUs":simulation_us,"snapshotUs":snapshot_us,"snapshotDetailUs":snapshot_detail051,"stepsInJob":steps_done,"commandResults":acknowledgements}
-	if not acknowledgements.is_empty():job.receipt.lastCommandSequence=int(acknowledgements[-1].sequence)
+	job.receipt={"simulationUs":simulation_us,"snapshotUs":snapshot_us,"snapshotDetailUs":snapshot_detail051,"stepsInJob":steps_done,"commandResults":acknowledgements}
 	job.commands=[];job.input={}
 
 static func _command_result(st: Dictionary,kind: String,p: Dictionary) -> Dictionary:
@@ -482,3 +623,4 @@ static func _sync_record(destination: Dictionary,source: Dictionary) -> void:
 				if values[index] is Dictionary and target[index] is Dictionary and not target[index].is_read_only():_sync_record(target[index],values[index])
 				else:target[index]=_plain(values[index])
 		else:destination[key]=_plain(source[key])
+
