@@ -1019,6 +1019,9 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	# planning/helm/motion/fire only read equipment. Contact and hits come later.
 	var checked_phase=Damage._begin_battle_phase043(frame_cache)
 	Damage._bind_battle_owned051(checked_phase,damage_owned,st.ships,frame_cache)
+	# Call-local references only. Tactical verifies the sealed exact-owner packet
+	# before borrowing; public/default begin still refreshes its own mounts.
+	var prepass_mounts120: Dictionary={}
 	# One complete prepass precedes either side's snapshot or helm. In particular
 	# the manual flagship never receives a second damage/cooldown decrement.
 	for s in st.ships:
@@ -1031,6 +1034,7 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 		ai_phases.damage+=Time.get_ticks_usec()-damage_started
 		var mount_started: int=Time.get_ticks_usec()
 		var cached_mounts: Array=_combat_mounts(st,s,checked_phase)
+		if prepass_mounts120.size()<Damage.OWNER_CACHE_LIMIT:prepass_mounts120[str(s.id)]=cached_mounts
 		var mount_us: int=Time.get_ticks_usec()-mount_started
 		ai_us+=mount_us;ai_phases.mounts+=mount_us
 		_tick_cooldowns(s,dt,cached_mounts)
@@ -1040,7 +1044,8 @@ static func update(st: Dictionary,dt: float,input: Dictionary = {}) -> Dictionar
 	# No condition/crew/policy writers until the phase closes before contacts.
 	# Planning workers receive detached data, never this synchronous phase handle.
 	Damage._seal_battle_reads051(checked_phase)
-	Tactical.begin(st,dt,input,checked_phase)
+	Tactical.begin(st,dt,input,checked_phase,prepass_mounts120)
+	prepass_mounts120.clear() # Nothing borrowed outlives this synchronous begin.
 	ai_phases.begin=Time.get_ticks_usec()-planning_started
 	var controls: Dictionary={}
 	var manual_id: String=str(st.tactical.manualId)

@@ -60,7 +60,7 @@ static var _runtime_profile043_counts: Dictionary={"beginCalls":0,"viewCalls":0,
 	"retainedAdmissions":0,"retainedDue":0,"fullDue":0,"retainedMissOwnerDeadline":0,"retainedMissConditions":0,"retainedMissTarget":0,"retainedMissCapability":0,"retainedMissOther":0,
 	"retainedDropTime":0,"retainedDropEvents":0,"retainedDropPhase":0,"retainedDropCompletion":0,"retainedDropBoarding":0,
 	"workerDispatches":0,"workerAdoptions":0,"workerDrops":0,"workerSyncFallbacks":0,
-	"certificationInputCalls":0,"certificationRefineCalls":0,"certificationAdoptCalls":0,"certificationReservedPathCalls":0,"workerFixedEndpointRejects051":0}
+	"certificationInputCalls":0,"certificationRefineCalls":0,"certificationAdoptCalls":0,"certificationReservedPathCalls":0,"workerFixedEndpointRejects051":0,"prepassMountBorrows120":0,"safetySummaryReuses120":0}
 
 static func set_runtime_profile043(enabled: bool) -> void:
 	_runtime_profile043_enabled=enabled
@@ -538,6 +538,41 @@ static func refresh_mounts(st: Dictionary,ship: Dictionary,frame_cache=null) -> 
 		entry._conditionKey051=entry.conditionKey;entry._conditionMounts051=entry.mounts
 	return entry.mounts
 
+static func _read_phase120(st: Dictionary,frame_cache):
+	# No admission, cache write or lifetime extension. This exact battle must
+	# still own the sealed phase; foreign/unsealed/closed callers read afresh.
+	if not frame_cache is Damage.BattlePhase043 or not frame_cache.active or not frame_cache.readsSealed051:return null
+	var cache: Dictionary=st.get("tactical",{}).get("damageCache",{})
+	var owned=Damage._battle_owned_for051(st.get("_damageOwned051"),st.get("ships",[]),cache)
+	return frame_cache if owned!=null and is_same(owned,frame_cache.owned) and is_same(cache,frame_cache.source) else null
+
+static func _sealed_condition_entry120(ship: Dictionary,phase) -> Dictionary:
+	if not phase is Damage.BattlePhase043 or not phase.active or not phase.readsSealed051 or not phase.owned is Damage.BattleOwned051 or not phase.owned.active:return {}
+	var slot: String=Damage._cache_slot_key(ship)
+	var entry: Dictionary=phase.sealedEntries051.get(slot,{})
+	if (entry.is_empty() or not is_same(phase.owned.entries.get(slot),entry) or not is_same(entry.get("shipRef"),ship)
+		or not bool(entry.get("valid",false)) or int(entry.infoGeneration)!=int(entry.generation)
+		or not is_same(entry.conditionRef,ship.get("moduleCondition")) or not ship.get("moduleCondition") is Dictionary
+		or not is_same(entry.itemsRef,ship.moduleCondition.get("items")) or not is_same(entry.specRef,ship.get("spec"))
+		or not is_same(entry.baseSpecRef,ship.get("baseSpec")) or not is_same(entry.loadoutRef,ship.get("loadout"))
+		or entry.identity[0]!=ship.get("id") or entry.identity[1]!=ship.get("uid") or entry.identity[2]!=ship.get("type")
+		or entry.priority!=ship.moduleCondition.get("repairPriority") or bool(ship.get("sunk",false))):return {}
+	if not entry.info.is_read_only() or str(entry.info.get("mode",""))!="canonical" or not entry.info.get("snapshot") is Dictionary or not entry.info.snapshot.is_read_only():return {}
+	return entry
+
+static func _prepass_mounts120(ship: Dictionary,mount_entry: Dictionary,phase,prepass: Dictionary):
+	# Only the very Array refreshed in Battle's prepass may be borrowed. Its
+	# immutable condition packet must STILL be the sealed current generation.
+	var condition: Dictionary=_sealed_condition_entry120(ship,phase)
+	if condition.is_empty():return null
+	var mounts: Variant=prepass.get(str(ship.get("id","")))
+	if (not mounts is Array or not is_same(mount_entry.get("_conditionOwner051"),ship)
+		or not is_same(mount_entry.get("_conditionInfo051"),condition.info)
+		or mount_entry.get("_conditionSunk051")!=bool(ship.get("sunk",false))
+		or mount_entry.get("_conditionKey051")!=mount_entry.get("conditionKey")
+		or not is_same(mount_entry.get("_conditionMounts051"),mounts) or not is_same(mount_entry.get("mounts"),mounts)):return null
+	return mounts
+
 static func accept_command(st: Dictionary,ship: Dictionary,order: String,target: Dictionary={},automatic: bool=false) -> void:
 	var t: Dictionary=ensure(st)
 	var id: String=str(ship.id)
@@ -953,7 +988,16 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	if not previous.is_empty() and heat.y>0.0 and previous.has("moduleHpSum"):
 		equipment_previous=previous.duplicate()
 		equipment_previous.moduleHpSum=float(previous.moduleHpSum)-float(heat.y)
-	var equip_abrupt: bool=EquipmentCombat.safety_abrupt(ship,equipment_previous,status,frame_cache)
+	# Three current scalars, local to this call: no status/owner/phase memo may
+	# survive a writer or a later safety check. The HP reader itself is unchanged
+	# (original dictionary order and locker exclusion, not descriptor ordering).
+	var summary_entry120: Dictionary=_sealed_condition_entry120(ship,_read_phase120(st,frame_cache))
+	var summary120: bool=not summary_entry120.is_empty() and is_same(summary_entry120.status,status) and status.is_read_only()
+	if summary120 and _runtime_profile043_enabled:_runtime_profile043_counts.safetySummaryReuses120+=1
+	var equip_mask: float=EquipmentCombat.working_mask(ship,status,frame_cache) if summary120 else NAN
+	var prio_code: float=EquipmentCombat.priority_code(status) if summary120 else NAN
+	var module_hp120: float=EquipmentCombat.module_hp_sum(ship) if summary120 else NAN
+	var equip_abrupt: bool=EquipmentCombat._safety_abrupt_values120(equipment_previous,equip_mask,prio_code,module_hp120) if summary120 else EquipmentCombat.safety_abrupt(ship,equipment_previous,status,frame_cache)
 	var abrupt: bool=not previous.is_empty() and (float(ship.hp)<float(previous.hp)-float(heat.x)-0.0001 or float(ship.crew)<float(previous.crew)-0.0001 or float(ship.engine)<float(previous.engine)-float(heat.y)-0.0001 or equip_abrupt)
 	var opts: Dictionary=t.options.byId.get(id,defaults())
 	var doctrine: String=str(opts.doctrine)
@@ -964,10 +1008,12 @@ static func safety_check(st: Dictionary,ship: Dictionary,frame_cache=null) -> vo
 	var danger: bool=float(ship.hp)/maxf(1.0,float(ship.maxHp))<=hp_limit or float(ship.water)/maxf(1.0,float(ship.capacity))>=flood_limit or float(ship.fire)>=25.0 or sinking
 	if age<0.1-0.000001 and not abrupt and not previous.is_empty() and danger==bool(previous.get("danger",danger)):return
 	var allowed: bool=str(ship.get("order","engage"))=="engage" or bool(opts.conditionalWithdrawal)
-	var equip_mask: float=EquipmentCombat.working_mask(ship,status,frame_cache)
-	var prio_code: float=EquipmentCombat.priority_code(status)
+	if not summary120:
+		equip_mask=EquipmentCombat.working_mask(ship,status,frame_cache)
+		prio_code=EquipmentCombat.priority_code(status)
+		module_hp120=EquipmentCombat.module_hp_sum(ship)
 	var discrete_equip: bool=not previous.is_empty() and ((previous.has("equipMask") and absf(equip_mask-float(previous.get("equipMask",equip_mask)))>0.001) or (previous.has("repairPriorityCode") and absf(prio_code-float(previous.get("repairPriorityCode",prio_code)))>0.001))
-	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor),"equipMask":equip_mask,"repairPriorityCode":prio_code,"moduleHpSum":EquipmentCombat.module_hp_sum(ship)}
+	t.safety[id]={"checkedAt":now,"hp":float(ship.hp),"crew":float(ship.crew),"engine":float(ship.engine),"water":float(ship.water),"netFlood":net,"danger":danger,"withdraw":danger and allowed,"speedFactor":float(status.speedFactor),"equipMask":equip_mask,"repairPriorityCode":prio_code,"moduleHpSum":module_hp120}
 	t.lastSafety[id]=now;t.metrics.safetyAges.append(age)
 	t.counters.oldestSafetyAge=maxf(float(t.counters.oldestSafetyAge),age)
 	if age>0.1+0.000001:t.counters.lateSafety+=1
@@ -1065,7 +1111,7 @@ static func _worker_wait_guard051(st: Dictionary,id: String,slot: Dictionary,fra
 		if observed.state.get(key)!=previous.get(key):return false
 	return true
 
-static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null) -> void:
+static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null,prepass_mounts120: Dictionary={}) -> void:
 	var begin_started: int=Time.get_ticks_usec()
 	Planner._poll_tasks051()
 	if _runtime_profile043_enabled:_runtime_profile043_counts.beginCalls+=1
@@ -1098,6 +1144,7 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		detail.observationTerrain=Time.get_ticks_usec()-profile_started051
 		profile_started051=Time.get_ticks_usec()
 	var sampled051: bool=_fleet_goals051(t)
+	var mount_phase120=_read_phase120(st,frame_cache) if not prepass_mounts120.is_empty() else null
 	t.ships={};t.observed={}
 	for ship in st.ships:
 		if ship.sunk or ship.get("captureSecured",false):continue
@@ -1107,7 +1154,9 @@ static func begin(st: Dictionary,dt: float,input: Dictionary={},frame_cache=null
 		# Mount condition and live owner/order reads remain current every tick.
 		# Legacy helm/certification still consume the full pre-motion table;
 		# sampled goals consume it only when _view051 is actually requested.
-		var mounts: Array=refresh_mounts(st,ship,frame_cache)
+		var borrowed120: Variant=_prepass_mounts120(ship,t.mountCache.get(id,{}),mount_phase120,prepass_mounts120) if mount_phase120!=null else null
+		if borrowed120 is Array and profile051:_runtime_profile043_counts.prepassMountBorrows120+=1
+		var mounts: Array=borrowed120 if borrowed120 is Array else refresh_mounts(st,ship,frame_cache)
 		if not sampled051:t.observed[id]=_observed(ship,mounts,true)
 	if profile051:
 		detail.observationPrep=Time.get_ticks_usec()-profile_started051

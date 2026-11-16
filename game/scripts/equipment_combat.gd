@@ -242,6 +242,13 @@ static func safety_abrupt(ship: Dictionary, previous: Dictionary, status: Dictio
 	var cur_mask: float = working_mask(ship, st_dict, frame_cache)
 	var cur_prio: float = priority_code(st_dict)
 	var cur_mod_hp: float = module_hp_sum(ship)
+	return _safety_abrupt_values120(previous, cur_mask, cur_prio, cur_mod_hp)
+
+static func _safety_abrupt_values120(previous: Dictionary, cur_mask: float, cur_prio: float, cur_mod_hp: float) -> bool:
+	# Pure comparisons only. The public reader above remains fresh; Tactical
+	# may supply its three current, checked, call-local canonical scalars.
+	if previous.is_empty():
+		return false
 	if previous.has("equipMask") and absf(cur_mask - Damage.number(previous.get("equipMask"), cur_mask)) > 0.001:
 		return true
 	if previous.has("repairPriorityCode") and absf(cur_prio - Damage.number(previous.get("repairPriorityCode"), cur_prio)) > 0.001:
