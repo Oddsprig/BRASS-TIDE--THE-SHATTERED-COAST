@@ -6,7 +6,7 @@ const Tactical=preload("res://scripts/tactical_runtime.gd")
 const Damage=preload("res://scripts/damage.gd")
 const Records=preload("res://scripts/equipment_records.gd")
 const STEP: float=1.0/30.0
-const MAX_STEPS_PER_JOB: int=2
+const MAX_STEPS_PER_JOB: int=4
 const PUBLIC_TACTICAL: Array=["snapshotRevision","terrainRevision","terrainKey","options","groups","intents","predictions","reasons","fireReasons","trace","counters","metrics","manualId","dt","failures"]
 # Acquired through _plain, then written only by numerical combat/objective/
 # boarding code. No Objects, Callables, Signals or RIDs may be added to these

@@ -888,7 +888,6 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 		var distance: float=point.distance_to(_pos(s))
 		if distance<radius+_radius(s) and _clear_shot(st,point,_pos(s),1.0):
 			var before_hp: float=Damage.number(s.get("hp"))
-			Damage.invalidate_frame_cache(frame_cache,s)
 			var events: Array=Damage._apply_hit_in_battle051(s,{"damage":p.damage*0.45*clampf(1.0-distance/(radius+_radius(s)),0.0,1.0),"kind":"rocket","incendiary":true,"section":"deck"},st.rng,frame_cache,damage_owned)
 			if EquipmentCombat.is_canonical_owner(s,frame_cache):_combat_mounts(st,s,frame_cache)
 			if not events.is_empty():
@@ -896,6 +895,16 @@ static func _blast(st: Dictionary,p: Dictionary,point: Vector2,direct_id: String
 
 static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=null) -> void:
 	var survivors: Array=[]
+	# A live, UNSEALED read phase for this synchronous projectile/contact tail.
+	# Every hit revokes its old owner handle; later reads prove the successor's
+	# current generation. Never borrow the earlier sealed pre-motion status.
+	var projectile_phase120=null
+	var hit_cache120=frame_cache
+	if (not st.projectiles.is_empty() and frame_cache is Dictionary
+			and Damage._battle_owned_for051(damage_owned,st.ships,frame_cache)!=null):
+		projectile_phase120=Damage._begin_battle_phase043(frame_cache)
+		Damage._bind_battle_owned051(projectile_phase120,damage_owned,st.ships,frame_cache)
+		hit_cache120=projectile_phase120
 	# Motion/contact/boarding have finished. The synchronous hit/blast path
 	# changes condition, crew and sunk flags, never hull positions/spec.size or
 	# st.ships membership. Keep eligibility LIVE below; hoist only this geometry.
@@ -947,14 +956,13 @@ static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=
 			var eng_roll: bool=false
 			if p.kind!="torpedo":eng_roll=st.rng.randf()<0.25
 			var section: String="waterline" if p.kind=="torpedo" else ("engine" if eng_roll else "bow")
-			if EquipmentCombat.is_canonical_owner(hit,frame_cache):
-				section=str(p.get("section","")) if not str(p.get("section","")).is_empty() else EquipmentCombat.canonical_hit_section(hit,point,str(p.kind),eng_roll,frame_cache)
+			if EquipmentCombat.is_canonical_owner(hit,hit_cache120):
+				section=str(p.get("section","")) if not str(p.get("section","")).is_empty() else EquipmentCombat.canonical_hit_section(hit,point,str(p.kind),eng_roll,hit_cache120)
 			var before_hp: float=Damage.number(hit.get("hp"))
-			Damage.invalidate_frame_cache(frame_cache,hit)
-			var events: Array=Damage._apply_hit_in_battle051(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng,frame_cache,damage_owned)
-			if EquipmentCombat.is_canonical_owner(hit,frame_cache):_combat_mounts(st,hit,frame_cache)
+			var events: Array=Damage._apply_hit_in_battle051(hit,{"damage":p.damage,"kind":p.kind,"penetration":p.get("penetration",0.0),"incendiary":p.get("incendiary",false),"section":section},st.rng,hit_cache120,damage_owned)
+			if EquipmentCombat.is_canonical_owner(hit,hit_cache120):_combat_mounts(st,hit,hit_cache120)
 			CombatEvents.emit_hit(st,p,hit,point,section,events,maxf(0.0,before_hp-Damage.number(hit.get("hp"))),true)
-			_blast(st,p,point,str(hit.id),frame_cache,damage_owned)
+			_blast(st,p,point,str(hit.id),hit_cache120,damage_owned)
 			if not events.is_empty():
 				_log(st,hit.name+": "+events[0])
 		elif land_t!=INF or p.life<=0.0:
@@ -963,6 +971,7 @@ static func _projectiles(st: Dictionary,dt: float,frame_cache=null,damage_owned=
 		else:
 			survivors.append(p)
 	st.projectiles=survivors
+	if projectile_phase120!=null:Damage._end_battle_phase043(projectile_phase120)
 
 static func advance_visuals(st: Dictionary,dt: float) -> void:
 	# Cosmetic tail only: ships, projectiles, combat time, RNG and rewards stay fixed.

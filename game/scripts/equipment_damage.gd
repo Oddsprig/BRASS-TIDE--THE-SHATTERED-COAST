@@ -319,7 +319,9 @@ static func _base_spec_of(boat: Dictionary) -> Dictionary:
 	return {}
 
 static func resolve_hit_locations(boat: Dictionary, hit: Dictionary, mach_roll: float = 1.0) -> Dictionary:
-	var info: Dictionary = inspect_owner(boat)
+	return _resolve_hit_locations_from_info120(boat,hit,mach_roll,inspect_owner(boat))
+
+static func _resolve_hit_locations_from_info120(boat: Dictionary, hit: Dictionary, mach_roll: float, info: Dictionary) -> Dictionary:
 	if not info.ok or str(info.mode) != "canonical":
 		return _fail(str(info.get("error", "Equipment condition is not initialized.")))
 	if not hit is Dictionary:
@@ -465,7 +467,13 @@ static func _cause_for_location(location: String, kind: String) -> String:
 	return label + " on " + location
 
 static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float = -1.0, mach_roll: float = 1.0) -> Dictionary:
-	var info: Dictionary = inspect_owner(boat)
+	return _apply_hit_equipment_owned120(boat,hit,impact,mach_roll)
+
+static func _apply_hit_equipment_owned120(boat: Dictionary, hit: Dictionary, impact: float, mach_roll: float, entry: Dictionary = {}) -> Dictionary:
+	# Only Damage's admitted synchronous hit supplies entry. Public callers keep
+	# every original inspection; both arms share all geometry and mutation math.
+	var owned120: bool = not entry.is_empty()
+	var info: Dictionary = _battle_info051(boat,entry) if owned120 else inspect_owner(boat)
 	if not info.ok or str(info.mode) != "canonical":
 		return _fail(str(info.get("error", "Equipment condition is not initialized.")))
 	if not hit is Dictionary:
@@ -473,14 +481,15 @@ static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float
 	var raw: float = maxf(0.0, number(hit.get("damage")))
 	if raw <= 0.0:
 		return {"ok": true, "changed": false, "locations": [], "changes": [], "events": []}
-	var resolved: Dictionary = resolve_hit_locations(boat, hit, mach_roll)
+	var resolved: Dictionary = (_resolve_hit_locations_from_info120(boat,hit,mach_roll,info)
+		if owned120 else resolve_hit_locations(boat,hit,mach_roll))
 	if not resolved.ok:
 		return resolved
-	var absorbed: Dictionary = Records.absorb_legacy_damage(boat)
+	var absorbed: Dictionary = _battle_absorb051(boat,entry,true) if owned120 else Records.absorb_legacy_damage(boat)
 	if not absorbed.ok:
 		return absorbed
-	var snap: Dictionary = Records.snapshot(boat)
-	if not snap.ok:
+	var snap: Dictionary = _battle_info051(boat,entry).get("snapshot",{}) if owned120 else Records.snapshot(boat)
+	if not bool(snap.get("ok",false)):
 		return snap
 	var kind: String = str(hit.get("kind", "bullet")).to_lower()
 	var explosive: bool = kind == "torpedo"
@@ -502,11 +511,13 @@ static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float
 		var loss: float = _loss_for_location(loc_str, kind, effective_impact, max_hp)
 		if loss <= Core.EPS:
 			continue
-		var dmg_res: Dictionary = Core.apply_component_damage(boat.moduleCondition, {
+		var request120: Dictionary = {
 			"itemUid": uid,
 			"loss": loss,
 			"cause": _cause_for_location(loc_str, kind)
-		})
+		}
+		var dmg_res: Dictionary = (Records._battle_write051(boat.moduleCondition,request120,entry,Core._apply_component_damage_with)
+			if owned120 else Core.apply_component_damage(boat.moduleCondition,request120))
 		if not dmg_res.ok:
 			return dmg_res
 		if bool(dmg_res.get("changed", false)):
@@ -526,7 +537,7 @@ static func apply_hit_equipment(boat: Dictionary, hit: Dictionary, impact: float
 			elif loc_str.begins_with("mount"):
 				events.append("Weapon damaged: " + loc_str)
 
-	var published: Dictionary = Records.publish(boat)
+	var published: Dictionary = Records._battle_publish051(boat,entry) if owned120 else Records.publish(boat)
 	if not published.ok:
 		return published
 	return {

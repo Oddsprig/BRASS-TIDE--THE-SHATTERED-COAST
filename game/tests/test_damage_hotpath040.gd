@@ -386,7 +386,7 @@ func owned_context051(source: Dictionary) -> void:
 	var events: Array = Damage._apply_hit_in_battle051(live,{"damage":12.0,"kind":"rocket","section":"engine"},rng,cache,owned)
 	var old_events: Array = Damage.apply_hit(expected,{"damage":12.0,"kind":"rocket","section":"engine"},old_rng)
 	entry = Damage._battle_entry051(live,owned)
-	check(not entry.is_empty() and not previous_entry.valid and not is_same(entry.descriptor,descriptor) and int(entry.generation) == int(previous_entry.generation)+1, "051 successful public hit re-admits after revoking the old generation")
+	check(not entry.is_empty() and not previous_entry.valid and not is_same(entry,previous_entry) and int(entry.generation) > int(previous_entry.generation), "120 successful hit revokes its old permission handle and publishes a newer current generation")
 	check(var_to_bytes(live) == var_to_bytes(expected) and events == old_events and rng.state == old_rng.state and live.fire > 0.0, "051 official hit, equipment loss, fire and RNG equal public reference")
 	Damage.set_policy(live,"repair"); Damage.set_policy(expected,"repair")
 	Damage.set_repair_priority(live,"engine"); Damage.set_repair_priority(expected,"engine")

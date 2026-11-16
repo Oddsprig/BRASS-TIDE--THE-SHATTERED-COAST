@@ -446,14 +446,44 @@ static func _tick_ship_in_battle051(s: Dictionary, dt: float, phase, want_receip
 	if _runtime_profile043_enabled: _runtime_profile043_battle_tick_finished(profile_started)
 	return result
 
+static func _battle_hit_plain120(hit: Dictionary) -> bool:
+	# Actual Battle descriptors contain only value scalars. Object string hooks,
+	# nested/aliased descriptors and unusual public inputs retain full validation.
+	for key in hit:
+		if typeof(key) not in [TYPE_STRING,TYPE_STRING_NAME]: return false
+		if typeof(hit[key]) not in [TYPE_NIL,TYPE_BOOL,TYPE_INT,TYPE_FLOAT,TYPE_STRING,TYPE_STRING_NAME]: return false
+	return true
+
 static func _apply_hit_in_battle051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, owned) -> Array:
 	var entry: Dictionary = _battle_entry051(s,owned)
 	var generation: int = int(entry.get("generation",0)) + 1
-	_drop_battle_owner051(owned,s) # A failed/partial transaction never keeps proof.
+	var source_cache = frame_cache.source if frame_cache is BattlePhase043 else frame_cache
+	var successor: Dictionary = {}
+	if (not entry.is_empty() and source_cache is Dictionary and is_same(owned.source,source_cache)
+			and (not (frame_cache is BattlePhase043) or (frame_cache.active and is_same(frame_cache.owned,owned)))
+			and _battle_hit_plain120(hit) and EquipmentDamage.Core._unit(s.get("engine"))):
+		# Revoke the old handle even on success. Only immutable topology and the
+		# admitted exact owner refs survive; all derived generations start dirty.
+		successor = entry.duplicate()
+		EquipmentDamage.Records._battle_dirty051(successor)
+	_drop_battle_owner051(owned,s)
+	if frame_cache is BattlePhase043:
+		frame_cache.readsSealed051 = false; frame_cache.sealedEntries051 = {}
 	var receipt: Dictionary = {}
-	var events: Array = _apply_hit_checked051(s,hit,rng,frame_cache,receipt)
+	# Only the admitted fast arm unwraps its own phase. Foreign/default inputs
+	# retain original invalidation, including revoking that phase's owner.
+	var mutation_cache = source_cache if not successor.is_empty() else frame_cache
+	var events: Array = _apply_hit_checked051(s,hit,rng,mutation_cache,receipt,successor)
 	if not entry.is_empty() and bool(receipt.get("ok",false)):
-		_admit_battle_owner051(owned,s,generation)
+		if successor.is_empty():
+			_admit_battle_owner051(owned,s,generation) # Original checked fallback.
+		elif bool(successor.get("valid",false)) and owned.active and not s.get("sunk",false):
+			var current: Dictionary = EquipmentDamage._battle_info051(s,successor)
+			if bool(current.get("ok",false)) and bool(successor.valid):
+				owned.entries[_cache_slot_key(s)] = successor
+			else: successor.valid = false
+		else: successor.valid = false # No orphan proof on sink/closure/failure.
+	elif not successor.is_empty(): successor.valid = false
 	return events
 
 static func _phase_entry043(s: Dictionary, frame_cache) -> Dictionary:
@@ -622,12 +652,12 @@ static func _roll(rng: RandomNumberGenerator) -> float:
 static func apply_hit(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator = null, frame_cache = null) -> Array:
 	return _apply_hit_checked051(s,hit,rng,frame_cache,{})
 
-static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, receipt: Dictionary) -> Array:
+static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNumberGenerator, frame_cache, receipt: Dictionary, owned_entry120: Dictionary = {}) -> Array:
 	var events: Array=[]
 	invalidate_frame_cache(frame_cache, s)
 	if not s is Dictionary or not hit is Dictionary:
 		return events
-	var info: Dictionary = EquipmentDamage.inspect_owner(s)
+	var info: Dictionary = EquipmentDamage._battle_info051(s,owned_entry120) if not owned_entry120.is_empty() else EquipmentDamage.inspect_owner(s)
 	var mode: String = str(info.get("mode", "invalid"))
 	if mode == "invalid":
 		return events
@@ -647,11 +677,11 @@ static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNum
 			return events
 		if hit.has("blastRadius") and (not EquipmentDamage.Core._number(hit.get("blastRadius")) or float(hit.get("blastRadius")) < 0.0):
 			return events
-		var absorbed: Dictionary = EquipmentDamage.Records.absorb_legacy_damage(s)
+		var absorbed: Dictionary = EquipmentDamage._battle_absorb051(s,owned_entry120,true) if not owned_entry120.is_empty() else EquipmentDamage.Records.absorb_legacy_damage(s)
 		if not absorbed.ok:
 			return events
-		var snap: Dictionary = EquipmentDamage.Records.snapshot(s)
-		if not snap.ok:
+		var snap: Dictionary = EquipmentDamage._battle_info051(s,owned_entry120).get("snapshot",{}) if not owned_entry120.is_empty() else EquipmentDamage.Records.snapshot(s)
+		if not bool(snap.get("ok",false)):
 			return events
 		var kind_can: String=str(hit.get("kind","bullet"))
 		var explosive_can: bool=kind_can=="torpedo"
@@ -669,7 +699,8 @@ static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNum
 			s.breaches.append({"area":area_can,"section":"waterline" if explosive_can else str(hit.get("section","bow"))})
 			events.append("Breach: %.1f cm²"%area_can)
 		var mach_roll: float = _roll(rng)
-		var comp_res: Dictionary = EquipmentDamage.apply_hit_equipment(s, hit, impact_can, mach_roll)
+		var comp_res: Dictionary = (EquipmentDamage._apply_hit_equipment_owned120(s,hit,impact_can,mach_roll,owned_entry120)
+			if not owned_entry120.is_empty() else EquipmentDamage.apply_hit_equipment(s,hit,impact_can,mach_roll))
 		if comp_res.ok:
 			for ev in comp_res.get("events", []):
 				events.append(str(ev))
@@ -685,7 +716,7 @@ static func _apply_hit_checked051(s: Dictionary, hit: Dictionary, rng: RandomNum
 				s.wounded+=1.0
 				events.append("One crew wounded")
 		_sanitize(s)
-		var published: Dictionary = EquipmentDamage.Records.publish(s)
+		var published: Dictionary = EquipmentDamage.Records._battle_publish051(s,owned_entry120) if not owned_entry120.is_empty() else EquipmentDamage.Records.publish(s)
 		receipt["ok"] = bool(comp_res.get("ok",false)) and bool(published.get("ok",false))
 		invalidate_frame_cache(frame_cache, s)
 		if s.sunk:
