@@ -141,7 +141,16 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 		var rock: Color=Color(profile.rock)
 		var face: float=clampf(inward.dot(Vector2(0.6,0.8))*0.12,-0.12,0.12)
 		var shore_face121: PackedVector2Array=outer.duplicate()
-		shore_face121.append_array(PackedVector2Array([inner_b,shoulder,inner_a]))
+		# Both edges of the cached shore band follow the real curve. A single
+		# inner chord across four vertices read as a straight paved rim.
+		for offset121 in range(shore_step,-1,-1):
+			var index121: int=(i+offset121)%land.size()
+			var at121: Vector2=land[index121]
+			var tangent121: Vector2=(land[(index121+1)%land.size()]-land[posmod(index121-1,land.size())]).normalized()
+			var normal121: Vector2=tangent121.orthogonal()
+			if not Geometry2D.is_point_in_polygon(at121+normal121*3.0,land):normal121=-normal121
+			var varied121: float=width*(0.64+0.22*sin(float(index121)*1.73))
+			shore_face121.append(at121+normal121*varied121)
 		_paint(plan,0,shore_face121,Color("cbbb90") if sand else rock.darkened(0.25+face))
 		# Wet sand, dry berm and broken turf lie INSIDE the actual shore. The
 		# changing upper edge replaces the ruler-straight rectangular coast bands.

@@ -257,7 +257,41 @@ static func _shape_coarse(ring: PackedVector2Array, seed: int) -> PackedVector2A
 		shaped = _chaikin(shaped)
 	return _subset_repair(shaped, ring, center)
 
+static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
+	# Forty arc-length samples avoid inheriting ruler-straight authored runs.
+	# Local inward normals create coves on every side, including non-star-shaped
+	# islands where pulling toward a global center leaves whole edges untouched.
+	var lengths: Array[float]=[]
+	var perimeter: float=0.0
+	for i in range(ring.size()):
+		var length: float=ring[i].distance_to(ring[(i+1)%ring.size()])
+		lengths.append(length);perimeter+=length
+	if perimeter<1.0:return PackedVector2Array()
+	var breadth: float=_breadth(ring)
+	var phase: float=float(posmod(seed,360))*TAU/360.0
+	var samples:=PackedVector2Array()
+	var edge: int=0
+	var passed: float=0.0
+	for i in range(40):
+		var u: float=float(i)/40.0
+		var distance: float=perimeter*u
+		while edge<ring.size()-1 and passed+lengths[edge]<distance:
+			passed+=lengths[edge];edge+=1
+		var a: Vector2=ring[edge]
+		var b: Vector2=ring[(edge+1)%ring.size()]
+		var t: float=clampf((distance-passed)/maxf(0.001,lengths[edge]),0.0,1.0)
+		var at: Vector2=a.lerp(b,t)
+		var inward: Vector2=(b-a).orthogonal().normalized()
+		if not Geometry2D.is_point_in_polygon(at+inward*2.0,ring):inward=-inward
+		var broad: float=0.5+0.5*sin(u*TAU*5.0+phase)
+		var broken: float=0.5+0.5*sin(u*TAU*9.0+phase*2.0)
+		var depth: float=breadth*(0.025+0.075*broad*broad+0.018*broken)
+		samples.append(at+inward*depth)
+	return _subset_repair(_chaikin(samples),ring,_centroid(ring))
+
 static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
+	var coves: PackedVector2Array=_coastal_coves121(ring,seed)
+	if _valid(coves,ring):return coves
 	# Already-rounded rings (e.g. a shaped home coast translated into a
 	# battle) are a fixed point: no macro corner left to cut.
 	if ring.size() >= 24 and _max_macro_turn(ring) < GENTLE_TURN: return ring
