@@ -129,20 +129,22 @@ static func _subset_repair(candidate: PackedVector2Array, original: PackedVector
 	# Use the actual clipped ring as physical land, rather than retaining a
 	# candidate which merely has a similar area. A tiny inward clip margin
 	# keeps float rounding from moving an old water boundary outward.
-	var clips: Array=Geometry2D.offset_polygon(original,-0.02)
+	var clips: Array=Geometry2D.offset_polygon(original,-0.5)
 	var best:=PackedVector2Array()
 	var largest: float=0.0
 	for clip: PackedVector2Array in clips:
 		for piece: PackedVector2Array in Geometry2D.intersect_polygons(candidate,clip):
 			var area: float=_area(piece)
-			if area>largest:best=piece;largest=area
+			if area>largest:best=_vec(_pairs(piece));largest=area
 	if best.is_empty():return original
 	# Corner cutting removes only a convex ear wholly inside the current
 	# simple ring. It never fills a water cove while enforcing the hard cap.
 	while best.size()>MAX_RING:
 		var chosen: int=-1
 		var smallest: float=INF
-		var winding: float=-1.0 if Geometry2D.is_polygon_clockwise(best) else 1.0
+		var signed_area: float=0.0
+		for j in range(best.size()):signed_area+=best[j].cross(best[(j+1)%best.size()])
+		var winding: float=1.0 if signed_area>0.0 else -1.0
 		for i in range(best.size()):
 			var a: Vector2=best[posmod(i-1,best.size())]
 			var b: Vector2=best[i]
