@@ -45,7 +45,9 @@ static func _edge_distance(p: Vector2,a: Vector2,b: Vector2) -> float:
 	return p.distance_to(a+delta*t)
 
 static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
-	for island in st.islands:
+	var coast_rings121: Array=st.get("_coastRings121",[])
+	for island_index121 in range(st.islands.size()):
+		var island: Dictionary=st.islands[island_index121]
 		# Terrain is immutable after create. Reject only centers strictly
 		# outside its radius-expanded bounds; shoreline/contact math below
 		# stays authoritative. Legacy states without this cache use that math.
@@ -58,8 +60,8 @@ static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 		# Its boundary-inclusive result is equivalent ONLY with a positive
 		# contact buffer: all such border points are blocked by distance too.
 		# Exact zero/sub-unit and uncached legacy queries keep the old predicate.
-		var native121: bool=cached121 and r>=1.0 and island.get("_coastRing121") is PackedVector2Array
-		if (Geometry2D.is_point_in_polygon(p,island._coastRing121) if native121 else _inside(p,points)):
+		var native121: bool=cached121 and r>=1.0 and island_index121<coast_rings121.size() and coast_rings121[island_index121] is PackedVector2Array
+		if (Geometry2D.is_point_in_polygon(p,coast_rings121[island_index121]) if native121 else _inside(p,points)):
 			return true
 		for i in range(points.size()):
 			var a: Array=points[i]
@@ -120,6 +122,9 @@ static func create(options: Dictionary) -> Dictionary:
 	# Coastal Clash slabs take their natural shape here, before
 	# formation placement reads st.islands.
 	st.islands=CoastShape121.natural_islands(st.islands)
+	# Worker-owned acceleration only: keep packed rings OUT of island records
+	# used by semantic terrain hashes, planner copies and public snapshots.
+	st._coastRings121=[]
 	for island121: Dictionary in st.islands:
 		var points121: Array=island121.points
 		var bounds121: Rect2=Rect2(Vector2(points121[0][0],points121[0][1]),Vector2.ZERO)
@@ -128,7 +133,7 @@ static func create(options: Dictionary) -> Dictionary:
 			var vertex121:=Vector2(pair121[0],pair121[1])
 			bounds121=bounds121.expand(vertex121);ring121.append(vertex121)
 		island121._coastBounds121=bounds121
-		island121._coastRing121=ring121
+		st._coastRings121.append(ring121)
 	var fleet: Array=options.get("fleet",[])
 	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
 	if enemy_fleet.is_empty():
@@ -548,14 +553,16 @@ static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float
 	var ray_lo121: Vector2=start.min(end)
 	var ray_hi121: Vector2=start.max(end)
 	var delta: Vector2=end-start
-	for island in st.islands:
+	var coast_rings121: Array=st.get("_coastRings121",[])
+	for island_index121 in range(st.islands.size()):
+		var island: Dictionary=st.islands[island_index121]
 		var cached121: bool=island.get("_coastBounds121") is Rect2
 		if cached121:
 			var bounds121: Rect2=island._coastBounds121
 			if ray_hi121.x<bounds121.position.x-radius or ray_hi121.y<bounds121.position.y-radius or ray_lo121.x>bounds121.end.x+radius or ray_lo121.y>bounds121.end.y+radius:continue
 		var points: Array=island.points
-		var native121: bool=cached121 and radius>=1.0 and island.get("_coastRing121") is PackedVector2Array
-		var endpoint_inside121: bool=(Geometry2D.is_point_in_polygon(start,island._coastRing121) or Geometry2D.is_point_in_polygon(end,island._coastRing121)) if native121 else (_inside(start,points) or _inside(end,points))
+		var native121: bool=cached121 and radius>=1.0 and island_index121<coast_rings121.size() and coast_rings121[island_index121] is PackedVector2Array
+		var endpoint_inside121: bool=(Geometry2D.is_point_in_polygon(start,coast_rings121[island_index121]) or Geometry2D.is_point_in_polygon(end,coast_rings121[island_index121])) if native121 else (_inside(start,points) or _inside(end,points))
 		if endpoint_inside121:
 			return false
 		for i in range(points.size()):

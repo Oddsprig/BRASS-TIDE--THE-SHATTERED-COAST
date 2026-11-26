@@ -6,6 +6,7 @@ const Shape121 = preload("res://scripts/coast_shape121.gd")
 const CoastArt = preload("res://scripts/coast_art050.gd")
 const Navigation = preload("res://scripts/navigation.gd")
 const Battle121=preload("res://scripts/battle.gd")
+const Driver121=preload("res://scripts/battle_driver051.gd")
 var checks: int = 0
 var failures: int = 0
 var art_diagnostics121: Array=[]
@@ -190,6 +191,8 @@ func run() -> void:
 	# Compare the cached broad phase with the complete legacy shore test at
 	# exact/near boundary centers, several hull radii and open-water points.
 	var battle121: Dictionary=Battle121.create({})
+	var mirror121: Dictionary=Driver121._snapshot(battle121,false)
+	check(battle121.get("_coastRings121",[]).size()==battle121.islands.size() and not mirror121.has("_coastRings121") and mirror121.islands.all(func(row121):return not row121.has("_coastRing121")),"coast accelerators stay on owner, outside public terrain records and publications")
 	var uncached121: Dictionary={"islands":battle121.islands.duplicate(true)}
 	for island121 in uncached121.islands:island121.erase("_coastBounds121")
 	for island121 in battle121.islands:
