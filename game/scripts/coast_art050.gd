@@ -125,6 +125,8 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 	for k in range(0,land.size(),shore_step):
 		var i: int=k
 		var a: Vector2=land[i];var b: Vector2=land[(i+shore_step)%land.size()]
+		var outer: PackedVector2Array=PackedVector2Array()
+		for offset121 in range(shore_step+1):outer.append(land[(i+offset121)%land.size()])
 		var middle: Vector2=(a+b)*0.5
 		var along: Vector2=(b-a).normalized()
 		var inward: Vector2=(b-a).orthogonal().normalized()
@@ -138,7 +140,9 @@ static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 		var shoulder: Vector2=a.lerp(b,0.43)+inward*width*1.18
 		var rock: Color=Color(profile.rock)
 		var face: float=clampf(inward.dot(Vector2(0.6,0.8))*0.12,-0.12,0.12)
-		_paint(plan,0,PackedVector2Array([a,b,inner_b,shoulder,inner_a]),Color("cbbb90") if sand else rock.darkened(0.25+face))
+		var shore_face121: PackedVector2Array=outer.duplicate()
+		shore_face121.append_array(PackedVector2Array([inner_b,shoulder,inner_a]))
+		_paint(plan,0,shore_face121,Color("cbbb90") if sand else rock.darkened(0.25+face))
 		# Wet sand, dry berm and broken turf lie INSIDE the actual shore. The
 		# changing upper edge replaces the ruler-straight rectangular coast bands.
 		if sand:

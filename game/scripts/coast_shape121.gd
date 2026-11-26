@@ -270,7 +270,7 @@ static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Ar
 	if shaped.size() * 2 <= MAX_RING: shaped = _chaikin(shaped)
 	var curved := PackedVector2Array()
 	for p in shaped:
-		var depth: float = _inset(seed, (p - center).angle(), breadth, 0.7)
+		var depth: float = _inset(seed, (p - center).angle(), breadth, 3.0)
 		curved.append(p.move_toward(center, minf(depth, p.distance_to(center) * 0.2)))
 	return _subset_repair(curved, ring, center)
 
