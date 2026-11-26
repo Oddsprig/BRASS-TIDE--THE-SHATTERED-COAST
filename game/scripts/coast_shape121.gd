@@ -9,10 +9,9 @@ extends RefCounted
 ##   gains an asymmetric inward-displaced midpoint, then corner-cutting
 ##   (Chaikin) rounds every vertex. Hexagons and pentagons become curving
 ##   headlands and recessed bays.
-## - Dense authored rings (home world.json, Glasswind): the ring is first
-##   simplified to its macro vertices, then corner-cut, so the few sharp
-##   macro corners that survive dense authoring are visibly ROUNDED, not
-##   merely nudged inward, then a smooth varying inset breaks straight runs.
+## - Dense authored rings (home world.json, Glasswind): fixed arc-length
+##   samples and local inward coves break straight runs, then a round-join
+##   opening rounds headlands. A macro/corner-cut fallback remains.
 ## - A ring whose macro turns are already gentle is returned unchanged, and
 ##   runtime-shaped island copies carry a `coast121` marker against repeat
 ##   shaping. Main marks translated home encounters at that boundary. Saved bytes are never mutated: shaping re-derives
@@ -30,6 +29,8 @@ const MAX_RING: int = 96
 const COARSE_MAX: int = 16
 const DENSE_TARGET: int = 12
 const GENTLE_TURN: float = 0.30
+const DENSE_SAMPLES121: int = 24
+const DENSE_OPEN_TARGET121: int = 48
 
 static func _seed(id: String) -> int:
 	var seed: int = 7
@@ -252,13 +253,16 @@ static func _shape_coarse(ring: PackedVector2Array, seed: int) -> PackedVector2A
 		var depth: float = minf(a.distance_to(b) * (0.04 + 0.10 * _hash01(seed, i * 2)), breadth * 0.06)
 		doubled.append(mid.move_toward(center, minf(depth, mid.distance_to(center) * 0.25)))
 	var shaped: PackedVector2Array = doubled
-	for iteration in range(2):
+	# Small four-corner fixtures need two cuts; ordinary five-to-ten-point
+	# coasts already gain20..40 points after one, enough for curved headlands.
+	for iteration in range(2 if ring.size()<=4 else 1):
 		if shaped.size() * 2 > MAX_RING: break
 		shaped = _chaikin(shaped)
 	return _subset_repair(shaped, ring, center)
 
 static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
-	# Forty arc-length samples avoid inheriting ruler-straight authored runs.
+	# A fixed sampling budget avoids inheriting ruler-straight authored runs
+	# without multiplying every subsequent collision and route edge query.
 	# Local inward normals create coves on every side, including non-star-shaped
 	# islands where pulling toward a global center leaves whole edges untouched.
 	var lengths: Array[float]=[]
@@ -275,8 +279,8 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 	var samples:=PackedVector2Array()
 	var edge: int=0
 	var passed: float=0.0
-	for i in range(40):
-		var u: float=float(i)/40.0
+	for i in range(DENSE_SAMPLES121):
+		var u: float=float(i)/float(DENSE_SAMPLES121)
 		var distance: float=perimeter*u
 		while edge<ring.size()-1 and passed+lengths[edge]<distance:
 			passed+=lengths[edge];edge+=1
@@ -308,7 +312,7 @@ static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Ar
 		var largest121: float=0.0
 		for inset121: PackedVector2Array in Geometry2D.offset_polygon(coves,-radius121,Geometry2D.JOIN_ROUND):
 			for expanded121: PackedVector2Array in Geometry2D.offset_polygon(inset121,radius121,Geometry2D.JOIN_ROUND):
-				var reduced121: PackedVector2Array=expanded121 if expanded121.size()<=88 else _simplify(expanded121,88)
+				var reduced121: PackedVector2Array=expanded121 if expanded121.size()<=DENSE_OPEN_TARGET121 else _simplify(expanded121,DENSE_OPEN_TARGET121)
 				var candidate121: PackedVector2Array=_subset_repair(reduced121,ring,_centroid(ring))
 				if _valid(candidate121,ring) and _area(candidate121)>largest121:
 					rounded121=candidate121;largest121=_area(candidate121)
