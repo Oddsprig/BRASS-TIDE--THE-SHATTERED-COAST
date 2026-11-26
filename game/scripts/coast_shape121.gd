@@ -136,7 +136,7 @@ static func _subset_repair(candidate: PackedVector2Array, original: PackedVector
 		for piece: PackedVector2Array in Geometry2D.intersect_polygons(candidate,clip):
 			var area: float=_area(piece)
 			if area>largest:best=_vec(_pairs(piece));largest=area
-	if best.is_empty():return original
+	if best.is_empty():return PackedVector2Array()
 	# Corner cutting removes only a convex ear wholly inside the current
 	# simple ring. It never fills a water cove while enforcing the hard cap.
 	while best.size()>MAX_RING:
@@ -154,7 +154,7 @@ static func _subset_repair(candidate: PackedVector2Array, original: PackedVector
 			var trial: PackedVector2Array=best.duplicate()
 			trial.remove_at(i)
 			if turn<smallest and _simple(trial) and _is_subset(trial,original):chosen=i;smallest=turn
-		if chosen<0:return original
+		if chosen<0:return PackedVector2Array()
 		best.remove_at(chosen)
 	return best
 

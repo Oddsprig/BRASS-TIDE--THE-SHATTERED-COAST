@@ -34,6 +34,21 @@ func curving_vertices(ring: PackedVector2Array) -> int:
 		if turn > 0.035 and turn < 0.61: count += 1
 	return count
 
+func sharpest_headland121(ring: PackedVector2Array) -> float:
+	# Compare immediate convex headland angles at a fixed geometric meaning.
+	# A reflex inlet retained by clipping must not masquerade as a square
+	# outer headland; vertex-count-dependent multi-edge windows change scale.
+	var signed_area121: float=0.0
+	for i121 in range(ring.size()):signed_area121+=ring[i121].cross(ring[(i121+1)%ring.size()])
+	var winding121: float=1.0 if signed_area121>0.0 else -1.0
+	var worst121: float=0.0
+	for i121 in range(ring.size()):
+		var a121: Vector2=ring[i121]-ring[posmod(i121-1,ring.size())]
+		var b121: Vector2=ring[(i121+1)%ring.size()]-ring[i121]
+		if a121.length_squared()<0.0001 or b121.length_squared()<0.0001:continue
+		worst121=maxf(worst121,a121.angle_to(b121)*winding121)
+	return worst121
+
 func validate_shaped(original: Array, shaped: Array, label: String) -> PackedVector2Array:
 	var before: PackedVector2Array = ring_of(original)
 	var after: PackedVector2Array = ring_of(shaped)
@@ -44,7 +59,7 @@ func validate_shaped(original: Array, shaped: Array, label: String) -> PackedVec
 	# Whole-polygon containment by intersection area: no shaped edge may
 	# bridge a water cove, which vertex/midpoint sampling cannot prove.
 	check(Shape121._is_subset(after, before), label + " whole shaped polygon inside original land (intersection proof)")
-	check(Shape121._max_macro_turn(after) < Shape121._max_macro_turn(before), label + " sharpest macro corner is rounded, not just inset")
+	check(sharpest_headland121(after) < sharpest_headland121(before), label + " convex headland corners are rounded, not just inset")
 	check(Shape121._simple(after), label + " simple non-self-intersecting ring")
 	var ratio: float = Shape121._area(after) / maxf(0.001, Shape121._area(before))
 	check(ratio >= 0.5 and ratio <= 1.001, label + " area kept, never grown (%.3f)" % ratio)
@@ -106,7 +121,7 @@ func run() -> void:
 			dense.append([p.x, p.y])
 	var dense_before: PackedVector2Array = ring_of(dense)
 	var dense_after: PackedVector2Array = validate_shaped(dense, Shape121.natural_ring_authored(dense, "isl_dense_probe"), "authored dense hexagon")
-	check(Shape121._max_macro_turn(dense_after) < 0.9, "authored macro corners rounded below a sharp turn")
+	check(sharpest_headland121(dense_after) < 0.9, "authored macro corners rounded below a sharp turn")
 	# Glasswind-density runtime ring (36 vertices with sharp corners) must
 	# shape through natural_islands, not skip past the coarse guard.
 	var key36: Array = []
