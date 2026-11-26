@@ -46,6 +46,12 @@ static func _edge_distance(p: Vector2,a: Vector2,b: Vector2) -> float:
 
 static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 	for island in st.islands:
+		# Terrain is immutable after create. Reject only centers strictly
+		# outside its radius-expanded bounds; shoreline/contact math below
+		# stays authoritative. Legacy states without this cache use that math.
+		if island.get("_coastBounds121") is Rect2:
+			var bounds121: Rect2=island._coastBounds121
+			if p.x<bounds121.position.x-r or p.y<bounds121.position.y-r or p.x>bounds121.end.x+r or p.y>bounds121.end.y+r:continue
 		var points: Array=island.points
 		if _inside(p,points):
 			return true
@@ -104,6 +110,11 @@ static func create(options: Dictionary) -> Dictionary:
 	# Coastal Clash slabs take their natural shape here, before
 	# formation placement reads st.islands.
 	st.islands=CoastShape121.natural_islands(st.islands)
+	for island121: Dictionary in st.islands:
+		var points121: Array=island121.points
+		var bounds121: Rect2=Rect2(Vector2(points121[0][0],points121[0][1]),Vector2.ZERO)
+		for pair121 in points121:bounds121=bounds121.expand(Vector2(pair121[0],pair121[1]))
+		island121._coastBounds121=bounds121
 	var fleet: Array=options.get("fleet",[])
 	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
 	if enemy_fleet.is_empty():

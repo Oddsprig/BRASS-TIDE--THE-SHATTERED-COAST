@@ -5,6 +5,7 @@ extends SceneTree
 const Shape121 = preload("res://scripts/coast_shape121.gd")
 const CoastArt = preload("res://scripts/coast_art050.gd")
 const Navigation = preload("res://scripts/navigation.gd")
+const Battle121=preload("res://scripts/battle.gd")
 var checks: int = 0
 var failures: int = 0
 
@@ -181,6 +182,19 @@ func run() -> void:
 		check(Navigation.is_water(home_nav, port.x, port.y, 36.0), "home berth stays navigable water " + str(port.id))
 	for approach in [{"x": 5200.0, "y": 300.0}, {"x": 5200.0, "y": 6900.0}]:
 		check(Navigation.is_water(home_nav, approach.x, approach.y, 80.0 + Navigation.DEFAULT_CLEARANCE), "home approach disk stays safe water")
+	# Compare the cached broad phase with the complete legacy shore test at
+	# exact/near boundary centers, several hull radii and open-water points.
+	var battle121: Dictionary=Battle121.create({})
+	var uncached121: Dictionary={"islands":battle121.islands.duplicate(true)}
+	for island121 in uncached121.islands:island121.erase("_coastBounds121")
+	for island121 in battle121.islands:
+		for j121 in range(0,island121.points.size(),4):
+			var p121:=Vector2(island121.points[j121][0],island121.points[j121][1])
+			for radius121 in [0.0,10.0,45.0]:
+				for offset121 in [Vector2.ZERO,Vector2(radius121,0),Vector2(-radius121-0.01,radius121+0.01)]:
+					var at121: Vector2=p121+offset121
+					check(Battle121._island_blocked(battle121,at121,radius121)==Battle121._island_blocked(uncached121,at121,radius121),"cached bounds preserve exact legacy land/contact result")
+	check(Battle121._island_blocked(battle121,Vector2(200,800),45.0)==Battle121._island_blocked(uncached121,Vector2(200,800),45.0),"far-water cache rejection preserves legacy result")
 	print("COAST121: %d checks, %d failures; geometry only, no visual-quality verdict" % [checks, failures])
 	for argument121 in OS.get_cmdline_user_args():
 		if argument121.begins_with("--out="):
