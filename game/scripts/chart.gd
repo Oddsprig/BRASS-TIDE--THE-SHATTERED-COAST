@@ -909,7 +909,11 @@ func _ensure_chart_sheet() -> void:
 func _prepare_battle_coast() -> void:
 	if host==null or str(host.mode)!="battle":return
 	var islands: Array=host.battle.get("islands",[])
-	if is_same(_coast_battle_source,islands):return
+	# Worker publications detach arrays, including unchanged terrain. Compare
+	# their values before rebuilding meshes; identity changes every adoption.
+	# Retain the last prepared array so real geometry/metadata changes and an
+	# empty-sea transition still invalidate the cache.
+	if is_same(_coast_battle_source,islands) or _coast_battle_source==islands:return
 	# Encounter islands are immutable terrain authority, including an empty sea.
 	# Never key this by campaign index: translated encounter rings differ.
 	_battle_coast.clear()

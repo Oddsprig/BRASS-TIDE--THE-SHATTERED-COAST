@@ -7,6 +7,10 @@ const CoastArt = preload("res://scripts/coast_art050.gd")
 const Navigation = preload("res://scripts/navigation.gd")
 const Battle121=preload("res://scripts/battle.gd")
 const Driver121=preload("res://scripts/battle_driver051.gd")
+const Chart121=preload("res://scripts/chart.gd")
+class CoastHost121 extends RefCounted:
+	var mode: String="battle"
+	var battle: Dictionary={}
 var checks: int = 0
 var failures: int = 0
 var art_diagnostics121: Array=[]
@@ -193,6 +197,24 @@ func run() -> void:
 	var battle121: Dictionary=Battle121.create({})
 	var mirror121: Dictionary=Driver121._snapshot(battle121,false)
 	check(battle121.get("_coastRings121",[]).size()==battle121.islands.size() and not mirror121.has("_coastRings121") and mirror121.islands.all(func(row121):return not row121.has("_coastRing121")),"coast accelerators stay on owner, outside public terrain records and publications")
+	# Actual Chart preparation must reuse meshes across detached publications,
+	# and still invalidate for translated terrain and a transition to empty sea.
+	var coast_host121:=CoastHost121.new()
+	coast_host121.battle={"islands":battle121.islands}
+	var coast_chart121:=Chart121.new()
+	coast_chart121.host=coast_host121
+	coast_chart121._prepare_battle_coast()
+	var first_plan121: Dictionary=coast_chart121._battle_coast[0]
+	coast_host121.battle={"islands":battle121.islands.duplicate(true)}
+	coast_chart121._prepare_battle_coast()
+	check(is_same(first_plan121,coast_chart121._battle_coast[0]),"detached equal worker terrain reuses actual prepared coast meshes")
+	for point121 in coast_host121.battle.islands[0].points:point121[0]=float(point121[0])+30.0
+	coast_chart121._prepare_battle_coast()
+	check(not is_same(first_plan121,coast_chart121._battle_coast[0]),"translated encounter terrain invalidates actual coast meshes")
+	coast_host121.battle={"islands":[]}
+	coast_chart121._prepare_battle_coast()
+	check(coast_chart121._battle_coast.is_empty(),"empty sea clears the prior island mesh cache")
+	coast_chart121.free()
 	var uncached121: Dictionary={"islands":battle121.islands.duplicate(true)}
 	for island121 in uncached121.islands:island121.erase("_coastBounds121")
 	for island121 in battle121.islands:
