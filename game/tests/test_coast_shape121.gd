@@ -206,11 +206,26 @@ func run() -> void:
 			for radius121 in [0.0,2.0,12.0]:
 				for end121 in [p121+Vector2(250,120),p121-Vector2(300,90)]:
 					check(Battle121._clear_shot(battle121,p121+Vector2(0,radius121),end121,radius121)==Battle121._clear_shot(uncached121,p121+Vector2(0,radius121),end121,radius121),"cached ray bounds preserve complete legacy shot clearance")
+	# Same actual detailed coast, independent old kernels retained by the
+	# uncached state. A dense grid also covers the one-unit native-buffer edge.
+	var query_legacy121:=PackedByteArray()
+	var query_native121:=PackedByteArray()
+	var query_started121: int=Time.get_ticks_usec()
+	for i121 in range(512):
+		var sample121:=Vector2(760.0+float(i121%32)*17.0,40.0+float(i121/32)*28.0)
+		for radius121 in [0.0,1.0,10.0,45.0]:query_legacy121.append(1 if Battle121._island_blocked(uncached121,sample121,radius121) else 0)
+	var query_legacy_us121: int=Time.get_ticks_usec()-query_started121
+	query_started121=Time.get_ticks_usec()
+	for i121 in range(512):
+		var sample121:=Vector2(760.0+float(i121%32)*17.0,40.0+float(i121/32)*28.0)
+		for radius121 in [0.0,1.0,10.0,45.0]:query_native121.append(1 if Battle121._island_blocked(battle121,sample121,radius121) else 0)
+	var query_native_us121: int=Time.get_ticks_usec()-query_started121
+	check(query_legacy121==query_native121,"2048 dense-coast native/legacy grid contacts agree individually")
 	print("COAST121: %d checks, %d failures; geometry only, no visual-quality verdict" % [checks, failures])
 	for argument121 in OS.get_cmdline_user_args():
 		if argument121.begins_with("--out="):
 			var receipt121=FileAccess.open(argument121.substr(6),FileAccess.WRITE)
 			if receipt121==null:quit(2);return
-			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0,"art_probes":art_diagnostics121,"art_requires_actual_image_review":true},"\t"))
+			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0,"art_probes":art_diagnostics121,"art_requires_actual_image_review":true,"contact_query_diagnostic":{"queries_each":2048,"legacy_us":query_legacy_us121,"cached_native_us":query_native_us121,"fps_claim":false}},"\t"))
 			receipt121.close()
 	quit(0 if failures == 0 else 1)

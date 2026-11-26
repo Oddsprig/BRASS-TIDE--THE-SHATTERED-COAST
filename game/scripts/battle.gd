@@ -54,7 +54,12 @@ static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 			var bounds121: Rect2=island._coastBounds121
 			if p.x<bounds121.position.x-r or p.y<bounds121.position.y-r or p.x>bounds121.end.x+r or p.y>bounds121.end.y+r:continue
 		var points: Array=island.points
-		if _inside(p,points):
+		# Native containment handles detailed rings without a script loop.
+		# Its boundary-inclusive result is equivalent ONLY with a positive
+		# contact buffer: all such border points are blocked by distance too.
+		# Exact zero/sub-unit and uncached legacy queries keep the old predicate.
+		var native121: bool=cached121 and r>=1.0 and island.get("_coastRing121") is PackedVector2Array
+		if (Geometry2D.is_point_in_polygon(p,island._coastRing121) if native121 else _inside(p,points)):
 			return true
 		for i in range(points.size()):
 			var a: Array=points[i]
@@ -118,8 +123,12 @@ static func create(options: Dictionary) -> Dictionary:
 	for island121: Dictionary in st.islands:
 		var points121: Array=island121.points
 		var bounds121: Rect2=Rect2(Vector2(points121[0][0],points121[0][1]),Vector2.ZERO)
-		for pair121 in points121:bounds121=bounds121.expand(Vector2(pair121[0],pair121[1]))
+		var ring121:=PackedVector2Array()
+		for pair121 in points121:
+			var vertex121:=Vector2(pair121[0],pair121[1])
+			bounds121=bounds121.expand(vertex121);ring121.append(vertex121)
 		island121._coastBounds121=bounds121
+		island121._coastRing121=ring121
 	var fleet: Array=options.get("fleet",[])
 	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
 	if enemy_fleet.is_empty():
@@ -545,7 +554,9 @@ static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float
 			var bounds121: Rect2=island._coastBounds121
 			if ray_hi121.x<bounds121.position.x-radius or ray_hi121.y<bounds121.position.y-radius or ray_lo121.x>bounds121.end.x+radius or ray_lo121.y>bounds121.end.y+radius:continue
 		var points: Array=island.points
-		if _inside(start,points) or _inside(end,points):
+		var native121: bool=cached121 and radius>=1.0 and island.get("_coastRing121") is PackedVector2Array
+		var endpoint_inside121: bool=(Geometry2D.is_point_in_polygon(start,island._coastRing121) or Geometry2D.is_point_in_polygon(end,island._coastRing121)) if native121 else (_inside(start,points) or _inside(end,points))
+		if endpoint_inside121:
 			return false
 		for i in range(points.size()):
 			var a: Vector2=Vector2(points[i][0],points[i][1])
