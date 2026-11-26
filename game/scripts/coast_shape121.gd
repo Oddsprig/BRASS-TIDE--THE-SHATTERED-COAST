@@ -299,7 +299,21 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 
 static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
 	var coves: PackedVector2Array=_coastal_coves121(ring,seed)
-	if _valid(coves,ring):return coves
+	if _valid(coves,ring):
+		# Native morphological opening rounds visible headlands at a spatial
+		# radius, rather than adding tiny bevels to an inherited pointed horn.
+		# The final old-footprint clip remains the physical safety authority.
+		var radius121: float=minf(95.0,_breadth(ring)*0.06)
+		var rounded121:=PackedVector2Array()
+		var largest121: float=0.0
+		for inset121: PackedVector2Array in Geometry2D.offset_polygon(coves,-radius121,Geometry2D.JOIN_ROUND):
+			for expanded121: PackedVector2Array in Geometry2D.offset_polygon(inset121,radius121,Geometry2D.JOIN_ROUND):
+				var reduced121: PackedVector2Array=expanded121 if expanded121.size()<=88 else _simplify(expanded121,88)
+				var candidate121: PackedVector2Array=_subset_repair(reduced121,ring,_centroid(ring))
+				if _valid(candidate121,ring) and _area(candidate121)>largest121:
+					rounded121=candidate121;largest121=_area(candidate121)
+		if not rounded121.is_empty():return rounded121
+		return coves
 	# Already-rounded rings (e.g. a shaped home coast translated into a
 	# battle) are a fixed point: no macro corner left to cut.
 	if ring.size() >= 24 and _max_macro_turn(ring) < GENTLE_TURN: return ring
