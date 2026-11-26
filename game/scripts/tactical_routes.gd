@@ -268,7 +268,13 @@ static func terrain(st: Dictionary) -> Dictionary:
 			var hi: Vector2=Vector2(-INF,-INF)
 			for p in vertices:
 				lo=lo.min(Vector2(p[0],p[1]));hi=hi.max(Vector2(p[0],p[1]))
-			t.obstacles.append({"points":vertices.duplicate(true),"lo":lo,"hi":hi})
+			var edge_lo121:=PackedVector2Array()
+			var edge_hi121:=PackedVector2Array()
+			for i in range(vertices.size()):
+				var c:=Vector2(vertices[i][0],vertices[i][1])
+				var d:=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
+				edge_lo121.append(c.min(d));edge_hi121.append(c.max(d))
+			t.obstacles.append({"points":vertices.duplicate(true),"lo":lo,"hi":hi,"_edgeLo121":edge_lo121,"_edgeHi121":edge_hi121})
 	return {"revision":int(t.terrainRevision),"key":key,"obstacles":t.obstacles}
 
 static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Dictionary) -> String:
@@ -280,10 +286,19 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 		if not spend(budget):return _veto_primitive051(budget,"pending","land","obstacle budget",a,b,r)
 		if hi.x<float(obstacle.lo.x) or hi.y<float(obstacle.lo.y) or lo.x>float(obstacle.hi.x) or lo.y>float(obstacle.hi.y):continue
 		var vertices: Array=obstacle.points
+		var edge_lo121=obstacle.get("_edgeLo121")
+		var edge_hi121=obstacle.get("_edgeHi121")
+		var edges_cached121: bool=edge_lo121 is PackedVector2Array and edge_hi121 is PackedVector2Array and edge_lo121.size()==vertices.size() and edge_hi121.size()==vertices.size()
 		if not spend(budget,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
 		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
 			if not spend(budget):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
+			# Preserve every debit and original possible-contact kernel. The
+			# conservative .01 slop exceeds its .001 clearance epsilon.
+			if edges_cached121:
+				var edge_lo: Vector2=edge_lo121[i]
+				var edge_hi: Vector2=edge_hi121[i]
+				if hi.x<edge_lo.x-0.01 or hi.y<edge_lo.y-0.01 or lo.x>edge_hi.x+0.01 or lo.y>edge_hi.y+0.01:continue
 			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
 			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
 			if segment_distance(a,b,c,d)<r+0.001:return _veto_land051(budget,geometry,obstacle,i,a,b,r)
@@ -300,10 +315,17 @@ static func _sweep_record051(geometry: Dictionary,a: Vector2,b: Vector2,r: float
 		if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","obstacle budget",a,b,r)
 		if hi.x<float(obstacle.lo.x) or hi.y<float(obstacle.lo.y) or lo.x>float(obstacle.hi.x) or lo.y>float(obstacle.hi.y):continue
 		var vertices: Array=obstacle.points
+		var edge_lo121=obstacle.get("_edgeLo121")
+		var edge_hi121=obstacle.get("_edgeHi121")
+		var edges_cached121: bool=edge_lo121 is PackedVector2Array and edge_hi121 is PackedVector2Array and edge_lo121.size()==vertices.size() and edge_hi121.size()==vertices.size()
 		if not _proof_spend051(budget,debits,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
 		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
 			if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
+			if edges_cached121:
+				var edge_lo: Vector2=edge_lo121[i]
+				var edge_hi: Vector2=edge_hi121[i]
+				if hi.x<edge_lo.x-0.01 or hi.y<edge_lo.y-0.01 or lo.x>edge_hi.x+0.01 or lo.y>edge_hi.y+0.01:continue
 			var c: Vector2=Vector2(vertices[i][0],vertices[i][1])
 			var d: Vector2=Vector2(vertices[(i+1)%vertices.size()][0],vertices[(i+1)%vertices.size()][1])
 			if segment_distance(a,b,c,d)<r+0.001:return _veto_land051(budget,geometry,obstacle,i,a,b,r)
