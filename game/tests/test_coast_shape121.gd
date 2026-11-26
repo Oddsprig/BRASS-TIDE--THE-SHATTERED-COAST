@@ -254,18 +254,20 @@ func run() -> void:
 	var route_public_equal121: bool=true
 	var route_record_equal121: bool=true
 	var route_cases121: int=0
+	var route_veto_cases121: int=0
 	for sample_index121 in range(32):
 		for radius121 in [0.0,1.0,12.0,45.0]:
 			for limit121 in [0,3,12,256]:
 				var anchor121: Array=battle121.islands[0].points[sample_index121%battle121.islands[0].points.size()]
 				var from121:=Vector2(anchor121[0],anchor121[1])+Vector2(radius121+0.001,float(sample_index121%3)*0.01)
 				var to121: Vector2=from121 if sample_index121%3==0 else from121+Vector2(250,-110) if sample_index121%3==1 else Vector2(1800,1000)
-				var before121: Dictionary={"clearanceTests":0,"clearanceLimit":limit121,"exhaustions":0,"vetoCapture051":true}
+				var before121: Dictionary={"clearanceTests":0,"clearanceLimit":limit121,"exhaustions":0,"profileRoutes051":true,"vetoCapture051":true}
 				var after121: Dictionary=before121.duplicate(true)
 				var old_status121: String=Routes121.sweep(route_legacy121,from121,to121,radius121,before121)
 				var new_status121: String=Routes121.sweep(route_geometry121,from121,to121,radius121,after121)
+				if before121.has("vetoPrimitive051"):route_veto_cases121+=1
 				route_public_equal121=route_public_equal121 and old_status121==new_status121 and before121==after121
-				before121={"clearanceTests":0,"clearanceLimit":limit121,"exhaustions":0,"vetoCapture051":true};after121=before121.duplicate(true)
+				before121={"clearanceTests":0,"clearanceLimit":limit121,"exhaustions":0,"profileRoutes051":true,"vetoCapture051":true};after121=before121.duplicate(true)
 				var old_debits121: Array[int]=[]
 				var new_debits121: Array[int]=[]
 				old_status121=Routes121._sweep_record051(route_legacy121,from121,to121,radius121,before121,old_debits121)
@@ -274,11 +276,12 @@ func run() -> void:
 				route_cases121+=1
 	check(route_public_equal121,"512 cached/complete route sweeps preserve status, pending, exact budget and veto fields")
 	check(route_record_equal121,"512 recorded route sweeps preserve status, exact debit sequence, budget and veto fields")
+	check(route_veto_cases121>0,"route matrix actually records nonempty veto observations")
 	print("COAST121: %d checks, %d failures; geometry only, no visual-quality verdict" % [checks, failures])
 	for argument121 in OS.get_cmdline_user_args():
 		if argument121.begins_with("--out="):
 			var receipt121=FileAccess.open(argument121.substr(6),FileAccess.WRITE)
 			if receipt121==null:quit(2);return
-			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0,"art_probes":art_diagnostics121,"art_requires_actual_image_review":true,"contact_query_diagnostic":{"queries_each":2048,"legacy_us":query_legacy_us121,"cached_native_us":query_native_us121,"fps_claim":false},"route_cache_diagnostic":{"cases_each":route_cases121,"public_status_budget_veto_equal":route_public_equal121,"record_status_debits_budget_veto_equal":route_record_equal121}},"\t"))
+			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0,"art_probes":art_diagnostics121,"art_requires_actual_image_review":true,"contact_query_diagnostic":{"queries_each":2048,"legacy_us":query_legacy_us121,"cached_native_us":query_native_us121,"fps_claim":false},"route_cache_diagnostic":{"cases_each":route_cases121,"public_status_budget_veto_equal":route_public_equal121,"record_status_debits_budget_veto_equal":route_record_equal121,"observed_veto_cases":route_veto_cases121}},"\t"))
 			receipt121.close()
 	quit(0 if failures == 0 else 1)
