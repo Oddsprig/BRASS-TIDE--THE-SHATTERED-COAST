@@ -196,23 +196,39 @@ static func _max_macro_turn(ring: PackedVector2Array) -> float:
 	for i in range(ring.size()): worst = maxf(worst, _macro_turn(ring, i, k))
 	return worst
 
+static func _removal_safe(pts: Array, i: int) -> bool:
+	# Dropping vertex i replaces its two edges with one chord; that chord
+	# must not cross any non-adjacent edge (concave authored rings can
+	# self-intersect under naive simplification and then fail every gate).
+	var n: int = pts.size()
+	var a: Vector2 = pts[posmod(i - 1, n)]
+	var b: Vector2 = pts[posmod(i + 1, n)]
+	for j in range(n):
+		var c: Vector2 = pts[j]
+		var d: Vector2 = pts[posmod(j + 1, n)]
+		if c == a or c == b or d == a or d == b: continue
+		if Geometry2D.segment_intersects_segment(a, b, c, d) != null: return false
+	return true
+
 static func _simplify(ring: PackedVector2Array, target: int) -> PackedVector2Array:
-	# Bounded Visvalingam simplification: repeatedly drop the vertex whose
-	# triangle has least area. Macro corners (large triangles) survive, so
-	# the following corner-cut rounds the real silhouette, not micro-noise.
+	# Bounded Visvalingam simplification: repeatedly drop the SAFE vertex
+	# whose triangle has least area. Macro corners (large triangles)
+	# survive, so the following corner-cut rounds the real silhouette,
+	# not micro-noise. Stops early if no removal stays simple.
 	var pts: Array = []
 	for p in ring: pts.append(p)
 	while pts.size() > maxi(3, target):
-		var worst: int = 0
+		var worst: int = -1
 		var worst_area: float = INF
 		for i in range(pts.size()):
 			var a: Vector2 = pts[posmod(i - 1, pts.size())]
 			var b: Vector2 = pts[i]
 			var c: Vector2 = pts[posmod(i + 1, pts.size())]
 			var area: float = absf((b - a).cross(c - a)) * 0.5
-			if area < worst_area:
+			if area < worst_area and _removal_safe(pts, i):
 				worst_area = area
 				worst = i
+		if worst < 0: break
 		pts.remove_at(worst)
 	var out := PackedVector2Array()
 	for p in pts: out.append(p)

@@ -156,6 +156,10 @@ func run() -> void:
 	for i121 in range(data.ISLANDS.size()):
 		validate_shaped(data.ISLANDS[i121].points,shaped_islands[i121].points,"actual home "+str(data.ISLANDS[i121].id))
 		check(var_to_bytes(data.ISLANDS[i121].points)!=var_to_bytes(shaped_islands[i121].points),"actual home coast changed "+str(data.ISLANDS[i121].id))
+	for i121 in range(data.ISLANDS.size()):
+		var before121: PackedVector2Array=ring_of(data.ISLANDS[i121].points)
+		var probe121: PackedVector2Array=Shape121._shape_dense(before121,Shape121._seed(str(data.ISLANDS[i121].id)))
+		print("COAST121_DIAGNOSTIC ",JSON.stringify({"id":data.ISLANDS[i121].id,"points":probe121.size(),"simple":Shape121._simple(probe121),"subset":Shape121._is_subset(probe121,before121),"area_ratio":Shape121._area(probe121)/Shape121._area(before121),"old_turn":Shape121._max_macro_turn(before121),"new_turn":Shape121._max_macro_turn(probe121)}))
 	var home_nav: Dictionary = {"width": data.WORLD.width, "height": data.WORLD.height, "islands": shaped_islands}
 	for port in data.PORTS:
 		check(Navigation.is_water(home_nav, port.x, port.y, 36.0), "home berth stays navigable water " + str(port.id))
