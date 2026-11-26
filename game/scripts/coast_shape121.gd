@@ -28,7 +28,7 @@ extends RefCounted
 
 const MAX_RING: int = 96
 const COARSE_MAX: int = 16
-const DENSE_TARGET: int = 20
+const DENSE_TARGET: int = 12
 const GENTLE_TURN: float = 0.30
 
 static func _seed(id: String) -> int:

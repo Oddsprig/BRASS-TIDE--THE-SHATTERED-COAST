@@ -121,7 +121,7 @@ func run() -> void:
 			dense.append([p.x, p.y])
 	var dense_before: PackedVector2Array = ring_of(dense)
 	var dense_after: PackedVector2Array = validate_shaped(dense, Shape121.natural_ring_authored(dense, "isl_dense_probe"), "authored dense hexagon")
-	check(sharpest_headland121(dense_after) < 0.9, "authored macro corners rounded below a sharp turn")
+	check(sharpest_headland121(dense_after) < 0.9, "authored convex corner %.4f rounded below0.9radians" % sharpest_headland121(dense_after))
 	# Glasswind-density runtime ring (36 vertices with sharp corners) must
 	# shape through natural_islands, not skip past the coarse guard.
 	var key36: Array = []
