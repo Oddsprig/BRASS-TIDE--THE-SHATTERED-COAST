@@ -13,6 +13,7 @@ const FireControl=preload("res://scripts/tactical_fire_control.gd")
 const EquipmentCombat=preload("res://scripts/equipment_combat.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 const HullProfiles=preload("res://scripts/hull_profiles.gd")
+const CoastShape121=preload("res://scripts/coast_shape121.gd")
 const WIDTH: float=2300.0
 const HEIGHT: float=1700.0
 const MAX_MOUNTS: int=16
@@ -97,6 +98,12 @@ static func create(options: Dictionary) -> Dictionary:
 			st.islands.append(local)
 	if not options.has("islands"):
 		st.islands=[{"points":[[850,80],[1130,120],[1210,310],[1030,420],[820,300]]},{"points":[[1040,1320],[1240,1250],[1430,1450],[1320,1640],[1070,1580]]}]
+	# v0.121: one physical ring for collision, tactical routes, shot
+	# clearance and CoastArt. Already-rounded or coast121-marked
+	# encounter rings pass through unchanged; the coarse laboratory /
+	# Coastal Clash slabs take their natural shape here, before
+	# formation placement reads st.islands.
+	st.islands=CoastShape121.natural_islands(st.islands)
 	var fleet: Array=options.get("fleet",[])
 	var enemy_fleet: Array=options.get("enemyFleet",[]).duplicate()
 	if enemy_fleet.is_empty():

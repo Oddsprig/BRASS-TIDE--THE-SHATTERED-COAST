@@ -2,6 +2,7 @@ extends RefCounted
 ## Pure player spatial operations. Campaign alone owns boats, accounts and time.
 ## Context is runtime geometry; the supplied home navigation is shared read-only.
 const Navigation = preload("res://scripts/navigation.gd")
+const CoastShape121 = preload("res://scripts/coast_shape121.gd")
 const HOME: String = "shatter_coast"
 const REMOTE: String = "glasswind_keys"
 const OCEAN: String = "open_ocean"
@@ -39,6 +40,11 @@ static func create(home: Dictionary, atlas: Dictionary, home_nav: Dictionary, ha
 	for region_id in regions:
 		if region_id != HOME:
 			var local_region: Dictionary = regions[region_id]
+			# v0.121 runtime-only shaping of this duplicated region. The
+			# saved sector/atlas bytes are never mutated: validation above
+			# ran on them, shaping re-derives from them every launch, and
+			# shaped runtime copies carry a coast121 marker against repeats.
+			local_region.islands = CoastShape121.natural_islands(local_region.islands)
 			geometry[region_id] = Navigation.geometry(local_region.islands, local_region.width, local_region.height)
 	var remote: Dictionary = regions[REMOTE]
 	# Keep Glasswind pinned: its existing merchant stays physical while the player

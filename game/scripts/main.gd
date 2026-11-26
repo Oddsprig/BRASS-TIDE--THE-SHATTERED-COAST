@@ -29,6 +29,7 @@ const FirstVoyage120=preload("res://scripts/first_voyage120.gd")
 const Guidance120=preload("res://scripts/campaign_guidance.gd")
 const GuidanceUI120=preload("res://scripts/guidance_ui.gd")
 const CareerCosts120=preload("res://scripts/career_costs.gd")
+const CoastShape121=preload("res://scripts/coast_shape121.gd")
 
 class _DamageView051 extends RefCounted:
 	var owner: WeakRef
@@ -149,6 +150,10 @@ func _ready():
 		push_error("World data missing.")
 		get_tree().quit(1)
 		return
+	# v0.121: shape the authored home coasts once, from the unchanged file
+	# bytes, before Campaign builds the shared home navigation from them.
+	if data.get("ISLANDS") is Array:
+		data.ISLANDS=CoastShape121.natural_islands_authored(data.ISLANDS)
 	if "--qa-performance" in OS.get_cmdline_user_args():
 		print("QA synchronous 60Hz component reference; not the worker30Hz/rendered acceptance cohort.")
 		get_tree().quit(RuntimeBenchmark.new().run(data))
@@ -1093,6 +1098,9 @@ func begin_battle(specs: Array, context: Dictionary):
 	for boat in player_fleet:boat.supportRepairFactor=1.0
 	var geography064: Dictionary=data if core.home_local064() else {"ISLANDS":core.world_view064().get("islands",[])}
 	var options: Dictionary=CoastalTerrain.arena(geography064,encounter_position(context))
+	# Main already shaped both home and runtime region geography. Translation
+	# preserves that exact shore; Battle must not round it for a second time.
+	for island121: Dictionary in options.islands:island121.coast121=1
 	options.merge({"fleet":player_fleet,"mission":context.get("mission",{}),"enemySpecs":specs,"enemyFleet":enemy_fleet,"seed":int(core.state.seed)+core.state.wins*17+core.state.losses*5})
 	battle = Battle.create(options)
 	if not str(battle.get("startError","")).is_empty():

@@ -117,8 +117,14 @@ static func _profile(id: String) -> Dictionary:
 
 static func _shore(plan: Dictionary,profile: Dictionary) -> void:
 	var land: PackedVector2Array=plan.land
-	for i in range(land.size()):
-		var a: Vector2=land[i];var b: Vector2=land[(i+1)%land.size()]
+	# v0.121 physical rings can hold up to 96 vertices. Shore painting walks
+	# at most 24 spans of that same ring, so the bounded LOD vertex budgets
+	# still reach relief, fields and groves; every _paint below keeps
+	# clipping against the full plan.land.
+	var shore_step: int=maxi(1,int(ceil(float(land.size())/24.0)))
+	for k in range(0,land.size(),shore_step):
+		var i: int=k
+		var a: Vector2=land[i];var b: Vector2=land[(i+shore_step)%land.size()]
 		var middle: Vector2=(a+b)*0.5
 		var along: Vector2=(b-a).normalized()
 		var inward: Vector2=(b-a).orthogonal().normalized()
