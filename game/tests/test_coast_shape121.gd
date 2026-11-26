@@ -195,6 +195,12 @@ func run() -> void:
 					var at121: Vector2=p121+offset121
 					check(Battle121._island_blocked(battle121,at121,radius121)==Battle121._island_blocked(uncached121,at121,radius121),"cached bounds preserve exact legacy land/contact result")
 	check(Battle121._island_blocked(battle121,Vector2(200,800),45.0)==Battle121._island_blocked(uncached121,Vector2(200,800),45.0),"far-water cache rejection preserves legacy result")
+	for island121 in battle121.islands:
+		for j121 in range(0,island121.points.size(),8):
+			var p121:=Vector2(island121.points[j121][0],island121.points[j121][1])
+			for radius121 in [0.0,2.0,12.0]:
+				for end121 in [p121+Vector2(250,120),p121-Vector2(300,90)]:
+					check(Battle121._clear_shot(battle121,p121+Vector2(0,radius121),end121,radius121)==Battle121._clear_shot(uncached121,p121+Vector2(0,radius121),end121,radius121),"cached ray bounds preserve complete legacy shot clearance")
 	print("COAST121: %d checks, %d failures; geometry only, no visual-quality verdict" % [checks, failures])
 	for argument121 in OS.get_cmdline_user_args():
 		if argument121.begins_with("--out="):

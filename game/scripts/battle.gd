@@ -531,14 +531,19 @@ static func _lead(s: Dictionary,mount: Dictionary,target: Dictionary) -> Vector2
 static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float=2.0) -> bool:
 	if minf(start.x,end.x)<radius or maxf(start.x,end.x)>WIDTH-radius or minf(start.y,end.y)<radius or maxf(start.y,end.y)>HEIGHT-radius:
 		return false
+	var ray_lo121: Vector2=start.min(end)
+	var ray_hi121: Vector2=start.max(end)
+	var delta: Vector2=end-start
 	for island in st.islands:
+		if island.get("_coastBounds121") is Rect2:
+			var bounds121: Rect2=island._coastBounds121
+			if ray_hi121.x<bounds121.position.x-radius or ray_hi121.y<bounds121.position.y-radius or ray_lo121.x>bounds121.end.x+radius or ray_lo121.y>bounds121.end.y+radius:continue
 		var points: Array=island.points
 		if _inside(start,points) or _inside(end,points):
 			return false
 		for i in range(points.size()):
 			var a: Vector2=Vector2(points[i][0],points[i][1])
 			var b: Vector2=Vector2(points[(i+1)%points.size()][0],points[(i+1)%points.size()][1])
-			var delta: Vector2=end-start
 			var edge: Vector2=b-a
 			var denominator: float=delta.cross(edge)
 			if absf(denominator)>0.000001:
