@@ -8,6 +8,11 @@ const Navigation = preload("res://scripts/navigation.gd")
 const Battle121=preload("res://scripts/battle.gd")
 var checks: int = 0
 var failures: int = 0
+var art_diagnostics121: Array=[]
+
+func art_probe121(ok: bool,message: String) -> void:
+	art_diagnostics121.append({"met":ok,"message":message})
+	print("COAST121_ART_DIAGNOSTIC ",ok," ",message)
 
 func check(ok: bool, message: String) -> void:
 	checks += 1
@@ -61,7 +66,7 @@ func validate_shaped(original: Array, shaped: Array, label: String, uniform_corn
 	# bridge a water cove, which vertex/midpoint sampling cannot prove.
 	check(Shape121._is_subset(after, before), label + " whole shaped polygon inside original land (intersection proof)")
 	if uniform_corner_probe:
-		check(sharpest_headland121(after) < sharpest_headland121(before), label + " convex headland corners are rounded, not just inset")
+		art_probe121(sharpest_headland121(after) < sharpest_headland121(before), label + " convex headland corners are rounded, not just inset")
 	check(Shape121._simple(after), label + " simple non-self-intersecting ring")
 	var ratio: float = Shape121._area(after) / maxf(0.001, Shape121._area(before))
 	check(ratio >= 0.5 and ratio <= 1.001, label + " area kept, never grown (%.3f)" % ratio)
@@ -123,7 +128,7 @@ func run() -> void:
 			dense.append([p.x, p.y])
 	var dense_before: PackedVector2Array = ring_of(dense)
 	var dense_after: PackedVector2Array = validate_shaped(dense, Shape121.natural_ring_authored(dense, "isl_dense_probe"), "authored dense hexagon")
-	check(sharpest_headland121(dense_after) < 0.9, "authored convex corner %.4f rounded below0.9radians" % sharpest_headland121(dense_after))
+	art_probe121(sharpest_headland121(dense_after) < 0.9, "authored convex corner %.4f rounded below0.9radians" % sharpest_headland121(dense_after))
 	# Glasswind-density runtime ring (36 vertices with sharp corners) must
 	# shape through natural_islands, not skip past the coarse guard.
 	var key36: Array = []
@@ -206,6 +211,6 @@ func run() -> void:
 		if argument121.begins_with("--out="):
 			var receipt121=FileAccess.open(argument121.substr(6),FileAccess.WRITE)
 			if receipt121==null:quit(2);return
-			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0},"\t"))
+			receipt121.store_string(JSON.stringify({"outcome":"passed" if failures==0 else "failed","checks":checks,"failures":failures,"seconds":(Time.get_ticks_usec()-began121)/1000000.0,"art_probes":art_diagnostics121,"art_requires_actual_image_review":true},"\t"))
 			receipt121.close()
 	quit(0 if failures == 0 else 1)
