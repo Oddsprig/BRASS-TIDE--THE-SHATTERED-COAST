@@ -49,7 +49,8 @@ static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 		# Terrain is immutable after create. Reject only centers strictly
 		# outside its radius-expanded bounds; shoreline/contact math below
 		# stays authoritative. Legacy states without this cache use that math.
-		if island.get("_coastBounds121") is Rect2:
+		var cached121: bool=island.get("_coastBounds121") is Rect2
+		if cached121:
 			var bounds121: Rect2=island._coastBounds121
 			if p.x<bounds121.position.x-r or p.y<bounds121.position.y-r or p.x>bounds121.end.x+r or p.y>bounds121.end.y+r:continue
 		var points: Array=island.points
@@ -58,6 +59,10 @@ static func _island_blocked(st: Dictionary, p: Vector2, r: float) -> bool:
 		for i in range(points.size()):
 			var a: Array=points[i]
 			var b: Array=points[(i+1)%points.size()]
+			# A detailed curved ring has many irrelevant segments even when its
+			# whole-island box overlaps. Reject only strict segment-box misses;
+			# keep the original distance kernel for every possible contact.
+			if cached121 and (p.x<minf(a[0],b[0])-r or p.y<minf(a[1],b[1])-r or p.x>maxf(a[0],b[0])+r or p.y>maxf(a[1],b[1])+r):continue
 			if _edge_distance(p,Vector2(a[0],a[1]),Vector2(b[0],b[1]))<r:
 				return true
 	return false
@@ -535,7 +540,8 @@ static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float
 	var ray_hi121: Vector2=start.max(end)
 	var delta: Vector2=end-start
 	for island in st.islands:
-		if island.get("_coastBounds121") is Rect2:
+		var cached121: bool=island.get("_coastBounds121") is Rect2
+		if cached121:
 			var bounds121: Rect2=island._coastBounds121
 			if ray_hi121.x<bounds121.position.x-radius or ray_hi121.y<bounds121.position.y-radius or ray_lo121.x>bounds121.end.x+radius or ray_lo121.y>bounds121.end.y+radius:continue
 		var points: Array=island.points
@@ -544,6 +550,7 @@ static func _clear_shot(st: Dictionary,start: Vector2,end: Vector2,radius: float
 		for i in range(points.size()):
 			var a: Vector2=Vector2(points[i][0],points[i][1])
 			var b: Vector2=Vector2(points[(i+1)%points.size()][0],points[(i+1)%points.size()][1])
+			if cached121 and (ray_hi121.x<minf(a.x,b.x)-radius or ray_hi121.y<minf(a.y,b.y)-radius or ray_lo121.x>maxf(a.x,b.x)+radius or ray_lo121.y>maxf(a.y,b.y)+radius):continue
 			var edge: Vector2=b-a
 			var denominator: float=delta.cross(edge)
 			if absf(denominator)>0.000001:
