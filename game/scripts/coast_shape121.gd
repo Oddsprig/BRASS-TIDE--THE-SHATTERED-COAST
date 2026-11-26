@@ -268,6 +268,9 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 		lengths.append(length);perimeter+=length
 	if perimeter<1.0:return PackedVector2Array()
 	var breadth: float=_breadth(ring)
+	var signed_area121: float=0.0
+	for i in range(ring.size()):signed_area121+=ring[i].cross(ring[(i+1)%ring.size()])
+	var winding121: float=1.0 if signed_area121>0.0 else -1.0
 	var phase: float=float(posmod(seed,360))*TAU/360.0
 	var samples:=PackedVector2Array()
 	var edge: int=0
@@ -281,13 +284,18 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 		var b: Vector2=ring[(edge+1)%ring.size()]
 		var t: float=clampf((distance-passed)/maxf(0.001,lengths[edge]),0.0,1.0)
 		var at: Vector2=a.lerp(b,t)
-		var inward: Vector2=(b-a).orthogonal().normalized()
-		if not Geometry2D.is_point_in_polygon(at+inward*2.0,ring):inward=-inward
+		var edge_delta121: Vector2=b-a
+		var inward: Vector2=Vector2(-edge_delta121.y,edge_delta121.x).normalized()*winding121
 		var broad: float=0.5+0.5*sin(u*TAU*5.0+phase)
 		var broken: float=0.5+0.5*sin(u*TAU*9.0+phase*2.0)
-		var depth: float=breadth*(0.025+0.075*broad*broad+0.018*broken)
+		var depth: float=breadth*(0.025+0.075*broad*broad+0.008*broken)
 		samples.append(at+inward*depth)
-	return _subset_repair(_chaikin(samples),ring,_centroid(ring))
+	var curved121: PackedVector2Array=_chaikin(samples)
+	for _pass121 in range(2):
+		var smoothed121:=PackedVector2Array()
+		for i in range(curved121.size()):smoothed121.append(curved121[posmod(i-1,curved121.size())]*0.25+curved121[i]*0.5+curved121[(i+1)%curved121.size()]*0.25)
+		curved121=smoothed121
+	return _subset_repair(curved121,ring,_centroid(ring))
 
 static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
 	var coves: PackedVector2Array=_coastal_coves121(ring,seed)
