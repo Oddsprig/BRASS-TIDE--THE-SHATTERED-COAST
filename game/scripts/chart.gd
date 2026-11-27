@@ -791,6 +791,7 @@ func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Fon
 	draw_string(font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 func _draw():
+	BoatArt.MeshCache.begin_draw121(self)
 	if host == null or background == null:
 		return
 	var started: int=Time.get_ticks_usec()

@@ -9,6 +9,7 @@ const Battle121=preload("res://scripts/battle.gd")
 const Driver121=preload("res://scripts/battle_driver051.gd")
 const Chart121=preload("res://scripts/chart.gd")
 const Routes121=preload("res://scripts/tactical_routes.gd")
+const MeshCache121=preload("res://scripts/boat_mesh_cache.gd")
 class CoastHost121 extends RefCounted:
 	var mode: String="battle"
 	var battle: Dictionary={}
@@ -96,6 +97,24 @@ func validate_shaped(original: Array, shaped: Array, label: String, uniform_corn
 
 func run() -> void:
 	var began121: int=Time.get_ticks_usec()
+	# A submitted resource must survive global-cache eviction while another
+	# canvas still owns commands. Only its own next draw releases that pin.
+	var pin_owner121:=Node2D.new()
+	var other_owner121:=Node2D.new()
+	MeshCache121.begin_draw121(pin_owner121)
+	var pin_mesh121:=ArrayMesh.new()
+	var pin_weak121:=weakref(pin_mesh121)
+	MeshCache121._meshes["pin_probe121"]=pin_mesh121
+	MeshCache121._order.append("pin_probe121")
+	MeshCache121._retain_draw121(pin_owner121,pin_mesh121)
+	pin_mesh121=null
+	MeshCache121.clear()
+	check(pin_weak121.get_ref()!=null,"canvas retains submitted mesh after actual global cache clear")
+	MeshCache121.begin_draw121(other_owner121)
+	check(pin_weak121.get_ref()!=null,"another canvas redraw cannot release this canvas mesh")
+	MeshCache121.begin_draw121(pin_owner121)
+	check(pin_weak121.get_ref()==null,"only owner next redraw releases its previous mesh references")
+	pin_owner121.free();other_owner121.free()
 	# The two literal laboratory / Coastal Clash slabs from battle.gd.
 	var lab: Array = [
 		{"id": "lab_north", "name": "North", "color": "#66877e", "points": [[850, 80], [1130, 120], [1210, 310], [1030, 420], [820, 300]]},

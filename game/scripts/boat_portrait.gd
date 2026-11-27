@@ -57,6 +57,7 @@ func _gui_input(event: InputEvent) -> void:
 				mount_selected.emit(i);accept_event();return
 
 func _draw() -> void:
+	BoatArt.MeshCache.begin_draw121(self)
 	draw_contents(self,size)
 
 ## Bounds and pivot use the same real frame metadata as BoatArt. Atlas alpha

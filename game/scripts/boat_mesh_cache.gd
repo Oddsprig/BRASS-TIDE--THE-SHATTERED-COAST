@@ -2,6 +2,7 @@ extends RefCounted
 ## Static boat geometry becomes one colored mesh. Bounded, main-thread and texture-free.
 const STEPS: int=64
 const LIMIT: int=512
+const DRAW_REFS121: StringName=&"_boat_draw_mesh_refs121"
 const ISO:=Transform2D(Vector2(0.82,0.41),Vector2(-0.82,0.41),Vector2.ZERO)
 static var _meshes: Dictionary={}
 static var _order: Array=[]
@@ -14,6 +15,17 @@ static var _profile_build_us: int=0
 static var _profile_build_max_us: int=0
 static var _profile_evictions: int=0
 static var _profile_clears: int=0
+
+## Call once at the start of the canvas owner's actual _draw callback. The
+## engine has cleared that owner's old commands; other canvases keep theirs.
+static func begin_draw121(canvas: CanvasItem) -> void:
+	canvas.set_meta(DRAW_REFS121,{})
+
+static func _retain_draw121(canvas,mesh: Mesh) -> void:
+	if not canvas is CanvasItem:return # Pure source recorders own their results.
+	if not canvas.has_meta(DRAW_REFS121):begin_draw121(canvas)
+	var retained121: Dictionary=canvas.get_meta(DRAW_REFS121)
+	retained121[mesh.get_instance_id()]=mesh
 
 ## Main-thread, opt-in CPU counters. Reset never evicts or warms geometry.
 static func profile_enable(enabled: bool=true) -> void:
@@ -86,6 +98,10 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 		if _profile_enabled:_profile_hits+=1
 	# Null is the cached empty-bake sentinel, not geometry to submit.
 	if _meshes[full_key]==null:return
+	# Canvas commands retain RIDs, not this cache's RefCounted ownership. Keep
+	# every submitted mesh alive until this canvas redraws or is freed, even
+	# when the bounded global cache evicts it or the developer clears it.
+	_retain_draw121(canvas,_meshes[full_key])
 	var origin: Vector2=projector.call(position,0.0)
 	var scale: float=(projector.call(position+Vector2(1,0),0.0)-origin).length()/Vector2(0.82,0.41).length()
 	var transform: Transform2D=ISO*Transform2D(angle-quantized,Vector2.ZERO)*ISO.affine_inverse()
