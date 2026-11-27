@@ -290,7 +290,12 @@ static func sweep(geometry: Dictionary,a: Vector2,b: Vector2,r: float,budget: Di
 		var edge_hi121=obstacle.get("_edgeHi121")
 		var edges_cached121: bool=edge_lo121 is PackedVector2Array and edge_hi121 is PackedVector2Array and edge_lo121.size()==vertices.size() and edge_hi121.size()==vertices.size()
 		if not spend(budget,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
-		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
+		# The sweep bounds include radius and the entire segment. Each endpoint
+		# outside the island's OWN bounds cannot be inside its polygon.
+		# Uncached geometry retains the complete legacy endpoint scan.
+		var a_in_bounds121: bool=not edges_cached121 or (a.x>=obstacle.lo.x and a.y>=obstacle.lo.y and a.x<=obstacle.hi.x and a.y<=obstacle.hi.y)
+		var b_in_bounds121: bool=not edges_cached121 or (b.x>=obstacle.lo.x and b.y>=obstacle.lo.y and b.x<=obstacle.hi.x and b.y<=obstacle.hi.y)
+		if (a_in_bounds121 and inside(a,vertices)) or (b_in_bounds121 and inside(b,vertices)):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
 			if not spend(budget):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
 			# Preserve every debit and original possible-contact kernel. The
@@ -319,7 +324,9 @@ static func _sweep_record051(geometry: Dictionary,a: Vector2,b: Vector2,r: float
 		var edge_hi121=obstacle.get("_edgeHi121")
 		var edges_cached121: bool=edge_lo121 is PackedVector2Array and edge_hi121 is PackedVector2Array and edge_lo121.size()==vertices.size() and edge_hi121.size()==vertices.size()
 		if not _proof_spend051(budget,debits,2):return _veto_primitive051(budget,"pending","land","endpoint budget",a,b,r)
-		if inside(a,vertices) or inside(b,vertices):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
+		var a_in_bounds121: bool=not edges_cached121 or (a.x>=obstacle.lo.x and a.y>=obstacle.lo.y and a.x<=obstacle.hi.x and a.y<=obstacle.hi.y)
+		var b_in_bounds121: bool=not edges_cached121 or (b.x>=obstacle.lo.x and b.y>=obstacle.lo.y and b.x<=obstacle.hi.x and b.y<=obstacle.hi.y)
+		if (a_in_bounds121 and inside(a,vertices)) or (b_in_bounds121 and inside(b,vertices)):return _veto_land051(budget,geometry,obstacle,-1,a,b,r)
 		for i in range(vertices.size()):
 			if not _proof_spend051(budget,debits):return _veto_primitive051(budget,"pending","land","edge budget",a,b,r)
 			if edges_cached121:
