@@ -1,7 +1,7 @@
-CURRENT OWNER TASK,26November2026 — v0.121 natural islands
-Owner requests natural, non-hexagonal/non-square island silhouettes via Muse Wonder Full HIGH on Bridge and updated existing website/screenshots. This expressly supersedes prior completed120 model/task restrictions below for this task. Root alone integrates/tests/releases. Muse authors its isolated relay; existing Sol6.1MAX independent reviewer/notes helper retained. At most2active helpers, no nested helpers/fallback. Preserve120rollback and all owner saves/settings/music.
-Current same-merge docs: CODE MAP.md, game/data/DEVELOPER NOTES.txt, NEW CHANGES v0.121.md. Released120notes/tags immutable. After merge run the notes-only reconciliation helper.
-Whole necessary engine/GPU batch<=60s with55s owned watchdog, read-only process detector+shared TestBridge FIFO, one owned engine, muted/private/background/no foreground or input control. No broad systems/career replays or speculative performance work. Real visible natural coasts, physical geometry/navigation agreement, saved-water safety, bounded cached preparation and fresh actual-build screenshots are the gates. Keep existing marketplace domain/backend,999cents, literal copy and purchase/library flow; no new hosted Site. Board remains paused.
+LATEST RELEASE WORK — v0.122 natural coasts and marketplace captures
+This correction follows the v0.121 coast and gallery feedback. Use the accepted v0.122 source and its developer map, developer notes and changelog for context. The game uses Godot and GDScript. The v0.121 Windows installation remains available for rollback.
+Keep the shared testing lane, one owned engine or GPU process at a time, private background desktop, muted audio and no mouse or foreground control. Budget the full test batch under 60 seconds. Queue behind existing games and preserve failed or interrupted runs separately.
+For a marketplace release, use the existing Windows product and $9.99 price. Inspect representative gameplay images and the whole page with an independent reviewer. Confirm the published gallery and protected download match the tested build. Keep copy literal and ambient scenery unlabeled. The hidden-board watch remains paused.
 
 PRIOR RELEASE RECORD (historical; current task above controls):
 BRASS TIDE COMMERCIAL RELEASE WORK — owner15November2026
