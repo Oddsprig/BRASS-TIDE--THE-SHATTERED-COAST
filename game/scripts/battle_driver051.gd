@@ -311,6 +311,11 @@ static func _run_worker(mail: _Mailbox,initial: Dictionary) -> Dictionary:
 		# Physics never waits for that interval or Main to adopt a frame.
 		job.routine_due_us=published_at+DISPLAY_US
 		job.publish=job.retiring or not job.commands.is_empty() or (dirty and paused) or (observe_next_step and job.steps>0) or (per_step_display and job.steps>0) or ((dirty or job.steps>0) and Time.get_ticks_usec()>=job.routine_due_us)
+		# Send an already-due completed frame before admitting another step.
+		# This turn consumes no elapsed debt; the next turn resumes physics.
+		# Forced command/observed-step and small-fleet paths keep their ordering.
+		if not per_step_display and dirty and runnable and job.commands.is_empty() and not observe_next_step and Time.get_ticks_usec()>=job.routine_due_us:
+			job.steps=0;job.publish=true
 		if job.steps==0 and job.commands.is_empty() and not job.publish and job.state.get("result")==null:
 			mail.mutex.lock();mail.busy=false;mail.mutex.unlock()
 			mail.wake.wait()

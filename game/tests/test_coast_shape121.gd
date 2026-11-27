@@ -196,6 +196,16 @@ func run() -> void:
 	# Compare the cached broad phase with the complete legacy shore test at
 	# exact/near boundary centers, several hull radii and open-water points.
 	var battle121: Dictionary=Battle121.create({})
+	# The production worker's snapshot-only turn must not advance physics,
+	# consume RNG or charge a completed step before the next normal turn.
+	var publish_job121:=Driver121._Job.new()
+	publish_job121.state=battle121;publish_job121.boot=false;publish_job121.publish=true
+	var before_publish121: Dictionary=Driver121._snapshot(battle121,false)
+	var before_rng121: int=battle121.rng.state
+	Driver121._work(publish_job121)
+	check(int(publish_job121.receipt.stepsInJob)==0 and publish_job121.completed==0,"snapshot-only production worker turn reports no completed physics")
+	check(before_publish121==Driver121._snapshot(battle121,false) and battle121.rng.state==before_rng121,"snapshot-only production worker turn preserves state, time and RNG")
+	check(not publish_job121.publication.is_empty() and publish_job121.publication.time==battle121.time,"snapshot-only production worker turn publishes actual completed state")
 	var mirror121: Dictionary=Driver121._snapshot(battle121,false)
 	check(battle121.get("_coastRings121",[]).size()==battle121.islands.size() and not mirror121.has("_coastRings121") and mirror121.islands.all(func(row121):return not row121.has("_coastRing121")),"coast accelerators stay on owner, outside public terrain records and publications")
 	# Actual Chart preparation must reuse meshes across detached publications,
