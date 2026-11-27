@@ -10,4 +10,6 @@ The Windows build, desktop launchers and marketplace screenshots/download now ma
 
 323 native checks, 0 failures. Actual exported42-boat/300DP-per-side sample at1920x1200: 60.014FPS, p95 17.887ms, p99 21.634ms, command 16.993ms, worker 29.799Hz, peak lag 169.155ms, end drift 80.485ms. Every unchanged release floor passed in a 24.047s batch on this PC; stricter raw diagnostics remain in the receipt.
 
+This sample used a private owned process created at NORMAL priority, with process-local HighQoS applied before its first instruction and actual affinity to 24 logical CPUs read back. All resource caps and eight release floors were unchanged. This establishes only the recorded scheduling condition; no causal game-code speedup or equivalence with foreground play was established.
+
 Root and the independent reviewer viewed the actual coastlines, distinct gallery and complete desktop store page. A clean final capture and full protected ZIP readback passed. Historical failed/interrupted attempts remain separate. This is a bounded update on the tested PC, not competitor-parity or universal-hardware certification.
