@@ -59,6 +59,7 @@ func _gui_input(event: InputEvent) -> void:
 func _draw() -> void:
 	BoatArt.MeshCache.begin_draw121(self)
 	draw_contents(self,size)
+	BoatArt.MeshCache.end_draw121(self)
 
 ## Bounds and pivot use the same real frame metadata as BoatArt. Atlas alpha
 ## padding must not make a skiff tiny, or clip the large merchant's machinery.

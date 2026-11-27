@@ -791,10 +791,11 @@ func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Fon
 	draw_string(font, position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 func _draw():
+	var started: int=Time.get_ticks_usec()
 	BoatArt.MeshCache.begin_draw121(self)
 	if host == null or background == null:
+		BoatArt.MeshCache.end_draw121(self)
 		return
-	var started: int=Time.get_ticks_usec()
 	var viewport = get_viewport_rect().size
 	_profile_drawing=_profile_enabled
 	if _profile_drawing:
@@ -823,6 +824,7 @@ func _draw():
 		draw_title()
 	else:
 		draw_campaign()
+	BoatArt.MeshCache.end_draw121(self)
 	presentation_us=Time.get_ticks_usec()-started
 	if _profile_drawing:
 		_profile_draws+=1

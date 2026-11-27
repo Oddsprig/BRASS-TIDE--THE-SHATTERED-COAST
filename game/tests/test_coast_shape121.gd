@@ -114,7 +114,12 @@ func run() -> void:
 	check(pin_weak121.get_ref()!=null,"another canvas redraw cannot release this canvas mesh")
 	MeshCache121.begin_draw121(pin_owner121)
 	check(pin_weak121.get_ref()==null,"only owner next redraw releases its previous mesh references")
+	var final_pin121:=ArrayMesh.new()
+	var final_weak121:=weakref(final_pin121)
+	MeshCache121._retain_draw121(pin_owner121,final_pin121);final_pin121=null
+	MeshCache121.end_draw121(pin_owner121)
 	pin_owner121.free();other_owner121.free()
+	check(final_weak121.get_ref()==null,"ended draw keeps no static borrowed list alive after its owner is freed")
 	# The two literal laboratory / Coastal Clash slabs from battle.gd.
 	var lab: Array = [
 		{"id": "lab_north", "name": "North", "color": "#66877e", "points": [[850, 80], [1130, 120], [1210, 310], [1030, 420], [820, 300]]},

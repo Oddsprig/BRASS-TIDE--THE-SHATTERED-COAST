@@ -15,17 +15,32 @@ static var _profile_build_us: int=0
 static var _profile_build_max_us: int=0
 static var _profile_evictions: int=0
 static var _profile_clears: int=0
+static var _active_canvas121: CanvasItem=null
+static var _active_refs121: Array=[]
 
 ## Call once at the start of the canvas owner's actual _draw callback. The
 ## engine has cleared that owner's old commands; other canvases keep theirs.
 static func begin_draw121(canvas: CanvasItem) -> void:
-	canvas.set_meta(DRAW_REFS121,{})
+	if not canvas.has_meta(DRAW_REFS121):canvas.set_meta(DRAW_REFS121,[])
+	var retained121: Array=canvas.get_meta(DRAW_REFS121)
+	retained121.clear()
+	# Borrow the owner's list only for this main-thread draw callback. Mesh
+	# submissions can append directly without metadata calls or identity hashes.
+	_active_canvas121=canvas;_active_refs121=retained121
+
+static func end_draw121(canvas: CanvasItem) -> void:
+	if is_same(canvas,_active_canvas121):
+		_active_canvas121=null;_active_refs121=[]
 
 static func _retain_draw121(canvas,mesh: Mesh) -> void:
 	if not canvas is CanvasItem:return # Pure source recorders own their results.
-	if not canvas.has_meta(DRAW_REFS121):begin_draw121(canvas)
-	var retained121: Dictionary=canvas.get_meta(DRAW_REFS121)
-	retained121[mesh.get_instance_id()]=mesh
+	if is_same(canvas,_active_canvas121):
+		_active_refs121.append(mesh);return
+	# One-off/custom canvas callers retain their own references too. Their
+	# owner must call begin/end at each actual redraw, just like Chart.
+	if not canvas.has_meta(DRAW_REFS121):canvas.set_meta(DRAW_REFS121,[])
+	var retained121: Array=canvas.get_meta(DRAW_REFS121)
+	retained121.append(mesh)
 
 ## Main-thread, opt-in CPU counters. Reset never evicts or warms geometry.
 static func profile_enable(enabled: bool=true) -> void:
