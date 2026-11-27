@@ -190,18 +190,56 @@ static func _ground_layers122(plan: Dictionary,profile: Dictionary,bounds: Rect2
 			_paint(plan,1,_patch(at+Vector2(-size.x*0.18,-size.y*0.20),Vector2(size.x*0.52,size.y*0.55),(i*2+5)%12),tone.lightened(0.05))
 
 static func _shallow_water(plan: Dictionary, breadth: float) -> void:
-	# Round polygon offsets merge inside tight inlets. Independent normals
-	# cross there and produce bright triangular streaks in the water.
+	# Each grid vertex takes the distance to its nearest coast edge. A bay
+	# gets one continuous fade even where two sides are close together.
 	var land: PackedVector2Array = plan.land
-	var width: float = clampf(breadth * 0.09, 32.0, 123.0)
-	var distances: Array[float] = [1.0, 0.72, 0.49, 0.30, 0.15]
-	var opacity: Array[float] = [0.055, 0.069, 0.079, 0.091, 0.112]
-	for i in range(distances.size()):
-		var tint := Color(0.28, 0.61, 0.55, opacity[i])
-		for curve: PackedVector2Array in Geometry2D.offset_polygon(land, width * distances[i], Geometry2D.JOIN_ROUND):
-			# Work into the same mesh, then paint opaque land over its center.
-			_paint(plan, 1, curve, tint, false)
-			plan.bounds = Rect2(plan.bounds).merge(_bounds(curve))
+	var width: float = clampf(breadth * 0.10, 34.0, 132.0)
+	var bounds: Rect2 = Rect2(plan.bounds).grow(width)
+	var spacing: float = maxf(width / 3.6, maxf(bounds.size.x, bounds.size.y) / 48.0)
+	var columns: int = ceili(bounds.size.x / spacing) + 1
+	var rows: int = ceili(bounds.size.y / spacing) + 1
+	var positions := PackedVector2Array()
+	var distance_squared := PackedFloat32Array()
+	var width_squared: float = width * width
+	distance_squared.resize(columns * rows)
+	distance_squared.fill(width_squared)
+	for y in range(rows):
+		for x in range(columns):
+			positions.append(bounds.position + Vector2(x, y) * spacing)
+	for edge in range(land.size()):
+		var a: Vector2 = land[edge]
+		var b: Vector2 = land[(edge + 1) % land.size()]
+		# Inspect only grid points within shelf distance of this segment's box.
+		var near_edge: Rect2 = Rect2(a, Vector2.ZERO).expand(b).grow(width)
+		var start: Vector2i = Vector2i(((near_edge.position - bounds.position) / spacing).ceil()).max(Vector2i.ZERO)
+		var end: Vector2i = Vector2i(((near_edge.end - bounds.position) / spacing).floor()).min(Vector2i(columns - 1, rows - 1))
+		for y in range(start.y, end.y + 1):
+			for x in range(start.x, end.x + 1):
+				var index: int = y * columns + x
+				var point: Vector2 = positions[index]
+				var closest: Vector2 = Geometry2D.get_closest_point_to_segment(point, a, b)
+				distance_squared[index] = minf(distance_squared[index], point.distance_squared_to(closest))
+	var origin: Vector2 = plan.origin
+	var vertices := PackedVector3Array()
+	var colors := PackedColorArray()
+	for y in range(rows - 1):
+		for x in range(columns - 1):
+			var top_left: int = y * columns + x
+			var bottom_left: int = top_left + columns
+			var nearest: float = minf(minf(distance_squared[top_left], distance_squared[top_left + 1]),
+				minf(distance_squared[bottom_left], distance_squared[bottom_left + 1]))
+			if nearest >= width_squared: continue
+			for index in [top_left, top_left + 1, bottom_left + 1, top_left, bottom_left + 1, bottom_left]:
+				var point: Vector2 = positions[index] - origin
+				var fade: float = 1.0 - smoothstep(0.0, 1.0, sqrt(distance_squared[index]) / width)
+				vertices.append(Vector3(point.x, point.y, 0.0))
+				colors.append(Color(0.30, 0.63, 0.57, 0.47 * fade))
+	# Keep plenty of room for opaque land, relief, beaches and vegetation.
+	if vertices.size() > int(VERTEX_LIMITS[1]) / 2: return
+	for level in range(1, 3):
+		plan.levels[level].vertices.append_array(vertices)
+		plan.levels[level].colors.append_array(colors)
+	plan.bounds = bounds.grow(spacing)
 
 static func _shore(plan: Dictionary,profile: Dictionary,samples: Dictionary) -> void:
 	var land: PackedVector2Array=plan.land
