@@ -1,17 +1,14 @@
 extends RefCounted
-## v0.121 natural coasts: ONE deterministic reshaping of the physical island
+## One deterministic reshaping of the physical island
 ## ring, applied at load / world-create / battle-create boundaries only.
 ## Navigation, battle collision, tactical routes and CoastArt050 all keep
 ## reading the same `points`, so the drawn shore IS the collider shore.
 ##
 ## What "natural" means here, for every ring density:
-## - Coarse rings (generated profiles, laboratory slabs): each straight edge
-##   gains an asymmetric inward-displaced midpoint, then corner-cutting
-##   (Chaikin) rounds every vertex. Hexagons and pentagons become curving
-##   headlands and recessed bays.
-## - Dense authored rings (home world.json, Glasswind): fixed arc-length
-##   samples and local inward coves break straight runs, then a round-join
-##   opening rounds headlands. A macro/corner-cut fallback remains.
+## - Both coarse generated rings and authored coasts get unequal bays and
+##   scalloped shores sampled by distance along the perimeter. Coarse rings
+##   use a lower sample budget. A round-join opening softens dense headlands.
+## - Corner-cut fallbacks remain for tight coves and narrow land bridges.
 ## - A ring whose macro turns are already gentle is returned unchanged, and
 ##   runtime-shaped island copies carry a `coast121` marker against repeat
 ##   shaping. Main marks translated home encounters at that boundary. Saved bytes are never mutated: shaping re-derives
@@ -29,8 +26,9 @@ const MAX_RING: int = 96
 const COARSE_MAX: int = 16
 const DENSE_TARGET: int = 12
 const GENTLE_TURN: float = 0.30
-const DENSE_SAMPLES121: int = 24
-const DENSE_OPEN_TARGET121: int = 48
+const COARSE_SAMPLES: int = 18
+const DENSE_SAMPLES: int = 32
+const DENSE_OPEN_TARGET: int = 62
 
 static func _seed(id: String) -> int:
 	var seed: int = 7
@@ -260,7 +258,7 @@ static func _shape_coarse(ring: PackedVector2Array, seed: int) -> PackedVector2A
 		shaped = _chaikin(shaped)
 	return _subset_repair(shaped, ring, center)
 
-static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
+static func _coastal_coves(ring: PackedVector2Array, seed: int, sample_count: int) -> PackedVector2Array:
 	# A fixed sampling budget avoids inheriting ruler-straight authored runs
 	# without multiplying every subsequent collision and route edge query.
 	# Local inward normals create coves on every side, including non-star-shaped
@@ -279,8 +277,8 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 	var samples:=PackedVector2Array()
 	var edge: int=0
 	var passed: float=0.0
-	for i in range(DENSE_SAMPLES121):
-		var u: float=float(i)/float(DENSE_SAMPLES121)
+	for i in range(sample_count):
+		var u: float=float(i)/float(sample_count)
 		var distance: float=perimeter*u
 		while edge<ring.size()-1 and passed+lengths[edge]<distance:
 			passed+=lengths[edge];edge+=1
@@ -290,9 +288,13 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 		var at: Vector2=a.lerp(b,t)
 		var edge_delta121: Vector2=b-a
 		var inward: Vector2=Vector2(-edge_delta121.y,edge_delta121.x).normalized()*winding121
-		var broad: float=0.5+0.5*sin(u*TAU*5.0+phase)
-		var broken: float=0.5+0.5*sin(u*TAU*9.0+phase*2.0)
-		var depth: float=breadth*(0.025+0.075*broad*broad+0.008*broken)
+		# Uneven wavelengths leave long headlands beside deep sheltered bays.
+		# A shallower scallop breaks the straights without making edges jagged.
+		var angle: float=u*TAU
+		var warp: float=0.68*sin(angle*2.0+phase*0.73)
+		var broad: float=0.5+0.5*sin(angle*4.0+warp+phase)
+		var scallop: float=0.5+0.5*sin(angle*9.0-warp+phase*1.37)
+		var depth: float=breadth*(0.009+0.138*broad*broad+0.021*scallop*scallop)
 		samples.append(at+inward*depth)
 	var curved121: PackedVector2Array=_chaikin(samples)
 	for _pass121 in range(2):
@@ -302,17 +304,17 @@ static func _coastal_coves121(ring: PackedVector2Array, seed: int) -> PackedVect
 	return _subset_repair(curved121,ring,_centroid(ring))
 
 static func _shape_dense(ring: PackedVector2Array, seed: int) -> PackedVector2Array:
-	var coves: PackedVector2Array=_coastal_coves121(ring,seed)
+	var coves: PackedVector2Array=_coastal_coves(ring,seed,DENSE_SAMPLES)
 	if _valid(coves,ring):
 		# Native morphological opening rounds visible headlands at a spatial
 		# radius, rather than adding tiny bevels to an inherited pointed horn.
 		# The final old-footprint clip remains the physical safety authority.
-		var radius121: float=minf(95.0,_breadth(ring)*0.06)
+		var radius121: float=minf(130.0,_breadth(ring)*0.095)
 		var rounded121:=PackedVector2Array()
 		var largest121: float=0.0
 		for inset121: PackedVector2Array in Geometry2D.offset_polygon(coves,-radius121,Geometry2D.JOIN_ROUND):
 			for expanded121: PackedVector2Array in Geometry2D.offset_polygon(inset121,radius121,Geometry2D.JOIN_ROUND):
-				var reduced121: PackedVector2Array=expanded121 if expanded121.size()<=DENSE_OPEN_TARGET121 else _simplify(expanded121,DENSE_OPEN_TARGET121)
+				var reduced121: PackedVector2Array=expanded121 if expanded121.size()<=DENSE_OPEN_TARGET else _simplify(expanded121,DENSE_OPEN_TARGET)
 				var candidate121: PackedVector2Array=_subset_repair(reduced121,ring,_centroid(ring))
 				if _valid(candidate121,ring) and _area(candidate121)>largest121:
 					rounded121=candidate121;largest121=_area(candidate121)
@@ -339,7 +341,10 @@ static func natural_ring(points: Array, id: String) -> Array:
 	var ring: PackedVector2Array = _vec(points)
 	if ring.size() < 3: return points.duplicate(true)
 	if ring.size() > COARSE_MAX: return natural_ring_dense(points, id)
-	var shaped: PackedVector2Array = _shape_coarse(ring, _seed(id))
+	var seed: int = _seed(id)
+	var shaped: PackedVector2Array = _coastal_coves(ring, seed, COARSE_SAMPLES)
+	if _valid(shaped, ring): return _pairs(shaped)
+	shaped = _shape_coarse(ring, seed)
 	if _valid(shaped, ring): return _pairs(shaped)
 	var smooth: PackedVector2Array = _subset_repair(_chaikin(ring), ring, _centroid(ring))
 	if smooth.size() * 2 <= MAX_RING: smooth = _subset_repair(_chaikin(smooth), ring, _centroid(ring))

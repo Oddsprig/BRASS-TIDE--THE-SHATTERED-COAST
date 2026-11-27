@@ -7,6 +7,27 @@ const Deployment=preload("res://scripts/deployment.gd")
 const Battle=preload("res://scripts/battle.gd")
 const Routes=preload("res://scripts/tactical_routes.gd")
 
+static func _clash_islands() -> Array:
+	# The north cove shelters a curved shoreline within sight of the escort
+	# lane. The southern headland sits beyond the outer approach. Both become
+	# real terrain before the fleet and escort exit are placed.
+	return [
+		{"id": "clash_north", "points": [
+			[469, 406], [480, 367], [493, 331], [520, 278], [585, 240],
+			[665, 228], [728, 251], [767, 283], [831, 282], [890, 309],
+			[925, 362], [930, 405], [904, 445], [856, 473], [814, 471],
+			[781, 438], [754, 397], [704, 371], [654, 378], [610, 419],
+			[587, 464], [542, 478], [499, 456]
+		]},
+		{"id": "clash_south", "points": [
+			[987, 1489], [1031, 1391], [1088, 1329], [1143, 1278],
+			[1215, 1260], [1274, 1269], [1322, 1308], [1317, 1361],
+			[1287, 1402], [1314, 1445], [1381, 1458], [1412, 1501],
+			[1376, 1569], [1304, 1617], [1221, 1629], [1137, 1591],
+			[1062, 1604], [1003, 1568]
+		]}
+	]
+
 static func hull(world: Dictionary,id: String) -> Dictionary:
 	for spec in world.HULLS:
 		if spec.id==id: return spec
@@ -107,8 +128,11 @@ static func create(world: Dictionary,config: Dictionary,seed_value: int) -> Dict
 		mission={"kind":"escort","carrierTeam":"player","carrierUids":[carrier_uid],"allyUids":[carrier_uid],"carrierCargo":carrier_cargo}
 		var exit: Dictionary=config.get("exit",{}) if config.get("exit") is Dictionary else {}
 		if exit.has("x") and exit.has("y"): mission.exit=exit.duplicate(true)
-	var place: String="Coastal Clash" if str(config.get("context",""))=="coastal_clash" else "Fleet battle laboratory"
+	var coastal_clash: bool = str(config.get("context", "")) == "coastal_clash"
+	var place: String = "Coastal Clash" if coastal_clash else "Fleet battle laboratory"
 	var options: Dictionary={"fleet":fleets.player,"enemyFleet":fleets.enemy,"seed":seed_value,"location":{"name":place}}
+	if coastal_clash:
+		options.islands = _clash_islands()
 	if not mission.is_empty(): options.mission=mission
 	var battle: Dictionary=Battle.create(options)
 	if not str(battle.get("startError","")).is_empty():

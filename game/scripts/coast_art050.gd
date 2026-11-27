@@ -93,7 +93,9 @@ static func _profile(id: String) -> Dictionary:
 	# These compositions follow the eight actual islands; no copied map, new
 	# region, extra island, decorative lagoon or procedural land silhouette.
 	match id:
-		"isl_lantern":return {"biome":"chalk headland / orchard coast","ground":"899470","rock":"a6a18a","leaf":"42684d","beach":[[0.0,0.30],[0.48,0.61]],"ridge":[[0.14,0.12],[0.24,0.28],[0.38,0.39],[0.46,0.55],[0.31,0.77]],"groves":[[0.25,0.28],[0.36,0.42],[0.28,0.61],[0.19,0.80],[0.52,0.38],[0.68,0.47]],"fields":false}
+		"isl_lantern":return {"biome":"chalk headland / orchard coast","ground":"84976a","rock":"a7a58d","leaf":"3d674b","beach":[[0.0,0.30],[0.48,0.61]],"ridge":[[0.14,0.12],[0.24,0.28],[0.38,0.39],[0.46,0.55],[0.31,0.77]],"groves":[[0.25,0.28],[0.36,0.42],[0.28,0.61],[0.19,0.80],[0.52,0.38],[0.68,0.47]],"fields":false}
+		"clash_north":return {"biome":"sheltered limestone cove","ground":"81916a","rock":"a3a08e","leaf":"3d654d","beach":[[0.16,0.43],[0.68,0.89]],"ridge":[[0.16,0.44],[0.35,0.24],[0.58,0.30],[0.83,0.58]],"groves":[[0.16,0.57],[0.26,0.38],[0.38,0.23],[0.51,0.30],[0.70,0.39],[0.84,0.57],[0.88,0.68]],"fields":false}
+		"clash_south":return {"biome":"dark stone headland","ground":"768969","rock":"809087","leaf":"46664c","beach":[[0.21,0.51],[0.69,0.81]],"ridge":[[0.17,0.55],[0.36,0.28],[0.52,0.31],[0.67,0.66],[0.84,0.68]],"groves":[[0.23,0.42],[0.35,0.26],[0.50,0.41],[0.65,0.67],[0.82,0.67]],"fields":false}
 		"isl_kelp":return {"biome":"tidal reedbanks / salt meadow","ground":"819779","rock":"aab19a","leaf":"527c5c","beach":[[0.0,0.41],[0.72,0.86]],"ridge":[[0.22,0.20],[0.34,0.40],[0.53,0.57],[0.40,0.76]],"groves":[[0.21,0.31],[0.36,0.48],[0.53,0.55],[0.34,0.72],[0.18,0.70]],"fields":true}
 		"isl_sawtooth":return {"biome":"ironwood slopes / pale crags","ground":"7b8b6b","rock":"aaa996","leaf":"365947","beach":[[0.08,0.25]],"ridge":[[0.19,0.22],[0.34,0.34],[0.47,0.46],[0.60,0.61],[0.69,0.78]],"groves":[[0.23,0.29],[0.35,0.40],[0.49,0.57],[0.62,0.65],[0.76,0.20]],"fields":false}
 		"isl_verdigris":return {"biome":"polder terraces / windbreaks","ground":"9ca478","rock":"c0b98e","leaf":"567650","beach":[[0.0,0.18],[0.36,0.53]],"ridge":[[0.43,0.19],[0.48,0.36],[0.62,0.52],[0.69,0.72]],"groves":[[0.43,0.20],[0.50,0.36],[0.68,0.56],[0.76,0.74]],"fields":true}
@@ -115,93 +117,207 @@ static func _profile(id: String) -> Dictionary:
 		3:return {"biome":"salt-meadow bench / limestone point","ground":"849878","rock":"adb398","leaf":"497358","beach":[[0.0,0.22],[0.48,0.68]],"ridge":[[0.22,0.42],[0.40,0.30],[0.60,0.44],[0.74,0.64]],"groves":[[0.30,0.36],[0.50,0.38],[0.64,0.54],[0.38,0.64]],"fields":true}
 	return {"biome":"rocky coastal heath","ground":"82956b","rock":"a3a48b","leaf":"466b50","beach":[[0.0,0.25],[0.56,0.72]],"ridge":[[0.22,0.32],[0.42,0.44],[0.60,0.38],[0.74,0.60]],"groves":[[0.32,0.38],[0.52,0.42],[0.64,0.56],[0.40,0.64]],"fields":false}
 
-static func _shore(plan: Dictionary,profile: Dictionary) -> void:
+static func _hash122(seed: int, i: int) -> float:
+	var x: float=sin(float(seed)*12.9898+float(i)*78.233)*43758.5453
+	return x-floorf(x)
+
+static func _seed122(plan: Dictionary) -> int:
+	var seed: int=11
+	var id: String=str(plan.get("id",""))
+	for idx in range(id.length()):seed+=id.unicode_at(idx)*(idx+3)
+	return seed
+
+static func _shore_samples122(land: PackedVector2Array) -> Dictionary:
+	# Use every physical edge. Smoothed normals blend the shelf around corners.
+	var inward:=PackedVector2Array()
+	var fractions: Array=[]
+	var lengths := PackedFloat32Array()
+	var perimeter := 0.0
+	for k in range(land.size()):
+		lengths.append(perimeter)
+		perimeter += land[k].distance_to(land[(k + 1) % land.size()])
+	for k in range(land.size()):
+		var at: Vector2=land[k]
+		var tangent: Vector2=(land[(k+2)%land.size()]-land[posmod(k-2,land.size())]).normalized()
+		if tangent.is_zero_approx():
+			tangent = (land[(k + 1) % land.size()] - land[posmod(k - 1, land.size())]).normalized()
+		var normal: Vector2=tangent.orthogonal()
+		if not Geometry2D.is_point_in_polygon(at+normal*3.0,land):normal=-normal
+		inward.append(normal)
+		fractions.append(float(lengths[k]) / maxf(1.0, perimeter))
+	return {"points":land,"inward":inward,"fractions":fractions}
+
+static func _tidal_widths122(seed: int,count: int,base: float,swing: float) -> Array:
+	# Irregular but smooth width profile: one slow wave, one faster wave
+	# and hashed variation, then wrapped moving-average smoothing so the
+	# band edge undulates like a tide line and never zigzags per vertex.
+	var widths: Array=[]
+	var phase_a: float=float(posmod(seed,360))*TAU/360.0
+	var phase_b: float=float(posmod(seed*13,360))*TAU/360.0
+	for s in range(count):
+		var t: float=float(s)/maxf(1.0,float(count))*TAU
+		var wave: float=0.62+0.38*sin(t*2.0+phase_a)+0.22*sin(t*5.0+phase_b)+0.28*_hash122(seed,s)
+		widths.append(base*(1.0-swing*0.5+swing*clampf(wave,0.15,1.35)))
+	for pass_no in range(2):
+		var smooth: Array=[]
+		for s in range(count):
+			smooth.append((float(widths[posmod(s-1,count)])+2.0*float(widths[s])+float(widths[posmod(s+1,count)]))*0.25)
+		widths=smooth
+	return widths
+
+static func _offset_curve122(samples: Dictionary,widths: Array,scale: float=1.0) -> PackedVector2Array:
+	var out:=PackedVector2Array()
+	var points: PackedVector2Array=samples.points
+	var inward: PackedVector2Array=samples.inward
+	for s in range(points.size()):out.append(points[s]+inward[s]*float(widths[s])*scale)
+	return out
+
+static func _ground_layers122(plan: Dictionary,profile: Dictionary,bounds: Rect2,breadth: float) -> void:
+	# Large soft tonal masses over the flat base ground so the island
+	# interior reads as layered maritime terrain, not one monotone slab.
+	# Deterministic stations from bounds fractions, sizes and tones from
+	# the island seed; all clipped to land by _paint.
+	var seed: int=_seed122(plan)
+	var ground: Color=Color(profile.ground)
+	var leaf: Color=Color(profile.leaf)
+	var stations: Array=[[0.30,0.30],[0.62,0.26],[0.46,0.52],[0.72,0.58],[0.28,0.68],[0.58,0.80],[0.40,0.18]]
+	for i in range(stations.size()):
+		var at: Vector2=bounds.position+bounds.size*Vector2(float(stations[i][0])+0.07*_hash122(seed,i*3)-0.035,float(stations[i][1])+0.07*_hash122(seed,i*3+1)-0.035)
+		var size: Vector2=Vector2(breadth*(0.20+0.10*_hash122(seed,i*3+2)),breadth*0.11)
+		var tone: Color=ground.lightened(0.06) if i%3==0 else ground.darkened(0.05).lerp(leaf,0.12) if i%3==1 else ground.lerp(Color("b7ad7d"),0.10)
+		_paint(plan,0,_patch(at,size,i*2%12),tone)
+		if i%2==0:
+			_paint(plan,1,_patch(at+Vector2(-size.x*0.18,-size.y*0.20),Vector2(size.x*0.52,size.y*0.55),(i*2+5)%12),tone.lightened(0.05))
+
+static func _shallow_water(plan: Dictionary, samples: Dictionary, breadth: float) -> void:
+	var land: PackedVector2Array = samples.points
+	# Reserve room for the opaque base even when an unshaped ring is supplied.
+	if land.size() * 15 > int(VERTEX_LIMITS[0]): return
+	var widths: Array = _tidal_widths122(_seed122(plan) + 7, land.size(), clampf(breadth * 0.105, 48.0, 152.0), 1.3)
+	var middle: PackedVector2Array = _offset_curve122(samples, widths, -0.35)
+	var outer: PackedVector2Array = _offset_curve122(samples, widths, -1.0)
+	var shore_tint := Color(0.33, 0.68, 0.60, 0.66)
+	var shelf_tint := Color(0.25, 0.58, 0.56, 0.36)
+	var sea_tint := Color(0.25, 0.58, 0.56, 0.0)
+	var origin: Vector2 = plan.origin
+	for i in range(land.size()):
+		var j: int = (i + 1) % land.size()
+		plan.bounds = Rect2(plan.bounds).expand(outer[i])
+		var vertices: Array[Vector2] = [land[i], land[j], middle[j], land[i], middle[j], middle[i],
+			middle[i], middle[j], outer[j], middle[i], outer[j], outer[i]]
+		var colors: Array[Color] = [shore_tint, shore_tint, shelf_tint, shore_tint, shelf_tint, shelf_tint,
+			shelf_tint, shelf_tint, sea_tint, shelf_tint, sea_tint, sea_tint]
+		for batch: Dictionary in plan.levels:
+			for k in range(vertices.size()):
+				var point: Vector2 = vertices[k] - origin
+				batch.vertices.append(Vector3(point.x, point.y, 0.0))
+				batch.colors.append(colors[k])
+
+static func _shore(plan: Dictionary,profile: Dictionary,samples: Dictionary) -> void:
 	var land: PackedVector2Array=plan.land
-	# v0.121 physical rings can hold up to 96 vertices. Shore painting walks
-	# at most 24 spans of that same ring, so the bounded LOD vertex budgets
-	# still reach relief, fields and groves; every _paint below keeps
-	# clipping against the full plan.land.
-	var shore_step: int=maxi(1,int(ceil(float(land.size())/24.0)))
-	for k in range(0,land.size(),shore_step):
-		var i: int=k
-		var a: Vector2=land[i];var b: Vector2=land[(i+shore_step)%land.size()]
-		var outer: PackedVector2Array=PackedVector2Array()
-		for offset121 in range(shore_step+1):outer.append(land[(i+offset121)%land.size()])
-		var middle: Vector2=(a+b)*0.5
-		var along: Vector2=(b-a).normalized()
-		var inward: Vector2=(b-a).orthogonal().normalized()
-		if not Geometry2D.is_point_in_polygon(middle+inward*3.0,land):inward=-inward
+	if land.size()<3:return
+	var seed: int=_seed122(plan)
+	var points: PackedVector2Array=samples.points
+	var inward: PackedVector2Array=samples.inward
+	var rock: Color=Color(profile.rock)
+	var ground: Color=Color(profile.ground)
+	var light: Vector2=Vector2(-0.6,-0.8)
+	# Per-sample sand/rock from the authored beach spans, widths from the
+	# tidal profile: sand runs wider and gentler, rock shelves pinch out.
+	var sand_widths: Array=_tidal_widths122(seed,points.size(),34.0,0.95)
+	var rock_widths: Array=_tidal_widths122(seed+3,points.size(),22.0,1.15)
+	var is_sand: Array=[]
+	var widths: Array=[]
+	for s in range(points.size()):
 		var sand: bool=false
 		for span in profile.beach:
-			if float(i)/land.size()>=float(span[0]) and float(i)/land.size()<=float(span[1]):sand=true
-		var width: float=(30.0+float(i%4)*5.0) if sand else (20.0+float(i%3)*5.0)
-		var inner_a: Vector2=a+inward*width*0.78
-		var inner_b: Vector2=b+inward*width*0.91
-		var shoulder: Vector2=a.lerp(b,0.43)+inward*width*1.18
-		var rock: Color=Color(profile.rock)
-		var face: float=clampf(inward.dot(Vector2(0.6,0.8))*0.12,-0.12,0.12)
-		var shore_face121: PackedVector2Array=outer.duplicate()
-		# Both edges of the cached shore band follow the real curve. A single
-		# inner chord across four vertices read as a straight paved rim.
-		for offset121 in range(shore_step,-1,-1):
-			var index121: int=(i+offset121)%land.size()
-			var at121: Vector2=land[index121]
-			var tangent121: Vector2=(land[(index121+1)%land.size()]-land[posmod(index121-1,land.size())]).normalized()
-			var normal121: Vector2=tangent121.orthogonal()
-			if not Geometry2D.is_point_in_polygon(at121+normal121*3.0,land):normal121=-normal121
-			var varied121: float=width*(0.64+0.22*sin(float(index121)*1.73))
-			shore_face121.append(at121+normal121*varied121)
-		_paint(plan,0,shore_face121,Color("cbbb90") if sand else rock.darkened(0.25+face))
-		# Wet sand, dry berm and broken turf lie INSIDE the actual shore. The
-		# changing upper edge replaces the ruler-straight rectangular coast bands.
-		if sand:
-			_paint(plan,1,PackedVector2Array([a,b,b+inward*7.0,middle+inward*10.0,a+inward*5.0]),Color("9eac96"))
-			_paint(plan,1,PackedVector2Array([a+inward*13.0,b+inward*12.0,inner_b,shoulder,inner_a]),Color("dfcea0"))
-			_paint(plan,1,PackedVector2Array([a+inward*18.0,middle+inward*(width*0.74),b+inward*17.0,shoulder]),Color("eadbb0"))
-			if i%3==0:
-				_paint(plan,1,_box(middle+inward*11.5,Vector2(14.0,3.4),along,inward),Color("7d6d52"))
+			if float(samples.fractions[s])>=float(span[0]) and float(samples.fractions[s])<=float(span[1]):sand=true
+		is_sand.append(sand)
+		widths.append(float(sand_widths[s]) if sand else float(rock_widths[s]))
+	# One continuous shore face between the waterline and the tidal inner
+	# curve, split per span only so sand and rock can take their colours.
+	# No big triangular wedges: every quad follows four shore samples.
+	var inner: PackedVector2Array=_offset_curve122(samples,widths)
+	for s in range(points.size()):
+		var n: int=(s+1)%points.size()
+		var face: float=clampf(inward[s].dot(-light)*0.10,-0.10,0.10)
+		var quad: PackedVector2Array=PackedVector2Array([points[s],points[n],inner[n],inner[s]])
+		if bool(is_sand[s]):
+			_paint(plan,0,quad,Color("d8c493").darkened(0.03-face))
 		else:
-			_paint(plan,1,PackedVector2Array([a,b,b+inward*6.0,middle+inward*8.0,a+inward*5.0]),rock.darkened(0.36+face*0.5))
-			_paint(plan,1,PackedVector2Array([a+inward*width*0.35,b+inward*width*0.48,inner_b,shoulder,inner_a]),rock.lightened(0.10-face))
-			if i%2==0:
-				var crag: Vector2=middle+inward*width*0.6
-				_paint(plan,1,PackedVector2Array([crag-along*18.0,crag+inward*16.0,crag+along*3.0]),rock.lightened(0.24))
-				_paint(plan,1,PackedVector2Array([crag+along*3.0,crag+inward*16.0,crag+along*16.0]),rock.darkened(0.18))
-		_paint(plan,1,PackedVector2Array([inner_a,shoulder,inner_b,inner_b+inward*9.0,middle+inward*(width+19.0),inner_a+inward*8.0]),Color(profile.ground).lightened(0.07))
-		if i%4==1:
-			var stone: Vector2=middle+inward*(width+10.0)
-			_paint(plan,1,_patch(stone,Vector2(12,7),i%12),rock.darkened(0.07))
-			_paint(plan,1,_oval(stone+Vector2(-2,-2),Vector2(7,3)),rock.lightened(0.24))
-		# Deliberately transparent, broken seabed hatching rather than opaque
-		# rocks on water a captain is allowed to cross. It has no blocking meaning.
-		if sand and i%4==0 and plan.reef.size()<MAX_REEF_SEGMENTS*2:
-			var at: Vector2=middle-inward*(64.0+float(i%3)*18.0)
-			plan.reef.append(at-along*22.0);plan.reef.append(at+along*22.0)
+			_paint(plan,0,quad,rock.darkened(0.22+face))
+	# Wet waterline: a thin wet band hugging the actual shore, broken on
+	# rock spans so stony shelves meet the water unevenly.
+	var wet: PackedVector2Array=_offset_curve122(samples,widths,0.16)
+	for s in range(points.size()):
+		var n: int=(s+1)%points.size()
+		if not bool(is_sand[s]) and _hash122(seed,s*3)<0.35:continue
+		_paint(plan,1,PackedVector2Array([points[s],points[n],wet[n],wet[s]]),Color("8fae9c") if bool(is_sand[s]) else rock.darkened(0.42))
+	# Dry berm / stony bench: a lighter broken band set back from the
+	# waterline, painted only in hashed runs with soft gaps.
+	for s in range(points.size()):
+		var n: int=(s+1)%points.size()
+		if _hash122(seed+5,s)<0.30:continue
+		var a: Vector2=points[s]+inward[s]*float(widths[s])*0.38
+		var b: Vector2=points[n]+inward[n]*float(widths[n])*0.38
+		var a2: Vector2=points[s]+inward[s]*float(widths[s])*0.86
+		var b2: Vector2=points[n]+inward[n]*float(widths[n])*0.86
+		_paint(plan,1,PackedVector2Array([a,b,b2,a2]),Color("e6d5a4") if bool(is_sand[s]) else rock.lightened(0.12))
+	# Turf fringe: scalloped ground patches nibbling the inner shore edge,
+	# so grass meets beach/rock in lobes instead of one even rim line.
+	for s in range(points.size()):
+		if s%2!=0 and _hash122(seed+9,s)<0.6:continue
+		var at: Vector2=points[s]+inward[s]*(float(widths[s])*1.02+6.0)
+		var tangent: Vector2=inward[s].orthogonal()
+		var size: Vector2=Vector2(16.0+14.0*_hash122(seed,s*7),8.0+5.0*_hash122(seed,s*11))
+		_paint(plan,1,_patch(at,size,s%12),ground.lightened(0.05+0.05*_hash122(seed,s*5)))
+		if not bool(is_sand[s]) and _hash122(seed,s*13)>0.55:
+			# Loose shore stones as small tilted slabs, never a repeated crag
+			# triangle pair marching around the coast.
+			var stone: Vector2=points[s]+inward[s]*float(widths[s])*0.62+tangent*(6.0*_hash122(seed,s*17)-3.0)
+			var tilt: Vector2=(tangent+inward[s]*(0.5*_hash122(seed,s*19)-0.25)).normalized()
+			_paint(plan,1,_box(stone,Vector2(11.0+8.0*_hash122(seed,s*23),5.5),tilt,tilt.orthogonal()),rock.darkened(0.05))
+			_paint(plan,2,_box(stone+Vector2(-1.5,-1.5),Vector2(6.5,2.6),tilt,tilt.orthogonal()),rock.lightened(0.26))
+	# Broken seabed hatching stays transparent chart ink (no blocking).
+	for s in range(points.size()):
+		if not bool(is_sand[s]) or s%5!=0 or plan.reef.size()>=MAX_REEF_SEGMENTS*2:continue
+		var at: Vector2=points[s]-inward[s]*(58.0+30.0*_hash122(seed,s*29))
+		var along: Vector2=inward[s].orthogonal()
+		plan.reef.append(at-along*20.0);plan.reef.append(at+along*20.0)
 
 static func _relief(plan: Dictionary,profile: Dictionary,ridge: PackedVector2Array,breadth: float) -> void:
 	var ground: Color=Color(profile.ground);var rock: Color=Color(profile.rock)
+	var seed: int=_seed122(plan)
 	var craggy: bool=plan.id in ["isl_cinder","isl_sawtooth","isl_oilstone","isl_shatter","glasswind_crown","glasswind_south","glasswind_keys_ocean_1","glasswind_keys_ocean_2"]
 	for i in range(1,ridge.size()):
 		var a: Vector2=ridge[i-1];var b: Vector2=ridge[i]
 		var side: Vector2=(b-a).normalized().orthogonal()
 		if side.dot(Vector2(-0.6,-0.8))<0.0:side=-side
-		var width: float=breadth*(0.12 if craggy else 0.10)
-		var crest: Vector2=a.lerp(b,0.48)+side*width*0.13
-		# A soft foothill below an asymmetric ridge. Large light/shade masses
-		# carry the relief at home zoom; smaller ledges do not have to do that job.
-		_paint(plan,0,PackedVector2Array([a-side*width*0.7,a-side*width*1.12+(b-a)*0.33,b-side*width*0.65,b+side*width*0.65,a+side*width*0.84]),ground.darkened(0.08))
-		_paint(plan,0,PackedVector2Array([a,a+side*width*0.63,crest+side*width*0.77,b+side*width*0.45,b,crest]),ground.lerp(rock,0.50).lightened(0.06))
-		_paint(plan,0,PackedVector2Array([a,crest,b,b-side*width*0.61,crest-side*width*0.92,a-side*width*0.54]),ground.lerp(rock,0.40).darkened(0.13))
-		_paint(plan,1,PackedVector2Array([crest,crest-side*width*0.56+(b-a)*0.16,b-side*width*0.42]),ground.darkened(0.19).lerp(rock,0.36))
-		var ledge: PackedVector2Array=PackedVector2Array([a+side*width*0.26,crest+side*width*0.35,b+side*width*0.19])
-		_ribbon(plan,ledge,12.0 if craggy else 9.0,rock.lightened(0.18).lerp(ground,0.25),1)
-		for j in range(2):
-			var spur: Vector2=a.lerp(b,0.30+float(j)*0.40)
-			_paint(plan,1,PackedVector2Array([spur+side*width*0.20,spur-side*width*0.55+(b-a)*0.10,spur-side*width*0.39-(b-a)*0.07]),rock.darkened(0.16).lerp(ground,0.35))
+		var width: float=breadth*(0.13 if craggy else 0.11)
+		# Layered overlapping lobes instead of three whole-segment triangles:
+		# a broad shaded foothill mass, a smaller lit mass toward the light,
+		# then short broken crest highlights. Patch edges stay scalloped.
+		for j in range(3):
+			var t: float=0.22+0.28*float(j)
+			var at: Vector2=a.lerp(b,t)+(b-a)*0.04*_hash122(seed,i*7+j)
+			var size: Vector2=Vector2(width*(0.62-0.07*float(j)),width*0.34)
+			_paint(plan,0,_patch(at-side*width*0.30,size,i+j),ground.darkened(0.10).lerp(rock,0.18))
+			_paint(plan,0,_patch(at+side*width*0.16,Vector2(size.x*0.78,size.y*0.80),i+j+4),ground.lerp(rock,0.42).lightened(0.05))
 			if craggy:
-				_paint(plan,1,PackedVector2Array([spur,spur+side*width*0.36,spur+(b-a)*0.14]),rock.lightened(0.25))
-		_ribbon(plan,PackedVector2Array([a,crest,b]),4.2,rock.lightened(0.27),1)
-		_ribbon(plan,PackedVector2Array([a,crest,b]),2.4,rock.lightened(0.35),2)
+				_paint(plan,1,_patch(at+side*width*0.30+Vector2(0,-3),Vector2(size.x*0.34,size.y*0.36),i+j+8),rock.lightened(0.20))
+			else:
+				_paint(plan,1,_patch(at+side*width*0.26,Vector2(size.x*0.40,size.y*0.42),i+j+8),ground.lightened(0.07).lerp(rock,0.25))
+		# Broken crest light: two short strokes with a gap, never one ruled
+		# ribbon the full length of the segment.
+		var crest_a: Vector2=a.lerp(b,0.14)+side*width*0.20
+		var crest_m: Vector2=a.lerp(b,0.46)+side*width*0.30
+		var crest_b: Vector2=a.lerp(b,0.86)+side*width*0.18
+		_ribbon(plan,PackedVector2Array([crest_a,crest_m]),4.0 if craggy else 3.2,rock.lightened(0.30),1)
+		_ribbon(plan,PackedVector2Array([crest_m+(b-a)*0.14,crest_b]),3.0 if craggy else 2.4,rock.lightened(0.22).lerp(ground,0.30),1)
+		# Spurs as soft side lobes at uneven stations.
+		for j in range(2):
+			var spur: Vector2=a.lerp(b,0.30+0.38*float(j)+0.08*_hash122(seed,i*11+j))
+			_paint(plan,1,_patch(spur-side*width*(0.42+0.16*_hash122(seed,i*13+j)),Vector2(width*0.26,width*0.15),j+2),rock.darkened(0.14).lerp(ground,0.38))
 
 static func _reeds(plan: Dictionary,at: Vector2,height: float,leaf: Color,first_lod: int=1) -> void:
 	for i in range(3):
@@ -210,21 +326,31 @@ static func _reeds(plan: Dictionary,at: Vector2,height: float,leaf: Color,first_
 		_paint(plan,first_lod,PackedVector2Array([root-Vector2(3,0),tip,root+Vector2(3,1)]),leaf.lightened(float(i)*0.08))
 
 static func _grove(plan: Dictionary,at: Vector2,radius: float,leaf: Color,wet: bool) -> void:
-	_paint(plan,0,_patch(at,Vector2(radius*1.04,radius*0.59)),Color(plan.ground).lerp(leaf,0.28))
-	_paint(plan,1,_patch(at+Vector2(7,14),Vector2(radius*0.95,radius*0.55),3),leaf.darkened(0.19).lerp(Color(plan.ground),0.18))
-	var offsets: Array=[[-0.59,-0.19],[-0.28,-0.39],[0.08,-0.33],[0.47,-0.22],[0.67,0.03],[-0.53,0.16],[-0.12,0.12],[0.29,0.12],[0.08,0.41]]
-	for i in range(offsets.size()):
-		var p: Vector2=at+Vector2(offsets[i][0],offsets[i][1])*radius
-		var r: float=radius*(0.23+float(i%3)*0.025)
+	# Uneven natural stand: hashed tree stations (no shared offset table,
+	# so no two groves stamp alike), mixed crown sizes and tones, low
+	# scrub between trees, and a soft broken ground shadow.
+	var offset: Vector2 = at - Vector2(plan.origin)
+	var seed: int = _seed122(plan) + int(absf(offset.x)*0.37) + int(absf(offset.y)*0.73)
+	_paint(plan,0,_patch(at,Vector2(radius*1.02,radius*0.56),seed%12),Color(plan.ground).lerp(leaf,0.24))
+	_paint(plan,1,_patch(at+Vector2(6,12),Vector2(radius*0.88,radius*0.50),(seed+3)%12),leaf.darkened(0.20).lerp(Color(plan.ground),0.20))
+	var trees: int=7+int(_hash122(seed,1)*5.0)
+	for i in range(trees):
+		var local: Vector2=Vector2(_hash122(seed,i*3+2)*2.0-1.0,_hash122(seed,i*3+3)*2.0-1.0)
+		if local.length()>1.0:local=local.normalized()
+		var p: Vector2=at+Vector2(local.x*radius*0.72,local.y*radius*0.44)
+		var r: float=radius*(0.16+0.17*_hash122(seed,i*3+4))
 		var crown: Vector2=p-Vector2(2,r*0.30)
-		# Exposed forked trunks and overlapping scalloped crowns are regional
-		# artwork. Close LOD adds twigs, rather than switching trees on at .8.
-		var tone: Color=leaf.lightened(0.04+float(i%3)*0.055)
-		_paint(plan,1,_patch(crown+Vector2(3,5),Vector2(r,r*0.79),i),leaf.darkened(0.23))
-		_paint(plan,1,_oval(crown-Vector2(r*0.15,r*0.13),Vector2(r*0.83,r*0.65)),tone)
+		var tone: Color=leaf.lerp(Color("7d9b58"),0.30*_hash122(seed,i*5+1)).lightened(0.03+0.08*_hash122(seed,i*5+2))
+		if _hash122(seed,i*7)<0.28:
+			# Scrub bush: low scalloped mass, no trunk, darker underside.
+			_paint(plan,1,_patch(crown+Vector2(2,4),Vector2(r*0.9,r*0.62),i),leaf.darkened(0.24))
+			_paint(plan,1,_oval(crown,Vector2(r*0.72,r*0.52)),tone.darkened(0.06))
+			continue
+		_paint(plan,1,_patch(crown+Vector2(3,5),Vector2(r,r*0.78),i),leaf.darkened(0.23))
+		_paint(plan,1,_oval(crown-Vector2(r*0.15,r*0.13),Vector2(r*0.84,r*0.66)),tone)
 		_ribbon(plan,PackedVector2Array([p+Vector2(3,r*0.77),p+Vector2(0,r*0.20),p+Vector2(-r*0.37,-r*0.10)]),5.0,Color("686d4b"),1)
 		_ribbon(plan,PackedVector2Array([p+Vector2(0,r*0.20),p+Vector2(r*0.40,-r*0.15)]),4.0,Color("686d4b"),1)
-		_paint(plan,1,PackedVector2Array([crown+Vector2(-r*0.63,-r*0.23),crown+Vector2(-r*0.18,-r*0.57),crown+Vector2(r*0.26,-r*0.28),crown+Vector2(-r*0.10,-r*0.06)]),tone.lightened(0.14))
+		_paint(plan,1,PackedVector2Array([crown+Vector2(-r*0.60,-r*0.20),crown+Vector2(-r*0.16,-r*0.54),crown+Vector2(r*0.24,-r*0.26),crown+Vector2(-r*0.08,-r*0.04)]),tone.lightened(0.15))
 		_ribbon(plan,PackedVector2Array([crown+Vector2(-r*0.20,r*0.30),crown+Vector2(r*0.07,0),crown+Vector2(r*0.39,-r*0.18)]),2.5,leaf.darkened(0.10),2)
 		if wet and i%2==0:_reeds(plan,p+Vector2(r*0.90,r*0.62),r*0.95,Color("879b63"))
 
@@ -235,22 +361,28 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 	var profile: Dictionary=_profile(plan.id)
 	plan.biome=profile.biome;plan.ground=Color(profile.ground);plan.roofs=[]
 	if land.size()<3:return _finish(plan)
-	_paint(plan,0,land,plan.ground,false)
 	var bounds: Rect2=plan.bounds
 	var ridge: PackedVector2Array=_mapped(bounds,profile.ridge)
 	var breadth: float=minf(bounds.size.x,bounds.size.y)
+	var samples: Dictionary = _shore_samples122(land)
+	_shallow_water(plan, samples, breadth)
+	_paint(plan,0,land,plan.ground,false)
+	_ground_layers122(plan,profile,bounds,breadth)
 	_relief(plan,profile,ridge,breadth)
-	_shore(plan,profile)
+	_shore(plan,profile,samples)
 	if bool(profile.fields):
-		# Contour-following strips are land crops / salt meadow, never extra water.
+		# Irregular meadow plots following the old terrace stations: lobed
+		# patches with hashed sizes/tones and occasional broken furrows,
+		# never broad rectangles. Land crops only, never extra water.
+		var seed: int=_seed122(plan)
 		for i in range(5):
-			var center: Vector2=bounds.position+bounds.size*Vector2(0.34+float(i)*0.045,0.37+float(i)*0.09)
-			var terrace: PackedVector2Array=PackedVector2Array([center+Vector2(-breadth*0.14,-breadth*0.016),center+Vector2(breadth*0.08,-breadth*0.028),center+Vector2(breadth*0.14,breadth*0.013),center+Vector2(-breadth*0.10,breadth*0.029)])
-			_paint(plan,1,terrace,Color("b4b58a") if i%2==0 else Color("9ca873"))
-			_ribbon(plan,PackedVector2Array([terrace[3],terrace[2]]),7.0,Color("73875f"),1)
-			for j in range(2):
-				var furrow: Vector2=center+Vector2(0,float(j)*breadth*0.015)
-				_ribbon(plan,PackedVector2Array([furrow-Vector2(breadth*0.10,0),furrow+Vector2(breadth*0.09,-breadth*0.009)]),3.0,Color("c5be8c"),1 if j==0 else 2)
+			var center: Vector2=bounds.position+bounds.size*Vector2(0.34+float(i)*0.045+0.03*_hash122(seed,i*7)-0.015,0.37+float(i)*0.09+0.02*_hash122(seed,i*7+1)-0.01)
+			var size: Vector2=Vector2(breadth*(0.115+0.035*_hash122(seed,i*7+2)),breadth*0.030)
+			_paint(plan,1,_patch(center,size,(i*3)%12),Color("b0b184") if i%2==0 else Color("99a46e"))
+			_paint(plan,1,_patch(center+Vector2(-size.x*0.16,-size.y*0.24),Vector2(size.x*0.58,size.y*0.60),(i*3+5)%12),Color("c2bd8d") if i%2==0 else Color("aab37a"))
+			if i%2==0:
+				var furrow_y: float=center.y-size.y*0.18
+				_ribbon(plan,PackedVector2Array([Vector2(center.x-size.x*0.62,furrow_y),Vector2(center.x-size.x*0.05,furrow_y-size.y*0.16),Vector2(center.x+size.x*0.55,furrow_y+size.y*0.05)]),2.6,Color("cfc48d"),2)
 	var wet: bool=plan.id in ["isl_kelp","isl_fen","isl_verdigris","glasswind_south","glasswind_keys_ocean_2"]
 	for at: Vector2 in _mapped(bounds,profile.groves):_grove(plan,at,breadth*(0.075 if wet else 0.085),Color(profile.leaf),wet)
 	plan.outline=land.duplicate();plan.outline.append(land[0])
@@ -258,7 +390,7 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 	if not Geometry2D.is_point_in_polygon(plan.label,land):
 		var triangles: PackedInt32Array=Geometry2D.triangulate_polygon(land)
 		if triangles.size()>=3:plan.label=(land[triangles[0]]+land[triangles[1]]+land[triangles[2]])/3.0
-	# Include the offshore ink in the draw-culling bounds, never in the land ring.
+	# Include the offshore ink and shallows in draw-culling bounds only.
 	for p in plan.reef:plan.bounds=Rect2(plan.bounds).expand(p)
 	return _finish(plan)
 
@@ -735,7 +867,8 @@ static func draw(canvas,projector: Callable,plan: Dictionary,chart_scale: float=
 	if not plan.outline.is_empty():
 		var outline:=PackedVector2Array()
 		for p in plan.outline:outline.append(projector.call(p,0.0))
-		canvas.draw_polyline(outline,Color("dfd2a6"),1.4 if level>0 else 1.8,true);calls+=1
+		# Softer, thinner waterline than the old even rim stroke.
+		canvas.draw_polyline(outline,Color(0.81,0.82,0.64,0.46),1.0 if level>0 else 1.4,true);calls+=1
 	if level>0 and not plan.reef.is_empty():
 		var reef:=PackedVector2Array()
 		for p in plan.reef:reef.append(projector.call(p,0.0))
