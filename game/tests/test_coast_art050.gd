@@ -44,14 +44,19 @@ func validate(plan: Dictionary,label: String) -> void:
 		check(batch.colors.size()==count and batch.mesh.get_surface_count()==1,label+" one colored triangle batch "+str(i))
 		prior=count
 	var vertices: PackedVector3Array=plan.levels[2].vertices
+	var colors: PackedColorArray=plan.levels[2].colors
 	var contained: bool=true;var finite: bool=true
 	for i in range(0,vertices.size(),3):
 		var tri:=PackedVector2Array()
+		var opaque: bool=false
 		for j in range(3):
 			var v: Vector3=vertices[i+j]
 			finite=finite and is_finite(v.x) and is_finite(v.y) and v.z==0.0
-			var p: Vector2=Vector2(v.x,v.y)+Vector2(plan.origin)
-			tri.append(p);contained=contained and on_land(p,plan.land)
+			opaque=opaque or colors[i+j].a>=1.0
+			tri.append(Vector2(v.x,v.y)+Vector2(plan.origin))
+		# The water shelf uses translucent triangles in the same cached mesh.
+		if not opaque:continue
+		for p in tri:contained=contained and on_land(p,plan.land)
 		# Vertices alone miss a triangle bridging the mouth of a concave bay.
 		for p in [(tri[0]+tri[1]+tri[2])/3.0,(tri[0]+tri[1])*0.5,(tri[1]+tri[2])*0.5,(tri[2]+tri[0])*0.5]:
 			contained=contained and on_land(p,plan.land)

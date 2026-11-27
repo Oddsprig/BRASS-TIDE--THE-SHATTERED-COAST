@@ -189,29 +189,19 @@ static func _ground_layers122(plan: Dictionary,profile: Dictionary,bounds: Rect2
 		if i%2==0:
 			_paint(plan,1,_patch(at+Vector2(-size.x*0.18,-size.y*0.20),Vector2(size.x*0.52,size.y*0.55),(i*2+5)%12),tone.lightened(0.05))
 
-static func _shallow_water(plan: Dictionary, samples: Dictionary, breadth: float) -> void:
-	var land: PackedVector2Array = samples.points
-	# Reserve room for the opaque base even when an unshaped ring is supplied.
-	if land.size() * 15 > int(VERTEX_LIMITS[0]): return
-	var widths: Array = _tidal_widths122(_seed122(plan) + 7, land.size(), clampf(breadth * 0.105, 48.0, 152.0), 1.3)
-	var middle: PackedVector2Array = _offset_curve122(samples, widths, -0.35)
-	var outer: PackedVector2Array = _offset_curve122(samples, widths, -1.0)
-	var shore_tint := Color(0.33, 0.68, 0.60, 0.66)
-	var shelf_tint := Color(0.25, 0.58, 0.56, 0.36)
-	var sea_tint := Color(0.25, 0.58, 0.56, 0.0)
-	var origin: Vector2 = plan.origin
-	for i in range(land.size()):
-		var j: int = (i + 1) % land.size()
-		plan.bounds = Rect2(plan.bounds).expand(outer[i])
-		var vertices: Array[Vector2] = [land[i], land[j], middle[j], land[i], middle[j], middle[i],
-			middle[i], middle[j], outer[j], middle[i], outer[j], outer[i]]
-		var colors: Array[Color] = [shore_tint, shore_tint, shelf_tint, shore_tint, shelf_tint, shelf_tint,
-			shelf_tint, shelf_tint, sea_tint, shelf_tint, sea_tint, sea_tint]
-		for batch: Dictionary in plan.levels:
-			for k in range(vertices.size()):
-				var point: Vector2 = vertices[k] - origin
-				batch.vertices.append(Vector3(point.x, point.y, 0.0))
-				batch.colors.append(colors[k])
+static func _shallow_water(plan: Dictionary, breadth: float) -> void:
+	# Round polygon offsets merge inside tight inlets. Independent normals
+	# cross there and produce bright triangular streaks in the water.
+	var land: PackedVector2Array = plan.land
+	var width: float = clampf(breadth * 0.09, 32.0, 123.0)
+	var distances: Array[float] = [1.0, 0.72, 0.49, 0.30, 0.15]
+	var opacity: Array[float] = [0.055, 0.069, 0.079, 0.091, 0.112]
+	for i in range(distances.size()):
+		var tint := Color(0.28, 0.61, 0.55, opacity[i])
+		for curve: PackedVector2Array in Geometry2D.offset_polygon(land, width * distances[i], Geometry2D.JOIN_ROUND):
+			# Work into the same mesh, then paint opaque land over its center.
+			_paint(plan, 1, curve, tint, false)
+			plan.bounds = Rect2(plan.bounds).merge(_bounds(curve))
 
 static func _shore(plan: Dictionary,profile: Dictionary,samples: Dictionary) -> void:
 	var land: PackedVector2Array=plan.land
@@ -365,7 +355,7 @@ static func prepare_island(island: Dictionary) -> Dictionary:
 	var ridge: PackedVector2Array=_mapped(bounds,profile.ridge)
 	var breadth: float=minf(bounds.size.x,bounds.size.y)
 	var samples: Dictionary = _shore_samples122(land)
-	_shallow_water(plan, samples, breadth)
+	_shallow_water(plan, breadth)
 	_paint(plan,0,land,plan.ground,false)
 	_ground_layers122(plan,profile,bounds,breadth)
 	_relief(plan,profile,ridge,breadth)
