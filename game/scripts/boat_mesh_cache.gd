@@ -3,6 +3,7 @@ extends RefCounted
 const STEPS: int=64
 const LIMIT: int=512
 const DRAW_REFS121: StringName=&"_boat_draw_mesh_refs121"
+const DRAW_KEYS121: StringName=&"_boat_draw_mesh_keys121"
 const ISO:=Transform2D(Vector2(0.82,0.41),Vector2(-0.82,0.41),Vector2.ZERO)
 static var _meshes: Dictionary={}
 static var _order: Array=[]
@@ -17,24 +18,52 @@ static var _profile_evictions: int=0
 static var _profile_clears: int=0
 static var _active_canvas121: CanvasItem=null
 static var _active_refs121: Array=[]
+static var _active_fast121: bool=false
+static var _active_keys121: Dictionary={}
+static var _fast_owner121: WeakRef=null
 
 ## Call once at the start of the canvas owner's actual _draw callback. The
 ## engine has cleared that owner's old commands; other canvases keep theirs.
-static func begin_draw121(canvas: CanvasItem) -> void:
+static func begin_draw121(canvas: CanvasItem,fast_owner: bool=false) -> void:
 	if not canvas.has_meta(DRAW_REFS121):canvas.set_meta(DRAW_REFS121,[])
 	var retained121: Array=canvas.get_meta(DRAW_REFS121)
+	if fast_owner:
+		var previous121=_fast_owner121.get_ref() if _fast_owner121!=null else null
+		if previous121!=null and not is_same(previous121,canvas):
+			# A second fast canvas takes over. Protect the previous owner's
+			# retained commands before its cache ownership can change.
+			var previous_keys121: Dictionary=previous121.get_meta(DRAW_KEYS121)
+			for key121 in previous_keys121.keys():_retain_evicted121(str(key121),_meshes.get(key121))
+		if not is_same(previous121,canvas):_fast_owner121=weakref(canvas)
+		if not canvas.has_meta(DRAW_KEYS121):canvas.set_meta(DRAW_KEYS121,{})
+		_active_keys121=canvas.get_meta(DRAW_KEYS121)
+		_active_keys121.clear()
+	else:_active_keys121={}
 	retained121.clear()
-	# Borrow the owner's list only for this main-thread draw callback. Mesh
-	# submissions can append directly without metadata calls or identity hashes.
-	_active_canvas121=canvas;_active_refs121=retained121
+	# The usual single Chart borrows cache ownership and pins only evictions.
+	# Other canvases retain submitted resources in their own draw list.
+	_active_canvas121=canvas;_active_refs121=retained121;_active_fast121=fast_owner
 
 static func end_draw121(canvas: CanvasItem) -> void:
 	if is_same(canvas,_active_canvas121):
-		_active_canvas121=null;_active_refs121=[]
+		_active_canvas121=null;_active_refs121=[];_active_fast121=false;_active_keys121={}
+
+static func _retain_evicted121(key: String,mesh) -> void:
+	if not mesh is Mesh or _fast_owner121==null:return
+	var owner121=_fast_owner121.get_ref()
+	if owner121==null:return
+	var used121: Dictionary=owner121.get_meta(DRAW_KEYS121)
+	if not used121.has(key):return
+	var retired121: Array=owner121.get_meta(DRAW_REFS121)
+	retired121.append(mesh)
+	# A dormant canvas needs this particular old resource once, not every
+	# future resource baked under the same key by other canvases.
+	used121.erase(key)
 
 static func _retain_draw121(canvas,mesh: Mesh) -> void:
 	if not canvas is CanvasItem:return # Pure source recorders own their results.
 	if is_same(canvas,_active_canvas121):
+		if _active_fast121:return # The global cache already owns this resource.
 		_active_refs121.append(mesh);return
 	# One-off/custom canvas callers retain their own references too. Their
 	# owner must call begin/end at each actual redraw, just like Chart.
@@ -101,7 +130,9 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 		capture.reference_scale=reference_scale
 		bake.call(capture,quantized)
 		if _meshes.size()>=LIMIT:
-			_meshes.erase(_order.pop_front())
+			var retired_key121: String=_order.pop_front()
+			_retain_evicted121(retired_key121,_meshes.get(retired_key121))
+			_meshes.erase(retired_key121)
 			if _profile_enabled:_profile_evictions+=1
 		_meshes[full_key]=capture.mesh();_order.append(full_key)
 		if _profile_enabled:
@@ -113,10 +144,13 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 		if _profile_enabled:_profile_hits+=1
 	# Null is the cached empty-bake sentinel, not geometry to submit.
 	if _meshes[full_key]==null:return
-	# Canvas commands retain RIDs, not this cache's RefCounted ownership. Keep
-	# every submitted mesh alive until this canvas redraws or is freed, even
-	# when the bounded global cache evicts it or the developer clears it.
-	_retain_draw121(canvas,_meshes[full_key])
+	# Commands retain RIDs. The fast Chart borrows global-cache ownership;
+	# eviction/clear transfers resources to its retired list until redraw.
+	# Other canvas owners retain submitted resources directly.
+	if _active_fast121 and is_same(canvas,_active_canvas121):
+		_active_keys121[full_key]=true
+	else:
+		_retain_draw121(canvas,_meshes[full_key])
 	var origin: Vector2=projector.call(position,0.0)
 	var scale: float=(projector.call(position+Vector2(1,0),0.0)-origin).length()/Vector2(0.82,0.41).length()
 	var transform: Transform2D=ISO*Transform2D(angle-quantized,Vector2.ZERO)*ISO.affine_inverse()
@@ -128,5 +162,6 @@ static func draw(canvas,projector: Callable,position: Vector2,angle: float,key: 
 	canvas.draw_set_transform_matrix(Transform2D.IDENTITY)
 
 static func clear() -> void:
+	for key121 in _meshes:_retain_evicted121(str(key121),_meshes[key121])
 	_meshes.clear();_order.clear();hits=0;misses=0
 	if _profile_enabled:_profile_clears+=1

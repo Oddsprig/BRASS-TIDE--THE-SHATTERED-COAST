@@ -792,7 +792,7 @@ func text_at(text: String, pos: Vector2, font_size: int, color: Color, font: Fon
 
 func _draw():
 	var started: int=Time.get_ticks_usec()
-	BoatArt.MeshCache.begin_draw121(self)
+	BoatArt.MeshCache.begin_draw121(self,true)
 	if host == null or background == null:
 		BoatArt.MeshCache.end_draw121(self)
 		return

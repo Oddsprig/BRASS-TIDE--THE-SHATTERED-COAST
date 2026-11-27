@@ -101,25 +101,62 @@ func run() -> void:
 	# canvas still owns commands. Only its own next draw releases that pin.
 	var pin_owner121:=Node2D.new()
 	var other_owner121:=Node2D.new()
-	MeshCache121.begin_draw121(pin_owner121)
+	MeshCache121.begin_draw121(pin_owner121,true)
 	var pin_mesh121:=ArrayMesh.new()
 	var pin_weak121:=weakref(pin_mesh121)
 	MeshCache121._meshes["pin_probe121"]=pin_mesh121
 	MeshCache121._order.append("pin_probe121")
-	MeshCache121._retain_draw121(pin_owner121,pin_mesh121)
+	MeshCache121._active_keys121["pin_probe121"]=true
 	pin_mesh121=null
 	MeshCache121.clear()
 	check(pin_weak121.get_ref()!=null,"canvas retains submitted mesh after actual global cache clear")
+	var replacement121:=ArrayMesh.new()
+	var replacement_weak121:=weakref(replacement121)
+	MeshCache121._meshes["pin_probe121"]=replacement121
+	MeshCache121._order.append("pin_probe121");replacement121=null
+	MeshCache121.clear()
+	check(replacement_weak121.get_ref()==null and pin_weak121.get_ref()!=null,"rebaking an already retired key cannot pin an unsubmitted replacement or release the original commands")
 	MeshCache121.begin_draw121(other_owner121)
 	check(pin_weak121.get_ref()!=null,"another canvas redraw cannot release this canvas mesh")
-	MeshCache121.begin_draw121(pin_owner121)
+	MeshCache121.begin_draw121(pin_owner121,true)
 	check(pin_weak121.get_ref()==null,"only owner next redraw releases its previous mesh references")
 	var final_pin121:=ArrayMesh.new()
 	var final_weak121:=weakref(final_pin121)
-	MeshCache121._retain_draw121(pin_owner121,final_pin121);final_pin121=null
+	MeshCache121._meshes["final_pin_probe121"]=final_pin121
+	MeshCache121._order.append("final_pin_probe121")
+	MeshCache121._active_keys121["final_pin_probe121"]=true;final_pin121=null
+	MeshCache121.clear()
 	MeshCache121.end_draw121(pin_owner121)
 	pin_owner121.free();other_owner121.free()
 	check(final_weak121.get_ref()==null,"ended draw keeps no static borrowed list alive after its owner is freed")
+	var first_canvas121:=Node2D.new()
+	var second_canvas121:=Node2D.new()
+	MeshCache121.begin_draw121(first_canvas121,true)
+	var switched_mesh121:=ArrayMesh.new()
+	var switched_weak121:=weakref(switched_mesh121)
+	MeshCache121._meshes["switch_probe121"]=switched_mesh121
+	MeshCache121._order.append("switch_probe121");switched_mesh121=null
+	MeshCache121._active_keys121["switch_probe121"]=true
+	MeshCache121.end_draw121(first_canvas121)
+	MeshCache121.begin_draw121(second_canvas121,true)
+	MeshCache121.clear()
+	MeshCache121.end_draw121(second_canvas121)
+	MeshCache121.begin_draw121(second_canvas121,true)
+	check(switched_weak121.get_ref()!=null,"switching fast canvas keeps previous owner commands alive after cache clear and new owner redraw")
+	MeshCache121.end_draw121(second_canvas121)
+	MeshCache121.begin_draw121(first_canvas121)
+	check(switched_weak121.get_ref()==null,"previous fast canvas releases transferred resources only at its own next redraw")
+	MeshCache121.end_draw121(first_canvas121)
+	first_canvas121.free();second_canvas121.free()
+	var unused_canvas121:=Node2D.new()
+	MeshCache121.begin_draw121(unused_canvas121,true)
+	var unused_mesh121:=ArrayMesh.new()
+	var unused_weak121:=weakref(unused_mesh121)
+	MeshCache121._meshes["unused_probe121"]=unused_mesh121
+	MeshCache121._order.append("unused_probe121");unused_mesh121=null
+	MeshCache121.clear()
+	check(unused_weak121.get_ref()==null,"cache clear never pins resources absent from the fast canvas retained commands")
+	MeshCache121.end_draw121(unused_canvas121);unused_canvas121.free()
 	# The two literal laboratory / Coastal Clash slabs from battle.gd.
 	var lab: Array = [
 		{"id": "lab_north", "name": "North", "color": "#66877e", "points": [[850, 80], [1130, 120], [1210, 310], [1030, 420], [820, 300]]},
